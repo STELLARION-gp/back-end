@@ -65,3 +65,6 @@ jspm_packages/
 
 # Yarn Integrity file
 .yarn-integrity
+
+package-lock.json
+yarn.lock
