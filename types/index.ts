@@ -12,7 +12,7 @@ declare global {
     }
 }
 
-export type UserRole = 'admin' | 'manager' | 'user';
+export type UserRole = 'admin' | 'moderator' | 'learner' | 'guide' | 'enthusiast' | 'mentor' | 'influencer';
 
 export interface DatabaseUser {
     id: number;
