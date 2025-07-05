@@ -55,6 +55,10 @@ PORT=5000
 
 # Firebase Configuration
 FIREBASE_PROJECT_ID=your_firebase_project_id
+
+# Chatbot Configuration
+OPENAI_API_KEY=your_openai_api_key_here
+NODE_ENV=development
 ```
 
 ### 3. Firebase Setup
@@ -108,6 +112,10 @@ The system automatically creates these test users for development:
 - `PUT /api/users/:userId/role` - Update user role (Admin only)
 - `PUT /api/users/:userId/deactivate` - Deactivate user (Admin only)
 - `PUT /api/users/:userId/activate` - Activate user (Admin only)
+
+### Chatbot (STELLARION Space Assistant)
+- `POST /api/chatbot` - Chat completion endpoint
+- `GET /api/chatbot/health` - Check chatbot service status
 
 ### Test Endpoints (Development Only)
 - `POST /api/users/test-register` - Register without Firebase auth

@@ -19,7 +19,7 @@ build/
 *.tsbuildinfo
 
 # Firebase service account key (sensitive)
-serviceAccountKey.json
+#serviceAccountKey.json
 
 # IDE/Editor files
 .vscode/
