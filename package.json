@@ -32,6 +32,7 @@
     "typescript": "^5.8.3"
   },
   "dependencies": {
+    "@google/generative-ai": "^0.24.1",
     "acorn": "^8.15.0",
     "acorn-walk": "^8.3.4",
     "anymatch": "^3.1.3",
