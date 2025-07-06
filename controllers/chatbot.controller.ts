@@ -186,7 +186,7 @@ export const healthCheck = async (req: Request, res: Response): Promise<void> =>
   try {
     // Check if Gemini API key is configured
     const isConfigured = !!process.env.GEMINI_API_KEY;
-    
+
     res.json({
       status: "healthy",
       timestamp: new Date().toISOString(),
@@ -197,7 +197,7 @@ export const healthCheck = async (req: Request, res: Response): Promise<void> =>
 
   } catch (error: any) {
     console.error('[CHATBOT HEALTH CHECK ERROR]', error);
-    
+
     res.status(503).json({
       status: "unhealthy",
       timestamp: new Date().toISOString(),
