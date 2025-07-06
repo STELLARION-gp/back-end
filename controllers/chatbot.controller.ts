@@ -1,23 +1,22 @@
 // controllers/chatbot.controller.ts
 import { Request, Response } from "express";
-import OpenAI from "openai";
+import { GoogleGenerativeAI, GenerativeModel } from "@google/generative-ai";
 import { v4 as uuidv4 } from "uuid";
 
-// Initialize OpenAI client (only if API key is available)
-let openai: OpenAI | null = null;
+// Initialize Gemini client (only if API key is available)
+let geminiModel: GenerativeModel | null = null;
 
 try {
-  if (process.env.OPENAI_API_KEY) {
-    openai = new OpenAI({
-      apiKey: process.env.OPENAI_API_KEY
-    });
+  if (process.env.GEMINI_API_KEY) {
+    const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
+    geminiModel = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
   }
 } catch (error) {
-  console.warn('[CHATBOT] OpenAI client initialization failed:', error);
+  console.warn('[CHATBOT] Gemini client initialization failed:', error);
 }
 
 // System prompt for STELLARION space exploration assistant
-const SYSTEM_PROMPT = `You are STELLARION, an expert space exploration assistant and educational companion. You specialize in:
+const SYSTEM_PROMPT = `You are STELLA, an expert space exploration assistant and educational companion. You specialize in:
 
 - Space exploration missions and history
 - Astronomy and astrophysics concepts
@@ -90,36 +89,34 @@ export const chatCompletion = async (req: Request, res: Response): Promise<void>
       return;
     }
 
-    // Check if OpenAI API key is configured
-    if (!openai) {
+    // Check if Gemini API key is configured
+    if (!geminiModel) {
       res.status(500).json({
         success: false,
         error: "AI service not configured",
-        details: "OpenAI API key is not configured"
+        details: "Gemini API key is not configured"
       } as ChatResponse);
       return;
     }
 
-    // Generate response using OpenAI
-    const completion = await openai.chat.completions.create({
-      model: "gpt-4o-mini", // Using gpt-4o-mini for cost efficiency
-      messages: [
-        {
-          role: "system",
-          content: SYSTEM_PROMPT
-        },
+    // Generate response using Gemini
+    const result = await geminiModel.generateContent({
+      contents: [
         {
           role: "user",
-          content: message
+          parts: [
+            { text: SYSTEM_PROMPT },
+            { text: `User Question: ${message}` }
+          ]
         }
       ],
-      max_tokens: 700,
-      temperature: 0.7,
-      presence_penalty: 0.1,
-      frequency_penalty: 0.1
+      generationConfig: {
+        temperature: 0.7,
+        maxOutputTokens: 700,
+      },
     });
 
-    const aiResponse = completion.choices[0]?.message?.content;
+    const aiResponse = result.response.text();
 
     if (!aiResponse) {
       res.status(500).json({
@@ -147,8 +144,8 @@ export const chatCompletion = async (req: Request, res: Response): Promise<void>
   } catch (error: any) {
     console.error('[CHATBOT ERROR]', error);
 
-    // Handle specific OpenAI errors
-    if (error.status === 401) {
+    // Handle specific Gemini errors
+    if (error.status === 401 || (error.message && error.message.includes("authentication"))) {
       res.status(500).json({
         success: false,
         error: "AI service authentication failed",
@@ -157,7 +154,7 @@ export const chatCompletion = async (req: Request, res: Response): Promise<void>
       return;
     }
 
-    if (error.status === 429) {
+    if (error.status === 429 || (error.message && error.message.includes("quota"))) {
       res.status(429).json({
         success: false,
         error: "Rate limit exceeded",
@@ -187,33 +184,26 @@ export const chatCompletion = async (req: Request, res: Response): Promise<void>
 // Health check endpoint
 export const healthCheck = async (req: Request, res: Response): Promise<void> => {
   try {
-    // Check if OpenAI API key is configured
-    const isConfigured = !!process.env.OPENAI_API_KEY;
-
-    // Test OpenAI connection (optional - uncomment if you want to test actual connectivity)
-    /*
-    if (isConfigured) {
-      await openai.models.list();
-    }
-    */
-
+    // Check if Gemini API key is configured
+    const isConfigured = !!process.env.GEMINI_API_KEY;
+    
     res.json({
       status: "healthy",
       timestamp: new Date().toISOString(),
-      aiProvider: "openai",
+      aiProvider: "gemini",
       version: "1.0.0",
       configured: isConfigured
     });
 
   } catch (error: any) {
     console.error('[CHATBOT HEALTH CHECK ERROR]', error);
-
+    
     res.status(503).json({
       status: "unhealthy",
       timestamp: new Date().toISOString(),
-      aiProvider: "openai",
+      aiProvider: "gemini",
       version: "1.0.0",
-      configured: !!process.env.OPENAI_API_KEY,
+      configured: !!process.env.GEMINI_API_KEY,
       error: process.env.NODE_ENV === 'development' ? error.message : "Service unavailable"
     });
   }
