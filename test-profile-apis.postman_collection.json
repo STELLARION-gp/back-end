@@ -1,0 +1,324 @@
+{
+    "info": {
+        "name": "STELLARION Profile API Tests",
+        "description": "Test collection for the new profile management APIs",
+        "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+    },
+    "item": [
+        {
+            "name": "Health Check",
+            "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                    "raw": "{{base_url}}/health",
+                    "host": [
+                        "{{base_url}}"
+                    ],
+                    "path": [
+                        "health"
+                    ]
+                }
+            },
+            "response": []
+        },
+        {
+            "name": "Test User Registration",
+            "request": {
+                "method": "POST",
+                "header": [
+                    {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                    }
+                ],
+                "body": {
+                    "mode": "raw",
+                    "raw": "{\n  \"firebaseUser\": {\n    \"uid\": \"test-user-123\",\n    \"email\": \"testuser@stellarion.com\"\n  }\n}"
+                },
+                "url": {
+                    "raw": "{{base_url}}/api/user/test-register",
+                    "host": [
+                        "{{base_url}}"
+                    ],
+                    "path": [
+                        "api",
+                        "user",
+                        "test-register"
+                    ]
+                }
+            },
+            "response": []
+        },
+        {
+            "name": "Get User Profile",
+            "request": {
+                "method": "GET",
+                "header": [
+                    {
+                        "key": "Authorization",
+                        "value": "Bearer {{firebase_token}}"
+                    }
+                ],
+                "url": {
+                    "raw": "{{base_url}}/api/user/profile",
+                    "host": [
+                        "{{base_url}}"
+                    ],
+                    "path": [
+                        "api",
+                        "user",
+                        "profile"
+                    ]
+                }
+            },
+            "response": []
+        },
+        {
+            "name": "Update User Profile",
+            "request": {
+                "method": "PUT",
+                "header": [
+                    {
+                        "key": "Authorization",
+                        "value": "Bearer {{firebase_token}}"
+                    },
+                    {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                    }
+                ],
+                "body": {
+                    "mode": "raw",
+                    "raw": "{\n  \"first_name\": \"John\",\n  \"last_name\": \"Doe\",\n  \"display_name\": \"JohnAstro\",\n  \"profile_data\": {\n    \"bio\": \"Passionate astronomy enthusiast with 5 years of experience\",\n    \"location\": \"San Francisco, CA\",\n    \"website\": \"https://johndoe.com\",\n    \"github\": \"johndoe\",\n    \"linkedin\": \"john-doe\",\n    \"astronomy_experience\": \"intermediate\",\n    \"favorite_astronomy_fields\": [\"Astrophysics\", \"Planetary Science\"],\n    \"telescope_owned\": true,\n    \"telescope_type\": \"Celestron NexStar 8SE\",\n    \"observation_experience\": 3,\n    \"certifications\": [\"Amateur Radio License\"],\n    \"achievements\": [\"First astrophoto\", \"100 nights of observation\"]\n  },\n  \"role_specific_data\": {\n    \"learning_goals\": [\"Master astrophotography\", \"Build own telescope\"],\n    \"current_projects\": [\"M31 imaging series\", \"Solar observation log\"]\n  }\n}"
+                },
+                "url": {
+                    "raw": "{{base_url}}/api/user/profile",
+                    "host": [
+                        "{{base_url}}"
+                    ],
+                    "path": [
+                        "api",
+                        "user",
+                        "profile"
+                    ]
+                }
+            },
+            "response": []
+        },
+        {
+            "name": "Upload Profile Picture",
+            "request": {
+                "method": "POST",
+                "header": [
+                    {
+                        "key": "Authorization",
+                        "value": "Bearer {{firebase_token}}"
+                    }
+                ],
+                "body": {
+                    "mode": "formdata",
+                    "formdata": [
+                        {
+                            "key": "avatar",
+                            "type": "file",
+                            "src": "path/to/your/profile-picture.jpg"
+                        }
+                    ]
+                },
+                "url": {
+                    "raw": "{{base_url}}/api/user/profile/avatar",
+                    "host": [
+                        "{{base_url}}"
+                    ],
+                    "path": [
+                        "api",
+                        "user",
+                        "profile",
+                        "avatar"
+                    ]
+                }
+            },
+            "response": []
+        },
+        {
+            "name": "Get User Settings",
+            "request": {
+                "method": "GET",
+                "header": [
+                    {
+                        "key": "Authorization",
+                        "value": "Bearer {{firebase_token}}"
+                    }
+                ],
+                "url": {
+                    "raw": "{{base_url}}/api/user/settings",
+                    "host": [
+                        "{{base_url}}"
+                    ],
+                    "path": [
+                        "api",
+                        "user",
+                        "settings"
+                    ]
+                }
+            },
+            "response": []
+        },
+        {
+            "name": "Update User Settings",
+            "request": {
+                "method": "PUT",
+                "header": [
+                    {
+                        "key": "Authorization",
+                        "value": "Bearer {{firebase_token}}"
+                    },
+                    {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                    }
+                ],
+                "body": {
+                    "mode": "raw",
+                    "raw": "{\n  \"language\": \"en\",\n  \"email_notifications\": true,\n  \"push_notifications\": false,\n  \"profile_visibility\": \"community-only\",\n  \"allow_direct_messages\": true,\n  \"show_online_status\": false,\n  \"theme\": \"dark\",\n  \"timezone\": \"America/New_York\"\n}"
+                },
+                "url": {
+                    "raw": "{{base_url}}/api/user/settings",
+                    "host": [
+                        "{{base_url}}"
+                    ],
+                    "path": [
+                        "api",
+                        "user",
+                        "settings"
+                    ]
+                }
+            },
+            "response": []
+        },
+        {
+            "name": "Request Role Upgrade",
+            "request": {
+                "method": "POST",
+                "header": [
+                    {
+                        "key": "Authorization",
+                        "value": "Bearer {{firebase_token}}"
+                    },
+                    {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                    }
+                ],
+                "body": {
+                    "mode": "raw",
+                    "raw": "{\n  \"requested_role\": \"mentor\",\n  \"reason\": \"I have 5+ years of experience and want to help others learn astronomy\",\n  \"supporting_evidence\": [\n    \"Portfolio: https://johndoe.com/portfolio\",\n    \"Amateur Radio License\",\n    \"100+ nights of observation logged\",\n    \"Helped 10+ beginners with telescope setup\"\n  ]\n}"
+                },
+                "url": {
+                    "raw": "{{base_url}}/api/user/role-upgrade",
+                    "host": [
+                        "{{base_url}}"
+                    ],
+                    "path": [
+                        "api",
+                        "user",
+                        "role-upgrade"
+                    ]
+                }
+            },
+            "response": []
+        },
+        {
+            "name": "Get Role Upgrade Status",
+            "request": {
+                "method": "GET",
+                "header": [
+                    {
+                        "key": "Authorization",
+                        "value": "Bearer {{firebase_token}}"
+                    }
+                ],
+                "url": {
+                    "raw": "{{base_url}}/api/user/role-upgrade/status",
+                    "host": [
+                        "{{base_url}}"
+                    ],
+                    "path": [
+                        "api",
+                        "user",
+                        "role-upgrade",
+                        "status"
+                    ]
+                }
+            },
+            "response": []
+        },
+        {
+            "name": "Export User Data",
+            "request": {
+                "method": "GET",
+                "header": [
+                    {
+                        "key": "Authorization",
+                        "value": "Bearer {{firebase_token}}"
+                    }
+                ],
+                "url": {
+                    "raw": "{{base_url}}/api/user/data-export",
+                    "host": [
+                        "{{base_url}}"
+                    ],
+                    "path": [
+                        "api",
+                        "user",
+                        "data-export"
+                    ]
+                }
+            },
+            "response": []
+        },
+        {
+            "name": "Delete Account",
+            "request": {
+                "method": "DELETE",
+                "header": [
+                    {
+                        "key": "Authorization",
+                        "value": "Bearer {{firebase_token}}"
+                    },
+                    {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                    }
+                ],
+                "body": {
+                    "mode": "raw",
+                    "raw": "{\n  \"confirmation\": \"DELETE\",\n  \"password\": \"user_password_here\"\n}"
+                },
+                "url": {
+                    "raw": "{{base_url}}/api/user/account",
+                    "host": [
+                        "{{base_url}}"
+                    ],
+                    "path": [
+                        "api",
+                        "user",
+                        "account"
+                    ]
+                }
+            },
+            "response": []
+        }
+    ],
+    "variable": [
+        {
+            "key": "base_url",
+            "value": "http://localhost:5000"
+        },
+        {
+            "key": "firebase_token",
+            "value": "your_firebase_jwt_token_here"
+        }
+    ]
+}
