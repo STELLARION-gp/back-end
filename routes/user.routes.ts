@@ -17,7 +17,7 @@ const router = express.Router();
 router.post("/register", verifyToken, createUserIfNotExists);
 
 // User routes (requires authentication)
-router.get("/profile", verifyToken, requireUser, getUserProfile);
+router.get("/profile", verifyToken, getUserProfile);
 
 // Manager routes (requires manager or admin role)
 router.get("/", verifyToken, requireManager, getAllUsers);

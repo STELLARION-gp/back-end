@@ -3,7 +3,9 @@ import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";
 import userRoutes from "./routes/user.routes";
+import authRoutes from "./routes/auth.routes";
 import chatbotRoutes from "./routes/chatbot.routes";
+import profileRoutes from "./routes/profile.routes";
 import { errorHandler, notFound } from "./middleware/errorHandler";
 
 dotenv.config();
@@ -24,12 +26,18 @@ app.use(express.json());
 
 // Health check endpoint
 app.get('/health', (req, res) => {
-    res.json({ status: 'OK', message: 'Server is running' });
+    res.json({
+        status: 'healthy',
+        timestamp: new Date().toISOString(),
+        version: '1.0.0'
+    });
 });
 
 // API Routes
 app.use("/api/users", userRoutes);
+app.use("/api/auth", authRoutes);
 app.use("/api/chatbot", chatbotRoutes);
+app.use("/api/user", profileRoutes);
 
 // Error handling middleware
 app.use(notFound);
