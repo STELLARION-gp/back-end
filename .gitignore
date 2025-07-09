@@ -68,3 +68,5 @@ jspm_packages/
 
 package-lock.json
 yarn.lock
+node_modules/.package-lock.json
+/node_modules
