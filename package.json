@@ -9,6 +9,7 @@
     "build": "tsc",
     "build:watch": "tsc --watch",
     "setup-db": "node scripts/setup-database.js",
+    "migrate-profile": "node scripts/migrate-profile-schema.js",
     "lint": "echo \"Add ESLint for linting\"",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -25,11 +26,14 @@
     "typescript": "^5.8.3"
   },
   "dependencies": {
+    "@types/bcrypt": "^5.0.2",
+    "@types/multer": "^2.0.0",
     "acorn": "^8.15.0",
     "acorn-walk": "^8.3.4",
     "anymatch": "^3.1.3",
     "arg": "^4.1.3",
     "balanced-match": "^1.0.2",
+    "bcrypt": "^6.0.0",
     "binary-extensions": "^2.3.0",
     "brace-expansion": "^1.1.12",
     "braces": "^3.0.3",
@@ -60,6 +64,7 @@
     "minimatch": "^3.1.2",
     "minimist": "^1.2.8",
     "mkdirp": "^1.0.4",
+    "multer": "^2.0.1",
     "normalize-path": "^3.0.0",
     "once": "^1.4.0",
     "path-is-absolute": "^1.0.1",
