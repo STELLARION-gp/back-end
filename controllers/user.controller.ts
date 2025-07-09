@@ -56,12 +56,28 @@ export const createUserIfNotExists = async (req: Request, res: Response): Promis
       uid, email, userRole, firstName, lastName
     });
 
+    // Extract display name from email if name not available
+    const displayName = name || firstName || email.split('@')[0];
+
     const result = await pool.query<DatabaseUser>(
-      "INSERT INTO users (firebase_uid, email, role, first_name, last_name, is_active, last_login) VALUES ($1, $2, $3, $4, $5, true, CURRENT_TIMESTAMP) RETURNING *",
-      [uid, email, userRole, firstName, lastName]
+      "INSERT INTO users (firebase_uid, email, role, first_name, last_name, display_name, is_active, last_login) VALUES ($1, $2, $3, $4, $5, $6, true, CURRENT_TIMESTAMP) RETURNING *",
+      [uid, email, userRole, firstName, lastName, displayName]
     );
 
     console.log('✅ User created successfully:', result.rows[0]);
+
+    // Create default user settings for the new user
+    try {
+      await pool.query(
+        `INSERT INTO user_settings (user_id, language, email_notifications, push_notifications, profile_visibility, allow_direct_messages, show_online_status, theme, timezone) 
+         VALUES ($1, 'en', true, true, 'public', true, true, 'dark', 'UTC')`,
+        [result.rows[0].id]
+      );
+      console.log('✅ Default user settings created');
+    } catch (settingsError) {
+      console.error('⚠️ Failed to create user settings:', settingsError);
+      // Don't fail the registration if settings creation fails
+    }
 
     res.status(201).json({
       success: true,
@@ -90,23 +106,94 @@ export const getUserProfile = async (req: Request, res: Response): Promise<void>
       return;
     }
 
-    const result = await pool.query<DatabaseUser>(
-      "SELECT id, firebase_uid, email, role, first_name, last_name, is_active, last_login, created_at, updated_at FROM users WHERE firebase_uid = $1",
+    console.log('🔍 Looking up user with Firebase UID:', firebaseUser.uid);
+    console.log('🔍 Firebase user data:', {
+      uid: firebaseUser.uid,
+      email: firebaseUser.email,
+      name: firebaseUser.name
+    });
+
+    let result = await pool.query<DatabaseUser>(
+      "SELECT id, firebase_uid, email, role, first_name, last_name, display_name, is_active, last_login, created_at, updated_at FROM users WHERE firebase_uid = $1",
       [firebaseUser.uid]
     );
 
     if (result.rows.length === 0) {
-      res.status(404).json({
+      console.log('⚠️ User not found in database, auto-creating...');
+
+      // Auto-create user if they don't exist but have valid Firebase token
+      const email = firebaseUser.email;
+      const name = firebaseUser.name || firebaseUser.display_name || '';
+
+      // Parse name into first and last name
+      let firstName = '';
+      let lastName = '';
+      if (name) {
+        const nameParts = name.split(' ');
+        firstName = nameParts[0] || '';
+        lastName = nameParts.slice(1).join(' ') || '';
+      }
+
+      // Extract display name from email if name not available
+      const displayName = name || email.split('@')[0];
+
+      try {
+        const createResult = await pool.query<DatabaseUser>(
+          `INSERT INTO users (firebase_uid, email, role, first_name, last_name, display_name, is_active, last_login, created_at, updated_at) 
+           VALUES ($1, $2, $3, $4, $5, $6, true, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP) 
+           RETURNING id, firebase_uid, email, role, first_name, last_name, display_name, is_active, last_login, created_at, updated_at`,
+          [firebaseUser.uid, email, 'learner', firstName, lastName, displayName]
+        );
+
+        console.log('✅ User auto-created successfully:', createResult.rows[0]);
+
+        // Also create default user settings
+        await pool.query(
+          `INSERT INTO user_settings (user_id, language, email_notifications, push_notifications, profile_visibility, allow_direct_messages, show_online_status, theme, timezone) 
+           VALUES ($1, 'en', true, true, 'public', true, true, 'dark', 'UTC')`,
+          [createResult.rows[0].id]
+        );
+
+        res.json({
+          success: true,
+          message: "User profile created and retrieved successfully",
+          data: createResult.rows[0]
+        });
+        return;
+
+      } catch (createError) {
+        console.error('❌ Error creating user:', createError);
+        res.status(500).json({
+          success: false,
+          message: "Failed to create user profile",
+          error: createError instanceof Error ? createError.message : 'Unknown error'
+        });
+        return;
+      }
+    }
+
+    const user = result.rows[0];
+
+    if (!user.is_active) {
+      console.log('⚠️ User found but inactive:', user.firebase_uid);
+      res.status(403).json({
         success: false,
-        message: "User not found"
+        message: "User account is inactive"
       });
       return;
     }
 
+    // Update last login
+    await pool.query(
+      "UPDATE users SET last_login = CURRENT_TIMESTAMP WHERE firebase_uid = $1",
+      [firebaseUser.uid]
+    );
+
+    console.log('✅ User profile retrieved successfully:', user.firebase_uid);
     res.json({
       success: true,
       message: "Profile retrieved successfully",
-      data: result.rows[0]
+      data: user
     });
   } catch (error) {
     console.error("Get profile error:", error);
@@ -173,10 +260,10 @@ export const getAllUsers = async (req: Request, res: Response): Promise<void> =>
       data: {
         users: result.rows,
         pagination: {
-          currentPage: Number(page),
-          totalPages: Math.ceil(total / Number(limit)),
-          totalUsers: total,
-          limit: Number(limit)
+          page: Number(page),
+          limit: Number(limit),
+          total: total,
+          pages: Math.ceil(total / Number(limit))
         }
       }
     });
