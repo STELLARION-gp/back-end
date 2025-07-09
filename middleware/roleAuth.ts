@@ -1,52 +1,50 @@
 // middleware/roleAuth.ts
 import { Request, Response, NextFunction } from "express";
-import pool from "../db";
-import { DatabaseUser, UserRole } from "../types";
+import { UserRole } from "../types";
 
 export const requireRole = (allowedRoles: UserRole[]) => {
   return async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     try {
-      const firebaseUser = req.body.firebaseUser;
+      // User should already be attached by verifyToken middleware
+      const user = req.body.user;
 
-      if (!firebaseUser) {
-        res.status(401).json({ error: "Authentication required" });
-        return;
-      }
-
-      // Get user from database
-      const result = await pool.query<DatabaseUser>(
-        "SELECT * FROM users WHERE firebase_uid = $1 AND is_active = true",
-        [firebaseUser.uid]
-      );
-
-      if (result.rows.length === 0) {
-        res.status(404).json({ error: "User not found or inactive" });
-        return;
-      }
-
-      const user = result.rows[0];
-
-      // Check if user role is allowed
-      if (!allowedRoles.includes(user.role)) {
-        res.status(403).json({
-          error: "Insufficient permissions",
-          required: allowedRoles,
-          current: user.role
+      if (!user) {
+        res.status(401).json({
+          success: false,
+          error: "unauthorized",
+          message: "Authentication required"
         });
         return;
       }
 
-      // Attach user to request for use in controllers
-      req.body.user = user;
+      // Check if user role is allowed
+      if (!allowedRoles.includes(user.role)) {
+        res.status(403).json({
+          success: false,
+          error: "forbidden",
+          message: "Insufficient permissions",
+          details: {
+            required: allowedRoles,
+            current: user.role
+          }
+        });
+        return;
+      }
+
+      // User is already attached, just continue
       next();
     } catch (error) {
       console.error("Role authorization error:", error);
-      res.status(500).json({ error: "Internal server error" });
+      res.status(500).json({
+        success: false,
+        error: "internal_error",
+        message: "Internal server error"
+      });
     }
   };
 };
 
 // Convenience functions for common role checks
 export const requireAdmin = requireRole(['admin']);
-export const requireManager = requireRole(['admin', 'manager']);
-export const requireUser = requireRole(['admin', 'manager', 'user']);
+export const requireManager = requireRole(['admin', 'moderator']); // Using moderator instead of manager
+export const requireUser = requireRole(['admin', 'moderator', 'mentor', 'guide', 'enthusiast', 'learner', 'influencer']); // All authenticated users

@@ -189,9 +189,8 @@ export const healthCheck = async (req: Request, res: Response): Promise<void> =>
 
     res.json({
       status: "healthy",
-      timestamp: new Date().toISOString(),
       aiProvider: "gemini",
-      version: "1.0.0",
+      timestamp: new Date().toISOString(),
       configured: isConfigured
     });
 
@@ -202,7 +201,6 @@ export const healthCheck = async (req: Request, res: Response): Promise<void> =>
       status: "unhealthy",
       timestamp: new Date().toISOString(),
       aiProvider: "gemini",
-      version: "1.0.0",
       configured: !!process.env.GEMINI_API_KEY,
       error: process.env.NODE_ENV === 'development' ? error.message : "Service unavailable"
     });
