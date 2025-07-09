@@ -18,17 +18,28 @@ export const errorHandler = (
     console.error(`Error ${status}: ${message}`);
     console.error(err.stack);
 
+    // Map status codes to error types
+    let errorType = 'internal_error';
+    if (status === 400) errorType = 'validation_error';
+    else if (status === 401) errorType = 'unauthorized';
+    else if (status === 403) errorType = 'forbidden';
+    else if (status === 404) errorType = 'not_found';
+    else if (status === 429) errorType = 'rate_limit_exceeded';
+
     res.status(status).json({
-        error: {
-            message,
-            status,
-            ...(process.env.NODE_ENV === 'development' && { stack: err.stack })
-        }
+        success: false,
+        error: errorType,
+        message: message,
+        ...(process.env.NODE_ENV === 'development' && {
+            details: err.stack
+        })
     });
 };
 
 export const notFound = (req: Request, res: Response, next: NextFunction): void => {
-    const error = new Error(`Not found - ${req.originalUrl}`) as CustomError;
-    error.status = 404;
-    next(error);
+    res.status(404).json({
+        success: false,
+        error: 'not_found',
+        message: `Endpoint not found - ${req.originalUrl}`
+    });
 };
