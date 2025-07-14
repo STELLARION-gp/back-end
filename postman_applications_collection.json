@@ -1,0 +1,552 @@
+{
+  "info": {
+    "_postman_id": "applications-api-collection-001",
+    "name": "Applications API Collection",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Mentor Applications",
+      "item": [
+        {
+          "name": "Create Mentor Application",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/mentor-applications",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "mentor-applications"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"phone_number\": \"+1234567890\",\n  \"date_of_birth\": \"1990-01-01\",\n  \"country\": \"Country\",\n  \"profile_bio\": \"Short bio\",\n  \"educational_background\": \"Degree\",\n  \"area_of_expertise\": [\"Astrophysics\"],\n  \"linkedin_profile\": \"https://linkedin.com/in/example\",\n  \"intro_video_url\": \"https://youtube.com/example\",\n  \"max_mentees\": 3,\n  \"availability_schedule\": {\"monday\": [\"09:00-12:00\"]},\n  \"motivation_statement\": \"I want to mentor\",\n  \"portfolio_attachments\": [\"https://example.com/cert.pdf\"]\n}"
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "List Mentor Applications",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/mentor-applications",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "mentor-applications"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get Mentor Application",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/mentor-applications/1",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "mentor-applications",
+                "1"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Update Mentor Application",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/mentor-applications/1",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "mentor-applications",
+                "1"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"phone_number\": \"+1234567890\",\n  \"date_of_birth\": \"1990-01-01\",\n  \"country\": \"Country\",\n  \"profile_bio\": \"Updated bio\",\n  \"educational_background\": \"Degree\",\n  \"area_of_expertise\": [\"Astrophysics\"],\n  \"linkedin_profile\": \"https://linkedin.com/in/example\",\n  \"intro_video_url\": \"https://youtube.com/example\",\n  \"max_mentees\": 4,\n  \"availability_schedule\": {\"monday\": [\"10:00-13:00\"]},\n  \"motivation_statement\": \"Updated motivation\",\n  \"portfolio_attachments\": [\"https://example.com/cert.pdf\"]\n}"
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Delete Mentor Application",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/mentor-applications/1",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "mentor-applications",
+                "1"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Change Mentor Application Status",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/mentor-applications/1/status",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "mentor-applications",
+                "1",
+                "status"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"status\": \"accepted\"\n}"
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Influencer Applications",
+      "item": [
+        {
+          "name": "Create Influencer Application",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/influencer-applications",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "influencer-applications"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"phone_number\": \"+1234567890\",\n  \"country\": \"Country\",\n  \"bio\": \"Science journey\",\n  \"specialization_tags\": [\"Astrophotography\"],\n  \"social_links\": {\"youtube\": \"https://youtube.com/example\"},\n  \"intro_video_url\": \"https://youtube.com/example\",\n  \"sample_content_links\": [\"https://example.com/blog\"],\n  \"preferred_session_format\": \"Live\",\n  \"willing_to_host_sessions\": true,\n  \"tools_used\": [\"Telescope\"]\n}"
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "List Influencer Applications",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/influencer-applications",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "influencer-applications"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get Influencer Application",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/influencer-applications/1",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "influencer-applications",
+                "1"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Update Influencer Application",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/influencer-applications/1",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "influencer-applications",
+                "1"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"phone_number\": \"+1234567890\",\n  \"country\": \"Country\",\n  \"bio\": \"Updated journey\",\n  \"specialization_tags\": [\"Astrophotography\"],\n  \"social_links\": {\"youtube\": \"https://youtube.com/example\"},\n  \"intro_video_url\": \"https://youtube.com/example\",\n  \"sample_content_links\": [\"https://example.com/blog\"],\n  \"preferred_session_format\": \"Recorded\",\n  \"willing_to_host_sessions\": false,\n  \"tools_used\": [\"Telescope\"]\n}"
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Delete Influencer Application",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/influencer-applications/1",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "influencer-applications",
+                "1"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Change Influencer Application Status",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/influencer-applications/1/status",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "influencer-applications",
+                "1",
+                "status"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"status\": \"accepted\"\n}"
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Guide Applications",
+      "item": [
+        {
+          "name": "Create Guide Application",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/guide-applications",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "guide-applications"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"phone_number\": \"+1234567890\",\n  \"country\": \"Country\",\n  \"languages_spoken\": [\"English\"],\n  \"certifications\": [\"Guide Cert\"],\n  \"stargazing_expertise\": [\"Telescope\"],\n  \"operating_locations\": [\"Colombo\"],\n  \"profile_bio\": \"Short bio\",\n  \"services_offered\": [\"Night walks\"],\n  \"max_group_size\": 10,\n  \"pricing_range\": \"LKR 2000–5000\",\n  \"photos_or_videos_links\": [\"https://example.com/photo.jpg\"],\n  \"availability_schedule\": {\"friday\": [\"18:00-22:00\"]},\n  \"payment_method_pref\": \"Bank\"\n}"
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "List Guide Applications",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/guide-applications",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "guide-applications"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get Guide Application",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/guide-applications/1",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "guide-applications",
+                "1"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Update Guide Application",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/guide-applications/1",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "guide-applications",
+                "1"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"phone_number\": \"+1234567890\",\n  \"country\": \"Country\",\n  \"languages_spoken\": [\"English\"],\n  \"certifications\": [\"Guide Cert\"],\n  \"stargazing_expertise\": [\"Telescope\"],\n  \"operating_locations\": [\"Colombo\"],\n  \"profile_bio\": \"Updated bio\",\n  \"services_offered\": [\"Night walks\"],\n  \"max_group_size\": 12,\n  \"pricing_range\": \"LKR 3000–6000\",\n  \"photos_or_videos_links\": [\"https://example.com/photo.jpg\"],\n  \"availability_schedule\": {\"friday\": [\"18:00-22:00\"]},\n  \"payment_method_pref\": \"PayPal\"\n}"
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Delete Guide Application",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/guide-applications/1",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "guide-applications",
+                "1"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Change Guide Application Status",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/guide-applications/1/status",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "guide-applications",
+                "1",
+                "status"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"status\": \"accepted\"\n}"
+            }
+          },
+          "response": []
+        }
+      ]
+    }
+  ]
+}
