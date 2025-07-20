@@ -1,3 +1,6 @@
+import mentorApplicationRoutes from "./routes/mentorApplication.routes";
+import influencerApplicationRoutes from "./routes/influencerApplication.routes";
+import guideApplicationRoutes from "./routes/guideApplication.routes";
 // index.ts
 import express from "express";
 import cors from "cors";
@@ -38,6 +41,11 @@ app.use("/api/users", userRoutes);
 app.use("/api/auth", authRoutes);
 app.use("/api/chatbot", chatbotRoutes);
 app.use("/api/user", profileRoutes);
+
+// Application APIs
+app.use("/api/mentor-applications", mentorApplicationRoutes);
+app.use("/api/influencer-applications", influencerApplicationRoutes);
+app.use("/api/guide-applications", guideApplicationRoutes);
 
 // Error handling middleware
 app.use(notFound);

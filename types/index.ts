@@ -1,3 +1,82 @@
+// Application status enums
+export type ApplicationStatus = 'pending' | 'approved' | 'rejected';
+export type ApproveApplicationStatus = 'pending' | 'accepted' | 'rejected';
+export type SessionFormat = 'Live' | 'Recorded' | 'Hybrid';
+export type PaymentMethod = 'Bank' | 'e-wallet' | 'PayPal' | 'Other';
+
+export interface MentorApplication {
+    application_id: number;
+    user_id: number;
+    first_name: string;
+    last_name: string;
+    email: string;
+    phone_number: string;
+    date_of_birth: string;
+    country: string;
+    profile_bio: string;
+    educational_background: string;
+    area_of_expertise: any; // JSONB
+    linkedin_profile?: string;
+    intro_video_url?: string;
+    max_mentees: number;
+    availability_schedule: any; // JSONB
+    motivation_statement: string;
+    portfolio_attachments?: any; // JSONB
+    application_status: ApplicationStatus;
+    approve_application_status: ApproveApplicationStatus;
+    deletion_status: boolean;
+    submitted_at: string;
+    updated_at: string;
+}
+
+export interface InfluencerApplication {
+    application_id: number;
+    user_id: number;
+    first_name: string;
+    last_name: string;
+    email: string;
+    phone_number: string;
+    country: string;
+    bio: string;
+    specialization_tags: any; // JSONB
+    social_links: any; // JSONB
+    intro_video_url?: string;
+    sample_content_links: any; // JSONB
+    preferred_session_format: SessionFormat;
+    willing_to_host_sessions: boolean;
+    tools_used: any; // JSONB
+    application_status: ApplicationStatus;
+    approve_application_status: ApproveApplicationStatus;
+    deletion_status: boolean;
+    submitted_at: string;
+    updated_at: string;
+}
+
+export interface GuideApplication {
+    application_id: number;
+    user_id: number;
+    first_name: string;
+    last_name: string;
+    email: string;
+    phone_number: string;
+    country: string;
+    languages_spoken: any; // JSONB
+    certifications: any; // JSONB
+    stargazing_expertise: any; // JSONB
+    operating_locations: any; // JSONB
+    profile_bio: string;
+    services_offered: any; // JSONB
+    max_group_size: number;
+    pricing_range: string;
+    photos_or_videos_links: any; // JSONB
+    availability_schedule: any; // JSONB
+    payment_method_pref: PaymentMethod;
+    application_status: ApplicationStatus;
+    approve_application_status: ApproveApplicationStatus;
+    deletion_status: boolean;
+    submitted_at: string;
+    updated_at: string;
+}
 // types/index.ts
 import { DecodedIdToken } from 'firebase-admin/auth';
 

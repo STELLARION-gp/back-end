@@ -1,3 +1,132 @@
+-- Application status enums
+CREATE TYPE application_status AS ENUM ('pending', 'approved', 'rejected');
+CREATE TYPE approve_application_status AS ENUM ('pending', 'accepted', 'rejected');
+CREATE TYPE session_format AS ENUM ('Live', 'Recorded', 'Hybrid');
+CREATE TYPE payment_method AS ENUM ('Bank', 'e-wallet', 'PayPal', 'Other');
+
+-- Mentor Application Table
+CREATE TABLE IF NOT EXISTS mentor_application (
+    application_id SERIAL PRIMARY KEY,
+    user_id INTEGER REFERENCES users(id) ON DELETE CASCADE,
+    first_name VARCHAR(100),
+    last_name VARCHAR(100),
+    email VARCHAR(255),
+    phone_number VARCHAR(50),
+    date_of_birth DATE,
+    country VARCHAR(100),
+    profile_bio TEXT,
+    educational_background TEXT,
+    area_of_expertise JSONB,
+    linkedin_profile VARCHAR(255),
+    intro_video_url VARCHAR(255),
+    max_mentees INT,
+    availability_schedule JSONB,
+    motivation_statement TEXT,
+    portfolio_attachments JSONB,
+    application_status application_status DEFAULT 'pending',
+    approve_application_status approve_application_status DEFAULT 'pending',
+    deletion_status BOOLEAN DEFAULT FALSE,
+    submitted_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+-- Influencer Application Table
+CREATE TABLE IF NOT EXISTS influencer_application (
+    application_id SERIAL PRIMARY KEY,
+    user_id INTEGER REFERENCES users(id) ON DELETE CASCADE,
+    first_name VARCHAR(100),
+    last_name VARCHAR(100),
+    email VARCHAR(255),
+    phone_number VARCHAR(50),
+    country VARCHAR(100),
+    bio TEXT,
+    specialization_tags JSONB,
+    social_links JSONB,
+    intro_video_url VARCHAR(255),
+    sample_content_links JSONB,
+    preferred_session_format session_format,
+    willing_to_host_sessions BOOLEAN,
+    tools_used JSONB,
+    application_status application_status DEFAULT 'pending',
+    approve_application_status approve_application_status DEFAULT 'pending',
+    deletion_status BOOLEAN DEFAULT FALSE,
+    submitted_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+-- Guide Application Table
+CREATE TABLE IF NOT EXISTS guide_application (
+    application_id SERIAL PRIMARY KEY,
+    user_id INTEGER REFERENCES users(id) ON DELETE CASCADE,
+    first_name VARCHAR(100),
+    last_name VARCHAR(100),
+    email VARCHAR(255),
+    phone_number VARCHAR(50),
+    country VARCHAR(100),
+    languages_spoken JSONB,
+    certifications JSONB,
+    stargazing_expertise JSONB,
+    operating_locations JSONB,
+    profile_bio TEXT,
+    services_offered JSONB,
+    max_group_size INT,
+    pricing_range VARCHAR(100),
+    photos_or_videos_links JSONB,
+    availability_schedule JSONB,
+    payment_method_pref payment_method,
+    application_status application_status DEFAULT 'pending',
+    approve_application_status approve_application_status DEFAULT 'pending',
+    deletion_status BOOLEAN DEFAULT FALSE,
+    submitted_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+-- Triggers to update updated_at
+CREATE TRIGGER update_mentor_application_updated_at
+    BEFORE UPDATE ON mentor_application
+    FOR EACH ROW
+    EXECUTE FUNCTION update_updated_at_column();
+
+CREATE TRIGGER update_influencer_application_updated_at
+    BEFORE UPDATE ON influencer_application
+    FOR EACH ROW
+    EXECUTE FUNCTION update_updated_at_column();
+
+CREATE TRIGGER update_guide_application_updated_at
+    BEFORE UPDATE ON guide_application
+    FOR EACH ROW
+    EXECUTE FUNCTION update_updated_at_column();
+
+-- Soft delete triggers (prevent hard delete)
+CREATE OR REPLACE FUNCTION soft_delete_application() RETURNS TRIGGER AS $$
+BEGIN
+    NEW.deletion_status := TRUE;
+    RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+-- (Optional) Triggers for soft delete (if you want to intercept DELETE)
+-- Not implemented here, but you can use application logic to only set deletion_status
+
+-- Auto-fill name/email from users table for guide/influencer on insert
+CREATE OR REPLACE FUNCTION autofill_user_info() RETURNS TRIGGER AS $$
+BEGIN
+    IF NEW.user_id IS NOT NULL THEN
+        SELECT first_name, last_name, email INTO NEW.first_name, NEW.last_name, NEW.email FROM users WHERE id = NEW.user_id;
+    END IF;
+    RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+CREATE TRIGGER autofill_influencer_user_info
+    BEFORE INSERT ON influencer_application
+    FOR EACH ROW
+    EXECUTE FUNCTION autofill_user_info();
+
+CREATE TRIGGER autofill_guide_user_info
+    BEFORE INSERT ON guide_application
+    FOR EACH ROW
+    EXECUTE FUNCTION autofill_user_info();
 -- database/schema.sql
 -- Database schema for the backend application
 
