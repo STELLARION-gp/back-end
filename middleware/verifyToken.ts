@@ -41,7 +41,10 @@ export const verifyToken = async (req: Request, res: Response, next: NextFunctio
     // Verify Firebase token
     const decodedToken = await admin.auth().verifyIdToken(token);
 
-    // Always attach Firebase user data (handle GET requests that don't have body)
+    // Attach Firebase user data to request object (more reliable than body)
+    (req as any).firebaseUser = decodedToken;
+    
+    // Also attach to body for backward compatibility
     if (!req.body) {
       req.body = {};
     }
