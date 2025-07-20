@@ -4,6 +4,64 @@ export type ApproveApplicationStatus = 'pending' | 'accepted' | 'rejected';
 export type SessionFormat = 'Live' | 'Recorded' | 'Hybrid';
 export type PaymentMethod = 'Bank' | 'e-wallet' | 'PayPal' | 'Other';
 
+// Subscription types
+export type SubscriptionPlan = 'starseeker' | 'galaxy_explorer' | 'cosmic_voyager';
+export type SubscriptionStatus = 'active' | 'cancelled' | 'expired' | 'pending';
+export type PaymentStatus = 'pending' | 'completed' | 'failed' | 'refunded';
+
+export interface SubscriptionPlanDetails {
+    id: number;
+    plan_type: SubscriptionPlan;
+    name: string;
+    description: string;
+    price_lkr: number;
+    price_usd?: number;
+    features: string[];
+    chatbot_questions_limit: number; // -1 for unlimited
+    is_active: boolean;
+    created_at: string;
+    updated_at: string;
+}
+
+export interface Subscription {
+    id: number;
+    user_id: number;
+    plan_type: SubscriptionPlan;
+    status: SubscriptionStatus;
+    start_date: string;
+    end_date?: string;
+    auto_renew: boolean;
+    created_at: string;
+    updated_at: string;
+    cancelled_at?: string;
+    cancellation_reason?: string;
+}
+
+export interface Payment {
+    id: number;
+    user_id: number;
+    subscription_id?: number;
+    amount: number;
+    currency: string;
+    payment_status: PaymentStatus;
+    payment_method?: string;
+    payment_gateway: string;
+    gateway_transaction_id?: string;
+    gateway_order_id?: string;
+    payment_date?: string;
+    metadata: any;
+    created_at: string;
+    updated_at: string;
+}
+
+export interface ChatbotUsage {
+    id: number;
+    user_id: number;
+    question_count: number;
+    usage_date: string;
+    created_at: string;
+}
+
 export interface MentorApplication {
     application_id: number;
     user_id: number;
