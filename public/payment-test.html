@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment System Test</title>
+    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-auth-compat.js"></script>
+    <script src="https://www.payhere.lk/lib/payhere.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .section {
+            margin: 20px 0;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        .success { background-color: #d4edda; border-color: #c3e6cb; }
+        .error { background-color: #f8d7da; border-color: #f5c6cb; }
+        .info { background-color: #e2e3e5; border-color: #d6d8db; }
+        button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 5px;
+        }
+        button:hover { background-color: #0056b3; }
+        button:disabled { background-color: #ccc; cursor: not-allowed; }
+        .token-display {
+            word-break: break-all;
+            background: #f8f9fa;
+            padding: 10px;
+            border-radius: 3px;
+            font-family: monospace;
+            font-size: 12px;
+            max-height: 100px;
+            overflow-y: auto;
+        }
+        pre {
+            background: #f8f9fa;
+            padding: 10px;
+            border-radius: 3px;
+            overflow-x: auto;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🚀 STELLARION Payment System Test</h1>
+        
+        <!-- Firebase Configuration -->
+        <div class="section info">
+            <h3>1. Firebase Configuration</h3>
+            <p>Configure your Firebase project (you'll need to add your config):</p>
+            <button onclick="initFirebase()">Initialize Firebase</button>
+            <div id="firebase-status"></div>
+        </div>
+
+        <!-- Authentication -->
+        <div class="section">
+            <h3>2. Authentication</h3>
+            <button onclick="signInWithEmail()">Sign In with Test Email</button>
+            <button onclick="getCurrentUser()">Get Current User</button>
+            <button onclick="getAuthToken()">Get Auth Token</button>
+            <div id="auth-status"></div>
+            <div id="token-display" class="token-display" style="display:none;"></div>
+        </div>
+
+        <!-- Payment Testing -->
+        <div class="section">
+            <h3>3. Payment Order Creation</h3>
+            <select id="planSelect">
+                <option value="1">StarSeeker Free (LKR 0)</option>
+                <option value="2">Galaxy Explorer (LKR 990)</option>
+                <option value="3">Cosmic Voyager (LKR 2490)</option>
+            </select>
+            <button onclick="createPaymentOrder()">Create Payment Order</button>
+            <div id="payment-status"></div>
+            <pre id="payment-response" style="display:none;"></pre>
+        </div>
+
+        <!-- PayHere Testing -->
+        <div class="section">
+            <h3>4. PayHere Payment</h3>
+            <button onclick="processPayment()" id="payButton" disabled>Process Payment with PayHere</button>
+            <div id="payhere-status"></div>
+        </div>
+
+        <!-- Backend API Test -->
+        <div class="section">
+            <h3>5. Backend API Tests</h3>
+            <button onclick="testServerHealth()">Test Server Health</button>
+            <button onclick="testSubscriptionAPI()">Test Subscription API</button>
+            <div id="api-status"></div>
+        </div>
+    </div>
+
+    <script>
+        // Global variables
+        let firebaseUser = null;
+        let authToken = null;
+        let paymentOrderData = null;
+        const API_BASE = 'http://localhost:5000/api';
+
+        // You need to replace this with your actual Firebase config
+        const firebaseConfig = {
+            // Add your Firebase configuration here
+            apiKey: "your-api-key",
+            authDomain: "your-project.firebaseapp.com",
+            projectId: "your-project-id",
+            storageBucket: "your-project.appspot.com",
+            messagingSenderId: "123456789",
+            appId: "1:123456789:web:abcdef"
+        };
+
+        function initFirebase() {
+            try {
+                firebase.initializeApp(firebaseConfig);
+                document.getElementById('firebase-status').innerHTML = '✅ Firebase initialized successfully';
+                document.getElementById('firebase-status').className = 'success';
+            } catch (error) {
+                document.getElementById('firebase-status').innerHTML = '❌ Firebase initialization failed: ' + error.message;
+                document.getElementById('firebase-status').className = 'error';
+            }
+        }
+
+        async function signInWithEmail() {
+            try {
+                // For testing purposes - you can replace with actual credentials
+                const email = 'test@stellarion.com';
+                const password = 'testPassword123';
+                
+                const result = await firebase.auth().signInWithEmailAndPassword(email, password);
+                firebaseUser = result.user;
+                
+                document.getElementById('auth-status').innerHTML = `✅ Signed in as: ${firebaseUser.email}`;
+                document.getElementById('auth-status').className = 'success';
+                
+                await getAuthToken();
+            } catch (error) {
+                document.getElementById('auth-status').innerHTML = '❌ Sign in failed: ' + error.message;
+                document.getElementById('auth-status').className = 'error';
+            }
+        }
+
+        async function getCurrentUser() {
+            const user = firebase.auth().currentUser;
+            if (user) {
+                firebaseUser = user;
+                document.getElementById('auth-status').innerHTML = `✅ Current user: ${user.email}`;
+                document.getElementById('auth-status').className = 'success';
+            } else {
+                document.getElementById('auth-status').innerHTML = '❌ No user signed in';
+                document.getElementById('auth-status').className = 'error';
+            }
+        }
+
+        async function getAuthToken() {
+            try {
+                if (!firebaseUser) {
+                    throw new Error('No user signed in');
+                }
+                
+                authToken = await firebaseUser.getIdToken();
+                document.getElementById('token-display').style.display = 'block';
+                document.getElementById('token-display').innerHTML = `Auth Token: ${authToken}`;
+                
+                document.getElementById('auth-status').innerHTML = '✅ Auth token retrieved successfully';
+                document.getElementById('auth-status').className = 'success';
+            } catch (error) {
+                document.getElementById('auth-status').innerHTML = '❌ Failed to get token: ' + error.message;
+                document.getElementById('auth-status').className = 'error';
+            }
+        }
+
+        async function createPaymentOrder() {
+            try {
+                if (!authToken) {
+                    throw new Error('Please get auth token first');
+                }
+
+                const planId = document.getElementById('planSelect').value;
+                const plans = {
+                    '1': { amount: 0, name: 'StarSeeker Free' },
+                    '2': { amount: 990, name: 'Galaxy Explorer' },
+                    '3': { amount: 2490, name: 'Cosmic Voyager' }
+                };
+
+                const requestData = {
+                    planId: parseInt(planId),
+                    amount: plans[planId].amount,
+                    currency: 'LKR'
+                };
+
+                const response = await fetch(`${API_BASE}/payments/create-order`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${authToken}`
+                    },
+                    body: JSON.stringify(requestData)
+                });
+
+                const data = await response.json();
+                
+                if (response.ok) {
+                    paymentOrderData = data.data;
+                    document.getElementById('payment-status').innerHTML = '✅ Payment order created successfully';
+                    document.getElementById('payment-status').className = 'success';
+                    document.getElementById('payment-response').style.display = 'block';
+                    document.getElementById('payment-response').textContent = JSON.stringify(data, null, 2);
+                    document.getElementById('payButton').disabled = false;
+                } else {
+                    throw new Error(data.message || 'Failed to create payment order');
+                }
+            } catch (error) {
+                document.getElementById('payment-status').innerHTML = '❌ ' + error.message;
+                document.getElementById('payment-status').className = 'error';
+            }
+        }
+
+        function processPayment() {
+            if (!paymentOrderData) {
+                alert('Please create a payment order first');
+                return;
+            }
+
+            const payment = {
+                sandbox: true,
+                merchant_id: paymentOrderData.payhere_data.merchant_id,
+                return_url: paymentOrderData.payhere_data.return_url,
+                cancel_url: paymentOrderData.payhere_data.cancel_url,
+                notify_url: paymentOrderData.payhere_data.notify_url,
+                order_id: paymentOrderData.payhere_data.order_id,
+                items: paymentOrderData.payhere_data.items,
+                amount: paymentOrderData.payhere_data.amount,
+                currency: paymentOrderData.payhere_data.currency,
+                hash: paymentOrderData.payhere_data.hash,
+                first_name: paymentOrderData.payhere_data.first_name,
+                last_name: paymentOrderData.payhere_data.last_name,
+                email: paymentOrderData.payhere_data.email,
+                phone: paymentOrderData.payhere_data.phone,
+                address: paymentOrderData.payhere_data.address,
+                city: paymentOrderData.payhere_data.city,
+                country: paymentOrderData.payhere_data.country
+            };
+
+            // PayHere event handlers
+            payhere.onCompleted = function onCompleted(orderId) {
+                document.getElementById('payhere-status').innerHTML = `✅ Payment completed for order: ${orderId}`;
+                document.getElementById('payhere-status').className = 'success';
+            };
+
+            payhere.onDismissed = function onDismissed() {
+                document.getElementById('payhere-status').innerHTML = '⚠️ Payment dismissed';
+                document.getElementById('payhere-status').className = 'info';
+            };
+
+            payhere.onError = function onError(error) {
+                document.getElementById('payhere-status').innerHTML = `❌ Payment error: ${error}`;
+                document.getElementById('payhere-status').className = 'error';
+            };
+
+            // Start PayHere payment
+            payhere.startPayment(payment);
+        }
+
+        async function testServerHealth() {
+            try {
+                const response = await fetch('http://localhost:5000/health');
+                const data = await response.json();
+                
+                document.getElementById('api-status').innerHTML = '✅ Server is healthy: ' + JSON.stringify(data);
+                document.getElementById('api-status').className = 'success';
+            } catch (error) {
+                document.getElementById('api-status').innerHTML = '❌ Server error: ' + error.message;
+                document.getElementById('api-status').className = 'error';
+            }
+        }
+
+        async function testSubscriptionAPI() {
+            try {
+                if (!authToken) {
+                    throw new Error('Please get auth token first');
+                }
+
+                const response = await fetch(`${API_BASE}/subscriptions/plans`, {
+                    headers: {
+                        'Authorization': `Bearer ${authToken}`
+                    }
+                });
+
+                const data = await response.json();
+                
+                if (response.ok) {
+                    document.getElementById('api-status').innerHTML = '✅ Subscription API working: ' + JSON.stringify(data);
+                    document.getElementById('api-status').className = 'success';
+                } else {
+                    throw new Error(data.message || 'API call failed');
+                }
+            } catch (error) {
+                document.getElementById('api-status').innerHTML = '❌ API error: ' + error.message;
+                document.getElementById('api-status').className = 'error';
+            }
+        }
+
+        // Initialize on page load
+        window.onload = function() {
+            document.getElementById('firebase-status').innerHTML = '⚠️ Click to initialize Firebase with your config';
+            document.getElementById('auth-status').innerHTML = '⚠️ Please sign in first';
+            document.getElementById('payment-status').innerHTML = '⚠️ Please authenticate and create payment order';
+            document.getElementById('payhere-status').innerHTML = '⚠️ Create payment order first';
+            document.getElementById('api-status').innerHTML = '⚠️ Click to test APIs';
+        };
+    </script>
+</body>
+</html>

@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>STELLARION Payment System Diagnostic</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; background: #f5f5f5; }
+        .container { max-width: 800px; margin: 0 auto; background: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+        .status { padding: 10px; margin: 10px 0; border-radius: 4px; }
+        .success { background: #d4edda; color: #155724; border: 1px solid #c3e6cb; }
+        .error { background: #f8d7da; color: #721c24; border: 1px solid #f5c6cb; }
+        .warning { background: #fff3cd; color: #856404; border: 1px solid #ffeaa7; }
+        .info { background: #d1ecf1; color: #0c5460; border: 1px solid #bee5eb; }
+        button { background: #007bff; color: white; border: none; padding: 10px 20px; border-radius: 4px; cursor: pointer; margin: 5px; }
+        button:hover { background: #0056b3; }
+        button:disabled { background: #6c757d; cursor: not-allowed; }
+        pre { background: #f8f9fa; padding: 10px; border-radius: 4px; overflow-x: auto; font-size: 12px; }
+        .section { margin: 20px 0; padding: 15px; border: 1px solid #ddd; border-radius: 4px; }
+        h1, h2 { color: #333; }
+        .token-display { word-break: break-all; max-height: 100px; overflow-y: auto; }
+    </style>
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-auth-compat.js"></script>
+</head>
+<body>
+    <div class="container">
+        <h1>🚀 STELLARION Payment System Diagnostic</h1>
+        
+        <div class="section">
+            <h2>🔥 Firebase Authentication</h2>
+            <div id="authStatus" class="status info">Initializing Firebase...</div>
+            <button id="signInBtn" onclick="signIn()">Sign In with Google</button>
+            <button id="signOutBtn" onclick="signOut()" disabled>Sign Out</button>
+            <div id="userInfo"></div>
+            <div id="tokenInfo"></div>
+        </div>
+
+        <div class="section">
+            <h2>🔧 Backend Connection</h2>
+            <div id="backendStatus" class="status info">Not tested</div>
+            <button onclick="testBackend()">Test Backend Connection</button>
+            <div id="backendResults"></div>
+        </div>
+
+        <div class="section">
+            <h2>💳 Payment Order Test</h2>
+            <div id="paymentStatus" class="status info">Not tested</div>
+            <button id="testPaymentBtn" onclick="testPaymentOrder()" disabled>Test Payment Order Creation</button>
+            <div id="paymentResults"></div>
+        </div>
+
+        <div class="section">
+            <h2>📊 Subscription Plans</h2>
+            <div id="plansStatus" class="status info">Not loaded</div>
+            <button onclick="loadPlans()">Load Subscription Plans</button>
+            <div id="plansResults"></div>
+        </div>
+
+        <div class="section">
+            <h2>🐛 Debug Information</h2>
+            <pre id="debugInfo">Waiting for tests...</pre>
+        </div>
+    </div>
+
+    <script>
+        // Firebase configuration - REPLACE WITH YOUR CONFIG
+        const firebaseConfig = {
+            apiKey: "your_api_key_here",
+            authDomain: "your_auth_domain_here",
+            projectId: "your_project_id_here",
+            storageBucket: "your_storage_bucket_here",
+            messagingSenderId: "your_messaging_sender_id_here",
+            appId: "your_app_id_here"
+        };
+
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+        const auth = firebase.auth();
+
+        const API_BASE_URL = 'http://localhost:5000/api';
+        let currentUser = null;
+        let currentToken = null;
+
+        // Update debug info
+        function updateDebugInfo(info) {
+            const debugElement = document.getElementById('debugInfo');
+            const timestamp = new Date().toLocaleTimeString();
+            debugElement.textContent += `[${timestamp}] ${info}\n`;
+            debugElement.scrollTop = debugElement.scrollHeight;
+        }
+
+        // Authentication state listener
+        auth.onAuthStateChanged(async (user) => {
+            const authStatus = document.getElementById('authStatus');
+            const signInBtn = document.getElementById('signInBtn');
+            const signOutBtn = document.getElementById('signOutBtn');
+            const testPaymentBtn = document.getElementById('testPaymentBtn');
+            const userInfo = document.getElementById('userInfo');
+            const tokenInfo = document.getElementById('tokenInfo');
+
+            if (user) {
+                currentUser = user;
+                authStatus.className = 'status success';
+                authStatus.textContent = '✅ User authenticated';
+                signInBtn.disabled = true;
+                signOutBtn.disabled = false;
+                testPaymentBtn.disabled = false;
+                
+                userInfo.innerHTML = `
+                    <p><strong>Email:</strong> ${user.email}</p>
+                    <p><strong>UID:</strong> ${user.uid}</p>
+                    <p><strong>Display Name:</strong> ${user.displayName || 'Not set'}</p>
+                `;
+
+                try {
+                    currentToken = await user.getIdToken();
+                    tokenInfo.innerHTML = `
+                        <p><strong>Firebase Token:</strong></p>
+                        <div class="token-display" style="font-family: monospace; font-size: 10px;">${currentToken}</div>
+                    `;
+                    updateDebugInfo(`Firebase token obtained: ${currentToken.substring(0, 50)}...`);
+                } catch (error) {
+                    tokenInfo.innerHTML = `<p style="color: red;">Error getting token: ${error.message}</p>`;
+                    updateDebugInfo(`Error getting Firebase token: ${error.message}`);
+                }
+            } else {
+                currentUser = null;
+                currentToken = null;
+                authStatus.className = 'status warning';
+                authStatus.textContent = '⚠️ User not authenticated';
+                signInBtn.disabled = false;
+                signOutBtn.disabled = true;
+                testPaymentBtn.disabled = true;
+                userInfo.innerHTML = '';
+                tokenInfo.innerHTML = '';
+                updateDebugInfo('User signed out or not authenticated');
+            }
+        });
+
+        // Sign in with Google
+        async function signIn() {
+            try {
+                const provider = new firebase.auth.GoogleAuthProvider();
+                await auth.signInWithPopup(provider);
+                updateDebugInfo('Sign-in successful');
+            } catch (error) {
+                updateDebugInfo(`Sign-in error: ${error.message}`);
+                document.getElementById('authStatus').className = 'status error';
+                document.getElementById('authStatus').textContent = `❌ Sign-in failed: ${error.message}`;
+            }
+        }
+
+        // Sign out
+        async function signOut() {
+            try {
+                await auth.signOut();
+                updateDebugInfo('Sign-out successful');
+            } catch (error) {
+                updateDebugInfo(`Sign-out error: ${error.message}`);
+            }
+        }
+
+        // Test backend connection
+        async function testBackend() {
+            const statusElement = document.getElementById('backendStatus');
+            const resultsElement = document.getElementById('backendResults');
+            
+            try {
+                statusElement.className = 'status info';
+                statusElement.textContent = '🔄 Testing backend connection...';
+                
+                const response = await fetch('http://localhost:5000/health');
+                const data = await response.json();
+                
+                statusElement.className = 'status success';
+                statusElement.textContent = '✅ Backend connection successful';
+                resultsElement.innerHTML = `<pre>${JSON.stringify(data, null, 2)}</pre>`;
+                updateDebugInfo('Backend connection test passed');
+            } catch (error) {
+                statusElement.className = 'status error';
+                statusElement.textContent = `❌ Backend connection failed: ${error.message}`;
+                resultsElement.innerHTML = `<p>Error: ${error.message}</p>`;
+                updateDebugInfo(`Backend connection test failed: ${error.message}`);
+            }
+        }
+
+        // Test payment order creation
+        async function testPaymentOrder() {
+            const statusElement = document.getElementById('paymentStatus');
+            const resultsElement = document.getElementById('paymentResults');
+            
+            if (!currentToken) {
+                statusElement.className = 'status error';
+                statusElement.textContent = '❌ No authentication token available';
+                return;
+            }
+
+            try {
+                statusElement.className = 'status info';
+                statusElement.textContent = '🔄 Testing payment order creation...';
+                
+                const paymentData = {
+                    planId: 2,
+                    amount: 990,
+                    currency: 'LKR'
+                };
+
+                updateDebugInfo(`Sending payment request: ${JSON.stringify(paymentData)}`);
+                updateDebugInfo(`Using token: ${currentToken.substring(0, 50)}...`);
+
+                const response = await fetch(`${API_BASE_URL}/payments/create-order`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${currentToken}`
+                    },
+                    body: JSON.stringify(paymentData)
+                });
+
+                updateDebugInfo(`Response status: ${response.status}`);
+
+                if (response.ok) {
+                    const data = await response.json();
+                    statusElement.className = 'status success';
+                    statusElement.textContent = '✅ Payment order created successfully!';
+                    resultsElement.innerHTML = `<pre>${JSON.stringify(data, null, 2)}</pre>`;
+                    updateDebugInfo('Payment order creation successful');
+                } else {
+                    const errorData = await response.json();
+                    statusElement.className = 'status error';
+                    statusElement.textContent = `❌ Payment order failed: ${errorData.message}`;
+                    resultsElement.innerHTML = `<pre>${JSON.stringify(errorData, null, 2)}</pre>`;
+                    updateDebugInfo(`Payment order failed: ${errorData.message}`);
+                }
+            } catch (error) {
+                statusElement.className = 'status error';
+                statusElement.textContent = `❌ Payment order error: ${error.message}`;
+                resultsElement.innerHTML = `<p>Error: ${error.message}</p>`;
+                updateDebugInfo(`Payment order error: ${error.message}`);
+            }
+        }
+
+        // Load subscription plans
+        async function loadPlans() {
+            const statusElement = document.getElementById('plansStatus');
+            const resultsElement = document.getElementById('plansResults');
+            
+            try {
+                statusElement.className = 'status info';
+                statusElement.textContent = '🔄 Loading subscription plans...';
+                
+                const response = await fetch(`${API_BASE_URL}/subscriptions/plans`);
+                const data = await response.json();
+                
+                statusElement.className = 'status success';
+                statusElement.textContent = '✅ Subscription plans loaded';
+                
+                let plansList = '<ul>';
+                data.forEach(plan => {
+                    plansList += `<li><strong>${plan.name}</strong> - LKR ${plan.price_lkr} (ID: ${plan.id})</li>`;
+                });
+                plansList += '</ul>';
+                
+                resultsElement.innerHTML = plansList;
+                updateDebugInfo(`Loaded ${data.length} subscription plans`);
+            } catch (error) {
+                statusElement.className = 'status error';
+                statusElement.textContent = `❌ Failed to load plans: ${error.message}`;
+                resultsElement.innerHTML = `<p>Error: ${error.message}</p>`;
+                updateDebugInfo(`Failed to load plans: ${error.message}`);
+            }
+        }
+
+        // Initialize
+        updateDebugInfo('Diagnostic page loaded');
+        updateDebugInfo('Please configure Firebase settings in the script section');
+    </script>
+</body>
+</html>

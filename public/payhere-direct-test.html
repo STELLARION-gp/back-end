@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PayHere Direct Test</title>
+    <script type="text/javascript" src="https://www.payhere.lk/lib/payhere.js"></script>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; background: #f5f5f5; }
+        .container { max-width: 600px; margin: 0 auto; background: white; padding: 20px; border-radius: 8px; }
+        button { background: #007bff; color: white; border: none; padding: 10px 20px; border-radius: 4px; cursor: pointer; margin: 5px; }
+        button:hover { background: #0056b3; }
+        .status { padding: 10px; margin: 10px 0; border-radius: 4px; }
+        .success { background: #d4edda; color: #155724; }
+        .error { background: #f8d7da; color: #721c24; }
+        .info { background: #d1ecf1; color: #0c5460; }
+        pre { background: #f8f9fa; padding: 10px; border-radius: 4px; overflow-x: auto; font-size: 12px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🧪 PayHere Direct Test</h1>
+        <p>This tests PayHere payment integration directly with the same data structure as your backend.</p>
+        
+        <div id="status" class="status info">Ready to test</div>
+        
+        <button onclick="testBackendPaymentCreation()">Test Backend Payment Creation</button>
+        <button onclick="testPayHereDirectly()">Test PayHere Directly</button>
+        <button onclick="testMinimalPayHere()">Test Minimal PayHere</button>
+        
+        <h3>Test Results:</h3>
+        <pre id="results">Click a test button to see results...</pre>
+    </div>
+
+    <script>
+        function updateStatus(message, type = 'info') {
+            const statusDiv = document.getElementById('status');
+            statusDiv.className = `status ${type}`;
+            statusDiv.textContent = message;
+        }
+
+        function logResult(message) {
+            const resultsDiv = document.getElementById('results');
+            resultsDiv.textContent += new Date().toLocaleTimeString() + ': ' + message + '\n';
+        }
+
+        // Test backend payment creation
+        async function testBackendPaymentCreation() {
+            updateStatus('Testing backend payment creation...', 'info');
+            logResult('Testing backend payment creation...');
+            
+            try {
+                // This would normally require Firebase auth token
+                const response = await fetch('http://localhost:5000/api/payments/create-order', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': 'Bearer YOUR_FIREBASE_TOKEN_HERE'
+                    },
+                    body: JSON.stringify({
+                        planId: 2,
+                        amount: 990,
+                        currency: 'LKR'
+                    })
+                });
+
+                if (response.status === 401) {
+                    logResult('❌ Authentication required - need valid Firebase token');
+                    updateStatus('Authentication required', 'error');
+                    return;
+                }
+
+                const data = await response.json();
+                logResult('✅ Backend response: ' + JSON.stringify(data, null, 2));
+                
+                if (data.success) {
+                    updateStatus('Backend payment creation successful', 'success');
+                    // Now test with the actual data from backend
+                    testWithBackendData(data.data.payhere_data);
+                } else {
+                    updateStatus('Backend payment creation failed: ' + data.message, 'error');
+                }
+            } catch (error) {
+                logResult('❌ Backend test failed: ' + error.message);
+                updateStatus('Backend test failed: ' + error.message, 'error');
+            }
+        }
+
+        // Test PayHere with data from backend
+        function testWithBackendData(payhere_data) {
+            logResult('Testing PayHere with backend data...');
+            logResult('PayHere data: ' + JSON.stringify(payhere_data, null, 2));
+            
+            if (typeof payhere !== 'undefined') {
+                const payment = {
+                    ...payhere_data,
+                    onCompleted: function(orderId) {
+                        logResult('✅ Payment completed! Order ID: ' + orderId);
+                        updateStatus('Payment completed successfully!', 'success');
+                    },
+                    onDismissed: function() {
+                        logResult('⚠️ Payment dismissed by user');
+                        updateStatus('Payment dismissed', 'info');
+                    },
+                    onError: function(error) {
+                        logResult('❌ Payment error: ' + error);
+                        updateStatus('Payment error: ' + error, 'error');
+                    }
+                };
+                
+                logResult('Starting PayHere payment...');
+                payhere.startPayment(payment);
+            } else {
+                logResult('❌ PayHere library not loaded');
+                updateStatus('PayHere library not loaded', 'error');
+            }
+        }
+
+        // Test PayHere directly with known good data
+        function testPayHereDirectly() {
+            updateStatus('Testing PayHere with known configuration...', 'info');
+            logResult('Testing PayHere directly...');
+            
+            // Using the same configuration as your backend
+            const payment = {
+                sandbox: true,
+                merchant_id: "1213863",
+                return_url: "http://localhost:5173/payment/success",
+                cancel_url: "http://localhost:5173/payment/cancel",
+                notify_url: "http://localhost:5000/api/payments/notify",
+                order_id: "STELLARION_TEST_" + Date.now(),
+                items: "Galaxy Explorer Subscription",
+                amount: "990.00",
+                currency: "LKR",
+                hash: "TEST_HASH_PLACEHOLDER", // This will be wrong, but we can see what happens
+                first_name: "Test",
+                last_name: "User",
+                email: "test@stellarion.com",
+                phone: "0771234567",
+                address: "No. 1, Main Street",
+                city: "Colombo",
+                country: "Sri Lanka",
+                delivery_address: "No. 1, Main Street",
+                delivery_city: "Colombo",
+                delivery_country: "Sri Lanka",
+                custom_1: "plan_id_2",
+                custom_2: "user_id_1",
+                onCompleted: function(orderId) {
+                    logResult('✅ Payment completed! Order ID: ' + orderId);
+                    updateStatus('Payment completed successfully!', 'success');
+                },
+                onDismissed: function() {
+                    logResult('⚠️ Payment dismissed by user');
+                    updateStatus('Payment dismissed', 'info');
+                },
+                onError: function(error) {
+                    logResult('❌ Payment error: ' + error);
+                    updateStatus('Payment error: ' + error, 'error');
+                }
+            };
+            
+            logResult('Payment object: ' + JSON.stringify(payment, null, 2));
+            
+            if (typeof payhere !== 'undefined') {
+                logResult('Starting PayHere payment...');
+                payhere.startPayment(payment);
+            } else {
+                logResult('❌ PayHere library not loaded');
+                updateStatus('PayHere library not loaded', 'error');
+            }
+        }
+
+        // Test with minimal required fields
+        function testMinimalPayHere() {
+            updateStatus('Testing PayHere with minimal fields...', 'info');
+            logResult('Testing PayHere with minimal required fields...');
+            
+            const payment = {
+                sandbox: true,
+                merchant_id: "1213863",
+                return_url: "http://localhost:5173/payment/success",
+                cancel_url: "http://localhost:5173/payment/cancel", 
+                notify_url: "http://localhost:5000/api/payments/notify",
+                order_id: "MINIMAL_TEST_" + Date.now(),
+                items: "Test Product",
+                amount: "100.00",
+                currency: "LKR",
+                hash: "MINIMAL_HASH_TEST",
+                first_name: "Test",
+                last_name: "User",
+                email: "test@test.com",
+                phone: "0771234567",
+                address: "Test Address",
+                city: "Colombo",
+                country: "Sri Lanka",
+                onCompleted: function(orderId) {
+                    logResult('✅ Minimal payment completed! Order ID: ' + orderId);
+                    updateStatus('Minimal payment completed!', 'success');
+                },
+                onDismissed: function() {
+                    logResult('⚠️ Minimal payment dismissed');
+                    updateStatus('Minimal payment dismissed', 'info');
+                },
+                onError: function(error) {
+                    logResult('❌ Minimal payment error: ' + error);
+                    updateStatus('Minimal payment error: ' + error, 'error');
+                }
+            };
+            
+            logResult('Minimal payment object: ' + JSON.stringify(payment, null, 2));
+            
+            if (typeof payhere !== 'undefined') {
+                logResult('Starting minimal PayHere payment...');
+                payhere.startPayment(payment);
+            } else {
+                logResult('❌ PayHere library not loaded');
+                updateStatus('PayHere library not loaded', 'error');
+            }
+        }
+
+        // Check if PayHere is loaded
+        document.addEventListener('DOMContentLoaded', function() {
+            if (typeof payhere !== 'undefined') {
+                logResult('✅ PayHere library loaded successfully');
+                updateStatus('PayHere library loaded', 'success');
+            } else {
+                logResult('❌ PayHere library not loaded');
+                updateStatus('PayHere library not loaded', 'error');
+            }
+        });
+    </script>
+</body>
+</html>
