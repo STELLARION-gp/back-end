@@ -279,7 +279,7 @@ export interface Blog {
     title: string;
     content: string;
     excerpt?: string;
-    featured_image?: string;
+    image_url?: string; // Database field
     author_id: number;
     status: BlogStatus;
     published_at?: string;

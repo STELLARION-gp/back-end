@@ -398,15 +398,6 @@ export const updateBlog = async (req: Request, res: Response): Promise<void> => 
             paramCount++;
             fields.push(`status = $${paramCount}`);
             values.push(updateData.status);
-            
-            // Set published_at if changing to published
-            if (updateData.status === 'published' && blog.status !== 'published') {
-                paramCount++;
-                fields.push(`published_at = CURRENT_TIMESTAMP`);
-            } else if (updateData.status !== 'published') {
-                paramCount++;
-                fields.push(`published_at = NULL`);
-            }
         }
 
         if (updateData.tags !== undefined) {
@@ -576,7 +567,7 @@ export const toggleBlogLike = async (req: Request, res: Response): Promise<void>
 
         // Get updated like count
         const countResult = await db.query(
-            'SELECT likes_count FROM blogs WHERE id = $1',
+            'SELECT like_count FROM blogs WHERE id = $1',
             [id]
         );
 
@@ -585,7 +576,7 @@ export const toggleBlogLike = async (req: Request, res: Response): Promise<void>
             message: liked ? "Blog liked successfully" : "Blog unliked successfully",
             data: {
                 liked,
-                likes_count: countResult.rows[0].likes_count
+                like_count: countResult.rows[0].like_count
             }
         });
     } catch (error: any) {
@@ -884,7 +875,7 @@ const recordBlogView = async (blogId: number, userId?: number, req?: Request): P
         
         // Update view count
         await db.query(
-            'UPDATE blogs SET views_count = views_count + 1 WHERE id = $1',
+            'UPDATE blogs SET view_count = view_count + 1 WHERE id = $1',
             [blogId]
         );
     } catch (error) {
