@@ -38,7 +38,9 @@ export const verifyToken = async (req: Request, res: Response, next: NextFunctio
       (req as any).user = {
         uid: decodedToken.uid,
         email: decodedToken.email,
-        firebase_uid: decodedToken.uid
+        firebase_uid: decodedToken.uid,
+        name: decodedToken.name,
+        display_name: decodedToken.name
       };
 
       next();

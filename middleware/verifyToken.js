@@ -44,7 +44,9 @@ const verifyToken = (req, res, next) => __awaiter(void 0, void 0, void 0, functi
             req.user = {
                 uid: decodedToken.uid,
                 email: decodedToken.email,
-                firebase_uid: decodedToken.uid
+                firebase_uid: decodedToken.uid,
+                name: decodedToken.name,
+                display_name: decodedToken.name
             };
             next();
         }
