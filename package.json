@@ -4,8 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "npx ts-node-dev index.ts",
+    "start": "npx ts-node-dev --transpile-only index.ts",
     "dev": "npx ts-node-dev --respawn --transpile-only index.ts",
+    "dev-auth": "cross-env NODE_ENV=development npx ts-node-dev --respawn --transpile-only index.ts",
     "build": "tsc",
     "build:watch": "tsc --watch",
     "setup-db": "node scripts/setup-database.js",

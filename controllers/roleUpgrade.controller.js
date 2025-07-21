@@ -1,14 +1,24 @@
-// controllers/roleUpgrade.controller.ts
-import { Request, Response } from "express";
-import pool from "../db";
-import { DatabaseUser, RoleUpgradeRequest, RoleUpgradeRequestData, UserRole } from "../types";
-
+"use strict";
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.processRoleUpgradeRequest = exports.getAllRoleUpgradeRequests = exports.getRoleUpgradeStatus = exports.requestRoleUpgrade = void 0;
+const db_1 = __importDefault(require("../db"));
 // Request role upgrade
-export const requestRoleUpgrade = async (req: Request, res: Response): Promise<void> => {
+const requestRoleUpgrade = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const firebaseUser = (req as any).user;
-        const { requested_role, reason, supporting_evidence = [] }: RoleUpgradeRequestData = req.body;
-
+        const firebaseUser = req.user;
+        const { requested_role, reason, supporting_evidence = [] } = req.body;
         if (!firebaseUser) {
             res.status(401).json({
                 success: false,
@@ -16,7 +26,6 @@ export const requestRoleUpgrade = async (req: Request, res: Response): Promise<v
             });
             return;
         }
-
         if (!requested_role || !reason) {
             res.status(400).json({
                 success: false,
@@ -24,13 +33,8 @@ export const requestRoleUpgrade = async (req: Request, res: Response): Promise<v
             });
             return;
         }
-
         // Get user details
-        const userResult = await pool.query<DatabaseUser>(
-            "SELECT * FROM users WHERE firebase_uid = $1",
-            [firebaseUser.uid]
-        );
-
+        const userResult = yield db_1.default.query("SELECT * FROM users WHERE firebase_uid = $1", [firebaseUser.uid]);
         if (userResult.rows.length === 0) {
             res.status(404).json({
                 success: false,
@@ -38,11 +42,9 @@ export const requestRoleUpgrade = async (req: Request, res: Response): Promise<v
             });
             return;
         }
-
         const user = userResult.rows[0];
-
         // Validate requested role
-        const validRoles: UserRole[] = ['admin', 'moderator', 'learner', 'guide', 'enthusiast', 'mentor', 'influencer'];
+        const validRoles = ['admin', 'moderator', 'learner', 'guide', 'enthusiast', 'mentor', 'influencer'];
         if (!validRoles.includes(requested_role)) {
             res.status(400).json({
                 success: false,
@@ -50,7 +52,6 @@ export const requestRoleUpgrade = async (req: Request, res: Response): Promise<v
             });
             return;
         }
-
         // Check if user already has the requested role
         if (user.role === requested_role) {
             res.status(400).json({
@@ -59,13 +60,8 @@ export const requestRoleUpgrade = async (req: Request, res: Response): Promise<v
             });
             return;
         }
-
         // Check if user has a pending request for the same role
-        const existingRequest = await pool.query(
-            "SELECT * FROM role_upgrade_requests WHERE user_id = $1 AND requested_user_role = $2 AND status = 'pending'",
-            [user.id, requested_role]
-        );
-
+        const existingRequest = yield db_1.default.query("SELECT * FROM role_upgrade_requests WHERE user_id = $1 AND requested_user_role = $2 AND status = 'pending'", [user.id, requested_role]);
         if (existingRequest.rows.length > 0) {
             res.status(400).json({
                 success: false,
@@ -73,14 +69,9 @@ export const requestRoleUpgrade = async (req: Request, res: Response): Promise<v
             });
             return;
         }
-
         // Create role upgrade request
-        const result = await pool.query<RoleUpgradeRequest>(
-            `INSERT INTO role_upgrade_requests (user_id, current_user_role, requested_user_role, reason, supporting_evidence) 
-             VALUES ($1, $2, $3, $4, $5) RETURNING *`,
-            [user.id, user.role, requested_role, reason, JSON.stringify(supporting_evidence)]
-        );
-
+        const result = yield db_1.default.query(`INSERT INTO role_upgrade_requests (user_id, current_user_role, requested_user_role, reason, supporting_evidence) 
+             VALUES ($1, $2, $3, $4, $5) RETURNING *`, [user.id, user.role, requested_role, reason, JSON.stringify(supporting_evidence)]);
         res.status(201).json({
             success: true,
             message: "Role upgrade request submitted successfully",
@@ -90,20 +81,20 @@ export const requestRoleUpgrade = async (req: Request, res: Response): Promise<v
                 submitted_at: result.rows[0].submitted_at
             }
         });
-    } catch (error) {
+    }
+    catch (error) {
         console.error("Request role upgrade error:", error);
         res.status(500).json({
             success: false,
             message: "Internal server error"
         });
     }
-};
-
+});
+exports.requestRoleUpgrade = requestRoleUpgrade;
 // Get role upgrade status
-export const getRoleUpgradeStatus = async (req: Request, res: Response): Promise<void> => {
+const getRoleUpgradeStatus = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const firebaseUser = (req as any).user;
-
+        const firebaseUser = req.user;
         if (!firebaseUser) {
             res.status(401).json({
                 success: false,
@@ -111,13 +102,8 @@ export const getRoleUpgradeStatus = async (req: Request, res: Response): Promise
             });
             return;
         }
-
         // Get user details
-        const userResult = await pool.query<DatabaseUser>(
-            "SELECT id FROM users WHERE firebase_uid = $1",
-            [firebaseUser.uid]
-        );
-
+        const userResult = yield db_1.default.query("SELECT id FROM users WHERE firebase_uid = $1", [firebaseUser.uid]);
         if (userResult.rows.length === 0) {
             res.status(404).json({
                 success: false,
@@ -125,30 +111,20 @@ export const getRoleUpgradeStatus = async (req: Request, res: Response): Promise
             });
             return;
         }
-
         const userId = userResult.rows[0].id;
-
         // Get current pending requests
-        const currentRequestsResult = await pool.query<RoleUpgradeRequest>(
-            `SELECT r.*, u.email as reviewer_email 
+        const currentRequestsResult = yield db_1.default.query(`SELECT r.*, u.email as reviewer_email 
              FROM role_upgrade_requests r 
              LEFT JOIN users u ON r.reviewer_id = u.id 
              WHERE r.user_id = $1 AND r.status = 'pending' 
-             ORDER BY r.submitted_at DESC`,
-            [userId]
-        );
-
+             ORDER BY r.submitted_at DESC`, [userId]);
         // Get request history
-        const historyResult = await pool.query<RoleUpgradeRequest>(
-            `SELECT r.*, u.email as reviewer_email 
+        const historyResult = yield db_1.default.query(`SELECT r.*, u.email as reviewer_email 
              FROM role_upgrade_requests r 
              LEFT JOIN users u ON r.reviewer_id = u.id 
              WHERE r.user_id = $1 AND r.status != 'pending' 
-             ORDER BY r.reviewed_at DESC`,
-            [userId]
-        );
-
-        const formatRequest = (request: any) => ({
+             ORDER BY r.reviewed_at DESC`, [userId]);
+        const formatRequest = (request) => ({
             request_id: request.id,
             requested_role: request.requested_user_role,
             current_role: request.current_user_role,
@@ -160,7 +136,6 @@ export const getRoleUpgradeStatus = async (req: Request, res: Response): Promise
             reviewer_notes: request.reviewer_notes,
             reviewer_email: request.reviewer_email
         });
-
         res.json({
             success: true,
             message: "Role upgrade status retrieved successfully",
@@ -169,21 +144,21 @@ export const getRoleUpgradeStatus = async (req: Request, res: Response): Promise
                 request_history: historyResult.rows.map(formatRequest)
             }
         });
-    } catch (error) {
+    }
+    catch (error) {
         console.error("Get role upgrade status error:", error);
         res.status(500).json({
             success: false,
             message: "Internal server error"
         });
     }
-};
-
+});
+exports.getRoleUpgradeStatus = getRoleUpgradeStatus;
 // Get all role upgrade requests (Admin only)
-export const getAllRoleUpgradeRequests = async (req: Request, res: Response): Promise<void> => {
+const getAllRoleUpgradeRequests = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const { page = 1, limit = 10, status } = req.query;
         const offset = (Number(page) - 1) * Number(limit);
-
         // Build query
         let query = `
             SELECT r.*, u.email, u.first_name, u.last_name, u.display_name,
@@ -192,33 +167,25 @@ export const getAllRoleUpgradeRequests = async (req: Request, res: Response): Pr
             JOIN users u ON r.user_id = u.id
             LEFT JOIN users reviewer ON r.reviewer_id = reviewer.id
         `;
-
-        const params: any[] = [];
+        const params = [];
         let paramCount = 0;
-
         if (status) {
             paramCount++;
             query += ` WHERE r.status = $${paramCount}`;
             params.push(status);
         }
-
         query += ` ORDER BY r.submitted_at DESC LIMIT $${paramCount + 1} OFFSET $${paramCount + 2}`;
         params.push(Number(limit), offset);
-
-        const result = await pool.query(query, params);
-
+        const result = yield db_1.default.query(query, params);
         // Get total count
         let countQuery = "SELECT COUNT(*) FROM role_upgrade_requests r";
-        const countParams: any[] = [];
-
+        const countParams = [];
         if (status) {
             countQuery += " WHERE r.status = $1";
             countParams.push(status);
         }
-
-        const countResult = await pool.query(countQuery, countParams);
+        const countResult = yield db_1.default.query(countQuery, countParams);
         const total = parseInt(countResult.rows[0].count);
-
         const formattedRequests = result.rows.map(request => ({
             request_id: request.id,
             user: {
@@ -241,7 +208,6 @@ export const getAllRoleUpgradeRequests = async (req: Request, res: Response): Pr
                 first_name: request.reviewer_first_name
             } : null
         }));
-
         res.json({
             success: true,
             message: "Role upgrade requests retrieved successfully",
@@ -255,22 +221,22 @@ export const getAllRoleUpgradeRequests = async (req: Request, res: Response): Pr
                 }
             }
         });
-    } catch (error) {
+    }
+    catch (error) {
         console.error("Get all role upgrade requests error:", error);
         res.status(500).json({
             success: false,
             message: "Internal server error"
         });
     }
-};
-
+});
+exports.getAllRoleUpgradeRequests = getAllRoleUpgradeRequests;
 // Process role upgrade request (Admin only)
-export const processRoleUpgradeRequest = async (req: Request, res: Response): Promise<void> => {
+const processRoleUpgradeRequest = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const firebaseUser = (req as any).user;
+        const firebaseUser = req.user;
         const { requestId } = req.params;
         const { action, reviewer_notes = '' } = req.body; // action: 'approve' or 'reject'
-
         if (!firebaseUser) {
             res.status(401).json({
                 success: false,
@@ -278,7 +244,6 @@ export const processRoleUpgradeRequest = async (req: Request, res: Response): Pr
             });
             return;
         }
-
         if (!['approve', 'reject'].includes(action)) {
             res.status(400).json({
                 success: false,
@@ -286,13 +251,8 @@ export const processRoleUpgradeRequest = async (req: Request, res: Response): Pr
             });
             return;
         }
-
         // Get reviewer details
-        const reviewerResult = await pool.query<DatabaseUser>(
-            "SELECT * FROM users WHERE firebase_uid = $1",
-            [firebaseUser.uid]
-        );
-
+        const reviewerResult = yield db_1.default.query("SELECT * FROM users WHERE firebase_uid = $1", [firebaseUser.uid]);
         if (reviewerResult.rows.length === 0) {
             res.status(404).json({
                 success: false,
@@ -300,18 +260,12 @@ export const processRoleUpgradeRequest = async (req: Request, res: Response): Pr
             });
             return;
         }
-
         const reviewer = reviewerResult.rows[0];
-
         // Get the request details
-        const requestResult = await pool.query<RoleUpgradeRequest>(
-            `SELECT r.*, u.firebase_uid as user_firebase_uid 
+        const requestResult = yield db_1.default.query(`SELECT r.*, u.firebase_uid as user_firebase_uid 
              FROM role_upgrade_requests r 
              JOIN users u ON r.user_id = u.id 
-             WHERE r.id = $1 AND r.status = 'pending'`,
-            [requestId]
-        );
-
+             WHERE r.id = $1 AND r.status = 'pending'`, [requestId]);
         if (requestResult.rows.length === 0) {
             res.status(404).json({
                 success: false,
@@ -319,32 +273,20 @@ export const processRoleUpgradeRequest = async (req: Request, res: Response): Pr
             });
             return;
         }
-
         const request = requestResult.rows[0];
         const status = action === 'approve' ? 'approved' : 'rejected';
-
         // Begin transaction
-        await pool.query('BEGIN');
-
+        yield db_1.default.query('BEGIN');
         try {
             // Update the request status
-            await pool.query(
-                `UPDATE role_upgrade_requests 
+            yield db_1.default.query(`UPDATE role_upgrade_requests 
                  SET status = $1, reviewer_id = $2, reviewer_notes = $3, reviewed_at = CURRENT_TIMESTAMP 
-                 WHERE id = $4`,
-                [status, reviewer.id, reviewer_notes, requestId]
-            );
-
+                 WHERE id = $4`, [status, reviewer.id, reviewer_notes, requestId]);
             // If approved, update user's role
             if (action === 'approve') {
-                await pool.query(
-                    "UPDATE users SET role = $1, updated_at = CURRENT_TIMESTAMP WHERE id = $2",
-                    [request.requested_user_role, request.user_id]
-                );
+                yield db_1.default.query("UPDATE users SET role = $1, updated_at = CURRENT_TIMESTAMP WHERE id = $2", [request.requested_user_role, request.user_id]);
             }
-
-            await pool.query('COMMIT');
-
+            yield db_1.default.query('COMMIT');
             res.json({
                 success: true,
                 message: `Role upgrade request ${action}d successfully`,
@@ -355,15 +297,18 @@ export const processRoleUpgradeRequest = async (req: Request, res: Response): Pr
                     processed_at: new Date().toISOString()
                 }
             });
-        } catch (error) {
-            await pool.query('ROLLBACK');
+        }
+        catch (error) {
+            yield db_1.default.query('ROLLBACK');
             throw error;
         }
-    } catch (error) {
+    }
+    catch (error) {
         console.error("Process role upgrade request error:", error);
         res.status(500).json({
             success: false,
             message: "Internal server error"
         });
     }
-};
+});
+exports.processRoleUpgradeRequest = processRoleUpgradeRequest;

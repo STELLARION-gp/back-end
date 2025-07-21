@@ -36,6 +36,25 @@ const chatCompletionLimiter = rateLimit({
 // Health check endpoint (no authentication needed)
 router.get("/health", healthCheck);
 
+// Test endpoint for chatbot without authentication (REMOVE IN PRODUCTION)
+router.post("/test", chatbotLimiter, async (req: any, res) => {
+  // Mock user for testing
+  req.user = {
+    uid: 'test-user',
+    email: 'test@example.com',
+    user_id: 1
+  };
+  
+  // Mock chatbot usage
+  req.body.chatbotUsage = {
+    questionsUsed: 0,
+    questionsLimit: -1, // Unlimited for test
+    plan: 'galaxy_explorer'
+  };
+  
+  await chatCompletion(req, res);
+});
+
 // Chat completion endpoint with authentication, subscription check, and rate limiting
 router.post("/", verifyToken, checkChatbotAccess, chatbotLimiter, chatCompletionLimiter, chatCompletion);
 

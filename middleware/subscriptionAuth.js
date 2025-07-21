@@ -1,16 +1,19 @@
-import { Request, Response, NextFunction } from 'express';
-import db from '../db';
-import { SubscriptionPlan } from '../types';
-
-// Interface for the custom request with user info
-interface AuthenticatedRequest extends Request {
-    user?: {
-        uid: string;
-        email: string;
-        user_id: number;
-    };
-}
-
+"use strict";
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.checkChatbotAccess = exports.requireSubscription = void 0;
+const db_1 = __importDefault(require("../db"));
 // Features that require paid subscription
 const PAID_FEATURES = {
     intermediate_lessons: ['galaxy_explorer', 'cosmic_voyager'],
@@ -22,41 +25,33 @@ const PAID_FEATURES = {
     early_access: ['cosmic_voyager'],
     feature_requests: ['cosmic_voyager']
 };
-
 // Middleware to check if user has access to a specific feature
-export const requireSubscription = (feature: keyof typeof PAID_FEATURES) => {
-    return async (req: AuthenticatedRequest, res: Response, next: NextFunction) => {
+const requireSubscription = (feature) => {
+    return (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+        var _a;
         try {
-            if (!req.user?.user_id) {
+            if (!((_a = req.user) === null || _a === void 0 ? void 0 : _a.user_id)) {
                 return res.status(401).json({
                     success: false,
                     message: 'Authentication required'
                 });
             }
-
             const user_id = req.user.user_id;
-
             // Get user's subscription details
-            const result = await db.query(
-                `SELECT 
+            const result = yield db_1.default.query(`SELECT 
                     subscription_plan, 
                     subscription_status, 
                     subscription_end_date
                  FROM users 
-                 WHERE id = $1`,
-                [user_id]
-            );
-
+                 WHERE id = $1`, [user_id]);
             if (result.rows.length === 0) {
                 return res.status(404).json({
                     success: false,
                     message: 'User not found'
                 });
             }
-
             const user = result.rows[0];
             const requiredPlans = PAID_FEATURES[feature];
-
             // Check if user's plan includes the required feature
             if (!requiredPlans.includes(user.subscription_plan)) {
                 return res.status(403).json({
@@ -68,7 +63,6 @@ export const requireSubscription = (feature: keyof typeof PAID_FEATURES) => {
                     upgradeUrl: '/subscription/plans'
                 });
             }
-
             // Check if subscription is active (for paid plans)
             if (user.subscription_plan !== 'starseeker') {
                 if (user.subscription_status !== 'active') {
@@ -80,7 +74,6 @@ export const requireSubscription = (feature: keyof typeof PAID_FEATURES) => {
                         upgradeUrl: '/subscription/plans'
                     });
                 }
-
                 // Check if subscription has expired
                 if (user.subscription_end_date && new Date(user.subscription_end_date) < new Date()) {
                     return res.status(403).json({
@@ -92,25 +85,24 @@ export const requireSubscription = (feature: keyof typeof PAID_FEATURES) => {
                     });
                 }
             }
-
             next();
-        } catch (error) {
+        }
+        catch (error) {
             console.error('Error checking subscription access:', error);
             res.status(500).json({
                 success: false,
                 message: 'Failed to verify subscription access'
             });
         }
-    };
+    });
 };
-
+exports.requireSubscription = requireSubscription;
 // Middleware to check chatbot access and usage
-export const checkChatbotAccess = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+const checkChatbotAccess = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     // EMERGENCY BYPASS for subscription check
     console.log('🚨 [EMERGENCY BYPASS] Skipping subscription check');
     next();
     return;
-    
     // Original subscription check code (commented out for emergency bypass)
     /*
     try {
@@ -141,7 +133,7 @@ export const checkChatbotAccess = async (req: Request, res: Response, next: Next
 
         // Get user's chatbot usage
         const result = await db.query(
-            `SELECT 
+            `SELECT
                 u.subscription_plan,
                 u.chatbot_questions_used,
                 u.chatbot_questions_reset_date,
@@ -212,7 +204,7 @@ export const addSubscriptionInfo = async (req: AuthenticatedRequest, res: Respon
         const user_id = req.user.user_id;
 
         const result = await db.query(
-            `SELECT 
+            `SELECT
                 u.subscription_plan,
                 u.subscription_status,
                 u.subscription_start_date,
@@ -235,4 +227,5 @@ export const addSubscriptionInfo = async (req: AuthenticatedRequest, res: Respon
         next(); // Continue anyway, subscription info is optional
     }
     */ // End of commented out code
-};
+});
+exports.checkChatbotAccess = checkChatbotAccess;
