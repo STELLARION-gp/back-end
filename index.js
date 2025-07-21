@@ -8,6 +8,7 @@ const influencerApplication_routes_1 = __importDefault(require("./routes/influen
 const guideApplication_routes_1 = __importDefault(require("./routes/guideApplication.routes"));
 const subscription_routes_1 = __importDefault(require("./routes/subscription.routes"));
 const payment_routes_1 = __importDefault(require("./routes/payment.routes"));
+const blog_routes_1 = __importDefault(require("./routes/blog.routes"));
 // index.ts
 const express_1 = __importDefault(require("express"));
 const cors_1 = __importDefault(require("cors"));
@@ -53,6 +54,8 @@ app.use("/api/guide-applications", guideApplication_routes_1.default);
 // Subscription and Payment APIs
 app.use("/api/subscriptions", subscription_routes_1.default);
 app.use("/api/payments", payment_routes_1.default);
+// Blog API
+app.use("/api/blogs", blog_routes_1.default);
 // Error handling middleware
 app.use(errorHandler_1.notFound);
 app.use(errorHandler_1.errorHandler);
