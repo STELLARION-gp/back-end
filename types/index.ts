@@ -412,6 +412,37 @@ export interface NightCampVolunteering {
     created_at: string;
 }
 
+export interface NightCampVolunteeringApplication {
+    id: number;
+    night_camp_id: number;
+    user_id: number;
+    volunteering_role: string;
+    motivation?: string;
+    experience?: string;
+    availability?: string;
+    emergency_contact_name?: string;
+    emergency_contact_phone?: string;
+    emergency_contact_relationship?: string;
+    status: 'pending' | 'approved' | 'rejected';
+    application_date: string;
+    reviewed_by?: number;
+    reviewed_at?: string;
+    review_notes?: string;
+    created_at: string;
+    updated_at: string;
+}
+
+export interface CreateVolunteeringApplicationRequest {
+    night_camp_id: number;
+    volunteering_role: string;
+    motivation?: string;
+    experience?: string;
+    availability?: string;
+    emergency_contact_name?: string;
+    emergency_contact_phone?: string;
+    emergency_contact_relationship?: string;
+}
+
 export interface CreateNightCampRequest {
     name: string;
     organized_by?: string;

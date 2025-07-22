@@ -163,8 +163,41 @@ CREATE INDEX IF NOT EXISTS idx_night_camps_equipment_camp_id ON night_camps_equi
 CREATE INDEX IF NOT EXISTS idx_night_camps_equipment_category ON night_camps_equipment(category);
 CREATE INDEX IF NOT EXISTS idx_night_camp_volunteering_camp_id ON night_camp_volunteering(night_camp_id);
 
+-- Night Camp Volunteering Applications table
+CREATE TABLE IF NOT EXISTS night_camp_volunteering_applications (
+    id SERIAL PRIMARY KEY,
+    night_camp_id INTEGER REFERENCES night_camps(id) ON DELETE CASCADE,
+    user_id INTEGER REFERENCES users(id) ON DELETE CASCADE,
+    volunteering_role VARCHAR(255) NOT NULL,
+    motivation TEXT,
+    experience TEXT,
+    availability TEXT,
+    emergency_contact_name VARCHAR(255),
+    emergency_contact_phone VARCHAR(50),
+    emergency_contact_relationship VARCHAR(100),
+    status VARCHAR(50) DEFAULT 'pending', -- pending, approved, rejected
+    application_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    reviewed_by INTEGER REFERENCES users(id),
+    reviewed_at TIMESTAMP,
+    review_notes TEXT,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    UNIQUE(night_camp_id, user_id, volunteering_role) -- Prevent duplicate applications for same role
+);
+
+-- Index for volunteering applications
+CREATE INDEX IF NOT EXISTS idx_night_camp_volunteering_applications_camp_id ON night_camp_volunteering_applications(night_camp_id);
+CREATE INDEX IF NOT EXISTS idx_night_camp_volunteering_applications_user_id ON night_camp_volunteering_applications(user_id);
+CREATE INDEX IF NOT EXISTS idx_night_camp_volunteering_applications_status ON night_camp_volunteering_applications(status);
+
 -- Triggers to automatically update updated_at for night_camps
 CREATE TRIGGER update_night_camps_updated_at 
     BEFORE UPDATE ON night_camps 
+    FOR EACH ROW 
+    EXECUTE FUNCTION update_updated_at_column();
+
+-- Trigger for volunteering applications
+CREATE TRIGGER update_night_camp_volunteering_applications_updated_at 
+    BEFORE UPDATE ON night_camp_volunteering_applications 
     FOR EACH ROW 
     EXECUTE FUNCTION update_updated_at_column();

@@ -1,7 +1,14 @@
 import { Request, Response } from 'express';
 import { Pool } from 'pg';
 import pool from '../db';
-import { CreateNightCampRequest, NightCamp, NightCampWithDetails, EquipmentCategory } from '../types';
+import { 
+    CreateNightCampRequest, 
+    NightCamp, 
+    NightCampWithDetails, 
+    EquipmentCategory, 
+    CreateVolunteeringApplicationRequest,
+    NightCampVolunteeringApplication 
+} from '../types';
 
 export class NightCampController {
     // Create a new night camp
@@ -533,6 +540,203 @@ export class NightCampController {
         } catch (error) {
             console.error('Error fetching volunteering roles:', error);
             res.status(500).json({ error: 'Failed to fetch volunteering roles' });
+        }
+    }
+
+    // Apply for volunteering role
+    static async applyForVolunteering(req: Request, res: Response): Promise<void> {
+        const client = await pool.connect();
+        
+        try {
+            // Get user information from the verified token
+            const authenticatedUser = (req as any).user;
+            if (!authenticatedUser) {
+                res.status(401).json({ error: 'Authentication required' });
+                return;
+            }
+
+            // Get full user details from database using firebase_uid
+            const userQuery = 'SELECT * FROM users WHERE firebase_uid = $1';
+            const userResult = await client.query(userQuery, [authenticatedUser.firebase_uid]);
+            
+            if (userResult.rows.length === 0) {
+                res.status(404).json({ 
+                    error: 'User not found in database',
+                    debug: `Looking for firebase_uid: ${authenticatedUser.firebase_uid}` 
+                });
+                return;
+            }
+
+            const dbUser = userResult.rows[0];
+            
+            const {
+                night_camp_id,
+                volunteering_role,
+                motivation,
+                experience,
+                availability,
+                emergency_contact_name,
+                emergency_contact_phone,
+                emergency_contact_relationship
+            } = req.body;
+
+            // Validate required fields
+            if (!night_camp_id || !volunteering_role) {
+                res.status(400).json({ 
+                    error: 'Missing required fields: night_camp_id, volunteering_role' 
+                });
+                return;
+            }
+
+            // Check if night camp exists
+            const nightCampQuery = 'SELECT id FROM night_camps WHERE id = $1';
+            const nightCampResult = await client.query(nightCampQuery, [night_camp_id]);
+            
+            if (nightCampResult.rows.length === 0) {
+                res.status(404).json({ error: 'Night camp not found' });
+                return;
+            }
+
+            // Check if role exists for this night camp
+            const roleQuery = 'SELECT id FROM night_camp_volunteering WHERE night_camp_id = $1 AND volunteering_role = $2';
+            const roleResult = await client.query(roleQuery, [night_camp_id, volunteering_role]);
+            
+            if (roleResult.rows.length === 0) {
+                res.status(404).json({ error: 'Volunteering role not found for this night camp' });
+                return;
+            }
+
+            // Check if user already applied for this role in this camp
+            const existingApplicationQuery = `
+                SELECT id FROM night_camp_volunteering_applications 
+                WHERE night_camp_id = $1 AND user_id = $2 AND volunteering_role = $3
+            `;
+            const existingApplicationResult = await client.query(existingApplicationQuery, [
+                night_camp_id, dbUser.id, volunteering_role
+            ]);
+            
+            if (existingApplicationResult.rows.length > 0) {
+                res.status(409).json({ error: 'You have already applied for this role in this night camp' });
+                return;
+            }
+
+            // Insert application
+            const applicationQuery = `
+                INSERT INTO night_camp_volunteering_applications (
+                    night_camp_id, user_id, volunteering_role, motivation, experience, 
+                    availability, emergency_contact_name, emergency_contact_phone, 
+                    emergency_contact_relationship
+                ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)
+                RETURNING *
+            `;
+
+            const applicationResult = await client.query(applicationQuery, [
+                night_camp_id,
+                dbUser.id,
+                volunteering_role,
+                motivation,
+                experience,
+                availability,
+                emergency_contact_name,
+                emergency_contact_phone,
+                emergency_contact_relationship
+            ]);
+
+            res.status(201).json({
+                message: 'Volunteering application submitted successfully',
+                data: applicationResult.rows[0]
+            });
+
+        } catch (error) {
+            console.error('Error submitting volunteering application:', error);
+            res.status(500).json({ error: 'Failed to submit volunteering application' });
+        } finally {
+            client.release();
+        }
+    }
+
+    // Get user's volunteering applications
+    static async getUserVolunteeringApplications(req: Request, res: Response): Promise<void> {
+        const client = await pool.connect();
+        
+        try {
+            // Get user information from the verified token
+            const authenticatedUser = (req as any).user;
+            if (!authenticatedUser) {
+                res.status(401).json({ error: 'Authentication required' });
+                return;
+            }
+
+            // Get full user details from database using firebase_uid
+            const userQuery = 'SELECT * FROM users WHERE firebase_uid = $1';
+            const userResult = await client.query(userQuery, [authenticatedUser.firebase_uid]);
+            
+            if (userResult.rows.length === 0) {
+                res.status(404).json({ 
+                    error: 'User not found in database',
+                    debug: `Looking for firebase_uid: ${authenticatedUser.firebase_uid}` 
+                });
+                return;
+            }
+
+            const dbUser = userResult.rows[0];
+
+            const applicationsQuery = `
+                SELECT 
+                    va.*,
+                    nc.name as night_camp_name,
+                    nc.date as night_camp_date,
+                    nc.location as night_camp_location,
+                    reviewer.first_name || ' ' || COALESCE(reviewer.last_name, '') as reviewed_by_name
+                FROM night_camp_volunteering_applications va
+                JOIN night_camps nc ON va.night_camp_id = nc.id
+                LEFT JOIN users reviewer ON va.reviewed_by = reviewer.id
+                WHERE va.user_id = $1
+                ORDER BY va.application_date DESC
+            `;
+
+            const applicationsResult = await client.query(applicationsQuery, [dbUser.id]);
+
+            res.json({ data: applicationsResult.rows });
+
+        } catch (error) {
+            console.error('Error fetching user volunteering applications:', error);
+            res.status(500).json({ error: 'Failed to fetch volunteering applications' });
+        } finally {
+            client.release();
+        }
+    }
+
+    // Get all applications for a night camp (admin/moderator only)
+    static async getNightCampApplications(req: Request, res: Response): Promise<void> {
+        const client = await pool.connect();
+        
+        try {
+            const { id: nightCampId } = req.params;
+
+            const applicationsQuery = `
+                SELECT 
+                    va.*,
+                    u.first_name || ' ' || COALESCE(u.last_name, '') as applicant_name,
+                    u.email as applicant_email,
+                    u.display_name as applicant_display_name,
+                    reviewer.first_name || ' ' || COALESCE(reviewer.last_name, '') as reviewed_by_name
+                FROM night_camp_volunteering_applications va
+                JOIN users u ON va.user_id = u.id
+                LEFT JOIN users reviewer ON va.reviewed_by = reviewer.id
+                WHERE va.night_camp_id = $1
+                ORDER BY va.application_date DESC
+            `;
+
+            const applicationsResult = await client.query(applicationsQuery, [nightCampId]);
+
+            res.json({ data: applicationsResult.rows });
+
+        } catch (error) {
+            console.error('Error fetching night camp applications:', error);
+            res.status(500).json({ error: 'Failed to fetch night camp applications' });
+        } finally {
+            client.release();
         }
     }
 }

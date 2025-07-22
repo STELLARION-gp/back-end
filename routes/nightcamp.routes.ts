@@ -27,4 +27,13 @@ router.post('/:id/volunteering', verifyToken, requireRole(['moderator', 'admin']
 // Get volunteering roles for night camp (public access)
 router.get('/:id/volunteering', NightCampController.getVolunteeringRoles);
 
+// Apply for volunteering role (requires authentication)
+router.post('/volunteering/apply', verifyToken, NightCampController.applyForVolunteering);
+
+// Get user's volunteering applications (requires authentication)
+router.get('/volunteering/my-applications', verifyToken, NightCampController.getUserVolunteeringApplications);
+
+// Get all applications for a night camp (requires authentication and moderator role)
+router.get('/:id/applications', verifyToken, requireRole(['moderator', 'admin']), NightCampController.getNightCampApplications);
+
 export default router;
