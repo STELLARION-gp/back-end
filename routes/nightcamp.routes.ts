@@ -17,8 +17,8 @@ router.get('/:id', NightCampController.getNightCamp);
 // Update night camp (requires authentication and moderator role)
 router.put('/:id', verifyToken, requireRole(['moderator', 'admin']), NightCampController.updateNightCamp);
 
-// Delete night camp (requires authentication and admin role)
-router.delete('/:id', verifyToken, requireRole(['admin']), NightCampController.deleteNightCamp);
+// Delete night camp (requires authentication and moderator or admin role)
+router.delete('/:id', verifyToken, requireRole(['moderator', 'admin']), NightCampController.deleteNightCamp);
 
 // Volunteering routes
 // Add volunteering role to night camp (requires authentication and moderator role)

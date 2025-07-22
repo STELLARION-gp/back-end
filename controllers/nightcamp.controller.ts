@@ -315,10 +315,13 @@ export class NightCampController {
                 number_of_participants,
                 image_urls,
                 emergency_contact,
-                status
+                status,
+                activities,
+                equipment,
+                volunteering_roles
             } = req.body;
 
-            // Update night camp
+            // Update main night camp record
             const updateQuery = `
                 UPDATE night_camps SET 
                     name = COALESCE($1, name),
@@ -356,6 +359,72 @@ export class NightCampController {
                 await client.query('ROLLBACK');
                 res.status(404).json({ error: 'Night camp not found' });
                 return;
+            }
+
+            // Update activities if provided
+            if (activities !== undefined) {
+                // Delete existing activities
+                await client.query('DELETE FROM night_camps_activities WHERE night_camp_id = $1', [nightCampId]);
+                
+                // Insert new activities
+                if (activities && activities.length > 0) {
+                    const activityPromises = activities
+                        .filter((activity: string) => activity.trim() !== '')
+                        .map((activity: string) => 
+                            client.query(
+                                'INSERT INTO night_camps_activities (night_camp_id, activity) VALUES ($1, $2)',
+                                [nightCampId, activity.trim()]
+                            )
+                        );
+                    await Promise.all(activityPromises);
+                }
+            }
+
+            // Update equipment if provided
+            if (equipment !== undefined) {
+                // Delete existing equipment
+                await client.query('DELETE FROM night_camps_equipment WHERE night_camp_id = $1', [nightCampId]);
+                
+                // Insert new equipment
+                if (equipment) {
+                    const equipmentPromises: Promise<any>[] = [];
+                    
+                    Object.entries(equipment).forEach(([category, items]) => {
+                        if (Array.isArray(items)) {
+                            items
+                                .filter((item: string) => item.trim() !== '')
+                                .forEach((item: string) => {
+                                    equipmentPromises.push(
+                                        client.query(
+                                            'INSERT INTO night_camps_equipment (night_camp_id, category, equipment_name) VALUES ($1, $2, $3)',
+                                            [nightCampId, category as EquipmentCategory, item.trim()]
+                                        )
+                                    );
+                                });
+                        }
+                    });
+                    
+                    await Promise.all(equipmentPromises);
+                }
+            }
+
+            // Update volunteering roles if provided
+            if (volunteering_roles !== undefined) {
+                // Delete existing volunteering roles
+                await client.query('DELETE FROM night_camp_volunteering WHERE night_camp_id = $1', [nightCampId]);
+                
+                // Insert new volunteering roles
+                if (volunteering_roles && volunteering_roles.length > 0) {
+                    const volunteeringPromises = volunteering_roles
+                        .filter((role: string) => role.trim() !== '')
+                        .map((role: string) => 
+                            client.query(
+                                'INSERT INTO night_camp_volunteering (night_camp_id, volunteering_role) VALUES ($1, $2)',
+                                [nightCampId, role.trim()]
+                            )
+                        );
+                    await Promise.all(volunteeringPromises);
+                }
             }
 
             await client.query('COMMIT');
