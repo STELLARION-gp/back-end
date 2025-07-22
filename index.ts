@@ -4,6 +4,7 @@ import guideApplicationRoutes from "./routes/guideApplication.routes";
 import subscriptionRoutes from "./routes/subscription.routes";
 import paymentRoutes from "./routes/payment.routes";
 import blogRoutes from "./routes/blog.routes";
+import nightcampRoutes from "./routes/nightcamp.routes";
 // index.ts
 import express from "express";
 import cors from "cors";
@@ -59,6 +60,9 @@ app.use("/api/payments", paymentRoutes);
 
 // Blog API
 app.use("/api/blogs", blogRoutes);
+
+// Night Camp API
+app.use("/api/nightcamps", nightcampRoutes);
 
 // Error handling middleware
 app.use(notFound);
