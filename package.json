@@ -10,6 +10,8 @@
     "build": "tsc",
     "build:watch": "tsc --watch",
     "setup-db": "node scripts/setup-database.js",
+    "setup-blog": "node scripts/setup-blog-schema.js",
+    "migrate-blog": "node migrate-blog-schema.js",
     "reset-db": "node scripts/reset-database.js",
     "insert-sample-users": "node scripts/insert-sample-users.js",
     "create-firebase-users": "node scripts/create-firebase-users.js",

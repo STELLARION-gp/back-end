@@ -19,7 +19,8 @@ const buildBlogQuery = (filters: BlogFilters, userIdForLike?: number) => {
             b.*,
             u.first_name || ' ' || COALESCE(u.last_name, '') as author_name,
             u.email as author_email,
-            u.display_name as author_display_name
+            u.display_name as author_display_name,
+            COALESCE(like_counts.actual_like_count, 0) as like_count
     `;
     
     if (userIdForLike) {
@@ -31,11 +32,16 @@ const buildBlogQuery = (filters: BlogFilters, userIdForLike?: number) => {
     baseQuery += `
         FROM blogs b
         JOIN users u ON b.author_id = u.id
+        LEFT JOIN (
+            SELECT blog_id, COUNT(*) as actual_like_count 
+            FROM blog_likes 
+            GROUP BY blog_id
+        ) like_counts ON b.id = like_counts.blog_id
     `;
     
     if (userIdForLike) {
         baseQuery += `
-            LEFT JOIN blog_likes bl ON b.id = bl.blog_id AND bl.user_id = $${userIdForLike ? '1' : '0'}
+            LEFT JOIN blog_likes bl ON b.id = bl.blog_id AND bl.user_id = $1
         `;
     }
     
@@ -191,7 +197,8 @@ export const getBlogById = async (req: Request, res: Response): Promise<void> =>
                 b.*,
                 u.first_name || ' ' || COALESCE(u.last_name, '') as author_name,
                 u.email as author_email,
-                u.display_name as author_display_name
+                u.display_name as author_display_name,
+                COALESCE(like_counts.actual_like_count, 0) as like_count
         `;
         
         if (userId) {
@@ -203,6 +210,11 @@ export const getBlogById = async (req: Request, res: Response): Promise<void> =>
         query += `
             FROM blogs b
             JOIN users u ON b.author_id = u.id
+            LEFT JOIN (
+                SELECT blog_id, COUNT(*) as actual_like_count 
+                FROM blog_likes 
+                GROUP BY blog_id
+            ) like_counts ON b.id = like_counts.blog_id
         `;
         
         if (userId) {
@@ -565,10 +577,18 @@ export const toggleBlogLike = async (req: Request, res: Response): Promise<void>
             liked = true;
         }
 
-        // Get updated like count
+        // Get updated like count by counting actual likes
         const countResult = await db.query(
-            'SELECT like_count FROM blogs WHERE id = $1',
+            'SELECT COUNT(*) as like_count FROM blog_likes WHERE blog_id = $1',
             [id]
+        );
+
+        const actualLikeCount = parseInt(countResult.rows[0].like_count);
+
+        // Update the blogs table with the correct count
+        await db.query(
+            'UPDATE blogs SET like_count = $1 WHERE id = $2',
+            [actualLikeCount, id]
         );
 
         res.json({
@@ -576,7 +596,8 @@ export const toggleBlogLike = async (req: Request, res: Response): Promise<void>
             message: liked ? "Blog liked successfully" : "Blog unliked successfully",
             data: {
                 liked,
-                like_count: countResult.rows[0].like_count
+                like_count: actualLikeCount,
+                user_liked: liked
             }
         });
     } catch (error: any) {
