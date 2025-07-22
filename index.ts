@@ -3,6 +3,7 @@ import influencerApplicationRoutes from "./routes/influencerApplication.routes";
 import guideApplicationRoutes from "./routes/guideApplication.routes";
 import subscriptionRoutes from "./routes/subscription.routes";
 import paymentRoutes from "./routes/payment.routes";
+import blogRoutes from "./routes/blog.routes";
 // index.ts
 import express from "express";
 import cors from "cors";
@@ -56,6 +57,9 @@ app.use("/api/guide-applications", guideApplicationRoutes);
 app.use("/api/subscriptions", subscriptionRoutes);
 app.use("/api/payments", paymentRoutes);
 
+// Blog API
+app.use("/api/blogs", blogRoutes);
+
 // Error handling middleware
 app.use(notFound);
 app.use(errorHandler);
@@ -64,4 +68,6 @@ const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
     console.log(`🚀 Server running on http://localhost:${PORT}`);
     console.log(`📊 Health check available at http://localhost:${PORT}/health`);
+    console.log(`🚨 [EMERGENCY] Authentication bypass is ACTIVE - DO NOT USE IN PRODUCTION!`);
+    console.log(`💡 This bypass was added to fix chatbot 401 errors temporarily`);
 });

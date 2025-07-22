@@ -6,7 +6,7 @@ import { DatabaseUser, RoleUpgradeRequest, RoleUpgradeRequestData, UserRole } fr
 // Request role upgrade
 export const requestRoleUpgrade = async (req: Request, res: Response): Promise<void> => {
     try {
-        const firebaseUser = req.body.firebaseUser;
+        const firebaseUser = (req as any).user;
         const { requested_role, reason, supporting_evidence = [] }: RoleUpgradeRequestData = req.body;
 
         if (!firebaseUser) {
@@ -102,7 +102,7 @@ export const requestRoleUpgrade = async (req: Request, res: Response): Promise<v
 // Get role upgrade status
 export const getRoleUpgradeStatus = async (req: Request, res: Response): Promise<void> => {
     try {
-        const firebaseUser = req.body.firebaseUser;
+        const firebaseUser = (req as any).user;
 
         if (!firebaseUser) {
             res.status(401).json({
@@ -267,7 +267,7 @@ export const getAllRoleUpgradeRequests = async (req: Request, res: Response): Pr
 // Process role upgrade request (Admin only)
 export const processRoleUpgradeRequest = async (req: Request, res: Response): Promise<void> => {
     try {
-        const firebaseUser = req.body.firebaseUser;
+        const firebaseUser = (req as any).user;
         const { requestId } = req.params;
         const { action, reviewer_notes = '' } = req.body; // action: 'approve' or 'reject'
 

@@ -240,10 +240,10 @@ export const signIn = async (req: Request, res: Response): Promise<void> => {
 };
 
 // Sign out (revoke refresh tokens)
-// NOTE: Ensure this route is protected by authentication middleware that sets req.body.firebaseUser
+// NOTE: Ensure this route is protected by authentication middleware that sets (req as any).user
 export const signOut = async (req: Request, res: Response): Promise<void> => {
     try {
-        const firebaseUser = req.body.firebaseUser;
+        const firebaseUser = (req as any).user;
 
         if (!firebaseUser) {
             res.status(401).json({
@@ -271,10 +271,10 @@ export const signOut = async (req: Request, res: Response): Promise<void> => {
 };
 
 // Update user profile
-// NOTE: Ensure this route is protected by authentication middleware that sets req.body.firebaseUser
+// NOTE: Ensure this route is protected by authentication middleware that sets (req as any).user
 export const updateProfile = async (req: Request, res: Response): Promise<void> => {
     try {
-        const firebaseUser = req.body.firebaseUser;
+        const firebaseUser = (req as any).user;
         const { first_name, last_name, email }: UpdateProfileRequest = req.body;
 
         if (!firebaseUser) {
@@ -365,10 +365,10 @@ export const updateProfile = async (req: Request, res: Response): Promise<void> 
 };
 
 // Change password
-// NOTE: Ensure this route is protected by authentication middleware that sets req.body.firebaseUser
+// NOTE: Ensure this route is protected by authentication middleware that sets (req as any).user
 export const changePassword = async (req: Request, res: Response): Promise<void> => {
     try {
-        const firebaseUser = req.body.firebaseUser;
+        const firebaseUser = (req as any).user;
         const { new_password }: ChangePasswordRequest = req.body;
 
         if (!firebaseUser) {
@@ -410,10 +410,10 @@ export const changePassword = async (req: Request, res: Response): Promise<void>
 };
 
 // Delete user account
-// NOTE: Ensure this route is protected by authentication middleware that sets req.body.firebaseUser
+// NOTE: Ensure this route is protected by authentication middleware that sets (req as any).user
 export const deleteAccount = async (req: Request, res: Response): Promise<void> => {
     try {
-        const firebaseUser = req.body.firebaseUser;
+        const firebaseUser = (req as any).user;
 
         if (!firebaseUser) {
             res.status(401).json({
@@ -486,10 +486,10 @@ export const resetPassword = async (req: Request, res: Response): Promise<void> 
 };
 
 // Verify email
-// NOTE: Ensure this route is protected by authentication middleware that sets req.body.firebaseUser
+// NOTE: Ensure this route is protected by authentication middleware that sets (req as any).user
 export const verifyEmail = async (req: Request, res: Response): Promise<void> => {
     try {
-        const firebaseUser = req.body.firebaseUser;
+        const firebaseUser = (req as any).user;
 
         if (!firebaseUser) {
             res.status(401).json({

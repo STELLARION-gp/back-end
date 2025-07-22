@@ -6,7 +6,7 @@ export const requireRole = (allowedRoles: UserRole[]) => {
   return async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     try {
       // User should already be attached by verifyToken middleware
-      const user = req.body.user;
+      const user = (req as any).user;
 
       if (!user) {
         res.status(401).json({

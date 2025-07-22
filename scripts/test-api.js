@@ -1,7 +1,7 @@
 // scripts/test-api.js
 const axios = require('axios');
 
-const API_BASE_URL = 'http://localhost:5432/api';
+const API_BASE_URL = 'http://localhost:5000/api';
 
 async function testAPI() {
   try {
@@ -9,7 +9,7 @@ async function testAPI() {
 
     // Test 1: Health check
     console.log('1. Testing health endpoint...');
-    const healthResponse = await axios.get('http://localhost:5432/health');
+    const healthResponse = await axios.get('http://localhost:5000/health');
     console.log(`✅ Health check: ${healthResponse.data.message}\n`);
 
     // Test 2: Test registration (without Firebase auth)
