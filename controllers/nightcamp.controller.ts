@@ -739,4 +739,130 @@ export class NightCampController {
             client.release();
         }
     }
+
+    // Delete a volunteering application (moderator/admin only)
+    static async deleteVolunteeringApplication(req: Request, res: Response): Promise<void> {
+        const client = await pool.connect();
+        
+        try {
+            const { applicationId } = req.params;
+            
+            // Get user information from the verified token
+            const authenticatedUser = (req as any).user;
+            if (!authenticatedUser) {
+                res.status(401).json({ error: 'Authentication required' });
+                return;
+            }
+
+            // Check if application exists
+            const checkQuery = `
+                SELECT id, user_id, night_camp_id 
+                FROM night_camp_volunteering_applications 
+                WHERE id = $1
+            `;
+            const checkResult = await client.query(checkQuery, [applicationId]);
+
+            if (checkResult.rows.length === 0) {
+                res.status(404).json({ error: 'Application not found' });
+                return;
+            }
+
+            // Delete the application
+            const deleteQuery = `
+                DELETE FROM night_camp_volunteering_applications 
+                WHERE id = $1
+                RETURNING *
+            `;
+            const deleteResult = await client.query(deleteQuery, [applicationId]);
+
+            if (deleteResult.rows.length === 0) {
+                res.status(404).json({ error: 'Application not found or could not be deleted' });
+                return;
+            }
+
+            res.json({ 
+                message: 'Volunteering application deleted successfully',
+                data: deleteResult.rows[0]
+            });
+
+        } catch (error) {
+            console.error('Error deleting volunteering application:', error);
+            res.status(500).json({ error: 'Failed to delete volunteering application' });
+        } finally {
+            client.release();
+        }
+    }
+
+    // Update volunteering application status (moderator/admin only)
+    static async updateApplicationStatus(req: Request, res: Response): Promise<void> {
+        const client = await pool.connect();
+        
+        try {
+            const { applicationId } = req.params;
+            const { status, review_notes } = req.body;
+            
+            // Get user information from the verified token
+            const authenticatedUser = (req as any).user;
+            if (!authenticatedUser) {
+                res.status(401).json({ error: 'Authentication required' });
+                return;
+            }
+
+            // Get full user details from database using firebase_uid
+            const userQuery = 'SELECT * FROM users WHERE firebase_uid = $1';
+            const userResult = await client.query(userQuery, [authenticatedUser.firebase_uid]);
+            
+            if (userResult.rows.length === 0) {
+                res.status(404).json({ error: 'User not found in database' });
+                return;
+            }
+
+            const dbUser = userResult.rows[0];
+
+            // Validate status
+            const validStatuses = ['pending', 'approved', 'rejected'];
+            if (!validStatuses.includes(status)) {
+                res.status(400).json({ error: 'Invalid status. Must be: pending, approved, or rejected' });
+                return;
+            }
+
+            // Check if application exists
+            const checkQuery = `
+                SELECT id, user_id, night_camp_id, status 
+                FROM night_camp_volunteering_applications 
+                WHERE id = $1
+            `;
+            const checkResult = await client.query(checkQuery, [applicationId]);
+
+            if (checkResult.rows.length === 0) {
+                res.status(404).json({ error: 'Application not found' });
+                return;
+            }
+
+            // Update the application status
+            const updateQuery = `
+                UPDATE night_camp_volunteering_applications 
+                SET status = $1, reviewed_by = $2, reviewed_at = CURRENT_TIMESTAMP, review_notes = $3
+                WHERE id = $4
+                RETURNING *
+            `;
+            const updateResult = await client.query(updateQuery, [status, dbUser.id, review_notes, applicationId]);
+
+            if (updateResult.rows.length === 0) {
+                res.status(404).json({ error: 'Application not found or could not be updated' });
+                return;
+            }
+
+            res.json({ 
+                message: `Application ${status} successfully`,
+                data: updateResult.rows[0]
+            });
+
+        } catch (error) {
+            console.error('Error updating application status:', error);
+            res.status(500).json({ error: 'Failed to update application status' });
+        } finally {
+            client.release();
+        }
+    }
 }

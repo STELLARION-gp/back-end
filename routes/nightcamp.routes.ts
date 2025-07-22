@@ -36,4 +36,10 @@ router.get('/volunteering/my-applications', verifyToken, NightCampController.get
 // Get all applications for a night camp (requires authentication and moderator role)
 router.get('/:id/applications', verifyToken, requireRole(['moderator', 'admin']), NightCampController.getNightCampApplications);
 
+// Delete a volunteering application (requires authentication and moderator role)
+router.delete('/applications/:applicationId', verifyToken, requireRole(['moderator', 'admin']), NightCampController.deleteVolunteeringApplication);
+
+// Update volunteering application status (requires authentication and moderator role)
+router.put('/applications/:applicationId/status', verifyToken, requireRole(['moderator', 'admin']), NightCampController.updateApplicationStatus);
+
 export default router;
