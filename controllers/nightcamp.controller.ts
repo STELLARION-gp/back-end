@@ -865,4 +865,142 @@ export class NightCampController {
             client.release();
         }
     }
+
+    // Update user's own volunteering application (user can only edit pending applications)
+    static async updateUserApplication(req: Request, res: Response): Promise<void> {
+        const client = await pool.connect();
+        
+        try {
+            const { applicationId } = req.params;
+            const { volunteering_role, motivation, experience, availability, emergency_contact_name, emergency_contact_phone, emergency_contact_relationship } = req.body;
+            
+            // Get user information from the verified token
+            const authenticatedUser = (req as any).user;
+            if (!authenticatedUser) {
+                res.status(401).json({ error: 'Authentication required' });
+                return;
+            }
+
+            // Get full user details from database using firebase_uid
+            const userQuery = 'SELECT * FROM users WHERE firebase_uid = $1';
+            const userResult = await client.query(userQuery, [authenticatedUser.firebase_uid]);
+            
+            if (userResult.rows.length === 0) {
+                res.status(404).json({ error: 'User not found in database' });
+                return;
+            }
+
+            const dbUser = userResult.rows[0];
+
+            // Check if application exists and belongs to the user
+            const checkQuery = `
+                SELECT id, user_id, status, night_camp_id, volunteering_role as current_role
+                FROM night_camp_volunteering_applications 
+                WHERE id = $1 AND user_id = $2
+            `;
+            const checkResult = await client.query(checkQuery, [applicationId, dbUser.id]);
+
+            if (checkResult.rows.length === 0) {
+                res.status(404).json({ error: 'Application not found or you do not have permission to edit it' });
+                return;
+            }
+
+            const application = checkResult.rows[0];
+
+            // Only allow editing if status is pending
+            if (application.status !== 'pending') {
+                res.status(400).json({ error: 'Can only edit pending applications' });
+                return;
+            }
+
+            // If volunteering_role is being changed, check for duplicate applications
+            if (volunteering_role && volunteering_role !== application.current_role) {
+                const duplicateCheckQuery = `
+                    SELECT id FROM night_camp_volunteering_applications 
+                    WHERE night_camp_id = $1 AND user_id = $2 AND volunteering_role = $3 AND id != $4
+                `;
+                const duplicateResult = await client.query(duplicateCheckQuery, [
+                    application.night_camp_id, 
+                    dbUser.id, 
+                    volunteering_role, 
+                    applicationId
+                ]);
+
+                if (duplicateResult.rows.length > 0) {
+                    res.status(400).json({ error: 'You have already applied for this role in this night camp' });
+                    return;
+                }
+            }
+
+            // Prepare update fields
+            const updateFields = [];
+            const updateValues = [];
+            let paramCount = 1;
+
+            if (volunteering_role) {
+                updateFields.push(`volunteering_role = $${paramCount++}`);
+                updateValues.push(volunteering_role);
+            }
+            if (motivation !== undefined) {
+                updateFields.push(`motivation = $${paramCount++}`);
+                updateValues.push(motivation);
+            }
+            if (experience !== undefined) {
+                updateFields.push(`experience = $${paramCount++}`);
+                updateValues.push(experience);
+            }
+            if (availability !== undefined) {
+                updateFields.push(`availability = $${paramCount++}`);
+                updateValues.push(availability);
+            }
+            if (emergency_contact_name !== undefined) {
+                updateFields.push(`emergency_contact_name = $${paramCount++}`);
+                updateValues.push(emergency_contact_name);
+            }
+            if (emergency_contact_phone !== undefined) {
+                updateFields.push(`emergency_contact_phone = $${paramCount++}`);
+                updateValues.push(emergency_contact_phone);
+            }
+            if (emergency_contact_relationship !== undefined) {
+                updateFields.push(`emergency_contact_relationship = $${paramCount++}`);
+                updateValues.push(emergency_contact_relationship);
+            }
+
+            if (updateFields.length === 0) {
+                res.status(400).json({ error: 'No fields to update' });
+                return;
+            }
+
+            // Add updated_at field
+            updateFields.push(`updated_at = CURRENT_TIMESTAMP`);
+            
+            // Add WHERE clause parameters
+            updateValues.push(applicationId, dbUser.id);
+
+            const updateQuery = `
+                UPDATE night_camp_volunteering_applications 
+                SET ${updateFields.join(', ')}
+                WHERE id = $${paramCount++} AND user_id = $${paramCount++}
+                RETURNING *
+            `;
+
+            const updateResult = await client.query(updateQuery, updateValues);
+
+            if (updateResult.rows.length === 0) {
+                res.status(404).json({ error: 'Application not found or could not be updated' });
+                return;
+            }
+
+            res.json({ 
+                message: 'Application updated successfully',
+                data: updateResult.rows[0]
+            });
+
+        } catch (error) {
+            console.error('Error updating user application:', error);
+            res.status(500).json({ error: 'Failed to update application' });
+        } finally {
+            client.release();
+        }
+    }
 }

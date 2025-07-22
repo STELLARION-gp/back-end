@@ -33,6 +33,9 @@ router.post('/volunteering/apply', verifyToken, NightCampController.applyForVolu
 // Get user's volunteering applications (requires authentication)
 router.get('/volunteering/my-applications', verifyToken, NightCampController.getUserVolunteeringApplications);
 
+// Update user's own volunteering application (requires authentication, pending applications only)
+router.put('/volunteering/my-applications/:applicationId', verifyToken, NightCampController.updateUserApplication);
+
 // Get all applications for a night camp (requires authentication and moderator role)
 router.get('/:id/applications', verifyToken, requireRole(['moderator', 'admin']), NightCampController.getNightCampApplications);
 
