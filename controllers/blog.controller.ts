@@ -20,7 +20,8 @@ const buildBlogQuery = (filters: BlogFilters, userIdForLike?: number) => {
             u.first_name || ' ' || COALESCE(u.last_name, '') as author_name,
             u.email as author_email,
             u.display_name as author_display_name,
-            COALESCE(like_counts.actual_like_count, 0) as like_count
+            COALESCE(like_counts.actual_like_count, 0) as like_count,
+            COALESCE(b.comment_count, 0) as comment_count
     `;
     
     if (userIdForLike) {
@@ -708,6 +709,12 @@ export const addBlogComment = async (req: Request, res: Response): Promise<void>
             [id, userId, parent_comment_id || null, content.trim()]
         );
 
+        // Update comment count in blogs table
+        await db.query(
+            'UPDATE blogs SET comment_count = comment_count + 1 WHERE id = $1',
+            [id]
+        );
+
         // Get comment with user info
         const commentWithUser = await db.query(
             `SELECT 
@@ -857,6 +864,12 @@ export const deleteBlogComment = async (req: Request, res: Response): Promise<vo
         await db.query(
             'DELETE FROM blog_comments WHERE id = $1 AND blog_id = $2',
             [commentId, id]
+        );
+
+        // Update comment count in blogs table
+        await db.query(
+            'UPDATE blogs SET comment_count = GREATEST(0, comment_count - 1) WHERE id = $1',
+            [id]
         );
 
         res.json({
