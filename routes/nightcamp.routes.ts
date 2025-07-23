@@ -14,6 +14,9 @@ router.get('/', NightCampController.getAllNightCamps);
 // Get specific night camp by ID (public access)
 router.get('/:id', NightCampController.getNightCamp);
 
+// Get confirmed registration count for a night camp (public access)
+router.get('/:id/confirmed-count', NightCampController.getConfirmedRegistrationCount);
+
 // Update night camp (requires authentication and moderator role)
 router.put('/:id', verifyToken, requireRole(['moderator', 'admin']), NightCampController.updateNightCamp);
 
