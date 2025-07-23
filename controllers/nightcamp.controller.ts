@@ -1600,4 +1600,53 @@ export class NightCampController {
             client.release();
         }
     }
+
+    // Get confirmed registration count for a night camp (public endpoint)
+    static async getConfirmedRegistrationCount(req: Request, res: Response): Promise<void> {
+        const client = await pool.connect();
+        
+        try {
+            const { id: nightCampId } = req.params;
+            const campId = parseInt(nightCampId);
+
+            if (isNaN(campId)) {
+                res.status(400).json({ error: 'Invalid night camp ID' });
+                return;
+            }
+
+            // Check if night camp exists
+            const campQuery = 'SELECT id, number_of_participants FROM night_camps WHERE id = $1';
+            const campResult = await client.query(campQuery, [campId]);
+            
+            if (campResult.rows.length === 0) {
+                res.status(404).json({ error: 'Night camp not found' });
+                return;
+            }
+
+            const camp = campResult.rows[0];
+
+            // Get confirmed registrations count
+            const confirmedCountQuery = `
+                SELECT COUNT(*) as count FROM night_camp_registrations 
+                WHERE camp_id = $1 AND status = 'confirmed'
+            `;
+            const confirmedCountResult = await client.query(confirmedCountQuery, [campId]);
+            const confirmedCount = parseInt(confirmedCountResult.rows[0].count);
+
+            res.json({ 
+                data: {
+                    nightCampId: campId,
+                    confirmedRegistrations: confirmedCount,
+                    maxCapacity: camp.number_of_participants,
+                    availableSlots: camp.number_of_participants - confirmedCount
+                }
+            });
+
+        } catch (error) {
+            console.error('Error fetching confirmed registration count:', error);
+            res.status(500).json({ error: 'Failed to fetch registration count' });
+        } finally {
+            client.release();
+        }
+    }
 }

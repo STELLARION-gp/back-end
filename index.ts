@@ -5,6 +5,7 @@ import subscriptionRoutes from "./routes/subscription.routes";
 import paymentRoutes from "./routes/payment.routes";
 import blogRoutes from "./routes/blog.routes";
 import nightcampRoutes from "./routes/nightcamp.routes";
+import nasaOpportunitiesRoutes from "./routes/nasaOpportunities.routes";
 // index.ts
 import express from "express";
 import cors from "cors";
@@ -63,6 +64,9 @@ app.use("/api/blogs", blogRoutes);
 
 // Night Camp API
 app.use("/api/nightcamps", nightcampRoutes);
+
+// NASA Opportunities API
+app.use("/api/nasa-opportunities", nasaOpportunitiesRoutes);
 
 // Error handling middleware
 app.use(notFound);
