@@ -183,8 +183,25 @@ export class NightCampController {
             const equipmentQuery = 'SELECT * FROM night_camps_equipment WHERE night_camp_id = $1 ORDER BY category, created_at';
             const equipmentResult = await client.query(equipmentQuery, [nightCampId]);
 
-            // Get volunteering
-            const volunteeringQuery = 'SELECT * FROM night_camp_volunteering WHERE night_camp_id = $1 ORDER BY created_at';
+            // Get volunteering with applicant counts (only approved volunteers)
+            const volunteeringQuery = `
+                SELECT 
+                    nv.*,
+                    COALESCE(approved_counts.number_of_applicants, 0) as number_of_applicants
+                FROM night_camp_volunteering nv
+                LEFT JOIN (
+                    SELECT 
+                        night_camp_id,
+                        volunteering_role,
+                        COUNT(*) as number_of_applicants
+                    FROM night_camp_volunteering_applications 
+                    WHERE night_camp_id = $1 AND status = 'approved'
+                    GROUP BY night_camp_id, volunteering_role
+                ) approved_counts ON nv.night_camp_id = approved_counts.night_camp_id 
+                    AND nv.volunteering_role = approved_counts.volunteering_role
+                WHERE nv.night_camp_id = $1 
+                ORDER BY nv.created_at
+            `;
             const volunteeringResult = await client.query(volunteeringQuery, [nightCampId]);
 
             // Parse image_urls if it's a string
@@ -999,6 +1016,586 @@ export class NightCampController {
         } catch (error) {
             console.error('Error updating user application:', error);
             res.status(500).json({ error: 'Failed to update application' });
+        } finally {
+            client.release();
+        }
+    }
+
+    // Register for night camp (learners and other users)
+    static async registerForNightCamp(req: Request, res: Response): Promise<void> {
+        const client = await pool.connect();
+        
+        try {
+            const { nightCampId } = req.params;
+            const campId = parseInt(nightCampId);
+            
+            // Get user information from the verified token
+            const authenticatedUser = (req as any).user;
+            if (!authenticatedUser) {
+                res.status(401).json({ error: 'Authentication required' });
+                return;
+            }
+
+            // Get full user details from database using firebase_uid
+            const userQuery = 'SELECT * FROM users WHERE firebase_uid = $1';
+            const userResult = await client.query(userQuery, [authenticatedUser.firebase_uid]);
+            
+            if (userResult.rows.length === 0) {
+                res.status(404).json({ error: 'User not found in database' });
+                return;
+            }
+
+            const dbUser = userResult.rows[0];
+
+            // Validate night camp ID
+            if (isNaN(campId)) {
+                res.status(400).json({ error: 'Invalid night camp ID' });
+                return;
+            }
+
+            // Check if night camp exists
+            const campQuery = 'SELECT * FROM night_camps WHERE id = $1';
+            const campResult = await client.query(campQuery, [campId]);
+            
+            if (campResult.rows.length === 0) {
+                res.status(404).json({ error: 'Night camp not found' });
+                return;
+            }
+
+            const camp = campResult.rows[0];
+
+            // Check if camp date is in the future
+            const campDate = new Date(camp.date);
+            const currentDate = new Date();
+            if (campDate <= currentDate) {
+                res.status(400).json({ error: 'Cannot register for past events' });
+                return;
+            }
+
+            // Check if user is already registered
+            const existingRegistrationQuery = `
+                SELECT id FROM night_camp_registrations 
+                WHERE camp_id = $1 AND user_id = $2
+            `;
+            const existingResult = await client.query(existingRegistrationQuery, [campId, dbUser.id]);
+
+            if (existingResult.rows.length > 0) {
+                res.status(400).json({ error: 'You are already registered for this night camp' });
+                return;
+            }
+
+            // Check if camp is full (only count confirmed registrations)
+            const registrationCountQuery = `
+                SELECT COUNT(*) as count FROM night_camp_registrations 
+                WHERE camp_id = $1 AND status = 'confirmed'
+            `;
+            const countResult = await client.query(registrationCountQuery, [campId]);
+            const currentRegistrations = parseInt(countResult.rows[0].count);
+
+            if (currentRegistrations >= camp.number_of_participants) {
+                res.status(400).json({ error: 'Night camp is full' });
+                return;
+            }
+
+            // Create registration with pending status
+            const registerQuery = `
+                INSERT INTO night_camp_registrations (
+                    camp_id, user_id, status, registered_date, registered_time
+                ) VALUES ($1, $2, $3, CURRENT_DATE, CURRENT_TIME)
+                RETURNING *
+            `;
+            const registerResult = await client.query(registerQuery, [
+                campId, 
+                dbUser.id, 
+                'pending'
+            ]);
+
+            res.status(201).json({ 
+                message: 'Registration submitted successfully and is pending approval',
+                data: registerResult.rows[0]
+            });
+
+        } catch (error) {
+            console.error('Error registering for night camp:', error);
+            res.status(500).json({ error: 'Failed to register for night camp' });
+        } finally {
+            client.release();
+        }
+    }
+
+    // Get user's night camp registrations
+    static async getUserRegistrations(req: Request, res: Response): Promise<void> {
+        const client = await pool.connect();
+        
+        try {
+            // Get user information from the verified token
+            const authenticatedUser = (req as any).user;
+            if (!authenticatedUser) {
+                res.status(401).json({ error: 'Authentication required' });
+                return;
+            }
+
+            // Get full user details from database using firebase_uid
+            const userQuery = 'SELECT * FROM users WHERE firebase_uid = $1';
+            const userResult = await client.query(userQuery, [authenticatedUser.firebase_uid]);
+            
+            if (userResult.rows.length === 0) {
+                res.status(404).json({ 
+                    error: 'User not found in database',
+                    debug: `Looking for firebase_uid: ${authenticatedUser.firebase_uid}` 
+                });
+                return;
+            }
+
+            const dbUser = userResult.rows[0];
+
+            const registrationsQuery = `
+                SELECT 
+                    nr.*,
+                    nc.name as night_camp_name,
+                    nc.date as night_camp_date,
+                    nc.time as night_camp_time,
+                    nc.location as night_camp_location
+                FROM night_camp_registrations nr
+                JOIN night_camps nc ON nr.camp_id = nc.id
+                WHERE nr.user_id = $1
+                ORDER BY nr.registered_date DESC
+            `;
+
+            const registrationsResult = await client.query(registrationsQuery, [dbUser.id]);
+
+            res.json({ data: registrationsResult.rows });
+
+        } catch (error) {
+            console.error('Error fetching user registrations:', error);
+            res.status(500).json({ error: 'Failed to fetch registrations' });
+        } finally {
+            client.release();
+        }
+    }
+
+    // Update registration status (admin/moderator only)
+    static async updateRegistrationStatus(req: Request, res: Response): Promise<void> {
+        const client = await pool.connect();
+        
+        try {
+            const { registrationId } = req.params;
+            const { status, review_notes } = req.body;
+            
+            // Get user information from the verified token
+            const authenticatedUser = (req as any).user;
+            if (!authenticatedUser) {
+                res.status(401).json({ error: 'Authentication required' });
+                return;
+            }
+
+            // Get full user details from database using firebase_uid
+            const userQuery = 'SELECT * FROM users WHERE firebase_uid = $1';
+            const userResult = await client.query(userQuery, [authenticatedUser.firebase_uid]);
+            
+            if (userResult.rows.length === 0) {
+                res.status(404).json({ error: 'User not found in database' });
+                return;
+            }
+
+            const dbUser = userResult.rows[0];
+
+            // Validate status
+            const validStatuses = ['pending', 'confirmed', 'cancelled', 'rejected'];
+            if (!validStatuses.includes(status)) {
+                res.status(400).json({ error: 'Invalid status. Must be: pending, confirmed, cancelled, or rejected' });
+                return;
+            }
+
+            // Check if registration exists
+            const checkQuery = `
+                SELECT nr.*, nc.name as camp_name, nc.number_of_participants
+                FROM night_camp_registrations nr
+                JOIN night_camps nc ON nr.camp_id = nc.id
+                WHERE nr.id = $1
+            `;
+            const checkResult = await client.query(checkQuery, [registrationId]);
+
+            if (checkResult.rows.length === 0) {
+                res.status(404).json({ error: 'Registration not found' });
+                return;
+            }
+
+            const registration = checkResult.rows[0];
+
+            // If approving (confirming), check if camp is full
+            if (status === 'confirmed' && registration.status !== 'confirmed') {
+                const registrationCountQuery = `
+                    SELECT COUNT(*) as count FROM night_camp_registrations 
+                    WHERE camp_id = $1 AND status = 'confirmed'
+                `;
+                const countResult = await client.query(registrationCountQuery, [registration.camp_id]);
+                const currentRegistrations = parseInt(countResult.rows[0].count);
+
+                if (currentRegistrations >= registration.number_of_participants) {
+                    res.status(400).json({ error: 'Cannot approve registration: Night camp is full' });
+                    return;
+                }
+            }
+
+            // Update the registration status
+            const updateQuery = `
+                UPDATE night_camp_registrations 
+                SET status = $1, updated_at = CURRENT_TIMESTAMP
+                WHERE id = $2
+                RETURNING *
+            `;
+            const updateResult = await client.query(updateQuery, [status, registrationId]);
+
+            if (updateResult.rows.length === 0) {
+                res.status(404).json({ error: 'Registration not found or could not be updated' });
+                return;
+            }
+
+            res.json({ 
+                message: `Registration ${status} successfully`,
+                data: updateResult.rows[0]
+            });
+
+        } catch (error) {
+            console.error('Error updating registration status:', error);
+            res.status(500).json({ error: 'Failed to update registration status' });
+        } finally {
+            client.release();
+        }
+    }
+
+    // Get all registrations for a night camp (admin/moderator only)
+    static async getNightCampRegistrations(req: Request, res: Response): Promise<void> {
+        const client = await pool.connect();
+        
+        try {
+            const { id: nightCampId } = req.params;
+
+            const registrationsQuery = `
+                SELECT 
+                    nr.*,
+                    u.first_name || ' ' || COALESCE(u.last_name, '') as user_name,
+                    u.email as user_email,
+                    u.display_name as user_display_name,
+                    nc.name as camp_name
+                FROM night_camp_registrations nr
+                JOIN users u ON nr.user_id = u.id
+                JOIN night_camps nc ON nr.camp_id = nc.id
+                WHERE nr.camp_id = $1
+                ORDER BY nr.registered_date DESC
+            `;
+
+            const registrationsResult = await client.query(registrationsQuery, [nightCampId]);
+
+            res.json({ data: registrationsResult.rows });
+
+        } catch (error) {
+            console.error('Error fetching night camp registrations:', error);
+            res.status(500).json({ error: 'Failed to fetch night camp registrations' });
+        } finally {
+            client.release();
+        }
+    }
+
+    // Get volunteer management dashboard for approved volunteers
+    static async getVolunteerManagement(req: Request, res: Response): Promise<void> {
+        const client = await pool.connect();
+        
+        try {
+            const { nightCampId } = req.params;
+            const campId = parseInt(nightCampId);
+            
+            console.log('🔧 [VOLUNTEER MANAGEMENT] Request for camp ID:', campId);
+            
+            // Get user information from the verified token
+            const authenticatedUser = (req as any).user;
+            if (!authenticatedUser) {
+                res.status(401).json({ error: 'Authentication required' });
+                return;
+            }
+
+            // Get full user details from database using firebase_uid
+            const userQuery = 'SELECT * FROM users WHERE firebase_uid = $1';
+            const userResult = await client.query(userQuery, [authenticatedUser.firebase_uid]);
+            
+            if (userResult.rows.length === 0) {
+                res.status(404).json({ error: 'User not found in database' });
+                return;
+            }
+
+            const dbUser = userResult.rows[0];
+            console.log('🔧 [VOLUNTEER MANAGEMENT] User found:', dbUser.email);
+
+            // Check if user is an approved volunteer for this camp
+            const volunteerCheckQuery = `
+                SELECT id FROM night_camp_volunteering_applications 
+                WHERE night_camp_id = $1 AND user_id = $2 AND status = 'approved'
+            `;
+            const volunteerCheckResult = await client.query(volunteerCheckQuery, [campId, dbUser.id]);
+
+            if (volunteerCheckResult.rows.length === 0) {
+                res.status(403).json({ error: 'Access denied. You must be an approved volunteer for this night camp.' });
+                return;
+            }
+
+            console.log('🔧 [VOLUNTEER MANAGEMENT] User is approved volunteer');
+
+            // Get complete night camp details
+            const nightCamp = await NightCampController.getNightCampById(campId);
+            if (!nightCamp) {
+                res.status(404).json({ error: 'Night camp not found' });
+                return;
+            }
+
+            // Get all approved volunteers for this camp with user details
+            const volunteersQuery = `
+                SELECT 
+                    va.*,
+                    u.first_name || ' ' || COALESCE(u.last_name, '') as volunteer_name,
+                    u.email as volunteer_email,
+                    u.display_name as volunteer_display_name
+                FROM night_camp_volunteering_applications va
+                JOIN users u ON va.user_id = u.id
+                WHERE va.night_camp_id = $1 AND va.status = 'approved'
+                ORDER BY va.volunteering_role, u.first_name
+            `;
+            const volunteersResult = await client.query(volunteersQuery, [campId]);
+
+            // Get all pending registrations for this camp
+            const pendingRegistrationsQuery = `
+                SELECT 
+                    nr.*,
+                    u.first_name || ' ' || COALESCE(u.last_name, '') as participant_name,
+                    u.email as participant_email,
+                    u.display_name as participant_display_name
+                FROM night_camp_registrations nr
+                JOIN users u ON nr.user_id = u.id
+                WHERE nr.camp_id = $1 AND nr.status = 'pending'
+                ORDER BY nr.registered_date ASC
+            `;
+            const pendingRegistrationsResult = await client.query(pendingRegistrationsQuery, [campId]);
+
+            // Get all approved/confirmed registrations for this camp
+            const approvedRegistrationsQuery = `
+                SELECT 
+                    nr.*,
+                    u.first_name || ' ' || COALESCE(u.last_name, '') as participant_name,
+                    u.email as participant_email,
+                    u.display_name as participant_display_name
+                FROM night_camp_registrations nr
+                JOIN users u ON nr.user_id = u.id
+                WHERE nr.camp_id = $1 AND nr.status = 'confirmed'
+                ORDER BY nr.registered_date ASC
+            `;
+            const approvedRegistrationsResult = await client.query(approvedRegistrationsQuery, [campId]);
+
+            // Get confirmed registrations count
+            const confirmedCountQuery = `
+                SELECT COUNT(*) as count FROM night_camp_registrations 
+                WHERE camp_id = $1 AND status = 'confirmed'
+            `;
+            const confirmedCountResult = await client.query(confirmedCountQuery, [campId]);
+            const confirmedParticipants = parseInt(confirmedCountResult.rows[0].count);
+
+            const responseData = {
+                nightCamp,
+                volunteers: volunteersResult.rows.map(vol => ({
+                    id: vol.id,
+                    user_id: vol.user_id,
+                    user_name: vol.volunteer_name,
+                    email: vol.volunteer_email,
+                    volunteering_role: vol.volunteering_role,
+                    status: vol.status
+                })),
+                pendingRegistrations: pendingRegistrationsResult.rows.map(reg => ({
+                    id: reg.id,
+                    user_id: reg.user_id,
+                    user_name: reg.participant_name,
+                    email: reg.participant_email,
+                    registration_date: reg.registered_date,
+                    status: reg.status
+                })),
+                approvedRegistrations: approvedRegistrationsResult.rows.map(reg => ({
+                    id: reg.id,
+                    user_id: reg.user_id,
+                    user_name: reg.participant_name,
+                    email: reg.participant_email,
+                    registration_date: reg.registered_date,
+                    status: reg.status
+                })),
+                totalApproved: confirmedParticipants,
+                maxCapacity: nightCamp.number_of_participants,
+                availableSlots: nightCamp.number_of_participants - confirmedParticipants
+            };
+
+            res.json({ data: responseData });
+
+        } catch (error) {
+            console.error('Error fetching volunteer management data:', error);
+            res.status(500).json({ error: 'Failed to fetch volunteer management data' });
+        } finally {
+            client.release();
+        }
+    }
+
+    // Approve registration (for approved volunteers)
+    static async approveRegistrationByVolunteer(req: Request, res: Response): Promise<void> {
+        const client = await pool.connect();
+        
+        try {
+            const { registrationId } = req.params;
+            
+            // Get user information from the verified token
+            const authenticatedUser = (req as any).user;
+            if (!authenticatedUser) {
+                res.status(401).json({ error: 'Authentication required' });
+                return;
+            }
+
+            // Get full user details from database using firebase_uid
+            const userQuery = 'SELECT * FROM users WHERE firebase_uid = $1';
+            const userResult = await client.query(userQuery, [authenticatedUser.firebase_uid]);
+            
+            if (userResult.rows.length === 0) {
+                res.status(404).json({ error: 'User not found in database' });
+                return;
+            }
+
+            const dbUser = userResult.rows[0];
+
+            // Get registration details first to get the camp ID
+            const registrationCheckQuery = `
+                SELECT nr.*, nc.number_of_participants, nc.name as camp_name,
+                       (SELECT COUNT(*) FROM night_camp_registrations WHERE camp_id = nr.camp_id AND status = 'confirmed') as confirmed_count
+                FROM night_camp_registrations nr
+                JOIN night_camps nc ON nr.camp_id = nc.id
+                WHERE nr.id = $1 AND nr.status = 'pending'
+            `;
+            const registrationCheckResult = await client.query(registrationCheckQuery, [registrationId]);
+
+            if (registrationCheckResult.rows.length === 0) {
+                res.status(404).json({ error: 'Registration not found or not pending' });
+                return;
+            }
+
+            const registration = registrationCheckResult.rows[0];
+
+            // Check if user is an approved volunteer for this camp
+            const volunteerCheckQuery = `
+                SELECT id FROM night_camp_volunteering_applications 
+                WHERE night_camp_id = $1 AND user_id = $2 AND status = 'approved'
+            `;
+            const volunteerCheckResult = await client.query(volunteerCheckQuery, [registration.camp_id, dbUser.id]);
+
+            if (volunteerCheckResult.rows.length === 0) {
+                res.status(403).json({ error: 'Access denied. You must be an approved volunteer for this night camp.' });
+                return;
+            }
+
+            // Check if camp has available capacity
+            if (registration.confirmed_count >= registration.number_of_participants) {
+                res.status(400).json({ error: 'Camp is at full capacity. Cannot approve more registrations.' });
+                return;
+            }
+
+            // Update registration status to confirmed
+            const updateQuery = `
+                UPDATE night_camp_registrations 
+                SET status = 'confirmed', updated_at = NOW()
+                WHERE id = $1
+                RETURNING *
+            `;
+            const updateResult = await client.query(updateQuery, [registrationId]);
+
+            console.log('✅ [VOLUNTEER] Registration approved by volunteer:', dbUser.email, 'for camp:', registration.camp_name);
+
+            res.json({ 
+                message: 'Registration approved successfully',
+                data: updateResult.rows[0]
+            });
+
+        } catch (error) {
+            console.error('Error approving registration:', error);
+            res.status(500).json({ error: 'Failed to approve registration' });
+        } finally {
+            client.release();
+        }
+    }
+
+    // Reject registration (for approved volunteers)
+    static async rejectRegistrationByVolunteer(req: Request, res: Response): Promise<void> {
+        const client = await pool.connect();
+        
+        try {
+            const { registrationId } = req.params;
+            const { reason } = req.body;
+            
+            // Get user information from the verified token
+            const authenticatedUser = (req as any).user;
+            if (!authenticatedUser) {
+                res.status(401).json({ error: 'Authentication required' });
+                return;
+            }
+
+            // Get full user details from database using firebase_uid
+            const userQuery = 'SELECT * FROM users WHERE firebase_uid = $1';
+            const userResult = await client.query(userQuery, [authenticatedUser.firebase_uid]);
+            
+            if (userResult.rows.length === 0) {
+                res.status(404).json({ error: 'User not found in database' });
+                return;
+            }
+
+            const dbUser = userResult.rows[0];
+
+            // Get registration details first to get the camp ID
+            const registrationCheckQuery = `
+                SELECT nr.*, nc.name as camp_name
+                FROM night_camp_registrations nr
+                JOIN night_camps nc ON nr.camp_id = nc.id
+                WHERE nr.id = $1 AND nr.status = 'pending'
+            `;
+            const registrationCheckResult = await client.query(registrationCheckQuery, [registrationId]);
+
+            if (registrationCheckResult.rows.length === 0) {
+                res.status(404).json({ error: 'Registration not found or not pending' });
+                return;
+            }
+
+            const registration = registrationCheckResult.rows[0];
+
+            // Check if user is an approved volunteer for this camp
+            const volunteerCheckQuery = `
+                SELECT id FROM night_camp_volunteering_applications 
+                WHERE night_camp_id = $1 AND user_id = $2 AND status = 'approved'
+            `;
+            const volunteerCheckResult = await client.query(volunteerCheckQuery, [registration.camp_id, dbUser.id]);
+
+            if (volunteerCheckResult.rows.length === 0) {
+                res.status(403).json({ error: 'Access denied. You must be an approved volunteer for this night camp.' });
+                return;
+            }
+
+            // Update registration status to rejected
+            const updateQuery = `
+                UPDATE night_camp_registrations 
+                SET status = 'rejected', updated_at = NOW()
+                WHERE id = $1
+                RETURNING *
+            `;
+            const updateResult = await client.query(updateQuery, [registrationId]);
+
+            console.log('❌ [VOLUNTEER] Registration rejected by volunteer:', dbUser.email, 'for camp:', registration.camp_name, 'Reason:', reason || 'No reason provided');
+
+            res.json({ 
+                message: 'Registration rejected successfully',
+                data: updateResult.rows[0]
+            });
+
+        } catch (error) {
+            console.error('Error rejecting registration:', error);
+            res.status(500).json({ error: 'Failed to reject registration' });
         } finally {
             client.release();
         }

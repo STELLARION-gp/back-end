@@ -36,6 +36,13 @@ router.get('/volunteering/my-applications', verifyToken, NightCampController.get
 // Update user's own volunteering application (requires authentication, pending applications only)
 router.put('/volunteering/my-applications/:applicationId', verifyToken, NightCampController.updateUserApplication);
 
+// Registration routes
+// Register for night camp (requires authentication)
+router.post('/:nightCampId/register', verifyToken, NightCampController.registerForNightCamp);
+
+// Get user's night camp registrations (requires authentication)
+router.get('/registrations/my-registrations', verifyToken, NightCampController.getUserRegistrations);
+
 // Get all applications for a night camp (requires authentication and moderator role)
 router.get('/:id/applications', verifyToken, requireRole(['moderator', 'admin']), NightCampController.getNightCampApplications);
 
@@ -44,5 +51,22 @@ router.delete('/applications/:applicationId', verifyToken, requireRole(['moderat
 
 // Update volunteering application status (requires authentication and moderator role)
 router.put('/applications/:applicationId/status', verifyToken, requireRole(['moderator', 'admin']), NightCampController.updateApplicationStatus);
+
+// Registration management routes (admin/moderator only)
+// Get all registrations for a night camp (requires authentication and moderator role)
+router.get('/:id/registrations', verifyToken, requireRole(['moderator', 'admin']), NightCampController.getNightCampRegistrations);
+
+// Update registration status (requires authentication and moderator role)
+router.put('/registrations/:registrationId/status', verifyToken, requireRole(['moderator', 'admin']), NightCampController.updateRegistrationStatus);
+
+// Volunteer Management routes (approved volunteers only)
+// Get volunteer management dashboard for approved volunteers
+router.get('/:nightCampId/volunteer-management', verifyToken, NightCampController.getVolunteerManagement);
+
+// Approve registration by volunteer (approved volunteers only)
+router.put('/volunteer/registrations/:registrationId/approve', verifyToken, NightCampController.approveRegistrationByVolunteer);
+
+// Reject registration by volunteer (approved volunteers only)
+router.put('/volunteer/registrations/:registrationId/reject', verifyToken, NightCampController.rejectRegistrationByVolunteer);
 
 export default router;
