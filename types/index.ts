@@ -368,3 +368,103 @@ export interface CreateCommentRequest {
 export interface UpdateCommentRequest {
     content: string;
 }
+
+// Night Camp types
+export type EquipmentCategory = 'provided' | 'required' | 'optional';
+
+export interface NightCamp {
+    id: number;
+    name: string;
+    organized_by?: string;
+    sponsored_by?: string;
+    description?: string;
+    date: string;
+    time?: string;
+    location: string;
+    number_of_participants: number;
+    image_urls: string[];
+    emergency_contact?: string;
+    status?: string;
+    created_at: string;
+    updated_at: string;
+}
+
+export interface NightCampActivity {
+    id: number;
+    night_camp_id: number;
+    activity: string;
+    created_at: string;
+}
+
+export interface NightCampEquipment {
+    id: number;
+    night_camp_id: number;
+    category: EquipmentCategory;
+    equipment_name: string;
+    created_at: string;
+}
+
+export interface NightCampVolunteering {
+    id: number;
+    night_camp_id: number;
+    volunteering_role: string;
+    number_of_applicants: number;
+    created_at: string;
+}
+
+export interface NightCampVolunteeringApplication {
+    id: number;
+    night_camp_id: number;
+    user_id: number;
+    volunteering_role: string;
+    motivation?: string;
+    experience?: string;
+    availability?: string;
+    emergency_contact_name?: string;
+    emergency_contact_phone?: string;
+    emergency_contact_relationship?: string;
+    status: 'pending' | 'approved' | 'rejected';
+    application_date: string;
+    reviewed_by?: number;
+    reviewed_at?: string;
+    review_notes?: string;
+    created_at: string;
+    updated_at: string;
+}
+
+export interface CreateVolunteeringApplicationRequest {
+    night_camp_id: number;
+    volunteering_role: string;
+    motivation?: string;
+    experience?: string;
+    availability?: string;
+    emergency_contact_name?: string;
+    emergency_contact_phone?: string;
+    emergency_contact_relationship?: string;
+}
+
+export interface CreateNightCampRequest {
+    name: string;
+    organized_by?: string;
+    sponsored_by?: string;
+    description?: string;
+    date: string;
+    time?: string;
+    location: string;
+    number_of_participants: number;
+    image_urls: string[];
+    emergency_contact?: string;
+    activities: string[];
+    equipment: {
+        provided: string[];
+        required: string[];
+        optional: string[];
+    };
+    volunteering_roles: string[];
+}
+
+export interface NightCampWithDetails extends NightCamp {
+    activities: NightCampActivity[];
+    equipment: NightCampEquipment[];
+    volunteering: NightCampVolunteering[];
+}

@@ -9,15 +9,14 @@ import {
     changeMentorApplicationStatus
 } from '../controllers/mentorApplication.controller';
 import { verifyToken } from '../middleware/verifyToken';
-const { emergencyBypass } = require("../emergency-bypass.js"); // EMERGENCY BYPASS
 
 const router = Router();
 
-router.post('/', emergencyBypass, createMentorApplication);
-router.get('/', emergencyBypass, getMentorApplications);
-router.get('/:id', emergencyBypass, getMentorApplication);
-router.put('/:id', emergencyBypass, updateMentorApplication);
-router.delete('/:id', emergencyBypass, deleteMentorApplication);
-router.patch('/:id/status', emergencyBypass, changeMentorApplicationStatus);
+router.post('/', verifyToken, createMentorApplication);
+router.get('/', verifyToken, getMentorApplications);
+router.get('/:id', verifyToken, getMentorApplication);
+router.put('/:id', verifyToken, updateMentorApplication);
+router.delete('/:id', verifyToken, deleteMentorApplication);
+router.patch('/:id/status', verifyToken, changeMentorApplicationStatus);
 
 export default router;

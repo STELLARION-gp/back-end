@@ -104,3 +104,100 @@ CREATE TRIGGER update_blog_comment_count
 CREATE TRIGGER update_blog_like_count
     AFTER INSERT OR DELETE ON blog_likes
     FOR EACH ROW EXECUTE FUNCTION update_blog_stats();
+
+-- Night Camps System Tables
+
+-- Equipment category enum
+CREATE TYPE equipment_category AS ENUM ('provided', 'required', 'optional');
+
+-- Night Camps table
+CREATE TABLE IF NOT EXISTS night_camps (
+    id SERIAL PRIMARY KEY,
+    name VARCHAR(255) NOT NULL,
+    organized_by VARCHAR(255),
+    sponsored_by VARCHAR(255),
+    description TEXT,
+    date DATE NOT NULL,
+    time TIME,
+    location VARCHAR(500) NOT NULL,
+    number_of_participants INTEGER DEFAULT 0,
+    image_urls JSONB DEFAULT '[]',
+    emergency_contact VARCHAR(255),
+    status VARCHAR(50) DEFAULT 'pending', 
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+-- Night Camps Activities table
+CREATE TABLE IF NOT EXISTS night_camps_activities (
+    id SERIAL PRIMARY KEY,
+    night_camp_id INTEGER REFERENCES night_camps(id) ON DELETE CASCADE,
+    activity VARCHAR(255) NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+-- Night Camps Equipment table
+CREATE TABLE IF NOT EXISTS night_camps_equipment (
+    id SERIAL PRIMARY KEY,
+    night_camp_id INTEGER REFERENCES night_camps(id) ON DELETE CASCADE,
+    category equipment_category NOT NULL,
+    equipment_name VARCHAR(255) NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+-- Night Camp Volunteering table
+CREATE TABLE IF NOT EXISTS night_camp_volunteering (
+    id SERIAL PRIMARY KEY,
+    night_camp_id INTEGER REFERENCES night_camps(id) ON DELETE CASCADE,
+    volunteering_role VARCHAR(255) NOT NULL,
+    number_of_applicants INTEGER DEFAULT 0,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+-- Indexes for better performance
+CREATE INDEX IF NOT EXISTS idx_night_camps_date ON night_camps(date);
+CREATE INDEX IF NOT EXISTS idx_night_camps_location ON night_camps(location);
+CREATE INDEX IF NOT EXISTS idx_night_camps_created_at ON night_camps(created_at);
+CREATE INDEX IF NOT EXISTS idx_night_camps_activities_camp_id ON night_camps_activities(night_camp_id);
+CREATE INDEX IF NOT EXISTS idx_night_camps_equipment_camp_id ON night_camps_equipment(night_camp_id);
+CREATE INDEX IF NOT EXISTS idx_night_camps_equipment_category ON night_camps_equipment(category);
+CREATE INDEX IF NOT EXISTS idx_night_camp_volunteering_camp_id ON night_camp_volunteering(night_camp_id);
+
+-- Night Camp Volunteering Applications table
+CREATE TABLE IF NOT EXISTS night_camp_volunteering_applications (
+    id SERIAL PRIMARY KEY,
+    night_camp_id INTEGER REFERENCES night_camps(id) ON DELETE CASCADE,
+    user_id INTEGER REFERENCES users(id) ON DELETE CASCADE,
+    volunteering_role VARCHAR(255) NOT NULL,
+    motivation TEXT,
+    experience TEXT,
+    availability TEXT,
+    emergency_contact_name VARCHAR(255),
+    emergency_contact_phone VARCHAR(50),
+    emergency_contact_relationship VARCHAR(100),
+    status VARCHAR(50) DEFAULT 'pending', -- pending, approved, rejected
+    application_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    reviewed_by INTEGER REFERENCES users(id),
+    reviewed_at TIMESTAMP,
+    review_notes TEXT,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    UNIQUE(night_camp_id, user_id, volunteering_role) -- Prevent duplicate applications for same role
+);
+
+-- Index for volunteering applications
+CREATE INDEX IF NOT EXISTS idx_night_camp_volunteering_applications_camp_id ON night_camp_volunteering_applications(night_camp_id);
+CREATE INDEX IF NOT EXISTS idx_night_camp_volunteering_applications_user_id ON night_camp_volunteering_applications(user_id);
+CREATE INDEX IF NOT EXISTS idx_night_camp_volunteering_applications_status ON night_camp_volunteering_applications(status);
+
+-- Triggers to automatically update updated_at for night_camps
+CREATE TRIGGER update_night_camps_updated_at 
+    BEFORE UPDATE ON night_camps 
+    FOR EACH ROW 
+    EXECUTE FUNCTION update_updated_at_column();
+
+-- Trigger for volunteering applications
+CREATE TRIGGER update_night_camp_volunteering_applications_updated_at 
+    BEFORE UPDATE ON night_camp_volunteering_applications 
+    FOR EACH ROW 
+    EXECUTE FUNCTION update_updated_at_column();

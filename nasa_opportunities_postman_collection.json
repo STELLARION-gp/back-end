@@ -1,0 +1,135 @@
+{
+  "info": {
+    "name": "NASA Opportunities API Tests",
+    "description": "Test collection for NASA opportunities endpoints",
+    "version": "1.0.0"
+  },
+  "item": [
+    {
+      "name": "Get All Opportunities",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Status code is 200\", function () {",
+              "    pm.response.to.have.status(200);",
+              "});",
+              "",
+              "pm.test(\"Response has success property\", function () {",
+              "    var jsonData = pm.response.json();",
+              "    pm.expect(jsonData).to.have.property('success');",
+              "    pm.expect(jsonData.success).to.be.true;",
+              "});",
+              "",
+              "pm.test(\"Response has data array\", function () {",
+              "    var jsonData = pm.response.json();",
+              "    pm.expect(jsonData).to.have.property('data');",
+              "    pm.expect(jsonData.data).to.be.an('array');",
+              "});"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/api/nasa-opportunities",
+          "host": ["{{baseUrl}}"],
+          "path": ["api", "nasa-opportunities"]
+        }
+      }
+    },
+    {
+      "name": "Get Opportunities with Filters",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/api/nasa-opportunities?type=internship&difficulty=Intermediate&remote=false",
+          "host": ["{{baseUrl}}"],
+          "path": ["api", "nasa-opportunities"],
+          "query": [
+            {
+              "key": "type",
+              "value": "internship"
+            },
+            {
+              "key": "difficulty",
+              "value": "Intermediate"
+            },
+            {
+              "key": "remote",
+              "value": "false"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "Get Opportunity Statistics",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/api/nasa-opportunities/stats",
+          "host": ["{{baseUrl}}"],
+          "path": ["api", "nasa-opportunities", "stats"]
+        }
+      }
+    },
+    {
+      "name": "Get TechPort Projects",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/api/nasa-opportunities/techport",
+          "host": ["{{baseUrl}}"],
+          "path": ["api", "nasa-opportunities", "techport"]
+        }
+      }
+    },
+    {
+      "name": "Get Citizen Science Projects",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/api/nasa-opportunities/citizen-science",
+          "host": ["{{baseUrl}}"],
+          "path": ["api", "nasa-opportunities", "citizen-science"]
+        }
+      }
+    },
+    {
+      "name": "Submit Application Interest",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"opportunityId\": \"1\",\n  \"userEmail\": \"test@example.com\",\n  \"message\": \"I am very interested in this NASA internship opportunity.\"\n}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/api/nasa-opportunities/interest",
+          "host": ["{{baseUrl}}"],
+          "path": ["api", "nasa-opportunities", "interest"]
+        }
+      }
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:5000",
+      "type": "string"
+    }
+  ]
+}
