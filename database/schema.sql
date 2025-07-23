@@ -54,28 +54,65 @@ CREATE TABLE IF NOT EXISTS influencer_application (
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
--- Guide Application Table
+-- Guide Application Table (Enhanced for comprehensive guide application)
 CREATE TABLE IF NOT EXISTS guide_application (
     application_id SERIAL PRIMARY KEY,
     user_id INTEGER REFERENCES users(id) ON DELETE CASCADE,
-    first_name VARCHAR(100),
-    last_name VARCHAR(100),
-    email VARCHAR(255),
-    phone_number VARCHAR(50),
-    country VARCHAR(100),
-    languages_spoken JSONB,
-    certifications JSONB,
-    stargazing_expertise JSONB,
-    operating_locations JSONB,
-    profile_bio TEXT,
-    services_offered JSONB,
-    max_group_size INT,
-    pricing_range VARCHAR(100),
-    photos_or_videos_links JSONB,
-    availability_schedule JSONB,
-    payment_method_pref payment_method,
+    -- Personal Information
+    first_name VARCHAR(255) NOT NULL,
+    last_name VARCHAR(255) NOT NULL,
+    email VARCHAR(255) NOT NULL,
+    phone VARCHAR(50) NOT NULL,
+    date_of_birth DATE,
+    address TEXT,
+    city VARCHAR(100),
+    
+    -- Professional Background
+    current_occupation VARCHAR(255),
+    education_level VARCHAR(100),
+    astronomy_education TEXT,
+    guide_experience TEXT,
+    total_experience INTEGER DEFAULT 0,
+    
+    -- Certifications & Skills
+    certifications JSONB DEFAULT '[]',
+    astronomy_skills JSONB DEFAULT '[]',
+    languages JSONB DEFAULT '[]',
+    first_aid BOOLEAN DEFAULT FALSE,
+    driving_license BOOLEAN DEFAULT FALSE,
+    
+    -- Camp-Specific Experience
+    camp_types JSONB DEFAULT '[]',
+    group_sizes JSONB DEFAULT '[]',
+    equipment_familiarity JSONB DEFAULT '[]',
+    outdoor_experience TEXT,
+    
+    -- Availability & Preferences
+    available_dates JSONB DEFAULT '[]',
+    preferred_locations JSONB DEFAULT '[]',
+    accommodation_needs TEXT,
+    transportation_needs TEXT,
+    
+    -- Additional Information
+    motivation TEXT,
+    special_skills TEXT,
+    emergency_contact JSONB DEFAULT '{}',
+    
+    -- Documents (Firebase Storage URLs)
+    documents JSONB DEFAULT '{}',
+    
+    -- Selected Camps
+    selected_camps JSONB DEFAULT '[]',
+    
+    -- Application Status
     application_status application_status DEFAULT 'pending',
     approve_application_status approve_application_status DEFAULT 'pending',
+    
+    -- Agreement
+    terms_accepted BOOLEAN DEFAULT FALSE,
+    background_check_consent BOOLEAN DEFAULT FALSE,
+    
+    -- System fields
     deletion_status BOOLEAN DEFAULT FALSE,
     submitted_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP

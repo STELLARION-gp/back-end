@@ -113,27 +113,145 @@ export interface InfluencerApplication {
 export interface GuideApplication {
     application_id: number;
     user_id: number;
+    // Personal Information
     first_name: string;
     last_name: string;
     email: string;
-    phone_number: string;
-    country: string;
-    languages_spoken: any; // JSONB
-    certifications: any; // JSONB
-    stargazing_expertise: any; // JSONB
-    operating_locations: any; // JSONB
-    profile_bio: string;
-    services_offered: any; // JSONB
-    max_group_size: number;
-    pricing_range: string;
-    photos_or_videos_links: any; // JSONB
-    availability_schedule: any; // JSONB
-    payment_method_pref: PaymentMethod;
+    phone: string;
+    date_of_birth?: string;
+    address?: string;
+    city?: string;
+    
+    // Professional Background
+    current_occupation?: string;
+    education_level?: string;
+    astronomy_education?: string;
+    guide_experience?: string;
+    total_experience: number;
+    
+    // Certifications & Skills
+    certifications: string[];
+    astronomy_skills: string[];
+    languages: string[];
+    first_aid: boolean;
+    driving_license: boolean;
+    
+    // Camp-Specific Experience
+    camp_types: string[];
+    group_sizes: string[];
+    equipment_familiarity: string[];
+    outdoor_experience?: string;
+    
+    // Availability & Preferences
+    available_dates: string[];
+    preferred_locations: string[];
+    accommodation_needs?: string;
+    transportation_needs?: string;
+    
+    // Additional Information
+    motivation?: string;
+    special_skills?: string;
+    emergency_contact: {
+        name: string;
+        relationship: string;
+        phone: string;
+    };
+    
+    // Documents (Firebase Storage URLs)
+    documents: {
+        resume?: string;
+        certifications?: string;
+        portfolio?: string;
+        references?: string;
+    };
+    
+    // Selected Camps
+    selected_camps: string[];
+    
+    // Application Status
     application_status: ApplicationStatus;
     approve_application_status: ApproveApplicationStatus;
+    
+    // Agreement
+    terms_accepted: boolean;
+    background_check_consent: boolean;
+    
+    // System fields
     deletion_status: boolean;
     submitted_at: string;
     updated_at: string;
+}
+
+export interface GuideApplicationRequest {
+    // Personal Information (using frontend naming convention)
+    fullName: string;      // Will be split into first_name and last_name
+    email: string;
+    phone: string;
+    dateOfBirth?: string;
+    address?: string;
+    city?: string;
+    
+    // Professional Background
+    currentOccupation?: string;
+    educationLevel?: string;
+    astronomyEducation?: string;
+    guideExperience?: string;
+    totalExperience: number;
+    
+    // Certifications & Skills
+    certifications: string[];
+    astronomySkills: string[];
+    languages: string[];
+    firstAid: boolean;
+    drivingLicense: boolean;
+    
+    // Camp-Specific Experience
+    campTypes: string[];
+    groupSizes: string[];
+    equipmentFamiliarity: string[];
+    outdoorExperience?: string;
+    
+    // Availability & Preferences
+    availableDates: string[];
+    preferredLocations: string[];
+    accommodationNeeds?: string;
+    transportationNeeds?: string;
+    
+    // Additional Information
+    motivation?: string;
+    specialSkills?: string;
+    emergencyContact: {
+        name: string;
+        relationship: string;
+        phone: string;
+    };
+    
+    // Documents (Files for upload)
+    documents?: {
+        resume?: File | null;
+        certifications?: File | null;
+        portfolio?: File | null;
+        references?: File | null;
+    };
+    
+    // Selected Camps
+    selectedCamps: string[];
+    
+    // Agreement
+    termsAccepted: boolean;
+    backgroundCheckConsent: boolean;
+}
+
+export interface CampEvent {
+    id: string;
+    title: string;
+    date: string;
+    location: string;
+    duration: string;
+    participants: number;
+    type: 'stargazing' | 'astrophotography' | 'workshop' | 'expedition';
+    description: string;
+    requirements: string[];
 }
 // types/index.ts
 import { DecodedIdToken } from 'firebase-admin/auth';

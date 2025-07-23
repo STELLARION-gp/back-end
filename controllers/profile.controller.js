@@ -37,41 +37,62 @@ const getDetailedProfile = (req, res) => __awaiter(void 0, void 0, void 0, funct
         `;
         let result = yield db_1.default.query(userQuery, [firebaseUser.uid]);
         if (result.rows.length === 0) {
-            console.log('⚠️ User not found in database, auto-creating...');
+            console.log('⚠️ User not found by Firebase UID, checking by email...');
             // Auto-create user if they don't exist but have valid Firebase token
             const email = firebaseUser.email;
             const name = firebaseUser.name || firebaseUser.display_name || '';
-            // Parse name into first and last name
-            let firstName = '';
-            let lastName = '';
-            if (name) {
-                const nameParts = name.split(' ');
-                firstName = nameParts[0] || '';
-                lastName = nameParts.slice(1).join(' ') || '';
-            }
-            // Extract display name from email if name not available
-            const displayName = name || email.split('@')[0];
-            try {
-                // Create user
-                const createResult = yield db_1.default.query(`INSERT INTO users (firebase_uid, email, role, first_name, last_name, display_name, is_active, last_login, created_at, updated_at) 
-                     VALUES ($1, $2, $3, $4, $5, $6, true, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP) 
-                     RETURNING *`, [firebaseUser.uid, email, 'learner', firstName, lastName, displayName]);
-                const newUser = createResult.rows[0];
-                // Create default user settings
-                yield db_1.default.query(`INSERT INTO user_settings (user_id, language, email_notifications, push_notifications, profile_visibility, allow_direct_messages, show_online_status, theme, timezone) 
-                     VALUES ($1, 'en', true, true, 'public', true, true, 'dark', 'UTC')`, [newUser.id]);
-                console.log('✅ User and settings auto-created successfully:', newUser.firebase_uid);
-                // Query again to get the user with settings
+            // First check if user exists by email
+            const emailCheckQuery = `
+                SELECT u.*, s.language, s.email_notifications, s.push_notifications, 
+                       s.profile_visibility, s.allow_direct_messages, s.show_online_status, 
+                       s.theme, s.timezone
+                FROM users u
+                LEFT JOIN user_settings s ON u.id = s.user_id
+                WHERE u.email = $1
+            `;
+            const emailResult = yield db_1.default.query(emailCheckQuery, [email]);
+            if (emailResult.rows.length > 0) {
+                console.log('🔄 User found by email, updating Firebase UID...');
+                // Update the existing user's Firebase UID
+                yield db_1.default.query(`UPDATE users SET firebase_uid = $1, last_login = CURRENT_TIMESTAMP, updated_at = CURRENT_TIMESTAMP WHERE email = $2`, [firebaseUser.uid, email]);
+                // Query again to get the updated user with settings
                 result = yield db_1.default.query(userQuery, [firebaseUser.uid]);
+                console.log('✅ Firebase UID updated successfully for existing user');
             }
-            catch (createError) {
-                console.error('❌ Error creating user:', createError);
-                res.status(500).json({
-                    success: false,
-                    message: "Failed to create user profile",
-                    error: createError instanceof Error ? createError.message : 'Unknown error'
-                });
-                return;
+            else {
+                console.log('👤 Creating new user...');
+                // Parse name into first and last name
+                let firstName = '';
+                let lastName = '';
+                if (name) {
+                    const nameParts = name.split(' ');
+                    firstName = nameParts[0] || '';
+                    lastName = nameParts.slice(1).join(' ') || '';
+                }
+                // Extract display name from email if name not available
+                const displayName = name || email.split('@')[0];
+                try {
+                    // Create user
+                    const createResult = yield db_1.default.query(`INSERT INTO users (firebase_uid, email, role, first_name, last_name, display_name, is_active, last_login, created_at, updated_at) 
+                         VALUES ($1, $2, $3, $4, $5, $6, true, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP) 
+                         RETURNING *`, [firebaseUser.uid, email, 'learner', firstName, lastName, displayName]);
+                    const newUser = createResult.rows[0];
+                    // Create default user settings
+                    yield db_1.default.query(`INSERT INTO user_settings (user_id, language, email_notifications, push_notifications, profile_visibility, allow_direct_messages, show_online_status, theme, timezone) 
+                         VALUES ($1, 'en', true, true, 'public', true, true, 'dark', 'UTC')`, [newUser.id]);
+                    console.log('✅ User and settings auto-created successfully:', newUser.firebase_uid);
+                    // Query again to get the user with settings
+                    result = yield db_1.default.query(userQuery, [firebaseUser.uid]);
+                }
+                catch (createError) {
+                    console.error('❌ Error creating user:', createError);
+                    res.status(500).json({
+                        success: false,
+                        message: "Failed to create user profile",
+                        error: createError instanceof Error ? createError.message : 'Unknown error'
+                    });
+                    return;
+                }
             }
         }
         const user = result.rows[0];
