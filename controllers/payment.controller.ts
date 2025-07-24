@@ -4,10 +4,10 @@ import db from '../db';
 import { PaymentStatus } from '../types';
 
 // PayHere configuration
-const PAYHERE_MERCHANT_ID = process.env.PAYHERE_MERCHANT_ID || '1231282';
-const PAYHERE_MERCHANT_SECRET = process.env.PAYHERE_MERCHANT_SECRET || 'ODc1NzMxNTY5NDA4MDc4MzIwODk5MzAwOTY0MTU5NDIxOTI3OA==';
+const PAYHERE_MERCHANT_ID = process.env.PAYHERE_MERCHANT_ID;
+const PAYHERE_MERCHANT_SECRET = process.env.PAYHERE_MERCHANT_SECRET;
 const PAYHERE_CURRENCY = 'LKR';
-const PAYHERE_SANDBOX = process.env.PAYHERE_SANDBOX === 'true' || process.env.NODE_ENV !== 'production';
+const PAYHERE_SANDBOX = process.env.PAYHERE_SANDBOX;
 const PAYHERE_RETURN_URL = process.env.PAYHERE_RETURN_URL || 'http://localhost:5173/payment/success';
 const PAYHERE_CANCEL_URL = process.env.PAYHERE_CANCEL_URL || 'http://localhost:5173/payment/cancel';
 const PAYHERE_NOTIFY_URL = process.env.PAYHERE_NOTIFY_URL || 'http://localhost:5000/api/payments/notify';
@@ -23,6 +23,19 @@ const getUserIdFromFirebaseUID = async (firebase_uid: string): Promise<number | 
     }
 };
 
+const getActualMerchantSecret = (merchant_secret: string): string => {
+    let actual_secret = merchant_secret.trim();
+    try {
+        // Try base64 decode, fallback to original if not valid base64
+        const decoded = Buffer.from(actual_secret, 'base64').toString('utf8');
+        // If decoding yields mostly printable characters, use it
+        if (/^[\x20-\x7E]+$/.test(decoded) && decoded.length > 5) {
+            return decoded;
+        }
+    } catch {}
+    return actual_secret;
+};
+
 // Generate PayHere hash
 const generatePayHereHash = (
     merchant_id: string,
@@ -31,52 +44,51 @@ const generatePayHereHash = (
     currency: string,
     merchant_secret: string
 ): string => {
-    // PayHere expects the decoded secret, not the base64 string
-    let actual_secret = merchant_secret;
-    
-    // Check if the secret is base64 encoded and decode it
-    if (merchant_secret.endsWith('=') && merchant_secret.length > 30) {
-        try {
-            actual_secret = Buffer.from(merchant_secret, 'base64').toString('utf8');
-            console.log('Decoded base64 merchant secret for hash generation');
-        } catch (error) {
-            console.log('Secret is not base64, using as-is');
-        }
-    }
-    
+    // Trim and decode the merchant secret
+    let actual_secret = merchant_secret.trim();
+
+    // try {
+    //     // Try base64 decode
+    //     const decoded = Buffer.from(actual_secret, 'base64').toString('utf8');
+    //     if (/^[\x20-\x7E]+$/.test(decoded) && decoded.length > 5) {
+    //         actual_secret = decoded; // Use decoded value
+    //     }
+    // } catch (err) {
+    //     console.warn('Merchant secret is not base64, using as-is');
+    // }
+
     // PayHere hash format: merchant_id + order_id + amount + currency + decoded_secret (uppercase)
     const hash_string = merchant_id + order_id + amount + currency + actual_secret.toUpperCase();
-    const hash = crypto
-        .createHash('md5')
+    const hash = crypto.createHash('md5')
         .update(hash_string)
         .digest('hex')
         .toUpperCase();
-    
+
     console.log('PayHere Hash Debug:');
     console.log('- merchant_id:', merchant_id);
     console.log('- order_id:', order_id);
     console.log('- amount:', amount);
     console.log('- currency:', currency);
-    console.log('- original_secret (first 10 chars):', merchant_secret.substring(0, 10) + '...');
-    console.log('- decoded_secret (first 10 chars):', actual_secret.substring(0, 10) + '...');
+    console.log('- actual_secret:', actual_secret);
     console.log('- hash_string:', hash_string);
     console.log('- generated_hash:', hash);
-    
+
     return hash;
 };
+
 
 // Create payment order
 export const createPaymentOrder = async (req: Request, res: Response) => {
     try {
         // Get Firebase user from the verified token (try both locations)
-        const firebaseUser = (req as any).firebaseUser || req.body.firebaseUser;
+        const firebaseUser = (req as any).user;
         const { planId, amount, currency = 'LKR' } = req.body;
 
         // Debug logging
         console.log('=== Payment Order Debug ===');
         console.log('Request body:', req.body);
-        console.log('Firebase user from req:', (req as any).firebaseUser);
-        console.log('Firebase user from body:', req.body.firebaseUser);
+        console.log('Firebase user from req:', (req as any).user);
+        //console.log('Firebase user from body:', req.body.firebaseUser);
         console.log('planId:', planId);
         console.log('amount:', amount);
         console.log('currency:', currency);
@@ -87,8 +99,7 @@ export const createPaymentOrder = async (req: Request, res: Response) => {
                 success: false,
                 message: 'Missing Firebase user authentication data',
                 debug: {
-                    firebaseUserFromReq: !!(req as any).firebaseUser,
-                    firebaseUserFromBody: !!req.body.firebaseUser,
+                    firebaseUserFromReq: !!(req as any).user,
                     hasUid: !!firebaseUser?.uid
                 }
             });
@@ -185,7 +196,7 @@ export const createPaymentOrder = async (req: Request, res: Response) => {
 
         // PayHere payment data (to be used by frontend PayHere JS library)
         const payhere_data = {
-            sandbox: PAYHERE_SANDBOX,
+            sandbox: PAYHERE_SANDBOX === 'true',
             merchant_id: PAYHERE_MERCHANT_ID,
             return_url: PAYHERE_RETURN_URL,
             cancel_url: PAYHERE_CANCEL_URL,
@@ -208,6 +219,8 @@ export const createPaymentOrder = async (req: Request, res: Response) => {
             custom_1: `plan_id_${plan.id}`,
             custom_2: `user_id_${actualUserId}`
         };
+
+        console.log(payhere_data);
 
         res.json({
             success: true,

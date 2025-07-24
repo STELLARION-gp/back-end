@@ -270,3 +270,201 @@ export interface RoleUpgradeRequestData {
     reason: string;
     supporting_evidence?: string[];
 }
+
+// Blog types
+export type BlogStatus = 'draft' | 'published' | 'archived';
+
+export interface Blog {
+    id: number;
+    title: string;
+    content: string;
+    excerpt?: string;
+    image_url?: string; // Database field
+    author_id: number;
+    status: BlogStatus;
+    published_at?: string;
+    views_count: number;
+    likes_count: number;
+    comments_count: number;
+    tags: string[];
+    metadata: Record<string, any>;
+    created_at: string;
+    updated_at: string;
+    // Virtual fields from joins
+    author_name?: string;
+    author_email?: string;
+    author_display_name?: string;
+    user_liked?: boolean;
+}
+
+export interface BlogComment {
+    id: number;
+    blog_id: number;
+    user_id: number;
+    parent_comment_id?: number;
+    content: string;
+    is_edited: boolean;
+    created_at: string;
+    updated_at: string;
+    // Virtual fields from joins
+    user_name?: string;
+    user_email?: string;
+    user_display_name?: string;
+    replies?: BlogComment[];
+}
+
+export interface BlogLike {
+    id: number;
+    blog_id: number;
+    user_id: number;
+    created_at: string;
+}
+
+export interface BlogView {
+    id: number;
+    blog_id: number;
+    user_id?: number;
+    ip_address?: string;
+    user_agent?: string;
+    viewed_at: string;
+}
+
+export interface CreateBlogRequest {
+    title: string;
+    content: string;
+    excerpt?: string;
+    featured_image?: string;
+    status?: BlogStatus;
+    tags?: string[];
+    metadata?: Record<string, any>;
+}
+
+export interface UpdateBlogRequest {
+    title?: string;
+    content?: string;
+    excerpt?: string;
+    featured_image?: string;
+    status?: BlogStatus;
+    tags?: string[];
+    metadata?: Record<string, any>;
+}
+
+export interface BlogFilters {
+    status?: BlogStatus;
+    author_id?: number;
+    search?: string;
+    tags?: string[];
+    page?: number;
+    limit?: number;
+    sort_by?: 'created_at' | 'published_at' | 'views_count' | 'likes_count' | 'title';
+    sort_order?: 'asc' | 'desc';
+}
+
+export interface CreateCommentRequest {
+    content: string;
+    parent_comment_id?: number;
+}
+
+export interface UpdateCommentRequest {
+    content: string;
+}
+
+// Night Camp types
+export type EquipmentCategory = 'provided' | 'required' | 'optional';
+
+export interface NightCamp {
+    id: number;
+    name: string;
+    organized_by?: string;
+    sponsored_by?: string;
+    description?: string;
+    date: string;
+    time?: string;
+    location: string;
+    number_of_participants: number;
+    image_urls: string[];
+    emergency_contact?: string;
+    status?: string;
+    created_at: string;
+    updated_at: string;
+}
+
+export interface NightCampActivity {
+    id: number;
+    night_camp_id: number;
+    activity: string;
+    created_at: string;
+}
+
+export interface NightCampEquipment {
+    id: number;
+    night_camp_id: number;
+    category: EquipmentCategory;
+    equipment_name: string;
+    created_at: string;
+}
+
+export interface NightCampVolunteering {
+    id: number;
+    night_camp_id: number;
+    volunteering_role: string;
+    number_of_applicants: number;
+    created_at: string;
+}
+
+export interface NightCampVolunteeringApplication {
+    id: number;
+    night_camp_id: number;
+    user_id: number;
+    volunteering_role: string;
+    motivation?: string;
+    experience?: string;
+    availability?: string;
+    emergency_contact_name?: string;
+    emergency_contact_phone?: string;
+    emergency_contact_relationship?: string;
+    status: 'pending' | 'approved' | 'rejected';
+    application_date: string;
+    reviewed_by?: number;
+    reviewed_at?: string;
+    review_notes?: string;
+    created_at: string;
+    updated_at: string;
+}
+
+export interface CreateVolunteeringApplicationRequest {
+    night_camp_id: number;
+    volunteering_role: string;
+    motivation?: string;
+    experience?: string;
+    availability?: string;
+    emergency_contact_name?: string;
+    emergency_contact_phone?: string;
+    emergency_contact_relationship?: string;
+}
+
+export interface CreateNightCampRequest {
+    name: string;
+    organized_by?: string;
+    sponsored_by?: string;
+    description?: string;
+    date: string;
+    time?: string;
+    location: string;
+    number_of_participants: number;
+    image_urls: string[];
+    emergency_contact?: string;
+    activities: string[];
+    equipment: {
+        provided: string[];
+        required: string[];
+        optional: string[];
+    };
+    volunteering_roles: string[];
+}
+
+export interface NightCampWithDetails extends NightCamp {
+    activities: NightCampActivity[];
+    equipment: NightCampEquipment[];
+    volunteering: NightCampVolunteering[];
+}

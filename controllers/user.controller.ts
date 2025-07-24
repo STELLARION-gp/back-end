@@ -96,7 +96,7 @@ export const createUserIfNotExists = async (req: Request, res: Response): Promis
 
 export const getUserProfile = async (req: Request, res: Response): Promise<void> => {
   try {
-    const firebaseUser = req.body.firebaseUser;
+    const firebaseUser = (req as any).user;
 
     if (!firebaseUser) {
       res.status(401).json({
