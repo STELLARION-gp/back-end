@@ -2,6 +2,8 @@
 import express from "express";
 import rateLimit from "express-rate-limit";
 import { chatCompletion, healthCheck } from "../controllers/chatbot.controller";
+import { verifyToken } from "../middleware/verifyToken";
+import { checkChatbotAccess } from "../middleware/subscriptionAuth";
 
 const router = express.Router();
 
@@ -31,13 +33,32 @@ const chatCompletionLimiter = rateLimit({
   legacyHeaders: false,
 });
 
-// Health check endpoint (no rate limiting needed)
+// Health check endpoint (no authentication needed)
 router.get("/health", healthCheck);
 
-// Chat completion endpoint with rate limiting
-router.post("/", chatbotLimiter, chatCompletionLimiter, chatCompletion);
+// Test endpoint for chatbot without authentication (REMOVE IN PRODUCTION)
+router.post("/test", chatbotLimiter, async (req: any, res) => {
+  // Mock user for testing
+  req.user = {
+    uid: 'test-user',
+    email: 'test@example.com',
+    user_id: 1
+  };
+  
+  // Mock chatbot usage
+  req.body.chatbotUsage = {
+    questionsUsed: 0,
+    questionsLimit: -1, // Unlimited for test
+    plan: 'galaxy_explorer'
+  };
+  
+  await chatCompletion(req, res);
+});
+
+// Chat completion endpoint with authentication, subscription check, and rate limiting
+router.post("/", verifyToken, checkChatbotAccess, chatbotLimiter, chatCompletionLimiter, chatCompletion);
 
 // Alternative route that matches the documentation format
-router.post("/chat", chatbotLimiter, chatCompletionLimiter, chatCompletion);
+router.post("/chat", verifyToken, checkChatbotAccess, chatbotLimiter, chatCompletionLimiter, chatCompletion);
 
 export default router;

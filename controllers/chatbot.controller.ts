@@ -2,6 +2,7 @@
 import { Request, Response } from "express";
 import { GoogleGenerativeAI, GenerativeModel } from "@google/generative-ai";
 import { v4 as uuidv4 } from "uuid";
+import db from "../db";
 
 // Initialize Gemini client (only if API key is available)
 let geminiModel: GenerativeModel | null = null;
@@ -42,6 +43,20 @@ interface ChatRequest {
   context: string;
   conversationId?: string;
   userId?: string;
+  chatbotUsage?: {
+    questionsUsed: number;
+    questionsLimit: number;
+    plan: string;
+  };
+}
+
+// Interface for authenticated request
+interface AuthenticatedRequest extends Request {
+  user?: {
+    uid: string;
+    email: string;
+    user_id: number;
+  };
 }
 
 // Interface for chat response
@@ -55,7 +70,7 @@ interface ChatResponse {
 }
 
 // Chat completion endpoint
-export const chatCompletion = async (req: Request, res: Response): Promise<void> => {
+export const chatCompletion = async (req: AuthenticatedRequest, res: Response): Promise<void> => {
   try {
     const { message, context, conversationId, userId }: ChatRequest = req.body;
 
@@ -130,8 +145,21 @@ export const chatCompletion = async (req: Request, res: Response): Promise<void>
     // Generate conversation ID if not provided
     const responseConversationId = conversationId || uuidv4();
 
+    // Increment chatbot usage for users with limited plans
+    if (req.user?.user_id) {
+      try {
+        await db.query(
+          'UPDATE users SET chatbot_questions_used = chatbot_questions_used + 1 WHERE id = $1',
+          [req.user.user_id]
+        );
+      } catch (dbError) {
+        console.error('Failed to increment chatbot usage:', dbError);
+        // Don't fail the request for this
+      }
+    }
+
     // Log the interaction (optional - for monitoring/analytics)
-    console.log(`[CHATBOT] ${new Date().toISOString()} - User: ${userId || 'anonymous'} - Conversation: ${responseConversationId}`);
+    console.log(`[CHATBOT] ${new Date().toISOString()} - User: ${req.user?.user_id || userId || 'anonymous'} - Conversation: ${responseConversationId}`);
 
     // Return successful response
     res.json({

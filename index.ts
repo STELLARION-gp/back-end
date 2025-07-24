@@ -1,3 +1,11 @@
+import mentorApplicationRoutes from "./routes/mentorApplication.routes";
+import influencerApplicationRoutes from "./routes/influencerApplication.routes";
+import guideApplicationRoutes from "./routes/guideApplication.routes";
+import subscriptionRoutes from "./routes/subscription.routes";
+import paymentRoutes from "./routes/payment.routes";
+import blogRoutes from "./routes/blog.routes";
+import nightcampRoutes from "./routes/nightcamp.routes";
+import nasaOpportunitiesRoutes from "./routes/nasaOpportunities.routes";
 // index.ts
 import express from "express";
 import cors from "cors";
@@ -24,6 +32,9 @@ app.use(cors({
 }));
 app.use(express.json());
 
+// Serve static files for testing
+app.use('/public', express.static('public'));
+
 // Health check endpoint
 app.get('/health', (req, res) => {
     res.json({
@@ -38,6 +49,24 @@ app.use("/api/users", userRoutes);
 app.use("/api/auth", authRoutes);
 app.use("/api/chatbot", chatbotRoutes);
 app.use("/api/user", profileRoutes);
+
+// Application APIs
+app.use("/api/mentor-applications", mentorApplicationRoutes);
+app.use("/api/influencer-applications", influencerApplicationRoutes);
+app.use("/api/guide-applications", guideApplicationRoutes);
+
+// Subscription and Payment APIs
+app.use("/api/subscriptions", subscriptionRoutes);
+app.use("/api/payments", paymentRoutes);
+
+// Blog API
+app.use("/api/blogs", blogRoutes);
+
+// Night Camp API
+app.use("/api/nightcamps", nightcampRoutes);
+
+// NASA Opportunities API
+app.use("/api/nasa-opportunities", nasaOpportunitiesRoutes);
 
 // Error handling middleware
 app.use(notFound);

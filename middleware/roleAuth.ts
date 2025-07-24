@@ -6,7 +6,7 @@ export const requireRole = (allowedRoles: UserRole[]) => {
   return async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     try {
       // User should already be attached by verifyToken middleware
-      const user = req.body.user;
+      const user = (req as any).user;
 
       if (!user) {
         res.status(401).json({
@@ -19,6 +19,7 @@ export const requireRole = (allowedRoles: UserRole[]) => {
 
       // Check if user role is allowed
       if (!allowedRoles.includes(user.role)) {
+        console.log('❌ [ROLE] Access denied - User role:', user.role, 'Required:', allowedRoles);
         res.status(403).json({
           success: false,
           error: "forbidden",
@@ -31,6 +32,7 @@ export const requireRole = (allowedRoles: UserRole[]) => {
         return;
       }
 
+      console.log('✅ [ROLE] Access granted - User role:', user.role);
       // User is already attached, just continue
       next();
     } catch (error) {
