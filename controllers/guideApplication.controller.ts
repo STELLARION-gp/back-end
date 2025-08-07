@@ -1,40 +1,33 @@
 // controllers/guideApplication.controller.ts
 import { Request, Response } from 'express';
 import { GuideApplication } from '../types';
-import db from '../db';
+import { PrismaClient, approve_application_status } from '../prisma/generated/client';
+
+const prisma = new PrismaClient();
 
 // Create Guide Application
 export const createGuideApplication = async (req: Request, res: Response) => {
     try {
         const userId = req.body.user?.id;
         const data = req.body;
-        const result = await db.query(
-            `INSERT INTO guide_application (
-                user_id, first_name, last_name, email, phone_number, country, languages_spoken, certifications, stargazing_expertise, operating_locations, profile_bio, services_offered, max_group_size, pricing_range, photos_or_videos_links, availability_schedule, payment_method_pref
-            ) VALUES (
-                $1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, $17
-            ) RETURNING *`,
-            [
-                userId,
-                data.first_name,
-                data.last_name,
-                data.email,
-                data.phone_number,
-                data.country,
-                data.languages_spoken,
-                data.certifications,
-                data.stargazing_expertise,
-                data.operating_locations,
-                data.profile_bio,
-                data.services_offered,
-                data.max_group_size,
-                data.pricing_range,
-                data.photos_or_videos_links,
-                data.availability_schedule,
-                data.payment_method_pref
-            ]
-        );
-        res.status(201).json({ success: true, data: result.rows[0] });
+        const result = await prisma.guide_application.create({
+            data: {
+                user_id: userId,
+                first_name: data.first_name,
+                last_name: data.last_name,
+                email: data.email,
+                phone: data.phone_number, // Note: Schema has 'phone' not 'phone_number'
+                languages: data.languages_spoken, // Using languages JSON field
+                certifications: data.certifications,
+                astronomy_skills: data.stargazing_expertise, // Map to astronomy_skills
+                preferred_locations: data.operating_locations, // Map to preferred_locations
+                motivation: data.profile_bio, // Map to motivation or similar field
+                group_sizes: data.max_group_size ? [data.max_group_size] : undefined, // As JSON array
+                // Other fields might need mapping depending on the exact schema
+                terms_accepted: true // Required field
+            }
+        });
+        res.status(201).json({ success: true, data: result });
     } catch (err) {
         res.status(500).json({ success: false, error: err instanceof Error ? err.message : String(err) });
     }
@@ -43,8 +36,12 @@ export const createGuideApplication = async (req: Request, res: Response) => {
 // Get All Guide Applications
 export const getGuideApplications = async (req: Request, res: Response) => {
     try {
-        const result = await db.query('SELECT * FROM guide_application WHERE deletion_status = FALSE');
-        res.json({ success: true, data: result.rows });
+        const result = await prisma.guide_application.findMany({
+            where: {
+                deletion_status: false
+            }
+        });
+        res.json({ success: true, data: result });
     } catch (err) {
         res.status(500).json({ success: false, error: err instanceof Error ? err.message : String(err) });
     }
@@ -54,9 +51,14 @@ export const getGuideApplications = async (req: Request, res: Response) => {
 export const getGuideApplication = async (req: Request, res: Response) => {
     try {
         const { id } = req.params;
-        const result = await db.query('SELECT * FROM guide_application WHERE application_id = $1 AND deletion_status = FALSE', [id]);
-        if (!result.rows.length) return res.status(404).json({ success: false, message: 'Not found' });
-        res.json({ success: true, data: result.rows[0] });
+        const result = await prisma.guide_application.findFirst({
+            where: {
+                application_id: parseInt(id),
+                deletion_status: false
+            }
+        });
+        if (!result) return res.status(404).json({ success: false, message: 'Not found' });
+        res.json({ success: true, data: result });
     } catch (err) {
         res.status(500).json({ success: false, error: err instanceof Error ? err.message : String(err) });
     }
@@ -68,30 +70,41 @@ export const updateGuideApplication = async (req: Request, res: Response) => {
         const { id } = req.params;
         const data = req.body;
         // Only allow update if status is pending
-        const check = await db.query('SELECT * FROM guide_application WHERE application_id = $1 AND application_status = $2 AND deletion_status = FALSE', [id, 'pending']);
-        if (!check.rows.length) return res.status(403).json({ success: false, message: 'Cannot edit this application' });
-        const result = await db.query(
-            `UPDATE guide_application SET
-                phone_number = $1, country = $2, languages_spoken = $3, certifications = $4, stargazing_expertise = $5, operating_locations = $6, profile_bio = $7, services_offered = $8, max_group_size = $9, pricing_range = $10, photos_or_videos_links = $11, availability_schedule = $12, payment_method_pref = $13, updated_at = NOW()
-            WHERE application_id = $14 RETURNING *`,
-            [
-                data.phone_number,
-                data.country,
-                data.languages_spoken,
-                data.certifications,
-                data.stargazing_expertise,
-                data.operating_locations,
-                data.profile_bio,
-                data.services_offered,
-                data.max_group_size,
-                data.pricing_range,
-                data.photos_or_videos_links,
-                data.availability_schedule,
-                data.payment_method_pref,
-                id
-            ]
-        );
-        res.json({ success: true, data: result.rows[0] });
+        const check = await prisma.guide_application.findFirst({
+            where: {
+                application_id: parseInt(id),
+                application_status: 'pending',
+                deletion_status: false
+            }
+        });
+
+        if (!check) return res.status(403).json({ success: false, message: 'Cannot edit this application' });
+
+        // Prepare data for update
+        const updateData: any = {
+            updated_at: new Date()
+        };
+
+        // Map fields from request to schema fields
+        if (data.phone_number) updateData.phone = data.phone_number;
+        if (data.languages_spoken) updateData.languages = data.languages_spoken;
+        if (data.certifications) updateData.certifications = data.certifications;
+        if (data.stargazing_expertise) updateData.astronomy_skills = data.stargazing_expertise;
+        if (data.operating_locations) updateData.preferred_locations = data.operating_locations;
+        if (data.profile_bio) updateData.motivation = data.profile_bio;
+        if (data.services_offered) updateData.special_skills = data.services_offered;
+        if (data.max_group_size) updateData.group_sizes = data.max_group_size;
+        if (data.photos_or_videos_links) updateData.documents = data.photos_or_videos_links;
+        if (data.availability_schedule) updateData.available_dates = data.availability_schedule;
+
+        const result = await prisma.guide_application.update({
+            where: {
+                application_id: parseInt(id)
+            },
+            data: updateData
+        });
+
+        res.json({ success: true, data: result });
     } catch (err) {
         res.status(500).json({ success: false, error: err instanceof Error ? err.message : String(err) });
     }
@@ -101,8 +114,17 @@ export const updateGuideApplication = async (req: Request, res: Response) => {
 export const deleteGuideApplication = async (req: Request, res: Response) => {
     try {
         const { id } = req.params;
-        const result = await db.query('UPDATE guide_application SET deletion_status = TRUE, updated_at = NOW() WHERE application_id = $1 RETURNING *', [id]);
-        if (!result.rows.length) return res.status(404).json({ success: false, message: 'Not found' });
+        const result = await prisma.guide_application.update({
+            where: {
+                application_id: parseInt(id)
+            },
+            data: {
+                deletion_status: true,
+                updated_at: new Date()
+            }
+        });
+
+        if (!result) return res.status(404).json({ success: false, message: 'Not found' });
         res.json({ success: true, message: 'Deleted' });
     } catch (err) {
         res.status(500).json({ success: false, error: err instanceof Error ? err.message : String(err) });
@@ -114,9 +136,19 @@ export const changeGuideApplicationStatus = async (req: Request, res: Response) 
     try {
         const { id } = req.params;
         const { status } = req.body; // 'accepted', 'pending', 'rejected'
-        const result = await db.query('UPDATE guide_application SET approve_application_status = $1, updated_at = NOW() WHERE application_id = $2 RETURNING *', [status, id]);
-        if (!result.rows.length) return res.status(404).json({ success: false, message: 'Not found' });
-        res.json({ success: true, data: result.rows[0] });
+
+        const result = await prisma.guide_application.update({
+            where: {
+                application_id: parseInt(id)
+            },
+            data: {
+                approve_application_status: status as approve_application_status,
+                updated_at: new Date()
+            }
+        });
+
+        if (!result) return res.status(404).json({ success: false, message: 'Not found' });
+        res.json({ success: true, data: result });
     } catch (err) {
         res.status(500).json({ success: false, error: err instanceof Error ? err.message : String(err) });
     }
