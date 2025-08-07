@@ -8,6 +8,7 @@ import {
   deactivateUser,
   activateUser
 } from "../controllers/user.controller";
+
 import { verifyToken } from "../middleware/verifyToken";
 import { requireAdmin, requireManager, requireUser } from "../middleware/roleAuth";
 

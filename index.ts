@@ -16,6 +16,9 @@ import chatbotRoutes from "./routes/chatbot.routes";
 import profileRoutes from "./routes/profile.routes";
 import { errorHandler, notFound } from "./middleware/errorHandler";
 
+// prisma client
+import { PrismaClient } from "@prisma/client";
+
 dotenv.config();
 const app = express();
 
