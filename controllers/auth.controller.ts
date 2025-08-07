@@ -1,7 +1,8 @@
 // controllers/auth.controller.ts
 import { Request, Response } from "express";
 import admin from "../firebaseAdmin";
-import pool from "../db";
+//import pool from "../db";
+import { PrismaClient } from "../prisma/generated/client";
 import {
     SignUpRequest,
     SignInRequest,
@@ -13,6 +14,8 @@ import {
 } from "../types";
 
 import axios from "axios"; // For Firebase Auth REST API
+
+const prisma = new PrismaClient();
 
 // Sign up with email and password
 // NOTE: Ensure a unique constraint exists on the 'email' column in the users table for race condition safety.
@@ -49,11 +52,11 @@ export const signUp = async (req: Request, res: Response): Promise<void> => {
 
 
         // Check if user already exists in database
-        const existingUser = await pool.query(
-            "SELECT * FROM users WHERE email = $1",
-            [email]
-        );
-        if (existingUser.rows.length > 0) {
+        const existingUser = await prisma.users.findUnique({
+            where: { email }
+        });
+
+        if (existingUser) {
             res.status(409).json({
                 success: false,
                 message: "User with this email already exists"
@@ -86,47 +89,63 @@ export const signUp = async (req: Request, res: Response): Promise<void> => {
 
         // Then create user in database
         const displayName = first_name && last_name ? `${first_name} ${last_name}` : (first_name || email.split('@')[0]);
-        let result;
+
         try {
-            result = await pool.query<DatabaseUser>(
-                `INSERT INTO users (firebase_uid, email, role, first_name, last_name, display_name, is_active, last_login) 
-                 VALUES ($1, $2, $3, $4, $5, $6, true, CURRENT_TIMESTAMP) 
-                 RETURNING *`,
-                [firebaseUser.uid, email, role, first_name, last_name, displayName]
-            );
+            const result = await prisma.$transaction(async (tx) => {
+                const newUser = await tx.users.create({
+                    data: {
+                        firebase_uid: firebaseUser.uid,
+                        email,
+                        first_name: first_name,
+                        last_name: last_name,
+                        display_name: displayName,
+                        role,
+                        is_active: true,
+                        created_at: new Date(),
+                        updated_at: new Date(),
+                        last_login: new Date()
+                    }
+                });
+
+                await tx.user_settings.create({
+                    data: {
+                        user_id: newUser.id,
+                        language: 'en',
+                        email_notifications: true,
+                        push_notifications: true,
+                        profile_visibility: 'public',
+                        allow_direct_messages: true,
+                        show_online_status: true,
+                        theme: 'dark',
+                        timezone: 'UTC'
+                    }
+                });
+
+                return newUser;
+            });
+
+            console.log("User created in database:", result);
+
+            // Generate custom token for immediate sign-in
+            const customToken = await admin.auth().createCustomToken(firebaseUser.uid);
+
+            const response: AuthResponse = {
+                success: true,
+                message: "User created successfully",
+                user: result,
+                customToken
+            };
+
+            res.status(201).json(response);
         } catch (dbError: any) {
             // Rollback Firebase user if DB insert fails
             await admin.auth().deleteUser(firebaseUser.uid);
+            console.error('Database error:', dbError);
             return res.status(500).json({
                 success: false,
                 message: "Failed to create user in database"
             });
         }
-
-        // Create default user settings for the new user
-        try {
-            await pool.query(
-                `INSERT INTO user_settings (user_id, language, email_notifications, push_notifications, profile_visibility, allow_direct_messages, show_online_status, theme, timezone) 
-                 VALUES ($1, 'en', true, true, 'public', true, true, 'dark', 'UTC')`,
-                [result.rows[0].id]
-            );
-            console.log('✅ Default user settings created for new user');
-        } catch (settingsError) {
-            console.error('⚠️ Failed to create user settings:', settingsError);
-            // Don't fail the registration if settings creation fails
-        }
-
-        // Generate custom token for immediate sign-in
-        const customToken = await admin.auth().createCustomToken(firebaseUser.uid);
-
-        const response: AuthResponse = {
-            success: true,
-            message: "User created successfully",
-            user: result.rows[0],
-            customToken
-        };
-
-        res.status(201).json(response);
     } catch (error: any) {
         console.error("Sign up error:", error);
         res.status(500).json({
