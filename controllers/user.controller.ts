@@ -1,9 +1,13 @@
 // controllers/user.controller.ts
 import { Request, Response } from "express";
-import { PrismaClient } from '../prisma/generated/client';
+import { ok, created, fail } from '../utils/responses';
+import { prisma } from '../lib/prisma';
 import { CreateUserRequest, UserRole } from "../types";
+import { parseName, findUserByFirebaseUid, touchLastLogin, createUser } from '../services/user.service';
 
-const prisma = new PrismaClient();
+function isPrismaKnownError(err: any): err is { code: string } {
+  return !!err && typeof err === 'object' && 'code' in err;
+}
 
 export const createUserIfNotExists = async (req: Request, res: Response): Promise<void> => {
   console.log('🔥 Registration request received:', {
@@ -16,10 +20,7 @@ export const createUserIfNotExists = async (req: Request, res: Response): Promis
   const { firebaseUser, role, first_name, last_name } = req.body as CreateUserRequest;
 
   if (!firebaseUser || !firebaseUser.uid || !firebaseUser.email) {
-    res.status(400).json({
-      success: false,
-      message: "Missing firebaseUser data (uid and email required)"
-    });
+    fail(res, 400, "Missing firebaseUser data (uid and email required)");
     return;
   }
 
@@ -31,93 +32,24 @@ export const createUserIfNotExists = async (req: Request, res: Response): Promis
   let lastName = last_name;
 
   if (!firstName && !lastName && name) {
-    const nameParts = name.split(' ');
-    firstName = nameParts[0];
-    lastName = nameParts.slice(1).join(' ');
+    const parsed = parseName(name);
+    firstName = parsed.firstName;
+    lastName = parsed.lastName;
   }
 
   try {
-    console.log('💾 Checking for existing user with uid:', uid);
-    const existing = await prisma.users.findUnique({
-      where: { firebase_uid: uid }
-    });
-
+    const existing = await findUserByFirebaseUid(uid);
     if (existing) {
-      console.log('✅ User already exists, updating last login');
-      // Update last login
-      await prisma.users.update({
-        where: { firebase_uid: uid },
-        data: { last_login: new Date() }
-      });
-
-      res.json({
-        success: true,
-        message: "User already exists",
-        data: existing
-      });
+      await touchLastLogin(uid);
+      ok(res, "User already exists", existing);
       return;
     }
 
-    console.log('🆕 Creating new user with data:', {
-      uid, email, userRole, firstName, lastName
-    });
-
-    // Extract display name from email if name not available
-    const displayName = name || firstName || email.split('@')[0];
-
-    // Use Prisma transaction to create user and settings together
-    const result = await prisma.$transaction(async (tx) => {
-      const newUser = await tx.users.create({
-        data: {
-          firebase_uid: uid,
-          email: email,
-          role: userRole as any, // Type cast to match the user_role enum
-          first_name: firstName,
-          last_name: lastName,
-          display_name: displayName,
-          is_active: true,
-          last_login: new Date()
-        }
-      });
-
-      try {
-        // Create default user settings for the new user
-        await tx.user_settings.create({
-          data: {
-            user_id: newUser.id,
-            language: 'en',
-            email_notifications: true,
-            push_notifications: true,
-            profile_visibility: 'public',
-            allow_direct_messages: true,
-            show_online_status: true,
-            theme: 'dark',
-            timezone: 'UTC'
-          }
-        });
-        console.log('✅ Default user settings created');
-      } catch (settingsError) {
-        console.error('⚠️ Failed to create user settings:', settingsError);
-        // Don't fail the transaction if settings creation fails
-      }
-
-      return newUser;
-    });
-
-    console.log('✅ User created successfully:', result);
-
-    res.status(201).json({
-      success: true,
-      message: "User created successfully",
-      data: result
-    });
+    const result = await createUser({ uid, email, role: userRole as any, first_name: firstName, last_name: lastName, display_name: name });
+    created(res, "User created successfully", result);
   } catch (err) {
     console.error("❌ Database error during user creation:", err);
-    res.status(500).json({
-      success: false,
-      message: "Database error",
-      error: err instanceof Error ? err.message : 'Unknown error'
-    });
+    fail(res, 500, "Database error", err instanceof Error ? err.message : 'Unknown error');
   }
 };
 
@@ -379,8 +311,7 @@ export const updateUserRole = async (req: Request, res: Response): Promise<void>
         data: updatedUser
       });
     } catch (err) {
-      // Check if user was not found
-      if (err.code === 'P2025') {
+      if (isPrismaKnownError(err) && err.code === 'P2025') {
         res.status(404).json({
           success: false,
           message: "User not found"
@@ -418,7 +349,7 @@ export const deactivateUser = async (req: Request, res: Response): Promise<void>
       });
     } catch (err) {
       // Check if user was not found
-      if (err.code === 'P2025') {
+      if (isPrismaKnownError(err) && err.code === 'P2025') {
         res.status(404).json({
           success: false,
           message: "User not found"
@@ -456,7 +387,7 @@ export const activateUser = async (req: Request, res: Response): Promise<void> =
       });
     } catch (err) {
       // Check if user was not found
-      if (err.code === 'P2025') {
+      if (isPrismaKnownError(err) && err.code === 'P2025') {
         res.status(404).json({
           success: false,
           message: "User not found"

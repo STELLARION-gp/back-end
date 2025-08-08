@@ -1,6 +1,6 @@
 // controllers/blog.controller.ts
 import { Request, Response } from 'express';
-import { PrismaClient } from '../prisma/generated/client';
+import { prisma } from '../lib/prisma';
 import {
     Blog,
     BlogComment,
@@ -12,8 +12,6 @@ import {
     UpdateCommentRequest,
     ApiResponse
 } from '../types';
-
-const prisma = new PrismaClient();
 
 // Helper function to build Prisma query options with filters
 const buildBlogQueryOptions = (filters: BlogFilters, userIdForLike?: number) => {
@@ -37,12 +35,7 @@ const buildBlogQueryOptions = (filters: BlogFilters, userIdForLike?: number) => 
     }
 
     if (filters.tags && filters.tags.length > 0) {
-        // For JSON array contains query
-        // Note: This might need adjustment based on how Prisma handles JSON arrays in your database
-        where.tags = {
-            path: '$',
-            array_contains: filters.tags
-        };
+        where.tags = { array_contains: filters.tags };
     }
 
     // Set up sorting
@@ -116,44 +109,36 @@ export const getBlogs = async (req: Request, res: Response): Promise<void> => {
         });
 
         // Process the results to match the expected format
-        const processedBlogs = blogs.map(blog => {
-            // Get author information
-            const authorName = blog.users ?
-                `${blog.users.first_name || ''} ${blog.users.last_name || ''}`.trim() : '';
-
-            // Check if user liked this blog
-            const userLiked = userId && blog.blog_likes && blog.blog_likes.length > 0;
-
-            // Format the data to match the expected structure
+        const mappedBlogs: Blog[] = blogs.map(blog => {
+            const authorName = blog.users ? `${blog.users.first_name || ''} ${blog.users.last_name || ''}`.trim() : '';
+            const userLiked = !!(userId && blog.blog_likes && blog.blog_likes.length > 0);
             return {
                 id: blog.id,
                 title: blog.title,
                 content: blog.content,
-                excerpt: blog.excerpt || null,
-                image_url: blog.image_url || null,
-                author_id: blog.author_id,
+                excerpt: blog.excerpt || undefined,
+                image_url: blog.image_url || undefined,
+                author_id: blog.author_id!,
                 status: blog.status as BlogStatus,
-                published_at: blog.published_at ? blog.published_at.toISOString() : null,
-                views_count: blog.view_count || 0,
-                likes_count: blog.like_count || 0,
-                comments_count: blog.comment_count || 0,
-                tags: blog.tags as string[] || [],
-                metadata: blog.metadata || {},
-                created_at: blog.created_at ? blog.created_at.toISOString() : null,
-                updated_at: blog.updated_at ? blog.updated_at.toISOString() : null,
-                // Add additional fields from joins
+                published_at: blog.published_at ? blog.published_at.toISOString() : undefined,
+                views_count: blog.view_count ?? blog.views_count ?? 0,
+                likes_count: blog.like_count ?? blog.likes_count ?? 0,
+                comments_count: blog.comment_count ?? blog.comments_count ?? 0,
+                tags: (blog.tags as string[]) || [],
+                metadata: (blog.metadata as any) || {},
+                created_at: blog.created_at ? blog.created_at.toISOString() : '',
+                updated_at: blog.updated_at ? blog.updated_at.toISOString() : '',
                 author_name: authorName,
                 author_email: blog.users?.email,
                 author_display_name: blog.users?.display_name,
-                user_liked: userLiked || false
+                user_liked: userLiked
             } as Blog;
         });
-
-        const response: ApiResponse<{ blogs: Blog[]; pagination: any }> = {
+        res.json({
             success: true,
-            message: "Blogs retrieved successfully",
+            message: 'Blogs retrieved successfully',
             data: {
-                blogs: processedBlogs,
+                blogs: mappedBlogs,
                 pagination: {
                     page: filters.page || 1,
                     limit: filters.limit || 10,
@@ -161,9 +146,7 @@ export const getBlogs = async (req: Request, res: Response): Promise<void> => {
                     pages: Math.ceil(total / (filters.limit || 10))
                 }
             }
-        };
-
-        res.json(response);
+        });
     } catch (error: any) {
         console.error("Get blogs error:", error);
         res.status(500).json({
@@ -181,78 +164,60 @@ export const getBlogById = async (req: Request, res: Response): Promise<void> =>
         const userId = (req as any).user?.uid ?
             await getUserIdFromFirebaseUid((req as any).user.uid) : undefined;
 
-        // Get blog with author info and user like status
         const blog = await prisma.blogs.findUnique({
-            where: {
-                id: parseInt(id)
-            },
+            where: { id: parseInt(id) },
             include: {
                 users: {
-                    select: {
-                        first_name: true,
-                        last_name: true,
-                        email: true,
-                        display_name: true
-                    }
+                    select: { first_name: true, last_name: true, email: true, display_name: true }
                 },
                 blog_likes: userId ? {
-                    where: {
-                        user_id: userId
-                    },
+                    where: { user_id: userId },
                     take: 1
                 } : false,
                 _count: {
-                    select: {
-                        blog_likes: true
-                    }
+                    select: { blog_likes: true, blog_comments: true }
                 }
             }
         });
 
         if (!blog) {
-            res.status(404).json({
-                success: false,
-                message: "Blog not found"
-            });
+            res.status(404).json({ success: false, message: "Blog not found" });
             return;
         }
 
-        // Process the blog to match expected format
-        const processedBlog = {
-            ...blog,
-            author_name: blog.users ?
-                `${blog.users.first_name || ''} ${blog.users.last_name || ''}`.trim() : '',
+        const processedBlog: Blog = {
+            id: blog.id,
+            title: blog.title,
+            content: blog.content,
+            excerpt: blog.excerpt ?? undefined,
+            image_url: blog.image_url ?? undefined,
+            author_id: blog.author_id!,
+            status: blog.status as BlogStatus,
+            published_at: blog.published_at ? blog.published_at.toISOString() : undefined,
+            views_count: (blog as any).view_count ?? (blog as any).views_count ?? 0,
+            likes_count: (blog as any).like_count ?? (blog as any).likes_count ?? (blog._count?.blog_likes || 0),
+            comments_count: (blog as any).comment_count ?? (blog as any).comments_count ?? (blog._count?.blog_comments || 0),
+            tags: (blog.tags as string[]) || [],
+            metadata: (blog.metadata as any) || {},
+            created_at: blog.created_at ? blog.created_at.toISOString() : '',
+            updated_at: blog.updated_at ? blog.updated_at.toISOString() : '',
+            author_name: blog.users ? `${blog.users.first_name || ''} ${blog.users.last_name || ''}`.trim() : undefined,
             author_email: blog.users?.email,
             author_display_name: blog.users?.display_name,
-            like_count: blog._count?.blog_likes || 0,
-            user_liked: userId && blog.blog_likes && blog.blog_likes.length > 0,
-            // Clean up fields we don't want to return
-            users: undefined,
-            blog_likes: undefined,
-            _count: undefined
-        };
+            user_liked: !!(userId && blog.blog_likes && blog.blog_likes.length > 0)
+        } as Blog;
 
-        // Record view if user is not the author
         if (userId && userId !== blog.author_id) {
             await recordBlogView(parseInt(id), userId, req);
         } else if (!userId) {
             await recordBlogView(parseInt(id), undefined, req);
         }
 
-        const response: ApiResponse<Blog> = {
-            success: true,
-            message: "Blog retrieved successfully",
-            data: processedBlog as any
-        };
-
+        const response: ApiResponse<Blog> = { success: true, message: "Blog retrieved successfully", data: processedBlog };
         res.json(response);
     } catch (error: any) {
         console.error("Get blog by ID error:", error);
-        res.status(500).json({
-            success: false,
-            message: "Failed to retrieve blog",
-            error: error.message
-        });
+        res.status(500).json({ success: false, message: "Failed to retrieve blog", error: error.message });
     }
 };
 
@@ -901,46 +866,31 @@ export const deleteBlogComment = async (req: Request, res: Response): Promise<vo
     }
 };
 
-// Helper functions
-const getUserIdFromFirebaseUid = async (firebaseUid: string): Promise<number | null> => {
+// Deduplicated helpers
+const _getUserIdFromFirebaseUid = async (firebaseUid: string): Promise<number | null> => {
     try {
-        const user = await prisma.users.findFirst({
-            where: { firebase_uid: firebaseUid },
-            select: { id: true }
-        });
+        const user = await prisma.users.findFirst({ where: { firebase_uid: firebaseUid }, select: { id: true } });
         return user ? user.id : null;
     } catch (error) {
         console.error('Error getting user ID from Firebase UID:', error);
         return null;
     }
 };
-
-const recordBlogView = async (blogId: number, userId?: number, req?: Request): Promise<void> => {
+const _recordBlogView = async (blogId: number, userId?: number, req?: Request): Promise<void> => {
     try {
-        const ipAddress = req?.ip || req?.connection?.remoteAddress;
+        const ipAddress = req?.ip || (req as any)?.connection?.remoteAddress;
         const userAgent = req?.headers['user-agent'];
-
-        // Create a blog view record
-        await prisma.blog_views.create({
-            data: {
-                blog_id: blogId,
-                user_id: userId || null,
-                ip_address: ipAddress || null,
-                user_agent: userAgent || null
-            }
-        });
-
-        // Update view count
-        await prisma.blogs.update({
-            where: { id: blogId },
-            data: { view_count: { increment: 1 } }
-        });
-    } catch (error) {
-        // Log error but don't fail the request
-        console.error('Error recording blog view:', error);
-    }
+        await prisma.blog_views.create({ data: { blog_id: blogId, user_id: userId || null, ip_address: ipAddress || null, user_agent: userAgent || null } });
+        await prisma.blogs.update({ where: { id: blogId }, data: { view_count: { increment: 1 } } });
+    } catch (error) { console.error('Error recording blog view:', error); }
 };
+// Rebind original names if referenced elsewhere
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+const getUserIdFromFirebaseUid = _getUserIdFromFirebaseUid;
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+const recordBlogView = _recordBlogView;
 
+// Helper functions
 const organizeComments = (comments: any[]): BlogComment[] => {
     const commentMap = new Map();
     const rootComments: BlogComment[] = [];

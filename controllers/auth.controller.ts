@@ -19,7 +19,7 @@ const prisma = new PrismaClient();
 
 // Sign up with email and password
 // NOTE: Ensure a unique constraint exists on the 'email' column in the users table for race condition safety.
-export const signUp = async (req: Request, res: Response): Promise<void> => {
+export const signUp = async (req: Request, res: Response) => {
     try {
         const { email, password, first_name, last_name, role = 'learner' }: SignUpRequest = req.body;
 
@@ -156,7 +156,7 @@ export const signUp = async (req: Request, res: Response): Promise<void> => {
 };
 
 // Sign in with email and password
-export const signIn = async (req: Request, res: Response): Promise<void> => {
+export const signIn = async (req: Request, res: Response) => {
     try {
         const { email, password }: SignInRequest = req.body;
 
@@ -212,17 +212,16 @@ export const signIn = async (req: Request, res: Response): Promise<void> => {
         }
 
         // Check if user exists in database
-        const result = await pool.query<DatabaseUser>(
-            "SELECT * FROM users WHERE firebase_uid = $1",
-            [firebaseUser.uid]
-        );
-        if (result.rows.length === 0) {
+        const user = await prisma.users.findUnique({
+            where: { firebase_uid: firebaseUser.uid }
+        });
+
+        if (!user) {
             return res.status(404).json({
                 success: false,
                 message: "User not found in database"
             });
         }
-        const user = result.rows[0];
 
         // Check if user is active
         if (!user.is_active) {
@@ -233,10 +232,10 @@ export const signIn = async (req: Request, res: Response): Promise<void> => {
         }
 
         // Update last login
-        await pool.query(
-            "UPDATE users SET last_login = CURRENT_TIMESTAMP WHERE firebase_uid = $1",
-            [firebaseUser.uid]
-        );
+        await prisma.users.update({
+            where: { firebase_uid: firebaseUser.uid },
+            data: { last_login: new Date() }
+        });
 
         // Generate custom token
         const customToken = await admin.auth().createCustomToken(firebaseUser.uid);
@@ -260,7 +259,7 @@ export const signIn = async (req: Request, res: Response): Promise<void> => {
 
 // Sign out (revoke refresh tokens)
 // NOTE: Ensure this route is protected by authentication middleware that sets (req as any).user
-export const signOut = async (req: Request, res: Response): Promise<void> => {
+export const signOut = async (req: Request, res: Response) => {
     try {
         const firebaseUser = (req as any).user;
 
@@ -291,7 +290,7 @@ export const signOut = async (req: Request, res: Response): Promise<void> => {
 
 // Update user profile
 // NOTE: Ensure this route is protected by authentication middleware that sets (req as any).user
-export const updateProfile = async (req: Request, res: Response): Promise<void> => {
+export const updateProfile = async (req: Request, res: Response) => {
     try {
         const firebaseUser = (req as any).user;
         const { first_name, last_name, email }: UpdateProfileRequest = req.body;
@@ -328,50 +327,46 @@ export const updateProfile = async (req: Request, res: Response): Promise<void> 
         }
 
         // Now update database
-        const updateFields: string[] = [];
-        const values: any[] = [];
-        let paramCount = 0;
+        const updateData: any = {};
+
         if (first_name !== undefined) {
-            paramCount++;
-            updateFields.push(`first_name = $${paramCount}`);
-            values.push(first_name);
+            updateData.first_name = first_name;
         }
         if (last_name !== undefined) {
-            paramCount++;
-            updateFields.push(`last_name = $${paramCount}`);
-            values.push(last_name);
+            updateData.last_name = last_name;
         }
         if (email !== undefined) {
-            paramCount++;
-            updateFields.push(`email = $${paramCount}`);
-            values.push(email);
+            updateData.email = email;
         }
-        if (updateFields.length === 0) {
-            return res.status(400).json({
+
+        if (Object.keys(updateData).length === 0) {
+            res.status(400).json({
                 success: false,
                 message: "No fields to update"
             });
+            return;
         }
-        updateFields.push(`updated_at = CURRENT_TIMESTAMP`);
-        paramCount++;
-        values.push(firebaseUser.uid);
-        const query = `
-            UPDATE users 
-            SET ${updateFields.join(', ')} 
-            WHERE firebase_uid = $${paramCount} 
-            RETURNING *
-        `;
-        const result = await pool.query<DatabaseUser>(query, values);
-        if (result.rows.length === 0) {
-            return res.status(404).json({
+
+        // Add updated_at timestamp
+        updateData.updated_at = new Date();
+
+        // Update user in database
+        const updatedUser = await prisma.users.update({
+            where: { firebase_uid: firebaseUser.uid },
+            data: updateData
+        });
+
+        if (!updatedUser) {
+            res.status(404).json({
                 success: false,
                 message: "User not found"
             });
+            return;
         }
         res.json({
             success: true,
             message: "Profile updated successfully",
-            data: result.rows[0]
+            data: updatedUser
         });
     } catch (error: any) {
         console.error("Update profile error:", error);
@@ -385,7 +380,7 @@ export const updateProfile = async (req: Request, res: Response): Promise<void> 
 
 // Change password
 // NOTE: Ensure this route is protected by authentication middleware that sets (req as any).user
-export const changePassword = async (req: Request, res: Response): Promise<void> => {
+export const changePassword = async (req: Request, res: Response) => {
     try {
         const firebaseUser = (req as any).user;
         const { new_password }: ChangePasswordRequest = req.body;
@@ -430,7 +425,7 @@ export const changePassword = async (req: Request, res: Response): Promise<void>
 
 // Delete user account
 // NOTE: Ensure this route is protected by authentication middleware that sets (req as any).user
-export const deleteAccount = async (req: Request, res: Response): Promise<void> => {
+export const deleteAccount = async (req: Request, res: Response) => {
     try {
         const firebaseUser = (req as any).user;
 
@@ -446,15 +441,16 @@ export const deleteAccount = async (req: Request, res: Response): Promise<void> 
         try {
             await admin.auth().deleteUser(firebaseUser.uid);
         } catch (firebaseError: any) {
-            return res.status(500).json({
+            res.status(500).json({
                 success: false,
                 message: "Failed to delete user from Firebase"
             });
+            return;
         }
-        await pool.query(
-            "DELETE FROM users WHERE firebase_uid = $1",
-            [firebaseUser.uid]
-        );
+
+        await prisma.users.delete({
+            where: { firebase_uid: firebaseUser.uid }
+        });
         res.json({
             success: true,
             message: "Account deleted successfully"
@@ -471,7 +467,7 @@ export const deleteAccount = async (req: Request, res: Response): Promise<void> 
 
 // Reset password (send reset email)
 // NOTE: This endpoint should not reveal whether an email exists for security reasons in production.
-export const resetPassword = async (req: Request, res: Response): Promise<void> => {
+export const resetPassword = async (req: Request, res: Response) => {
     try {
         const { email } = req.body;
 
@@ -506,7 +502,7 @@ export const resetPassword = async (req: Request, res: Response): Promise<void> 
 
 // Verify email
 // NOTE: Ensure this route is protected by authentication middleware that sets (req as any).user
-export const verifyEmail = async (req: Request, res: Response): Promise<void> => {
+export const verifyEmail = async (req: Request, res: Response) => {
     try {
         const firebaseUser = (req as any).user;
 

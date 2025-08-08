@@ -1,19 +1,24 @@
 import { Request, Response } from 'express';
-import db from '../db';
-import { 
-    SubscriptionPlan, 
-    SubscriptionStatus, 
-    PaymentStatus, 
+import { PrismaClient } from '../prisma/generated/client';
+import {
+    SubscriptionPlan,
+    SubscriptionStatus,
+    PaymentStatus,
     SubscriptionPlanDetails,
     Subscription,
-    Payment 
+    Payment
 } from '../types';
+
+const prisma = new PrismaClient();
 
 // Helper function to get user_id from Firebase UID
 const getUserIdFromFirebaseUID = async (firebase_uid: string): Promise<number | null> => {
     try {
-        const result = await db.query('SELECT id FROM users WHERE firebase_uid = $1', [firebase_uid]);
-        return result.rows.length > 0 ? result.rows[0].id : null;
+        const user = await prisma.users.findUnique({
+            where: { firebase_uid },
+            select: { id: true }
+        });
+        return user ? user.id : null;
     } catch (error) {
         console.error('Error getting user ID from Firebase UID:', error);
         return null;
@@ -157,12 +162,13 @@ const planTranslations = {
 export const getSubscriptionPlans = async (req: Request, res: Response) => {
     try {
         const { lang = 'en' } = req.query;
-        const result = await db.query(
-            'SELECT * FROM subscription_plans WHERE is_active = true ORDER BY price_lkr ASC'
-        );
-        
+        const plans = await prisma.subscription_plans.findMany({
+            where: { is_active: true },
+            orderBy: { price_lkr: 'asc' }
+        });
+
         // Add localized content if requested
-        const plans = result.rows.map(plan => {
+        const localizedPlans = plans.map(plan => {
             const translations = planTranslations[lang as keyof typeof planTranslations];
             if (translations && translations[plan.plan_type as keyof typeof translations]) {
                 const localizedPlan = translations[plan.plan_type as keyof typeof translations];
@@ -175,10 +181,10 @@ export const getSubscriptionPlans = async (req: Request, res: Response) => {
             }
             return plan;
         });
-        
+
         res.json({
             success: true,
-            data: plans
+            data: localizedPlans
         });
     } catch (error) {
         console.error('Error fetching subscription plans:', error);
@@ -193,7 +199,7 @@ export const getSubscriptionPlans = async (req: Request, res: Response) => {
 export const getUserSubscription = async (req: Request, res: Response) => {
     try {
         const { user_id } = req.params;
-        
+
         // Convert Firebase UID to integer user_id if needed
         let actualUserId: number;
         if (isNaN(Number(user_id))) {
@@ -209,49 +215,55 @@ export const getUserSubscription = async (req: Request, res: Response) => {
         } else {
             actualUserId = Number(user_id);
         }
-        
-        const userResult = await db.query(
-            `SELECT 
-                u.subscription_plan, 
-                u.subscription_status, 
-                u.subscription_start_date, 
-                u.subscription_end_date,
-                u.auto_renew,
-                u.chatbot_questions_used,
-                u.chatbot_questions_reset_date,
-                sp.name as plan_name,
-                sp.description as plan_description,
-                sp.price_lkr,
-                sp.features,
-                sp.chatbot_questions_limit
-             FROM users u
-             LEFT JOIN subscription_plans sp ON u.subscription_plan = sp.plan_type
-             WHERE u.id = $1`,
-            [actualUserId]
-        );
 
-        if (userResult.rows.length === 0) {
+        const user = await prisma.users.findUnique({
+            where: { id: actualUserId }
+        });
+
+        if (!user) {
             return res.status(404).json({
                 success: false,
                 message: 'User not found'
             });
         }
 
-        const user = userResult.rows[0];
-        
+        // Get subscription plan details
+        const subscriptionPlan = await prisma.subscription_plans.findUnique({
+            where: { plan_type: user.subscription_plan || 'starseeker' }
+        });
+
         // Check if chatbot questions need to be reset (daily reset)
         const today = new Date().toISOString().split('T')[0];
-        if (user.chatbot_questions_reset_date !== today) {
-            await db.query(
-                'UPDATE users SET chatbot_questions_used = 0, chatbot_questions_reset_date = $1 WHERE id = $2',
-                [today, actualUserId]
-            );
+        if (user.chatbot_questions_reset_date?.toISOString().split('T')[0] !== today) {
+            await prisma.users.update({
+                where: { id: actualUserId },
+                data: {
+                    chatbot_questions_used: 0,
+                    chatbot_questions_reset_date: new Date()
+                }
+            });
             user.chatbot_questions_used = 0;
         }
 
+        // Combine user data with plan details
+        const userSubscription = {
+            subscription_plan: user.subscription_plan,
+            subscription_status: user.subscription_status,
+            subscription_start_date: user.subscription_start_date,
+            subscription_end_date: user.subscription_end_date,
+            auto_renew: user.auto_renew,
+            chatbot_questions_used: user.chatbot_questions_used,
+            chatbot_questions_reset_date: user.chatbot_questions_reset_date,
+            plan_name: subscriptionPlan?.name,
+            plan_description: subscriptionPlan?.description,
+            price_lkr: subscriptionPlan?.price_lkr,
+            features: subscriptionPlan?.features,
+            chatbot_questions_limit: subscriptionPlan?.chatbot_questions_limit
+        };
+
         res.json({
             success: true,
-            data: user
+            data: userSubscription
         });
     } catch (error) {
         console.error('Error fetching user subscription:', error);
@@ -294,8 +306,12 @@ export const updateUserSubscription = async (req: Request, res: Response) => {
         }
 
         // Check if user exists
-        const userCheck = await db.query('SELECT id FROM users WHERE id = $1', [actualUserId]);
-        if (userCheck.rows.length === 0) {
+        const userExists = await prisma.users.findUnique({
+            where: { id: actualUserId },
+            select: { id: true }
+        });
+
+        if (!userExists) {
             return res.status(404).json({
                 success: false,
                 message: 'User not found'
@@ -305,33 +321,41 @@ export const updateUserSubscription = async (req: Request, res: Response) => {
         // Calculate subscription dates
         const startDate = new Date();
         let endDate = null;
-        
+
         if (plan_type !== 'starseeker') {
             endDate = new Date();
             endDate.setMonth(endDate.getMonth() + 1); // 1 month subscription
         }
 
-        // Update user subscription
-        await db.query(
-            `UPDATE users 
-             SET subscription_plan = $1, 
-                 subscription_status = 'active',
-                 subscription_start_date = $2,
-                 subscription_end_date = $3,
-                 auto_renew = $4,
-                 chatbot_questions_used = 0,
-                 chatbot_questions_reset_date = CURRENT_DATE,
-                 updated_at = CURRENT_TIMESTAMP
-             WHERE id = $5`,
-            [plan_type, startDate, endDate, auto_renew, actualUserId]
-        );
+        // Update user subscription using transaction
+        await prisma.$transaction(async (tx) => {
+            // Update user subscription
+            await tx.users.update({
+                where: { id: actualUserId },
+                data: {
+                    subscription_plan: plan_type,
+                    subscription_status: 'active',
+                    subscription_start_date: startDate,
+                    subscription_end_date: endDate,
+                    auto_renew: auto_renew,
+                    chatbot_questions_used: 0,
+                    chatbot_questions_reset_date: new Date(),
+                    updated_at: new Date()
+                }
+            });
 
-        // Create subscription record
-        await db.query(
-            `INSERT INTO subscriptions (user_id, plan_type, status, start_date, end_date, auto_renew)
-             VALUES ($1, $2, 'active', $3, $4, $5)`,
-            [actualUserId, plan_type, startDate, endDate, auto_renew]
-        );
+            // Create subscription record
+            await tx.subscriptions.create({
+                data: {
+                    user_id: actualUserId,
+                    plan_type: plan_type,
+                    status: 'active',
+                    start_date: startDate,
+                    end_date: endDate,
+                    auto_renew: auto_renew
+                }
+            });
+        });
 
         res.json({
             success: true,
@@ -368,27 +392,33 @@ export const cancelSubscription = async (req: Request, res: Response) => {
             actualUserId = Number(user_id);
         }
 
-        // Update user to StarSeeker (free) plan
-        await db.query(
-            `UPDATE users 
-             SET subscription_plan = 'starseeker',
-                 subscription_status = 'cancelled',
-                 auto_renew = false,
-                 updated_at = CURRENT_TIMESTAMP
-             WHERE id = $1`,
-            [actualUserId]
-        );
+        // Update user and subscription using transaction
+        await prisma.$transaction(async (tx) => {
+            // Update user to StarSeeker (free) plan
+            await tx.users.update({
+                where: { id: actualUserId },
+                data: {
+                    subscription_plan: 'starseeker',
+                    subscription_status: 'cancelled',
+                    auto_renew: false,
+                    updated_at: new Date()
+                }
+            });
 
-        // Update current subscription record
-        await db.query(
-            `UPDATE subscriptions 
-             SET status = 'cancelled',
-                 cancelled_at = CURRENT_TIMESTAMP,
-                 cancellation_reason = $2,
-                 updated_at = CURRENT_TIMESTAMP
-             WHERE user_id = $1 AND status = 'active'`,
-            [actualUserId, cancellation_reason]
-        );
+            // Update current subscription record
+            await tx.subscriptions.updateMany({
+                where: {
+                    user_id: actualUserId,
+                    status: 'active'
+                },
+                data: {
+                    status: 'cancelled',
+                    cancelled_at: new Date(),
+                    cancellation_reason: cancellation_reason,
+                    updated_at: new Date()
+                }
+            });
+        });
 
         res.json({
             success: true,
@@ -424,47 +454,52 @@ export const checkChatbotAccess = async (req: Request, res: Response) => {
             actualUserId = Number(user_id);
         }
 
-        const result = await db.query(
-            `SELECT 
-                u.subscription_plan,
-                u.chatbot_questions_used,
-                u.chatbot_questions_reset_date,
-                sp.chatbot_questions_limit
-             FROM users u
-             LEFT JOIN subscription_plans sp ON u.subscription_plan = sp.plan_type
-             WHERE u.id = $1`,
-            [actualUserId]
-        );
+        const user = await prisma.users.findUnique({
+            where: { id: actualUserId },
+            select: {
+                subscription_plan: true,
+                chatbot_questions_used: true,
+                chatbot_questions_reset_date: true
+            }
+        });
 
-        if (result.rows.length === 0) {
+        if (!user) {
             return res.status(404).json({
                 success: false,
                 message: 'User not found'
             });
         }
 
-        const user = result.rows[0];
+        // Get subscription plan details
+        const subscriptionPlan = await prisma.subscription_plans.findUnique({
+            where: { plan_type: user.subscription_plan || 'starseeker' },
+            select: { chatbot_questions_limit: true }
+        });
+
         const today = new Date().toISOString().split('T')[0];
 
         // Reset questions if new day
-        if (user.chatbot_questions_reset_date !== today) {
-            await db.query(
-                'UPDATE users SET chatbot_questions_used = 0, chatbot_questions_reset_date = $1 WHERE id = $2',
-                [today, actualUserId]
-            );
+        if (user.chatbot_questions_reset_date?.toISOString().split('T')[0] !== today) {
+            await prisma.users.update({
+                where: { id: actualUserId },
+                data: {
+                    chatbot_questions_used: 0,
+                    chatbot_questions_reset_date: new Date()
+                }
+            });
             user.chatbot_questions_used = 0;
         }
 
         // Check access
-        const canUse = user.chatbot_questions_limit === -1 || 
-                      user.chatbot_questions_used < user.chatbot_questions_limit;
+        const questionsLimit = subscriptionPlan?.chatbot_questions_limit || 3;
+        const canUse = questionsLimit === -1 || (user.chatbot_questions_used || 0) < questionsLimit;
 
         res.json({
             success: true,
             data: {
                 canUse,
-                questionsUsed: user.chatbot_questions_used,
-                questionsLimit: user.chatbot_questions_limit,
+                questionsUsed: user.chatbot_questions_used || 0,
+                questionsLimit: questionsLimit,
                 plan: user.subscription_plan
             }
         });
@@ -498,10 +533,14 @@ export const incrementChatbotUsage = async (req: Request, res: Response) => {
             actualUserId = Number(user_id);
         }
 
-        await db.query(
-            'UPDATE users SET chatbot_questions_used = chatbot_questions_used + 1 WHERE id = $1',
-            [actualUserId]
-        );
+        await prisma.users.update({
+            where: { id: actualUserId },
+            data: {
+                chatbot_questions_used: {
+                    increment: 1
+                }
+            }
+        });
 
         res.json({
             success: true,
@@ -537,21 +576,30 @@ export const getSubscriptionHistory = async (req: Request, res: Response) => {
             actualUserId = Number(user_id);
         }
 
-        const result = await db.query(
-            `SELECT 
-                s.*,
-                sp.name as plan_name,
-                sp.price_lkr
-             FROM subscriptions s
-             LEFT JOIN subscription_plans sp ON s.plan_type = sp.plan_type
-             WHERE s.user_id = $1
-             ORDER BY s.created_at DESC`,
-            [actualUserId]
+        const subscriptions = await prisma.subscriptions.findMany({
+            where: { user_id: actualUserId },
+            orderBy: { created_at: 'desc' }
+        });
+
+        // Get plan details for each subscription
+        const formattedSubscriptions = await Promise.all(
+            subscriptions.map(async (sub) => {
+                const plan = await prisma.subscription_plans.findUnique({
+                    where: { plan_type: sub.plan_type },
+                    select: { name: true, price_lkr: true }
+                });
+
+                return {
+                    ...sub,
+                    plan_name: plan?.name,
+                    price_lkr: plan?.price_lkr
+                };
+            })
         );
 
         res.json({
             success: true,
-            data: result.rows
+            data: formattedSubscriptions
         });
     } catch (error) {
         console.error('Error fetching subscription history:', error);
