@@ -1,7 +1,9 @@
 import { Request, Response } from 'express';
 import crypto from 'crypto';
-import db from '../db';
+import { PrismaClient } from '../prisma/generated/client';
 import { PaymentStatus } from '../types';
+
+const prisma = new PrismaClient();
 
 // PayHere configuration
 const PAYHERE_MERCHANT_ID = process.env.PAYHERE_MERCHANT_ID;
@@ -15,8 +17,11 @@ const PAYHERE_NOTIFY_URL = process.env.PAYHERE_NOTIFY_URL || 'http://localhost:5
 // Helper function to get user_id from Firebase UID
 const getUserIdFromFirebaseUID = async (firebase_uid: string): Promise<number | null> => {
     try {
-        const result = await db.query('SELECT id FROM users WHERE firebase_uid = $1', [firebase_uid]);
-        return result.rows.length > 0 ? result.rows[0].id : null;
+        const user = await prisma.users.findUnique({
+            where: { firebase_uid },
+            select: { id: true }
+        });
+        return user ? user.id : null;
     } catch (error) {
         console.error('Error getting user ID from Firebase UID:', error);
         return null;
@@ -32,7 +37,7 @@ const getActualMerchantSecret = (merchant_secret: string): string => {
         if (/^[\x20-\x7E]+$/.test(decoded) && decoded.length > 5) {
             return decoded;
         }
-    } catch {}
+    } catch { }
     return actual_secret;
 };
 
@@ -129,60 +134,51 @@ export const createPaymentOrder = async (req: Request, res: Response) => {
         }
 
         // Get user details
-        const userResult = await db.query(
-            'SELECT * FROM users WHERE id = $1',
-            [actualUserId]
-        );
+        const user = await prisma.users.findUnique({
+            where: { id: actualUserId }
+        });
 
-        if (userResult.rows.length === 0) {
+        if (!user) {
             return res.status(404).json({
                 success: false,
                 message: 'User not found'
             });
         }
 
-        const user = userResult.rows[0];
-
         // Get subscription plan details by ID
-        const planResult = await db.query(
-            'SELECT * FROM subscription_plans WHERE id = $1',
-            [planId]
-        );
+        const plan = await prisma.subscription_plans.findUnique({
+            where: { id: planId }
+        });
 
-        if (planResult.rows.length === 0) {
+        if (!plan) {
             return res.status(404).json({
                 success: false,
                 message: 'Subscription plan not found'
             });
         }
 
-        const plan = planResult.rows[0];
-
         // Generate unique order ID
         const order_id = `STELLARION_${Date.now()}_${actualUserId}`;
 
         // Create payment record
-        const paymentResult = await db.query(
-            `INSERT INTO payments (
-                user_id, amount, currency, payment_status, 
-                payment_gateway, gateway_order_id, metadata
-            ) VALUES ($1, $2, $3, 'pending', 'payhere', $4, $5) 
-            RETURNING id`,
-            [
-                actualUserId,
-                amount,
-                currency,
-                order_id,
-                JSON.stringify({
+        const payment = await prisma.payments.create({
+            data: {
+                user_id: actualUserId,
+                amount: amount,
+                currency: currency,
+                payment_status: 'pending',
+                payment_gateway: 'payhere',
+                gateway_order_id: order_id,
+                metadata: {
                     plan_type: plan.plan_type,
                     plan_name: plan.name,
                     user_email: user.email,
                     user_name: `${user.first_name} ${user.last_name}`
-                })
-            ]
-        );
+                }
+            }
+        });
 
-        const payment_id = paymentResult.rows[0].id;
+        const payment_id = payment.id;
 
         // Generate PayHere hash
         const formattedAmount = parseFloat(amount).toFixed(2);
@@ -209,13 +205,13 @@ export const createPaymentOrder = async (req: Request, res: Response) => {
             first_name: user.first_name || 'Customer',
             last_name: user.last_name || 'User',
             email: user.email,
-            phone: (user.profile_data?.phone) || '0771234567',
-            address: (user.profile_data?.address) || 'No. 1, Main Street',
-            city: (user.profile_data?.city) || 'Colombo',
-            country: (user.profile_data?.country) || 'Sri Lanka',
-            delivery_address: (user.profile_data?.address) || 'No. 1, Main Street',
-            delivery_city: (user.profile_data?.city) || 'Colombo', 
-            delivery_country: (user.profile_data?.country) || 'Sri Lanka',
+            phone: (user.profile_data as any)?.phone || '0771234567',
+            address: (user.profile_data as any)?.address || 'No. 1, Main Street',
+            city: (user.profile_data as any)?.city || 'Colombo',
+            country: (user.profile_data as any)?.country || 'Sri Lanka',
+            delivery_address: (user.profile_data as any)?.address || 'No. 1, Main Street',
+            delivery_city: (user.profile_data as any)?.city || 'Colombo',
+            delivery_country: (user.profile_data as any)?.country || 'Sri Lanka',
             custom_1: `plan_id_${plan.id}`,
             custom_2: `user_id_${actualUserId}`
         };
@@ -272,17 +268,14 @@ export const handlePayHereNotification = async (req: Request, res: Response) => 
         }
 
         // Find the payment record
-        const paymentResult = await db.query(
-            'SELECT * FROM payments WHERE gateway_order_id = $1',
-            [order_id]
-        );
+        const payment = await prisma.payments.findFirst({
+            where: { gateway_order_id: order_id }
+        });
 
-        if (paymentResult.rows.length === 0) {
+        if (!payment) {
             console.error('Payment record not found for order:', order_id);
             return res.status(404).send('Payment not found');
         }
-
-        const payment = paymentResult.rows[0];
         let payment_status: PaymentStatus;
 
         // Update payment status based on PayHere status code
@@ -303,66 +296,66 @@ export const handlePayHereNotification = async (req: Request, res: Response) => 
         }
 
         // Update payment record
-        await db.query(
-            `UPDATE payments 
-             SET payment_status = $1, 
-                 gateway_transaction_id = $2,
-                 payment_date = CURRENT_TIMESTAMP,
-                 metadata = metadata || $3,
-                 updated_at = CURRENT_TIMESTAMP
-             WHERE id = $4`,
-            [
-                payment_status,
-                payment_id,
-                JSON.stringify({
+        await prisma.payments.update({
+            where: { id: payment.id },
+            data: {
+                payment_status: payment_status,
+                gateway_transaction_id: payment_id,
+                payment_date: new Date(),
+                metadata: {
+                    ...(payment.metadata as object || {}),
                     payhere_status_code: status_code,
                     payhere_amount: payhere_amount,
                     payhere_currency: payhere_currency
-                }),
-                payment.id
-            ]
-        );
+                },
+                updated_at: new Date()
+            }
+        });
 
         // If payment is successful, update user subscription
         if (payment_status === 'completed') {
-            const metadata = JSON.parse(payment.metadata);
+            const metadata = payment.metadata as any;
             const plan_type = metadata.plan_type;
 
             // Calculate subscription dates
             const startDate = new Date();
             let endDate = null;
-            
+
             if (plan_type !== 'starseeker') {
                 endDate = new Date();
                 endDate.setMonth(endDate.getMonth() + 1); // 1 month subscription
             }
 
             // Update user subscription
-            await db.query(
-                `UPDATE users 
-                 SET subscription_plan = $1, 
-                     subscription_status = 'active',
-                     subscription_start_date = $2,
-                     subscription_end_date = $3,
-                     chatbot_questions_used = 0,
-                     chatbot_questions_reset_date = CURRENT_DATE,
-                     updated_at = CURRENT_TIMESTAMP
-                 WHERE id = $4`,
-                [plan_type, startDate, endDate, payment.user_id]
-            );
+            await prisma.users.update({
+                where: { id: payment.user_id! },
+                data: {
+                    subscription_plan: plan_type,
+                    subscription_status: 'active',
+                    subscription_start_date: startDate,
+                    subscription_end_date: endDate,
+                    chatbot_questions_used: 0,
+                    chatbot_questions_reset_date: new Date(),
+                    updated_at: new Date()
+                }
+            });
 
             // Create subscription record
-            const subscriptionResult = await db.query(
-                `INSERT INTO subscriptions (user_id, plan_type, status, start_date, end_date)
-                 VALUES ($1, $2, 'active', $3, $4) RETURNING id`,
-                [payment.user_id, plan_type, startDate, endDate]
-            );
+            const subscription = await prisma.subscriptions.create({
+                data: {
+                    user_id: payment.user_id!,
+                    plan_type: plan_type as any,
+                    status: 'active',
+                    start_date: startDate,
+                    end_date: endDate
+                }
+            });
 
             // Link payment to subscription
-            await db.query(
-                'UPDATE payments SET subscription_id = $1 WHERE id = $2',
-                [subscriptionResult.rows[0].id, payment.id]
-            );
+            await prisma.payments.update({
+                where: { id: payment.id },
+                data: { subscription_id: subscription.id }
+            });
         }
 
         res.status(200).send('OK');
@@ -378,12 +371,11 @@ export const getPaymentStatus = async (req: Request, res: Response) => {
     try {
         const { payment_id } = req.params;
 
-        const result = await db.query(
-            'SELECT * FROM payments WHERE id = $1',
-            [payment_id]
-        );
+        const payment = await prisma.payments.findUnique({
+            where: { id: parseInt(payment_id) }
+        });
 
-        if (result.rows.length === 0) {
+        if (!payment) {
             return res.status(404).json({
                 success: false,
                 message: 'Payment not found'
@@ -392,7 +384,7 @@ export const getPaymentStatus = async (req: Request, res: Response) => {
 
         res.json({
             success: true,
-            data: result.rows[0]
+            data: payment
         });
 
     } catch (error) {
@@ -425,21 +417,36 @@ export const getUserPaymentHistory = async (req: Request, res: Response) => {
             actualUserId = Number(user_id);
         }
 
-        const result = await db.query(
-            `SELECT 
-                p.*,
-                sp.name as plan_name
-             FROM payments p
-             LEFT JOIN subscriptions s ON p.subscription_id = s.id
-             LEFT JOIN subscription_plans sp ON s.plan_type = sp.plan_type
-             WHERE p.user_id = $1
-             ORDER BY p.created_at DESC`,
-            [actualUserId]
+        const payments = await prisma.payments.findMany({
+            where: { user_id: actualUserId },
+            include: {
+                subscriptions: true
+            },
+            orderBy: { created_at: 'desc' }
+        });
+
+        // Get plan names separately for each subscription
+        const formattedPayments = await Promise.all(
+            payments.map(async (payment) => {
+                let plan_name = null;
+                if (payment.subscriptions?.plan_type) {
+                    const plan = await prisma.subscription_plans.findUnique({
+                        where: { plan_type: payment.subscriptions.plan_type },
+                        select: { name: true }
+                    });
+                    plan_name = plan?.name || null;
+                }
+
+                return {
+                    ...payment,
+                    plan_name
+                };
+            })
         );
 
         res.json({
             success: true,
-            data: result.rows
+            data: formattedPayments
         });
 
     } catch (error) {

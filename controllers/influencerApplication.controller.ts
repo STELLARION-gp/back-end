@@ -1,37 +1,41 @@
 // controllers/influencerApplication.controller.ts
 import { Request, Response } from 'express';
 import { InfluencerApplication } from '../types';
-import db from '../db';
+import { PrismaClient, approve_application_status } from '../prisma/generated/client';
+
+const prisma = new PrismaClient();
 
 // Create Influencer Application
 export const createInfluencerApplication = async (req: Request, res: Response) => {
     try {
         const userId = req.body.user?.id;
         const data = req.body;
-        const result = await db.query(
-            `INSERT INTO influencer_application (
-                user_id, first_name, last_name, email, phone_number, country, bio, specialization_tags, social_links, intro_video_url, sample_content_links, preferred_session_format, willing_to_host_sessions, tools_used
-            ) VALUES (
-                $1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14
-            ) RETURNING *`,
-            [
-                userId,
-                data.first_name,
-                data.last_name,
-                data.email,
-                data.phone_number,
-                data.country,
-                data.bio,
-                data.specialization_tags,
-                data.social_links,
-                data.intro_video_url,
-                data.sample_content_links,
-                data.preferred_session_format,
-                data.willing_to_host_sessions,
-                data.tools_used
-            ]
-        );
-        res.status(201).json({ success: true, data: result.rows[0] });
+
+        // Create the application data object according to the Prisma schema
+        const applicationData: any = {
+            user_id: userId,
+            first_name: data.first_name,
+            last_name: data.last_name,
+            email: data.email,
+            phone_number: data.phone_number,
+            country: data.country,
+            bio: data.bio
+        };
+
+        // Handle any JSON fields that need to be properly formatted
+        if (data.specialization_tags) applicationData.specialization_tags = data.specialization_tags;
+        if (data.social_links) applicationData.social_links = data.social_links;
+        if (data.intro_video_url) applicationData.intro_video_url = data.intro_video_url;
+        if (data.sample_content_links) applicationData.sample_content_links = data.sample_content_links;
+        if (data.preferred_session_format) applicationData.preferred_session_format = data.preferred_session_format;
+        if (data.willing_to_host_sessions !== undefined) applicationData.willing_to_host_sessions = data.willing_to_host_sessions;
+        if (data.tools_used) applicationData.tools_used = data.tools_used;
+
+        const result = await prisma.influencer_application.create({
+            data: applicationData
+        });
+
+        res.status(201).json({ success: true, data: result });
     } catch (err) {
         res.status(500).json({ success: false, error: err instanceof Error ? err.message : String(err) });
     }
@@ -40,8 +44,12 @@ export const createInfluencerApplication = async (req: Request, res: Response) =
 // Get All Influencer Applications
 export const getInfluencerApplications = async (req: Request, res: Response) => {
     try {
-        const result = await db.query('SELECT * FROM influencer_application WHERE deletion_status = FALSE');
-        res.json({ success: true, data: result.rows });
+        const result = await prisma.influencer_application.findMany({
+            where: {
+                deletion_status: false
+            }
+        });
+        res.json({ success: true, data: result });
     } catch (err) {
         res.status(500).json({ success: false, error: err instanceof Error ? err.message : String(err) });
     }
@@ -51,9 +59,15 @@ export const getInfluencerApplications = async (req: Request, res: Response) => 
 export const getInfluencerApplication = async (req: Request, res: Response) => {
     try {
         const { id } = req.params;
-        const result = await db.query('SELECT * FROM influencer_application WHERE application_id = $1 AND deletion_status = FALSE', [id]);
-        if (!result.rows.length) return res.status(404).json({ success: false, message: 'Not found' });
-        res.json({ success: true, data: result.rows[0] });
+        const result = await prisma.influencer_application.findFirst({
+            where: {
+                application_id: parseInt(id),
+                deletion_status: false
+            }
+        });
+
+        if (!result) return res.status(404).json({ success: false, message: 'Not found' });
+        res.json({ success: true, data: result });
     } catch (err) {
         res.status(500).json({ success: false, error: err instanceof Error ? err.message : String(err) });
     }
@@ -64,28 +78,43 @@ export const updateInfluencerApplication = async (req: Request, res: Response) =
     try {
         const { id } = req.params;
         const data = req.body;
+
         // Only allow update if status is pending
-        const check = await db.query('SELECT * FROM influencer_application WHERE application_id = $1 AND application_status = $2 AND deletion_status = FALSE', [id, 'pending']);
-        if (!check.rows.length) return res.status(403).json({ success: false, message: 'Cannot edit this application' });
-        const result = await db.query(
-            `UPDATE influencer_application SET
-                phone_number = $1, country = $2, bio = $3, specialization_tags = $4, social_links = $5, intro_video_url = $6, sample_content_links = $7, preferred_session_format = $8, willing_to_host_sessions = $9, tools_used = $10, updated_at = NOW()
-            WHERE application_id = $11 RETURNING *`,
-            [
-                data.phone_number,
-                data.country,
-                data.bio,
-                data.specialization_tags,
-                data.social_links,
-                data.intro_video_url,
-                data.sample_content_links,
-                data.preferred_session_format,
-                data.willing_to_host_sessions,
-                data.tools_used,
-                id
-            ]
-        );
-        res.json({ success: true, data: result.rows[0] });
+        const check = await prisma.influencer_application.findFirst({
+            where: {
+                application_id: parseInt(id),
+                application_status: 'pending',
+                deletion_status: false
+            }
+        });
+
+        if (!check) return res.status(403).json({ success: false, message: 'Cannot edit this application' });
+
+        // Create update data
+        const updateData: any = {
+            updated_at: new Date()
+        };
+
+        // Map fields from request to schema fields
+        if (data.phone_number) updateData.phone_number = data.phone_number;
+        if (data.country) updateData.country = data.country;
+        if (data.bio) updateData.bio = data.bio;
+        if (data.specialization_tags) updateData.specialization_tags = data.specialization_tags;
+        if (data.social_links) updateData.social_links = data.social_links;
+        if (data.intro_video_url) updateData.intro_video_url = data.intro_video_url;
+        if (data.sample_content_links) updateData.sample_content_links = data.sample_content_links;
+        if (data.preferred_session_format) updateData.preferred_session_format = data.preferred_session_format;
+        if (data.willing_to_host_sessions !== undefined) updateData.willing_to_host_sessions = data.willing_to_host_sessions;
+        if (data.tools_used) updateData.tools_used = data.tools_used;
+
+        const result = await prisma.influencer_application.update({
+            where: {
+                application_id: parseInt(id)
+            },
+            data: updateData
+        });
+
+        res.json({ success: true, data: result });
     } catch (err) {
         res.status(500).json({ success: false, error: err instanceof Error ? err.message : String(err) });
     }
@@ -95,8 +124,18 @@ export const updateInfluencerApplication = async (req: Request, res: Response) =
 export const deleteInfluencerApplication = async (req: Request, res: Response) => {
     try {
         const { id } = req.params;
-        const result = await db.query('UPDATE influencer_application SET deletion_status = TRUE, updated_at = NOW() WHERE application_id = $1 RETURNING *', [id]);
-        if (!result.rows.length) return res.status(404).json({ success: false, message: 'Not found' });
+
+        const result = await prisma.influencer_application.update({
+            where: {
+                application_id: parseInt(id)
+            },
+            data: {
+                deletion_status: true,
+                updated_at: new Date()
+            }
+        });
+
+        if (!result) return res.status(404).json({ success: false, message: 'Not found' });
         res.json({ success: true, message: 'Deleted' });
     } catch (err) {
         res.status(500).json({ success: false, error: err instanceof Error ? err.message : String(err) });
@@ -108,9 +147,19 @@ export const changeInfluencerApplicationStatus = async (req: Request, res: Respo
     try {
         const { id } = req.params;
         const { status } = req.body; // 'accepted', 'pending', 'rejected'
-        const result = await db.query('UPDATE influencer_application SET approve_application_status = $1, updated_at = NOW() WHERE application_id = $2 RETURNING *', [status, id]);
-        if (!result.rows.length) return res.status(404).json({ success: false, message: 'Not found' });
-        res.json({ success: true, data: result.rows[0] });
+
+        const result = await prisma.influencer_application.update({
+            where: {
+                application_id: parseInt(id)
+            },
+            data: {
+                approve_application_status: status as approve_application_status,
+                updated_at: new Date()
+            }
+        });
+
+        if (!result) return res.status(404).json({ success: false, message: 'Not found' });
+        res.json({ success: true, data: result });
     } catch (err) {
         res.status(500).json({ success: false, error: err instanceof Error ? err.message : String(err) });
     }

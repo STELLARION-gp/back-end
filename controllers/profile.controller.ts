@@ -1,6 +1,6 @@
 // controllers/profile.controller.ts
 import { Request, Response } from "express";
-import pool from "../db";
+import { prisma } from "../lib/prisma";
 import { DatabaseUser, UserSettings, UpdateSettingsRequest, ApiResponse } from "../types";
 
 // Get detailed user profile
@@ -19,18 +19,14 @@ export const getDetailedProfile = async (req: Request, res: Response): Promise<v
         console.log('🔍 Getting detailed profile for Firebase UID:', firebaseUser.uid);
 
         // Get user profile with settings
-        const userQuery = `
-            SELECT u.*, s.language, s.email_notifications, s.push_notifications, 
-                   s.profile_visibility, s.allow_direct_messages, s.show_online_status, 
-                   s.theme, s.timezone
-            FROM users u
-            LEFT JOIN user_settings s ON u.id = s.user_id
-            WHERE u.firebase_uid = $1
-        `;
+        let user = await prisma.users.findUnique({
+            where: { firebase_uid: firebaseUser.uid },
+            include: {
+                user_settings: true
+            }
+        });
 
-        let result = await pool.query(userQuery, [firebaseUser.uid]);
-
-        if (result.rows.length === 0) {
+        if (!user) {
             console.log('⚠️ User not found by Firebase UID, checking by email...');
 
             // Auto-create user if they don't exist but have valid Firebase token
@@ -38,32 +34,37 @@ export const getDetailedProfile = async (req: Request, res: Response): Promise<v
             const name = firebaseUser.name || firebaseUser.display_name || '';
 
             // First check if user exists by email
-            const emailCheckQuery = `
-                SELECT u.*, s.language, s.email_notifications, s.push_notifications, 
-                       s.profile_visibility, s.allow_direct_messages, s.show_online_status, 
-                       s.theme, s.timezone
-                FROM users u
-                LEFT JOIN user_settings s ON u.id = s.user_id
-                WHERE u.email = $1
-            `;
+            const userByEmail = await prisma.users.findUnique({
+                where: { email: email },
+                include: {
+                    user_settings: true
+                }
+            });
 
-            const emailResult = await pool.query(emailCheckQuery, [email]);
-
-            if (emailResult.rows.length > 0) {
+            if (userByEmail) {
                 console.log('🔄 User found by email, updating Firebase UID...');
-                
+
                 // Update the existing user's Firebase UID
-                await pool.query(
-                    `UPDATE users SET firebase_uid = $1, last_login = CURRENT_TIMESTAMP, updated_at = CURRENT_TIMESTAMP WHERE email = $2`,
-                    [firebaseUser.uid, email]
-                );
+                await prisma.users.update({
+                    where: { id: userByEmail.id },
+                    data: {
+                        firebase_uid: firebaseUser.uid,
+                        last_login: new Date(),
+                        updated_at: new Date()
+                    }
+                });
 
                 // Query again to get the updated user with settings
-                result = await pool.query(userQuery, [firebaseUser.uid]);
+                user = await prisma.users.findUnique({
+                    where: { firebase_uid: firebaseUser.uid },
+                    include: {
+                        user_settings: true
+                    }
+                });
                 console.log('✅ Firebase UID updated successfully for existing user');
             } else {
                 console.log('👤 Creating new user...');
-                
+
                 // Parse name into first and last name
                 let firstName = '';
                 let lastName = '';
@@ -77,28 +78,48 @@ export const getDetailedProfile = async (req: Request, res: Response): Promise<v
                 const displayName = name || email.split('@')[0];
 
                 try {
-                    // Create user
-                    const createResult = await pool.query<DatabaseUser>(
-                        `INSERT INTO users (firebase_uid, email, role, first_name, last_name, display_name, is_active, last_login, created_at, updated_at) 
-                         VALUES ($1, $2, $3, $4, $5, $6, true, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP) 
-                         RETURNING *`,
-                        [firebaseUser.uid, email, 'learner', firstName, lastName, displayName]
-                    );
+                    // Use a transaction to create the user and settings
+                    user = await prisma.$transaction(async (tx) => {
+                        const newUser = await tx.users.create({
+                            data: {
+                                firebase_uid: firebaseUser.uid,
+                                email: email,
+                                role: 'learner',
+                                first_name: firstName,
+                                last_name: lastName,
+                                display_name: displayName,
+                                is_active: true,
+                                last_login: new Date(),
+                                created_at: new Date(),
+                                updated_at: new Date()
+                            }
+                        });
 
-                    const newUser = createResult.rows[0];
+                        // Create default user settings
+                        await tx.user_settings.create({
+                            data: {
+                                user_id: newUser.id,
+                                language: 'en',
+                                email_notifications: true,
+                                push_notifications: true,
+                                profile_visibility: 'public',
+                                allow_direct_messages: true,
+                                show_online_status: true,
+                                theme: 'dark',
+                                timezone: 'UTC'
+                            }
+                        });
 
-                    // Create default user settings
-                    await pool.query(
-                        `INSERT INTO user_settings (user_id, language, email_notifications, push_notifications, profile_visibility, allow_direct_messages, show_online_status, theme, timezone) 
-                         VALUES ($1, 'en', true, true, 'public', true, true, 'dark', 'UTC')`,
-                        [newUser.id]
-                    );
+                        console.log('✅ User and settings auto-created successfully:', newUser.firebase_uid);
 
-                    console.log('✅ User and settings auto-created successfully:', newUser.firebase_uid);
-
-                    // Query again to get the user with settings
-                    result = await pool.query(userQuery, [firebaseUser.uid]);
-
+                        // Return the user with settings
+                        return await tx.users.findUnique({
+                            where: { id: newUser.id },
+                            include: {
+                                user_settings: true
+                            }
+                        });
+                    });
                 } catch (createError) {
                     console.error('❌ Error creating user:', createError);
                     res.status(500).json({
@@ -111,33 +132,31 @@ export const getDetailedProfile = async (req: Request, res: Response): Promise<v
             }
         }
 
-        const user = result.rows[0];
-
-        if (!user.is_active) {
-            console.log('⚠️ User found but inactive:', user.firebase_uid);
+        if (!user || !user.is_active) {
+            console.log('⚠️ User found but inactive or not found:', firebaseUser.uid);
             res.status(403).json({
                 success: false,
-                message: "User account is inactive"
+                message: "User account is inactive or not found"
             });
             return;
         }
 
         // Update last login
-        await pool.query(
-            "UPDATE users SET last_login = CURRENT_TIMESTAMP WHERE firebase_uid = $1",
-            [firebaseUser.uid]
-        );
+        await prisma.users.update({
+            where: { firebase_uid: firebaseUser.uid },
+            data: { last_login: new Date() }
+        });
 
         // Structure the response to match frontend expectations
         const profileResponse = {
             id: user.id,
             firebase_uid: user.firebase_uid,
             email: user.email,
-            first_name: user.first_name,
-            last_name: user.last_name,
-            display_name: user.display_name,
-            role: user.role,
-            is_active: user.is_active,
+            first_name: user.first_name || '',
+            last_name: user.last_name || '',
+            display_name: user.display_name || '',
+            role: user.role || 'learner',
+            is_active: user.is_active || true,
             created_at: user.created_at,
             last_login: user.last_login,
             profile_data: user.profile_data || {
@@ -162,14 +181,14 @@ export const getDetailedProfile = async (req: Request, res: Response): Promise<v
                 current_projects: []
             },
             settings: {
-                language: user.language || 'en',
-                email_notifications: user.email_notifications !== undefined ? user.email_notifications : true,
-                push_notifications: user.push_notifications !== undefined ? user.push_notifications : true,
-                profile_visibility: user.profile_visibility || 'public',
-                allow_direct_messages: user.allow_direct_messages !== undefined ? user.allow_direct_messages : true,
-                show_online_status: user.show_online_status !== undefined ? user.show_online_status : true,
-                theme: user.theme || 'dark',
-                timezone: user.timezone || 'UTC'
+                language: user.user_settings?.language || 'en',
+                email_notifications: user.user_settings?.email_notifications !== undefined ? user.user_settings.email_notifications : true,
+                push_notifications: user.user_settings?.push_notifications !== undefined ? user.user_settings.push_notifications : true,
+                profile_visibility: user.user_settings?.profile_visibility || 'public',
+                allow_direct_messages: user.user_settings?.allow_direct_messages !== undefined ? user.user_settings.allow_direct_messages : true,
+                show_online_status: user.user_settings?.show_online_status !== undefined ? user.user_settings.show_online_status : true,
+                theme: user.user_settings?.theme || 'dark',
+                timezone: user.user_settings?.timezone || 'UTC'
             }
         };
 
@@ -202,42 +221,32 @@ export const updateDetailedProfile = async (req: Request, res: Response): Promis
             return;
         }
 
-        // Build update query dynamically
-        const updateFields: string[] = [];
-        const values: any[] = [];
-        let paramCount = 0;
+        // Build update data object for Prisma
+        const updateData: any = {
+            updated_at: new Date()
+        };
 
         if (first_name !== undefined) {
-            paramCount++;
-            updateFields.push(`first_name = $${paramCount}`);
-            values.push(first_name);
+            updateData.first_name = first_name;
         }
 
         if (last_name !== undefined) {
-            paramCount++;
-            updateFields.push(`last_name = $${paramCount}`);
-            values.push(last_name);
+            updateData.last_name = last_name;
         }
 
         if (display_name !== undefined) {
-            paramCount++;
-            updateFields.push(`display_name = $${paramCount}`);
-            values.push(display_name);
+            updateData.display_name = display_name;
         }
 
         if (profile_data !== undefined) {
-            paramCount++;
-            updateFields.push(`profile_data = $${paramCount}`);
-            values.push(JSON.stringify(profile_data));
+            updateData.profile_data = profile_data;
         }
 
         if (role_specific_data !== undefined) {
-            paramCount++;
-            updateFields.push(`role_specific_data = $${paramCount}`);
-            values.push(JSON.stringify(role_specific_data));
+            updateData.role_specific_data = role_specific_data;
         }
 
-        if (updateFields.length === 0) {
+        if (Object.keys(updateData).length === 1) { // Only contains updated_at
             res.status(400).json({
                 success: false,
                 message: "No fields to update"
@@ -245,20 +254,16 @@ export const updateDetailedProfile = async (req: Request, res: Response): Promis
             return;
         }
 
-        updateFields.push(`updated_at = CURRENT_TIMESTAMP`);
-        paramCount++;
-        values.push(firebaseUser.uid);
+        // Update the user with Prisma
+        const updatedUser = await prisma.users.update({
+            where: { firebase_uid: firebaseUser.uid },
+            data: updateData,
+            include: {
+                user_settings: true
+            }
+        });
 
-        const query = `
-            UPDATE users 
-            SET ${updateFields.join(', ')} 
-            WHERE firebase_uid = $${paramCount} 
-            RETURNING *
-        `;
-
-        const result = await pool.query<DatabaseUser>(query, values);
-
-        if (result.rows.length === 0) {
+        if (!updatedUser) {
             res.status(404).json({
                 success: false,
                 message: "User not found"
@@ -269,7 +274,7 @@ export const updateDetailedProfile = async (req: Request, res: Response): Promis
         res.json({
             success: true,
             message: "Profile updated successfully",
-            data: result.rows[0]
+            data: updatedUser
         });
     } catch (error) {
         console.error("Update profile error:", error);
@@ -293,13 +298,15 @@ export const getUserSettings = async (req: Request, res: Response): Promise<void
             return;
         }
 
-        // Get user ID first
-        const userResult = await pool.query(
-            "SELECT id FROM users WHERE firebase_uid = $1",
-            [firebaseUser.uid]
-        );
+        // Get user and their settings using Prisma
+        const user = await prisma.users.findUnique({
+            where: { firebase_uid: firebaseUser.uid },
+            include: {
+                user_settings: true
+            }
+        });
 
-        if (userResult.rows.length === 0) {
+        if (!user) {
             res.status(404).json({
                 success: false,
                 message: "User not found"
@@ -307,16 +314,9 @@ export const getUserSettings = async (req: Request, res: Response): Promise<void
             return;
         }
 
-        const userId = userResult.rows[0].id;
+        let settings = user.user_settings;
 
-        // Get settings
-        const settingsResult = await pool.query<UserSettings>(
-            "SELECT * FROM user_settings WHERE user_id = $1",
-            [userId]
-        );
-
-        let settings;
-        if (settingsResult.rows.length === 0) {
+        if (!settings) {
             // Create default settings if none exist
             const defaultSettings = {
                 language: 'en',
@@ -329,32 +329,27 @@ export const getUserSettings = async (req: Request, res: Response): Promise<void
                 timezone: 'UTC'
             };
 
-            const insertResult = await pool.query<UserSettings>(
-                `INSERT INTO user_settings (user_id, language, email_notifications, push_notifications, 
-                 profile_visibility, allow_direct_messages, show_online_status, theme, timezone) 
-                 VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING *`,
-                [userId, defaultSettings.language, defaultSettings.email_notifications,
-                    defaultSettings.push_notifications, defaultSettings.profile_visibility,
-                    defaultSettings.allow_direct_messages, defaultSettings.show_online_status,
-                    defaultSettings.theme, defaultSettings.timezone]
-            );
-            settings = insertResult.rows[0];
-        } else {
-            settings = settingsResult.rows[0];
+            // Create new settings
+            settings = await prisma.user_settings.create({
+                data: {
+                    user_id: user.id,
+                    ...defaultSettings
+                }
+            });
         }
 
         res.json({
             success: true,
             message: "Settings retrieved successfully",
             data: {
-                language: settings.language,
-                email_notifications: settings.email_notifications,
-                push_notifications: settings.push_notifications,
-                profile_visibility: settings.profile_visibility,
-                allow_direct_messages: settings.allow_direct_messages,
-                show_online_status: settings.show_online_status,
-                theme: settings.theme,
-                timezone: settings.timezone
+                language: settings.language || 'en',
+                email_notifications: settings.email_notifications !== undefined ? settings.email_notifications : true,
+                push_notifications: settings.push_notifications !== undefined ? settings.push_notifications : true,
+                profile_visibility: settings.profile_visibility || 'public',
+                allow_direct_messages: settings.allow_direct_messages !== undefined ? settings.allow_direct_messages : true,
+                show_online_status: settings.show_online_status !== undefined ? settings.show_online_status : true,
+                theme: settings.theme || 'dark',
+                timezone: settings.timezone || 'UTC'
             }
         });
     } catch (error) {
@@ -380,13 +375,15 @@ export const updateUserSettings = async (req: Request, res: Response): Promise<v
             return;
         }
 
-        // Get user ID first
-        const userResult = await pool.query(
-            "SELECT id FROM users WHERE firebase_uid = $1",
-            [firebaseUser.uid]
-        );
+        // Get user and their settings
+        const user = await prisma.users.findUnique({
+            where: { firebase_uid: firebaseUser.uid },
+            include: {
+                user_settings: true
+            }
+        });
 
-        if (userResult.rows.length === 0) {
+        if (!user) {
             res.status(404).json({
                 success: false,
                 message: "User not found"
@@ -394,12 +391,10 @@ export const updateUserSettings = async (req: Request, res: Response): Promise<v
             return;
         }
 
-        const userId = userResult.rows[0].id;
-
-        // Build update query dynamically
-        const updateFields: string[] = [];
-        const values: any[] = [];
-        let paramCount = 0;
+        // Build update data object for Prisma
+        const updateData: any = {
+            updated_at: new Date()
+        };
 
         const allowedFields = [
             'language', 'email_notifications', 'push_notifications',
@@ -407,15 +402,15 @@ export const updateUserSettings = async (req: Request, res: Response): Promise<v
             'theme', 'timezone'
         ];
 
+        let hasUpdates = false;
         allowedFields.forEach(field => {
             if (settingsData[field as keyof UpdateSettingsRequest] !== undefined) {
-                paramCount++;
-                updateFields.push(`${field} = $${paramCount}`);
-                values.push(settingsData[field as keyof UpdateSettingsRequest]);
+                updateData[field] = settingsData[field as keyof UpdateSettingsRequest];
+                hasUpdates = true;
             }
         });
 
-        if (updateFields.length === 0) {
+        if (!hasUpdates) {
             res.status(400).json({
                 success: false,
                 message: "No valid fields to update"
@@ -423,20 +418,23 @@ export const updateUserSettings = async (req: Request, res: Response): Promise<v
             return;
         }
 
-        updateFields.push(`updated_at = CURRENT_TIMESTAMP`);
-        paramCount++;
-        values.push(userId);
+        // If user doesn't have settings, create them; otherwise update
+        let settings;
+        if (!user.user_settings) {
+            settings = await prisma.user_settings.create({
+                data: {
+                    user_id: user.id,
+                    ...updateData
+                }
+            });
+        } else {
+            settings = await prisma.user_settings.update({
+                where: { user_id: user.id },
+                data: updateData
+            });
+        }
 
-        const query = `
-            UPDATE user_settings 
-            SET ${updateFields.join(', ')} 
-            WHERE user_id = $${paramCount} 
-            RETURNING *
-        `;
-
-        const result = await pool.query<UserSettings>(query, values);
-
-        if (result.rows.length === 0) {
+        if (!settings) {
             res.status(404).json({
                 success: false,
                 message: "Settings not found"
@@ -444,20 +442,18 @@ export const updateUserSettings = async (req: Request, res: Response): Promise<v
             return;
         }
 
-        const settings = result.rows[0];
-
         res.json({
             success: true,
             message: "Settings updated successfully",
             data: {
-                language: settings.language,
-                email_notifications: settings.email_notifications,
-                push_notifications: settings.push_notifications,
-                profile_visibility: settings.profile_visibility,
-                allow_direct_messages: settings.allow_direct_messages,
-                show_online_status: settings.show_online_status,
-                theme: settings.theme,
-                timezone: settings.timezone
+                language: settings.language || 'en',
+                email_notifications: settings.email_notifications !== undefined ? settings.email_notifications : true,
+                push_notifications: settings.push_notifications !== undefined ? settings.push_notifications : true,
+                profile_visibility: settings.profile_visibility || 'public',
+                allow_direct_messages: settings.allow_direct_messages !== undefined ? settings.allow_direct_messages : true,
+                show_online_status: settings.show_online_status !== undefined ? settings.show_online_status : true,
+                theme: settings.theme || 'dark',
+                timezone: settings.timezone || 'UTC'
             }
         });
     } catch (error) {
@@ -517,25 +513,21 @@ export const exportUserData = async (req: Request, res: Response): Promise<void>
             return;
         }
 
-        // Get all user data
-        const userQuery = `
-            SELECT u.*, s.* 
-            FROM users u
-            LEFT JOIN user_settings s ON u.id = s.user_id
-            WHERE u.firebase_uid = $1
-        `;
+        // Get all user data with Prisma
+        const userData = await prisma.users.findUnique({
+            where: { firebase_uid: firebaseUser.uid },
+            include: {
+                user_settings: true
+            }
+        });
 
-        const result = await pool.query(userQuery, [firebaseUser.uid]);
-
-        if (result.rows.length === 0) {
+        if (!userData) {
             res.status(404).json({
                 success: false,
                 message: "User not found"
             });
             return;
         }
-
-        const userData = result.rows[0];
 
         // In a real implementation, you would:
         // 1. Generate a comprehensive data export

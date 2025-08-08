@@ -1,6 +1,8 @@
 import { Request, Response, NextFunction } from 'express';
-import db from '../db';
+import { PrismaClient } from '../prisma/generated/client';
 import { SubscriptionPlan } from '../types';
+
+const prisma = new PrismaClient();
 
 // Interface for the custom request with user info
 interface AuthenticatedRequest extends Request {
@@ -37,57 +39,55 @@ export const requireSubscription = (feature: keyof typeof PAID_FEATURES) => {
             const user_id = req.user.user_id;
 
             // Get user's subscription details
-            const result = await db.query(
-                `SELECT 
-                    subscription_plan, 
-                    subscription_status, 
-                    subscription_end_date
-                 FROM users 
-                 WHERE id = $1`,
-                [user_id]
-            );
+            const userData = await prisma.users.findUnique({
+                where: { id: user_id },
+                select: {
+                    subscription_plan: true,
+                    subscription_status: true,
+                    subscription_end_date: true
+                }
+            });
 
-            if (result.rows.length === 0) {
+            if (!userData) {
                 return res.status(404).json({
                     success: false,
                     message: 'User not found'
                 });
             }
 
-            const user = result.rows[0];
             const requiredPlans = PAID_FEATURES[feature];
 
             // Check if user's plan includes the required feature
-            if (!requiredPlans.includes(user.subscription_plan)) {
+            if (!requiredPlans.includes(userData.subscription_plan)) {
                 return res.status(403).json({
                     success: false,
                     message: 'This feature requires a paid subscription',
                     feature,
-                    currentPlan: user.subscription_plan,
+                    currentPlan: userData.subscription_plan,
                     requiredPlans,
                     upgradeUrl: '/subscription/plans'
                 });
             }
 
             // Check if subscription is active (for paid plans)
-            if (user.subscription_plan !== 'starseeker') {
-                if (user.subscription_status !== 'active') {
+            if (userData.subscription_plan !== 'starseeker') {
+                if (userData.subscription_status !== 'active') {
                     return res.status(403).json({
                         success: false,
                         message: 'Your subscription is not active',
-                        currentPlan: user.subscription_plan,
-                        status: user.subscription_status,
+                        currentPlan: userData.subscription_plan,
+                        status: userData.subscription_status,
                         upgradeUrl: '/subscription/plans'
                     });
                 }
 
                 // Check if subscription has expired
-                if (user.subscription_end_date && new Date(user.subscription_end_date) < new Date()) {
+                if (userData.subscription_end_date && new Date(userData.subscription_end_date) < new Date()) {
                     return res.status(403).json({
                         success: false,
                         message: 'Your subscription has expired',
-                        currentPlan: user.subscription_plan,
-                        expiredDate: user.subscription_end_date,
+                        currentPlan: userData.subscription_plan,
+                        expiredDate: userData.subscription_end_date,
                         upgradeUrl: '/subscription/plans'
                     });
                 }
@@ -110,7 +110,7 @@ export const checkChatbotAccess = async (req: Request, res: Response, next: Next
     console.log('🚨 [EMERGENCY BYPASS] Skipping subscription check');
     next();
     return;
-    
+
     // Original subscription check code (commented out for emergency bypass)
     /*
     try {

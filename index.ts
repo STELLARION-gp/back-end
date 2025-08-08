@@ -15,6 +15,10 @@ import authRoutes from "./routes/auth.routes";
 import chatbotRoutes from "./routes/chatbot.routes";
 import profileRoutes from "./routes/profile.routes";
 import { errorHandler, notFound } from "./middleware/errorHandler";
+import { gracefulShutdown } from './lib/prisma';
+
+// prisma client
+import { PrismaClient } from "@prisma/client";
 
 dotenv.config();
 const app = express();
@@ -73,7 +77,15 @@ app.use(notFound);
 app.use(errorHandler);
 
 const PORT = process.env.PORT || 5000;
-app.listen(PORT, () => {
+const server = app.listen(PORT, () => {
     console.log(`🚀 Server running on http://localhost:${PORT}`);
     console.log(`📊 Health check available at http://localhost:${PORT}/health`);
+});
+
+['SIGINT', 'SIGTERM'].forEach(signal => {
+    process.on(signal as NodeJS.Signals, async () => {
+        console.log(`\nReceived ${signal}, shutting down...`);
+        await gracefulShutdown();
+        server.close(() => process.exit(0));
+    });
 });

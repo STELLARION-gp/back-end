@@ -1,0 +1,585 @@
+generator client {
+  provider = "prisma-client-js"
+  output   = "./generated/client"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model subscriptions {
+  id                  Int                  @id @default(autoincrement())
+  user_id             Int?
+  plan_type           subscription_plan
+  status              subscription_status? @default(pending)
+  start_date          DateTime             @db.Timestamp(6)
+  end_date            DateTime?            @db.Timestamp(6)
+  auto_renew          Boolean?             @default(false)
+  created_at          DateTime?            @default(now()) @db.Timestamp(6)
+  updated_at          DateTime?            @default(now()) @db.Timestamp(6)
+  cancelled_at        DateTime?            @db.Timestamp(6)
+  cancellation_reason String?
+  payments            payments[]
+  users               users?               @relation(fields: [user_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+
+  @@index([status], map: "idx_subscriptions_status")
+  @@index([user_id], map: "idx_subscriptions_user_id")
+}
+
+model blog_views {
+  id         Int       @id @default(autoincrement())
+  blog_id    Int?
+  user_id    Int?
+  ip_address String?   @db.Inet
+  user_agent String?
+  viewed_at  DateTime? @default(now()) @db.Timestamp(6)
+  blogs      blogs?    @relation(fields: [blog_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  users      users?    @relation(fields: [user_id], references: [id], onUpdate: NoAction)
+
+  @@index([blog_id], map: "idx_blog_views_blog_id")
+}
+
+model night_camps {
+  id                                   Int                                    @id @default(autoincrement())
+  name                                 String                                 @db.VarChar(255)
+  organized_by                         String?                                @db.VarChar(255)
+  sponsored_by                         String?                                @db.VarChar(255)
+  description                          String?
+  date                                 DateTime                               @db.Date
+  time                                 DateTime?                              @db.Time(6)
+  location                             String                                 @db.VarChar(500)
+  number_of_participants               Int?                                   @default(0)
+  image_urls                           Json?                                  @default("[]")
+  emergency_contact                    String?                                @db.VarChar(255)
+  status                               String?                                @default("pending") @db.VarChar(50)
+  created_at                           DateTime?                              @default(now()) @db.Timestamp(6)
+  updated_at                           DateTime?                              @default(now()) @db.Timestamp(6)
+  night_camp_registrations             night_camp_registrations[]
+  night_camp_volunteering              night_camp_volunteering[]
+  night_camp_volunteering_applications night_camp_volunteering_applications[]
+  night_camps_activities               night_camps_activities[]
+  night_camps_equipment                night_camps_equipment[]
+
+  @@index([created_at], map: "idx_night_camps_created_at")
+  @@index([date], map: "idx_night_camps_date")
+  @@index([location], map: "idx_night_camps_location")
+}
+
+model night_camps_activities {
+  id            Int          @id @default(autoincrement())
+  night_camp_id Int?
+  activity      String       @db.VarChar(255)
+  created_at    DateTime?    @default(now()) @db.Timestamp(6)
+  night_camps   night_camps? @relation(fields: [night_camp_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+
+  @@index([night_camp_id], map: "idx_night_camps_activities_camp_id")
+}
+
+model chatbot_sessions {
+  id               String             @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  user_id          Int?
+  firebase_uid     String             @db.VarChar(255)
+  title            String?            @default("New Chat") @db.VarChar(255)
+  is_active        Boolean?           @default(true)
+  message_count    Int?               @default(0)
+  created_at       DateTime?          @default(now()) @db.Timestamp(6)
+  updated_at       DateTime?          @default(now()) @db.Timestamp(6)
+  chatbot_feedback chatbot_feedback[]
+  chatbot_messages chatbot_messages[]
+  users            users?             @relation(fields: [user_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+
+  @@index([is_active], map: "idx_chatbot_sessions_active")
+  @@index([firebase_uid], map: "idx_chatbot_sessions_firebase_uid")
+}
+
+model payments {
+  id                     Int             @id @default(autoincrement())
+  user_id                Int?
+  subscription_id        Int?
+  amount                 Decimal         @db.Decimal(10, 2)
+  currency               String?         @default("LKR") @db.VarChar(3)
+  payment_status         payment_status? @default(pending)
+  payment_method         String?         @db.VarChar(50)
+  payment_gateway        String?         @default("payhere") @db.VarChar(50)
+  gateway_transaction_id String?         @db.VarChar(255)
+  gateway_order_id       String?         @db.VarChar(255)
+  payment_date           DateTime?       @db.Timestamp(6)
+  metadata               Json?           @default("{}")
+  created_at             DateTime?       @default(now()) @db.Timestamp(6)
+  updated_at             DateTime?       @default(now()) @db.Timestamp(6)
+  subscriptions          subscriptions?  @relation(fields: [subscription_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  users                  users?          @relation(fields: [user_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+
+  @@index([payment_status], map: "idx_payments_status")
+  @@index([subscription_id], map: "idx_payments_subscription_id")
+  @@index([user_id], map: "idx_payments_user_id")
+}
+
+model blogs {
+  id                      Int                       @id @default(autoincrement())
+  title                   String                    @db.VarChar(255)
+  content                 String
+  excerpt                 String?
+  featured_image          String?
+  author_id               Int?
+  author_name             String?                   @db.VarChar(255)
+  status                  String?                   @default("draft") @db.VarChar(20)
+  is_featured             Boolean?                  @default(false)
+  views_count             Int?                      @default(0)
+  likes_count             Int?                      @default(0)
+  comments_count          Int?                      @default(0)
+  created_at              DateTime?                 @default(now()) @db.Timestamp(6)
+  updated_at              DateTime?                 @default(now()) @db.Timestamp(6)
+  image_url               String?                   @db.VarChar(500)
+  published_at            DateTime?                 @db.Timestamp(6)
+  view_count              Int?                      @default(0)
+  like_count              Int?                      @default(0)
+  comment_count           Int?                      @default(0)
+  tags                    Json?                     @default("[]")
+  metadata                Json?                     @default("{}")
+  blog_category_relations blog_category_relations[]
+  blog_comments           blog_comments[]
+  blog_likes              blog_likes[]
+  blog_views              blog_views[]
+  users                   users?                    @relation(fields: [author_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+
+  @@index([author_id], map: "idx_blogs_author_id")
+  @@index([created_at], map: "idx_blogs_created_at")
+  @@index([published_at], map: "idx_blogs_published_at")
+  @@index([status], map: "idx_blogs_status")
+}
+
+model blog_category_relations {
+  id              Int              @id @default(autoincrement())
+  blog_id         Int?
+  category_id     Int?
+  blogs           blogs?           @relation(fields: [blog_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  blog_categories blog_categories? @relation(fields: [category_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+
+  @@unique([blog_id, category_id])
+}
+
+model subscription_plans {
+  id                      Int               @id @default(autoincrement())
+  plan_type               subscription_plan @unique
+  name                    String            @db.VarChar(100)
+  description             String?
+  price_lkr               Decimal           @db.Decimal(10, 2)
+  price_usd               Decimal?          @db.Decimal(10, 2)
+  features                Json
+  chatbot_questions_limit Int?
+  is_active               Boolean?          @default(true)
+  created_at              DateTime?         @default(now()) @db.Timestamp(6)
+  updated_at              DateTime?         @default(now()) @db.Timestamp(6)
+}
+
+model blog_categories {
+  id                      Int                       @id @default(autoincrement())
+  name                    String                    @unique @db.VarChar(100)
+  description             String?
+  created_at              DateTime?                 @default(now()) @db.Timestamp(6)
+  blog_category_relations blog_category_relations[]
+}
+
+model chatbot_usage {
+  id             Int       @id @default(autoincrement())
+  user_id        Int?
+  question_count Int?      @default(1)
+  usage_date     DateTime? @default(dbgenerated("CURRENT_DATE")) @db.Date
+  created_at     DateTime? @default(now()) @db.Timestamp(6)
+  users          users?    @relation(fields: [user_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+
+  @@unique([user_id, usage_date])
+  @@index([user_id, usage_date], map: "idx_chatbot_usage_user_date")
+}
+
+model blog_comments {
+  id                  Int             @id @default(autoincrement())
+  blog_id             Int?
+  user_id             Int?
+  parent_comment_id   Int?
+  content             String
+  is_edited           Boolean?        @default(false)
+  created_at          DateTime?       @default(now()) @db.Timestamp(6)
+  updated_at          DateTime?       @default(now()) @db.Timestamp(6)
+  blogs               blogs?          @relation(fields: [blog_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  blog_comments       blog_comments?  @relation("blog_commentsToblog_comments", fields: [parent_comment_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  other_blog_comments blog_comments[] @relation("blog_commentsToblog_comments")
+  users               users?          @relation(fields: [user_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+
+  @@index([blog_id], map: "idx_blog_comments_blog_id")
+  @@index([user_id], map: "idx_blog_comments_user_id")
+}
+
+model users {
+  id                                                                                           Int                                    @id @default(autoincrement())
+  firebase_uid                                                                                 String                                 @unique @db.VarChar(255)
+  email                                                                                        String                                 @unique @db.VarChar(255)
+  role                                                                                         user_role?                             @default(learner)
+  first_name                                                                                   String?                                @db.VarChar(100)
+  last_name                                                                                    String?                                @db.VarChar(100)
+  is_active                                                                                    Boolean?                               @default(true)
+  last_login                                                                                   DateTime?                              @db.Timestamp(6)
+  created_at                                                                                   DateTime?                              @default(now()) @db.Timestamp(6)
+  updated_at                                                                                   DateTime?                              @default(now()) @db.Timestamp(6)
+  display_name                                                                                 String?                                @db.VarChar(100)
+  profile_data                                                                                 Json?                                  @default("{}")
+  role_specific_data                                                                           Json?                                  @default("{}")
+  subscription_plan                                                                            subscription_plan?                     @default(starseeker)
+  subscription_status                                                                          subscription_status?                   @default(active)
+  subscription_start_date                                                                      DateTime?                              @default(now()) @db.Timestamp(6)
+  subscription_end_date                                                                        DateTime?                              @db.Timestamp(6)
+  auto_renew                                                                                   Boolean?                               @default(false)
+  chatbot_questions_used                                                                       Int?                                   @default(0)
+  chatbot_questions_reset_date                                                                 DateTime?                              @default(dbgenerated("CURRENT_DATE")) @db.Date
+  blog_comments                                                                                blog_comments[]
+  blog_likes                                                                                   blog_likes[]
+  blog_views                                                                                   blog_views[]
+  blogs                                                                                        blogs[]
+  chatbot_sessions                                                                             chatbot_sessions[]
+  chatbot_usage                                                                                chatbot_usage[]
+  guide_application                                                                            guide_application[]
+  influencer_application                                                                       influencer_application[]
+  mentor_application                                                                           mentor_application[]
+  night_camp_registrations                                                                     night_camp_registrations[]
+  night_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousers night_camp_volunteering_applications[] @relation("night_camp_volunteering_applications_reviewed_byTousers")
+  night_camp_volunteering_applications_night_camp_volunteering_applications_user_idTousers     night_camp_volunteering_applications[] @relation("night_camp_volunteering_applications_user_idTousers")
+  payments                                                                                     payments[]
+  role_upgrade_requests_role_upgrade_requests_reviewer_idTousers                               role_upgrade_requests[]                @relation("role_upgrade_requests_reviewer_idTousers")
+  role_upgrade_requests_role_upgrade_requests_user_idTousers                                   role_upgrade_requests[]                @relation("role_upgrade_requests_user_idTousers")
+  subscriptions                                                                                subscriptions[]
+  user_settings                                                                                user_settings?
+
+  @@index([is_active], map: "idx_users_active")
+  @@index([email], map: "idx_users_email")
+  @@index([firebase_uid], map: "idx_users_firebase_uid")
+  @@index([role], map: "idx_users_role")
+  @@index([subscription_plan], map: "idx_users_subscription_plan")
+  @@index([subscription_status], map: "idx_users_subscription_status")
+}
+
+model blog_likes {
+  id         Int       @id @default(autoincrement())
+  blog_id    Int?
+  user_id    Int?
+  created_at DateTime? @default(now()) @db.Timestamp(6)
+  blogs      blogs?    @relation(fields: [blog_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  users      users?    @relation(fields: [user_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+
+  @@unique([blog_id, user_id])
+  @@index([blog_id], map: "idx_blog_likes_blog_id")
+  @@index([user_id], map: "idx_blog_likes_user_id")
+}
+
+model chatbot_messages {
+  id               String             @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  session_id       String?            @db.Uuid
+  content          String
+  is_bot           Boolean            @default(false)
+  firebase_uid     String?            @db.VarChar(255)
+  confidence       Decimal?           @db.Decimal(3, 2)
+  intent           String?            @db.VarChar(100)
+  entities         Json?
+  created_at       DateTime?          @default(now()) @db.Timestamp(6)
+  chatbot_feedback chatbot_feedback[]
+  chatbot_sessions chatbot_sessions?  @relation(fields: [session_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+
+  @@index([firebase_uid], map: "idx_chatbot_messages_firebase_uid")
+  @@index([session_id], map: "idx_chatbot_messages_session_id")
+  @@index([created_at], map: "idx_chatbot_messages_timestamp")
+}
+
+model night_camps_equipment {
+  id             Int                @id @default(autoincrement())
+  night_camp_id  Int?
+  category       equipment_category
+  equipment_name String             @db.VarChar(255)
+  created_at     DateTime?          @default(now()) @db.Timestamp(6)
+  night_camps    night_camps?       @relation(fields: [night_camp_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+
+  @@index([night_camp_id], map: "idx_night_camps_equipment_camp_id")
+  @@index([category], map: "idx_night_camps_equipment_category")
+}
+
+model user_settings {
+  id                    Int       @id @default(autoincrement())
+  user_id               Int?      @unique
+  language              String?   @default("en") @db.VarChar(10)
+  email_notifications   Boolean?  @default(true)
+  push_notifications    Boolean?  @default(true)
+  profile_visibility    String?   @default("public") @db.VarChar(20)
+  allow_direct_messages Boolean?  @default(true)
+  show_online_status    Boolean?  @default(true)
+  theme                 String?   @default("dark") @db.VarChar(10)
+  timezone              String?   @default("UTC") @db.VarChar(50)
+  created_at            DateTime? @default(now()) @db.Timestamp(6)
+  updated_at            DateTime? @default(now()) @db.Timestamp(6)
+  users                 users?    @relation(fields: [user_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+
+  @@index([user_id], map: "idx_user_settings_user_id")
+}
+
+model chatbot_feedback {
+  id               String            @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  message_id       String?           @db.Uuid
+  session_id       String?           @db.Uuid
+  firebase_uid     String            @db.VarChar(255)
+  rating           Int?
+  feedback_text    String?
+  created_at       DateTime?         @default(now()) @db.Timestamp(6)
+  chatbot_messages chatbot_messages? @relation(fields: [message_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  chatbot_sessions chatbot_sessions? @relation(fields: [session_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+
+  @@index([message_id], map: "idx_chatbot_feedback_message_id")
+}
+
+model night_camp_volunteering {
+  id                   Int          @id @default(autoincrement())
+  night_camp_id        Int?
+  volunteering_role    String       @db.VarChar(255)
+  number_of_applicants Int?         @default(0)
+  created_at           DateTime?    @default(now()) @db.Timestamp(6)
+  night_camps          night_camps? @relation(fields: [night_camp_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+
+  @@index([night_camp_id], map: "idx_night_camp_volunteering_camp_id")
+}
+
+model role_upgrade_requests {
+  id                                             Int       @id @default(autoincrement())
+  user_id                                        Int?
+  current_user_role                              String    @db.VarChar(20)
+  requested_user_role                            String    @db.VarChar(20)
+  reason                                         String?
+  supporting_evidence                            Json?     @default("[]")
+  status                                         String?   @default("pending") @db.VarChar(20)
+  reviewer_id                                    Int?
+  reviewer_notes                                 String?
+  submitted_at                                   DateTime? @default(now()) @db.Timestamp(6)
+  reviewed_at                                    DateTime? @db.Timestamp(6)
+  users_role_upgrade_requests_reviewer_idTousers users?    @relation("role_upgrade_requests_reviewer_idTousers", fields: [reviewer_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  users_role_upgrade_requests_user_idTousers     users?    @relation("role_upgrade_requests_user_idTousers", fields: [user_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+
+  @@index([status], map: "idx_role_upgrade_requests_status")
+  @@index([user_id], map: "idx_role_upgrade_requests_user_id")
+}
+
+model guide_application {
+  application_id             Int                         @id @default(autoincrement())
+  user_id                    Int
+  first_name                 String                      @db.VarChar(100)
+  last_name                  String                      @db.VarChar(100)
+  email                      String                      @db.VarChar(255)
+  phone                      String                      @db.VarChar(20)
+  date_of_birth              DateTime?                   @db.Date
+  address                    String?
+  city                       String?                     @db.VarChar(100)
+  current_occupation         String?                     @db.VarChar(255)
+  education_level            String?                     @db.VarChar(255)
+  astronomy_education        String?
+  guide_experience           String?
+  total_experience           Int                         @default(0)
+  certifications             Json?                       @default("[]")
+  astronomy_skills           Json?                       @default("[]")
+  languages                  Json?                       @default("[]")
+  first_aid                  Boolean?                    @default(false)
+  driving_license            Boolean?                    @default(false)
+  camp_types                 Json?                       @default("[]")
+  group_sizes                Json?                       @default("[]")
+  equipment_familiarity      Json?                       @default("[]")
+  outdoor_experience         String?
+  available_dates            Json?                       @default("[]")
+  preferred_locations        Json?                       @default("[]")
+  accommodation_needs        String?
+  transportation_needs       String?
+  motivation                 String?
+  special_skills             String?
+  emergency_contact          Json                        @default("{}")
+  documents                  Json?                       @default("{}")
+  selected_camps             Json?                       @default("[]")
+  application_status         application_status?         @default(pending)
+  approve_application_status approve_application_status? @default(pending)
+  terms_accepted             Boolean?                    @default(false)
+  background_check_consent   Boolean?                    @default(false)
+  deletion_status            Boolean?                    @default(false)
+  submitted_at               DateTime?                   @default(now()) @db.Timestamp(6)
+  updated_at                 DateTime?                   @default(now()) @db.Timestamp(6)
+  users                      users                       @relation(fields: [user_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+
+  @@index([approve_application_status], map: "idx_guide_app_approve_status")
+  @@index([application_status], map: "idx_guide_app_status")
+  @@index([submitted_at], map: "idx_guide_app_submitted_at")
+  @@index([user_id], map: "idx_guide_app_user_id")
+}
+
+model mentor_application {
+  application_id             Int                         @id @default(autoincrement())
+  user_id                    Int?
+  first_name                 String?                     @db.VarChar(100)
+  last_name                  String?                     @db.VarChar(100)
+  email                      String?                     @db.VarChar(255)
+  phone_number               String?                     @db.VarChar(50)
+  date_of_birth              DateTime?                   @db.Date
+  country                    String?                     @db.VarChar(100)
+  profile_bio                String?
+  educational_background     String?
+  area_of_expertise          Json?
+  linkedin_profile           String?                     @db.VarChar(255)
+  intro_video_url            String?                     @db.VarChar(255)
+  max_mentees                Int?
+  availability_schedule      Json?
+  motivation_statement       String?
+  portfolio_attachments      Json?
+  application_status         application_status?         @default(pending)
+  approve_application_status approve_application_status? @default(pending)
+  deletion_status            Boolean?                    @default(false)
+  submitted_at               DateTime?                   @default(now()) @db.Timestamp(6)
+  updated_at                 DateTime?                   @default(now()) @db.Timestamp(6)
+  users                      users?                      @relation(fields: [user_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+
+  @@index([deletion_status], map: "idx_mentor_application_deletion_status")
+  @@index([application_status], map: "idx_mentor_application_status")
+  @@index([user_id], map: "idx_mentor_application_user_id")
+}
+
+model night_camp_volunteering_applications {
+  id                                                            Int          @id @default(autoincrement())
+  night_camp_id                                                 Int?
+  user_id                                                       Int?
+  volunteering_role                                             String       @db.VarChar(255)
+  motivation                                                    String?
+  experience                                                    String?
+  availability                                                  String?
+  emergency_contact_name                                        String?      @db.VarChar(255)
+  emergency_contact_phone                                       String?      @db.VarChar(50)
+  emergency_contact_relationship                                String?      @db.VarChar(100)
+  status                                                        String?      @default("pending") @db.VarChar(50)
+  application_date                                              DateTime?    @default(now()) @db.Timestamp(6)
+  reviewed_by                                                   Int?
+  reviewed_at                                                   DateTime?    @db.Timestamp(6)
+  review_notes                                                  String?
+  created_at                                                    DateTime?    @default(now()) @db.Timestamp(6)
+  updated_at                                                    DateTime?    @default(now()) @db.Timestamp(6)
+  night_camps                                                   night_camps? @relation(fields: [night_camp_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  users_night_camp_volunteering_applications_reviewed_byTousers users?       @relation("night_camp_volunteering_applications_reviewed_byTousers", fields: [reviewed_by], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  users_night_camp_volunteering_applications_user_idTousers     users?       @relation("night_camp_volunteering_applications_user_idTousers", fields: [user_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+
+  @@unique([night_camp_id, user_id, volunteering_role], map: "night_camp_volunteering_appli_night_camp_id_user_id_volunte_key")
+  @@index([night_camp_id], map: "idx_night_camp_volunteering_applications_camp_id")
+  @@index([status], map: "idx_night_camp_volunteering_applications_status")
+  @@index([user_id], map: "idx_night_camp_volunteering_applications_user_id")
+}
+
+model night_camp_registrations {
+  id              Int          @id @default(autoincrement())
+  camp_id         Int?
+  user_id         Int?
+  status          String?      @default("confirmed") @db.VarChar(50)
+  registered_date DateTime?    @default(dbgenerated("CURRENT_DATE")) @db.Date
+  registered_time DateTime?    @default(dbgenerated("CURRENT_TIME")) @db.Time(6)
+  created_at      DateTime?    @default(now()) @db.Timestamp(6)
+  updated_at      DateTime?    @default(now()) @db.Timestamp(6)
+  night_camps     night_camps? @relation(fields: [camp_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  users           users?       @relation(fields: [user_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+
+  @@unique([camp_id, user_id])
+  @@index([camp_id], map: "idx_night_camp_registrations_camp_id")
+  @@index([registered_date], map: "idx_night_camp_registrations_date")
+  @@index([status], map: "idx_night_camp_registrations_status")
+  @@index([user_id], map: "idx_night_camp_registrations_user_id")
+}
+
+model influencer_application {
+  application_id             Int                         @id @default(autoincrement())
+  user_id                    Int?
+  first_name                 String?                     @db.VarChar(100)
+  last_name                  String?                     @db.VarChar(100)
+  email                      String?                     @db.VarChar(255)
+  phone_number               String?                     @db.VarChar(50)
+  country                    String?                     @db.VarChar(100)
+  bio                        String?
+  specialization_tags        Json?
+  social_links               Json?
+  intro_video_url            String?                     @db.VarChar(255)
+  sample_content_links       Json?
+  preferred_session_format   session_format?
+  willing_to_host_sessions   Boolean?
+  tools_used                 Json?
+  application_status         application_status?         @default(pending)
+  approve_application_status approve_application_status? @default(pending)
+  deletion_status            Boolean?                    @default(false)
+  submitted_at               DateTime?                   @default(now()) @db.Timestamp(6)
+  updated_at                 DateTime?                   @default(now()) @db.Timestamp(6)
+  users                      users?                      @relation(fields: [user_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+
+  @@index([deletion_status], map: "idx_influencer_application_deletion_status")
+  @@index([application_status], map: "idx_influencer_application_status")
+  @@index([user_id], map: "idx_influencer_application_user_id")
+}
+
+enum application_status {
+  pending
+  approved
+  rejected
+}
+
+enum approve_application_status {
+  pending
+  accepted
+  rejected
+}
+
+enum blog_status {
+  draft
+  published
+  archived
+}
+
+enum equipment_category {
+  provided
+  required
+  optional
+}
+
+enum payment_method {
+  Bank
+  e_wallet @map("e-wallet")
+  PayPal
+  Other
+}
+
+enum payment_status {
+  pending
+  completed
+  failed
+  refunded
+}
+
+enum session_format {
+  Live
+  Recorded
+  Hybrid
+}
+
+enum subscription_plan {
+  starseeker
+  galaxy_explorer
+  cosmic_voyager
+}
+
+enum subscription_status {
+  active
+  cancelled
+  expired
+  pending
+}
+
+enum user_role {
+  admin
+  moderator
+  learner
+  guide
+  enthusiast
+  mentor
+  influencer
+}

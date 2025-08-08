@@ -1,7 +1,8 @@
 // controllers/auth.controller.ts
 import { Request, Response } from "express";
 import admin from "../firebaseAdmin";
-import pool from "../db";
+//import pool from "../db";
+import { PrismaClient } from "../prisma/generated/client";
 import {
     SignUpRequest,
     SignInRequest,
@@ -14,9 +15,11 @@ import {
 
 import axios from "axios"; // For Firebase Auth REST API
 
+const prisma = new PrismaClient();
+
 // Sign up with email and password
 // NOTE: Ensure a unique constraint exists on the 'email' column in the users table for race condition safety.
-export const signUp = async (req: Request, res: Response): Promise<void> => {
+export const signUp = async (req: Request, res: Response) => {
     try {
         const { email, password, first_name, last_name, role = 'learner' }: SignUpRequest = req.body;
 
@@ -49,11 +52,11 @@ export const signUp = async (req: Request, res: Response): Promise<void> => {
 
 
         // Check if user already exists in database
-        const existingUser = await pool.query(
-            "SELECT * FROM users WHERE email = $1",
-            [email]
-        );
-        if (existingUser.rows.length > 0) {
+        const existingUser = await prisma.users.findUnique({
+            where: { email }
+        });
+
+        if (existingUser) {
             res.status(409).json({
                 success: false,
                 message: "User with this email already exists"
@@ -86,47 +89,63 @@ export const signUp = async (req: Request, res: Response): Promise<void> => {
 
         // Then create user in database
         const displayName = first_name && last_name ? `${first_name} ${last_name}` : (first_name || email.split('@')[0]);
-        let result;
+
         try {
-            result = await pool.query<DatabaseUser>(
-                `INSERT INTO users (firebase_uid, email, role, first_name, last_name, display_name, is_active, last_login) 
-                 VALUES ($1, $2, $3, $4, $5, $6, true, CURRENT_TIMESTAMP) 
-                 RETURNING *`,
-                [firebaseUser.uid, email, role, first_name, last_name, displayName]
-            );
+            const result = await prisma.$transaction(async (tx) => {
+                const newUser = await tx.users.create({
+                    data: {
+                        firebase_uid: firebaseUser.uid,
+                        email,
+                        first_name: first_name,
+                        last_name: last_name,
+                        display_name: displayName,
+                        role,
+                        is_active: true,
+                        created_at: new Date(),
+                        updated_at: new Date(),
+                        last_login: new Date()
+                    }
+                });
+
+                await tx.user_settings.create({
+                    data: {
+                        user_id: newUser.id,
+                        language: 'en',
+                        email_notifications: true,
+                        push_notifications: true,
+                        profile_visibility: 'public',
+                        allow_direct_messages: true,
+                        show_online_status: true,
+                        theme: 'dark',
+                        timezone: 'UTC'
+                    }
+                });
+
+                return newUser;
+            });
+
+            console.log("User created in database:", result);
+
+            // Generate custom token for immediate sign-in
+            const customToken = await admin.auth().createCustomToken(firebaseUser.uid);
+
+            const response: AuthResponse = {
+                success: true,
+                message: "User created successfully",
+                user: result,
+                customToken
+            };
+
+            res.status(201).json(response);
         } catch (dbError: any) {
             // Rollback Firebase user if DB insert fails
             await admin.auth().deleteUser(firebaseUser.uid);
+            console.error('Database error:', dbError);
             return res.status(500).json({
                 success: false,
                 message: "Failed to create user in database"
             });
         }
-
-        // Create default user settings for the new user
-        try {
-            await pool.query(
-                `INSERT INTO user_settings (user_id, language, email_notifications, push_notifications, profile_visibility, allow_direct_messages, show_online_status, theme, timezone) 
-                 VALUES ($1, 'en', true, true, 'public', true, true, 'dark', 'UTC')`,
-                [result.rows[0].id]
-            );
-            console.log('✅ Default user settings created for new user');
-        } catch (settingsError) {
-            console.error('⚠️ Failed to create user settings:', settingsError);
-            // Don't fail the registration if settings creation fails
-        }
-
-        // Generate custom token for immediate sign-in
-        const customToken = await admin.auth().createCustomToken(firebaseUser.uid);
-
-        const response: AuthResponse = {
-            success: true,
-            message: "User created successfully",
-            user: result.rows[0],
-            customToken
-        };
-
-        res.status(201).json(response);
     } catch (error: any) {
         console.error("Sign up error:", error);
         res.status(500).json({
@@ -137,7 +156,7 @@ export const signUp = async (req: Request, res: Response): Promise<void> => {
 };
 
 // Sign in with email and password
-export const signIn = async (req: Request, res: Response): Promise<void> => {
+export const signIn = async (req: Request, res: Response) => {
     try {
         const { email, password }: SignInRequest = req.body;
 
@@ -193,17 +212,16 @@ export const signIn = async (req: Request, res: Response): Promise<void> => {
         }
 
         // Check if user exists in database
-        const result = await pool.query<DatabaseUser>(
-            "SELECT * FROM users WHERE firebase_uid = $1",
-            [firebaseUser.uid]
-        );
-        if (result.rows.length === 0) {
+        const user = await prisma.users.findUnique({
+            where: { firebase_uid: firebaseUser.uid }
+        });
+
+        if (!user) {
             return res.status(404).json({
                 success: false,
                 message: "User not found in database"
             });
         }
-        const user = result.rows[0];
 
         // Check if user is active
         if (!user.is_active) {
@@ -214,10 +232,10 @@ export const signIn = async (req: Request, res: Response): Promise<void> => {
         }
 
         // Update last login
-        await pool.query(
-            "UPDATE users SET last_login = CURRENT_TIMESTAMP WHERE firebase_uid = $1",
-            [firebaseUser.uid]
-        );
+        await prisma.users.update({
+            where: { firebase_uid: firebaseUser.uid },
+            data: { last_login: new Date() }
+        });
 
         // Generate custom token
         const customToken = await admin.auth().createCustomToken(firebaseUser.uid);
@@ -241,7 +259,7 @@ export const signIn = async (req: Request, res: Response): Promise<void> => {
 
 // Sign out (revoke refresh tokens)
 // NOTE: Ensure this route is protected by authentication middleware that sets (req as any).user
-export const signOut = async (req: Request, res: Response): Promise<void> => {
+export const signOut = async (req: Request, res: Response) => {
     try {
         const firebaseUser = (req as any).user;
 
@@ -272,7 +290,7 @@ export const signOut = async (req: Request, res: Response): Promise<void> => {
 
 // Update user profile
 // NOTE: Ensure this route is protected by authentication middleware that sets (req as any).user
-export const updateProfile = async (req: Request, res: Response): Promise<void> => {
+export const updateProfile = async (req: Request, res: Response) => {
     try {
         const firebaseUser = (req as any).user;
         const { first_name, last_name, email }: UpdateProfileRequest = req.body;
@@ -309,50 +327,46 @@ export const updateProfile = async (req: Request, res: Response): Promise<void> 
         }
 
         // Now update database
-        const updateFields: string[] = [];
-        const values: any[] = [];
-        let paramCount = 0;
+        const updateData: any = {};
+
         if (first_name !== undefined) {
-            paramCount++;
-            updateFields.push(`first_name = $${paramCount}`);
-            values.push(first_name);
+            updateData.first_name = first_name;
         }
         if (last_name !== undefined) {
-            paramCount++;
-            updateFields.push(`last_name = $${paramCount}`);
-            values.push(last_name);
+            updateData.last_name = last_name;
         }
         if (email !== undefined) {
-            paramCount++;
-            updateFields.push(`email = $${paramCount}`);
-            values.push(email);
+            updateData.email = email;
         }
-        if (updateFields.length === 0) {
-            return res.status(400).json({
+
+        if (Object.keys(updateData).length === 0) {
+            res.status(400).json({
                 success: false,
                 message: "No fields to update"
             });
+            return;
         }
-        updateFields.push(`updated_at = CURRENT_TIMESTAMP`);
-        paramCount++;
-        values.push(firebaseUser.uid);
-        const query = `
-            UPDATE users 
-            SET ${updateFields.join(', ')} 
-            WHERE firebase_uid = $${paramCount} 
-            RETURNING *
-        `;
-        const result = await pool.query<DatabaseUser>(query, values);
-        if (result.rows.length === 0) {
-            return res.status(404).json({
+
+        // Add updated_at timestamp
+        updateData.updated_at = new Date();
+
+        // Update user in database
+        const updatedUser = await prisma.users.update({
+            where: { firebase_uid: firebaseUser.uid },
+            data: updateData
+        });
+
+        if (!updatedUser) {
+            res.status(404).json({
                 success: false,
                 message: "User not found"
             });
+            return;
         }
         res.json({
             success: true,
             message: "Profile updated successfully",
-            data: result.rows[0]
+            data: updatedUser
         });
     } catch (error: any) {
         console.error("Update profile error:", error);
@@ -366,7 +380,7 @@ export const updateProfile = async (req: Request, res: Response): Promise<void> 
 
 // Change password
 // NOTE: Ensure this route is protected by authentication middleware that sets (req as any).user
-export const changePassword = async (req: Request, res: Response): Promise<void> => {
+export const changePassword = async (req: Request, res: Response) => {
     try {
         const firebaseUser = (req as any).user;
         const { new_password }: ChangePasswordRequest = req.body;
@@ -411,7 +425,7 @@ export const changePassword = async (req: Request, res: Response): Promise<void>
 
 // Delete user account
 // NOTE: Ensure this route is protected by authentication middleware that sets (req as any).user
-export const deleteAccount = async (req: Request, res: Response): Promise<void> => {
+export const deleteAccount = async (req: Request, res: Response) => {
     try {
         const firebaseUser = (req as any).user;
 
@@ -427,15 +441,16 @@ export const deleteAccount = async (req: Request, res: Response): Promise<void> 
         try {
             await admin.auth().deleteUser(firebaseUser.uid);
         } catch (firebaseError: any) {
-            return res.status(500).json({
+            res.status(500).json({
                 success: false,
                 message: "Failed to delete user from Firebase"
             });
+            return;
         }
-        await pool.query(
-            "DELETE FROM users WHERE firebase_uid = $1",
-            [firebaseUser.uid]
-        );
+
+        await prisma.users.delete({
+            where: { firebase_uid: firebaseUser.uid }
+        });
         res.json({
             success: true,
             message: "Account deleted successfully"
@@ -452,7 +467,7 @@ export const deleteAccount = async (req: Request, res: Response): Promise<void> 
 
 // Reset password (send reset email)
 // NOTE: This endpoint should not reveal whether an email exists for security reasons in production.
-export const resetPassword = async (req: Request, res: Response): Promise<void> => {
+export const resetPassword = async (req: Request, res: Response) => {
     try {
         const { email } = req.body;
 
@@ -487,7 +502,7 @@ export const resetPassword = async (req: Request, res: Response): Promise<void> 
 
 // Verify email
 // NOTE: Ensure this route is protected by authentication middleware that sets (req as any).user
-export const verifyEmail = async (req: Request, res: Response): Promise<void> => {
+export const verifyEmail = async (req: Request, res: Response) => {
     try {
         const firebaseUser = (req as any).user;
 

@@ -2,7 +2,9 @@
 import { Request, Response } from "express";
 import { GoogleGenerativeAI, GenerativeModel } from "@google/generative-ai";
 import { v4 as uuidv4 } from "uuid";
-import db from "../db";
+import { PrismaClient } from "../prisma/generated/client";
+
+const prisma = new PrismaClient();
 
 // Initialize Gemini client (only if API key is available)
 let geminiModel: GenerativeModel | null = null;
@@ -148,10 +150,14 @@ export const chatCompletion = async (req: AuthenticatedRequest, res: Response): 
     // Increment chatbot usage for users with limited plans
     if (req.user?.user_id) {
       try {
-        await db.query(
-          'UPDATE users SET chatbot_questions_used = chatbot_questions_used + 1 WHERE id = $1',
-          [req.user.user_id]
-        );
+        await prisma.users.update({
+          where: { id: req.user.user_id },
+          data: {
+            chatbot_questions_used: {
+              increment: 1
+            }
+          }
+        });
       } catch (dbError) {
         console.error('Failed to increment chatbot usage:', dbError);
         // Don't fail the request for this
