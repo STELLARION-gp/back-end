@@ -1,23 +1,20 @@
 import { Request, Response } from 'express';
-import { Pool } from 'pg';
-import pool from '../db';
-import { 
-    CreateNightCampRequest, 
-    NightCamp, 
-    NightCampWithDetails, 
-    EquipmentCategory, 
+import { PrismaClient } from '../prisma/generated/client';
+import {
+    CreateNightCampRequest,
+    NightCamp,
+    NightCampWithDetails,
+    EquipmentCategory,
     CreateVolunteeringApplicationRequest,
-    NightCampVolunteeringApplication 
+    NightCampVolunteeringApplication
 } from '../types';
+
+const prisma = new PrismaClient();
 
 export class NightCampController {
     // Create a new night camp
     static async createNightCamp(req: Request, res: Response): Promise<void> {
-        const client = await pool.connect();
-        
         try {
-            await client.query('BEGIN');
-            
             // Get user information from the verified token
             const authenticatedUser = (req as any).user;
             if (!authenticatedUser) {
@@ -26,25 +23,25 @@ export class NightCampController {
             }
 
             // Get full user details from database using firebase_uid
-            const userQuery = 'SELECT * FROM users WHERE firebase_uid = $1';
-            const userResult = await client.query(userQuery, [authenticatedUser.firebase_uid]);
-            
-            if (userResult.rows.length === 0) {
-                res.status(404).json({ 
+            const dbUser = await prisma.users.findUnique({
+                where: { firebase_uid: authenticatedUser.firebase_uid }
+            });
+
+            if (!dbUser) {
+                res.status(404).json({
                     error: 'User not found in database',
-                    debug: `Looking for firebase_uid: ${authenticatedUser.firebase_uid}` 
+                    debug: `Looking for firebase_uid: ${authenticatedUser.firebase_uid}`
                 });
                 return;
             }
 
-            const dbUser = userResult.rows[0];
-            const organizedBy = dbUser.display_name || 
-                               (dbUser.first_name && dbUser.last_name ? `${dbUser.first_name} ${dbUser.last_name}` : '') || 
-                               dbUser.email ||
-                               'Unknown User';
-            
+            const organizedBy = dbUser.display_name ||
+                (dbUser.first_name && dbUser.last_name ? `${dbUser.first_name} ${dbUser.last_name}` : '') ||
+                dbUser.email ||
+                'Unknown User';
+
             console.log('🏕️ [NIGHT CAMP] Creating night camp for user:', organizedBy, 'ID:', dbUser.id);
-            
+
             const {
                 name,
                 sponsored_by,
@@ -62,89 +59,93 @@ export class NightCampController {
 
             // Validate required fields
             if (!name || !date || !location || !number_of_participants) {
-                res.status(400).json({ 
-                    error: 'Missing required fields: name, date, location, number_of_participants' 
+                res.status(400).json({
+                    error: 'Missing required fields: name, date, location, number_of_participants'
                 });
                 return;
             }
 
-            // Insert night camp with the authenticated user as organizer
-            const nightCampQuery = `
-                INSERT INTO night_camps (
-                    name, organized_by, sponsored_by, description, date, time, 
-                    location, number_of_participants, image_urls, emergency_contact
-                ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)
-                RETURNING *
-            `;
-
-            const nightCampResult = await client.query(nightCampQuery, [
-                name,
-                organizedBy, // Use the authenticated user's name from database
-                sponsored_by,
-                description,
-                date,
-                time,
-                location,
-                number_of_participants,
-                JSON.stringify(image_urls || []),
-                emergency_contact
-            ]);
-
-            const nightCamp = nightCampResult.rows[0];
-            const nightCampId = nightCamp.id;
-
-            // Insert activities
-            if (activities && activities.length > 0) {
-                const activityPromises = activities
-                    .filter(activity => activity.trim() !== '')
-                    .map(activity => 
-                        client.query(
-                            'INSERT INTO night_camps_activities (night_camp_id, activity) VALUES ($1, $2)',
-                            [nightCampId, activity.trim()]
-                        )
-                    );
-                await Promise.all(activityPromises);
-            }
-
-            // Insert equipment
-            if (equipment) {
-                const equipmentPromises = [];
-                
-                Object.entries(equipment).forEach(([category, items]) => {
-                    if (Array.isArray(items)) {
-                        items
-                            .filter(item => item.trim() !== '')
-                            .forEach(item => {
-                                equipmentPromises.push(
-                                    client.query(
-                                        'INSERT INTO night_camps_equipment (night_camp_id, category, equipment_name) VALUES ($1, $2, $3)',
-                                        [nightCampId, category as EquipmentCategory, item.trim()]
-                                    )
-                                );
-                            });
+            // Use Prisma transaction
+            const result = await prisma.$transaction(async (tx) => {
+                // Insert night camp with the authenticated user as organizer
+                const nightCamp = await tx.night_camps.create({
+                    data: {
+                        name,
+                        organized_by: organizedBy,
+                        sponsored_by,
+                        description,
+                        date: new Date(date),
+                        time: time ? new Date(`1970-01-01T${time}`) : null,
+                        location,
+                        number_of_participants,
+                        image_urls: image_urls || [],
+                        emergency_contact
                     }
                 });
-                
-                await Promise.all(equipmentPromises);
-            }
 
-            // Insert volunteering roles
-            if (volunteering_roles && volunteering_roles.length > 0) {
-                const volunteeringPromises = volunteering_roles
-                    .filter(role => role.trim() !== '')
-                    .map(role => 
-                        client.query(
-                            'INSERT INTO night_camp_volunteering (night_camp_id, volunteering_role) VALUES ($1, $2)',
-                            [nightCampId, role.trim()]
-                        )
-                    );
-                await Promise.all(volunteeringPromises);
-            }
+                const nightCampId = nightCamp.id;
 
-            await client.query('COMMIT');
+                // Insert activities
+                if (activities && activities.length > 0) {
+                    const activityData = activities
+                        .filter(activity => activity.trim() !== '')
+                        .map(activity => ({
+                            night_camp_id: nightCampId,
+                            activity: activity.trim()
+                        }));
+
+                    if (activityData.length > 0) {
+                        await tx.night_camps_activities.createMany({
+                            data: activityData
+                        });
+                    }
+                }
+
+                // Insert equipment
+                if (equipment) {
+                    const equipmentData: any[] = [];
+                    Object.entries(equipment).forEach(([category, items]) => {
+                        if (Array.isArray(items)) {
+                            items
+                                .filter(item => item.trim() !== '')
+                                .forEach(item => {
+                                    equipmentData.push({
+                                        night_camp_id: nightCampId,
+                                        category: category as EquipmentCategory,
+                                        equipment_name: item.trim()
+                                    });
+                                });
+                        }
+                    });
+
+                    if (equipmentData.length > 0) {
+                        await tx.night_camps_equipment.createMany({
+                            data: equipmentData
+                        });
+                    }
+                }
+
+                // Insert volunteering roles
+                if (volunteering_roles && volunteering_roles.length > 0) {
+                    const volunteeringData = volunteering_roles
+                        .filter(role => role.trim() !== '')
+                        .map(role => ({
+                            night_camp_id: nightCampId,
+                            volunteering_role: role.trim()
+                        }));
+
+                    if (volunteeringData.length > 0) {
+                        await tx.night_camp_volunteering.createMany({
+                            data: volunteeringData
+                        });
+                    }
+                }
+
+                return nightCampId;
+            });
 
             // Fetch the complete night camp with details
-            const completeNightCamp = await NightCampController.getNightCampById(nightCampId);
+            const completeNightCamp = await NightCampController.getNightCampById(result);
 
             res.status(201).json({
                 message: 'Night camp created successfully',
@@ -152,75 +153,79 @@ export class NightCampController {
             });
 
         } catch (error) {
-            await client.query('ROLLBACK');
             console.error('Error creating night camp:', error);
             res.status(500).json({ error: 'Failed to create night camp' });
-        } finally {
-            client.release();
         }
     }
 
     // Get night camp by ID with all details
     static async getNightCampById(nightCampId: number): Promise<NightCampWithDetails | null> {
-        const client = await pool.connect();
-        
         try {
-            // Get night camp
-            const nightCampQuery = 'SELECT * FROM night_camps WHERE id = $1';
-            const nightCampResult = await client.query(nightCampQuery, [nightCampId]);
-            
-            if (nightCampResult.rows.length === 0) {
+            // Get night camp with all related data using Prisma include
+            const nightCamp = await prisma.night_camps.findUnique({
+                where: { id: nightCampId },
+                include: {
+                    night_camps_activities: {
+                        orderBy: { created_at: 'asc' }
+                    },
+                    night_camps_equipment: {
+                        orderBy: [
+                            { category: 'asc' },
+                            { created_at: 'asc' }
+                        ]
+                    },
+                    night_camp_volunteering: {
+                        orderBy: { created_at: 'asc' }
+                    }
+                }
+            });
+
+            if (!nightCamp) {
                 return null;
             }
 
-            const nightCamp = nightCampResult.rows[0];
+            // Get volunteering application counts for each volunteering role
+            const volunteeringWithCounts = await Promise.all(
+                nightCamp.night_camp_volunteering.map(async (vol) => {
+                    const applicantCount = await prisma.night_camp_volunteering_applications.count({
+                        where: {
+                            night_camp_id: nightCampId,
+                            volunteering_role: vol.volunteering_role,
+                            status: 'approved'
+                        }
+                    });
 
-            // Get activities
-            const activitiesQuery = 'SELECT * FROM night_camps_activities WHERE night_camp_id = $1 ORDER BY created_at';
-            const activitiesResult = await client.query(activitiesQuery, [nightCampId]);
+                    return {
+                        ...vol,
+                        number_of_applicants: applicantCount
+                    };
+                })
+            );
 
-            // Get equipment
-            const equipmentQuery = 'SELECT * FROM night_camps_equipment WHERE night_camp_id = $1 ORDER BY category, created_at';
-            const equipmentResult = await client.query(equipmentQuery, [nightCampId]);
-
-            // Get volunteering with applicant counts (only approved volunteers)
-            const volunteeringQuery = `
-                SELECT 
-                    nv.*,
-                    COALESCE(approved_counts.number_of_applicants, 0) as number_of_applicants
-                FROM night_camp_volunteering nv
-                LEFT JOIN (
-                    SELECT 
-                        night_camp_id,
-                        volunteering_role,
-                        COUNT(*) as number_of_applicants
-                    FROM night_camp_volunteering_applications 
-                    WHERE night_camp_id = $1 AND status = 'approved'
-                    GROUP BY night_camp_id, volunteering_role
-                ) approved_counts ON nv.night_camp_id = approved_counts.night_camp_id 
-                    AND nv.volunteering_role = approved_counts.volunteering_role
-                WHERE nv.night_camp_id = $1 
-                ORDER BY nv.created_at
-            `;
-            const volunteeringResult = await client.query(volunteeringQuery, [nightCampId]);
-
-            // Parse image_urls if it's a string
-            if (typeof nightCamp.image_urls === 'string') {
-                nightCamp.image_urls = JSON.parse(nightCamp.image_urls);
-            }
-
+            // Transform dates to strings and format the response
             return {
                 ...nightCamp,
-                activities: activitiesResult.rows,
-                equipment: equipmentResult.rows,
-                volunteering: volunteeringResult.rows
-            };
+                date: nightCamp.date.toISOString().split('T')[0], // Convert to YYYY-MM-DD format
+                time: nightCamp.time ? nightCamp.time.toISOString().split('T')[1].substring(0, 8) : undefined, // Convert to HH:MM:SS format
+                created_at: nightCamp.created_at?.toISOString() || '',
+                updated_at: nightCamp.updated_at?.toISOString() || '',
+                activities: nightCamp.night_camps_activities.map(activity => ({
+                    ...activity,
+                    created_at: activity.created_at?.toISOString() || ''
+                })),
+                equipment: nightCamp.night_camps_equipment.map(equip => ({
+                    ...equip,
+                    created_at: equip.created_at?.toISOString() || ''
+                })),
+                volunteering: volunteeringWithCounts.map(vol => ({
+                    ...vol,
+                    created_at: vol.created_at?.toISOString() || ''
+                }))
+            } as any;
 
         } catch (error) {
             console.error('Error fetching night camp:', error);
             return null;
-        } finally {
-            client.release();
         }
     }
 
@@ -257,45 +262,50 @@ export class NightCampController {
             const limit = parseInt(req.query.limit as string) || 10;
             const offset = (page - 1) * limit;
 
-            const countQuery = 'SELECT COUNT(*) FROM night_camps';
-            const countResult = await pool.query(countQuery);
-            const totalCount = parseInt(countResult.rows[0].count);
+            // Get total count
+            const totalCount = await prisma.night_camps.count();
 
-            const nightCampsQuery = `
-                SELECT * FROM night_camps 
-                ORDER BY created_at DESC 
-                LIMIT $1 OFFSET $2
-            `;
-            const nightCampsResult = await pool.query(nightCampsQuery, [limit, offset]);
-
-            // For each night camp, fetch related data
-            const nightCampsWithDetails = await Promise.all(
-                nightCampsResult.rows.map(async (camp) => {
-                    // Parse image_urls if it's a string
-                    if (typeof camp.image_urls === 'string') {
-                        camp.image_urls = JSON.parse(camp.image_urls);
+            // Get night camps with related data
+            const nightCamps = await prisma.night_camps.findMany({
+                include: {
+                    night_camps_activities: {
+                        orderBy: { created_at: 'asc' }
+                    },
+                    night_camps_equipment: {
+                        orderBy: [
+                            { category: 'asc' },
+                            { created_at: 'asc' }
+                        ]
+                    },
+                    night_camp_volunteering: {
+                        orderBy: { created_at: 'asc' }
                     }
+                },
+                orderBy: { created_at: 'desc' },
+                skip: offset,
+                take: limit
+            });
 
-                    // Get activities
-                    const activitiesQuery = 'SELECT * FROM night_camps_activities WHERE night_camp_id = $1 ORDER BY created_at';
-                    const activitiesResult = await pool.query(activitiesQuery, [camp.id]);
-
-                    // Get equipment
-                    const equipmentQuery = 'SELECT * FROM night_camps_equipment WHERE night_camp_id = $1 ORDER BY category, created_at';
-                    const equipmentResult = await pool.query(equipmentQuery, [camp.id]);
-
-                    // Get volunteering
-                    const volunteeringQuery = 'SELECT * FROM night_camp_volunteering WHERE night_camp_id = $1 ORDER BY created_at';
-                    const volunteeringResult = await pool.query(volunteeringQuery, [camp.id]);
-
-                    return {
-                        ...camp,
-                        activities: activitiesResult.rows,
-                        equipment: equipmentResult.rows,
-                        volunteering: volunteeringResult.rows
-                    };
-                })
-            );
+            // Transform the data to match expected format
+            const nightCampsWithDetails = nightCamps.map(camp => ({
+                ...camp,
+                date: camp.date.toISOString().split('T')[0],
+                time: camp.time ? camp.time.toISOString().split('T')[1].substring(0, 8) : undefined,
+                created_at: camp.created_at?.toISOString() || '',
+                updated_at: camp.updated_at?.toISOString() || '',
+                activities: camp.night_camps_activities.map(activity => ({
+                    ...activity,
+                    created_at: activity.created_at?.toISOString() || ''
+                })),
+                equipment: camp.night_camps_equipment.map(equip => ({
+                    ...equip,
+                    created_at: equip.created_at?.toISOString() || ''
+                })),
+                volunteering: camp.night_camp_volunteering.map(vol => ({
+                    ...vol,
+                    created_at: vol.created_at?.toISOString() || ''
+                }))
+            }));
 
             res.json({
                 data: nightCampsWithDetails,
@@ -315,8 +325,6 @@ export class NightCampController {
 
     // Update night camp
     static async updateNightCamp(req: Request, res: Response): Promise<void> {
-        const client = await pool.connect();
-        
         try {
             const { id } = req.params;
             const nightCampId = parseInt(id);
@@ -325,8 +333,6 @@ export class NightCampController {
                 res.status(400).json({ error: 'Invalid night camp ID' });
                 return;
             }
-
-            await client.query('BEGIN');
 
             const {
                 name,
@@ -345,128 +351,139 @@ export class NightCampController {
                 volunteering_roles
             } = req.body;
 
-            // Update main night camp record
-            const updateQuery = `
-                UPDATE night_camps SET 
-                    name = COALESCE($1, name),
-                    organized_by = COALESCE($2, organized_by),
-                    sponsored_by = COALESCE($3, sponsored_by),
-                    description = COALESCE($4, description),
-                    date = COALESCE($5, date),
-                    time = COALESCE($6, time),
-                    location = COALESCE($7, location),
-                    number_of_participants = COALESCE($8, number_of_participants),
-                    image_urls = COALESCE($9, image_urls),
-                    emergency_contact = COALESCE($10, emergency_contact),
-                    status = COALESCE($11, status),
-                    updated_at = CURRENT_TIMESTAMP
-                WHERE id = $12
-                RETURNING *
-            `;
+            const result = await prisma.$transaction(async (tx) => {
+                // Check if night camp exists
+                const existingNightCamp = await tx.night_camps.findUnique({
+                    where: { id: nightCampId }
+                });
 
-            const updateResult = await client.query(updateQuery, [
-                name,
-                organized_by,
-                sponsored_by,
-                description,
-                date,
-                time,
-                location,
-                number_of_participants,
-                image_urls ? JSON.stringify(image_urls) : null,
-                emergency_contact,
-                status,
-                nightCampId
-            ]);
-
-            if (updateResult.rows.length === 0) {
-                await client.query('ROLLBACK');
-                res.status(404).json({ error: 'Night camp not found' });
-                return;
-            }
-
-            // Update activities if provided
-            if (activities !== undefined) {
-                // Delete existing activities
-                await client.query('DELETE FROM night_camps_activities WHERE night_camp_id = $1', [nightCampId]);
-                
-                // Insert new activities
-                if (activities && activities.length > 0) {
-                    const activityPromises = activities
-                        .filter((activity: string) => activity.trim() !== '')
-                        .map((activity: string) => 
-                            client.query(
-                                'INSERT INTO night_camps_activities (night_camp_id, activity) VALUES ($1, $2)',
-                                [nightCampId, activity.trim()]
-                            )
-                        );
-                    await Promise.all(activityPromises);
+                if (!existingNightCamp) {
+                    throw new Error('Night camp not found');
                 }
-            }
 
-            // Update equipment if provided
-            if (equipment !== undefined) {
-                // Delete existing equipment
-                await client.query('DELETE FROM night_camps_equipment WHERE night_camp_id = $1', [nightCampId]);
-                
-                // Insert new equipment
-                if (equipment) {
-                    const equipmentPromises: Promise<any>[] = [];
-                    
-                    Object.entries(equipment).forEach(([category, items]) => {
-                        if (Array.isArray(items)) {
-                            items
-                                .filter((item: string) => item.trim() !== '')
-                                .forEach((item: string) => {
-                                    equipmentPromises.push(
-                                        client.query(
-                                            'INSERT INTO night_camps_equipment (night_camp_id, category, equipment_name) VALUES ($1, $2, $3)',
-                                            [nightCampId, category as EquipmentCategory, item.trim()]
-                                        )
-                                    );
-                                });
-                        }
+                // Prepare update data object
+                const updateData: any = {
+                    updated_at: new Date()
+                };
+
+                // Only update fields that are provided
+                if (name !== undefined) updateData.name = name;
+                if (organized_by !== undefined) updateData.organized_by = organized_by;
+                if (sponsored_by !== undefined) updateData.sponsored_by = sponsored_by;
+                if (description !== undefined) updateData.description = description;
+                if (date !== undefined) updateData.date = new Date(date);
+                if (time !== undefined) updateData.time = time;
+                if (location !== undefined) updateData.location = location;
+                if (number_of_participants !== undefined) updateData.number_of_participants = number_of_participants;
+                if (image_urls !== undefined) updateData.image_urls = image_urls;
+                if (emergency_contact !== undefined) updateData.emergency_contact = emergency_contact;
+                if (status !== undefined) updateData.status = status;
+
+                // Update main night camp record
+                const updatedNightCamp = await tx.night_camps.update({
+                    where: { id: nightCampId },
+                    data: updateData
+                });
+
+                // Update activities if provided
+                if (activities !== undefined) {
+                    // Delete existing activities
+                    await tx.night_camps_activities.deleteMany({
+                        where: { night_camp_id: nightCampId }
                     });
-                    
-                    await Promise.all(equipmentPromises);
+
+                    // Insert new activities
+                    if (activities && activities.length > 0) {
+                        const validActivities = activities
+                            .filter((activity: string) => activity.trim() !== '')
+                            .map((activity: string) => ({
+                                night_camp_id: nightCampId,
+                                activity: activity.trim()
+                            }));
+
+                        if (validActivities.length > 0) {
+                            await tx.night_camps_activities.createMany({
+                                data: validActivities
+                            });
+                        }
+                    }
                 }
-            }
 
-            // Update volunteering roles if provided
-            if (volunteering_roles !== undefined) {
-                // Delete existing volunteering roles
-                await client.query('DELETE FROM night_camp_volunteering WHERE night_camp_id = $1', [nightCampId]);
-                
-                // Insert new volunteering roles
-                if (volunteering_roles && volunteering_roles.length > 0) {
-                    const volunteeringPromises = volunteering_roles
-                        .filter((role: string) => role.trim() !== '')
-                        .map((role: string) => 
-                            client.query(
-                                'INSERT INTO night_camp_volunteering (night_camp_id, volunteering_role) VALUES ($1, $2)',
-                                [nightCampId, role.trim()]
-                            )
-                        );
-                    await Promise.all(volunteeringPromises);
+                // Update equipment if provided
+                if (equipment !== undefined) {
+                    // Delete existing equipment
+                    await tx.night_camps_equipment.deleteMany({
+                        where: { night_camp_id: nightCampId }
+                    });
+
+                    // Insert new equipment
+                    if (equipment) {
+                        const equipmentData: any[] = [];
+
+                        Object.entries(equipment).forEach(([category, items]) => {
+                            if (Array.isArray(items)) {
+                                items
+                                    .filter((item: string) => item.trim() !== '')
+                                    .forEach((item: string) => {
+                                        equipmentData.push({
+                                            night_camp_id: nightCampId,
+                                            category: category as EquipmentCategory,
+                                            equipment_name: item.trim()
+                                        });
+                                    });
+                            }
+                        });
+
+                        if (equipmentData.length > 0) {
+                            await tx.night_camps_equipment.createMany({
+                                data: equipmentData
+                            });
+                        }
+                    }
                 }
-            }
 
-            await client.query('COMMIT');
+                // Update volunteering roles if provided
+                if (volunteering_roles !== undefined) {
+                    // Delete existing volunteering roles
+                    await tx.night_camp_volunteering.deleteMany({
+                        where: { night_camp_id: nightCampId }
+                    });
 
-            // Fetch updated night camp with details
-            const updatedNightCamp = await NightCampController.getNightCampById(nightCampId);
+                    // Insert new volunteering roles
+                    if (volunteering_roles && volunteering_roles.length > 0) {
+                        const validRoles = volunteering_roles
+                            .filter((role: string) => role.trim() !== '')
+                            .map((role: string) => ({
+                                night_camp_id: nightCampId,
+                                volunteering_role: role.trim()
+                            }));
+
+                        if (validRoles.length > 0) {
+                            await tx.night_camp_volunteering.createMany({
+                                data: validRoles
+                            });
+                        }
+                    }
+                }
+
+                return updatedNightCamp;
+            });
+
+            // Fetch updated night camp with details using helper method
+            const updatedNightCampWithDetails = await NightCampController.getNightCampById(nightCampId);
 
             res.json({
                 message: 'Night camp updated successfully',
-                data: updatedNightCamp
+                data: updatedNightCampWithDetails
             });
 
-        } catch (error) {
-            await client.query('ROLLBACK');
+        } catch (error: any) {
             console.error('Error updating night camp:', error);
-            res.status(500).json({ error: 'Failed to update night camp' });
-        } finally {
-            client.release();
+            if (error.message === 'Night camp not found') {
+                res.status(404).json({ error: 'Night camp not found' });
+            } else {
+                res.status(500).json({ error: 'Failed to update night camp' });
+            }
         }
     }
 
@@ -481,19 +498,19 @@ export class NightCampController {
                 return;
             }
 
-            const deleteQuery = 'DELETE FROM night_camps WHERE id = $1 RETURNING *';
-            const deleteResult = await pool.query(deleteQuery, [nightCampId]);
-
-            if (deleteResult.rows.length === 0) {
-                res.status(404).json({ error: 'Night camp not found' });
-                return;
-            }
+            const deletedNightCamp = await prisma.night_camps.delete({
+                where: { id: nightCampId }
+            });
 
             res.json({ message: 'Night camp deleted successfully' });
 
-        } catch (error) {
+        } catch (error: any) {
             console.error('Error deleting night camp:', error);
-            res.status(500).json({ error: 'Failed to delete night camp' });
+            if (error.code === 'P2025') {
+                res.status(404).json({ error: 'Night camp not found' });
+            } else {
+                res.status(500).json({ error: 'Failed to delete night camp' });
+            }
         }
     }
 
@@ -514,17 +531,16 @@ export class NightCampController {
                 return;
             }
 
-            const insertQuery = `
-                INSERT INTO night_camp_volunteering (night_camp_id, volunteering_role)
-                VALUES ($1, $2)
-                RETURNING *
-            `;
-
-            const result = await pool.query(insertQuery, [nightCampId, volunteering_role.trim()]);
+            const result = await prisma.night_camp_volunteering.create({
+                data: {
+                    night_camp_id: nightCampId,
+                    volunteering_role: volunteering_role.trim()
+                }
+            });
 
             res.status(201).json({
                 message: 'Volunteering role added successfully',
-                data: result.rows[0]
+                data: result
             });
 
         } catch (error) {
@@ -544,15 +560,12 @@ export class NightCampController {
                 return;
             }
 
-            const query = `
-                SELECT * FROM night_camp_volunteering 
-                WHERE night_camp_id = $1 
-                ORDER BY created_at
-            `;
+            const result = await prisma.night_camp_volunteering.findMany({
+                where: { night_camp_id: nightCampId },
+                orderBy: { created_at: 'asc' }
+            });
 
-            const result = await pool.query(query, [nightCampId]);
-
-            res.json({ data: result.rows });
+            res.json({ data: result });
 
         } catch (error) {
             console.error('Error fetching volunteering roles:', error);
@@ -562,8 +575,6 @@ export class NightCampController {
 
     // Apply for volunteering role
     static async applyForVolunteering(req: Request, res: Response): Promise<void> {
-        const client = await pool.connect();
-        
         try {
             // Get user information from the verified token
             const authenticatedUser = (req as any).user;
@@ -573,19 +584,18 @@ export class NightCampController {
             }
 
             // Get full user details from database using firebase_uid
-            const userQuery = 'SELECT * FROM users WHERE firebase_uid = $1';
-            const userResult = await client.query(userQuery, [authenticatedUser.firebase_uid]);
-            
-            if (userResult.rows.length === 0) {
-                res.status(404).json({ 
+            const dbUser = await prisma.users.findFirst({
+                where: { firebase_uid: authenticatedUser.firebase_uid }
+            });
+
+            if (!dbUser) {
+                res.status(404).json({
                     error: 'User not found in database',
-                    debug: `Looking for firebase_uid: ${authenticatedUser.firebase_uid}` 
+                    debug: `Looking for firebase_uid: ${authenticatedUser.firebase_uid}`
                 });
                 return;
             }
 
-            const dbUser = userResult.rows[0];
-            
             const {
                 night_camp_id,
                 volunteering_role,
@@ -599,83 +609,77 @@ export class NightCampController {
 
             // Validate required fields
             if (!night_camp_id || !volunteering_role) {
-                res.status(400).json({ 
-                    error: 'Missing required fields: night_camp_id, volunteering_role' 
+                res.status(400).json({
+                    error: 'Missing required fields: night_camp_id, volunteering_role'
                 });
                 return;
             }
 
             // Check if night camp exists
-            const nightCampQuery = 'SELECT id FROM night_camps WHERE id = $1';
-            const nightCampResult = await client.query(nightCampQuery, [night_camp_id]);
-            
-            if (nightCampResult.rows.length === 0) {
+            const nightCamp = await prisma.night_camps.findUnique({
+                where: { id: night_camp_id }
+            });
+
+            if (!nightCamp) {
                 res.status(404).json({ error: 'Night camp not found' });
                 return;
             }
 
             // Check if role exists for this night camp
-            const roleQuery = 'SELECT id FROM night_camp_volunteering WHERE night_camp_id = $1 AND volunteering_role = $2';
-            const roleResult = await client.query(roleQuery, [night_camp_id, volunteering_role]);
-            
-            if (roleResult.rows.length === 0) {
+            const role = await prisma.night_camp_volunteering.findFirst({
+                where: {
+                    night_camp_id: night_camp_id,
+                    volunteering_role: volunteering_role
+                }
+            });
+
+            if (!role) {
                 res.status(404).json({ error: 'Volunteering role not found for this night camp' });
                 return;
             }
 
             // Check if user already applied for this role in this camp
-            const existingApplicationQuery = `
-                SELECT id FROM night_camp_volunteering_applications 
-                WHERE night_camp_id = $1 AND user_id = $2 AND volunteering_role = $3
-            `;
-            const existingApplicationResult = await client.query(existingApplicationQuery, [
-                night_camp_id, dbUser.id, volunteering_role
-            ]);
-            
-            if (existingApplicationResult.rows.length > 0) {
+            const existingApplication = await prisma.night_camp_volunteering_applications.findFirst({
+                where: {
+                    night_camp_id: night_camp_id,
+                    user_id: dbUser.id,
+                    volunteering_role: volunteering_role
+                }
+            });
+
+            if (existingApplication) {
                 res.status(409).json({ error: 'You have already applied for this role in this night camp' });
                 return;
             }
 
             // Insert application
-            const applicationQuery = `
-                INSERT INTO night_camp_volunteering_applications (
-                    night_camp_id, user_id, volunteering_role, motivation, experience, 
-                    availability, emergency_contact_name, emergency_contact_phone, 
+            const application = await prisma.night_camp_volunteering_applications.create({
+                data: {
+                    night_camp_id,
+                    user_id: dbUser.id,
+                    volunteering_role,
+                    motivation,
+                    experience,
+                    availability,
+                    emergency_contact_name,
+                    emergency_contact_phone,
                     emergency_contact_relationship
-                ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)
-                RETURNING *
-            `;
-
-            const applicationResult = await client.query(applicationQuery, [
-                night_camp_id,
-                dbUser.id,
-                volunteering_role,
-                motivation,
-                experience,
-                availability,
-                emergency_contact_name,
-                emergency_contact_phone,
-                emergency_contact_relationship
-            ]);
+                }
+            });
 
             res.status(201).json({
                 message: 'Volunteering application submitted successfully',
-                data: applicationResult.rows[0]
+                data: application
             });
 
         } catch (error) {
             console.error('Error submitting volunteering application:', error);
             res.status(500).json({ error: 'Failed to submit volunteering application' });
-        } finally {
-            client.release();
         }
     }
 
     // Get user's volunteering applications
     static async getUserVolunteeringApplications(req: Request, res: Response): Promise<void> {
-        const client = await pool.connect();
-        
         try {
             // Get user information from the verified token
             const authenticatedUser = (req as any).user;
@@ -685,85 +689,105 @@ export class NightCampController {
             }
 
             // Get full user details from database using firebase_uid
-            const userQuery = 'SELECT * FROM users WHERE firebase_uid = $1';
-            const userResult = await client.query(userQuery, [authenticatedUser.firebase_uid]);
-            
-            if (userResult.rows.length === 0) {
-                res.status(404).json({ 
+            const dbUser = await prisma.users.findFirst({
+                where: { firebase_uid: authenticatedUser.firebase_uid }
+            });
+
+            if (!dbUser) {
+                res.status(404).json({
                     error: 'User not found in database',
-                    debug: `Looking for firebase_uid: ${authenticatedUser.firebase_uid}` 
+                    debug: `Looking for firebase_uid: ${authenticatedUser.firebase_uid}`
                 });
                 return;
             }
 
-            const dbUser = userResult.rows[0];
+            const applications = await prisma.night_camp_volunteering_applications.findMany({
+                where: { user_id: dbUser.id },
+                include: {
+                    night_camps: {
+                        select: {
+                            name: true,
+                            date: true,
+                            location: true
+                        }
+                    },
+                    users_night_camp_volunteering_applications_reviewed_byTousers: {
+                        select: {
+                            first_name: true,
+                            last_name: true
+                        }
+                    }
+                },
+                orderBy: { application_date: 'desc' }
+            });
 
-            const applicationsQuery = `
-                SELECT 
-                    va.*,
-                    nc.name as night_camp_name,
-                    nc.date as night_camp_date,
-                    nc.location as night_camp_location,
-                    reviewer.first_name || ' ' || COALESCE(reviewer.last_name, '') as reviewed_by_name
-                FROM night_camp_volunteering_applications va
-                JOIN night_camps nc ON va.night_camp_id = nc.id
-                LEFT JOIN users reviewer ON va.reviewed_by = reviewer.id
-                WHERE va.user_id = $1
-                ORDER BY va.application_date DESC
-            `;
+            // Transform data to match expected format
+            const transformedApplications = applications.map(app => ({
+                ...app,
+                night_camp_name: app.night_camps.name,
+                night_camp_date: app.night_camps.date,
+                night_camp_location: app.night_camps.location,
+                reviewed_by_name: app.users_night_camp_volunteering_applications_reviewed_byTousers ?
+                    `${app.users_night_camp_volunteering_applications_reviewed_byTousers.first_name} ${app.users_night_camp_volunteering_applications_reviewed_byTousers.last_name || ''}`.trim() : null
+            }));
 
-            const applicationsResult = await client.query(applicationsQuery, [dbUser.id]);
-
-            res.json({ data: applicationsResult.rows });
+            res.json({ data: transformedApplications });
 
         } catch (error) {
             console.error('Error fetching user volunteering applications:', error);
             res.status(500).json({ error: 'Failed to fetch volunteering applications' });
-        } finally {
-            client.release();
         }
     }
 
     // Get all applications for a night camp (admin/moderator only)
     static async getNightCampApplications(req: Request, res: Response): Promise<void> {
-        const client = await pool.connect();
-        
         try {
             const { id: nightCampId } = req.params;
 
-            const applicationsQuery = `
-                SELECT 
-                    va.*,
-                    u.first_name || ' ' || COALESCE(u.last_name, '') as applicant_name,
-                    u.email as applicant_email,
-                    u.display_name as applicant_display_name,
-                    reviewer.first_name || ' ' || COALESCE(reviewer.last_name, '') as reviewed_by_name
-                FROM night_camp_volunteering_applications va
-                JOIN users u ON va.user_id = u.id
-                LEFT JOIN users reviewer ON va.reviewed_by = reviewer.id
-                WHERE va.night_camp_id = $1
-                ORDER BY va.application_date DESC
-            `;
+            const applications = await prisma.night_camp_volunteering_applications.findMany({
+                where: { night_camp_id: parseInt(nightCampId) },
+                include: {
+                    users_night_camp_volunteering_applications_user_idTousers: {
+                        select: {
+                            first_name: true,
+                            last_name: true,
+                            email: true,
+                            display_name: true
+                        }
+                    },
+                    users_night_camp_volunteering_applications_reviewed_byTousers: {
+                        select: {
+                            first_name: true,
+                            last_name: true
+                        }
+                    }
+                },
+                orderBy: { application_date: 'desc' }
+            });
 
-            const applicationsResult = await client.query(applicationsQuery, [nightCampId]);
+            // Transform data to match expected format
+            const transformedApplications = applications.map(app => ({
+                ...app,
+                applicant_name: `${app.users_night_camp_volunteering_applications_user_idTousers.first_name} ${app.users_night_camp_volunteering_applications_user_idTousers.last_name || ''}`.trim(),
+                applicant_email: app.users_night_camp_volunteering_applications_user_idTousers.email,
+                applicant_display_name: app.users_night_camp_volunteering_applications_user_idTousers.display_name,
+                reviewed_by_name: app.users_night_camp_volunteering_applications_reviewed_byTousers ?
+                    `${app.users_night_camp_volunteering_applications_reviewed_byTousers.first_name} ${app.users_night_camp_volunteering_applications_reviewed_byTousers.last_name || ''}`.trim() : null
+            }));
 
-            res.json({ data: applicationsResult.rows });
+            res.json({ data: transformedApplications });
 
         } catch (error) {
             console.error('Error fetching night camp applications:', error);
             res.status(500).json({ error: 'Failed to fetch night camp applications' });
-        } finally {
-            client.release();
         }
     }
 
     // Delete a volunteering application (moderator/admin only)
     static async deleteVolunteeringApplication(req: Request, res: Response): Promise<void> {
-        const client = await pool.connect();
-        
         try {
             const { applicationId } = req.params;
-            
+
             // Get user information from the verified token
             const authenticatedUser = (req as any).user;
             if (!authenticatedUser) {
@@ -771,53 +795,32 @@ export class NightCampController {
                 return;
             }
 
-            // Check if application exists
-            const checkQuery = `
-                SELECT id, user_id, night_camp_id 
-                FROM night_camp_volunteering_applications 
-                WHERE id = $1
-            `;
-            const checkResult = await client.query(checkQuery, [applicationId]);
-
-            if (checkResult.rows.length === 0) {
-                res.status(404).json({ error: 'Application not found' });
-                return;
-            }
-
-            // Delete the application
-            const deleteQuery = `
-                DELETE FROM night_camp_volunteering_applications 
-                WHERE id = $1
-                RETURNING *
-            `;
-            const deleteResult = await client.query(deleteQuery, [applicationId]);
-
-            if (deleteResult.rows.length === 0) {
-                res.status(404).json({ error: 'Application not found or could not be deleted' });
-                return;
-            }
-
-            res.json({ 
-                message: 'Volunteering application deleted successfully',
-                data: deleteResult.rows[0]
+            // Check if application exists and delete it
+            const deletedApplication = await prisma.night_camp_volunteering_applications.delete({
+                where: { id: parseInt(applicationId) }
             });
 
-        } catch (error) {
+            res.json({
+                message: 'Volunteering application deleted successfully',
+                data: deletedApplication
+            });
+
+        } catch (error: any) {
             console.error('Error deleting volunteering application:', error);
-            res.status(500).json({ error: 'Failed to delete volunteering application' });
-        } finally {
-            client.release();
+            if (error.code === 'P2025') {
+                res.status(404).json({ error: 'Application not found' });
+            } else {
+                res.status(500).json({ error: 'Failed to delete volunteering application' });
+            }
         }
     }
 
     // Update volunteering application status (moderator/admin only)
     static async updateApplicationStatus(req: Request, res: Response): Promise<void> {
-        const client = await pool.connect();
-        
         try {
             const { applicationId } = req.params;
             const { status, review_notes } = req.body;
-            
+
             // Get user information from the verified token
             const authenticatedUser = (req as any).user;
             if (!authenticatedUser) {
@@ -826,15 +829,14 @@ export class NightCampController {
             }
 
             // Get full user details from database using firebase_uid
-            const userQuery = 'SELECT * FROM users WHERE firebase_uid = $1';
-            const userResult = await client.query(userQuery, [authenticatedUser.firebase_uid]);
-            
-            if (userResult.rows.length === 0) {
+            const dbUser = await prisma.users.findFirst({
+                where: { firebase_uid: authenticatedUser.firebase_uid }
+            });
+
+            if (!dbUser) {
                 res.status(404).json({ error: 'User not found in database' });
                 return;
             }
-
-            const dbUser = userResult.rows[0];
 
             // Validate status
             const validStatuses = ['pending', 'approved', 'rejected'];
@@ -843,192 +845,92 @@ export class NightCampController {
                 return;
             }
 
-            // Check if application exists
-            const checkQuery = `
-                SELECT id, user_id, night_camp_id, status 
-                FROM night_camp_volunteering_applications 
-                WHERE id = $1
-            `;
-            const checkResult = await client.query(checkQuery, [applicationId]);
+            // Check if application exists and update it
+            try {
+                const updatedApplication = await prisma.night_camp_volunteering_applications.update({
+                    where: { id: parseInt(applicationId) },
+                    data: {
+                        status: status as any,
+                        reviewed_by: dbUser.id,
+                        reviewed_at: new Date(),
+                        review_notes: review_notes
+                    }
+                });
 
-            if (checkResult.rows.length === 0) {
-                res.status(404).json({ error: 'Application not found' });
-                return;
+                res.json({
+                    message: `Application ${status} successfully`,
+                    data: updatedApplication
+                });
+            } catch (updateError: any) {
+                if (updateError.code === 'P2025') {
+                    res.status(404).json({ error: 'Application not found' });
+                } else {
+                    throw updateError;
+                }
             }
-
-            // Update the application status
-            const updateQuery = `
-                UPDATE night_camp_volunteering_applications 
-                SET status = $1, reviewed_by = $2, reviewed_at = CURRENT_TIMESTAMP, review_notes = $3
-                WHERE id = $4
-                RETURNING *
-            `;
-            const updateResult = await client.query(updateQuery, [status, dbUser.id, review_notes, applicationId]);
-
-            if (updateResult.rows.length === 0) {
-                res.status(404).json({ error: 'Application not found or could not be updated' });
-                return;
-            }
-
-            res.json({ 
-                message: `Application ${status} successfully`,
-                data: updateResult.rows[0]
-            });
 
         } catch (error) {
             console.error('Error updating application status:', error);
             res.status(500).json({ error: 'Failed to update application status' });
-        } finally {
-            client.release();
         }
     }
 
     // Update user's own volunteering application (user can only edit pending applications)
     static async updateUserApplication(req: Request, res: Response): Promise<void> {
-        const client = await pool.connect();
-        
         try {
             const { applicationId } = req.params;
             const { volunteering_role, motivation, experience, availability, emergency_contact_name, emergency_contact_phone, emergency_contact_relationship } = req.body;
-            
-            // Get user information from the verified token
             const authenticatedUser = (req as any).user;
-            if (!authenticatedUser) {
-                res.status(401).json({ error: 'Authentication required' });
-                return;
+            if (!authenticatedUser) { res.status(401).json({ error: 'Authentication required' }); return; }
+
+            const dbUser = await prisma.users.findFirst({ where: { firebase_uid: authenticatedUser.firebase_uid } });
+            if (!dbUser) { res.status(404).json({ error: 'User not found in database' }); return; }
+
+            const appId = parseInt(applicationId);
+            if (isNaN(appId)) { res.status(400).json({ error: 'Invalid application ID' }); return; }
+
+            const application = await prisma.night_camp_volunteering_applications.findUnique({ where: { id: appId } });
+            if (!application || application.user_id !== dbUser.id) { res.status(404).json({ error: 'Application not found or no permission' }); return; }
+            if (application.status !== 'pending') { res.status(400).json({ error: 'Can only edit pending applications' }); return; }
+
+            if (volunteering_role && volunteering_role !== application.volunteering_role) {
+                const duplicate = await prisma.night_camp_volunteering_applications.findFirst({
+                    where: {
+                        night_camp_id: application.night_camp_id,
+                        user_id: dbUser.id,
+                        volunteering_role: volunteering_role,
+                        NOT: { id: appId }
+                    }
+                });
+                if (duplicate) { res.status(400).json({ error: 'You have already applied for this role in this night camp' }); return; }
             }
 
-            // Get full user details from database using firebase_uid
-            const userQuery = 'SELECT * FROM users WHERE firebase_uid = $1';
-            const userResult = await client.query(userQuery, [authenticatedUser.firebase_uid]);
-            
-            if (userResult.rows.length === 0) {
-                res.status(404).json({ error: 'User not found in database' });
-                return;
-            }
-
-            const dbUser = userResult.rows[0];
-
-            // Check if application exists and belongs to the user
-            const checkQuery = `
-                SELECT id, user_id, status, night_camp_id, volunteering_role as current_role
-                FROM night_camp_volunteering_applications 
-                WHERE id = $1 AND user_id = $2
-            `;
-            const checkResult = await client.query(checkQuery, [applicationId, dbUser.id]);
-
-            if (checkResult.rows.length === 0) {
-                res.status(404).json({ error: 'Application not found or you do not have permission to edit it' });
-                return;
-            }
-
-            const application = checkResult.rows[0];
-
-            // Only allow editing if status is pending
-            if (application.status !== 'pending') {
-                res.status(400).json({ error: 'Can only edit pending applications' });
-                return;
-            }
-
-            // If volunteering_role is being changed, check for duplicate applications
-            if (volunteering_role && volunteering_role !== application.current_role) {
-                const duplicateCheckQuery = `
-                    SELECT id FROM night_camp_volunteering_applications 
-                    WHERE night_camp_id = $1 AND user_id = $2 AND volunteering_role = $3 AND id != $4
-                `;
-                const duplicateResult = await client.query(duplicateCheckQuery, [
-                    application.night_camp_id, 
-                    dbUser.id, 
-                    volunteering_role, 
-                    applicationId
-                ]);
-
-                if (duplicateResult.rows.length > 0) {
-                    res.status(400).json({ error: 'You have already applied for this role in this night camp' });
-                    return;
+            const updated = await prisma.night_camp_volunteering_applications.update({
+                where: { id: appId },
+                data: {
+                    volunteering_role: volunteering_role ?? undefined,
+                    motivation: motivation ?? undefined,
+                    experience: experience ?? undefined,
+                    availability: availability ?? undefined,
+                    emergency_contact_name: emergency_contact_name ?? undefined,
+                    emergency_contact_phone: emergency_contact_phone ?? undefined,
+                    emergency_contact_relationship: emergency_contact_relationship ?? undefined,
+                    updated_at: new Date()
                 }
-            }
-
-            // Prepare update fields
-            const updateFields = [];
-            const updateValues = [];
-            let paramCount = 1;
-
-            if (volunteering_role) {
-                updateFields.push(`volunteering_role = $${paramCount++}`);
-                updateValues.push(volunteering_role);
-            }
-            if (motivation !== undefined) {
-                updateFields.push(`motivation = $${paramCount++}`);
-                updateValues.push(motivation);
-            }
-            if (experience !== undefined) {
-                updateFields.push(`experience = $${paramCount++}`);
-                updateValues.push(experience);
-            }
-            if (availability !== undefined) {
-                updateFields.push(`availability = $${paramCount++}`);
-                updateValues.push(availability);
-            }
-            if (emergency_contact_name !== undefined) {
-                updateFields.push(`emergency_contact_name = $${paramCount++}`);
-                updateValues.push(emergency_contact_name);
-            }
-            if (emergency_contact_phone !== undefined) {
-                updateFields.push(`emergency_contact_phone = $${paramCount++}`);
-                updateValues.push(emergency_contact_phone);
-            }
-            if (emergency_contact_relationship !== undefined) {
-                updateFields.push(`emergency_contact_relationship = $${paramCount++}`);
-                updateValues.push(emergency_contact_relationship);
-            }
-
-            if (updateFields.length === 0) {
-                res.status(400).json({ error: 'No fields to update' });
-                return;
-            }
-
-            // Add updated_at field
-            updateFields.push(`updated_at = CURRENT_TIMESTAMP`);
-            
-            // Add WHERE clause parameters
-            updateValues.push(applicationId, dbUser.id);
-
-            const updateQuery = `
-                UPDATE night_camp_volunteering_applications 
-                SET ${updateFields.join(', ')}
-                WHERE id = $${paramCount++} AND user_id = $${paramCount++}
-                RETURNING *
-            `;
-
-            const updateResult = await client.query(updateQuery, updateValues);
-
-            if (updateResult.rows.length === 0) {
-                res.status(404).json({ error: 'Application not found or could not be updated' });
-                return;
-            }
-
-            res.json({ 
-                message: 'Application updated successfully',
-                data: updateResult.rows[0]
             });
 
+            res.json({ message: 'Application updated successfully', data: updated });
         } catch (error) {
             console.error('Error updating user application:', error);
             res.status(500).json({ error: 'Failed to update application' });
-        } finally {
-            client.release();
         }
     }
 
     // Register for night camp (learners and other users)
     static async registerForNightCamp(req: Request, res: Response): Promise<void> {
-        const client = await pool.connect();
-        
         try {
-            const { nightCampId } = req.params;
-            const campId = parseInt(nightCampId);
-            
+            const { nightCampId } = req.params; const campId = parseInt(nightCampId);
+
             // Get user information from the verified token
             const authenticatedUser = (req as any).user;
             if (!authenticatedUser) {
@@ -1037,15 +939,17 @@ export class NightCampController {
             }
 
             // Get full user details from database using firebase_uid
-            const userQuery = 'SELECT * FROM users WHERE firebase_uid = $1';
-            const userResult = await client.query(userQuery, [authenticatedUser.firebase_uid]);
-            
-            if (userResult.rows.length === 0) {
-                res.status(404).json({ error: 'User not found in database' });
+            const dbUser = await prisma.users.findFirst({
+                where: { firebase_uid: authenticatedUser.firebase_uid }
+            });
+
+            if (!dbUser) {
+                res.status(404).json({
+                    error: 'User not found in database',
+                    debug: `Looking for firebase_uid: ${authenticatedUser.firebase_uid}`
+                });
                 return;
             }
-
-            const dbUser = userResult.rows[0];
 
             // Validate night camp ID
             if (isNaN(campId)) {
@@ -1054,15 +958,14 @@ export class NightCampController {
             }
 
             // Check if night camp exists
-            const campQuery = 'SELECT * FROM night_camps WHERE id = $1';
-            const campResult = await client.query(campQuery, [campId]);
-            
-            if (campResult.rows.length === 0) {
+            const camp = await prisma.night_camps.findUnique({
+                where: { id: campId }
+            });
+
+            if (!camp) {
                 res.status(404).json({ error: 'Night camp not found' });
                 return;
             }
-
-            const camp = campResult.rows[0];
 
             // Check if camp date is in the future
             const campDate = new Date(camp.date);
@@ -1073,60 +976,51 @@ export class NightCampController {
             }
 
             // Check if user is already registered
-            const existingRegistrationQuery = `
-                SELECT id FROM night_camp_registrations 
-                WHERE camp_id = $1 AND user_id = $2
-            `;
-            const existingResult = await client.query(existingRegistrationQuery, [campId, dbUser.id]);
+            const existingRegistration = await prisma.night_camp_registrations.findFirst({
+                where: { camp_id: campId, user_id: dbUser.id }
+            });
 
-            if (existingResult.rows.length > 0) {
+            if (existingRegistration) {
                 res.status(400).json({ error: 'You are already registered for this night camp' });
                 return;
             }
 
             // Check if camp is full (only count confirmed registrations)
-            const registrationCountQuery = `
-                SELECT COUNT(*) as count FROM night_camp_registrations 
-                WHERE camp_id = $1 AND status = 'confirmed'
-            `;
-            const countResult = await client.query(registrationCountQuery, [campId]);
-            const currentRegistrations = parseInt(countResult.rows[0].count);
+            const registrationCount = await prisma.night_camp_registrations.count({
+                where: {
+                    camp_id: campId,
+                    status: 'confirmed'
+                }
+            });
+            const currentRegistrations = registrationCount;
 
-            if (currentRegistrations >= camp.number_of_participants) {
+            if (currentRegistrations >= (camp.number_of_participants ?? 0)) {
                 res.status(400).json({ error: 'Night camp is full' });
                 return;
             }
 
             // Create registration with pending status
-            const registerQuery = `
-                INSERT INTO night_camp_registrations (
-                    camp_id, user_id, status, registered_date, registered_time
-                ) VALUES ($1, $2, $3, CURRENT_DATE, CURRENT_TIME)
-                RETURNING *
-            `;
-            const registerResult = await client.query(registerQuery, [
-                campId, 
-                dbUser.id, 
-                'pending'
-            ]);
+            const registration = await prisma.night_camp_registrations.create({
+                data: {
+                    camp_id: campId,
+                    user_id: dbUser.id,
+                    status: 'pending'
+                }
+            });
 
-            res.status(201).json({ 
+            res.status(201).json({
                 message: 'Registration submitted successfully and is pending approval',
-                data: registerResult.rows[0]
+                data: registration
             });
 
         } catch (error) {
             console.error('Error registering for night camp:', error);
             res.status(500).json({ error: 'Failed to register for night camp' });
-        } finally {
-            client.release();
         }
     }
 
     // Get user's night camp registrations
     static async getUserRegistrations(req: Request, res: Response): Promise<void> {
-        const client = await pool.connect();
-        
         try {
             // Get user information from the verified token
             const authenticatedUser = (req as any).user;
@@ -1136,52 +1030,58 @@ export class NightCampController {
             }
 
             // Get full user details from database using firebase_uid
-            const userQuery = 'SELECT * FROM users WHERE firebase_uid = $1';
-            const userResult = await client.query(userQuery, [authenticatedUser.firebase_uid]);
-            
-            if (userResult.rows.length === 0) {
-                res.status(404).json({ 
+            const dbUser = await prisma.users.findFirst({
+                where: { firebase_uid: authenticatedUser.firebase_uid }
+            });
+
+            if (!dbUser) {
+                res.status(404).json({
                     error: 'User not found in database',
-                    debug: `Looking for firebase_uid: ${authenticatedUser.firebase_uid}` 
+                    debug: `Looking for firebase_uid: ${authenticatedUser.firebase_uid}`
                 });
                 return;
             }
 
-            const dbUser = userResult.rows[0];
+            const registrations = await prisma.night_camp_registrations.findMany({
+                where: { user_id: dbUser.id },
+                include: {
+                    night_camps: {
+                        select: {
+                            name: true,
+                            date: true,
+                            time: true,
+                            location: true
+                        }
+                    }
+                },
+                orderBy: { registered_date: 'desc' }
+            });
 
-            const registrationsQuery = `
-                SELECT 
-                    nr.*,
-                    nc.name as night_camp_name,
-                    nc.date as night_camp_date,
-                    nc.time as night_camp_time,
-                    nc.location as night_camp_location
-                FROM night_camp_registrations nr
-                JOIN night_camps nc ON nr.camp_id = nc.id
-                WHERE nr.user_id = $1
-                ORDER BY nr.registered_date DESC
-            `;
+            const transformed = registrations.map(r => ({
+                ...r,
+                night_camp_name: r.night_camps?.name,
+                night_camp_date: r.night_camps?.date,
+                night_camp_time: r.night_camps?.time,
+                night_camp_location: r.night_camps?.location
+            }));
 
-            const registrationsResult = await client.query(registrationsQuery, [dbUser.id]);
-
-            res.json({ data: registrationsResult.rows });
+            res.json({ data: transformed });
 
         } catch (error) {
             console.error('Error fetching user registrations:', error);
             res.status(500).json({ error: 'Failed to fetch registrations' });
-        } finally {
-            client.release();
         }
     }
 
     // Update registration status (admin/moderator only)
     static async updateRegistrationStatus(req: Request, res: Response): Promise<void> {
-        const client = await pool.connect();
-        
         try {
-            const { registrationId } = req.params;
-            const { status, review_notes } = req.body;
-            
+            const { registrationId } = req.params; const idNum = parseInt(registrationId);
+
+            if (isNaN(idNum)) { res.status(400).json({ error: 'Invalid registration ID' }); return; }
+
+            const { status } = req.body;
+
             // Get user information from the verified token
             const authenticatedUser = (req as any).user;
             if (!authenticatedUser) {
@@ -1190,15 +1090,14 @@ export class NightCampController {
             }
 
             // Get full user details from database using firebase_uid
-            const userQuery = 'SELECT * FROM users WHERE firebase_uid = $1';
-            const userResult = await client.query(userQuery, [authenticatedUser.firebase_uid]);
-            
-            if (userResult.rows.length === 0) {
+            const dbUser = await prisma.users.findFirst({
+                where: { firebase_uid: authenticatedUser.firebase_uid }
+            });
+
+            if (!dbUser) {
                 res.status(404).json({ error: 'User not found in database' });
                 return;
             }
-
-            const dbUser = userResult.rows[0];
 
             // Validate status
             const validStatuses = ['pending', 'confirmed', 'cancelled', 'rejected'];
@@ -1208,106 +1107,74 @@ export class NightCampController {
             }
 
             // Check if registration exists
-            const checkQuery = `
-                SELECT nr.*, nc.name as camp_name, nc.number_of_participants
-                FROM night_camp_registrations nr
-                JOIN night_camps nc ON nr.camp_id = nc.id
-                WHERE nr.id = $1
-            `;
-            const checkResult = await client.query(checkQuery, [registrationId]);
+            const registration = await prisma.night_camp_registrations.findUnique({
+                where: { id: idNum },
+                include: { night_camps: true }
+            });
 
-            if (checkResult.rows.length === 0) {
+            if (!registration) {
                 res.status(404).json({ error: 'Registration not found' });
                 return;
             }
 
-            const registration = checkResult.rows[0];
-
             // If approving (confirming), check if camp is full
             if (status === 'confirmed' && registration.status !== 'confirmed') {
-                const registrationCountQuery = `
-                    SELECT COUNT(*) as count FROM night_camp_registrations 
-                    WHERE camp_id = $1 AND status = 'confirmed'
-                `;
-                const countResult = await client.query(registrationCountQuery, [registration.camp_id]);
-                const currentRegistrations = parseInt(countResult.rows[0].count);
-
-                if (currentRegistrations >= registration.number_of_participants) {
+                const confirmedCount = await prisma.night_camp_registrations.count({
+                    where: { camp_id: registration.camp_id!, status: 'confirmed' }
+                });
+                const max = registration.night_camps?.number_of_participants ?? 0;
+                if (confirmedCount >= max) {
                     res.status(400).json({ error: 'Cannot approve registration: Night camp is full' });
                     return;
                 }
             }
 
-            // Update the registration status
-            const updateQuery = `
-                UPDATE night_camp_registrations 
-                SET status = $1, updated_at = CURRENT_TIMESTAMP
-                WHERE id = $2
-                RETURNING *
-            `;
-            const updateResult = await client.query(updateQuery, [status, registrationId]);
-
-            if (updateResult.rows.length === 0) {
-                res.status(404).json({ error: 'Registration not found or could not be updated' });
-                return;
-            }
-
-            res.json({ 
-                message: `Registration ${status} successfully`,
-                data: updateResult.rows[0]
+            const updated = await prisma.night_camp_registrations.update({
+                where: { id: idNum },
+                data: { status, updated_at: new Date() }
             });
+
+            res.json({ message: `Registration ${status} successfully`, data: updated });
 
         } catch (error) {
             console.error('Error updating registration status:', error);
             res.status(500).json({ error: 'Failed to update registration status' });
-        } finally {
-            client.release();
         }
     }
 
     // Get all registrations for a night camp (admin/moderator only)
     static async getNightCampRegistrations(req: Request, res: Response): Promise<void> {
-        const client = await pool.connect();
-        
         try {
-            const { id: nightCampId } = req.params;
+            const { id: nightCampId } = req.params; const campId = parseInt(nightCampId);
 
-            const registrationsQuery = `
-                SELECT 
-                    nr.*,
-                    u.first_name || ' ' || COALESCE(u.last_name, '') as user_name,
-                    u.email as user_email,
-                    u.display_name as user_display_name,
-                    nc.name as camp_name
-                FROM night_camp_registrations nr
-                JOIN users u ON nr.user_id = u.id
-                JOIN night_camps nc ON nr.camp_id = nc.id
-                WHERE nr.camp_id = $1
-                ORDER BY nr.registered_date DESC
-            `;
+            if (isNaN(campId)) { res.status(400).json({ error: 'Invalid night camp ID' }); return; }
 
-            const registrationsResult = await client.query(registrationsQuery, [nightCampId]);
+            const registrations = await prisma.night_camp_registrations.findMany({
+                where: { camp_id: campId },
+                include: { users: { select: { first_name: true, last_name: true, email: true, display_name: true } } },
+                orderBy: { registered_date: 'desc' }
+            });
 
-            res.json({ data: registrationsResult.rows });
+            const transformed = registrations.map(r => ({
+                ...r,
+                user_name: `${r.users?.first_name ?? ''} ${r.users?.last_name ?? ''}`.trim(),
+                user_email: r.users?.email,
+                user_display_name: r.users?.display_name
+            }));
+
+            res.json({ data: transformed });
 
         } catch (error) {
             console.error('Error fetching night camp registrations:', error);
             res.status(500).json({ error: 'Failed to fetch night camp registrations' });
-        } finally {
-            client.release();
         }
     }
 
     // Get volunteer management dashboard for approved volunteers
     static async getVolunteerManagement(req: Request, res: Response): Promise<void> {
-        const client = await pool.connect();
-        
         try {
-            const { nightCampId } = req.params;
-            const campId = parseInt(nightCampId);
-            
-            console.log('🔧 [VOLUNTEER MANAGEMENT] Request for camp ID:', campId);
-            
+            const { nightCampId } = req.params; const campId = parseInt(nightCampId);
+
             // Get user information from the verified token
             const authenticatedUser = (req as any).user;
             if (!authenticatedUser) {
@@ -1316,30 +1183,28 @@ export class NightCampController {
             }
 
             // Get full user details from database using firebase_uid
-            const userQuery = 'SELECT * FROM users WHERE firebase_uid = $1';
-            const userResult = await client.query(userQuery, [authenticatedUser.firebase_uid]);
-            
-            if (userResult.rows.length === 0) {
+            const dbUser = await prisma.users.findFirst({
+                where: { firebase_uid: authenticatedUser.firebase_uid }
+            });
+
+            if (!dbUser) {
                 res.status(404).json({ error: 'User not found in database' });
                 return;
             }
 
-            const dbUser = userResult.rows[0];
-            console.log('🔧 [VOLUNTEER MANAGEMENT] User found:', dbUser.email);
-
             // Check if user is an approved volunteer for this camp
-            const volunteerCheckQuery = `
-                SELECT id FROM night_camp_volunteering_applications 
-                WHERE night_camp_id = $1 AND user_id = $2 AND status = 'approved'
-            `;
-            const volunteerCheckResult = await client.query(volunteerCheckQuery, [campId, dbUser.id]);
+            const volunteerCheck = await prisma.night_camp_volunteering_applications.findFirst({
+                where: {
+                    night_camp_id: campId,
+                    user_id: dbUser.id,
+                    status: 'approved'
+                }
+            });
 
-            if (volunteerCheckResult.rows.length === 0) {
+            if (!volunteerCheck) {
                 res.status(403).json({ error: 'Access denied. You must be an approved volunteer for this night camp.' });
                 return;
             }
-
-            console.log('🔧 [VOLUNTEER MANAGEMENT] User is approved volunteer');
 
             // Get complete night camp details
             const nightCamp = await NightCampController.getNightCampById(campId);
@@ -1349,80 +1214,78 @@ export class NightCampController {
             }
 
             // Get all approved volunteers for this camp with user details
-            const volunteersQuery = `
-                SELECT 
-                    va.*,
-                    u.first_name || ' ' || COALESCE(u.last_name, '') as volunteer_name,
-                    u.email as volunteer_email,
-                    u.display_name as volunteer_display_name
-                FROM night_camp_volunteering_applications va
-                JOIN users u ON va.user_id = u.id
-                WHERE va.night_camp_id = $1 AND va.status = 'approved'
-                ORDER BY va.volunteering_role, u.first_name
-            `;
-            const volunteersResult = await client.query(volunteersQuery, [campId]);
+            const volunteers = await prisma.night_camp_volunteering_applications.findMany({
+                where: { night_camp_id: campId, status: 'approved' },
+                include: {
+                    users_night_camp_volunteering_applications_user_idTousers: {
+                        select: {
+                            first_name: true,
+                            last_name: true,
+                            email: true,
+                            display_name: true
+                        }
+                    }
+                },
+                orderBy: { volunteering_role: 'asc' }
+            });
 
             // Get all pending registrations for this camp
-            const pendingRegistrationsQuery = `
-                SELECT 
-                    nr.*,
-                    u.first_name || ' ' || COALESCE(u.last_name, '') as participant_name,
-                    u.email as participant_email,
-                    u.display_name as participant_display_name
-                FROM night_camp_registrations nr
-                JOIN users u ON nr.user_id = u.id
-                WHERE nr.camp_id = $1 AND nr.status = 'pending'
-                ORDER BY nr.registered_date ASC
-            `;
-            const pendingRegistrationsResult = await client.query(pendingRegistrationsQuery, [campId]);
+            const pendingRegistrations = await prisma.night_camp_registrations.findMany({
+                where: { camp_id: campId, status: 'pending' },
+                include: {
+                    users: {
+                        select: {
+                            first_name: true,
+                            last_name: true,
+                            email: true
+                        }
+                    }
+                },
+                orderBy: { registered_date: 'asc' }
+            });
 
             // Get all approved/confirmed registrations for this camp
-            const approvedRegistrationsQuery = `
-                SELECT 
-                    nr.*,
-                    u.first_name || ' ' || COALESCE(u.last_name, '') as participant_name,
-                    u.email as participant_email,
-                    u.display_name as participant_display_name
-                FROM night_camp_registrations nr
-                JOIN users u ON nr.user_id = u.id
-                WHERE nr.camp_id = $1 AND nr.status = 'confirmed'
-                ORDER BY nr.registered_date ASC
-            `;
-            const approvedRegistrationsResult = await client.query(approvedRegistrationsQuery, [campId]);
+            const approvedRegistrations = await prisma.night_camp_registrations.findMany({
+                where: { camp_id: campId, status: 'confirmed' },
+                include: {
+                    users: {
+                        select: {
+                            first_name: true,
+                            last_name: true,
+                            email: true
+                        }
+                    }
+                },
+                orderBy: { registered_date: 'asc' }
+            });
 
-            // Get confirmed registrations count
-            const confirmedCountQuery = `
-                SELECT COUNT(*) as count FROM night_camp_registrations 
-                WHERE camp_id = $1 AND status = 'confirmed'
-            `;
-            const confirmedCountResult = await client.query(confirmedCountQuery, [campId]);
-            const confirmedParticipants = parseInt(confirmedCountResult.rows[0].count);
+            const confirmedParticipants = approvedRegistrations.length;
 
             const responseData = {
                 nightCamp,
-                volunteers: volunteersResult.rows.map(vol => ({
-                    id: vol.id,
-                    user_id: vol.user_id,
-                    user_name: vol.volunteer_name,
-                    email: vol.volunteer_email,
-                    volunteering_role: vol.volunteering_role,
-                    status: vol.status
+                volunteers: volunteers.map(v => ({
+                    id: v.id,
+                    user_id: v.user_id,
+                    user_name: `${v.users_night_camp_volunteering_applications_user_idTousers?.first_name ?? ''} ${v.users_night_camp_volunteering_applications_user_idTousers?.last_name ?? ''}`.trim(),
+                    email: v.users_night_camp_volunteering_applications_user_idTousers?.email,
+                    volunteering_role: v.volunteering_role,
+                    status: v.status
                 })),
-                pendingRegistrations: pendingRegistrationsResult.rows.map(reg => ({
-                    id: reg.id,
-                    user_id: reg.user_id,
-                    user_name: reg.participant_name,
-                    email: reg.participant_email,
-                    registration_date: reg.registered_date,
-                    status: reg.status
+                pendingRegistrations: pendingRegistrations.map(r => ({
+                    id: r.id,
+                    user_id: r.user_id,
+                    user_name: `${r.users?.first_name ?? ''} ${r.users?.last_name ?? ''}`.trim(),
+                    email: r.users?.email,
+                    registration_date: r.registered_date,
+                    status: r.status
                 })),
-                approvedRegistrations: approvedRegistrationsResult.rows.map(reg => ({
-                    id: reg.id,
-                    user_id: reg.user_id,
-                    user_name: reg.participant_name,
-                    email: reg.participant_email,
-                    registration_date: reg.registered_date,
-                    status: reg.status
+                approvedRegistrations: approvedRegistrations.map(r => ({
+                    id: r.id,
+                    user_id: r.user_id,
+                    user_name: `${r.users?.first_name ?? ''} ${r.users?.last_name ?? ''}`.trim(),
+                    email: r.users?.email,
+                    registration_date: r.registered_date,
+                    status: r.status
                 })),
                 totalApproved: confirmedParticipants,
                 maxCapacity: nightCamp.number_of_participants,
@@ -1434,18 +1297,16 @@ export class NightCampController {
         } catch (error) {
             console.error('Error fetching volunteer management data:', error);
             res.status(500).json({ error: 'Failed to fetch volunteer management data' });
-        } finally {
-            client.release();
         }
     }
 
     // Approve registration (for approved volunteers)
     static async approveRegistrationByVolunteer(req: Request, res: Response): Promise<void> {
-        const client = await pool.connect();
-        
         try {
-            const { registrationId } = req.params;
-            
+            const { registrationId } = req.params; const idNum = parseInt(registrationId);
+
+            if (isNaN(idNum)) { res.status(400).json({ error: 'Invalid registration ID' }); return; }
+
             // Get user information from the verified token
             const authenticatedUser = (req as any).user;
             if (!authenticatedUser) {
@@ -1454,83 +1315,74 @@ export class NightCampController {
             }
 
             // Get full user details from database using firebase_uid
-            const userQuery = 'SELECT * FROM users WHERE firebase_uid = $1';
-            const userResult = await client.query(userQuery, [authenticatedUser.firebase_uid]);
-            
-            if (userResult.rows.length === 0) {
+            const dbUser = await prisma.users.findFirst({
+                where: { firebase_uid: authenticatedUser.firebase_uid }
+            });
+
+            if (!dbUser) {
                 res.status(404).json({ error: 'User not found in database' });
                 return;
             }
 
-            const dbUser = userResult.rows[0];
-
             // Get registration details first to get the camp ID
-            const registrationCheckQuery = `
-                SELECT nr.*, nc.number_of_participants, nc.name as camp_name,
-                       (SELECT COUNT(*) FROM night_camp_registrations WHERE camp_id = nr.camp_id AND status = 'confirmed') as confirmed_count
-                FROM night_camp_registrations nr
-                JOIN night_camps nc ON nr.camp_id = nc.id
-                WHERE nr.id = $1 AND nr.status = 'pending'
-            `;
-            const registrationCheckResult = await client.query(registrationCheckQuery, [registrationId]);
+            const registrationCheck = await prisma.night_camp_registrations.findUnique({
+                where: { id: idNum },
+                include: { night_camps: true }
+            });
 
-            if (registrationCheckResult.rows.length === 0) {
+            if (!registrationCheck || registrationCheck.status !== 'pending') {
                 res.status(404).json({ error: 'Registration not found or not pending' });
                 return;
             }
 
-            const registration = registrationCheckResult.rows[0];
-
             // Check if user is an approved volunteer for this camp
-            const volunteerCheckQuery = `
-                SELECT id FROM night_camp_volunteering_applications 
-                WHERE night_camp_id = $1 AND user_id = $2 AND status = 'approved'
-            `;
-            const volunteerCheckResult = await client.query(volunteerCheckQuery, [registration.camp_id, dbUser.id]);
+            const volunteerCheck = await prisma.night_camp_volunteering_applications.findFirst({
+                where: {
+                    night_camp_id: registrationCheck.camp_id!,
+                    user_id: dbUser.id,
+                    status: 'approved'
+                }
+            });
 
-            if (volunteerCheckResult.rows.length === 0) {
+            if (!volunteerCheck) {
                 res.status(403).json({ error: 'Access denied. You must be an approved volunteer for this night camp.' });
                 return;
             }
 
             // Check if camp has available capacity
-            if (registration.confirmed_count >= registration.number_of_participants) {
+            const confirmedCount = await prisma.night_camp_registrations.count({
+                where: { camp_id: registrationCheck.camp_id!, status: 'confirmed' }
+            });
+            const max = registrationCheck.night_camps?.number_of_participants ?? 0;
+            if (confirmedCount >= max) {
                 res.status(400).json({ error: 'Camp is at full capacity. Cannot approve more registrations.' });
                 return;
             }
 
             // Update registration status to confirmed
-            const updateQuery = `
-                UPDATE night_camp_registrations 
-                SET status = 'confirmed', updated_at = NOW()
-                WHERE id = $1
-                RETURNING *
-            `;
-            const updateResult = await client.query(updateQuery, [registrationId]);
+            const updated = await prisma.night_camp_registrations.update({
+                where: { id: idNum },
+                data: { status: 'confirmed', updated_at: new Date() }
+            });
 
-            console.log('✅ [VOLUNTEER] Registration approved by volunteer:', dbUser.email, 'for camp:', registration.camp_name);
-
-            res.json({ 
+            res.json({
                 message: 'Registration approved successfully',
-                data: updateResult.rows[0]
+                data: updated
             });
 
         } catch (error) {
             console.error('Error approving registration:', error);
             res.status(500).json({ error: 'Failed to approve registration' });
-        } finally {
-            client.release();
         }
     }
 
     // Reject registration (for approved volunteers)
     static async rejectRegistrationByVolunteer(req: Request, res: Response): Promise<void> {
-        const client = await pool.connect();
-        
         try {
-            const { registrationId } = req.params;
-            const { reason } = req.body;
-            
+            const { registrationId } = req.params; const idNum = parseInt(registrationId); const { reason } = req.body;
+
+            if (isNaN(idNum)) { res.status(400).json({ error: 'Invalid registration ID' }); return; }
+
             // Get user information from the verified token
             const authenticatedUser = (req as any).user;
             if (!authenticatedUser) {
@@ -1539,72 +1391,60 @@ export class NightCampController {
             }
 
             // Get full user details from database using firebase_uid
-            const userQuery = 'SELECT * FROM users WHERE firebase_uid = $1';
-            const userResult = await client.query(userQuery, [authenticatedUser.firebase_uid]);
-            
-            if (userResult.rows.length === 0) {
+            const dbUser = await prisma.users.findFirst({
+                where: { firebase_uid: authenticatedUser.firebase_uid }
+            });
+
+            if (!dbUser) {
                 res.status(404).json({ error: 'User not found in database' });
                 return;
             }
 
-            const dbUser = userResult.rows[0];
-
             // Get registration details first to get the camp ID
-            const registrationCheckQuery = `
-                SELECT nr.*, nc.name as camp_name
-                FROM night_camp_registrations nr
-                JOIN night_camps nc ON nr.camp_id = nc.id
-                WHERE nr.id = $1 AND nr.status = 'pending'
-            `;
-            const registrationCheckResult = await client.query(registrationCheckQuery, [registrationId]);
+            const registrationCheck = await prisma.night_camp_registrations.findUnique({
+                where: { id: idNum },
+                include: { night_camps: true }
+            });
 
-            if (registrationCheckResult.rows.length === 0) {
+            if (!registrationCheck || registrationCheck.status !== 'pending') {
                 res.status(404).json({ error: 'Registration not found or not pending' });
                 return;
             }
 
-            const registration = registrationCheckResult.rows[0];
-
             // Check if user is an approved volunteer for this camp
-            const volunteerCheckQuery = `
-                SELECT id FROM night_camp_volunteering_applications 
-                WHERE night_camp_id = $1 AND user_id = $2 AND status = 'approved'
-            `;
-            const volunteerCheckResult = await client.query(volunteerCheckQuery, [registration.camp_id, dbUser.id]);
+            const volunteerCheck = await prisma.night_camp_volunteering_applications.findFirst({
+                where: {
+                    night_camp_id: registrationCheck.camp_id!,
+                    user_id: dbUser.id,
+                    status: 'approved'
+                }
+            });
 
-            if (volunteerCheckResult.rows.length === 0) {
+            if (!volunteerCheck) {
                 res.status(403).json({ error: 'Access denied. You must be an approved volunteer for this night camp.' });
                 return;
             }
 
             // Update registration status to rejected
-            const updateQuery = `
-                UPDATE night_camp_registrations 
-                SET status = 'rejected', updated_at = NOW()
-                WHERE id = $1
-                RETURNING *
-            `;
-            const updateResult = await client.query(updateQuery, [registrationId]);
+            const updated = await prisma.night_camp_registrations.update({
+                where: { id: idNum },
+                data: { status: 'rejected', updated_at: new Date() }
+            });
 
-            console.log('❌ [VOLUNTEER] Registration rejected by volunteer:', dbUser.email, 'for camp:', registration.camp_name, 'Reason:', reason || 'No reason provided');
-
-            res.json({ 
+            res.json({
                 message: 'Registration rejected successfully',
-                data: updateResult.rows[0]
+                data: updated,
+                reason: reason || 'No reason provided'
             });
 
         } catch (error) {
             console.error('Error rejecting registration:', error);
             res.status(500).json({ error: 'Failed to reject registration' });
-        } finally {
-            client.release();
         }
     }
 
     // Get confirmed registration count for a night camp (public endpoint)
     static async getConfirmedRegistrationCount(req: Request, res: Response): Promise<void> {
-        const client = await pool.connect();
-        
         try {
             const { id: nightCampId } = req.params;
             const campId = parseInt(nightCampId);
@@ -1615,25 +1455,25 @@ export class NightCampController {
             }
 
             // Check if night camp exists
-            const campQuery = 'SELECT id, number_of_participants FROM night_camps WHERE id = $1';
-            const campResult = await client.query(campQuery, [campId]);
-            
-            if (campResult.rows.length === 0) {
+            const camp = await prisma.night_camps.findUnique({
+                where: { id: campId },
+                select: { id: true, number_of_participants: true }
+            });
+
+            if (!camp) {
                 res.status(404).json({ error: 'Night camp not found' });
                 return;
             }
 
-            const camp = campResult.rows[0];
-
             // Get confirmed registrations count
-            const confirmedCountQuery = `
-                SELECT COUNT(*) as count FROM night_camp_registrations 
-                WHERE camp_id = $1 AND status = 'confirmed'
-            `;
-            const confirmedCountResult = await client.query(confirmedCountQuery, [campId]);
-            const confirmedCount = parseInt(confirmedCountResult.rows[0].count);
+            const confirmedCount = await prisma.night_camp_registrations.count({
+                where: {
+                    camp_id: campId,
+                    status: 'confirmed'
+                }
+            });
 
-            res.json({ 
+            res.json({
                 data: {
                     nightCampId: campId,
                     confirmedRegistrations: confirmedCount,
@@ -1645,8 +1485,6 @@ export class NightCampController {
         } catch (error) {
             console.error('Error fetching confirmed registration count:', error);
             res.status(500).json({ error: 'Failed to fetch registration count' });
-        } finally {
-            client.release();
         }
     }
 }
