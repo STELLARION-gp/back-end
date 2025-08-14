@@ -1,6 +1,6 @@
 // config/cloudinary.ts
 // Cloudinary configuration loader
-import { v2 as cloudinary } from 'cloudinary';
+import { v2 as cloudinary, UploadApiOptions, UploadApiResponse, UploadApiErrorResponse } from 'cloudinary';
 import dotenv from 'dotenv';
 
 dotenv.config();
