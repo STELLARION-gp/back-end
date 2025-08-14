@@ -270,6 +270,19 @@ CREATE INDEX IF NOT EXISTS idx_payments_subscription_id ON payments(subscription
 CREATE INDEX IF NOT EXISTS idx_payments_status ON payments(payment_status);
 CREATE INDEX IF NOT EXISTS idx_chatbot_usage_user_date ON chatbot_usage(user_id, usage_date);
 
+-- SQL script to create media_uploads table (PostgreSQL)
+CREATE TABLE IF NOT EXISTS media_uploads (
+    id SERIAL PRIMARY KEY,
+    user_id INTEGER NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+    file_name VARCHAR(255) NOT NULL,
+    file_path VARCHAR(500) NOT NULL,
+    file_type VARCHAR(100) NOT NULL,
+    file_size INTEGER NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE INDEX IF NOT EXISTS idx_media_uploads_user_id ON media_uploads(user_id);
+
 -- Create a function to automatically update the updated_at column
 CREATE OR REPLACE FUNCTION update_updated_at_column()
 RETURNS TRIGGER AS $$

@@ -138,6 +138,26 @@ export type night_camp_registrations = $Result.DefaultSelection<Prisma.$night_ca
  * 
  */
 export type influencer_application = $Result.DefaultSelection<Prisma.$influencer_applicationPayload>
+/**
+ * Model media_uploads
+ * 
+ */
+export type media_uploads = $Result.DefaultSelection<Prisma.$media_uploadsPayload>
+/**
+ * Model QuizParticipants
+ * 
+ */
+export type QuizParticipants = $Result.DefaultSelection<Prisma.$QuizParticipantsPayload>
+/**
+ * Model QuizQuestion
+ * 
+ */
+export type QuizQuestion = $Result.DefaultSelection<Prisma.$QuizQuestionPayload>
+/**
+ * Model Quizzes
+ * 
+ */
+export type Quizzes = $Result.DefaultSelection<Prisma.$QuizzesPayload>
 
 /**
  * Enums
@@ -239,6 +259,23 @@ export const user_role: {
 
 export type user_role = (typeof user_role)[keyof typeof user_role]
 
+
+export const QuizStatus: {
+  open: 'open',
+  closed: 'closed'
+};
+
+export type QuizStatus = (typeof QuizStatus)[keyof typeof QuizStatus]
+
+
+export const quiz_difficulty_level: {
+  Beginner: 'Beginner',
+  Intermediate: 'Intermediate',
+  Hard: 'Hard'
+};
+
+export type quiz_difficulty_level = (typeof quiz_difficulty_level)[keyof typeof quiz_difficulty_level]
+
 }
 
 export type application_status = $Enums.application_status
@@ -280,6 +317,14 @@ export const subscription_status: typeof $Enums.subscription_status
 export type user_role = $Enums.user_role
 
 export const user_role: typeof $Enums.user_role
+
+export type QuizStatus = $Enums.QuizStatus
+
+export const QuizStatus: typeof $Enums.QuizStatus
+
+export type quiz_difficulty_level = $Enums.quiz_difficulty_level
+
+export const quiz_difficulty_level: typeof $Enums.quiz_difficulty_level
 
 /**
  * ##  Prisma Client ʲˢ
@@ -329,13 +374,6 @@ export class PrismaClient<
    * Disconnect from the database
    */
   $disconnect(): $Utils.JsPromise<void>;
-
-  /**
-   * Add a middleware
-   * @deprecated since 4.16.0. For new code, prefer client extensions instead.
-   * @see https://pris.ly/d/extensions
-   */
-  $use(cb: Prisma.Middleware): void
 
 /**
    * Executes a prepared raw query and returns the number of affected rows.
@@ -655,6 +693,46 @@ export class PrismaClient<
     * ```
     */
   get influencer_application(): Prisma.influencer_applicationDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.media_uploads`: Exposes CRUD operations for the **media_uploads** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Media_uploads
+    * const media_uploads = await prisma.media_uploads.findMany()
+    * ```
+    */
+  get media_uploads(): Prisma.media_uploadsDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.quizParticipants`: Exposes CRUD operations for the **QuizParticipants** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more QuizParticipants
+    * const quizParticipants = await prisma.quizParticipants.findMany()
+    * ```
+    */
+  get quizParticipants(): Prisma.QuizParticipantsDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.quizQuestion`: Exposes CRUD operations for the **QuizQuestion** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more QuizQuestions
+    * const quizQuestions = await prisma.quizQuestion.findMany()
+    * ```
+    */
+  get quizQuestion(): Prisma.QuizQuestionDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.quizzes`: Exposes CRUD operations for the **Quizzes** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Quizzes
+    * const quizzes = await prisma.quizzes.findMany()
+    * ```
+    */
+  get quizzes(): Prisma.QuizzesDelegate<ExtArgs, ClientOptions>;
 }
 
 export namespace Prisma {
@@ -713,8 +791,8 @@ export namespace Prisma {
   export import Exact = $Public.Exact
 
   /**
-   * Prisma Client JS version: 6.13.0
-   * Query Engine version: 361e86d0ea4987e9f53a565309b3eed797a6bcbd
+   * Prisma Client JS version: 6.14.0
+   * Query Engine version: 717184b7b35ea05dfa71a3236b7af656013e1e49
    */
   export type PrismaVersion = {
     client: string
@@ -1119,7 +1197,11 @@ export namespace Prisma {
     mentor_application: 'mentor_application',
     night_camp_volunteering_applications: 'night_camp_volunteering_applications',
     night_camp_registrations: 'night_camp_registrations',
-    influencer_application: 'influencer_application'
+    influencer_application: 'influencer_application',
+    media_uploads: 'media_uploads',
+    QuizParticipants: 'QuizParticipants',
+    QuizQuestion: 'QuizQuestion',
+    Quizzes: 'Quizzes'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -1138,7 +1220,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "subscriptions" | "blog_views" | "night_camps" | "night_camps_activities" | "chatbot_sessions" | "payments" | "blogs" | "blog_category_relations" | "subscription_plans" | "blog_categories" | "chatbot_usage" | "blog_comments" | "users" | "blog_likes" | "chatbot_messages" | "night_camps_equipment" | "user_settings" | "chatbot_feedback" | "night_camp_volunteering" | "role_upgrade_requests" | "guide_application" | "mentor_application" | "night_camp_volunteering_applications" | "night_camp_registrations" | "influencer_application"
+      modelProps: "subscriptions" | "blog_views" | "night_camps" | "night_camps_activities" | "chatbot_sessions" | "payments" | "blogs" | "blog_category_relations" | "subscription_plans" | "blog_categories" | "chatbot_usage" | "blog_comments" | "users" | "blog_likes" | "chatbot_messages" | "night_camps_equipment" | "user_settings" | "chatbot_feedback" | "night_camp_volunteering" | "role_upgrade_requests" | "guide_application" | "mentor_application" | "night_camp_volunteering_applications" | "night_camp_registrations" | "influencer_application" | "media_uploads" | "quizParticipants" | "quizQuestion" | "quizzes"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -2992,6 +3074,302 @@ export namespace Prisma {
           }
         }
       }
+      media_uploads: {
+        payload: Prisma.$media_uploadsPayload<ExtArgs>
+        fields: Prisma.media_uploadsFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.media_uploadsFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$media_uploadsPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.media_uploadsFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$media_uploadsPayload>
+          }
+          findFirst: {
+            args: Prisma.media_uploadsFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$media_uploadsPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.media_uploadsFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$media_uploadsPayload>
+          }
+          findMany: {
+            args: Prisma.media_uploadsFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$media_uploadsPayload>[]
+          }
+          create: {
+            args: Prisma.media_uploadsCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$media_uploadsPayload>
+          }
+          createMany: {
+            args: Prisma.media_uploadsCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.media_uploadsCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$media_uploadsPayload>[]
+          }
+          delete: {
+            args: Prisma.media_uploadsDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$media_uploadsPayload>
+          }
+          update: {
+            args: Prisma.media_uploadsUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$media_uploadsPayload>
+          }
+          deleteMany: {
+            args: Prisma.media_uploadsDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.media_uploadsUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.media_uploadsUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$media_uploadsPayload>[]
+          }
+          upsert: {
+            args: Prisma.media_uploadsUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$media_uploadsPayload>
+          }
+          aggregate: {
+            args: Prisma.Media_uploadsAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateMedia_uploads>
+          }
+          groupBy: {
+            args: Prisma.media_uploadsGroupByArgs<ExtArgs>
+            result: $Utils.Optional<Media_uploadsGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.media_uploadsCountArgs<ExtArgs>
+            result: $Utils.Optional<Media_uploadsCountAggregateOutputType> | number
+          }
+        }
+      }
+      QuizParticipants: {
+        payload: Prisma.$QuizParticipantsPayload<ExtArgs>
+        fields: Prisma.QuizParticipantsFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.QuizParticipantsFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$QuizParticipantsPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.QuizParticipantsFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$QuizParticipantsPayload>
+          }
+          findFirst: {
+            args: Prisma.QuizParticipantsFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$QuizParticipantsPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.QuizParticipantsFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$QuizParticipantsPayload>
+          }
+          findMany: {
+            args: Prisma.QuizParticipantsFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$QuizParticipantsPayload>[]
+          }
+          create: {
+            args: Prisma.QuizParticipantsCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$QuizParticipantsPayload>
+          }
+          createMany: {
+            args: Prisma.QuizParticipantsCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.QuizParticipantsCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$QuizParticipantsPayload>[]
+          }
+          delete: {
+            args: Prisma.QuizParticipantsDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$QuizParticipantsPayload>
+          }
+          update: {
+            args: Prisma.QuizParticipantsUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$QuizParticipantsPayload>
+          }
+          deleteMany: {
+            args: Prisma.QuizParticipantsDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.QuizParticipantsUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.QuizParticipantsUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$QuizParticipantsPayload>[]
+          }
+          upsert: {
+            args: Prisma.QuizParticipantsUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$QuizParticipantsPayload>
+          }
+          aggregate: {
+            args: Prisma.QuizParticipantsAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateQuizParticipants>
+          }
+          groupBy: {
+            args: Prisma.QuizParticipantsGroupByArgs<ExtArgs>
+            result: $Utils.Optional<QuizParticipantsGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.QuizParticipantsCountArgs<ExtArgs>
+            result: $Utils.Optional<QuizParticipantsCountAggregateOutputType> | number
+          }
+        }
+      }
+      QuizQuestion: {
+        payload: Prisma.$QuizQuestionPayload<ExtArgs>
+        fields: Prisma.QuizQuestionFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.QuizQuestionFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$QuizQuestionPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.QuizQuestionFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$QuizQuestionPayload>
+          }
+          findFirst: {
+            args: Prisma.QuizQuestionFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$QuizQuestionPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.QuizQuestionFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$QuizQuestionPayload>
+          }
+          findMany: {
+            args: Prisma.QuizQuestionFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$QuizQuestionPayload>[]
+          }
+          create: {
+            args: Prisma.QuizQuestionCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$QuizQuestionPayload>
+          }
+          createMany: {
+            args: Prisma.QuizQuestionCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.QuizQuestionCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$QuizQuestionPayload>[]
+          }
+          delete: {
+            args: Prisma.QuizQuestionDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$QuizQuestionPayload>
+          }
+          update: {
+            args: Prisma.QuizQuestionUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$QuizQuestionPayload>
+          }
+          deleteMany: {
+            args: Prisma.QuizQuestionDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.QuizQuestionUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.QuizQuestionUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$QuizQuestionPayload>[]
+          }
+          upsert: {
+            args: Prisma.QuizQuestionUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$QuizQuestionPayload>
+          }
+          aggregate: {
+            args: Prisma.QuizQuestionAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateQuizQuestion>
+          }
+          groupBy: {
+            args: Prisma.QuizQuestionGroupByArgs<ExtArgs>
+            result: $Utils.Optional<QuizQuestionGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.QuizQuestionCountArgs<ExtArgs>
+            result: $Utils.Optional<QuizQuestionCountAggregateOutputType> | number
+          }
+        }
+      }
+      Quizzes: {
+        payload: Prisma.$QuizzesPayload<ExtArgs>
+        fields: Prisma.QuizzesFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.QuizzesFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$QuizzesPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.QuizzesFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$QuizzesPayload>
+          }
+          findFirst: {
+            args: Prisma.QuizzesFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$QuizzesPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.QuizzesFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$QuizzesPayload>
+          }
+          findMany: {
+            args: Prisma.QuizzesFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$QuizzesPayload>[]
+          }
+          create: {
+            args: Prisma.QuizzesCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$QuizzesPayload>
+          }
+          createMany: {
+            args: Prisma.QuizzesCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.QuizzesCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$QuizzesPayload>[]
+          }
+          delete: {
+            args: Prisma.QuizzesDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$QuizzesPayload>
+          }
+          update: {
+            args: Prisma.QuizzesUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$QuizzesPayload>
+          }
+          deleteMany: {
+            args: Prisma.QuizzesDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.QuizzesUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.QuizzesUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$QuizzesPayload>[]
+          }
+          upsert: {
+            args: Prisma.QuizzesUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$QuizzesPayload>
+          }
+          aggregate: {
+            args: Prisma.QuizzesAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateQuizzes>
+          }
+          groupBy: {
+            args: Prisma.QuizzesGroupByArgs<ExtArgs>
+            result: $Utils.Optional<QuizzesGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.QuizzesCountArgs<ExtArgs>
+            result: $Utils.Optional<QuizzesCountAggregateOutputType> | number
+          }
+        }
+      }
     }
   } & {
     other: {
@@ -3109,6 +3487,10 @@ export namespace Prisma {
     night_camp_volunteering_applications?: night_camp_volunteering_applicationsOmit
     night_camp_registrations?: night_camp_registrationsOmit
     influencer_application?: influencer_applicationOmit
+    media_uploads?: media_uploadsOmit
+    quizParticipants?: QuizParticipantsOmit
+    quizQuestion?: QuizQuestionOmit
+    quizzes?: QuizzesOmit
   }
 
   /* Types for Logging */
@@ -3166,25 +3548,6 @@ export namespace Prisma {
     | 'runCommandRaw'
     | 'findRaw'
     | 'groupBy'
-
-  /**
-   * These options are being passed into the middleware as "params"
-   */
-  export type MiddlewareParams = {
-    model?: ModelName
-    action: PrismaAction
-    args: any
-    dataPath: string[]
-    runInTransaction: boolean
-  }
-
-  /**
-   * The `T` type makes sure, that the `return proceed` is not forgotten in the middleware implementation
-   */
-  export type Middleware<T = any> = (
-    params: MiddlewareParams,
-    next: (params: MiddlewareParams) => $Utils.JsPromise<T>,
-  ) => $Utils.JsPromise<T>
 
   // tested in getLogLevel.test.ts
   export function getLogLevel(log: Array<LogLevel | LogDefinition>): LogLevel | undefined;
@@ -3466,6 +3829,8 @@ export namespace Prisma {
    */
 
   export type UsersCountOutputType = {
+    QuizParticipants: number
+    Quizzes: number
     blog_comments: number
     blog_likes: number
     blog_views: number
@@ -3474,6 +3839,7 @@ export namespace Prisma {
     chatbot_usage: number
     guide_application: number
     influencer_application: number
+    media_uploads: number
     mentor_application: number
     night_camp_registrations: number
     night_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousers: number
@@ -3485,6 +3851,8 @@ export namespace Prisma {
   }
 
   export type UsersCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    QuizParticipants?: boolean | UsersCountOutputTypeCountQuizParticipantsArgs
+    Quizzes?: boolean | UsersCountOutputTypeCountQuizzesArgs
     blog_comments?: boolean | UsersCountOutputTypeCountBlog_commentsArgs
     blog_likes?: boolean | UsersCountOutputTypeCountBlog_likesArgs
     blog_views?: boolean | UsersCountOutputTypeCountBlog_viewsArgs
@@ -3493,6 +3861,7 @@ export namespace Prisma {
     chatbot_usage?: boolean | UsersCountOutputTypeCountChatbot_usageArgs
     guide_application?: boolean | UsersCountOutputTypeCountGuide_applicationArgs
     influencer_application?: boolean | UsersCountOutputTypeCountInfluencer_applicationArgs
+    media_uploads?: boolean | UsersCountOutputTypeCountMedia_uploadsArgs
     mentor_application?: boolean | UsersCountOutputTypeCountMentor_applicationArgs
     night_camp_registrations?: boolean | UsersCountOutputTypeCountNight_camp_registrationsArgs
     night_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousers?: boolean | UsersCountOutputTypeCountNight_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousersArgs
@@ -3512,6 +3881,20 @@ export namespace Prisma {
      * Select specific fields to fetch from the UsersCountOutputType
      */
     select?: UsersCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * UsersCountOutputType without action
+   */
+  export type UsersCountOutputTypeCountQuizParticipantsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: QuizParticipantsWhereInput
+  }
+
+  /**
+   * UsersCountOutputType without action
+   */
+  export type UsersCountOutputTypeCountQuizzesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: QuizzesWhereInput
   }
 
   /**
@@ -3568,6 +3951,13 @@ export namespace Prisma {
    */
   export type UsersCountOutputTypeCountInfluencer_applicationArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: influencer_applicationWhereInput
+  }
+
+  /**
+   * UsersCountOutputType without action
+   */
+  export type UsersCountOutputTypeCountMedia_uploadsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: media_uploadsWhereInput
   }
 
   /**
@@ -3655,6 +4045,46 @@ export namespace Prisma {
    */
   export type Chatbot_messagesCountOutputTypeCountChatbot_feedbackArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: chatbot_feedbackWhereInput
+  }
+
+
+  /**
+   * Count Type QuizzesCountOutputType
+   */
+
+  export type QuizzesCountOutputType = {
+    QuizParticipants: number
+    QuizQuestion: number
+  }
+
+  export type QuizzesCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    QuizParticipants?: boolean | QuizzesCountOutputTypeCountQuizParticipantsArgs
+    QuizQuestion?: boolean | QuizzesCountOutputTypeCountQuizQuestionArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * QuizzesCountOutputType without action
+   */
+  export type QuizzesCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the QuizzesCountOutputType
+     */
+    select?: QuizzesCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * QuizzesCountOutputType without action
+   */
+  export type QuizzesCountOutputTypeCountQuizParticipantsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: QuizParticipantsWhereInput
+  }
+
+  /**
+   * QuizzesCountOutputType without action
+   */
+  export type QuizzesCountOutputTypeCountQuizQuestionArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: QuizQuestionWhereInput
   }
 
 
@@ -18412,6 +18842,8 @@ export namespace Prisma {
     auto_renew?: boolean
     chatbot_questions_used?: boolean
     chatbot_questions_reset_date?: boolean
+    QuizParticipants?: boolean | users$QuizParticipantsArgs<ExtArgs>
+    Quizzes?: boolean | users$QuizzesArgs<ExtArgs>
     blog_comments?: boolean | users$blog_commentsArgs<ExtArgs>
     blog_likes?: boolean | users$blog_likesArgs<ExtArgs>
     blog_views?: boolean | users$blog_viewsArgs<ExtArgs>
@@ -18420,6 +18852,7 @@ export namespace Prisma {
     chatbot_usage?: boolean | users$chatbot_usageArgs<ExtArgs>
     guide_application?: boolean | users$guide_applicationArgs<ExtArgs>
     influencer_application?: boolean | users$influencer_applicationArgs<ExtArgs>
+    media_uploads?: boolean | users$media_uploadsArgs<ExtArgs>
     mentor_application?: boolean | users$mentor_applicationArgs<ExtArgs>
     night_camp_registrations?: boolean | users$night_camp_registrationsArgs<ExtArgs>
     night_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousers?: boolean | users$night_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousersArgs<ExtArgs>
@@ -18503,6 +18936,8 @@ export namespace Prisma {
 
   export type usersOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "firebase_uid" | "email" | "role" | "first_name" | "last_name" | "is_active" | "last_login" | "created_at" | "updated_at" | "display_name" | "profile_data" | "role_specific_data" | "subscription_plan" | "subscription_status" | "subscription_start_date" | "subscription_end_date" | "auto_renew" | "chatbot_questions_used" | "chatbot_questions_reset_date", ExtArgs["result"]["users"]>
   export type usersInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    QuizParticipants?: boolean | users$QuizParticipantsArgs<ExtArgs>
+    Quizzes?: boolean | users$QuizzesArgs<ExtArgs>
     blog_comments?: boolean | users$blog_commentsArgs<ExtArgs>
     blog_likes?: boolean | users$blog_likesArgs<ExtArgs>
     blog_views?: boolean | users$blog_viewsArgs<ExtArgs>
@@ -18511,6 +18946,7 @@ export namespace Prisma {
     chatbot_usage?: boolean | users$chatbot_usageArgs<ExtArgs>
     guide_application?: boolean | users$guide_applicationArgs<ExtArgs>
     influencer_application?: boolean | users$influencer_applicationArgs<ExtArgs>
+    media_uploads?: boolean | users$media_uploadsArgs<ExtArgs>
     mentor_application?: boolean | users$mentor_applicationArgs<ExtArgs>
     night_camp_registrations?: boolean | users$night_camp_registrationsArgs<ExtArgs>
     night_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousers?: boolean | users$night_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousersArgs<ExtArgs>
@@ -18528,6 +18964,8 @@ export namespace Prisma {
   export type $usersPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "users"
     objects: {
+      QuizParticipants: Prisma.$QuizParticipantsPayload<ExtArgs>[]
+      Quizzes: Prisma.$QuizzesPayload<ExtArgs>[]
       blog_comments: Prisma.$blog_commentsPayload<ExtArgs>[]
       blog_likes: Prisma.$blog_likesPayload<ExtArgs>[]
       blog_views: Prisma.$blog_viewsPayload<ExtArgs>[]
@@ -18536,6 +18974,7 @@ export namespace Prisma {
       chatbot_usage: Prisma.$chatbot_usagePayload<ExtArgs>[]
       guide_application: Prisma.$guide_applicationPayload<ExtArgs>[]
       influencer_application: Prisma.$influencer_applicationPayload<ExtArgs>[]
+      media_uploads: Prisma.$media_uploadsPayload<ExtArgs>[]
       mentor_application: Prisma.$mentor_applicationPayload<ExtArgs>[]
       night_camp_registrations: Prisma.$night_camp_registrationsPayload<ExtArgs>[]
       night_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousers: Prisma.$night_camp_volunteering_applicationsPayload<ExtArgs>[]
@@ -18961,6 +19400,8 @@ export namespace Prisma {
    */
   export interface Prisma__usersClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
+    QuizParticipants<T extends users$QuizParticipantsArgs<ExtArgs> = {}>(args?: Subset<T, users$QuizParticipantsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$QuizParticipantsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    Quizzes<T extends users$QuizzesArgs<ExtArgs> = {}>(args?: Subset<T, users$QuizzesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$QuizzesPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     blog_comments<T extends users$blog_commentsArgs<ExtArgs> = {}>(args?: Subset<T, users$blog_commentsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$blog_commentsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     blog_likes<T extends users$blog_likesArgs<ExtArgs> = {}>(args?: Subset<T, users$blog_likesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$blog_likesPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     blog_views<T extends users$blog_viewsArgs<ExtArgs> = {}>(args?: Subset<T, users$blog_viewsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$blog_viewsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
@@ -18969,6 +19410,7 @@ export namespace Prisma {
     chatbot_usage<T extends users$chatbot_usageArgs<ExtArgs> = {}>(args?: Subset<T, users$chatbot_usageArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$chatbot_usagePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     guide_application<T extends users$guide_applicationArgs<ExtArgs> = {}>(args?: Subset<T, users$guide_applicationArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$guide_applicationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     influencer_application<T extends users$influencer_applicationArgs<ExtArgs> = {}>(args?: Subset<T, users$influencer_applicationArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$influencer_applicationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    media_uploads<T extends users$media_uploadsArgs<ExtArgs> = {}>(args?: Subset<T, users$media_uploadsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$media_uploadsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     mentor_application<T extends users$mentor_applicationArgs<ExtArgs> = {}>(args?: Subset<T, users$mentor_applicationArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$mentor_applicationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     night_camp_registrations<T extends users$night_camp_registrationsArgs<ExtArgs> = {}>(args?: Subset<T, users$night_camp_registrationsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$night_camp_registrationsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     night_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousers<T extends users$night_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousersArgs<ExtArgs> = {}>(args?: Subset<T, users$night_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousersArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$night_camp_volunteering_applicationsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
@@ -19415,6 +19857,54 @@ export namespace Prisma {
   }
 
   /**
+   * users.QuizParticipants
+   */
+  export type users$QuizParticipantsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the QuizParticipants
+     */
+    select?: QuizParticipantsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the QuizParticipants
+     */
+    omit?: QuizParticipantsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: QuizParticipantsInclude<ExtArgs> | null
+    where?: QuizParticipantsWhereInput
+    orderBy?: QuizParticipantsOrderByWithRelationInput | QuizParticipantsOrderByWithRelationInput[]
+    cursor?: QuizParticipantsWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: QuizParticipantsScalarFieldEnum | QuizParticipantsScalarFieldEnum[]
+  }
+
+  /**
+   * users.Quizzes
+   */
+  export type users$QuizzesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Quizzes
+     */
+    select?: QuizzesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Quizzes
+     */
+    omit?: QuizzesOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: QuizzesInclude<ExtArgs> | null
+    where?: QuizzesWhereInput
+    orderBy?: QuizzesOrderByWithRelationInput | QuizzesOrderByWithRelationInput[]
+    cursor?: QuizzesWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: QuizzesScalarFieldEnum | QuizzesScalarFieldEnum[]
+  }
+
+  /**
    * users.blog_comments
    */
   export type users$blog_commentsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -19604,6 +20094,30 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: Influencer_applicationScalarFieldEnum | Influencer_applicationScalarFieldEnum[]
+  }
+
+  /**
+   * users.media_uploads
+   */
+  export type users$media_uploadsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the media_uploads
+     */
+    select?: media_uploadsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the media_uploads
+     */
+    omit?: media_uploadsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: media_uploadsInclude<ExtArgs> | null
+    where?: media_uploadsWhereInput
+    orderBy?: media_uploadsOrderByWithRelationInput | media_uploadsOrderByWithRelationInput[]
+    cursor?: media_uploadsWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: Media_uploadsScalarFieldEnum | Media_uploadsScalarFieldEnum[]
   }
 
   /**
@@ -34621,6 +35135,4623 @@ export namespace Prisma {
 
 
   /**
+   * Model media_uploads
+   */
+
+  export type AggregateMedia_uploads = {
+    _count: Media_uploadsCountAggregateOutputType | null
+    _avg: Media_uploadsAvgAggregateOutputType | null
+    _sum: Media_uploadsSumAggregateOutputType | null
+    _min: Media_uploadsMinAggregateOutputType | null
+    _max: Media_uploadsMaxAggregateOutputType | null
+  }
+
+  export type Media_uploadsAvgAggregateOutputType = {
+    id: number | null
+    user_id: number | null
+    file_size: number | null
+  }
+
+  export type Media_uploadsSumAggregateOutputType = {
+    id: number | null
+    user_id: number | null
+    file_size: number | null
+  }
+
+  export type Media_uploadsMinAggregateOutputType = {
+    id: number | null
+    user_id: number | null
+    file_name: string | null
+    file_path: string | null
+    file_type: string | null
+    file_size: number | null
+    created_at: Date | null
+  }
+
+  export type Media_uploadsMaxAggregateOutputType = {
+    id: number | null
+    user_id: number | null
+    file_name: string | null
+    file_path: string | null
+    file_type: string | null
+    file_size: number | null
+    created_at: Date | null
+  }
+
+  export type Media_uploadsCountAggregateOutputType = {
+    id: number
+    user_id: number
+    file_name: number
+    file_path: number
+    file_type: number
+    file_size: number
+    created_at: number
+    _all: number
+  }
+
+
+  export type Media_uploadsAvgAggregateInputType = {
+    id?: true
+    user_id?: true
+    file_size?: true
+  }
+
+  export type Media_uploadsSumAggregateInputType = {
+    id?: true
+    user_id?: true
+    file_size?: true
+  }
+
+  export type Media_uploadsMinAggregateInputType = {
+    id?: true
+    user_id?: true
+    file_name?: true
+    file_path?: true
+    file_type?: true
+    file_size?: true
+    created_at?: true
+  }
+
+  export type Media_uploadsMaxAggregateInputType = {
+    id?: true
+    user_id?: true
+    file_name?: true
+    file_path?: true
+    file_type?: true
+    file_size?: true
+    created_at?: true
+  }
+
+  export type Media_uploadsCountAggregateInputType = {
+    id?: true
+    user_id?: true
+    file_name?: true
+    file_path?: true
+    file_type?: true
+    file_size?: true
+    created_at?: true
+    _all?: true
+  }
+
+  export type Media_uploadsAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which media_uploads to aggregate.
+     */
+    where?: media_uploadsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of media_uploads to fetch.
+     */
+    orderBy?: media_uploadsOrderByWithRelationInput | media_uploadsOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: media_uploadsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` media_uploads from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` media_uploads.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned media_uploads
+    **/
+    _count?: true | Media_uploadsCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: Media_uploadsAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: Media_uploadsSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: Media_uploadsMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: Media_uploadsMaxAggregateInputType
+  }
+
+  export type GetMedia_uploadsAggregateType<T extends Media_uploadsAggregateArgs> = {
+        [P in keyof T & keyof AggregateMedia_uploads]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateMedia_uploads[P]>
+      : GetScalarType<T[P], AggregateMedia_uploads[P]>
+  }
+
+
+
+
+  export type media_uploadsGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: media_uploadsWhereInput
+    orderBy?: media_uploadsOrderByWithAggregationInput | media_uploadsOrderByWithAggregationInput[]
+    by: Media_uploadsScalarFieldEnum[] | Media_uploadsScalarFieldEnum
+    having?: media_uploadsScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: Media_uploadsCountAggregateInputType | true
+    _avg?: Media_uploadsAvgAggregateInputType
+    _sum?: Media_uploadsSumAggregateInputType
+    _min?: Media_uploadsMinAggregateInputType
+    _max?: Media_uploadsMaxAggregateInputType
+  }
+
+  export type Media_uploadsGroupByOutputType = {
+    id: number
+    user_id: number
+    file_name: string
+    file_path: string
+    file_type: string
+    file_size: number
+    created_at: Date | null
+    _count: Media_uploadsCountAggregateOutputType | null
+    _avg: Media_uploadsAvgAggregateOutputType | null
+    _sum: Media_uploadsSumAggregateOutputType | null
+    _min: Media_uploadsMinAggregateOutputType | null
+    _max: Media_uploadsMaxAggregateOutputType | null
+  }
+
+  type GetMedia_uploadsGroupByPayload<T extends media_uploadsGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<Media_uploadsGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof Media_uploadsGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], Media_uploadsGroupByOutputType[P]>
+            : GetScalarType<T[P], Media_uploadsGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type media_uploadsSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    user_id?: boolean
+    file_name?: boolean
+    file_path?: boolean
+    file_type?: boolean
+    file_size?: boolean
+    created_at?: boolean
+    user?: boolean | usersDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["media_uploads"]>
+
+  export type media_uploadsSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    user_id?: boolean
+    file_name?: boolean
+    file_path?: boolean
+    file_type?: boolean
+    file_size?: boolean
+    created_at?: boolean
+    user?: boolean | usersDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["media_uploads"]>
+
+  export type media_uploadsSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    user_id?: boolean
+    file_name?: boolean
+    file_path?: boolean
+    file_type?: boolean
+    file_size?: boolean
+    created_at?: boolean
+    user?: boolean | usersDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["media_uploads"]>
+
+  export type media_uploadsSelectScalar = {
+    id?: boolean
+    user_id?: boolean
+    file_name?: boolean
+    file_path?: boolean
+    file_type?: boolean
+    file_size?: boolean
+    created_at?: boolean
+  }
+
+  export type media_uploadsOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "user_id" | "file_name" | "file_path" | "file_type" | "file_size" | "created_at", ExtArgs["result"]["media_uploads"]>
+  export type media_uploadsInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | usersDefaultArgs<ExtArgs>
+  }
+  export type media_uploadsIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | usersDefaultArgs<ExtArgs>
+  }
+  export type media_uploadsIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | usersDefaultArgs<ExtArgs>
+  }
+
+  export type $media_uploadsPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "media_uploads"
+    objects: {
+      user: Prisma.$usersPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: number
+      user_id: number
+      file_name: string
+      file_path: string
+      file_type: string
+      file_size: number
+      created_at: Date | null
+    }, ExtArgs["result"]["media_uploads"]>
+    composites: {}
+  }
+
+  type media_uploadsGetPayload<S extends boolean | null | undefined | media_uploadsDefaultArgs> = $Result.GetResult<Prisma.$media_uploadsPayload, S>
+
+  type media_uploadsCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<media_uploadsFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: Media_uploadsCountAggregateInputType | true
+    }
+
+  export interface media_uploadsDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['media_uploads'], meta: { name: 'media_uploads' } }
+    /**
+     * Find zero or one Media_uploads that matches the filter.
+     * @param {media_uploadsFindUniqueArgs} args - Arguments to find a Media_uploads
+     * @example
+     * // Get one Media_uploads
+     * const media_uploads = await prisma.media_uploads.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends media_uploadsFindUniqueArgs>(args: SelectSubset<T, media_uploadsFindUniqueArgs<ExtArgs>>): Prisma__media_uploadsClient<$Result.GetResult<Prisma.$media_uploadsPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Media_uploads that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {media_uploadsFindUniqueOrThrowArgs} args - Arguments to find a Media_uploads
+     * @example
+     * // Get one Media_uploads
+     * const media_uploads = await prisma.media_uploads.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends media_uploadsFindUniqueOrThrowArgs>(args: SelectSubset<T, media_uploadsFindUniqueOrThrowArgs<ExtArgs>>): Prisma__media_uploadsClient<$Result.GetResult<Prisma.$media_uploadsPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Media_uploads that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {media_uploadsFindFirstArgs} args - Arguments to find a Media_uploads
+     * @example
+     * // Get one Media_uploads
+     * const media_uploads = await prisma.media_uploads.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends media_uploadsFindFirstArgs>(args?: SelectSubset<T, media_uploadsFindFirstArgs<ExtArgs>>): Prisma__media_uploadsClient<$Result.GetResult<Prisma.$media_uploadsPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Media_uploads that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {media_uploadsFindFirstOrThrowArgs} args - Arguments to find a Media_uploads
+     * @example
+     * // Get one Media_uploads
+     * const media_uploads = await prisma.media_uploads.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends media_uploadsFindFirstOrThrowArgs>(args?: SelectSubset<T, media_uploadsFindFirstOrThrowArgs<ExtArgs>>): Prisma__media_uploadsClient<$Result.GetResult<Prisma.$media_uploadsPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Media_uploads that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {media_uploadsFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Media_uploads
+     * const media_uploads = await prisma.media_uploads.findMany()
+     * 
+     * // Get first 10 Media_uploads
+     * const media_uploads = await prisma.media_uploads.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const media_uploadsWithIdOnly = await prisma.media_uploads.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends media_uploadsFindManyArgs>(args?: SelectSubset<T, media_uploadsFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$media_uploadsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Media_uploads.
+     * @param {media_uploadsCreateArgs} args - Arguments to create a Media_uploads.
+     * @example
+     * // Create one Media_uploads
+     * const Media_uploads = await prisma.media_uploads.create({
+     *   data: {
+     *     // ... data to create a Media_uploads
+     *   }
+     * })
+     * 
+     */
+    create<T extends media_uploadsCreateArgs>(args: SelectSubset<T, media_uploadsCreateArgs<ExtArgs>>): Prisma__media_uploadsClient<$Result.GetResult<Prisma.$media_uploadsPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Media_uploads.
+     * @param {media_uploadsCreateManyArgs} args - Arguments to create many Media_uploads.
+     * @example
+     * // Create many Media_uploads
+     * const media_uploads = await prisma.media_uploads.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends media_uploadsCreateManyArgs>(args?: SelectSubset<T, media_uploadsCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many Media_uploads and returns the data saved in the database.
+     * @param {media_uploadsCreateManyAndReturnArgs} args - Arguments to create many Media_uploads.
+     * @example
+     * // Create many Media_uploads
+     * const media_uploads = await prisma.media_uploads.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many Media_uploads and only return the `id`
+     * const media_uploadsWithIdOnly = await prisma.media_uploads.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends media_uploadsCreateManyAndReturnArgs>(args?: SelectSubset<T, media_uploadsCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$media_uploadsPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a Media_uploads.
+     * @param {media_uploadsDeleteArgs} args - Arguments to delete one Media_uploads.
+     * @example
+     * // Delete one Media_uploads
+     * const Media_uploads = await prisma.media_uploads.delete({
+     *   where: {
+     *     // ... filter to delete one Media_uploads
+     *   }
+     * })
+     * 
+     */
+    delete<T extends media_uploadsDeleteArgs>(args: SelectSubset<T, media_uploadsDeleteArgs<ExtArgs>>): Prisma__media_uploadsClient<$Result.GetResult<Prisma.$media_uploadsPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Media_uploads.
+     * @param {media_uploadsUpdateArgs} args - Arguments to update one Media_uploads.
+     * @example
+     * // Update one Media_uploads
+     * const media_uploads = await prisma.media_uploads.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends media_uploadsUpdateArgs>(args: SelectSubset<T, media_uploadsUpdateArgs<ExtArgs>>): Prisma__media_uploadsClient<$Result.GetResult<Prisma.$media_uploadsPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Media_uploads.
+     * @param {media_uploadsDeleteManyArgs} args - Arguments to filter Media_uploads to delete.
+     * @example
+     * // Delete a few Media_uploads
+     * const { count } = await prisma.media_uploads.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends media_uploadsDeleteManyArgs>(args?: SelectSubset<T, media_uploadsDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Media_uploads.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {media_uploadsUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Media_uploads
+     * const media_uploads = await prisma.media_uploads.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends media_uploadsUpdateManyArgs>(args: SelectSubset<T, media_uploadsUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Media_uploads and returns the data updated in the database.
+     * @param {media_uploadsUpdateManyAndReturnArgs} args - Arguments to update many Media_uploads.
+     * @example
+     * // Update many Media_uploads
+     * const media_uploads = await prisma.media_uploads.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more Media_uploads and only return the `id`
+     * const media_uploadsWithIdOnly = await prisma.media_uploads.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends media_uploadsUpdateManyAndReturnArgs>(args: SelectSubset<T, media_uploadsUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$media_uploadsPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one Media_uploads.
+     * @param {media_uploadsUpsertArgs} args - Arguments to update or create a Media_uploads.
+     * @example
+     * // Update or create a Media_uploads
+     * const media_uploads = await prisma.media_uploads.upsert({
+     *   create: {
+     *     // ... data to create a Media_uploads
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Media_uploads we want to update
+     *   }
+     * })
+     */
+    upsert<T extends media_uploadsUpsertArgs>(args: SelectSubset<T, media_uploadsUpsertArgs<ExtArgs>>): Prisma__media_uploadsClient<$Result.GetResult<Prisma.$media_uploadsPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of Media_uploads.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {media_uploadsCountArgs} args - Arguments to filter Media_uploads to count.
+     * @example
+     * // Count the number of Media_uploads
+     * const count = await prisma.media_uploads.count({
+     *   where: {
+     *     // ... the filter for the Media_uploads we want to count
+     *   }
+     * })
+    **/
+    count<T extends media_uploadsCountArgs>(
+      args?: Subset<T, media_uploadsCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], Media_uploadsCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Media_uploads.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {Media_uploadsAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends Media_uploadsAggregateArgs>(args: Subset<T, Media_uploadsAggregateArgs>): Prisma.PrismaPromise<GetMedia_uploadsAggregateType<T>>
+
+    /**
+     * Group by Media_uploads.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {media_uploadsGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends media_uploadsGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: media_uploadsGroupByArgs['orderBy'] }
+        : { orderBy?: media_uploadsGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, media_uploadsGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetMedia_uploadsGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the media_uploads model
+   */
+  readonly fields: media_uploadsFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for media_uploads.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__media_uploadsClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    user<T extends usersDefaultArgs<ExtArgs> = {}>(args?: Subset<T, usersDefaultArgs<ExtArgs>>): Prisma__usersClient<$Result.GetResult<Prisma.$usersPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the media_uploads model
+   */
+  interface media_uploadsFieldRefs {
+    readonly id: FieldRef<"media_uploads", 'Int'>
+    readonly user_id: FieldRef<"media_uploads", 'Int'>
+    readonly file_name: FieldRef<"media_uploads", 'String'>
+    readonly file_path: FieldRef<"media_uploads", 'String'>
+    readonly file_type: FieldRef<"media_uploads", 'String'>
+    readonly file_size: FieldRef<"media_uploads", 'Int'>
+    readonly created_at: FieldRef<"media_uploads", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * media_uploads findUnique
+   */
+  export type media_uploadsFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the media_uploads
+     */
+    select?: media_uploadsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the media_uploads
+     */
+    omit?: media_uploadsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: media_uploadsInclude<ExtArgs> | null
+    /**
+     * Filter, which media_uploads to fetch.
+     */
+    where: media_uploadsWhereUniqueInput
+  }
+
+  /**
+   * media_uploads findUniqueOrThrow
+   */
+  export type media_uploadsFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the media_uploads
+     */
+    select?: media_uploadsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the media_uploads
+     */
+    omit?: media_uploadsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: media_uploadsInclude<ExtArgs> | null
+    /**
+     * Filter, which media_uploads to fetch.
+     */
+    where: media_uploadsWhereUniqueInput
+  }
+
+  /**
+   * media_uploads findFirst
+   */
+  export type media_uploadsFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the media_uploads
+     */
+    select?: media_uploadsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the media_uploads
+     */
+    omit?: media_uploadsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: media_uploadsInclude<ExtArgs> | null
+    /**
+     * Filter, which media_uploads to fetch.
+     */
+    where?: media_uploadsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of media_uploads to fetch.
+     */
+    orderBy?: media_uploadsOrderByWithRelationInput | media_uploadsOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for media_uploads.
+     */
+    cursor?: media_uploadsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` media_uploads from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` media_uploads.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of media_uploads.
+     */
+    distinct?: Media_uploadsScalarFieldEnum | Media_uploadsScalarFieldEnum[]
+  }
+
+  /**
+   * media_uploads findFirstOrThrow
+   */
+  export type media_uploadsFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the media_uploads
+     */
+    select?: media_uploadsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the media_uploads
+     */
+    omit?: media_uploadsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: media_uploadsInclude<ExtArgs> | null
+    /**
+     * Filter, which media_uploads to fetch.
+     */
+    where?: media_uploadsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of media_uploads to fetch.
+     */
+    orderBy?: media_uploadsOrderByWithRelationInput | media_uploadsOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for media_uploads.
+     */
+    cursor?: media_uploadsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` media_uploads from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` media_uploads.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of media_uploads.
+     */
+    distinct?: Media_uploadsScalarFieldEnum | Media_uploadsScalarFieldEnum[]
+  }
+
+  /**
+   * media_uploads findMany
+   */
+  export type media_uploadsFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the media_uploads
+     */
+    select?: media_uploadsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the media_uploads
+     */
+    omit?: media_uploadsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: media_uploadsInclude<ExtArgs> | null
+    /**
+     * Filter, which media_uploads to fetch.
+     */
+    where?: media_uploadsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of media_uploads to fetch.
+     */
+    orderBy?: media_uploadsOrderByWithRelationInput | media_uploadsOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing media_uploads.
+     */
+    cursor?: media_uploadsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` media_uploads from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` media_uploads.
+     */
+    skip?: number
+    distinct?: Media_uploadsScalarFieldEnum | Media_uploadsScalarFieldEnum[]
+  }
+
+  /**
+   * media_uploads create
+   */
+  export type media_uploadsCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the media_uploads
+     */
+    select?: media_uploadsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the media_uploads
+     */
+    omit?: media_uploadsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: media_uploadsInclude<ExtArgs> | null
+    /**
+     * The data needed to create a media_uploads.
+     */
+    data: XOR<media_uploadsCreateInput, media_uploadsUncheckedCreateInput>
+  }
+
+  /**
+   * media_uploads createMany
+   */
+  export type media_uploadsCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many media_uploads.
+     */
+    data: media_uploadsCreateManyInput | media_uploadsCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * media_uploads createManyAndReturn
+   */
+  export type media_uploadsCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the media_uploads
+     */
+    select?: media_uploadsSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the media_uploads
+     */
+    omit?: media_uploadsOmit<ExtArgs> | null
+    /**
+     * The data used to create many media_uploads.
+     */
+    data: media_uploadsCreateManyInput | media_uploadsCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: media_uploadsIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * media_uploads update
+   */
+  export type media_uploadsUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the media_uploads
+     */
+    select?: media_uploadsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the media_uploads
+     */
+    omit?: media_uploadsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: media_uploadsInclude<ExtArgs> | null
+    /**
+     * The data needed to update a media_uploads.
+     */
+    data: XOR<media_uploadsUpdateInput, media_uploadsUncheckedUpdateInput>
+    /**
+     * Choose, which media_uploads to update.
+     */
+    where: media_uploadsWhereUniqueInput
+  }
+
+  /**
+   * media_uploads updateMany
+   */
+  export type media_uploadsUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update media_uploads.
+     */
+    data: XOR<media_uploadsUpdateManyMutationInput, media_uploadsUncheckedUpdateManyInput>
+    /**
+     * Filter which media_uploads to update
+     */
+    where?: media_uploadsWhereInput
+    /**
+     * Limit how many media_uploads to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * media_uploads updateManyAndReturn
+   */
+  export type media_uploadsUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the media_uploads
+     */
+    select?: media_uploadsSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the media_uploads
+     */
+    omit?: media_uploadsOmit<ExtArgs> | null
+    /**
+     * The data used to update media_uploads.
+     */
+    data: XOR<media_uploadsUpdateManyMutationInput, media_uploadsUncheckedUpdateManyInput>
+    /**
+     * Filter which media_uploads to update
+     */
+    where?: media_uploadsWhereInput
+    /**
+     * Limit how many media_uploads to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: media_uploadsIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * media_uploads upsert
+   */
+  export type media_uploadsUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the media_uploads
+     */
+    select?: media_uploadsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the media_uploads
+     */
+    omit?: media_uploadsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: media_uploadsInclude<ExtArgs> | null
+    /**
+     * The filter to search for the media_uploads to update in case it exists.
+     */
+    where: media_uploadsWhereUniqueInput
+    /**
+     * In case the media_uploads found by the `where` argument doesn't exist, create a new media_uploads with this data.
+     */
+    create: XOR<media_uploadsCreateInput, media_uploadsUncheckedCreateInput>
+    /**
+     * In case the media_uploads was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<media_uploadsUpdateInput, media_uploadsUncheckedUpdateInput>
+  }
+
+  /**
+   * media_uploads delete
+   */
+  export type media_uploadsDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the media_uploads
+     */
+    select?: media_uploadsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the media_uploads
+     */
+    omit?: media_uploadsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: media_uploadsInclude<ExtArgs> | null
+    /**
+     * Filter which media_uploads to delete.
+     */
+    where: media_uploadsWhereUniqueInput
+  }
+
+  /**
+   * media_uploads deleteMany
+   */
+  export type media_uploadsDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which media_uploads to delete
+     */
+    where?: media_uploadsWhereInput
+    /**
+     * Limit how many media_uploads to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * media_uploads without action
+   */
+  export type media_uploadsDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the media_uploads
+     */
+    select?: media_uploadsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the media_uploads
+     */
+    omit?: media_uploadsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: media_uploadsInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model QuizParticipants
+   */
+
+  export type AggregateQuizParticipants = {
+    _count: QuizParticipantsCountAggregateOutputType | null
+    _avg: QuizParticipantsAvgAggregateOutputType | null
+    _sum: QuizParticipantsSumAggregateOutputType | null
+    _min: QuizParticipantsMinAggregateOutputType | null
+    _max: QuizParticipantsMaxAggregateOutputType | null
+  }
+
+  export type QuizParticipantsAvgAggregateOutputType = {
+    id: number | null
+    quiz_id: number | null
+    user_id: number | null
+    correct_question_count: number | null
+    score: number | null
+  }
+
+  export type QuizParticipantsSumAggregateOutputType = {
+    id: number | null
+    quiz_id: number | null
+    user_id: number | null
+    correct_question_count: number | null
+    score: number | null
+  }
+
+  export type QuizParticipantsMinAggregateOutputType = {
+    id: number | null
+    quiz_id: number | null
+    user_id: number | null
+    correct_question_count: number | null
+    score: number | null
+  }
+
+  export type QuizParticipantsMaxAggregateOutputType = {
+    id: number | null
+    quiz_id: number | null
+    user_id: number | null
+    correct_question_count: number | null
+    score: number | null
+  }
+
+  export type QuizParticipantsCountAggregateOutputType = {
+    id: number
+    quiz_id: number
+    user_id: number
+    correct_question_count: number
+    score: number
+    _all: number
+  }
+
+
+  export type QuizParticipantsAvgAggregateInputType = {
+    id?: true
+    quiz_id?: true
+    user_id?: true
+    correct_question_count?: true
+    score?: true
+  }
+
+  export type QuizParticipantsSumAggregateInputType = {
+    id?: true
+    quiz_id?: true
+    user_id?: true
+    correct_question_count?: true
+    score?: true
+  }
+
+  export type QuizParticipantsMinAggregateInputType = {
+    id?: true
+    quiz_id?: true
+    user_id?: true
+    correct_question_count?: true
+    score?: true
+  }
+
+  export type QuizParticipantsMaxAggregateInputType = {
+    id?: true
+    quiz_id?: true
+    user_id?: true
+    correct_question_count?: true
+    score?: true
+  }
+
+  export type QuizParticipantsCountAggregateInputType = {
+    id?: true
+    quiz_id?: true
+    user_id?: true
+    correct_question_count?: true
+    score?: true
+    _all?: true
+  }
+
+  export type QuizParticipantsAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which QuizParticipants to aggregate.
+     */
+    where?: QuizParticipantsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of QuizParticipants to fetch.
+     */
+    orderBy?: QuizParticipantsOrderByWithRelationInput | QuizParticipantsOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: QuizParticipantsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` QuizParticipants from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` QuizParticipants.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned QuizParticipants
+    **/
+    _count?: true | QuizParticipantsCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: QuizParticipantsAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: QuizParticipantsSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: QuizParticipantsMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: QuizParticipantsMaxAggregateInputType
+  }
+
+  export type GetQuizParticipantsAggregateType<T extends QuizParticipantsAggregateArgs> = {
+        [P in keyof T & keyof AggregateQuizParticipants]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateQuizParticipants[P]>
+      : GetScalarType<T[P], AggregateQuizParticipants[P]>
+  }
+
+
+
+
+  export type QuizParticipantsGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: QuizParticipantsWhereInput
+    orderBy?: QuizParticipantsOrderByWithAggregationInput | QuizParticipantsOrderByWithAggregationInput[]
+    by: QuizParticipantsScalarFieldEnum[] | QuizParticipantsScalarFieldEnum
+    having?: QuizParticipantsScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: QuizParticipantsCountAggregateInputType | true
+    _avg?: QuizParticipantsAvgAggregateInputType
+    _sum?: QuizParticipantsSumAggregateInputType
+    _min?: QuizParticipantsMinAggregateInputType
+    _max?: QuizParticipantsMaxAggregateInputType
+  }
+
+  export type QuizParticipantsGroupByOutputType = {
+    id: number
+    quiz_id: number
+    user_id: number
+    correct_question_count: number
+    score: number
+    _count: QuizParticipantsCountAggregateOutputType | null
+    _avg: QuizParticipantsAvgAggregateOutputType | null
+    _sum: QuizParticipantsSumAggregateOutputType | null
+    _min: QuizParticipantsMinAggregateOutputType | null
+    _max: QuizParticipantsMaxAggregateOutputType | null
+  }
+
+  type GetQuizParticipantsGroupByPayload<T extends QuizParticipantsGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<QuizParticipantsGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof QuizParticipantsGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], QuizParticipantsGroupByOutputType[P]>
+            : GetScalarType<T[P], QuizParticipantsGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type QuizParticipantsSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    quiz_id?: boolean
+    user_id?: boolean
+    correct_question_count?: boolean
+    score?: boolean
+    Quizzes?: boolean | QuizzesDefaultArgs<ExtArgs>
+    users?: boolean | usersDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["quizParticipants"]>
+
+  export type QuizParticipantsSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    quiz_id?: boolean
+    user_id?: boolean
+    correct_question_count?: boolean
+    score?: boolean
+    Quizzes?: boolean | QuizzesDefaultArgs<ExtArgs>
+    users?: boolean | usersDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["quizParticipants"]>
+
+  export type QuizParticipantsSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    quiz_id?: boolean
+    user_id?: boolean
+    correct_question_count?: boolean
+    score?: boolean
+    Quizzes?: boolean | QuizzesDefaultArgs<ExtArgs>
+    users?: boolean | usersDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["quizParticipants"]>
+
+  export type QuizParticipantsSelectScalar = {
+    id?: boolean
+    quiz_id?: boolean
+    user_id?: boolean
+    correct_question_count?: boolean
+    score?: boolean
+  }
+
+  export type QuizParticipantsOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "quiz_id" | "user_id" | "correct_question_count" | "score", ExtArgs["result"]["quizParticipants"]>
+  export type QuizParticipantsInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    Quizzes?: boolean | QuizzesDefaultArgs<ExtArgs>
+    users?: boolean | usersDefaultArgs<ExtArgs>
+  }
+  export type QuizParticipantsIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    Quizzes?: boolean | QuizzesDefaultArgs<ExtArgs>
+    users?: boolean | usersDefaultArgs<ExtArgs>
+  }
+  export type QuizParticipantsIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    Quizzes?: boolean | QuizzesDefaultArgs<ExtArgs>
+    users?: boolean | usersDefaultArgs<ExtArgs>
+  }
+
+  export type $QuizParticipantsPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "QuizParticipants"
+    objects: {
+      Quizzes: Prisma.$QuizzesPayload<ExtArgs>
+      users: Prisma.$usersPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: number
+      quiz_id: number
+      user_id: number
+      correct_question_count: number
+      score: number
+    }, ExtArgs["result"]["quizParticipants"]>
+    composites: {}
+  }
+
+  type QuizParticipantsGetPayload<S extends boolean | null | undefined | QuizParticipantsDefaultArgs> = $Result.GetResult<Prisma.$QuizParticipantsPayload, S>
+
+  type QuizParticipantsCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<QuizParticipantsFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: QuizParticipantsCountAggregateInputType | true
+    }
+
+  export interface QuizParticipantsDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['QuizParticipants'], meta: { name: 'QuizParticipants' } }
+    /**
+     * Find zero or one QuizParticipants that matches the filter.
+     * @param {QuizParticipantsFindUniqueArgs} args - Arguments to find a QuizParticipants
+     * @example
+     * // Get one QuizParticipants
+     * const quizParticipants = await prisma.quizParticipants.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends QuizParticipantsFindUniqueArgs>(args: SelectSubset<T, QuizParticipantsFindUniqueArgs<ExtArgs>>): Prisma__QuizParticipantsClient<$Result.GetResult<Prisma.$QuizParticipantsPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one QuizParticipants that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {QuizParticipantsFindUniqueOrThrowArgs} args - Arguments to find a QuizParticipants
+     * @example
+     * // Get one QuizParticipants
+     * const quizParticipants = await prisma.quizParticipants.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends QuizParticipantsFindUniqueOrThrowArgs>(args: SelectSubset<T, QuizParticipantsFindUniqueOrThrowArgs<ExtArgs>>): Prisma__QuizParticipantsClient<$Result.GetResult<Prisma.$QuizParticipantsPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first QuizParticipants that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {QuizParticipantsFindFirstArgs} args - Arguments to find a QuizParticipants
+     * @example
+     * // Get one QuizParticipants
+     * const quizParticipants = await prisma.quizParticipants.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends QuizParticipantsFindFirstArgs>(args?: SelectSubset<T, QuizParticipantsFindFirstArgs<ExtArgs>>): Prisma__QuizParticipantsClient<$Result.GetResult<Prisma.$QuizParticipantsPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first QuizParticipants that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {QuizParticipantsFindFirstOrThrowArgs} args - Arguments to find a QuizParticipants
+     * @example
+     * // Get one QuizParticipants
+     * const quizParticipants = await prisma.quizParticipants.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends QuizParticipantsFindFirstOrThrowArgs>(args?: SelectSubset<T, QuizParticipantsFindFirstOrThrowArgs<ExtArgs>>): Prisma__QuizParticipantsClient<$Result.GetResult<Prisma.$QuizParticipantsPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more QuizParticipants that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {QuizParticipantsFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all QuizParticipants
+     * const quizParticipants = await prisma.quizParticipants.findMany()
+     * 
+     * // Get first 10 QuizParticipants
+     * const quizParticipants = await prisma.quizParticipants.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const quizParticipantsWithIdOnly = await prisma.quizParticipants.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends QuizParticipantsFindManyArgs>(args?: SelectSubset<T, QuizParticipantsFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$QuizParticipantsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a QuizParticipants.
+     * @param {QuizParticipantsCreateArgs} args - Arguments to create a QuizParticipants.
+     * @example
+     * // Create one QuizParticipants
+     * const QuizParticipants = await prisma.quizParticipants.create({
+     *   data: {
+     *     // ... data to create a QuizParticipants
+     *   }
+     * })
+     * 
+     */
+    create<T extends QuizParticipantsCreateArgs>(args: SelectSubset<T, QuizParticipantsCreateArgs<ExtArgs>>): Prisma__QuizParticipantsClient<$Result.GetResult<Prisma.$QuizParticipantsPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many QuizParticipants.
+     * @param {QuizParticipantsCreateManyArgs} args - Arguments to create many QuizParticipants.
+     * @example
+     * // Create many QuizParticipants
+     * const quizParticipants = await prisma.quizParticipants.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends QuizParticipantsCreateManyArgs>(args?: SelectSubset<T, QuizParticipantsCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many QuizParticipants and returns the data saved in the database.
+     * @param {QuizParticipantsCreateManyAndReturnArgs} args - Arguments to create many QuizParticipants.
+     * @example
+     * // Create many QuizParticipants
+     * const quizParticipants = await prisma.quizParticipants.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many QuizParticipants and only return the `id`
+     * const quizParticipantsWithIdOnly = await prisma.quizParticipants.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends QuizParticipantsCreateManyAndReturnArgs>(args?: SelectSubset<T, QuizParticipantsCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$QuizParticipantsPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a QuizParticipants.
+     * @param {QuizParticipantsDeleteArgs} args - Arguments to delete one QuizParticipants.
+     * @example
+     * // Delete one QuizParticipants
+     * const QuizParticipants = await prisma.quizParticipants.delete({
+     *   where: {
+     *     // ... filter to delete one QuizParticipants
+     *   }
+     * })
+     * 
+     */
+    delete<T extends QuizParticipantsDeleteArgs>(args: SelectSubset<T, QuizParticipantsDeleteArgs<ExtArgs>>): Prisma__QuizParticipantsClient<$Result.GetResult<Prisma.$QuizParticipantsPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one QuizParticipants.
+     * @param {QuizParticipantsUpdateArgs} args - Arguments to update one QuizParticipants.
+     * @example
+     * // Update one QuizParticipants
+     * const quizParticipants = await prisma.quizParticipants.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends QuizParticipantsUpdateArgs>(args: SelectSubset<T, QuizParticipantsUpdateArgs<ExtArgs>>): Prisma__QuizParticipantsClient<$Result.GetResult<Prisma.$QuizParticipantsPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more QuizParticipants.
+     * @param {QuizParticipantsDeleteManyArgs} args - Arguments to filter QuizParticipants to delete.
+     * @example
+     * // Delete a few QuizParticipants
+     * const { count } = await prisma.quizParticipants.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends QuizParticipantsDeleteManyArgs>(args?: SelectSubset<T, QuizParticipantsDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more QuizParticipants.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {QuizParticipantsUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many QuizParticipants
+     * const quizParticipants = await prisma.quizParticipants.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends QuizParticipantsUpdateManyArgs>(args: SelectSubset<T, QuizParticipantsUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more QuizParticipants and returns the data updated in the database.
+     * @param {QuizParticipantsUpdateManyAndReturnArgs} args - Arguments to update many QuizParticipants.
+     * @example
+     * // Update many QuizParticipants
+     * const quizParticipants = await prisma.quizParticipants.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more QuizParticipants and only return the `id`
+     * const quizParticipantsWithIdOnly = await prisma.quizParticipants.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends QuizParticipantsUpdateManyAndReturnArgs>(args: SelectSubset<T, QuizParticipantsUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$QuizParticipantsPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one QuizParticipants.
+     * @param {QuizParticipantsUpsertArgs} args - Arguments to update or create a QuizParticipants.
+     * @example
+     * // Update or create a QuizParticipants
+     * const quizParticipants = await prisma.quizParticipants.upsert({
+     *   create: {
+     *     // ... data to create a QuizParticipants
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the QuizParticipants we want to update
+     *   }
+     * })
+     */
+    upsert<T extends QuizParticipantsUpsertArgs>(args: SelectSubset<T, QuizParticipantsUpsertArgs<ExtArgs>>): Prisma__QuizParticipantsClient<$Result.GetResult<Prisma.$QuizParticipantsPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of QuizParticipants.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {QuizParticipantsCountArgs} args - Arguments to filter QuizParticipants to count.
+     * @example
+     * // Count the number of QuizParticipants
+     * const count = await prisma.quizParticipants.count({
+     *   where: {
+     *     // ... the filter for the QuizParticipants we want to count
+     *   }
+     * })
+    **/
+    count<T extends QuizParticipantsCountArgs>(
+      args?: Subset<T, QuizParticipantsCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], QuizParticipantsCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a QuizParticipants.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {QuizParticipantsAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends QuizParticipantsAggregateArgs>(args: Subset<T, QuizParticipantsAggregateArgs>): Prisma.PrismaPromise<GetQuizParticipantsAggregateType<T>>
+
+    /**
+     * Group by QuizParticipants.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {QuizParticipantsGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends QuizParticipantsGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: QuizParticipantsGroupByArgs['orderBy'] }
+        : { orderBy?: QuizParticipantsGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, QuizParticipantsGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetQuizParticipantsGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the QuizParticipants model
+   */
+  readonly fields: QuizParticipantsFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for QuizParticipants.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__QuizParticipantsClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    Quizzes<T extends QuizzesDefaultArgs<ExtArgs> = {}>(args?: Subset<T, QuizzesDefaultArgs<ExtArgs>>): Prisma__QuizzesClient<$Result.GetResult<Prisma.$QuizzesPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    users<T extends usersDefaultArgs<ExtArgs> = {}>(args?: Subset<T, usersDefaultArgs<ExtArgs>>): Prisma__usersClient<$Result.GetResult<Prisma.$usersPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the QuizParticipants model
+   */
+  interface QuizParticipantsFieldRefs {
+    readonly id: FieldRef<"QuizParticipants", 'Int'>
+    readonly quiz_id: FieldRef<"QuizParticipants", 'Int'>
+    readonly user_id: FieldRef<"QuizParticipants", 'Int'>
+    readonly correct_question_count: FieldRef<"QuizParticipants", 'Int'>
+    readonly score: FieldRef<"QuizParticipants", 'Int'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * QuizParticipants findUnique
+   */
+  export type QuizParticipantsFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the QuizParticipants
+     */
+    select?: QuizParticipantsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the QuizParticipants
+     */
+    omit?: QuizParticipantsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: QuizParticipantsInclude<ExtArgs> | null
+    /**
+     * Filter, which QuizParticipants to fetch.
+     */
+    where: QuizParticipantsWhereUniqueInput
+  }
+
+  /**
+   * QuizParticipants findUniqueOrThrow
+   */
+  export type QuizParticipantsFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the QuizParticipants
+     */
+    select?: QuizParticipantsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the QuizParticipants
+     */
+    omit?: QuizParticipantsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: QuizParticipantsInclude<ExtArgs> | null
+    /**
+     * Filter, which QuizParticipants to fetch.
+     */
+    where: QuizParticipantsWhereUniqueInput
+  }
+
+  /**
+   * QuizParticipants findFirst
+   */
+  export type QuizParticipantsFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the QuizParticipants
+     */
+    select?: QuizParticipantsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the QuizParticipants
+     */
+    omit?: QuizParticipantsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: QuizParticipantsInclude<ExtArgs> | null
+    /**
+     * Filter, which QuizParticipants to fetch.
+     */
+    where?: QuizParticipantsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of QuizParticipants to fetch.
+     */
+    orderBy?: QuizParticipantsOrderByWithRelationInput | QuizParticipantsOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for QuizParticipants.
+     */
+    cursor?: QuizParticipantsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` QuizParticipants from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` QuizParticipants.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of QuizParticipants.
+     */
+    distinct?: QuizParticipantsScalarFieldEnum | QuizParticipantsScalarFieldEnum[]
+  }
+
+  /**
+   * QuizParticipants findFirstOrThrow
+   */
+  export type QuizParticipantsFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the QuizParticipants
+     */
+    select?: QuizParticipantsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the QuizParticipants
+     */
+    omit?: QuizParticipantsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: QuizParticipantsInclude<ExtArgs> | null
+    /**
+     * Filter, which QuizParticipants to fetch.
+     */
+    where?: QuizParticipantsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of QuizParticipants to fetch.
+     */
+    orderBy?: QuizParticipantsOrderByWithRelationInput | QuizParticipantsOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for QuizParticipants.
+     */
+    cursor?: QuizParticipantsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` QuizParticipants from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` QuizParticipants.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of QuizParticipants.
+     */
+    distinct?: QuizParticipantsScalarFieldEnum | QuizParticipantsScalarFieldEnum[]
+  }
+
+  /**
+   * QuizParticipants findMany
+   */
+  export type QuizParticipantsFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the QuizParticipants
+     */
+    select?: QuizParticipantsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the QuizParticipants
+     */
+    omit?: QuizParticipantsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: QuizParticipantsInclude<ExtArgs> | null
+    /**
+     * Filter, which QuizParticipants to fetch.
+     */
+    where?: QuizParticipantsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of QuizParticipants to fetch.
+     */
+    orderBy?: QuizParticipantsOrderByWithRelationInput | QuizParticipantsOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing QuizParticipants.
+     */
+    cursor?: QuizParticipantsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` QuizParticipants from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` QuizParticipants.
+     */
+    skip?: number
+    distinct?: QuizParticipantsScalarFieldEnum | QuizParticipantsScalarFieldEnum[]
+  }
+
+  /**
+   * QuizParticipants create
+   */
+  export type QuizParticipantsCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the QuizParticipants
+     */
+    select?: QuizParticipantsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the QuizParticipants
+     */
+    omit?: QuizParticipantsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: QuizParticipantsInclude<ExtArgs> | null
+    /**
+     * The data needed to create a QuizParticipants.
+     */
+    data: XOR<QuizParticipantsCreateInput, QuizParticipantsUncheckedCreateInput>
+  }
+
+  /**
+   * QuizParticipants createMany
+   */
+  export type QuizParticipantsCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many QuizParticipants.
+     */
+    data: QuizParticipantsCreateManyInput | QuizParticipantsCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * QuizParticipants createManyAndReturn
+   */
+  export type QuizParticipantsCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the QuizParticipants
+     */
+    select?: QuizParticipantsSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the QuizParticipants
+     */
+    omit?: QuizParticipantsOmit<ExtArgs> | null
+    /**
+     * The data used to create many QuizParticipants.
+     */
+    data: QuizParticipantsCreateManyInput | QuizParticipantsCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: QuizParticipantsIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * QuizParticipants update
+   */
+  export type QuizParticipantsUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the QuizParticipants
+     */
+    select?: QuizParticipantsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the QuizParticipants
+     */
+    omit?: QuizParticipantsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: QuizParticipantsInclude<ExtArgs> | null
+    /**
+     * The data needed to update a QuizParticipants.
+     */
+    data: XOR<QuizParticipantsUpdateInput, QuizParticipantsUncheckedUpdateInput>
+    /**
+     * Choose, which QuizParticipants to update.
+     */
+    where: QuizParticipantsWhereUniqueInput
+  }
+
+  /**
+   * QuizParticipants updateMany
+   */
+  export type QuizParticipantsUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update QuizParticipants.
+     */
+    data: XOR<QuizParticipantsUpdateManyMutationInput, QuizParticipantsUncheckedUpdateManyInput>
+    /**
+     * Filter which QuizParticipants to update
+     */
+    where?: QuizParticipantsWhereInput
+    /**
+     * Limit how many QuizParticipants to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * QuizParticipants updateManyAndReturn
+   */
+  export type QuizParticipantsUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the QuizParticipants
+     */
+    select?: QuizParticipantsSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the QuizParticipants
+     */
+    omit?: QuizParticipantsOmit<ExtArgs> | null
+    /**
+     * The data used to update QuizParticipants.
+     */
+    data: XOR<QuizParticipantsUpdateManyMutationInput, QuizParticipantsUncheckedUpdateManyInput>
+    /**
+     * Filter which QuizParticipants to update
+     */
+    where?: QuizParticipantsWhereInput
+    /**
+     * Limit how many QuizParticipants to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: QuizParticipantsIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * QuizParticipants upsert
+   */
+  export type QuizParticipantsUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the QuizParticipants
+     */
+    select?: QuizParticipantsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the QuizParticipants
+     */
+    omit?: QuizParticipantsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: QuizParticipantsInclude<ExtArgs> | null
+    /**
+     * The filter to search for the QuizParticipants to update in case it exists.
+     */
+    where: QuizParticipantsWhereUniqueInput
+    /**
+     * In case the QuizParticipants found by the `where` argument doesn't exist, create a new QuizParticipants with this data.
+     */
+    create: XOR<QuizParticipantsCreateInput, QuizParticipantsUncheckedCreateInput>
+    /**
+     * In case the QuizParticipants was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<QuizParticipantsUpdateInput, QuizParticipantsUncheckedUpdateInput>
+  }
+
+  /**
+   * QuizParticipants delete
+   */
+  export type QuizParticipantsDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the QuizParticipants
+     */
+    select?: QuizParticipantsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the QuizParticipants
+     */
+    omit?: QuizParticipantsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: QuizParticipantsInclude<ExtArgs> | null
+    /**
+     * Filter which QuizParticipants to delete.
+     */
+    where: QuizParticipantsWhereUniqueInput
+  }
+
+  /**
+   * QuizParticipants deleteMany
+   */
+  export type QuizParticipantsDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which QuizParticipants to delete
+     */
+    where?: QuizParticipantsWhereInput
+    /**
+     * Limit how many QuizParticipants to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * QuizParticipants without action
+   */
+  export type QuizParticipantsDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the QuizParticipants
+     */
+    select?: QuizParticipantsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the QuizParticipants
+     */
+    omit?: QuizParticipantsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: QuizParticipantsInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model QuizQuestion
+   */
+
+  export type AggregateQuizQuestion = {
+    _count: QuizQuestionCountAggregateOutputType | null
+    _avg: QuizQuestionAvgAggregateOutputType | null
+    _sum: QuizQuestionSumAggregateOutputType | null
+    _min: QuizQuestionMinAggregateOutputType | null
+    _max: QuizQuestionMaxAggregateOutputType | null
+  }
+
+  export type QuizQuestionAvgAggregateOutputType = {
+    id: number | null
+    quiz_id: number | null
+  }
+
+  export type QuizQuestionSumAggregateOutputType = {
+    id: number | null
+    quiz_id: number | null
+  }
+
+  export type QuizQuestionMinAggregateOutputType = {
+    id: number | null
+    quiz_id: number | null
+    question: string | null
+    correct_answer: string | null
+    question_explanation: string | null
+  }
+
+  export type QuizQuestionMaxAggregateOutputType = {
+    id: number | null
+    quiz_id: number | null
+    question: string | null
+    correct_answer: string | null
+    question_explanation: string | null
+  }
+
+  export type QuizQuestionCountAggregateOutputType = {
+    id: number
+    quiz_id: number
+    question: number
+    answers: number
+    correct_answer: number
+    question_explanation: number
+    _all: number
+  }
+
+
+  export type QuizQuestionAvgAggregateInputType = {
+    id?: true
+    quiz_id?: true
+  }
+
+  export type QuizQuestionSumAggregateInputType = {
+    id?: true
+    quiz_id?: true
+  }
+
+  export type QuizQuestionMinAggregateInputType = {
+    id?: true
+    quiz_id?: true
+    question?: true
+    correct_answer?: true
+    question_explanation?: true
+  }
+
+  export type QuizQuestionMaxAggregateInputType = {
+    id?: true
+    quiz_id?: true
+    question?: true
+    correct_answer?: true
+    question_explanation?: true
+  }
+
+  export type QuizQuestionCountAggregateInputType = {
+    id?: true
+    quiz_id?: true
+    question?: true
+    answers?: true
+    correct_answer?: true
+    question_explanation?: true
+    _all?: true
+  }
+
+  export type QuizQuestionAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which QuizQuestion to aggregate.
+     */
+    where?: QuizQuestionWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of QuizQuestions to fetch.
+     */
+    orderBy?: QuizQuestionOrderByWithRelationInput | QuizQuestionOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: QuizQuestionWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` QuizQuestions from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` QuizQuestions.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned QuizQuestions
+    **/
+    _count?: true | QuizQuestionCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: QuizQuestionAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: QuizQuestionSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: QuizQuestionMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: QuizQuestionMaxAggregateInputType
+  }
+
+  export type GetQuizQuestionAggregateType<T extends QuizQuestionAggregateArgs> = {
+        [P in keyof T & keyof AggregateQuizQuestion]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateQuizQuestion[P]>
+      : GetScalarType<T[P], AggregateQuizQuestion[P]>
+  }
+
+
+
+
+  export type QuizQuestionGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: QuizQuestionWhereInput
+    orderBy?: QuizQuestionOrderByWithAggregationInput | QuizQuestionOrderByWithAggregationInput[]
+    by: QuizQuestionScalarFieldEnum[] | QuizQuestionScalarFieldEnum
+    having?: QuizQuestionScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: QuizQuestionCountAggregateInputType | true
+    _avg?: QuizQuestionAvgAggregateInputType
+    _sum?: QuizQuestionSumAggregateInputType
+    _min?: QuizQuestionMinAggregateInputType
+    _max?: QuizQuestionMaxAggregateInputType
+  }
+
+  export type QuizQuestionGroupByOutputType = {
+    id: number
+    quiz_id: number
+    question: string
+    answers: string[]
+    correct_answer: string
+    question_explanation: string | null
+    _count: QuizQuestionCountAggregateOutputType | null
+    _avg: QuizQuestionAvgAggregateOutputType | null
+    _sum: QuizQuestionSumAggregateOutputType | null
+    _min: QuizQuestionMinAggregateOutputType | null
+    _max: QuizQuestionMaxAggregateOutputType | null
+  }
+
+  type GetQuizQuestionGroupByPayload<T extends QuizQuestionGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<QuizQuestionGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof QuizQuestionGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], QuizQuestionGroupByOutputType[P]>
+            : GetScalarType<T[P], QuizQuestionGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type QuizQuestionSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    quiz_id?: boolean
+    question?: boolean
+    answers?: boolean
+    correct_answer?: boolean
+    question_explanation?: boolean
+    Quizzes?: boolean | QuizzesDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["quizQuestion"]>
+
+  export type QuizQuestionSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    quiz_id?: boolean
+    question?: boolean
+    answers?: boolean
+    correct_answer?: boolean
+    question_explanation?: boolean
+    Quizzes?: boolean | QuizzesDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["quizQuestion"]>
+
+  export type QuizQuestionSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    quiz_id?: boolean
+    question?: boolean
+    answers?: boolean
+    correct_answer?: boolean
+    question_explanation?: boolean
+    Quizzes?: boolean | QuizzesDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["quizQuestion"]>
+
+  export type QuizQuestionSelectScalar = {
+    id?: boolean
+    quiz_id?: boolean
+    question?: boolean
+    answers?: boolean
+    correct_answer?: boolean
+    question_explanation?: boolean
+  }
+
+  export type QuizQuestionOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "quiz_id" | "question" | "answers" | "correct_answer" | "question_explanation", ExtArgs["result"]["quizQuestion"]>
+  export type QuizQuestionInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    Quizzes?: boolean | QuizzesDefaultArgs<ExtArgs>
+  }
+  export type QuizQuestionIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    Quizzes?: boolean | QuizzesDefaultArgs<ExtArgs>
+  }
+  export type QuizQuestionIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    Quizzes?: boolean | QuizzesDefaultArgs<ExtArgs>
+  }
+
+  export type $QuizQuestionPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "QuizQuestion"
+    objects: {
+      Quizzes: Prisma.$QuizzesPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: number
+      quiz_id: number
+      question: string
+      answers: string[]
+      correct_answer: string
+      question_explanation: string | null
+    }, ExtArgs["result"]["quizQuestion"]>
+    composites: {}
+  }
+
+  type QuizQuestionGetPayload<S extends boolean | null | undefined | QuizQuestionDefaultArgs> = $Result.GetResult<Prisma.$QuizQuestionPayload, S>
+
+  type QuizQuestionCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<QuizQuestionFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: QuizQuestionCountAggregateInputType | true
+    }
+
+  export interface QuizQuestionDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['QuizQuestion'], meta: { name: 'QuizQuestion' } }
+    /**
+     * Find zero or one QuizQuestion that matches the filter.
+     * @param {QuizQuestionFindUniqueArgs} args - Arguments to find a QuizQuestion
+     * @example
+     * // Get one QuizQuestion
+     * const quizQuestion = await prisma.quizQuestion.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends QuizQuestionFindUniqueArgs>(args: SelectSubset<T, QuizQuestionFindUniqueArgs<ExtArgs>>): Prisma__QuizQuestionClient<$Result.GetResult<Prisma.$QuizQuestionPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one QuizQuestion that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {QuizQuestionFindUniqueOrThrowArgs} args - Arguments to find a QuizQuestion
+     * @example
+     * // Get one QuizQuestion
+     * const quizQuestion = await prisma.quizQuestion.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends QuizQuestionFindUniqueOrThrowArgs>(args: SelectSubset<T, QuizQuestionFindUniqueOrThrowArgs<ExtArgs>>): Prisma__QuizQuestionClient<$Result.GetResult<Prisma.$QuizQuestionPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first QuizQuestion that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {QuizQuestionFindFirstArgs} args - Arguments to find a QuizQuestion
+     * @example
+     * // Get one QuizQuestion
+     * const quizQuestion = await prisma.quizQuestion.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends QuizQuestionFindFirstArgs>(args?: SelectSubset<T, QuizQuestionFindFirstArgs<ExtArgs>>): Prisma__QuizQuestionClient<$Result.GetResult<Prisma.$QuizQuestionPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first QuizQuestion that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {QuizQuestionFindFirstOrThrowArgs} args - Arguments to find a QuizQuestion
+     * @example
+     * // Get one QuizQuestion
+     * const quizQuestion = await prisma.quizQuestion.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends QuizQuestionFindFirstOrThrowArgs>(args?: SelectSubset<T, QuizQuestionFindFirstOrThrowArgs<ExtArgs>>): Prisma__QuizQuestionClient<$Result.GetResult<Prisma.$QuizQuestionPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more QuizQuestions that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {QuizQuestionFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all QuizQuestions
+     * const quizQuestions = await prisma.quizQuestion.findMany()
+     * 
+     * // Get first 10 QuizQuestions
+     * const quizQuestions = await prisma.quizQuestion.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const quizQuestionWithIdOnly = await prisma.quizQuestion.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends QuizQuestionFindManyArgs>(args?: SelectSubset<T, QuizQuestionFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$QuizQuestionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a QuizQuestion.
+     * @param {QuizQuestionCreateArgs} args - Arguments to create a QuizQuestion.
+     * @example
+     * // Create one QuizQuestion
+     * const QuizQuestion = await prisma.quizQuestion.create({
+     *   data: {
+     *     // ... data to create a QuizQuestion
+     *   }
+     * })
+     * 
+     */
+    create<T extends QuizQuestionCreateArgs>(args: SelectSubset<T, QuizQuestionCreateArgs<ExtArgs>>): Prisma__QuizQuestionClient<$Result.GetResult<Prisma.$QuizQuestionPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many QuizQuestions.
+     * @param {QuizQuestionCreateManyArgs} args - Arguments to create many QuizQuestions.
+     * @example
+     * // Create many QuizQuestions
+     * const quizQuestion = await prisma.quizQuestion.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends QuizQuestionCreateManyArgs>(args?: SelectSubset<T, QuizQuestionCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many QuizQuestions and returns the data saved in the database.
+     * @param {QuizQuestionCreateManyAndReturnArgs} args - Arguments to create many QuizQuestions.
+     * @example
+     * // Create many QuizQuestions
+     * const quizQuestion = await prisma.quizQuestion.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many QuizQuestions and only return the `id`
+     * const quizQuestionWithIdOnly = await prisma.quizQuestion.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends QuizQuestionCreateManyAndReturnArgs>(args?: SelectSubset<T, QuizQuestionCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$QuizQuestionPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a QuizQuestion.
+     * @param {QuizQuestionDeleteArgs} args - Arguments to delete one QuizQuestion.
+     * @example
+     * // Delete one QuizQuestion
+     * const QuizQuestion = await prisma.quizQuestion.delete({
+     *   where: {
+     *     // ... filter to delete one QuizQuestion
+     *   }
+     * })
+     * 
+     */
+    delete<T extends QuizQuestionDeleteArgs>(args: SelectSubset<T, QuizQuestionDeleteArgs<ExtArgs>>): Prisma__QuizQuestionClient<$Result.GetResult<Prisma.$QuizQuestionPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one QuizQuestion.
+     * @param {QuizQuestionUpdateArgs} args - Arguments to update one QuizQuestion.
+     * @example
+     * // Update one QuizQuestion
+     * const quizQuestion = await prisma.quizQuestion.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends QuizQuestionUpdateArgs>(args: SelectSubset<T, QuizQuestionUpdateArgs<ExtArgs>>): Prisma__QuizQuestionClient<$Result.GetResult<Prisma.$QuizQuestionPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more QuizQuestions.
+     * @param {QuizQuestionDeleteManyArgs} args - Arguments to filter QuizQuestions to delete.
+     * @example
+     * // Delete a few QuizQuestions
+     * const { count } = await prisma.quizQuestion.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends QuizQuestionDeleteManyArgs>(args?: SelectSubset<T, QuizQuestionDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more QuizQuestions.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {QuizQuestionUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many QuizQuestions
+     * const quizQuestion = await prisma.quizQuestion.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends QuizQuestionUpdateManyArgs>(args: SelectSubset<T, QuizQuestionUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more QuizQuestions and returns the data updated in the database.
+     * @param {QuizQuestionUpdateManyAndReturnArgs} args - Arguments to update many QuizQuestions.
+     * @example
+     * // Update many QuizQuestions
+     * const quizQuestion = await prisma.quizQuestion.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more QuizQuestions and only return the `id`
+     * const quizQuestionWithIdOnly = await prisma.quizQuestion.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends QuizQuestionUpdateManyAndReturnArgs>(args: SelectSubset<T, QuizQuestionUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$QuizQuestionPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one QuizQuestion.
+     * @param {QuizQuestionUpsertArgs} args - Arguments to update or create a QuizQuestion.
+     * @example
+     * // Update or create a QuizQuestion
+     * const quizQuestion = await prisma.quizQuestion.upsert({
+     *   create: {
+     *     // ... data to create a QuizQuestion
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the QuizQuestion we want to update
+     *   }
+     * })
+     */
+    upsert<T extends QuizQuestionUpsertArgs>(args: SelectSubset<T, QuizQuestionUpsertArgs<ExtArgs>>): Prisma__QuizQuestionClient<$Result.GetResult<Prisma.$QuizQuestionPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of QuizQuestions.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {QuizQuestionCountArgs} args - Arguments to filter QuizQuestions to count.
+     * @example
+     * // Count the number of QuizQuestions
+     * const count = await prisma.quizQuestion.count({
+     *   where: {
+     *     // ... the filter for the QuizQuestions we want to count
+     *   }
+     * })
+    **/
+    count<T extends QuizQuestionCountArgs>(
+      args?: Subset<T, QuizQuestionCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], QuizQuestionCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a QuizQuestion.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {QuizQuestionAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends QuizQuestionAggregateArgs>(args: Subset<T, QuizQuestionAggregateArgs>): Prisma.PrismaPromise<GetQuizQuestionAggregateType<T>>
+
+    /**
+     * Group by QuizQuestion.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {QuizQuestionGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends QuizQuestionGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: QuizQuestionGroupByArgs['orderBy'] }
+        : { orderBy?: QuizQuestionGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, QuizQuestionGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetQuizQuestionGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the QuizQuestion model
+   */
+  readonly fields: QuizQuestionFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for QuizQuestion.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__QuizQuestionClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    Quizzes<T extends QuizzesDefaultArgs<ExtArgs> = {}>(args?: Subset<T, QuizzesDefaultArgs<ExtArgs>>): Prisma__QuizzesClient<$Result.GetResult<Prisma.$QuizzesPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the QuizQuestion model
+   */
+  interface QuizQuestionFieldRefs {
+    readonly id: FieldRef<"QuizQuestion", 'Int'>
+    readonly quiz_id: FieldRef<"QuizQuestion", 'Int'>
+    readonly question: FieldRef<"QuizQuestion", 'String'>
+    readonly answers: FieldRef<"QuizQuestion", 'String[]'>
+    readonly correct_answer: FieldRef<"QuizQuestion", 'String'>
+    readonly question_explanation: FieldRef<"QuizQuestion", 'String'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * QuizQuestion findUnique
+   */
+  export type QuizQuestionFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the QuizQuestion
+     */
+    select?: QuizQuestionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the QuizQuestion
+     */
+    omit?: QuizQuestionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: QuizQuestionInclude<ExtArgs> | null
+    /**
+     * Filter, which QuizQuestion to fetch.
+     */
+    where: QuizQuestionWhereUniqueInput
+  }
+
+  /**
+   * QuizQuestion findUniqueOrThrow
+   */
+  export type QuizQuestionFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the QuizQuestion
+     */
+    select?: QuizQuestionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the QuizQuestion
+     */
+    omit?: QuizQuestionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: QuizQuestionInclude<ExtArgs> | null
+    /**
+     * Filter, which QuizQuestion to fetch.
+     */
+    where: QuizQuestionWhereUniqueInput
+  }
+
+  /**
+   * QuizQuestion findFirst
+   */
+  export type QuizQuestionFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the QuizQuestion
+     */
+    select?: QuizQuestionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the QuizQuestion
+     */
+    omit?: QuizQuestionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: QuizQuestionInclude<ExtArgs> | null
+    /**
+     * Filter, which QuizQuestion to fetch.
+     */
+    where?: QuizQuestionWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of QuizQuestions to fetch.
+     */
+    orderBy?: QuizQuestionOrderByWithRelationInput | QuizQuestionOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for QuizQuestions.
+     */
+    cursor?: QuizQuestionWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` QuizQuestions from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` QuizQuestions.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of QuizQuestions.
+     */
+    distinct?: QuizQuestionScalarFieldEnum | QuizQuestionScalarFieldEnum[]
+  }
+
+  /**
+   * QuizQuestion findFirstOrThrow
+   */
+  export type QuizQuestionFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the QuizQuestion
+     */
+    select?: QuizQuestionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the QuizQuestion
+     */
+    omit?: QuizQuestionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: QuizQuestionInclude<ExtArgs> | null
+    /**
+     * Filter, which QuizQuestion to fetch.
+     */
+    where?: QuizQuestionWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of QuizQuestions to fetch.
+     */
+    orderBy?: QuizQuestionOrderByWithRelationInput | QuizQuestionOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for QuizQuestions.
+     */
+    cursor?: QuizQuestionWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` QuizQuestions from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` QuizQuestions.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of QuizQuestions.
+     */
+    distinct?: QuizQuestionScalarFieldEnum | QuizQuestionScalarFieldEnum[]
+  }
+
+  /**
+   * QuizQuestion findMany
+   */
+  export type QuizQuestionFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the QuizQuestion
+     */
+    select?: QuizQuestionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the QuizQuestion
+     */
+    omit?: QuizQuestionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: QuizQuestionInclude<ExtArgs> | null
+    /**
+     * Filter, which QuizQuestions to fetch.
+     */
+    where?: QuizQuestionWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of QuizQuestions to fetch.
+     */
+    orderBy?: QuizQuestionOrderByWithRelationInput | QuizQuestionOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing QuizQuestions.
+     */
+    cursor?: QuizQuestionWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` QuizQuestions from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` QuizQuestions.
+     */
+    skip?: number
+    distinct?: QuizQuestionScalarFieldEnum | QuizQuestionScalarFieldEnum[]
+  }
+
+  /**
+   * QuizQuestion create
+   */
+  export type QuizQuestionCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the QuizQuestion
+     */
+    select?: QuizQuestionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the QuizQuestion
+     */
+    omit?: QuizQuestionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: QuizQuestionInclude<ExtArgs> | null
+    /**
+     * The data needed to create a QuizQuestion.
+     */
+    data: XOR<QuizQuestionCreateInput, QuizQuestionUncheckedCreateInput>
+  }
+
+  /**
+   * QuizQuestion createMany
+   */
+  export type QuizQuestionCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many QuizQuestions.
+     */
+    data: QuizQuestionCreateManyInput | QuizQuestionCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * QuizQuestion createManyAndReturn
+   */
+  export type QuizQuestionCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the QuizQuestion
+     */
+    select?: QuizQuestionSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the QuizQuestion
+     */
+    omit?: QuizQuestionOmit<ExtArgs> | null
+    /**
+     * The data used to create many QuizQuestions.
+     */
+    data: QuizQuestionCreateManyInput | QuizQuestionCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: QuizQuestionIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * QuizQuestion update
+   */
+  export type QuizQuestionUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the QuizQuestion
+     */
+    select?: QuizQuestionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the QuizQuestion
+     */
+    omit?: QuizQuestionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: QuizQuestionInclude<ExtArgs> | null
+    /**
+     * The data needed to update a QuizQuestion.
+     */
+    data: XOR<QuizQuestionUpdateInput, QuizQuestionUncheckedUpdateInput>
+    /**
+     * Choose, which QuizQuestion to update.
+     */
+    where: QuizQuestionWhereUniqueInput
+  }
+
+  /**
+   * QuizQuestion updateMany
+   */
+  export type QuizQuestionUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update QuizQuestions.
+     */
+    data: XOR<QuizQuestionUpdateManyMutationInput, QuizQuestionUncheckedUpdateManyInput>
+    /**
+     * Filter which QuizQuestions to update
+     */
+    where?: QuizQuestionWhereInput
+    /**
+     * Limit how many QuizQuestions to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * QuizQuestion updateManyAndReturn
+   */
+  export type QuizQuestionUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the QuizQuestion
+     */
+    select?: QuizQuestionSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the QuizQuestion
+     */
+    omit?: QuizQuestionOmit<ExtArgs> | null
+    /**
+     * The data used to update QuizQuestions.
+     */
+    data: XOR<QuizQuestionUpdateManyMutationInput, QuizQuestionUncheckedUpdateManyInput>
+    /**
+     * Filter which QuizQuestions to update
+     */
+    where?: QuizQuestionWhereInput
+    /**
+     * Limit how many QuizQuestions to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: QuizQuestionIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * QuizQuestion upsert
+   */
+  export type QuizQuestionUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the QuizQuestion
+     */
+    select?: QuizQuestionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the QuizQuestion
+     */
+    omit?: QuizQuestionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: QuizQuestionInclude<ExtArgs> | null
+    /**
+     * The filter to search for the QuizQuestion to update in case it exists.
+     */
+    where: QuizQuestionWhereUniqueInput
+    /**
+     * In case the QuizQuestion found by the `where` argument doesn't exist, create a new QuizQuestion with this data.
+     */
+    create: XOR<QuizQuestionCreateInput, QuizQuestionUncheckedCreateInput>
+    /**
+     * In case the QuizQuestion was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<QuizQuestionUpdateInput, QuizQuestionUncheckedUpdateInput>
+  }
+
+  /**
+   * QuizQuestion delete
+   */
+  export type QuizQuestionDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the QuizQuestion
+     */
+    select?: QuizQuestionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the QuizQuestion
+     */
+    omit?: QuizQuestionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: QuizQuestionInclude<ExtArgs> | null
+    /**
+     * Filter which QuizQuestion to delete.
+     */
+    where: QuizQuestionWhereUniqueInput
+  }
+
+  /**
+   * QuizQuestion deleteMany
+   */
+  export type QuizQuestionDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which QuizQuestions to delete
+     */
+    where?: QuizQuestionWhereInput
+    /**
+     * Limit how many QuizQuestions to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * QuizQuestion without action
+   */
+  export type QuizQuestionDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the QuizQuestion
+     */
+    select?: QuizQuestionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the QuizQuestion
+     */
+    omit?: QuizQuestionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: QuizQuestionInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model Quizzes
+   */
+
+  export type AggregateQuizzes = {
+    _count: QuizzesCountAggregateOutputType | null
+    _avg: QuizzesAvgAggregateOutputType | null
+    _sum: QuizzesSumAggregateOutputType | null
+    _min: QuizzesMinAggregateOutputType | null
+    _max: QuizzesMaxAggregateOutputType | null
+  }
+
+  export type QuizzesAvgAggregateOutputType = {
+    id: number | null
+    question_count: number | null
+    participants_count: number | null
+    time_limit: number | null
+    user_id: number | null
+  }
+
+  export type QuizzesSumAggregateOutputType = {
+    id: number | null
+    question_count: number | null
+    participants_count: number | null
+    time_limit: number | null
+    user_id: number | null
+  }
+
+  export type QuizzesMinAggregateOutputType = {
+    id: number | null
+    name: string | null
+    category: string | null
+    description: string | null
+    time: Date | null
+    question_count: number | null
+    participants_count: number | null
+    time_limit: number | null
+    user_id: number | null
+    created_at: Date | null
+    modified_at: Date | null
+    status: $Enums.QuizStatus | null
+    level: $Enums.quiz_difficulty_level | null
+  }
+
+  export type QuizzesMaxAggregateOutputType = {
+    id: number | null
+    name: string | null
+    category: string | null
+    description: string | null
+    time: Date | null
+    question_count: number | null
+    participants_count: number | null
+    time_limit: number | null
+    user_id: number | null
+    created_at: Date | null
+    modified_at: Date | null
+    status: $Enums.QuizStatus | null
+    level: $Enums.quiz_difficulty_level | null
+  }
+
+  export type QuizzesCountAggregateOutputType = {
+    id: number
+    name: number
+    category: number
+    description: number
+    time: number
+    question_count: number
+    participants_count: number
+    time_limit: number
+    user_id: number
+    created_at: number
+    modified_at: number
+    status: number
+    level: number
+    _all: number
+  }
+
+
+  export type QuizzesAvgAggregateInputType = {
+    id?: true
+    question_count?: true
+    participants_count?: true
+    time_limit?: true
+    user_id?: true
+  }
+
+  export type QuizzesSumAggregateInputType = {
+    id?: true
+    question_count?: true
+    participants_count?: true
+    time_limit?: true
+    user_id?: true
+  }
+
+  export type QuizzesMinAggregateInputType = {
+    id?: true
+    name?: true
+    category?: true
+    description?: true
+    time?: true
+    question_count?: true
+    participants_count?: true
+    time_limit?: true
+    user_id?: true
+    created_at?: true
+    modified_at?: true
+    status?: true
+    level?: true
+  }
+
+  export type QuizzesMaxAggregateInputType = {
+    id?: true
+    name?: true
+    category?: true
+    description?: true
+    time?: true
+    question_count?: true
+    participants_count?: true
+    time_limit?: true
+    user_id?: true
+    created_at?: true
+    modified_at?: true
+    status?: true
+    level?: true
+  }
+
+  export type QuizzesCountAggregateInputType = {
+    id?: true
+    name?: true
+    category?: true
+    description?: true
+    time?: true
+    question_count?: true
+    participants_count?: true
+    time_limit?: true
+    user_id?: true
+    created_at?: true
+    modified_at?: true
+    status?: true
+    level?: true
+    _all?: true
+  }
+
+  export type QuizzesAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Quizzes to aggregate.
+     */
+    where?: QuizzesWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Quizzes to fetch.
+     */
+    orderBy?: QuizzesOrderByWithRelationInput | QuizzesOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: QuizzesWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Quizzes from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Quizzes.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Quizzes
+    **/
+    _count?: true | QuizzesCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: QuizzesAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: QuizzesSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: QuizzesMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: QuizzesMaxAggregateInputType
+  }
+
+  export type GetQuizzesAggregateType<T extends QuizzesAggregateArgs> = {
+        [P in keyof T & keyof AggregateQuizzes]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateQuizzes[P]>
+      : GetScalarType<T[P], AggregateQuizzes[P]>
+  }
+
+
+
+
+  export type QuizzesGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: QuizzesWhereInput
+    orderBy?: QuizzesOrderByWithAggregationInput | QuizzesOrderByWithAggregationInput[]
+    by: QuizzesScalarFieldEnum[] | QuizzesScalarFieldEnum
+    having?: QuizzesScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: QuizzesCountAggregateInputType | true
+    _avg?: QuizzesAvgAggregateInputType
+    _sum?: QuizzesSumAggregateInputType
+    _min?: QuizzesMinAggregateInputType
+    _max?: QuizzesMaxAggregateInputType
+  }
+
+  export type QuizzesGroupByOutputType = {
+    id: number
+    name: string
+    category: string
+    description: string
+    time: Date | null
+    question_count: number
+    participants_count: number
+    time_limit: number
+    user_id: number
+    created_at: Date
+    modified_at: Date
+    status: $Enums.QuizStatus
+    level: $Enums.quiz_difficulty_level
+    _count: QuizzesCountAggregateOutputType | null
+    _avg: QuizzesAvgAggregateOutputType | null
+    _sum: QuizzesSumAggregateOutputType | null
+    _min: QuizzesMinAggregateOutputType | null
+    _max: QuizzesMaxAggregateOutputType | null
+  }
+
+  type GetQuizzesGroupByPayload<T extends QuizzesGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<QuizzesGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof QuizzesGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], QuizzesGroupByOutputType[P]>
+            : GetScalarType<T[P], QuizzesGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type QuizzesSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    name?: boolean
+    category?: boolean
+    description?: boolean
+    time?: boolean
+    question_count?: boolean
+    participants_count?: boolean
+    time_limit?: boolean
+    user_id?: boolean
+    created_at?: boolean
+    modified_at?: boolean
+    status?: boolean
+    level?: boolean
+    QuizParticipants?: boolean | Quizzes$QuizParticipantsArgs<ExtArgs>
+    QuizQuestion?: boolean | Quizzes$QuizQuestionArgs<ExtArgs>
+    users?: boolean | usersDefaultArgs<ExtArgs>
+    _count?: boolean | QuizzesCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["quizzes"]>
+
+  export type QuizzesSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    name?: boolean
+    category?: boolean
+    description?: boolean
+    time?: boolean
+    question_count?: boolean
+    participants_count?: boolean
+    time_limit?: boolean
+    user_id?: boolean
+    created_at?: boolean
+    modified_at?: boolean
+    status?: boolean
+    level?: boolean
+    users?: boolean | usersDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["quizzes"]>
+
+  export type QuizzesSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    name?: boolean
+    category?: boolean
+    description?: boolean
+    time?: boolean
+    question_count?: boolean
+    participants_count?: boolean
+    time_limit?: boolean
+    user_id?: boolean
+    created_at?: boolean
+    modified_at?: boolean
+    status?: boolean
+    level?: boolean
+    users?: boolean | usersDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["quizzes"]>
+
+  export type QuizzesSelectScalar = {
+    id?: boolean
+    name?: boolean
+    category?: boolean
+    description?: boolean
+    time?: boolean
+    question_count?: boolean
+    participants_count?: boolean
+    time_limit?: boolean
+    user_id?: boolean
+    created_at?: boolean
+    modified_at?: boolean
+    status?: boolean
+    level?: boolean
+  }
+
+  export type QuizzesOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "category" | "description" | "time" | "question_count" | "participants_count" | "time_limit" | "user_id" | "created_at" | "modified_at" | "status" | "level", ExtArgs["result"]["quizzes"]>
+  export type QuizzesInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    QuizParticipants?: boolean | Quizzes$QuizParticipantsArgs<ExtArgs>
+    QuizQuestion?: boolean | Quizzes$QuizQuestionArgs<ExtArgs>
+    users?: boolean | usersDefaultArgs<ExtArgs>
+    _count?: boolean | QuizzesCountOutputTypeDefaultArgs<ExtArgs>
+  }
+  export type QuizzesIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    users?: boolean | usersDefaultArgs<ExtArgs>
+  }
+  export type QuizzesIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    users?: boolean | usersDefaultArgs<ExtArgs>
+  }
+
+  export type $QuizzesPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "Quizzes"
+    objects: {
+      QuizParticipants: Prisma.$QuizParticipantsPayload<ExtArgs>[]
+      QuizQuestion: Prisma.$QuizQuestionPayload<ExtArgs>[]
+      users: Prisma.$usersPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: number
+      name: string
+      category: string
+      description: string
+      time: Date | null
+      question_count: number
+      participants_count: number
+      time_limit: number
+      user_id: number
+      created_at: Date
+      modified_at: Date
+      status: $Enums.QuizStatus
+      level: $Enums.quiz_difficulty_level
+    }, ExtArgs["result"]["quizzes"]>
+    composites: {}
+  }
+
+  type QuizzesGetPayload<S extends boolean | null | undefined | QuizzesDefaultArgs> = $Result.GetResult<Prisma.$QuizzesPayload, S>
+
+  type QuizzesCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<QuizzesFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: QuizzesCountAggregateInputType | true
+    }
+
+  export interface QuizzesDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Quizzes'], meta: { name: 'Quizzes' } }
+    /**
+     * Find zero or one Quizzes that matches the filter.
+     * @param {QuizzesFindUniqueArgs} args - Arguments to find a Quizzes
+     * @example
+     * // Get one Quizzes
+     * const quizzes = await prisma.quizzes.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends QuizzesFindUniqueArgs>(args: SelectSubset<T, QuizzesFindUniqueArgs<ExtArgs>>): Prisma__QuizzesClient<$Result.GetResult<Prisma.$QuizzesPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Quizzes that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {QuizzesFindUniqueOrThrowArgs} args - Arguments to find a Quizzes
+     * @example
+     * // Get one Quizzes
+     * const quizzes = await prisma.quizzes.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends QuizzesFindUniqueOrThrowArgs>(args: SelectSubset<T, QuizzesFindUniqueOrThrowArgs<ExtArgs>>): Prisma__QuizzesClient<$Result.GetResult<Prisma.$QuizzesPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Quizzes that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {QuizzesFindFirstArgs} args - Arguments to find a Quizzes
+     * @example
+     * // Get one Quizzes
+     * const quizzes = await prisma.quizzes.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends QuizzesFindFirstArgs>(args?: SelectSubset<T, QuizzesFindFirstArgs<ExtArgs>>): Prisma__QuizzesClient<$Result.GetResult<Prisma.$QuizzesPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Quizzes that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {QuizzesFindFirstOrThrowArgs} args - Arguments to find a Quizzes
+     * @example
+     * // Get one Quizzes
+     * const quizzes = await prisma.quizzes.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends QuizzesFindFirstOrThrowArgs>(args?: SelectSubset<T, QuizzesFindFirstOrThrowArgs<ExtArgs>>): Prisma__QuizzesClient<$Result.GetResult<Prisma.$QuizzesPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Quizzes that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {QuizzesFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Quizzes
+     * const quizzes = await prisma.quizzes.findMany()
+     * 
+     * // Get first 10 Quizzes
+     * const quizzes = await prisma.quizzes.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const quizzesWithIdOnly = await prisma.quizzes.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends QuizzesFindManyArgs>(args?: SelectSubset<T, QuizzesFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$QuizzesPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Quizzes.
+     * @param {QuizzesCreateArgs} args - Arguments to create a Quizzes.
+     * @example
+     * // Create one Quizzes
+     * const Quizzes = await prisma.quizzes.create({
+     *   data: {
+     *     // ... data to create a Quizzes
+     *   }
+     * })
+     * 
+     */
+    create<T extends QuizzesCreateArgs>(args: SelectSubset<T, QuizzesCreateArgs<ExtArgs>>): Prisma__QuizzesClient<$Result.GetResult<Prisma.$QuizzesPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Quizzes.
+     * @param {QuizzesCreateManyArgs} args - Arguments to create many Quizzes.
+     * @example
+     * // Create many Quizzes
+     * const quizzes = await prisma.quizzes.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends QuizzesCreateManyArgs>(args?: SelectSubset<T, QuizzesCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many Quizzes and returns the data saved in the database.
+     * @param {QuizzesCreateManyAndReturnArgs} args - Arguments to create many Quizzes.
+     * @example
+     * // Create many Quizzes
+     * const quizzes = await prisma.quizzes.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many Quizzes and only return the `id`
+     * const quizzesWithIdOnly = await prisma.quizzes.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends QuizzesCreateManyAndReturnArgs>(args?: SelectSubset<T, QuizzesCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$QuizzesPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a Quizzes.
+     * @param {QuizzesDeleteArgs} args - Arguments to delete one Quizzes.
+     * @example
+     * // Delete one Quizzes
+     * const Quizzes = await prisma.quizzes.delete({
+     *   where: {
+     *     // ... filter to delete one Quizzes
+     *   }
+     * })
+     * 
+     */
+    delete<T extends QuizzesDeleteArgs>(args: SelectSubset<T, QuizzesDeleteArgs<ExtArgs>>): Prisma__QuizzesClient<$Result.GetResult<Prisma.$QuizzesPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Quizzes.
+     * @param {QuizzesUpdateArgs} args - Arguments to update one Quizzes.
+     * @example
+     * // Update one Quizzes
+     * const quizzes = await prisma.quizzes.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends QuizzesUpdateArgs>(args: SelectSubset<T, QuizzesUpdateArgs<ExtArgs>>): Prisma__QuizzesClient<$Result.GetResult<Prisma.$QuizzesPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Quizzes.
+     * @param {QuizzesDeleteManyArgs} args - Arguments to filter Quizzes to delete.
+     * @example
+     * // Delete a few Quizzes
+     * const { count } = await prisma.quizzes.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends QuizzesDeleteManyArgs>(args?: SelectSubset<T, QuizzesDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Quizzes.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {QuizzesUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Quizzes
+     * const quizzes = await prisma.quizzes.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends QuizzesUpdateManyArgs>(args: SelectSubset<T, QuizzesUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Quizzes and returns the data updated in the database.
+     * @param {QuizzesUpdateManyAndReturnArgs} args - Arguments to update many Quizzes.
+     * @example
+     * // Update many Quizzes
+     * const quizzes = await prisma.quizzes.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more Quizzes and only return the `id`
+     * const quizzesWithIdOnly = await prisma.quizzes.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends QuizzesUpdateManyAndReturnArgs>(args: SelectSubset<T, QuizzesUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$QuizzesPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one Quizzes.
+     * @param {QuizzesUpsertArgs} args - Arguments to update or create a Quizzes.
+     * @example
+     * // Update or create a Quizzes
+     * const quizzes = await prisma.quizzes.upsert({
+     *   create: {
+     *     // ... data to create a Quizzes
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Quizzes we want to update
+     *   }
+     * })
+     */
+    upsert<T extends QuizzesUpsertArgs>(args: SelectSubset<T, QuizzesUpsertArgs<ExtArgs>>): Prisma__QuizzesClient<$Result.GetResult<Prisma.$QuizzesPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of Quizzes.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {QuizzesCountArgs} args - Arguments to filter Quizzes to count.
+     * @example
+     * // Count the number of Quizzes
+     * const count = await prisma.quizzes.count({
+     *   where: {
+     *     // ... the filter for the Quizzes we want to count
+     *   }
+     * })
+    **/
+    count<T extends QuizzesCountArgs>(
+      args?: Subset<T, QuizzesCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], QuizzesCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Quizzes.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {QuizzesAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends QuizzesAggregateArgs>(args: Subset<T, QuizzesAggregateArgs>): Prisma.PrismaPromise<GetQuizzesAggregateType<T>>
+
+    /**
+     * Group by Quizzes.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {QuizzesGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends QuizzesGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: QuizzesGroupByArgs['orderBy'] }
+        : { orderBy?: QuizzesGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, QuizzesGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetQuizzesGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the Quizzes model
+   */
+  readonly fields: QuizzesFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for Quizzes.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__QuizzesClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    QuizParticipants<T extends Quizzes$QuizParticipantsArgs<ExtArgs> = {}>(args?: Subset<T, Quizzes$QuizParticipantsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$QuizParticipantsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    QuizQuestion<T extends Quizzes$QuizQuestionArgs<ExtArgs> = {}>(args?: Subset<T, Quizzes$QuizQuestionArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$QuizQuestionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    users<T extends usersDefaultArgs<ExtArgs> = {}>(args?: Subset<T, usersDefaultArgs<ExtArgs>>): Prisma__usersClient<$Result.GetResult<Prisma.$usersPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the Quizzes model
+   */
+  interface QuizzesFieldRefs {
+    readonly id: FieldRef<"Quizzes", 'Int'>
+    readonly name: FieldRef<"Quizzes", 'String'>
+    readonly category: FieldRef<"Quizzes", 'String'>
+    readonly description: FieldRef<"Quizzes", 'String'>
+    readonly time: FieldRef<"Quizzes", 'DateTime'>
+    readonly question_count: FieldRef<"Quizzes", 'Int'>
+    readonly participants_count: FieldRef<"Quizzes", 'Int'>
+    readonly time_limit: FieldRef<"Quizzes", 'Int'>
+    readonly user_id: FieldRef<"Quizzes", 'Int'>
+    readonly created_at: FieldRef<"Quizzes", 'DateTime'>
+    readonly modified_at: FieldRef<"Quizzes", 'DateTime'>
+    readonly status: FieldRef<"Quizzes", 'QuizStatus'>
+    readonly level: FieldRef<"Quizzes", 'quiz_difficulty_level'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * Quizzes findUnique
+   */
+  export type QuizzesFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Quizzes
+     */
+    select?: QuizzesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Quizzes
+     */
+    omit?: QuizzesOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: QuizzesInclude<ExtArgs> | null
+    /**
+     * Filter, which Quizzes to fetch.
+     */
+    where: QuizzesWhereUniqueInput
+  }
+
+  /**
+   * Quizzes findUniqueOrThrow
+   */
+  export type QuizzesFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Quizzes
+     */
+    select?: QuizzesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Quizzes
+     */
+    omit?: QuizzesOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: QuizzesInclude<ExtArgs> | null
+    /**
+     * Filter, which Quizzes to fetch.
+     */
+    where: QuizzesWhereUniqueInput
+  }
+
+  /**
+   * Quizzes findFirst
+   */
+  export type QuizzesFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Quizzes
+     */
+    select?: QuizzesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Quizzes
+     */
+    omit?: QuizzesOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: QuizzesInclude<ExtArgs> | null
+    /**
+     * Filter, which Quizzes to fetch.
+     */
+    where?: QuizzesWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Quizzes to fetch.
+     */
+    orderBy?: QuizzesOrderByWithRelationInput | QuizzesOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Quizzes.
+     */
+    cursor?: QuizzesWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Quizzes from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Quizzes.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Quizzes.
+     */
+    distinct?: QuizzesScalarFieldEnum | QuizzesScalarFieldEnum[]
+  }
+
+  /**
+   * Quizzes findFirstOrThrow
+   */
+  export type QuizzesFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Quizzes
+     */
+    select?: QuizzesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Quizzes
+     */
+    omit?: QuizzesOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: QuizzesInclude<ExtArgs> | null
+    /**
+     * Filter, which Quizzes to fetch.
+     */
+    where?: QuizzesWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Quizzes to fetch.
+     */
+    orderBy?: QuizzesOrderByWithRelationInput | QuizzesOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Quizzes.
+     */
+    cursor?: QuizzesWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Quizzes from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Quizzes.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Quizzes.
+     */
+    distinct?: QuizzesScalarFieldEnum | QuizzesScalarFieldEnum[]
+  }
+
+  /**
+   * Quizzes findMany
+   */
+  export type QuizzesFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Quizzes
+     */
+    select?: QuizzesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Quizzes
+     */
+    omit?: QuizzesOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: QuizzesInclude<ExtArgs> | null
+    /**
+     * Filter, which Quizzes to fetch.
+     */
+    where?: QuizzesWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Quizzes to fetch.
+     */
+    orderBy?: QuizzesOrderByWithRelationInput | QuizzesOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing Quizzes.
+     */
+    cursor?: QuizzesWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Quizzes from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Quizzes.
+     */
+    skip?: number
+    distinct?: QuizzesScalarFieldEnum | QuizzesScalarFieldEnum[]
+  }
+
+  /**
+   * Quizzes create
+   */
+  export type QuizzesCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Quizzes
+     */
+    select?: QuizzesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Quizzes
+     */
+    omit?: QuizzesOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: QuizzesInclude<ExtArgs> | null
+    /**
+     * The data needed to create a Quizzes.
+     */
+    data: XOR<QuizzesCreateInput, QuizzesUncheckedCreateInput>
+  }
+
+  /**
+   * Quizzes createMany
+   */
+  export type QuizzesCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many Quizzes.
+     */
+    data: QuizzesCreateManyInput | QuizzesCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * Quizzes createManyAndReturn
+   */
+  export type QuizzesCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Quizzes
+     */
+    select?: QuizzesSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Quizzes
+     */
+    omit?: QuizzesOmit<ExtArgs> | null
+    /**
+     * The data used to create many Quizzes.
+     */
+    data: QuizzesCreateManyInput | QuizzesCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: QuizzesIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * Quizzes update
+   */
+  export type QuizzesUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Quizzes
+     */
+    select?: QuizzesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Quizzes
+     */
+    omit?: QuizzesOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: QuizzesInclude<ExtArgs> | null
+    /**
+     * The data needed to update a Quizzes.
+     */
+    data: XOR<QuizzesUpdateInput, QuizzesUncheckedUpdateInput>
+    /**
+     * Choose, which Quizzes to update.
+     */
+    where: QuizzesWhereUniqueInput
+  }
+
+  /**
+   * Quizzes updateMany
+   */
+  export type QuizzesUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update Quizzes.
+     */
+    data: XOR<QuizzesUpdateManyMutationInput, QuizzesUncheckedUpdateManyInput>
+    /**
+     * Filter which Quizzes to update
+     */
+    where?: QuizzesWhereInput
+    /**
+     * Limit how many Quizzes to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * Quizzes updateManyAndReturn
+   */
+  export type QuizzesUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Quizzes
+     */
+    select?: QuizzesSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Quizzes
+     */
+    omit?: QuizzesOmit<ExtArgs> | null
+    /**
+     * The data used to update Quizzes.
+     */
+    data: XOR<QuizzesUpdateManyMutationInput, QuizzesUncheckedUpdateManyInput>
+    /**
+     * Filter which Quizzes to update
+     */
+    where?: QuizzesWhereInput
+    /**
+     * Limit how many Quizzes to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: QuizzesIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * Quizzes upsert
+   */
+  export type QuizzesUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Quizzes
+     */
+    select?: QuizzesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Quizzes
+     */
+    omit?: QuizzesOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: QuizzesInclude<ExtArgs> | null
+    /**
+     * The filter to search for the Quizzes to update in case it exists.
+     */
+    where: QuizzesWhereUniqueInput
+    /**
+     * In case the Quizzes found by the `where` argument doesn't exist, create a new Quizzes with this data.
+     */
+    create: XOR<QuizzesCreateInput, QuizzesUncheckedCreateInput>
+    /**
+     * In case the Quizzes was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<QuizzesUpdateInput, QuizzesUncheckedUpdateInput>
+  }
+
+  /**
+   * Quizzes delete
+   */
+  export type QuizzesDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Quizzes
+     */
+    select?: QuizzesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Quizzes
+     */
+    omit?: QuizzesOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: QuizzesInclude<ExtArgs> | null
+    /**
+     * Filter which Quizzes to delete.
+     */
+    where: QuizzesWhereUniqueInput
+  }
+
+  /**
+   * Quizzes deleteMany
+   */
+  export type QuizzesDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Quizzes to delete
+     */
+    where?: QuizzesWhereInput
+    /**
+     * Limit how many Quizzes to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * Quizzes.QuizParticipants
+   */
+  export type Quizzes$QuizParticipantsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the QuizParticipants
+     */
+    select?: QuizParticipantsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the QuizParticipants
+     */
+    omit?: QuizParticipantsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: QuizParticipantsInclude<ExtArgs> | null
+    where?: QuizParticipantsWhereInput
+    orderBy?: QuizParticipantsOrderByWithRelationInput | QuizParticipantsOrderByWithRelationInput[]
+    cursor?: QuizParticipantsWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: QuizParticipantsScalarFieldEnum | QuizParticipantsScalarFieldEnum[]
+  }
+
+  /**
+   * Quizzes.QuizQuestion
+   */
+  export type Quizzes$QuizQuestionArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the QuizQuestion
+     */
+    select?: QuizQuestionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the QuizQuestion
+     */
+    omit?: QuizQuestionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: QuizQuestionInclude<ExtArgs> | null
+    where?: QuizQuestionWhereInput
+    orderBy?: QuizQuestionOrderByWithRelationInput | QuizQuestionOrderByWithRelationInput[]
+    cursor?: QuizQuestionWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: QuizQuestionScalarFieldEnum | QuizQuestionScalarFieldEnum[]
+  }
+
+  /**
+   * Quizzes without action
+   */
+  export type QuizzesDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Quizzes
+     */
+    select?: QuizzesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Quizzes
+     */
+    omit?: QuizzesOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: QuizzesInclude<ExtArgs> | null
+  }
+
+
+  /**
    * Enums
    */
 
@@ -35072,6 +40203,61 @@ export namespace Prisma {
   export type Influencer_applicationScalarFieldEnum = (typeof Influencer_applicationScalarFieldEnum)[keyof typeof Influencer_applicationScalarFieldEnum]
 
 
+  export const Media_uploadsScalarFieldEnum: {
+    id: 'id',
+    user_id: 'user_id',
+    file_name: 'file_name',
+    file_path: 'file_path',
+    file_type: 'file_type',
+    file_size: 'file_size',
+    created_at: 'created_at'
+  };
+
+  export type Media_uploadsScalarFieldEnum = (typeof Media_uploadsScalarFieldEnum)[keyof typeof Media_uploadsScalarFieldEnum]
+
+
+  export const QuizParticipantsScalarFieldEnum: {
+    id: 'id',
+    quiz_id: 'quiz_id',
+    user_id: 'user_id',
+    correct_question_count: 'correct_question_count',
+    score: 'score'
+  };
+
+  export type QuizParticipantsScalarFieldEnum = (typeof QuizParticipantsScalarFieldEnum)[keyof typeof QuizParticipantsScalarFieldEnum]
+
+
+  export const QuizQuestionScalarFieldEnum: {
+    id: 'id',
+    quiz_id: 'quiz_id',
+    question: 'question',
+    answers: 'answers',
+    correct_answer: 'correct_answer',
+    question_explanation: 'question_explanation'
+  };
+
+  export type QuizQuestionScalarFieldEnum = (typeof QuizQuestionScalarFieldEnum)[keyof typeof QuizQuestionScalarFieldEnum]
+
+
+  export const QuizzesScalarFieldEnum: {
+    id: 'id',
+    name: 'name',
+    category: 'category',
+    description: 'description',
+    time: 'time',
+    question_count: 'question_count',
+    participants_count: 'participants_count',
+    time_limit: 'time_limit',
+    user_id: 'user_id',
+    created_at: 'created_at',
+    modified_at: 'modified_at',
+    status: 'status',
+    level: 'level'
+  };
+
+  export type QuizzesScalarFieldEnum = (typeof QuizzesScalarFieldEnum)[keyof typeof QuizzesScalarFieldEnum]
+
+
   export const SortOrder: {
     asc: 'asc',
     desc: 'desc'
@@ -35311,6 +40497,34 @@ export namespace Prisma {
    * Reference to a field of type 'session_format[]'
    */
   export type ListEnumsession_formatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'session_format[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'QuizStatus'
+   */
+  export type EnumQuizStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'QuizStatus'>
+    
+
+
+  /**
+   * Reference to a field of type 'QuizStatus[]'
+   */
+  export type ListEnumQuizStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'QuizStatus[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'quiz_difficulty_level'
+   */
+  export type Enumquiz_difficulty_levelFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'quiz_difficulty_level'>
+    
+
+
+  /**
+   * Reference to a field of type 'quiz_difficulty_level[]'
+   */
+  export type ListEnumquiz_difficulty_levelFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'quiz_difficulty_level[]'>
     
 
 
@@ -36334,6 +41548,8 @@ export namespace Prisma {
     auto_renew?: BoolNullableFilter<"users"> | boolean | null
     chatbot_questions_used?: IntNullableFilter<"users"> | number | null
     chatbot_questions_reset_date?: DateTimeNullableFilter<"users"> | Date | string | null
+    QuizParticipants?: QuizParticipantsListRelationFilter
+    Quizzes?: QuizzesListRelationFilter
     blog_comments?: Blog_commentsListRelationFilter
     blog_likes?: Blog_likesListRelationFilter
     blog_views?: Blog_viewsListRelationFilter
@@ -36342,6 +41558,7 @@ export namespace Prisma {
     chatbot_usage?: Chatbot_usageListRelationFilter
     guide_application?: Guide_applicationListRelationFilter
     influencer_application?: Influencer_applicationListRelationFilter
+    media_uploads?: Media_uploadsListRelationFilter
     mentor_application?: Mentor_applicationListRelationFilter
     night_camp_registrations?: Night_camp_registrationsListRelationFilter
     night_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousers?: Night_camp_volunteering_applicationsListRelationFilter
@@ -36374,6 +41591,8 @@ export namespace Prisma {
     auto_renew?: SortOrderInput | SortOrder
     chatbot_questions_used?: SortOrderInput | SortOrder
     chatbot_questions_reset_date?: SortOrderInput | SortOrder
+    QuizParticipants?: QuizParticipantsOrderByRelationAggregateInput
+    Quizzes?: QuizzesOrderByRelationAggregateInput
     blog_comments?: blog_commentsOrderByRelationAggregateInput
     blog_likes?: blog_likesOrderByRelationAggregateInput
     blog_views?: blog_viewsOrderByRelationAggregateInput
@@ -36382,6 +41601,7 @@ export namespace Prisma {
     chatbot_usage?: chatbot_usageOrderByRelationAggregateInput
     guide_application?: guide_applicationOrderByRelationAggregateInput
     influencer_application?: influencer_applicationOrderByRelationAggregateInput
+    media_uploads?: media_uploadsOrderByRelationAggregateInput
     mentor_application?: mentor_applicationOrderByRelationAggregateInput
     night_camp_registrations?: night_camp_registrationsOrderByRelationAggregateInput
     night_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousers?: night_camp_volunteering_applicationsOrderByRelationAggregateInput
@@ -36417,6 +41637,8 @@ export namespace Prisma {
     auto_renew?: BoolNullableFilter<"users"> | boolean | null
     chatbot_questions_used?: IntNullableFilter<"users"> | number | null
     chatbot_questions_reset_date?: DateTimeNullableFilter<"users"> | Date | string | null
+    QuizParticipants?: QuizParticipantsListRelationFilter
+    Quizzes?: QuizzesListRelationFilter
     blog_comments?: Blog_commentsListRelationFilter
     blog_likes?: Blog_likesListRelationFilter
     blog_views?: Blog_viewsListRelationFilter
@@ -36425,6 +41647,7 @@ export namespace Prisma {
     chatbot_usage?: Chatbot_usageListRelationFilter
     guide_application?: Guide_applicationListRelationFilter
     influencer_application?: Influencer_applicationListRelationFilter
+    media_uploads?: Media_uploadsListRelationFilter
     mentor_application?: Mentor_applicationListRelationFilter
     night_camp_registrations?: Night_camp_registrationsListRelationFilter
     night_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousers?: Night_camp_volunteering_applicationsListRelationFilter
@@ -37693,6 +42916,298 @@ export namespace Prisma {
     updated_at?: DateTimeNullableWithAggregatesFilter<"influencer_application"> | Date | string | null
   }
 
+  export type media_uploadsWhereInput = {
+    AND?: media_uploadsWhereInput | media_uploadsWhereInput[]
+    OR?: media_uploadsWhereInput[]
+    NOT?: media_uploadsWhereInput | media_uploadsWhereInput[]
+    id?: IntFilter<"media_uploads"> | number
+    user_id?: IntFilter<"media_uploads"> | number
+    file_name?: StringFilter<"media_uploads"> | string
+    file_path?: StringFilter<"media_uploads"> | string
+    file_type?: StringFilter<"media_uploads"> | string
+    file_size?: IntFilter<"media_uploads"> | number
+    created_at?: DateTimeNullableFilter<"media_uploads"> | Date | string | null
+    user?: XOR<UsersScalarRelationFilter, usersWhereInput>
+  }
+
+  export type media_uploadsOrderByWithRelationInput = {
+    id?: SortOrder
+    user_id?: SortOrder
+    file_name?: SortOrder
+    file_path?: SortOrder
+    file_type?: SortOrder
+    file_size?: SortOrder
+    created_at?: SortOrderInput | SortOrder
+    user?: usersOrderByWithRelationInput
+  }
+
+  export type media_uploadsWhereUniqueInput = Prisma.AtLeast<{
+    id?: number
+    AND?: media_uploadsWhereInput | media_uploadsWhereInput[]
+    OR?: media_uploadsWhereInput[]
+    NOT?: media_uploadsWhereInput | media_uploadsWhereInput[]
+    user_id?: IntFilter<"media_uploads"> | number
+    file_name?: StringFilter<"media_uploads"> | string
+    file_path?: StringFilter<"media_uploads"> | string
+    file_type?: StringFilter<"media_uploads"> | string
+    file_size?: IntFilter<"media_uploads"> | number
+    created_at?: DateTimeNullableFilter<"media_uploads"> | Date | string | null
+    user?: XOR<UsersScalarRelationFilter, usersWhereInput>
+  }, "id">
+
+  export type media_uploadsOrderByWithAggregationInput = {
+    id?: SortOrder
+    user_id?: SortOrder
+    file_name?: SortOrder
+    file_path?: SortOrder
+    file_type?: SortOrder
+    file_size?: SortOrder
+    created_at?: SortOrderInput | SortOrder
+    _count?: media_uploadsCountOrderByAggregateInput
+    _avg?: media_uploadsAvgOrderByAggregateInput
+    _max?: media_uploadsMaxOrderByAggregateInput
+    _min?: media_uploadsMinOrderByAggregateInput
+    _sum?: media_uploadsSumOrderByAggregateInput
+  }
+
+  export type media_uploadsScalarWhereWithAggregatesInput = {
+    AND?: media_uploadsScalarWhereWithAggregatesInput | media_uploadsScalarWhereWithAggregatesInput[]
+    OR?: media_uploadsScalarWhereWithAggregatesInput[]
+    NOT?: media_uploadsScalarWhereWithAggregatesInput | media_uploadsScalarWhereWithAggregatesInput[]
+    id?: IntWithAggregatesFilter<"media_uploads"> | number
+    user_id?: IntWithAggregatesFilter<"media_uploads"> | number
+    file_name?: StringWithAggregatesFilter<"media_uploads"> | string
+    file_path?: StringWithAggregatesFilter<"media_uploads"> | string
+    file_type?: StringWithAggregatesFilter<"media_uploads"> | string
+    file_size?: IntWithAggregatesFilter<"media_uploads"> | number
+    created_at?: DateTimeNullableWithAggregatesFilter<"media_uploads"> | Date | string | null
+  }
+
+  export type QuizParticipantsWhereInput = {
+    AND?: QuizParticipantsWhereInput | QuizParticipantsWhereInput[]
+    OR?: QuizParticipantsWhereInput[]
+    NOT?: QuizParticipantsWhereInput | QuizParticipantsWhereInput[]
+    id?: IntFilter<"QuizParticipants"> | number
+    quiz_id?: IntFilter<"QuizParticipants"> | number
+    user_id?: IntFilter<"QuizParticipants"> | number
+    correct_question_count?: IntFilter<"QuizParticipants"> | number
+    score?: IntFilter<"QuizParticipants"> | number
+    Quizzes?: XOR<QuizzesScalarRelationFilter, QuizzesWhereInput>
+    users?: XOR<UsersScalarRelationFilter, usersWhereInput>
+  }
+
+  export type QuizParticipantsOrderByWithRelationInput = {
+    id?: SortOrder
+    quiz_id?: SortOrder
+    user_id?: SortOrder
+    correct_question_count?: SortOrder
+    score?: SortOrder
+    Quizzes?: QuizzesOrderByWithRelationInput
+    users?: usersOrderByWithRelationInput
+  }
+
+  export type QuizParticipantsWhereUniqueInput = Prisma.AtLeast<{
+    id?: number
+    AND?: QuizParticipantsWhereInput | QuizParticipantsWhereInput[]
+    OR?: QuizParticipantsWhereInput[]
+    NOT?: QuizParticipantsWhereInput | QuizParticipantsWhereInput[]
+    quiz_id?: IntFilter<"QuizParticipants"> | number
+    user_id?: IntFilter<"QuizParticipants"> | number
+    correct_question_count?: IntFilter<"QuizParticipants"> | number
+    score?: IntFilter<"QuizParticipants"> | number
+    Quizzes?: XOR<QuizzesScalarRelationFilter, QuizzesWhereInput>
+    users?: XOR<UsersScalarRelationFilter, usersWhereInput>
+  }, "id">
+
+  export type QuizParticipantsOrderByWithAggregationInput = {
+    id?: SortOrder
+    quiz_id?: SortOrder
+    user_id?: SortOrder
+    correct_question_count?: SortOrder
+    score?: SortOrder
+    _count?: QuizParticipantsCountOrderByAggregateInput
+    _avg?: QuizParticipantsAvgOrderByAggregateInput
+    _max?: QuizParticipantsMaxOrderByAggregateInput
+    _min?: QuizParticipantsMinOrderByAggregateInput
+    _sum?: QuizParticipantsSumOrderByAggregateInput
+  }
+
+  export type QuizParticipantsScalarWhereWithAggregatesInput = {
+    AND?: QuizParticipantsScalarWhereWithAggregatesInput | QuizParticipantsScalarWhereWithAggregatesInput[]
+    OR?: QuizParticipantsScalarWhereWithAggregatesInput[]
+    NOT?: QuizParticipantsScalarWhereWithAggregatesInput | QuizParticipantsScalarWhereWithAggregatesInput[]
+    id?: IntWithAggregatesFilter<"QuizParticipants"> | number
+    quiz_id?: IntWithAggregatesFilter<"QuizParticipants"> | number
+    user_id?: IntWithAggregatesFilter<"QuizParticipants"> | number
+    correct_question_count?: IntWithAggregatesFilter<"QuizParticipants"> | number
+    score?: IntWithAggregatesFilter<"QuizParticipants"> | number
+  }
+
+  export type QuizQuestionWhereInput = {
+    AND?: QuizQuestionWhereInput | QuizQuestionWhereInput[]
+    OR?: QuizQuestionWhereInput[]
+    NOT?: QuizQuestionWhereInput | QuizQuestionWhereInput[]
+    id?: IntFilter<"QuizQuestion"> | number
+    quiz_id?: IntFilter<"QuizQuestion"> | number
+    question?: StringFilter<"QuizQuestion"> | string
+    answers?: StringNullableListFilter<"QuizQuestion">
+    correct_answer?: StringFilter<"QuizQuestion"> | string
+    question_explanation?: StringNullableFilter<"QuizQuestion"> | string | null
+    Quizzes?: XOR<QuizzesScalarRelationFilter, QuizzesWhereInput>
+  }
+
+  export type QuizQuestionOrderByWithRelationInput = {
+    id?: SortOrder
+    quiz_id?: SortOrder
+    question?: SortOrder
+    answers?: SortOrder
+    correct_answer?: SortOrder
+    question_explanation?: SortOrderInput | SortOrder
+    Quizzes?: QuizzesOrderByWithRelationInput
+  }
+
+  export type QuizQuestionWhereUniqueInput = Prisma.AtLeast<{
+    id?: number
+    AND?: QuizQuestionWhereInput | QuizQuestionWhereInput[]
+    OR?: QuizQuestionWhereInput[]
+    NOT?: QuizQuestionWhereInput | QuizQuestionWhereInput[]
+    quiz_id?: IntFilter<"QuizQuestion"> | number
+    question?: StringFilter<"QuizQuestion"> | string
+    answers?: StringNullableListFilter<"QuizQuestion">
+    correct_answer?: StringFilter<"QuizQuestion"> | string
+    question_explanation?: StringNullableFilter<"QuizQuestion"> | string | null
+    Quizzes?: XOR<QuizzesScalarRelationFilter, QuizzesWhereInput>
+  }, "id">
+
+  export type QuizQuestionOrderByWithAggregationInput = {
+    id?: SortOrder
+    quiz_id?: SortOrder
+    question?: SortOrder
+    answers?: SortOrder
+    correct_answer?: SortOrder
+    question_explanation?: SortOrderInput | SortOrder
+    _count?: QuizQuestionCountOrderByAggregateInput
+    _avg?: QuizQuestionAvgOrderByAggregateInput
+    _max?: QuizQuestionMaxOrderByAggregateInput
+    _min?: QuizQuestionMinOrderByAggregateInput
+    _sum?: QuizQuestionSumOrderByAggregateInput
+  }
+
+  export type QuizQuestionScalarWhereWithAggregatesInput = {
+    AND?: QuizQuestionScalarWhereWithAggregatesInput | QuizQuestionScalarWhereWithAggregatesInput[]
+    OR?: QuizQuestionScalarWhereWithAggregatesInput[]
+    NOT?: QuizQuestionScalarWhereWithAggregatesInput | QuizQuestionScalarWhereWithAggregatesInput[]
+    id?: IntWithAggregatesFilter<"QuizQuestion"> | number
+    quiz_id?: IntWithAggregatesFilter<"QuizQuestion"> | number
+    question?: StringWithAggregatesFilter<"QuizQuestion"> | string
+    answers?: StringNullableListFilter<"QuizQuestion">
+    correct_answer?: StringWithAggregatesFilter<"QuizQuestion"> | string
+    question_explanation?: StringNullableWithAggregatesFilter<"QuizQuestion"> | string | null
+  }
+
+  export type QuizzesWhereInput = {
+    AND?: QuizzesWhereInput | QuizzesWhereInput[]
+    OR?: QuizzesWhereInput[]
+    NOT?: QuizzesWhereInput | QuizzesWhereInput[]
+    id?: IntFilter<"Quizzes"> | number
+    name?: StringFilter<"Quizzes"> | string
+    category?: StringFilter<"Quizzes"> | string
+    description?: StringFilter<"Quizzes"> | string
+    time?: DateTimeNullableFilter<"Quizzes"> | Date | string | null
+    question_count?: IntFilter<"Quizzes"> | number
+    participants_count?: IntFilter<"Quizzes"> | number
+    time_limit?: IntFilter<"Quizzes"> | number
+    user_id?: IntFilter<"Quizzes"> | number
+    created_at?: DateTimeFilter<"Quizzes"> | Date | string
+    modified_at?: DateTimeFilter<"Quizzes"> | Date | string
+    status?: EnumQuizStatusFilter<"Quizzes"> | $Enums.QuizStatus
+    level?: Enumquiz_difficulty_levelFilter<"Quizzes"> | $Enums.quiz_difficulty_level
+    QuizParticipants?: QuizParticipantsListRelationFilter
+    QuizQuestion?: QuizQuestionListRelationFilter
+    users?: XOR<UsersScalarRelationFilter, usersWhereInput>
+  }
+
+  export type QuizzesOrderByWithRelationInput = {
+    id?: SortOrder
+    name?: SortOrder
+    category?: SortOrder
+    description?: SortOrder
+    time?: SortOrderInput | SortOrder
+    question_count?: SortOrder
+    participants_count?: SortOrder
+    time_limit?: SortOrder
+    user_id?: SortOrder
+    created_at?: SortOrder
+    modified_at?: SortOrder
+    status?: SortOrder
+    level?: SortOrder
+    QuizParticipants?: QuizParticipantsOrderByRelationAggregateInput
+    QuizQuestion?: QuizQuestionOrderByRelationAggregateInput
+    users?: usersOrderByWithRelationInput
+  }
+
+  export type QuizzesWhereUniqueInput = Prisma.AtLeast<{
+    id?: number
+    AND?: QuizzesWhereInput | QuizzesWhereInput[]
+    OR?: QuizzesWhereInput[]
+    NOT?: QuizzesWhereInput | QuizzesWhereInput[]
+    name?: StringFilter<"Quizzes"> | string
+    category?: StringFilter<"Quizzes"> | string
+    description?: StringFilter<"Quizzes"> | string
+    time?: DateTimeNullableFilter<"Quizzes"> | Date | string | null
+    question_count?: IntFilter<"Quizzes"> | number
+    participants_count?: IntFilter<"Quizzes"> | number
+    time_limit?: IntFilter<"Quizzes"> | number
+    user_id?: IntFilter<"Quizzes"> | number
+    created_at?: DateTimeFilter<"Quizzes"> | Date | string
+    modified_at?: DateTimeFilter<"Quizzes"> | Date | string
+    status?: EnumQuizStatusFilter<"Quizzes"> | $Enums.QuizStatus
+    level?: Enumquiz_difficulty_levelFilter<"Quizzes"> | $Enums.quiz_difficulty_level
+    QuizParticipants?: QuizParticipantsListRelationFilter
+    QuizQuestion?: QuizQuestionListRelationFilter
+    users?: XOR<UsersScalarRelationFilter, usersWhereInput>
+  }, "id">
+
+  export type QuizzesOrderByWithAggregationInput = {
+    id?: SortOrder
+    name?: SortOrder
+    category?: SortOrder
+    description?: SortOrder
+    time?: SortOrderInput | SortOrder
+    question_count?: SortOrder
+    participants_count?: SortOrder
+    time_limit?: SortOrder
+    user_id?: SortOrder
+    created_at?: SortOrder
+    modified_at?: SortOrder
+    status?: SortOrder
+    level?: SortOrder
+    _count?: QuizzesCountOrderByAggregateInput
+    _avg?: QuizzesAvgOrderByAggregateInput
+    _max?: QuizzesMaxOrderByAggregateInput
+    _min?: QuizzesMinOrderByAggregateInput
+    _sum?: QuizzesSumOrderByAggregateInput
+  }
+
+  export type QuizzesScalarWhereWithAggregatesInput = {
+    AND?: QuizzesScalarWhereWithAggregatesInput | QuizzesScalarWhereWithAggregatesInput[]
+    OR?: QuizzesScalarWhereWithAggregatesInput[]
+    NOT?: QuizzesScalarWhereWithAggregatesInput | QuizzesScalarWhereWithAggregatesInput[]
+    id?: IntWithAggregatesFilter<"Quizzes"> | number
+    name?: StringWithAggregatesFilter<"Quizzes"> | string
+    category?: StringWithAggregatesFilter<"Quizzes"> | string
+    description?: StringWithAggregatesFilter<"Quizzes"> | string
+    time?: DateTimeNullableWithAggregatesFilter<"Quizzes"> | Date | string | null
+    question_count?: IntWithAggregatesFilter<"Quizzes"> | number
+    participants_count?: IntWithAggregatesFilter<"Quizzes"> | number
+    time_limit?: IntWithAggregatesFilter<"Quizzes"> | number
+    user_id?: IntWithAggregatesFilter<"Quizzes"> | number
+    created_at?: DateTimeWithAggregatesFilter<"Quizzes"> | Date | string
+    modified_at?: DateTimeWithAggregatesFilter<"Quizzes"> | Date | string
+    status?: EnumQuizStatusWithAggregatesFilter<"Quizzes"> | $Enums.QuizStatus
+    level?: Enumquiz_difficulty_levelWithAggregatesFilter<"Quizzes"> | $Enums.quiz_difficulty_level
+  }
+
   export type subscriptionsCreateInput = {
     plan_type: $Enums.subscription_plan
     status?: $Enums.subscription_status | null
@@ -38738,6 +44253,8 @@ export namespace Prisma {
     auto_renew?: boolean | null
     chatbot_questions_used?: number | null
     chatbot_questions_reset_date?: Date | string | null
+    QuizParticipants?: QuizParticipantsCreateNestedManyWithoutUsersInput
+    Quizzes?: QuizzesCreateNestedManyWithoutUsersInput
     blog_comments?: blog_commentsCreateNestedManyWithoutUsersInput
     blog_likes?: blog_likesCreateNestedManyWithoutUsersInput
     blog_views?: blog_viewsCreateNestedManyWithoutUsersInput
@@ -38746,6 +44263,7 @@ export namespace Prisma {
     chatbot_usage?: chatbot_usageCreateNestedManyWithoutUsersInput
     guide_application?: guide_applicationCreateNestedManyWithoutUsersInput
     influencer_application?: influencer_applicationCreateNestedManyWithoutUsersInput
+    media_uploads?: media_uploadsCreateNestedManyWithoutUserInput
     mentor_application?: mentor_applicationCreateNestedManyWithoutUsersInput
     night_camp_registrations?: night_camp_registrationsCreateNestedManyWithoutUsersInput
     night_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousers?: night_camp_volunteering_applicationsCreateNestedManyWithoutUsers_night_camp_volunteering_applications_reviewed_byTousersInput
@@ -38778,6 +44296,8 @@ export namespace Prisma {
     auto_renew?: boolean | null
     chatbot_questions_used?: number | null
     chatbot_questions_reset_date?: Date | string | null
+    QuizParticipants?: QuizParticipantsUncheckedCreateNestedManyWithoutUsersInput
+    Quizzes?: QuizzesUncheckedCreateNestedManyWithoutUsersInput
     blog_comments?: blog_commentsUncheckedCreateNestedManyWithoutUsersInput
     blog_likes?: blog_likesUncheckedCreateNestedManyWithoutUsersInput
     blog_views?: blog_viewsUncheckedCreateNestedManyWithoutUsersInput
@@ -38786,6 +44306,7 @@ export namespace Prisma {
     chatbot_usage?: chatbot_usageUncheckedCreateNestedManyWithoutUsersInput
     guide_application?: guide_applicationUncheckedCreateNestedManyWithoutUsersInput
     influencer_application?: influencer_applicationUncheckedCreateNestedManyWithoutUsersInput
+    media_uploads?: media_uploadsUncheckedCreateNestedManyWithoutUserInput
     mentor_application?: mentor_applicationUncheckedCreateNestedManyWithoutUsersInput
     night_camp_registrations?: night_camp_registrationsUncheckedCreateNestedManyWithoutUsersInput
     night_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousers?: night_camp_volunteering_applicationsUncheckedCreateNestedManyWithoutUsers_night_camp_volunteering_applications_reviewed_byTousersInput
@@ -38817,6 +44338,8 @@ export namespace Prisma {
     auto_renew?: NullableBoolFieldUpdateOperationsInput | boolean | null
     chatbot_questions_used?: NullableIntFieldUpdateOperationsInput | number | null
     chatbot_questions_reset_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    QuizParticipants?: QuizParticipantsUpdateManyWithoutUsersNestedInput
+    Quizzes?: QuizzesUpdateManyWithoutUsersNestedInput
     blog_comments?: blog_commentsUpdateManyWithoutUsersNestedInput
     blog_likes?: blog_likesUpdateManyWithoutUsersNestedInput
     blog_views?: blog_viewsUpdateManyWithoutUsersNestedInput
@@ -38825,6 +44348,7 @@ export namespace Prisma {
     chatbot_usage?: chatbot_usageUpdateManyWithoutUsersNestedInput
     guide_application?: guide_applicationUpdateManyWithoutUsersNestedInput
     influencer_application?: influencer_applicationUpdateManyWithoutUsersNestedInput
+    media_uploads?: media_uploadsUpdateManyWithoutUserNestedInput
     mentor_application?: mentor_applicationUpdateManyWithoutUsersNestedInput
     night_camp_registrations?: night_camp_registrationsUpdateManyWithoutUsersNestedInput
     night_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousers?: night_camp_volunteering_applicationsUpdateManyWithoutUsers_night_camp_volunteering_applications_reviewed_byTousersNestedInput
@@ -38857,6 +44381,8 @@ export namespace Prisma {
     auto_renew?: NullableBoolFieldUpdateOperationsInput | boolean | null
     chatbot_questions_used?: NullableIntFieldUpdateOperationsInput | number | null
     chatbot_questions_reset_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    QuizParticipants?: QuizParticipantsUncheckedUpdateManyWithoutUsersNestedInput
+    Quizzes?: QuizzesUncheckedUpdateManyWithoutUsersNestedInput
     blog_comments?: blog_commentsUncheckedUpdateManyWithoutUsersNestedInput
     blog_likes?: blog_likesUncheckedUpdateManyWithoutUsersNestedInput
     blog_views?: blog_viewsUncheckedUpdateManyWithoutUsersNestedInput
@@ -38865,6 +44391,7 @@ export namespace Prisma {
     chatbot_usage?: chatbot_usageUncheckedUpdateManyWithoutUsersNestedInput
     guide_application?: guide_applicationUncheckedUpdateManyWithoutUsersNestedInput
     influencer_application?: influencer_applicationUncheckedUpdateManyWithoutUsersNestedInput
+    media_uploads?: media_uploadsUncheckedUpdateManyWithoutUserNestedInput
     mentor_application?: mentor_applicationUncheckedUpdateManyWithoutUsersNestedInput
     night_camp_registrations?: night_camp_registrationsUncheckedUpdateManyWithoutUsersNestedInput
     night_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousers?: night_camp_volunteering_applicationsUncheckedUpdateManyWithoutUsers_night_camp_volunteering_applications_reviewed_byTousersNestedInput
@@ -40265,6 +45792,298 @@ export namespace Prisma {
     updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
+  export type media_uploadsCreateInput = {
+    file_name: string
+    file_path: string
+    file_type: string
+    file_size: number
+    created_at?: Date | string | null
+    user: usersCreateNestedOneWithoutMedia_uploadsInput
+  }
+
+  export type media_uploadsUncheckedCreateInput = {
+    id?: number
+    user_id: number
+    file_name: string
+    file_path: string
+    file_type: string
+    file_size: number
+    created_at?: Date | string | null
+  }
+
+  export type media_uploadsUpdateInput = {
+    file_name?: StringFieldUpdateOperationsInput | string
+    file_path?: StringFieldUpdateOperationsInput | string
+    file_type?: StringFieldUpdateOperationsInput | string
+    file_size?: IntFieldUpdateOperationsInput | number
+    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    user?: usersUpdateOneRequiredWithoutMedia_uploadsNestedInput
+  }
+
+  export type media_uploadsUncheckedUpdateInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    user_id?: IntFieldUpdateOperationsInput | number
+    file_name?: StringFieldUpdateOperationsInput | string
+    file_path?: StringFieldUpdateOperationsInput | string
+    file_type?: StringFieldUpdateOperationsInput | string
+    file_size?: IntFieldUpdateOperationsInput | number
+    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
+  export type media_uploadsCreateManyInput = {
+    id?: number
+    user_id: number
+    file_name: string
+    file_path: string
+    file_type: string
+    file_size: number
+    created_at?: Date | string | null
+  }
+
+  export type media_uploadsUpdateManyMutationInput = {
+    file_name?: StringFieldUpdateOperationsInput | string
+    file_path?: StringFieldUpdateOperationsInput | string
+    file_type?: StringFieldUpdateOperationsInput | string
+    file_size?: IntFieldUpdateOperationsInput | number
+    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
+  export type media_uploadsUncheckedUpdateManyInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    user_id?: IntFieldUpdateOperationsInput | number
+    file_name?: StringFieldUpdateOperationsInput | string
+    file_path?: StringFieldUpdateOperationsInput | string
+    file_type?: StringFieldUpdateOperationsInput | string
+    file_size?: IntFieldUpdateOperationsInput | number
+    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
+  export type QuizParticipantsCreateInput = {
+    correct_question_count?: number
+    score?: number
+    Quizzes: QuizzesCreateNestedOneWithoutQuizParticipantsInput
+    users: usersCreateNestedOneWithoutQuizParticipantsInput
+  }
+
+  export type QuizParticipantsUncheckedCreateInput = {
+    id?: number
+    quiz_id: number
+    user_id: number
+    correct_question_count?: number
+    score?: number
+  }
+
+  export type QuizParticipantsUpdateInput = {
+    correct_question_count?: IntFieldUpdateOperationsInput | number
+    score?: IntFieldUpdateOperationsInput | number
+    Quizzes?: QuizzesUpdateOneRequiredWithoutQuizParticipantsNestedInput
+    users?: usersUpdateOneRequiredWithoutQuizParticipantsNestedInput
+  }
+
+  export type QuizParticipantsUncheckedUpdateInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    quiz_id?: IntFieldUpdateOperationsInput | number
+    user_id?: IntFieldUpdateOperationsInput | number
+    correct_question_count?: IntFieldUpdateOperationsInput | number
+    score?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type QuizParticipantsCreateManyInput = {
+    id?: number
+    quiz_id: number
+    user_id: number
+    correct_question_count?: number
+    score?: number
+  }
+
+  export type QuizParticipantsUpdateManyMutationInput = {
+    correct_question_count?: IntFieldUpdateOperationsInput | number
+    score?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type QuizParticipantsUncheckedUpdateManyInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    quiz_id?: IntFieldUpdateOperationsInput | number
+    user_id?: IntFieldUpdateOperationsInput | number
+    correct_question_count?: IntFieldUpdateOperationsInput | number
+    score?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type QuizQuestionCreateInput = {
+    question: string
+    answers?: QuizQuestionCreateanswersInput | string[]
+    correct_answer: string
+    question_explanation?: string | null
+    Quizzes: QuizzesCreateNestedOneWithoutQuizQuestionInput
+  }
+
+  export type QuizQuestionUncheckedCreateInput = {
+    id?: number
+    quiz_id: number
+    question: string
+    answers?: QuizQuestionCreateanswersInput | string[]
+    correct_answer: string
+    question_explanation?: string | null
+  }
+
+  export type QuizQuestionUpdateInput = {
+    question?: StringFieldUpdateOperationsInput | string
+    answers?: QuizQuestionUpdateanswersInput | string[]
+    correct_answer?: StringFieldUpdateOperationsInput | string
+    question_explanation?: NullableStringFieldUpdateOperationsInput | string | null
+    Quizzes?: QuizzesUpdateOneRequiredWithoutQuizQuestionNestedInput
+  }
+
+  export type QuizQuestionUncheckedUpdateInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    quiz_id?: IntFieldUpdateOperationsInput | number
+    question?: StringFieldUpdateOperationsInput | string
+    answers?: QuizQuestionUpdateanswersInput | string[]
+    correct_answer?: StringFieldUpdateOperationsInput | string
+    question_explanation?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type QuizQuestionCreateManyInput = {
+    id?: number
+    quiz_id: number
+    question: string
+    answers?: QuizQuestionCreateanswersInput | string[]
+    correct_answer: string
+    question_explanation?: string | null
+  }
+
+  export type QuizQuestionUpdateManyMutationInput = {
+    question?: StringFieldUpdateOperationsInput | string
+    answers?: QuizQuestionUpdateanswersInput | string[]
+    correct_answer?: StringFieldUpdateOperationsInput | string
+    question_explanation?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type QuizQuestionUncheckedUpdateManyInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    quiz_id?: IntFieldUpdateOperationsInput | number
+    question?: StringFieldUpdateOperationsInput | string
+    answers?: QuizQuestionUpdateanswersInput | string[]
+    correct_answer?: StringFieldUpdateOperationsInput | string
+    question_explanation?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type QuizzesCreateInput = {
+    name: string
+    category: string
+    description: string
+    time?: Date | string | null
+    question_count?: number
+    participants_count?: number
+    time_limit: number
+    created_at?: Date | string
+    modified_at: Date | string
+    status?: $Enums.QuizStatus
+    level: $Enums.quiz_difficulty_level
+    QuizParticipants?: QuizParticipantsCreateNestedManyWithoutQuizzesInput
+    QuizQuestion?: QuizQuestionCreateNestedManyWithoutQuizzesInput
+    users: usersCreateNestedOneWithoutQuizzesInput
+  }
+
+  export type QuizzesUncheckedCreateInput = {
+    id?: number
+    name: string
+    category: string
+    description: string
+    time?: Date | string | null
+    question_count?: number
+    participants_count?: number
+    time_limit: number
+    user_id: number
+    created_at?: Date | string
+    modified_at: Date | string
+    status?: $Enums.QuizStatus
+    level: $Enums.quiz_difficulty_level
+    QuizParticipants?: QuizParticipantsUncheckedCreateNestedManyWithoutQuizzesInput
+    QuizQuestion?: QuizQuestionUncheckedCreateNestedManyWithoutQuizzesInput
+  }
+
+  export type QuizzesUpdateInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    category?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    time?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    question_count?: IntFieldUpdateOperationsInput | number
+    participants_count?: IntFieldUpdateOperationsInput | number
+    time_limit?: IntFieldUpdateOperationsInput | number
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    modified_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    status?: EnumQuizStatusFieldUpdateOperationsInput | $Enums.QuizStatus
+    level?: Enumquiz_difficulty_levelFieldUpdateOperationsInput | $Enums.quiz_difficulty_level
+    QuizParticipants?: QuizParticipantsUpdateManyWithoutQuizzesNestedInput
+    QuizQuestion?: QuizQuestionUpdateManyWithoutQuizzesNestedInput
+    users?: usersUpdateOneRequiredWithoutQuizzesNestedInput
+  }
+
+  export type QuizzesUncheckedUpdateInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    name?: StringFieldUpdateOperationsInput | string
+    category?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    time?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    question_count?: IntFieldUpdateOperationsInput | number
+    participants_count?: IntFieldUpdateOperationsInput | number
+    time_limit?: IntFieldUpdateOperationsInput | number
+    user_id?: IntFieldUpdateOperationsInput | number
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    modified_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    status?: EnumQuizStatusFieldUpdateOperationsInput | $Enums.QuizStatus
+    level?: Enumquiz_difficulty_levelFieldUpdateOperationsInput | $Enums.quiz_difficulty_level
+    QuizParticipants?: QuizParticipantsUncheckedUpdateManyWithoutQuizzesNestedInput
+    QuizQuestion?: QuizQuestionUncheckedUpdateManyWithoutQuizzesNestedInput
+  }
+
+  export type QuizzesCreateManyInput = {
+    id?: number
+    name: string
+    category: string
+    description: string
+    time?: Date | string | null
+    question_count?: number
+    participants_count?: number
+    time_limit: number
+    user_id: number
+    created_at?: Date | string
+    modified_at: Date | string
+    status?: $Enums.QuizStatus
+    level: $Enums.quiz_difficulty_level
+  }
+
+  export type QuizzesUpdateManyMutationInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    category?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    time?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    question_count?: IntFieldUpdateOperationsInput | number
+    participants_count?: IntFieldUpdateOperationsInput | number
+    time_limit?: IntFieldUpdateOperationsInput | number
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    modified_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    status?: EnumQuizStatusFieldUpdateOperationsInput | $Enums.QuizStatus
+    level?: Enumquiz_difficulty_levelFieldUpdateOperationsInput | $Enums.quiz_difficulty_level
+  }
+
+  export type QuizzesUncheckedUpdateManyInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    name?: StringFieldUpdateOperationsInput | string
+    category?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    time?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    question_count?: IntFieldUpdateOperationsInput | number
+    participants_count?: IntFieldUpdateOperationsInput | number
+    time_limit?: IntFieldUpdateOperationsInput | number
+    user_id?: IntFieldUpdateOperationsInput | number
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    modified_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    status?: EnumQuizStatusFieldUpdateOperationsInput | $Enums.QuizStatus
+    level?: Enumquiz_difficulty_levelFieldUpdateOperationsInput | $Enums.quiz_difficulty_level
+  }
+
   export type IntFilter<$PrismaModel = never> = {
     equals?: number | IntFieldRefInput<$PrismaModel>
     in?: number[] | ListIntFieldRefInput<$PrismaModel>
@@ -41430,6 +47249,18 @@ export namespace Prisma {
     not?: NestedEnumsubscription_planNullableFilter<$PrismaModel> | $Enums.subscription_plan | null
   }
 
+  export type QuizParticipantsListRelationFilter = {
+    every?: QuizParticipantsWhereInput
+    some?: QuizParticipantsWhereInput
+    none?: QuizParticipantsWhereInput
+  }
+
+  export type QuizzesListRelationFilter = {
+    every?: QuizzesWhereInput
+    some?: QuizzesWhereInput
+    none?: QuizzesWhereInput
+  }
+
   export type BlogsListRelationFilter = {
     every?: blogsWhereInput
     some?: blogsWhereInput
@@ -41460,6 +47291,12 @@ export namespace Prisma {
     none?: influencer_applicationWhereInput
   }
 
+  export type Media_uploadsListRelationFilter = {
+    every?: media_uploadsWhereInput
+    some?: media_uploadsWhereInput
+    none?: media_uploadsWhereInput
+  }
+
   export type Mentor_applicationListRelationFilter = {
     every?: mentor_applicationWhereInput
     some?: mentor_applicationWhereInput
@@ -41483,6 +47320,14 @@ export namespace Prisma {
     isNot?: user_settingsWhereInput | null
   }
 
+  export type QuizParticipantsOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type QuizzesOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
   export type blogsOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
@@ -41500,6 +47345,10 @@ export namespace Prisma {
   }
 
   export type influencer_applicationOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type media_uploadsOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -42426,6 +48275,244 @@ export namespace Prisma {
     _max?: NestedEnumsession_formatNullableFilter<$PrismaModel>
   }
 
+  export type media_uploadsCountOrderByAggregateInput = {
+    id?: SortOrder
+    user_id?: SortOrder
+    file_name?: SortOrder
+    file_path?: SortOrder
+    file_type?: SortOrder
+    file_size?: SortOrder
+    created_at?: SortOrder
+  }
+
+  export type media_uploadsAvgOrderByAggregateInput = {
+    id?: SortOrder
+    user_id?: SortOrder
+    file_size?: SortOrder
+  }
+
+  export type media_uploadsMaxOrderByAggregateInput = {
+    id?: SortOrder
+    user_id?: SortOrder
+    file_name?: SortOrder
+    file_path?: SortOrder
+    file_type?: SortOrder
+    file_size?: SortOrder
+    created_at?: SortOrder
+  }
+
+  export type media_uploadsMinOrderByAggregateInput = {
+    id?: SortOrder
+    user_id?: SortOrder
+    file_name?: SortOrder
+    file_path?: SortOrder
+    file_type?: SortOrder
+    file_size?: SortOrder
+    created_at?: SortOrder
+  }
+
+  export type media_uploadsSumOrderByAggregateInput = {
+    id?: SortOrder
+    user_id?: SortOrder
+    file_size?: SortOrder
+  }
+
+  export type QuizzesScalarRelationFilter = {
+    is?: QuizzesWhereInput
+    isNot?: QuizzesWhereInput
+  }
+
+  export type QuizParticipantsCountOrderByAggregateInput = {
+    id?: SortOrder
+    quiz_id?: SortOrder
+    user_id?: SortOrder
+    correct_question_count?: SortOrder
+    score?: SortOrder
+  }
+
+  export type QuizParticipantsAvgOrderByAggregateInput = {
+    id?: SortOrder
+    quiz_id?: SortOrder
+    user_id?: SortOrder
+    correct_question_count?: SortOrder
+    score?: SortOrder
+  }
+
+  export type QuizParticipantsMaxOrderByAggregateInput = {
+    id?: SortOrder
+    quiz_id?: SortOrder
+    user_id?: SortOrder
+    correct_question_count?: SortOrder
+    score?: SortOrder
+  }
+
+  export type QuizParticipantsMinOrderByAggregateInput = {
+    id?: SortOrder
+    quiz_id?: SortOrder
+    user_id?: SortOrder
+    correct_question_count?: SortOrder
+    score?: SortOrder
+  }
+
+  export type QuizParticipantsSumOrderByAggregateInput = {
+    id?: SortOrder
+    quiz_id?: SortOrder
+    user_id?: SortOrder
+    correct_question_count?: SortOrder
+    score?: SortOrder
+  }
+
+  export type StringNullableListFilter<$PrismaModel = never> = {
+    equals?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    has?: string | StringFieldRefInput<$PrismaModel> | null
+    hasEvery?: string[] | ListStringFieldRefInput<$PrismaModel>
+    hasSome?: string[] | ListStringFieldRefInput<$PrismaModel>
+    isEmpty?: boolean
+  }
+
+  export type QuizQuestionCountOrderByAggregateInput = {
+    id?: SortOrder
+    quiz_id?: SortOrder
+    question?: SortOrder
+    answers?: SortOrder
+    correct_answer?: SortOrder
+    question_explanation?: SortOrder
+  }
+
+  export type QuizQuestionAvgOrderByAggregateInput = {
+    id?: SortOrder
+    quiz_id?: SortOrder
+  }
+
+  export type QuizQuestionMaxOrderByAggregateInput = {
+    id?: SortOrder
+    quiz_id?: SortOrder
+    question?: SortOrder
+    correct_answer?: SortOrder
+    question_explanation?: SortOrder
+  }
+
+  export type QuizQuestionMinOrderByAggregateInput = {
+    id?: SortOrder
+    quiz_id?: SortOrder
+    question?: SortOrder
+    correct_answer?: SortOrder
+    question_explanation?: SortOrder
+  }
+
+  export type QuizQuestionSumOrderByAggregateInput = {
+    id?: SortOrder
+    quiz_id?: SortOrder
+  }
+
+  export type EnumQuizStatusFilter<$PrismaModel = never> = {
+    equals?: $Enums.QuizStatus | EnumQuizStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.QuizStatus[] | ListEnumQuizStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.QuizStatus[] | ListEnumQuizStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumQuizStatusFilter<$PrismaModel> | $Enums.QuizStatus
+  }
+
+  export type Enumquiz_difficulty_levelFilter<$PrismaModel = never> = {
+    equals?: $Enums.quiz_difficulty_level | Enumquiz_difficulty_levelFieldRefInput<$PrismaModel>
+    in?: $Enums.quiz_difficulty_level[] | ListEnumquiz_difficulty_levelFieldRefInput<$PrismaModel>
+    notIn?: $Enums.quiz_difficulty_level[] | ListEnumquiz_difficulty_levelFieldRefInput<$PrismaModel>
+    not?: NestedEnumquiz_difficulty_levelFilter<$PrismaModel> | $Enums.quiz_difficulty_level
+  }
+
+  export type QuizQuestionListRelationFilter = {
+    every?: QuizQuestionWhereInput
+    some?: QuizQuestionWhereInput
+    none?: QuizQuestionWhereInput
+  }
+
+  export type QuizQuestionOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type QuizzesCountOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    category?: SortOrder
+    description?: SortOrder
+    time?: SortOrder
+    question_count?: SortOrder
+    participants_count?: SortOrder
+    time_limit?: SortOrder
+    user_id?: SortOrder
+    created_at?: SortOrder
+    modified_at?: SortOrder
+    status?: SortOrder
+    level?: SortOrder
+  }
+
+  export type QuizzesAvgOrderByAggregateInput = {
+    id?: SortOrder
+    question_count?: SortOrder
+    participants_count?: SortOrder
+    time_limit?: SortOrder
+    user_id?: SortOrder
+  }
+
+  export type QuizzesMaxOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    category?: SortOrder
+    description?: SortOrder
+    time?: SortOrder
+    question_count?: SortOrder
+    participants_count?: SortOrder
+    time_limit?: SortOrder
+    user_id?: SortOrder
+    created_at?: SortOrder
+    modified_at?: SortOrder
+    status?: SortOrder
+    level?: SortOrder
+  }
+
+  export type QuizzesMinOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    category?: SortOrder
+    description?: SortOrder
+    time?: SortOrder
+    question_count?: SortOrder
+    participants_count?: SortOrder
+    time_limit?: SortOrder
+    user_id?: SortOrder
+    created_at?: SortOrder
+    modified_at?: SortOrder
+    status?: SortOrder
+    level?: SortOrder
+  }
+
+  export type QuizzesSumOrderByAggregateInput = {
+    id?: SortOrder
+    question_count?: SortOrder
+    participants_count?: SortOrder
+    time_limit?: SortOrder
+    user_id?: SortOrder
+  }
+
+  export type EnumQuizStatusWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.QuizStatus | EnumQuizStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.QuizStatus[] | ListEnumQuizStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.QuizStatus[] | ListEnumQuizStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumQuizStatusWithAggregatesFilter<$PrismaModel> | $Enums.QuizStatus
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumQuizStatusFilter<$PrismaModel>
+    _max?: NestedEnumQuizStatusFilter<$PrismaModel>
+  }
+
+  export type Enumquiz_difficulty_levelWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.quiz_difficulty_level | Enumquiz_difficulty_levelFieldRefInput<$PrismaModel>
+    in?: $Enums.quiz_difficulty_level[] | ListEnumquiz_difficulty_levelFieldRefInput<$PrismaModel>
+    notIn?: $Enums.quiz_difficulty_level[] | ListEnumquiz_difficulty_levelFieldRefInput<$PrismaModel>
+    not?: NestedEnumquiz_difficulty_levelWithAggregatesFilter<$PrismaModel> | $Enums.quiz_difficulty_level
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumquiz_difficulty_levelFilter<$PrismaModel>
+    _max?: NestedEnumquiz_difficulty_levelFilter<$PrismaModel>
+  }
+
   export type paymentsCreateNestedManyWithoutSubscriptionsInput = {
     create?: XOR<paymentsCreateWithoutSubscriptionsInput, paymentsUncheckedCreateWithoutSubscriptionsInput> | paymentsCreateWithoutSubscriptionsInput[] | paymentsUncheckedCreateWithoutSubscriptionsInput[]
     connectOrCreate?: paymentsCreateOrConnectWithoutSubscriptionsInput | paymentsCreateOrConnectWithoutSubscriptionsInput[]
@@ -43302,6 +49389,20 @@ export namespace Prisma {
     deleteMany?: blog_commentsScalarWhereInput | blog_commentsScalarWhereInput[]
   }
 
+  export type QuizParticipantsCreateNestedManyWithoutUsersInput = {
+    create?: XOR<QuizParticipantsCreateWithoutUsersInput, QuizParticipantsUncheckedCreateWithoutUsersInput> | QuizParticipantsCreateWithoutUsersInput[] | QuizParticipantsUncheckedCreateWithoutUsersInput[]
+    connectOrCreate?: QuizParticipantsCreateOrConnectWithoutUsersInput | QuizParticipantsCreateOrConnectWithoutUsersInput[]
+    createMany?: QuizParticipantsCreateManyUsersInputEnvelope
+    connect?: QuizParticipantsWhereUniqueInput | QuizParticipantsWhereUniqueInput[]
+  }
+
+  export type QuizzesCreateNestedManyWithoutUsersInput = {
+    create?: XOR<QuizzesCreateWithoutUsersInput, QuizzesUncheckedCreateWithoutUsersInput> | QuizzesCreateWithoutUsersInput[] | QuizzesUncheckedCreateWithoutUsersInput[]
+    connectOrCreate?: QuizzesCreateOrConnectWithoutUsersInput | QuizzesCreateOrConnectWithoutUsersInput[]
+    createMany?: QuizzesCreateManyUsersInputEnvelope
+    connect?: QuizzesWhereUniqueInput | QuizzesWhereUniqueInput[]
+  }
+
   export type blog_commentsCreateNestedManyWithoutUsersInput = {
     create?: XOR<blog_commentsCreateWithoutUsersInput, blog_commentsUncheckedCreateWithoutUsersInput> | blog_commentsCreateWithoutUsersInput[] | blog_commentsUncheckedCreateWithoutUsersInput[]
     connectOrCreate?: blog_commentsCreateOrConnectWithoutUsersInput | blog_commentsCreateOrConnectWithoutUsersInput[]
@@ -43356,6 +49457,13 @@ export namespace Prisma {
     connectOrCreate?: influencer_applicationCreateOrConnectWithoutUsersInput | influencer_applicationCreateOrConnectWithoutUsersInput[]
     createMany?: influencer_applicationCreateManyUsersInputEnvelope
     connect?: influencer_applicationWhereUniqueInput | influencer_applicationWhereUniqueInput[]
+  }
+
+  export type media_uploadsCreateNestedManyWithoutUserInput = {
+    create?: XOR<media_uploadsCreateWithoutUserInput, media_uploadsUncheckedCreateWithoutUserInput> | media_uploadsCreateWithoutUserInput[] | media_uploadsUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: media_uploadsCreateOrConnectWithoutUserInput | media_uploadsCreateOrConnectWithoutUserInput[]
+    createMany?: media_uploadsCreateManyUserInputEnvelope
+    connect?: media_uploadsWhereUniqueInput | media_uploadsWhereUniqueInput[]
   }
 
   export type mentor_applicationCreateNestedManyWithoutUsersInput = {
@@ -43420,6 +49528,20 @@ export namespace Prisma {
     connect?: user_settingsWhereUniqueInput
   }
 
+  export type QuizParticipantsUncheckedCreateNestedManyWithoutUsersInput = {
+    create?: XOR<QuizParticipantsCreateWithoutUsersInput, QuizParticipantsUncheckedCreateWithoutUsersInput> | QuizParticipantsCreateWithoutUsersInput[] | QuizParticipantsUncheckedCreateWithoutUsersInput[]
+    connectOrCreate?: QuizParticipantsCreateOrConnectWithoutUsersInput | QuizParticipantsCreateOrConnectWithoutUsersInput[]
+    createMany?: QuizParticipantsCreateManyUsersInputEnvelope
+    connect?: QuizParticipantsWhereUniqueInput | QuizParticipantsWhereUniqueInput[]
+  }
+
+  export type QuizzesUncheckedCreateNestedManyWithoutUsersInput = {
+    create?: XOR<QuizzesCreateWithoutUsersInput, QuizzesUncheckedCreateWithoutUsersInput> | QuizzesCreateWithoutUsersInput[] | QuizzesUncheckedCreateWithoutUsersInput[]
+    connectOrCreate?: QuizzesCreateOrConnectWithoutUsersInput | QuizzesCreateOrConnectWithoutUsersInput[]
+    createMany?: QuizzesCreateManyUsersInputEnvelope
+    connect?: QuizzesWhereUniqueInput | QuizzesWhereUniqueInput[]
+  }
+
   export type blog_commentsUncheckedCreateNestedManyWithoutUsersInput = {
     create?: XOR<blog_commentsCreateWithoutUsersInput, blog_commentsUncheckedCreateWithoutUsersInput> | blog_commentsCreateWithoutUsersInput[] | blog_commentsUncheckedCreateWithoutUsersInput[]
     connectOrCreate?: blog_commentsCreateOrConnectWithoutUsersInput | blog_commentsCreateOrConnectWithoutUsersInput[]
@@ -43474,6 +49596,13 @@ export namespace Prisma {
     connectOrCreate?: influencer_applicationCreateOrConnectWithoutUsersInput | influencer_applicationCreateOrConnectWithoutUsersInput[]
     createMany?: influencer_applicationCreateManyUsersInputEnvelope
     connect?: influencer_applicationWhereUniqueInput | influencer_applicationWhereUniqueInput[]
+  }
+
+  export type media_uploadsUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<media_uploadsCreateWithoutUserInput, media_uploadsUncheckedCreateWithoutUserInput> | media_uploadsCreateWithoutUserInput[] | media_uploadsUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: media_uploadsCreateOrConnectWithoutUserInput | media_uploadsCreateOrConnectWithoutUserInput[]
+    createMany?: media_uploadsCreateManyUserInputEnvelope
+    connect?: media_uploadsWhereUniqueInput | media_uploadsWhereUniqueInput[]
   }
 
   export type mentor_applicationUncheckedCreateNestedManyWithoutUsersInput = {
@@ -43544,6 +49673,34 @@ export namespace Prisma {
 
   export type NullableEnumsubscription_planFieldUpdateOperationsInput = {
     set?: $Enums.subscription_plan | null
+  }
+
+  export type QuizParticipantsUpdateManyWithoutUsersNestedInput = {
+    create?: XOR<QuizParticipantsCreateWithoutUsersInput, QuizParticipantsUncheckedCreateWithoutUsersInput> | QuizParticipantsCreateWithoutUsersInput[] | QuizParticipantsUncheckedCreateWithoutUsersInput[]
+    connectOrCreate?: QuizParticipantsCreateOrConnectWithoutUsersInput | QuizParticipantsCreateOrConnectWithoutUsersInput[]
+    upsert?: QuizParticipantsUpsertWithWhereUniqueWithoutUsersInput | QuizParticipantsUpsertWithWhereUniqueWithoutUsersInput[]
+    createMany?: QuizParticipantsCreateManyUsersInputEnvelope
+    set?: QuizParticipantsWhereUniqueInput | QuizParticipantsWhereUniqueInput[]
+    disconnect?: QuizParticipantsWhereUniqueInput | QuizParticipantsWhereUniqueInput[]
+    delete?: QuizParticipantsWhereUniqueInput | QuizParticipantsWhereUniqueInput[]
+    connect?: QuizParticipantsWhereUniqueInput | QuizParticipantsWhereUniqueInput[]
+    update?: QuizParticipantsUpdateWithWhereUniqueWithoutUsersInput | QuizParticipantsUpdateWithWhereUniqueWithoutUsersInput[]
+    updateMany?: QuizParticipantsUpdateManyWithWhereWithoutUsersInput | QuizParticipantsUpdateManyWithWhereWithoutUsersInput[]
+    deleteMany?: QuizParticipantsScalarWhereInput | QuizParticipantsScalarWhereInput[]
+  }
+
+  export type QuizzesUpdateManyWithoutUsersNestedInput = {
+    create?: XOR<QuizzesCreateWithoutUsersInput, QuizzesUncheckedCreateWithoutUsersInput> | QuizzesCreateWithoutUsersInput[] | QuizzesUncheckedCreateWithoutUsersInput[]
+    connectOrCreate?: QuizzesCreateOrConnectWithoutUsersInput | QuizzesCreateOrConnectWithoutUsersInput[]
+    upsert?: QuizzesUpsertWithWhereUniqueWithoutUsersInput | QuizzesUpsertWithWhereUniqueWithoutUsersInput[]
+    createMany?: QuizzesCreateManyUsersInputEnvelope
+    set?: QuizzesWhereUniqueInput | QuizzesWhereUniqueInput[]
+    disconnect?: QuizzesWhereUniqueInput | QuizzesWhereUniqueInput[]
+    delete?: QuizzesWhereUniqueInput | QuizzesWhereUniqueInput[]
+    connect?: QuizzesWhereUniqueInput | QuizzesWhereUniqueInput[]
+    update?: QuizzesUpdateWithWhereUniqueWithoutUsersInput | QuizzesUpdateWithWhereUniqueWithoutUsersInput[]
+    updateMany?: QuizzesUpdateManyWithWhereWithoutUsersInput | QuizzesUpdateManyWithWhereWithoutUsersInput[]
+    deleteMany?: QuizzesScalarWhereInput | QuizzesScalarWhereInput[]
   }
 
   export type blog_commentsUpdateManyWithoutUsersNestedInput = {
@@ -43656,6 +49813,20 @@ export namespace Prisma {
     update?: influencer_applicationUpdateWithWhereUniqueWithoutUsersInput | influencer_applicationUpdateWithWhereUniqueWithoutUsersInput[]
     updateMany?: influencer_applicationUpdateManyWithWhereWithoutUsersInput | influencer_applicationUpdateManyWithWhereWithoutUsersInput[]
     deleteMany?: influencer_applicationScalarWhereInput | influencer_applicationScalarWhereInput[]
+  }
+
+  export type media_uploadsUpdateManyWithoutUserNestedInput = {
+    create?: XOR<media_uploadsCreateWithoutUserInput, media_uploadsUncheckedCreateWithoutUserInput> | media_uploadsCreateWithoutUserInput[] | media_uploadsUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: media_uploadsCreateOrConnectWithoutUserInput | media_uploadsCreateOrConnectWithoutUserInput[]
+    upsert?: media_uploadsUpsertWithWhereUniqueWithoutUserInput | media_uploadsUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: media_uploadsCreateManyUserInputEnvelope
+    set?: media_uploadsWhereUniqueInput | media_uploadsWhereUniqueInput[]
+    disconnect?: media_uploadsWhereUniqueInput | media_uploadsWhereUniqueInput[]
+    delete?: media_uploadsWhereUniqueInput | media_uploadsWhereUniqueInput[]
+    connect?: media_uploadsWhereUniqueInput | media_uploadsWhereUniqueInput[]
+    update?: media_uploadsUpdateWithWhereUniqueWithoutUserInput | media_uploadsUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: media_uploadsUpdateManyWithWhereWithoutUserInput | media_uploadsUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: media_uploadsScalarWhereInput | media_uploadsScalarWhereInput[]
   }
 
   export type mentor_applicationUpdateManyWithoutUsersNestedInput = {
@@ -43780,6 +49951,34 @@ export namespace Prisma {
     update?: XOR<XOR<user_settingsUpdateToOneWithWhereWithoutUsersInput, user_settingsUpdateWithoutUsersInput>, user_settingsUncheckedUpdateWithoutUsersInput>
   }
 
+  export type QuizParticipantsUncheckedUpdateManyWithoutUsersNestedInput = {
+    create?: XOR<QuizParticipantsCreateWithoutUsersInput, QuizParticipantsUncheckedCreateWithoutUsersInput> | QuizParticipantsCreateWithoutUsersInput[] | QuizParticipantsUncheckedCreateWithoutUsersInput[]
+    connectOrCreate?: QuizParticipantsCreateOrConnectWithoutUsersInput | QuizParticipantsCreateOrConnectWithoutUsersInput[]
+    upsert?: QuizParticipantsUpsertWithWhereUniqueWithoutUsersInput | QuizParticipantsUpsertWithWhereUniqueWithoutUsersInput[]
+    createMany?: QuizParticipantsCreateManyUsersInputEnvelope
+    set?: QuizParticipantsWhereUniqueInput | QuizParticipantsWhereUniqueInput[]
+    disconnect?: QuizParticipantsWhereUniqueInput | QuizParticipantsWhereUniqueInput[]
+    delete?: QuizParticipantsWhereUniqueInput | QuizParticipantsWhereUniqueInput[]
+    connect?: QuizParticipantsWhereUniqueInput | QuizParticipantsWhereUniqueInput[]
+    update?: QuizParticipantsUpdateWithWhereUniqueWithoutUsersInput | QuizParticipantsUpdateWithWhereUniqueWithoutUsersInput[]
+    updateMany?: QuizParticipantsUpdateManyWithWhereWithoutUsersInput | QuizParticipantsUpdateManyWithWhereWithoutUsersInput[]
+    deleteMany?: QuizParticipantsScalarWhereInput | QuizParticipantsScalarWhereInput[]
+  }
+
+  export type QuizzesUncheckedUpdateManyWithoutUsersNestedInput = {
+    create?: XOR<QuizzesCreateWithoutUsersInput, QuizzesUncheckedCreateWithoutUsersInput> | QuizzesCreateWithoutUsersInput[] | QuizzesUncheckedCreateWithoutUsersInput[]
+    connectOrCreate?: QuizzesCreateOrConnectWithoutUsersInput | QuizzesCreateOrConnectWithoutUsersInput[]
+    upsert?: QuizzesUpsertWithWhereUniqueWithoutUsersInput | QuizzesUpsertWithWhereUniqueWithoutUsersInput[]
+    createMany?: QuizzesCreateManyUsersInputEnvelope
+    set?: QuizzesWhereUniqueInput | QuizzesWhereUniqueInput[]
+    disconnect?: QuizzesWhereUniqueInput | QuizzesWhereUniqueInput[]
+    delete?: QuizzesWhereUniqueInput | QuizzesWhereUniqueInput[]
+    connect?: QuizzesWhereUniqueInput | QuizzesWhereUniqueInput[]
+    update?: QuizzesUpdateWithWhereUniqueWithoutUsersInput | QuizzesUpdateWithWhereUniqueWithoutUsersInput[]
+    updateMany?: QuizzesUpdateManyWithWhereWithoutUsersInput | QuizzesUpdateManyWithWhereWithoutUsersInput[]
+    deleteMany?: QuizzesScalarWhereInput | QuizzesScalarWhereInput[]
+  }
+
   export type blog_commentsUncheckedUpdateManyWithoutUsersNestedInput = {
     create?: XOR<blog_commentsCreateWithoutUsersInput, blog_commentsUncheckedCreateWithoutUsersInput> | blog_commentsCreateWithoutUsersInput[] | blog_commentsUncheckedCreateWithoutUsersInput[]
     connectOrCreate?: blog_commentsCreateOrConnectWithoutUsersInput | blog_commentsCreateOrConnectWithoutUsersInput[]
@@ -43890,6 +50089,20 @@ export namespace Prisma {
     update?: influencer_applicationUpdateWithWhereUniqueWithoutUsersInput | influencer_applicationUpdateWithWhereUniqueWithoutUsersInput[]
     updateMany?: influencer_applicationUpdateManyWithWhereWithoutUsersInput | influencer_applicationUpdateManyWithWhereWithoutUsersInput[]
     deleteMany?: influencer_applicationScalarWhereInput | influencer_applicationScalarWhereInput[]
+  }
+
+  export type media_uploadsUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<media_uploadsCreateWithoutUserInput, media_uploadsUncheckedCreateWithoutUserInput> | media_uploadsCreateWithoutUserInput[] | media_uploadsUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: media_uploadsCreateOrConnectWithoutUserInput | media_uploadsCreateOrConnectWithoutUserInput[]
+    upsert?: media_uploadsUpsertWithWhereUniqueWithoutUserInput | media_uploadsUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: media_uploadsCreateManyUserInputEnvelope
+    set?: media_uploadsWhereUniqueInput | media_uploadsWhereUniqueInput[]
+    disconnect?: media_uploadsWhereUniqueInput | media_uploadsWhereUniqueInput[]
+    delete?: media_uploadsWhereUniqueInput | media_uploadsWhereUniqueInput[]
+    connect?: media_uploadsWhereUniqueInput | media_uploadsWhereUniqueInput[]
+    update?: media_uploadsUpdateWithWhereUniqueWithoutUserInput | media_uploadsUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: media_uploadsUpdateManyWithWhereWithoutUserInput | media_uploadsUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: media_uploadsScalarWhereInput | media_uploadsScalarWhereInput[]
   }
 
   export type mentor_applicationUncheckedUpdateManyWithoutUsersNestedInput = {
@@ -44360,6 +50573,177 @@ export namespace Prisma {
     delete?: usersWhereInput | boolean
     connect?: usersWhereUniqueInput
     update?: XOR<XOR<usersUpdateToOneWithWhereWithoutInfluencer_applicationInput, usersUpdateWithoutInfluencer_applicationInput>, usersUncheckedUpdateWithoutInfluencer_applicationInput>
+  }
+
+  export type usersCreateNestedOneWithoutMedia_uploadsInput = {
+    create?: XOR<usersCreateWithoutMedia_uploadsInput, usersUncheckedCreateWithoutMedia_uploadsInput>
+    connectOrCreate?: usersCreateOrConnectWithoutMedia_uploadsInput
+    connect?: usersWhereUniqueInput
+  }
+
+  export type usersUpdateOneRequiredWithoutMedia_uploadsNestedInput = {
+    create?: XOR<usersCreateWithoutMedia_uploadsInput, usersUncheckedCreateWithoutMedia_uploadsInput>
+    connectOrCreate?: usersCreateOrConnectWithoutMedia_uploadsInput
+    upsert?: usersUpsertWithoutMedia_uploadsInput
+    connect?: usersWhereUniqueInput
+    update?: XOR<XOR<usersUpdateToOneWithWhereWithoutMedia_uploadsInput, usersUpdateWithoutMedia_uploadsInput>, usersUncheckedUpdateWithoutMedia_uploadsInput>
+  }
+
+  export type QuizzesCreateNestedOneWithoutQuizParticipantsInput = {
+    create?: XOR<QuizzesCreateWithoutQuizParticipantsInput, QuizzesUncheckedCreateWithoutQuizParticipantsInput>
+    connectOrCreate?: QuizzesCreateOrConnectWithoutQuizParticipantsInput
+    connect?: QuizzesWhereUniqueInput
+  }
+
+  export type usersCreateNestedOneWithoutQuizParticipantsInput = {
+    create?: XOR<usersCreateWithoutQuizParticipantsInput, usersUncheckedCreateWithoutQuizParticipantsInput>
+    connectOrCreate?: usersCreateOrConnectWithoutQuizParticipantsInput
+    connect?: usersWhereUniqueInput
+  }
+
+  export type QuizzesUpdateOneRequiredWithoutQuizParticipantsNestedInput = {
+    create?: XOR<QuizzesCreateWithoutQuizParticipantsInput, QuizzesUncheckedCreateWithoutQuizParticipantsInput>
+    connectOrCreate?: QuizzesCreateOrConnectWithoutQuizParticipantsInput
+    upsert?: QuizzesUpsertWithoutQuizParticipantsInput
+    connect?: QuizzesWhereUniqueInput
+    update?: XOR<XOR<QuizzesUpdateToOneWithWhereWithoutQuizParticipantsInput, QuizzesUpdateWithoutQuizParticipantsInput>, QuizzesUncheckedUpdateWithoutQuizParticipantsInput>
+  }
+
+  export type usersUpdateOneRequiredWithoutQuizParticipantsNestedInput = {
+    create?: XOR<usersCreateWithoutQuizParticipantsInput, usersUncheckedCreateWithoutQuizParticipantsInput>
+    connectOrCreate?: usersCreateOrConnectWithoutQuizParticipantsInput
+    upsert?: usersUpsertWithoutQuizParticipantsInput
+    connect?: usersWhereUniqueInput
+    update?: XOR<XOR<usersUpdateToOneWithWhereWithoutQuizParticipantsInput, usersUpdateWithoutQuizParticipantsInput>, usersUncheckedUpdateWithoutQuizParticipantsInput>
+  }
+
+  export type QuizQuestionCreateanswersInput = {
+    set: string[]
+  }
+
+  export type QuizzesCreateNestedOneWithoutQuizQuestionInput = {
+    create?: XOR<QuizzesCreateWithoutQuizQuestionInput, QuizzesUncheckedCreateWithoutQuizQuestionInput>
+    connectOrCreate?: QuizzesCreateOrConnectWithoutQuizQuestionInput
+    connect?: QuizzesWhereUniqueInput
+  }
+
+  export type QuizQuestionUpdateanswersInput = {
+    set?: string[]
+    push?: string | string[]
+  }
+
+  export type QuizzesUpdateOneRequiredWithoutQuizQuestionNestedInput = {
+    create?: XOR<QuizzesCreateWithoutQuizQuestionInput, QuizzesUncheckedCreateWithoutQuizQuestionInput>
+    connectOrCreate?: QuizzesCreateOrConnectWithoutQuizQuestionInput
+    upsert?: QuizzesUpsertWithoutQuizQuestionInput
+    connect?: QuizzesWhereUniqueInput
+    update?: XOR<XOR<QuizzesUpdateToOneWithWhereWithoutQuizQuestionInput, QuizzesUpdateWithoutQuizQuestionInput>, QuizzesUncheckedUpdateWithoutQuizQuestionInput>
+  }
+
+  export type QuizParticipantsCreateNestedManyWithoutQuizzesInput = {
+    create?: XOR<QuizParticipantsCreateWithoutQuizzesInput, QuizParticipantsUncheckedCreateWithoutQuizzesInput> | QuizParticipantsCreateWithoutQuizzesInput[] | QuizParticipantsUncheckedCreateWithoutQuizzesInput[]
+    connectOrCreate?: QuizParticipantsCreateOrConnectWithoutQuizzesInput | QuizParticipantsCreateOrConnectWithoutQuizzesInput[]
+    createMany?: QuizParticipantsCreateManyQuizzesInputEnvelope
+    connect?: QuizParticipantsWhereUniqueInput | QuizParticipantsWhereUniqueInput[]
+  }
+
+  export type QuizQuestionCreateNestedManyWithoutQuizzesInput = {
+    create?: XOR<QuizQuestionCreateWithoutQuizzesInput, QuizQuestionUncheckedCreateWithoutQuizzesInput> | QuizQuestionCreateWithoutQuizzesInput[] | QuizQuestionUncheckedCreateWithoutQuizzesInput[]
+    connectOrCreate?: QuizQuestionCreateOrConnectWithoutQuizzesInput | QuizQuestionCreateOrConnectWithoutQuizzesInput[]
+    createMany?: QuizQuestionCreateManyQuizzesInputEnvelope
+    connect?: QuizQuestionWhereUniqueInput | QuizQuestionWhereUniqueInput[]
+  }
+
+  export type usersCreateNestedOneWithoutQuizzesInput = {
+    create?: XOR<usersCreateWithoutQuizzesInput, usersUncheckedCreateWithoutQuizzesInput>
+    connectOrCreate?: usersCreateOrConnectWithoutQuizzesInput
+    connect?: usersWhereUniqueInput
+  }
+
+  export type QuizParticipantsUncheckedCreateNestedManyWithoutQuizzesInput = {
+    create?: XOR<QuizParticipantsCreateWithoutQuizzesInput, QuizParticipantsUncheckedCreateWithoutQuizzesInput> | QuizParticipantsCreateWithoutQuizzesInput[] | QuizParticipantsUncheckedCreateWithoutQuizzesInput[]
+    connectOrCreate?: QuizParticipantsCreateOrConnectWithoutQuizzesInput | QuizParticipantsCreateOrConnectWithoutQuizzesInput[]
+    createMany?: QuizParticipantsCreateManyQuizzesInputEnvelope
+    connect?: QuizParticipantsWhereUniqueInput | QuizParticipantsWhereUniqueInput[]
+  }
+
+  export type QuizQuestionUncheckedCreateNestedManyWithoutQuizzesInput = {
+    create?: XOR<QuizQuestionCreateWithoutQuizzesInput, QuizQuestionUncheckedCreateWithoutQuizzesInput> | QuizQuestionCreateWithoutQuizzesInput[] | QuizQuestionUncheckedCreateWithoutQuizzesInput[]
+    connectOrCreate?: QuizQuestionCreateOrConnectWithoutQuizzesInput | QuizQuestionCreateOrConnectWithoutQuizzesInput[]
+    createMany?: QuizQuestionCreateManyQuizzesInputEnvelope
+    connect?: QuizQuestionWhereUniqueInput | QuizQuestionWhereUniqueInput[]
+  }
+
+  export type EnumQuizStatusFieldUpdateOperationsInput = {
+    set?: $Enums.QuizStatus
+  }
+
+  export type Enumquiz_difficulty_levelFieldUpdateOperationsInput = {
+    set?: $Enums.quiz_difficulty_level
+  }
+
+  export type QuizParticipantsUpdateManyWithoutQuizzesNestedInput = {
+    create?: XOR<QuizParticipantsCreateWithoutQuizzesInput, QuizParticipantsUncheckedCreateWithoutQuizzesInput> | QuizParticipantsCreateWithoutQuizzesInput[] | QuizParticipantsUncheckedCreateWithoutQuizzesInput[]
+    connectOrCreate?: QuizParticipantsCreateOrConnectWithoutQuizzesInput | QuizParticipantsCreateOrConnectWithoutQuizzesInput[]
+    upsert?: QuizParticipantsUpsertWithWhereUniqueWithoutQuizzesInput | QuizParticipantsUpsertWithWhereUniqueWithoutQuizzesInput[]
+    createMany?: QuizParticipantsCreateManyQuizzesInputEnvelope
+    set?: QuizParticipantsWhereUniqueInput | QuizParticipantsWhereUniqueInput[]
+    disconnect?: QuizParticipantsWhereUniqueInput | QuizParticipantsWhereUniqueInput[]
+    delete?: QuizParticipantsWhereUniqueInput | QuizParticipantsWhereUniqueInput[]
+    connect?: QuizParticipantsWhereUniqueInput | QuizParticipantsWhereUniqueInput[]
+    update?: QuizParticipantsUpdateWithWhereUniqueWithoutQuizzesInput | QuizParticipantsUpdateWithWhereUniqueWithoutQuizzesInput[]
+    updateMany?: QuizParticipantsUpdateManyWithWhereWithoutQuizzesInput | QuizParticipantsUpdateManyWithWhereWithoutQuizzesInput[]
+    deleteMany?: QuizParticipantsScalarWhereInput | QuizParticipantsScalarWhereInput[]
+  }
+
+  export type QuizQuestionUpdateManyWithoutQuizzesNestedInput = {
+    create?: XOR<QuizQuestionCreateWithoutQuizzesInput, QuizQuestionUncheckedCreateWithoutQuizzesInput> | QuizQuestionCreateWithoutQuizzesInput[] | QuizQuestionUncheckedCreateWithoutQuizzesInput[]
+    connectOrCreate?: QuizQuestionCreateOrConnectWithoutQuizzesInput | QuizQuestionCreateOrConnectWithoutQuizzesInput[]
+    upsert?: QuizQuestionUpsertWithWhereUniqueWithoutQuizzesInput | QuizQuestionUpsertWithWhereUniqueWithoutQuizzesInput[]
+    createMany?: QuizQuestionCreateManyQuizzesInputEnvelope
+    set?: QuizQuestionWhereUniqueInput | QuizQuestionWhereUniqueInput[]
+    disconnect?: QuizQuestionWhereUniqueInput | QuizQuestionWhereUniqueInput[]
+    delete?: QuizQuestionWhereUniqueInput | QuizQuestionWhereUniqueInput[]
+    connect?: QuizQuestionWhereUniqueInput | QuizQuestionWhereUniqueInput[]
+    update?: QuizQuestionUpdateWithWhereUniqueWithoutQuizzesInput | QuizQuestionUpdateWithWhereUniqueWithoutQuizzesInput[]
+    updateMany?: QuizQuestionUpdateManyWithWhereWithoutQuizzesInput | QuizQuestionUpdateManyWithWhereWithoutQuizzesInput[]
+    deleteMany?: QuizQuestionScalarWhereInput | QuizQuestionScalarWhereInput[]
+  }
+
+  export type usersUpdateOneRequiredWithoutQuizzesNestedInput = {
+    create?: XOR<usersCreateWithoutQuizzesInput, usersUncheckedCreateWithoutQuizzesInput>
+    connectOrCreate?: usersCreateOrConnectWithoutQuizzesInput
+    upsert?: usersUpsertWithoutQuizzesInput
+    connect?: usersWhereUniqueInput
+    update?: XOR<XOR<usersUpdateToOneWithWhereWithoutQuizzesInput, usersUpdateWithoutQuizzesInput>, usersUncheckedUpdateWithoutQuizzesInput>
+  }
+
+  export type QuizParticipantsUncheckedUpdateManyWithoutQuizzesNestedInput = {
+    create?: XOR<QuizParticipantsCreateWithoutQuizzesInput, QuizParticipantsUncheckedCreateWithoutQuizzesInput> | QuizParticipantsCreateWithoutQuizzesInput[] | QuizParticipantsUncheckedCreateWithoutQuizzesInput[]
+    connectOrCreate?: QuizParticipantsCreateOrConnectWithoutQuizzesInput | QuizParticipantsCreateOrConnectWithoutQuizzesInput[]
+    upsert?: QuizParticipantsUpsertWithWhereUniqueWithoutQuizzesInput | QuizParticipantsUpsertWithWhereUniqueWithoutQuizzesInput[]
+    createMany?: QuizParticipantsCreateManyQuizzesInputEnvelope
+    set?: QuizParticipantsWhereUniqueInput | QuizParticipantsWhereUniqueInput[]
+    disconnect?: QuizParticipantsWhereUniqueInput | QuizParticipantsWhereUniqueInput[]
+    delete?: QuizParticipantsWhereUniqueInput | QuizParticipantsWhereUniqueInput[]
+    connect?: QuizParticipantsWhereUniqueInput | QuizParticipantsWhereUniqueInput[]
+    update?: QuizParticipantsUpdateWithWhereUniqueWithoutQuizzesInput | QuizParticipantsUpdateWithWhereUniqueWithoutQuizzesInput[]
+    updateMany?: QuizParticipantsUpdateManyWithWhereWithoutQuizzesInput | QuizParticipantsUpdateManyWithWhereWithoutQuizzesInput[]
+    deleteMany?: QuizParticipantsScalarWhereInput | QuizParticipantsScalarWhereInput[]
+  }
+
+  export type QuizQuestionUncheckedUpdateManyWithoutQuizzesNestedInput = {
+    create?: XOR<QuizQuestionCreateWithoutQuizzesInput, QuizQuestionUncheckedCreateWithoutQuizzesInput> | QuizQuestionCreateWithoutQuizzesInput[] | QuizQuestionUncheckedCreateWithoutQuizzesInput[]
+    connectOrCreate?: QuizQuestionCreateOrConnectWithoutQuizzesInput | QuizQuestionCreateOrConnectWithoutQuizzesInput[]
+    upsert?: QuizQuestionUpsertWithWhereUniqueWithoutQuizzesInput | QuizQuestionUpsertWithWhereUniqueWithoutQuizzesInput[]
+    createMany?: QuizQuestionCreateManyQuizzesInputEnvelope
+    set?: QuizQuestionWhereUniqueInput | QuizQuestionWhereUniqueInput[]
+    disconnect?: QuizQuestionWhereUniqueInput | QuizQuestionWhereUniqueInput[]
+    delete?: QuizQuestionWhereUniqueInput | QuizQuestionWhereUniqueInput[]
+    connect?: QuizQuestionWhereUniqueInput | QuizQuestionWhereUniqueInput[]
+    update?: QuizQuestionUpdateWithWhereUniqueWithoutQuizzesInput | QuizQuestionUpdateWithWhereUniqueWithoutQuizzesInput[]
+    updateMany?: QuizQuestionUpdateManyWithWhereWithoutQuizzesInput | QuizQuestionUpdateManyWithWhereWithoutQuizzesInput[]
+    deleteMany?: QuizQuestionScalarWhereInput | QuizQuestionScalarWhereInput[]
   }
 
   export type NestedIntFilter<$PrismaModel = never> = {
@@ -44879,6 +51263,40 @@ export namespace Prisma {
     _max?: NestedEnumsession_formatNullableFilter<$PrismaModel>
   }
 
+  export type NestedEnumQuizStatusFilter<$PrismaModel = never> = {
+    equals?: $Enums.QuizStatus | EnumQuizStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.QuizStatus[] | ListEnumQuizStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.QuizStatus[] | ListEnumQuizStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumQuizStatusFilter<$PrismaModel> | $Enums.QuizStatus
+  }
+
+  export type NestedEnumquiz_difficulty_levelFilter<$PrismaModel = never> = {
+    equals?: $Enums.quiz_difficulty_level | Enumquiz_difficulty_levelFieldRefInput<$PrismaModel>
+    in?: $Enums.quiz_difficulty_level[] | ListEnumquiz_difficulty_levelFieldRefInput<$PrismaModel>
+    notIn?: $Enums.quiz_difficulty_level[] | ListEnumquiz_difficulty_levelFieldRefInput<$PrismaModel>
+    not?: NestedEnumquiz_difficulty_levelFilter<$PrismaModel> | $Enums.quiz_difficulty_level
+  }
+
+  export type NestedEnumQuizStatusWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.QuizStatus | EnumQuizStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.QuizStatus[] | ListEnumQuizStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.QuizStatus[] | ListEnumQuizStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumQuizStatusWithAggregatesFilter<$PrismaModel> | $Enums.QuizStatus
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumQuizStatusFilter<$PrismaModel>
+    _max?: NestedEnumQuizStatusFilter<$PrismaModel>
+  }
+
+  export type NestedEnumquiz_difficulty_levelWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.quiz_difficulty_level | Enumquiz_difficulty_levelFieldRefInput<$PrismaModel>
+    in?: $Enums.quiz_difficulty_level[] | ListEnumquiz_difficulty_levelFieldRefInput<$PrismaModel>
+    notIn?: $Enums.quiz_difficulty_level[] | ListEnumquiz_difficulty_levelFieldRefInput<$PrismaModel>
+    not?: NestedEnumquiz_difficulty_levelWithAggregatesFilter<$PrismaModel> | $Enums.quiz_difficulty_level
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumquiz_difficulty_levelFilter<$PrismaModel>
+    _max?: NestedEnumquiz_difficulty_levelFilter<$PrismaModel>
+  }
+
   export type paymentsCreateWithoutSubscriptionsInput = {
     amount: Decimal | DecimalJsLike | number | string
     currency?: string | null
@@ -44940,6 +51358,8 @@ export namespace Prisma {
     auto_renew?: boolean | null
     chatbot_questions_used?: number | null
     chatbot_questions_reset_date?: Date | string | null
+    QuizParticipants?: QuizParticipantsCreateNestedManyWithoutUsersInput
+    Quizzes?: QuizzesCreateNestedManyWithoutUsersInput
     blog_comments?: blog_commentsCreateNestedManyWithoutUsersInput
     blog_likes?: blog_likesCreateNestedManyWithoutUsersInput
     blog_views?: blog_viewsCreateNestedManyWithoutUsersInput
@@ -44948,6 +51368,7 @@ export namespace Prisma {
     chatbot_usage?: chatbot_usageCreateNestedManyWithoutUsersInput
     guide_application?: guide_applicationCreateNestedManyWithoutUsersInput
     influencer_application?: influencer_applicationCreateNestedManyWithoutUsersInput
+    media_uploads?: media_uploadsCreateNestedManyWithoutUserInput
     mentor_application?: mentor_applicationCreateNestedManyWithoutUsersInput
     night_camp_registrations?: night_camp_registrationsCreateNestedManyWithoutUsersInput
     night_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousers?: night_camp_volunteering_applicationsCreateNestedManyWithoutUsers_night_camp_volunteering_applications_reviewed_byTousersInput
@@ -44979,6 +51400,8 @@ export namespace Prisma {
     auto_renew?: boolean | null
     chatbot_questions_used?: number | null
     chatbot_questions_reset_date?: Date | string | null
+    QuizParticipants?: QuizParticipantsUncheckedCreateNestedManyWithoutUsersInput
+    Quizzes?: QuizzesUncheckedCreateNestedManyWithoutUsersInput
     blog_comments?: blog_commentsUncheckedCreateNestedManyWithoutUsersInput
     blog_likes?: blog_likesUncheckedCreateNestedManyWithoutUsersInput
     blog_views?: blog_viewsUncheckedCreateNestedManyWithoutUsersInput
@@ -44987,6 +51410,7 @@ export namespace Prisma {
     chatbot_usage?: chatbot_usageUncheckedCreateNestedManyWithoutUsersInput
     guide_application?: guide_applicationUncheckedCreateNestedManyWithoutUsersInput
     influencer_application?: influencer_applicationUncheckedCreateNestedManyWithoutUsersInput
+    media_uploads?: media_uploadsUncheckedCreateNestedManyWithoutUserInput
     mentor_application?: mentor_applicationUncheckedCreateNestedManyWithoutUsersInput
     night_camp_registrations?: night_camp_registrationsUncheckedCreateNestedManyWithoutUsersInput
     night_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousers?: night_camp_volunteering_applicationsUncheckedCreateNestedManyWithoutUsers_night_camp_volunteering_applications_reviewed_byTousersInput
@@ -45069,6 +51493,8 @@ export namespace Prisma {
     auto_renew?: NullableBoolFieldUpdateOperationsInput | boolean | null
     chatbot_questions_used?: NullableIntFieldUpdateOperationsInput | number | null
     chatbot_questions_reset_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    QuizParticipants?: QuizParticipantsUpdateManyWithoutUsersNestedInput
+    Quizzes?: QuizzesUpdateManyWithoutUsersNestedInput
     blog_comments?: blog_commentsUpdateManyWithoutUsersNestedInput
     blog_likes?: blog_likesUpdateManyWithoutUsersNestedInput
     blog_views?: blog_viewsUpdateManyWithoutUsersNestedInput
@@ -45077,6 +51503,7 @@ export namespace Prisma {
     chatbot_usage?: chatbot_usageUpdateManyWithoutUsersNestedInput
     guide_application?: guide_applicationUpdateManyWithoutUsersNestedInput
     influencer_application?: influencer_applicationUpdateManyWithoutUsersNestedInput
+    media_uploads?: media_uploadsUpdateManyWithoutUserNestedInput
     mentor_application?: mentor_applicationUpdateManyWithoutUsersNestedInput
     night_camp_registrations?: night_camp_registrationsUpdateManyWithoutUsersNestedInput
     night_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousers?: night_camp_volunteering_applicationsUpdateManyWithoutUsers_night_camp_volunteering_applications_reviewed_byTousersNestedInput
@@ -45108,6 +51535,8 @@ export namespace Prisma {
     auto_renew?: NullableBoolFieldUpdateOperationsInput | boolean | null
     chatbot_questions_used?: NullableIntFieldUpdateOperationsInput | number | null
     chatbot_questions_reset_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    QuizParticipants?: QuizParticipantsUncheckedUpdateManyWithoutUsersNestedInput
+    Quizzes?: QuizzesUncheckedUpdateManyWithoutUsersNestedInput
     blog_comments?: blog_commentsUncheckedUpdateManyWithoutUsersNestedInput
     blog_likes?: blog_likesUncheckedUpdateManyWithoutUsersNestedInput
     blog_views?: blog_viewsUncheckedUpdateManyWithoutUsersNestedInput
@@ -45116,6 +51545,7 @@ export namespace Prisma {
     chatbot_usage?: chatbot_usageUncheckedUpdateManyWithoutUsersNestedInput
     guide_application?: guide_applicationUncheckedUpdateManyWithoutUsersNestedInput
     influencer_application?: influencer_applicationUncheckedUpdateManyWithoutUsersNestedInput
+    media_uploads?: media_uploadsUncheckedUpdateManyWithoutUserNestedInput
     mentor_application?: mentor_applicationUncheckedUpdateManyWithoutUsersNestedInput
     night_camp_registrations?: night_camp_registrationsUncheckedUpdateManyWithoutUsersNestedInput
     night_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousers?: night_camp_volunteering_applicationsUncheckedUpdateManyWithoutUsers_night_camp_volunteering_applications_reviewed_byTousersNestedInput
@@ -45204,6 +51634,8 @@ export namespace Prisma {
     auto_renew?: boolean | null
     chatbot_questions_used?: number | null
     chatbot_questions_reset_date?: Date | string | null
+    QuizParticipants?: QuizParticipantsCreateNestedManyWithoutUsersInput
+    Quizzes?: QuizzesCreateNestedManyWithoutUsersInput
     blog_comments?: blog_commentsCreateNestedManyWithoutUsersInput
     blog_likes?: blog_likesCreateNestedManyWithoutUsersInput
     blogs?: blogsCreateNestedManyWithoutUsersInput
@@ -45211,6 +51643,7 @@ export namespace Prisma {
     chatbot_usage?: chatbot_usageCreateNestedManyWithoutUsersInput
     guide_application?: guide_applicationCreateNestedManyWithoutUsersInput
     influencer_application?: influencer_applicationCreateNestedManyWithoutUsersInput
+    media_uploads?: media_uploadsCreateNestedManyWithoutUserInput
     mentor_application?: mentor_applicationCreateNestedManyWithoutUsersInput
     night_camp_registrations?: night_camp_registrationsCreateNestedManyWithoutUsersInput
     night_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousers?: night_camp_volunteering_applicationsCreateNestedManyWithoutUsers_night_camp_volunteering_applications_reviewed_byTousersInput
@@ -45243,6 +51676,8 @@ export namespace Prisma {
     auto_renew?: boolean | null
     chatbot_questions_used?: number | null
     chatbot_questions_reset_date?: Date | string | null
+    QuizParticipants?: QuizParticipantsUncheckedCreateNestedManyWithoutUsersInput
+    Quizzes?: QuizzesUncheckedCreateNestedManyWithoutUsersInput
     blog_comments?: blog_commentsUncheckedCreateNestedManyWithoutUsersInput
     blog_likes?: blog_likesUncheckedCreateNestedManyWithoutUsersInput
     blogs?: blogsUncheckedCreateNestedManyWithoutUsersInput
@@ -45250,6 +51685,7 @@ export namespace Prisma {
     chatbot_usage?: chatbot_usageUncheckedCreateNestedManyWithoutUsersInput
     guide_application?: guide_applicationUncheckedCreateNestedManyWithoutUsersInput
     influencer_application?: influencer_applicationUncheckedCreateNestedManyWithoutUsersInput
+    media_uploads?: media_uploadsUncheckedCreateNestedManyWithoutUserInput
     mentor_application?: mentor_applicationUncheckedCreateNestedManyWithoutUsersInput
     night_camp_registrations?: night_camp_registrationsUncheckedCreateNestedManyWithoutUsersInput
     night_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousers?: night_camp_volunteering_applicationsUncheckedCreateNestedManyWithoutUsers_night_camp_volunteering_applications_reviewed_byTousersInput
@@ -45361,6 +51797,8 @@ export namespace Prisma {
     auto_renew?: NullableBoolFieldUpdateOperationsInput | boolean | null
     chatbot_questions_used?: NullableIntFieldUpdateOperationsInput | number | null
     chatbot_questions_reset_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    QuizParticipants?: QuizParticipantsUpdateManyWithoutUsersNestedInput
+    Quizzes?: QuizzesUpdateManyWithoutUsersNestedInput
     blog_comments?: blog_commentsUpdateManyWithoutUsersNestedInput
     blog_likes?: blog_likesUpdateManyWithoutUsersNestedInput
     blogs?: blogsUpdateManyWithoutUsersNestedInput
@@ -45368,6 +51806,7 @@ export namespace Prisma {
     chatbot_usage?: chatbot_usageUpdateManyWithoutUsersNestedInput
     guide_application?: guide_applicationUpdateManyWithoutUsersNestedInput
     influencer_application?: influencer_applicationUpdateManyWithoutUsersNestedInput
+    media_uploads?: media_uploadsUpdateManyWithoutUserNestedInput
     mentor_application?: mentor_applicationUpdateManyWithoutUsersNestedInput
     night_camp_registrations?: night_camp_registrationsUpdateManyWithoutUsersNestedInput
     night_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousers?: night_camp_volunteering_applicationsUpdateManyWithoutUsers_night_camp_volunteering_applications_reviewed_byTousersNestedInput
@@ -45400,6 +51839,8 @@ export namespace Prisma {
     auto_renew?: NullableBoolFieldUpdateOperationsInput | boolean | null
     chatbot_questions_used?: NullableIntFieldUpdateOperationsInput | number | null
     chatbot_questions_reset_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    QuizParticipants?: QuizParticipantsUncheckedUpdateManyWithoutUsersNestedInput
+    Quizzes?: QuizzesUncheckedUpdateManyWithoutUsersNestedInput
     blog_comments?: blog_commentsUncheckedUpdateManyWithoutUsersNestedInput
     blog_likes?: blog_likesUncheckedUpdateManyWithoutUsersNestedInput
     blogs?: blogsUncheckedUpdateManyWithoutUsersNestedInput
@@ -45407,6 +51848,7 @@ export namespace Prisma {
     chatbot_usage?: chatbot_usageUncheckedUpdateManyWithoutUsersNestedInput
     guide_application?: guide_applicationUncheckedUpdateManyWithoutUsersNestedInput
     influencer_application?: influencer_applicationUncheckedUpdateManyWithoutUsersNestedInput
+    media_uploads?: media_uploadsUncheckedUpdateManyWithoutUserNestedInput
     mentor_application?: mentor_applicationUncheckedUpdateManyWithoutUsersNestedInput
     night_camp_registrations?: night_camp_registrationsUncheckedUpdateManyWithoutUsersNestedInput
     night_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousers?: night_camp_volunteering_applicationsUncheckedUpdateManyWithoutUsers_night_camp_volunteering_applications_reviewed_byTousersNestedInput
@@ -45890,6 +52332,8 @@ export namespace Prisma {
     auto_renew?: boolean | null
     chatbot_questions_used?: number | null
     chatbot_questions_reset_date?: Date | string | null
+    QuizParticipants?: QuizParticipantsCreateNestedManyWithoutUsersInput
+    Quizzes?: QuizzesCreateNestedManyWithoutUsersInput
     blog_comments?: blog_commentsCreateNestedManyWithoutUsersInput
     blog_likes?: blog_likesCreateNestedManyWithoutUsersInput
     blog_views?: blog_viewsCreateNestedManyWithoutUsersInput
@@ -45897,6 +52341,7 @@ export namespace Prisma {
     chatbot_usage?: chatbot_usageCreateNestedManyWithoutUsersInput
     guide_application?: guide_applicationCreateNestedManyWithoutUsersInput
     influencer_application?: influencer_applicationCreateNestedManyWithoutUsersInput
+    media_uploads?: media_uploadsCreateNestedManyWithoutUserInput
     mentor_application?: mentor_applicationCreateNestedManyWithoutUsersInput
     night_camp_registrations?: night_camp_registrationsCreateNestedManyWithoutUsersInput
     night_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousers?: night_camp_volunteering_applicationsCreateNestedManyWithoutUsers_night_camp_volunteering_applications_reviewed_byTousersInput
@@ -45929,6 +52374,8 @@ export namespace Prisma {
     auto_renew?: boolean | null
     chatbot_questions_used?: number | null
     chatbot_questions_reset_date?: Date | string | null
+    QuizParticipants?: QuizParticipantsUncheckedCreateNestedManyWithoutUsersInput
+    Quizzes?: QuizzesUncheckedCreateNestedManyWithoutUsersInput
     blog_comments?: blog_commentsUncheckedCreateNestedManyWithoutUsersInput
     blog_likes?: blog_likesUncheckedCreateNestedManyWithoutUsersInput
     blog_views?: blog_viewsUncheckedCreateNestedManyWithoutUsersInput
@@ -45936,6 +52383,7 @@ export namespace Prisma {
     chatbot_usage?: chatbot_usageUncheckedCreateNestedManyWithoutUsersInput
     guide_application?: guide_applicationUncheckedCreateNestedManyWithoutUsersInput
     influencer_application?: influencer_applicationUncheckedCreateNestedManyWithoutUsersInput
+    media_uploads?: media_uploadsUncheckedCreateNestedManyWithoutUserInput
     mentor_application?: mentor_applicationUncheckedCreateNestedManyWithoutUsersInput
     night_camp_registrations?: night_camp_registrationsUncheckedCreateNestedManyWithoutUsersInput
     night_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousers?: night_camp_volunteering_applicationsUncheckedCreateNestedManyWithoutUsers_night_camp_volunteering_applications_reviewed_byTousersInput
@@ -46043,6 +52491,8 @@ export namespace Prisma {
     auto_renew?: NullableBoolFieldUpdateOperationsInput | boolean | null
     chatbot_questions_used?: NullableIntFieldUpdateOperationsInput | number | null
     chatbot_questions_reset_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    QuizParticipants?: QuizParticipantsUpdateManyWithoutUsersNestedInput
+    Quizzes?: QuizzesUpdateManyWithoutUsersNestedInput
     blog_comments?: blog_commentsUpdateManyWithoutUsersNestedInput
     blog_likes?: blog_likesUpdateManyWithoutUsersNestedInput
     blog_views?: blog_viewsUpdateManyWithoutUsersNestedInput
@@ -46050,6 +52500,7 @@ export namespace Prisma {
     chatbot_usage?: chatbot_usageUpdateManyWithoutUsersNestedInput
     guide_application?: guide_applicationUpdateManyWithoutUsersNestedInput
     influencer_application?: influencer_applicationUpdateManyWithoutUsersNestedInput
+    media_uploads?: media_uploadsUpdateManyWithoutUserNestedInput
     mentor_application?: mentor_applicationUpdateManyWithoutUsersNestedInput
     night_camp_registrations?: night_camp_registrationsUpdateManyWithoutUsersNestedInput
     night_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousers?: night_camp_volunteering_applicationsUpdateManyWithoutUsers_night_camp_volunteering_applications_reviewed_byTousersNestedInput
@@ -46082,6 +52533,8 @@ export namespace Prisma {
     auto_renew?: NullableBoolFieldUpdateOperationsInput | boolean | null
     chatbot_questions_used?: NullableIntFieldUpdateOperationsInput | number | null
     chatbot_questions_reset_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    QuizParticipants?: QuizParticipantsUncheckedUpdateManyWithoutUsersNestedInput
+    Quizzes?: QuizzesUncheckedUpdateManyWithoutUsersNestedInput
     blog_comments?: blog_commentsUncheckedUpdateManyWithoutUsersNestedInput
     blog_likes?: blog_likesUncheckedUpdateManyWithoutUsersNestedInput
     blog_views?: blog_viewsUncheckedUpdateManyWithoutUsersNestedInput
@@ -46089,6 +52542,7 @@ export namespace Prisma {
     chatbot_usage?: chatbot_usageUncheckedUpdateManyWithoutUsersNestedInput
     guide_application?: guide_applicationUncheckedUpdateManyWithoutUsersNestedInput
     influencer_application?: influencer_applicationUncheckedUpdateManyWithoutUsersNestedInput
+    media_uploads?: media_uploadsUncheckedUpdateManyWithoutUserNestedInput
     mentor_application?: mentor_applicationUncheckedUpdateManyWithoutUsersNestedInput
     night_camp_registrations?: night_camp_registrationsUncheckedUpdateManyWithoutUsersNestedInput
     night_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousers?: night_camp_volunteering_applicationsUncheckedUpdateManyWithoutUsers_night_camp_volunteering_applications_reviewed_byTousersNestedInput
@@ -46152,6 +52606,8 @@ export namespace Prisma {
     auto_renew?: boolean | null
     chatbot_questions_used?: number | null
     chatbot_questions_reset_date?: Date | string | null
+    QuizParticipants?: QuizParticipantsCreateNestedManyWithoutUsersInput
+    Quizzes?: QuizzesCreateNestedManyWithoutUsersInput
     blog_comments?: blog_commentsCreateNestedManyWithoutUsersInput
     blog_likes?: blog_likesCreateNestedManyWithoutUsersInput
     blog_views?: blog_viewsCreateNestedManyWithoutUsersInput
@@ -46160,6 +52616,7 @@ export namespace Prisma {
     chatbot_usage?: chatbot_usageCreateNestedManyWithoutUsersInput
     guide_application?: guide_applicationCreateNestedManyWithoutUsersInput
     influencer_application?: influencer_applicationCreateNestedManyWithoutUsersInput
+    media_uploads?: media_uploadsCreateNestedManyWithoutUserInput
     mentor_application?: mentor_applicationCreateNestedManyWithoutUsersInput
     night_camp_registrations?: night_camp_registrationsCreateNestedManyWithoutUsersInput
     night_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousers?: night_camp_volunteering_applicationsCreateNestedManyWithoutUsers_night_camp_volunteering_applications_reviewed_byTousersInput
@@ -46191,6 +52648,8 @@ export namespace Prisma {
     auto_renew?: boolean | null
     chatbot_questions_used?: number | null
     chatbot_questions_reset_date?: Date | string | null
+    QuizParticipants?: QuizParticipantsUncheckedCreateNestedManyWithoutUsersInput
+    Quizzes?: QuizzesUncheckedCreateNestedManyWithoutUsersInput
     blog_comments?: blog_commentsUncheckedCreateNestedManyWithoutUsersInput
     blog_likes?: blog_likesUncheckedCreateNestedManyWithoutUsersInput
     blog_views?: blog_viewsUncheckedCreateNestedManyWithoutUsersInput
@@ -46199,6 +52658,7 @@ export namespace Prisma {
     chatbot_usage?: chatbot_usageUncheckedCreateNestedManyWithoutUsersInput
     guide_application?: guide_applicationUncheckedCreateNestedManyWithoutUsersInput
     influencer_application?: influencer_applicationUncheckedCreateNestedManyWithoutUsersInput
+    media_uploads?: media_uploadsUncheckedCreateNestedManyWithoutUserInput
     mentor_application?: mentor_applicationUncheckedCreateNestedManyWithoutUsersInput
     night_camp_registrations?: night_camp_registrationsUncheckedCreateNestedManyWithoutUsersInput
     night_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousers?: night_camp_volunteering_applicationsUncheckedCreateNestedManyWithoutUsers_night_camp_volunteering_applications_reviewed_byTousersInput
@@ -46283,6 +52743,8 @@ export namespace Prisma {
     auto_renew?: NullableBoolFieldUpdateOperationsInput | boolean | null
     chatbot_questions_used?: NullableIntFieldUpdateOperationsInput | number | null
     chatbot_questions_reset_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    QuizParticipants?: QuizParticipantsUpdateManyWithoutUsersNestedInput
+    Quizzes?: QuizzesUpdateManyWithoutUsersNestedInput
     blog_comments?: blog_commentsUpdateManyWithoutUsersNestedInput
     blog_likes?: blog_likesUpdateManyWithoutUsersNestedInput
     blog_views?: blog_viewsUpdateManyWithoutUsersNestedInput
@@ -46291,6 +52753,7 @@ export namespace Prisma {
     chatbot_usage?: chatbot_usageUpdateManyWithoutUsersNestedInput
     guide_application?: guide_applicationUpdateManyWithoutUsersNestedInput
     influencer_application?: influencer_applicationUpdateManyWithoutUsersNestedInput
+    media_uploads?: media_uploadsUpdateManyWithoutUserNestedInput
     mentor_application?: mentor_applicationUpdateManyWithoutUsersNestedInput
     night_camp_registrations?: night_camp_registrationsUpdateManyWithoutUsersNestedInput
     night_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousers?: night_camp_volunteering_applicationsUpdateManyWithoutUsers_night_camp_volunteering_applications_reviewed_byTousersNestedInput
@@ -46322,6 +52785,8 @@ export namespace Prisma {
     auto_renew?: NullableBoolFieldUpdateOperationsInput | boolean | null
     chatbot_questions_used?: NullableIntFieldUpdateOperationsInput | number | null
     chatbot_questions_reset_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    QuizParticipants?: QuizParticipantsUncheckedUpdateManyWithoutUsersNestedInput
+    Quizzes?: QuizzesUncheckedUpdateManyWithoutUsersNestedInput
     blog_comments?: blog_commentsUncheckedUpdateManyWithoutUsersNestedInput
     blog_likes?: blog_likesUncheckedUpdateManyWithoutUsersNestedInput
     blog_views?: blog_viewsUncheckedUpdateManyWithoutUsersNestedInput
@@ -46330,6 +52795,7 @@ export namespace Prisma {
     chatbot_usage?: chatbot_usageUncheckedUpdateManyWithoutUsersNestedInput
     guide_application?: guide_applicationUncheckedUpdateManyWithoutUsersNestedInput
     influencer_application?: influencer_applicationUncheckedUpdateManyWithoutUsersNestedInput
+    media_uploads?: media_uploadsUncheckedUpdateManyWithoutUserNestedInput
     mentor_application?: mentor_applicationUncheckedUpdateManyWithoutUsersNestedInput
     night_camp_registrations?: night_camp_registrationsUncheckedUpdateManyWithoutUsersNestedInput
     night_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousers?: night_camp_volunteering_applicationsUncheckedUpdateManyWithoutUsers_night_camp_volunteering_applications_reviewed_byTousersNestedInput
@@ -46456,6 +52922,8 @@ export namespace Prisma {
     auto_renew?: boolean | null
     chatbot_questions_used?: number | null
     chatbot_questions_reset_date?: Date | string | null
+    QuizParticipants?: QuizParticipantsCreateNestedManyWithoutUsersInput
+    Quizzes?: QuizzesCreateNestedManyWithoutUsersInput
     blog_comments?: blog_commentsCreateNestedManyWithoutUsersInput
     blog_likes?: blog_likesCreateNestedManyWithoutUsersInput
     blog_views?: blog_viewsCreateNestedManyWithoutUsersInput
@@ -46463,6 +52931,7 @@ export namespace Prisma {
     chatbot_usage?: chatbot_usageCreateNestedManyWithoutUsersInput
     guide_application?: guide_applicationCreateNestedManyWithoutUsersInput
     influencer_application?: influencer_applicationCreateNestedManyWithoutUsersInput
+    media_uploads?: media_uploadsCreateNestedManyWithoutUserInput
     mentor_application?: mentor_applicationCreateNestedManyWithoutUsersInput
     night_camp_registrations?: night_camp_registrationsCreateNestedManyWithoutUsersInput
     night_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousers?: night_camp_volunteering_applicationsCreateNestedManyWithoutUsers_night_camp_volunteering_applications_reviewed_byTousersInput
@@ -46495,6 +52964,8 @@ export namespace Prisma {
     auto_renew?: boolean | null
     chatbot_questions_used?: number | null
     chatbot_questions_reset_date?: Date | string | null
+    QuizParticipants?: QuizParticipantsUncheckedCreateNestedManyWithoutUsersInput
+    Quizzes?: QuizzesUncheckedCreateNestedManyWithoutUsersInput
     blog_comments?: blog_commentsUncheckedCreateNestedManyWithoutUsersInput
     blog_likes?: blog_likesUncheckedCreateNestedManyWithoutUsersInput
     blog_views?: blog_viewsUncheckedCreateNestedManyWithoutUsersInput
@@ -46502,6 +52973,7 @@ export namespace Prisma {
     chatbot_usage?: chatbot_usageUncheckedCreateNestedManyWithoutUsersInput
     guide_application?: guide_applicationUncheckedCreateNestedManyWithoutUsersInput
     influencer_application?: influencer_applicationUncheckedCreateNestedManyWithoutUsersInput
+    media_uploads?: media_uploadsUncheckedCreateNestedManyWithoutUserInput
     mentor_application?: mentor_applicationUncheckedCreateNestedManyWithoutUsersInput
     night_camp_registrations?: night_camp_registrationsUncheckedCreateNestedManyWithoutUsersInput
     night_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousers?: night_camp_volunteering_applicationsUncheckedCreateNestedManyWithoutUsers_night_camp_volunteering_applications_reviewed_byTousersInput
@@ -46658,6 +53130,8 @@ export namespace Prisma {
     auto_renew?: NullableBoolFieldUpdateOperationsInput | boolean | null
     chatbot_questions_used?: NullableIntFieldUpdateOperationsInput | number | null
     chatbot_questions_reset_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    QuizParticipants?: QuizParticipantsUpdateManyWithoutUsersNestedInput
+    Quizzes?: QuizzesUpdateManyWithoutUsersNestedInput
     blog_comments?: blog_commentsUpdateManyWithoutUsersNestedInput
     blog_likes?: blog_likesUpdateManyWithoutUsersNestedInput
     blog_views?: blog_viewsUpdateManyWithoutUsersNestedInput
@@ -46665,6 +53139,7 @@ export namespace Prisma {
     chatbot_usage?: chatbot_usageUpdateManyWithoutUsersNestedInput
     guide_application?: guide_applicationUpdateManyWithoutUsersNestedInput
     influencer_application?: influencer_applicationUpdateManyWithoutUsersNestedInput
+    media_uploads?: media_uploadsUpdateManyWithoutUserNestedInput
     mentor_application?: mentor_applicationUpdateManyWithoutUsersNestedInput
     night_camp_registrations?: night_camp_registrationsUpdateManyWithoutUsersNestedInput
     night_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousers?: night_camp_volunteering_applicationsUpdateManyWithoutUsers_night_camp_volunteering_applications_reviewed_byTousersNestedInput
@@ -46697,6 +53172,8 @@ export namespace Prisma {
     auto_renew?: NullableBoolFieldUpdateOperationsInput | boolean | null
     chatbot_questions_used?: NullableIntFieldUpdateOperationsInput | number | null
     chatbot_questions_reset_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    QuizParticipants?: QuizParticipantsUncheckedUpdateManyWithoutUsersNestedInput
+    Quizzes?: QuizzesUncheckedUpdateManyWithoutUsersNestedInput
     blog_comments?: blog_commentsUncheckedUpdateManyWithoutUsersNestedInput
     blog_likes?: blog_likesUncheckedUpdateManyWithoutUsersNestedInput
     blog_views?: blog_viewsUncheckedUpdateManyWithoutUsersNestedInput
@@ -46704,6 +53181,7 @@ export namespace Prisma {
     chatbot_usage?: chatbot_usageUncheckedUpdateManyWithoutUsersNestedInput
     guide_application?: guide_applicationUncheckedUpdateManyWithoutUsersNestedInput
     influencer_application?: influencer_applicationUncheckedUpdateManyWithoutUsersNestedInput
+    media_uploads?: media_uploadsUncheckedUpdateManyWithoutUserNestedInput
     mentor_application?: mentor_applicationUncheckedUpdateManyWithoutUsersNestedInput
     night_camp_registrations?: night_camp_registrationsUncheckedUpdateManyWithoutUsersNestedInput
     night_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousers?: night_camp_volunteering_applicationsUncheckedUpdateManyWithoutUsers_night_camp_volunteering_applications_reviewed_byTousersNestedInput
@@ -46934,6 +53412,8 @@ export namespace Prisma {
     auto_renew?: boolean | null
     chatbot_questions_used?: number | null
     chatbot_questions_reset_date?: Date | string | null
+    QuizParticipants?: QuizParticipantsCreateNestedManyWithoutUsersInput
+    Quizzes?: QuizzesCreateNestedManyWithoutUsersInput
     blog_comments?: blog_commentsCreateNestedManyWithoutUsersInput
     blog_likes?: blog_likesCreateNestedManyWithoutUsersInput
     blog_views?: blog_viewsCreateNestedManyWithoutUsersInput
@@ -46941,6 +53421,7 @@ export namespace Prisma {
     chatbot_sessions?: chatbot_sessionsCreateNestedManyWithoutUsersInput
     guide_application?: guide_applicationCreateNestedManyWithoutUsersInput
     influencer_application?: influencer_applicationCreateNestedManyWithoutUsersInput
+    media_uploads?: media_uploadsCreateNestedManyWithoutUserInput
     mentor_application?: mentor_applicationCreateNestedManyWithoutUsersInput
     night_camp_registrations?: night_camp_registrationsCreateNestedManyWithoutUsersInput
     night_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousers?: night_camp_volunteering_applicationsCreateNestedManyWithoutUsers_night_camp_volunteering_applications_reviewed_byTousersInput
@@ -46973,6 +53454,8 @@ export namespace Prisma {
     auto_renew?: boolean | null
     chatbot_questions_used?: number | null
     chatbot_questions_reset_date?: Date | string | null
+    QuizParticipants?: QuizParticipantsUncheckedCreateNestedManyWithoutUsersInput
+    Quizzes?: QuizzesUncheckedCreateNestedManyWithoutUsersInput
     blog_comments?: blog_commentsUncheckedCreateNestedManyWithoutUsersInput
     blog_likes?: blog_likesUncheckedCreateNestedManyWithoutUsersInput
     blog_views?: blog_viewsUncheckedCreateNestedManyWithoutUsersInput
@@ -46980,6 +53463,7 @@ export namespace Prisma {
     chatbot_sessions?: chatbot_sessionsUncheckedCreateNestedManyWithoutUsersInput
     guide_application?: guide_applicationUncheckedCreateNestedManyWithoutUsersInput
     influencer_application?: influencer_applicationUncheckedCreateNestedManyWithoutUsersInput
+    media_uploads?: media_uploadsUncheckedCreateNestedManyWithoutUserInput
     mentor_application?: mentor_applicationUncheckedCreateNestedManyWithoutUsersInput
     night_camp_registrations?: night_camp_registrationsUncheckedCreateNestedManyWithoutUsersInput
     night_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousers?: night_camp_volunteering_applicationsUncheckedCreateNestedManyWithoutUsers_night_camp_volunteering_applications_reviewed_byTousersInput
@@ -47027,6 +53511,8 @@ export namespace Prisma {
     auto_renew?: NullableBoolFieldUpdateOperationsInput | boolean | null
     chatbot_questions_used?: NullableIntFieldUpdateOperationsInput | number | null
     chatbot_questions_reset_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    QuizParticipants?: QuizParticipantsUpdateManyWithoutUsersNestedInput
+    Quizzes?: QuizzesUpdateManyWithoutUsersNestedInput
     blog_comments?: blog_commentsUpdateManyWithoutUsersNestedInput
     blog_likes?: blog_likesUpdateManyWithoutUsersNestedInput
     blog_views?: blog_viewsUpdateManyWithoutUsersNestedInput
@@ -47034,6 +53520,7 @@ export namespace Prisma {
     chatbot_sessions?: chatbot_sessionsUpdateManyWithoutUsersNestedInput
     guide_application?: guide_applicationUpdateManyWithoutUsersNestedInput
     influencer_application?: influencer_applicationUpdateManyWithoutUsersNestedInput
+    media_uploads?: media_uploadsUpdateManyWithoutUserNestedInput
     mentor_application?: mentor_applicationUpdateManyWithoutUsersNestedInput
     night_camp_registrations?: night_camp_registrationsUpdateManyWithoutUsersNestedInput
     night_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousers?: night_camp_volunteering_applicationsUpdateManyWithoutUsers_night_camp_volunteering_applications_reviewed_byTousersNestedInput
@@ -47066,6 +53553,8 @@ export namespace Prisma {
     auto_renew?: NullableBoolFieldUpdateOperationsInput | boolean | null
     chatbot_questions_used?: NullableIntFieldUpdateOperationsInput | number | null
     chatbot_questions_reset_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    QuizParticipants?: QuizParticipantsUncheckedUpdateManyWithoutUsersNestedInput
+    Quizzes?: QuizzesUncheckedUpdateManyWithoutUsersNestedInput
     blog_comments?: blog_commentsUncheckedUpdateManyWithoutUsersNestedInput
     blog_likes?: blog_likesUncheckedUpdateManyWithoutUsersNestedInput
     blog_views?: blog_viewsUncheckedUpdateManyWithoutUsersNestedInput
@@ -47073,6 +53562,7 @@ export namespace Prisma {
     chatbot_sessions?: chatbot_sessionsUncheckedUpdateManyWithoutUsersNestedInput
     guide_application?: guide_applicationUncheckedUpdateManyWithoutUsersNestedInput
     influencer_application?: influencer_applicationUncheckedUpdateManyWithoutUsersNestedInput
+    media_uploads?: media_uploadsUncheckedUpdateManyWithoutUserNestedInput
     mentor_application?: mentor_applicationUncheckedUpdateManyWithoutUsersNestedInput
     night_camp_registrations?: night_camp_registrationsUncheckedUpdateManyWithoutUsersNestedInput
     night_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousers?: night_camp_volunteering_applicationsUncheckedUpdateManyWithoutUsers_night_camp_volunteering_applications_reviewed_byTousersNestedInput
@@ -47219,6 +53709,8 @@ export namespace Prisma {
     auto_renew?: boolean | null
     chatbot_questions_used?: number | null
     chatbot_questions_reset_date?: Date | string | null
+    QuizParticipants?: QuizParticipantsCreateNestedManyWithoutUsersInput
+    Quizzes?: QuizzesCreateNestedManyWithoutUsersInput
     blog_likes?: blog_likesCreateNestedManyWithoutUsersInput
     blog_views?: blog_viewsCreateNestedManyWithoutUsersInput
     blogs?: blogsCreateNestedManyWithoutUsersInput
@@ -47226,6 +53718,7 @@ export namespace Prisma {
     chatbot_usage?: chatbot_usageCreateNestedManyWithoutUsersInput
     guide_application?: guide_applicationCreateNestedManyWithoutUsersInput
     influencer_application?: influencer_applicationCreateNestedManyWithoutUsersInput
+    media_uploads?: media_uploadsCreateNestedManyWithoutUserInput
     mentor_application?: mentor_applicationCreateNestedManyWithoutUsersInput
     night_camp_registrations?: night_camp_registrationsCreateNestedManyWithoutUsersInput
     night_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousers?: night_camp_volunteering_applicationsCreateNestedManyWithoutUsers_night_camp_volunteering_applications_reviewed_byTousersInput
@@ -47258,6 +53751,8 @@ export namespace Prisma {
     auto_renew?: boolean | null
     chatbot_questions_used?: number | null
     chatbot_questions_reset_date?: Date | string | null
+    QuizParticipants?: QuizParticipantsUncheckedCreateNestedManyWithoutUsersInput
+    Quizzes?: QuizzesUncheckedCreateNestedManyWithoutUsersInput
     blog_likes?: blog_likesUncheckedCreateNestedManyWithoutUsersInput
     blog_views?: blog_viewsUncheckedCreateNestedManyWithoutUsersInput
     blogs?: blogsUncheckedCreateNestedManyWithoutUsersInput
@@ -47265,6 +53760,7 @@ export namespace Prisma {
     chatbot_usage?: chatbot_usageUncheckedCreateNestedManyWithoutUsersInput
     guide_application?: guide_applicationUncheckedCreateNestedManyWithoutUsersInput
     influencer_application?: influencer_applicationUncheckedCreateNestedManyWithoutUsersInput
+    media_uploads?: media_uploadsUncheckedCreateNestedManyWithoutUserInput
     mentor_application?: mentor_applicationUncheckedCreateNestedManyWithoutUsersInput
     night_camp_registrations?: night_camp_registrationsUncheckedCreateNestedManyWithoutUsersInput
     night_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousers?: night_camp_volunteering_applicationsUncheckedCreateNestedManyWithoutUsers_night_camp_volunteering_applications_reviewed_byTousersInput
@@ -47424,6 +53920,8 @@ export namespace Prisma {
     auto_renew?: NullableBoolFieldUpdateOperationsInput | boolean | null
     chatbot_questions_used?: NullableIntFieldUpdateOperationsInput | number | null
     chatbot_questions_reset_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    QuizParticipants?: QuizParticipantsUpdateManyWithoutUsersNestedInput
+    Quizzes?: QuizzesUpdateManyWithoutUsersNestedInput
     blog_likes?: blog_likesUpdateManyWithoutUsersNestedInput
     blog_views?: blog_viewsUpdateManyWithoutUsersNestedInput
     blogs?: blogsUpdateManyWithoutUsersNestedInput
@@ -47431,6 +53929,7 @@ export namespace Prisma {
     chatbot_usage?: chatbot_usageUpdateManyWithoutUsersNestedInput
     guide_application?: guide_applicationUpdateManyWithoutUsersNestedInput
     influencer_application?: influencer_applicationUpdateManyWithoutUsersNestedInput
+    media_uploads?: media_uploadsUpdateManyWithoutUserNestedInput
     mentor_application?: mentor_applicationUpdateManyWithoutUsersNestedInput
     night_camp_registrations?: night_camp_registrationsUpdateManyWithoutUsersNestedInput
     night_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousers?: night_camp_volunteering_applicationsUpdateManyWithoutUsers_night_camp_volunteering_applications_reviewed_byTousersNestedInput
@@ -47463,6 +53962,8 @@ export namespace Prisma {
     auto_renew?: NullableBoolFieldUpdateOperationsInput | boolean | null
     chatbot_questions_used?: NullableIntFieldUpdateOperationsInput | number | null
     chatbot_questions_reset_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    QuizParticipants?: QuizParticipantsUncheckedUpdateManyWithoutUsersNestedInput
+    Quizzes?: QuizzesUncheckedUpdateManyWithoutUsersNestedInput
     blog_likes?: blog_likesUncheckedUpdateManyWithoutUsersNestedInput
     blog_views?: blog_viewsUncheckedUpdateManyWithoutUsersNestedInput
     blogs?: blogsUncheckedUpdateManyWithoutUsersNestedInput
@@ -47470,6 +53971,7 @@ export namespace Prisma {
     chatbot_usage?: chatbot_usageUncheckedUpdateManyWithoutUsersNestedInput
     guide_application?: guide_applicationUncheckedUpdateManyWithoutUsersNestedInput
     influencer_application?: influencer_applicationUncheckedUpdateManyWithoutUsersNestedInput
+    media_uploads?: media_uploadsUncheckedUpdateManyWithoutUserNestedInput
     mentor_application?: mentor_applicationUncheckedUpdateManyWithoutUsersNestedInput
     night_camp_registrations?: night_camp_registrationsUncheckedUpdateManyWithoutUsersNestedInput
     night_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousers?: night_camp_volunteering_applicationsUncheckedUpdateManyWithoutUsers_night_camp_volunteering_applications_reviewed_byTousersNestedInput
@@ -47479,6 +53981,72 @@ export namespace Prisma {
     role_upgrade_requests_role_upgrade_requests_user_idTousers?: role_upgrade_requestsUncheckedUpdateManyWithoutUsers_role_upgrade_requests_user_idTousersNestedInput
     subscriptions?: subscriptionsUncheckedUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUncheckedUpdateOneWithoutUsersNestedInput
+  }
+
+  export type QuizParticipantsCreateWithoutUsersInput = {
+    correct_question_count?: number
+    score?: number
+    Quizzes: QuizzesCreateNestedOneWithoutQuizParticipantsInput
+  }
+
+  export type QuizParticipantsUncheckedCreateWithoutUsersInput = {
+    id?: number
+    quiz_id: number
+    correct_question_count?: number
+    score?: number
+  }
+
+  export type QuizParticipantsCreateOrConnectWithoutUsersInput = {
+    where: QuizParticipantsWhereUniqueInput
+    create: XOR<QuizParticipantsCreateWithoutUsersInput, QuizParticipantsUncheckedCreateWithoutUsersInput>
+  }
+
+  export type QuizParticipantsCreateManyUsersInputEnvelope = {
+    data: QuizParticipantsCreateManyUsersInput | QuizParticipantsCreateManyUsersInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type QuizzesCreateWithoutUsersInput = {
+    name: string
+    category: string
+    description: string
+    time?: Date | string | null
+    question_count?: number
+    participants_count?: number
+    time_limit: number
+    created_at?: Date | string
+    modified_at: Date | string
+    status?: $Enums.QuizStatus
+    level: $Enums.quiz_difficulty_level
+    QuizParticipants?: QuizParticipantsCreateNestedManyWithoutQuizzesInput
+    QuizQuestion?: QuizQuestionCreateNestedManyWithoutQuizzesInput
+  }
+
+  export type QuizzesUncheckedCreateWithoutUsersInput = {
+    id?: number
+    name: string
+    category: string
+    description: string
+    time?: Date | string | null
+    question_count?: number
+    participants_count?: number
+    time_limit: number
+    created_at?: Date | string
+    modified_at: Date | string
+    status?: $Enums.QuizStatus
+    level: $Enums.quiz_difficulty_level
+    QuizParticipants?: QuizParticipantsUncheckedCreateNestedManyWithoutQuizzesInput
+    QuizQuestion?: QuizQuestionUncheckedCreateNestedManyWithoutQuizzesInput
+  }
+
+  export type QuizzesCreateOrConnectWithoutUsersInput = {
+    where: QuizzesWhereUniqueInput
+    create: XOR<QuizzesCreateWithoutUsersInput, QuizzesUncheckedCreateWithoutUsersInput>
+  }
+
+  export type QuizzesCreateManyUsersInputEnvelope = {
+    data: QuizzesCreateManyUsersInput | QuizzesCreateManyUsersInput[]
+    skipDuplicates?: boolean
   }
 
   export type blog_commentsCreateWithoutUsersInput = {
@@ -47819,6 +54387,33 @@ export namespace Prisma {
 
   export type influencer_applicationCreateManyUsersInputEnvelope = {
     data: influencer_applicationCreateManyUsersInput | influencer_applicationCreateManyUsersInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type media_uploadsCreateWithoutUserInput = {
+    file_name: string
+    file_path: string
+    file_type: string
+    file_size: number
+    created_at?: Date | string | null
+  }
+
+  export type media_uploadsUncheckedCreateWithoutUserInput = {
+    id?: number
+    file_name: string
+    file_path: string
+    file_type: string
+    file_size: number
+    created_at?: Date | string | null
+  }
+
+  export type media_uploadsCreateOrConnectWithoutUserInput = {
+    where: media_uploadsWhereUniqueInput
+    create: XOR<media_uploadsCreateWithoutUserInput, media_uploadsUncheckedCreateWithoutUserInput>
+  }
+
+  export type media_uploadsCreateManyUserInputEnvelope = {
+    data: media_uploadsCreateManyUserInput | media_uploadsCreateManyUserInput[]
     skipDuplicates?: boolean
   }
 
@@ -48182,6 +54777,68 @@ export namespace Prisma {
     create: XOR<user_settingsCreateWithoutUsersInput, user_settingsUncheckedCreateWithoutUsersInput>
   }
 
+  export type QuizParticipantsUpsertWithWhereUniqueWithoutUsersInput = {
+    where: QuizParticipantsWhereUniqueInput
+    update: XOR<QuizParticipantsUpdateWithoutUsersInput, QuizParticipantsUncheckedUpdateWithoutUsersInput>
+    create: XOR<QuizParticipantsCreateWithoutUsersInput, QuizParticipantsUncheckedCreateWithoutUsersInput>
+  }
+
+  export type QuizParticipantsUpdateWithWhereUniqueWithoutUsersInput = {
+    where: QuizParticipantsWhereUniqueInput
+    data: XOR<QuizParticipantsUpdateWithoutUsersInput, QuizParticipantsUncheckedUpdateWithoutUsersInput>
+  }
+
+  export type QuizParticipantsUpdateManyWithWhereWithoutUsersInput = {
+    where: QuizParticipantsScalarWhereInput
+    data: XOR<QuizParticipantsUpdateManyMutationInput, QuizParticipantsUncheckedUpdateManyWithoutUsersInput>
+  }
+
+  export type QuizParticipantsScalarWhereInput = {
+    AND?: QuizParticipantsScalarWhereInput | QuizParticipantsScalarWhereInput[]
+    OR?: QuizParticipantsScalarWhereInput[]
+    NOT?: QuizParticipantsScalarWhereInput | QuizParticipantsScalarWhereInput[]
+    id?: IntFilter<"QuizParticipants"> | number
+    quiz_id?: IntFilter<"QuizParticipants"> | number
+    user_id?: IntFilter<"QuizParticipants"> | number
+    correct_question_count?: IntFilter<"QuizParticipants"> | number
+    score?: IntFilter<"QuizParticipants"> | number
+  }
+
+  export type QuizzesUpsertWithWhereUniqueWithoutUsersInput = {
+    where: QuizzesWhereUniqueInput
+    update: XOR<QuizzesUpdateWithoutUsersInput, QuizzesUncheckedUpdateWithoutUsersInput>
+    create: XOR<QuizzesCreateWithoutUsersInput, QuizzesUncheckedCreateWithoutUsersInput>
+  }
+
+  export type QuizzesUpdateWithWhereUniqueWithoutUsersInput = {
+    where: QuizzesWhereUniqueInput
+    data: XOR<QuizzesUpdateWithoutUsersInput, QuizzesUncheckedUpdateWithoutUsersInput>
+  }
+
+  export type QuizzesUpdateManyWithWhereWithoutUsersInput = {
+    where: QuizzesScalarWhereInput
+    data: XOR<QuizzesUpdateManyMutationInput, QuizzesUncheckedUpdateManyWithoutUsersInput>
+  }
+
+  export type QuizzesScalarWhereInput = {
+    AND?: QuizzesScalarWhereInput | QuizzesScalarWhereInput[]
+    OR?: QuizzesScalarWhereInput[]
+    NOT?: QuizzesScalarWhereInput | QuizzesScalarWhereInput[]
+    id?: IntFilter<"Quizzes"> | number
+    name?: StringFilter<"Quizzes"> | string
+    category?: StringFilter<"Quizzes"> | string
+    description?: StringFilter<"Quizzes"> | string
+    time?: DateTimeNullableFilter<"Quizzes"> | Date | string | null
+    question_count?: IntFilter<"Quizzes"> | number
+    participants_count?: IntFilter<"Quizzes"> | number
+    time_limit?: IntFilter<"Quizzes"> | number
+    user_id?: IntFilter<"Quizzes"> | number
+    created_at?: DateTimeFilter<"Quizzes"> | Date | string
+    modified_at?: DateTimeFilter<"Quizzes"> | Date | string
+    status?: EnumQuizStatusFilter<"Quizzes"> | $Enums.QuizStatus
+    level?: Enumquiz_difficulty_levelFilter<"Quizzes"> | $Enums.quiz_difficulty_level
+  }
+
   export type blog_commentsUpsertWithWhereUniqueWithoutUsersInput = {
     where: blog_commentsWhereUniqueInput
     update: XOR<blog_commentsUpdateWithoutUsersInput, blog_commentsUncheckedUpdateWithoutUsersInput>
@@ -48431,6 +55088,35 @@ export namespace Prisma {
     deletion_status?: BoolNullableFilter<"influencer_application"> | boolean | null
     submitted_at?: DateTimeNullableFilter<"influencer_application"> | Date | string | null
     updated_at?: DateTimeNullableFilter<"influencer_application"> | Date | string | null
+  }
+
+  export type media_uploadsUpsertWithWhereUniqueWithoutUserInput = {
+    where: media_uploadsWhereUniqueInput
+    update: XOR<media_uploadsUpdateWithoutUserInput, media_uploadsUncheckedUpdateWithoutUserInput>
+    create: XOR<media_uploadsCreateWithoutUserInput, media_uploadsUncheckedCreateWithoutUserInput>
+  }
+
+  export type media_uploadsUpdateWithWhereUniqueWithoutUserInput = {
+    where: media_uploadsWhereUniqueInput
+    data: XOR<media_uploadsUpdateWithoutUserInput, media_uploadsUncheckedUpdateWithoutUserInput>
+  }
+
+  export type media_uploadsUpdateManyWithWhereWithoutUserInput = {
+    where: media_uploadsScalarWhereInput
+    data: XOR<media_uploadsUpdateManyMutationInput, media_uploadsUncheckedUpdateManyWithoutUserInput>
+  }
+
+  export type media_uploadsScalarWhereInput = {
+    AND?: media_uploadsScalarWhereInput | media_uploadsScalarWhereInput[]
+    OR?: media_uploadsScalarWhereInput[]
+    NOT?: media_uploadsScalarWhereInput | media_uploadsScalarWhereInput[]
+    id?: IntFilter<"media_uploads"> | number
+    user_id?: IntFilter<"media_uploads"> | number
+    file_name?: StringFilter<"media_uploads"> | string
+    file_path?: StringFilter<"media_uploads"> | string
+    file_type?: StringFilter<"media_uploads"> | string
+    file_size?: IntFilter<"media_uploads"> | number
+    created_at?: DateTimeNullableFilter<"media_uploads"> | Date | string | null
   }
 
   export type mentor_applicationUpsertWithWhereUniqueWithoutUsersInput = {
@@ -48739,6 +55425,8 @@ export namespace Prisma {
     auto_renew?: boolean | null
     chatbot_questions_used?: number | null
     chatbot_questions_reset_date?: Date | string | null
+    QuizParticipants?: QuizParticipantsCreateNestedManyWithoutUsersInput
+    Quizzes?: QuizzesCreateNestedManyWithoutUsersInput
     blog_comments?: blog_commentsCreateNestedManyWithoutUsersInput
     blog_views?: blog_viewsCreateNestedManyWithoutUsersInput
     blogs?: blogsCreateNestedManyWithoutUsersInput
@@ -48746,6 +55434,7 @@ export namespace Prisma {
     chatbot_usage?: chatbot_usageCreateNestedManyWithoutUsersInput
     guide_application?: guide_applicationCreateNestedManyWithoutUsersInput
     influencer_application?: influencer_applicationCreateNestedManyWithoutUsersInput
+    media_uploads?: media_uploadsCreateNestedManyWithoutUserInput
     mentor_application?: mentor_applicationCreateNestedManyWithoutUsersInput
     night_camp_registrations?: night_camp_registrationsCreateNestedManyWithoutUsersInput
     night_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousers?: night_camp_volunteering_applicationsCreateNestedManyWithoutUsers_night_camp_volunteering_applications_reviewed_byTousersInput
@@ -48778,6 +55467,8 @@ export namespace Prisma {
     auto_renew?: boolean | null
     chatbot_questions_used?: number | null
     chatbot_questions_reset_date?: Date | string | null
+    QuizParticipants?: QuizParticipantsUncheckedCreateNestedManyWithoutUsersInput
+    Quizzes?: QuizzesUncheckedCreateNestedManyWithoutUsersInput
     blog_comments?: blog_commentsUncheckedCreateNestedManyWithoutUsersInput
     blog_views?: blog_viewsUncheckedCreateNestedManyWithoutUsersInput
     blogs?: blogsUncheckedCreateNestedManyWithoutUsersInput
@@ -48785,6 +55476,7 @@ export namespace Prisma {
     chatbot_usage?: chatbot_usageUncheckedCreateNestedManyWithoutUsersInput
     guide_application?: guide_applicationUncheckedCreateNestedManyWithoutUsersInput
     influencer_application?: influencer_applicationUncheckedCreateNestedManyWithoutUsersInput
+    media_uploads?: media_uploadsUncheckedCreateNestedManyWithoutUserInput
     mentor_application?: mentor_applicationUncheckedCreateNestedManyWithoutUsersInput
     night_camp_registrations?: night_camp_registrationsUncheckedCreateNestedManyWithoutUsersInput
     night_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousers?: night_camp_volunteering_applicationsUncheckedCreateNestedManyWithoutUsers_night_camp_volunteering_applications_reviewed_byTousersInput
@@ -48896,6 +55588,8 @@ export namespace Prisma {
     auto_renew?: NullableBoolFieldUpdateOperationsInput | boolean | null
     chatbot_questions_used?: NullableIntFieldUpdateOperationsInput | number | null
     chatbot_questions_reset_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    QuizParticipants?: QuizParticipantsUpdateManyWithoutUsersNestedInput
+    Quizzes?: QuizzesUpdateManyWithoutUsersNestedInput
     blog_comments?: blog_commentsUpdateManyWithoutUsersNestedInput
     blog_views?: blog_viewsUpdateManyWithoutUsersNestedInput
     blogs?: blogsUpdateManyWithoutUsersNestedInput
@@ -48903,6 +55597,7 @@ export namespace Prisma {
     chatbot_usage?: chatbot_usageUpdateManyWithoutUsersNestedInput
     guide_application?: guide_applicationUpdateManyWithoutUsersNestedInput
     influencer_application?: influencer_applicationUpdateManyWithoutUsersNestedInput
+    media_uploads?: media_uploadsUpdateManyWithoutUserNestedInput
     mentor_application?: mentor_applicationUpdateManyWithoutUsersNestedInput
     night_camp_registrations?: night_camp_registrationsUpdateManyWithoutUsersNestedInput
     night_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousers?: night_camp_volunteering_applicationsUpdateManyWithoutUsers_night_camp_volunteering_applications_reviewed_byTousersNestedInput
@@ -48935,6 +55630,8 @@ export namespace Prisma {
     auto_renew?: NullableBoolFieldUpdateOperationsInput | boolean | null
     chatbot_questions_used?: NullableIntFieldUpdateOperationsInput | number | null
     chatbot_questions_reset_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    QuizParticipants?: QuizParticipantsUncheckedUpdateManyWithoutUsersNestedInput
+    Quizzes?: QuizzesUncheckedUpdateManyWithoutUsersNestedInput
     blog_comments?: blog_commentsUncheckedUpdateManyWithoutUsersNestedInput
     blog_views?: blog_viewsUncheckedUpdateManyWithoutUsersNestedInput
     blogs?: blogsUncheckedUpdateManyWithoutUsersNestedInput
@@ -48942,6 +55639,7 @@ export namespace Prisma {
     chatbot_usage?: chatbot_usageUncheckedUpdateManyWithoutUsersNestedInput
     guide_application?: guide_applicationUncheckedUpdateManyWithoutUsersNestedInput
     influencer_application?: influencer_applicationUncheckedUpdateManyWithoutUsersNestedInput
+    media_uploads?: media_uploadsUncheckedUpdateManyWithoutUserNestedInput
     mentor_application?: mentor_applicationUncheckedUpdateManyWithoutUsersNestedInput
     night_camp_registrations?: night_camp_registrationsUncheckedUpdateManyWithoutUsersNestedInput
     night_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousers?: night_camp_volunteering_applicationsUncheckedUpdateManyWithoutUsers_night_camp_volunteering_applications_reviewed_byTousersNestedInput
@@ -49179,6 +55877,8 @@ export namespace Prisma {
     auto_renew?: boolean | null
     chatbot_questions_used?: number | null
     chatbot_questions_reset_date?: Date | string | null
+    QuizParticipants?: QuizParticipantsCreateNestedManyWithoutUsersInput
+    Quizzes?: QuizzesCreateNestedManyWithoutUsersInput
     blog_comments?: blog_commentsCreateNestedManyWithoutUsersInput
     blog_likes?: blog_likesCreateNestedManyWithoutUsersInput
     blog_views?: blog_viewsCreateNestedManyWithoutUsersInput
@@ -49187,6 +55887,7 @@ export namespace Prisma {
     chatbot_usage?: chatbot_usageCreateNestedManyWithoutUsersInput
     guide_application?: guide_applicationCreateNestedManyWithoutUsersInput
     influencer_application?: influencer_applicationCreateNestedManyWithoutUsersInput
+    media_uploads?: media_uploadsCreateNestedManyWithoutUserInput
     mentor_application?: mentor_applicationCreateNestedManyWithoutUsersInput
     night_camp_registrations?: night_camp_registrationsCreateNestedManyWithoutUsersInput
     night_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousers?: night_camp_volunteering_applicationsCreateNestedManyWithoutUsers_night_camp_volunteering_applications_reviewed_byTousersInput
@@ -49218,6 +55919,8 @@ export namespace Prisma {
     auto_renew?: boolean | null
     chatbot_questions_used?: number | null
     chatbot_questions_reset_date?: Date | string | null
+    QuizParticipants?: QuizParticipantsUncheckedCreateNestedManyWithoutUsersInput
+    Quizzes?: QuizzesUncheckedCreateNestedManyWithoutUsersInput
     blog_comments?: blog_commentsUncheckedCreateNestedManyWithoutUsersInput
     blog_likes?: blog_likesUncheckedCreateNestedManyWithoutUsersInput
     blog_views?: blog_viewsUncheckedCreateNestedManyWithoutUsersInput
@@ -49226,6 +55929,7 @@ export namespace Prisma {
     chatbot_usage?: chatbot_usageUncheckedCreateNestedManyWithoutUsersInput
     guide_application?: guide_applicationUncheckedCreateNestedManyWithoutUsersInput
     influencer_application?: influencer_applicationUncheckedCreateNestedManyWithoutUsersInput
+    media_uploads?: media_uploadsUncheckedCreateNestedManyWithoutUserInput
     mentor_application?: mentor_applicationUncheckedCreateNestedManyWithoutUsersInput
     night_camp_registrations?: night_camp_registrationsUncheckedCreateNestedManyWithoutUsersInput
     night_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousers?: night_camp_volunteering_applicationsUncheckedCreateNestedManyWithoutUsers_night_camp_volunteering_applications_reviewed_byTousersInput
@@ -49272,6 +55976,8 @@ export namespace Prisma {
     auto_renew?: NullableBoolFieldUpdateOperationsInput | boolean | null
     chatbot_questions_used?: NullableIntFieldUpdateOperationsInput | number | null
     chatbot_questions_reset_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    QuizParticipants?: QuizParticipantsUpdateManyWithoutUsersNestedInput
+    Quizzes?: QuizzesUpdateManyWithoutUsersNestedInput
     blog_comments?: blog_commentsUpdateManyWithoutUsersNestedInput
     blog_likes?: blog_likesUpdateManyWithoutUsersNestedInput
     blog_views?: blog_viewsUpdateManyWithoutUsersNestedInput
@@ -49280,6 +55986,7 @@ export namespace Prisma {
     chatbot_usage?: chatbot_usageUpdateManyWithoutUsersNestedInput
     guide_application?: guide_applicationUpdateManyWithoutUsersNestedInput
     influencer_application?: influencer_applicationUpdateManyWithoutUsersNestedInput
+    media_uploads?: media_uploadsUpdateManyWithoutUserNestedInput
     mentor_application?: mentor_applicationUpdateManyWithoutUsersNestedInput
     night_camp_registrations?: night_camp_registrationsUpdateManyWithoutUsersNestedInput
     night_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousers?: night_camp_volunteering_applicationsUpdateManyWithoutUsers_night_camp_volunteering_applications_reviewed_byTousersNestedInput
@@ -49311,6 +56018,8 @@ export namespace Prisma {
     auto_renew?: NullableBoolFieldUpdateOperationsInput | boolean | null
     chatbot_questions_used?: NullableIntFieldUpdateOperationsInput | number | null
     chatbot_questions_reset_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    QuizParticipants?: QuizParticipantsUncheckedUpdateManyWithoutUsersNestedInput
+    Quizzes?: QuizzesUncheckedUpdateManyWithoutUsersNestedInput
     blog_comments?: blog_commentsUncheckedUpdateManyWithoutUsersNestedInput
     blog_likes?: blog_likesUncheckedUpdateManyWithoutUsersNestedInput
     blog_views?: blog_viewsUncheckedUpdateManyWithoutUsersNestedInput
@@ -49319,6 +56028,7 @@ export namespace Prisma {
     chatbot_usage?: chatbot_usageUncheckedUpdateManyWithoutUsersNestedInput
     guide_application?: guide_applicationUncheckedUpdateManyWithoutUsersNestedInput
     influencer_application?: influencer_applicationUncheckedUpdateManyWithoutUsersNestedInput
+    media_uploads?: media_uploadsUncheckedUpdateManyWithoutUserNestedInput
     mentor_application?: mentor_applicationUncheckedUpdateManyWithoutUsersNestedInput
     night_camp_registrations?: night_camp_registrationsUncheckedUpdateManyWithoutUsersNestedInput
     night_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousers?: night_camp_volunteering_applicationsUncheckedUpdateManyWithoutUsers_night_camp_volunteering_applications_reviewed_byTousersNestedInput
@@ -49575,6 +56285,8 @@ export namespace Prisma {
     auto_renew?: boolean | null
     chatbot_questions_used?: number | null
     chatbot_questions_reset_date?: Date | string | null
+    QuizParticipants?: QuizParticipantsCreateNestedManyWithoutUsersInput
+    Quizzes?: QuizzesCreateNestedManyWithoutUsersInput
     blog_comments?: blog_commentsCreateNestedManyWithoutUsersInput
     blog_likes?: blog_likesCreateNestedManyWithoutUsersInput
     blog_views?: blog_viewsCreateNestedManyWithoutUsersInput
@@ -49583,6 +56295,7 @@ export namespace Prisma {
     chatbot_usage?: chatbot_usageCreateNestedManyWithoutUsersInput
     guide_application?: guide_applicationCreateNestedManyWithoutUsersInput
     influencer_application?: influencer_applicationCreateNestedManyWithoutUsersInput
+    media_uploads?: media_uploadsCreateNestedManyWithoutUserInput
     mentor_application?: mentor_applicationCreateNestedManyWithoutUsersInput
     night_camp_registrations?: night_camp_registrationsCreateNestedManyWithoutUsersInput
     night_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousers?: night_camp_volunteering_applicationsCreateNestedManyWithoutUsers_night_camp_volunteering_applications_reviewed_byTousersInput
@@ -49614,6 +56327,8 @@ export namespace Prisma {
     auto_renew?: boolean | null
     chatbot_questions_used?: number | null
     chatbot_questions_reset_date?: Date | string | null
+    QuizParticipants?: QuizParticipantsUncheckedCreateNestedManyWithoutUsersInput
+    Quizzes?: QuizzesUncheckedCreateNestedManyWithoutUsersInput
     blog_comments?: blog_commentsUncheckedCreateNestedManyWithoutUsersInput
     blog_likes?: blog_likesUncheckedCreateNestedManyWithoutUsersInput
     blog_views?: blog_viewsUncheckedCreateNestedManyWithoutUsersInput
@@ -49622,6 +56337,7 @@ export namespace Prisma {
     chatbot_usage?: chatbot_usageUncheckedCreateNestedManyWithoutUsersInput
     guide_application?: guide_applicationUncheckedCreateNestedManyWithoutUsersInput
     influencer_application?: influencer_applicationUncheckedCreateNestedManyWithoutUsersInput
+    media_uploads?: media_uploadsUncheckedCreateNestedManyWithoutUserInput
     mentor_application?: mentor_applicationUncheckedCreateNestedManyWithoutUsersInput
     night_camp_registrations?: night_camp_registrationsUncheckedCreateNestedManyWithoutUsersInput
     night_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousers?: night_camp_volunteering_applicationsUncheckedCreateNestedManyWithoutUsers_night_camp_volunteering_applications_reviewed_byTousersInput
@@ -49657,6 +56373,8 @@ export namespace Prisma {
     auto_renew?: boolean | null
     chatbot_questions_used?: number | null
     chatbot_questions_reset_date?: Date | string | null
+    QuizParticipants?: QuizParticipantsCreateNestedManyWithoutUsersInput
+    Quizzes?: QuizzesCreateNestedManyWithoutUsersInput
     blog_comments?: blog_commentsCreateNestedManyWithoutUsersInput
     blog_likes?: blog_likesCreateNestedManyWithoutUsersInput
     blog_views?: blog_viewsCreateNestedManyWithoutUsersInput
@@ -49665,6 +56383,7 @@ export namespace Prisma {
     chatbot_usage?: chatbot_usageCreateNestedManyWithoutUsersInput
     guide_application?: guide_applicationCreateNestedManyWithoutUsersInput
     influencer_application?: influencer_applicationCreateNestedManyWithoutUsersInput
+    media_uploads?: media_uploadsCreateNestedManyWithoutUserInput
     mentor_application?: mentor_applicationCreateNestedManyWithoutUsersInput
     night_camp_registrations?: night_camp_registrationsCreateNestedManyWithoutUsersInput
     night_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousers?: night_camp_volunteering_applicationsCreateNestedManyWithoutUsers_night_camp_volunteering_applications_reviewed_byTousersInput
@@ -49696,6 +56415,8 @@ export namespace Prisma {
     auto_renew?: boolean | null
     chatbot_questions_used?: number | null
     chatbot_questions_reset_date?: Date | string | null
+    QuizParticipants?: QuizParticipantsUncheckedCreateNestedManyWithoutUsersInput
+    Quizzes?: QuizzesUncheckedCreateNestedManyWithoutUsersInput
     blog_comments?: blog_commentsUncheckedCreateNestedManyWithoutUsersInput
     blog_likes?: blog_likesUncheckedCreateNestedManyWithoutUsersInput
     blog_views?: blog_viewsUncheckedCreateNestedManyWithoutUsersInput
@@ -49704,6 +56425,7 @@ export namespace Prisma {
     chatbot_usage?: chatbot_usageUncheckedCreateNestedManyWithoutUsersInput
     guide_application?: guide_applicationUncheckedCreateNestedManyWithoutUsersInput
     influencer_application?: influencer_applicationUncheckedCreateNestedManyWithoutUsersInput
+    media_uploads?: media_uploadsUncheckedCreateNestedManyWithoutUserInput
     mentor_application?: mentor_applicationUncheckedCreateNestedManyWithoutUsersInput
     night_camp_registrations?: night_camp_registrationsUncheckedCreateNestedManyWithoutUsersInput
     night_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousers?: night_camp_volunteering_applicationsUncheckedCreateNestedManyWithoutUsers_night_camp_volunteering_applications_reviewed_byTousersInput
@@ -49750,6 +56472,8 @@ export namespace Prisma {
     auto_renew?: NullableBoolFieldUpdateOperationsInput | boolean | null
     chatbot_questions_used?: NullableIntFieldUpdateOperationsInput | number | null
     chatbot_questions_reset_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    QuizParticipants?: QuizParticipantsUpdateManyWithoutUsersNestedInput
+    Quizzes?: QuizzesUpdateManyWithoutUsersNestedInput
     blog_comments?: blog_commentsUpdateManyWithoutUsersNestedInput
     blog_likes?: blog_likesUpdateManyWithoutUsersNestedInput
     blog_views?: blog_viewsUpdateManyWithoutUsersNestedInput
@@ -49758,6 +56482,7 @@ export namespace Prisma {
     chatbot_usage?: chatbot_usageUpdateManyWithoutUsersNestedInput
     guide_application?: guide_applicationUpdateManyWithoutUsersNestedInput
     influencer_application?: influencer_applicationUpdateManyWithoutUsersNestedInput
+    media_uploads?: media_uploadsUpdateManyWithoutUserNestedInput
     mentor_application?: mentor_applicationUpdateManyWithoutUsersNestedInput
     night_camp_registrations?: night_camp_registrationsUpdateManyWithoutUsersNestedInput
     night_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousers?: night_camp_volunteering_applicationsUpdateManyWithoutUsers_night_camp_volunteering_applications_reviewed_byTousersNestedInput
@@ -49789,6 +56514,8 @@ export namespace Prisma {
     auto_renew?: NullableBoolFieldUpdateOperationsInput | boolean | null
     chatbot_questions_used?: NullableIntFieldUpdateOperationsInput | number | null
     chatbot_questions_reset_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    QuizParticipants?: QuizParticipantsUncheckedUpdateManyWithoutUsersNestedInput
+    Quizzes?: QuizzesUncheckedUpdateManyWithoutUsersNestedInput
     blog_comments?: blog_commentsUncheckedUpdateManyWithoutUsersNestedInput
     blog_likes?: blog_likesUncheckedUpdateManyWithoutUsersNestedInput
     blog_views?: blog_viewsUncheckedUpdateManyWithoutUsersNestedInput
@@ -49797,6 +56524,7 @@ export namespace Prisma {
     chatbot_usage?: chatbot_usageUncheckedUpdateManyWithoutUsersNestedInput
     guide_application?: guide_applicationUncheckedUpdateManyWithoutUsersNestedInput
     influencer_application?: influencer_applicationUncheckedUpdateManyWithoutUsersNestedInput
+    media_uploads?: media_uploadsUncheckedUpdateManyWithoutUserNestedInput
     mentor_application?: mentor_applicationUncheckedUpdateManyWithoutUsersNestedInput
     night_camp_registrations?: night_camp_registrationsUncheckedUpdateManyWithoutUsersNestedInput
     night_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousers?: night_camp_volunteering_applicationsUncheckedUpdateManyWithoutUsers_night_camp_volunteering_applications_reviewed_byTousersNestedInput
@@ -49838,6 +56566,8 @@ export namespace Prisma {
     auto_renew?: NullableBoolFieldUpdateOperationsInput | boolean | null
     chatbot_questions_used?: NullableIntFieldUpdateOperationsInput | number | null
     chatbot_questions_reset_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    QuizParticipants?: QuizParticipantsUpdateManyWithoutUsersNestedInput
+    Quizzes?: QuizzesUpdateManyWithoutUsersNestedInput
     blog_comments?: blog_commentsUpdateManyWithoutUsersNestedInput
     blog_likes?: blog_likesUpdateManyWithoutUsersNestedInput
     blog_views?: blog_viewsUpdateManyWithoutUsersNestedInput
@@ -49846,6 +56576,7 @@ export namespace Prisma {
     chatbot_usage?: chatbot_usageUpdateManyWithoutUsersNestedInput
     guide_application?: guide_applicationUpdateManyWithoutUsersNestedInput
     influencer_application?: influencer_applicationUpdateManyWithoutUsersNestedInput
+    media_uploads?: media_uploadsUpdateManyWithoutUserNestedInput
     mentor_application?: mentor_applicationUpdateManyWithoutUsersNestedInput
     night_camp_registrations?: night_camp_registrationsUpdateManyWithoutUsersNestedInput
     night_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousers?: night_camp_volunteering_applicationsUpdateManyWithoutUsers_night_camp_volunteering_applications_reviewed_byTousersNestedInput
@@ -49877,6 +56608,8 @@ export namespace Prisma {
     auto_renew?: NullableBoolFieldUpdateOperationsInput | boolean | null
     chatbot_questions_used?: NullableIntFieldUpdateOperationsInput | number | null
     chatbot_questions_reset_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    QuizParticipants?: QuizParticipantsUncheckedUpdateManyWithoutUsersNestedInput
+    Quizzes?: QuizzesUncheckedUpdateManyWithoutUsersNestedInput
     blog_comments?: blog_commentsUncheckedUpdateManyWithoutUsersNestedInput
     blog_likes?: blog_likesUncheckedUpdateManyWithoutUsersNestedInput
     blog_views?: blog_viewsUncheckedUpdateManyWithoutUsersNestedInput
@@ -49885,6 +56618,7 @@ export namespace Prisma {
     chatbot_usage?: chatbot_usageUncheckedUpdateManyWithoutUsersNestedInput
     guide_application?: guide_applicationUncheckedUpdateManyWithoutUsersNestedInput
     influencer_application?: influencer_applicationUncheckedUpdateManyWithoutUsersNestedInput
+    media_uploads?: media_uploadsUncheckedUpdateManyWithoutUserNestedInput
     mentor_application?: mentor_applicationUncheckedUpdateManyWithoutUsersNestedInput
     night_camp_registrations?: night_camp_registrationsUncheckedUpdateManyWithoutUsersNestedInput
     night_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousers?: night_camp_volunteering_applicationsUncheckedUpdateManyWithoutUsers_night_camp_volunteering_applications_reviewed_byTousersNestedInput
@@ -49915,6 +56649,8 @@ export namespace Prisma {
     auto_renew?: boolean | null
     chatbot_questions_used?: number | null
     chatbot_questions_reset_date?: Date | string | null
+    QuizParticipants?: QuizParticipantsCreateNestedManyWithoutUsersInput
+    Quizzes?: QuizzesCreateNestedManyWithoutUsersInput
     blog_comments?: blog_commentsCreateNestedManyWithoutUsersInput
     blog_likes?: blog_likesCreateNestedManyWithoutUsersInput
     blog_views?: blog_viewsCreateNestedManyWithoutUsersInput
@@ -49922,6 +56658,7 @@ export namespace Prisma {
     chatbot_sessions?: chatbot_sessionsCreateNestedManyWithoutUsersInput
     chatbot_usage?: chatbot_usageCreateNestedManyWithoutUsersInput
     influencer_application?: influencer_applicationCreateNestedManyWithoutUsersInput
+    media_uploads?: media_uploadsCreateNestedManyWithoutUserInput
     mentor_application?: mentor_applicationCreateNestedManyWithoutUsersInput
     night_camp_registrations?: night_camp_registrationsCreateNestedManyWithoutUsersInput
     night_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousers?: night_camp_volunteering_applicationsCreateNestedManyWithoutUsers_night_camp_volunteering_applications_reviewed_byTousersInput
@@ -49954,6 +56691,8 @@ export namespace Prisma {
     auto_renew?: boolean | null
     chatbot_questions_used?: number | null
     chatbot_questions_reset_date?: Date | string | null
+    QuizParticipants?: QuizParticipantsUncheckedCreateNestedManyWithoutUsersInput
+    Quizzes?: QuizzesUncheckedCreateNestedManyWithoutUsersInput
     blog_comments?: blog_commentsUncheckedCreateNestedManyWithoutUsersInput
     blog_likes?: blog_likesUncheckedCreateNestedManyWithoutUsersInput
     blog_views?: blog_viewsUncheckedCreateNestedManyWithoutUsersInput
@@ -49961,6 +56700,7 @@ export namespace Prisma {
     chatbot_sessions?: chatbot_sessionsUncheckedCreateNestedManyWithoutUsersInput
     chatbot_usage?: chatbot_usageUncheckedCreateNestedManyWithoutUsersInput
     influencer_application?: influencer_applicationUncheckedCreateNestedManyWithoutUsersInput
+    media_uploads?: media_uploadsUncheckedCreateNestedManyWithoutUserInput
     mentor_application?: mentor_applicationUncheckedCreateNestedManyWithoutUsersInput
     night_camp_registrations?: night_camp_registrationsUncheckedCreateNestedManyWithoutUsersInput
     night_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousers?: night_camp_volunteering_applicationsUncheckedCreateNestedManyWithoutUsers_night_camp_volunteering_applications_reviewed_byTousersInput
@@ -50008,6 +56748,8 @@ export namespace Prisma {
     auto_renew?: NullableBoolFieldUpdateOperationsInput | boolean | null
     chatbot_questions_used?: NullableIntFieldUpdateOperationsInput | number | null
     chatbot_questions_reset_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    QuizParticipants?: QuizParticipantsUpdateManyWithoutUsersNestedInput
+    Quizzes?: QuizzesUpdateManyWithoutUsersNestedInput
     blog_comments?: blog_commentsUpdateManyWithoutUsersNestedInput
     blog_likes?: blog_likesUpdateManyWithoutUsersNestedInput
     blog_views?: blog_viewsUpdateManyWithoutUsersNestedInput
@@ -50015,6 +56757,7 @@ export namespace Prisma {
     chatbot_sessions?: chatbot_sessionsUpdateManyWithoutUsersNestedInput
     chatbot_usage?: chatbot_usageUpdateManyWithoutUsersNestedInput
     influencer_application?: influencer_applicationUpdateManyWithoutUsersNestedInput
+    media_uploads?: media_uploadsUpdateManyWithoutUserNestedInput
     mentor_application?: mentor_applicationUpdateManyWithoutUsersNestedInput
     night_camp_registrations?: night_camp_registrationsUpdateManyWithoutUsersNestedInput
     night_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousers?: night_camp_volunteering_applicationsUpdateManyWithoutUsers_night_camp_volunteering_applications_reviewed_byTousersNestedInput
@@ -50047,6 +56790,8 @@ export namespace Prisma {
     auto_renew?: NullableBoolFieldUpdateOperationsInput | boolean | null
     chatbot_questions_used?: NullableIntFieldUpdateOperationsInput | number | null
     chatbot_questions_reset_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    QuizParticipants?: QuizParticipantsUncheckedUpdateManyWithoutUsersNestedInput
+    Quizzes?: QuizzesUncheckedUpdateManyWithoutUsersNestedInput
     blog_comments?: blog_commentsUncheckedUpdateManyWithoutUsersNestedInput
     blog_likes?: blog_likesUncheckedUpdateManyWithoutUsersNestedInput
     blog_views?: blog_viewsUncheckedUpdateManyWithoutUsersNestedInput
@@ -50054,6 +56799,7 @@ export namespace Prisma {
     chatbot_sessions?: chatbot_sessionsUncheckedUpdateManyWithoutUsersNestedInput
     chatbot_usage?: chatbot_usageUncheckedUpdateManyWithoutUsersNestedInput
     influencer_application?: influencer_applicationUncheckedUpdateManyWithoutUsersNestedInput
+    media_uploads?: media_uploadsUncheckedUpdateManyWithoutUserNestedInput
     mentor_application?: mentor_applicationUncheckedUpdateManyWithoutUsersNestedInput
     night_camp_registrations?: night_camp_registrationsUncheckedUpdateManyWithoutUsersNestedInput
     night_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousers?: night_camp_volunteering_applicationsUncheckedUpdateManyWithoutUsers_night_camp_volunteering_applications_reviewed_byTousersNestedInput
@@ -50085,6 +56831,8 @@ export namespace Prisma {
     auto_renew?: boolean | null
     chatbot_questions_used?: number | null
     chatbot_questions_reset_date?: Date | string | null
+    QuizParticipants?: QuizParticipantsCreateNestedManyWithoutUsersInput
+    Quizzes?: QuizzesCreateNestedManyWithoutUsersInput
     blog_comments?: blog_commentsCreateNestedManyWithoutUsersInput
     blog_likes?: blog_likesCreateNestedManyWithoutUsersInput
     blog_views?: blog_viewsCreateNestedManyWithoutUsersInput
@@ -50093,6 +56841,7 @@ export namespace Prisma {
     chatbot_usage?: chatbot_usageCreateNestedManyWithoutUsersInput
     guide_application?: guide_applicationCreateNestedManyWithoutUsersInput
     influencer_application?: influencer_applicationCreateNestedManyWithoutUsersInput
+    media_uploads?: media_uploadsCreateNestedManyWithoutUserInput
     night_camp_registrations?: night_camp_registrationsCreateNestedManyWithoutUsersInput
     night_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousers?: night_camp_volunteering_applicationsCreateNestedManyWithoutUsers_night_camp_volunteering_applications_reviewed_byTousersInput
     night_camp_volunteering_applications_night_camp_volunteering_applications_user_idTousers?: night_camp_volunteering_applicationsCreateNestedManyWithoutUsers_night_camp_volunteering_applications_user_idTousersInput
@@ -50124,6 +56873,8 @@ export namespace Prisma {
     auto_renew?: boolean | null
     chatbot_questions_used?: number | null
     chatbot_questions_reset_date?: Date | string | null
+    QuizParticipants?: QuizParticipantsUncheckedCreateNestedManyWithoutUsersInput
+    Quizzes?: QuizzesUncheckedCreateNestedManyWithoutUsersInput
     blog_comments?: blog_commentsUncheckedCreateNestedManyWithoutUsersInput
     blog_likes?: blog_likesUncheckedCreateNestedManyWithoutUsersInput
     blog_views?: blog_viewsUncheckedCreateNestedManyWithoutUsersInput
@@ -50132,6 +56883,7 @@ export namespace Prisma {
     chatbot_usage?: chatbot_usageUncheckedCreateNestedManyWithoutUsersInput
     guide_application?: guide_applicationUncheckedCreateNestedManyWithoutUsersInput
     influencer_application?: influencer_applicationUncheckedCreateNestedManyWithoutUsersInput
+    media_uploads?: media_uploadsUncheckedCreateNestedManyWithoutUserInput
     night_camp_registrations?: night_camp_registrationsUncheckedCreateNestedManyWithoutUsersInput
     night_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousers?: night_camp_volunteering_applicationsUncheckedCreateNestedManyWithoutUsers_night_camp_volunteering_applications_reviewed_byTousersInput
     night_camp_volunteering_applications_night_camp_volunteering_applications_user_idTousers?: night_camp_volunteering_applicationsUncheckedCreateNestedManyWithoutUsers_night_camp_volunteering_applications_user_idTousersInput
@@ -50178,6 +56930,8 @@ export namespace Prisma {
     auto_renew?: NullableBoolFieldUpdateOperationsInput | boolean | null
     chatbot_questions_used?: NullableIntFieldUpdateOperationsInput | number | null
     chatbot_questions_reset_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    QuizParticipants?: QuizParticipantsUpdateManyWithoutUsersNestedInput
+    Quizzes?: QuizzesUpdateManyWithoutUsersNestedInput
     blog_comments?: blog_commentsUpdateManyWithoutUsersNestedInput
     blog_likes?: blog_likesUpdateManyWithoutUsersNestedInput
     blog_views?: blog_viewsUpdateManyWithoutUsersNestedInput
@@ -50186,6 +56940,7 @@ export namespace Prisma {
     chatbot_usage?: chatbot_usageUpdateManyWithoutUsersNestedInput
     guide_application?: guide_applicationUpdateManyWithoutUsersNestedInput
     influencer_application?: influencer_applicationUpdateManyWithoutUsersNestedInput
+    media_uploads?: media_uploadsUpdateManyWithoutUserNestedInput
     night_camp_registrations?: night_camp_registrationsUpdateManyWithoutUsersNestedInput
     night_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousers?: night_camp_volunteering_applicationsUpdateManyWithoutUsers_night_camp_volunteering_applications_reviewed_byTousersNestedInput
     night_camp_volunteering_applications_night_camp_volunteering_applications_user_idTousers?: night_camp_volunteering_applicationsUpdateManyWithoutUsers_night_camp_volunteering_applications_user_idTousersNestedInput
@@ -50217,6 +56972,8 @@ export namespace Prisma {
     auto_renew?: NullableBoolFieldUpdateOperationsInput | boolean | null
     chatbot_questions_used?: NullableIntFieldUpdateOperationsInput | number | null
     chatbot_questions_reset_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    QuizParticipants?: QuizParticipantsUncheckedUpdateManyWithoutUsersNestedInput
+    Quizzes?: QuizzesUncheckedUpdateManyWithoutUsersNestedInput
     blog_comments?: blog_commentsUncheckedUpdateManyWithoutUsersNestedInput
     blog_likes?: blog_likesUncheckedUpdateManyWithoutUsersNestedInput
     blog_views?: blog_viewsUncheckedUpdateManyWithoutUsersNestedInput
@@ -50225,6 +56982,7 @@ export namespace Prisma {
     chatbot_usage?: chatbot_usageUncheckedUpdateManyWithoutUsersNestedInput
     guide_application?: guide_applicationUncheckedUpdateManyWithoutUsersNestedInput
     influencer_application?: influencer_applicationUncheckedUpdateManyWithoutUsersNestedInput
+    media_uploads?: media_uploadsUncheckedUpdateManyWithoutUserNestedInput
     night_camp_registrations?: night_camp_registrationsUncheckedUpdateManyWithoutUsersNestedInput
     night_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousers?: night_camp_volunteering_applicationsUncheckedUpdateManyWithoutUsers_night_camp_volunteering_applications_reviewed_byTousersNestedInput
     night_camp_volunteering_applications_night_camp_volunteering_applications_user_idTousers?: night_camp_volunteering_applicationsUncheckedUpdateManyWithoutUsers_night_camp_volunteering_applications_user_idTousersNestedInput
@@ -50301,6 +57059,8 @@ export namespace Prisma {
     auto_renew?: boolean | null
     chatbot_questions_used?: number | null
     chatbot_questions_reset_date?: Date | string | null
+    QuizParticipants?: QuizParticipantsCreateNestedManyWithoutUsersInput
+    Quizzes?: QuizzesCreateNestedManyWithoutUsersInput
     blog_comments?: blog_commentsCreateNestedManyWithoutUsersInput
     blog_likes?: blog_likesCreateNestedManyWithoutUsersInput
     blog_views?: blog_viewsCreateNestedManyWithoutUsersInput
@@ -50309,6 +57069,7 @@ export namespace Prisma {
     chatbot_usage?: chatbot_usageCreateNestedManyWithoutUsersInput
     guide_application?: guide_applicationCreateNestedManyWithoutUsersInput
     influencer_application?: influencer_applicationCreateNestedManyWithoutUsersInput
+    media_uploads?: media_uploadsCreateNestedManyWithoutUserInput
     mentor_application?: mentor_applicationCreateNestedManyWithoutUsersInput
     night_camp_registrations?: night_camp_registrationsCreateNestedManyWithoutUsersInput
     night_camp_volunteering_applications_night_camp_volunteering_applications_user_idTousers?: night_camp_volunteering_applicationsCreateNestedManyWithoutUsers_night_camp_volunteering_applications_user_idTousersInput
@@ -50340,6 +57101,8 @@ export namespace Prisma {
     auto_renew?: boolean | null
     chatbot_questions_used?: number | null
     chatbot_questions_reset_date?: Date | string | null
+    QuizParticipants?: QuizParticipantsUncheckedCreateNestedManyWithoutUsersInput
+    Quizzes?: QuizzesUncheckedCreateNestedManyWithoutUsersInput
     blog_comments?: blog_commentsUncheckedCreateNestedManyWithoutUsersInput
     blog_likes?: blog_likesUncheckedCreateNestedManyWithoutUsersInput
     blog_views?: blog_viewsUncheckedCreateNestedManyWithoutUsersInput
@@ -50348,6 +57111,7 @@ export namespace Prisma {
     chatbot_usage?: chatbot_usageUncheckedCreateNestedManyWithoutUsersInput
     guide_application?: guide_applicationUncheckedCreateNestedManyWithoutUsersInput
     influencer_application?: influencer_applicationUncheckedCreateNestedManyWithoutUsersInput
+    media_uploads?: media_uploadsUncheckedCreateNestedManyWithoutUserInput
     mentor_application?: mentor_applicationUncheckedCreateNestedManyWithoutUsersInput
     night_camp_registrations?: night_camp_registrationsUncheckedCreateNestedManyWithoutUsersInput
     night_camp_volunteering_applications_night_camp_volunteering_applications_user_idTousers?: night_camp_volunteering_applicationsUncheckedCreateNestedManyWithoutUsers_night_camp_volunteering_applications_user_idTousersInput
@@ -50383,6 +57147,8 @@ export namespace Prisma {
     auto_renew?: boolean | null
     chatbot_questions_used?: number | null
     chatbot_questions_reset_date?: Date | string | null
+    QuizParticipants?: QuizParticipantsCreateNestedManyWithoutUsersInput
+    Quizzes?: QuizzesCreateNestedManyWithoutUsersInput
     blog_comments?: blog_commentsCreateNestedManyWithoutUsersInput
     blog_likes?: blog_likesCreateNestedManyWithoutUsersInput
     blog_views?: blog_viewsCreateNestedManyWithoutUsersInput
@@ -50391,6 +57157,7 @@ export namespace Prisma {
     chatbot_usage?: chatbot_usageCreateNestedManyWithoutUsersInput
     guide_application?: guide_applicationCreateNestedManyWithoutUsersInput
     influencer_application?: influencer_applicationCreateNestedManyWithoutUsersInput
+    media_uploads?: media_uploadsCreateNestedManyWithoutUserInput
     mentor_application?: mentor_applicationCreateNestedManyWithoutUsersInput
     night_camp_registrations?: night_camp_registrationsCreateNestedManyWithoutUsersInput
     night_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousers?: night_camp_volunteering_applicationsCreateNestedManyWithoutUsers_night_camp_volunteering_applications_reviewed_byTousersInput
@@ -50422,6 +57189,8 @@ export namespace Prisma {
     auto_renew?: boolean | null
     chatbot_questions_used?: number | null
     chatbot_questions_reset_date?: Date | string | null
+    QuizParticipants?: QuizParticipantsUncheckedCreateNestedManyWithoutUsersInput
+    Quizzes?: QuizzesUncheckedCreateNestedManyWithoutUsersInput
     blog_comments?: blog_commentsUncheckedCreateNestedManyWithoutUsersInput
     blog_likes?: blog_likesUncheckedCreateNestedManyWithoutUsersInput
     blog_views?: blog_viewsUncheckedCreateNestedManyWithoutUsersInput
@@ -50430,6 +57199,7 @@ export namespace Prisma {
     chatbot_usage?: chatbot_usageUncheckedCreateNestedManyWithoutUsersInput
     guide_application?: guide_applicationUncheckedCreateNestedManyWithoutUsersInput
     influencer_application?: influencer_applicationUncheckedCreateNestedManyWithoutUsersInput
+    media_uploads?: media_uploadsUncheckedCreateNestedManyWithoutUserInput
     mentor_application?: mentor_applicationUncheckedCreateNestedManyWithoutUsersInput
     night_camp_registrations?: night_camp_registrationsUncheckedCreateNestedManyWithoutUsersInput
     night_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousers?: night_camp_volunteering_applicationsUncheckedCreateNestedManyWithoutUsers_night_camp_volunteering_applications_reviewed_byTousersInput
@@ -50528,6 +57298,8 @@ export namespace Prisma {
     auto_renew?: NullableBoolFieldUpdateOperationsInput | boolean | null
     chatbot_questions_used?: NullableIntFieldUpdateOperationsInput | number | null
     chatbot_questions_reset_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    QuizParticipants?: QuizParticipantsUpdateManyWithoutUsersNestedInput
+    Quizzes?: QuizzesUpdateManyWithoutUsersNestedInput
     blog_comments?: blog_commentsUpdateManyWithoutUsersNestedInput
     blog_likes?: blog_likesUpdateManyWithoutUsersNestedInput
     blog_views?: blog_viewsUpdateManyWithoutUsersNestedInput
@@ -50536,6 +57308,7 @@ export namespace Prisma {
     chatbot_usage?: chatbot_usageUpdateManyWithoutUsersNestedInput
     guide_application?: guide_applicationUpdateManyWithoutUsersNestedInput
     influencer_application?: influencer_applicationUpdateManyWithoutUsersNestedInput
+    media_uploads?: media_uploadsUpdateManyWithoutUserNestedInput
     mentor_application?: mentor_applicationUpdateManyWithoutUsersNestedInput
     night_camp_registrations?: night_camp_registrationsUpdateManyWithoutUsersNestedInput
     night_camp_volunteering_applications_night_camp_volunteering_applications_user_idTousers?: night_camp_volunteering_applicationsUpdateManyWithoutUsers_night_camp_volunteering_applications_user_idTousersNestedInput
@@ -50567,6 +57340,8 @@ export namespace Prisma {
     auto_renew?: NullableBoolFieldUpdateOperationsInput | boolean | null
     chatbot_questions_used?: NullableIntFieldUpdateOperationsInput | number | null
     chatbot_questions_reset_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    QuizParticipants?: QuizParticipantsUncheckedUpdateManyWithoutUsersNestedInput
+    Quizzes?: QuizzesUncheckedUpdateManyWithoutUsersNestedInput
     blog_comments?: blog_commentsUncheckedUpdateManyWithoutUsersNestedInput
     blog_likes?: blog_likesUncheckedUpdateManyWithoutUsersNestedInput
     blog_views?: blog_viewsUncheckedUpdateManyWithoutUsersNestedInput
@@ -50575,6 +57350,7 @@ export namespace Prisma {
     chatbot_usage?: chatbot_usageUncheckedUpdateManyWithoutUsersNestedInput
     guide_application?: guide_applicationUncheckedUpdateManyWithoutUsersNestedInput
     influencer_application?: influencer_applicationUncheckedUpdateManyWithoutUsersNestedInput
+    media_uploads?: media_uploadsUncheckedUpdateManyWithoutUserNestedInput
     mentor_application?: mentor_applicationUncheckedUpdateManyWithoutUsersNestedInput
     night_camp_registrations?: night_camp_registrationsUncheckedUpdateManyWithoutUsersNestedInput
     night_camp_volunteering_applications_night_camp_volunteering_applications_user_idTousers?: night_camp_volunteering_applicationsUncheckedUpdateManyWithoutUsers_night_camp_volunteering_applications_user_idTousersNestedInput
@@ -50616,6 +57392,8 @@ export namespace Prisma {
     auto_renew?: NullableBoolFieldUpdateOperationsInput | boolean | null
     chatbot_questions_used?: NullableIntFieldUpdateOperationsInput | number | null
     chatbot_questions_reset_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    QuizParticipants?: QuizParticipantsUpdateManyWithoutUsersNestedInput
+    Quizzes?: QuizzesUpdateManyWithoutUsersNestedInput
     blog_comments?: blog_commentsUpdateManyWithoutUsersNestedInput
     blog_likes?: blog_likesUpdateManyWithoutUsersNestedInput
     blog_views?: blog_viewsUpdateManyWithoutUsersNestedInput
@@ -50624,6 +57402,7 @@ export namespace Prisma {
     chatbot_usage?: chatbot_usageUpdateManyWithoutUsersNestedInput
     guide_application?: guide_applicationUpdateManyWithoutUsersNestedInput
     influencer_application?: influencer_applicationUpdateManyWithoutUsersNestedInput
+    media_uploads?: media_uploadsUpdateManyWithoutUserNestedInput
     mentor_application?: mentor_applicationUpdateManyWithoutUsersNestedInput
     night_camp_registrations?: night_camp_registrationsUpdateManyWithoutUsersNestedInput
     night_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousers?: night_camp_volunteering_applicationsUpdateManyWithoutUsers_night_camp_volunteering_applications_reviewed_byTousersNestedInput
@@ -50655,6 +57434,8 @@ export namespace Prisma {
     auto_renew?: NullableBoolFieldUpdateOperationsInput | boolean | null
     chatbot_questions_used?: NullableIntFieldUpdateOperationsInput | number | null
     chatbot_questions_reset_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    QuizParticipants?: QuizParticipantsUncheckedUpdateManyWithoutUsersNestedInput
+    Quizzes?: QuizzesUncheckedUpdateManyWithoutUsersNestedInput
     blog_comments?: blog_commentsUncheckedUpdateManyWithoutUsersNestedInput
     blog_likes?: blog_likesUncheckedUpdateManyWithoutUsersNestedInput
     blog_views?: blog_viewsUncheckedUpdateManyWithoutUsersNestedInput
@@ -50663,6 +57444,7 @@ export namespace Prisma {
     chatbot_usage?: chatbot_usageUncheckedUpdateManyWithoutUsersNestedInput
     guide_application?: guide_applicationUncheckedUpdateManyWithoutUsersNestedInput
     influencer_application?: influencer_applicationUncheckedUpdateManyWithoutUsersNestedInput
+    media_uploads?: media_uploadsUncheckedUpdateManyWithoutUserNestedInput
     mentor_application?: mentor_applicationUncheckedUpdateManyWithoutUsersNestedInput
     night_camp_registrations?: night_camp_registrationsUncheckedUpdateManyWithoutUsersNestedInput
     night_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousers?: night_camp_volunteering_applicationsUncheckedUpdateManyWithoutUsers_night_camp_volunteering_applications_reviewed_byTousersNestedInput
@@ -50739,6 +57521,8 @@ export namespace Prisma {
     auto_renew?: boolean | null
     chatbot_questions_used?: number | null
     chatbot_questions_reset_date?: Date | string | null
+    QuizParticipants?: QuizParticipantsCreateNestedManyWithoutUsersInput
+    Quizzes?: QuizzesCreateNestedManyWithoutUsersInput
     blog_comments?: blog_commentsCreateNestedManyWithoutUsersInput
     blog_likes?: blog_likesCreateNestedManyWithoutUsersInput
     blog_views?: blog_viewsCreateNestedManyWithoutUsersInput
@@ -50747,6 +57531,7 @@ export namespace Prisma {
     chatbot_usage?: chatbot_usageCreateNestedManyWithoutUsersInput
     guide_application?: guide_applicationCreateNestedManyWithoutUsersInput
     influencer_application?: influencer_applicationCreateNestedManyWithoutUsersInput
+    media_uploads?: media_uploadsCreateNestedManyWithoutUserInput
     mentor_application?: mentor_applicationCreateNestedManyWithoutUsersInput
     night_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousers?: night_camp_volunteering_applicationsCreateNestedManyWithoutUsers_night_camp_volunteering_applications_reviewed_byTousersInput
     night_camp_volunteering_applications_night_camp_volunteering_applications_user_idTousers?: night_camp_volunteering_applicationsCreateNestedManyWithoutUsers_night_camp_volunteering_applications_user_idTousersInput
@@ -50778,6 +57563,8 @@ export namespace Prisma {
     auto_renew?: boolean | null
     chatbot_questions_used?: number | null
     chatbot_questions_reset_date?: Date | string | null
+    QuizParticipants?: QuizParticipantsUncheckedCreateNestedManyWithoutUsersInput
+    Quizzes?: QuizzesUncheckedCreateNestedManyWithoutUsersInput
     blog_comments?: blog_commentsUncheckedCreateNestedManyWithoutUsersInput
     blog_likes?: blog_likesUncheckedCreateNestedManyWithoutUsersInput
     blog_views?: blog_viewsUncheckedCreateNestedManyWithoutUsersInput
@@ -50786,6 +57573,7 @@ export namespace Prisma {
     chatbot_usage?: chatbot_usageUncheckedCreateNestedManyWithoutUsersInput
     guide_application?: guide_applicationUncheckedCreateNestedManyWithoutUsersInput
     influencer_application?: influencer_applicationUncheckedCreateNestedManyWithoutUsersInput
+    media_uploads?: media_uploadsUncheckedCreateNestedManyWithoutUserInput
     mentor_application?: mentor_applicationUncheckedCreateNestedManyWithoutUsersInput
     night_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousers?: night_camp_volunteering_applicationsUncheckedCreateNestedManyWithoutUsers_night_camp_volunteering_applications_reviewed_byTousersInput
     night_camp_volunteering_applications_night_camp_volunteering_applications_user_idTousers?: night_camp_volunteering_applicationsUncheckedCreateNestedManyWithoutUsers_night_camp_volunteering_applications_user_idTousersInput
@@ -50884,6 +57672,8 @@ export namespace Prisma {
     auto_renew?: NullableBoolFieldUpdateOperationsInput | boolean | null
     chatbot_questions_used?: NullableIntFieldUpdateOperationsInput | number | null
     chatbot_questions_reset_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    QuizParticipants?: QuizParticipantsUpdateManyWithoutUsersNestedInput
+    Quizzes?: QuizzesUpdateManyWithoutUsersNestedInput
     blog_comments?: blog_commentsUpdateManyWithoutUsersNestedInput
     blog_likes?: blog_likesUpdateManyWithoutUsersNestedInput
     blog_views?: blog_viewsUpdateManyWithoutUsersNestedInput
@@ -50892,6 +57682,7 @@ export namespace Prisma {
     chatbot_usage?: chatbot_usageUpdateManyWithoutUsersNestedInput
     guide_application?: guide_applicationUpdateManyWithoutUsersNestedInput
     influencer_application?: influencer_applicationUpdateManyWithoutUsersNestedInput
+    media_uploads?: media_uploadsUpdateManyWithoutUserNestedInput
     mentor_application?: mentor_applicationUpdateManyWithoutUsersNestedInput
     night_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousers?: night_camp_volunteering_applicationsUpdateManyWithoutUsers_night_camp_volunteering_applications_reviewed_byTousersNestedInput
     night_camp_volunteering_applications_night_camp_volunteering_applications_user_idTousers?: night_camp_volunteering_applicationsUpdateManyWithoutUsers_night_camp_volunteering_applications_user_idTousersNestedInput
@@ -50923,6 +57714,8 @@ export namespace Prisma {
     auto_renew?: NullableBoolFieldUpdateOperationsInput | boolean | null
     chatbot_questions_used?: NullableIntFieldUpdateOperationsInput | number | null
     chatbot_questions_reset_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    QuizParticipants?: QuizParticipantsUncheckedUpdateManyWithoutUsersNestedInput
+    Quizzes?: QuizzesUncheckedUpdateManyWithoutUsersNestedInput
     blog_comments?: blog_commentsUncheckedUpdateManyWithoutUsersNestedInput
     blog_likes?: blog_likesUncheckedUpdateManyWithoutUsersNestedInput
     blog_views?: blog_viewsUncheckedUpdateManyWithoutUsersNestedInput
@@ -50931,6 +57724,7 @@ export namespace Prisma {
     chatbot_usage?: chatbot_usageUncheckedUpdateManyWithoutUsersNestedInput
     guide_application?: guide_applicationUncheckedUpdateManyWithoutUsersNestedInput
     influencer_application?: influencer_applicationUncheckedUpdateManyWithoutUsersNestedInput
+    media_uploads?: media_uploadsUncheckedUpdateManyWithoutUserNestedInput
     mentor_application?: mentor_applicationUncheckedUpdateManyWithoutUsersNestedInput
     night_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousers?: night_camp_volunteering_applicationsUncheckedUpdateManyWithoutUsers_night_camp_volunteering_applications_reviewed_byTousersNestedInput
     night_camp_volunteering_applications_night_camp_volunteering_applications_user_idTousers?: night_camp_volunteering_applicationsUncheckedUpdateManyWithoutUsers_night_camp_volunteering_applications_user_idTousersNestedInput
@@ -50961,6 +57755,8 @@ export namespace Prisma {
     auto_renew?: boolean | null
     chatbot_questions_used?: number | null
     chatbot_questions_reset_date?: Date | string | null
+    QuizParticipants?: QuizParticipantsCreateNestedManyWithoutUsersInput
+    Quizzes?: QuizzesCreateNestedManyWithoutUsersInput
     blog_comments?: blog_commentsCreateNestedManyWithoutUsersInput
     blog_likes?: blog_likesCreateNestedManyWithoutUsersInput
     blog_views?: blog_viewsCreateNestedManyWithoutUsersInput
@@ -50968,6 +57764,7 @@ export namespace Prisma {
     chatbot_sessions?: chatbot_sessionsCreateNestedManyWithoutUsersInput
     chatbot_usage?: chatbot_usageCreateNestedManyWithoutUsersInput
     guide_application?: guide_applicationCreateNestedManyWithoutUsersInput
+    media_uploads?: media_uploadsCreateNestedManyWithoutUserInput
     mentor_application?: mentor_applicationCreateNestedManyWithoutUsersInput
     night_camp_registrations?: night_camp_registrationsCreateNestedManyWithoutUsersInput
     night_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousers?: night_camp_volunteering_applicationsCreateNestedManyWithoutUsers_night_camp_volunteering_applications_reviewed_byTousersInput
@@ -51000,6 +57797,8 @@ export namespace Prisma {
     auto_renew?: boolean | null
     chatbot_questions_used?: number | null
     chatbot_questions_reset_date?: Date | string | null
+    QuizParticipants?: QuizParticipantsUncheckedCreateNestedManyWithoutUsersInput
+    Quizzes?: QuizzesUncheckedCreateNestedManyWithoutUsersInput
     blog_comments?: blog_commentsUncheckedCreateNestedManyWithoutUsersInput
     blog_likes?: blog_likesUncheckedCreateNestedManyWithoutUsersInput
     blog_views?: blog_viewsUncheckedCreateNestedManyWithoutUsersInput
@@ -51007,6 +57806,7 @@ export namespace Prisma {
     chatbot_sessions?: chatbot_sessionsUncheckedCreateNestedManyWithoutUsersInput
     chatbot_usage?: chatbot_usageUncheckedCreateNestedManyWithoutUsersInput
     guide_application?: guide_applicationUncheckedCreateNestedManyWithoutUsersInput
+    media_uploads?: media_uploadsUncheckedCreateNestedManyWithoutUserInput
     mentor_application?: mentor_applicationUncheckedCreateNestedManyWithoutUsersInput
     night_camp_registrations?: night_camp_registrationsUncheckedCreateNestedManyWithoutUsersInput
     night_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousers?: night_camp_volunteering_applicationsUncheckedCreateNestedManyWithoutUsers_night_camp_volunteering_applications_reviewed_byTousersInput
@@ -51054,6 +57854,8 @@ export namespace Prisma {
     auto_renew?: NullableBoolFieldUpdateOperationsInput | boolean | null
     chatbot_questions_used?: NullableIntFieldUpdateOperationsInput | number | null
     chatbot_questions_reset_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    QuizParticipants?: QuizParticipantsUpdateManyWithoutUsersNestedInput
+    Quizzes?: QuizzesUpdateManyWithoutUsersNestedInput
     blog_comments?: blog_commentsUpdateManyWithoutUsersNestedInput
     blog_likes?: blog_likesUpdateManyWithoutUsersNestedInput
     blog_views?: blog_viewsUpdateManyWithoutUsersNestedInput
@@ -51061,6 +57863,7 @@ export namespace Prisma {
     chatbot_sessions?: chatbot_sessionsUpdateManyWithoutUsersNestedInput
     chatbot_usage?: chatbot_usageUpdateManyWithoutUsersNestedInput
     guide_application?: guide_applicationUpdateManyWithoutUsersNestedInput
+    media_uploads?: media_uploadsUpdateManyWithoutUserNestedInput
     mentor_application?: mentor_applicationUpdateManyWithoutUsersNestedInput
     night_camp_registrations?: night_camp_registrationsUpdateManyWithoutUsersNestedInput
     night_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousers?: night_camp_volunteering_applicationsUpdateManyWithoutUsers_night_camp_volunteering_applications_reviewed_byTousersNestedInput
@@ -51093,6 +57896,8 @@ export namespace Prisma {
     auto_renew?: NullableBoolFieldUpdateOperationsInput | boolean | null
     chatbot_questions_used?: NullableIntFieldUpdateOperationsInput | number | null
     chatbot_questions_reset_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    QuizParticipants?: QuizParticipantsUncheckedUpdateManyWithoutUsersNestedInput
+    Quizzes?: QuizzesUncheckedUpdateManyWithoutUsersNestedInput
     blog_comments?: blog_commentsUncheckedUpdateManyWithoutUsersNestedInput
     blog_likes?: blog_likesUncheckedUpdateManyWithoutUsersNestedInput
     blog_views?: blog_viewsUncheckedUpdateManyWithoutUsersNestedInput
@@ -51100,6 +57905,809 @@ export namespace Prisma {
     chatbot_sessions?: chatbot_sessionsUncheckedUpdateManyWithoutUsersNestedInput
     chatbot_usage?: chatbot_usageUncheckedUpdateManyWithoutUsersNestedInput
     guide_application?: guide_applicationUncheckedUpdateManyWithoutUsersNestedInput
+    media_uploads?: media_uploadsUncheckedUpdateManyWithoutUserNestedInput
+    mentor_application?: mentor_applicationUncheckedUpdateManyWithoutUsersNestedInput
+    night_camp_registrations?: night_camp_registrationsUncheckedUpdateManyWithoutUsersNestedInput
+    night_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousers?: night_camp_volunteering_applicationsUncheckedUpdateManyWithoutUsers_night_camp_volunteering_applications_reviewed_byTousersNestedInput
+    night_camp_volunteering_applications_night_camp_volunteering_applications_user_idTousers?: night_camp_volunteering_applicationsUncheckedUpdateManyWithoutUsers_night_camp_volunteering_applications_user_idTousersNestedInput
+    payments?: paymentsUncheckedUpdateManyWithoutUsersNestedInput
+    role_upgrade_requests_role_upgrade_requests_reviewer_idTousers?: role_upgrade_requestsUncheckedUpdateManyWithoutUsers_role_upgrade_requests_reviewer_idTousersNestedInput
+    role_upgrade_requests_role_upgrade_requests_user_idTousers?: role_upgrade_requestsUncheckedUpdateManyWithoutUsers_role_upgrade_requests_user_idTousersNestedInput
+    subscriptions?: subscriptionsUncheckedUpdateManyWithoutUsersNestedInput
+    user_settings?: user_settingsUncheckedUpdateOneWithoutUsersNestedInput
+  }
+
+  export type usersCreateWithoutMedia_uploadsInput = {
+    firebase_uid: string
+    email: string
+    role?: $Enums.user_role | null
+    first_name?: string | null
+    last_name?: string | null
+    is_active?: boolean | null
+    last_login?: Date | string | null
+    created_at?: Date | string | null
+    updated_at?: Date | string | null
+    display_name?: string | null
+    profile_data?: NullableJsonNullValueInput | InputJsonValue
+    role_specific_data?: NullableJsonNullValueInput | InputJsonValue
+    subscription_plan?: $Enums.subscription_plan | null
+    subscription_status?: $Enums.subscription_status | null
+    subscription_start_date?: Date | string | null
+    subscription_end_date?: Date | string | null
+    auto_renew?: boolean | null
+    chatbot_questions_used?: number | null
+    chatbot_questions_reset_date?: Date | string | null
+    QuizParticipants?: QuizParticipantsCreateNestedManyWithoutUsersInput
+    Quizzes?: QuizzesCreateNestedManyWithoutUsersInput
+    blog_comments?: blog_commentsCreateNestedManyWithoutUsersInput
+    blog_likes?: blog_likesCreateNestedManyWithoutUsersInput
+    blog_views?: blog_viewsCreateNestedManyWithoutUsersInput
+    blogs?: blogsCreateNestedManyWithoutUsersInput
+    chatbot_sessions?: chatbot_sessionsCreateNestedManyWithoutUsersInput
+    chatbot_usage?: chatbot_usageCreateNestedManyWithoutUsersInput
+    guide_application?: guide_applicationCreateNestedManyWithoutUsersInput
+    influencer_application?: influencer_applicationCreateNestedManyWithoutUsersInput
+    mentor_application?: mentor_applicationCreateNestedManyWithoutUsersInput
+    night_camp_registrations?: night_camp_registrationsCreateNestedManyWithoutUsersInput
+    night_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousers?: night_camp_volunteering_applicationsCreateNestedManyWithoutUsers_night_camp_volunteering_applications_reviewed_byTousersInput
+    night_camp_volunteering_applications_night_camp_volunteering_applications_user_idTousers?: night_camp_volunteering_applicationsCreateNestedManyWithoutUsers_night_camp_volunteering_applications_user_idTousersInput
+    payments?: paymentsCreateNestedManyWithoutUsersInput
+    role_upgrade_requests_role_upgrade_requests_reviewer_idTousers?: role_upgrade_requestsCreateNestedManyWithoutUsers_role_upgrade_requests_reviewer_idTousersInput
+    role_upgrade_requests_role_upgrade_requests_user_idTousers?: role_upgrade_requestsCreateNestedManyWithoutUsers_role_upgrade_requests_user_idTousersInput
+    subscriptions?: subscriptionsCreateNestedManyWithoutUsersInput
+    user_settings?: user_settingsCreateNestedOneWithoutUsersInput
+  }
+
+  export type usersUncheckedCreateWithoutMedia_uploadsInput = {
+    id?: number
+    firebase_uid: string
+    email: string
+    role?: $Enums.user_role | null
+    first_name?: string | null
+    last_name?: string | null
+    is_active?: boolean | null
+    last_login?: Date | string | null
+    created_at?: Date | string | null
+    updated_at?: Date | string | null
+    display_name?: string | null
+    profile_data?: NullableJsonNullValueInput | InputJsonValue
+    role_specific_data?: NullableJsonNullValueInput | InputJsonValue
+    subscription_plan?: $Enums.subscription_plan | null
+    subscription_status?: $Enums.subscription_status | null
+    subscription_start_date?: Date | string | null
+    subscription_end_date?: Date | string | null
+    auto_renew?: boolean | null
+    chatbot_questions_used?: number | null
+    chatbot_questions_reset_date?: Date | string | null
+    QuizParticipants?: QuizParticipantsUncheckedCreateNestedManyWithoutUsersInput
+    Quizzes?: QuizzesUncheckedCreateNestedManyWithoutUsersInput
+    blog_comments?: blog_commentsUncheckedCreateNestedManyWithoutUsersInput
+    blog_likes?: blog_likesUncheckedCreateNestedManyWithoutUsersInput
+    blog_views?: blog_viewsUncheckedCreateNestedManyWithoutUsersInput
+    blogs?: blogsUncheckedCreateNestedManyWithoutUsersInput
+    chatbot_sessions?: chatbot_sessionsUncheckedCreateNestedManyWithoutUsersInput
+    chatbot_usage?: chatbot_usageUncheckedCreateNestedManyWithoutUsersInput
+    guide_application?: guide_applicationUncheckedCreateNestedManyWithoutUsersInput
+    influencer_application?: influencer_applicationUncheckedCreateNestedManyWithoutUsersInput
+    mentor_application?: mentor_applicationUncheckedCreateNestedManyWithoutUsersInput
+    night_camp_registrations?: night_camp_registrationsUncheckedCreateNestedManyWithoutUsersInput
+    night_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousers?: night_camp_volunteering_applicationsUncheckedCreateNestedManyWithoutUsers_night_camp_volunteering_applications_reviewed_byTousersInput
+    night_camp_volunteering_applications_night_camp_volunteering_applications_user_idTousers?: night_camp_volunteering_applicationsUncheckedCreateNestedManyWithoutUsers_night_camp_volunteering_applications_user_idTousersInput
+    payments?: paymentsUncheckedCreateNestedManyWithoutUsersInput
+    role_upgrade_requests_role_upgrade_requests_reviewer_idTousers?: role_upgrade_requestsUncheckedCreateNestedManyWithoutUsers_role_upgrade_requests_reviewer_idTousersInput
+    role_upgrade_requests_role_upgrade_requests_user_idTousers?: role_upgrade_requestsUncheckedCreateNestedManyWithoutUsers_role_upgrade_requests_user_idTousersInput
+    subscriptions?: subscriptionsUncheckedCreateNestedManyWithoutUsersInput
+    user_settings?: user_settingsUncheckedCreateNestedOneWithoutUsersInput
+  }
+
+  export type usersCreateOrConnectWithoutMedia_uploadsInput = {
+    where: usersWhereUniqueInput
+    create: XOR<usersCreateWithoutMedia_uploadsInput, usersUncheckedCreateWithoutMedia_uploadsInput>
+  }
+
+  export type usersUpsertWithoutMedia_uploadsInput = {
+    update: XOR<usersUpdateWithoutMedia_uploadsInput, usersUncheckedUpdateWithoutMedia_uploadsInput>
+    create: XOR<usersCreateWithoutMedia_uploadsInput, usersUncheckedCreateWithoutMedia_uploadsInput>
+    where?: usersWhereInput
+  }
+
+  export type usersUpdateToOneWithWhereWithoutMedia_uploadsInput = {
+    where?: usersWhereInput
+    data: XOR<usersUpdateWithoutMedia_uploadsInput, usersUncheckedUpdateWithoutMedia_uploadsInput>
+  }
+
+  export type usersUpdateWithoutMedia_uploadsInput = {
+    firebase_uid?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    role?: NullableEnumuser_roleFieldUpdateOperationsInput | $Enums.user_role | null
+    first_name?: NullableStringFieldUpdateOperationsInput | string | null
+    last_name?: NullableStringFieldUpdateOperationsInput | string | null
+    is_active?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    last_login?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    display_name?: NullableStringFieldUpdateOperationsInput | string | null
+    profile_data?: NullableJsonNullValueInput | InputJsonValue
+    role_specific_data?: NullableJsonNullValueInput | InputJsonValue
+    subscription_plan?: NullableEnumsubscription_planFieldUpdateOperationsInput | $Enums.subscription_plan | null
+    subscription_status?: NullableEnumsubscription_statusFieldUpdateOperationsInput | $Enums.subscription_status | null
+    subscription_start_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    subscription_end_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    auto_renew?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    chatbot_questions_used?: NullableIntFieldUpdateOperationsInput | number | null
+    chatbot_questions_reset_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    QuizParticipants?: QuizParticipantsUpdateManyWithoutUsersNestedInput
+    Quizzes?: QuizzesUpdateManyWithoutUsersNestedInput
+    blog_comments?: blog_commentsUpdateManyWithoutUsersNestedInput
+    blog_likes?: blog_likesUpdateManyWithoutUsersNestedInput
+    blog_views?: blog_viewsUpdateManyWithoutUsersNestedInput
+    blogs?: blogsUpdateManyWithoutUsersNestedInput
+    chatbot_sessions?: chatbot_sessionsUpdateManyWithoutUsersNestedInput
+    chatbot_usage?: chatbot_usageUpdateManyWithoutUsersNestedInput
+    guide_application?: guide_applicationUpdateManyWithoutUsersNestedInput
+    influencer_application?: influencer_applicationUpdateManyWithoutUsersNestedInput
+    mentor_application?: mentor_applicationUpdateManyWithoutUsersNestedInput
+    night_camp_registrations?: night_camp_registrationsUpdateManyWithoutUsersNestedInput
+    night_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousers?: night_camp_volunteering_applicationsUpdateManyWithoutUsers_night_camp_volunteering_applications_reviewed_byTousersNestedInput
+    night_camp_volunteering_applications_night_camp_volunteering_applications_user_idTousers?: night_camp_volunteering_applicationsUpdateManyWithoutUsers_night_camp_volunteering_applications_user_idTousersNestedInput
+    payments?: paymentsUpdateManyWithoutUsersNestedInput
+    role_upgrade_requests_role_upgrade_requests_reviewer_idTousers?: role_upgrade_requestsUpdateManyWithoutUsers_role_upgrade_requests_reviewer_idTousersNestedInput
+    role_upgrade_requests_role_upgrade_requests_user_idTousers?: role_upgrade_requestsUpdateManyWithoutUsers_role_upgrade_requests_user_idTousersNestedInput
+    subscriptions?: subscriptionsUpdateManyWithoutUsersNestedInput
+    user_settings?: user_settingsUpdateOneWithoutUsersNestedInput
+  }
+
+  export type usersUncheckedUpdateWithoutMedia_uploadsInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    firebase_uid?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    role?: NullableEnumuser_roleFieldUpdateOperationsInput | $Enums.user_role | null
+    first_name?: NullableStringFieldUpdateOperationsInput | string | null
+    last_name?: NullableStringFieldUpdateOperationsInput | string | null
+    is_active?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    last_login?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    display_name?: NullableStringFieldUpdateOperationsInput | string | null
+    profile_data?: NullableJsonNullValueInput | InputJsonValue
+    role_specific_data?: NullableJsonNullValueInput | InputJsonValue
+    subscription_plan?: NullableEnumsubscription_planFieldUpdateOperationsInput | $Enums.subscription_plan | null
+    subscription_status?: NullableEnumsubscription_statusFieldUpdateOperationsInput | $Enums.subscription_status | null
+    subscription_start_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    subscription_end_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    auto_renew?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    chatbot_questions_used?: NullableIntFieldUpdateOperationsInput | number | null
+    chatbot_questions_reset_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    QuizParticipants?: QuizParticipantsUncheckedUpdateManyWithoutUsersNestedInput
+    Quizzes?: QuizzesUncheckedUpdateManyWithoutUsersNestedInput
+    blog_comments?: blog_commentsUncheckedUpdateManyWithoutUsersNestedInput
+    blog_likes?: blog_likesUncheckedUpdateManyWithoutUsersNestedInput
+    blog_views?: blog_viewsUncheckedUpdateManyWithoutUsersNestedInput
+    blogs?: blogsUncheckedUpdateManyWithoutUsersNestedInput
+    chatbot_sessions?: chatbot_sessionsUncheckedUpdateManyWithoutUsersNestedInput
+    chatbot_usage?: chatbot_usageUncheckedUpdateManyWithoutUsersNestedInput
+    guide_application?: guide_applicationUncheckedUpdateManyWithoutUsersNestedInput
+    influencer_application?: influencer_applicationUncheckedUpdateManyWithoutUsersNestedInput
+    mentor_application?: mentor_applicationUncheckedUpdateManyWithoutUsersNestedInput
+    night_camp_registrations?: night_camp_registrationsUncheckedUpdateManyWithoutUsersNestedInput
+    night_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousers?: night_camp_volunteering_applicationsUncheckedUpdateManyWithoutUsers_night_camp_volunteering_applications_reviewed_byTousersNestedInput
+    night_camp_volunteering_applications_night_camp_volunteering_applications_user_idTousers?: night_camp_volunteering_applicationsUncheckedUpdateManyWithoutUsers_night_camp_volunteering_applications_user_idTousersNestedInput
+    payments?: paymentsUncheckedUpdateManyWithoutUsersNestedInput
+    role_upgrade_requests_role_upgrade_requests_reviewer_idTousers?: role_upgrade_requestsUncheckedUpdateManyWithoutUsers_role_upgrade_requests_reviewer_idTousersNestedInput
+    role_upgrade_requests_role_upgrade_requests_user_idTousers?: role_upgrade_requestsUncheckedUpdateManyWithoutUsers_role_upgrade_requests_user_idTousersNestedInput
+    subscriptions?: subscriptionsUncheckedUpdateManyWithoutUsersNestedInput
+    user_settings?: user_settingsUncheckedUpdateOneWithoutUsersNestedInput
+  }
+
+  export type QuizzesCreateWithoutQuizParticipantsInput = {
+    name: string
+    category: string
+    description: string
+    time?: Date | string | null
+    question_count?: number
+    participants_count?: number
+    time_limit: number
+    created_at?: Date | string
+    modified_at: Date | string
+    status?: $Enums.QuizStatus
+    level: $Enums.quiz_difficulty_level
+    QuizQuestion?: QuizQuestionCreateNestedManyWithoutQuizzesInput
+    users: usersCreateNestedOneWithoutQuizzesInput
+  }
+
+  export type QuizzesUncheckedCreateWithoutQuizParticipantsInput = {
+    id?: number
+    name: string
+    category: string
+    description: string
+    time?: Date | string | null
+    question_count?: number
+    participants_count?: number
+    time_limit: number
+    user_id: number
+    created_at?: Date | string
+    modified_at: Date | string
+    status?: $Enums.QuizStatus
+    level: $Enums.quiz_difficulty_level
+    QuizQuestion?: QuizQuestionUncheckedCreateNestedManyWithoutQuizzesInput
+  }
+
+  export type QuizzesCreateOrConnectWithoutQuizParticipantsInput = {
+    where: QuizzesWhereUniqueInput
+    create: XOR<QuizzesCreateWithoutQuizParticipantsInput, QuizzesUncheckedCreateWithoutQuizParticipantsInput>
+  }
+
+  export type usersCreateWithoutQuizParticipantsInput = {
+    firebase_uid: string
+    email: string
+    role?: $Enums.user_role | null
+    first_name?: string | null
+    last_name?: string | null
+    is_active?: boolean | null
+    last_login?: Date | string | null
+    created_at?: Date | string | null
+    updated_at?: Date | string | null
+    display_name?: string | null
+    profile_data?: NullableJsonNullValueInput | InputJsonValue
+    role_specific_data?: NullableJsonNullValueInput | InputJsonValue
+    subscription_plan?: $Enums.subscription_plan | null
+    subscription_status?: $Enums.subscription_status | null
+    subscription_start_date?: Date | string | null
+    subscription_end_date?: Date | string | null
+    auto_renew?: boolean | null
+    chatbot_questions_used?: number | null
+    chatbot_questions_reset_date?: Date | string | null
+    Quizzes?: QuizzesCreateNestedManyWithoutUsersInput
+    blog_comments?: blog_commentsCreateNestedManyWithoutUsersInput
+    blog_likes?: blog_likesCreateNestedManyWithoutUsersInput
+    blog_views?: blog_viewsCreateNestedManyWithoutUsersInput
+    blogs?: blogsCreateNestedManyWithoutUsersInput
+    chatbot_sessions?: chatbot_sessionsCreateNestedManyWithoutUsersInput
+    chatbot_usage?: chatbot_usageCreateNestedManyWithoutUsersInput
+    guide_application?: guide_applicationCreateNestedManyWithoutUsersInput
+    influencer_application?: influencer_applicationCreateNestedManyWithoutUsersInput
+    media_uploads?: media_uploadsCreateNestedManyWithoutUserInput
+    mentor_application?: mentor_applicationCreateNestedManyWithoutUsersInput
+    night_camp_registrations?: night_camp_registrationsCreateNestedManyWithoutUsersInput
+    night_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousers?: night_camp_volunteering_applicationsCreateNestedManyWithoutUsers_night_camp_volunteering_applications_reviewed_byTousersInput
+    night_camp_volunteering_applications_night_camp_volunteering_applications_user_idTousers?: night_camp_volunteering_applicationsCreateNestedManyWithoutUsers_night_camp_volunteering_applications_user_idTousersInput
+    payments?: paymentsCreateNestedManyWithoutUsersInput
+    role_upgrade_requests_role_upgrade_requests_reviewer_idTousers?: role_upgrade_requestsCreateNestedManyWithoutUsers_role_upgrade_requests_reviewer_idTousersInput
+    role_upgrade_requests_role_upgrade_requests_user_idTousers?: role_upgrade_requestsCreateNestedManyWithoutUsers_role_upgrade_requests_user_idTousersInput
+    subscriptions?: subscriptionsCreateNestedManyWithoutUsersInput
+    user_settings?: user_settingsCreateNestedOneWithoutUsersInput
+  }
+
+  export type usersUncheckedCreateWithoutQuizParticipantsInput = {
+    id?: number
+    firebase_uid: string
+    email: string
+    role?: $Enums.user_role | null
+    first_name?: string | null
+    last_name?: string | null
+    is_active?: boolean | null
+    last_login?: Date | string | null
+    created_at?: Date | string | null
+    updated_at?: Date | string | null
+    display_name?: string | null
+    profile_data?: NullableJsonNullValueInput | InputJsonValue
+    role_specific_data?: NullableJsonNullValueInput | InputJsonValue
+    subscription_plan?: $Enums.subscription_plan | null
+    subscription_status?: $Enums.subscription_status | null
+    subscription_start_date?: Date | string | null
+    subscription_end_date?: Date | string | null
+    auto_renew?: boolean | null
+    chatbot_questions_used?: number | null
+    chatbot_questions_reset_date?: Date | string | null
+    Quizzes?: QuizzesUncheckedCreateNestedManyWithoutUsersInput
+    blog_comments?: blog_commentsUncheckedCreateNestedManyWithoutUsersInput
+    blog_likes?: blog_likesUncheckedCreateNestedManyWithoutUsersInput
+    blog_views?: blog_viewsUncheckedCreateNestedManyWithoutUsersInput
+    blogs?: blogsUncheckedCreateNestedManyWithoutUsersInput
+    chatbot_sessions?: chatbot_sessionsUncheckedCreateNestedManyWithoutUsersInput
+    chatbot_usage?: chatbot_usageUncheckedCreateNestedManyWithoutUsersInput
+    guide_application?: guide_applicationUncheckedCreateNestedManyWithoutUsersInput
+    influencer_application?: influencer_applicationUncheckedCreateNestedManyWithoutUsersInput
+    media_uploads?: media_uploadsUncheckedCreateNestedManyWithoutUserInput
+    mentor_application?: mentor_applicationUncheckedCreateNestedManyWithoutUsersInput
+    night_camp_registrations?: night_camp_registrationsUncheckedCreateNestedManyWithoutUsersInput
+    night_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousers?: night_camp_volunteering_applicationsUncheckedCreateNestedManyWithoutUsers_night_camp_volunteering_applications_reviewed_byTousersInput
+    night_camp_volunteering_applications_night_camp_volunteering_applications_user_idTousers?: night_camp_volunteering_applicationsUncheckedCreateNestedManyWithoutUsers_night_camp_volunteering_applications_user_idTousersInput
+    payments?: paymentsUncheckedCreateNestedManyWithoutUsersInput
+    role_upgrade_requests_role_upgrade_requests_reviewer_idTousers?: role_upgrade_requestsUncheckedCreateNestedManyWithoutUsers_role_upgrade_requests_reviewer_idTousersInput
+    role_upgrade_requests_role_upgrade_requests_user_idTousers?: role_upgrade_requestsUncheckedCreateNestedManyWithoutUsers_role_upgrade_requests_user_idTousersInput
+    subscriptions?: subscriptionsUncheckedCreateNestedManyWithoutUsersInput
+    user_settings?: user_settingsUncheckedCreateNestedOneWithoutUsersInput
+  }
+
+  export type usersCreateOrConnectWithoutQuizParticipantsInput = {
+    where: usersWhereUniqueInput
+    create: XOR<usersCreateWithoutQuizParticipantsInput, usersUncheckedCreateWithoutQuizParticipantsInput>
+  }
+
+  export type QuizzesUpsertWithoutQuizParticipantsInput = {
+    update: XOR<QuizzesUpdateWithoutQuizParticipantsInput, QuizzesUncheckedUpdateWithoutQuizParticipantsInput>
+    create: XOR<QuizzesCreateWithoutQuizParticipantsInput, QuizzesUncheckedCreateWithoutQuizParticipantsInput>
+    where?: QuizzesWhereInput
+  }
+
+  export type QuizzesUpdateToOneWithWhereWithoutQuizParticipantsInput = {
+    where?: QuizzesWhereInput
+    data: XOR<QuizzesUpdateWithoutQuizParticipantsInput, QuizzesUncheckedUpdateWithoutQuizParticipantsInput>
+  }
+
+  export type QuizzesUpdateWithoutQuizParticipantsInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    category?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    time?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    question_count?: IntFieldUpdateOperationsInput | number
+    participants_count?: IntFieldUpdateOperationsInput | number
+    time_limit?: IntFieldUpdateOperationsInput | number
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    modified_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    status?: EnumQuizStatusFieldUpdateOperationsInput | $Enums.QuizStatus
+    level?: Enumquiz_difficulty_levelFieldUpdateOperationsInput | $Enums.quiz_difficulty_level
+    QuizQuestion?: QuizQuestionUpdateManyWithoutQuizzesNestedInput
+    users?: usersUpdateOneRequiredWithoutQuizzesNestedInput
+  }
+
+  export type QuizzesUncheckedUpdateWithoutQuizParticipantsInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    name?: StringFieldUpdateOperationsInput | string
+    category?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    time?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    question_count?: IntFieldUpdateOperationsInput | number
+    participants_count?: IntFieldUpdateOperationsInput | number
+    time_limit?: IntFieldUpdateOperationsInput | number
+    user_id?: IntFieldUpdateOperationsInput | number
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    modified_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    status?: EnumQuizStatusFieldUpdateOperationsInput | $Enums.QuizStatus
+    level?: Enumquiz_difficulty_levelFieldUpdateOperationsInput | $Enums.quiz_difficulty_level
+    QuizQuestion?: QuizQuestionUncheckedUpdateManyWithoutQuizzesNestedInput
+  }
+
+  export type usersUpsertWithoutQuizParticipantsInput = {
+    update: XOR<usersUpdateWithoutQuizParticipantsInput, usersUncheckedUpdateWithoutQuizParticipantsInput>
+    create: XOR<usersCreateWithoutQuizParticipantsInput, usersUncheckedCreateWithoutQuizParticipantsInput>
+    where?: usersWhereInput
+  }
+
+  export type usersUpdateToOneWithWhereWithoutQuizParticipantsInput = {
+    where?: usersWhereInput
+    data: XOR<usersUpdateWithoutQuizParticipantsInput, usersUncheckedUpdateWithoutQuizParticipantsInput>
+  }
+
+  export type usersUpdateWithoutQuizParticipantsInput = {
+    firebase_uid?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    role?: NullableEnumuser_roleFieldUpdateOperationsInput | $Enums.user_role | null
+    first_name?: NullableStringFieldUpdateOperationsInput | string | null
+    last_name?: NullableStringFieldUpdateOperationsInput | string | null
+    is_active?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    last_login?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    display_name?: NullableStringFieldUpdateOperationsInput | string | null
+    profile_data?: NullableJsonNullValueInput | InputJsonValue
+    role_specific_data?: NullableJsonNullValueInput | InputJsonValue
+    subscription_plan?: NullableEnumsubscription_planFieldUpdateOperationsInput | $Enums.subscription_plan | null
+    subscription_status?: NullableEnumsubscription_statusFieldUpdateOperationsInput | $Enums.subscription_status | null
+    subscription_start_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    subscription_end_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    auto_renew?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    chatbot_questions_used?: NullableIntFieldUpdateOperationsInput | number | null
+    chatbot_questions_reset_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    Quizzes?: QuizzesUpdateManyWithoutUsersNestedInput
+    blog_comments?: blog_commentsUpdateManyWithoutUsersNestedInput
+    blog_likes?: blog_likesUpdateManyWithoutUsersNestedInput
+    blog_views?: blog_viewsUpdateManyWithoutUsersNestedInput
+    blogs?: blogsUpdateManyWithoutUsersNestedInput
+    chatbot_sessions?: chatbot_sessionsUpdateManyWithoutUsersNestedInput
+    chatbot_usage?: chatbot_usageUpdateManyWithoutUsersNestedInput
+    guide_application?: guide_applicationUpdateManyWithoutUsersNestedInput
+    influencer_application?: influencer_applicationUpdateManyWithoutUsersNestedInput
+    media_uploads?: media_uploadsUpdateManyWithoutUserNestedInput
+    mentor_application?: mentor_applicationUpdateManyWithoutUsersNestedInput
+    night_camp_registrations?: night_camp_registrationsUpdateManyWithoutUsersNestedInput
+    night_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousers?: night_camp_volunteering_applicationsUpdateManyWithoutUsers_night_camp_volunteering_applications_reviewed_byTousersNestedInput
+    night_camp_volunteering_applications_night_camp_volunteering_applications_user_idTousers?: night_camp_volunteering_applicationsUpdateManyWithoutUsers_night_camp_volunteering_applications_user_idTousersNestedInput
+    payments?: paymentsUpdateManyWithoutUsersNestedInput
+    role_upgrade_requests_role_upgrade_requests_reviewer_idTousers?: role_upgrade_requestsUpdateManyWithoutUsers_role_upgrade_requests_reviewer_idTousersNestedInput
+    role_upgrade_requests_role_upgrade_requests_user_idTousers?: role_upgrade_requestsUpdateManyWithoutUsers_role_upgrade_requests_user_idTousersNestedInput
+    subscriptions?: subscriptionsUpdateManyWithoutUsersNestedInput
+    user_settings?: user_settingsUpdateOneWithoutUsersNestedInput
+  }
+
+  export type usersUncheckedUpdateWithoutQuizParticipantsInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    firebase_uid?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    role?: NullableEnumuser_roleFieldUpdateOperationsInput | $Enums.user_role | null
+    first_name?: NullableStringFieldUpdateOperationsInput | string | null
+    last_name?: NullableStringFieldUpdateOperationsInput | string | null
+    is_active?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    last_login?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    display_name?: NullableStringFieldUpdateOperationsInput | string | null
+    profile_data?: NullableJsonNullValueInput | InputJsonValue
+    role_specific_data?: NullableJsonNullValueInput | InputJsonValue
+    subscription_plan?: NullableEnumsubscription_planFieldUpdateOperationsInput | $Enums.subscription_plan | null
+    subscription_status?: NullableEnumsubscription_statusFieldUpdateOperationsInput | $Enums.subscription_status | null
+    subscription_start_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    subscription_end_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    auto_renew?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    chatbot_questions_used?: NullableIntFieldUpdateOperationsInput | number | null
+    chatbot_questions_reset_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    Quizzes?: QuizzesUncheckedUpdateManyWithoutUsersNestedInput
+    blog_comments?: blog_commentsUncheckedUpdateManyWithoutUsersNestedInput
+    blog_likes?: blog_likesUncheckedUpdateManyWithoutUsersNestedInput
+    blog_views?: blog_viewsUncheckedUpdateManyWithoutUsersNestedInput
+    blogs?: blogsUncheckedUpdateManyWithoutUsersNestedInput
+    chatbot_sessions?: chatbot_sessionsUncheckedUpdateManyWithoutUsersNestedInput
+    chatbot_usage?: chatbot_usageUncheckedUpdateManyWithoutUsersNestedInput
+    guide_application?: guide_applicationUncheckedUpdateManyWithoutUsersNestedInput
+    influencer_application?: influencer_applicationUncheckedUpdateManyWithoutUsersNestedInput
+    media_uploads?: media_uploadsUncheckedUpdateManyWithoutUserNestedInput
+    mentor_application?: mentor_applicationUncheckedUpdateManyWithoutUsersNestedInput
+    night_camp_registrations?: night_camp_registrationsUncheckedUpdateManyWithoutUsersNestedInput
+    night_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousers?: night_camp_volunteering_applicationsUncheckedUpdateManyWithoutUsers_night_camp_volunteering_applications_reviewed_byTousersNestedInput
+    night_camp_volunteering_applications_night_camp_volunteering_applications_user_idTousers?: night_camp_volunteering_applicationsUncheckedUpdateManyWithoutUsers_night_camp_volunteering_applications_user_idTousersNestedInput
+    payments?: paymentsUncheckedUpdateManyWithoutUsersNestedInput
+    role_upgrade_requests_role_upgrade_requests_reviewer_idTousers?: role_upgrade_requestsUncheckedUpdateManyWithoutUsers_role_upgrade_requests_reviewer_idTousersNestedInput
+    role_upgrade_requests_role_upgrade_requests_user_idTousers?: role_upgrade_requestsUncheckedUpdateManyWithoutUsers_role_upgrade_requests_user_idTousersNestedInput
+    subscriptions?: subscriptionsUncheckedUpdateManyWithoutUsersNestedInput
+    user_settings?: user_settingsUncheckedUpdateOneWithoutUsersNestedInput
+  }
+
+  export type QuizzesCreateWithoutQuizQuestionInput = {
+    name: string
+    category: string
+    description: string
+    time?: Date | string | null
+    question_count?: number
+    participants_count?: number
+    time_limit: number
+    created_at?: Date | string
+    modified_at: Date | string
+    status?: $Enums.QuizStatus
+    level: $Enums.quiz_difficulty_level
+    QuizParticipants?: QuizParticipantsCreateNestedManyWithoutQuizzesInput
+    users: usersCreateNestedOneWithoutQuizzesInput
+  }
+
+  export type QuizzesUncheckedCreateWithoutQuizQuestionInput = {
+    id?: number
+    name: string
+    category: string
+    description: string
+    time?: Date | string | null
+    question_count?: number
+    participants_count?: number
+    time_limit: number
+    user_id: number
+    created_at?: Date | string
+    modified_at: Date | string
+    status?: $Enums.QuizStatus
+    level: $Enums.quiz_difficulty_level
+    QuizParticipants?: QuizParticipantsUncheckedCreateNestedManyWithoutQuizzesInput
+  }
+
+  export type QuizzesCreateOrConnectWithoutQuizQuestionInput = {
+    where: QuizzesWhereUniqueInput
+    create: XOR<QuizzesCreateWithoutQuizQuestionInput, QuizzesUncheckedCreateWithoutQuizQuestionInput>
+  }
+
+  export type QuizzesUpsertWithoutQuizQuestionInput = {
+    update: XOR<QuizzesUpdateWithoutQuizQuestionInput, QuizzesUncheckedUpdateWithoutQuizQuestionInput>
+    create: XOR<QuizzesCreateWithoutQuizQuestionInput, QuizzesUncheckedCreateWithoutQuizQuestionInput>
+    where?: QuizzesWhereInput
+  }
+
+  export type QuizzesUpdateToOneWithWhereWithoutQuizQuestionInput = {
+    where?: QuizzesWhereInput
+    data: XOR<QuizzesUpdateWithoutQuizQuestionInput, QuizzesUncheckedUpdateWithoutQuizQuestionInput>
+  }
+
+  export type QuizzesUpdateWithoutQuizQuestionInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    category?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    time?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    question_count?: IntFieldUpdateOperationsInput | number
+    participants_count?: IntFieldUpdateOperationsInput | number
+    time_limit?: IntFieldUpdateOperationsInput | number
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    modified_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    status?: EnumQuizStatusFieldUpdateOperationsInput | $Enums.QuizStatus
+    level?: Enumquiz_difficulty_levelFieldUpdateOperationsInput | $Enums.quiz_difficulty_level
+    QuizParticipants?: QuizParticipantsUpdateManyWithoutQuizzesNestedInput
+    users?: usersUpdateOneRequiredWithoutQuizzesNestedInput
+  }
+
+  export type QuizzesUncheckedUpdateWithoutQuizQuestionInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    name?: StringFieldUpdateOperationsInput | string
+    category?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    time?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    question_count?: IntFieldUpdateOperationsInput | number
+    participants_count?: IntFieldUpdateOperationsInput | number
+    time_limit?: IntFieldUpdateOperationsInput | number
+    user_id?: IntFieldUpdateOperationsInput | number
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    modified_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    status?: EnumQuizStatusFieldUpdateOperationsInput | $Enums.QuizStatus
+    level?: Enumquiz_difficulty_levelFieldUpdateOperationsInput | $Enums.quiz_difficulty_level
+    QuizParticipants?: QuizParticipantsUncheckedUpdateManyWithoutQuizzesNestedInput
+  }
+
+  export type QuizParticipantsCreateWithoutQuizzesInput = {
+    correct_question_count?: number
+    score?: number
+    users: usersCreateNestedOneWithoutQuizParticipantsInput
+  }
+
+  export type QuizParticipantsUncheckedCreateWithoutQuizzesInput = {
+    id?: number
+    user_id: number
+    correct_question_count?: number
+    score?: number
+  }
+
+  export type QuizParticipantsCreateOrConnectWithoutQuizzesInput = {
+    where: QuizParticipantsWhereUniqueInput
+    create: XOR<QuizParticipantsCreateWithoutQuizzesInput, QuizParticipantsUncheckedCreateWithoutQuizzesInput>
+  }
+
+  export type QuizParticipantsCreateManyQuizzesInputEnvelope = {
+    data: QuizParticipantsCreateManyQuizzesInput | QuizParticipantsCreateManyQuizzesInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type QuizQuestionCreateWithoutQuizzesInput = {
+    question: string
+    answers?: QuizQuestionCreateanswersInput | string[]
+    correct_answer: string
+    question_explanation?: string | null
+  }
+
+  export type QuizQuestionUncheckedCreateWithoutQuizzesInput = {
+    id?: number
+    question: string
+    answers?: QuizQuestionCreateanswersInput | string[]
+    correct_answer: string
+    question_explanation?: string | null
+  }
+
+  export type QuizQuestionCreateOrConnectWithoutQuizzesInput = {
+    where: QuizQuestionWhereUniqueInput
+    create: XOR<QuizQuestionCreateWithoutQuizzesInput, QuizQuestionUncheckedCreateWithoutQuizzesInput>
+  }
+
+  export type QuizQuestionCreateManyQuizzesInputEnvelope = {
+    data: QuizQuestionCreateManyQuizzesInput | QuizQuestionCreateManyQuizzesInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type usersCreateWithoutQuizzesInput = {
+    firebase_uid: string
+    email: string
+    role?: $Enums.user_role | null
+    first_name?: string | null
+    last_name?: string | null
+    is_active?: boolean | null
+    last_login?: Date | string | null
+    created_at?: Date | string | null
+    updated_at?: Date | string | null
+    display_name?: string | null
+    profile_data?: NullableJsonNullValueInput | InputJsonValue
+    role_specific_data?: NullableJsonNullValueInput | InputJsonValue
+    subscription_plan?: $Enums.subscription_plan | null
+    subscription_status?: $Enums.subscription_status | null
+    subscription_start_date?: Date | string | null
+    subscription_end_date?: Date | string | null
+    auto_renew?: boolean | null
+    chatbot_questions_used?: number | null
+    chatbot_questions_reset_date?: Date | string | null
+    QuizParticipants?: QuizParticipantsCreateNestedManyWithoutUsersInput
+    blog_comments?: blog_commentsCreateNestedManyWithoutUsersInput
+    blog_likes?: blog_likesCreateNestedManyWithoutUsersInput
+    blog_views?: blog_viewsCreateNestedManyWithoutUsersInput
+    blogs?: blogsCreateNestedManyWithoutUsersInput
+    chatbot_sessions?: chatbot_sessionsCreateNestedManyWithoutUsersInput
+    chatbot_usage?: chatbot_usageCreateNestedManyWithoutUsersInput
+    guide_application?: guide_applicationCreateNestedManyWithoutUsersInput
+    influencer_application?: influencer_applicationCreateNestedManyWithoutUsersInput
+    media_uploads?: media_uploadsCreateNestedManyWithoutUserInput
+    mentor_application?: mentor_applicationCreateNestedManyWithoutUsersInput
+    night_camp_registrations?: night_camp_registrationsCreateNestedManyWithoutUsersInput
+    night_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousers?: night_camp_volunteering_applicationsCreateNestedManyWithoutUsers_night_camp_volunteering_applications_reviewed_byTousersInput
+    night_camp_volunteering_applications_night_camp_volunteering_applications_user_idTousers?: night_camp_volunteering_applicationsCreateNestedManyWithoutUsers_night_camp_volunteering_applications_user_idTousersInput
+    payments?: paymentsCreateNestedManyWithoutUsersInput
+    role_upgrade_requests_role_upgrade_requests_reviewer_idTousers?: role_upgrade_requestsCreateNestedManyWithoutUsers_role_upgrade_requests_reviewer_idTousersInput
+    role_upgrade_requests_role_upgrade_requests_user_idTousers?: role_upgrade_requestsCreateNestedManyWithoutUsers_role_upgrade_requests_user_idTousersInput
+    subscriptions?: subscriptionsCreateNestedManyWithoutUsersInput
+    user_settings?: user_settingsCreateNestedOneWithoutUsersInput
+  }
+
+  export type usersUncheckedCreateWithoutQuizzesInput = {
+    id?: number
+    firebase_uid: string
+    email: string
+    role?: $Enums.user_role | null
+    first_name?: string | null
+    last_name?: string | null
+    is_active?: boolean | null
+    last_login?: Date | string | null
+    created_at?: Date | string | null
+    updated_at?: Date | string | null
+    display_name?: string | null
+    profile_data?: NullableJsonNullValueInput | InputJsonValue
+    role_specific_data?: NullableJsonNullValueInput | InputJsonValue
+    subscription_plan?: $Enums.subscription_plan | null
+    subscription_status?: $Enums.subscription_status | null
+    subscription_start_date?: Date | string | null
+    subscription_end_date?: Date | string | null
+    auto_renew?: boolean | null
+    chatbot_questions_used?: number | null
+    chatbot_questions_reset_date?: Date | string | null
+    QuizParticipants?: QuizParticipantsUncheckedCreateNestedManyWithoutUsersInput
+    blog_comments?: blog_commentsUncheckedCreateNestedManyWithoutUsersInput
+    blog_likes?: blog_likesUncheckedCreateNestedManyWithoutUsersInput
+    blog_views?: blog_viewsUncheckedCreateNestedManyWithoutUsersInput
+    blogs?: blogsUncheckedCreateNestedManyWithoutUsersInput
+    chatbot_sessions?: chatbot_sessionsUncheckedCreateNestedManyWithoutUsersInput
+    chatbot_usage?: chatbot_usageUncheckedCreateNestedManyWithoutUsersInput
+    guide_application?: guide_applicationUncheckedCreateNestedManyWithoutUsersInput
+    influencer_application?: influencer_applicationUncheckedCreateNestedManyWithoutUsersInput
+    media_uploads?: media_uploadsUncheckedCreateNestedManyWithoutUserInput
+    mentor_application?: mentor_applicationUncheckedCreateNestedManyWithoutUsersInput
+    night_camp_registrations?: night_camp_registrationsUncheckedCreateNestedManyWithoutUsersInput
+    night_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousers?: night_camp_volunteering_applicationsUncheckedCreateNestedManyWithoutUsers_night_camp_volunteering_applications_reviewed_byTousersInput
+    night_camp_volunteering_applications_night_camp_volunteering_applications_user_idTousers?: night_camp_volunteering_applicationsUncheckedCreateNestedManyWithoutUsers_night_camp_volunteering_applications_user_idTousersInput
+    payments?: paymentsUncheckedCreateNestedManyWithoutUsersInput
+    role_upgrade_requests_role_upgrade_requests_reviewer_idTousers?: role_upgrade_requestsUncheckedCreateNestedManyWithoutUsers_role_upgrade_requests_reviewer_idTousersInput
+    role_upgrade_requests_role_upgrade_requests_user_idTousers?: role_upgrade_requestsUncheckedCreateNestedManyWithoutUsers_role_upgrade_requests_user_idTousersInput
+    subscriptions?: subscriptionsUncheckedCreateNestedManyWithoutUsersInput
+    user_settings?: user_settingsUncheckedCreateNestedOneWithoutUsersInput
+  }
+
+  export type usersCreateOrConnectWithoutQuizzesInput = {
+    where: usersWhereUniqueInput
+    create: XOR<usersCreateWithoutQuizzesInput, usersUncheckedCreateWithoutQuizzesInput>
+  }
+
+  export type QuizParticipantsUpsertWithWhereUniqueWithoutQuizzesInput = {
+    where: QuizParticipantsWhereUniqueInput
+    update: XOR<QuizParticipantsUpdateWithoutQuizzesInput, QuizParticipantsUncheckedUpdateWithoutQuizzesInput>
+    create: XOR<QuizParticipantsCreateWithoutQuizzesInput, QuizParticipantsUncheckedCreateWithoutQuizzesInput>
+  }
+
+  export type QuizParticipantsUpdateWithWhereUniqueWithoutQuizzesInput = {
+    where: QuizParticipantsWhereUniqueInput
+    data: XOR<QuizParticipantsUpdateWithoutQuizzesInput, QuizParticipantsUncheckedUpdateWithoutQuizzesInput>
+  }
+
+  export type QuizParticipantsUpdateManyWithWhereWithoutQuizzesInput = {
+    where: QuizParticipantsScalarWhereInput
+    data: XOR<QuizParticipantsUpdateManyMutationInput, QuizParticipantsUncheckedUpdateManyWithoutQuizzesInput>
+  }
+
+  export type QuizQuestionUpsertWithWhereUniqueWithoutQuizzesInput = {
+    where: QuizQuestionWhereUniqueInput
+    update: XOR<QuizQuestionUpdateWithoutQuizzesInput, QuizQuestionUncheckedUpdateWithoutQuizzesInput>
+    create: XOR<QuizQuestionCreateWithoutQuizzesInput, QuizQuestionUncheckedCreateWithoutQuizzesInput>
+  }
+
+  export type QuizQuestionUpdateWithWhereUniqueWithoutQuizzesInput = {
+    where: QuizQuestionWhereUniqueInput
+    data: XOR<QuizQuestionUpdateWithoutQuizzesInput, QuizQuestionUncheckedUpdateWithoutQuizzesInput>
+  }
+
+  export type QuizQuestionUpdateManyWithWhereWithoutQuizzesInput = {
+    where: QuizQuestionScalarWhereInput
+    data: XOR<QuizQuestionUpdateManyMutationInput, QuizQuestionUncheckedUpdateManyWithoutQuizzesInput>
+  }
+
+  export type QuizQuestionScalarWhereInput = {
+    AND?: QuizQuestionScalarWhereInput | QuizQuestionScalarWhereInput[]
+    OR?: QuizQuestionScalarWhereInput[]
+    NOT?: QuizQuestionScalarWhereInput | QuizQuestionScalarWhereInput[]
+    id?: IntFilter<"QuizQuestion"> | number
+    quiz_id?: IntFilter<"QuizQuestion"> | number
+    question?: StringFilter<"QuizQuestion"> | string
+    answers?: StringNullableListFilter<"QuizQuestion">
+    correct_answer?: StringFilter<"QuizQuestion"> | string
+    question_explanation?: StringNullableFilter<"QuizQuestion"> | string | null
+  }
+
+  export type usersUpsertWithoutQuizzesInput = {
+    update: XOR<usersUpdateWithoutQuizzesInput, usersUncheckedUpdateWithoutQuizzesInput>
+    create: XOR<usersCreateWithoutQuizzesInput, usersUncheckedCreateWithoutQuizzesInput>
+    where?: usersWhereInput
+  }
+
+  export type usersUpdateToOneWithWhereWithoutQuizzesInput = {
+    where?: usersWhereInput
+    data: XOR<usersUpdateWithoutQuizzesInput, usersUncheckedUpdateWithoutQuizzesInput>
+  }
+
+  export type usersUpdateWithoutQuizzesInput = {
+    firebase_uid?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    role?: NullableEnumuser_roleFieldUpdateOperationsInput | $Enums.user_role | null
+    first_name?: NullableStringFieldUpdateOperationsInput | string | null
+    last_name?: NullableStringFieldUpdateOperationsInput | string | null
+    is_active?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    last_login?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    display_name?: NullableStringFieldUpdateOperationsInput | string | null
+    profile_data?: NullableJsonNullValueInput | InputJsonValue
+    role_specific_data?: NullableJsonNullValueInput | InputJsonValue
+    subscription_plan?: NullableEnumsubscription_planFieldUpdateOperationsInput | $Enums.subscription_plan | null
+    subscription_status?: NullableEnumsubscription_statusFieldUpdateOperationsInput | $Enums.subscription_status | null
+    subscription_start_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    subscription_end_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    auto_renew?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    chatbot_questions_used?: NullableIntFieldUpdateOperationsInput | number | null
+    chatbot_questions_reset_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    QuizParticipants?: QuizParticipantsUpdateManyWithoutUsersNestedInput
+    blog_comments?: blog_commentsUpdateManyWithoutUsersNestedInput
+    blog_likes?: blog_likesUpdateManyWithoutUsersNestedInput
+    blog_views?: blog_viewsUpdateManyWithoutUsersNestedInput
+    blogs?: blogsUpdateManyWithoutUsersNestedInput
+    chatbot_sessions?: chatbot_sessionsUpdateManyWithoutUsersNestedInput
+    chatbot_usage?: chatbot_usageUpdateManyWithoutUsersNestedInput
+    guide_application?: guide_applicationUpdateManyWithoutUsersNestedInput
+    influencer_application?: influencer_applicationUpdateManyWithoutUsersNestedInput
+    media_uploads?: media_uploadsUpdateManyWithoutUserNestedInput
+    mentor_application?: mentor_applicationUpdateManyWithoutUsersNestedInput
+    night_camp_registrations?: night_camp_registrationsUpdateManyWithoutUsersNestedInput
+    night_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousers?: night_camp_volunteering_applicationsUpdateManyWithoutUsers_night_camp_volunteering_applications_reviewed_byTousersNestedInput
+    night_camp_volunteering_applications_night_camp_volunteering_applications_user_idTousers?: night_camp_volunteering_applicationsUpdateManyWithoutUsers_night_camp_volunteering_applications_user_idTousersNestedInput
+    payments?: paymentsUpdateManyWithoutUsersNestedInput
+    role_upgrade_requests_role_upgrade_requests_reviewer_idTousers?: role_upgrade_requestsUpdateManyWithoutUsers_role_upgrade_requests_reviewer_idTousersNestedInput
+    role_upgrade_requests_role_upgrade_requests_user_idTousers?: role_upgrade_requestsUpdateManyWithoutUsers_role_upgrade_requests_user_idTousersNestedInput
+    subscriptions?: subscriptionsUpdateManyWithoutUsersNestedInput
+    user_settings?: user_settingsUpdateOneWithoutUsersNestedInput
+  }
+
+  export type usersUncheckedUpdateWithoutQuizzesInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    firebase_uid?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    role?: NullableEnumuser_roleFieldUpdateOperationsInput | $Enums.user_role | null
+    first_name?: NullableStringFieldUpdateOperationsInput | string | null
+    last_name?: NullableStringFieldUpdateOperationsInput | string | null
+    is_active?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    last_login?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    display_name?: NullableStringFieldUpdateOperationsInput | string | null
+    profile_data?: NullableJsonNullValueInput | InputJsonValue
+    role_specific_data?: NullableJsonNullValueInput | InputJsonValue
+    subscription_plan?: NullableEnumsubscription_planFieldUpdateOperationsInput | $Enums.subscription_plan | null
+    subscription_status?: NullableEnumsubscription_statusFieldUpdateOperationsInput | $Enums.subscription_status | null
+    subscription_start_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    subscription_end_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    auto_renew?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    chatbot_questions_used?: NullableIntFieldUpdateOperationsInput | number | null
+    chatbot_questions_reset_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    QuizParticipants?: QuizParticipantsUncheckedUpdateManyWithoutUsersNestedInput
+    blog_comments?: blog_commentsUncheckedUpdateManyWithoutUsersNestedInput
+    blog_likes?: blog_likesUncheckedUpdateManyWithoutUsersNestedInput
+    blog_views?: blog_viewsUncheckedUpdateManyWithoutUsersNestedInput
+    blogs?: blogsUncheckedUpdateManyWithoutUsersNestedInput
+    chatbot_sessions?: chatbot_sessionsUncheckedUpdateManyWithoutUsersNestedInput
+    chatbot_usage?: chatbot_usageUncheckedUpdateManyWithoutUsersNestedInput
+    guide_application?: guide_applicationUncheckedUpdateManyWithoutUsersNestedInput
+    influencer_application?: influencer_applicationUncheckedUpdateManyWithoutUsersNestedInput
+    media_uploads?: media_uploadsUncheckedUpdateManyWithoutUserNestedInput
     mentor_application?: mentor_applicationUncheckedUpdateManyWithoutUsersNestedInput
     night_camp_registrations?: night_camp_registrationsUncheckedUpdateManyWithoutUsersNestedInput
     night_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousers?: night_camp_volunteering_applicationsUncheckedUpdateManyWithoutUsers_night_camp_volunteering_applications_reviewed_byTousersNestedInput
@@ -51621,6 +59229,28 @@ export namespace Prisma {
     updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
+  export type QuizParticipantsCreateManyUsersInput = {
+    id?: number
+    quiz_id: number
+    correct_question_count?: number
+    score?: number
+  }
+
+  export type QuizzesCreateManyUsersInput = {
+    id?: number
+    name: string
+    category: string
+    description: string
+    time?: Date | string | null
+    question_count?: number
+    participants_count?: number
+    time_limit: number
+    created_at?: Date | string
+    modified_at: Date | string
+    status?: $Enums.QuizStatus
+    level: $Enums.quiz_difficulty_level
+  }
+
   export type blog_commentsCreateManyUsersInput = {
     id?: number
     blog_id?: number | null
@@ -51748,6 +59378,15 @@ export namespace Prisma {
     updated_at?: Date | string | null
   }
 
+  export type media_uploadsCreateManyUserInput = {
+    id?: number
+    file_name: string
+    file_path: string
+    file_type: string
+    file_size: number
+    created_at?: Date | string | null
+  }
+
   export type mentor_applicationCreateManyUsersInput = {
     application_id?: number
     first_name?: string | null
@@ -51873,6 +59512,74 @@ export namespace Prisma {
     updated_at?: Date | string | null
     cancelled_at?: Date | string | null
     cancellation_reason?: string | null
+  }
+
+  export type QuizParticipantsUpdateWithoutUsersInput = {
+    correct_question_count?: IntFieldUpdateOperationsInput | number
+    score?: IntFieldUpdateOperationsInput | number
+    Quizzes?: QuizzesUpdateOneRequiredWithoutQuizParticipantsNestedInput
+  }
+
+  export type QuizParticipantsUncheckedUpdateWithoutUsersInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    quiz_id?: IntFieldUpdateOperationsInput | number
+    correct_question_count?: IntFieldUpdateOperationsInput | number
+    score?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type QuizParticipantsUncheckedUpdateManyWithoutUsersInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    quiz_id?: IntFieldUpdateOperationsInput | number
+    correct_question_count?: IntFieldUpdateOperationsInput | number
+    score?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type QuizzesUpdateWithoutUsersInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    category?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    time?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    question_count?: IntFieldUpdateOperationsInput | number
+    participants_count?: IntFieldUpdateOperationsInput | number
+    time_limit?: IntFieldUpdateOperationsInput | number
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    modified_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    status?: EnumQuizStatusFieldUpdateOperationsInput | $Enums.QuizStatus
+    level?: Enumquiz_difficulty_levelFieldUpdateOperationsInput | $Enums.quiz_difficulty_level
+    QuizParticipants?: QuizParticipantsUpdateManyWithoutQuizzesNestedInput
+    QuizQuestion?: QuizQuestionUpdateManyWithoutQuizzesNestedInput
+  }
+
+  export type QuizzesUncheckedUpdateWithoutUsersInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    name?: StringFieldUpdateOperationsInput | string
+    category?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    time?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    question_count?: IntFieldUpdateOperationsInput | number
+    participants_count?: IntFieldUpdateOperationsInput | number
+    time_limit?: IntFieldUpdateOperationsInput | number
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    modified_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    status?: EnumQuizStatusFieldUpdateOperationsInput | $Enums.QuizStatus
+    level?: Enumquiz_difficulty_levelFieldUpdateOperationsInput | $Enums.quiz_difficulty_level
+    QuizParticipants?: QuizParticipantsUncheckedUpdateManyWithoutQuizzesNestedInput
+    QuizQuestion?: QuizQuestionUncheckedUpdateManyWithoutQuizzesNestedInput
+  }
+
+  export type QuizzesUncheckedUpdateManyWithoutUsersInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    name?: StringFieldUpdateOperationsInput | string
+    category?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    time?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    question_count?: IntFieldUpdateOperationsInput | number
+    participants_count?: IntFieldUpdateOperationsInput | number
+    time_limit?: IntFieldUpdateOperationsInput | number
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    modified_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    status?: EnumQuizStatusFieldUpdateOperationsInput | $Enums.QuizStatus
+    level?: Enumquiz_difficulty_levelFieldUpdateOperationsInput | $Enums.quiz_difficulty_level
   }
 
   export type blog_commentsUpdateWithoutUsersInput = {
@@ -52261,6 +59968,32 @@ export namespace Prisma {
     deletion_status?: NullableBoolFieldUpdateOperationsInput | boolean | null
     submitted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
+  export type media_uploadsUpdateWithoutUserInput = {
+    file_name?: StringFieldUpdateOperationsInput | string
+    file_path?: StringFieldUpdateOperationsInput | string
+    file_type?: StringFieldUpdateOperationsInput | string
+    file_size?: IntFieldUpdateOperationsInput | number
+    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
+  export type media_uploadsUncheckedUpdateWithoutUserInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    file_name?: StringFieldUpdateOperationsInput | string
+    file_path?: StringFieldUpdateOperationsInput | string
+    file_type?: StringFieldUpdateOperationsInput | string
+    file_size?: IntFieldUpdateOperationsInput | number
+    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
+  export type media_uploadsUncheckedUpdateManyWithoutUserInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    file_name?: StringFieldUpdateOperationsInput | string
+    file_path?: StringFieldUpdateOperationsInput | string
+    file_type?: StringFieldUpdateOperationsInput | string
+    file_size?: IntFieldUpdateOperationsInput | number
+    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type mentor_applicationUpdateWithoutUsersInput = {
@@ -52672,6 +60405,64 @@ export namespace Prisma {
     rating?: NullableIntFieldUpdateOperationsInput | number | null
     feedback_text?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
+  export type QuizParticipantsCreateManyQuizzesInput = {
+    id?: number
+    user_id: number
+    correct_question_count?: number
+    score?: number
+  }
+
+  export type QuizQuestionCreateManyQuizzesInput = {
+    id?: number
+    question: string
+    answers?: QuizQuestionCreateanswersInput | string[]
+    correct_answer: string
+    question_explanation?: string | null
+  }
+
+  export type QuizParticipantsUpdateWithoutQuizzesInput = {
+    correct_question_count?: IntFieldUpdateOperationsInput | number
+    score?: IntFieldUpdateOperationsInput | number
+    users?: usersUpdateOneRequiredWithoutQuizParticipantsNestedInput
+  }
+
+  export type QuizParticipantsUncheckedUpdateWithoutQuizzesInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    user_id?: IntFieldUpdateOperationsInput | number
+    correct_question_count?: IntFieldUpdateOperationsInput | number
+    score?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type QuizParticipantsUncheckedUpdateManyWithoutQuizzesInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    user_id?: IntFieldUpdateOperationsInput | number
+    correct_question_count?: IntFieldUpdateOperationsInput | number
+    score?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type QuizQuestionUpdateWithoutQuizzesInput = {
+    question?: StringFieldUpdateOperationsInput | string
+    answers?: QuizQuestionUpdateanswersInput | string[]
+    correct_answer?: StringFieldUpdateOperationsInput | string
+    question_explanation?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type QuizQuestionUncheckedUpdateWithoutQuizzesInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    question?: StringFieldUpdateOperationsInput | string
+    answers?: QuizQuestionUpdateanswersInput | string[]
+    correct_answer?: StringFieldUpdateOperationsInput | string
+    question_explanation?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type QuizQuestionUncheckedUpdateManyWithoutQuizzesInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    question?: StringFieldUpdateOperationsInput | string
+    answers?: QuizQuestionUpdateanswersInput | string[]
+    correct_answer?: StringFieldUpdateOperationsInput | string
+    question_explanation?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
 
