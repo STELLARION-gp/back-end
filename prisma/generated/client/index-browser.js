@@ -20,12 +20,12 @@ exports.Prisma = Prisma
 exports.$Enums = {}
 
 /**
- * Prisma Client JS version: 6.13.0
- * Query Engine version: 361e86d0ea4987e9f53a565309b3eed797a6bcbd
+ * Prisma Client JS version: 6.14.0
+ * Query Engine version: 717184b7b35ea05dfa71a3236b7af656013e1e49
  */
 Prisma.prismaVersion = {
-  client: "6.13.0",
-  engine: "361e86d0ea4987e9f53a565309b3eed797a6bcbd"
+  client: "6.14.0",
+  engine: "717184b7b35ea05dfa71a3236b7af656013e1e49"
 }
 
 Prisma.PrismaClientKnownRequestError = () => {
@@ -483,6 +483,49 @@ exports.Prisma.Influencer_applicationScalarFieldEnum = {
   updated_at: 'updated_at'
 };
 
+exports.Prisma.Media_uploadsScalarFieldEnum = {
+  id: 'id',
+  user_id: 'user_id',
+  file_name: 'file_name',
+  file_path: 'file_path',
+  file_type: 'file_type',
+  file_size: 'file_size',
+  created_at: 'created_at'
+};
+
+exports.Prisma.QuizParticipantsScalarFieldEnum = {
+  id: 'id',
+  quiz_id: 'quiz_id',
+  user_id: 'user_id',
+  correct_question_count: 'correct_question_count',
+  score: 'score'
+};
+
+exports.Prisma.QuizQuestionScalarFieldEnum = {
+  id: 'id',
+  quiz_id: 'quiz_id',
+  question: 'question',
+  answers: 'answers',
+  correct_answer: 'correct_answer',
+  question_explanation: 'question_explanation'
+};
+
+exports.Prisma.QuizzesScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  category: 'category',
+  description: 'description',
+  time: 'time',
+  question_count: 'question_count',
+  participants_count: 'participants_count',
+  time_limit: 'time_limit',
+  user_id: 'user_id',
+  created_at: 'created_at',
+  modified_at: 'modified_at',
+  status: 'status',
+  level: 'level'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -566,6 +609,17 @@ exports.session_format = exports.$Enums.session_format = {
   Hybrid: 'Hybrid'
 };
 
+exports.QuizStatus = exports.$Enums.QuizStatus = {
+  open: 'open',
+  closed: 'closed'
+};
+
+exports.quiz_difficulty_level = exports.$Enums.quiz_difficulty_level = {
+  Beginner: 'Beginner',
+  Intermediate: 'Intermediate',
+  Hard: 'Hard'
+};
+
 exports.Prisma.ModelName = {
   subscriptions: 'subscriptions',
   blog_views: 'blog_views',
@@ -591,7 +645,11 @@ exports.Prisma.ModelName = {
   mentor_application: 'mentor_application',
   night_camp_volunteering_applications: 'night_camp_volunteering_applications',
   night_camp_registrations: 'night_camp_registrations',
-  influencer_application: 'influencer_application'
+  influencer_application: 'influencer_application',
+  media_uploads: 'media_uploads',
+  QuizParticipants: 'QuizParticipants',
+  QuizQuestion: 'QuizQuestion',
+  Quizzes: 'Quizzes'
 };
 
 /**
