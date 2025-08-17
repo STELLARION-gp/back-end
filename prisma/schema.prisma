@@ -27,6 +27,82 @@ model subscriptions {
   @@index([user_id], map: "idx_subscriptions_user_id")
 }
 
+// Chat Models
+model group_chats {
+  id          Int      @id @default(autoincrement())
+  name        String   @db.VarChar(255)
+  description String?  @db.Text
+  type        String   @default("public") @db.VarChar(20) // 'public' or 'private'
+  created_by  Int
+  avatar_url  String?  @db.VarChar(500)
+  is_active   Boolean  @default(true)
+  max_members Int      @default(1000)
+  created_at  DateTime @default(now()) @db.Timestamp(6)
+  updated_at  DateTime @default(now()) @updatedAt @db.Timestamp(6)
+
+  creator      users           @relation("GroupChatCreator", fields: [created_by], references: [id], onDelete: Cascade)
+  members      group_members[]
+  messages     chat_messages[]
+
+  @@index([type, is_active], map: "idx_group_chats_type_active")
+  @@index([created_by], map: "idx_group_chats_created_by")
+  @@index([created_at], map: "idx_group_chats_created_at")
+}
+
+model group_members {
+  id       Int      @id @default(autoincrement())
+  group_id Int
+  user_id  Int
+  role     String   @default("member") @db.VarChar(20) // 'admin', 'moderator', 'member'
+  joined_at DateTime @default(now()) @db.Timestamp(6)
+  is_muted Boolean  @default(false)
+
+  group group_chats @relation(fields: [group_id], references: [id], onDelete: Cascade)
+  user  users       @relation("GroupMembership", fields: [user_id], references: [id], onDelete: Cascade)
+
+  @@unique([group_id, user_id])
+  @@index([group_id], map: "idx_group_members_group_id")
+  @@index([user_id], map: "idx_group_members_user_id")
+}
+
+model chat_messages {
+  id           Int      @id @default(autoincrement())
+  group_id     Int
+  user_id      Int?
+  message_text String   @db.Text
+  message_type String   @default("text") @db.VarChar(20) // 'text', 'image', 'file', 'system'
+  reply_to     Int?
+  is_edited    Boolean  @default(false)
+  is_deleted   Boolean  @default(false)
+  created_at   DateTime @default(now()) @db.Timestamp(6)
+  updated_at   DateTime @default(now()) @updatedAt @db.Timestamp(6)
+
+  group      group_chats        @relation(fields: [group_id], references: [id], onDelete: Cascade)
+  user       users?             @relation("ChatMessageUser", fields: [user_id], references: [id], onDelete: SetNull)
+  reply_msg  chat_messages?     @relation("MessageReply", fields: [reply_to], references: [id], onDelete: SetNull)
+  replies    chat_messages[]    @relation("MessageReply")
+  reactions  message_reactions[]
+
+  @@index([group_id, created_at], map: "idx_chat_messages_group_created")
+  @@index([user_id], map: "idx_chat_messages_user_id")
+  @@index([reply_to], map: "idx_chat_messages_reply_to")
+}
+
+model message_reactions {
+  id         Int      @id @default(autoincrement())
+  message_id Int
+  user_id    Int
+  reaction   String   @db.VarChar(50)
+  created_at DateTime @default(now()) @db.Timestamp(6)
+
+  message chat_messages @relation(fields: [message_id], references: [id], onDelete: Cascade)
+  user    users         @relation("MessageReaction", fields: [user_id], references: [id], onDelete: Cascade)
+
+  @@unique([message_id, user_id, reaction])
+  @@index([message_id], map: "idx_message_reactions_message_id")
+  @@index([user_id], map: "idx_message_reactions_user_id")
+}
+
 model blog_views {
   id         Int       @id @default(autoincrement())
   blog_id    Int?
@@ -253,6 +329,12 @@ model users {
   role_upgrade_requests_role_upgrade_requests_user_idTousers                                   role_upgrade_requests[]                @relation("role_upgrade_requests_user_idTousers")
   subscriptions                                                                                subscriptions[]
   user_settings                                                                                user_settings?
+  
+  // Chat relations
+  created_groups                                                                               group_chats[]                          @relation("GroupChatCreator")
+  group_memberships                                                                            group_members[]                        @relation("GroupMembership")
+  chat_messages                                                                                chat_messages[]                        @relation("ChatMessageUser")
+  message_reactions                                                                            message_reactions[]                    @relation("MessageReaction")
 
   @@index([is_active], map: "idx_users_active")
   @@index([email], map: "idx_users_email")
