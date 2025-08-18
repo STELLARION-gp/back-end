@@ -283,6 +283,20 @@ CREATE TABLE IF NOT EXISTS media_uploads (
 
 CREATE INDEX IF NOT EXISTS idx_media_uploads_user_id ON media_uploads(user_id);
 
+-- Tour media table (stores tour details and array of associated media_uploads ids)
+CREATE TABLE IF NOT EXISTS tour_media (
+    tour_id SERIAL PRIMARY KEY,
+    tour_name VARCHAR(255) NOT NULL,
+    description TEXT,
+    location VARCHAR(255),
+    tags VARCHAR(255),
+    media_ids INTEGER[] NOT NULL DEFAULT '{}',
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE INDEX IF NOT EXISTS idx_tour_media_created_at ON tour_media(created_at);
+
 -- Create a function to automatically update the updated_at column
 CREATE OR REPLACE FUNCTION update_updated_at_column()
 RETURNS TRIGGER AS $$
