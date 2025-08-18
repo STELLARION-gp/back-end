@@ -59,6 +59,27 @@ export const getGroups = async (req: Request, res: Response): Promise<void> => {
             }
           }
         },
+      messages: {
+          where: {
+            is_deleted: false
+          },
+          orderBy: {
+            created_at: 'desc'
+          },
+          take: 1,
+          select: {
+            id: true,
+            message_text: true,
+            created_at: true,
+            user: {
+              select: {
+                display_name: true,
+                first_name: true,
+                last_name: true
+              }
+            }
+          }
+        },
         _count: {
           select: {
             members: true,
@@ -82,11 +103,16 @@ export const getGroups = async (req: Request, res: Response): Promise<void> => {
     // Check if user is member of each group
     const groupsWithMembership = groups.map(group => {
       const isMember = group.members.some(member => member.user_id === userId);
+      const lastMessage = group.messages[0]; // Get the most recent message
+      
       return {
         ...group,
         is_member: isMember,
         member_count: group._count.members,
-        message_count: group._count.messages
+        message_count: group._count.messages,
+        last_message: lastMessage?.message_text || null,
+        last_message_time: lastMessage?.created_at || null,
+        last_message_user: lastMessage?.user || null
       };
     });
 
@@ -112,7 +138,7 @@ export const getUserGroups = async (req: Request, res: Response): Promise<void> 
   try {
     const user = (req as any).user;
     const userId = user?.userId;
-    
+    // console.log('User ID:', userId);
     if (!userId) {
       errorResponse(res, 'Authentication required', 401);
     }
@@ -138,6 +164,27 @@ export const getUserGroups = async (req: Request, res: Response): Promise<void> 
                 display_name: true,
                 first_name: true,
                 last_name: true
+              }
+            },
+            messages: {
+              where: {
+                is_deleted: false
+              },
+              orderBy: {
+                created_at: 'desc'
+              },
+              take: 1,
+              select: {
+                id: true,
+                message_text: true,
+                created_at: true,
+                user: {
+                  select: {
+                    display_name: true,
+                    first_name: true,
+                    last_name: true
+                  }
+                }
               }
             },
             _count: {
@@ -167,13 +214,20 @@ export const getUserGroups = async (req: Request, res: Response): Promise<void> 
 
     const totalPages = Math.ceil(totalUserGroups / limitNum);
 
-    const groups = userGroups.map(membership => ({
-      ...membership.group,
-      membership_role: membership.role,
-      joined_at: membership.joined_at,
-      member_count: membership.group._count.members,
-      message_count: membership.group._count.messages
-    }));
+    const groups = userGroups.map(membership => {
+      const lastMessage = membership.group.messages[0]; // Get the most recent message
+      
+      return {
+        ...membership.group,
+        membership_role: membership.role,
+        joined_at: membership.joined_at,
+        member_count: membership.group._count.members,
+        message_count: membership.group._count.messages,
+        last_message: lastMessage?.message_text || null,
+        last_message_time: lastMessage?.created_at || null,
+        last_message_user: lastMessage?.user || null
+      };
+    });
 
     successResponse(res, 'User groups retrieved successfully', {
       groups,
