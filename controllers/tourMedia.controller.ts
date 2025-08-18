@@ -1,8 +1,10 @@
 import { Request, Response } from 'express';
 import { PrismaClient } from '../prisma/generated/client';
+import { Pool } from 'pg';
 import cloudinary from '../config/cloudinary';
 
 const prisma = new PrismaClient();
+const pool = new Pool({ connectionString: process.env.DATABASE_URL });
 
 // Upload a single file buffer to Cloudinary
 async function uploadToCloudinary(file: Express.Multer.File, userId: number) {
@@ -36,32 +38,56 @@ export const uploadSingle = async (req: Request, res: Response) => {
 
     const file = req.file;
 
-    const result = await prisma.$transaction(async (tx) => {
-      // 1. Upload media to Cloudinary and insert media_uploads
-      const uploaded = await uploadToCloudinary(file, auth.userId);
-      const media = await (tx as any).media_uploads.create({
-        data: {
-          user_id: auth.userId,
-          file_name: file.originalname,
-          file_path: uploaded.url,
+    // If prisma has models use it, else fallback raw SQL
+    let result: any;
+    if ((prisma as any).tour_media && (prisma as any).media_uploads) {
+      result = await prisma.$transaction(async (tx) => {
+        const uploaded = await uploadToCloudinary(file, auth.userId);
+        const media = await (tx as any).media_uploads.create({
+          data: {
+            user_id: auth.userId,
+            file_name: file.originalname,
+            file_path: uploaded.url,
             file_type: file.mimetype,
             file_size: file.size
-        }
+          }
+        });
+        const tour = await (tx as any).tour_media.create({
+          data: {
+            tour_name: req.body.tour_name,
+            description: req.body.description,
+            location: req.body.location,
+            tags: req.body.tags || null,
+            media_ids: [media.id]
+          }
+        });
+        return { tour, media: [media] };
       });
-
-      // 2. Insert tour_media with the single media id
-      const tour = await (tx as any).tour_media.create({
-        data: {
-          tour_name: req.body.tour_name,
-          description: req.body.description,
-          location: req.body.location,
-          tags: req.body.tags || null,
-          media_ids: [media.id]
-        }
-      });
-
-      return { tour, media: [media] };
-    });
+    } else {
+      // Raw SQL fallback transaction
+      const client = await pool.connect();
+      try {
+        await client.query('BEGIN');
+        const uploaded = await uploadToCloudinary(file, auth.userId);
+        const mediaInsert = await client.query(
+          `INSERT INTO media_uploads (user_id,file_name,file_path,file_type,file_size) VALUES ($1,$2,$3,$4,$5) RETURNING *`,
+          [auth.userId, file.originalname, uploaded.url, file.mimetype, file.size]
+        );
+        const media = mediaInsert.rows[0];
+        const tourInsert = await client.query(
+          `INSERT INTO tour_media (tour_name,description,location,tags,media_ids) VALUES ($1,$2,$3,$4,$5) RETURNING *`,
+          [req.body.tour_name, req.body.description, req.body.location, req.body.tags || null, [media.id]]
+        );
+        const tour = tourInsert.rows[0];
+        await client.query('COMMIT');
+        result = { tour, media: [media] };
+      } catch (e) {
+        await client.query('ROLLBACK');
+        throw e;
+      } finally {
+        client.release();
+      }
+    }
 
     res.json({ success: true, ...result });
   } catch (err: any) {
@@ -79,37 +105,65 @@ export const uploadAlbum = async (req: Request, res: Response) => {
     const files = (req as any).files as Express.Multer.File[];
     if (!files || !files.length) return res.status(400).json({ success: false, message: 'At least one file required' });
 
-    const result = await prisma.$transaction(async (tx) => {
-      const mediaIds: number[] = [];
-      const mediaRecords: any[] = [];
-
-      for (const f of files) {
-        const uploaded = await uploadToCloudinary(f, auth.userId);
-        const media = await (tx as any).media_uploads.create({
+    let result: any;
+    if ((prisma as any).tour_media && (prisma as any).media_uploads) {
+      result = await prisma.$transaction(async (tx) => {
+        const mediaIds: number[] = [];
+        const mediaRecords: any[] = [];
+        for (const f of files) {
+          const uploaded = await uploadToCloudinary(f, auth.userId);
+          const media = await (tx as any).media_uploads.create({
+            data: {
+              user_id: auth.userId,
+              file_name: f.originalname,
+              file_path: uploaded.url,
+              file_type: f.mimetype,
+              file_size: f.size
+            }
+          });
+          mediaIds.push(media.id);
+          mediaRecords.push(media);
+        }
+        const tour = await (tx as any).tour_media.create({
           data: {
-            user_id: auth.userId,
-            file_name: f.originalname,
-            file_path: uploaded.url,
-            file_type: f.mimetype,
-            file_size: f.size
+            tour_name: req.body.tour_name,
+            description: req.body.description,
+            location: req.body.location,
+            tags: req.body.tags || null,
+            media_ids: mediaIds
           }
         });
-        mediaIds.push(media.id);
-        mediaRecords.push(media);
-      }
-
-      const tour = await (tx as any).tour_media.create({
-        data: {
-          tour_name: req.body.tour_name,
-          description: req.body.description,
-          location: req.body.location,
-          tags: req.body.tags || null,
-          media_ids: mediaIds
-        }
+        return { tour, media: mediaRecords };
       });
-
-      return { tour, media: mediaRecords };
-    });
+    } else {
+      const client = await pool.connect();
+      try {
+        await client.query('BEGIN');
+        const mediaIds: number[] = [];
+        const mediaRecords: any[] = [];
+        for (const f of files) {
+          const uploaded = await uploadToCloudinary(f, auth.userId);
+            const ins = await client.query(
+              `INSERT INTO media_uploads (user_id,file_name,file_path,file_type,file_size) VALUES ($1,$2,$3,$4,$5) RETURNING *`,
+              [auth.userId, f.originalname, uploaded.url, f.mimetype, f.size]
+            );
+            const row = ins.rows[0];
+            mediaIds.push(row.id);
+            mediaRecords.push(row);
+        }
+        const tourIns = await client.query(
+          `INSERT INTO tour_media (tour_name,description,location,tags,media_ids) VALUES ($1,$2,$3,$4,$5) RETURNING *`,
+          [req.body.tour_name, req.body.description, req.body.location, req.body.tags || null, mediaIds]
+        );
+        await client.query('COMMIT');
+        result = { tour: tourIns.rows[0], media: mediaRecords };
+      } catch (e) {
+        await client.query('ROLLBACK');
+        throw e;
+      } finally {
+        client.release();
+      }
+    }
 
     res.json({ success: true, ...result });
   } catch (err: any) {
