@@ -8,6 +8,7 @@ import nightcampRoutes from "./routes/nightcamp.routes";
 import nasaOpportunitiesRoutes from "./routes/nasaOpportunities.routes";
 import uploadRoutes from './routes/upload.routes';
 import mediaUploadRoutes from './routes/mediaUpload.routes';
+import tourMediaRoutes from './routes/tourMedia.routes';
 // index.ts
 import express from "express";
 import cors from "cors";
@@ -77,6 +78,7 @@ app.use("/api/nasa-opportunities", nasaOpportunitiesRoutes);
 // Universal Upload API
 app.use('/api/upload', uploadRoutes);
 app.use('/api/media', mediaUploadRoutes);
+app.use('/api/tours', tourMediaRoutes);
 
 // Error handling middleware
 app.use(notFound);
