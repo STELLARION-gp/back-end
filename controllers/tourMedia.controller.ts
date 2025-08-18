@@ -174,17 +174,35 @@ export const uploadAlbum = async (req: Request, res: Response) => {
 
 export const listTours = async (_req: Request, res: Response) => {
   try {
-    // Get tours then hydrate media
-    const tours = await (prisma as any).tour_media.findMany({ orderBy: { created_at: 'desc' } });
-    const mediaMap: Record<number, any> = {};
-    // Collect all media ids
-    const allIds = Array.from(new Set(tours.flatMap((t: any) => t.media_ids as number[])));
-    if (allIds.length) {
-      const media = await (prisma as any).media_uploads.findMany({ where: { id: { in: allIds } } });
-      media.forEach((m: any) => { mediaMap[m.id] = m; });
+    if ((prisma as any).tour_media && (prisma as any).media_uploads) {
+      const tours = await (prisma as any).tour_media.findMany({ orderBy: { created_at: 'desc' } });
+      const mediaMap: Record<number, any> = {};
+      const allIds = Array.from(new Set(tours.flatMap((t: any) => t.media_ids as number[])));
+      if (allIds.length) {
+        const media = await (prisma as any).media_uploads.findMany({ where: { id: { in: allIds } } });
+        media.forEach((m: any) => { mediaMap[m.id] = m; });
+      }
+      const enriched = tours.map((t: any) => ({ ...t, media: (t.media_ids as number[]).map(id => mediaMap[id]).filter(Boolean) }));
+      res.json({ success: true, tours: enriched });
+    } else {
+      const client = await pool.connect();
+      try {
+        const toursRes = await client.query('SELECT * FROM tour_media ORDER BY created_at DESC');
+        const tours = toursRes.rows;
+        const allIds = Array.from(new Set(tours.flatMap((t: any) => t.media_ids as number[])));
+        let mediaRows: any[] = [];
+        if (allIds.length) {
+          const mediaRes = await client.query('SELECT * FROM media_uploads WHERE id = ANY($1)', [allIds]);
+          mediaRows = mediaRes.rows;
+        }
+        const mediaMap: Record<number, any> = {};
+        mediaRows.forEach(m => { mediaMap[m.id] = m; });
+        const enriched = tours.map(t => ({ ...t, media: (t.media_ids || []).map((id: number) => mediaMap[id]).filter(Boolean) }));
+        res.json({ success: true, tours: enriched });
+      } finally {
+        client.release();
+      }
     }
-    const enriched = tours.map((t: any) => ({ ...t, media: (t.media_ids as number[]).map(id => mediaMap[id]).filter(Boolean) }));
-    res.json({ success: true, tours: enriched });
   } catch (err: any) {
     res.status(500).json({ success: false, message: 'Failed to list tours', error: err.message });
   }
@@ -193,10 +211,27 @@ export const listTours = async (_req: Request, res: Response) => {
 export const getTour = async (req: Request, res: Response) => {
   try {
     const id = Number(req.params.id);
-    const tour = await (prisma as any).tour_media.findUnique({ where: { tour_id: id } });
-    if (!tour) return res.status(404).json({ success: false, message: 'Tour not found' });
-    const media = tour.media_ids.length ? await (prisma as any).media_uploads.findMany({ where: { id: { in: tour.media_ids } } }) : [];
-    res.json({ success: true, tour: { ...tour, media } });
+    if ((prisma as any).tour_media && (prisma as any).media_uploads) {
+      const tour = await (prisma as any).tour_media.findUnique({ where: { tour_id: id } });
+      if (!tour) return res.status(404).json({ success: false, message: 'Tour not found' });
+      const media = tour.media_ids.length ? await (prisma as any).media_uploads.findMany({ where: { id: { in: tour.media_ids } } }) : [];
+      res.json({ success: true, tour: { ...tour, media } });
+    } else {
+      const client = await pool.connect();
+      try {
+        const tourRes = await client.query('SELECT * FROM tour_media WHERE tour_id = $1', [id]);
+        if (tourRes.rowCount === 0) return res.status(404).json({ success: false, message: 'Tour not found' });
+        const tour = tourRes.rows[0];
+        let media: any[] = [];
+        if (tour.media_ids && tour.media_ids.length) {
+          const mediaRes = await client.query('SELECT * FROM media_uploads WHERE id = ANY($1)', [tour.media_ids]);
+          media = mediaRes.rows;
+        }
+        res.json({ success: true, tour: { ...tour, media } });
+      } finally {
+        client.release();
+      }
+    }
   } catch (err: any) {
     res.status(500).json({ success: false, message: 'Failed to fetch tour', error: err.message });
   }
@@ -209,8 +244,23 @@ export const updateTour = async (req: Request, res: Response) => {
     ['tour_name','description','location','tags'].forEach(f => { if (req.body[f] !== undefined) data[f] = req.body[f]; });
     if (Object.keys(data).length === 0) return res.status(400).json({ success: false, message: 'No updatable fields provided' });
     data.updated_at = new Date();
-    const tour = await (prisma as any).tour_media.update({ where: { tour_id: id }, data });
-    res.json({ success: true, tour });
+    if ((prisma as any).tour_media) {
+      const tour = await (prisma as any).tour_media.update({ where: { tour_id: id }, data });
+      res.json({ success: true, tour });
+    } else {
+      const client = await pool.connect();
+      try {
+        const sets: string[] = [];
+        const values: any[] = [];
+        let idx = 1;
+        for (const [k,v] of Object.entries(data)) { sets.push(`${k} = $${idx++}`); values.push(v); }
+        values.push(id);
+        const sql = `UPDATE tour_media SET ${sets.join(', ')} WHERE tour_id = $${idx} RETURNING *`;
+        const upd = await client.query(sql, values);
+        if (upd.rowCount === 0) return res.status(404).json({ success: false, message: 'Tour not found' });
+        res.json({ success: true, tour: upd.rows[0] });
+      } finally { client.release(); }
+    }
   } catch (err: any) {
     res.status(500).json({ success: false, message: 'Update failed', error: err.message });
   }
@@ -219,8 +269,17 @@ export const updateTour = async (req: Request, res: Response) => {
 export const deleteTour = async (req: Request, res: Response) => {
   try {
     const id = Number(req.params.id);
-    await (prisma as any).tour_media.delete({ where: { tour_id: id } });
-    res.json({ success: true, message: 'Tour deleted' });
+    if ((prisma as any).tour_media) {
+      await (prisma as any).tour_media.delete({ where: { tour_id: id } });
+      res.json({ success: true, message: 'Tour deleted' });
+    } else {
+      const client = await pool.connect();
+      try {
+        const del = await client.query('DELETE FROM tour_media WHERE tour_id = $1 RETURNING tour_id', [id]);
+        if (del.rowCount === 0) return res.status(404).json({ success: false, message: 'Tour not found' });
+        res.json({ success: true, message: 'Tour deleted' });
+      } finally { client.release(); }
+    }
   } catch (err: any) {
     res.status(500).json({ success: false, message: 'Delete failed', error: err.message });
   }
