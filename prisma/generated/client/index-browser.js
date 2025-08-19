@@ -493,6 +493,38 @@ exports.Prisma.Media_uploadsScalarFieldEnum = {
   created_at: 'created_at'
 };
 
+exports.Prisma.Tour_mediaScalarFieldEnum = {
+  tour_id: 'tour_id',
+  tour_name: 'tour_name',
+  description: 'description',
+  location: 'location',
+  tags: 'tags',
+  media_ids: 'media_ids',
+  created_at: 'created_at',
+  updated_at: 'updated_at'
+};
+
+exports.Prisma.EventsScalarFieldEnum = {
+  id: 'id',
+  event_name: 'event_name',
+  society_name: 'society_name',
+  description: 'description',
+  visibility: 'visibility',
+  date: 'date',
+  time: 'time',
+  location: 'location',
+  event_category: 'event_category',
+  needed_volunteers_count: 'needed_volunteers_count',
+  organized_by: 'organized_by',
+  image_urls: 'image_urls',
+  max_participants: 'max_participants',
+  event_status: 'event_status',
+  created_at: 'created_at',
+  status: 'status',
+  created_by: 'created_by',
+  moderated_by: 'moderated_by'
+};
+
 exports.Prisma.QuizParticipantsScalarFieldEnum = {
   id: 'id',
   quiz_id: 'quiz_id',
@@ -647,6 +679,8 @@ exports.Prisma.ModelName = {
   night_camp_registrations: 'night_camp_registrations',
   influencer_application: 'influencer_application',
   media_uploads: 'media_uploads',
+  tour_media: 'tour_media',
+  events: 'events',
   QuizParticipants: 'QuizParticipants',
   QuizQuestion: 'QuizQuestion',
   Quizzes: 'Quizzes'

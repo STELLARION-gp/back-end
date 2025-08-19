@@ -144,6 +144,16 @@ export type influencer_application = $Result.DefaultSelection<Prisma.$influencer
  */
 export type media_uploads = $Result.DefaultSelection<Prisma.$media_uploadsPayload>
 /**
+ * Model tour_media
+ * 
+ */
+export type tour_media = $Result.DefaultSelection<Prisma.$tour_mediaPayload>
+/**
+ * Model events
+ * 
+ */
+export type events = $Result.DefaultSelection<Prisma.$eventsPayload>
+/**
  * Model QuizParticipants
  * 
  */
@@ -705,6 +715,26 @@ export class PrismaClient<
   get media_uploads(): Prisma.media_uploadsDelegate<ExtArgs, ClientOptions>;
 
   /**
+   * `prisma.tour_media`: Exposes CRUD operations for the **tour_media** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Tour_medias
+    * const tour_medias = await prisma.tour_media.findMany()
+    * ```
+    */
+  get tour_media(): Prisma.tour_mediaDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.events`: Exposes CRUD operations for the **events** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Events
+    * const events = await prisma.events.findMany()
+    * ```
+    */
+  get events(): Prisma.eventsDelegate<ExtArgs, ClientOptions>;
+
+  /**
    * `prisma.quizParticipants`: Exposes CRUD operations for the **QuizParticipants** model.
     * Example usage:
     * ```ts
@@ -1199,6 +1229,8 @@ export namespace Prisma {
     night_camp_registrations: 'night_camp_registrations',
     influencer_application: 'influencer_application',
     media_uploads: 'media_uploads',
+    tour_media: 'tour_media',
+    events: 'events',
     QuizParticipants: 'QuizParticipants',
     QuizQuestion: 'QuizQuestion',
     Quizzes: 'Quizzes'
@@ -1220,7 +1252,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "subscriptions" | "blog_views" | "night_camps" | "night_camps_activities" | "chatbot_sessions" | "payments" | "blogs" | "blog_category_relations" | "subscription_plans" | "blog_categories" | "chatbot_usage" | "blog_comments" | "users" | "blog_likes" | "chatbot_messages" | "night_camps_equipment" | "user_settings" | "chatbot_feedback" | "night_camp_volunteering" | "role_upgrade_requests" | "guide_application" | "mentor_application" | "night_camp_volunteering_applications" | "night_camp_registrations" | "influencer_application" | "media_uploads" | "quizParticipants" | "quizQuestion" | "quizzes"
+      modelProps: "subscriptions" | "blog_views" | "night_camps" | "night_camps_activities" | "chatbot_sessions" | "payments" | "blogs" | "blog_category_relations" | "subscription_plans" | "blog_categories" | "chatbot_usage" | "blog_comments" | "users" | "blog_likes" | "chatbot_messages" | "night_camps_equipment" | "user_settings" | "chatbot_feedback" | "night_camp_volunteering" | "role_upgrade_requests" | "guide_application" | "mentor_application" | "night_camp_volunteering_applications" | "night_camp_registrations" | "influencer_application" | "media_uploads" | "tour_media" | "events" | "quizParticipants" | "quizQuestion" | "quizzes"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -3148,6 +3180,154 @@ export namespace Prisma {
           }
         }
       }
+      tour_media: {
+        payload: Prisma.$tour_mediaPayload<ExtArgs>
+        fields: Prisma.tour_mediaFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.tour_mediaFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$tour_mediaPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.tour_mediaFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$tour_mediaPayload>
+          }
+          findFirst: {
+            args: Prisma.tour_mediaFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$tour_mediaPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.tour_mediaFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$tour_mediaPayload>
+          }
+          findMany: {
+            args: Prisma.tour_mediaFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$tour_mediaPayload>[]
+          }
+          create: {
+            args: Prisma.tour_mediaCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$tour_mediaPayload>
+          }
+          createMany: {
+            args: Prisma.tour_mediaCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.tour_mediaCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$tour_mediaPayload>[]
+          }
+          delete: {
+            args: Prisma.tour_mediaDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$tour_mediaPayload>
+          }
+          update: {
+            args: Prisma.tour_mediaUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$tour_mediaPayload>
+          }
+          deleteMany: {
+            args: Prisma.tour_mediaDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.tour_mediaUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.tour_mediaUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$tour_mediaPayload>[]
+          }
+          upsert: {
+            args: Prisma.tour_mediaUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$tour_mediaPayload>
+          }
+          aggregate: {
+            args: Prisma.Tour_mediaAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateTour_media>
+          }
+          groupBy: {
+            args: Prisma.tour_mediaGroupByArgs<ExtArgs>
+            result: $Utils.Optional<Tour_mediaGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.tour_mediaCountArgs<ExtArgs>
+            result: $Utils.Optional<Tour_mediaCountAggregateOutputType> | number
+          }
+        }
+      }
+      events: {
+        payload: Prisma.$eventsPayload<ExtArgs>
+        fields: Prisma.eventsFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.eventsFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$eventsPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.eventsFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$eventsPayload>
+          }
+          findFirst: {
+            args: Prisma.eventsFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$eventsPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.eventsFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$eventsPayload>
+          }
+          findMany: {
+            args: Prisma.eventsFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$eventsPayload>[]
+          }
+          create: {
+            args: Prisma.eventsCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$eventsPayload>
+          }
+          createMany: {
+            args: Prisma.eventsCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.eventsCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$eventsPayload>[]
+          }
+          delete: {
+            args: Prisma.eventsDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$eventsPayload>
+          }
+          update: {
+            args: Prisma.eventsUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$eventsPayload>
+          }
+          deleteMany: {
+            args: Prisma.eventsDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.eventsUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.eventsUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$eventsPayload>[]
+          }
+          upsert: {
+            args: Prisma.eventsUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$eventsPayload>
+          }
+          aggregate: {
+            args: Prisma.EventsAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateEvents>
+          }
+          groupBy: {
+            args: Prisma.eventsGroupByArgs<ExtArgs>
+            result: $Utils.Optional<EventsGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.eventsCountArgs<ExtArgs>
+            result: $Utils.Optional<EventsCountAggregateOutputType> | number
+          }
+        }
+      }
       QuizParticipants: {
         payload: Prisma.$QuizParticipantsPayload<ExtArgs>
         fields: Prisma.QuizParticipantsFieldRefs
@@ -3488,6 +3668,8 @@ export namespace Prisma {
     night_camp_registrations?: night_camp_registrationsOmit
     influencer_application?: influencer_applicationOmit
     media_uploads?: media_uploadsOmit
+    tour_media?: tour_mediaOmit
+    events?: eventsOmit
     quizParticipants?: QuizParticipantsOmit
     quizQuestion?: QuizQuestionOmit
     quizzes?: QuizzesOmit
@@ -36261,6 +36443,2284 @@ export namespace Prisma {
 
 
   /**
+   * Model tour_media
+   */
+
+  export type AggregateTour_media = {
+    _count: Tour_mediaCountAggregateOutputType | null
+    _avg: Tour_mediaAvgAggregateOutputType | null
+    _sum: Tour_mediaSumAggregateOutputType | null
+    _min: Tour_mediaMinAggregateOutputType | null
+    _max: Tour_mediaMaxAggregateOutputType | null
+  }
+
+  export type Tour_mediaAvgAggregateOutputType = {
+    tour_id: number | null
+    media_ids: number | null
+  }
+
+  export type Tour_mediaSumAggregateOutputType = {
+    tour_id: number | null
+    media_ids: number[]
+  }
+
+  export type Tour_mediaMinAggregateOutputType = {
+    tour_id: number | null
+    tour_name: string | null
+    description: string | null
+    location: string | null
+    tags: string | null
+    created_at: Date | null
+    updated_at: Date | null
+  }
+
+  export type Tour_mediaMaxAggregateOutputType = {
+    tour_id: number | null
+    tour_name: string | null
+    description: string | null
+    location: string | null
+    tags: string | null
+    created_at: Date | null
+    updated_at: Date | null
+  }
+
+  export type Tour_mediaCountAggregateOutputType = {
+    tour_id: number
+    tour_name: number
+    description: number
+    location: number
+    tags: number
+    media_ids: number
+    created_at: number
+    updated_at: number
+    _all: number
+  }
+
+
+  export type Tour_mediaAvgAggregateInputType = {
+    tour_id?: true
+    media_ids?: true
+  }
+
+  export type Tour_mediaSumAggregateInputType = {
+    tour_id?: true
+    media_ids?: true
+  }
+
+  export type Tour_mediaMinAggregateInputType = {
+    tour_id?: true
+    tour_name?: true
+    description?: true
+    location?: true
+    tags?: true
+    created_at?: true
+    updated_at?: true
+  }
+
+  export type Tour_mediaMaxAggregateInputType = {
+    tour_id?: true
+    tour_name?: true
+    description?: true
+    location?: true
+    tags?: true
+    created_at?: true
+    updated_at?: true
+  }
+
+  export type Tour_mediaCountAggregateInputType = {
+    tour_id?: true
+    tour_name?: true
+    description?: true
+    location?: true
+    tags?: true
+    media_ids?: true
+    created_at?: true
+    updated_at?: true
+    _all?: true
+  }
+
+  export type Tour_mediaAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which tour_media to aggregate.
+     */
+    where?: tour_mediaWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of tour_medias to fetch.
+     */
+    orderBy?: tour_mediaOrderByWithRelationInput | tour_mediaOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: tour_mediaWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` tour_medias from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` tour_medias.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned tour_medias
+    **/
+    _count?: true | Tour_mediaCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: Tour_mediaAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: Tour_mediaSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: Tour_mediaMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: Tour_mediaMaxAggregateInputType
+  }
+
+  export type GetTour_mediaAggregateType<T extends Tour_mediaAggregateArgs> = {
+        [P in keyof T & keyof AggregateTour_media]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateTour_media[P]>
+      : GetScalarType<T[P], AggregateTour_media[P]>
+  }
+
+
+
+
+  export type tour_mediaGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: tour_mediaWhereInput
+    orderBy?: tour_mediaOrderByWithAggregationInput | tour_mediaOrderByWithAggregationInput[]
+    by: Tour_mediaScalarFieldEnum[] | Tour_mediaScalarFieldEnum
+    having?: tour_mediaScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: Tour_mediaCountAggregateInputType | true
+    _avg?: Tour_mediaAvgAggregateInputType
+    _sum?: Tour_mediaSumAggregateInputType
+    _min?: Tour_mediaMinAggregateInputType
+    _max?: Tour_mediaMaxAggregateInputType
+  }
+
+  export type Tour_mediaGroupByOutputType = {
+    tour_id: number
+    tour_name: string
+    description: string | null
+    location: string | null
+    tags: string | null
+    media_ids: number[]
+    created_at: Date | null
+    updated_at: Date | null
+    _count: Tour_mediaCountAggregateOutputType | null
+    _avg: Tour_mediaAvgAggregateOutputType | null
+    _sum: Tour_mediaSumAggregateOutputType | null
+    _min: Tour_mediaMinAggregateOutputType | null
+    _max: Tour_mediaMaxAggregateOutputType | null
+  }
+
+  type GetTour_mediaGroupByPayload<T extends tour_mediaGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<Tour_mediaGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof Tour_mediaGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], Tour_mediaGroupByOutputType[P]>
+            : GetScalarType<T[P], Tour_mediaGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type tour_mediaSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    tour_id?: boolean
+    tour_name?: boolean
+    description?: boolean
+    location?: boolean
+    tags?: boolean
+    media_ids?: boolean
+    created_at?: boolean
+    updated_at?: boolean
+  }, ExtArgs["result"]["tour_media"]>
+
+  export type tour_mediaSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    tour_id?: boolean
+    tour_name?: boolean
+    description?: boolean
+    location?: boolean
+    tags?: boolean
+    media_ids?: boolean
+    created_at?: boolean
+    updated_at?: boolean
+  }, ExtArgs["result"]["tour_media"]>
+
+  export type tour_mediaSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    tour_id?: boolean
+    tour_name?: boolean
+    description?: boolean
+    location?: boolean
+    tags?: boolean
+    media_ids?: boolean
+    created_at?: boolean
+    updated_at?: boolean
+  }, ExtArgs["result"]["tour_media"]>
+
+  export type tour_mediaSelectScalar = {
+    tour_id?: boolean
+    tour_name?: boolean
+    description?: boolean
+    location?: boolean
+    tags?: boolean
+    media_ids?: boolean
+    created_at?: boolean
+    updated_at?: boolean
+  }
+
+  export type tour_mediaOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"tour_id" | "tour_name" | "description" | "location" | "tags" | "media_ids" | "created_at" | "updated_at", ExtArgs["result"]["tour_media"]>
+
+  export type $tour_mediaPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "tour_media"
+    objects: {}
+    scalars: $Extensions.GetPayloadResult<{
+      tour_id: number
+      tour_name: string
+      description: string | null
+      location: string | null
+      tags: string | null
+      media_ids: number[]
+      created_at: Date | null
+      updated_at: Date | null
+    }, ExtArgs["result"]["tour_media"]>
+    composites: {}
+  }
+
+  type tour_mediaGetPayload<S extends boolean | null | undefined | tour_mediaDefaultArgs> = $Result.GetResult<Prisma.$tour_mediaPayload, S>
+
+  type tour_mediaCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<tour_mediaFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: Tour_mediaCountAggregateInputType | true
+    }
+
+  export interface tour_mediaDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['tour_media'], meta: { name: 'tour_media' } }
+    /**
+     * Find zero or one Tour_media that matches the filter.
+     * @param {tour_mediaFindUniqueArgs} args - Arguments to find a Tour_media
+     * @example
+     * // Get one Tour_media
+     * const tour_media = await prisma.tour_media.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends tour_mediaFindUniqueArgs>(args: SelectSubset<T, tour_mediaFindUniqueArgs<ExtArgs>>): Prisma__tour_mediaClient<$Result.GetResult<Prisma.$tour_mediaPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Tour_media that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {tour_mediaFindUniqueOrThrowArgs} args - Arguments to find a Tour_media
+     * @example
+     * // Get one Tour_media
+     * const tour_media = await prisma.tour_media.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends tour_mediaFindUniqueOrThrowArgs>(args: SelectSubset<T, tour_mediaFindUniqueOrThrowArgs<ExtArgs>>): Prisma__tour_mediaClient<$Result.GetResult<Prisma.$tour_mediaPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Tour_media that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {tour_mediaFindFirstArgs} args - Arguments to find a Tour_media
+     * @example
+     * // Get one Tour_media
+     * const tour_media = await prisma.tour_media.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends tour_mediaFindFirstArgs>(args?: SelectSubset<T, tour_mediaFindFirstArgs<ExtArgs>>): Prisma__tour_mediaClient<$Result.GetResult<Prisma.$tour_mediaPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Tour_media that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {tour_mediaFindFirstOrThrowArgs} args - Arguments to find a Tour_media
+     * @example
+     * // Get one Tour_media
+     * const tour_media = await prisma.tour_media.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends tour_mediaFindFirstOrThrowArgs>(args?: SelectSubset<T, tour_mediaFindFirstOrThrowArgs<ExtArgs>>): Prisma__tour_mediaClient<$Result.GetResult<Prisma.$tour_mediaPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Tour_medias that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {tour_mediaFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Tour_medias
+     * const tour_medias = await prisma.tour_media.findMany()
+     * 
+     * // Get first 10 Tour_medias
+     * const tour_medias = await prisma.tour_media.findMany({ take: 10 })
+     * 
+     * // Only select the `tour_id`
+     * const tour_mediaWithTour_idOnly = await prisma.tour_media.findMany({ select: { tour_id: true } })
+     * 
+     */
+    findMany<T extends tour_mediaFindManyArgs>(args?: SelectSubset<T, tour_mediaFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$tour_mediaPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Tour_media.
+     * @param {tour_mediaCreateArgs} args - Arguments to create a Tour_media.
+     * @example
+     * // Create one Tour_media
+     * const Tour_media = await prisma.tour_media.create({
+     *   data: {
+     *     // ... data to create a Tour_media
+     *   }
+     * })
+     * 
+     */
+    create<T extends tour_mediaCreateArgs>(args: SelectSubset<T, tour_mediaCreateArgs<ExtArgs>>): Prisma__tour_mediaClient<$Result.GetResult<Prisma.$tour_mediaPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Tour_medias.
+     * @param {tour_mediaCreateManyArgs} args - Arguments to create many Tour_medias.
+     * @example
+     * // Create many Tour_medias
+     * const tour_media = await prisma.tour_media.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends tour_mediaCreateManyArgs>(args?: SelectSubset<T, tour_mediaCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many Tour_medias and returns the data saved in the database.
+     * @param {tour_mediaCreateManyAndReturnArgs} args - Arguments to create many Tour_medias.
+     * @example
+     * // Create many Tour_medias
+     * const tour_media = await prisma.tour_media.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many Tour_medias and only return the `tour_id`
+     * const tour_mediaWithTour_idOnly = await prisma.tour_media.createManyAndReturn({
+     *   select: { tour_id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends tour_mediaCreateManyAndReturnArgs>(args?: SelectSubset<T, tour_mediaCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$tour_mediaPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a Tour_media.
+     * @param {tour_mediaDeleteArgs} args - Arguments to delete one Tour_media.
+     * @example
+     * // Delete one Tour_media
+     * const Tour_media = await prisma.tour_media.delete({
+     *   where: {
+     *     // ... filter to delete one Tour_media
+     *   }
+     * })
+     * 
+     */
+    delete<T extends tour_mediaDeleteArgs>(args: SelectSubset<T, tour_mediaDeleteArgs<ExtArgs>>): Prisma__tour_mediaClient<$Result.GetResult<Prisma.$tour_mediaPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Tour_media.
+     * @param {tour_mediaUpdateArgs} args - Arguments to update one Tour_media.
+     * @example
+     * // Update one Tour_media
+     * const tour_media = await prisma.tour_media.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends tour_mediaUpdateArgs>(args: SelectSubset<T, tour_mediaUpdateArgs<ExtArgs>>): Prisma__tour_mediaClient<$Result.GetResult<Prisma.$tour_mediaPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Tour_medias.
+     * @param {tour_mediaDeleteManyArgs} args - Arguments to filter Tour_medias to delete.
+     * @example
+     * // Delete a few Tour_medias
+     * const { count } = await prisma.tour_media.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends tour_mediaDeleteManyArgs>(args?: SelectSubset<T, tour_mediaDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Tour_medias.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {tour_mediaUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Tour_medias
+     * const tour_media = await prisma.tour_media.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends tour_mediaUpdateManyArgs>(args: SelectSubset<T, tour_mediaUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Tour_medias and returns the data updated in the database.
+     * @param {tour_mediaUpdateManyAndReturnArgs} args - Arguments to update many Tour_medias.
+     * @example
+     * // Update many Tour_medias
+     * const tour_media = await prisma.tour_media.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more Tour_medias and only return the `tour_id`
+     * const tour_mediaWithTour_idOnly = await prisma.tour_media.updateManyAndReturn({
+     *   select: { tour_id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends tour_mediaUpdateManyAndReturnArgs>(args: SelectSubset<T, tour_mediaUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$tour_mediaPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one Tour_media.
+     * @param {tour_mediaUpsertArgs} args - Arguments to update or create a Tour_media.
+     * @example
+     * // Update or create a Tour_media
+     * const tour_media = await prisma.tour_media.upsert({
+     *   create: {
+     *     // ... data to create a Tour_media
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Tour_media we want to update
+     *   }
+     * })
+     */
+    upsert<T extends tour_mediaUpsertArgs>(args: SelectSubset<T, tour_mediaUpsertArgs<ExtArgs>>): Prisma__tour_mediaClient<$Result.GetResult<Prisma.$tour_mediaPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of Tour_medias.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {tour_mediaCountArgs} args - Arguments to filter Tour_medias to count.
+     * @example
+     * // Count the number of Tour_medias
+     * const count = await prisma.tour_media.count({
+     *   where: {
+     *     // ... the filter for the Tour_medias we want to count
+     *   }
+     * })
+    **/
+    count<T extends tour_mediaCountArgs>(
+      args?: Subset<T, tour_mediaCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], Tour_mediaCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Tour_media.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {Tour_mediaAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends Tour_mediaAggregateArgs>(args: Subset<T, Tour_mediaAggregateArgs>): Prisma.PrismaPromise<GetTour_mediaAggregateType<T>>
+
+    /**
+     * Group by Tour_media.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {tour_mediaGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends tour_mediaGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: tour_mediaGroupByArgs['orderBy'] }
+        : { orderBy?: tour_mediaGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, tour_mediaGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetTour_mediaGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the tour_media model
+   */
+  readonly fields: tour_mediaFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for tour_media.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__tour_mediaClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the tour_media model
+   */
+  interface tour_mediaFieldRefs {
+    readonly tour_id: FieldRef<"tour_media", 'Int'>
+    readonly tour_name: FieldRef<"tour_media", 'String'>
+    readonly description: FieldRef<"tour_media", 'String'>
+    readonly location: FieldRef<"tour_media", 'String'>
+    readonly tags: FieldRef<"tour_media", 'String'>
+    readonly media_ids: FieldRef<"tour_media", 'Int[]'>
+    readonly created_at: FieldRef<"tour_media", 'DateTime'>
+    readonly updated_at: FieldRef<"tour_media", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * tour_media findUnique
+   */
+  export type tour_mediaFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the tour_media
+     */
+    select?: tour_mediaSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the tour_media
+     */
+    omit?: tour_mediaOmit<ExtArgs> | null
+    /**
+     * Filter, which tour_media to fetch.
+     */
+    where: tour_mediaWhereUniqueInput
+  }
+
+  /**
+   * tour_media findUniqueOrThrow
+   */
+  export type tour_mediaFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the tour_media
+     */
+    select?: tour_mediaSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the tour_media
+     */
+    omit?: tour_mediaOmit<ExtArgs> | null
+    /**
+     * Filter, which tour_media to fetch.
+     */
+    where: tour_mediaWhereUniqueInput
+  }
+
+  /**
+   * tour_media findFirst
+   */
+  export type tour_mediaFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the tour_media
+     */
+    select?: tour_mediaSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the tour_media
+     */
+    omit?: tour_mediaOmit<ExtArgs> | null
+    /**
+     * Filter, which tour_media to fetch.
+     */
+    where?: tour_mediaWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of tour_medias to fetch.
+     */
+    orderBy?: tour_mediaOrderByWithRelationInput | tour_mediaOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for tour_medias.
+     */
+    cursor?: tour_mediaWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` tour_medias from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` tour_medias.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of tour_medias.
+     */
+    distinct?: Tour_mediaScalarFieldEnum | Tour_mediaScalarFieldEnum[]
+  }
+
+  /**
+   * tour_media findFirstOrThrow
+   */
+  export type tour_mediaFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the tour_media
+     */
+    select?: tour_mediaSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the tour_media
+     */
+    omit?: tour_mediaOmit<ExtArgs> | null
+    /**
+     * Filter, which tour_media to fetch.
+     */
+    where?: tour_mediaWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of tour_medias to fetch.
+     */
+    orderBy?: tour_mediaOrderByWithRelationInput | tour_mediaOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for tour_medias.
+     */
+    cursor?: tour_mediaWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` tour_medias from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` tour_medias.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of tour_medias.
+     */
+    distinct?: Tour_mediaScalarFieldEnum | Tour_mediaScalarFieldEnum[]
+  }
+
+  /**
+   * tour_media findMany
+   */
+  export type tour_mediaFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the tour_media
+     */
+    select?: tour_mediaSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the tour_media
+     */
+    omit?: tour_mediaOmit<ExtArgs> | null
+    /**
+     * Filter, which tour_medias to fetch.
+     */
+    where?: tour_mediaWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of tour_medias to fetch.
+     */
+    orderBy?: tour_mediaOrderByWithRelationInput | tour_mediaOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing tour_medias.
+     */
+    cursor?: tour_mediaWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` tour_medias from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` tour_medias.
+     */
+    skip?: number
+    distinct?: Tour_mediaScalarFieldEnum | Tour_mediaScalarFieldEnum[]
+  }
+
+  /**
+   * tour_media create
+   */
+  export type tour_mediaCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the tour_media
+     */
+    select?: tour_mediaSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the tour_media
+     */
+    omit?: tour_mediaOmit<ExtArgs> | null
+    /**
+     * The data needed to create a tour_media.
+     */
+    data: XOR<tour_mediaCreateInput, tour_mediaUncheckedCreateInput>
+  }
+
+  /**
+   * tour_media createMany
+   */
+  export type tour_mediaCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many tour_medias.
+     */
+    data: tour_mediaCreateManyInput | tour_mediaCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * tour_media createManyAndReturn
+   */
+  export type tour_mediaCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the tour_media
+     */
+    select?: tour_mediaSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the tour_media
+     */
+    omit?: tour_mediaOmit<ExtArgs> | null
+    /**
+     * The data used to create many tour_medias.
+     */
+    data: tour_mediaCreateManyInput | tour_mediaCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * tour_media update
+   */
+  export type tour_mediaUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the tour_media
+     */
+    select?: tour_mediaSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the tour_media
+     */
+    omit?: tour_mediaOmit<ExtArgs> | null
+    /**
+     * The data needed to update a tour_media.
+     */
+    data: XOR<tour_mediaUpdateInput, tour_mediaUncheckedUpdateInput>
+    /**
+     * Choose, which tour_media to update.
+     */
+    where: tour_mediaWhereUniqueInput
+  }
+
+  /**
+   * tour_media updateMany
+   */
+  export type tour_mediaUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update tour_medias.
+     */
+    data: XOR<tour_mediaUpdateManyMutationInput, tour_mediaUncheckedUpdateManyInput>
+    /**
+     * Filter which tour_medias to update
+     */
+    where?: tour_mediaWhereInput
+    /**
+     * Limit how many tour_medias to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * tour_media updateManyAndReturn
+   */
+  export type tour_mediaUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the tour_media
+     */
+    select?: tour_mediaSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the tour_media
+     */
+    omit?: tour_mediaOmit<ExtArgs> | null
+    /**
+     * The data used to update tour_medias.
+     */
+    data: XOR<tour_mediaUpdateManyMutationInput, tour_mediaUncheckedUpdateManyInput>
+    /**
+     * Filter which tour_medias to update
+     */
+    where?: tour_mediaWhereInput
+    /**
+     * Limit how many tour_medias to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * tour_media upsert
+   */
+  export type tour_mediaUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the tour_media
+     */
+    select?: tour_mediaSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the tour_media
+     */
+    omit?: tour_mediaOmit<ExtArgs> | null
+    /**
+     * The filter to search for the tour_media to update in case it exists.
+     */
+    where: tour_mediaWhereUniqueInput
+    /**
+     * In case the tour_media found by the `where` argument doesn't exist, create a new tour_media with this data.
+     */
+    create: XOR<tour_mediaCreateInput, tour_mediaUncheckedCreateInput>
+    /**
+     * In case the tour_media was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<tour_mediaUpdateInput, tour_mediaUncheckedUpdateInput>
+  }
+
+  /**
+   * tour_media delete
+   */
+  export type tour_mediaDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the tour_media
+     */
+    select?: tour_mediaSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the tour_media
+     */
+    omit?: tour_mediaOmit<ExtArgs> | null
+    /**
+     * Filter which tour_media to delete.
+     */
+    where: tour_mediaWhereUniqueInput
+  }
+
+  /**
+   * tour_media deleteMany
+   */
+  export type tour_mediaDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which tour_medias to delete
+     */
+    where?: tour_mediaWhereInput
+    /**
+     * Limit how many tour_medias to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * tour_media without action
+   */
+  export type tour_mediaDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the tour_media
+     */
+    select?: tour_mediaSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the tour_media
+     */
+    omit?: tour_mediaOmit<ExtArgs> | null
+  }
+
+
+  /**
+   * Model events
+   */
+
+  export type AggregateEvents = {
+    _count: EventsCountAggregateOutputType | null
+    _avg: EventsAvgAggregateOutputType | null
+    _sum: EventsSumAggregateOutputType | null
+    _min: EventsMinAggregateOutputType | null
+    _max: EventsMaxAggregateOutputType | null
+  }
+
+  export type EventsAvgAggregateOutputType = {
+    id: number | null
+    needed_volunteers_count: number | null
+    max_participants: number | null
+    created_by: number | null
+    moderated_by: number | null
+  }
+
+  export type EventsSumAggregateOutputType = {
+    id: number | null
+    needed_volunteers_count: number | null
+    max_participants: number | null
+    created_by: number | null
+    moderated_by: number | null
+  }
+
+  export type EventsMinAggregateOutputType = {
+    id: number | null
+    event_name: string | null
+    society_name: string | null
+    description: string | null
+    visibility: string | null
+    date: Date | null
+    time: string | null
+    location: string | null
+    event_category: string | null
+    needed_volunteers_count: number | null
+    organized_by: string | null
+    max_participants: number | null
+    event_status: string | null
+    created_at: Date | null
+    status: string | null
+    created_by: number | null
+    moderated_by: number | null
+  }
+
+  export type EventsMaxAggregateOutputType = {
+    id: number | null
+    event_name: string | null
+    society_name: string | null
+    description: string | null
+    visibility: string | null
+    date: Date | null
+    time: string | null
+    location: string | null
+    event_category: string | null
+    needed_volunteers_count: number | null
+    organized_by: string | null
+    max_participants: number | null
+    event_status: string | null
+    created_at: Date | null
+    status: string | null
+    created_by: number | null
+    moderated_by: number | null
+  }
+
+  export type EventsCountAggregateOutputType = {
+    id: number
+    event_name: number
+    society_name: number
+    description: number
+    visibility: number
+    date: number
+    time: number
+    location: number
+    event_category: number
+    needed_volunteers_count: number
+    organized_by: number
+    image_urls: number
+    max_participants: number
+    event_status: number
+    created_at: number
+    status: number
+    created_by: number
+    moderated_by: number
+    _all: number
+  }
+
+
+  export type EventsAvgAggregateInputType = {
+    id?: true
+    needed_volunteers_count?: true
+    max_participants?: true
+    created_by?: true
+    moderated_by?: true
+  }
+
+  export type EventsSumAggregateInputType = {
+    id?: true
+    needed_volunteers_count?: true
+    max_participants?: true
+    created_by?: true
+    moderated_by?: true
+  }
+
+  export type EventsMinAggregateInputType = {
+    id?: true
+    event_name?: true
+    society_name?: true
+    description?: true
+    visibility?: true
+    date?: true
+    time?: true
+    location?: true
+    event_category?: true
+    needed_volunteers_count?: true
+    organized_by?: true
+    max_participants?: true
+    event_status?: true
+    created_at?: true
+    status?: true
+    created_by?: true
+    moderated_by?: true
+  }
+
+  export type EventsMaxAggregateInputType = {
+    id?: true
+    event_name?: true
+    society_name?: true
+    description?: true
+    visibility?: true
+    date?: true
+    time?: true
+    location?: true
+    event_category?: true
+    needed_volunteers_count?: true
+    organized_by?: true
+    max_participants?: true
+    event_status?: true
+    created_at?: true
+    status?: true
+    created_by?: true
+    moderated_by?: true
+  }
+
+  export type EventsCountAggregateInputType = {
+    id?: true
+    event_name?: true
+    society_name?: true
+    description?: true
+    visibility?: true
+    date?: true
+    time?: true
+    location?: true
+    event_category?: true
+    needed_volunteers_count?: true
+    organized_by?: true
+    image_urls?: true
+    max_participants?: true
+    event_status?: true
+    created_at?: true
+    status?: true
+    created_by?: true
+    moderated_by?: true
+    _all?: true
+  }
+
+  export type EventsAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which events to aggregate.
+     */
+    where?: eventsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of events to fetch.
+     */
+    orderBy?: eventsOrderByWithRelationInput | eventsOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: eventsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` events from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` events.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned events
+    **/
+    _count?: true | EventsCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: EventsAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: EventsSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: EventsMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: EventsMaxAggregateInputType
+  }
+
+  export type GetEventsAggregateType<T extends EventsAggregateArgs> = {
+        [P in keyof T & keyof AggregateEvents]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateEvents[P]>
+      : GetScalarType<T[P], AggregateEvents[P]>
+  }
+
+
+
+
+  export type eventsGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: eventsWhereInput
+    orderBy?: eventsOrderByWithAggregationInput | eventsOrderByWithAggregationInput[]
+    by: EventsScalarFieldEnum[] | EventsScalarFieldEnum
+    having?: eventsScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: EventsCountAggregateInputType | true
+    _avg?: EventsAvgAggregateInputType
+    _sum?: EventsSumAggregateInputType
+    _min?: EventsMinAggregateInputType
+    _max?: EventsMaxAggregateInputType
+  }
+
+  export type EventsGroupByOutputType = {
+    id: number
+    event_name: string
+    society_name: string
+    description: string
+    visibility: string
+    date: Date
+    time: string
+    location: string
+    event_category: string
+    needed_volunteers_count: number | null
+    organized_by: string
+    image_urls: string[]
+    max_participants: number | null
+    event_status: string
+    created_at: Date | null
+    status: string | null
+    created_by: number | null
+    moderated_by: number | null
+    _count: EventsCountAggregateOutputType | null
+    _avg: EventsAvgAggregateOutputType | null
+    _sum: EventsSumAggregateOutputType | null
+    _min: EventsMinAggregateOutputType | null
+    _max: EventsMaxAggregateOutputType | null
+  }
+
+  type GetEventsGroupByPayload<T extends eventsGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<EventsGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof EventsGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], EventsGroupByOutputType[P]>
+            : GetScalarType<T[P], EventsGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type eventsSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    event_name?: boolean
+    society_name?: boolean
+    description?: boolean
+    visibility?: boolean
+    date?: boolean
+    time?: boolean
+    location?: boolean
+    event_category?: boolean
+    needed_volunteers_count?: boolean
+    organized_by?: boolean
+    image_urls?: boolean
+    max_participants?: boolean
+    event_status?: boolean
+    created_at?: boolean
+    status?: boolean
+    created_by?: boolean
+    moderated_by?: boolean
+  }, ExtArgs["result"]["events"]>
+
+  export type eventsSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    event_name?: boolean
+    society_name?: boolean
+    description?: boolean
+    visibility?: boolean
+    date?: boolean
+    time?: boolean
+    location?: boolean
+    event_category?: boolean
+    needed_volunteers_count?: boolean
+    organized_by?: boolean
+    image_urls?: boolean
+    max_participants?: boolean
+    event_status?: boolean
+    created_at?: boolean
+    status?: boolean
+    created_by?: boolean
+    moderated_by?: boolean
+  }, ExtArgs["result"]["events"]>
+
+  export type eventsSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    event_name?: boolean
+    society_name?: boolean
+    description?: boolean
+    visibility?: boolean
+    date?: boolean
+    time?: boolean
+    location?: boolean
+    event_category?: boolean
+    needed_volunteers_count?: boolean
+    organized_by?: boolean
+    image_urls?: boolean
+    max_participants?: boolean
+    event_status?: boolean
+    created_at?: boolean
+    status?: boolean
+    created_by?: boolean
+    moderated_by?: boolean
+  }, ExtArgs["result"]["events"]>
+
+  export type eventsSelectScalar = {
+    id?: boolean
+    event_name?: boolean
+    society_name?: boolean
+    description?: boolean
+    visibility?: boolean
+    date?: boolean
+    time?: boolean
+    location?: boolean
+    event_category?: boolean
+    needed_volunteers_count?: boolean
+    organized_by?: boolean
+    image_urls?: boolean
+    max_participants?: boolean
+    event_status?: boolean
+    created_at?: boolean
+    status?: boolean
+    created_by?: boolean
+    moderated_by?: boolean
+  }
+
+  export type eventsOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "event_name" | "society_name" | "description" | "visibility" | "date" | "time" | "location" | "event_category" | "needed_volunteers_count" | "organized_by" | "image_urls" | "max_participants" | "event_status" | "created_at" | "status" | "created_by" | "moderated_by", ExtArgs["result"]["events"]>
+
+  export type $eventsPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "events"
+    objects: {}
+    scalars: $Extensions.GetPayloadResult<{
+      id: number
+      event_name: string
+      society_name: string
+      description: string
+      visibility: string
+      date: Date
+      time: string
+      location: string
+      event_category: string
+      needed_volunteers_count: number | null
+      organized_by: string
+      image_urls: string[]
+      max_participants: number | null
+      event_status: string
+      created_at: Date | null
+      status: string | null
+      created_by: number | null
+      moderated_by: number | null
+    }, ExtArgs["result"]["events"]>
+    composites: {}
+  }
+
+  type eventsGetPayload<S extends boolean | null | undefined | eventsDefaultArgs> = $Result.GetResult<Prisma.$eventsPayload, S>
+
+  type eventsCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<eventsFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: EventsCountAggregateInputType | true
+    }
+
+  export interface eventsDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['events'], meta: { name: 'events' } }
+    /**
+     * Find zero or one Events that matches the filter.
+     * @param {eventsFindUniqueArgs} args - Arguments to find a Events
+     * @example
+     * // Get one Events
+     * const events = await prisma.events.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends eventsFindUniqueArgs>(args: SelectSubset<T, eventsFindUniqueArgs<ExtArgs>>): Prisma__eventsClient<$Result.GetResult<Prisma.$eventsPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Events that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {eventsFindUniqueOrThrowArgs} args - Arguments to find a Events
+     * @example
+     * // Get one Events
+     * const events = await prisma.events.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends eventsFindUniqueOrThrowArgs>(args: SelectSubset<T, eventsFindUniqueOrThrowArgs<ExtArgs>>): Prisma__eventsClient<$Result.GetResult<Prisma.$eventsPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Events that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {eventsFindFirstArgs} args - Arguments to find a Events
+     * @example
+     * // Get one Events
+     * const events = await prisma.events.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends eventsFindFirstArgs>(args?: SelectSubset<T, eventsFindFirstArgs<ExtArgs>>): Prisma__eventsClient<$Result.GetResult<Prisma.$eventsPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Events that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {eventsFindFirstOrThrowArgs} args - Arguments to find a Events
+     * @example
+     * // Get one Events
+     * const events = await prisma.events.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends eventsFindFirstOrThrowArgs>(args?: SelectSubset<T, eventsFindFirstOrThrowArgs<ExtArgs>>): Prisma__eventsClient<$Result.GetResult<Prisma.$eventsPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Events that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {eventsFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Events
+     * const events = await prisma.events.findMany()
+     * 
+     * // Get first 10 Events
+     * const events = await prisma.events.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const eventsWithIdOnly = await prisma.events.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends eventsFindManyArgs>(args?: SelectSubset<T, eventsFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$eventsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Events.
+     * @param {eventsCreateArgs} args - Arguments to create a Events.
+     * @example
+     * // Create one Events
+     * const Events = await prisma.events.create({
+     *   data: {
+     *     // ... data to create a Events
+     *   }
+     * })
+     * 
+     */
+    create<T extends eventsCreateArgs>(args: SelectSubset<T, eventsCreateArgs<ExtArgs>>): Prisma__eventsClient<$Result.GetResult<Prisma.$eventsPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Events.
+     * @param {eventsCreateManyArgs} args - Arguments to create many Events.
+     * @example
+     * // Create many Events
+     * const events = await prisma.events.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends eventsCreateManyArgs>(args?: SelectSubset<T, eventsCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many Events and returns the data saved in the database.
+     * @param {eventsCreateManyAndReturnArgs} args - Arguments to create many Events.
+     * @example
+     * // Create many Events
+     * const events = await prisma.events.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many Events and only return the `id`
+     * const eventsWithIdOnly = await prisma.events.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends eventsCreateManyAndReturnArgs>(args?: SelectSubset<T, eventsCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$eventsPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a Events.
+     * @param {eventsDeleteArgs} args - Arguments to delete one Events.
+     * @example
+     * // Delete one Events
+     * const Events = await prisma.events.delete({
+     *   where: {
+     *     // ... filter to delete one Events
+     *   }
+     * })
+     * 
+     */
+    delete<T extends eventsDeleteArgs>(args: SelectSubset<T, eventsDeleteArgs<ExtArgs>>): Prisma__eventsClient<$Result.GetResult<Prisma.$eventsPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Events.
+     * @param {eventsUpdateArgs} args - Arguments to update one Events.
+     * @example
+     * // Update one Events
+     * const events = await prisma.events.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends eventsUpdateArgs>(args: SelectSubset<T, eventsUpdateArgs<ExtArgs>>): Prisma__eventsClient<$Result.GetResult<Prisma.$eventsPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Events.
+     * @param {eventsDeleteManyArgs} args - Arguments to filter Events to delete.
+     * @example
+     * // Delete a few Events
+     * const { count } = await prisma.events.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends eventsDeleteManyArgs>(args?: SelectSubset<T, eventsDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Events.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {eventsUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Events
+     * const events = await prisma.events.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends eventsUpdateManyArgs>(args: SelectSubset<T, eventsUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Events and returns the data updated in the database.
+     * @param {eventsUpdateManyAndReturnArgs} args - Arguments to update many Events.
+     * @example
+     * // Update many Events
+     * const events = await prisma.events.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more Events and only return the `id`
+     * const eventsWithIdOnly = await prisma.events.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends eventsUpdateManyAndReturnArgs>(args: SelectSubset<T, eventsUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$eventsPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one Events.
+     * @param {eventsUpsertArgs} args - Arguments to update or create a Events.
+     * @example
+     * // Update or create a Events
+     * const events = await prisma.events.upsert({
+     *   create: {
+     *     // ... data to create a Events
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Events we want to update
+     *   }
+     * })
+     */
+    upsert<T extends eventsUpsertArgs>(args: SelectSubset<T, eventsUpsertArgs<ExtArgs>>): Prisma__eventsClient<$Result.GetResult<Prisma.$eventsPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of Events.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {eventsCountArgs} args - Arguments to filter Events to count.
+     * @example
+     * // Count the number of Events
+     * const count = await prisma.events.count({
+     *   where: {
+     *     // ... the filter for the Events we want to count
+     *   }
+     * })
+    **/
+    count<T extends eventsCountArgs>(
+      args?: Subset<T, eventsCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], EventsCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Events.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {EventsAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends EventsAggregateArgs>(args: Subset<T, EventsAggregateArgs>): Prisma.PrismaPromise<GetEventsAggregateType<T>>
+
+    /**
+     * Group by Events.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {eventsGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends eventsGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: eventsGroupByArgs['orderBy'] }
+        : { orderBy?: eventsGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, eventsGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetEventsGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the events model
+   */
+  readonly fields: eventsFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for events.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__eventsClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the events model
+   */
+  interface eventsFieldRefs {
+    readonly id: FieldRef<"events", 'Int'>
+    readonly event_name: FieldRef<"events", 'String'>
+    readonly society_name: FieldRef<"events", 'String'>
+    readonly description: FieldRef<"events", 'String'>
+    readonly visibility: FieldRef<"events", 'String'>
+    readonly date: FieldRef<"events", 'DateTime'>
+    readonly time: FieldRef<"events", 'String'>
+    readonly location: FieldRef<"events", 'String'>
+    readonly event_category: FieldRef<"events", 'String'>
+    readonly needed_volunteers_count: FieldRef<"events", 'Int'>
+    readonly organized_by: FieldRef<"events", 'String'>
+    readonly image_urls: FieldRef<"events", 'String[]'>
+    readonly max_participants: FieldRef<"events", 'Int'>
+    readonly event_status: FieldRef<"events", 'String'>
+    readonly created_at: FieldRef<"events", 'DateTime'>
+    readonly status: FieldRef<"events", 'String'>
+    readonly created_by: FieldRef<"events", 'Int'>
+    readonly moderated_by: FieldRef<"events", 'Int'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * events findUnique
+   */
+  export type eventsFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the events
+     */
+    select?: eventsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the events
+     */
+    omit?: eventsOmit<ExtArgs> | null
+    /**
+     * Filter, which events to fetch.
+     */
+    where: eventsWhereUniqueInput
+  }
+
+  /**
+   * events findUniqueOrThrow
+   */
+  export type eventsFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the events
+     */
+    select?: eventsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the events
+     */
+    omit?: eventsOmit<ExtArgs> | null
+    /**
+     * Filter, which events to fetch.
+     */
+    where: eventsWhereUniqueInput
+  }
+
+  /**
+   * events findFirst
+   */
+  export type eventsFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the events
+     */
+    select?: eventsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the events
+     */
+    omit?: eventsOmit<ExtArgs> | null
+    /**
+     * Filter, which events to fetch.
+     */
+    where?: eventsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of events to fetch.
+     */
+    orderBy?: eventsOrderByWithRelationInput | eventsOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for events.
+     */
+    cursor?: eventsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` events from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` events.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of events.
+     */
+    distinct?: EventsScalarFieldEnum | EventsScalarFieldEnum[]
+  }
+
+  /**
+   * events findFirstOrThrow
+   */
+  export type eventsFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the events
+     */
+    select?: eventsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the events
+     */
+    omit?: eventsOmit<ExtArgs> | null
+    /**
+     * Filter, which events to fetch.
+     */
+    where?: eventsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of events to fetch.
+     */
+    orderBy?: eventsOrderByWithRelationInput | eventsOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for events.
+     */
+    cursor?: eventsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` events from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` events.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of events.
+     */
+    distinct?: EventsScalarFieldEnum | EventsScalarFieldEnum[]
+  }
+
+  /**
+   * events findMany
+   */
+  export type eventsFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the events
+     */
+    select?: eventsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the events
+     */
+    omit?: eventsOmit<ExtArgs> | null
+    /**
+     * Filter, which events to fetch.
+     */
+    where?: eventsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of events to fetch.
+     */
+    orderBy?: eventsOrderByWithRelationInput | eventsOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing events.
+     */
+    cursor?: eventsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` events from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` events.
+     */
+    skip?: number
+    distinct?: EventsScalarFieldEnum | EventsScalarFieldEnum[]
+  }
+
+  /**
+   * events create
+   */
+  export type eventsCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the events
+     */
+    select?: eventsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the events
+     */
+    omit?: eventsOmit<ExtArgs> | null
+    /**
+     * The data needed to create a events.
+     */
+    data: XOR<eventsCreateInput, eventsUncheckedCreateInput>
+  }
+
+  /**
+   * events createMany
+   */
+  export type eventsCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many events.
+     */
+    data: eventsCreateManyInput | eventsCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * events createManyAndReturn
+   */
+  export type eventsCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the events
+     */
+    select?: eventsSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the events
+     */
+    omit?: eventsOmit<ExtArgs> | null
+    /**
+     * The data used to create many events.
+     */
+    data: eventsCreateManyInput | eventsCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * events update
+   */
+  export type eventsUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the events
+     */
+    select?: eventsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the events
+     */
+    omit?: eventsOmit<ExtArgs> | null
+    /**
+     * The data needed to update a events.
+     */
+    data: XOR<eventsUpdateInput, eventsUncheckedUpdateInput>
+    /**
+     * Choose, which events to update.
+     */
+    where: eventsWhereUniqueInput
+  }
+
+  /**
+   * events updateMany
+   */
+  export type eventsUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update events.
+     */
+    data: XOR<eventsUpdateManyMutationInput, eventsUncheckedUpdateManyInput>
+    /**
+     * Filter which events to update
+     */
+    where?: eventsWhereInput
+    /**
+     * Limit how many events to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * events updateManyAndReturn
+   */
+  export type eventsUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the events
+     */
+    select?: eventsSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the events
+     */
+    omit?: eventsOmit<ExtArgs> | null
+    /**
+     * The data used to update events.
+     */
+    data: XOR<eventsUpdateManyMutationInput, eventsUncheckedUpdateManyInput>
+    /**
+     * Filter which events to update
+     */
+    where?: eventsWhereInput
+    /**
+     * Limit how many events to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * events upsert
+   */
+  export type eventsUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the events
+     */
+    select?: eventsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the events
+     */
+    omit?: eventsOmit<ExtArgs> | null
+    /**
+     * The filter to search for the events to update in case it exists.
+     */
+    where: eventsWhereUniqueInput
+    /**
+     * In case the events found by the `where` argument doesn't exist, create a new events with this data.
+     */
+    create: XOR<eventsCreateInput, eventsUncheckedCreateInput>
+    /**
+     * In case the events was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<eventsUpdateInput, eventsUncheckedUpdateInput>
+  }
+
+  /**
+   * events delete
+   */
+  export type eventsDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the events
+     */
+    select?: eventsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the events
+     */
+    omit?: eventsOmit<ExtArgs> | null
+    /**
+     * Filter which events to delete.
+     */
+    where: eventsWhereUniqueInput
+  }
+
+  /**
+   * events deleteMany
+   */
+  export type eventsDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which events to delete
+     */
+    where?: eventsWhereInput
+    /**
+     * Limit how many events to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * events without action
+   */
+  export type eventsDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the events
+     */
+    select?: eventsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the events
+     */
+    omit?: eventsOmit<ExtArgs> | null
+  }
+
+
+  /**
    * Model QuizParticipants
    */
 
@@ -40216,6 +42676,44 @@ export namespace Prisma {
   export type Media_uploadsScalarFieldEnum = (typeof Media_uploadsScalarFieldEnum)[keyof typeof Media_uploadsScalarFieldEnum]
 
 
+  export const Tour_mediaScalarFieldEnum: {
+    tour_id: 'tour_id',
+    tour_name: 'tour_name',
+    description: 'description',
+    location: 'location',
+    tags: 'tags',
+    media_ids: 'media_ids',
+    created_at: 'created_at',
+    updated_at: 'updated_at'
+  };
+
+  export type Tour_mediaScalarFieldEnum = (typeof Tour_mediaScalarFieldEnum)[keyof typeof Tour_mediaScalarFieldEnum]
+
+
+  export const EventsScalarFieldEnum: {
+    id: 'id',
+    event_name: 'event_name',
+    society_name: 'society_name',
+    description: 'description',
+    visibility: 'visibility',
+    date: 'date',
+    time: 'time',
+    location: 'location',
+    event_category: 'event_category',
+    needed_volunteers_count: 'needed_volunteers_count',
+    organized_by: 'organized_by',
+    image_urls: 'image_urls',
+    max_participants: 'max_participants',
+    event_status: 'event_status',
+    created_at: 'created_at',
+    status: 'status',
+    created_by: 'created_by',
+    moderated_by: 'moderated_by'
+  };
+
+  export type EventsScalarFieldEnum = (typeof EventsScalarFieldEnum)[keyof typeof EventsScalarFieldEnum]
+
+
   export const QuizParticipantsScalarFieldEnum: {
     id: 'id',
     quiz_id: 'quiz_id',
@@ -42981,6 +45479,194 @@ export namespace Prisma {
     file_type?: StringWithAggregatesFilter<"media_uploads"> | string
     file_size?: IntWithAggregatesFilter<"media_uploads"> | number
     created_at?: DateTimeNullableWithAggregatesFilter<"media_uploads"> | Date | string | null
+  }
+
+  export type tour_mediaWhereInput = {
+    AND?: tour_mediaWhereInput | tour_mediaWhereInput[]
+    OR?: tour_mediaWhereInput[]
+    NOT?: tour_mediaWhereInput | tour_mediaWhereInput[]
+    tour_id?: IntFilter<"tour_media"> | number
+    tour_name?: StringFilter<"tour_media"> | string
+    description?: StringNullableFilter<"tour_media"> | string | null
+    location?: StringNullableFilter<"tour_media"> | string | null
+    tags?: StringNullableFilter<"tour_media"> | string | null
+    media_ids?: IntNullableListFilter<"tour_media">
+    created_at?: DateTimeNullableFilter<"tour_media"> | Date | string | null
+    updated_at?: DateTimeNullableFilter<"tour_media"> | Date | string | null
+  }
+
+  export type tour_mediaOrderByWithRelationInput = {
+    tour_id?: SortOrder
+    tour_name?: SortOrder
+    description?: SortOrderInput | SortOrder
+    location?: SortOrderInput | SortOrder
+    tags?: SortOrderInput | SortOrder
+    media_ids?: SortOrder
+    created_at?: SortOrderInput | SortOrder
+    updated_at?: SortOrderInput | SortOrder
+  }
+
+  export type tour_mediaWhereUniqueInput = Prisma.AtLeast<{
+    tour_id?: number
+    AND?: tour_mediaWhereInput | tour_mediaWhereInput[]
+    OR?: tour_mediaWhereInput[]
+    NOT?: tour_mediaWhereInput | tour_mediaWhereInput[]
+    tour_name?: StringFilter<"tour_media"> | string
+    description?: StringNullableFilter<"tour_media"> | string | null
+    location?: StringNullableFilter<"tour_media"> | string | null
+    tags?: StringNullableFilter<"tour_media"> | string | null
+    media_ids?: IntNullableListFilter<"tour_media">
+    created_at?: DateTimeNullableFilter<"tour_media"> | Date | string | null
+    updated_at?: DateTimeNullableFilter<"tour_media"> | Date | string | null
+  }, "tour_id">
+
+  export type tour_mediaOrderByWithAggregationInput = {
+    tour_id?: SortOrder
+    tour_name?: SortOrder
+    description?: SortOrderInput | SortOrder
+    location?: SortOrderInput | SortOrder
+    tags?: SortOrderInput | SortOrder
+    media_ids?: SortOrder
+    created_at?: SortOrderInput | SortOrder
+    updated_at?: SortOrderInput | SortOrder
+    _count?: tour_mediaCountOrderByAggregateInput
+    _avg?: tour_mediaAvgOrderByAggregateInput
+    _max?: tour_mediaMaxOrderByAggregateInput
+    _min?: tour_mediaMinOrderByAggregateInput
+    _sum?: tour_mediaSumOrderByAggregateInput
+  }
+
+  export type tour_mediaScalarWhereWithAggregatesInput = {
+    AND?: tour_mediaScalarWhereWithAggregatesInput | tour_mediaScalarWhereWithAggregatesInput[]
+    OR?: tour_mediaScalarWhereWithAggregatesInput[]
+    NOT?: tour_mediaScalarWhereWithAggregatesInput | tour_mediaScalarWhereWithAggregatesInput[]
+    tour_id?: IntWithAggregatesFilter<"tour_media"> | number
+    tour_name?: StringWithAggregatesFilter<"tour_media"> | string
+    description?: StringNullableWithAggregatesFilter<"tour_media"> | string | null
+    location?: StringNullableWithAggregatesFilter<"tour_media"> | string | null
+    tags?: StringNullableWithAggregatesFilter<"tour_media"> | string | null
+    media_ids?: IntNullableListFilter<"tour_media">
+    created_at?: DateTimeNullableWithAggregatesFilter<"tour_media"> | Date | string | null
+    updated_at?: DateTimeNullableWithAggregatesFilter<"tour_media"> | Date | string | null
+  }
+
+  export type eventsWhereInput = {
+    AND?: eventsWhereInput | eventsWhereInput[]
+    OR?: eventsWhereInput[]
+    NOT?: eventsWhereInput | eventsWhereInput[]
+    id?: IntFilter<"events"> | number
+    event_name?: StringFilter<"events"> | string
+    society_name?: StringFilter<"events"> | string
+    description?: StringFilter<"events"> | string
+    visibility?: StringFilter<"events"> | string
+    date?: DateTimeFilter<"events"> | Date | string
+    time?: StringFilter<"events"> | string
+    location?: StringFilter<"events"> | string
+    event_category?: StringFilter<"events"> | string
+    needed_volunteers_count?: IntNullableFilter<"events"> | number | null
+    organized_by?: StringFilter<"events"> | string
+    image_urls?: StringNullableListFilter<"events">
+    max_participants?: IntNullableFilter<"events"> | number | null
+    event_status?: StringFilter<"events"> | string
+    created_at?: DateTimeNullableFilter<"events"> | Date | string | null
+    status?: StringNullableFilter<"events"> | string | null
+    created_by?: IntNullableFilter<"events"> | number | null
+    moderated_by?: IntNullableFilter<"events"> | number | null
+  }
+
+  export type eventsOrderByWithRelationInput = {
+    id?: SortOrder
+    event_name?: SortOrder
+    society_name?: SortOrder
+    description?: SortOrder
+    visibility?: SortOrder
+    date?: SortOrder
+    time?: SortOrder
+    location?: SortOrder
+    event_category?: SortOrder
+    needed_volunteers_count?: SortOrderInput | SortOrder
+    organized_by?: SortOrder
+    image_urls?: SortOrder
+    max_participants?: SortOrderInput | SortOrder
+    event_status?: SortOrder
+    created_at?: SortOrderInput | SortOrder
+    status?: SortOrderInput | SortOrder
+    created_by?: SortOrderInput | SortOrder
+    moderated_by?: SortOrderInput | SortOrder
+  }
+
+  export type eventsWhereUniqueInput = Prisma.AtLeast<{
+    id?: number
+    AND?: eventsWhereInput | eventsWhereInput[]
+    OR?: eventsWhereInput[]
+    NOT?: eventsWhereInput | eventsWhereInput[]
+    event_name?: StringFilter<"events"> | string
+    society_name?: StringFilter<"events"> | string
+    description?: StringFilter<"events"> | string
+    visibility?: StringFilter<"events"> | string
+    date?: DateTimeFilter<"events"> | Date | string
+    time?: StringFilter<"events"> | string
+    location?: StringFilter<"events"> | string
+    event_category?: StringFilter<"events"> | string
+    needed_volunteers_count?: IntNullableFilter<"events"> | number | null
+    organized_by?: StringFilter<"events"> | string
+    image_urls?: StringNullableListFilter<"events">
+    max_participants?: IntNullableFilter<"events"> | number | null
+    event_status?: StringFilter<"events"> | string
+    created_at?: DateTimeNullableFilter<"events"> | Date | string | null
+    status?: StringNullableFilter<"events"> | string | null
+    created_by?: IntNullableFilter<"events"> | number | null
+    moderated_by?: IntNullableFilter<"events"> | number | null
+  }, "id">
+
+  export type eventsOrderByWithAggregationInput = {
+    id?: SortOrder
+    event_name?: SortOrder
+    society_name?: SortOrder
+    description?: SortOrder
+    visibility?: SortOrder
+    date?: SortOrder
+    time?: SortOrder
+    location?: SortOrder
+    event_category?: SortOrder
+    needed_volunteers_count?: SortOrderInput | SortOrder
+    organized_by?: SortOrder
+    image_urls?: SortOrder
+    max_participants?: SortOrderInput | SortOrder
+    event_status?: SortOrder
+    created_at?: SortOrderInput | SortOrder
+    status?: SortOrderInput | SortOrder
+    created_by?: SortOrderInput | SortOrder
+    moderated_by?: SortOrderInput | SortOrder
+    _count?: eventsCountOrderByAggregateInput
+    _avg?: eventsAvgOrderByAggregateInput
+    _max?: eventsMaxOrderByAggregateInput
+    _min?: eventsMinOrderByAggregateInput
+    _sum?: eventsSumOrderByAggregateInput
+  }
+
+  export type eventsScalarWhereWithAggregatesInput = {
+    AND?: eventsScalarWhereWithAggregatesInput | eventsScalarWhereWithAggregatesInput[]
+    OR?: eventsScalarWhereWithAggregatesInput[]
+    NOT?: eventsScalarWhereWithAggregatesInput | eventsScalarWhereWithAggregatesInput[]
+    id?: IntWithAggregatesFilter<"events"> | number
+    event_name?: StringWithAggregatesFilter<"events"> | string
+    society_name?: StringWithAggregatesFilter<"events"> | string
+    description?: StringWithAggregatesFilter<"events"> | string
+    visibility?: StringWithAggregatesFilter<"events"> | string
+    date?: DateTimeWithAggregatesFilter<"events"> | Date | string
+    time?: StringWithAggregatesFilter<"events"> | string
+    location?: StringWithAggregatesFilter<"events"> | string
+    event_category?: StringWithAggregatesFilter<"events"> | string
+    needed_volunteers_count?: IntNullableWithAggregatesFilter<"events"> | number | null
+    organized_by?: StringWithAggregatesFilter<"events"> | string
+    image_urls?: StringNullableListFilter<"events">
+    max_participants?: IntNullableWithAggregatesFilter<"events"> | number | null
+    event_status?: StringWithAggregatesFilter<"events"> | string
+    created_at?: DateTimeNullableWithAggregatesFilter<"events"> | Date | string | null
+    status?: StringNullableWithAggregatesFilter<"events"> | string | null
+    created_by?: IntNullableWithAggregatesFilter<"events"> | number | null
+    moderated_by?: IntNullableWithAggregatesFilter<"events"> | number | null
   }
 
   export type QuizParticipantsWhereInput = {
@@ -45858,6 +48544,224 @@ export namespace Prisma {
     created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
+  export type tour_mediaCreateInput = {
+    tour_name: string
+    description?: string | null
+    location?: string | null
+    tags?: string | null
+    media_ids?: tour_mediaCreatemedia_idsInput | number[]
+    created_at?: Date | string | null
+    updated_at?: Date | string | null
+  }
+
+  export type tour_mediaUncheckedCreateInput = {
+    tour_id?: number
+    tour_name: string
+    description?: string | null
+    location?: string | null
+    tags?: string | null
+    media_ids?: tour_mediaCreatemedia_idsInput | number[]
+    created_at?: Date | string | null
+    updated_at?: Date | string | null
+  }
+
+  export type tour_mediaUpdateInput = {
+    tour_name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    location?: NullableStringFieldUpdateOperationsInput | string | null
+    tags?: NullableStringFieldUpdateOperationsInput | string | null
+    media_ids?: tour_mediaUpdatemedia_idsInput | number[]
+    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
+  export type tour_mediaUncheckedUpdateInput = {
+    tour_id?: IntFieldUpdateOperationsInput | number
+    tour_name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    location?: NullableStringFieldUpdateOperationsInput | string | null
+    tags?: NullableStringFieldUpdateOperationsInput | string | null
+    media_ids?: tour_mediaUpdatemedia_idsInput | number[]
+    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
+  export type tour_mediaCreateManyInput = {
+    tour_id?: number
+    tour_name: string
+    description?: string | null
+    location?: string | null
+    tags?: string | null
+    media_ids?: tour_mediaCreatemedia_idsInput | number[]
+    created_at?: Date | string | null
+    updated_at?: Date | string | null
+  }
+
+  export type tour_mediaUpdateManyMutationInput = {
+    tour_name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    location?: NullableStringFieldUpdateOperationsInput | string | null
+    tags?: NullableStringFieldUpdateOperationsInput | string | null
+    media_ids?: tour_mediaUpdatemedia_idsInput | number[]
+    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
+  export type tour_mediaUncheckedUpdateManyInput = {
+    tour_id?: IntFieldUpdateOperationsInput | number
+    tour_name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    location?: NullableStringFieldUpdateOperationsInput | string | null
+    tags?: NullableStringFieldUpdateOperationsInput | string | null
+    media_ids?: tour_mediaUpdatemedia_idsInput | number[]
+    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
+  export type eventsCreateInput = {
+    event_name: string
+    society_name: string
+    description: string
+    visibility: string
+    date: Date | string
+    time: string
+    location: string
+    event_category: string
+    needed_volunteers_count?: number | null
+    organized_by: string
+    image_urls?: eventsCreateimage_urlsInput | string[]
+    max_participants?: number | null
+    event_status: string
+    created_at?: Date | string | null
+    status?: string | null
+    created_by?: number | null
+    moderated_by?: number | null
+  }
+
+  export type eventsUncheckedCreateInput = {
+    id?: number
+    event_name: string
+    society_name: string
+    description: string
+    visibility: string
+    date: Date | string
+    time: string
+    location: string
+    event_category: string
+    needed_volunteers_count?: number | null
+    organized_by: string
+    image_urls?: eventsCreateimage_urlsInput | string[]
+    max_participants?: number | null
+    event_status: string
+    created_at?: Date | string | null
+    status?: string | null
+    created_by?: number | null
+    moderated_by?: number | null
+  }
+
+  export type eventsUpdateInput = {
+    event_name?: StringFieldUpdateOperationsInput | string
+    society_name?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    visibility?: StringFieldUpdateOperationsInput | string
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    time?: StringFieldUpdateOperationsInput | string
+    location?: StringFieldUpdateOperationsInput | string
+    event_category?: StringFieldUpdateOperationsInput | string
+    needed_volunteers_count?: NullableIntFieldUpdateOperationsInput | number | null
+    organized_by?: StringFieldUpdateOperationsInput | string
+    image_urls?: eventsUpdateimage_urlsInput | string[]
+    max_participants?: NullableIntFieldUpdateOperationsInput | number | null
+    event_status?: StringFieldUpdateOperationsInput | string
+    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    status?: NullableStringFieldUpdateOperationsInput | string | null
+    created_by?: NullableIntFieldUpdateOperationsInput | number | null
+    moderated_by?: NullableIntFieldUpdateOperationsInput | number | null
+  }
+
+  export type eventsUncheckedUpdateInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    event_name?: StringFieldUpdateOperationsInput | string
+    society_name?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    visibility?: StringFieldUpdateOperationsInput | string
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    time?: StringFieldUpdateOperationsInput | string
+    location?: StringFieldUpdateOperationsInput | string
+    event_category?: StringFieldUpdateOperationsInput | string
+    needed_volunteers_count?: NullableIntFieldUpdateOperationsInput | number | null
+    organized_by?: StringFieldUpdateOperationsInput | string
+    image_urls?: eventsUpdateimage_urlsInput | string[]
+    max_participants?: NullableIntFieldUpdateOperationsInput | number | null
+    event_status?: StringFieldUpdateOperationsInput | string
+    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    status?: NullableStringFieldUpdateOperationsInput | string | null
+    created_by?: NullableIntFieldUpdateOperationsInput | number | null
+    moderated_by?: NullableIntFieldUpdateOperationsInput | number | null
+  }
+
+  export type eventsCreateManyInput = {
+    id?: number
+    event_name: string
+    society_name: string
+    description: string
+    visibility: string
+    date: Date | string
+    time: string
+    location: string
+    event_category: string
+    needed_volunteers_count?: number | null
+    organized_by: string
+    image_urls?: eventsCreateimage_urlsInput | string[]
+    max_participants?: number | null
+    event_status: string
+    created_at?: Date | string | null
+    status?: string | null
+    created_by?: number | null
+    moderated_by?: number | null
+  }
+
+  export type eventsUpdateManyMutationInput = {
+    event_name?: StringFieldUpdateOperationsInput | string
+    society_name?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    visibility?: StringFieldUpdateOperationsInput | string
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    time?: StringFieldUpdateOperationsInput | string
+    location?: StringFieldUpdateOperationsInput | string
+    event_category?: StringFieldUpdateOperationsInput | string
+    needed_volunteers_count?: NullableIntFieldUpdateOperationsInput | number | null
+    organized_by?: StringFieldUpdateOperationsInput | string
+    image_urls?: eventsUpdateimage_urlsInput | string[]
+    max_participants?: NullableIntFieldUpdateOperationsInput | number | null
+    event_status?: StringFieldUpdateOperationsInput | string
+    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    status?: NullableStringFieldUpdateOperationsInput | string | null
+    created_by?: NullableIntFieldUpdateOperationsInput | number | null
+    moderated_by?: NullableIntFieldUpdateOperationsInput | number | null
+  }
+
+  export type eventsUncheckedUpdateManyInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    event_name?: StringFieldUpdateOperationsInput | string
+    society_name?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    visibility?: StringFieldUpdateOperationsInput | string
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    time?: StringFieldUpdateOperationsInput | string
+    location?: StringFieldUpdateOperationsInput | string
+    event_category?: StringFieldUpdateOperationsInput | string
+    needed_volunteers_count?: NullableIntFieldUpdateOperationsInput | number | null
+    organized_by?: StringFieldUpdateOperationsInput | string
+    image_urls?: eventsUpdateimage_urlsInput | string[]
+    max_participants?: NullableIntFieldUpdateOperationsInput | number | null
+    event_status?: StringFieldUpdateOperationsInput | string
+    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    status?: NullableStringFieldUpdateOperationsInput | string | null
+    created_by?: NullableIntFieldUpdateOperationsInput | number | null
+    moderated_by?: NullableIntFieldUpdateOperationsInput | number | null
+  }
+
   export type QuizParticipantsCreateInput = {
     correct_question_count?: number
     score?: number
@@ -48317,6 +51221,140 @@ export namespace Prisma {
     file_size?: SortOrder
   }
 
+  export type IntNullableListFilter<$PrismaModel = never> = {
+    equals?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    has?: number | IntFieldRefInput<$PrismaModel> | null
+    hasEvery?: number[] | ListIntFieldRefInput<$PrismaModel>
+    hasSome?: number[] | ListIntFieldRefInput<$PrismaModel>
+    isEmpty?: boolean
+  }
+
+  export type tour_mediaCountOrderByAggregateInput = {
+    tour_id?: SortOrder
+    tour_name?: SortOrder
+    description?: SortOrder
+    location?: SortOrder
+    tags?: SortOrder
+    media_ids?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+  }
+
+  export type tour_mediaAvgOrderByAggregateInput = {
+    tour_id?: SortOrder
+    media_ids?: SortOrder
+  }
+
+  export type tour_mediaMaxOrderByAggregateInput = {
+    tour_id?: SortOrder
+    tour_name?: SortOrder
+    description?: SortOrder
+    location?: SortOrder
+    tags?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+  }
+
+  export type tour_mediaMinOrderByAggregateInput = {
+    tour_id?: SortOrder
+    tour_name?: SortOrder
+    description?: SortOrder
+    location?: SortOrder
+    tags?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+  }
+
+  export type tour_mediaSumOrderByAggregateInput = {
+    tour_id?: SortOrder
+    media_ids?: SortOrder
+  }
+
+  export type StringNullableListFilter<$PrismaModel = never> = {
+    equals?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    has?: string | StringFieldRefInput<$PrismaModel> | null
+    hasEvery?: string[] | ListStringFieldRefInput<$PrismaModel>
+    hasSome?: string[] | ListStringFieldRefInput<$PrismaModel>
+    isEmpty?: boolean
+  }
+
+  export type eventsCountOrderByAggregateInput = {
+    id?: SortOrder
+    event_name?: SortOrder
+    society_name?: SortOrder
+    description?: SortOrder
+    visibility?: SortOrder
+    date?: SortOrder
+    time?: SortOrder
+    location?: SortOrder
+    event_category?: SortOrder
+    needed_volunteers_count?: SortOrder
+    organized_by?: SortOrder
+    image_urls?: SortOrder
+    max_participants?: SortOrder
+    event_status?: SortOrder
+    created_at?: SortOrder
+    status?: SortOrder
+    created_by?: SortOrder
+    moderated_by?: SortOrder
+  }
+
+  export type eventsAvgOrderByAggregateInput = {
+    id?: SortOrder
+    needed_volunteers_count?: SortOrder
+    max_participants?: SortOrder
+    created_by?: SortOrder
+    moderated_by?: SortOrder
+  }
+
+  export type eventsMaxOrderByAggregateInput = {
+    id?: SortOrder
+    event_name?: SortOrder
+    society_name?: SortOrder
+    description?: SortOrder
+    visibility?: SortOrder
+    date?: SortOrder
+    time?: SortOrder
+    location?: SortOrder
+    event_category?: SortOrder
+    needed_volunteers_count?: SortOrder
+    organized_by?: SortOrder
+    max_participants?: SortOrder
+    event_status?: SortOrder
+    created_at?: SortOrder
+    status?: SortOrder
+    created_by?: SortOrder
+    moderated_by?: SortOrder
+  }
+
+  export type eventsMinOrderByAggregateInput = {
+    id?: SortOrder
+    event_name?: SortOrder
+    society_name?: SortOrder
+    description?: SortOrder
+    visibility?: SortOrder
+    date?: SortOrder
+    time?: SortOrder
+    location?: SortOrder
+    event_category?: SortOrder
+    needed_volunteers_count?: SortOrder
+    organized_by?: SortOrder
+    max_participants?: SortOrder
+    event_status?: SortOrder
+    created_at?: SortOrder
+    status?: SortOrder
+    created_by?: SortOrder
+    moderated_by?: SortOrder
+  }
+
+  export type eventsSumOrderByAggregateInput = {
+    id?: SortOrder
+    needed_volunteers_count?: SortOrder
+    max_participants?: SortOrder
+    created_by?: SortOrder
+    moderated_by?: SortOrder
+  }
+
   export type QuizzesScalarRelationFilter = {
     is?: QuizzesWhereInput
     isNot?: QuizzesWhereInput
@@ -48360,14 +51398,6 @@ export namespace Prisma {
     user_id?: SortOrder
     correct_question_count?: SortOrder
     score?: SortOrder
-  }
-
-  export type StringNullableListFilter<$PrismaModel = never> = {
-    equals?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    has?: string | StringFieldRefInput<$PrismaModel> | null
-    hasEvery?: string[] | ListStringFieldRefInput<$PrismaModel>
-    hasSome?: string[] | ListStringFieldRefInput<$PrismaModel>
-    isEmpty?: boolean
   }
 
   export type QuizQuestionCountOrderByAggregateInput = {
@@ -50587,6 +53617,24 @@ export namespace Prisma {
     upsert?: usersUpsertWithoutMedia_uploadsInput
     connect?: usersWhereUniqueInput
     update?: XOR<XOR<usersUpdateToOneWithWhereWithoutMedia_uploadsInput, usersUpdateWithoutMedia_uploadsInput>, usersUncheckedUpdateWithoutMedia_uploadsInput>
+  }
+
+  export type tour_mediaCreatemedia_idsInput = {
+    set: number[]
+  }
+
+  export type tour_mediaUpdatemedia_idsInput = {
+    set?: number[]
+    push?: number | number[]
+  }
+
+  export type eventsCreateimage_urlsInput = {
+    set: string[]
+  }
+
+  export type eventsUpdateimage_urlsInput = {
+    set?: string[]
+    push?: string | string[]
   }
 
   export type QuizzesCreateNestedOneWithoutQuizParticipantsInput = {

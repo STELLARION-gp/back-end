@@ -297,6 +297,45 @@ CREATE TABLE IF NOT EXISTS tour_media (
 
 CREATE INDEX IF NOT EXISTS idx_tour_media_created_at ON tour_media(created_at);
 
+-- Events table
+CREATE TABLE IF NOT EXISTS events (
+    id SERIAL PRIMARY KEY,
+    event_name VARCHAR(255) NOT NULL,
+    society_name VARCHAR(255) NOT NULL,
+    description TEXT NOT NULL,
+    visibility VARCHAR(50) NOT NULL CHECK (visibility IN ('public','private','members-only')),
+    date DATE NOT NULL,
+    time VARCHAR(100) NOT NULL,
+    location VARCHAR(255) NOT NULL,
+    event_category VARCHAR(100) NOT NULL,
+    needed_volunteers_count INT,
+    organized_by VARCHAR(255) NOT NULL,
+    image_urls TEXT[] DEFAULT '{}',
+    max_participants INT,
+    event_status VARCHAR(50) NOT NULL CHECK (event_status IN ('draft','organized','finalized')),
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    -- Moderation fields
+    status VARCHAR(50) DEFAULT 'pending', -- pending, approved, rejected
+    created_by INT NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+    moderated_by INT REFERENCES users(id)
+);
+
+CREATE INDEX IF NOT EXISTS idx_events_visibility ON events(visibility);
+CREATE INDEX IF NOT EXISTS idx_events_status ON events(event_status);
+CREATE INDEX IF NOT EXISTS idx_events_date ON events(date);
+CREATE INDEX IF NOT EXISTS idx_events_moderation_status ON events(status);
+CREATE INDEX IF NOT EXISTS idx_events_created_by ON events(created_by);
+CREATE INDEX IF NOT EXISTS idx_events_moderated_by ON events(moderated_by);
+
+-- Backward compatibility: if table existed before moderation fields, add them (idempotent guards)
+DO $$ BEGIN
+    BEGIN
+        ALTER TABLE events ADD COLUMN IF NOT EXISTS status VARCHAR(50) DEFAULT 'pending';
+        ALTER TABLE events ADD COLUMN IF NOT EXISTS created_by INT REFERENCES users(id) ON DELETE CASCADE;
+        ALTER TABLE events ADD COLUMN IF NOT EXISTS moderated_by INT REFERENCES users(id);
+    EXCEPTION WHEN others THEN NULL; END;
+END $$;
+
 -- Create a function to automatically update the updated_at column
 CREATE OR REPLACE FUNCTION update_updated_at_column()
 RETURNS TRIGGER AS $$
