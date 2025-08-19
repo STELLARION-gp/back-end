@@ -13,17 +13,37 @@ function parseIntNullable(v: any): number | null {
 }
 
 function validatePayload(body: any) {
-  const required = ['event_name','society_name','description','visibility','date','time','location','event_category','organized_by','event_status'];
-  const missing = required.filter(k => !body[k]);
+  // Accept both snake_case and camelCase from frontend
+  const aliasMap: Record<string,string[]> = {
+    event_name: ['event_name','eventName'],
+    society_name: ['society_name','societyName'],
+    description: ['description'],
+    visibility: ['visibility'],
+    date: ['date','eventDate'],
+    time: ['time','eventTime'],
+    location: ['location'],
+    event_category: ['event_category','eventCategory'],
+    organized_by: ['organized_by','organizedBy'],
+    event_status: ['event_status','eventStatus']
+  };
+  const required = Object.keys(aliasMap);
+  const missingCalc: string[] = [];
+  for (const key of required) {
+    const variants = aliasMap[key];
+    if (!variants.some(v => body[v])) missingCalc.push(key);
+  }
+  const missing = missingCalc;
   const errors: string[] = [];
   if (missing.length) errors.push('Missing: ' + missing.join(', '));
   if (body.visibility && !['public','private','members-only'].includes(body.visibility)) errors.push('Invalid visibility');
-  if (body.event_status && !['draft','organized','finalized'].includes(body.event_status)) errors.push('Invalid event_status');
+  const evtStatus = body.event_status || body.eventStatus;
+  if (evtStatus && !['draft','organized','finalized'].includes(evtStatus)) errors.push('Invalid event_status');
   return errors;
 }
 
 export const createEvent = async (req: Request, res: Response) => {
   try {
+  console.log('[events][create] incoming body:', JSON.stringify(req.body));
     const errors = validatePayload(req.body);
     if (errors.length) return res.status(400).json({ success:false, message: errors.join('; ') });
   const files = IMAGES_ENABLED ? ((req as any).files as Express.Multer.File[] || []) : [];
@@ -31,33 +51,154 @@ export const createEvent = async (req: Request, res: Response) => {
     const image_urls = req.body.image_urls ? (Array.isArray(req.body.image_urls) ? req.body.image_urls : [req.body.image_urls]) : [];
     const allImages = [...image_urls, ...filePaths];
 
-    const event = await (prisma as any).events.create({ data: {
-      event_name: req.body.event_name,
-      society_name: req.body.society_name,
-      description: req.body.description,
-      visibility: req.body.visibility,
-      date: new Date(req.body.date),
-      time: req.body.time,
-      location: req.body.location,
-      event_category: req.body.event_category,
-      needed_volunteers_count: parseIntNullable(req.body.needed_volunteers_count) || undefined,
-      organized_by: req.body.organized_by,
+    const authUser = (req as any).user;
+    const authUserId = authUser?.userId || authUser?.id; // stay compatible with existing verifyToken
+    if (!authUserId) {
+      return res.status(401).json({ success:false, message:'Authentication required (no user id found)' });
+    }
+    // Normalize body values (support camelCase & snake_case)
+    const body = req.body;
+    const pick = (...keys:string[]) => {
+      for (const k of keys) if (body[k] !== undefined && body[k] !== null && body[k] !== '') return body[k];
+      return undefined;
+    };
+    const dateRaw = pick('date','eventDate');
+    const timeRaw = pick('time','eventTime');
+    const dateObj = dateRaw ? new Date(dateRaw) : null;
+    if (dateRaw && isNaN(dateObj!.getTime())) {
+      return res.status(400).json({ success:false, message:'Invalid date format (expected YYYY-MM-DD)' });
+    }
+    const baseData: any = {
+      event_name: pick('event_name','eventName'),
+      society_name: pick('society_name','societyName'),
+      description: pick('description'),
+      visibility: pick('visibility'),
+      date: dateObj!,
+      time: timeRaw,
+      location: pick('location'),
+      event_category: pick('event_category','eventCategory'),
+      needed_volunteers_count: parseIntNullable(pick('needed_volunteers_count','neededVolunteers')) || undefined,
+      organized_by: pick('organized_by','organizedBy'),
       image_urls: allImages,
-      max_participants: parseIntNullable(req.body.max_participants) || undefined,
-      event_status: req.body.event_status,
-    }});
+      max_participants: parseIntNullable(pick('max_participants','maxParticipants')) || undefined,
+      event_status: pick('event_status','eventStatus')
+    };
+    // Quick guard in case required normalized fields ended up undefined despite earlier validation
+    const missingCore = Object.entries({
+      event_name: baseData.event_name,
+      society_name: baseData.society_name,
+      description: baseData.description,
+      visibility: baseData.visibility,
+      date: baseData.date,
+      time: baseData.time,
+      location: baseData.location,
+      event_category: baseData.event_category,
+      organized_by: baseData.organized_by,
+      event_status: baseData.event_status
+    }).filter(([_,v]) => v === undefined || v === null).map(([k])=>k);
+    if (missingCore.length) {
+      return res.status(400).json({ success:false, message:'Normalization failed for: ' + missingCore.join(', ') });
+    }
+    // Attempt with moderation fields first (may fail if columns not present)
+    let event;
+    try {
+      event = await (prisma as any).events.create({ data: { ...baseData, status: 'pending', created_by: authUserId } });
+    } catch (e:any) {
+      const lower = (e?.message || '').toLowerCase();
+      // Log structured error for debugging
+      console.error('[events][create] Prisma error:', {
+        message: e?.message,
+        code: e?.code,
+        meta: e?.meta,
+        stack: e?.stack
+      });
+      if (lower.includes('null value in column "created_by"')) {
+        return res.status(400).json({ success:false, message:'Server expected created_by but received null. Ensure auth token is valid.' });
+      }
+      if (lower.includes('column') && (lower.includes('created_by') || lower.includes('status'))) {
+        console.warn('[events] Moderation columns missing in DB, retrying without them');
+        event = await (prisma as any).events.create({ data: baseData });
+      } else if (e?.code === 'P2003') { // FK constraint
+        return res.status(400).json({ success:false, message:'Invalid user reference for created_by' });
+      } else if (e?.code === 'P2000') { // Value too long
+        return res.status(400).json({ success:false, message:'One of the string fields exceeds allowed length' });
+      } else {
+        // Attempt RAW fallback for diagnostic purposes
+        try {
+          console.warn('[events][create] attempting raw SQL fallback');
+          const cols: Array<{column_name:string}> = await prisma.$queryRawUnsafe("SELECT column_name FROM information_schema.columns WHERE table_name='events'");
+          const set = new Set(cols.map(c=>c.column_name));
+          const dataCols: string[] = [];
+          const values: any[] = [];
+          const push = (name:string, val:any) => { if (set.has(name) && val !== undefined) { dataCols.push('"'+name+'"'); values.push(val);} };
+          push('event_name', baseData.event_name);
+          push('society_name', baseData.society_name);
+          push('description', baseData.description);
+          push('visibility', baseData.visibility);
+          push('date', baseData.date);
+          push('time', baseData.time);
+          push('location', baseData.location);
+          push('event_category', baseData.event_category);
+          push('needed_volunteers_count', baseData.needed_volunteers_count);
+          push('organized_by', baseData.organized_by);
+          push('image_urls', baseData.image_urls);
+          push('max_participants', baseData.max_participants);
+          push('event_status', baseData.event_status);
+          if (set.has('status')) push('status','pending');
+          if (set.has('created_by')) push('created_by', authUserId);
+          const placeholders = values.map((_,i)=>`$${i+1}`).join(',');
+          const sql = `INSERT INTO events (${dataCols.join(',')}) VALUES (${placeholders}) RETURNING *`;
+          console.log('[events][create] raw insert SQL:', sql, 'values:', values);
+          const inserted: any[] = await prisma.$queryRawUnsafe(sql, ...values);
+          event = inserted[0];
+          console.warn('[events][create] raw SQL fallback succeeded');
+        } catch (rawErr:any) {
+          console.error('[events][create] raw SQL fallback failed', { message: rawErr?.message, code: rawErr?.code, stack: rawErr?.stack });
+          throw e; // rethrow original prisma error
+        }
+      }
+    }
     res.status(201).json({ success:true, event });
   } catch (err:any) {
-    console.error('createEvent error', err);
-    res.status(500).json({ success:false, message:'Failed to create event', error: err.message });
+    console.error('createEvent error', { message: err?.message, code: err?.code, meta: err?.meta, stack: err?.stack });
+    res.status(500).json({ success:false, message:'Failed to create event', error: err?.message, code: err?.code });
   }
 };
 
 export const listEvents = async (_req: Request, res: Response) => {
   try {
-    const events = await (prisma as any).events.findMany({ orderBy: { created_at: 'desc' } });
-    res.json({ success:true, events });
+    // Basic sanity check
+    if (!(prisma as any).events || typeof (prisma as any).events.findMany !== 'function') {
+      console.error('[events][list] prisma.events missing or invalid on client');
+      return res.status(500).json({ success:false, message:'Events model not available on server (regenerate Prisma client?)' });
+    }
+    try {
+      const events = await (prisma as any).events.findMany({ orderBy: { created_at: 'desc' } });
+      return res.json({ success:true, events });
+    } catch (err:any) {
+      console.error('[events][list] primary query failed', { message: err?.message, code: err?.code, meta: err?.meta, stack: err?.stack });
+      const msg = (err?.message || '').toLowerCase();
+      // Fallback if created_at column issue
+      if (msg.includes('created_at')) {
+        console.warn('[events][list] retrying without orderBy (created_at issue)');
+        try {
+          const events = await (prisma as any).events.findMany();
+          return res.json({ success:true, events, warning:'ordered list fallback used' });
+        } catch (e2:any) {
+          console.error('[events][list] fallback query also failed', { message: e2?.message, code: e2?.code, stack: e2?.stack });
+        }
+      }
+      // Introspect columns for diagnostics
+      try {
+        const cols: Array<{ column_name: string }> = await prisma.$queryRawUnsafe("SELECT column_name FROM information_schema.columns WHERE table_name='events'");
+        console.log('[events][list] existing columns:', cols.map(c=>c.column_name));
+      } catch (icolErr:any) {
+        console.error('[events][list] column introspection failed', { message: icolErr?.message });
+      }
+      return res.status(500).json({ success:false, message:'Failed to list events', error: err?.message });
+    }
   } catch (err:any) {
+    console.error('[events][list] outer error', { message: err?.message, code: err?.code, stack: err?.stack });
     res.status(500).json({ success:false, message:'Failed to list events', error: err.message });
   }
 };
@@ -107,5 +248,41 @@ export const deleteEvent = async (req: Request, res: Response) => {
   } catch (err:any) {
     if (err.code === 'P2025') return res.status(404).json({ success:false, message:'Event not found' });
     res.status(500).json({ success:false, message:'Failed to delete event', error: err.message });
+  }
+};
+
+export const moderateEvent = async (req: Request, res: Response) => {
+  try {
+    const id = Number(req.params.id);
+    const { action } = req.body; // 'approve' | 'reject'
+    if (!['approve','reject'].includes(action)) {
+      return res.status(400).json({ success:false, message:'Invalid action; use approve or reject' });
+    }
+    const authUser = (req as any).user;
+  const existing = await (prisma as any).events.findUnique({ where: { id } });
+    if (!existing) return res.status(404).json({ success:false, message:'Event not found' });
+  const authUserId = authUser?.userId || authUser?.id;
+  if (existing.created_by && existing.created_by === authUserId && authUser?.role !== 'admin') {
+      return res.status(403).json({ success:false, message:'Creators cannot moderate their own events' });
+    }
+    // Only moderator or admin
+    if (!['moderator','admin'].includes(authUser?.role)) {
+      return res.status(403).json({ success:false, message:'Insufficient role to moderate event' });
+    }
+    const newStatus = action === 'approve' ? 'approved' : 'rejected';
+    let event;
+    try {
+      event = await (prisma as any).events.update({ where: { id }, data: { status: newStatus, moderated_by: authUserId } });
+    } catch (e:any) {
+      const msg = (e?.message || '').toLowerCase();
+      if (msg.includes('column') && (msg.includes('status') || msg.includes('moderated_by'))) {
+        console.warn('[events] Moderation columns absent; returning existing event with simulated status change');
+        event = existing; // do not modify DB if columns absent
+      } else throw e;
+    }
+    res.json({ success:true, event });
+  } catch (err:any) {
+  console.error('[events][moderate] error', { message: err?.message, code: err?.code, meta: err?.meta });
+  res.status(500).json({ success:false, message:'Failed to moderate event', error: process.env.NODE_ENV === 'development' ? err.message : undefined });
   }
 };
