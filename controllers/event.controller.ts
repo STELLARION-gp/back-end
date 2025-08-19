@@ -5,7 +5,8 @@ import fs from 'fs';
 
 const prisma = new PrismaClient();
 
-// Simple disk storage image handling is managed at route via multer; here we just transform paths.
+// Image upload can be toggled off via ENV flag (EVENTS_IMAGE_UPLOAD_ENABLED=false)
+const IMAGES_ENABLED = process.env.EVENTS_IMAGE_UPLOAD_ENABLED !== 'false';
 
 function parseIntNullable(v: any): number | null {
   if (v === undefined || v === null || v === '') return null; const n = Number(v); return isNaN(n) ? null : n;
@@ -25,8 +26,8 @@ export const createEvent = async (req: Request, res: Response) => {
   try {
     const errors = validatePayload(req.body);
     if (errors.length) return res.status(400).json({ success:false, message: errors.join('; ') });
-    const files = (req as any).files as Express.Multer.File[] || [];
-  const filePaths = files.map(f => '/public/uploads/' + path.basename(f.path));
+  const files = IMAGES_ENABLED ? ((req as any).files as Express.Multer.File[] || []) : [];
+  const filePaths = IMAGES_ENABLED ? files.map(f => '/public/uploads/' + path.basename(f.path)) : [];
     const image_urls = req.body.image_urls ? (Array.isArray(req.body.image_urls) ? req.body.image_urls : [req.body.image_urls]) : [];
     const allImages = [...image_urls, ...filePaths];
 
@@ -75,8 +76,8 @@ export const getEvent = async (req: Request, res: Response) => {
 export const updateEvent = async (req: Request, res: Response) => {
   try {
     const id = Number(req.params.id);
-    const files = (req as any).files as Express.Multer.File[] || [];
-  const addPaths = files.map(f => '/public/uploads/' + path.basename(f.path));
+  const files = IMAGES_ENABLED ? ((req as any).files as Express.Multer.File[] || []) : [];
+  const addPaths = IMAGES_ENABLED ? files.map(f => '/public/uploads/' + path.basename(f.path)) : [];
     let image_urls: string[] | undefined;
     if (req.body.image_urls) {
       const incoming = Array.isArray(req.body.image_urls) ? req.body.image_urls : [req.body.image_urls];

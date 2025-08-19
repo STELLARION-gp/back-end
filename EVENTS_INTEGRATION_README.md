@@ -110,9 +110,10 @@ Endpoints that modify data (`POST`, `PUT`, `DELETE`) require `Authorization: Bea
 - Date parsed as `new Date(date)`; ensure format `YYYY-MM-DD` on client.
 
 ## Image Handling
-Currently stored on disk in `public/uploads` and exposed via `/public/uploads/<filename>` path (server already serves `/public`). For production, you likely want to swap to Cloudinary (pattern similar to `tourMedia.controller.ts`).
+Image Handling (Temporarily Disabled)
+Image upload is currently disabled (no multipart processing). Any `images` you append will be ignored. To re-enable, set env `EVENTS_IMAGE_UPLOAD_ENABLED=true` and restore multer middleware in `event.routes.ts` or implement Cloudinary streaming (recommended). Existing logic gracefully treats images as an empty array.
 
-To migrate to Cloudinary later: upload each file buffer and replace stored paths with secure URLs before creating the event.
+Cloudinary Migration (future): use memoryStorage + `cloudinary.uploader.upload_stream` similar to the tours feature, collect secure URLs, and pass them as `image_urls`.
 
 ## Deleting Events
 Simple `DELETE /api/events/:id` returns:
