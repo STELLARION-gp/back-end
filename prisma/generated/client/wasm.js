@@ -20,12 +20,12 @@ exports.Prisma = Prisma
 exports.$Enums = {}
 
 /**
- * Prisma Client JS version: 6.14.0
- * Query Engine version: 717184b7b35ea05dfa71a3236b7af656013e1e49
+ * Prisma Client JS version: 6.13.0
+ * Query Engine version: 361e86d0ea4987e9f53a565309b3eed797a6bcbd
  */
 Prisma.prismaVersion = {
-  client: "6.14.0",
-  engine: "717184b7b35ea05dfa71a3236b7af656013e1e49"
+  client: "6.13.0",
+  engine: "361e86d0ea4987e9f53a565309b3eed797a6bcbd"
 }
 
 Prisma.PrismaClientKnownRequestError = () => {
@@ -132,6 +132,49 @@ exports.Prisma.SubscriptionsScalarFieldEnum = {
   updated_at: 'updated_at',
   cancelled_at: 'cancelled_at',
   cancellation_reason: 'cancellation_reason'
+};
+
+exports.Prisma.Group_chatsScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  description: 'description',
+  type: 'type',
+  created_by: 'created_by',
+  avatar_url: 'avatar_url',
+  is_active: 'is_active',
+  max_members: 'max_members',
+  created_at: 'created_at',
+  updated_at: 'updated_at'
+};
+
+exports.Prisma.Group_membersScalarFieldEnum = {
+  id: 'id',
+  group_id: 'group_id',
+  user_id: 'user_id',
+  role: 'role',
+  joined_at: 'joined_at',
+  is_muted: 'is_muted'
+};
+
+exports.Prisma.Chat_messagesScalarFieldEnum = {
+  id: 'id',
+  group_id: 'group_id',
+  user_id: 'user_id',
+  message_text: 'message_text',
+  message_type: 'message_type',
+  reply_to: 'reply_to',
+  is_edited: 'is_edited',
+  is_deleted: 'is_deleted',
+  created_at: 'created_at',
+  updated_at: 'updated_at'
+};
+
+exports.Prisma.Message_reactionsScalarFieldEnum = {
+  id: 'id',
+  message_id: 'message_id',
+  user_id: 'user_id',
+  reaction: 'reaction',
+  created_at: 'created_at'
 };
 
 exports.Prisma.Blog_viewsScalarFieldEnum = {
@@ -654,6 +697,10 @@ exports.quiz_difficulty_level = exports.$Enums.quiz_difficulty_level = {
 
 exports.Prisma.ModelName = {
   subscriptions: 'subscriptions',
+  group_chats: 'group_chats',
+  group_members: 'group_members',
+  chat_messages: 'chat_messages',
+  message_reactions: 'message_reactions',
   blog_views: 'blog_views',
   night_camps: 'night_camps',
   night_camps_activities: 'night_camps_activities',

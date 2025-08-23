@@ -19,6 +19,26 @@ export type PrismaPromise<T> = $Public.PrismaPromise<T>
  */
 export type subscriptions = $Result.DefaultSelection<Prisma.$subscriptionsPayload>
 /**
+ * Model group_chats
+ * 
+ */
+export type group_chats = $Result.DefaultSelection<Prisma.$group_chatsPayload>
+/**
+ * Model group_members
+ * 
+ */
+export type group_members = $Result.DefaultSelection<Prisma.$group_membersPayload>
+/**
+ * Model chat_messages
+ * 
+ */
+export type chat_messages = $Result.DefaultSelection<Prisma.$chat_messagesPayload>
+/**
+ * Model message_reactions
+ * 
+ */
+export type message_reactions = $Result.DefaultSelection<Prisma.$message_reactionsPayload>
+/**
  * Model blog_views
  * 
  */
@@ -385,6 +405,13 @@ export class PrismaClient<
    */
   $disconnect(): $Utils.JsPromise<void>;
 
+  /**
+   * Add a middleware
+   * @deprecated since 4.16.0. For new code, prefer client extensions instead.
+   * @see https://pris.ly/d/extensions
+   */
+  $use(cb: Prisma.Middleware): void
+
 /**
    * Executes a prepared raw query and returns the number of affected rows.
    * @example
@@ -463,6 +490,46 @@ export class PrismaClient<
     * ```
     */
   get subscriptions(): Prisma.subscriptionsDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.group_chats`: Exposes CRUD operations for the **group_chats** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Group_chats
+    * const group_chats = await prisma.group_chats.findMany()
+    * ```
+    */
+  get group_chats(): Prisma.group_chatsDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.group_members`: Exposes CRUD operations for the **group_members** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Group_members
+    * const group_members = await prisma.group_members.findMany()
+    * ```
+    */
+  get group_members(): Prisma.group_membersDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.chat_messages`: Exposes CRUD operations for the **chat_messages** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Chat_messages
+    * const chat_messages = await prisma.chat_messages.findMany()
+    * ```
+    */
+  get chat_messages(): Prisma.chat_messagesDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.message_reactions`: Exposes CRUD operations for the **message_reactions** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Message_reactions
+    * const message_reactions = await prisma.message_reactions.findMany()
+    * ```
+    */
+  get message_reactions(): Prisma.message_reactionsDelegate<ExtArgs, ClientOptions>;
 
   /**
    * `prisma.blog_views`: Exposes CRUD operations for the **blog_views** model.
@@ -821,8 +888,8 @@ export namespace Prisma {
   export import Exact = $Public.Exact
 
   /**
-   * Prisma Client JS version: 6.14.0
-   * Query Engine version: 717184b7b35ea05dfa71a3236b7af656013e1e49
+   * Prisma Client JS version: 6.13.0
+   * Query Engine version: 361e86d0ea4987e9f53a565309b3eed797a6bcbd
    */
   export type PrismaVersion = {
     client: string
@@ -1204,6 +1271,10 @@ export namespace Prisma {
 
   export const ModelName: {
     subscriptions: 'subscriptions',
+    group_chats: 'group_chats',
+    group_members: 'group_members',
+    chat_messages: 'chat_messages',
+    message_reactions: 'message_reactions',
     blog_views: 'blog_views',
     night_camps: 'night_camps',
     night_camps_activities: 'night_camps_activities',
@@ -1252,7 +1323,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "subscriptions" | "blog_views" | "night_camps" | "night_camps_activities" | "chatbot_sessions" | "payments" | "blogs" | "blog_category_relations" | "subscription_plans" | "blog_categories" | "chatbot_usage" | "blog_comments" | "users" | "blog_likes" | "chatbot_messages" | "night_camps_equipment" | "user_settings" | "chatbot_feedback" | "night_camp_volunteering" | "role_upgrade_requests" | "guide_application" | "mentor_application" | "night_camp_volunteering_applications" | "night_camp_registrations" | "influencer_application" | "media_uploads" | "tour_media" | "events" | "quizParticipants" | "quizQuestion" | "quizzes"
+      modelProps: "subscriptions" | "group_chats" | "group_members" | "chat_messages" | "message_reactions" | "blog_views" | "night_camps" | "night_camps_activities" | "chatbot_sessions" | "payments" | "blogs" | "blog_category_relations" | "subscription_plans" | "blog_categories" | "chatbot_usage" | "blog_comments" | "users" | "blog_likes" | "chatbot_messages" | "night_camps_equipment" | "user_settings" | "chatbot_feedback" | "night_camp_volunteering" | "role_upgrade_requests" | "guide_application" | "mentor_application" | "night_camp_volunteering_applications" | "night_camp_registrations" | "influencer_application" | "media_uploads" | "quizParticipants" | "quizQuestion" | "quizzes"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -1327,6 +1398,302 @@ export namespace Prisma {
           count: {
             args: Prisma.subscriptionsCountArgs<ExtArgs>
             result: $Utils.Optional<SubscriptionsCountAggregateOutputType> | number
+          }
+        }
+      }
+      group_chats: {
+        payload: Prisma.$group_chatsPayload<ExtArgs>
+        fields: Prisma.group_chatsFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.group_chatsFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$group_chatsPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.group_chatsFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$group_chatsPayload>
+          }
+          findFirst: {
+            args: Prisma.group_chatsFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$group_chatsPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.group_chatsFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$group_chatsPayload>
+          }
+          findMany: {
+            args: Prisma.group_chatsFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$group_chatsPayload>[]
+          }
+          create: {
+            args: Prisma.group_chatsCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$group_chatsPayload>
+          }
+          createMany: {
+            args: Prisma.group_chatsCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.group_chatsCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$group_chatsPayload>[]
+          }
+          delete: {
+            args: Prisma.group_chatsDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$group_chatsPayload>
+          }
+          update: {
+            args: Prisma.group_chatsUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$group_chatsPayload>
+          }
+          deleteMany: {
+            args: Prisma.group_chatsDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.group_chatsUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.group_chatsUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$group_chatsPayload>[]
+          }
+          upsert: {
+            args: Prisma.group_chatsUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$group_chatsPayload>
+          }
+          aggregate: {
+            args: Prisma.Group_chatsAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateGroup_chats>
+          }
+          groupBy: {
+            args: Prisma.group_chatsGroupByArgs<ExtArgs>
+            result: $Utils.Optional<Group_chatsGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.group_chatsCountArgs<ExtArgs>
+            result: $Utils.Optional<Group_chatsCountAggregateOutputType> | number
+          }
+        }
+      }
+      group_members: {
+        payload: Prisma.$group_membersPayload<ExtArgs>
+        fields: Prisma.group_membersFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.group_membersFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$group_membersPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.group_membersFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$group_membersPayload>
+          }
+          findFirst: {
+            args: Prisma.group_membersFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$group_membersPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.group_membersFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$group_membersPayload>
+          }
+          findMany: {
+            args: Prisma.group_membersFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$group_membersPayload>[]
+          }
+          create: {
+            args: Prisma.group_membersCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$group_membersPayload>
+          }
+          createMany: {
+            args: Prisma.group_membersCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.group_membersCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$group_membersPayload>[]
+          }
+          delete: {
+            args: Prisma.group_membersDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$group_membersPayload>
+          }
+          update: {
+            args: Prisma.group_membersUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$group_membersPayload>
+          }
+          deleteMany: {
+            args: Prisma.group_membersDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.group_membersUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.group_membersUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$group_membersPayload>[]
+          }
+          upsert: {
+            args: Prisma.group_membersUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$group_membersPayload>
+          }
+          aggregate: {
+            args: Prisma.Group_membersAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateGroup_members>
+          }
+          groupBy: {
+            args: Prisma.group_membersGroupByArgs<ExtArgs>
+            result: $Utils.Optional<Group_membersGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.group_membersCountArgs<ExtArgs>
+            result: $Utils.Optional<Group_membersCountAggregateOutputType> | number
+          }
+        }
+      }
+      chat_messages: {
+        payload: Prisma.$chat_messagesPayload<ExtArgs>
+        fields: Prisma.chat_messagesFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.chat_messagesFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$chat_messagesPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.chat_messagesFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$chat_messagesPayload>
+          }
+          findFirst: {
+            args: Prisma.chat_messagesFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$chat_messagesPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.chat_messagesFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$chat_messagesPayload>
+          }
+          findMany: {
+            args: Prisma.chat_messagesFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$chat_messagesPayload>[]
+          }
+          create: {
+            args: Prisma.chat_messagesCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$chat_messagesPayload>
+          }
+          createMany: {
+            args: Prisma.chat_messagesCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.chat_messagesCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$chat_messagesPayload>[]
+          }
+          delete: {
+            args: Prisma.chat_messagesDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$chat_messagesPayload>
+          }
+          update: {
+            args: Prisma.chat_messagesUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$chat_messagesPayload>
+          }
+          deleteMany: {
+            args: Prisma.chat_messagesDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.chat_messagesUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.chat_messagesUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$chat_messagesPayload>[]
+          }
+          upsert: {
+            args: Prisma.chat_messagesUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$chat_messagesPayload>
+          }
+          aggregate: {
+            args: Prisma.Chat_messagesAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateChat_messages>
+          }
+          groupBy: {
+            args: Prisma.chat_messagesGroupByArgs<ExtArgs>
+            result: $Utils.Optional<Chat_messagesGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.chat_messagesCountArgs<ExtArgs>
+            result: $Utils.Optional<Chat_messagesCountAggregateOutputType> | number
+          }
+        }
+      }
+      message_reactions: {
+        payload: Prisma.$message_reactionsPayload<ExtArgs>
+        fields: Prisma.message_reactionsFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.message_reactionsFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$message_reactionsPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.message_reactionsFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$message_reactionsPayload>
+          }
+          findFirst: {
+            args: Prisma.message_reactionsFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$message_reactionsPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.message_reactionsFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$message_reactionsPayload>
+          }
+          findMany: {
+            args: Prisma.message_reactionsFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$message_reactionsPayload>[]
+          }
+          create: {
+            args: Prisma.message_reactionsCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$message_reactionsPayload>
+          }
+          createMany: {
+            args: Prisma.message_reactionsCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.message_reactionsCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$message_reactionsPayload>[]
+          }
+          delete: {
+            args: Prisma.message_reactionsDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$message_reactionsPayload>
+          }
+          update: {
+            args: Prisma.message_reactionsUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$message_reactionsPayload>
+          }
+          deleteMany: {
+            args: Prisma.message_reactionsDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.message_reactionsUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.message_reactionsUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$message_reactionsPayload>[]
+          }
+          upsert: {
+            args: Prisma.message_reactionsUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$message_reactionsPayload>
+          }
+          aggregate: {
+            args: Prisma.Message_reactionsAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateMessage_reactions>
+          }
+          groupBy: {
+            args: Prisma.message_reactionsGroupByArgs<ExtArgs>
+            result: $Utils.Optional<Message_reactionsGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.message_reactionsCountArgs<ExtArgs>
+            result: $Utils.Optional<Message_reactionsCountAggregateOutputType> | number
           }
         }
       }
@@ -3643,6 +4010,10 @@ export namespace Prisma {
   }
   export type GlobalOmitConfig = {
     subscriptions?: subscriptionsOmit
+    group_chats?: group_chatsOmit
+    group_members?: group_membersOmit
+    chat_messages?: chat_messagesOmit
+    message_reactions?: message_reactionsOmit
     blog_views?: blog_viewsOmit
     night_camps?: night_campsOmit
     night_camps_activities?: night_camps_activitiesOmit
@@ -3731,6 +4102,25 @@ export namespace Prisma {
     | 'findRaw'
     | 'groupBy'
 
+  /**
+   * These options are being passed into the middleware as "params"
+   */
+  export type MiddlewareParams = {
+    model?: ModelName
+    action: PrismaAction
+    args: any
+    dataPath: string[]
+    runInTransaction: boolean
+  }
+
+  /**
+   * The `T` type makes sure, that the `return proceed` is not forgotten in the middleware implementation
+   */
+  export type Middleware<T = any> = (
+    params: MiddlewareParams,
+    next: (params: MiddlewareParams) => $Utils.JsPromise<T>,
+  ) => $Utils.JsPromise<T>
+
   // tested in getLogLevel.test.ts
   export function getLogLevel(log: Array<LogLevel | LogDefinition>): LogLevel | undefined;
 
@@ -3776,6 +4166,86 @@ export namespace Prisma {
    */
   export type SubscriptionsCountOutputTypeCountPaymentsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: paymentsWhereInput
+  }
+
+
+  /**
+   * Count Type Group_chatsCountOutputType
+   */
+
+  export type Group_chatsCountOutputType = {
+    members: number
+    messages: number
+  }
+
+  export type Group_chatsCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    members?: boolean | Group_chatsCountOutputTypeCountMembersArgs
+    messages?: boolean | Group_chatsCountOutputTypeCountMessagesArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * Group_chatsCountOutputType without action
+   */
+  export type Group_chatsCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Group_chatsCountOutputType
+     */
+    select?: Group_chatsCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * Group_chatsCountOutputType without action
+   */
+  export type Group_chatsCountOutputTypeCountMembersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: group_membersWhereInput
+  }
+
+  /**
+   * Group_chatsCountOutputType without action
+   */
+  export type Group_chatsCountOutputTypeCountMessagesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: chat_messagesWhereInput
+  }
+
+
+  /**
+   * Count Type Chat_messagesCountOutputType
+   */
+
+  export type Chat_messagesCountOutputType = {
+    replies: number
+    reactions: number
+  }
+
+  export type Chat_messagesCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    replies?: boolean | Chat_messagesCountOutputTypeCountRepliesArgs
+    reactions?: boolean | Chat_messagesCountOutputTypeCountReactionsArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * Chat_messagesCountOutputType without action
+   */
+  export type Chat_messagesCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Chat_messagesCountOutputType
+     */
+    select?: Chat_messagesCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * Chat_messagesCountOutputType without action
+   */
+  export type Chat_messagesCountOutputTypeCountRepliesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: chat_messagesWhereInput
+  }
+
+  /**
+   * Chat_messagesCountOutputType without action
+   */
+  export type Chat_messagesCountOutputTypeCountReactionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: message_reactionsWhereInput
   }
 
 
@@ -4030,6 +4500,10 @@ export namespace Prisma {
     role_upgrade_requests_role_upgrade_requests_reviewer_idTousers: number
     role_upgrade_requests_role_upgrade_requests_user_idTousers: number
     subscriptions: number
+    created_groups: number
+    group_memberships: number
+    chat_messages: number
+    message_reactions: number
   }
 
   export type UsersCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -4052,6 +4526,10 @@ export namespace Prisma {
     role_upgrade_requests_role_upgrade_requests_reviewer_idTousers?: boolean | UsersCountOutputTypeCountRole_upgrade_requests_role_upgrade_requests_reviewer_idTousersArgs
     role_upgrade_requests_role_upgrade_requests_user_idTousers?: boolean | UsersCountOutputTypeCountRole_upgrade_requests_role_upgrade_requests_user_idTousersArgs
     subscriptions?: boolean | UsersCountOutputTypeCountSubscriptionsArgs
+    created_groups?: boolean | UsersCountOutputTypeCountCreated_groupsArgs
+    group_memberships?: boolean | UsersCountOutputTypeCountGroup_membershipsArgs
+    chat_messages?: boolean | UsersCountOutputTypeCountChat_messagesArgs
+    message_reactions?: boolean | UsersCountOutputTypeCountMessage_reactionsArgs
   }
 
   // Custom InputTypes
@@ -4196,6 +4674,34 @@ export namespace Prisma {
    */
   export type UsersCountOutputTypeCountSubscriptionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: subscriptionsWhereInput
+  }
+
+  /**
+   * UsersCountOutputType without action
+   */
+  export type UsersCountOutputTypeCountCreated_groupsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: group_chatsWhereInput
+  }
+
+  /**
+   * UsersCountOutputType without action
+   */
+  export type UsersCountOutputTypeCountGroup_membershipsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: group_membersWhereInput
+  }
+
+  /**
+   * UsersCountOutputType without action
+   */
+  export type UsersCountOutputTypeCountChat_messagesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: chat_messagesWhereInput
+  }
+
+  /**
+   * UsersCountOutputType without action
+   */
+  export type UsersCountOutputTypeCountMessage_reactionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: message_reactionsWhereInput
   }
 
 
@@ -5494,6 +6000,4739 @@ export namespace Prisma {
      * Choose, which related nodes to fetch as well
      */
     include?: subscriptionsInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model group_chats
+   */
+
+  export type AggregateGroup_chats = {
+    _count: Group_chatsCountAggregateOutputType | null
+    _avg: Group_chatsAvgAggregateOutputType | null
+    _sum: Group_chatsSumAggregateOutputType | null
+    _min: Group_chatsMinAggregateOutputType | null
+    _max: Group_chatsMaxAggregateOutputType | null
+  }
+
+  export type Group_chatsAvgAggregateOutputType = {
+    id: number | null
+    created_by: number | null
+    max_members: number | null
+  }
+
+  export type Group_chatsSumAggregateOutputType = {
+    id: number | null
+    created_by: number | null
+    max_members: number | null
+  }
+
+  export type Group_chatsMinAggregateOutputType = {
+    id: number | null
+    name: string | null
+    description: string | null
+    type: string | null
+    created_by: number | null
+    avatar_url: string | null
+    is_active: boolean | null
+    max_members: number | null
+    created_at: Date | null
+    updated_at: Date | null
+  }
+
+  export type Group_chatsMaxAggregateOutputType = {
+    id: number | null
+    name: string | null
+    description: string | null
+    type: string | null
+    created_by: number | null
+    avatar_url: string | null
+    is_active: boolean | null
+    max_members: number | null
+    created_at: Date | null
+    updated_at: Date | null
+  }
+
+  export type Group_chatsCountAggregateOutputType = {
+    id: number
+    name: number
+    description: number
+    type: number
+    created_by: number
+    avatar_url: number
+    is_active: number
+    max_members: number
+    created_at: number
+    updated_at: number
+    _all: number
+  }
+
+
+  export type Group_chatsAvgAggregateInputType = {
+    id?: true
+    created_by?: true
+    max_members?: true
+  }
+
+  export type Group_chatsSumAggregateInputType = {
+    id?: true
+    created_by?: true
+    max_members?: true
+  }
+
+  export type Group_chatsMinAggregateInputType = {
+    id?: true
+    name?: true
+    description?: true
+    type?: true
+    created_by?: true
+    avatar_url?: true
+    is_active?: true
+    max_members?: true
+    created_at?: true
+    updated_at?: true
+  }
+
+  export type Group_chatsMaxAggregateInputType = {
+    id?: true
+    name?: true
+    description?: true
+    type?: true
+    created_by?: true
+    avatar_url?: true
+    is_active?: true
+    max_members?: true
+    created_at?: true
+    updated_at?: true
+  }
+
+  export type Group_chatsCountAggregateInputType = {
+    id?: true
+    name?: true
+    description?: true
+    type?: true
+    created_by?: true
+    avatar_url?: true
+    is_active?: true
+    max_members?: true
+    created_at?: true
+    updated_at?: true
+    _all?: true
+  }
+
+  export type Group_chatsAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which group_chats to aggregate.
+     */
+    where?: group_chatsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of group_chats to fetch.
+     */
+    orderBy?: group_chatsOrderByWithRelationInput | group_chatsOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: group_chatsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` group_chats from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` group_chats.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned group_chats
+    **/
+    _count?: true | Group_chatsCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: Group_chatsAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: Group_chatsSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: Group_chatsMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: Group_chatsMaxAggregateInputType
+  }
+
+  export type GetGroup_chatsAggregateType<T extends Group_chatsAggregateArgs> = {
+        [P in keyof T & keyof AggregateGroup_chats]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateGroup_chats[P]>
+      : GetScalarType<T[P], AggregateGroup_chats[P]>
+  }
+
+
+
+
+  export type group_chatsGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: group_chatsWhereInput
+    orderBy?: group_chatsOrderByWithAggregationInput | group_chatsOrderByWithAggregationInput[]
+    by: Group_chatsScalarFieldEnum[] | Group_chatsScalarFieldEnum
+    having?: group_chatsScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: Group_chatsCountAggregateInputType | true
+    _avg?: Group_chatsAvgAggregateInputType
+    _sum?: Group_chatsSumAggregateInputType
+    _min?: Group_chatsMinAggregateInputType
+    _max?: Group_chatsMaxAggregateInputType
+  }
+
+  export type Group_chatsGroupByOutputType = {
+    id: number
+    name: string
+    description: string | null
+    type: string
+    created_by: number
+    avatar_url: string | null
+    is_active: boolean
+    max_members: number
+    created_at: Date
+    updated_at: Date
+    _count: Group_chatsCountAggregateOutputType | null
+    _avg: Group_chatsAvgAggregateOutputType | null
+    _sum: Group_chatsSumAggregateOutputType | null
+    _min: Group_chatsMinAggregateOutputType | null
+    _max: Group_chatsMaxAggregateOutputType | null
+  }
+
+  type GetGroup_chatsGroupByPayload<T extends group_chatsGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<Group_chatsGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof Group_chatsGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], Group_chatsGroupByOutputType[P]>
+            : GetScalarType<T[P], Group_chatsGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type group_chatsSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    name?: boolean
+    description?: boolean
+    type?: boolean
+    created_by?: boolean
+    avatar_url?: boolean
+    is_active?: boolean
+    max_members?: boolean
+    created_at?: boolean
+    updated_at?: boolean
+    creator?: boolean | usersDefaultArgs<ExtArgs>
+    members?: boolean | group_chats$membersArgs<ExtArgs>
+    messages?: boolean | group_chats$messagesArgs<ExtArgs>
+    _count?: boolean | Group_chatsCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["group_chats"]>
+
+  export type group_chatsSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    name?: boolean
+    description?: boolean
+    type?: boolean
+    created_by?: boolean
+    avatar_url?: boolean
+    is_active?: boolean
+    max_members?: boolean
+    created_at?: boolean
+    updated_at?: boolean
+    creator?: boolean | usersDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["group_chats"]>
+
+  export type group_chatsSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    name?: boolean
+    description?: boolean
+    type?: boolean
+    created_by?: boolean
+    avatar_url?: boolean
+    is_active?: boolean
+    max_members?: boolean
+    created_at?: boolean
+    updated_at?: boolean
+    creator?: boolean | usersDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["group_chats"]>
+
+  export type group_chatsSelectScalar = {
+    id?: boolean
+    name?: boolean
+    description?: boolean
+    type?: boolean
+    created_by?: boolean
+    avatar_url?: boolean
+    is_active?: boolean
+    max_members?: boolean
+    created_at?: boolean
+    updated_at?: boolean
+  }
+
+  export type group_chatsOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "description" | "type" | "created_by" | "avatar_url" | "is_active" | "max_members" | "created_at" | "updated_at", ExtArgs["result"]["group_chats"]>
+  export type group_chatsInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    creator?: boolean | usersDefaultArgs<ExtArgs>
+    members?: boolean | group_chats$membersArgs<ExtArgs>
+    messages?: boolean | group_chats$messagesArgs<ExtArgs>
+    _count?: boolean | Group_chatsCountOutputTypeDefaultArgs<ExtArgs>
+  }
+  export type group_chatsIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    creator?: boolean | usersDefaultArgs<ExtArgs>
+  }
+  export type group_chatsIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    creator?: boolean | usersDefaultArgs<ExtArgs>
+  }
+
+  export type $group_chatsPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "group_chats"
+    objects: {
+      creator: Prisma.$usersPayload<ExtArgs>
+      members: Prisma.$group_membersPayload<ExtArgs>[]
+      messages: Prisma.$chat_messagesPayload<ExtArgs>[]
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: number
+      name: string
+      description: string | null
+      type: string
+      created_by: number
+      avatar_url: string | null
+      is_active: boolean
+      max_members: number
+      created_at: Date
+      updated_at: Date
+    }, ExtArgs["result"]["group_chats"]>
+    composites: {}
+  }
+
+  type group_chatsGetPayload<S extends boolean | null | undefined | group_chatsDefaultArgs> = $Result.GetResult<Prisma.$group_chatsPayload, S>
+
+  type group_chatsCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<group_chatsFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: Group_chatsCountAggregateInputType | true
+    }
+
+  export interface group_chatsDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['group_chats'], meta: { name: 'group_chats' } }
+    /**
+     * Find zero or one Group_chats that matches the filter.
+     * @param {group_chatsFindUniqueArgs} args - Arguments to find a Group_chats
+     * @example
+     * // Get one Group_chats
+     * const group_chats = await prisma.group_chats.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends group_chatsFindUniqueArgs>(args: SelectSubset<T, group_chatsFindUniqueArgs<ExtArgs>>): Prisma__group_chatsClient<$Result.GetResult<Prisma.$group_chatsPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Group_chats that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {group_chatsFindUniqueOrThrowArgs} args - Arguments to find a Group_chats
+     * @example
+     * // Get one Group_chats
+     * const group_chats = await prisma.group_chats.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends group_chatsFindUniqueOrThrowArgs>(args: SelectSubset<T, group_chatsFindUniqueOrThrowArgs<ExtArgs>>): Prisma__group_chatsClient<$Result.GetResult<Prisma.$group_chatsPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Group_chats that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {group_chatsFindFirstArgs} args - Arguments to find a Group_chats
+     * @example
+     * // Get one Group_chats
+     * const group_chats = await prisma.group_chats.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends group_chatsFindFirstArgs>(args?: SelectSubset<T, group_chatsFindFirstArgs<ExtArgs>>): Prisma__group_chatsClient<$Result.GetResult<Prisma.$group_chatsPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Group_chats that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {group_chatsFindFirstOrThrowArgs} args - Arguments to find a Group_chats
+     * @example
+     * // Get one Group_chats
+     * const group_chats = await prisma.group_chats.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends group_chatsFindFirstOrThrowArgs>(args?: SelectSubset<T, group_chatsFindFirstOrThrowArgs<ExtArgs>>): Prisma__group_chatsClient<$Result.GetResult<Prisma.$group_chatsPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Group_chats that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {group_chatsFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Group_chats
+     * const group_chats = await prisma.group_chats.findMany()
+     * 
+     * // Get first 10 Group_chats
+     * const group_chats = await prisma.group_chats.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const group_chatsWithIdOnly = await prisma.group_chats.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends group_chatsFindManyArgs>(args?: SelectSubset<T, group_chatsFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$group_chatsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Group_chats.
+     * @param {group_chatsCreateArgs} args - Arguments to create a Group_chats.
+     * @example
+     * // Create one Group_chats
+     * const Group_chats = await prisma.group_chats.create({
+     *   data: {
+     *     // ... data to create a Group_chats
+     *   }
+     * })
+     * 
+     */
+    create<T extends group_chatsCreateArgs>(args: SelectSubset<T, group_chatsCreateArgs<ExtArgs>>): Prisma__group_chatsClient<$Result.GetResult<Prisma.$group_chatsPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Group_chats.
+     * @param {group_chatsCreateManyArgs} args - Arguments to create many Group_chats.
+     * @example
+     * // Create many Group_chats
+     * const group_chats = await prisma.group_chats.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends group_chatsCreateManyArgs>(args?: SelectSubset<T, group_chatsCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many Group_chats and returns the data saved in the database.
+     * @param {group_chatsCreateManyAndReturnArgs} args - Arguments to create many Group_chats.
+     * @example
+     * // Create many Group_chats
+     * const group_chats = await prisma.group_chats.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many Group_chats and only return the `id`
+     * const group_chatsWithIdOnly = await prisma.group_chats.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends group_chatsCreateManyAndReturnArgs>(args?: SelectSubset<T, group_chatsCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$group_chatsPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a Group_chats.
+     * @param {group_chatsDeleteArgs} args - Arguments to delete one Group_chats.
+     * @example
+     * // Delete one Group_chats
+     * const Group_chats = await prisma.group_chats.delete({
+     *   where: {
+     *     // ... filter to delete one Group_chats
+     *   }
+     * })
+     * 
+     */
+    delete<T extends group_chatsDeleteArgs>(args: SelectSubset<T, group_chatsDeleteArgs<ExtArgs>>): Prisma__group_chatsClient<$Result.GetResult<Prisma.$group_chatsPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Group_chats.
+     * @param {group_chatsUpdateArgs} args - Arguments to update one Group_chats.
+     * @example
+     * // Update one Group_chats
+     * const group_chats = await prisma.group_chats.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends group_chatsUpdateArgs>(args: SelectSubset<T, group_chatsUpdateArgs<ExtArgs>>): Prisma__group_chatsClient<$Result.GetResult<Prisma.$group_chatsPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Group_chats.
+     * @param {group_chatsDeleteManyArgs} args - Arguments to filter Group_chats to delete.
+     * @example
+     * // Delete a few Group_chats
+     * const { count } = await prisma.group_chats.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends group_chatsDeleteManyArgs>(args?: SelectSubset<T, group_chatsDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Group_chats.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {group_chatsUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Group_chats
+     * const group_chats = await prisma.group_chats.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends group_chatsUpdateManyArgs>(args: SelectSubset<T, group_chatsUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Group_chats and returns the data updated in the database.
+     * @param {group_chatsUpdateManyAndReturnArgs} args - Arguments to update many Group_chats.
+     * @example
+     * // Update many Group_chats
+     * const group_chats = await prisma.group_chats.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more Group_chats and only return the `id`
+     * const group_chatsWithIdOnly = await prisma.group_chats.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends group_chatsUpdateManyAndReturnArgs>(args: SelectSubset<T, group_chatsUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$group_chatsPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one Group_chats.
+     * @param {group_chatsUpsertArgs} args - Arguments to update or create a Group_chats.
+     * @example
+     * // Update or create a Group_chats
+     * const group_chats = await prisma.group_chats.upsert({
+     *   create: {
+     *     // ... data to create a Group_chats
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Group_chats we want to update
+     *   }
+     * })
+     */
+    upsert<T extends group_chatsUpsertArgs>(args: SelectSubset<T, group_chatsUpsertArgs<ExtArgs>>): Prisma__group_chatsClient<$Result.GetResult<Prisma.$group_chatsPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of Group_chats.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {group_chatsCountArgs} args - Arguments to filter Group_chats to count.
+     * @example
+     * // Count the number of Group_chats
+     * const count = await prisma.group_chats.count({
+     *   where: {
+     *     // ... the filter for the Group_chats we want to count
+     *   }
+     * })
+    **/
+    count<T extends group_chatsCountArgs>(
+      args?: Subset<T, group_chatsCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], Group_chatsCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Group_chats.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {Group_chatsAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends Group_chatsAggregateArgs>(args: Subset<T, Group_chatsAggregateArgs>): Prisma.PrismaPromise<GetGroup_chatsAggregateType<T>>
+
+    /**
+     * Group by Group_chats.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {group_chatsGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends group_chatsGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: group_chatsGroupByArgs['orderBy'] }
+        : { orderBy?: group_chatsGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, group_chatsGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetGroup_chatsGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the group_chats model
+   */
+  readonly fields: group_chatsFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for group_chats.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__group_chatsClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    creator<T extends usersDefaultArgs<ExtArgs> = {}>(args?: Subset<T, usersDefaultArgs<ExtArgs>>): Prisma__usersClient<$Result.GetResult<Prisma.$usersPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    members<T extends group_chats$membersArgs<ExtArgs> = {}>(args?: Subset<T, group_chats$membersArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$group_membersPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    messages<T extends group_chats$messagesArgs<ExtArgs> = {}>(args?: Subset<T, group_chats$messagesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$chat_messagesPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the group_chats model
+   */
+  interface group_chatsFieldRefs {
+    readonly id: FieldRef<"group_chats", 'Int'>
+    readonly name: FieldRef<"group_chats", 'String'>
+    readonly description: FieldRef<"group_chats", 'String'>
+    readonly type: FieldRef<"group_chats", 'String'>
+    readonly created_by: FieldRef<"group_chats", 'Int'>
+    readonly avatar_url: FieldRef<"group_chats", 'String'>
+    readonly is_active: FieldRef<"group_chats", 'Boolean'>
+    readonly max_members: FieldRef<"group_chats", 'Int'>
+    readonly created_at: FieldRef<"group_chats", 'DateTime'>
+    readonly updated_at: FieldRef<"group_chats", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * group_chats findUnique
+   */
+  export type group_chatsFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the group_chats
+     */
+    select?: group_chatsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the group_chats
+     */
+    omit?: group_chatsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: group_chatsInclude<ExtArgs> | null
+    /**
+     * Filter, which group_chats to fetch.
+     */
+    where: group_chatsWhereUniqueInput
+  }
+
+  /**
+   * group_chats findUniqueOrThrow
+   */
+  export type group_chatsFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the group_chats
+     */
+    select?: group_chatsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the group_chats
+     */
+    omit?: group_chatsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: group_chatsInclude<ExtArgs> | null
+    /**
+     * Filter, which group_chats to fetch.
+     */
+    where: group_chatsWhereUniqueInput
+  }
+
+  /**
+   * group_chats findFirst
+   */
+  export type group_chatsFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the group_chats
+     */
+    select?: group_chatsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the group_chats
+     */
+    omit?: group_chatsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: group_chatsInclude<ExtArgs> | null
+    /**
+     * Filter, which group_chats to fetch.
+     */
+    where?: group_chatsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of group_chats to fetch.
+     */
+    orderBy?: group_chatsOrderByWithRelationInput | group_chatsOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for group_chats.
+     */
+    cursor?: group_chatsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` group_chats from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` group_chats.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of group_chats.
+     */
+    distinct?: Group_chatsScalarFieldEnum | Group_chatsScalarFieldEnum[]
+  }
+
+  /**
+   * group_chats findFirstOrThrow
+   */
+  export type group_chatsFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the group_chats
+     */
+    select?: group_chatsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the group_chats
+     */
+    omit?: group_chatsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: group_chatsInclude<ExtArgs> | null
+    /**
+     * Filter, which group_chats to fetch.
+     */
+    where?: group_chatsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of group_chats to fetch.
+     */
+    orderBy?: group_chatsOrderByWithRelationInput | group_chatsOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for group_chats.
+     */
+    cursor?: group_chatsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` group_chats from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` group_chats.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of group_chats.
+     */
+    distinct?: Group_chatsScalarFieldEnum | Group_chatsScalarFieldEnum[]
+  }
+
+  /**
+   * group_chats findMany
+   */
+  export type group_chatsFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the group_chats
+     */
+    select?: group_chatsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the group_chats
+     */
+    omit?: group_chatsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: group_chatsInclude<ExtArgs> | null
+    /**
+     * Filter, which group_chats to fetch.
+     */
+    where?: group_chatsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of group_chats to fetch.
+     */
+    orderBy?: group_chatsOrderByWithRelationInput | group_chatsOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing group_chats.
+     */
+    cursor?: group_chatsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` group_chats from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` group_chats.
+     */
+    skip?: number
+    distinct?: Group_chatsScalarFieldEnum | Group_chatsScalarFieldEnum[]
+  }
+
+  /**
+   * group_chats create
+   */
+  export type group_chatsCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the group_chats
+     */
+    select?: group_chatsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the group_chats
+     */
+    omit?: group_chatsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: group_chatsInclude<ExtArgs> | null
+    /**
+     * The data needed to create a group_chats.
+     */
+    data: XOR<group_chatsCreateInput, group_chatsUncheckedCreateInput>
+  }
+
+  /**
+   * group_chats createMany
+   */
+  export type group_chatsCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many group_chats.
+     */
+    data: group_chatsCreateManyInput | group_chatsCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * group_chats createManyAndReturn
+   */
+  export type group_chatsCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the group_chats
+     */
+    select?: group_chatsSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the group_chats
+     */
+    omit?: group_chatsOmit<ExtArgs> | null
+    /**
+     * The data used to create many group_chats.
+     */
+    data: group_chatsCreateManyInput | group_chatsCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: group_chatsIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * group_chats update
+   */
+  export type group_chatsUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the group_chats
+     */
+    select?: group_chatsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the group_chats
+     */
+    omit?: group_chatsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: group_chatsInclude<ExtArgs> | null
+    /**
+     * The data needed to update a group_chats.
+     */
+    data: XOR<group_chatsUpdateInput, group_chatsUncheckedUpdateInput>
+    /**
+     * Choose, which group_chats to update.
+     */
+    where: group_chatsWhereUniqueInput
+  }
+
+  /**
+   * group_chats updateMany
+   */
+  export type group_chatsUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update group_chats.
+     */
+    data: XOR<group_chatsUpdateManyMutationInput, group_chatsUncheckedUpdateManyInput>
+    /**
+     * Filter which group_chats to update
+     */
+    where?: group_chatsWhereInput
+    /**
+     * Limit how many group_chats to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * group_chats updateManyAndReturn
+   */
+  export type group_chatsUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the group_chats
+     */
+    select?: group_chatsSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the group_chats
+     */
+    omit?: group_chatsOmit<ExtArgs> | null
+    /**
+     * The data used to update group_chats.
+     */
+    data: XOR<group_chatsUpdateManyMutationInput, group_chatsUncheckedUpdateManyInput>
+    /**
+     * Filter which group_chats to update
+     */
+    where?: group_chatsWhereInput
+    /**
+     * Limit how many group_chats to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: group_chatsIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * group_chats upsert
+   */
+  export type group_chatsUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the group_chats
+     */
+    select?: group_chatsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the group_chats
+     */
+    omit?: group_chatsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: group_chatsInclude<ExtArgs> | null
+    /**
+     * The filter to search for the group_chats to update in case it exists.
+     */
+    where: group_chatsWhereUniqueInput
+    /**
+     * In case the group_chats found by the `where` argument doesn't exist, create a new group_chats with this data.
+     */
+    create: XOR<group_chatsCreateInput, group_chatsUncheckedCreateInput>
+    /**
+     * In case the group_chats was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<group_chatsUpdateInput, group_chatsUncheckedUpdateInput>
+  }
+
+  /**
+   * group_chats delete
+   */
+  export type group_chatsDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the group_chats
+     */
+    select?: group_chatsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the group_chats
+     */
+    omit?: group_chatsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: group_chatsInclude<ExtArgs> | null
+    /**
+     * Filter which group_chats to delete.
+     */
+    where: group_chatsWhereUniqueInput
+  }
+
+  /**
+   * group_chats deleteMany
+   */
+  export type group_chatsDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which group_chats to delete
+     */
+    where?: group_chatsWhereInput
+    /**
+     * Limit how many group_chats to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * group_chats.members
+   */
+  export type group_chats$membersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the group_members
+     */
+    select?: group_membersSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the group_members
+     */
+    omit?: group_membersOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: group_membersInclude<ExtArgs> | null
+    where?: group_membersWhereInput
+    orderBy?: group_membersOrderByWithRelationInput | group_membersOrderByWithRelationInput[]
+    cursor?: group_membersWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: Group_membersScalarFieldEnum | Group_membersScalarFieldEnum[]
+  }
+
+  /**
+   * group_chats.messages
+   */
+  export type group_chats$messagesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the chat_messages
+     */
+    select?: chat_messagesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the chat_messages
+     */
+    omit?: chat_messagesOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: chat_messagesInclude<ExtArgs> | null
+    where?: chat_messagesWhereInput
+    orderBy?: chat_messagesOrderByWithRelationInput | chat_messagesOrderByWithRelationInput[]
+    cursor?: chat_messagesWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: Chat_messagesScalarFieldEnum | Chat_messagesScalarFieldEnum[]
+  }
+
+  /**
+   * group_chats without action
+   */
+  export type group_chatsDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the group_chats
+     */
+    select?: group_chatsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the group_chats
+     */
+    omit?: group_chatsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: group_chatsInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model group_members
+   */
+
+  export type AggregateGroup_members = {
+    _count: Group_membersCountAggregateOutputType | null
+    _avg: Group_membersAvgAggregateOutputType | null
+    _sum: Group_membersSumAggregateOutputType | null
+    _min: Group_membersMinAggregateOutputType | null
+    _max: Group_membersMaxAggregateOutputType | null
+  }
+
+  export type Group_membersAvgAggregateOutputType = {
+    id: number | null
+    group_id: number | null
+    user_id: number | null
+  }
+
+  export type Group_membersSumAggregateOutputType = {
+    id: number | null
+    group_id: number | null
+    user_id: number | null
+  }
+
+  export type Group_membersMinAggregateOutputType = {
+    id: number | null
+    group_id: number | null
+    user_id: number | null
+    role: string | null
+    joined_at: Date | null
+    is_muted: boolean | null
+  }
+
+  export type Group_membersMaxAggregateOutputType = {
+    id: number | null
+    group_id: number | null
+    user_id: number | null
+    role: string | null
+    joined_at: Date | null
+    is_muted: boolean | null
+  }
+
+  export type Group_membersCountAggregateOutputType = {
+    id: number
+    group_id: number
+    user_id: number
+    role: number
+    joined_at: number
+    is_muted: number
+    _all: number
+  }
+
+
+  export type Group_membersAvgAggregateInputType = {
+    id?: true
+    group_id?: true
+    user_id?: true
+  }
+
+  export type Group_membersSumAggregateInputType = {
+    id?: true
+    group_id?: true
+    user_id?: true
+  }
+
+  export type Group_membersMinAggregateInputType = {
+    id?: true
+    group_id?: true
+    user_id?: true
+    role?: true
+    joined_at?: true
+    is_muted?: true
+  }
+
+  export type Group_membersMaxAggregateInputType = {
+    id?: true
+    group_id?: true
+    user_id?: true
+    role?: true
+    joined_at?: true
+    is_muted?: true
+  }
+
+  export type Group_membersCountAggregateInputType = {
+    id?: true
+    group_id?: true
+    user_id?: true
+    role?: true
+    joined_at?: true
+    is_muted?: true
+    _all?: true
+  }
+
+  export type Group_membersAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which group_members to aggregate.
+     */
+    where?: group_membersWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of group_members to fetch.
+     */
+    orderBy?: group_membersOrderByWithRelationInput | group_membersOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: group_membersWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` group_members from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` group_members.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned group_members
+    **/
+    _count?: true | Group_membersCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: Group_membersAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: Group_membersSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: Group_membersMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: Group_membersMaxAggregateInputType
+  }
+
+  export type GetGroup_membersAggregateType<T extends Group_membersAggregateArgs> = {
+        [P in keyof T & keyof AggregateGroup_members]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateGroup_members[P]>
+      : GetScalarType<T[P], AggregateGroup_members[P]>
+  }
+
+
+
+
+  export type group_membersGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: group_membersWhereInput
+    orderBy?: group_membersOrderByWithAggregationInput | group_membersOrderByWithAggregationInput[]
+    by: Group_membersScalarFieldEnum[] | Group_membersScalarFieldEnum
+    having?: group_membersScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: Group_membersCountAggregateInputType | true
+    _avg?: Group_membersAvgAggregateInputType
+    _sum?: Group_membersSumAggregateInputType
+    _min?: Group_membersMinAggregateInputType
+    _max?: Group_membersMaxAggregateInputType
+  }
+
+  export type Group_membersGroupByOutputType = {
+    id: number
+    group_id: number
+    user_id: number
+    role: string
+    joined_at: Date
+    is_muted: boolean
+    _count: Group_membersCountAggregateOutputType | null
+    _avg: Group_membersAvgAggregateOutputType | null
+    _sum: Group_membersSumAggregateOutputType | null
+    _min: Group_membersMinAggregateOutputType | null
+    _max: Group_membersMaxAggregateOutputType | null
+  }
+
+  type GetGroup_membersGroupByPayload<T extends group_membersGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<Group_membersGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof Group_membersGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], Group_membersGroupByOutputType[P]>
+            : GetScalarType<T[P], Group_membersGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type group_membersSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    group_id?: boolean
+    user_id?: boolean
+    role?: boolean
+    joined_at?: boolean
+    is_muted?: boolean
+    group?: boolean | group_chatsDefaultArgs<ExtArgs>
+    user?: boolean | usersDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["group_members"]>
+
+  export type group_membersSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    group_id?: boolean
+    user_id?: boolean
+    role?: boolean
+    joined_at?: boolean
+    is_muted?: boolean
+    group?: boolean | group_chatsDefaultArgs<ExtArgs>
+    user?: boolean | usersDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["group_members"]>
+
+  export type group_membersSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    group_id?: boolean
+    user_id?: boolean
+    role?: boolean
+    joined_at?: boolean
+    is_muted?: boolean
+    group?: boolean | group_chatsDefaultArgs<ExtArgs>
+    user?: boolean | usersDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["group_members"]>
+
+  export type group_membersSelectScalar = {
+    id?: boolean
+    group_id?: boolean
+    user_id?: boolean
+    role?: boolean
+    joined_at?: boolean
+    is_muted?: boolean
+  }
+
+  export type group_membersOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "group_id" | "user_id" | "role" | "joined_at" | "is_muted", ExtArgs["result"]["group_members"]>
+  export type group_membersInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    group?: boolean | group_chatsDefaultArgs<ExtArgs>
+    user?: boolean | usersDefaultArgs<ExtArgs>
+  }
+  export type group_membersIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    group?: boolean | group_chatsDefaultArgs<ExtArgs>
+    user?: boolean | usersDefaultArgs<ExtArgs>
+  }
+  export type group_membersIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    group?: boolean | group_chatsDefaultArgs<ExtArgs>
+    user?: boolean | usersDefaultArgs<ExtArgs>
+  }
+
+  export type $group_membersPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "group_members"
+    objects: {
+      group: Prisma.$group_chatsPayload<ExtArgs>
+      user: Prisma.$usersPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: number
+      group_id: number
+      user_id: number
+      role: string
+      joined_at: Date
+      is_muted: boolean
+    }, ExtArgs["result"]["group_members"]>
+    composites: {}
+  }
+
+  type group_membersGetPayload<S extends boolean | null | undefined | group_membersDefaultArgs> = $Result.GetResult<Prisma.$group_membersPayload, S>
+
+  type group_membersCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<group_membersFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: Group_membersCountAggregateInputType | true
+    }
+
+  export interface group_membersDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['group_members'], meta: { name: 'group_members' } }
+    /**
+     * Find zero or one Group_members that matches the filter.
+     * @param {group_membersFindUniqueArgs} args - Arguments to find a Group_members
+     * @example
+     * // Get one Group_members
+     * const group_members = await prisma.group_members.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends group_membersFindUniqueArgs>(args: SelectSubset<T, group_membersFindUniqueArgs<ExtArgs>>): Prisma__group_membersClient<$Result.GetResult<Prisma.$group_membersPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Group_members that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {group_membersFindUniqueOrThrowArgs} args - Arguments to find a Group_members
+     * @example
+     * // Get one Group_members
+     * const group_members = await prisma.group_members.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends group_membersFindUniqueOrThrowArgs>(args: SelectSubset<T, group_membersFindUniqueOrThrowArgs<ExtArgs>>): Prisma__group_membersClient<$Result.GetResult<Prisma.$group_membersPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Group_members that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {group_membersFindFirstArgs} args - Arguments to find a Group_members
+     * @example
+     * // Get one Group_members
+     * const group_members = await prisma.group_members.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends group_membersFindFirstArgs>(args?: SelectSubset<T, group_membersFindFirstArgs<ExtArgs>>): Prisma__group_membersClient<$Result.GetResult<Prisma.$group_membersPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Group_members that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {group_membersFindFirstOrThrowArgs} args - Arguments to find a Group_members
+     * @example
+     * // Get one Group_members
+     * const group_members = await prisma.group_members.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends group_membersFindFirstOrThrowArgs>(args?: SelectSubset<T, group_membersFindFirstOrThrowArgs<ExtArgs>>): Prisma__group_membersClient<$Result.GetResult<Prisma.$group_membersPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Group_members that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {group_membersFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Group_members
+     * const group_members = await prisma.group_members.findMany()
+     * 
+     * // Get first 10 Group_members
+     * const group_members = await prisma.group_members.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const group_membersWithIdOnly = await prisma.group_members.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends group_membersFindManyArgs>(args?: SelectSubset<T, group_membersFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$group_membersPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Group_members.
+     * @param {group_membersCreateArgs} args - Arguments to create a Group_members.
+     * @example
+     * // Create one Group_members
+     * const Group_members = await prisma.group_members.create({
+     *   data: {
+     *     // ... data to create a Group_members
+     *   }
+     * })
+     * 
+     */
+    create<T extends group_membersCreateArgs>(args: SelectSubset<T, group_membersCreateArgs<ExtArgs>>): Prisma__group_membersClient<$Result.GetResult<Prisma.$group_membersPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Group_members.
+     * @param {group_membersCreateManyArgs} args - Arguments to create many Group_members.
+     * @example
+     * // Create many Group_members
+     * const group_members = await prisma.group_members.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends group_membersCreateManyArgs>(args?: SelectSubset<T, group_membersCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many Group_members and returns the data saved in the database.
+     * @param {group_membersCreateManyAndReturnArgs} args - Arguments to create many Group_members.
+     * @example
+     * // Create many Group_members
+     * const group_members = await prisma.group_members.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many Group_members and only return the `id`
+     * const group_membersWithIdOnly = await prisma.group_members.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends group_membersCreateManyAndReturnArgs>(args?: SelectSubset<T, group_membersCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$group_membersPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a Group_members.
+     * @param {group_membersDeleteArgs} args - Arguments to delete one Group_members.
+     * @example
+     * // Delete one Group_members
+     * const Group_members = await prisma.group_members.delete({
+     *   where: {
+     *     // ... filter to delete one Group_members
+     *   }
+     * })
+     * 
+     */
+    delete<T extends group_membersDeleteArgs>(args: SelectSubset<T, group_membersDeleteArgs<ExtArgs>>): Prisma__group_membersClient<$Result.GetResult<Prisma.$group_membersPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Group_members.
+     * @param {group_membersUpdateArgs} args - Arguments to update one Group_members.
+     * @example
+     * // Update one Group_members
+     * const group_members = await prisma.group_members.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends group_membersUpdateArgs>(args: SelectSubset<T, group_membersUpdateArgs<ExtArgs>>): Prisma__group_membersClient<$Result.GetResult<Prisma.$group_membersPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Group_members.
+     * @param {group_membersDeleteManyArgs} args - Arguments to filter Group_members to delete.
+     * @example
+     * // Delete a few Group_members
+     * const { count } = await prisma.group_members.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends group_membersDeleteManyArgs>(args?: SelectSubset<T, group_membersDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Group_members.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {group_membersUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Group_members
+     * const group_members = await prisma.group_members.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends group_membersUpdateManyArgs>(args: SelectSubset<T, group_membersUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Group_members and returns the data updated in the database.
+     * @param {group_membersUpdateManyAndReturnArgs} args - Arguments to update many Group_members.
+     * @example
+     * // Update many Group_members
+     * const group_members = await prisma.group_members.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more Group_members and only return the `id`
+     * const group_membersWithIdOnly = await prisma.group_members.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends group_membersUpdateManyAndReturnArgs>(args: SelectSubset<T, group_membersUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$group_membersPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one Group_members.
+     * @param {group_membersUpsertArgs} args - Arguments to update or create a Group_members.
+     * @example
+     * // Update or create a Group_members
+     * const group_members = await prisma.group_members.upsert({
+     *   create: {
+     *     // ... data to create a Group_members
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Group_members we want to update
+     *   }
+     * })
+     */
+    upsert<T extends group_membersUpsertArgs>(args: SelectSubset<T, group_membersUpsertArgs<ExtArgs>>): Prisma__group_membersClient<$Result.GetResult<Prisma.$group_membersPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of Group_members.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {group_membersCountArgs} args - Arguments to filter Group_members to count.
+     * @example
+     * // Count the number of Group_members
+     * const count = await prisma.group_members.count({
+     *   where: {
+     *     // ... the filter for the Group_members we want to count
+     *   }
+     * })
+    **/
+    count<T extends group_membersCountArgs>(
+      args?: Subset<T, group_membersCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], Group_membersCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Group_members.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {Group_membersAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends Group_membersAggregateArgs>(args: Subset<T, Group_membersAggregateArgs>): Prisma.PrismaPromise<GetGroup_membersAggregateType<T>>
+
+    /**
+     * Group by Group_members.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {group_membersGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends group_membersGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: group_membersGroupByArgs['orderBy'] }
+        : { orderBy?: group_membersGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, group_membersGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetGroup_membersGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the group_members model
+   */
+  readonly fields: group_membersFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for group_members.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__group_membersClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    group<T extends group_chatsDefaultArgs<ExtArgs> = {}>(args?: Subset<T, group_chatsDefaultArgs<ExtArgs>>): Prisma__group_chatsClient<$Result.GetResult<Prisma.$group_chatsPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    user<T extends usersDefaultArgs<ExtArgs> = {}>(args?: Subset<T, usersDefaultArgs<ExtArgs>>): Prisma__usersClient<$Result.GetResult<Prisma.$usersPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the group_members model
+   */
+  interface group_membersFieldRefs {
+    readonly id: FieldRef<"group_members", 'Int'>
+    readonly group_id: FieldRef<"group_members", 'Int'>
+    readonly user_id: FieldRef<"group_members", 'Int'>
+    readonly role: FieldRef<"group_members", 'String'>
+    readonly joined_at: FieldRef<"group_members", 'DateTime'>
+    readonly is_muted: FieldRef<"group_members", 'Boolean'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * group_members findUnique
+   */
+  export type group_membersFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the group_members
+     */
+    select?: group_membersSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the group_members
+     */
+    omit?: group_membersOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: group_membersInclude<ExtArgs> | null
+    /**
+     * Filter, which group_members to fetch.
+     */
+    where: group_membersWhereUniqueInput
+  }
+
+  /**
+   * group_members findUniqueOrThrow
+   */
+  export type group_membersFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the group_members
+     */
+    select?: group_membersSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the group_members
+     */
+    omit?: group_membersOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: group_membersInclude<ExtArgs> | null
+    /**
+     * Filter, which group_members to fetch.
+     */
+    where: group_membersWhereUniqueInput
+  }
+
+  /**
+   * group_members findFirst
+   */
+  export type group_membersFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the group_members
+     */
+    select?: group_membersSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the group_members
+     */
+    omit?: group_membersOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: group_membersInclude<ExtArgs> | null
+    /**
+     * Filter, which group_members to fetch.
+     */
+    where?: group_membersWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of group_members to fetch.
+     */
+    orderBy?: group_membersOrderByWithRelationInput | group_membersOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for group_members.
+     */
+    cursor?: group_membersWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` group_members from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` group_members.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of group_members.
+     */
+    distinct?: Group_membersScalarFieldEnum | Group_membersScalarFieldEnum[]
+  }
+
+  /**
+   * group_members findFirstOrThrow
+   */
+  export type group_membersFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the group_members
+     */
+    select?: group_membersSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the group_members
+     */
+    omit?: group_membersOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: group_membersInclude<ExtArgs> | null
+    /**
+     * Filter, which group_members to fetch.
+     */
+    where?: group_membersWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of group_members to fetch.
+     */
+    orderBy?: group_membersOrderByWithRelationInput | group_membersOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for group_members.
+     */
+    cursor?: group_membersWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` group_members from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` group_members.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of group_members.
+     */
+    distinct?: Group_membersScalarFieldEnum | Group_membersScalarFieldEnum[]
+  }
+
+  /**
+   * group_members findMany
+   */
+  export type group_membersFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the group_members
+     */
+    select?: group_membersSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the group_members
+     */
+    omit?: group_membersOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: group_membersInclude<ExtArgs> | null
+    /**
+     * Filter, which group_members to fetch.
+     */
+    where?: group_membersWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of group_members to fetch.
+     */
+    orderBy?: group_membersOrderByWithRelationInput | group_membersOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing group_members.
+     */
+    cursor?: group_membersWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` group_members from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` group_members.
+     */
+    skip?: number
+    distinct?: Group_membersScalarFieldEnum | Group_membersScalarFieldEnum[]
+  }
+
+  /**
+   * group_members create
+   */
+  export type group_membersCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the group_members
+     */
+    select?: group_membersSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the group_members
+     */
+    omit?: group_membersOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: group_membersInclude<ExtArgs> | null
+    /**
+     * The data needed to create a group_members.
+     */
+    data: XOR<group_membersCreateInput, group_membersUncheckedCreateInput>
+  }
+
+  /**
+   * group_members createMany
+   */
+  export type group_membersCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many group_members.
+     */
+    data: group_membersCreateManyInput | group_membersCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * group_members createManyAndReturn
+   */
+  export type group_membersCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the group_members
+     */
+    select?: group_membersSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the group_members
+     */
+    omit?: group_membersOmit<ExtArgs> | null
+    /**
+     * The data used to create many group_members.
+     */
+    data: group_membersCreateManyInput | group_membersCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: group_membersIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * group_members update
+   */
+  export type group_membersUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the group_members
+     */
+    select?: group_membersSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the group_members
+     */
+    omit?: group_membersOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: group_membersInclude<ExtArgs> | null
+    /**
+     * The data needed to update a group_members.
+     */
+    data: XOR<group_membersUpdateInput, group_membersUncheckedUpdateInput>
+    /**
+     * Choose, which group_members to update.
+     */
+    where: group_membersWhereUniqueInput
+  }
+
+  /**
+   * group_members updateMany
+   */
+  export type group_membersUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update group_members.
+     */
+    data: XOR<group_membersUpdateManyMutationInput, group_membersUncheckedUpdateManyInput>
+    /**
+     * Filter which group_members to update
+     */
+    where?: group_membersWhereInput
+    /**
+     * Limit how many group_members to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * group_members updateManyAndReturn
+   */
+  export type group_membersUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the group_members
+     */
+    select?: group_membersSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the group_members
+     */
+    omit?: group_membersOmit<ExtArgs> | null
+    /**
+     * The data used to update group_members.
+     */
+    data: XOR<group_membersUpdateManyMutationInput, group_membersUncheckedUpdateManyInput>
+    /**
+     * Filter which group_members to update
+     */
+    where?: group_membersWhereInput
+    /**
+     * Limit how many group_members to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: group_membersIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * group_members upsert
+   */
+  export type group_membersUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the group_members
+     */
+    select?: group_membersSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the group_members
+     */
+    omit?: group_membersOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: group_membersInclude<ExtArgs> | null
+    /**
+     * The filter to search for the group_members to update in case it exists.
+     */
+    where: group_membersWhereUniqueInput
+    /**
+     * In case the group_members found by the `where` argument doesn't exist, create a new group_members with this data.
+     */
+    create: XOR<group_membersCreateInput, group_membersUncheckedCreateInput>
+    /**
+     * In case the group_members was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<group_membersUpdateInput, group_membersUncheckedUpdateInput>
+  }
+
+  /**
+   * group_members delete
+   */
+  export type group_membersDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the group_members
+     */
+    select?: group_membersSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the group_members
+     */
+    omit?: group_membersOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: group_membersInclude<ExtArgs> | null
+    /**
+     * Filter which group_members to delete.
+     */
+    where: group_membersWhereUniqueInput
+  }
+
+  /**
+   * group_members deleteMany
+   */
+  export type group_membersDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which group_members to delete
+     */
+    where?: group_membersWhereInput
+    /**
+     * Limit how many group_members to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * group_members without action
+   */
+  export type group_membersDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the group_members
+     */
+    select?: group_membersSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the group_members
+     */
+    omit?: group_membersOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: group_membersInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model chat_messages
+   */
+
+  export type AggregateChat_messages = {
+    _count: Chat_messagesCountAggregateOutputType | null
+    _avg: Chat_messagesAvgAggregateOutputType | null
+    _sum: Chat_messagesSumAggregateOutputType | null
+    _min: Chat_messagesMinAggregateOutputType | null
+    _max: Chat_messagesMaxAggregateOutputType | null
+  }
+
+  export type Chat_messagesAvgAggregateOutputType = {
+    id: number | null
+    group_id: number | null
+    user_id: number | null
+    reply_to: number | null
+  }
+
+  export type Chat_messagesSumAggregateOutputType = {
+    id: number | null
+    group_id: number | null
+    user_id: number | null
+    reply_to: number | null
+  }
+
+  export type Chat_messagesMinAggregateOutputType = {
+    id: number | null
+    group_id: number | null
+    user_id: number | null
+    message_text: string | null
+    message_type: string | null
+    reply_to: number | null
+    is_edited: boolean | null
+    is_deleted: boolean | null
+    created_at: Date | null
+    updated_at: Date | null
+  }
+
+  export type Chat_messagesMaxAggregateOutputType = {
+    id: number | null
+    group_id: number | null
+    user_id: number | null
+    message_text: string | null
+    message_type: string | null
+    reply_to: number | null
+    is_edited: boolean | null
+    is_deleted: boolean | null
+    created_at: Date | null
+    updated_at: Date | null
+  }
+
+  export type Chat_messagesCountAggregateOutputType = {
+    id: number
+    group_id: number
+    user_id: number
+    message_text: number
+    message_type: number
+    reply_to: number
+    is_edited: number
+    is_deleted: number
+    created_at: number
+    updated_at: number
+    _all: number
+  }
+
+
+  export type Chat_messagesAvgAggregateInputType = {
+    id?: true
+    group_id?: true
+    user_id?: true
+    reply_to?: true
+  }
+
+  export type Chat_messagesSumAggregateInputType = {
+    id?: true
+    group_id?: true
+    user_id?: true
+    reply_to?: true
+  }
+
+  export type Chat_messagesMinAggregateInputType = {
+    id?: true
+    group_id?: true
+    user_id?: true
+    message_text?: true
+    message_type?: true
+    reply_to?: true
+    is_edited?: true
+    is_deleted?: true
+    created_at?: true
+    updated_at?: true
+  }
+
+  export type Chat_messagesMaxAggregateInputType = {
+    id?: true
+    group_id?: true
+    user_id?: true
+    message_text?: true
+    message_type?: true
+    reply_to?: true
+    is_edited?: true
+    is_deleted?: true
+    created_at?: true
+    updated_at?: true
+  }
+
+  export type Chat_messagesCountAggregateInputType = {
+    id?: true
+    group_id?: true
+    user_id?: true
+    message_text?: true
+    message_type?: true
+    reply_to?: true
+    is_edited?: true
+    is_deleted?: true
+    created_at?: true
+    updated_at?: true
+    _all?: true
+  }
+
+  export type Chat_messagesAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which chat_messages to aggregate.
+     */
+    where?: chat_messagesWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of chat_messages to fetch.
+     */
+    orderBy?: chat_messagesOrderByWithRelationInput | chat_messagesOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: chat_messagesWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` chat_messages from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` chat_messages.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned chat_messages
+    **/
+    _count?: true | Chat_messagesCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: Chat_messagesAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: Chat_messagesSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: Chat_messagesMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: Chat_messagesMaxAggregateInputType
+  }
+
+  export type GetChat_messagesAggregateType<T extends Chat_messagesAggregateArgs> = {
+        [P in keyof T & keyof AggregateChat_messages]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateChat_messages[P]>
+      : GetScalarType<T[P], AggregateChat_messages[P]>
+  }
+
+
+
+
+  export type chat_messagesGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: chat_messagesWhereInput
+    orderBy?: chat_messagesOrderByWithAggregationInput | chat_messagesOrderByWithAggregationInput[]
+    by: Chat_messagesScalarFieldEnum[] | Chat_messagesScalarFieldEnum
+    having?: chat_messagesScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: Chat_messagesCountAggregateInputType | true
+    _avg?: Chat_messagesAvgAggregateInputType
+    _sum?: Chat_messagesSumAggregateInputType
+    _min?: Chat_messagesMinAggregateInputType
+    _max?: Chat_messagesMaxAggregateInputType
+  }
+
+  export type Chat_messagesGroupByOutputType = {
+    id: number
+    group_id: number
+    user_id: number | null
+    message_text: string
+    message_type: string
+    reply_to: number | null
+    is_edited: boolean
+    is_deleted: boolean
+    created_at: Date
+    updated_at: Date
+    _count: Chat_messagesCountAggregateOutputType | null
+    _avg: Chat_messagesAvgAggregateOutputType | null
+    _sum: Chat_messagesSumAggregateOutputType | null
+    _min: Chat_messagesMinAggregateOutputType | null
+    _max: Chat_messagesMaxAggregateOutputType | null
+  }
+
+  type GetChat_messagesGroupByPayload<T extends chat_messagesGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<Chat_messagesGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof Chat_messagesGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], Chat_messagesGroupByOutputType[P]>
+            : GetScalarType<T[P], Chat_messagesGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type chat_messagesSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    group_id?: boolean
+    user_id?: boolean
+    message_text?: boolean
+    message_type?: boolean
+    reply_to?: boolean
+    is_edited?: boolean
+    is_deleted?: boolean
+    created_at?: boolean
+    updated_at?: boolean
+    group?: boolean | group_chatsDefaultArgs<ExtArgs>
+    user?: boolean | chat_messages$userArgs<ExtArgs>
+    reply_msg?: boolean | chat_messages$reply_msgArgs<ExtArgs>
+    replies?: boolean | chat_messages$repliesArgs<ExtArgs>
+    reactions?: boolean | chat_messages$reactionsArgs<ExtArgs>
+    _count?: boolean | Chat_messagesCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["chat_messages"]>
+
+  export type chat_messagesSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    group_id?: boolean
+    user_id?: boolean
+    message_text?: boolean
+    message_type?: boolean
+    reply_to?: boolean
+    is_edited?: boolean
+    is_deleted?: boolean
+    created_at?: boolean
+    updated_at?: boolean
+    group?: boolean | group_chatsDefaultArgs<ExtArgs>
+    user?: boolean | chat_messages$userArgs<ExtArgs>
+    reply_msg?: boolean | chat_messages$reply_msgArgs<ExtArgs>
+  }, ExtArgs["result"]["chat_messages"]>
+
+  export type chat_messagesSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    group_id?: boolean
+    user_id?: boolean
+    message_text?: boolean
+    message_type?: boolean
+    reply_to?: boolean
+    is_edited?: boolean
+    is_deleted?: boolean
+    created_at?: boolean
+    updated_at?: boolean
+    group?: boolean | group_chatsDefaultArgs<ExtArgs>
+    user?: boolean | chat_messages$userArgs<ExtArgs>
+    reply_msg?: boolean | chat_messages$reply_msgArgs<ExtArgs>
+  }, ExtArgs["result"]["chat_messages"]>
+
+  export type chat_messagesSelectScalar = {
+    id?: boolean
+    group_id?: boolean
+    user_id?: boolean
+    message_text?: boolean
+    message_type?: boolean
+    reply_to?: boolean
+    is_edited?: boolean
+    is_deleted?: boolean
+    created_at?: boolean
+    updated_at?: boolean
+  }
+
+  export type chat_messagesOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "group_id" | "user_id" | "message_text" | "message_type" | "reply_to" | "is_edited" | "is_deleted" | "created_at" | "updated_at", ExtArgs["result"]["chat_messages"]>
+  export type chat_messagesInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    group?: boolean | group_chatsDefaultArgs<ExtArgs>
+    user?: boolean | chat_messages$userArgs<ExtArgs>
+    reply_msg?: boolean | chat_messages$reply_msgArgs<ExtArgs>
+    replies?: boolean | chat_messages$repliesArgs<ExtArgs>
+    reactions?: boolean | chat_messages$reactionsArgs<ExtArgs>
+    _count?: boolean | Chat_messagesCountOutputTypeDefaultArgs<ExtArgs>
+  }
+  export type chat_messagesIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    group?: boolean | group_chatsDefaultArgs<ExtArgs>
+    user?: boolean | chat_messages$userArgs<ExtArgs>
+    reply_msg?: boolean | chat_messages$reply_msgArgs<ExtArgs>
+  }
+  export type chat_messagesIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    group?: boolean | group_chatsDefaultArgs<ExtArgs>
+    user?: boolean | chat_messages$userArgs<ExtArgs>
+    reply_msg?: boolean | chat_messages$reply_msgArgs<ExtArgs>
+  }
+
+  export type $chat_messagesPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "chat_messages"
+    objects: {
+      group: Prisma.$group_chatsPayload<ExtArgs>
+      user: Prisma.$usersPayload<ExtArgs> | null
+      reply_msg: Prisma.$chat_messagesPayload<ExtArgs> | null
+      replies: Prisma.$chat_messagesPayload<ExtArgs>[]
+      reactions: Prisma.$message_reactionsPayload<ExtArgs>[]
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: number
+      group_id: number
+      user_id: number | null
+      message_text: string
+      message_type: string
+      reply_to: number | null
+      is_edited: boolean
+      is_deleted: boolean
+      created_at: Date
+      updated_at: Date
+    }, ExtArgs["result"]["chat_messages"]>
+    composites: {}
+  }
+
+  type chat_messagesGetPayload<S extends boolean | null | undefined | chat_messagesDefaultArgs> = $Result.GetResult<Prisma.$chat_messagesPayload, S>
+
+  type chat_messagesCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<chat_messagesFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: Chat_messagesCountAggregateInputType | true
+    }
+
+  export interface chat_messagesDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['chat_messages'], meta: { name: 'chat_messages' } }
+    /**
+     * Find zero or one Chat_messages that matches the filter.
+     * @param {chat_messagesFindUniqueArgs} args - Arguments to find a Chat_messages
+     * @example
+     * // Get one Chat_messages
+     * const chat_messages = await prisma.chat_messages.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends chat_messagesFindUniqueArgs>(args: SelectSubset<T, chat_messagesFindUniqueArgs<ExtArgs>>): Prisma__chat_messagesClient<$Result.GetResult<Prisma.$chat_messagesPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Chat_messages that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {chat_messagesFindUniqueOrThrowArgs} args - Arguments to find a Chat_messages
+     * @example
+     * // Get one Chat_messages
+     * const chat_messages = await prisma.chat_messages.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends chat_messagesFindUniqueOrThrowArgs>(args: SelectSubset<T, chat_messagesFindUniqueOrThrowArgs<ExtArgs>>): Prisma__chat_messagesClient<$Result.GetResult<Prisma.$chat_messagesPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Chat_messages that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {chat_messagesFindFirstArgs} args - Arguments to find a Chat_messages
+     * @example
+     * // Get one Chat_messages
+     * const chat_messages = await prisma.chat_messages.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends chat_messagesFindFirstArgs>(args?: SelectSubset<T, chat_messagesFindFirstArgs<ExtArgs>>): Prisma__chat_messagesClient<$Result.GetResult<Prisma.$chat_messagesPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Chat_messages that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {chat_messagesFindFirstOrThrowArgs} args - Arguments to find a Chat_messages
+     * @example
+     * // Get one Chat_messages
+     * const chat_messages = await prisma.chat_messages.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends chat_messagesFindFirstOrThrowArgs>(args?: SelectSubset<T, chat_messagesFindFirstOrThrowArgs<ExtArgs>>): Prisma__chat_messagesClient<$Result.GetResult<Prisma.$chat_messagesPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Chat_messages that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {chat_messagesFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Chat_messages
+     * const chat_messages = await prisma.chat_messages.findMany()
+     * 
+     * // Get first 10 Chat_messages
+     * const chat_messages = await prisma.chat_messages.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const chat_messagesWithIdOnly = await prisma.chat_messages.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends chat_messagesFindManyArgs>(args?: SelectSubset<T, chat_messagesFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$chat_messagesPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Chat_messages.
+     * @param {chat_messagesCreateArgs} args - Arguments to create a Chat_messages.
+     * @example
+     * // Create one Chat_messages
+     * const Chat_messages = await prisma.chat_messages.create({
+     *   data: {
+     *     // ... data to create a Chat_messages
+     *   }
+     * })
+     * 
+     */
+    create<T extends chat_messagesCreateArgs>(args: SelectSubset<T, chat_messagesCreateArgs<ExtArgs>>): Prisma__chat_messagesClient<$Result.GetResult<Prisma.$chat_messagesPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Chat_messages.
+     * @param {chat_messagesCreateManyArgs} args - Arguments to create many Chat_messages.
+     * @example
+     * // Create many Chat_messages
+     * const chat_messages = await prisma.chat_messages.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends chat_messagesCreateManyArgs>(args?: SelectSubset<T, chat_messagesCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many Chat_messages and returns the data saved in the database.
+     * @param {chat_messagesCreateManyAndReturnArgs} args - Arguments to create many Chat_messages.
+     * @example
+     * // Create many Chat_messages
+     * const chat_messages = await prisma.chat_messages.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many Chat_messages and only return the `id`
+     * const chat_messagesWithIdOnly = await prisma.chat_messages.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends chat_messagesCreateManyAndReturnArgs>(args?: SelectSubset<T, chat_messagesCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$chat_messagesPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a Chat_messages.
+     * @param {chat_messagesDeleteArgs} args - Arguments to delete one Chat_messages.
+     * @example
+     * // Delete one Chat_messages
+     * const Chat_messages = await prisma.chat_messages.delete({
+     *   where: {
+     *     // ... filter to delete one Chat_messages
+     *   }
+     * })
+     * 
+     */
+    delete<T extends chat_messagesDeleteArgs>(args: SelectSubset<T, chat_messagesDeleteArgs<ExtArgs>>): Prisma__chat_messagesClient<$Result.GetResult<Prisma.$chat_messagesPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Chat_messages.
+     * @param {chat_messagesUpdateArgs} args - Arguments to update one Chat_messages.
+     * @example
+     * // Update one Chat_messages
+     * const chat_messages = await prisma.chat_messages.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends chat_messagesUpdateArgs>(args: SelectSubset<T, chat_messagesUpdateArgs<ExtArgs>>): Prisma__chat_messagesClient<$Result.GetResult<Prisma.$chat_messagesPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Chat_messages.
+     * @param {chat_messagesDeleteManyArgs} args - Arguments to filter Chat_messages to delete.
+     * @example
+     * // Delete a few Chat_messages
+     * const { count } = await prisma.chat_messages.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends chat_messagesDeleteManyArgs>(args?: SelectSubset<T, chat_messagesDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Chat_messages.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {chat_messagesUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Chat_messages
+     * const chat_messages = await prisma.chat_messages.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends chat_messagesUpdateManyArgs>(args: SelectSubset<T, chat_messagesUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Chat_messages and returns the data updated in the database.
+     * @param {chat_messagesUpdateManyAndReturnArgs} args - Arguments to update many Chat_messages.
+     * @example
+     * // Update many Chat_messages
+     * const chat_messages = await prisma.chat_messages.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more Chat_messages and only return the `id`
+     * const chat_messagesWithIdOnly = await prisma.chat_messages.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends chat_messagesUpdateManyAndReturnArgs>(args: SelectSubset<T, chat_messagesUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$chat_messagesPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one Chat_messages.
+     * @param {chat_messagesUpsertArgs} args - Arguments to update or create a Chat_messages.
+     * @example
+     * // Update or create a Chat_messages
+     * const chat_messages = await prisma.chat_messages.upsert({
+     *   create: {
+     *     // ... data to create a Chat_messages
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Chat_messages we want to update
+     *   }
+     * })
+     */
+    upsert<T extends chat_messagesUpsertArgs>(args: SelectSubset<T, chat_messagesUpsertArgs<ExtArgs>>): Prisma__chat_messagesClient<$Result.GetResult<Prisma.$chat_messagesPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of Chat_messages.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {chat_messagesCountArgs} args - Arguments to filter Chat_messages to count.
+     * @example
+     * // Count the number of Chat_messages
+     * const count = await prisma.chat_messages.count({
+     *   where: {
+     *     // ... the filter for the Chat_messages we want to count
+     *   }
+     * })
+    **/
+    count<T extends chat_messagesCountArgs>(
+      args?: Subset<T, chat_messagesCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], Chat_messagesCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Chat_messages.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {Chat_messagesAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends Chat_messagesAggregateArgs>(args: Subset<T, Chat_messagesAggregateArgs>): Prisma.PrismaPromise<GetChat_messagesAggregateType<T>>
+
+    /**
+     * Group by Chat_messages.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {chat_messagesGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends chat_messagesGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: chat_messagesGroupByArgs['orderBy'] }
+        : { orderBy?: chat_messagesGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, chat_messagesGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetChat_messagesGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the chat_messages model
+   */
+  readonly fields: chat_messagesFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for chat_messages.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__chat_messagesClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    group<T extends group_chatsDefaultArgs<ExtArgs> = {}>(args?: Subset<T, group_chatsDefaultArgs<ExtArgs>>): Prisma__group_chatsClient<$Result.GetResult<Prisma.$group_chatsPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    user<T extends chat_messages$userArgs<ExtArgs> = {}>(args?: Subset<T, chat_messages$userArgs<ExtArgs>>): Prisma__usersClient<$Result.GetResult<Prisma.$usersPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    reply_msg<T extends chat_messages$reply_msgArgs<ExtArgs> = {}>(args?: Subset<T, chat_messages$reply_msgArgs<ExtArgs>>): Prisma__chat_messagesClient<$Result.GetResult<Prisma.$chat_messagesPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    replies<T extends chat_messages$repliesArgs<ExtArgs> = {}>(args?: Subset<T, chat_messages$repliesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$chat_messagesPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    reactions<T extends chat_messages$reactionsArgs<ExtArgs> = {}>(args?: Subset<T, chat_messages$reactionsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$message_reactionsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the chat_messages model
+   */
+  interface chat_messagesFieldRefs {
+    readonly id: FieldRef<"chat_messages", 'Int'>
+    readonly group_id: FieldRef<"chat_messages", 'Int'>
+    readonly user_id: FieldRef<"chat_messages", 'Int'>
+    readonly message_text: FieldRef<"chat_messages", 'String'>
+    readonly message_type: FieldRef<"chat_messages", 'String'>
+    readonly reply_to: FieldRef<"chat_messages", 'Int'>
+    readonly is_edited: FieldRef<"chat_messages", 'Boolean'>
+    readonly is_deleted: FieldRef<"chat_messages", 'Boolean'>
+    readonly created_at: FieldRef<"chat_messages", 'DateTime'>
+    readonly updated_at: FieldRef<"chat_messages", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * chat_messages findUnique
+   */
+  export type chat_messagesFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the chat_messages
+     */
+    select?: chat_messagesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the chat_messages
+     */
+    omit?: chat_messagesOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: chat_messagesInclude<ExtArgs> | null
+    /**
+     * Filter, which chat_messages to fetch.
+     */
+    where: chat_messagesWhereUniqueInput
+  }
+
+  /**
+   * chat_messages findUniqueOrThrow
+   */
+  export type chat_messagesFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the chat_messages
+     */
+    select?: chat_messagesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the chat_messages
+     */
+    omit?: chat_messagesOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: chat_messagesInclude<ExtArgs> | null
+    /**
+     * Filter, which chat_messages to fetch.
+     */
+    where: chat_messagesWhereUniqueInput
+  }
+
+  /**
+   * chat_messages findFirst
+   */
+  export type chat_messagesFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the chat_messages
+     */
+    select?: chat_messagesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the chat_messages
+     */
+    omit?: chat_messagesOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: chat_messagesInclude<ExtArgs> | null
+    /**
+     * Filter, which chat_messages to fetch.
+     */
+    where?: chat_messagesWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of chat_messages to fetch.
+     */
+    orderBy?: chat_messagesOrderByWithRelationInput | chat_messagesOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for chat_messages.
+     */
+    cursor?: chat_messagesWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` chat_messages from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` chat_messages.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of chat_messages.
+     */
+    distinct?: Chat_messagesScalarFieldEnum | Chat_messagesScalarFieldEnum[]
+  }
+
+  /**
+   * chat_messages findFirstOrThrow
+   */
+  export type chat_messagesFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the chat_messages
+     */
+    select?: chat_messagesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the chat_messages
+     */
+    omit?: chat_messagesOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: chat_messagesInclude<ExtArgs> | null
+    /**
+     * Filter, which chat_messages to fetch.
+     */
+    where?: chat_messagesWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of chat_messages to fetch.
+     */
+    orderBy?: chat_messagesOrderByWithRelationInput | chat_messagesOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for chat_messages.
+     */
+    cursor?: chat_messagesWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` chat_messages from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` chat_messages.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of chat_messages.
+     */
+    distinct?: Chat_messagesScalarFieldEnum | Chat_messagesScalarFieldEnum[]
+  }
+
+  /**
+   * chat_messages findMany
+   */
+  export type chat_messagesFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the chat_messages
+     */
+    select?: chat_messagesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the chat_messages
+     */
+    omit?: chat_messagesOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: chat_messagesInclude<ExtArgs> | null
+    /**
+     * Filter, which chat_messages to fetch.
+     */
+    where?: chat_messagesWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of chat_messages to fetch.
+     */
+    orderBy?: chat_messagesOrderByWithRelationInput | chat_messagesOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing chat_messages.
+     */
+    cursor?: chat_messagesWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` chat_messages from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` chat_messages.
+     */
+    skip?: number
+    distinct?: Chat_messagesScalarFieldEnum | Chat_messagesScalarFieldEnum[]
+  }
+
+  /**
+   * chat_messages create
+   */
+  export type chat_messagesCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the chat_messages
+     */
+    select?: chat_messagesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the chat_messages
+     */
+    omit?: chat_messagesOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: chat_messagesInclude<ExtArgs> | null
+    /**
+     * The data needed to create a chat_messages.
+     */
+    data: XOR<chat_messagesCreateInput, chat_messagesUncheckedCreateInput>
+  }
+
+  /**
+   * chat_messages createMany
+   */
+  export type chat_messagesCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many chat_messages.
+     */
+    data: chat_messagesCreateManyInput | chat_messagesCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * chat_messages createManyAndReturn
+   */
+  export type chat_messagesCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the chat_messages
+     */
+    select?: chat_messagesSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the chat_messages
+     */
+    omit?: chat_messagesOmit<ExtArgs> | null
+    /**
+     * The data used to create many chat_messages.
+     */
+    data: chat_messagesCreateManyInput | chat_messagesCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: chat_messagesIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * chat_messages update
+   */
+  export type chat_messagesUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the chat_messages
+     */
+    select?: chat_messagesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the chat_messages
+     */
+    omit?: chat_messagesOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: chat_messagesInclude<ExtArgs> | null
+    /**
+     * The data needed to update a chat_messages.
+     */
+    data: XOR<chat_messagesUpdateInput, chat_messagesUncheckedUpdateInput>
+    /**
+     * Choose, which chat_messages to update.
+     */
+    where: chat_messagesWhereUniqueInput
+  }
+
+  /**
+   * chat_messages updateMany
+   */
+  export type chat_messagesUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update chat_messages.
+     */
+    data: XOR<chat_messagesUpdateManyMutationInput, chat_messagesUncheckedUpdateManyInput>
+    /**
+     * Filter which chat_messages to update
+     */
+    where?: chat_messagesWhereInput
+    /**
+     * Limit how many chat_messages to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * chat_messages updateManyAndReturn
+   */
+  export type chat_messagesUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the chat_messages
+     */
+    select?: chat_messagesSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the chat_messages
+     */
+    omit?: chat_messagesOmit<ExtArgs> | null
+    /**
+     * The data used to update chat_messages.
+     */
+    data: XOR<chat_messagesUpdateManyMutationInput, chat_messagesUncheckedUpdateManyInput>
+    /**
+     * Filter which chat_messages to update
+     */
+    where?: chat_messagesWhereInput
+    /**
+     * Limit how many chat_messages to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: chat_messagesIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * chat_messages upsert
+   */
+  export type chat_messagesUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the chat_messages
+     */
+    select?: chat_messagesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the chat_messages
+     */
+    omit?: chat_messagesOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: chat_messagesInclude<ExtArgs> | null
+    /**
+     * The filter to search for the chat_messages to update in case it exists.
+     */
+    where: chat_messagesWhereUniqueInput
+    /**
+     * In case the chat_messages found by the `where` argument doesn't exist, create a new chat_messages with this data.
+     */
+    create: XOR<chat_messagesCreateInput, chat_messagesUncheckedCreateInput>
+    /**
+     * In case the chat_messages was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<chat_messagesUpdateInput, chat_messagesUncheckedUpdateInput>
+  }
+
+  /**
+   * chat_messages delete
+   */
+  export type chat_messagesDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the chat_messages
+     */
+    select?: chat_messagesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the chat_messages
+     */
+    omit?: chat_messagesOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: chat_messagesInclude<ExtArgs> | null
+    /**
+     * Filter which chat_messages to delete.
+     */
+    where: chat_messagesWhereUniqueInput
+  }
+
+  /**
+   * chat_messages deleteMany
+   */
+  export type chat_messagesDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which chat_messages to delete
+     */
+    where?: chat_messagesWhereInput
+    /**
+     * Limit how many chat_messages to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * chat_messages.user
+   */
+  export type chat_messages$userArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the users
+     */
+    select?: usersSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the users
+     */
+    omit?: usersOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: usersInclude<ExtArgs> | null
+    where?: usersWhereInput
+  }
+
+  /**
+   * chat_messages.reply_msg
+   */
+  export type chat_messages$reply_msgArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the chat_messages
+     */
+    select?: chat_messagesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the chat_messages
+     */
+    omit?: chat_messagesOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: chat_messagesInclude<ExtArgs> | null
+    where?: chat_messagesWhereInput
+  }
+
+  /**
+   * chat_messages.replies
+   */
+  export type chat_messages$repliesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the chat_messages
+     */
+    select?: chat_messagesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the chat_messages
+     */
+    omit?: chat_messagesOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: chat_messagesInclude<ExtArgs> | null
+    where?: chat_messagesWhereInput
+    orderBy?: chat_messagesOrderByWithRelationInput | chat_messagesOrderByWithRelationInput[]
+    cursor?: chat_messagesWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: Chat_messagesScalarFieldEnum | Chat_messagesScalarFieldEnum[]
+  }
+
+  /**
+   * chat_messages.reactions
+   */
+  export type chat_messages$reactionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the message_reactions
+     */
+    select?: message_reactionsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the message_reactions
+     */
+    omit?: message_reactionsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: message_reactionsInclude<ExtArgs> | null
+    where?: message_reactionsWhereInput
+    orderBy?: message_reactionsOrderByWithRelationInput | message_reactionsOrderByWithRelationInput[]
+    cursor?: message_reactionsWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: Message_reactionsScalarFieldEnum | Message_reactionsScalarFieldEnum[]
+  }
+
+  /**
+   * chat_messages without action
+   */
+  export type chat_messagesDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the chat_messages
+     */
+    select?: chat_messagesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the chat_messages
+     */
+    omit?: chat_messagesOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: chat_messagesInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model message_reactions
+   */
+
+  export type AggregateMessage_reactions = {
+    _count: Message_reactionsCountAggregateOutputType | null
+    _avg: Message_reactionsAvgAggregateOutputType | null
+    _sum: Message_reactionsSumAggregateOutputType | null
+    _min: Message_reactionsMinAggregateOutputType | null
+    _max: Message_reactionsMaxAggregateOutputType | null
+  }
+
+  export type Message_reactionsAvgAggregateOutputType = {
+    id: number | null
+    message_id: number | null
+    user_id: number | null
+  }
+
+  export type Message_reactionsSumAggregateOutputType = {
+    id: number | null
+    message_id: number | null
+    user_id: number | null
+  }
+
+  export type Message_reactionsMinAggregateOutputType = {
+    id: number | null
+    message_id: number | null
+    user_id: number | null
+    reaction: string | null
+    created_at: Date | null
+  }
+
+  export type Message_reactionsMaxAggregateOutputType = {
+    id: number | null
+    message_id: number | null
+    user_id: number | null
+    reaction: string | null
+    created_at: Date | null
+  }
+
+  export type Message_reactionsCountAggregateOutputType = {
+    id: number
+    message_id: number
+    user_id: number
+    reaction: number
+    created_at: number
+    _all: number
+  }
+
+
+  export type Message_reactionsAvgAggregateInputType = {
+    id?: true
+    message_id?: true
+    user_id?: true
+  }
+
+  export type Message_reactionsSumAggregateInputType = {
+    id?: true
+    message_id?: true
+    user_id?: true
+  }
+
+  export type Message_reactionsMinAggregateInputType = {
+    id?: true
+    message_id?: true
+    user_id?: true
+    reaction?: true
+    created_at?: true
+  }
+
+  export type Message_reactionsMaxAggregateInputType = {
+    id?: true
+    message_id?: true
+    user_id?: true
+    reaction?: true
+    created_at?: true
+  }
+
+  export type Message_reactionsCountAggregateInputType = {
+    id?: true
+    message_id?: true
+    user_id?: true
+    reaction?: true
+    created_at?: true
+    _all?: true
+  }
+
+  export type Message_reactionsAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which message_reactions to aggregate.
+     */
+    where?: message_reactionsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of message_reactions to fetch.
+     */
+    orderBy?: message_reactionsOrderByWithRelationInput | message_reactionsOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: message_reactionsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` message_reactions from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` message_reactions.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned message_reactions
+    **/
+    _count?: true | Message_reactionsCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: Message_reactionsAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: Message_reactionsSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: Message_reactionsMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: Message_reactionsMaxAggregateInputType
+  }
+
+  export type GetMessage_reactionsAggregateType<T extends Message_reactionsAggregateArgs> = {
+        [P in keyof T & keyof AggregateMessage_reactions]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateMessage_reactions[P]>
+      : GetScalarType<T[P], AggregateMessage_reactions[P]>
+  }
+
+
+
+
+  export type message_reactionsGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: message_reactionsWhereInput
+    orderBy?: message_reactionsOrderByWithAggregationInput | message_reactionsOrderByWithAggregationInput[]
+    by: Message_reactionsScalarFieldEnum[] | Message_reactionsScalarFieldEnum
+    having?: message_reactionsScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: Message_reactionsCountAggregateInputType | true
+    _avg?: Message_reactionsAvgAggregateInputType
+    _sum?: Message_reactionsSumAggregateInputType
+    _min?: Message_reactionsMinAggregateInputType
+    _max?: Message_reactionsMaxAggregateInputType
+  }
+
+  export type Message_reactionsGroupByOutputType = {
+    id: number
+    message_id: number
+    user_id: number
+    reaction: string
+    created_at: Date
+    _count: Message_reactionsCountAggregateOutputType | null
+    _avg: Message_reactionsAvgAggregateOutputType | null
+    _sum: Message_reactionsSumAggregateOutputType | null
+    _min: Message_reactionsMinAggregateOutputType | null
+    _max: Message_reactionsMaxAggregateOutputType | null
+  }
+
+  type GetMessage_reactionsGroupByPayload<T extends message_reactionsGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<Message_reactionsGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof Message_reactionsGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], Message_reactionsGroupByOutputType[P]>
+            : GetScalarType<T[P], Message_reactionsGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type message_reactionsSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    message_id?: boolean
+    user_id?: boolean
+    reaction?: boolean
+    created_at?: boolean
+    message?: boolean | chat_messagesDefaultArgs<ExtArgs>
+    user?: boolean | usersDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["message_reactions"]>
+
+  export type message_reactionsSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    message_id?: boolean
+    user_id?: boolean
+    reaction?: boolean
+    created_at?: boolean
+    message?: boolean | chat_messagesDefaultArgs<ExtArgs>
+    user?: boolean | usersDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["message_reactions"]>
+
+  export type message_reactionsSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    message_id?: boolean
+    user_id?: boolean
+    reaction?: boolean
+    created_at?: boolean
+    message?: boolean | chat_messagesDefaultArgs<ExtArgs>
+    user?: boolean | usersDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["message_reactions"]>
+
+  export type message_reactionsSelectScalar = {
+    id?: boolean
+    message_id?: boolean
+    user_id?: boolean
+    reaction?: boolean
+    created_at?: boolean
+  }
+
+  export type message_reactionsOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "message_id" | "user_id" | "reaction" | "created_at", ExtArgs["result"]["message_reactions"]>
+  export type message_reactionsInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    message?: boolean | chat_messagesDefaultArgs<ExtArgs>
+    user?: boolean | usersDefaultArgs<ExtArgs>
+  }
+  export type message_reactionsIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    message?: boolean | chat_messagesDefaultArgs<ExtArgs>
+    user?: boolean | usersDefaultArgs<ExtArgs>
+  }
+  export type message_reactionsIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    message?: boolean | chat_messagesDefaultArgs<ExtArgs>
+    user?: boolean | usersDefaultArgs<ExtArgs>
+  }
+
+  export type $message_reactionsPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "message_reactions"
+    objects: {
+      message: Prisma.$chat_messagesPayload<ExtArgs>
+      user: Prisma.$usersPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: number
+      message_id: number
+      user_id: number
+      reaction: string
+      created_at: Date
+    }, ExtArgs["result"]["message_reactions"]>
+    composites: {}
+  }
+
+  type message_reactionsGetPayload<S extends boolean | null | undefined | message_reactionsDefaultArgs> = $Result.GetResult<Prisma.$message_reactionsPayload, S>
+
+  type message_reactionsCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<message_reactionsFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: Message_reactionsCountAggregateInputType | true
+    }
+
+  export interface message_reactionsDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['message_reactions'], meta: { name: 'message_reactions' } }
+    /**
+     * Find zero or one Message_reactions that matches the filter.
+     * @param {message_reactionsFindUniqueArgs} args - Arguments to find a Message_reactions
+     * @example
+     * // Get one Message_reactions
+     * const message_reactions = await prisma.message_reactions.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends message_reactionsFindUniqueArgs>(args: SelectSubset<T, message_reactionsFindUniqueArgs<ExtArgs>>): Prisma__message_reactionsClient<$Result.GetResult<Prisma.$message_reactionsPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Message_reactions that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {message_reactionsFindUniqueOrThrowArgs} args - Arguments to find a Message_reactions
+     * @example
+     * // Get one Message_reactions
+     * const message_reactions = await prisma.message_reactions.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends message_reactionsFindUniqueOrThrowArgs>(args: SelectSubset<T, message_reactionsFindUniqueOrThrowArgs<ExtArgs>>): Prisma__message_reactionsClient<$Result.GetResult<Prisma.$message_reactionsPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Message_reactions that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {message_reactionsFindFirstArgs} args - Arguments to find a Message_reactions
+     * @example
+     * // Get one Message_reactions
+     * const message_reactions = await prisma.message_reactions.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends message_reactionsFindFirstArgs>(args?: SelectSubset<T, message_reactionsFindFirstArgs<ExtArgs>>): Prisma__message_reactionsClient<$Result.GetResult<Prisma.$message_reactionsPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Message_reactions that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {message_reactionsFindFirstOrThrowArgs} args - Arguments to find a Message_reactions
+     * @example
+     * // Get one Message_reactions
+     * const message_reactions = await prisma.message_reactions.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends message_reactionsFindFirstOrThrowArgs>(args?: SelectSubset<T, message_reactionsFindFirstOrThrowArgs<ExtArgs>>): Prisma__message_reactionsClient<$Result.GetResult<Prisma.$message_reactionsPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Message_reactions that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {message_reactionsFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Message_reactions
+     * const message_reactions = await prisma.message_reactions.findMany()
+     * 
+     * // Get first 10 Message_reactions
+     * const message_reactions = await prisma.message_reactions.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const message_reactionsWithIdOnly = await prisma.message_reactions.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends message_reactionsFindManyArgs>(args?: SelectSubset<T, message_reactionsFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$message_reactionsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Message_reactions.
+     * @param {message_reactionsCreateArgs} args - Arguments to create a Message_reactions.
+     * @example
+     * // Create one Message_reactions
+     * const Message_reactions = await prisma.message_reactions.create({
+     *   data: {
+     *     // ... data to create a Message_reactions
+     *   }
+     * })
+     * 
+     */
+    create<T extends message_reactionsCreateArgs>(args: SelectSubset<T, message_reactionsCreateArgs<ExtArgs>>): Prisma__message_reactionsClient<$Result.GetResult<Prisma.$message_reactionsPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Message_reactions.
+     * @param {message_reactionsCreateManyArgs} args - Arguments to create many Message_reactions.
+     * @example
+     * // Create many Message_reactions
+     * const message_reactions = await prisma.message_reactions.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends message_reactionsCreateManyArgs>(args?: SelectSubset<T, message_reactionsCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many Message_reactions and returns the data saved in the database.
+     * @param {message_reactionsCreateManyAndReturnArgs} args - Arguments to create many Message_reactions.
+     * @example
+     * // Create many Message_reactions
+     * const message_reactions = await prisma.message_reactions.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many Message_reactions and only return the `id`
+     * const message_reactionsWithIdOnly = await prisma.message_reactions.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends message_reactionsCreateManyAndReturnArgs>(args?: SelectSubset<T, message_reactionsCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$message_reactionsPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a Message_reactions.
+     * @param {message_reactionsDeleteArgs} args - Arguments to delete one Message_reactions.
+     * @example
+     * // Delete one Message_reactions
+     * const Message_reactions = await prisma.message_reactions.delete({
+     *   where: {
+     *     // ... filter to delete one Message_reactions
+     *   }
+     * })
+     * 
+     */
+    delete<T extends message_reactionsDeleteArgs>(args: SelectSubset<T, message_reactionsDeleteArgs<ExtArgs>>): Prisma__message_reactionsClient<$Result.GetResult<Prisma.$message_reactionsPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Message_reactions.
+     * @param {message_reactionsUpdateArgs} args - Arguments to update one Message_reactions.
+     * @example
+     * // Update one Message_reactions
+     * const message_reactions = await prisma.message_reactions.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends message_reactionsUpdateArgs>(args: SelectSubset<T, message_reactionsUpdateArgs<ExtArgs>>): Prisma__message_reactionsClient<$Result.GetResult<Prisma.$message_reactionsPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Message_reactions.
+     * @param {message_reactionsDeleteManyArgs} args - Arguments to filter Message_reactions to delete.
+     * @example
+     * // Delete a few Message_reactions
+     * const { count } = await prisma.message_reactions.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends message_reactionsDeleteManyArgs>(args?: SelectSubset<T, message_reactionsDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Message_reactions.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {message_reactionsUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Message_reactions
+     * const message_reactions = await prisma.message_reactions.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends message_reactionsUpdateManyArgs>(args: SelectSubset<T, message_reactionsUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Message_reactions and returns the data updated in the database.
+     * @param {message_reactionsUpdateManyAndReturnArgs} args - Arguments to update many Message_reactions.
+     * @example
+     * // Update many Message_reactions
+     * const message_reactions = await prisma.message_reactions.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more Message_reactions and only return the `id`
+     * const message_reactionsWithIdOnly = await prisma.message_reactions.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends message_reactionsUpdateManyAndReturnArgs>(args: SelectSubset<T, message_reactionsUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$message_reactionsPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one Message_reactions.
+     * @param {message_reactionsUpsertArgs} args - Arguments to update or create a Message_reactions.
+     * @example
+     * // Update or create a Message_reactions
+     * const message_reactions = await prisma.message_reactions.upsert({
+     *   create: {
+     *     // ... data to create a Message_reactions
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Message_reactions we want to update
+     *   }
+     * })
+     */
+    upsert<T extends message_reactionsUpsertArgs>(args: SelectSubset<T, message_reactionsUpsertArgs<ExtArgs>>): Prisma__message_reactionsClient<$Result.GetResult<Prisma.$message_reactionsPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of Message_reactions.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {message_reactionsCountArgs} args - Arguments to filter Message_reactions to count.
+     * @example
+     * // Count the number of Message_reactions
+     * const count = await prisma.message_reactions.count({
+     *   where: {
+     *     // ... the filter for the Message_reactions we want to count
+     *   }
+     * })
+    **/
+    count<T extends message_reactionsCountArgs>(
+      args?: Subset<T, message_reactionsCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], Message_reactionsCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Message_reactions.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {Message_reactionsAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends Message_reactionsAggregateArgs>(args: Subset<T, Message_reactionsAggregateArgs>): Prisma.PrismaPromise<GetMessage_reactionsAggregateType<T>>
+
+    /**
+     * Group by Message_reactions.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {message_reactionsGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends message_reactionsGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: message_reactionsGroupByArgs['orderBy'] }
+        : { orderBy?: message_reactionsGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, message_reactionsGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetMessage_reactionsGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the message_reactions model
+   */
+  readonly fields: message_reactionsFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for message_reactions.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__message_reactionsClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    message<T extends chat_messagesDefaultArgs<ExtArgs> = {}>(args?: Subset<T, chat_messagesDefaultArgs<ExtArgs>>): Prisma__chat_messagesClient<$Result.GetResult<Prisma.$chat_messagesPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    user<T extends usersDefaultArgs<ExtArgs> = {}>(args?: Subset<T, usersDefaultArgs<ExtArgs>>): Prisma__usersClient<$Result.GetResult<Prisma.$usersPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the message_reactions model
+   */
+  interface message_reactionsFieldRefs {
+    readonly id: FieldRef<"message_reactions", 'Int'>
+    readonly message_id: FieldRef<"message_reactions", 'Int'>
+    readonly user_id: FieldRef<"message_reactions", 'Int'>
+    readonly reaction: FieldRef<"message_reactions", 'String'>
+    readonly created_at: FieldRef<"message_reactions", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * message_reactions findUnique
+   */
+  export type message_reactionsFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the message_reactions
+     */
+    select?: message_reactionsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the message_reactions
+     */
+    omit?: message_reactionsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: message_reactionsInclude<ExtArgs> | null
+    /**
+     * Filter, which message_reactions to fetch.
+     */
+    where: message_reactionsWhereUniqueInput
+  }
+
+  /**
+   * message_reactions findUniqueOrThrow
+   */
+  export type message_reactionsFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the message_reactions
+     */
+    select?: message_reactionsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the message_reactions
+     */
+    omit?: message_reactionsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: message_reactionsInclude<ExtArgs> | null
+    /**
+     * Filter, which message_reactions to fetch.
+     */
+    where: message_reactionsWhereUniqueInput
+  }
+
+  /**
+   * message_reactions findFirst
+   */
+  export type message_reactionsFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the message_reactions
+     */
+    select?: message_reactionsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the message_reactions
+     */
+    omit?: message_reactionsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: message_reactionsInclude<ExtArgs> | null
+    /**
+     * Filter, which message_reactions to fetch.
+     */
+    where?: message_reactionsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of message_reactions to fetch.
+     */
+    orderBy?: message_reactionsOrderByWithRelationInput | message_reactionsOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for message_reactions.
+     */
+    cursor?: message_reactionsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` message_reactions from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` message_reactions.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of message_reactions.
+     */
+    distinct?: Message_reactionsScalarFieldEnum | Message_reactionsScalarFieldEnum[]
+  }
+
+  /**
+   * message_reactions findFirstOrThrow
+   */
+  export type message_reactionsFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the message_reactions
+     */
+    select?: message_reactionsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the message_reactions
+     */
+    omit?: message_reactionsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: message_reactionsInclude<ExtArgs> | null
+    /**
+     * Filter, which message_reactions to fetch.
+     */
+    where?: message_reactionsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of message_reactions to fetch.
+     */
+    orderBy?: message_reactionsOrderByWithRelationInput | message_reactionsOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for message_reactions.
+     */
+    cursor?: message_reactionsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` message_reactions from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` message_reactions.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of message_reactions.
+     */
+    distinct?: Message_reactionsScalarFieldEnum | Message_reactionsScalarFieldEnum[]
+  }
+
+  /**
+   * message_reactions findMany
+   */
+  export type message_reactionsFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the message_reactions
+     */
+    select?: message_reactionsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the message_reactions
+     */
+    omit?: message_reactionsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: message_reactionsInclude<ExtArgs> | null
+    /**
+     * Filter, which message_reactions to fetch.
+     */
+    where?: message_reactionsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of message_reactions to fetch.
+     */
+    orderBy?: message_reactionsOrderByWithRelationInput | message_reactionsOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing message_reactions.
+     */
+    cursor?: message_reactionsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` message_reactions from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` message_reactions.
+     */
+    skip?: number
+    distinct?: Message_reactionsScalarFieldEnum | Message_reactionsScalarFieldEnum[]
+  }
+
+  /**
+   * message_reactions create
+   */
+  export type message_reactionsCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the message_reactions
+     */
+    select?: message_reactionsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the message_reactions
+     */
+    omit?: message_reactionsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: message_reactionsInclude<ExtArgs> | null
+    /**
+     * The data needed to create a message_reactions.
+     */
+    data: XOR<message_reactionsCreateInput, message_reactionsUncheckedCreateInput>
+  }
+
+  /**
+   * message_reactions createMany
+   */
+  export type message_reactionsCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many message_reactions.
+     */
+    data: message_reactionsCreateManyInput | message_reactionsCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * message_reactions createManyAndReturn
+   */
+  export type message_reactionsCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the message_reactions
+     */
+    select?: message_reactionsSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the message_reactions
+     */
+    omit?: message_reactionsOmit<ExtArgs> | null
+    /**
+     * The data used to create many message_reactions.
+     */
+    data: message_reactionsCreateManyInput | message_reactionsCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: message_reactionsIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * message_reactions update
+   */
+  export type message_reactionsUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the message_reactions
+     */
+    select?: message_reactionsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the message_reactions
+     */
+    omit?: message_reactionsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: message_reactionsInclude<ExtArgs> | null
+    /**
+     * The data needed to update a message_reactions.
+     */
+    data: XOR<message_reactionsUpdateInput, message_reactionsUncheckedUpdateInput>
+    /**
+     * Choose, which message_reactions to update.
+     */
+    where: message_reactionsWhereUniqueInput
+  }
+
+  /**
+   * message_reactions updateMany
+   */
+  export type message_reactionsUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update message_reactions.
+     */
+    data: XOR<message_reactionsUpdateManyMutationInput, message_reactionsUncheckedUpdateManyInput>
+    /**
+     * Filter which message_reactions to update
+     */
+    where?: message_reactionsWhereInput
+    /**
+     * Limit how many message_reactions to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * message_reactions updateManyAndReturn
+   */
+  export type message_reactionsUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the message_reactions
+     */
+    select?: message_reactionsSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the message_reactions
+     */
+    omit?: message_reactionsOmit<ExtArgs> | null
+    /**
+     * The data used to update message_reactions.
+     */
+    data: XOR<message_reactionsUpdateManyMutationInput, message_reactionsUncheckedUpdateManyInput>
+    /**
+     * Filter which message_reactions to update
+     */
+    where?: message_reactionsWhereInput
+    /**
+     * Limit how many message_reactions to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: message_reactionsIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * message_reactions upsert
+   */
+  export type message_reactionsUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the message_reactions
+     */
+    select?: message_reactionsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the message_reactions
+     */
+    omit?: message_reactionsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: message_reactionsInclude<ExtArgs> | null
+    /**
+     * The filter to search for the message_reactions to update in case it exists.
+     */
+    where: message_reactionsWhereUniqueInput
+    /**
+     * In case the message_reactions found by the `where` argument doesn't exist, create a new message_reactions with this data.
+     */
+    create: XOR<message_reactionsCreateInput, message_reactionsUncheckedCreateInput>
+    /**
+     * In case the message_reactions was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<message_reactionsUpdateInput, message_reactionsUncheckedUpdateInput>
+  }
+
+  /**
+   * message_reactions delete
+   */
+  export type message_reactionsDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the message_reactions
+     */
+    select?: message_reactionsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the message_reactions
+     */
+    omit?: message_reactionsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: message_reactionsInclude<ExtArgs> | null
+    /**
+     * Filter which message_reactions to delete.
+     */
+    where: message_reactionsWhereUniqueInput
+  }
+
+  /**
+   * message_reactions deleteMany
+   */
+  export type message_reactionsDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which message_reactions to delete
+     */
+    where?: message_reactionsWhereInput
+    /**
+     * Limit how many message_reactions to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * message_reactions without action
+   */
+  export type message_reactionsDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the message_reactions
+     */
+    select?: message_reactionsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the message_reactions
+     */
+    omit?: message_reactionsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: message_reactionsInclude<ExtArgs> | null
   }
 
 
@@ -19044,6 +24283,10 @@ export namespace Prisma {
     role_upgrade_requests_role_upgrade_requests_user_idTousers?: boolean | users$role_upgrade_requests_role_upgrade_requests_user_idTousersArgs<ExtArgs>
     subscriptions?: boolean | users$subscriptionsArgs<ExtArgs>
     user_settings?: boolean | users$user_settingsArgs<ExtArgs>
+    created_groups?: boolean | users$created_groupsArgs<ExtArgs>
+    group_memberships?: boolean | users$group_membershipsArgs<ExtArgs>
+    chat_messages?: boolean | users$chat_messagesArgs<ExtArgs>
+    message_reactions?: boolean | users$message_reactionsArgs<ExtArgs>
     _count?: boolean | UsersCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["users"]>
 
@@ -19138,6 +24381,10 @@ export namespace Prisma {
     role_upgrade_requests_role_upgrade_requests_user_idTousers?: boolean | users$role_upgrade_requests_role_upgrade_requests_user_idTousersArgs<ExtArgs>
     subscriptions?: boolean | users$subscriptionsArgs<ExtArgs>
     user_settings?: boolean | users$user_settingsArgs<ExtArgs>
+    created_groups?: boolean | users$created_groupsArgs<ExtArgs>
+    group_memberships?: boolean | users$group_membershipsArgs<ExtArgs>
+    chat_messages?: boolean | users$chat_messagesArgs<ExtArgs>
+    message_reactions?: boolean | users$message_reactionsArgs<ExtArgs>
     _count?: boolean | UsersCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type usersIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
@@ -19166,6 +24413,10 @@ export namespace Prisma {
       role_upgrade_requests_role_upgrade_requests_user_idTousers: Prisma.$role_upgrade_requestsPayload<ExtArgs>[]
       subscriptions: Prisma.$subscriptionsPayload<ExtArgs>[]
       user_settings: Prisma.$user_settingsPayload<ExtArgs> | null
+      created_groups: Prisma.$group_chatsPayload<ExtArgs>[]
+      group_memberships: Prisma.$group_membersPayload<ExtArgs>[]
+      chat_messages: Prisma.$chat_messagesPayload<ExtArgs>[]
+      message_reactions: Prisma.$message_reactionsPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: number
@@ -19602,6 +24853,10 @@ export namespace Prisma {
     role_upgrade_requests_role_upgrade_requests_user_idTousers<T extends users$role_upgrade_requests_role_upgrade_requests_user_idTousersArgs<ExtArgs> = {}>(args?: Subset<T, users$role_upgrade_requests_role_upgrade_requests_user_idTousersArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$role_upgrade_requestsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     subscriptions<T extends users$subscriptionsArgs<ExtArgs> = {}>(args?: Subset<T, users$subscriptionsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$subscriptionsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     user_settings<T extends users$user_settingsArgs<ExtArgs> = {}>(args?: Subset<T, users$user_settingsArgs<ExtArgs>>): Prisma__user_settingsClient<$Result.GetResult<Prisma.$user_settingsPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    created_groups<T extends users$created_groupsArgs<ExtArgs> = {}>(args?: Subset<T, users$created_groupsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$group_chatsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    group_memberships<T extends users$group_membershipsArgs<ExtArgs> = {}>(args?: Subset<T, users$group_membershipsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$group_membersPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    chat_messages<T extends users$chat_messagesArgs<ExtArgs> = {}>(args?: Subset<T, users$chat_messagesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$chat_messagesPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    message_reactions<T extends users$message_reactionsArgs<ExtArgs> = {}>(args?: Subset<T, users$message_reactionsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$message_reactionsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -20511,6 +25766,102 @@ export namespace Prisma {
      */
     include?: user_settingsInclude<ExtArgs> | null
     where?: user_settingsWhereInput
+  }
+
+  /**
+   * users.created_groups
+   */
+  export type users$created_groupsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the group_chats
+     */
+    select?: group_chatsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the group_chats
+     */
+    omit?: group_chatsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: group_chatsInclude<ExtArgs> | null
+    where?: group_chatsWhereInput
+    orderBy?: group_chatsOrderByWithRelationInput | group_chatsOrderByWithRelationInput[]
+    cursor?: group_chatsWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: Group_chatsScalarFieldEnum | Group_chatsScalarFieldEnum[]
+  }
+
+  /**
+   * users.group_memberships
+   */
+  export type users$group_membershipsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the group_members
+     */
+    select?: group_membersSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the group_members
+     */
+    omit?: group_membersOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: group_membersInclude<ExtArgs> | null
+    where?: group_membersWhereInput
+    orderBy?: group_membersOrderByWithRelationInput | group_membersOrderByWithRelationInput[]
+    cursor?: group_membersWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: Group_membersScalarFieldEnum | Group_membersScalarFieldEnum[]
+  }
+
+  /**
+   * users.chat_messages
+   */
+  export type users$chat_messagesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the chat_messages
+     */
+    select?: chat_messagesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the chat_messages
+     */
+    omit?: chat_messagesOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: chat_messagesInclude<ExtArgs> | null
+    where?: chat_messagesWhereInput
+    orderBy?: chat_messagesOrderByWithRelationInput | chat_messagesOrderByWithRelationInput[]
+    cursor?: chat_messagesWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: Chat_messagesScalarFieldEnum | Chat_messagesScalarFieldEnum[]
+  }
+
+  /**
+   * users.message_reactions
+   */
+  export type users$message_reactionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the message_reactions
+     */
+    select?: message_reactionsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the message_reactions
+     */
+    omit?: message_reactionsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: message_reactionsInclude<ExtArgs> | null
+    where?: message_reactionsWhereInput
+    orderBy?: message_reactionsOrderByWithRelationInput | message_reactionsOrderByWithRelationInput[]
+    cursor?: message_reactionsWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: Message_reactionsScalarFieldEnum | Message_reactionsScalarFieldEnum[]
   }
 
   /**
@@ -42242,6 +47593,61 @@ export namespace Prisma {
   export type SubscriptionsScalarFieldEnum = (typeof SubscriptionsScalarFieldEnum)[keyof typeof SubscriptionsScalarFieldEnum]
 
 
+  export const Group_chatsScalarFieldEnum: {
+    id: 'id',
+    name: 'name',
+    description: 'description',
+    type: 'type',
+    created_by: 'created_by',
+    avatar_url: 'avatar_url',
+    is_active: 'is_active',
+    max_members: 'max_members',
+    created_at: 'created_at',
+    updated_at: 'updated_at'
+  };
+
+  export type Group_chatsScalarFieldEnum = (typeof Group_chatsScalarFieldEnum)[keyof typeof Group_chatsScalarFieldEnum]
+
+
+  export const Group_membersScalarFieldEnum: {
+    id: 'id',
+    group_id: 'group_id',
+    user_id: 'user_id',
+    role: 'role',
+    joined_at: 'joined_at',
+    is_muted: 'is_muted'
+  };
+
+  export type Group_membersScalarFieldEnum = (typeof Group_membersScalarFieldEnum)[keyof typeof Group_membersScalarFieldEnum]
+
+
+  export const Chat_messagesScalarFieldEnum: {
+    id: 'id',
+    group_id: 'group_id',
+    user_id: 'user_id',
+    message_text: 'message_text',
+    message_type: 'message_type',
+    reply_to: 'reply_to',
+    is_edited: 'is_edited',
+    is_deleted: 'is_deleted',
+    created_at: 'created_at',
+    updated_at: 'updated_at'
+  };
+
+  export type Chat_messagesScalarFieldEnum = (typeof Chat_messagesScalarFieldEnum)[keyof typeof Chat_messagesScalarFieldEnum]
+
+
+  export const Message_reactionsScalarFieldEnum: {
+    id: 'id',
+    message_id: 'message_id',
+    user_id: 'user_id',
+    reaction: 'reaction',
+    created_at: 'created_at'
+  };
+
+  export type Message_reactionsScalarFieldEnum = (typeof Message_reactionsScalarFieldEnum)[keyof typeof Message_reactionsScalarFieldEnum]
+
+
   export const Blog_viewsScalarFieldEnum: {
     id: 'id',
     blog_id: 'blog_id',
@@ -43131,6 +48537,315 @@ export namespace Prisma {
     updated_at?: DateTimeNullableWithAggregatesFilter<"subscriptions"> | Date | string | null
     cancelled_at?: DateTimeNullableWithAggregatesFilter<"subscriptions"> | Date | string | null
     cancellation_reason?: StringNullableWithAggregatesFilter<"subscriptions"> | string | null
+  }
+
+  export type group_chatsWhereInput = {
+    AND?: group_chatsWhereInput | group_chatsWhereInput[]
+    OR?: group_chatsWhereInput[]
+    NOT?: group_chatsWhereInput | group_chatsWhereInput[]
+    id?: IntFilter<"group_chats"> | number
+    name?: StringFilter<"group_chats"> | string
+    description?: StringNullableFilter<"group_chats"> | string | null
+    type?: StringFilter<"group_chats"> | string
+    created_by?: IntFilter<"group_chats"> | number
+    avatar_url?: StringNullableFilter<"group_chats"> | string | null
+    is_active?: BoolFilter<"group_chats"> | boolean
+    max_members?: IntFilter<"group_chats"> | number
+    created_at?: DateTimeFilter<"group_chats"> | Date | string
+    updated_at?: DateTimeFilter<"group_chats"> | Date | string
+    creator?: XOR<UsersScalarRelationFilter, usersWhereInput>
+    members?: Group_membersListRelationFilter
+    messages?: Chat_messagesListRelationFilter
+  }
+
+  export type group_chatsOrderByWithRelationInput = {
+    id?: SortOrder
+    name?: SortOrder
+    description?: SortOrderInput | SortOrder
+    type?: SortOrder
+    created_by?: SortOrder
+    avatar_url?: SortOrderInput | SortOrder
+    is_active?: SortOrder
+    max_members?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+    creator?: usersOrderByWithRelationInput
+    members?: group_membersOrderByRelationAggregateInput
+    messages?: chat_messagesOrderByRelationAggregateInput
+  }
+
+  export type group_chatsWhereUniqueInput = Prisma.AtLeast<{
+    id?: number
+    AND?: group_chatsWhereInput | group_chatsWhereInput[]
+    OR?: group_chatsWhereInput[]
+    NOT?: group_chatsWhereInput | group_chatsWhereInput[]
+    name?: StringFilter<"group_chats"> | string
+    description?: StringNullableFilter<"group_chats"> | string | null
+    type?: StringFilter<"group_chats"> | string
+    created_by?: IntFilter<"group_chats"> | number
+    avatar_url?: StringNullableFilter<"group_chats"> | string | null
+    is_active?: BoolFilter<"group_chats"> | boolean
+    max_members?: IntFilter<"group_chats"> | number
+    created_at?: DateTimeFilter<"group_chats"> | Date | string
+    updated_at?: DateTimeFilter<"group_chats"> | Date | string
+    creator?: XOR<UsersScalarRelationFilter, usersWhereInput>
+    members?: Group_membersListRelationFilter
+    messages?: Chat_messagesListRelationFilter
+  }, "id">
+
+  export type group_chatsOrderByWithAggregationInput = {
+    id?: SortOrder
+    name?: SortOrder
+    description?: SortOrderInput | SortOrder
+    type?: SortOrder
+    created_by?: SortOrder
+    avatar_url?: SortOrderInput | SortOrder
+    is_active?: SortOrder
+    max_members?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+    _count?: group_chatsCountOrderByAggregateInput
+    _avg?: group_chatsAvgOrderByAggregateInput
+    _max?: group_chatsMaxOrderByAggregateInput
+    _min?: group_chatsMinOrderByAggregateInput
+    _sum?: group_chatsSumOrderByAggregateInput
+  }
+
+  export type group_chatsScalarWhereWithAggregatesInput = {
+    AND?: group_chatsScalarWhereWithAggregatesInput | group_chatsScalarWhereWithAggregatesInput[]
+    OR?: group_chatsScalarWhereWithAggregatesInput[]
+    NOT?: group_chatsScalarWhereWithAggregatesInput | group_chatsScalarWhereWithAggregatesInput[]
+    id?: IntWithAggregatesFilter<"group_chats"> | number
+    name?: StringWithAggregatesFilter<"group_chats"> | string
+    description?: StringNullableWithAggregatesFilter<"group_chats"> | string | null
+    type?: StringWithAggregatesFilter<"group_chats"> | string
+    created_by?: IntWithAggregatesFilter<"group_chats"> | number
+    avatar_url?: StringNullableWithAggregatesFilter<"group_chats"> | string | null
+    is_active?: BoolWithAggregatesFilter<"group_chats"> | boolean
+    max_members?: IntWithAggregatesFilter<"group_chats"> | number
+    created_at?: DateTimeWithAggregatesFilter<"group_chats"> | Date | string
+    updated_at?: DateTimeWithAggregatesFilter<"group_chats"> | Date | string
+  }
+
+  export type group_membersWhereInput = {
+    AND?: group_membersWhereInput | group_membersWhereInput[]
+    OR?: group_membersWhereInput[]
+    NOT?: group_membersWhereInput | group_membersWhereInput[]
+    id?: IntFilter<"group_members"> | number
+    group_id?: IntFilter<"group_members"> | number
+    user_id?: IntFilter<"group_members"> | number
+    role?: StringFilter<"group_members"> | string
+    joined_at?: DateTimeFilter<"group_members"> | Date | string
+    is_muted?: BoolFilter<"group_members"> | boolean
+    group?: XOR<Group_chatsScalarRelationFilter, group_chatsWhereInput>
+    user?: XOR<UsersScalarRelationFilter, usersWhereInput>
+  }
+
+  export type group_membersOrderByWithRelationInput = {
+    id?: SortOrder
+    group_id?: SortOrder
+    user_id?: SortOrder
+    role?: SortOrder
+    joined_at?: SortOrder
+    is_muted?: SortOrder
+    group?: group_chatsOrderByWithRelationInput
+    user?: usersOrderByWithRelationInput
+  }
+
+  export type group_membersWhereUniqueInput = Prisma.AtLeast<{
+    id?: number
+    group_id_user_id?: group_membersGroup_idUser_idCompoundUniqueInput
+    AND?: group_membersWhereInput | group_membersWhereInput[]
+    OR?: group_membersWhereInput[]
+    NOT?: group_membersWhereInput | group_membersWhereInput[]
+    group_id?: IntFilter<"group_members"> | number
+    user_id?: IntFilter<"group_members"> | number
+    role?: StringFilter<"group_members"> | string
+    joined_at?: DateTimeFilter<"group_members"> | Date | string
+    is_muted?: BoolFilter<"group_members"> | boolean
+    group?: XOR<Group_chatsScalarRelationFilter, group_chatsWhereInput>
+    user?: XOR<UsersScalarRelationFilter, usersWhereInput>
+  }, "id" | "group_id_user_id">
+
+  export type group_membersOrderByWithAggregationInput = {
+    id?: SortOrder
+    group_id?: SortOrder
+    user_id?: SortOrder
+    role?: SortOrder
+    joined_at?: SortOrder
+    is_muted?: SortOrder
+    _count?: group_membersCountOrderByAggregateInput
+    _avg?: group_membersAvgOrderByAggregateInput
+    _max?: group_membersMaxOrderByAggregateInput
+    _min?: group_membersMinOrderByAggregateInput
+    _sum?: group_membersSumOrderByAggregateInput
+  }
+
+  export type group_membersScalarWhereWithAggregatesInput = {
+    AND?: group_membersScalarWhereWithAggregatesInput | group_membersScalarWhereWithAggregatesInput[]
+    OR?: group_membersScalarWhereWithAggregatesInput[]
+    NOT?: group_membersScalarWhereWithAggregatesInput | group_membersScalarWhereWithAggregatesInput[]
+    id?: IntWithAggregatesFilter<"group_members"> | number
+    group_id?: IntWithAggregatesFilter<"group_members"> | number
+    user_id?: IntWithAggregatesFilter<"group_members"> | number
+    role?: StringWithAggregatesFilter<"group_members"> | string
+    joined_at?: DateTimeWithAggregatesFilter<"group_members"> | Date | string
+    is_muted?: BoolWithAggregatesFilter<"group_members"> | boolean
+  }
+
+  export type chat_messagesWhereInput = {
+    AND?: chat_messagesWhereInput | chat_messagesWhereInput[]
+    OR?: chat_messagesWhereInput[]
+    NOT?: chat_messagesWhereInput | chat_messagesWhereInput[]
+    id?: IntFilter<"chat_messages"> | number
+    group_id?: IntFilter<"chat_messages"> | number
+    user_id?: IntNullableFilter<"chat_messages"> | number | null
+    message_text?: StringFilter<"chat_messages"> | string
+    message_type?: StringFilter<"chat_messages"> | string
+    reply_to?: IntNullableFilter<"chat_messages"> | number | null
+    is_edited?: BoolFilter<"chat_messages"> | boolean
+    is_deleted?: BoolFilter<"chat_messages"> | boolean
+    created_at?: DateTimeFilter<"chat_messages"> | Date | string
+    updated_at?: DateTimeFilter<"chat_messages"> | Date | string
+    group?: XOR<Group_chatsScalarRelationFilter, group_chatsWhereInput>
+    user?: XOR<UsersNullableScalarRelationFilter, usersWhereInput> | null
+    reply_msg?: XOR<Chat_messagesNullableScalarRelationFilter, chat_messagesWhereInput> | null
+    replies?: Chat_messagesListRelationFilter
+    reactions?: Message_reactionsListRelationFilter
+  }
+
+  export type chat_messagesOrderByWithRelationInput = {
+    id?: SortOrder
+    group_id?: SortOrder
+    user_id?: SortOrderInput | SortOrder
+    message_text?: SortOrder
+    message_type?: SortOrder
+    reply_to?: SortOrderInput | SortOrder
+    is_edited?: SortOrder
+    is_deleted?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+    group?: group_chatsOrderByWithRelationInput
+    user?: usersOrderByWithRelationInput
+    reply_msg?: chat_messagesOrderByWithRelationInput
+    replies?: chat_messagesOrderByRelationAggregateInput
+    reactions?: message_reactionsOrderByRelationAggregateInput
+  }
+
+  export type chat_messagesWhereUniqueInput = Prisma.AtLeast<{
+    id?: number
+    AND?: chat_messagesWhereInput | chat_messagesWhereInput[]
+    OR?: chat_messagesWhereInput[]
+    NOT?: chat_messagesWhereInput | chat_messagesWhereInput[]
+    group_id?: IntFilter<"chat_messages"> | number
+    user_id?: IntNullableFilter<"chat_messages"> | number | null
+    message_text?: StringFilter<"chat_messages"> | string
+    message_type?: StringFilter<"chat_messages"> | string
+    reply_to?: IntNullableFilter<"chat_messages"> | number | null
+    is_edited?: BoolFilter<"chat_messages"> | boolean
+    is_deleted?: BoolFilter<"chat_messages"> | boolean
+    created_at?: DateTimeFilter<"chat_messages"> | Date | string
+    updated_at?: DateTimeFilter<"chat_messages"> | Date | string
+    group?: XOR<Group_chatsScalarRelationFilter, group_chatsWhereInput>
+    user?: XOR<UsersNullableScalarRelationFilter, usersWhereInput> | null
+    reply_msg?: XOR<Chat_messagesNullableScalarRelationFilter, chat_messagesWhereInput> | null
+    replies?: Chat_messagesListRelationFilter
+    reactions?: Message_reactionsListRelationFilter
+  }, "id">
+
+  export type chat_messagesOrderByWithAggregationInput = {
+    id?: SortOrder
+    group_id?: SortOrder
+    user_id?: SortOrderInput | SortOrder
+    message_text?: SortOrder
+    message_type?: SortOrder
+    reply_to?: SortOrderInput | SortOrder
+    is_edited?: SortOrder
+    is_deleted?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+    _count?: chat_messagesCountOrderByAggregateInput
+    _avg?: chat_messagesAvgOrderByAggregateInput
+    _max?: chat_messagesMaxOrderByAggregateInput
+    _min?: chat_messagesMinOrderByAggregateInput
+    _sum?: chat_messagesSumOrderByAggregateInput
+  }
+
+  export type chat_messagesScalarWhereWithAggregatesInput = {
+    AND?: chat_messagesScalarWhereWithAggregatesInput | chat_messagesScalarWhereWithAggregatesInput[]
+    OR?: chat_messagesScalarWhereWithAggregatesInput[]
+    NOT?: chat_messagesScalarWhereWithAggregatesInput | chat_messagesScalarWhereWithAggregatesInput[]
+    id?: IntWithAggregatesFilter<"chat_messages"> | number
+    group_id?: IntWithAggregatesFilter<"chat_messages"> | number
+    user_id?: IntNullableWithAggregatesFilter<"chat_messages"> | number | null
+    message_text?: StringWithAggregatesFilter<"chat_messages"> | string
+    message_type?: StringWithAggregatesFilter<"chat_messages"> | string
+    reply_to?: IntNullableWithAggregatesFilter<"chat_messages"> | number | null
+    is_edited?: BoolWithAggregatesFilter<"chat_messages"> | boolean
+    is_deleted?: BoolWithAggregatesFilter<"chat_messages"> | boolean
+    created_at?: DateTimeWithAggregatesFilter<"chat_messages"> | Date | string
+    updated_at?: DateTimeWithAggregatesFilter<"chat_messages"> | Date | string
+  }
+
+  export type message_reactionsWhereInput = {
+    AND?: message_reactionsWhereInput | message_reactionsWhereInput[]
+    OR?: message_reactionsWhereInput[]
+    NOT?: message_reactionsWhereInput | message_reactionsWhereInput[]
+    id?: IntFilter<"message_reactions"> | number
+    message_id?: IntFilter<"message_reactions"> | number
+    user_id?: IntFilter<"message_reactions"> | number
+    reaction?: StringFilter<"message_reactions"> | string
+    created_at?: DateTimeFilter<"message_reactions"> | Date | string
+    message?: XOR<Chat_messagesScalarRelationFilter, chat_messagesWhereInput>
+    user?: XOR<UsersScalarRelationFilter, usersWhereInput>
+  }
+
+  export type message_reactionsOrderByWithRelationInput = {
+    id?: SortOrder
+    message_id?: SortOrder
+    user_id?: SortOrder
+    reaction?: SortOrder
+    created_at?: SortOrder
+    message?: chat_messagesOrderByWithRelationInput
+    user?: usersOrderByWithRelationInput
+  }
+
+  export type message_reactionsWhereUniqueInput = Prisma.AtLeast<{
+    id?: number
+    message_id_user_id_reaction?: message_reactionsMessage_idUser_idReactionCompoundUniqueInput
+    AND?: message_reactionsWhereInput | message_reactionsWhereInput[]
+    OR?: message_reactionsWhereInput[]
+    NOT?: message_reactionsWhereInput | message_reactionsWhereInput[]
+    message_id?: IntFilter<"message_reactions"> | number
+    user_id?: IntFilter<"message_reactions"> | number
+    reaction?: StringFilter<"message_reactions"> | string
+    created_at?: DateTimeFilter<"message_reactions"> | Date | string
+    message?: XOR<Chat_messagesScalarRelationFilter, chat_messagesWhereInput>
+    user?: XOR<UsersScalarRelationFilter, usersWhereInput>
+  }, "id" | "message_id_user_id_reaction">
+
+  export type message_reactionsOrderByWithAggregationInput = {
+    id?: SortOrder
+    message_id?: SortOrder
+    user_id?: SortOrder
+    reaction?: SortOrder
+    created_at?: SortOrder
+    _count?: message_reactionsCountOrderByAggregateInput
+    _avg?: message_reactionsAvgOrderByAggregateInput
+    _max?: message_reactionsMaxOrderByAggregateInput
+    _min?: message_reactionsMinOrderByAggregateInput
+    _sum?: message_reactionsSumOrderByAggregateInput
+  }
+
+  export type message_reactionsScalarWhereWithAggregatesInput = {
+    AND?: message_reactionsScalarWhereWithAggregatesInput | message_reactionsScalarWhereWithAggregatesInput[]
+    OR?: message_reactionsScalarWhereWithAggregatesInput[]
+    NOT?: message_reactionsScalarWhereWithAggregatesInput | message_reactionsScalarWhereWithAggregatesInput[]
+    id?: IntWithAggregatesFilter<"message_reactions"> | number
+    message_id?: IntWithAggregatesFilter<"message_reactions"> | number
+    user_id?: IntWithAggregatesFilter<"message_reactions"> | number
+    reaction?: StringWithAggregatesFilter<"message_reactions"> | string
+    created_at?: DateTimeWithAggregatesFilter<"message_reactions"> | Date | string
   }
 
   export type blog_viewsWhereInput = {
@@ -44066,6 +49781,10 @@ export namespace Prisma {
     role_upgrade_requests_role_upgrade_requests_user_idTousers?: Role_upgrade_requestsListRelationFilter
     subscriptions?: SubscriptionsListRelationFilter
     user_settings?: XOR<User_settingsNullableScalarRelationFilter, user_settingsWhereInput> | null
+    created_groups?: Group_chatsListRelationFilter
+    group_memberships?: Group_membersListRelationFilter
+    chat_messages?: Chat_messagesListRelationFilter
+    message_reactions?: Message_reactionsListRelationFilter
   }
 
   export type usersOrderByWithRelationInput = {
@@ -44109,6 +49828,10 @@ export namespace Prisma {
     role_upgrade_requests_role_upgrade_requests_user_idTousers?: role_upgrade_requestsOrderByRelationAggregateInput
     subscriptions?: subscriptionsOrderByRelationAggregateInput
     user_settings?: user_settingsOrderByWithRelationInput
+    created_groups?: group_chatsOrderByRelationAggregateInput
+    group_memberships?: group_membersOrderByRelationAggregateInput
+    chat_messages?: chat_messagesOrderByRelationAggregateInput
+    message_reactions?: message_reactionsOrderByRelationAggregateInput
   }
 
   export type usersWhereUniqueInput = Prisma.AtLeast<{
@@ -44155,6 +49878,10 @@ export namespace Prisma {
     role_upgrade_requests_role_upgrade_requests_user_idTousers?: Role_upgrade_requestsListRelationFilter
     subscriptions?: SubscriptionsListRelationFilter
     user_settings?: XOR<User_settingsNullableScalarRelationFilter, user_settingsWhereInput> | null
+    created_groups?: Group_chatsListRelationFilter
+    group_memberships?: Group_membersListRelationFilter
+    chat_messages?: Chat_messagesListRelationFilter
+    message_reactions?: Message_reactionsListRelationFilter
   }, "id" | "firebase_uid" | "email">
 
   export type usersOrderByWithAggregationInput = {
@@ -45992,6 +51719,303 @@ export namespace Prisma {
     cancellation_reason?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
+  export type group_chatsCreateInput = {
+    name: string
+    description?: string | null
+    type?: string
+    avatar_url?: string | null
+    is_active?: boolean
+    max_members?: number
+    created_at?: Date | string
+    updated_at?: Date | string
+    creator: usersCreateNestedOneWithoutCreated_groupsInput
+    members?: group_membersCreateNestedManyWithoutGroupInput
+    messages?: chat_messagesCreateNestedManyWithoutGroupInput
+  }
+
+  export type group_chatsUncheckedCreateInput = {
+    id?: number
+    name: string
+    description?: string | null
+    type?: string
+    created_by: number
+    avatar_url?: string | null
+    is_active?: boolean
+    max_members?: number
+    created_at?: Date | string
+    updated_at?: Date | string
+    members?: group_membersUncheckedCreateNestedManyWithoutGroupInput
+    messages?: chat_messagesUncheckedCreateNestedManyWithoutGroupInput
+  }
+
+  export type group_chatsUpdateInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    type?: StringFieldUpdateOperationsInput | string
+    avatar_url?: NullableStringFieldUpdateOperationsInput | string | null
+    is_active?: BoolFieldUpdateOperationsInput | boolean
+    max_members?: IntFieldUpdateOperationsInput | number
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    creator?: usersUpdateOneRequiredWithoutCreated_groupsNestedInput
+    members?: group_membersUpdateManyWithoutGroupNestedInput
+    messages?: chat_messagesUpdateManyWithoutGroupNestedInput
+  }
+
+  export type group_chatsUncheckedUpdateInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    type?: StringFieldUpdateOperationsInput | string
+    created_by?: IntFieldUpdateOperationsInput | number
+    avatar_url?: NullableStringFieldUpdateOperationsInput | string | null
+    is_active?: BoolFieldUpdateOperationsInput | boolean
+    max_members?: IntFieldUpdateOperationsInput | number
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    members?: group_membersUncheckedUpdateManyWithoutGroupNestedInput
+    messages?: chat_messagesUncheckedUpdateManyWithoutGroupNestedInput
+  }
+
+  export type group_chatsCreateManyInput = {
+    id?: number
+    name: string
+    description?: string | null
+    type?: string
+    created_by: number
+    avatar_url?: string | null
+    is_active?: boolean
+    max_members?: number
+    created_at?: Date | string
+    updated_at?: Date | string
+  }
+
+  export type group_chatsUpdateManyMutationInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    type?: StringFieldUpdateOperationsInput | string
+    avatar_url?: NullableStringFieldUpdateOperationsInput | string | null
+    is_active?: BoolFieldUpdateOperationsInput | boolean
+    max_members?: IntFieldUpdateOperationsInput | number
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type group_chatsUncheckedUpdateManyInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    type?: StringFieldUpdateOperationsInput | string
+    created_by?: IntFieldUpdateOperationsInput | number
+    avatar_url?: NullableStringFieldUpdateOperationsInput | string | null
+    is_active?: BoolFieldUpdateOperationsInput | boolean
+    max_members?: IntFieldUpdateOperationsInput | number
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type group_membersCreateInput = {
+    role?: string
+    joined_at?: Date | string
+    is_muted?: boolean
+    group: group_chatsCreateNestedOneWithoutMembersInput
+    user: usersCreateNestedOneWithoutGroup_membershipsInput
+  }
+
+  export type group_membersUncheckedCreateInput = {
+    id?: number
+    group_id: number
+    user_id: number
+    role?: string
+    joined_at?: Date | string
+    is_muted?: boolean
+  }
+
+  export type group_membersUpdateInput = {
+    role?: StringFieldUpdateOperationsInput | string
+    joined_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    is_muted?: BoolFieldUpdateOperationsInput | boolean
+    group?: group_chatsUpdateOneRequiredWithoutMembersNestedInput
+    user?: usersUpdateOneRequiredWithoutGroup_membershipsNestedInput
+  }
+
+  export type group_membersUncheckedUpdateInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    group_id?: IntFieldUpdateOperationsInput | number
+    user_id?: IntFieldUpdateOperationsInput | number
+    role?: StringFieldUpdateOperationsInput | string
+    joined_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    is_muted?: BoolFieldUpdateOperationsInput | boolean
+  }
+
+  export type group_membersCreateManyInput = {
+    id?: number
+    group_id: number
+    user_id: number
+    role?: string
+    joined_at?: Date | string
+    is_muted?: boolean
+  }
+
+  export type group_membersUpdateManyMutationInput = {
+    role?: StringFieldUpdateOperationsInput | string
+    joined_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    is_muted?: BoolFieldUpdateOperationsInput | boolean
+  }
+
+  export type group_membersUncheckedUpdateManyInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    group_id?: IntFieldUpdateOperationsInput | number
+    user_id?: IntFieldUpdateOperationsInput | number
+    role?: StringFieldUpdateOperationsInput | string
+    joined_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    is_muted?: BoolFieldUpdateOperationsInput | boolean
+  }
+
+  export type chat_messagesCreateInput = {
+    message_text: string
+    message_type?: string
+    is_edited?: boolean
+    is_deleted?: boolean
+    created_at?: Date | string
+    updated_at?: Date | string
+    group: group_chatsCreateNestedOneWithoutMessagesInput
+    user?: usersCreateNestedOneWithoutChat_messagesInput
+    reply_msg?: chat_messagesCreateNestedOneWithoutRepliesInput
+    replies?: chat_messagesCreateNestedManyWithoutReply_msgInput
+    reactions?: message_reactionsCreateNestedManyWithoutMessageInput
+  }
+
+  export type chat_messagesUncheckedCreateInput = {
+    id?: number
+    group_id: number
+    user_id?: number | null
+    message_text: string
+    message_type?: string
+    reply_to?: number | null
+    is_edited?: boolean
+    is_deleted?: boolean
+    created_at?: Date | string
+    updated_at?: Date | string
+    replies?: chat_messagesUncheckedCreateNestedManyWithoutReply_msgInput
+    reactions?: message_reactionsUncheckedCreateNestedManyWithoutMessageInput
+  }
+
+  export type chat_messagesUpdateInput = {
+    message_text?: StringFieldUpdateOperationsInput | string
+    message_type?: StringFieldUpdateOperationsInput | string
+    is_edited?: BoolFieldUpdateOperationsInput | boolean
+    is_deleted?: BoolFieldUpdateOperationsInput | boolean
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    group?: group_chatsUpdateOneRequiredWithoutMessagesNestedInput
+    user?: usersUpdateOneWithoutChat_messagesNestedInput
+    reply_msg?: chat_messagesUpdateOneWithoutRepliesNestedInput
+    replies?: chat_messagesUpdateManyWithoutReply_msgNestedInput
+    reactions?: message_reactionsUpdateManyWithoutMessageNestedInput
+  }
+
+  export type chat_messagesUncheckedUpdateInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    group_id?: IntFieldUpdateOperationsInput | number
+    user_id?: NullableIntFieldUpdateOperationsInput | number | null
+    message_text?: StringFieldUpdateOperationsInput | string
+    message_type?: StringFieldUpdateOperationsInput | string
+    reply_to?: NullableIntFieldUpdateOperationsInput | number | null
+    is_edited?: BoolFieldUpdateOperationsInput | boolean
+    is_deleted?: BoolFieldUpdateOperationsInput | boolean
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    replies?: chat_messagesUncheckedUpdateManyWithoutReply_msgNestedInput
+    reactions?: message_reactionsUncheckedUpdateManyWithoutMessageNestedInput
+  }
+
+  export type chat_messagesCreateManyInput = {
+    id?: number
+    group_id: number
+    user_id?: number | null
+    message_text: string
+    message_type?: string
+    reply_to?: number | null
+    is_edited?: boolean
+    is_deleted?: boolean
+    created_at?: Date | string
+    updated_at?: Date | string
+  }
+
+  export type chat_messagesUpdateManyMutationInput = {
+    message_text?: StringFieldUpdateOperationsInput | string
+    message_type?: StringFieldUpdateOperationsInput | string
+    is_edited?: BoolFieldUpdateOperationsInput | boolean
+    is_deleted?: BoolFieldUpdateOperationsInput | boolean
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type chat_messagesUncheckedUpdateManyInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    group_id?: IntFieldUpdateOperationsInput | number
+    user_id?: NullableIntFieldUpdateOperationsInput | number | null
+    message_text?: StringFieldUpdateOperationsInput | string
+    message_type?: StringFieldUpdateOperationsInput | string
+    reply_to?: NullableIntFieldUpdateOperationsInput | number | null
+    is_edited?: BoolFieldUpdateOperationsInput | boolean
+    is_deleted?: BoolFieldUpdateOperationsInput | boolean
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type message_reactionsCreateInput = {
+    reaction: string
+    created_at?: Date | string
+    message: chat_messagesCreateNestedOneWithoutReactionsInput
+    user: usersCreateNestedOneWithoutMessage_reactionsInput
+  }
+
+  export type message_reactionsUncheckedCreateInput = {
+    id?: number
+    message_id: number
+    user_id: number
+    reaction: string
+    created_at?: Date | string
+  }
+
+  export type message_reactionsUpdateInput = {
+    reaction?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    message?: chat_messagesUpdateOneRequiredWithoutReactionsNestedInput
+    user?: usersUpdateOneRequiredWithoutMessage_reactionsNestedInput
+  }
+
+  export type message_reactionsUncheckedUpdateInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    message_id?: IntFieldUpdateOperationsInput | number
+    user_id?: IntFieldUpdateOperationsInput | number
+    reaction?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type message_reactionsCreateManyInput = {
+    id?: number
+    message_id: number
+    user_id: number
+    reaction: string
+    created_at?: Date | string
+  }
+
+  export type message_reactionsUpdateManyMutationInput = {
+    reaction?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type message_reactionsUncheckedUpdateManyInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    message_id?: IntFieldUpdateOperationsInput | number
+    user_id?: IntFieldUpdateOperationsInput | number
+    reaction?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type blog_viewsCreateInput = {
     ip_address?: string | null
     user_agent?: string | null
@@ -46959,6 +52983,10 @@ export namespace Prisma {
     role_upgrade_requests_role_upgrade_requests_user_idTousers?: role_upgrade_requestsCreateNestedManyWithoutUsers_role_upgrade_requests_user_idTousersInput
     subscriptions?: subscriptionsCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsCreateNestedOneWithoutUsersInput
+    created_groups?: group_chatsCreateNestedManyWithoutCreatorInput
+    group_memberships?: group_membersCreateNestedManyWithoutUserInput
+    chat_messages?: chat_messagesCreateNestedManyWithoutUserInput
+    message_reactions?: message_reactionsCreateNestedManyWithoutUserInput
   }
 
   export type usersUncheckedCreateInput = {
@@ -47002,6 +53030,10 @@ export namespace Prisma {
     role_upgrade_requests_role_upgrade_requests_user_idTousers?: role_upgrade_requestsUncheckedCreateNestedManyWithoutUsers_role_upgrade_requests_user_idTousersInput
     subscriptions?: subscriptionsUncheckedCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsUncheckedCreateNestedOneWithoutUsersInput
+    created_groups?: group_chatsUncheckedCreateNestedManyWithoutCreatorInput
+    group_memberships?: group_membersUncheckedCreateNestedManyWithoutUserInput
+    chat_messages?: chat_messagesUncheckedCreateNestedManyWithoutUserInput
+    message_reactions?: message_reactionsUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type usersUpdateInput = {
@@ -47044,6 +53076,10 @@ export namespace Prisma {
     role_upgrade_requests_role_upgrade_requests_user_idTousers?: role_upgrade_requestsUpdateManyWithoutUsers_role_upgrade_requests_user_idTousersNestedInput
     subscriptions?: subscriptionsUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUpdateOneWithoutUsersNestedInput
+    created_groups?: group_chatsUpdateManyWithoutCreatorNestedInput
+    group_memberships?: group_membersUpdateManyWithoutUserNestedInput
+    chat_messages?: chat_messagesUpdateManyWithoutUserNestedInput
+    message_reactions?: message_reactionsUpdateManyWithoutUserNestedInput
   }
 
   export type usersUncheckedUpdateInput = {
@@ -47087,6 +53123,10 @@ export namespace Prisma {
     role_upgrade_requests_role_upgrade_requests_user_idTousers?: role_upgrade_requestsUncheckedUpdateManyWithoutUsers_role_upgrade_requests_user_idTousersNestedInput
     subscriptions?: subscriptionsUncheckedUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUncheckedUpdateOneWithoutUsersNestedInput
+    created_groups?: group_chatsUncheckedUpdateManyWithoutCreatorNestedInput
+    group_memberships?: group_membersUncheckedUpdateManyWithoutUserNestedInput
+    chat_messages?: chat_messagesUncheckedUpdateManyWithoutUserNestedInput
+    message_reactions?: message_reactionsUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type usersCreateManyInput = {
@@ -49244,6 +55284,292 @@ export namespace Prisma {
     _max?: NestedStringNullableFilter<$PrismaModel>
   }
 
+  export type StringFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel>
+    in?: string[] | ListStringFieldRefInput<$PrismaModel>
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel>
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    mode?: QueryMode
+    not?: NestedStringFilter<$PrismaModel> | string
+  }
+
+  export type BoolFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolFilter<$PrismaModel> | boolean
+  }
+
+  export type UsersScalarRelationFilter = {
+    is?: usersWhereInput
+    isNot?: usersWhereInput
+  }
+
+  export type Group_membersListRelationFilter = {
+    every?: group_membersWhereInput
+    some?: group_membersWhereInput
+    none?: group_membersWhereInput
+  }
+
+  export type Chat_messagesListRelationFilter = {
+    every?: chat_messagesWhereInput
+    some?: chat_messagesWhereInput
+    none?: chat_messagesWhereInput
+  }
+
+  export type group_membersOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type chat_messagesOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type group_chatsCountOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    description?: SortOrder
+    type?: SortOrder
+    created_by?: SortOrder
+    avatar_url?: SortOrder
+    is_active?: SortOrder
+    max_members?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+  }
+
+  export type group_chatsAvgOrderByAggregateInput = {
+    id?: SortOrder
+    created_by?: SortOrder
+    max_members?: SortOrder
+  }
+
+  export type group_chatsMaxOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    description?: SortOrder
+    type?: SortOrder
+    created_by?: SortOrder
+    avatar_url?: SortOrder
+    is_active?: SortOrder
+    max_members?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+  }
+
+  export type group_chatsMinOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    description?: SortOrder
+    type?: SortOrder
+    created_by?: SortOrder
+    avatar_url?: SortOrder
+    is_active?: SortOrder
+    max_members?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+  }
+
+  export type group_chatsSumOrderByAggregateInput = {
+    id?: SortOrder
+    created_by?: SortOrder
+    max_members?: SortOrder
+  }
+
+  export type StringWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel>
+    in?: string[] | ListStringFieldRefInput<$PrismaModel>
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel>
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    mode?: QueryMode
+    not?: NestedStringWithAggregatesFilter<$PrismaModel> | string
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedStringFilter<$PrismaModel>
+    _max?: NestedStringFilter<$PrismaModel>
+  }
+
+  export type BoolWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedBoolFilter<$PrismaModel>
+    _max?: NestedBoolFilter<$PrismaModel>
+  }
+
+  export type Group_chatsScalarRelationFilter = {
+    is?: group_chatsWhereInput
+    isNot?: group_chatsWhereInput
+  }
+
+  export type group_membersGroup_idUser_idCompoundUniqueInput = {
+    group_id: number
+    user_id: number
+  }
+
+  export type group_membersCountOrderByAggregateInput = {
+    id?: SortOrder
+    group_id?: SortOrder
+    user_id?: SortOrder
+    role?: SortOrder
+    joined_at?: SortOrder
+    is_muted?: SortOrder
+  }
+
+  export type group_membersAvgOrderByAggregateInput = {
+    id?: SortOrder
+    group_id?: SortOrder
+    user_id?: SortOrder
+  }
+
+  export type group_membersMaxOrderByAggregateInput = {
+    id?: SortOrder
+    group_id?: SortOrder
+    user_id?: SortOrder
+    role?: SortOrder
+    joined_at?: SortOrder
+    is_muted?: SortOrder
+  }
+
+  export type group_membersMinOrderByAggregateInput = {
+    id?: SortOrder
+    group_id?: SortOrder
+    user_id?: SortOrder
+    role?: SortOrder
+    joined_at?: SortOrder
+    is_muted?: SortOrder
+  }
+
+  export type group_membersSumOrderByAggregateInput = {
+    id?: SortOrder
+    group_id?: SortOrder
+    user_id?: SortOrder
+  }
+
+  export type Chat_messagesNullableScalarRelationFilter = {
+    is?: chat_messagesWhereInput | null
+    isNot?: chat_messagesWhereInput | null
+  }
+
+  export type Message_reactionsListRelationFilter = {
+    every?: message_reactionsWhereInput
+    some?: message_reactionsWhereInput
+    none?: message_reactionsWhereInput
+  }
+
+  export type message_reactionsOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type chat_messagesCountOrderByAggregateInput = {
+    id?: SortOrder
+    group_id?: SortOrder
+    user_id?: SortOrder
+    message_text?: SortOrder
+    message_type?: SortOrder
+    reply_to?: SortOrder
+    is_edited?: SortOrder
+    is_deleted?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+  }
+
+  export type chat_messagesAvgOrderByAggregateInput = {
+    id?: SortOrder
+    group_id?: SortOrder
+    user_id?: SortOrder
+    reply_to?: SortOrder
+  }
+
+  export type chat_messagesMaxOrderByAggregateInput = {
+    id?: SortOrder
+    group_id?: SortOrder
+    user_id?: SortOrder
+    message_text?: SortOrder
+    message_type?: SortOrder
+    reply_to?: SortOrder
+    is_edited?: SortOrder
+    is_deleted?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+  }
+
+  export type chat_messagesMinOrderByAggregateInput = {
+    id?: SortOrder
+    group_id?: SortOrder
+    user_id?: SortOrder
+    message_text?: SortOrder
+    message_type?: SortOrder
+    reply_to?: SortOrder
+    is_edited?: SortOrder
+    is_deleted?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+  }
+
+  export type chat_messagesSumOrderByAggregateInput = {
+    id?: SortOrder
+    group_id?: SortOrder
+    user_id?: SortOrder
+    reply_to?: SortOrder
+  }
+
+  export type Chat_messagesScalarRelationFilter = {
+    is?: chat_messagesWhereInput
+    isNot?: chat_messagesWhereInput
+  }
+
+  export type message_reactionsMessage_idUser_idReactionCompoundUniqueInput = {
+    message_id: number
+    user_id: number
+    reaction: string
+  }
+
+  export type message_reactionsCountOrderByAggregateInput = {
+    id?: SortOrder
+    message_id?: SortOrder
+    user_id?: SortOrder
+    reaction?: SortOrder
+    created_at?: SortOrder
+  }
+
+  export type message_reactionsAvgOrderByAggregateInput = {
+    id?: SortOrder
+    message_id?: SortOrder
+    user_id?: SortOrder
+  }
+
+  export type message_reactionsMaxOrderByAggregateInput = {
+    id?: SortOrder
+    message_id?: SortOrder
+    user_id?: SortOrder
+    reaction?: SortOrder
+    created_at?: SortOrder
+  }
+
+  export type message_reactionsMinOrderByAggregateInput = {
+    id?: SortOrder
+    message_id?: SortOrder
+    user_id?: SortOrder
+    reaction?: SortOrder
+    created_at?: SortOrder
+  }
+
+  export type message_reactionsSumOrderByAggregateInput = {
+    id?: SortOrder
+    message_id?: SortOrder
+    user_id?: SortOrder
+  }
+
   export type BlogsNullableScalarRelationFilter = {
     is?: blogsWhereInput | null
     isNot?: blogsWhereInput | null
@@ -49286,21 +55612,6 @@ export namespace Prisma {
     id?: SortOrder
     blog_id?: SortOrder
     user_id?: SortOrder
-  }
-
-  export type StringFilter<$PrismaModel = never> = {
-    equals?: string | StringFieldRefInput<$PrismaModel>
-    in?: string[] | ListStringFieldRefInput<$PrismaModel>
-    notIn?: string[] | ListStringFieldRefInput<$PrismaModel>
-    lt?: string | StringFieldRefInput<$PrismaModel>
-    lte?: string | StringFieldRefInput<$PrismaModel>
-    gt?: string | StringFieldRefInput<$PrismaModel>
-    gte?: string | StringFieldRefInput<$PrismaModel>
-    contains?: string | StringFieldRefInput<$PrismaModel>
-    startsWith?: string | StringFieldRefInput<$PrismaModel>
-    endsWith?: string | StringFieldRefInput<$PrismaModel>
-    mode?: QueryMode
-    not?: NestedStringFilter<$PrismaModel> | string
   }
   export type JsonNullableFilter<$PrismaModel = never> =
     | PatchUndefined<
@@ -49433,24 +55744,6 @@ export namespace Prisma {
   export type night_campsSumOrderByAggregateInput = {
     id?: SortOrder
     number_of_participants?: SortOrder
-  }
-
-  export type StringWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: string | StringFieldRefInput<$PrismaModel>
-    in?: string[] | ListStringFieldRefInput<$PrismaModel>
-    notIn?: string[] | ListStringFieldRefInput<$PrismaModel>
-    lt?: string | StringFieldRefInput<$PrismaModel>
-    lte?: string | StringFieldRefInput<$PrismaModel>
-    gt?: string | StringFieldRefInput<$PrismaModel>
-    gte?: string | StringFieldRefInput<$PrismaModel>
-    contains?: string | StringFieldRefInput<$PrismaModel>
-    startsWith?: string | StringFieldRefInput<$PrismaModel>
-    endsWith?: string | StringFieldRefInput<$PrismaModel>
-    mode?: QueryMode
-    not?: NestedStringWithAggregatesFilter<$PrismaModel> | string
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedStringFilter<$PrismaModel>
-    _max?: NestedStringFilter<$PrismaModel>
   }
   export type JsonNullableWithAggregatesFilter<$PrismaModel = never> =
     | PatchUndefined<
@@ -50224,6 +56517,12 @@ export namespace Prisma {
     isNot?: user_settingsWhereInput | null
   }
 
+  export type Group_chatsListRelationFilter = {
+    every?: group_chatsWhereInput
+    some?: group_chatsWhereInput
+    none?: group_chatsWhereInput
+  }
+
   export type QuizParticipantsOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
@@ -50265,6 +56564,10 @@ export namespace Prisma {
   }
 
   export type subscriptionsOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type group_chatsOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -50413,11 +56716,6 @@ export namespace Prisma {
     not?: NestedUuidNullableFilter<$PrismaModel> | string | null
   }
 
-  export type BoolFilter<$PrismaModel = never> = {
-    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
-    not?: NestedBoolFilter<$PrismaModel> | boolean
-  }
-
   export type Chatbot_sessionsNullableScalarRelationFilter = {
     is?: chatbot_sessionsWhereInput | null
     isNot?: chatbot_sessionsWhereInput | null
@@ -50478,14 +56776,6 @@ export namespace Prisma {
     _count?: NestedIntNullableFilter<$PrismaModel>
     _min?: NestedStringNullableFilter<$PrismaModel>
     _max?: NestedStringNullableFilter<$PrismaModel>
-  }
-
-  export type BoolWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
-    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedBoolFilter<$PrismaModel>
-    _max?: NestedBoolFilter<$PrismaModel>
   }
 
   export type Enumequipment_categoryFilter<$PrismaModel = never> = {
@@ -50737,11 +57027,6 @@ export namespace Prisma {
     in?: $Enums.approve_application_status[] | ListEnumapprove_application_statusFieldRefInput<$PrismaModel> | null
     notIn?: $Enums.approve_application_status[] | ListEnumapprove_application_statusFieldRefInput<$PrismaModel> | null
     not?: NestedEnumapprove_application_statusNullableFilter<$PrismaModel> | $Enums.approve_application_status | null
-  }
-
-  export type UsersScalarRelationFilter = {
-    is?: usersWhereInput
-    isNot?: usersWhereInput
   }
 
   export type guide_applicationCountOrderByAggregateInput = {
@@ -51641,6 +57926,298 @@ export namespace Prisma {
     deleteMany?: paymentsScalarWhereInput | paymentsScalarWhereInput[]
   }
 
+  export type usersCreateNestedOneWithoutCreated_groupsInput = {
+    create?: XOR<usersCreateWithoutCreated_groupsInput, usersUncheckedCreateWithoutCreated_groupsInput>
+    connectOrCreate?: usersCreateOrConnectWithoutCreated_groupsInput
+    connect?: usersWhereUniqueInput
+  }
+
+  export type group_membersCreateNestedManyWithoutGroupInput = {
+    create?: XOR<group_membersCreateWithoutGroupInput, group_membersUncheckedCreateWithoutGroupInput> | group_membersCreateWithoutGroupInput[] | group_membersUncheckedCreateWithoutGroupInput[]
+    connectOrCreate?: group_membersCreateOrConnectWithoutGroupInput | group_membersCreateOrConnectWithoutGroupInput[]
+    createMany?: group_membersCreateManyGroupInputEnvelope
+    connect?: group_membersWhereUniqueInput | group_membersWhereUniqueInput[]
+  }
+
+  export type chat_messagesCreateNestedManyWithoutGroupInput = {
+    create?: XOR<chat_messagesCreateWithoutGroupInput, chat_messagesUncheckedCreateWithoutGroupInput> | chat_messagesCreateWithoutGroupInput[] | chat_messagesUncheckedCreateWithoutGroupInput[]
+    connectOrCreate?: chat_messagesCreateOrConnectWithoutGroupInput | chat_messagesCreateOrConnectWithoutGroupInput[]
+    createMany?: chat_messagesCreateManyGroupInputEnvelope
+    connect?: chat_messagesWhereUniqueInput | chat_messagesWhereUniqueInput[]
+  }
+
+  export type group_membersUncheckedCreateNestedManyWithoutGroupInput = {
+    create?: XOR<group_membersCreateWithoutGroupInput, group_membersUncheckedCreateWithoutGroupInput> | group_membersCreateWithoutGroupInput[] | group_membersUncheckedCreateWithoutGroupInput[]
+    connectOrCreate?: group_membersCreateOrConnectWithoutGroupInput | group_membersCreateOrConnectWithoutGroupInput[]
+    createMany?: group_membersCreateManyGroupInputEnvelope
+    connect?: group_membersWhereUniqueInput | group_membersWhereUniqueInput[]
+  }
+
+  export type chat_messagesUncheckedCreateNestedManyWithoutGroupInput = {
+    create?: XOR<chat_messagesCreateWithoutGroupInput, chat_messagesUncheckedCreateWithoutGroupInput> | chat_messagesCreateWithoutGroupInput[] | chat_messagesUncheckedCreateWithoutGroupInput[]
+    connectOrCreate?: chat_messagesCreateOrConnectWithoutGroupInput | chat_messagesCreateOrConnectWithoutGroupInput[]
+    createMany?: chat_messagesCreateManyGroupInputEnvelope
+    connect?: chat_messagesWhereUniqueInput | chat_messagesWhereUniqueInput[]
+  }
+
+  export type StringFieldUpdateOperationsInput = {
+    set?: string
+  }
+
+  export type BoolFieldUpdateOperationsInput = {
+    set?: boolean
+  }
+
+  export type usersUpdateOneRequiredWithoutCreated_groupsNestedInput = {
+    create?: XOR<usersCreateWithoutCreated_groupsInput, usersUncheckedCreateWithoutCreated_groupsInput>
+    connectOrCreate?: usersCreateOrConnectWithoutCreated_groupsInput
+    upsert?: usersUpsertWithoutCreated_groupsInput
+    connect?: usersWhereUniqueInput
+    update?: XOR<XOR<usersUpdateToOneWithWhereWithoutCreated_groupsInput, usersUpdateWithoutCreated_groupsInput>, usersUncheckedUpdateWithoutCreated_groupsInput>
+  }
+
+  export type group_membersUpdateManyWithoutGroupNestedInput = {
+    create?: XOR<group_membersCreateWithoutGroupInput, group_membersUncheckedCreateWithoutGroupInput> | group_membersCreateWithoutGroupInput[] | group_membersUncheckedCreateWithoutGroupInput[]
+    connectOrCreate?: group_membersCreateOrConnectWithoutGroupInput | group_membersCreateOrConnectWithoutGroupInput[]
+    upsert?: group_membersUpsertWithWhereUniqueWithoutGroupInput | group_membersUpsertWithWhereUniqueWithoutGroupInput[]
+    createMany?: group_membersCreateManyGroupInputEnvelope
+    set?: group_membersWhereUniqueInput | group_membersWhereUniqueInput[]
+    disconnect?: group_membersWhereUniqueInput | group_membersWhereUniqueInput[]
+    delete?: group_membersWhereUniqueInput | group_membersWhereUniqueInput[]
+    connect?: group_membersWhereUniqueInput | group_membersWhereUniqueInput[]
+    update?: group_membersUpdateWithWhereUniqueWithoutGroupInput | group_membersUpdateWithWhereUniqueWithoutGroupInput[]
+    updateMany?: group_membersUpdateManyWithWhereWithoutGroupInput | group_membersUpdateManyWithWhereWithoutGroupInput[]
+    deleteMany?: group_membersScalarWhereInput | group_membersScalarWhereInput[]
+  }
+
+  export type chat_messagesUpdateManyWithoutGroupNestedInput = {
+    create?: XOR<chat_messagesCreateWithoutGroupInput, chat_messagesUncheckedCreateWithoutGroupInput> | chat_messagesCreateWithoutGroupInput[] | chat_messagesUncheckedCreateWithoutGroupInput[]
+    connectOrCreate?: chat_messagesCreateOrConnectWithoutGroupInput | chat_messagesCreateOrConnectWithoutGroupInput[]
+    upsert?: chat_messagesUpsertWithWhereUniqueWithoutGroupInput | chat_messagesUpsertWithWhereUniqueWithoutGroupInput[]
+    createMany?: chat_messagesCreateManyGroupInputEnvelope
+    set?: chat_messagesWhereUniqueInput | chat_messagesWhereUniqueInput[]
+    disconnect?: chat_messagesWhereUniqueInput | chat_messagesWhereUniqueInput[]
+    delete?: chat_messagesWhereUniqueInput | chat_messagesWhereUniqueInput[]
+    connect?: chat_messagesWhereUniqueInput | chat_messagesWhereUniqueInput[]
+    update?: chat_messagesUpdateWithWhereUniqueWithoutGroupInput | chat_messagesUpdateWithWhereUniqueWithoutGroupInput[]
+    updateMany?: chat_messagesUpdateManyWithWhereWithoutGroupInput | chat_messagesUpdateManyWithWhereWithoutGroupInput[]
+    deleteMany?: chat_messagesScalarWhereInput | chat_messagesScalarWhereInput[]
+  }
+
+  export type group_membersUncheckedUpdateManyWithoutGroupNestedInput = {
+    create?: XOR<group_membersCreateWithoutGroupInput, group_membersUncheckedCreateWithoutGroupInput> | group_membersCreateWithoutGroupInput[] | group_membersUncheckedCreateWithoutGroupInput[]
+    connectOrCreate?: group_membersCreateOrConnectWithoutGroupInput | group_membersCreateOrConnectWithoutGroupInput[]
+    upsert?: group_membersUpsertWithWhereUniqueWithoutGroupInput | group_membersUpsertWithWhereUniqueWithoutGroupInput[]
+    createMany?: group_membersCreateManyGroupInputEnvelope
+    set?: group_membersWhereUniqueInput | group_membersWhereUniqueInput[]
+    disconnect?: group_membersWhereUniqueInput | group_membersWhereUniqueInput[]
+    delete?: group_membersWhereUniqueInput | group_membersWhereUniqueInput[]
+    connect?: group_membersWhereUniqueInput | group_membersWhereUniqueInput[]
+    update?: group_membersUpdateWithWhereUniqueWithoutGroupInput | group_membersUpdateWithWhereUniqueWithoutGroupInput[]
+    updateMany?: group_membersUpdateManyWithWhereWithoutGroupInput | group_membersUpdateManyWithWhereWithoutGroupInput[]
+    deleteMany?: group_membersScalarWhereInput | group_membersScalarWhereInput[]
+  }
+
+  export type chat_messagesUncheckedUpdateManyWithoutGroupNestedInput = {
+    create?: XOR<chat_messagesCreateWithoutGroupInput, chat_messagesUncheckedCreateWithoutGroupInput> | chat_messagesCreateWithoutGroupInput[] | chat_messagesUncheckedCreateWithoutGroupInput[]
+    connectOrCreate?: chat_messagesCreateOrConnectWithoutGroupInput | chat_messagesCreateOrConnectWithoutGroupInput[]
+    upsert?: chat_messagesUpsertWithWhereUniqueWithoutGroupInput | chat_messagesUpsertWithWhereUniqueWithoutGroupInput[]
+    createMany?: chat_messagesCreateManyGroupInputEnvelope
+    set?: chat_messagesWhereUniqueInput | chat_messagesWhereUniqueInput[]
+    disconnect?: chat_messagesWhereUniqueInput | chat_messagesWhereUniqueInput[]
+    delete?: chat_messagesWhereUniqueInput | chat_messagesWhereUniqueInput[]
+    connect?: chat_messagesWhereUniqueInput | chat_messagesWhereUniqueInput[]
+    update?: chat_messagesUpdateWithWhereUniqueWithoutGroupInput | chat_messagesUpdateWithWhereUniqueWithoutGroupInput[]
+    updateMany?: chat_messagesUpdateManyWithWhereWithoutGroupInput | chat_messagesUpdateManyWithWhereWithoutGroupInput[]
+    deleteMany?: chat_messagesScalarWhereInput | chat_messagesScalarWhereInput[]
+  }
+
+  export type group_chatsCreateNestedOneWithoutMembersInput = {
+    create?: XOR<group_chatsCreateWithoutMembersInput, group_chatsUncheckedCreateWithoutMembersInput>
+    connectOrCreate?: group_chatsCreateOrConnectWithoutMembersInput
+    connect?: group_chatsWhereUniqueInput
+  }
+
+  export type usersCreateNestedOneWithoutGroup_membershipsInput = {
+    create?: XOR<usersCreateWithoutGroup_membershipsInput, usersUncheckedCreateWithoutGroup_membershipsInput>
+    connectOrCreate?: usersCreateOrConnectWithoutGroup_membershipsInput
+    connect?: usersWhereUniqueInput
+  }
+
+  export type group_chatsUpdateOneRequiredWithoutMembersNestedInput = {
+    create?: XOR<group_chatsCreateWithoutMembersInput, group_chatsUncheckedCreateWithoutMembersInput>
+    connectOrCreate?: group_chatsCreateOrConnectWithoutMembersInput
+    upsert?: group_chatsUpsertWithoutMembersInput
+    connect?: group_chatsWhereUniqueInput
+    update?: XOR<XOR<group_chatsUpdateToOneWithWhereWithoutMembersInput, group_chatsUpdateWithoutMembersInput>, group_chatsUncheckedUpdateWithoutMembersInput>
+  }
+
+  export type usersUpdateOneRequiredWithoutGroup_membershipsNestedInput = {
+    create?: XOR<usersCreateWithoutGroup_membershipsInput, usersUncheckedCreateWithoutGroup_membershipsInput>
+    connectOrCreate?: usersCreateOrConnectWithoutGroup_membershipsInput
+    upsert?: usersUpsertWithoutGroup_membershipsInput
+    connect?: usersWhereUniqueInput
+    update?: XOR<XOR<usersUpdateToOneWithWhereWithoutGroup_membershipsInput, usersUpdateWithoutGroup_membershipsInput>, usersUncheckedUpdateWithoutGroup_membershipsInput>
+  }
+
+  export type group_chatsCreateNestedOneWithoutMessagesInput = {
+    create?: XOR<group_chatsCreateWithoutMessagesInput, group_chatsUncheckedCreateWithoutMessagesInput>
+    connectOrCreate?: group_chatsCreateOrConnectWithoutMessagesInput
+    connect?: group_chatsWhereUniqueInput
+  }
+
+  export type usersCreateNestedOneWithoutChat_messagesInput = {
+    create?: XOR<usersCreateWithoutChat_messagesInput, usersUncheckedCreateWithoutChat_messagesInput>
+    connectOrCreate?: usersCreateOrConnectWithoutChat_messagesInput
+    connect?: usersWhereUniqueInput
+  }
+
+  export type chat_messagesCreateNestedOneWithoutRepliesInput = {
+    create?: XOR<chat_messagesCreateWithoutRepliesInput, chat_messagesUncheckedCreateWithoutRepliesInput>
+    connectOrCreate?: chat_messagesCreateOrConnectWithoutRepliesInput
+    connect?: chat_messagesWhereUniqueInput
+  }
+
+  export type chat_messagesCreateNestedManyWithoutReply_msgInput = {
+    create?: XOR<chat_messagesCreateWithoutReply_msgInput, chat_messagesUncheckedCreateWithoutReply_msgInput> | chat_messagesCreateWithoutReply_msgInput[] | chat_messagesUncheckedCreateWithoutReply_msgInput[]
+    connectOrCreate?: chat_messagesCreateOrConnectWithoutReply_msgInput | chat_messagesCreateOrConnectWithoutReply_msgInput[]
+    createMany?: chat_messagesCreateManyReply_msgInputEnvelope
+    connect?: chat_messagesWhereUniqueInput | chat_messagesWhereUniqueInput[]
+  }
+
+  export type message_reactionsCreateNestedManyWithoutMessageInput = {
+    create?: XOR<message_reactionsCreateWithoutMessageInput, message_reactionsUncheckedCreateWithoutMessageInput> | message_reactionsCreateWithoutMessageInput[] | message_reactionsUncheckedCreateWithoutMessageInput[]
+    connectOrCreate?: message_reactionsCreateOrConnectWithoutMessageInput | message_reactionsCreateOrConnectWithoutMessageInput[]
+    createMany?: message_reactionsCreateManyMessageInputEnvelope
+    connect?: message_reactionsWhereUniqueInput | message_reactionsWhereUniqueInput[]
+  }
+
+  export type chat_messagesUncheckedCreateNestedManyWithoutReply_msgInput = {
+    create?: XOR<chat_messagesCreateWithoutReply_msgInput, chat_messagesUncheckedCreateWithoutReply_msgInput> | chat_messagesCreateWithoutReply_msgInput[] | chat_messagesUncheckedCreateWithoutReply_msgInput[]
+    connectOrCreate?: chat_messagesCreateOrConnectWithoutReply_msgInput | chat_messagesCreateOrConnectWithoutReply_msgInput[]
+    createMany?: chat_messagesCreateManyReply_msgInputEnvelope
+    connect?: chat_messagesWhereUniqueInput | chat_messagesWhereUniqueInput[]
+  }
+
+  export type message_reactionsUncheckedCreateNestedManyWithoutMessageInput = {
+    create?: XOR<message_reactionsCreateWithoutMessageInput, message_reactionsUncheckedCreateWithoutMessageInput> | message_reactionsCreateWithoutMessageInput[] | message_reactionsUncheckedCreateWithoutMessageInput[]
+    connectOrCreate?: message_reactionsCreateOrConnectWithoutMessageInput | message_reactionsCreateOrConnectWithoutMessageInput[]
+    createMany?: message_reactionsCreateManyMessageInputEnvelope
+    connect?: message_reactionsWhereUniqueInput | message_reactionsWhereUniqueInput[]
+  }
+
+  export type group_chatsUpdateOneRequiredWithoutMessagesNestedInput = {
+    create?: XOR<group_chatsCreateWithoutMessagesInput, group_chatsUncheckedCreateWithoutMessagesInput>
+    connectOrCreate?: group_chatsCreateOrConnectWithoutMessagesInput
+    upsert?: group_chatsUpsertWithoutMessagesInput
+    connect?: group_chatsWhereUniqueInput
+    update?: XOR<XOR<group_chatsUpdateToOneWithWhereWithoutMessagesInput, group_chatsUpdateWithoutMessagesInput>, group_chatsUncheckedUpdateWithoutMessagesInput>
+  }
+
+  export type usersUpdateOneWithoutChat_messagesNestedInput = {
+    create?: XOR<usersCreateWithoutChat_messagesInput, usersUncheckedCreateWithoutChat_messagesInput>
+    connectOrCreate?: usersCreateOrConnectWithoutChat_messagesInput
+    upsert?: usersUpsertWithoutChat_messagesInput
+    disconnect?: usersWhereInput | boolean
+    delete?: usersWhereInput | boolean
+    connect?: usersWhereUniqueInput
+    update?: XOR<XOR<usersUpdateToOneWithWhereWithoutChat_messagesInput, usersUpdateWithoutChat_messagesInput>, usersUncheckedUpdateWithoutChat_messagesInput>
+  }
+
+  export type chat_messagesUpdateOneWithoutRepliesNestedInput = {
+    create?: XOR<chat_messagesCreateWithoutRepliesInput, chat_messagesUncheckedCreateWithoutRepliesInput>
+    connectOrCreate?: chat_messagesCreateOrConnectWithoutRepliesInput
+    upsert?: chat_messagesUpsertWithoutRepliesInput
+    disconnect?: chat_messagesWhereInput | boolean
+    delete?: chat_messagesWhereInput | boolean
+    connect?: chat_messagesWhereUniqueInput
+    update?: XOR<XOR<chat_messagesUpdateToOneWithWhereWithoutRepliesInput, chat_messagesUpdateWithoutRepliesInput>, chat_messagesUncheckedUpdateWithoutRepliesInput>
+  }
+
+  export type chat_messagesUpdateManyWithoutReply_msgNestedInput = {
+    create?: XOR<chat_messagesCreateWithoutReply_msgInput, chat_messagesUncheckedCreateWithoutReply_msgInput> | chat_messagesCreateWithoutReply_msgInput[] | chat_messagesUncheckedCreateWithoutReply_msgInput[]
+    connectOrCreate?: chat_messagesCreateOrConnectWithoutReply_msgInput | chat_messagesCreateOrConnectWithoutReply_msgInput[]
+    upsert?: chat_messagesUpsertWithWhereUniqueWithoutReply_msgInput | chat_messagesUpsertWithWhereUniqueWithoutReply_msgInput[]
+    createMany?: chat_messagesCreateManyReply_msgInputEnvelope
+    set?: chat_messagesWhereUniqueInput | chat_messagesWhereUniqueInput[]
+    disconnect?: chat_messagesWhereUniqueInput | chat_messagesWhereUniqueInput[]
+    delete?: chat_messagesWhereUniqueInput | chat_messagesWhereUniqueInput[]
+    connect?: chat_messagesWhereUniqueInput | chat_messagesWhereUniqueInput[]
+    update?: chat_messagesUpdateWithWhereUniqueWithoutReply_msgInput | chat_messagesUpdateWithWhereUniqueWithoutReply_msgInput[]
+    updateMany?: chat_messagesUpdateManyWithWhereWithoutReply_msgInput | chat_messagesUpdateManyWithWhereWithoutReply_msgInput[]
+    deleteMany?: chat_messagesScalarWhereInput | chat_messagesScalarWhereInput[]
+  }
+
+  export type message_reactionsUpdateManyWithoutMessageNestedInput = {
+    create?: XOR<message_reactionsCreateWithoutMessageInput, message_reactionsUncheckedCreateWithoutMessageInput> | message_reactionsCreateWithoutMessageInput[] | message_reactionsUncheckedCreateWithoutMessageInput[]
+    connectOrCreate?: message_reactionsCreateOrConnectWithoutMessageInput | message_reactionsCreateOrConnectWithoutMessageInput[]
+    upsert?: message_reactionsUpsertWithWhereUniqueWithoutMessageInput | message_reactionsUpsertWithWhereUniqueWithoutMessageInput[]
+    createMany?: message_reactionsCreateManyMessageInputEnvelope
+    set?: message_reactionsWhereUniqueInput | message_reactionsWhereUniqueInput[]
+    disconnect?: message_reactionsWhereUniqueInput | message_reactionsWhereUniqueInput[]
+    delete?: message_reactionsWhereUniqueInput | message_reactionsWhereUniqueInput[]
+    connect?: message_reactionsWhereUniqueInput | message_reactionsWhereUniqueInput[]
+    update?: message_reactionsUpdateWithWhereUniqueWithoutMessageInput | message_reactionsUpdateWithWhereUniqueWithoutMessageInput[]
+    updateMany?: message_reactionsUpdateManyWithWhereWithoutMessageInput | message_reactionsUpdateManyWithWhereWithoutMessageInput[]
+    deleteMany?: message_reactionsScalarWhereInput | message_reactionsScalarWhereInput[]
+  }
+
+  export type chat_messagesUncheckedUpdateManyWithoutReply_msgNestedInput = {
+    create?: XOR<chat_messagesCreateWithoutReply_msgInput, chat_messagesUncheckedCreateWithoutReply_msgInput> | chat_messagesCreateWithoutReply_msgInput[] | chat_messagesUncheckedCreateWithoutReply_msgInput[]
+    connectOrCreate?: chat_messagesCreateOrConnectWithoutReply_msgInput | chat_messagesCreateOrConnectWithoutReply_msgInput[]
+    upsert?: chat_messagesUpsertWithWhereUniqueWithoutReply_msgInput | chat_messagesUpsertWithWhereUniqueWithoutReply_msgInput[]
+    createMany?: chat_messagesCreateManyReply_msgInputEnvelope
+    set?: chat_messagesWhereUniqueInput | chat_messagesWhereUniqueInput[]
+    disconnect?: chat_messagesWhereUniqueInput | chat_messagesWhereUniqueInput[]
+    delete?: chat_messagesWhereUniqueInput | chat_messagesWhereUniqueInput[]
+    connect?: chat_messagesWhereUniqueInput | chat_messagesWhereUniqueInput[]
+    update?: chat_messagesUpdateWithWhereUniqueWithoutReply_msgInput | chat_messagesUpdateWithWhereUniqueWithoutReply_msgInput[]
+    updateMany?: chat_messagesUpdateManyWithWhereWithoutReply_msgInput | chat_messagesUpdateManyWithWhereWithoutReply_msgInput[]
+    deleteMany?: chat_messagesScalarWhereInput | chat_messagesScalarWhereInput[]
+  }
+
+  export type message_reactionsUncheckedUpdateManyWithoutMessageNestedInput = {
+    create?: XOR<message_reactionsCreateWithoutMessageInput, message_reactionsUncheckedCreateWithoutMessageInput> | message_reactionsCreateWithoutMessageInput[] | message_reactionsUncheckedCreateWithoutMessageInput[]
+    connectOrCreate?: message_reactionsCreateOrConnectWithoutMessageInput | message_reactionsCreateOrConnectWithoutMessageInput[]
+    upsert?: message_reactionsUpsertWithWhereUniqueWithoutMessageInput | message_reactionsUpsertWithWhereUniqueWithoutMessageInput[]
+    createMany?: message_reactionsCreateManyMessageInputEnvelope
+    set?: message_reactionsWhereUniqueInput | message_reactionsWhereUniqueInput[]
+    disconnect?: message_reactionsWhereUniqueInput | message_reactionsWhereUniqueInput[]
+    delete?: message_reactionsWhereUniqueInput | message_reactionsWhereUniqueInput[]
+    connect?: message_reactionsWhereUniqueInput | message_reactionsWhereUniqueInput[]
+    update?: message_reactionsUpdateWithWhereUniqueWithoutMessageInput | message_reactionsUpdateWithWhereUniqueWithoutMessageInput[]
+    updateMany?: message_reactionsUpdateManyWithWhereWithoutMessageInput | message_reactionsUpdateManyWithWhereWithoutMessageInput[]
+    deleteMany?: message_reactionsScalarWhereInput | message_reactionsScalarWhereInput[]
+  }
+
+  export type chat_messagesCreateNestedOneWithoutReactionsInput = {
+    create?: XOR<chat_messagesCreateWithoutReactionsInput, chat_messagesUncheckedCreateWithoutReactionsInput>
+    connectOrCreate?: chat_messagesCreateOrConnectWithoutReactionsInput
+    connect?: chat_messagesWhereUniqueInput
+  }
+
+  export type usersCreateNestedOneWithoutMessage_reactionsInput = {
+    create?: XOR<usersCreateWithoutMessage_reactionsInput, usersUncheckedCreateWithoutMessage_reactionsInput>
+    connectOrCreate?: usersCreateOrConnectWithoutMessage_reactionsInput
+    connect?: usersWhereUniqueInput
+  }
+
+  export type chat_messagesUpdateOneRequiredWithoutReactionsNestedInput = {
+    create?: XOR<chat_messagesCreateWithoutReactionsInput, chat_messagesUncheckedCreateWithoutReactionsInput>
+    connectOrCreate?: chat_messagesCreateOrConnectWithoutReactionsInput
+    upsert?: chat_messagesUpsertWithoutReactionsInput
+    connect?: chat_messagesWhereUniqueInput
+    update?: XOR<XOR<chat_messagesUpdateToOneWithWhereWithoutReactionsInput, chat_messagesUpdateWithoutReactionsInput>, chat_messagesUncheckedUpdateWithoutReactionsInput>
+  }
+
+  export type usersUpdateOneRequiredWithoutMessage_reactionsNestedInput = {
+    create?: XOR<usersCreateWithoutMessage_reactionsInput, usersUncheckedCreateWithoutMessage_reactionsInput>
+    connectOrCreate?: usersCreateOrConnectWithoutMessage_reactionsInput
+    upsert?: usersUpsertWithoutMessage_reactionsInput
+    connect?: usersWhereUniqueInput
+    update?: XOR<XOR<usersUpdateToOneWithWhereWithoutMessage_reactionsInput, usersUpdateWithoutMessage_reactionsInput>, usersUncheckedUpdateWithoutMessage_reactionsInput>
+  }
+
   export type blogsCreateNestedOneWithoutBlog_viewsInput = {
     create?: XOR<blogsCreateWithoutBlog_viewsInput, blogsUncheckedCreateWithoutBlog_viewsInput>
     connectOrCreate?: blogsCreateOrConnectWithoutBlog_viewsInput
@@ -51741,10 +58318,6 @@ export namespace Prisma {
     connectOrCreate?: night_camps_equipmentCreateOrConnectWithoutNight_campsInput | night_camps_equipmentCreateOrConnectWithoutNight_campsInput[]
     createMany?: night_camps_equipmentCreateManyNight_campsInputEnvelope
     connect?: night_camps_equipmentWhereUniqueInput | night_camps_equipmentWhereUniqueInput[]
-  }
-
-  export type StringFieldUpdateOperationsInput = {
-    set?: string
   }
 
   export type night_camp_registrationsUpdateManyWithoutNight_campsNestedInput = {
@@ -52558,6 +59131,34 @@ export namespace Prisma {
     connect?: user_settingsWhereUniqueInput
   }
 
+  export type group_chatsCreateNestedManyWithoutCreatorInput = {
+    create?: XOR<group_chatsCreateWithoutCreatorInput, group_chatsUncheckedCreateWithoutCreatorInput> | group_chatsCreateWithoutCreatorInput[] | group_chatsUncheckedCreateWithoutCreatorInput[]
+    connectOrCreate?: group_chatsCreateOrConnectWithoutCreatorInput | group_chatsCreateOrConnectWithoutCreatorInput[]
+    createMany?: group_chatsCreateManyCreatorInputEnvelope
+    connect?: group_chatsWhereUniqueInput | group_chatsWhereUniqueInput[]
+  }
+
+  export type group_membersCreateNestedManyWithoutUserInput = {
+    create?: XOR<group_membersCreateWithoutUserInput, group_membersUncheckedCreateWithoutUserInput> | group_membersCreateWithoutUserInput[] | group_membersUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: group_membersCreateOrConnectWithoutUserInput | group_membersCreateOrConnectWithoutUserInput[]
+    createMany?: group_membersCreateManyUserInputEnvelope
+    connect?: group_membersWhereUniqueInput | group_membersWhereUniqueInput[]
+  }
+
+  export type chat_messagesCreateNestedManyWithoutUserInput = {
+    create?: XOR<chat_messagesCreateWithoutUserInput, chat_messagesUncheckedCreateWithoutUserInput> | chat_messagesCreateWithoutUserInput[] | chat_messagesUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: chat_messagesCreateOrConnectWithoutUserInput | chat_messagesCreateOrConnectWithoutUserInput[]
+    createMany?: chat_messagesCreateManyUserInputEnvelope
+    connect?: chat_messagesWhereUniqueInput | chat_messagesWhereUniqueInput[]
+  }
+
+  export type message_reactionsCreateNestedManyWithoutUserInput = {
+    create?: XOR<message_reactionsCreateWithoutUserInput, message_reactionsUncheckedCreateWithoutUserInput> | message_reactionsCreateWithoutUserInput[] | message_reactionsUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: message_reactionsCreateOrConnectWithoutUserInput | message_reactionsCreateOrConnectWithoutUserInput[]
+    createMany?: message_reactionsCreateManyUserInputEnvelope
+    connect?: message_reactionsWhereUniqueInput | message_reactionsWhereUniqueInput[]
+  }
+
   export type QuizParticipantsUncheckedCreateNestedManyWithoutUsersInput = {
     create?: XOR<QuizParticipantsCreateWithoutUsersInput, QuizParticipantsUncheckedCreateWithoutUsersInput> | QuizParticipantsCreateWithoutUsersInput[] | QuizParticipantsUncheckedCreateWithoutUsersInput[]
     connectOrCreate?: QuizParticipantsCreateOrConnectWithoutUsersInput | QuizParticipantsCreateOrConnectWithoutUsersInput[]
@@ -52695,6 +59296,34 @@ export namespace Prisma {
     create?: XOR<user_settingsCreateWithoutUsersInput, user_settingsUncheckedCreateWithoutUsersInput>
     connectOrCreate?: user_settingsCreateOrConnectWithoutUsersInput
     connect?: user_settingsWhereUniqueInput
+  }
+
+  export type group_chatsUncheckedCreateNestedManyWithoutCreatorInput = {
+    create?: XOR<group_chatsCreateWithoutCreatorInput, group_chatsUncheckedCreateWithoutCreatorInput> | group_chatsCreateWithoutCreatorInput[] | group_chatsUncheckedCreateWithoutCreatorInput[]
+    connectOrCreate?: group_chatsCreateOrConnectWithoutCreatorInput | group_chatsCreateOrConnectWithoutCreatorInput[]
+    createMany?: group_chatsCreateManyCreatorInputEnvelope
+    connect?: group_chatsWhereUniqueInput | group_chatsWhereUniqueInput[]
+  }
+
+  export type group_membersUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<group_membersCreateWithoutUserInput, group_membersUncheckedCreateWithoutUserInput> | group_membersCreateWithoutUserInput[] | group_membersUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: group_membersCreateOrConnectWithoutUserInput | group_membersCreateOrConnectWithoutUserInput[]
+    createMany?: group_membersCreateManyUserInputEnvelope
+    connect?: group_membersWhereUniqueInput | group_membersWhereUniqueInput[]
+  }
+
+  export type chat_messagesUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<chat_messagesCreateWithoutUserInput, chat_messagesUncheckedCreateWithoutUserInput> | chat_messagesCreateWithoutUserInput[] | chat_messagesUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: chat_messagesCreateOrConnectWithoutUserInput | chat_messagesCreateOrConnectWithoutUserInput[]
+    createMany?: chat_messagesCreateManyUserInputEnvelope
+    connect?: chat_messagesWhereUniqueInput | chat_messagesWhereUniqueInput[]
+  }
+
+  export type message_reactionsUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<message_reactionsCreateWithoutUserInput, message_reactionsUncheckedCreateWithoutUserInput> | message_reactionsCreateWithoutUserInput[] | message_reactionsUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: message_reactionsCreateOrConnectWithoutUserInput | message_reactionsCreateOrConnectWithoutUserInput[]
+    createMany?: message_reactionsCreateManyUserInputEnvelope
+    connect?: message_reactionsWhereUniqueInput | message_reactionsWhereUniqueInput[]
   }
 
   export type NullableEnumuser_roleFieldUpdateOperationsInput = {
@@ -52981,6 +59610,62 @@ export namespace Prisma {
     update?: XOR<XOR<user_settingsUpdateToOneWithWhereWithoutUsersInput, user_settingsUpdateWithoutUsersInput>, user_settingsUncheckedUpdateWithoutUsersInput>
   }
 
+  export type group_chatsUpdateManyWithoutCreatorNestedInput = {
+    create?: XOR<group_chatsCreateWithoutCreatorInput, group_chatsUncheckedCreateWithoutCreatorInput> | group_chatsCreateWithoutCreatorInput[] | group_chatsUncheckedCreateWithoutCreatorInput[]
+    connectOrCreate?: group_chatsCreateOrConnectWithoutCreatorInput | group_chatsCreateOrConnectWithoutCreatorInput[]
+    upsert?: group_chatsUpsertWithWhereUniqueWithoutCreatorInput | group_chatsUpsertWithWhereUniqueWithoutCreatorInput[]
+    createMany?: group_chatsCreateManyCreatorInputEnvelope
+    set?: group_chatsWhereUniqueInput | group_chatsWhereUniqueInput[]
+    disconnect?: group_chatsWhereUniqueInput | group_chatsWhereUniqueInput[]
+    delete?: group_chatsWhereUniqueInput | group_chatsWhereUniqueInput[]
+    connect?: group_chatsWhereUniqueInput | group_chatsWhereUniqueInput[]
+    update?: group_chatsUpdateWithWhereUniqueWithoutCreatorInput | group_chatsUpdateWithWhereUniqueWithoutCreatorInput[]
+    updateMany?: group_chatsUpdateManyWithWhereWithoutCreatorInput | group_chatsUpdateManyWithWhereWithoutCreatorInput[]
+    deleteMany?: group_chatsScalarWhereInput | group_chatsScalarWhereInput[]
+  }
+
+  export type group_membersUpdateManyWithoutUserNestedInput = {
+    create?: XOR<group_membersCreateWithoutUserInput, group_membersUncheckedCreateWithoutUserInput> | group_membersCreateWithoutUserInput[] | group_membersUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: group_membersCreateOrConnectWithoutUserInput | group_membersCreateOrConnectWithoutUserInput[]
+    upsert?: group_membersUpsertWithWhereUniqueWithoutUserInput | group_membersUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: group_membersCreateManyUserInputEnvelope
+    set?: group_membersWhereUniqueInput | group_membersWhereUniqueInput[]
+    disconnect?: group_membersWhereUniqueInput | group_membersWhereUniqueInput[]
+    delete?: group_membersWhereUniqueInput | group_membersWhereUniqueInput[]
+    connect?: group_membersWhereUniqueInput | group_membersWhereUniqueInput[]
+    update?: group_membersUpdateWithWhereUniqueWithoutUserInput | group_membersUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: group_membersUpdateManyWithWhereWithoutUserInput | group_membersUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: group_membersScalarWhereInput | group_membersScalarWhereInput[]
+  }
+
+  export type chat_messagesUpdateManyWithoutUserNestedInput = {
+    create?: XOR<chat_messagesCreateWithoutUserInput, chat_messagesUncheckedCreateWithoutUserInput> | chat_messagesCreateWithoutUserInput[] | chat_messagesUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: chat_messagesCreateOrConnectWithoutUserInput | chat_messagesCreateOrConnectWithoutUserInput[]
+    upsert?: chat_messagesUpsertWithWhereUniqueWithoutUserInput | chat_messagesUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: chat_messagesCreateManyUserInputEnvelope
+    set?: chat_messagesWhereUniqueInput | chat_messagesWhereUniqueInput[]
+    disconnect?: chat_messagesWhereUniqueInput | chat_messagesWhereUniqueInput[]
+    delete?: chat_messagesWhereUniqueInput | chat_messagesWhereUniqueInput[]
+    connect?: chat_messagesWhereUniqueInput | chat_messagesWhereUniqueInput[]
+    update?: chat_messagesUpdateWithWhereUniqueWithoutUserInput | chat_messagesUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: chat_messagesUpdateManyWithWhereWithoutUserInput | chat_messagesUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: chat_messagesScalarWhereInput | chat_messagesScalarWhereInput[]
+  }
+
+  export type message_reactionsUpdateManyWithoutUserNestedInput = {
+    create?: XOR<message_reactionsCreateWithoutUserInput, message_reactionsUncheckedCreateWithoutUserInput> | message_reactionsCreateWithoutUserInput[] | message_reactionsUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: message_reactionsCreateOrConnectWithoutUserInput | message_reactionsCreateOrConnectWithoutUserInput[]
+    upsert?: message_reactionsUpsertWithWhereUniqueWithoutUserInput | message_reactionsUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: message_reactionsCreateManyUserInputEnvelope
+    set?: message_reactionsWhereUniqueInput | message_reactionsWhereUniqueInput[]
+    disconnect?: message_reactionsWhereUniqueInput | message_reactionsWhereUniqueInput[]
+    delete?: message_reactionsWhereUniqueInput | message_reactionsWhereUniqueInput[]
+    connect?: message_reactionsWhereUniqueInput | message_reactionsWhereUniqueInput[]
+    update?: message_reactionsUpdateWithWhereUniqueWithoutUserInput | message_reactionsUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: message_reactionsUpdateManyWithWhereWithoutUserInput | message_reactionsUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: message_reactionsScalarWhereInput | message_reactionsScalarWhereInput[]
+  }
+
   export type QuizParticipantsUncheckedUpdateManyWithoutUsersNestedInput = {
     create?: XOR<QuizParticipantsCreateWithoutUsersInput, QuizParticipantsUncheckedCreateWithoutUsersInput> | QuizParticipantsCreateWithoutUsersInput[] | QuizParticipantsUncheckedCreateWithoutUsersInput[]
     connectOrCreate?: QuizParticipantsCreateOrConnectWithoutUsersInput | QuizParticipantsCreateOrConnectWithoutUsersInput[]
@@ -53257,6 +59942,62 @@ export namespace Prisma {
     update?: XOR<XOR<user_settingsUpdateToOneWithWhereWithoutUsersInput, user_settingsUpdateWithoutUsersInput>, user_settingsUncheckedUpdateWithoutUsersInput>
   }
 
+  export type group_chatsUncheckedUpdateManyWithoutCreatorNestedInput = {
+    create?: XOR<group_chatsCreateWithoutCreatorInput, group_chatsUncheckedCreateWithoutCreatorInput> | group_chatsCreateWithoutCreatorInput[] | group_chatsUncheckedCreateWithoutCreatorInput[]
+    connectOrCreate?: group_chatsCreateOrConnectWithoutCreatorInput | group_chatsCreateOrConnectWithoutCreatorInput[]
+    upsert?: group_chatsUpsertWithWhereUniqueWithoutCreatorInput | group_chatsUpsertWithWhereUniqueWithoutCreatorInput[]
+    createMany?: group_chatsCreateManyCreatorInputEnvelope
+    set?: group_chatsWhereUniqueInput | group_chatsWhereUniqueInput[]
+    disconnect?: group_chatsWhereUniqueInput | group_chatsWhereUniqueInput[]
+    delete?: group_chatsWhereUniqueInput | group_chatsWhereUniqueInput[]
+    connect?: group_chatsWhereUniqueInput | group_chatsWhereUniqueInput[]
+    update?: group_chatsUpdateWithWhereUniqueWithoutCreatorInput | group_chatsUpdateWithWhereUniqueWithoutCreatorInput[]
+    updateMany?: group_chatsUpdateManyWithWhereWithoutCreatorInput | group_chatsUpdateManyWithWhereWithoutCreatorInput[]
+    deleteMany?: group_chatsScalarWhereInput | group_chatsScalarWhereInput[]
+  }
+
+  export type group_membersUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<group_membersCreateWithoutUserInput, group_membersUncheckedCreateWithoutUserInput> | group_membersCreateWithoutUserInput[] | group_membersUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: group_membersCreateOrConnectWithoutUserInput | group_membersCreateOrConnectWithoutUserInput[]
+    upsert?: group_membersUpsertWithWhereUniqueWithoutUserInput | group_membersUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: group_membersCreateManyUserInputEnvelope
+    set?: group_membersWhereUniqueInput | group_membersWhereUniqueInput[]
+    disconnect?: group_membersWhereUniqueInput | group_membersWhereUniqueInput[]
+    delete?: group_membersWhereUniqueInput | group_membersWhereUniqueInput[]
+    connect?: group_membersWhereUniqueInput | group_membersWhereUniqueInput[]
+    update?: group_membersUpdateWithWhereUniqueWithoutUserInput | group_membersUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: group_membersUpdateManyWithWhereWithoutUserInput | group_membersUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: group_membersScalarWhereInput | group_membersScalarWhereInput[]
+  }
+
+  export type chat_messagesUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<chat_messagesCreateWithoutUserInput, chat_messagesUncheckedCreateWithoutUserInput> | chat_messagesCreateWithoutUserInput[] | chat_messagesUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: chat_messagesCreateOrConnectWithoutUserInput | chat_messagesCreateOrConnectWithoutUserInput[]
+    upsert?: chat_messagesUpsertWithWhereUniqueWithoutUserInput | chat_messagesUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: chat_messagesCreateManyUserInputEnvelope
+    set?: chat_messagesWhereUniqueInput | chat_messagesWhereUniqueInput[]
+    disconnect?: chat_messagesWhereUniqueInput | chat_messagesWhereUniqueInput[]
+    delete?: chat_messagesWhereUniqueInput | chat_messagesWhereUniqueInput[]
+    connect?: chat_messagesWhereUniqueInput | chat_messagesWhereUniqueInput[]
+    update?: chat_messagesUpdateWithWhereUniqueWithoutUserInput | chat_messagesUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: chat_messagesUpdateManyWithWhereWithoutUserInput | chat_messagesUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: chat_messagesScalarWhereInput | chat_messagesScalarWhereInput[]
+  }
+
+  export type message_reactionsUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<message_reactionsCreateWithoutUserInput, message_reactionsUncheckedCreateWithoutUserInput> | message_reactionsCreateWithoutUserInput[] | message_reactionsUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: message_reactionsCreateOrConnectWithoutUserInput | message_reactionsCreateOrConnectWithoutUserInput[]
+    upsert?: message_reactionsUpsertWithWhereUniqueWithoutUserInput | message_reactionsUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: message_reactionsCreateManyUserInputEnvelope
+    set?: message_reactionsWhereUniqueInput | message_reactionsWhereUniqueInput[]
+    disconnect?: message_reactionsWhereUniqueInput | message_reactionsWhereUniqueInput[]
+    delete?: message_reactionsWhereUniqueInput | message_reactionsWhereUniqueInput[]
+    connect?: message_reactionsWhereUniqueInput | message_reactionsWhereUniqueInput[]
+    update?: message_reactionsUpdateWithWhereUniqueWithoutUserInput | message_reactionsUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: message_reactionsUpdateManyWithWhereWithoutUserInput | message_reactionsUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: message_reactionsScalarWhereInput | message_reactionsScalarWhereInput[]
+  }
+
   export type blogsCreateNestedOneWithoutBlog_likesInput = {
     create?: XOR<blogsCreateWithoutBlog_likesInput, blogsUncheckedCreateWithoutBlog_likesInput>
     connectOrCreate?: blogsCreateOrConnectWithoutBlog_likesInput
@@ -53307,10 +60048,6 @@ export namespace Prisma {
     connectOrCreate?: chatbot_feedbackCreateOrConnectWithoutChatbot_messagesInput | chatbot_feedbackCreateOrConnectWithoutChatbot_messagesInput[]
     createMany?: chatbot_feedbackCreateManyChatbot_messagesInputEnvelope
     connect?: chatbot_feedbackWhereUniqueInput | chatbot_feedbackWhereUniqueInput[]
-  }
-
-  export type BoolFieldUpdateOperationsInput = {
-    set?: boolean
   }
 
   export type chatbot_feedbackUpdateManyWithoutChatbot_messagesNestedInput = {
@@ -54012,6 +60749,11 @@ export namespace Prisma {
     not?: NestedStringFilter<$PrismaModel> | string
   }
 
+  export type NestedBoolFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolFilter<$PrismaModel> | boolean
+  }
+
   export type NestedStringWithAggregatesFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel>
     in?: string[] | ListStringFieldRefInput<$PrismaModel>
@@ -54027,6 +60769,14 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedStringFilter<$PrismaModel>
     _max?: NestedStringFilter<$PrismaModel>
+  }
+
+  export type NestedBoolWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedBoolFilter<$PrismaModel>
+    _max?: NestedBoolFilter<$PrismaModel>
   }
   export type NestedJsonNullableFilter<$PrismaModel = never> =
     | PatchUndefined<
@@ -54216,11 +60966,6 @@ export namespace Prisma {
     not?: NestedUuidNullableFilter<$PrismaModel> | string | null
   }
 
-  export type NestedBoolFilter<$PrismaModel = never> = {
-    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
-    not?: NestedBoolFilter<$PrismaModel> | boolean
-  }
-
   export type NestedUuidNullableWithAggregatesFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel> | null
     in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
@@ -54233,14 +60978,6 @@ export namespace Prisma {
     _count?: NestedIntNullableFilter<$PrismaModel>
     _min?: NestedStringNullableFilter<$PrismaModel>
     _max?: NestedStringNullableFilter<$PrismaModel>
-  }
-
-  export type NestedBoolWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
-    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedBoolFilter<$PrismaModel>
-    _max?: NestedBoolFilter<$PrismaModel>
   }
 
   export type NestedEnumequipment_categoryFilter<$PrismaModel = never> = {
@@ -54425,6 +61162,10 @@ export namespace Prisma {
     role_upgrade_requests_role_upgrade_requests_reviewer_idTousers?: role_upgrade_requestsCreateNestedManyWithoutUsers_role_upgrade_requests_reviewer_idTousersInput
     role_upgrade_requests_role_upgrade_requests_user_idTousers?: role_upgrade_requestsCreateNestedManyWithoutUsers_role_upgrade_requests_user_idTousersInput
     user_settings?: user_settingsCreateNestedOneWithoutUsersInput
+    created_groups?: group_chatsCreateNestedManyWithoutCreatorInput
+    group_memberships?: group_membersCreateNestedManyWithoutUserInput
+    chat_messages?: chat_messagesCreateNestedManyWithoutUserInput
+    message_reactions?: message_reactionsCreateNestedManyWithoutUserInput
   }
 
   export type usersUncheckedCreateWithoutSubscriptionsInput = {
@@ -54467,6 +61208,10 @@ export namespace Prisma {
     role_upgrade_requests_role_upgrade_requests_reviewer_idTousers?: role_upgrade_requestsUncheckedCreateNestedManyWithoutUsers_role_upgrade_requests_reviewer_idTousersInput
     role_upgrade_requests_role_upgrade_requests_user_idTousers?: role_upgrade_requestsUncheckedCreateNestedManyWithoutUsers_role_upgrade_requests_user_idTousersInput
     user_settings?: user_settingsUncheckedCreateNestedOneWithoutUsersInput
+    created_groups?: group_chatsUncheckedCreateNestedManyWithoutCreatorInput
+    group_memberships?: group_membersUncheckedCreateNestedManyWithoutUserInput
+    chat_messages?: chat_messagesUncheckedCreateNestedManyWithoutUserInput
+    message_reactions?: message_reactionsUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type usersCreateOrConnectWithoutSubscriptionsInput = {
@@ -54560,6 +61305,10 @@ export namespace Prisma {
     role_upgrade_requests_role_upgrade_requests_reviewer_idTousers?: role_upgrade_requestsUpdateManyWithoutUsers_role_upgrade_requests_reviewer_idTousersNestedInput
     role_upgrade_requests_role_upgrade_requests_user_idTousers?: role_upgrade_requestsUpdateManyWithoutUsers_role_upgrade_requests_user_idTousersNestedInput
     user_settings?: user_settingsUpdateOneWithoutUsersNestedInput
+    created_groups?: group_chatsUpdateManyWithoutCreatorNestedInput
+    group_memberships?: group_membersUpdateManyWithoutUserNestedInput
+    chat_messages?: chat_messagesUpdateManyWithoutUserNestedInput
+    message_reactions?: message_reactionsUpdateManyWithoutUserNestedInput
   }
 
   export type usersUncheckedUpdateWithoutSubscriptionsInput = {
@@ -54602,6 +61351,1307 @@ export namespace Prisma {
     role_upgrade_requests_role_upgrade_requests_reviewer_idTousers?: role_upgrade_requestsUncheckedUpdateManyWithoutUsers_role_upgrade_requests_reviewer_idTousersNestedInput
     role_upgrade_requests_role_upgrade_requests_user_idTousers?: role_upgrade_requestsUncheckedUpdateManyWithoutUsers_role_upgrade_requests_user_idTousersNestedInput
     user_settings?: user_settingsUncheckedUpdateOneWithoutUsersNestedInput
+    created_groups?: group_chatsUncheckedUpdateManyWithoutCreatorNestedInput
+    group_memberships?: group_membersUncheckedUpdateManyWithoutUserNestedInput
+    chat_messages?: chat_messagesUncheckedUpdateManyWithoutUserNestedInput
+    message_reactions?: message_reactionsUncheckedUpdateManyWithoutUserNestedInput
+  }
+
+  export type usersCreateWithoutCreated_groupsInput = {
+    firebase_uid: string
+    email: string
+    role?: $Enums.user_role | null
+    first_name?: string | null
+    last_name?: string | null
+    is_active?: boolean | null
+    last_login?: Date | string | null
+    created_at?: Date | string | null
+    updated_at?: Date | string | null
+    display_name?: string | null
+    profile_data?: NullableJsonNullValueInput | InputJsonValue
+    role_specific_data?: NullableJsonNullValueInput | InputJsonValue
+    subscription_plan?: $Enums.subscription_plan | null
+    subscription_status?: $Enums.subscription_status | null
+    subscription_start_date?: Date | string | null
+    subscription_end_date?: Date | string | null
+    auto_renew?: boolean | null
+    chatbot_questions_used?: number | null
+    chatbot_questions_reset_date?: Date | string | null
+    QuizParticipants?: QuizParticipantsCreateNestedManyWithoutUsersInput
+    Quizzes?: QuizzesCreateNestedManyWithoutUsersInput
+    blog_comments?: blog_commentsCreateNestedManyWithoutUsersInput
+    blog_likes?: blog_likesCreateNestedManyWithoutUsersInput
+    blog_views?: blog_viewsCreateNestedManyWithoutUsersInput
+    blogs?: blogsCreateNestedManyWithoutUsersInput
+    chatbot_sessions?: chatbot_sessionsCreateNestedManyWithoutUsersInput
+    chatbot_usage?: chatbot_usageCreateNestedManyWithoutUsersInput
+    guide_application?: guide_applicationCreateNestedManyWithoutUsersInput
+    influencer_application?: influencer_applicationCreateNestedManyWithoutUsersInput
+    media_uploads?: media_uploadsCreateNestedManyWithoutUserInput
+    mentor_application?: mentor_applicationCreateNestedManyWithoutUsersInput
+    night_camp_registrations?: night_camp_registrationsCreateNestedManyWithoutUsersInput
+    night_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousers?: night_camp_volunteering_applicationsCreateNestedManyWithoutUsers_night_camp_volunteering_applications_reviewed_byTousersInput
+    night_camp_volunteering_applications_night_camp_volunteering_applications_user_idTousers?: night_camp_volunteering_applicationsCreateNestedManyWithoutUsers_night_camp_volunteering_applications_user_idTousersInput
+    payments?: paymentsCreateNestedManyWithoutUsersInput
+    role_upgrade_requests_role_upgrade_requests_reviewer_idTousers?: role_upgrade_requestsCreateNestedManyWithoutUsers_role_upgrade_requests_reviewer_idTousersInput
+    role_upgrade_requests_role_upgrade_requests_user_idTousers?: role_upgrade_requestsCreateNestedManyWithoutUsers_role_upgrade_requests_user_idTousersInput
+    subscriptions?: subscriptionsCreateNestedManyWithoutUsersInput
+    user_settings?: user_settingsCreateNestedOneWithoutUsersInput
+    group_memberships?: group_membersCreateNestedManyWithoutUserInput
+    chat_messages?: chat_messagesCreateNestedManyWithoutUserInput
+    message_reactions?: message_reactionsCreateNestedManyWithoutUserInput
+  }
+
+  export type usersUncheckedCreateWithoutCreated_groupsInput = {
+    id?: number
+    firebase_uid: string
+    email: string
+    role?: $Enums.user_role | null
+    first_name?: string | null
+    last_name?: string | null
+    is_active?: boolean | null
+    last_login?: Date | string | null
+    created_at?: Date | string | null
+    updated_at?: Date | string | null
+    display_name?: string | null
+    profile_data?: NullableJsonNullValueInput | InputJsonValue
+    role_specific_data?: NullableJsonNullValueInput | InputJsonValue
+    subscription_plan?: $Enums.subscription_plan | null
+    subscription_status?: $Enums.subscription_status | null
+    subscription_start_date?: Date | string | null
+    subscription_end_date?: Date | string | null
+    auto_renew?: boolean | null
+    chatbot_questions_used?: number | null
+    chatbot_questions_reset_date?: Date | string | null
+    QuizParticipants?: QuizParticipantsUncheckedCreateNestedManyWithoutUsersInput
+    Quizzes?: QuizzesUncheckedCreateNestedManyWithoutUsersInput
+    blog_comments?: blog_commentsUncheckedCreateNestedManyWithoutUsersInput
+    blog_likes?: blog_likesUncheckedCreateNestedManyWithoutUsersInput
+    blog_views?: blog_viewsUncheckedCreateNestedManyWithoutUsersInput
+    blogs?: blogsUncheckedCreateNestedManyWithoutUsersInput
+    chatbot_sessions?: chatbot_sessionsUncheckedCreateNestedManyWithoutUsersInput
+    chatbot_usage?: chatbot_usageUncheckedCreateNestedManyWithoutUsersInput
+    guide_application?: guide_applicationUncheckedCreateNestedManyWithoutUsersInput
+    influencer_application?: influencer_applicationUncheckedCreateNestedManyWithoutUsersInput
+    media_uploads?: media_uploadsUncheckedCreateNestedManyWithoutUserInput
+    mentor_application?: mentor_applicationUncheckedCreateNestedManyWithoutUsersInput
+    night_camp_registrations?: night_camp_registrationsUncheckedCreateNestedManyWithoutUsersInput
+    night_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousers?: night_camp_volunteering_applicationsUncheckedCreateNestedManyWithoutUsers_night_camp_volunteering_applications_reviewed_byTousersInput
+    night_camp_volunteering_applications_night_camp_volunteering_applications_user_idTousers?: night_camp_volunteering_applicationsUncheckedCreateNestedManyWithoutUsers_night_camp_volunteering_applications_user_idTousersInput
+    payments?: paymentsUncheckedCreateNestedManyWithoutUsersInput
+    role_upgrade_requests_role_upgrade_requests_reviewer_idTousers?: role_upgrade_requestsUncheckedCreateNestedManyWithoutUsers_role_upgrade_requests_reviewer_idTousersInput
+    role_upgrade_requests_role_upgrade_requests_user_idTousers?: role_upgrade_requestsUncheckedCreateNestedManyWithoutUsers_role_upgrade_requests_user_idTousersInput
+    subscriptions?: subscriptionsUncheckedCreateNestedManyWithoutUsersInput
+    user_settings?: user_settingsUncheckedCreateNestedOneWithoutUsersInput
+    group_memberships?: group_membersUncheckedCreateNestedManyWithoutUserInput
+    chat_messages?: chat_messagesUncheckedCreateNestedManyWithoutUserInput
+    message_reactions?: message_reactionsUncheckedCreateNestedManyWithoutUserInput
+  }
+
+  export type usersCreateOrConnectWithoutCreated_groupsInput = {
+    where: usersWhereUniqueInput
+    create: XOR<usersCreateWithoutCreated_groupsInput, usersUncheckedCreateWithoutCreated_groupsInput>
+  }
+
+  export type group_membersCreateWithoutGroupInput = {
+    role?: string
+    joined_at?: Date | string
+    is_muted?: boolean
+    user: usersCreateNestedOneWithoutGroup_membershipsInput
+  }
+
+  export type group_membersUncheckedCreateWithoutGroupInput = {
+    id?: number
+    user_id: number
+    role?: string
+    joined_at?: Date | string
+    is_muted?: boolean
+  }
+
+  export type group_membersCreateOrConnectWithoutGroupInput = {
+    where: group_membersWhereUniqueInput
+    create: XOR<group_membersCreateWithoutGroupInput, group_membersUncheckedCreateWithoutGroupInput>
+  }
+
+  export type group_membersCreateManyGroupInputEnvelope = {
+    data: group_membersCreateManyGroupInput | group_membersCreateManyGroupInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type chat_messagesCreateWithoutGroupInput = {
+    message_text: string
+    message_type?: string
+    is_edited?: boolean
+    is_deleted?: boolean
+    created_at?: Date | string
+    updated_at?: Date | string
+    user?: usersCreateNestedOneWithoutChat_messagesInput
+    reply_msg?: chat_messagesCreateNestedOneWithoutRepliesInput
+    replies?: chat_messagesCreateNestedManyWithoutReply_msgInput
+    reactions?: message_reactionsCreateNestedManyWithoutMessageInput
+  }
+
+  export type chat_messagesUncheckedCreateWithoutGroupInput = {
+    id?: number
+    user_id?: number | null
+    message_text: string
+    message_type?: string
+    reply_to?: number | null
+    is_edited?: boolean
+    is_deleted?: boolean
+    created_at?: Date | string
+    updated_at?: Date | string
+    replies?: chat_messagesUncheckedCreateNestedManyWithoutReply_msgInput
+    reactions?: message_reactionsUncheckedCreateNestedManyWithoutMessageInput
+  }
+
+  export type chat_messagesCreateOrConnectWithoutGroupInput = {
+    where: chat_messagesWhereUniqueInput
+    create: XOR<chat_messagesCreateWithoutGroupInput, chat_messagesUncheckedCreateWithoutGroupInput>
+  }
+
+  export type chat_messagesCreateManyGroupInputEnvelope = {
+    data: chat_messagesCreateManyGroupInput | chat_messagesCreateManyGroupInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type usersUpsertWithoutCreated_groupsInput = {
+    update: XOR<usersUpdateWithoutCreated_groupsInput, usersUncheckedUpdateWithoutCreated_groupsInput>
+    create: XOR<usersCreateWithoutCreated_groupsInput, usersUncheckedCreateWithoutCreated_groupsInput>
+    where?: usersWhereInput
+  }
+
+  export type usersUpdateToOneWithWhereWithoutCreated_groupsInput = {
+    where?: usersWhereInput
+    data: XOR<usersUpdateWithoutCreated_groupsInput, usersUncheckedUpdateWithoutCreated_groupsInput>
+  }
+
+  export type usersUpdateWithoutCreated_groupsInput = {
+    firebase_uid?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    role?: NullableEnumuser_roleFieldUpdateOperationsInput | $Enums.user_role | null
+    first_name?: NullableStringFieldUpdateOperationsInput | string | null
+    last_name?: NullableStringFieldUpdateOperationsInput | string | null
+    is_active?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    last_login?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    display_name?: NullableStringFieldUpdateOperationsInput | string | null
+    profile_data?: NullableJsonNullValueInput | InputJsonValue
+    role_specific_data?: NullableJsonNullValueInput | InputJsonValue
+    subscription_plan?: NullableEnumsubscription_planFieldUpdateOperationsInput | $Enums.subscription_plan | null
+    subscription_status?: NullableEnumsubscription_statusFieldUpdateOperationsInput | $Enums.subscription_status | null
+    subscription_start_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    subscription_end_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    auto_renew?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    chatbot_questions_used?: NullableIntFieldUpdateOperationsInput | number | null
+    chatbot_questions_reset_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    QuizParticipants?: QuizParticipantsUpdateManyWithoutUsersNestedInput
+    Quizzes?: QuizzesUpdateManyWithoutUsersNestedInput
+    blog_comments?: blog_commentsUpdateManyWithoutUsersNestedInput
+    blog_likes?: blog_likesUpdateManyWithoutUsersNestedInput
+    blog_views?: blog_viewsUpdateManyWithoutUsersNestedInput
+    blogs?: blogsUpdateManyWithoutUsersNestedInput
+    chatbot_sessions?: chatbot_sessionsUpdateManyWithoutUsersNestedInput
+    chatbot_usage?: chatbot_usageUpdateManyWithoutUsersNestedInput
+    guide_application?: guide_applicationUpdateManyWithoutUsersNestedInput
+    influencer_application?: influencer_applicationUpdateManyWithoutUsersNestedInput
+    media_uploads?: media_uploadsUpdateManyWithoutUserNestedInput
+    mentor_application?: mentor_applicationUpdateManyWithoutUsersNestedInput
+    night_camp_registrations?: night_camp_registrationsUpdateManyWithoutUsersNestedInput
+    night_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousers?: night_camp_volunteering_applicationsUpdateManyWithoutUsers_night_camp_volunteering_applications_reviewed_byTousersNestedInput
+    night_camp_volunteering_applications_night_camp_volunteering_applications_user_idTousers?: night_camp_volunteering_applicationsUpdateManyWithoutUsers_night_camp_volunteering_applications_user_idTousersNestedInput
+    payments?: paymentsUpdateManyWithoutUsersNestedInput
+    role_upgrade_requests_role_upgrade_requests_reviewer_idTousers?: role_upgrade_requestsUpdateManyWithoutUsers_role_upgrade_requests_reviewer_idTousersNestedInput
+    role_upgrade_requests_role_upgrade_requests_user_idTousers?: role_upgrade_requestsUpdateManyWithoutUsers_role_upgrade_requests_user_idTousersNestedInput
+    subscriptions?: subscriptionsUpdateManyWithoutUsersNestedInput
+    user_settings?: user_settingsUpdateOneWithoutUsersNestedInput
+    group_memberships?: group_membersUpdateManyWithoutUserNestedInput
+    chat_messages?: chat_messagesUpdateManyWithoutUserNestedInput
+    message_reactions?: message_reactionsUpdateManyWithoutUserNestedInput
+  }
+
+  export type usersUncheckedUpdateWithoutCreated_groupsInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    firebase_uid?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    role?: NullableEnumuser_roleFieldUpdateOperationsInput | $Enums.user_role | null
+    first_name?: NullableStringFieldUpdateOperationsInput | string | null
+    last_name?: NullableStringFieldUpdateOperationsInput | string | null
+    is_active?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    last_login?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    display_name?: NullableStringFieldUpdateOperationsInput | string | null
+    profile_data?: NullableJsonNullValueInput | InputJsonValue
+    role_specific_data?: NullableJsonNullValueInput | InputJsonValue
+    subscription_plan?: NullableEnumsubscription_planFieldUpdateOperationsInput | $Enums.subscription_plan | null
+    subscription_status?: NullableEnumsubscription_statusFieldUpdateOperationsInput | $Enums.subscription_status | null
+    subscription_start_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    subscription_end_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    auto_renew?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    chatbot_questions_used?: NullableIntFieldUpdateOperationsInput | number | null
+    chatbot_questions_reset_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    QuizParticipants?: QuizParticipantsUncheckedUpdateManyWithoutUsersNestedInput
+    Quizzes?: QuizzesUncheckedUpdateManyWithoutUsersNestedInput
+    blog_comments?: blog_commentsUncheckedUpdateManyWithoutUsersNestedInput
+    blog_likes?: blog_likesUncheckedUpdateManyWithoutUsersNestedInput
+    blog_views?: blog_viewsUncheckedUpdateManyWithoutUsersNestedInput
+    blogs?: blogsUncheckedUpdateManyWithoutUsersNestedInput
+    chatbot_sessions?: chatbot_sessionsUncheckedUpdateManyWithoutUsersNestedInput
+    chatbot_usage?: chatbot_usageUncheckedUpdateManyWithoutUsersNestedInput
+    guide_application?: guide_applicationUncheckedUpdateManyWithoutUsersNestedInput
+    influencer_application?: influencer_applicationUncheckedUpdateManyWithoutUsersNestedInput
+    media_uploads?: media_uploadsUncheckedUpdateManyWithoutUserNestedInput
+    mentor_application?: mentor_applicationUncheckedUpdateManyWithoutUsersNestedInput
+    night_camp_registrations?: night_camp_registrationsUncheckedUpdateManyWithoutUsersNestedInput
+    night_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousers?: night_camp_volunteering_applicationsUncheckedUpdateManyWithoutUsers_night_camp_volunteering_applications_reviewed_byTousersNestedInput
+    night_camp_volunteering_applications_night_camp_volunteering_applications_user_idTousers?: night_camp_volunteering_applicationsUncheckedUpdateManyWithoutUsers_night_camp_volunteering_applications_user_idTousersNestedInput
+    payments?: paymentsUncheckedUpdateManyWithoutUsersNestedInput
+    role_upgrade_requests_role_upgrade_requests_reviewer_idTousers?: role_upgrade_requestsUncheckedUpdateManyWithoutUsers_role_upgrade_requests_reviewer_idTousersNestedInput
+    role_upgrade_requests_role_upgrade_requests_user_idTousers?: role_upgrade_requestsUncheckedUpdateManyWithoutUsers_role_upgrade_requests_user_idTousersNestedInput
+    subscriptions?: subscriptionsUncheckedUpdateManyWithoutUsersNestedInput
+    user_settings?: user_settingsUncheckedUpdateOneWithoutUsersNestedInput
+    group_memberships?: group_membersUncheckedUpdateManyWithoutUserNestedInput
+    chat_messages?: chat_messagesUncheckedUpdateManyWithoutUserNestedInput
+    message_reactions?: message_reactionsUncheckedUpdateManyWithoutUserNestedInput
+  }
+
+  export type group_membersUpsertWithWhereUniqueWithoutGroupInput = {
+    where: group_membersWhereUniqueInput
+    update: XOR<group_membersUpdateWithoutGroupInput, group_membersUncheckedUpdateWithoutGroupInput>
+    create: XOR<group_membersCreateWithoutGroupInput, group_membersUncheckedCreateWithoutGroupInput>
+  }
+
+  export type group_membersUpdateWithWhereUniqueWithoutGroupInput = {
+    where: group_membersWhereUniqueInput
+    data: XOR<group_membersUpdateWithoutGroupInput, group_membersUncheckedUpdateWithoutGroupInput>
+  }
+
+  export type group_membersUpdateManyWithWhereWithoutGroupInput = {
+    where: group_membersScalarWhereInput
+    data: XOR<group_membersUpdateManyMutationInput, group_membersUncheckedUpdateManyWithoutGroupInput>
+  }
+
+  export type group_membersScalarWhereInput = {
+    AND?: group_membersScalarWhereInput | group_membersScalarWhereInput[]
+    OR?: group_membersScalarWhereInput[]
+    NOT?: group_membersScalarWhereInput | group_membersScalarWhereInput[]
+    id?: IntFilter<"group_members"> | number
+    group_id?: IntFilter<"group_members"> | number
+    user_id?: IntFilter<"group_members"> | number
+    role?: StringFilter<"group_members"> | string
+    joined_at?: DateTimeFilter<"group_members"> | Date | string
+    is_muted?: BoolFilter<"group_members"> | boolean
+  }
+
+  export type chat_messagesUpsertWithWhereUniqueWithoutGroupInput = {
+    where: chat_messagesWhereUniqueInput
+    update: XOR<chat_messagesUpdateWithoutGroupInput, chat_messagesUncheckedUpdateWithoutGroupInput>
+    create: XOR<chat_messagesCreateWithoutGroupInput, chat_messagesUncheckedCreateWithoutGroupInput>
+  }
+
+  export type chat_messagesUpdateWithWhereUniqueWithoutGroupInput = {
+    where: chat_messagesWhereUniqueInput
+    data: XOR<chat_messagesUpdateWithoutGroupInput, chat_messagesUncheckedUpdateWithoutGroupInput>
+  }
+
+  export type chat_messagesUpdateManyWithWhereWithoutGroupInput = {
+    where: chat_messagesScalarWhereInput
+    data: XOR<chat_messagesUpdateManyMutationInput, chat_messagesUncheckedUpdateManyWithoutGroupInput>
+  }
+
+  export type chat_messagesScalarWhereInput = {
+    AND?: chat_messagesScalarWhereInput | chat_messagesScalarWhereInput[]
+    OR?: chat_messagesScalarWhereInput[]
+    NOT?: chat_messagesScalarWhereInput | chat_messagesScalarWhereInput[]
+    id?: IntFilter<"chat_messages"> | number
+    group_id?: IntFilter<"chat_messages"> | number
+    user_id?: IntNullableFilter<"chat_messages"> | number | null
+    message_text?: StringFilter<"chat_messages"> | string
+    message_type?: StringFilter<"chat_messages"> | string
+    reply_to?: IntNullableFilter<"chat_messages"> | number | null
+    is_edited?: BoolFilter<"chat_messages"> | boolean
+    is_deleted?: BoolFilter<"chat_messages"> | boolean
+    created_at?: DateTimeFilter<"chat_messages"> | Date | string
+    updated_at?: DateTimeFilter<"chat_messages"> | Date | string
+  }
+
+  export type group_chatsCreateWithoutMembersInput = {
+    name: string
+    description?: string | null
+    type?: string
+    avatar_url?: string | null
+    is_active?: boolean
+    max_members?: number
+    created_at?: Date | string
+    updated_at?: Date | string
+    creator: usersCreateNestedOneWithoutCreated_groupsInput
+    messages?: chat_messagesCreateNestedManyWithoutGroupInput
+  }
+
+  export type group_chatsUncheckedCreateWithoutMembersInput = {
+    id?: number
+    name: string
+    description?: string | null
+    type?: string
+    created_by: number
+    avatar_url?: string | null
+    is_active?: boolean
+    max_members?: number
+    created_at?: Date | string
+    updated_at?: Date | string
+    messages?: chat_messagesUncheckedCreateNestedManyWithoutGroupInput
+  }
+
+  export type group_chatsCreateOrConnectWithoutMembersInput = {
+    where: group_chatsWhereUniqueInput
+    create: XOR<group_chatsCreateWithoutMembersInput, group_chatsUncheckedCreateWithoutMembersInput>
+  }
+
+  export type usersCreateWithoutGroup_membershipsInput = {
+    firebase_uid: string
+    email: string
+    role?: $Enums.user_role | null
+    first_name?: string | null
+    last_name?: string | null
+    is_active?: boolean | null
+    last_login?: Date | string | null
+    created_at?: Date | string | null
+    updated_at?: Date | string | null
+    display_name?: string | null
+    profile_data?: NullableJsonNullValueInput | InputJsonValue
+    role_specific_data?: NullableJsonNullValueInput | InputJsonValue
+    subscription_plan?: $Enums.subscription_plan | null
+    subscription_status?: $Enums.subscription_status | null
+    subscription_start_date?: Date | string | null
+    subscription_end_date?: Date | string | null
+    auto_renew?: boolean | null
+    chatbot_questions_used?: number | null
+    chatbot_questions_reset_date?: Date | string | null
+    QuizParticipants?: QuizParticipantsCreateNestedManyWithoutUsersInput
+    Quizzes?: QuizzesCreateNestedManyWithoutUsersInput
+    blog_comments?: blog_commentsCreateNestedManyWithoutUsersInput
+    blog_likes?: blog_likesCreateNestedManyWithoutUsersInput
+    blog_views?: blog_viewsCreateNestedManyWithoutUsersInput
+    blogs?: blogsCreateNestedManyWithoutUsersInput
+    chatbot_sessions?: chatbot_sessionsCreateNestedManyWithoutUsersInput
+    chatbot_usage?: chatbot_usageCreateNestedManyWithoutUsersInput
+    guide_application?: guide_applicationCreateNestedManyWithoutUsersInput
+    influencer_application?: influencer_applicationCreateNestedManyWithoutUsersInput
+    media_uploads?: media_uploadsCreateNestedManyWithoutUserInput
+    mentor_application?: mentor_applicationCreateNestedManyWithoutUsersInput
+    night_camp_registrations?: night_camp_registrationsCreateNestedManyWithoutUsersInput
+    night_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousers?: night_camp_volunteering_applicationsCreateNestedManyWithoutUsers_night_camp_volunteering_applications_reviewed_byTousersInput
+    night_camp_volunteering_applications_night_camp_volunteering_applications_user_idTousers?: night_camp_volunteering_applicationsCreateNestedManyWithoutUsers_night_camp_volunteering_applications_user_idTousersInput
+    payments?: paymentsCreateNestedManyWithoutUsersInput
+    role_upgrade_requests_role_upgrade_requests_reviewer_idTousers?: role_upgrade_requestsCreateNestedManyWithoutUsers_role_upgrade_requests_reviewer_idTousersInput
+    role_upgrade_requests_role_upgrade_requests_user_idTousers?: role_upgrade_requestsCreateNestedManyWithoutUsers_role_upgrade_requests_user_idTousersInput
+    subscriptions?: subscriptionsCreateNestedManyWithoutUsersInput
+    user_settings?: user_settingsCreateNestedOneWithoutUsersInput
+    created_groups?: group_chatsCreateNestedManyWithoutCreatorInput
+    chat_messages?: chat_messagesCreateNestedManyWithoutUserInput
+    message_reactions?: message_reactionsCreateNestedManyWithoutUserInput
+  }
+
+  export type usersUncheckedCreateWithoutGroup_membershipsInput = {
+    id?: number
+    firebase_uid: string
+    email: string
+    role?: $Enums.user_role | null
+    first_name?: string | null
+    last_name?: string | null
+    is_active?: boolean | null
+    last_login?: Date | string | null
+    created_at?: Date | string | null
+    updated_at?: Date | string | null
+    display_name?: string | null
+    profile_data?: NullableJsonNullValueInput | InputJsonValue
+    role_specific_data?: NullableJsonNullValueInput | InputJsonValue
+    subscription_plan?: $Enums.subscription_plan | null
+    subscription_status?: $Enums.subscription_status | null
+    subscription_start_date?: Date | string | null
+    subscription_end_date?: Date | string | null
+    auto_renew?: boolean | null
+    chatbot_questions_used?: number | null
+    chatbot_questions_reset_date?: Date | string | null
+    QuizParticipants?: QuizParticipantsUncheckedCreateNestedManyWithoutUsersInput
+    Quizzes?: QuizzesUncheckedCreateNestedManyWithoutUsersInput
+    blog_comments?: blog_commentsUncheckedCreateNestedManyWithoutUsersInput
+    blog_likes?: blog_likesUncheckedCreateNestedManyWithoutUsersInput
+    blog_views?: blog_viewsUncheckedCreateNestedManyWithoutUsersInput
+    blogs?: blogsUncheckedCreateNestedManyWithoutUsersInput
+    chatbot_sessions?: chatbot_sessionsUncheckedCreateNestedManyWithoutUsersInput
+    chatbot_usage?: chatbot_usageUncheckedCreateNestedManyWithoutUsersInput
+    guide_application?: guide_applicationUncheckedCreateNestedManyWithoutUsersInput
+    influencer_application?: influencer_applicationUncheckedCreateNestedManyWithoutUsersInput
+    media_uploads?: media_uploadsUncheckedCreateNestedManyWithoutUserInput
+    mentor_application?: mentor_applicationUncheckedCreateNestedManyWithoutUsersInput
+    night_camp_registrations?: night_camp_registrationsUncheckedCreateNestedManyWithoutUsersInput
+    night_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousers?: night_camp_volunteering_applicationsUncheckedCreateNestedManyWithoutUsers_night_camp_volunteering_applications_reviewed_byTousersInput
+    night_camp_volunteering_applications_night_camp_volunteering_applications_user_idTousers?: night_camp_volunteering_applicationsUncheckedCreateNestedManyWithoutUsers_night_camp_volunteering_applications_user_idTousersInput
+    payments?: paymentsUncheckedCreateNestedManyWithoutUsersInput
+    role_upgrade_requests_role_upgrade_requests_reviewer_idTousers?: role_upgrade_requestsUncheckedCreateNestedManyWithoutUsers_role_upgrade_requests_reviewer_idTousersInput
+    role_upgrade_requests_role_upgrade_requests_user_idTousers?: role_upgrade_requestsUncheckedCreateNestedManyWithoutUsers_role_upgrade_requests_user_idTousersInput
+    subscriptions?: subscriptionsUncheckedCreateNestedManyWithoutUsersInput
+    user_settings?: user_settingsUncheckedCreateNestedOneWithoutUsersInput
+    created_groups?: group_chatsUncheckedCreateNestedManyWithoutCreatorInput
+    chat_messages?: chat_messagesUncheckedCreateNestedManyWithoutUserInput
+    message_reactions?: message_reactionsUncheckedCreateNestedManyWithoutUserInput
+  }
+
+  export type usersCreateOrConnectWithoutGroup_membershipsInput = {
+    where: usersWhereUniqueInput
+    create: XOR<usersCreateWithoutGroup_membershipsInput, usersUncheckedCreateWithoutGroup_membershipsInput>
+  }
+
+  export type group_chatsUpsertWithoutMembersInput = {
+    update: XOR<group_chatsUpdateWithoutMembersInput, group_chatsUncheckedUpdateWithoutMembersInput>
+    create: XOR<group_chatsCreateWithoutMembersInput, group_chatsUncheckedCreateWithoutMembersInput>
+    where?: group_chatsWhereInput
+  }
+
+  export type group_chatsUpdateToOneWithWhereWithoutMembersInput = {
+    where?: group_chatsWhereInput
+    data: XOR<group_chatsUpdateWithoutMembersInput, group_chatsUncheckedUpdateWithoutMembersInput>
+  }
+
+  export type group_chatsUpdateWithoutMembersInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    type?: StringFieldUpdateOperationsInput | string
+    avatar_url?: NullableStringFieldUpdateOperationsInput | string | null
+    is_active?: BoolFieldUpdateOperationsInput | boolean
+    max_members?: IntFieldUpdateOperationsInput | number
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    creator?: usersUpdateOneRequiredWithoutCreated_groupsNestedInput
+    messages?: chat_messagesUpdateManyWithoutGroupNestedInput
+  }
+
+  export type group_chatsUncheckedUpdateWithoutMembersInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    type?: StringFieldUpdateOperationsInput | string
+    created_by?: IntFieldUpdateOperationsInput | number
+    avatar_url?: NullableStringFieldUpdateOperationsInput | string | null
+    is_active?: BoolFieldUpdateOperationsInput | boolean
+    max_members?: IntFieldUpdateOperationsInput | number
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    messages?: chat_messagesUncheckedUpdateManyWithoutGroupNestedInput
+  }
+
+  export type usersUpsertWithoutGroup_membershipsInput = {
+    update: XOR<usersUpdateWithoutGroup_membershipsInput, usersUncheckedUpdateWithoutGroup_membershipsInput>
+    create: XOR<usersCreateWithoutGroup_membershipsInput, usersUncheckedCreateWithoutGroup_membershipsInput>
+    where?: usersWhereInput
+  }
+
+  export type usersUpdateToOneWithWhereWithoutGroup_membershipsInput = {
+    where?: usersWhereInput
+    data: XOR<usersUpdateWithoutGroup_membershipsInput, usersUncheckedUpdateWithoutGroup_membershipsInput>
+  }
+
+  export type usersUpdateWithoutGroup_membershipsInput = {
+    firebase_uid?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    role?: NullableEnumuser_roleFieldUpdateOperationsInput | $Enums.user_role | null
+    first_name?: NullableStringFieldUpdateOperationsInput | string | null
+    last_name?: NullableStringFieldUpdateOperationsInput | string | null
+    is_active?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    last_login?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    display_name?: NullableStringFieldUpdateOperationsInput | string | null
+    profile_data?: NullableJsonNullValueInput | InputJsonValue
+    role_specific_data?: NullableJsonNullValueInput | InputJsonValue
+    subscription_plan?: NullableEnumsubscription_planFieldUpdateOperationsInput | $Enums.subscription_plan | null
+    subscription_status?: NullableEnumsubscription_statusFieldUpdateOperationsInput | $Enums.subscription_status | null
+    subscription_start_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    subscription_end_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    auto_renew?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    chatbot_questions_used?: NullableIntFieldUpdateOperationsInput | number | null
+    chatbot_questions_reset_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    QuizParticipants?: QuizParticipantsUpdateManyWithoutUsersNestedInput
+    Quizzes?: QuizzesUpdateManyWithoutUsersNestedInput
+    blog_comments?: blog_commentsUpdateManyWithoutUsersNestedInput
+    blog_likes?: blog_likesUpdateManyWithoutUsersNestedInput
+    blog_views?: blog_viewsUpdateManyWithoutUsersNestedInput
+    blogs?: blogsUpdateManyWithoutUsersNestedInput
+    chatbot_sessions?: chatbot_sessionsUpdateManyWithoutUsersNestedInput
+    chatbot_usage?: chatbot_usageUpdateManyWithoutUsersNestedInput
+    guide_application?: guide_applicationUpdateManyWithoutUsersNestedInput
+    influencer_application?: influencer_applicationUpdateManyWithoutUsersNestedInput
+    media_uploads?: media_uploadsUpdateManyWithoutUserNestedInput
+    mentor_application?: mentor_applicationUpdateManyWithoutUsersNestedInput
+    night_camp_registrations?: night_camp_registrationsUpdateManyWithoutUsersNestedInput
+    night_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousers?: night_camp_volunteering_applicationsUpdateManyWithoutUsers_night_camp_volunteering_applications_reviewed_byTousersNestedInput
+    night_camp_volunteering_applications_night_camp_volunteering_applications_user_idTousers?: night_camp_volunteering_applicationsUpdateManyWithoutUsers_night_camp_volunteering_applications_user_idTousersNestedInput
+    payments?: paymentsUpdateManyWithoutUsersNestedInput
+    role_upgrade_requests_role_upgrade_requests_reviewer_idTousers?: role_upgrade_requestsUpdateManyWithoutUsers_role_upgrade_requests_reviewer_idTousersNestedInput
+    role_upgrade_requests_role_upgrade_requests_user_idTousers?: role_upgrade_requestsUpdateManyWithoutUsers_role_upgrade_requests_user_idTousersNestedInput
+    subscriptions?: subscriptionsUpdateManyWithoutUsersNestedInput
+    user_settings?: user_settingsUpdateOneWithoutUsersNestedInput
+    created_groups?: group_chatsUpdateManyWithoutCreatorNestedInput
+    chat_messages?: chat_messagesUpdateManyWithoutUserNestedInput
+    message_reactions?: message_reactionsUpdateManyWithoutUserNestedInput
+  }
+
+  export type usersUncheckedUpdateWithoutGroup_membershipsInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    firebase_uid?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    role?: NullableEnumuser_roleFieldUpdateOperationsInput | $Enums.user_role | null
+    first_name?: NullableStringFieldUpdateOperationsInput | string | null
+    last_name?: NullableStringFieldUpdateOperationsInput | string | null
+    is_active?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    last_login?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    display_name?: NullableStringFieldUpdateOperationsInput | string | null
+    profile_data?: NullableJsonNullValueInput | InputJsonValue
+    role_specific_data?: NullableJsonNullValueInput | InputJsonValue
+    subscription_plan?: NullableEnumsubscription_planFieldUpdateOperationsInput | $Enums.subscription_plan | null
+    subscription_status?: NullableEnumsubscription_statusFieldUpdateOperationsInput | $Enums.subscription_status | null
+    subscription_start_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    subscription_end_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    auto_renew?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    chatbot_questions_used?: NullableIntFieldUpdateOperationsInput | number | null
+    chatbot_questions_reset_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    QuizParticipants?: QuizParticipantsUncheckedUpdateManyWithoutUsersNestedInput
+    Quizzes?: QuizzesUncheckedUpdateManyWithoutUsersNestedInput
+    blog_comments?: blog_commentsUncheckedUpdateManyWithoutUsersNestedInput
+    blog_likes?: blog_likesUncheckedUpdateManyWithoutUsersNestedInput
+    blog_views?: blog_viewsUncheckedUpdateManyWithoutUsersNestedInput
+    blogs?: blogsUncheckedUpdateManyWithoutUsersNestedInput
+    chatbot_sessions?: chatbot_sessionsUncheckedUpdateManyWithoutUsersNestedInput
+    chatbot_usage?: chatbot_usageUncheckedUpdateManyWithoutUsersNestedInput
+    guide_application?: guide_applicationUncheckedUpdateManyWithoutUsersNestedInput
+    influencer_application?: influencer_applicationUncheckedUpdateManyWithoutUsersNestedInput
+    media_uploads?: media_uploadsUncheckedUpdateManyWithoutUserNestedInput
+    mentor_application?: mentor_applicationUncheckedUpdateManyWithoutUsersNestedInput
+    night_camp_registrations?: night_camp_registrationsUncheckedUpdateManyWithoutUsersNestedInput
+    night_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousers?: night_camp_volunteering_applicationsUncheckedUpdateManyWithoutUsers_night_camp_volunteering_applications_reviewed_byTousersNestedInput
+    night_camp_volunteering_applications_night_camp_volunteering_applications_user_idTousers?: night_camp_volunteering_applicationsUncheckedUpdateManyWithoutUsers_night_camp_volunteering_applications_user_idTousersNestedInput
+    payments?: paymentsUncheckedUpdateManyWithoutUsersNestedInput
+    role_upgrade_requests_role_upgrade_requests_reviewer_idTousers?: role_upgrade_requestsUncheckedUpdateManyWithoutUsers_role_upgrade_requests_reviewer_idTousersNestedInput
+    role_upgrade_requests_role_upgrade_requests_user_idTousers?: role_upgrade_requestsUncheckedUpdateManyWithoutUsers_role_upgrade_requests_user_idTousersNestedInput
+    subscriptions?: subscriptionsUncheckedUpdateManyWithoutUsersNestedInput
+    user_settings?: user_settingsUncheckedUpdateOneWithoutUsersNestedInput
+    created_groups?: group_chatsUncheckedUpdateManyWithoutCreatorNestedInput
+    chat_messages?: chat_messagesUncheckedUpdateManyWithoutUserNestedInput
+    message_reactions?: message_reactionsUncheckedUpdateManyWithoutUserNestedInput
+  }
+
+  export type group_chatsCreateWithoutMessagesInput = {
+    name: string
+    description?: string | null
+    type?: string
+    avatar_url?: string | null
+    is_active?: boolean
+    max_members?: number
+    created_at?: Date | string
+    updated_at?: Date | string
+    creator: usersCreateNestedOneWithoutCreated_groupsInput
+    members?: group_membersCreateNestedManyWithoutGroupInput
+  }
+
+  export type group_chatsUncheckedCreateWithoutMessagesInput = {
+    id?: number
+    name: string
+    description?: string | null
+    type?: string
+    created_by: number
+    avatar_url?: string | null
+    is_active?: boolean
+    max_members?: number
+    created_at?: Date | string
+    updated_at?: Date | string
+    members?: group_membersUncheckedCreateNestedManyWithoutGroupInput
+  }
+
+  export type group_chatsCreateOrConnectWithoutMessagesInput = {
+    where: group_chatsWhereUniqueInput
+    create: XOR<group_chatsCreateWithoutMessagesInput, group_chatsUncheckedCreateWithoutMessagesInput>
+  }
+
+  export type usersCreateWithoutChat_messagesInput = {
+    firebase_uid: string
+    email: string
+    role?: $Enums.user_role | null
+    first_name?: string | null
+    last_name?: string | null
+    is_active?: boolean | null
+    last_login?: Date | string | null
+    created_at?: Date | string | null
+    updated_at?: Date | string | null
+    display_name?: string | null
+    profile_data?: NullableJsonNullValueInput | InputJsonValue
+    role_specific_data?: NullableJsonNullValueInput | InputJsonValue
+    subscription_plan?: $Enums.subscription_plan | null
+    subscription_status?: $Enums.subscription_status | null
+    subscription_start_date?: Date | string | null
+    subscription_end_date?: Date | string | null
+    auto_renew?: boolean | null
+    chatbot_questions_used?: number | null
+    chatbot_questions_reset_date?: Date | string | null
+    QuizParticipants?: QuizParticipantsCreateNestedManyWithoutUsersInput
+    Quizzes?: QuizzesCreateNestedManyWithoutUsersInput
+    blog_comments?: blog_commentsCreateNestedManyWithoutUsersInput
+    blog_likes?: blog_likesCreateNestedManyWithoutUsersInput
+    blog_views?: blog_viewsCreateNestedManyWithoutUsersInput
+    blogs?: blogsCreateNestedManyWithoutUsersInput
+    chatbot_sessions?: chatbot_sessionsCreateNestedManyWithoutUsersInput
+    chatbot_usage?: chatbot_usageCreateNestedManyWithoutUsersInput
+    guide_application?: guide_applicationCreateNestedManyWithoutUsersInput
+    influencer_application?: influencer_applicationCreateNestedManyWithoutUsersInput
+    media_uploads?: media_uploadsCreateNestedManyWithoutUserInput
+    mentor_application?: mentor_applicationCreateNestedManyWithoutUsersInput
+    night_camp_registrations?: night_camp_registrationsCreateNestedManyWithoutUsersInput
+    night_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousers?: night_camp_volunteering_applicationsCreateNestedManyWithoutUsers_night_camp_volunteering_applications_reviewed_byTousersInput
+    night_camp_volunteering_applications_night_camp_volunteering_applications_user_idTousers?: night_camp_volunteering_applicationsCreateNestedManyWithoutUsers_night_camp_volunteering_applications_user_idTousersInput
+    payments?: paymentsCreateNestedManyWithoutUsersInput
+    role_upgrade_requests_role_upgrade_requests_reviewer_idTousers?: role_upgrade_requestsCreateNestedManyWithoutUsers_role_upgrade_requests_reviewer_idTousersInput
+    role_upgrade_requests_role_upgrade_requests_user_idTousers?: role_upgrade_requestsCreateNestedManyWithoutUsers_role_upgrade_requests_user_idTousersInput
+    subscriptions?: subscriptionsCreateNestedManyWithoutUsersInput
+    user_settings?: user_settingsCreateNestedOneWithoutUsersInput
+    created_groups?: group_chatsCreateNestedManyWithoutCreatorInput
+    group_memberships?: group_membersCreateNestedManyWithoutUserInput
+    message_reactions?: message_reactionsCreateNestedManyWithoutUserInput
+  }
+
+  export type usersUncheckedCreateWithoutChat_messagesInput = {
+    id?: number
+    firebase_uid: string
+    email: string
+    role?: $Enums.user_role | null
+    first_name?: string | null
+    last_name?: string | null
+    is_active?: boolean | null
+    last_login?: Date | string | null
+    created_at?: Date | string | null
+    updated_at?: Date | string | null
+    display_name?: string | null
+    profile_data?: NullableJsonNullValueInput | InputJsonValue
+    role_specific_data?: NullableJsonNullValueInput | InputJsonValue
+    subscription_plan?: $Enums.subscription_plan | null
+    subscription_status?: $Enums.subscription_status | null
+    subscription_start_date?: Date | string | null
+    subscription_end_date?: Date | string | null
+    auto_renew?: boolean | null
+    chatbot_questions_used?: number | null
+    chatbot_questions_reset_date?: Date | string | null
+    QuizParticipants?: QuizParticipantsUncheckedCreateNestedManyWithoutUsersInput
+    Quizzes?: QuizzesUncheckedCreateNestedManyWithoutUsersInput
+    blog_comments?: blog_commentsUncheckedCreateNestedManyWithoutUsersInput
+    blog_likes?: blog_likesUncheckedCreateNestedManyWithoutUsersInput
+    blog_views?: blog_viewsUncheckedCreateNestedManyWithoutUsersInput
+    blogs?: blogsUncheckedCreateNestedManyWithoutUsersInput
+    chatbot_sessions?: chatbot_sessionsUncheckedCreateNestedManyWithoutUsersInput
+    chatbot_usage?: chatbot_usageUncheckedCreateNestedManyWithoutUsersInput
+    guide_application?: guide_applicationUncheckedCreateNestedManyWithoutUsersInput
+    influencer_application?: influencer_applicationUncheckedCreateNestedManyWithoutUsersInput
+    media_uploads?: media_uploadsUncheckedCreateNestedManyWithoutUserInput
+    mentor_application?: mentor_applicationUncheckedCreateNestedManyWithoutUsersInput
+    night_camp_registrations?: night_camp_registrationsUncheckedCreateNestedManyWithoutUsersInput
+    night_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousers?: night_camp_volunteering_applicationsUncheckedCreateNestedManyWithoutUsers_night_camp_volunteering_applications_reviewed_byTousersInput
+    night_camp_volunteering_applications_night_camp_volunteering_applications_user_idTousers?: night_camp_volunteering_applicationsUncheckedCreateNestedManyWithoutUsers_night_camp_volunteering_applications_user_idTousersInput
+    payments?: paymentsUncheckedCreateNestedManyWithoutUsersInput
+    role_upgrade_requests_role_upgrade_requests_reviewer_idTousers?: role_upgrade_requestsUncheckedCreateNestedManyWithoutUsers_role_upgrade_requests_reviewer_idTousersInput
+    role_upgrade_requests_role_upgrade_requests_user_idTousers?: role_upgrade_requestsUncheckedCreateNestedManyWithoutUsers_role_upgrade_requests_user_idTousersInput
+    subscriptions?: subscriptionsUncheckedCreateNestedManyWithoutUsersInput
+    user_settings?: user_settingsUncheckedCreateNestedOneWithoutUsersInput
+    created_groups?: group_chatsUncheckedCreateNestedManyWithoutCreatorInput
+    group_memberships?: group_membersUncheckedCreateNestedManyWithoutUserInput
+    message_reactions?: message_reactionsUncheckedCreateNestedManyWithoutUserInput
+  }
+
+  export type usersCreateOrConnectWithoutChat_messagesInput = {
+    where: usersWhereUniqueInput
+    create: XOR<usersCreateWithoutChat_messagesInput, usersUncheckedCreateWithoutChat_messagesInput>
+  }
+
+  export type chat_messagesCreateWithoutRepliesInput = {
+    message_text: string
+    message_type?: string
+    is_edited?: boolean
+    is_deleted?: boolean
+    created_at?: Date | string
+    updated_at?: Date | string
+    group: group_chatsCreateNestedOneWithoutMessagesInput
+    user?: usersCreateNestedOneWithoutChat_messagesInput
+    reply_msg?: chat_messagesCreateNestedOneWithoutRepliesInput
+    reactions?: message_reactionsCreateNestedManyWithoutMessageInput
+  }
+
+  export type chat_messagesUncheckedCreateWithoutRepliesInput = {
+    id?: number
+    group_id: number
+    user_id?: number | null
+    message_text: string
+    message_type?: string
+    reply_to?: number | null
+    is_edited?: boolean
+    is_deleted?: boolean
+    created_at?: Date | string
+    updated_at?: Date | string
+    reactions?: message_reactionsUncheckedCreateNestedManyWithoutMessageInput
+  }
+
+  export type chat_messagesCreateOrConnectWithoutRepliesInput = {
+    where: chat_messagesWhereUniqueInput
+    create: XOR<chat_messagesCreateWithoutRepliesInput, chat_messagesUncheckedCreateWithoutRepliesInput>
+  }
+
+  export type chat_messagesCreateWithoutReply_msgInput = {
+    message_text: string
+    message_type?: string
+    is_edited?: boolean
+    is_deleted?: boolean
+    created_at?: Date | string
+    updated_at?: Date | string
+    group: group_chatsCreateNestedOneWithoutMessagesInput
+    user?: usersCreateNestedOneWithoutChat_messagesInput
+    replies?: chat_messagesCreateNestedManyWithoutReply_msgInput
+    reactions?: message_reactionsCreateNestedManyWithoutMessageInput
+  }
+
+  export type chat_messagesUncheckedCreateWithoutReply_msgInput = {
+    id?: number
+    group_id: number
+    user_id?: number | null
+    message_text: string
+    message_type?: string
+    is_edited?: boolean
+    is_deleted?: boolean
+    created_at?: Date | string
+    updated_at?: Date | string
+    replies?: chat_messagesUncheckedCreateNestedManyWithoutReply_msgInput
+    reactions?: message_reactionsUncheckedCreateNestedManyWithoutMessageInput
+  }
+
+  export type chat_messagesCreateOrConnectWithoutReply_msgInput = {
+    where: chat_messagesWhereUniqueInput
+    create: XOR<chat_messagesCreateWithoutReply_msgInput, chat_messagesUncheckedCreateWithoutReply_msgInput>
+  }
+
+  export type chat_messagesCreateManyReply_msgInputEnvelope = {
+    data: chat_messagesCreateManyReply_msgInput | chat_messagesCreateManyReply_msgInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type message_reactionsCreateWithoutMessageInput = {
+    reaction: string
+    created_at?: Date | string
+    user: usersCreateNestedOneWithoutMessage_reactionsInput
+  }
+
+  export type message_reactionsUncheckedCreateWithoutMessageInput = {
+    id?: number
+    user_id: number
+    reaction: string
+    created_at?: Date | string
+  }
+
+  export type message_reactionsCreateOrConnectWithoutMessageInput = {
+    where: message_reactionsWhereUniqueInput
+    create: XOR<message_reactionsCreateWithoutMessageInput, message_reactionsUncheckedCreateWithoutMessageInput>
+  }
+
+  export type message_reactionsCreateManyMessageInputEnvelope = {
+    data: message_reactionsCreateManyMessageInput | message_reactionsCreateManyMessageInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type group_chatsUpsertWithoutMessagesInput = {
+    update: XOR<group_chatsUpdateWithoutMessagesInput, group_chatsUncheckedUpdateWithoutMessagesInput>
+    create: XOR<group_chatsCreateWithoutMessagesInput, group_chatsUncheckedCreateWithoutMessagesInput>
+    where?: group_chatsWhereInput
+  }
+
+  export type group_chatsUpdateToOneWithWhereWithoutMessagesInput = {
+    where?: group_chatsWhereInput
+    data: XOR<group_chatsUpdateWithoutMessagesInput, group_chatsUncheckedUpdateWithoutMessagesInput>
+  }
+
+  export type group_chatsUpdateWithoutMessagesInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    type?: StringFieldUpdateOperationsInput | string
+    avatar_url?: NullableStringFieldUpdateOperationsInput | string | null
+    is_active?: BoolFieldUpdateOperationsInput | boolean
+    max_members?: IntFieldUpdateOperationsInput | number
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    creator?: usersUpdateOneRequiredWithoutCreated_groupsNestedInput
+    members?: group_membersUpdateManyWithoutGroupNestedInput
+  }
+
+  export type group_chatsUncheckedUpdateWithoutMessagesInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    type?: StringFieldUpdateOperationsInput | string
+    created_by?: IntFieldUpdateOperationsInput | number
+    avatar_url?: NullableStringFieldUpdateOperationsInput | string | null
+    is_active?: BoolFieldUpdateOperationsInput | boolean
+    max_members?: IntFieldUpdateOperationsInput | number
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    members?: group_membersUncheckedUpdateManyWithoutGroupNestedInput
+  }
+
+  export type usersUpsertWithoutChat_messagesInput = {
+    update: XOR<usersUpdateWithoutChat_messagesInput, usersUncheckedUpdateWithoutChat_messagesInput>
+    create: XOR<usersCreateWithoutChat_messagesInput, usersUncheckedCreateWithoutChat_messagesInput>
+    where?: usersWhereInput
+  }
+
+  export type usersUpdateToOneWithWhereWithoutChat_messagesInput = {
+    where?: usersWhereInput
+    data: XOR<usersUpdateWithoutChat_messagesInput, usersUncheckedUpdateWithoutChat_messagesInput>
+  }
+
+  export type usersUpdateWithoutChat_messagesInput = {
+    firebase_uid?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    role?: NullableEnumuser_roleFieldUpdateOperationsInput | $Enums.user_role | null
+    first_name?: NullableStringFieldUpdateOperationsInput | string | null
+    last_name?: NullableStringFieldUpdateOperationsInput | string | null
+    is_active?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    last_login?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    display_name?: NullableStringFieldUpdateOperationsInput | string | null
+    profile_data?: NullableJsonNullValueInput | InputJsonValue
+    role_specific_data?: NullableJsonNullValueInput | InputJsonValue
+    subscription_plan?: NullableEnumsubscription_planFieldUpdateOperationsInput | $Enums.subscription_plan | null
+    subscription_status?: NullableEnumsubscription_statusFieldUpdateOperationsInput | $Enums.subscription_status | null
+    subscription_start_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    subscription_end_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    auto_renew?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    chatbot_questions_used?: NullableIntFieldUpdateOperationsInput | number | null
+    chatbot_questions_reset_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    QuizParticipants?: QuizParticipantsUpdateManyWithoutUsersNestedInput
+    Quizzes?: QuizzesUpdateManyWithoutUsersNestedInput
+    blog_comments?: blog_commentsUpdateManyWithoutUsersNestedInput
+    blog_likes?: blog_likesUpdateManyWithoutUsersNestedInput
+    blog_views?: blog_viewsUpdateManyWithoutUsersNestedInput
+    blogs?: blogsUpdateManyWithoutUsersNestedInput
+    chatbot_sessions?: chatbot_sessionsUpdateManyWithoutUsersNestedInput
+    chatbot_usage?: chatbot_usageUpdateManyWithoutUsersNestedInput
+    guide_application?: guide_applicationUpdateManyWithoutUsersNestedInput
+    influencer_application?: influencer_applicationUpdateManyWithoutUsersNestedInput
+    media_uploads?: media_uploadsUpdateManyWithoutUserNestedInput
+    mentor_application?: mentor_applicationUpdateManyWithoutUsersNestedInput
+    night_camp_registrations?: night_camp_registrationsUpdateManyWithoutUsersNestedInput
+    night_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousers?: night_camp_volunteering_applicationsUpdateManyWithoutUsers_night_camp_volunteering_applications_reviewed_byTousersNestedInput
+    night_camp_volunteering_applications_night_camp_volunteering_applications_user_idTousers?: night_camp_volunteering_applicationsUpdateManyWithoutUsers_night_camp_volunteering_applications_user_idTousersNestedInput
+    payments?: paymentsUpdateManyWithoutUsersNestedInput
+    role_upgrade_requests_role_upgrade_requests_reviewer_idTousers?: role_upgrade_requestsUpdateManyWithoutUsers_role_upgrade_requests_reviewer_idTousersNestedInput
+    role_upgrade_requests_role_upgrade_requests_user_idTousers?: role_upgrade_requestsUpdateManyWithoutUsers_role_upgrade_requests_user_idTousersNestedInput
+    subscriptions?: subscriptionsUpdateManyWithoutUsersNestedInput
+    user_settings?: user_settingsUpdateOneWithoutUsersNestedInput
+    created_groups?: group_chatsUpdateManyWithoutCreatorNestedInput
+    group_memberships?: group_membersUpdateManyWithoutUserNestedInput
+    message_reactions?: message_reactionsUpdateManyWithoutUserNestedInput
+  }
+
+  export type usersUncheckedUpdateWithoutChat_messagesInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    firebase_uid?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    role?: NullableEnumuser_roleFieldUpdateOperationsInput | $Enums.user_role | null
+    first_name?: NullableStringFieldUpdateOperationsInput | string | null
+    last_name?: NullableStringFieldUpdateOperationsInput | string | null
+    is_active?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    last_login?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    display_name?: NullableStringFieldUpdateOperationsInput | string | null
+    profile_data?: NullableJsonNullValueInput | InputJsonValue
+    role_specific_data?: NullableJsonNullValueInput | InputJsonValue
+    subscription_plan?: NullableEnumsubscription_planFieldUpdateOperationsInput | $Enums.subscription_plan | null
+    subscription_status?: NullableEnumsubscription_statusFieldUpdateOperationsInput | $Enums.subscription_status | null
+    subscription_start_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    subscription_end_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    auto_renew?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    chatbot_questions_used?: NullableIntFieldUpdateOperationsInput | number | null
+    chatbot_questions_reset_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    QuizParticipants?: QuizParticipantsUncheckedUpdateManyWithoutUsersNestedInput
+    Quizzes?: QuizzesUncheckedUpdateManyWithoutUsersNestedInput
+    blog_comments?: blog_commentsUncheckedUpdateManyWithoutUsersNestedInput
+    blog_likes?: blog_likesUncheckedUpdateManyWithoutUsersNestedInput
+    blog_views?: blog_viewsUncheckedUpdateManyWithoutUsersNestedInput
+    blogs?: blogsUncheckedUpdateManyWithoutUsersNestedInput
+    chatbot_sessions?: chatbot_sessionsUncheckedUpdateManyWithoutUsersNestedInput
+    chatbot_usage?: chatbot_usageUncheckedUpdateManyWithoutUsersNestedInput
+    guide_application?: guide_applicationUncheckedUpdateManyWithoutUsersNestedInput
+    influencer_application?: influencer_applicationUncheckedUpdateManyWithoutUsersNestedInput
+    media_uploads?: media_uploadsUncheckedUpdateManyWithoutUserNestedInput
+    mentor_application?: mentor_applicationUncheckedUpdateManyWithoutUsersNestedInput
+    night_camp_registrations?: night_camp_registrationsUncheckedUpdateManyWithoutUsersNestedInput
+    night_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousers?: night_camp_volunteering_applicationsUncheckedUpdateManyWithoutUsers_night_camp_volunteering_applications_reviewed_byTousersNestedInput
+    night_camp_volunteering_applications_night_camp_volunteering_applications_user_idTousers?: night_camp_volunteering_applicationsUncheckedUpdateManyWithoutUsers_night_camp_volunteering_applications_user_idTousersNestedInput
+    payments?: paymentsUncheckedUpdateManyWithoutUsersNestedInput
+    role_upgrade_requests_role_upgrade_requests_reviewer_idTousers?: role_upgrade_requestsUncheckedUpdateManyWithoutUsers_role_upgrade_requests_reviewer_idTousersNestedInput
+    role_upgrade_requests_role_upgrade_requests_user_idTousers?: role_upgrade_requestsUncheckedUpdateManyWithoutUsers_role_upgrade_requests_user_idTousersNestedInput
+    subscriptions?: subscriptionsUncheckedUpdateManyWithoutUsersNestedInput
+    user_settings?: user_settingsUncheckedUpdateOneWithoutUsersNestedInput
+    created_groups?: group_chatsUncheckedUpdateManyWithoutCreatorNestedInput
+    group_memberships?: group_membersUncheckedUpdateManyWithoutUserNestedInput
+    message_reactions?: message_reactionsUncheckedUpdateManyWithoutUserNestedInput
+  }
+
+  export type chat_messagesUpsertWithoutRepliesInput = {
+    update: XOR<chat_messagesUpdateWithoutRepliesInput, chat_messagesUncheckedUpdateWithoutRepliesInput>
+    create: XOR<chat_messagesCreateWithoutRepliesInput, chat_messagesUncheckedCreateWithoutRepliesInput>
+    where?: chat_messagesWhereInput
+  }
+
+  export type chat_messagesUpdateToOneWithWhereWithoutRepliesInput = {
+    where?: chat_messagesWhereInput
+    data: XOR<chat_messagesUpdateWithoutRepliesInput, chat_messagesUncheckedUpdateWithoutRepliesInput>
+  }
+
+  export type chat_messagesUpdateWithoutRepliesInput = {
+    message_text?: StringFieldUpdateOperationsInput | string
+    message_type?: StringFieldUpdateOperationsInput | string
+    is_edited?: BoolFieldUpdateOperationsInput | boolean
+    is_deleted?: BoolFieldUpdateOperationsInput | boolean
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    group?: group_chatsUpdateOneRequiredWithoutMessagesNestedInput
+    user?: usersUpdateOneWithoutChat_messagesNestedInput
+    reply_msg?: chat_messagesUpdateOneWithoutRepliesNestedInput
+    reactions?: message_reactionsUpdateManyWithoutMessageNestedInput
+  }
+
+  export type chat_messagesUncheckedUpdateWithoutRepliesInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    group_id?: IntFieldUpdateOperationsInput | number
+    user_id?: NullableIntFieldUpdateOperationsInput | number | null
+    message_text?: StringFieldUpdateOperationsInput | string
+    message_type?: StringFieldUpdateOperationsInput | string
+    reply_to?: NullableIntFieldUpdateOperationsInput | number | null
+    is_edited?: BoolFieldUpdateOperationsInput | boolean
+    is_deleted?: BoolFieldUpdateOperationsInput | boolean
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    reactions?: message_reactionsUncheckedUpdateManyWithoutMessageNestedInput
+  }
+
+  export type chat_messagesUpsertWithWhereUniqueWithoutReply_msgInput = {
+    where: chat_messagesWhereUniqueInput
+    update: XOR<chat_messagesUpdateWithoutReply_msgInput, chat_messagesUncheckedUpdateWithoutReply_msgInput>
+    create: XOR<chat_messagesCreateWithoutReply_msgInput, chat_messagesUncheckedCreateWithoutReply_msgInput>
+  }
+
+  export type chat_messagesUpdateWithWhereUniqueWithoutReply_msgInput = {
+    where: chat_messagesWhereUniqueInput
+    data: XOR<chat_messagesUpdateWithoutReply_msgInput, chat_messagesUncheckedUpdateWithoutReply_msgInput>
+  }
+
+  export type chat_messagesUpdateManyWithWhereWithoutReply_msgInput = {
+    where: chat_messagesScalarWhereInput
+    data: XOR<chat_messagesUpdateManyMutationInput, chat_messagesUncheckedUpdateManyWithoutReply_msgInput>
+  }
+
+  export type message_reactionsUpsertWithWhereUniqueWithoutMessageInput = {
+    where: message_reactionsWhereUniqueInput
+    update: XOR<message_reactionsUpdateWithoutMessageInput, message_reactionsUncheckedUpdateWithoutMessageInput>
+    create: XOR<message_reactionsCreateWithoutMessageInput, message_reactionsUncheckedCreateWithoutMessageInput>
+  }
+
+  export type message_reactionsUpdateWithWhereUniqueWithoutMessageInput = {
+    where: message_reactionsWhereUniqueInput
+    data: XOR<message_reactionsUpdateWithoutMessageInput, message_reactionsUncheckedUpdateWithoutMessageInput>
+  }
+
+  export type message_reactionsUpdateManyWithWhereWithoutMessageInput = {
+    where: message_reactionsScalarWhereInput
+    data: XOR<message_reactionsUpdateManyMutationInput, message_reactionsUncheckedUpdateManyWithoutMessageInput>
+  }
+
+  export type message_reactionsScalarWhereInput = {
+    AND?: message_reactionsScalarWhereInput | message_reactionsScalarWhereInput[]
+    OR?: message_reactionsScalarWhereInput[]
+    NOT?: message_reactionsScalarWhereInput | message_reactionsScalarWhereInput[]
+    id?: IntFilter<"message_reactions"> | number
+    message_id?: IntFilter<"message_reactions"> | number
+    user_id?: IntFilter<"message_reactions"> | number
+    reaction?: StringFilter<"message_reactions"> | string
+    created_at?: DateTimeFilter<"message_reactions"> | Date | string
+  }
+
+  export type chat_messagesCreateWithoutReactionsInput = {
+    message_text: string
+    message_type?: string
+    is_edited?: boolean
+    is_deleted?: boolean
+    created_at?: Date | string
+    updated_at?: Date | string
+    group: group_chatsCreateNestedOneWithoutMessagesInput
+    user?: usersCreateNestedOneWithoutChat_messagesInput
+    reply_msg?: chat_messagesCreateNestedOneWithoutRepliesInput
+    replies?: chat_messagesCreateNestedManyWithoutReply_msgInput
+  }
+
+  export type chat_messagesUncheckedCreateWithoutReactionsInput = {
+    id?: number
+    group_id: number
+    user_id?: number | null
+    message_text: string
+    message_type?: string
+    reply_to?: number | null
+    is_edited?: boolean
+    is_deleted?: boolean
+    created_at?: Date | string
+    updated_at?: Date | string
+    replies?: chat_messagesUncheckedCreateNestedManyWithoutReply_msgInput
+  }
+
+  export type chat_messagesCreateOrConnectWithoutReactionsInput = {
+    where: chat_messagesWhereUniqueInput
+    create: XOR<chat_messagesCreateWithoutReactionsInput, chat_messagesUncheckedCreateWithoutReactionsInput>
+  }
+
+  export type usersCreateWithoutMessage_reactionsInput = {
+    firebase_uid: string
+    email: string
+    role?: $Enums.user_role | null
+    first_name?: string | null
+    last_name?: string | null
+    is_active?: boolean | null
+    last_login?: Date | string | null
+    created_at?: Date | string | null
+    updated_at?: Date | string | null
+    display_name?: string | null
+    profile_data?: NullableJsonNullValueInput | InputJsonValue
+    role_specific_data?: NullableJsonNullValueInput | InputJsonValue
+    subscription_plan?: $Enums.subscription_plan | null
+    subscription_status?: $Enums.subscription_status | null
+    subscription_start_date?: Date | string | null
+    subscription_end_date?: Date | string | null
+    auto_renew?: boolean | null
+    chatbot_questions_used?: number | null
+    chatbot_questions_reset_date?: Date | string | null
+    QuizParticipants?: QuizParticipantsCreateNestedManyWithoutUsersInput
+    Quizzes?: QuizzesCreateNestedManyWithoutUsersInput
+    blog_comments?: blog_commentsCreateNestedManyWithoutUsersInput
+    blog_likes?: blog_likesCreateNestedManyWithoutUsersInput
+    blog_views?: blog_viewsCreateNestedManyWithoutUsersInput
+    blogs?: blogsCreateNestedManyWithoutUsersInput
+    chatbot_sessions?: chatbot_sessionsCreateNestedManyWithoutUsersInput
+    chatbot_usage?: chatbot_usageCreateNestedManyWithoutUsersInput
+    guide_application?: guide_applicationCreateNestedManyWithoutUsersInput
+    influencer_application?: influencer_applicationCreateNestedManyWithoutUsersInput
+    media_uploads?: media_uploadsCreateNestedManyWithoutUserInput
+    mentor_application?: mentor_applicationCreateNestedManyWithoutUsersInput
+    night_camp_registrations?: night_camp_registrationsCreateNestedManyWithoutUsersInput
+    night_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousers?: night_camp_volunteering_applicationsCreateNestedManyWithoutUsers_night_camp_volunteering_applications_reviewed_byTousersInput
+    night_camp_volunteering_applications_night_camp_volunteering_applications_user_idTousers?: night_camp_volunteering_applicationsCreateNestedManyWithoutUsers_night_camp_volunteering_applications_user_idTousersInput
+    payments?: paymentsCreateNestedManyWithoutUsersInput
+    role_upgrade_requests_role_upgrade_requests_reviewer_idTousers?: role_upgrade_requestsCreateNestedManyWithoutUsers_role_upgrade_requests_reviewer_idTousersInput
+    role_upgrade_requests_role_upgrade_requests_user_idTousers?: role_upgrade_requestsCreateNestedManyWithoutUsers_role_upgrade_requests_user_idTousersInput
+    subscriptions?: subscriptionsCreateNestedManyWithoutUsersInput
+    user_settings?: user_settingsCreateNestedOneWithoutUsersInput
+    created_groups?: group_chatsCreateNestedManyWithoutCreatorInput
+    group_memberships?: group_membersCreateNestedManyWithoutUserInput
+    chat_messages?: chat_messagesCreateNestedManyWithoutUserInput
+  }
+
+  export type usersUncheckedCreateWithoutMessage_reactionsInput = {
+    id?: number
+    firebase_uid: string
+    email: string
+    role?: $Enums.user_role | null
+    first_name?: string | null
+    last_name?: string | null
+    is_active?: boolean | null
+    last_login?: Date | string | null
+    created_at?: Date | string | null
+    updated_at?: Date | string | null
+    display_name?: string | null
+    profile_data?: NullableJsonNullValueInput | InputJsonValue
+    role_specific_data?: NullableJsonNullValueInput | InputJsonValue
+    subscription_plan?: $Enums.subscription_plan | null
+    subscription_status?: $Enums.subscription_status | null
+    subscription_start_date?: Date | string | null
+    subscription_end_date?: Date | string | null
+    auto_renew?: boolean | null
+    chatbot_questions_used?: number | null
+    chatbot_questions_reset_date?: Date | string | null
+    QuizParticipants?: QuizParticipantsUncheckedCreateNestedManyWithoutUsersInput
+    Quizzes?: QuizzesUncheckedCreateNestedManyWithoutUsersInput
+    blog_comments?: blog_commentsUncheckedCreateNestedManyWithoutUsersInput
+    blog_likes?: blog_likesUncheckedCreateNestedManyWithoutUsersInput
+    blog_views?: blog_viewsUncheckedCreateNestedManyWithoutUsersInput
+    blogs?: blogsUncheckedCreateNestedManyWithoutUsersInput
+    chatbot_sessions?: chatbot_sessionsUncheckedCreateNestedManyWithoutUsersInput
+    chatbot_usage?: chatbot_usageUncheckedCreateNestedManyWithoutUsersInput
+    guide_application?: guide_applicationUncheckedCreateNestedManyWithoutUsersInput
+    influencer_application?: influencer_applicationUncheckedCreateNestedManyWithoutUsersInput
+    media_uploads?: media_uploadsUncheckedCreateNestedManyWithoutUserInput
+    mentor_application?: mentor_applicationUncheckedCreateNestedManyWithoutUsersInput
+    night_camp_registrations?: night_camp_registrationsUncheckedCreateNestedManyWithoutUsersInput
+    night_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousers?: night_camp_volunteering_applicationsUncheckedCreateNestedManyWithoutUsers_night_camp_volunteering_applications_reviewed_byTousersInput
+    night_camp_volunteering_applications_night_camp_volunteering_applications_user_idTousers?: night_camp_volunteering_applicationsUncheckedCreateNestedManyWithoutUsers_night_camp_volunteering_applications_user_idTousersInput
+    payments?: paymentsUncheckedCreateNestedManyWithoutUsersInput
+    role_upgrade_requests_role_upgrade_requests_reviewer_idTousers?: role_upgrade_requestsUncheckedCreateNestedManyWithoutUsers_role_upgrade_requests_reviewer_idTousersInput
+    role_upgrade_requests_role_upgrade_requests_user_idTousers?: role_upgrade_requestsUncheckedCreateNestedManyWithoutUsers_role_upgrade_requests_user_idTousersInput
+    subscriptions?: subscriptionsUncheckedCreateNestedManyWithoutUsersInput
+    user_settings?: user_settingsUncheckedCreateNestedOneWithoutUsersInput
+    created_groups?: group_chatsUncheckedCreateNestedManyWithoutCreatorInput
+    group_memberships?: group_membersUncheckedCreateNestedManyWithoutUserInput
+    chat_messages?: chat_messagesUncheckedCreateNestedManyWithoutUserInput
+  }
+
+  export type usersCreateOrConnectWithoutMessage_reactionsInput = {
+    where: usersWhereUniqueInput
+    create: XOR<usersCreateWithoutMessage_reactionsInput, usersUncheckedCreateWithoutMessage_reactionsInput>
+  }
+
+  export type chat_messagesUpsertWithoutReactionsInput = {
+    update: XOR<chat_messagesUpdateWithoutReactionsInput, chat_messagesUncheckedUpdateWithoutReactionsInput>
+    create: XOR<chat_messagesCreateWithoutReactionsInput, chat_messagesUncheckedCreateWithoutReactionsInput>
+    where?: chat_messagesWhereInput
+  }
+
+  export type chat_messagesUpdateToOneWithWhereWithoutReactionsInput = {
+    where?: chat_messagesWhereInput
+    data: XOR<chat_messagesUpdateWithoutReactionsInput, chat_messagesUncheckedUpdateWithoutReactionsInput>
+  }
+
+  export type chat_messagesUpdateWithoutReactionsInput = {
+    message_text?: StringFieldUpdateOperationsInput | string
+    message_type?: StringFieldUpdateOperationsInput | string
+    is_edited?: BoolFieldUpdateOperationsInput | boolean
+    is_deleted?: BoolFieldUpdateOperationsInput | boolean
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    group?: group_chatsUpdateOneRequiredWithoutMessagesNestedInput
+    user?: usersUpdateOneWithoutChat_messagesNestedInput
+    reply_msg?: chat_messagesUpdateOneWithoutRepliesNestedInput
+    replies?: chat_messagesUpdateManyWithoutReply_msgNestedInput
+  }
+
+  export type chat_messagesUncheckedUpdateWithoutReactionsInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    group_id?: IntFieldUpdateOperationsInput | number
+    user_id?: NullableIntFieldUpdateOperationsInput | number | null
+    message_text?: StringFieldUpdateOperationsInput | string
+    message_type?: StringFieldUpdateOperationsInput | string
+    reply_to?: NullableIntFieldUpdateOperationsInput | number | null
+    is_edited?: BoolFieldUpdateOperationsInput | boolean
+    is_deleted?: BoolFieldUpdateOperationsInput | boolean
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    replies?: chat_messagesUncheckedUpdateManyWithoutReply_msgNestedInput
+  }
+
+  export type usersUpsertWithoutMessage_reactionsInput = {
+    update: XOR<usersUpdateWithoutMessage_reactionsInput, usersUncheckedUpdateWithoutMessage_reactionsInput>
+    create: XOR<usersCreateWithoutMessage_reactionsInput, usersUncheckedCreateWithoutMessage_reactionsInput>
+    where?: usersWhereInput
+  }
+
+  export type usersUpdateToOneWithWhereWithoutMessage_reactionsInput = {
+    where?: usersWhereInput
+    data: XOR<usersUpdateWithoutMessage_reactionsInput, usersUncheckedUpdateWithoutMessage_reactionsInput>
+  }
+
+  export type usersUpdateWithoutMessage_reactionsInput = {
+    firebase_uid?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    role?: NullableEnumuser_roleFieldUpdateOperationsInput | $Enums.user_role | null
+    first_name?: NullableStringFieldUpdateOperationsInput | string | null
+    last_name?: NullableStringFieldUpdateOperationsInput | string | null
+    is_active?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    last_login?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    display_name?: NullableStringFieldUpdateOperationsInput | string | null
+    profile_data?: NullableJsonNullValueInput | InputJsonValue
+    role_specific_data?: NullableJsonNullValueInput | InputJsonValue
+    subscription_plan?: NullableEnumsubscription_planFieldUpdateOperationsInput | $Enums.subscription_plan | null
+    subscription_status?: NullableEnumsubscription_statusFieldUpdateOperationsInput | $Enums.subscription_status | null
+    subscription_start_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    subscription_end_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    auto_renew?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    chatbot_questions_used?: NullableIntFieldUpdateOperationsInput | number | null
+    chatbot_questions_reset_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    QuizParticipants?: QuizParticipantsUpdateManyWithoutUsersNestedInput
+    Quizzes?: QuizzesUpdateManyWithoutUsersNestedInput
+    blog_comments?: blog_commentsUpdateManyWithoutUsersNestedInput
+    blog_likes?: blog_likesUpdateManyWithoutUsersNestedInput
+    blog_views?: blog_viewsUpdateManyWithoutUsersNestedInput
+    blogs?: blogsUpdateManyWithoutUsersNestedInput
+    chatbot_sessions?: chatbot_sessionsUpdateManyWithoutUsersNestedInput
+    chatbot_usage?: chatbot_usageUpdateManyWithoutUsersNestedInput
+    guide_application?: guide_applicationUpdateManyWithoutUsersNestedInput
+    influencer_application?: influencer_applicationUpdateManyWithoutUsersNestedInput
+    media_uploads?: media_uploadsUpdateManyWithoutUserNestedInput
+    mentor_application?: mentor_applicationUpdateManyWithoutUsersNestedInput
+    night_camp_registrations?: night_camp_registrationsUpdateManyWithoutUsersNestedInput
+    night_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousers?: night_camp_volunteering_applicationsUpdateManyWithoutUsers_night_camp_volunteering_applications_reviewed_byTousersNestedInput
+    night_camp_volunteering_applications_night_camp_volunteering_applications_user_idTousers?: night_camp_volunteering_applicationsUpdateManyWithoutUsers_night_camp_volunteering_applications_user_idTousersNestedInput
+    payments?: paymentsUpdateManyWithoutUsersNestedInput
+    role_upgrade_requests_role_upgrade_requests_reviewer_idTousers?: role_upgrade_requestsUpdateManyWithoutUsers_role_upgrade_requests_reviewer_idTousersNestedInput
+    role_upgrade_requests_role_upgrade_requests_user_idTousers?: role_upgrade_requestsUpdateManyWithoutUsers_role_upgrade_requests_user_idTousersNestedInput
+    subscriptions?: subscriptionsUpdateManyWithoutUsersNestedInput
+    user_settings?: user_settingsUpdateOneWithoutUsersNestedInput
+    created_groups?: group_chatsUpdateManyWithoutCreatorNestedInput
+    group_memberships?: group_membersUpdateManyWithoutUserNestedInput
+    chat_messages?: chat_messagesUpdateManyWithoutUserNestedInput
+  }
+
+  export type usersUncheckedUpdateWithoutMessage_reactionsInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    firebase_uid?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    role?: NullableEnumuser_roleFieldUpdateOperationsInput | $Enums.user_role | null
+    first_name?: NullableStringFieldUpdateOperationsInput | string | null
+    last_name?: NullableStringFieldUpdateOperationsInput | string | null
+    is_active?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    last_login?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    display_name?: NullableStringFieldUpdateOperationsInput | string | null
+    profile_data?: NullableJsonNullValueInput | InputJsonValue
+    role_specific_data?: NullableJsonNullValueInput | InputJsonValue
+    subscription_plan?: NullableEnumsubscription_planFieldUpdateOperationsInput | $Enums.subscription_plan | null
+    subscription_status?: NullableEnumsubscription_statusFieldUpdateOperationsInput | $Enums.subscription_status | null
+    subscription_start_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    subscription_end_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    auto_renew?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    chatbot_questions_used?: NullableIntFieldUpdateOperationsInput | number | null
+    chatbot_questions_reset_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    QuizParticipants?: QuizParticipantsUncheckedUpdateManyWithoutUsersNestedInput
+    Quizzes?: QuizzesUncheckedUpdateManyWithoutUsersNestedInput
+    blog_comments?: blog_commentsUncheckedUpdateManyWithoutUsersNestedInput
+    blog_likes?: blog_likesUncheckedUpdateManyWithoutUsersNestedInput
+    blog_views?: blog_viewsUncheckedUpdateManyWithoutUsersNestedInput
+    blogs?: blogsUncheckedUpdateManyWithoutUsersNestedInput
+    chatbot_sessions?: chatbot_sessionsUncheckedUpdateManyWithoutUsersNestedInput
+    chatbot_usage?: chatbot_usageUncheckedUpdateManyWithoutUsersNestedInput
+    guide_application?: guide_applicationUncheckedUpdateManyWithoutUsersNestedInput
+    influencer_application?: influencer_applicationUncheckedUpdateManyWithoutUsersNestedInput
+    media_uploads?: media_uploadsUncheckedUpdateManyWithoutUserNestedInput
+    mentor_application?: mentor_applicationUncheckedUpdateManyWithoutUsersNestedInput
+    night_camp_registrations?: night_camp_registrationsUncheckedUpdateManyWithoutUsersNestedInput
+    night_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousers?: night_camp_volunteering_applicationsUncheckedUpdateManyWithoutUsers_night_camp_volunteering_applications_reviewed_byTousersNestedInput
+    night_camp_volunteering_applications_night_camp_volunteering_applications_user_idTousers?: night_camp_volunteering_applicationsUncheckedUpdateManyWithoutUsers_night_camp_volunteering_applications_user_idTousersNestedInput
+    payments?: paymentsUncheckedUpdateManyWithoutUsersNestedInput
+    role_upgrade_requests_role_upgrade_requests_reviewer_idTousers?: role_upgrade_requestsUncheckedUpdateManyWithoutUsers_role_upgrade_requests_reviewer_idTousersNestedInput
+    role_upgrade_requests_role_upgrade_requests_user_idTousers?: role_upgrade_requestsUncheckedUpdateManyWithoutUsers_role_upgrade_requests_user_idTousersNestedInput
+    subscriptions?: subscriptionsUncheckedUpdateManyWithoutUsersNestedInput
+    user_settings?: user_settingsUncheckedUpdateOneWithoutUsersNestedInput
+    created_groups?: group_chatsUncheckedUpdateManyWithoutCreatorNestedInput
+    group_memberships?: group_membersUncheckedUpdateManyWithoutUserNestedInput
+    chat_messages?: chat_messagesUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type blogsCreateWithoutBlog_viewsInput = {
@@ -54701,6 +62751,10 @@ export namespace Prisma {
     role_upgrade_requests_role_upgrade_requests_user_idTousers?: role_upgrade_requestsCreateNestedManyWithoutUsers_role_upgrade_requests_user_idTousersInput
     subscriptions?: subscriptionsCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsCreateNestedOneWithoutUsersInput
+    created_groups?: group_chatsCreateNestedManyWithoutCreatorInput
+    group_memberships?: group_membersCreateNestedManyWithoutUserInput
+    chat_messages?: chat_messagesCreateNestedManyWithoutUserInput
+    message_reactions?: message_reactionsCreateNestedManyWithoutUserInput
   }
 
   export type usersUncheckedCreateWithoutBlog_viewsInput = {
@@ -54743,6 +62797,10 @@ export namespace Prisma {
     role_upgrade_requests_role_upgrade_requests_user_idTousers?: role_upgrade_requestsUncheckedCreateNestedManyWithoutUsers_role_upgrade_requests_user_idTousersInput
     subscriptions?: subscriptionsUncheckedCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsUncheckedCreateNestedOneWithoutUsersInput
+    created_groups?: group_chatsUncheckedCreateNestedManyWithoutCreatorInput
+    group_memberships?: group_membersUncheckedCreateNestedManyWithoutUserInput
+    chat_messages?: chat_messagesUncheckedCreateNestedManyWithoutUserInput
+    message_reactions?: message_reactionsUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type usersCreateOrConnectWithoutBlog_viewsInput = {
@@ -54864,6 +62922,10 @@ export namespace Prisma {
     role_upgrade_requests_role_upgrade_requests_user_idTousers?: role_upgrade_requestsUpdateManyWithoutUsers_role_upgrade_requests_user_idTousersNestedInput
     subscriptions?: subscriptionsUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUpdateOneWithoutUsersNestedInput
+    created_groups?: group_chatsUpdateManyWithoutCreatorNestedInput
+    group_memberships?: group_membersUpdateManyWithoutUserNestedInput
+    chat_messages?: chat_messagesUpdateManyWithoutUserNestedInput
+    message_reactions?: message_reactionsUpdateManyWithoutUserNestedInput
   }
 
   export type usersUncheckedUpdateWithoutBlog_viewsInput = {
@@ -54906,6 +62968,10 @@ export namespace Prisma {
     role_upgrade_requests_role_upgrade_requests_user_idTousers?: role_upgrade_requestsUncheckedUpdateManyWithoutUsers_role_upgrade_requests_user_idTousersNestedInput
     subscriptions?: subscriptionsUncheckedUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUncheckedUpdateOneWithoutUsersNestedInput
+    created_groups?: group_chatsUncheckedUpdateManyWithoutCreatorNestedInput
+    group_memberships?: group_membersUncheckedUpdateManyWithoutUserNestedInput
+    chat_messages?: chat_messagesUncheckedUpdateManyWithoutUserNestedInput
+    message_reactions?: message_reactionsUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type night_camp_registrationsCreateWithoutNight_campsInput = {
@@ -55399,6 +63465,10 @@ export namespace Prisma {
     role_upgrade_requests_role_upgrade_requests_user_idTousers?: role_upgrade_requestsCreateNestedManyWithoutUsers_role_upgrade_requests_user_idTousersInput
     subscriptions?: subscriptionsCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsCreateNestedOneWithoutUsersInput
+    created_groups?: group_chatsCreateNestedManyWithoutCreatorInput
+    group_memberships?: group_membersCreateNestedManyWithoutUserInput
+    chat_messages?: chat_messagesCreateNestedManyWithoutUserInput
+    message_reactions?: message_reactionsCreateNestedManyWithoutUserInput
   }
 
   export type usersUncheckedCreateWithoutChatbot_sessionsInput = {
@@ -55441,6 +63511,10 @@ export namespace Prisma {
     role_upgrade_requests_role_upgrade_requests_user_idTousers?: role_upgrade_requestsUncheckedCreateNestedManyWithoutUsers_role_upgrade_requests_user_idTousersInput
     subscriptions?: subscriptionsUncheckedCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsUncheckedCreateNestedOneWithoutUsersInput
+    created_groups?: group_chatsUncheckedCreateNestedManyWithoutCreatorInput
+    group_memberships?: group_membersUncheckedCreateNestedManyWithoutUserInput
+    chat_messages?: chat_messagesUncheckedCreateNestedManyWithoutUserInput
+    message_reactions?: message_reactionsUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type usersCreateOrConnectWithoutChatbot_sessionsInput = {
@@ -55558,6 +63632,10 @@ export namespace Prisma {
     role_upgrade_requests_role_upgrade_requests_user_idTousers?: role_upgrade_requestsUpdateManyWithoutUsers_role_upgrade_requests_user_idTousersNestedInput
     subscriptions?: subscriptionsUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUpdateOneWithoutUsersNestedInput
+    created_groups?: group_chatsUpdateManyWithoutCreatorNestedInput
+    group_memberships?: group_membersUpdateManyWithoutUserNestedInput
+    chat_messages?: chat_messagesUpdateManyWithoutUserNestedInput
+    message_reactions?: message_reactionsUpdateManyWithoutUserNestedInput
   }
 
   export type usersUncheckedUpdateWithoutChatbot_sessionsInput = {
@@ -55600,6 +63678,10 @@ export namespace Prisma {
     role_upgrade_requests_role_upgrade_requests_user_idTousers?: role_upgrade_requestsUncheckedUpdateManyWithoutUsers_role_upgrade_requests_user_idTousersNestedInput
     subscriptions?: subscriptionsUncheckedUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUncheckedUpdateOneWithoutUsersNestedInput
+    created_groups?: group_chatsUncheckedUpdateManyWithoutCreatorNestedInput
+    group_memberships?: group_membersUncheckedUpdateManyWithoutUserNestedInput
+    chat_messages?: chat_messagesUncheckedUpdateManyWithoutUserNestedInput
+    message_reactions?: message_reactionsUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type subscriptionsCreateWithoutPaymentsInput = {
@@ -55673,6 +63755,10 @@ export namespace Prisma {
     role_upgrade_requests_role_upgrade_requests_user_idTousers?: role_upgrade_requestsCreateNestedManyWithoutUsers_role_upgrade_requests_user_idTousersInput
     subscriptions?: subscriptionsCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsCreateNestedOneWithoutUsersInput
+    created_groups?: group_chatsCreateNestedManyWithoutCreatorInput
+    group_memberships?: group_membersCreateNestedManyWithoutUserInput
+    chat_messages?: chat_messagesCreateNestedManyWithoutUserInput
+    message_reactions?: message_reactionsCreateNestedManyWithoutUserInput
   }
 
   export type usersUncheckedCreateWithoutPaymentsInput = {
@@ -55715,6 +63801,10 @@ export namespace Prisma {
     role_upgrade_requests_role_upgrade_requests_user_idTousers?: role_upgrade_requestsUncheckedCreateNestedManyWithoutUsers_role_upgrade_requests_user_idTousersInput
     subscriptions?: subscriptionsUncheckedCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsUncheckedCreateNestedOneWithoutUsersInput
+    created_groups?: group_chatsUncheckedCreateNestedManyWithoutCreatorInput
+    group_memberships?: group_membersUncheckedCreateNestedManyWithoutUserInput
+    chat_messages?: chat_messagesUncheckedCreateNestedManyWithoutUserInput
+    message_reactions?: message_reactionsUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type usersCreateOrConnectWithoutPaymentsInput = {
@@ -55810,6 +63900,10 @@ export namespace Prisma {
     role_upgrade_requests_role_upgrade_requests_user_idTousers?: role_upgrade_requestsUpdateManyWithoutUsers_role_upgrade_requests_user_idTousersNestedInput
     subscriptions?: subscriptionsUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUpdateOneWithoutUsersNestedInput
+    created_groups?: group_chatsUpdateManyWithoutCreatorNestedInput
+    group_memberships?: group_membersUpdateManyWithoutUserNestedInput
+    chat_messages?: chat_messagesUpdateManyWithoutUserNestedInput
+    message_reactions?: message_reactionsUpdateManyWithoutUserNestedInput
   }
 
   export type usersUncheckedUpdateWithoutPaymentsInput = {
@@ -55852,6 +63946,10 @@ export namespace Prisma {
     role_upgrade_requests_role_upgrade_requests_user_idTousers?: role_upgrade_requestsUncheckedUpdateManyWithoutUsers_role_upgrade_requests_user_idTousersNestedInput
     subscriptions?: subscriptionsUncheckedUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUncheckedUpdateOneWithoutUsersNestedInput
+    created_groups?: group_chatsUncheckedUpdateManyWithoutCreatorNestedInput
+    group_memberships?: group_membersUncheckedUpdateManyWithoutUserNestedInput
+    chat_messages?: chat_messagesUncheckedUpdateManyWithoutUserNestedInput
+    message_reactions?: message_reactionsUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type blog_category_relationsCreateWithoutBlogsInput = {
@@ -55989,6 +64087,10 @@ export namespace Prisma {
     role_upgrade_requests_role_upgrade_requests_user_idTousers?: role_upgrade_requestsCreateNestedManyWithoutUsers_role_upgrade_requests_user_idTousersInput
     subscriptions?: subscriptionsCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsCreateNestedOneWithoutUsersInput
+    created_groups?: group_chatsCreateNestedManyWithoutCreatorInput
+    group_memberships?: group_membersCreateNestedManyWithoutUserInput
+    chat_messages?: chat_messagesCreateNestedManyWithoutUserInput
+    message_reactions?: message_reactionsCreateNestedManyWithoutUserInput
   }
 
   export type usersUncheckedCreateWithoutBlogsInput = {
@@ -56031,6 +64133,10 @@ export namespace Prisma {
     role_upgrade_requests_role_upgrade_requests_user_idTousers?: role_upgrade_requestsUncheckedCreateNestedManyWithoutUsers_role_upgrade_requests_user_idTousersInput
     subscriptions?: subscriptionsUncheckedCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsUncheckedCreateNestedOneWithoutUsersInput
+    created_groups?: group_chatsUncheckedCreateNestedManyWithoutCreatorInput
+    group_memberships?: group_membersUncheckedCreateNestedManyWithoutUserInput
+    chat_messages?: chat_messagesUncheckedCreateNestedManyWithoutUserInput
+    message_reactions?: message_reactionsUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type usersCreateOrConnectWithoutBlogsInput = {
@@ -56197,6 +64303,10 @@ export namespace Prisma {
     role_upgrade_requests_role_upgrade_requests_user_idTousers?: role_upgrade_requestsUpdateManyWithoutUsers_role_upgrade_requests_user_idTousersNestedInput
     subscriptions?: subscriptionsUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUpdateOneWithoutUsersNestedInput
+    created_groups?: group_chatsUpdateManyWithoutCreatorNestedInput
+    group_memberships?: group_membersUpdateManyWithoutUserNestedInput
+    chat_messages?: chat_messagesUpdateManyWithoutUserNestedInput
+    message_reactions?: message_reactionsUpdateManyWithoutUserNestedInput
   }
 
   export type usersUncheckedUpdateWithoutBlogsInput = {
@@ -56239,6 +64349,10 @@ export namespace Prisma {
     role_upgrade_requests_role_upgrade_requests_user_idTousers?: role_upgrade_requestsUncheckedUpdateManyWithoutUsers_role_upgrade_requests_user_idTousersNestedInput
     subscriptions?: subscriptionsUncheckedUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUncheckedUpdateOneWithoutUsersNestedInput
+    created_groups?: group_chatsUncheckedUpdateManyWithoutCreatorNestedInput
+    group_memberships?: group_membersUncheckedUpdateManyWithoutUserNestedInput
+    chat_messages?: chat_messagesUncheckedUpdateManyWithoutUserNestedInput
+    message_reactions?: message_reactionsUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type blogsCreateWithoutBlog_category_relationsInput = {
@@ -56479,6 +64593,10 @@ export namespace Prisma {
     role_upgrade_requests_role_upgrade_requests_user_idTousers?: role_upgrade_requestsCreateNestedManyWithoutUsers_role_upgrade_requests_user_idTousersInput
     subscriptions?: subscriptionsCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsCreateNestedOneWithoutUsersInput
+    created_groups?: group_chatsCreateNestedManyWithoutCreatorInput
+    group_memberships?: group_membersCreateNestedManyWithoutUserInput
+    chat_messages?: chat_messagesCreateNestedManyWithoutUserInput
+    message_reactions?: message_reactionsCreateNestedManyWithoutUserInput
   }
 
   export type usersUncheckedCreateWithoutChatbot_usageInput = {
@@ -56521,6 +64639,10 @@ export namespace Prisma {
     role_upgrade_requests_role_upgrade_requests_user_idTousers?: role_upgrade_requestsUncheckedCreateNestedManyWithoutUsers_role_upgrade_requests_user_idTousersInput
     subscriptions?: subscriptionsUncheckedCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsUncheckedCreateNestedOneWithoutUsersInput
+    created_groups?: group_chatsUncheckedCreateNestedManyWithoutCreatorInput
+    group_memberships?: group_membersUncheckedCreateNestedManyWithoutUserInput
+    chat_messages?: chat_messagesUncheckedCreateNestedManyWithoutUserInput
+    message_reactions?: message_reactionsUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type usersCreateOrConnectWithoutChatbot_usageInput = {
@@ -56578,6 +64700,10 @@ export namespace Prisma {
     role_upgrade_requests_role_upgrade_requests_user_idTousers?: role_upgrade_requestsUpdateManyWithoutUsers_role_upgrade_requests_user_idTousersNestedInput
     subscriptions?: subscriptionsUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUpdateOneWithoutUsersNestedInput
+    created_groups?: group_chatsUpdateManyWithoutCreatorNestedInput
+    group_memberships?: group_membersUpdateManyWithoutUserNestedInput
+    chat_messages?: chat_messagesUpdateManyWithoutUserNestedInput
+    message_reactions?: message_reactionsUpdateManyWithoutUserNestedInput
   }
 
   export type usersUncheckedUpdateWithoutChatbot_usageInput = {
@@ -56620,6 +64746,10 @@ export namespace Prisma {
     role_upgrade_requests_role_upgrade_requests_user_idTousers?: role_upgrade_requestsUncheckedUpdateManyWithoutUsers_role_upgrade_requests_user_idTousersNestedInput
     subscriptions?: subscriptionsUncheckedUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUncheckedUpdateOneWithoutUsersNestedInput
+    created_groups?: group_chatsUncheckedUpdateManyWithoutCreatorNestedInput
+    group_memberships?: group_membersUncheckedUpdateManyWithoutUserNestedInput
+    chat_messages?: chat_messagesUncheckedUpdateManyWithoutUserNestedInput
+    message_reactions?: message_reactionsUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type blogsCreateWithoutBlog_commentsInput = {
@@ -56776,6 +64906,10 @@ export namespace Prisma {
     role_upgrade_requests_role_upgrade_requests_user_idTousers?: role_upgrade_requestsCreateNestedManyWithoutUsers_role_upgrade_requests_user_idTousersInput
     subscriptions?: subscriptionsCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsCreateNestedOneWithoutUsersInput
+    created_groups?: group_chatsCreateNestedManyWithoutCreatorInput
+    group_memberships?: group_membersCreateNestedManyWithoutUserInput
+    chat_messages?: chat_messagesCreateNestedManyWithoutUserInput
+    message_reactions?: message_reactionsCreateNestedManyWithoutUserInput
   }
 
   export type usersUncheckedCreateWithoutBlog_commentsInput = {
@@ -56818,6 +64952,10 @@ export namespace Prisma {
     role_upgrade_requests_role_upgrade_requests_user_idTousers?: role_upgrade_requestsUncheckedCreateNestedManyWithoutUsers_role_upgrade_requests_user_idTousersInput
     subscriptions?: subscriptionsUncheckedCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsUncheckedCreateNestedOneWithoutUsersInput
+    created_groups?: group_chatsUncheckedCreateNestedManyWithoutCreatorInput
+    group_memberships?: group_membersUncheckedCreateNestedManyWithoutUserInput
+    chat_messages?: chat_messagesUncheckedCreateNestedManyWithoutUserInput
+    message_reactions?: message_reactionsUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type usersCreateOrConnectWithoutBlog_commentsInput = {
@@ -56987,6 +65125,10 @@ export namespace Prisma {
     role_upgrade_requests_role_upgrade_requests_user_idTousers?: role_upgrade_requestsUpdateManyWithoutUsers_role_upgrade_requests_user_idTousersNestedInput
     subscriptions?: subscriptionsUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUpdateOneWithoutUsersNestedInput
+    created_groups?: group_chatsUpdateManyWithoutCreatorNestedInput
+    group_memberships?: group_membersUpdateManyWithoutUserNestedInput
+    chat_messages?: chat_messagesUpdateManyWithoutUserNestedInput
+    message_reactions?: message_reactionsUpdateManyWithoutUserNestedInput
   }
 
   export type usersUncheckedUpdateWithoutBlog_commentsInput = {
@@ -57029,6 +65171,10 @@ export namespace Prisma {
     role_upgrade_requests_role_upgrade_requests_user_idTousers?: role_upgrade_requestsUncheckedUpdateManyWithoutUsers_role_upgrade_requests_user_idTousersNestedInput
     subscriptions?: subscriptionsUncheckedUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUncheckedUpdateOneWithoutUsersNestedInput
+    created_groups?: group_chatsUncheckedUpdateManyWithoutCreatorNestedInput
+    group_memberships?: group_membersUncheckedUpdateManyWithoutUserNestedInput
+    chat_messages?: chat_messagesUncheckedUpdateManyWithoutUserNestedInput
+    message_reactions?: message_reactionsUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type QuizParticipantsCreateWithoutUsersInput = {
@@ -57825,6 +65971,128 @@ export namespace Prisma {
     create: XOR<user_settingsCreateWithoutUsersInput, user_settingsUncheckedCreateWithoutUsersInput>
   }
 
+  export type group_chatsCreateWithoutCreatorInput = {
+    name: string
+    description?: string | null
+    type?: string
+    avatar_url?: string | null
+    is_active?: boolean
+    max_members?: number
+    created_at?: Date | string
+    updated_at?: Date | string
+    members?: group_membersCreateNestedManyWithoutGroupInput
+    messages?: chat_messagesCreateNestedManyWithoutGroupInput
+  }
+
+  export type group_chatsUncheckedCreateWithoutCreatorInput = {
+    id?: number
+    name: string
+    description?: string | null
+    type?: string
+    avatar_url?: string | null
+    is_active?: boolean
+    max_members?: number
+    created_at?: Date | string
+    updated_at?: Date | string
+    members?: group_membersUncheckedCreateNestedManyWithoutGroupInput
+    messages?: chat_messagesUncheckedCreateNestedManyWithoutGroupInput
+  }
+
+  export type group_chatsCreateOrConnectWithoutCreatorInput = {
+    where: group_chatsWhereUniqueInput
+    create: XOR<group_chatsCreateWithoutCreatorInput, group_chatsUncheckedCreateWithoutCreatorInput>
+  }
+
+  export type group_chatsCreateManyCreatorInputEnvelope = {
+    data: group_chatsCreateManyCreatorInput | group_chatsCreateManyCreatorInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type group_membersCreateWithoutUserInput = {
+    role?: string
+    joined_at?: Date | string
+    is_muted?: boolean
+    group: group_chatsCreateNestedOneWithoutMembersInput
+  }
+
+  export type group_membersUncheckedCreateWithoutUserInput = {
+    id?: number
+    group_id: number
+    role?: string
+    joined_at?: Date | string
+    is_muted?: boolean
+  }
+
+  export type group_membersCreateOrConnectWithoutUserInput = {
+    where: group_membersWhereUniqueInput
+    create: XOR<group_membersCreateWithoutUserInput, group_membersUncheckedCreateWithoutUserInput>
+  }
+
+  export type group_membersCreateManyUserInputEnvelope = {
+    data: group_membersCreateManyUserInput | group_membersCreateManyUserInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type chat_messagesCreateWithoutUserInput = {
+    message_text: string
+    message_type?: string
+    is_edited?: boolean
+    is_deleted?: boolean
+    created_at?: Date | string
+    updated_at?: Date | string
+    group: group_chatsCreateNestedOneWithoutMessagesInput
+    reply_msg?: chat_messagesCreateNestedOneWithoutRepliesInput
+    replies?: chat_messagesCreateNestedManyWithoutReply_msgInput
+    reactions?: message_reactionsCreateNestedManyWithoutMessageInput
+  }
+
+  export type chat_messagesUncheckedCreateWithoutUserInput = {
+    id?: number
+    group_id: number
+    message_text: string
+    message_type?: string
+    reply_to?: number | null
+    is_edited?: boolean
+    is_deleted?: boolean
+    created_at?: Date | string
+    updated_at?: Date | string
+    replies?: chat_messagesUncheckedCreateNestedManyWithoutReply_msgInput
+    reactions?: message_reactionsUncheckedCreateNestedManyWithoutMessageInput
+  }
+
+  export type chat_messagesCreateOrConnectWithoutUserInput = {
+    where: chat_messagesWhereUniqueInput
+    create: XOR<chat_messagesCreateWithoutUserInput, chat_messagesUncheckedCreateWithoutUserInput>
+  }
+
+  export type chat_messagesCreateManyUserInputEnvelope = {
+    data: chat_messagesCreateManyUserInput | chat_messagesCreateManyUserInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type message_reactionsCreateWithoutUserInput = {
+    reaction: string
+    created_at?: Date | string
+    message: chat_messagesCreateNestedOneWithoutReactionsInput
+  }
+
+  export type message_reactionsUncheckedCreateWithoutUserInput = {
+    id?: number
+    message_id: number
+    reaction: string
+    created_at?: Date | string
+  }
+
+  export type message_reactionsCreateOrConnectWithoutUserInput = {
+    where: message_reactionsWhereUniqueInput
+    create: XOR<message_reactionsCreateWithoutUserInput, message_reactionsUncheckedCreateWithoutUserInput>
+  }
+
+  export type message_reactionsCreateManyUserInputEnvelope = {
+    data: message_reactionsCreateManyUserInput | message_reactionsCreateManyUserInput[]
+    skipDuplicates?: boolean
+  }
+
   export type QuizParticipantsUpsertWithWhereUniqueWithoutUsersInput = {
     where: QuizParticipantsWhereUniqueInput
     update: XOR<QuizParticipantsUpdateWithoutUsersInput, QuizParticipantsUncheckedUpdateWithoutUsersInput>
@@ -58395,6 +66663,86 @@ export namespace Prisma {
     updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
+  export type group_chatsUpsertWithWhereUniqueWithoutCreatorInput = {
+    where: group_chatsWhereUniqueInput
+    update: XOR<group_chatsUpdateWithoutCreatorInput, group_chatsUncheckedUpdateWithoutCreatorInput>
+    create: XOR<group_chatsCreateWithoutCreatorInput, group_chatsUncheckedCreateWithoutCreatorInput>
+  }
+
+  export type group_chatsUpdateWithWhereUniqueWithoutCreatorInput = {
+    where: group_chatsWhereUniqueInput
+    data: XOR<group_chatsUpdateWithoutCreatorInput, group_chatsUncheckedUpdateWithoutCreatorInput>
+  }
+
+  export type group_chatsUpdateManyWithWhereWithoutCreatorInput = {
+    where: group_chatsScalarWhereInput
+    data: XOR<group_chatsUpdateManyMutationInput, group_chatsUncheckedUpdateManyWithoutCreatorInput>
+  }
+
+  export type group_chatsScalarWhereInput = {
+    AND?: group_chatsScalarWhereInput | group_chatsScalarWhereInput[]
+    OR?: group_chatsScalarWhereInput[]
+    NOT?: group_chatsScalarWhereInput | group_chatsScalarWhereInput[]
+    id?: IntFilter<"group_chats"> | number
+    name?: StringFilter<"group_chats"> | string
+    description?: StringNullableFilter<"group_chats"> | string | null
+    type?: StringFilter<"group_chats"> | string
+    created_by?: IntFilter<"group_chats"> | number
+    avatar_url?: StringNullableFilter<"group_chats"> | string | null
+    is_active?: BoolFilter<"group_chats"> | boolean
+    max_members?: IntFilter<"group_chats"> | number
+    created_at?: DateTimeFilter<"group_chats"> | Date | string
+    updated_at?: DateTimeFilter<"group_chats"> | Date | string
+  }
+
+  export type group_membersUpsertWithWhereUniqueWithoutUserInput = {
+    where: group_membersWhereUniqueInput
+    update: XOR<group_membersUpdateWithoutUserInput, group_membersUncheckedUpdateWithoutUserInput>
+    create: XOR<group_membersCreateWithoutUserInput, group_membersUncheckedCreateWithoutUserInput>
+  }
+
+  export type group_membersUpdateWithWhereUniqueWithoutUserInput = {
+    where: group_membersWhereUniqueInput
+    data: XOR<group_membersUpdateWithoutUserInput, group_membersUncheckedUpdateWithoutUserInput>
+  }
+
+  export type group_membersUpdateManyWithWhereWithoutUserInput = {
+    where: group_membersScalarWhereInput
+    data: XOR<group_membersUpdateManyMutationInput, group_membersUncheckedUpdateManyWithoutUserInput>
+  }
+
+  export type chat_messagesUpsertWithWhereUniqueWithoutUserInput = {
+    where: chat_messagesWhereUniqueInput
+    update: XOR<chat_messagesUpdateWithoutUserInput, chat_messagesUncheckedUpdateWithoutUserInput>
+    create: XOR<chat_messagesCreateWithoutUserInput, chat_messagesUncheckedCreateWithoutUserInput>
+  }
+
+  export type chat_messagesUpdateWithWhereUniqueWithoutUserInput = {
+    where: chat_messagesWhereUniqueInput
+    data: XOR<chat_messagesUpdateWithoutUserInput, chat_messagesUncheckedUpdateWithoutUserInput>
+  }
+
+  export type chat_messagesUpdateManyWithWhereWithoutUserInput = {
+    where: chat_messagesScalarWhereInput
+    data: XOR<chat_messagesUpdateManyMutationInput, chat_messagesUncheckedUpdateManyWithoutUserInput>
+  }
+
+  export type message_reactionsUpsertWithWhereUniqueWithoutUserInput = {
+    where: message_reactionsWhereUniqueInput
+    update: XOR<message_reactionsUpdateWithoutUserInput, message_reactionsUncheckedUpdateWithoutUserInput>
+    create: XOR<message_reactionsCreateWithoutUserInput, message_reactionsUncheckedCreateWithoutUserInput>
+  }
+
+  export type message_reactionsUpdateWithWhereUniqueWithoutUserInput = {
+    where: message_reactionsWhereUniqueInput
+    data: XOR<message_reactionsUpdateWithoutUserInput, message_reactionsUncheckedUpdateWithoutUserInput>
+  }
+
+  export type message_reactionsUpdateManyWithWhereWithoutUserInput = {
+    where: message_reactionsScalarWhereInput
+    data: XOR<message_reactionsUpdateManyMutationInput, message_reactionsUncheckedUpdateManyWithoutUserInput>
+  }
+
   export type blogsCreateWithoutBlog_likesInput = {
     title: string
     content: string
@@ -58492,6 +66840,10 @@ export namespace Prisma {
     role_upgrade_requests_role_upgrade_requests_user_idTousers?: role_upgrade_requestsCreateNestedManyWithoutUsers_role_upgrade_requests_user_idTousersInput
     subscriptions?: subscriptionsCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsCreateNestedOneWithoutUsersInput
+    created_groups?: group_chatsCreateNestedManyWithoutCreatorInput
+    group_memberships?: group_membersCreateNestedManyWithoutUserInput
+    chat_messages?: chat_messagesCreateNestedManyWithoutUserInput
+    message_reactions?: message_reactionsCreateNestedManyWithoutUserInput
   }
 
   export type usersUncheckedCreateWithoutBlog_likesInput = {
@@ -58534,6 +66886,10 @@ export namespace Prisma {
     role_upgrade_requests_role_upgrade_requests_user_idTousers?: role_upgrade_requestsUncheckedCreateNestedManyWithoutUsers_role_upgrade_requests_user_idTousersInput
     subscriptions?: subscriptionsUncheckedCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsUncheckedCreateNestedOneWithoutUsersInput
+    created_groups?: group_chatsUncheckedCreateNestedManyWithoutCreatorInput
+    group_memberships?: group_membersUncheckedCreateNestedManyWithoutUserInput
+    chat_messages?: chat_messagesUncheckedCreateNestedManyWithoutUserInput
+    message_reactions?: message_reactionsUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type usersCreateOrConnectWithoutBlog_likesInput = {
@@ -58655,6 +67011,10 @@ export namespace Prisma {
     role_upgrade_requests_role_upgrade_requests_user_idTousers?: role_upgrade_requestsUpdateManyWithoutUsers_role_upgrade_requests_user_idTousersNestedInput
     subscriptions?: subscriptionsUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUpdateOneWithoutUsersNestedInput
+    created_groups?: group_chatsUpdateManyWithoutCreatorNestedInput
+    group_memberships?: group_membersUpdateManyWithoutUserNestedInput
+    chat_messages?: chat_messagesUpdateManyWithoutUserNestedInput
+    message_reactions?: message_reactionsUpdateManyWithoutUserNestedInput
   }
 
   export type usersUncheckedUpdateWithoutBlog_likesInput = {
@@ -58697,6 +67057,10 @@ export namespace Prisma {
     role_upgrade_requests_role_upgrade_requests_user_idTousers?: role_upgrade_requestsUncheckedUpdateManyWithoutUsers_role_upgrade_requests_user_idTousersNestedInput
     subscriptions?: subscriptionsUncheckedUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUncheckedUpdateOneWithoutUsersNestedInput
+    created_groups?: group_chatsUncheckedUpdateManyWithoutCreatorNestedInput
+    group_memberships?: group_membersUncheckedUpdateManyWithoutUserNestedInput
+    chat_messages?: chat_messagesUncheckedUpdateManyWithoutUserNestedInput
+    message_reactions?: message_reactionsUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type chatbot_feedbackCreateWithoutChatbot_messagesInput = {
@@ -58944,6 +67308,10 @@ export namespace Prisma {
     role_upgrade_requests_role_upgrade_requests_reviewer_idTousers?: role_upgrade_requestsCreateNestedManyWithoutUsers_role_upgrade_requests_reviewer_idTousersInput
     role_upgrade_requests_role_upgrade_requests_user_idTousers?: role_upgrade_requestsCreateNestedManyWithoutUsers_role_upgrade_requests_user_idTousersInput
     subscriptions?: subscriptionsCreateNestedManyWithoutUsersInput
+    created_groups?: group_chatsCreateNestedManyWithoutCreatorInput
+    group_memberships?: group_membersCreateNestedManyWithoutUserInput
+    chat_messages?: chat_messagesCreateNestedManyWithoutUserInput
+    message_reactions?: message_reactionsCreateNestedManyWithoutUserInput
   }
 
   export type usersUncheckedCreateWithoutUser_settingsInput = {
@@ -58986,6 +67354,10 @@ export namespace Prisma {
     role_upgrade_requests_role_upgrade_requests_reviewer_idTousers?: role_upgrade_requestsUncheckedCreateNestedManyWithoutUsers_role_upgrade_requests_reviewer_idTousersInput
     role_upgrade_requests_role_upgrade_requests_user_idTousers?: role_upgrade_requestsUncheckedCreateNestedManyWithoutUsers_role_upgrade_requests_user_idTousersInput
     subscriptions?: subscriptionsUncheckedCreateNestedManyWithoutUsersInput
+    created_groups?: group_chatsUncheckedCreateNestedManyWithoutCreatorInput
+    group_memberships?: group_membersUncheckedCreateNestedManyWithoutUserInput
+    chat_messages?: chat_messagesUncheckedCreateNestedManyWithoutUserInput
+    message_reactions?: message_reactionsUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type usersCreateOrConnectWithoutUser_settingsInput = {
@@ -59043,6 +67415,10 @@ export namespace Prisma {
     role_upgrade_requests_role_upgrade_requests_reviewer_idTousers?: role_upgrade_requestsUpdateManyWithoutUsers_role_upgrade_requests_reviewer_idTousersNestedInput
     role_upgrade_requests_role_upgrade_requests_user_idTousers?: role_upgrade_requestsUpdateManyWithoutUsers_role_upgrade_requests_user_idTousersNestedInput
     subscriptions?: subscriptionsUpdateManyWithoutUsersNestedInput
+    created_groups?: group_chatsUpdateManyWithoutCreatorNestedInput
+    group_memberships?: group_membersUpdateManyWithoutUserNestedInput
+    chat_messages?: chat_messagesUpdateManyWithoutUserNestedInput
+    message_reactions?: message_reactionsUpdateManyWithoutUserNestedInput
   }
 
   export type usersUncheckedUpdateWithoutUser_settingsInput = {
@@ -59085,6 +67461,10 @@ export namespace Prisma {
     role_upgrade_requests_role_upgrade_requests_reviewer_idTousers?: role_upgrade_requestsUncheckedUpdateManyWithoutUsers_role_upgrade_requests_reviewer_idTousersNestedInput
     role_upgrade_requests_role_upgrade_requests_user_idTousers?: role_upgrade_requestsUncheckedUpdateManyWithoutUsers_role_upgrade_requests_user_idTousersNestedInput
     subscriptions?: subscriptionsUncheckedUpdateManyWithoutUsersNestedInput
+    created_groups?: group_chatsUncheckedUpdateManyWithoutCreatorNestedInput
+    group_memberships?: group_membersUncheckedUpdateManyWithoutUserNestedInput
+    chat_messages?: chat_messagesUncheckedUpdateManyWithoutUserNestedInput
+    message_reactions?: message_reactionsUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type chatbot_messagesCreateWithoutChatbot_feedbackInput = {
@@ -59352,6 +67732,10 @@ export namespace Prisma {
     role_upgrade_requests_role_upgrade_requests_user_idTousers?: role_upgrade_requestsCreateNestedManyWithoutUsers_role_upgrade_requests_user_idTousersInput
     subscriptions?: subscriptionsCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsCreateNestedOneWithoutUsersInput
+    created_groups?: group_chatsCreateNestedManyWithoutCreatorInput
+    group_memberships?: group_membersCreateNestedManyWithoutUserInput
+    chat_messages?: chat_messagesCreateNestedManyWithoutUserInput
+    message_reactions?: message_reactionsCreateNestedManyWithoutUserInput
   }
 
   export type usersUncheckedCreateWithoutRole_upgrade_requests_role_upgrade_requests_reviewer_idTousersInput = {
@@ -59394,6 +67778,10 @@ export namespace Prisma {
     role_upgrade_requests_role_upgrade_requests_user_idTousers?: role_upgrade_requestsUncheckedCreateNestedManyWithoutUsers_role_upgrade_requests_user_idTousersInput
     subscriptions?: subscriptionsUncheckedCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsUncheckedCreateNestedOneWithoutUsersInput
+    created_groups?: group_chatsUncheckedCreateNestedManyWithoutCreatorInput
+    group_memberships?: group_membersUncheckedCreateNestedManyWithoutUserInput
+    chat_messages?: chat_messagesUncheckedCreateNestedManyWithoutUserInput
+    message_reactions?: message_reactionsUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type usersCreateOrConnectWithoutRole_upgrade_requests_role_upgrade_requests_reviewer_idTousersInput = {
@@ -59440,6 +67828,10 @@ export namespace Prisma {
     role_upgrade_requests_role_upgrade_requests_reviewer_idTousers?: role_upgrade_requestsCreateNestedManyWithoutUsers_role_upgrade_requests_reviewer_idTousersInput
     subscriptions?: subscriptionsCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsCreateNestedOneWithoutUsersInput
+    created_groups?: group_chatsCreateNestedManyWithoutCreatorInput
+    group_memberships?: group_membersCreateNestedManyWithoutUserInput
+    chat_messages?: chat_messagesCreateNestedManyWithoutUserInput
+    message_reactions?: message_reactionsCreateNestedManyWithoutUserInput
   }
 
   export type usersUncheckedCreateWithoutRole_upgrade_requests_role_upgrade_requests_user_idTousersInput = {
@@ -59482,6 +67874,10 @@ export namespace Prisma {
     role_upgrade_requests_role_upgrade_requests_reviewer_idTousers?: role_upgrade_requestsUncheckedCreateNestedManyWithoutUsers_role_upgrade_requests_reviewer_idTousersInput
     subscriptions?: subscriptionsUncheckedCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsUncheckedCreateNestedOneWithoutUsersInput
+    created_groups?: group_chatsUncheckedCreateNestedManyWithoutCreatorInput
+    group_memberships?: group_membersUncheckedCreateNestedManyWithoutUserInput
+    chat_messages?: chat_messagesUncheckedCreateNestedManyWithoutUserInput
+    message_reactions?: message_reactionsUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type usersCreateOrConnectWithoutRole_upgrade_requests_role_upgrade_requests_user_idTousersInput = {
@@ -59539,6 +67935,10 @@ export namespace Prisma {
     role_upgrade_requests_role_upgrade_requests_user_idTousers?: role_upgrade_requestsUpdateManyWithoutUsers_role_upgrade_requests_user_idTousersNestedInput
     subscriptions?: subscriptionsUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUpdateOneWithoutUsersNestedInput
+    created_groups?: group_chatsUpdateManyWithoutCreatorNestedInput
+    group_memberships?: group_membersUpdateManyWithoutUserNestedInput
+    chat_messages?: chat_messagesUpdateManyWithoutUserNestedInput
+    message_reactions?: message_reactionsUpdateManyWithoutUserNestedInput
   }
 
   export type usersUncheckedUpdateWithoutRole_upgrade_requests_role_upgrade_requests_reviewer_idTousersInput = {
@@ -59581,6 +67981,10 @@ export namespace Prisma {
     role_upgrade_requests_role_upgrade_requests_user_idTousers?: role_upgrade_requestsUncheckedUpdateManyWithoutUsers_role_upgrade_requests_user_idTousersNestedInput
     subscriptions?: subscriptionsUncheckedUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUncheckedUpdateOneWithoutUsersNestedInput
+    created_groups?: group_chatsUncheckedUpdateManyWithoutCreatorNestedInput
+    group_memberships?: group_membersUncheckedUpdateManyWithoutUserNestedInput
+    chat_messages?: chat_messagesUncheckedUpdateManyWithoutUserNestedInput
+    message_reactions?: message_reactionsUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type usersUpsertWithoutRole_upgrade_requests_role_upgrade_requests_user_idTousersInput = {
@@ -59633,6 +68037,10 @@ export namespace Prisma {
     role_upgrade_requests_role_upgrade_requests_reviewer_idTousers?: role_upgrade_requestsUpdateManyWithoutUsers_role_upgrade_requests_reviewer_idTousersNestedInput
     subscriptions?: subscriptionsUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUpdateOneWithoutUsersNestedInput
+    created_groups?: group_chatsUpdateManyWithoutCreatorNestedInput
+    group_memberships?: group_membersUpdateManyWithoutUserNestedInput
+    chat_messages?: chat_messagesUpdateManyWithoutUserNestedInput
+    message_reactions?: message_reactionsUpdateManyWithoutUserNestedInput
   }
 
   export type usersUncheckedUpdateWithoutRole_upgrade_requests_role_upgrade_requests_user_idTousersInput = {
@@ -59675,6 +68083,10 @@ export namespace Prisma {
     role_upgrade_requests_role_upgrade_requests_reviewer_idTousers?: role_upgrade_requestsUncheckedUpdateManyWithoutUsers_role_upgrade_requests_reviewer_idTousersNestedInput
     subscriptions?: subscriptionsUncheckedUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUncheckedUpdateOneWithoutUsersNestedInput
+    created_groups?: group_chatsUncheckedUpdateManyWithoutCreatorNestedInput
+    group_memberships?: group_membersUncheckedUpdateManyWithoutUserNestedInput
+    chat_messages?: chat_messagesUncheckedUpdateManyWithoutUserNestedInput
+    message_reactions?: message_reactionsUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type usersCreateWithoutGuide_applicationInput = {
@@ -59716,6 +68128,10 @@ export namespace Prisma {
     role_upgrade_requests_role_upgrade_requests_user_idTousers?: role_upgrade_requestsCreateNestedManyWithoutUsers_role_upgrade_requests_user_idTousersInput
     subscriptions?: subscriptionsCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsCreateNestedOneWithoutUsersInput
+    created_groups?: group_chatsCreateNestedManyWithoutCreatorInput
+    group_memberships?: group_membersCreateNestedManyWithoutUserInput
+    chat_messages?: chat_messagesCreateNestedManyWithoutUserInput
+    message_reactions?: message_reactionsCreateNestedManyWithoutUserInput
   }
 
   export type usersUncheckedCreateWithoutGuide_applicationInput = {
@@ -59758,6 +68174,10 @@ export namespace Prisma {
     role_upgrade_requests_role_upgrade_requests_user_idTousers?: role_upgrade_requestsUncheckedCreateNestedManyWithoutUsers_role_upgrade_requests_user_idTousersInput
     subscriptions?: subscriptionsUncheckedCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsUncheckedCreateNestedOneWithoutUsersInput
+    created_groups?: group_chatsUncheckedCreateNestedManyWithoutCreatorInput
+    group_memberships?: group_membersUncheckedCreateNestedManyWithoutUserInput
+    chat_messages?: chat_messagesUncheckedCreateNestedManyWithoutUserInput
+    message_reactions?: message_reactionsUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type usersCreateOrConnectWithoutGuide_applicationInput = {
@@ -59815,6 +68235,10 @@ export namespace Prisma {
     role_upgrade_requests_role_upgrade_requests_user_idTousers?: role_upgrade_requestsUpdateManyWithoutUsers_role_upgrade_requests_user_idTousersNestedInput
     subscriptions?: subscriptionsUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUpdateOneWithoutUsersNestedInput
+    created_groups?: group_chatsUpdateManyWithoutCreatorNestedInput
+    group_memberships?: group_membersUpdateManyWithoutUserNestedInput
+    chat_messages?: chat_messagesUpdateManyWithoutUserNestedInput
+    message_reactions?: message_reactionsUpdateManyWithoutUserNestedInput
   }
 
   export type usersUncheckedUpdateWithoutGuide_applicationInput = {
@@ -59857,6 +68281,10 @@ export namespace Prisma {
     role_upgrade_requests_role_upgrade_requests_user_idTousers?: role_upgrade_requestsUncheckedUpdateManyWithoutUsers_role_upgrade_requests_user_idTousersNestedInput
     subscriptions?: subscriptionsUncheckedUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUncheckedUpdateOneWithoutUsersNestedInput
+    created_groups?: group_chatsUncheckedUpdateManyWithoutCreatorNestedInput
+    group_memberships?: group_membersUncheckedUpdateManyWithoutUserNestedInput
+    chat_messages?: chat_messagesUncheckedUpdateManyWithoutUserNestedInput
+    message_reactions?: message_reactionsUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type usersCreateWithoutMentor_applicationInput = {
@@ -59898,6 +68326,10 @@ export namespace Prisma {
     role_upgrade_requests_role_upgrade_requests_user_idTousers?: role_upgrade_requestsCreateNestedManyWithoutUsers_role_upgrade_requests_user_idTousersInput
     subscriptions?: subscriptionsCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsCreateNestedOneWithoutUsersInput
+    created_groups?: group_chatsCreateNestedManyWithoutCreatorInput
+    group_memberships?: group_membersCreateNestedManyWithoutUserInput
+    chat_messages?: chat_messagesCreateNestedManyWithoutUserInput
+    message_reactions?: message_reactionsCreateNestedManyWithoutUserInput
   }
 
   export type usersUncheckedCreateWithoutMentor_applicationInput = {
@@ -59940,6 +68372,10 @@ export namespace Prisma {
     role_upgrade_requests_role_upgrade_requests_user_idTousers?: role_upgrade_requestsUncheckedCreateNestedManyWithoutUsers_role_upgrade_requests_user_idTousersInput
     subscriptions?: subscriptionsUncheckedCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsUncheckedCreateNestedOneWithoutUsersInput
+    created_groups?: group_chatsUncheckedCreateNestedManyWithoutCreatorInput
+    group_memberships?: group_membersUncheckedCreateNestedManyWithoutUserInput
+    chat_messages?: chat_messagesUncheckedCreateNestedManyWithoutUserInput
+    message_reactions?: message_reactionsUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type usersCreateOrConnectWithoutMentor_applicationInput = {
@@ -59997,6 +68433,10 @@ export namespace Prisma {
     role_upgrade_requests_role_upgrade_requests_user_idTousers?: role_upgrade_requestsUpdateManyWithoutUsers_role_upgrade_requests_user_idTousersNestedInput
     subscriptions?: subscriptionsUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUpdateOneWithoutUsersNestedInput
+    created_groups?: group_chatsUpdateManyWithoutCreatorNestedInput
+    group_memberships?: group_membersUpdateManyWithoutUserNestedInput
+    chat_messages?: chat_messagesUpdateManyWithoutUserNestedInput
+    message_reactions?: message_reactionsUpdateManyWithoutUserNestedInput
   }
 
   export type usersUncheckedUpdateWithoutMentor_applicationInput = {
@@ -60039,6 +68479,10 @@ export namespace Prisma {
     role_upgrade_requests_role_upgrade_requests_user_idTousers?: role_upgrade_requestsUncheckedUpdateManyWithoutUsers_role_upgrade_requests_user_idTousersNestedInput
     subscriptions?: subscriptionsUncheckedUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUncheckedUpdateOneWithoutUsersNestedInput
+    created_groups?: group_chatsUncheckedUpdateManyWithoutCreatorNestedInput
+    group_memberships?: group_membersUncheckedUpdateManyWithoutUserNestedInput
+    chat_messages?: chat_messagesUncheckedUpdateManyWithoutUserNestedInput
+    message_reactions?: message_reactionsUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type night_campsCreateWithoutNight_camp_volunteering_applicationsInput = {
@@ -60126,6 +68570,10 @@ export namespace Prisma {
     role_upgrade_requests_role_upgrade_requests_user_idTousers?: role_upgrade_requestsCreateNestedManyWithoutUsers_role_upgrade_requests_user_idTousersInput
     subscriptions?: subscriptionsCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsCreateNestedOneWithoutUsersInput
+    created_groups?: group_chatsCreateNestedManyWithoutCreatorInput
+    group_memberships?: group_membersCreateNestedManyWithoutUserInput
+    chat_messages?: chat_messagesCreateNestedManyWithoutUserInput
+    message_reactions?: message_reactionsCreateNestedManyWithoutUserInput
   }
 
   export type usersUncheckedCreateWithoutNight_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousersInput = {
@@ -60168,6 +68616,10 @@ export namespace Prisma {
     role_upgrade_requests_role_upgrade_requests_user_idTousers?: role_upgrade_requestsUncheckedCreateNestedManyWithoutUsers_role_upgrade_requests_user_idTousersInput
     subscriptions?: subscriptionsUncheckedCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsUncheckedCreateNestedOneWithoutUsersInput
+    created_groups?: group_chatsUncheckedCreateNestedManyWithoutCreatorInput
+    group_memberships?: group_membersUncheckedCreateNestedManyWithoutUserInput
+    chat_messages?: chat_messagesUncheckedCreateNestedManyWithoutUserInput
+    message_reactions?: message_reactionsUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type usersCreateOrConnectWithoutNight_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousersInput = {
@@ -60214,6 +68666,10 @@ export namespace Prisma {
     role_upgrade_requests_role_upgrade_requests_user_idTousers?: role_upgrade_requestsCreateNestedManyWithoutUsers_role_upgrade_requests_user_idTousersInput
     subscriptions?: subscriptionsCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsCreateNestedOneWithoutUsersInput
+    created_groups?: group_chatsCreateNestedManyWithoutCreatorInput
+    group_memberships?: group_membersCreateNestedManyWithoutUserInput
+    chat_messages?: chat_messagesCreateNestedManyWithoutUserInput
+    message_reactions?: message_reactionsCreateNestedManyWithoutUserInput
   }
 
   export type usersUncheckedCreateWithoutNight_camp_volunteering_applications_night_camp_volunteering_applications_user_idTousersInput = {
@@ -60256,6 +68712,10 @@ export namespace Prisma {
     role_upgrade_requests_role_upgrade_requests_user_idTousers?: role_upgrade_requestsUncheckedCreateNestedManyWithoutUsers_role_upgrade_requests_user_idTousersInput
     subscriptions?: subscriptionsUncheckedCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsUncheckedCreateNestedOneWithoutUsersInput
+    created_groups?: group_chatsUncheckedCreateNestedManyWithoutCreatorInput
+    group_memberships?: group_membersUncheckedCreateNestedManyWithoutUserInput
+    chat_messages?: chat_messagesUncheckedCreateNestedManyWithoutUserInput
+    message_reactions?: message_reactionsUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type usersCreateOrConnectWithoutNight_camp_volunteering_applications_night_camp_volunteering_applications_user_idTousersInput = {
@@ -60365,6 +68825,10 @@ export namespace Prisma {
     role_upgrade_requests_role_upgrade_requests_user_idTousers?: role_upgrade_requestsUpdateManyWithoutUsers_role_upgrade_requests_user_idTousersNestedInput
     subscriptions?: subscriptionsUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUpdateOneWithoutUsersNestedInput
+    created_groups?: group_chatsUpdateManyWithoutCreatorNestedInput
+    group_memberships?: group_membersUpdateManyWithoutUserNestedInput
+    chat_messages?: chat_messagesUpdateManyWithoutUserNestedInput
+    message_reactions?: message_reactionsUpdateManyWithoutUserNestedInput
   }
 
   export type usersUncheckedUpdateWithoutNight_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousersInput = {
@@ -60407,6 +68871,10 @@ export namespace Prisma {
     role_upgrade_requests_role_upgrade_requests_user_idTousers?: role_upgrade_requestsUncheckedUpdateManyWithoutUsers_role_upgrade_requests_user_idTousersNestedInput
     subscriptions?: subscriptionsUncheckedUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUncheckedUpdateOneWithoutUsersNestedInput
+    created_groups?: group_chatsUncheckedUpdateManyWithoutCreatorNestedInput
+    group_memberships?: group_membersUncheckedUpdateManyWithoutUserNestedInput
+    chat_messages?: chat_messagesUncheckedUpdateManyWithoutUserNestedInput
+    message_reactions?: message_reactionsUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type usersUpsertWithoutNight_camp_volunteering_applications_night_camp_volunteering_applications_user_idTousersInput = {
@@ -60459,6 +68927,10 @@ export namespace Prisma {
     role_upgrade_requests_role_upgrade_requests_user_idTousers?: role_upgrade_requestsUpdateManyWithoutUsers_role_upgrade_requests_user_idTousersNestedInput
     subscriptions?: subscriptionsUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUpdateOneWithoutUsersNestedInput
+    created_groups?: group_chatsUpdateManyWithoutCreatorNestedInput
+    group_memberships?: group_membersUpdateManyWithoutUserNestedInput
+    chat_messages?: chat_messagesUpdateManyWithoutUserNestedInput
+    message_reactions?: message_reactionsUpdateManyWithoutUserNestedInput
   }
 
   export type usersUncheckedUpdateWithoutNight_camp_volunteering_applications_night_camp_volunteering_applications_user_idTousersInput = {
@@ -60501,6 +68973,10 @@ export namespace Prisma {
     role_upgrade_requests_role_upgrade_requests_user_idTousers?: role_upgrade_requestsUncheckedUpdateManyWithoutUsers_role_upgrade_requests_user_idTousersNestedInput
     subscriptions?: subscriptionsUncheckedUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUncheckedUpdateOneWithoutUsersNestedInput
+    created_groups?: group_chatsUncheckedUpdateManyWithoutCreatorNestedInput
+    group_memberships?: group_membersUncheckedUpdateManyWithoutUserNestedInput
+    chat_messages?: chat_messagesUncheckedUpdateManyWithoutUserNestedInput
+    message_reactions?: message_reactionsUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type night_campsCreateWithoutNight_camp_registrationsInput = {
@@ -60588,6 +69064,10 @@ export namespace Prisma {
     role_upgrade_requests_role_upgrade_requests_user_idTousers?: role_upgrade_requestsCreateNestedManyWithoutUsers_role_upgrade_requests_user_idTousersInput
     subscriptions?: subscriptionsCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsCreateNestedOneWithoutUsersInput
+    created_groups?: group_chatsCreateNestedManyWithoutCreatorInput
+    group_memberships?: group_membersCreateNestedManyWithoutUserInput
+    chat_messages?: chat_messagesCreateNestedManyWithoutUserInput
+    message_reactions?: message_reactionsCreateNestedManyWithoutUserInput
   }
 
   export type usersUncheckedCreateWithoutNight_camp_registrationsInput = {
@@ -60630,6 +69110,10 @@ export namespace Prisma {
     role_upgrade_requests_role_upgrade_requests_user_idTousers?: role_upgrade_requestsUncheckedCreateNestedManyWithoutUsers_role_upgrade_requests_user_idTousersInput
     subscriptions?: subscriptionsUncheckedCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsUncheckedCreateNestedOneWithoutUsersInput
+    created_groups?: group_chatsUncheckedCreateNestedManyWithoutCreatorInput
+    group_memberships?: group_membersUncheckedCreateNestedManyWithoutUserInput
+    chat_messages?: chat_messagesUncheckedCreateNestedManyWithoutUserInput
+    message_reactions?: message_reactionsUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type usersCreateOrConnectWithoutNight_camp_registrationsInput = {
@@ -60739,6 +69223,10 @@ export namespace Prisma {
     role_upgrade_requests_role_upgrade_requests_user_idTousers?: role_upgrade_requestsUpdateManyWithoutUsers_role_upgrade_requests_user_idTousersNestedInput
     subscriptions?: subscriptionsUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUpdateOneWithoutUsersNestedInput
+    created_groups?: group_chatsUpdateManyWithoutCreatorNestedInput
+    group_memberships?: group_membersUpdateManyWithoutUserNestedInput
+    chat_messages?: chat_messagesUpdateManyWithoutUserNestedInput
+    message_reactions?: message_reactionsUpdateManyWithoutUserNestedInput
   }
 
   export type usersUncheckedUpdateWithoutNight_camp_registrationsInput = {
@@ -60781,6 +69269,10 @@ export namespace Prisma {
     role_upgrade_requests_role_upgrade_requests_user_idTousers?: role_upgrade_requestsUncheckedUpdateManyWithoutUsers_role_upgrade_requests_user_idTousersNestedInput
     subscriptions?: subscriptionsUncheckedUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUncheckedUpdateOneWithoutUsersNestedInput
+    created_groups?: group_chatsUncheckedUpdateManyWithoutCreatorNestedInput
+    group_memberships?: group_membersUncheckedUpdateManyWithoutUserNestedInput
+    chat_messages?: chat_messagesUncheckedUpdateManyWithoutUserNestedInput
+    message_reactions?: message_reactionsUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type usersCreateWithoutInfluencer_applicationInput = {
@@ -60822,6 +69314,10 @@ export namespace Prisma {
     role_upgrade_requests_role_upgrade_requests_user_idTousers?: role_upgrade_requestsCreateNestedManyWithoutUsers_role_upgrade_requests_user_idTousersInput
     subscriptions?: subscriptionsCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsCreateNestedOneWithoutUsersInput
+    created_groups?: group_chatsCreateNestedManyWithoutCreatorInput
+    group_memberships?: group_membersCreateNestedManyWithoutUserInput
+    chat_messages?: chat_messagesCreateNestedManyWithoutUserInput
+    message_reactions?: message_reactionsCreateNestedManyWithoutUserInput
   }
 
   export type usersUncheckedCreateWithoutInfluencer_applicationInput = {
@@ -60864,6 +69360,10 @@ export namespace Prisma {
     role_upgrade_requests_role_upgrade_requests_user_idTousers?: role_upgrade_requestsUncheckedCreateNestedManyWithoutUsers_role_upgrade_requests_user_idTousersInput
     subscriptions?: subscriptionsUncheckedCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsUncheckedCreateNestedOneWithoutUsersInput
+    created_groups?: group_chatsUncheckedCreateNestedManyWithoutCreatorInput
+    group_memberships?: group_membersUncheckedCreateNestedManyWithoutUserInput
+    chat_messages?: chat_messagesUncheckedCreateNestedManyWithoutUserInput
+    message_reactions?: message_reactionsUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type usersCreateOrConnectWithoutInfluencer_applicationInput = {
@@ -60921,6 +69421,10 @@ export namespace Prisma {
     role_upgrade_requests_role_upgrade_requests_user_idTousers?: role_upgrade_requestsUpdateManyWithoutUsers_role_upgrade_requests_user_idTousersNestedInput
     subscriptions?: subscriptionsUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUpdateOneWithoutUsersNestedInput
+    created_groups?: group_chatsUpdateManyWithoutCreatorNestedInput
+    group_memberships?: group_membersUpdateManyWithoutUserNestedInput
+    chat_messages?: chat_messagesUpdateManyWithoutUserNestedInput
+    message_reactions?: message_reactionsUpdateManyWithoutUserNestedInput
   }
 
   export type usersUncheckedUpdateWithoutInfluencer_applicationInput = {
@@ -60963,6 +69467,10 @@ export namespace Prisma {
     role_upgrade_requests_role_upgrade_requests_user_idTousers?: role_upgrade_requestsUncheckedUpdateManyWithoutUsers_role_upgrade_requests_user_idTousersNestedInput
     subscriptions?: subscriptionsUncheckedUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUncheckedUpdateOneWithoutUsersNestedInput
+    created_groups?: group_chatsUncheckedUpdateManyWithoutCreatorNestedInput
+    group_memberships?: group_membersUncheckedUpdateManyWithoutUserNestedInput
+    chat_messages?: chat_messagesUncheckedUpdateManyWithoutUserNestedInput
+    message_reactions?: message_reactionsUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type usersCreateWithoutMedia_uploadsInput = {
@@ -61004,6 +69512,10 @@ export namespace Prisma {
     role_upgrade_requests_role_upgrade_requests_user_idTousers?: role_upgrade_requestsCreateNestedManyWithoutUsers_role_upgrade_requests_user_idTousersInput
     subscriptions?: subscriptionsCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsCreateNestedOneWithoutUsersInput
+    created_groups?: group_chatsCreateNestedManyWithoutCreatorInput
+    group_memberships?: group_membersCreateNestedManyWithoutUserInput
+    chat_messages?: chat_messagesCreateNestedManyWithoutUserInput
+    message_reactions?: message_reactionsCreateNestedManyWithoutUserInput
   }
 
   export type usersUncheckedCreateWithoutMedia_uploadsInput = {
@@ -61046,6 +69558,10 @@ export namespace Prisma {
     role_upgrade_requests_role_upgrade_requests_user_idTousers?: role_upgrade_requestsUncheckedCreateNestedManyWithoutUsers_role_upgrade_requests_user_idTousersInput
     subscriptions?: subscriptionsUncheckedCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsUncheckedCreateNestedOneWithoutUsersInput
+    created_groups?: group_chatsUncheckedCreateNestedManyWithoutCreatorInput
+    group_memberships?: group_membersUncheckedCreateNestedManyWithoutUserInput
+    chat_messages?: chat_messagesUncheckedCreateNestedManyWithoutUserInput
+    message_reactions?: message_reactionsUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type usersCreateOrConnectWithoutMedia_uploadsInput = {
@@ -61103,6 +69619,10 @@ export namespace Prisma {
     role_upgrade_requests_role_upgrade_requests_user_idTousers?: role_upgrade_requestsUpdateManyWithoutUsers_role_upgrade_requests_user_idTousersNestedInput
     subscriptions?: subscriptionsUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUpdateOneWithoutUsersNestedInput
+    created_groups?: group_chatsUpdateManyWithoutCreatorNestedInput
+    group_memberships?: group_membersUpdateManyWithoutUserNestedInput
+    chat_messages?: chat_messagesUpdateManyWithoutUserNestedInput
+    message_reactions?: message_reactionsUpdateManyWithoutUserNestedInput
   }
 
   export type usersUncheckedUpdateWithoutMedia_uploadsInput = {
@@ -61145,6 +69665,10 @@ export namespace Prisma {
     role_upgrade_requests_role_upgrade_requests_user_idTousers?: role_upgrade_requestsUncheckedUpdateManyWithoutUsers_role_upgrade_requests_user_idTousersNestedInput
     subscriptions?: subscriptionsUncheckedUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUncheckedUpdateOneWithoutUsersNestedInput
+    created_groups?: group_chatsUncheckedUpdateManyWithoutCreatorNestedInput
+    group_memberships?: group_membersUncheckedUpdateManyWithoutUserNestedInput
+    chat_messages?: chat_messagesUncheckedUpdateManyWithoutUserNestedInput
+    message_reactions?: message_reactionsUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type QuizzesCreateWithoutQuizParticipantsInput = {
@@ -61224,6 +69748,10 @@ export namespace Prisma {
     role_upgrade_requests_role_upgrade_requests_user_idTousers?: role_upgrade_requestsCreateNestedManyWithoutUsers_role_upgrade_requests_user_idTousersInput
     subscriptions?: subscriptionsCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsCreateNestedOneWithoutUsersInput
+    created_groups?: group_chatsCreateNestedManyWithoutCreatorInput
+    group_memberships?: group_membersCreateNestedManyWithoutUserInput
+    chat_messages?: chat_messagesCreateNestedManyWithoutUserInput
+    message_reactions?: message_reactionsCreateNestedManyWithoutUserInput
   }
 
   export type usersUncheckedCreateWithoutQuizParticipantsInput = {
@@ -61266,6 +69794,10 @@ export namespace Prisma {
     role_upgrade_requests_role_upgrade_requests_user_idTousers?: role_upgrade_requestsUncheckedCreateNestedManyWithoutUsers_role_upgrade_requests_user_idTousersInput
     subscriptions?: subscriptionsUncheckedCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsUncheckedCreateNestedOneWithoutUsersInput
+    created_groups?: group_chatsUncheckedCreateNestedManyWithoutCreatorInput
+    group_memberships?: group_membersUncheckedCreateNestedManyWithoutUserInput
+    chat_messages?: chat_messagesUncheckedCreateNestedManyWithoutUserInput
+    message_reactions?: message_reactionsUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type usersCreateOrConnectWithoutQuizParticipantsInput = {
@@ -61367,6 +69899,10 @@ export namespace Prisma {
     role_upgrade_requests_role_upgrade_requests_user_idTousers?: role_upgrade_requestsUpdateManyWithoutUsers_role_upgrade_requests_user_idTousersNestedInput
     subscriptions?: subscriptionsUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUpdateOneWithoutUsersNestedInput
+    created_groups?: group_chatsUpdateManyWithoutCreatorNestedInput
+    group_memberships?: group_membersUpdateManyWithoutUserNestedInput
+    chat_messages?: chat_messagesUpdateManyWithoutUserNestedInput
+    message_reactions?: message_reactionsUpdateManyWithoutUserNestedInput
   }
 
   export type usersUncheckedUpdateWithoutQuizParticipantsInput = {
@@ -61409,6 +69945,10 @@ export namespace Prisma {
     role_upgrade_requests_role_upgrade_requests_user_idTousers?: role_upgrade_requestsUncheckedUpdateManyWithoutUsers_role_upgrade_requests_user_idTousersNestedInput
     subscriptions?: subscriptionsUncheckedUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUncheckedUpdateOneWithoutUsersNestedInput
+    created_groups?: group_chatsUncheckedUpdateManyWithoutCreatorNestedInput
+    group_memberships?: group_membersUncheckedUpdateManyWithoutUserNestedInput
+    chat_messages?: chat_messagesUncheckedUpdateManyWithoutUserNestedInput
+    message_reactions?: message_reactionsUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type QuizzesCreateWithoutQuizQuestionInput = {
@@ -61580,6 +70120,10 @@ export namespace Prisma {
     role_upgrade_requests_role_upgrade_requests_user_idTousers?: role_upgrade_requestsCreateNestedManyWithoutUsers_role_upgrade_requests_user_idTousersInput
     subscriptions?: subscriptionsCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsCreateNestedOneWithoutUsersInput
+    created_groups?: group_chatsCreateNestedManyWithoutCreatorInput
+    group_memberships?: group_membersCreateNestedManyWithoutUserInput
+    chat_messages?: chat_messagesCreateNestedManyWithoutUserInput
+    message_reactions?: message_reactionsCreateNestedManyWithoutUserInput
   }
 
   export type usersUncheckedCreateWithoutQuizzesInput = {
@@ -61622,6 +70166,10 @@ export namespace Prisma {
     role_upgrade_requests_role_upgrade_requests_user_idTousers?: role_upgrade_requestsUncheckedCreateNestedManyWithoutUsers_role_upgrade_requests_user_idTousersInput
     subscriptions?: subscriptionsUncheckedCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsUncheckedCreateNestedOneWithoutUsersInput
+    created_groups?: group_chatsUncheckedCreateNestedManyWithoutCreatorInput
+    group_memberships?: group_membersUncheckedCreateNestedManyWithoutUserInput
+    chat_messages?: chat_messagesUncheckedCreateNestedManyWithoutUserInput
+    message_reactions?: message_reactionsUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type usersCreateOrConnectWithoutQuizzesInput = {
@@ -61723,6 +70271,10 @@ export namespace Prisma {
     role_upgrade_requests_role_upgrade_requests_user_idTousers?: role_upgrade_requestsUpdateManyWithoutUsers_role_upgrade_requests_user_idTousersNestedInput
     subscriptions?: subscriptionsUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUpdateOneWithoutUsersNestedInput
+    created_groups?: group_chatsUpdateManyWithoutCreatorNestedInput
+    group_memberships?: group_membersUpdateManyWithoutUserNestedInput
+    chat_messages?: chat_messagesUpdateManyWithoutUserNestedInput
+    message_reactions?: message_reactionsUpdateManyWithoutUserNestedInput
   }
 
   export type usersUncheckedUpdateWithoutQuizzesInput = {
@@ -61765,6 +70317,10 @@ export namespace Prisma {
     role_upgrade_requests_role_upgrade_requests_user_idTousers?: role_upgrade_requestsUncheckedUpdateManyWithoutUsers_role_upgrade_requests_user_idTousersNestedInput
     subscriptions?: subscriptionsUncheckedUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUncheckedUpdateOneWithoutUsersNestedInput
+    created_groups?: group_chatsUncheckedUpdateManyWithoutCreatorNestedInput
+    group_memberships?: group_membersUncheckedUpdateManyWithoutUserNestedInput
+    chat_messages?: chat_messagesUncheckedUpdateManyWithoutUserNestedInput
+    message_reactions?: message_reactionsUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type paymentsCreateManySubscriptionsInput = {
@@ -61828,6 +70384,166 @@ export namespace Prisma {
     metadata?: NullableJsonNullValueInput | InputJsonValue
     created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
+  export type group_membersCreateManyGroupInput = {
+    id?: number
+    user_id: number
+    role?: string
+    joined_at?: Date | string
+    is_muted?: boolean
+  }
+
+  export type chat_messagesCreateManyGroupInput = {
+    id?: number
+    user_id?: number | null
+    message_text: string
+    message_type?: string
+    reply_to?: number | null
+    is_edited?: boolean
+    is_deleted?: boolean
+    created_at?: Date | string
+    updated_at?: Date | string
+  }
+
+  export type group_membersUpdateWithoutGroupInput = {
+    role?: StringFieldUpdateOperationsInput | string
+    joined_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    is_muted?: BoolFieldUpdateOperationsInput | boolean
+    user?: usersUpdateOneRequiredWithoutGroup_membershipsNestedInput
+  }
+
+  export type group_membersUncheckedUpdateWithoutGroupInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    user_id?: IntFieldUpdateOperationsInput | number
+    role?: StringFieldUpdateOperationsInput | string
+    joined_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    is_muted?: BoolFieldUpdateOperationsInput | boolean
+  }
+
+  export type group_membersUncheckedUpdateManyWithoutGroupInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    user_id?: IntFieldUpdateOperationsInput | number
+    role?: StringFieldUpdateOperationsInput | string
+    joined_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    is_muted?: BoolFieldUpdateOperationsInput | boolean
+  }
+
+  export type chat_messagesUpdateWithoutGroupInput = {
+    message_text?: StringFieldUpdateOperationsInput | string
+    message_type?: StringFieldUpdateOperationsInput | string
+    is_edited?: BoolFieldUpdateOperationsInput | boolean
+    is_deleted?: BoolFieldUpdateOperationsInput | boolean
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: usersUpdateOneWithoutChat_messagesNestedInput
+    reply_msg?: chat_messagesUpdateOneWithoutRepliesNestedInput
+    replies?: chat_messagesUpdateManyWithoutReply_msgNestedInput
+    reactions?: message_reactionsUpdateManyWithoutMessageNestedInput
+  }
+
+  export type chat_messagesUncheckedUpdateWithoutGroupInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    user_id?: NullableIntFieldUpdateOperationsInput | number | null
+    message_text?: StringFieldUpdateOperationsInput | string
+    message_type?: StringFieldUpdateOperationsInput | string
+    reply_to?: NullableIntFieldUpdateOperationsInput | number | null
+    is_edited?: BoolFieldUpdateOperationsInput | boolean
+    is_deleted?: BoolFieldUpdateOperationsInput | boolean
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    replies?: chat_messagesUncheckedUpdateManyWithoutReply_msgNestedInput
+    reactions?: message_reactionsUncheckedUpdateManyWithoutMessageNestedInput
+  }
+
+  export type chat_messagesUncheckedUpdateManyWithoutGroupInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    user_id?: NullableIntFieldUpdateOperationsInput | number | null
+    message_text?: StringFieldUpdateOperationsInput | string
+    message_type?: StringFieldUpdateOperationsInput | string
+    reply_to?: NullableIntFieldUpdateOperationsInput | number | null
+    is_edited?: BoolFieldUpdateOperationsInput | boolean
+    is_deleted?: BoolFieldUpdateOperationsInput | boolean
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type chat_messagesCreateManyReply_msgInput = {
+    id?: number
+    group_id: number
+    user_id?: number | null
+    message_text: string
+    message_type?: string
+    is_edited?: boolean
+    is_deleted?: boolean
+    created_at?: Date | string
+    updated_at?: Date | string
+  }
+
+  export type message_reactionsCreateManyMessageInput = {
+    id?: number
+    user_id: number
+    reaction: string
+    created_at?: Date | string
+  }
+
+  export type chat_messagesUpdateWithoutReply_msgInput = {
+    message_text?: StringFieldUpdateOperationsInput | string
+    message_type?: StringFieldUpdateOperationsInput | string
+    is_edited?: BoolFieldUpdateOperationsInput | boolean
+    is_deleted?: BoolFieldUpdateOperationsInput | boolean
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    group?: group_chatsUpdateOneRequiredWithoutMessagesNestedInput
+    user?: usersUpdateOneWithoutChat_messagesNestedInput
+    replies?: chat_messagesUpdateManyWithoutReply_msgNestedInput
+    reactions?: message_reactionsUpdateManyWithoutMessageNestedInput
+  }
+
+  export type chat_messagesUncheckedUpdateWithoutReply_msgInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    group_id?: IntFieldUpdateOperationsInput | number
+    user_id?: NullableIntFieldUpdateOperationsInput | number | null
+    message_text?: StringFieldUpdateOperationsInput | string
+    message_type?: StringFieldUpdateOperationsInput | string
+    is_edited?: BoolFieldUpdateOperationsInput | boolean
+    is_deleted?: BoolFieldUpdateOperationsInput | boolean
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    replies?: chat_messagesUncheckedUpdateManyWithoutReply_msgNestedInput
+    reactions?: message_reactionsUncheckedUpdateManyWithoutMessageNestedInput
+  }
+
+  export type chat_messagesUncheckedUpdateManyWithoutReply_msgInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    group_id?: IntFieldUpdateOperationsInput | number
+    user_id?: NullableIntFieldUpdateOperationsInput | number | null
+    message_text?: StringFieldUpdateOperationsInput | string
+    message_type?: StringFieldUpdateOperationsInput | string
+    is_edited?: BoolFieldUpdateOperationsInput | boolean
+    is_deleted?: BoolFieldUpdateOperationsInput | boolean
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type message_reactionsUpdateWithoutMessageInput = {
+    reaction?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: usersUpdateOneRequiredWithoutMessage_reactionsNestedInput
+  }
+
+  export type message_reactionsUncheckedUpdateWithoutMessageInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    user_id?: IntFieldUpdateOperationsInput | number
+    reaction?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type message_reactionsUncheckedUpdateManyWithoutMessageInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    user_id?: IntFieldUpdateOperationsInput | number
+    reaction?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type night_camp_registrationsCreateManyNight_campsInput = {
@@ -62560,6 +71276,45 @@ export namespace Prisma {
     updated_at?: Date | string | null
     cancelled_at?: Date | string | null
     cancellation_reason?: string | null
+  }
+
+  export type group_chatsCreateManyCreatorInput = {
+    id?: number
+    name: string
+    description?: string | null
+    type?: string
+    avatar_url?: string | null
+    is_active?: boolean
+    max_members?: number
+    created_at?: Date | string
+    updated_at?: Date | string
+  }
+
+  export type group_membersCreateManyUserInput = {
+    id?: number
+    group_id: number
+    role?: string
+    joined_at?: Date | string
+    is_muted?: boolean
+  }
+
+  export type chat_messagesCreateManyUserInput = {
+    id?: number
+    group_id: number
+    message_text: string
+    message_type?: string
+    reply_to?: number | null
+    is_edited?: boolean
+    is_deleted?: boolean
+    created_at?: Date | string
+    updated_at?: Date | string
+  }
+
+  export type message_reactionsCreateManyUserInput = {
+    id?: number
+    message_id: number
+    reaction: string
+    created_at?: Date | string
   }
 
   export type QuizParticipantsUpdateWithoutUsersInput = {
@@ -63417,6 +72172,127 @@ export namespace Prisma {
     updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     cancelled_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     cancellation_reason?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type group_chatsUpdateWithoutCreatorInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    type?: StringFieldUpdateOperationsInput | string
+    avatar_url?: NullableStringFieldUpdateOperationsInput | string | null
+    is_active?: BoolFieldUpdateOperationsInput | boolean
+    max_members?: IntFieldUpdateOperationsInput | number
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    members?: group_membersUpdateManyWithoutGroupNestedInput
+    messages?: chat_messagesUpdateManyWithoutGroupNestedInput
+  }
+
+  export type group_chatsUncheckedUpdateWithoutCreatorInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    type?: StringFieldUpdateOperationsInput | string
+    avatar_url?: NullableStringFieldUpdateOperationsInput | string | null
+    is_active?: BoolFieldUpdateOperationsInput | boolean
+    max_members?: IntFieldUpdateOperationsInput | number
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    members?: group_membersUncheckedUpdateManyWithoutGroupNestedInput
+    messages?: chat_messagesUncheckedUpdateManyWithoutGroupNestedInput
+  }
+
+  export type group_chatsUncheckedUpdateManyWithoutCreatorInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    type?: StringFieldUpdateOperationsInput | string
+    avatar_url?: NullableStringFieldUpdateOperationsInput | string | null
+    is_active?: BoolFieldUpdateOperationsInput | boolean
+    max_members?: IntFieldUpdateOperationsInput | number
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type group_membersUpdateWithoutUserInput = {
+    role?: StringFieldUpdateOperationsInput | string
+    joined_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    is_muted?: BoolFieldUpdateOperationsInput | boolean
+    group?: group_chatsUpdateOneRequiredWithoutMembersNestedInput
+  }
+
+  export type group_membersUncheckedUpdateWithoutUserInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    group_id?: IntFieldUpdateOperationsInput | number
+    role?: StringFieldUpdateOperationsInput | string
+    joined_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    is_muted?: BoolFieldUpdateOperationsInput | boolean
+  }
+
+  export type group_membersUncheckedUpdateManyWithoutUserInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    group_id?: IntFieldUpdateOperationsInput | number
+    role?: StringFieldUpdateOperationsInput | string
+    joined_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    is_muted?: BoolFieldUpdateOperationsInput | boolean
+  }
+
+  export type chat_messagesUpdateWithoutUserInput = {
+    message_text?: StringFieldUpdateOperationsInput | string
+    message_type?: StringFieldUpdateOperationsInput | string
+    is_edited?: BoolFieldUpdateOperationsInput | boolean
+    is_deleted?: BoolFieldUpdateOperationsInput | boolean
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    group?: group_chatsUpdateOneRequiredWithoutMessagesNestedInput
+    reply_msg?: chat_messagesUpdateOneWithoutRepliesNestedInput
+    replies?: chat_messagesUpdateManyWithoutReply_msgNestedInput
+    reactions?: message_reactionsUpdateManyWithoutMessageNestedInput
+  }
+
+  export type chat_messagesUncheckedUpdateWithoutUserInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    group_id?: IntFieldUpdateOperationsInput | number
+    message_text?: StringFieldUpdateOperationsInput | string
+    message_type?: StringFieldUpdateOperationsInput | string
+    reply_to?: NullableIntFieldUpdateOperationsInput | number | null
+    is_edited?: BoolFieldUpdateOperationsInput | boolean
+    is_deleted?: BoolFieldUpdateOperationsInput | boolean
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    replies?: chat_messagesUncheckedUpdateManyWithoutReply_msgNestedInput
+    reactions?: message_reactionsUncheckedUpdateManyWithoutMessageNestedInput
+  }
+
+  export type chat_messagesUncheckedUpdateManyWithoutUserInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    group_id?: IntFieldUpdateOperationsInput | number
+    message_text?: StringFieldUpdateOperationsInput | string
+    message_type?: StringFieldUpdateOperationsInput | string
+    reply_to?: NullableIntFieldUpdateOperationsInput | number | null
+    is_edited?: BoolFieldUpdateOperationsInput | boolean
+    is_deleted?: BoolFieldUpdateOperationsInput | boolean
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type message_reactionsUpdateWithoutUserInput = {
+    reaction?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    message?: chat_messagesUpdateOneRequiredWithoutReactionsNestedInput
+  }
+
+  export type message_reactionsUncheckedUpdateWithoutUserInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    message_id?: IntFieldUpdateOperationsInput | number
+    reaction?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type message_reactionsUncheckedUpdateManyWithoutUserInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    message_id?: IntFieldUpdateOperationsInput | number
+    reaction?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type chatbot_feedbackCreateManyChatbot_messagesInput = {
