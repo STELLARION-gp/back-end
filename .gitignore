@@ -76,3 +76,4 @@ package-lock.json
 yarn.lock
 serviceAccountKey.json
 /generated/prisma
+prisma/generated/
