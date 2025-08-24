@@ -11,6 +11,7 @@ import mediaUploadRoutes from './routes/mediaUpload.routes';
 import chatRoutes from './routes/chat.routes';
 import tourMediaRoutes from './routes/tourMedia.routes';
 import eventRoutes from './routes/event.routes';
+import spaceNewsRoutes from './routes/spaceNews.routes';
 
 // index.ts
 import express from "express";
@@ -95,6 +96,9 @@ app.use('/api/upload', uploadRoutes);
 app.use('/api/media', mediaUploadRoutes);
 app.use('/api/tours', tourMediaRoutes);
 app.use('/api/events', eventRoutes);
+
+// Space News API
+app.use('/api/space-news', spaceNewsRoutes);
 
 // Error handling middleware
 app.use(notFound);
