@@ -188,6 +188,21 @@ export type QuizQuestion = $Result.DefaultSelection<Prisma.$QuizQuestionPayload>
  * 
  */
 export type Quizzes = $Result.DefaultSelection<Prisma.$QuizzesPayload>
+/**
+ * Model space_news
+ * 
+ */
+export type space_news = $Result.DefaultSelection<Prisma.$space_newsPayload>
+/**
+ * Model space_news_likes
+ * 
+ */
+export type space_news_likes = $Result.DefaultSelection<Prisma.$space_news_likesPayload>
+/**
+ * Model space_news_comments
+ * 
+ */
+export type space_news_comments = $Result.DefaultSelection<Prisma.$space_news_commentsPayload>
 
 /**
  * Enums
@@ -830,6 +845,36 @@ export class PrismaClient<
     * ```
     */
   get quizzes(): Prisma.QuizzesDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.space_news`: Exposes CRUD operations for the **space_news** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Space_news
+    * const space_news = await prisma.space_news.findMany()
+    * ```
+    */
+  get space_news(): Prisma.space_newsDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.space_news_likes`: Exposes CRUD operations for the **space_news_likes** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Space_news_likes
+    * const space_news_likes = await prisma.space_news_likes.findMany()
+    * ```
+    */
+  get space_news_likes(): Prisma.space_news_likesDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.space_news_comments`: Exposes CRUD operations for the **space_news_comments** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Space_news_comments
+    * const space_news_comments = await prisma.space_news_comments.findMany()
+    * ```
+    */
+  get space_news_comments(): Prisma.space_news_commentsDelegate<ExtArgs, ClientOptions>;
 }
 
 export namespace Prisma {
@@ -1304,7 +1349,10 @@ export namespace Prisma {
     events: 'events',
     QuizParticipants: 'QuizParticipants',
     QuizQuestion: 'QuizQuestion',
-    Quizzes: 'Quizzes'
+    Quizzes: 'Quizzes',
+    space_news: 'space_news',
+    space_news_likes: 'space_news_likes',
+    space_news_comments: 'space_news_comments'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -1323,7 +1371,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "subscriptions" | "group_chats" | "group_members" | "chat_messages" | "message_reactions" | "blog_views" | "night_camps" | "night_camps_activities" | "chatbot_sessions" | "payments" | "blogs" | "blog_category_relations" | "subscription_plans" | "blog_categories" | "chatbot_usage" | "blog_comments" | "users" | "blog_likes" | "chatbot_messages" | "night_camps_equipment" | "user_settings" | "chatbot_feedback" | "night_camp_volunteering" | "role_upgrade_requests" | "guide_application" | "mentor_application" | "night_camp_volunteering_applications" | "night_camp_registrations" | "influencer_application" | "media_uploads" | "quizParticipants" | "quizQuestion" | "quizzes"
+      modelProps: "subscriptions" | "group_chats" | "group_members" | "chat_messages" | "message_reactions" | "blog_views" | "night_camps" | "night_camps_activities" | "chatbot_sessions" | "payments" | "blogs" | "blog_category_relations" | "subscription_plans" | "blog_categories" | "chatbot_usage" | "blog_comments" | "users" | "blog_likes" | "chatbot_messages" | "night_camps_equipment" | "user_settings" | "chatbot_feedback" | "night_camp_volunteering" | "role_upgrade_requests" | "guide_application" | "mentor_application" | "night_camp_volunteering_applications" | "night_camp_registrations" | "influencer_application" | "media_uploads" | "tour_media" | "events" | "quizParticipants" | "quizQuestion" | "quizzes" | "space_news" | "space_news_likes" | "space_news_comments"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -3917,6 +3965,228 @@ export namespace Prisma {
           }
         }
       }
+      space_news: {
+        payload: Prisma.$space_newsPayload<ExtArgs>
+        fields: Prisma.space_newsFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.space_newsFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$space_newsPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.space_newsFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$space_newsPayload>
+          }
+          findFirst: {
+            args: Prisma.space_newsFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$space_newsPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.space_newsFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$space_newsPayload>
+          }
+          findMany: {
+            args: Prisma.space_newsFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$space_newsPayload>[]
+          }
+          create: {
+            args: Prisma.space_newsCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$space_newsPayload>
+          }
+          createMany: {
+            args: Prisma.space_newsCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.space_newsCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$space_newsPayload>[]
+          }
+          delete: {
+            args: Prisma.space_newsDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$space_newsPayload>
+          }
+          update: {
+            args: Prisma.space_newsUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$space_newsPayload>
+          }
+          deleteMany: {
+            args: Prisma.space_newsDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.space_newsUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.space_newsUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$space_newsPayload>[]
+          }
+          upsert: {
+            args: Prisma.space_newsUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$space_newsPayload>
+          }
+          aggregate: {
+            args: Prisma.Space_newsAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateSpace_news>
+          }
+          groupBy: {
+            args: Prisma.space_newsGroupByArgs<ExtArgs>
+            result: $Utils.Optional<Space_newsGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.space_newsCountArgs<ExtArgs>
+            result: $Utils.Optional<Space_newsCountAggregateOutputType> | number
+          }
+        }
+      }
+      space_news_likes: {
+        payload: Prisma.$space_news_likesPayload<ExtArgs>
+        fields: Prisma.space_news_likesFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.space_news_likesFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$space_news_likesPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.space_news_likesFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$space_news_likesPayload>
+          }
+          findFirst: {
+            args: Prisma.space_news_likesFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$space_news_likesPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.space_news_likesFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$space_news_likesPayload>
+          }
+          findMany: {
+            args: Prisma.space_news_likesFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$space_news_likesPayload>[]
+          }
+          create: {
+            args: Prisma.space_news_likesCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$space_news_likesPayload>
+          }
+          createMany: {
+            args: Prisma.space_news_likesCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.space_news_likesCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$space_news_likesPayload>[]
+          }
+          delete: {
+            args: Prisma.space_news_likesDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$space_news_likesPayload>
+          }
+          update: {
+            args: Prisma.space_news_likesUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$space_news_likesPayload>
+          }
+          deleteMany: {
+            args: Prisma.space_news_likesDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.space_news_likesUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.space_news_likesUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$space_news_likesPayload>[]
+          }
+          upsert: {
+            args: Prisma.space_news_likesUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$space_news_likesPayload>
+          }
+          aggregate: {
+            args: Prisma.Space_news_likesAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateSpace_news_likes>
+          }
+          groupBy: {
+            args: Prisma.space_news_likesGroupByArgs<ExtArgs>
+            result: $Utils.Optional<Space_news_likesGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.space_news_likesCountArgs<ExtArgs>
+            result: $Utils.Optional<Space_news_likesCountAggregateOutputType> | number
+          }
+        }
+      }
+      space_news_comments: {
+        payload: Prisma.$space_news_commentsPayload<ExtArgs>
+        fields: Prisma.space_news_commentsFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.space_news_commentsFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$space_news_commentsPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.space_news_commentsFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$space_news_commentsPayload>
+          }
+          findFirst: {
+            args: Prisma.space_news_commentsFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$space_news_commentsPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.space_news_commentsFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$space_news_commentsPayload>
+          }
+          findMany: {
+            args: Prisma.space_news_commentsFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$space_news_commentsPayload>[]
+          }
+          create: {
+            args: Prisma.space_news_commentsCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$space_news_commentsPayload>
+          }
+          createMany: {
+            args: Prisma.space_news_commentsCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.space_news_commentsCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$space_news_commentsPayload>[]
+          }
+          delete: {
+            args: Prisma.space_news_commentsDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$space_news_commentsPayload>
+          }
+          update: {
+            args: Prisma.space_news_commentsUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$space_news_commentsPayload>
+          }
+          deleteMany: {
+            args: Prisma.space_news_commentsDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.space_news_commentsUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.space_news_commentsUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$space_news_commentsPayload>[]
+          }
+          upsert: {
+            args: Prisma.space_news_commentsUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$space_news_commentsPayload>
+          }
+          aggregate: {
+            args: Prisma.Space_news_commentsAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateSpace_news_comments>
+          }
+          groupBy: {
+            args: Prisma.space_news_commentsGroupByArgs<ExtArgs>
+            result: $Utils.Optional<Space_news_commentsGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.space_news_commentsCountArgs<ExtArgs>
+            result: $Utils.Optional<Space_news_commentsCountAggregateOutputType> | number
+          }
+        }
+      }
     }
   } & {
     other: {
@@ -4044,6 +4314,9 @@ export namespace Prisma {
     quizParticipants?: QuizParticipantsOmit
     quizQuestion?: QuizQuestionOmit
     quizzes?: QuizzesOmit
+    space_news?: space_newsOmit
+    space_news_likes?: space_news_likesOmit
+    space_news_comments?: space_news_commentsOmit
   }
 
   /* Types for Logging */
@@ -4504,6 +4777,9 @@ export namespace Prisma {
     group_memberships: number
     chat_messages: number
     message_reactions: number
+    published_space_news: number
+    space_news_likes: number
+    space_news_comments: number
   }
 
   export type UsersCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -4530,6 +4806,9 @@ export namespace Prisma {
     group_memberships?: boolean | UsersCountOutputTypeCountGroup_membershipsArgs
     chat_messages?: boolean | UsersCountOutputTypeCountChat_messagesArgs
     message_reactions?: boolean | UsersCountOutputTypeCountMessage_reactionsArgs
+    published_space_news?: boolean | UsersCountOutputTypeCountPublished_space_newsArgs
+    space_news_likes?: boolean | UsersCountOutputTypeCountSpace_news_likesArgs
+    space_news_comments?: boolean | UsersCountOutputTypeCountSpace_news_commentsArgs
   }
 
   // Custom InputTypes
@@ -4704,6 +4983,27 @@ export namespace Prisma {
     where?: message_reactionsWhereInput
   }
 
+  /**
+   * UsersCountOutputType without action
+   */
+  export type UsersCountOutputTypeCountPublished_space_newsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: space_newsWhereInput
+  }
+
+  /**
+   * UsersCountOutputType without action
+   */
+  export type UsersCountOutputTypeCountSpace_news_likesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: space_news_likesWhereInput
+  }
+
+  /**
+   * UsersCountOutputType without action
+   */
+  export type UsersCountOutputTypeCountSpace_news_commentsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: space_news_commentsWhereInput
+  }
+
 
   /**
    * Count Type Chatbot_messagesCountOutputType
@@ -4773,6 +5073,77 @@ export namespace Prisma {
    */
   export type QuizzesCountOutputTypeCountQuizQuestionArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: QuizQuestionWhereInput
+  }
+
+
+  /**
+   * Count Type Space_newsCountOutputType
+   */
+
+  export type Space_newsCountOutputType = {
+    space_news_likes: number
+    space_news_comments: number
+  }
+
+  export type Space_newsCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    space_news_likes?: boolean | Space_newsCountOutputTypeCountSpace_news_likesArgs
+    space_news_comments?: boolean | Space_newsCountOutputTypeCountSpace_news_commentsArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * Space_newsCountOutputType without action
+   */
+  export type Space_newsCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Space_newsCountOutputType
+     */
+    select?: Space_newsCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * Space_newsCountOutputType without action
+   */
+  export type Space_newsCountOutputTypeCountSpace_news_likesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: space_news_likesWhereInput
+  }
+
+  /**
+   * Space_newsCountOutputType without action
+   */
+  export type Space_newsCountOutputTypeCountSpace_news_commentsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: space_news_commentsWhereInput
+  }
+
+
+  /**
+   * Count Type Space_news_commentsCountOutputType
+   */
+
+  export type Space_news_commentsCountOutputType = {
+    replies: number
+  }
+
+  export type Space_news_commentsCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    replies?: boolean | Space_news_commentsCountOutputTypeCountRepliesArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * Space_news_commentsCountOutputType without action
+   */
+  export type Space_news_commentsCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Space_news_commentsCountOutputType
+     */
+    select?: Space_news_commentsCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * Space_news_commentsCountOutputType without action
+   */
+  export type Space_news_commentsCountOutputTypeCountRepliesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: space_news_commentsWhereInput
   }
 
 
@@ -24287,6 +24658,9 @@ export namespace Prisma {
     group_memberships?: boolean | users$group_membershipsArgs<ExtArgs>
     chat_messages?: boolean | users$chat_messagesArgs<ExtArgs>
     message_reactions?: boolean | users$message_reactionsArgs<ExtArgs>
+    published_space_news?: boolean | users$published_space_newsArgs<ExtArgs>
+    space_news_likes?: boolean | users$space_news_likesArgs<ExtArgs>
+    space_news_comments?: boolean | users$space_news_commentsArgs<ExtArgs>
     _count?: boolean | UsersCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["users"]>
 
@@ -24385,6 +24759,9 @@ export namespace Prisma {
     group_memberships?: boolean | users$group_membershipsArgs<ExtArgs>
     chat_messages?: boolean | users$chat_messagesArgs<ExtArgs>
     message_reactions?: boolean | users$message_reactionsArgs<ExtArgs>
+    published_space_news?: boolean | users$published_space_newsArgs<ExtArgs>
+    space_news_likes?: boolean | users$space_news_likesArgs<ExtArgs>
+    space_news_comments?: boolean | users$space_news_commentsArgs<ExtArgs>
     _count?: boolean | UsersCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type usersIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
@@ -24417,6 +24794,9 @@ export namespace Prisma {
       group_memberships: Prisma.$group_membersPayload<ExtArgs>[]
       chat_messages: Prisma.$chat_messagesPayload<ExtArgs>[]
       message_reactions: Prisma.$message_reactionsPayload<ExtArgs>[]
+      published_space_news: Prisma.$space_newsPayload<ExtArgs>[]
+      space_news_likes: Prisma.$space_news_likesPayload<ExtArgs>[]
+      space_news_comments: Prisma.$space_news_commentsPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: number
@@ -24857,6 +25237,9 @@ export namespace Prisma {
     group_memberships<T extends users$group_membershipsArgs<ExtArgs> = {}>(args?: Subset<T, users$group_membershipsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$group_membersPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     chat_messages<T extends users$chat_messagesArgs<ExtArgs> = {}>(args?: Subset<T, users$chat_messagesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$chat_messagesPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     message_reactions<T extends users$message_reactionsArgs<ExtArgs> = {}>(args?: Subset<T, users$message_reactionsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$message_reactionsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    published_space_news<T extends users$published_space_newsArgs<ExtArgs> = {}>(args?: Subset<T, users$published_space_newsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$space_newsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    space_news_likes<T extends users$space_news_likesArgs<ExtArgs> = {}>(args?: Subset<T, users$space_news_likesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$space_news_likesPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    space_news_comments<T extends users$space_news_commentsArgs<ExtArgs> = {}>(args?: Subset<T, users$space_news_commentsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$space_news_commentsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -25862,6 +26245,78 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: Message_reactionsScalarFieldEnum | Message_reactionsScalarFieldEnum[]
+  }
+
+  /**
+   * users.published_space_news
+   */
+  export type users$published_space_newsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the space_news
+     */
+    select?: space_newsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the space_news
+     */
+    omit?: space_newsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: space_newsInclude<ExtArgs> | null
+    where?: space_newsWhereInput
+    orderBy?: space_newsOrderByWithRelationInput | space_newsOrderByWithRelationInput[]
+    cursor?: space_newsWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: Space_newsScalarFieldEnum | Space_newsScalarFieldEnum[]
+  }
+
+  /**
+   * users.space_news_likes
+   */
+  export type users$space_news_likesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the space_news_likes
+     */
+    select?: space_news_likesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the space_news_likes
+     */
+    omit?: space_news_likesOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: space_news_likesInclude<ExtArgs> | null
+    where?: space_news_likesWhereInput
+    orderBy?: space_news_likesOrderByWithRelationInput | space_news_likesOrderByWithRelationInput[]
+    cursor?: space_news_likesWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: Space_news_likesScalarFieldEnum | Space_news_likesScalarFieldEnum[]
+  }
+
+  /**
+   * users.space_news_comments
+   */
+  export type users$space_news_commentsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the space_news_comments
+     */
+    select?: space_news_commentsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the space_news_comments
+     */
+    omit?: space_news_commentsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: space_news_commentsInclude<ExtArgs> | null
+    where?: space_news_commentsWhereInput
+    orderBy?: space_news_commentsOrderByWithRelationInput | space_news_commentsOrderByWithRelationInput[]
+    cursor?: space_news_commentsWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: Space_news_commentsScalarFieldEnum | Space_news_commentsScalarFieldEnum[]
   }
 
   /**
@@ -47563,6 +48018,3545 @@ export namespace Prisma {
 
 
   /**
+   * Model space_news
+   */
+
+  export type AggregateSpace_news = {
+    _count: Space_newsCountAggregateOutputType | null
+    _avg: Space_newsAvgAggregateOutputType | null
+    _sum: Space_newsSumAggregateOutputType | null
+    _min: Space_newsMinAggregateOutputType | null
+    _max: Space_newsMaxAggregateOutputType | null
+  }
+
+  export type Space_newsAvgAggregateOutputType = {
+    id: number | null
+    number_of_likes: number | null
+    number_of_comments: number | null
+    published_by: number | null
+  }
+
+  export type Space_newsSumAggregateOutputType = {
+    id: number | null
+    number_of_likes: number | null
+    number_of_comments: number | null
+    published_by: number | null
+  }
+
+  export type Space_newsMinAggregateOutputType = {
+    id: number | null
+    publish_date: Date | null
+    title: string | null
+    number_of_likes: number | null
+    number_of_comments: number | null
+    content: string | null
+    published_by: number | null
+    category: string | null
+    created_at: Date | null
+    last_read_time: Date | null
+  }
+
+  export type Space_newsMaxAggregateOutputType = {
+    id: number | null
+    publish_date: Date | null
+    title: string | null
+    number_of_likes: number | null
+    number_of_comments: number | null
+    content: string | null
+    published_by: number | null
+    category: string | null
+    created_at: Date | null
+    last_read_time: Date | null
+  }
+
+  export type Space_newsCountAggregateOutputType = {
+    id: number
+    image_urls: number
+    publish_date: number
+    title: number
+    number_of_likes: number
+    number_of_comments: number
+    content: number
+    published_by: number
+    category: number
+    created_at: number
+    last_read_time: number
+    _all: number
+  }
+
+
+  export type Space_newsAvgAggregateInputType = {
+    id?: true
+    number_of_likes?: true
+    number_of_comments?: true
+    published_by?: true
+  }
+
+  export type Space_newsSumAggregateInputType = {
+    id?: true
+    number_of_likes?: true
+    number_of_comments?: true
+    published_by?: true
+  }
+
+  export type Space_newsMinAggregateInputType = {
+    id?: true
+    publish_date?: true
+    title?: true
+    number_of_likes?: true
+    number_of_comments?: true
+    content?: true
+    published_by?: true
+    category?: true
+    created_at?: true
+    last_read_time?: true
+  }
+
+  export type Space_newsMaxAggregateInputType = {
+    id?: true
+    publish_date?: true
+    title?: true
+    number_of_likes?: true
+    number_of_comments?: true
+    content?: true
+    published_by?: true
+    category?: true
+    created_at?: true
+    last_read_time?: true
+  }
+
+  export type Space_newsCountAggregateInputType = {
+    id?: true
+    image_urls?: true
+    publish_date?: true
+    title?: true
+    number_of_likes?: true
+    number_of_comments?: true
+    content?: true
+    published_by?: true
+    category?: true
+    created_at?: true
+    last_read_time?: true
+    _all?: true
+  }
+
+  export type Space_newsAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which space_news to aggregate.
+     */
+    where?: space_newsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of space_news to fetch.
+     */
+    orderBy?: space_newsOrderByWithRelationInput | space_newsOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: space_newsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` space_news from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` space_news.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned space_news
+    **/
+    _count?: true | Space_newsCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: Space_newsAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: Space_newsSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: Space_newsMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: Space_newsMaxAggregateInputType
+  }
+
+  export type GetSpace_newsAggregateType<T extends Space_newsAggregateArgs> = {
+        [P in keyof T & keyof AggregateSpace_news]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateSpace_news[P]>
+      : GetScalarType<T[P], AggregateSpace_news[P]>
+  }
+
+
+
+
+  export type space_newsGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: space_newsWhereInput
+    orderBy?: space_newsOrderByWithAggregationInput | space_newsOrderByWithAggregationInput[]
+    by: Space_newsScalarFieldEnum[] | Space_newsScalarFieldEnum
+    having?: space_newsScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: Space_newsCountAggregateInputType | true
+    _avg?: Space_newsAvgAggregateInputType
+    _sum?: Space_newsSumAggregateInputType
+    _min?: Space_newsMinAggregateInputType
+    _max?: Space_newsMaxAggregateInputType
+  }
+
+  export type Space_newsGroupByOutputType = {
+    id: number
+    image_urls: JsonValue | null
+    publish_date: Date
+    title: string
+    number_of_likes: number
+    number_of_comments: number
+    content: string
+    published_by: number
+    category: string
+    created_at: Date
+    last_read_time: Date | null
+    _count: Space_newsCountAggregateOutputType | null
+    _avg: Space_newsAvgAggregateOutputType | null
+    _sum: Space_newsSumAggregateOutputType | null
+    _min: Space_newsMinAggregateOutputType | null
+    _max: Space_newsMaxAggregateOutputType | null
+  }
+
+  type GetSpace_newsGroupByPayload<T extends space_newsGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<Space_newsGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof Space_newsGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], Space_newsGroupByOutputType[P]>
+            : GetScalarType<T[P], Space_newsGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type space_newsSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    image_urls?: boolean
+    publish_date?: boolean
+    title?: boolean
+    number_of_likes?: boolean
+    number_of_comments?: boolean
+    content?: boolean
+    published_by?: boolean
+    category?: boolean
+    created_at?: boolean
+    last_read_time?: boolean
+    publisher?: boolean | usersDefaultArgs<ExtArgs>
+    space_news_likes?: boolean | space_news$space_news_likesArgs<ExtArgs>
+    space_news_comments?: boolean | space_news$space_news_commentsArgs<ExtArgs>
+    _count?: boolean | Space_newsCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["space_news"]>
+
+  export type space_newsSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    image_urls?: boolean
+    publish_date?: boolean
+    title?: boolean
+    number_of_likes?: boolean
+    number_of_comments?: boolean
+    content?: boolean
+    published_by?: boolean
+    category?: boolean
+    created_at?: boolean
+    last_read_time?: boolean
+    publisher?: boolean | usersDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["space_news"]>
+
+  export type space_newsSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    image_urls?: boolean
+    publish_date?: boolean
+    title?: boolean
+    number_of_likes?: boolean
+    number_of_comments?: boolean
+    content?: boolean
+    published_by?: boolean
+    category?: boolean
+    created_at?: boolean
+    last_read_time?: boolean
+    publisher?: boolean | usersDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["space_news"]>
+
+  export type space_newsSelectScalar = {
+    id?: boolean
+    image_urls?: boolean
+    publish_date?: boolean
+    title?: boolean
+    number_of_likes?: boolean
+    number_of_comments?: boolean
+    content?: boolean
+    published_by?: boolean
+    category?: boolean
+    created_at?: boolean
+    last_read_time?: boolean
+  }
+
+  export type space_newsOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "image_urls" | "publish_date" | "title" | "number_of_likes" | "number_of_comments" | "content" | "published_by" | "category" | "created_at" | "last_read_time", ExtArgs["result"]["space_news"]>
+  export type space_newsInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    publisher?: boolean | usersDefaultArgs<ExtArgs>
+    space_news_likes?: boolean | space_news$space_news_likesArgs<ExtArgs>
+    space_news_comments?: boolean | space_news$space_news_commentsArgs<ExtArgs>
+    _count?: boolean | Space_newsCountOutputTypeDefaultArgs<ExtArgs>
+  }
+  export type space_newsIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    publisher?: boolean | usersDefaultArgs<ExtArgs>
+  }
+  export type space_newsIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    publisher?: boolean | usersDefaultArgs<ExtArgs>
+  }
+
+  export type $space_newsPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "space_news"
+    objects: {
+      publisher: Prisma.$usersPayload<ExtArgs>
+      space_news_likes: Prisma.$space_news_likesPayload<ExtArgs>[]
+      space_news_comments: Prisma.$space_news_commentsPayload<ExtArgs>[]
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: number
+      image_urls: Prisma.JsonValue | null
+      publish_date: Date
+      title: string
+      number_of_likes: number
+      number_of_comments: number
+      content: string
+      published_by: number
+      category: string
+      created_at: Date
+      last_read_time: Date | null
+    }, ExtArgs["result"]["space_news"]>
+    composites: {}
+  }
+
+  type space_newsGetPayload<S extends boolean | null | undefined | space_newsDefaultArgs> = $Result.GetResult<Prisma.$space_newsPayload, S>
+
+  type space_newsCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<space_newsFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: Space_newsCountAggregateInputType | true
+    }
+
+  export interface space_newsDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['space_news'], meta: { name: 'space_news' } }
+    /**
+     * Find zero or one Space_news that matches the filter.
+     * @param {space_newsFindUniqueArgs} args - Arguments to find a Space_news
+     * @example
+     * // Get one Space_news
+     * const space_news = await prisma.space_news.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends space_newsFindUniqueArgs>(args: SelectSubset<T, space_newsFindUniqueArgs<ExtArgs>>): Prisma__space_newsClient<$Result.GetResult<Prisma.$space_newsPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Space_news that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {space_newsFindUniqueOrThrowArgs} args - Arguments to find a Space_news
+     * @example
+     * // Get one Space_news
+     * const space_news = await prisma.space_news.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends space_newsFindUniqueOrThrowArgs>(args: SelectSubset<T, space_newsFindUniqueOrThrowArgs<ExtArgs>>): Prisma__space_newsClient<$Result.GetResult<Prisma.$space_newsPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Space_news that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {space_newsFindFirstArgs} args - Arguments to find a Space_news
+     * @example
+     * // Get one Space_news
+     * const space_news = await prisma.space_news.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends space_newsFindFirstArgs>(args?: SelectSubset<T, space_newsFindFirstArgs<ExtArgs>>): Prisma__space_newsClient<$Result.GetResult<Prisma.$space_newsPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Space_news that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {space_newsFindFirstOrThrowArgs} args - Arguments to find a Space_news
+     * @example
+     * // Get one Space_news
+     * const space_news = await prisma.space_news.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends space_newsFindFirstOrThrowArgs>(args?: SelectSubset<T, space_newsFindFirstOrThrowArgs<ExtArgs>>): Prisma__space_newsClient<$Result.GetResult<Prisma.$space_newsPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Space_news that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {space_newsFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Space_news
+     * const space_news = await prisma.space_news.findMany()
+     * 
+     * // Get first 10 Space_news
+     * const space_news = await prisma.space_news.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const space_newsWithIdOnly = await prisma.space_news.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends space_newsFindManyArgs>(args?: SelectSubset<T, space_newsFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$space_newsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Space_news.
+     * @param {space_newsCreateArgs} args - Arguments to create a Space_news.
+     * @example
+     * // Create one Space_news
+     * const Space_news = await prisma.space_news.create({
+     *   data: {
+     *     // ... data to create a Space_news
+     *   }
+     * })
+     * 
+     */
+    create<T extends space_newsCreateArgs>(args: SelectSubset<T, space_newsCreateArgs<ExtArgs>>): Prisma__space_newsClient<$Result.GetResult<Prisma.$space_newsPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Space_news.
+     * @param {space_newsCreateManyArgs} args - Arguments to create many Space_news.
+     * @example
+     * // Create many Space_news
+     * const space_news = await prisma.space_news.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends space_newsCreateManyArgs>(args?: SelectSubset<T, space_newsCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many Space_news and returns the data saved in the database.
+     * @param {space_newsCreateManyAndReturnArgs} args - Arguments to create many Space_news.
+     * @example
+     * // Create many Space_news
+     * const space_news = await prisma.space_news.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many Space_news and only return the `id`
+     * const space_newsWithIdOnly = await prisma.space_news.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends space_newsCreateManyAndReturnArgs>(args?: SelectSubset<T, space_newsCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$space_newsPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a Space_news.
+     * @param {space_newsDeleteArgs} args - Arguments to delete one Space_news.
+     * @example
+     * // Delete one Space_news
+     * const Space_news = await prisma.space_news.delete({
+     *   where: {
+     *     // ... filter to delete one Space_news
+     *   }
+     * })
+     * 
+     */
+    delete<T extends space_newsDeleteArgs>(args: SelectSubset<T, space_newsDeleteArgs<ExtArgs>>): Prisma__space_newsClient<$Result.GetResult<Prisma.$space_newsPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Space_news.
+     * @param {space_newsUpdateArgs} args - Arguments to update one Space_news.
+     * @example
+     * // Update one Space_news
+     * const space_news = await prisma.space_news.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends space_newsUpdateArgs>(args: SelectSubset<T, space_newsUpdateArgs<ExtArgs>>): Prisma__space_newsClient<$Result.GetResult<Prisma.$space_newsPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Space_news.
+     * @param {space_newsDeleteManyArgs} args - Arguments to filter Space_news to delete.
+     * @example
+     * // Delete a few Space_news
+     * const { count } = await prisma.space_news.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends space_newsDeleteManyArgs>(args?: SelectSubset<T, space_newsDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Space_news.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {space_newsUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Space_news
+     * const space_news = await prisma.space_news.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends space_newsUpdateManyArgs>(args: SelectSubset<T, space_newsUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Space_news and returns the data updated in the database.
+     * @param {space_newsUpdateManyAndReturnArgs} args - Arguments to update many Space_news.
+     * @example
+     * // Update many Space_news
+     * const space_news = await prisma.space_news.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more Space_news and only return the `id`
+     * const space_newsWithIdOnly = await prisma.space_news.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends space_newsUpdateManyAndReturnArgs>(args: SelectSubset<T, space_newsUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$space_newsPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one Space_news.
+     * @param {space_newsUpsertArgs} args - Arguments to update or create a Space_news.
+     * @example
+     * // Update or create a Space_news
+     * const space_news = await prisma.space_news.upsert({
+     *   create: {
+     *     // ... data to create a Space_news
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Space_news we want to update
+     *   }
+     * })
+     */
+    upsert<T extends space_newsUpsertArgs>(args: SelectSubset<T, space_newsUpsertArgs<ExtArgs>>): Prisma__space_newsClient<$Result.GetResult<Prisma.$space_newsPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of Space_news.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {space_newsCountArgs} args - Arguments to filter Space_news to count.
+     * @example
+     * // Count the number of Space_news
+     * const count = await prisma.space_news.count({
+     *   where: {
+     *     // ... the filter for the Space_news we want to count
+     *   }
+     * })
+    **/
+    count<T extends space_newsCountArgs>(
+      args?: Subset<T, space_newsCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], Space_newsCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Space_news.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {Space_newsAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends Space_newsAggregateArgs>(args: Subset<T, Space_newsAggregateArgs>): Prisma.PrismaPromise<GetSpace_newsAggregateType<T>>
+
+    /**
+     * Group by Space_news.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {space_newsGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends space_newsGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: space_newsGroupByArgs['orderBy'] }
+        : { orderBy?: space_newsGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, space_newsGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetSpace_newsGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the space_news model
+   */
+  readonly fields: space_newsFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for space_news.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__space_newsClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    publisher<T extends usersDefaultArgs<ExtArgs> = {}>(args?: Subset<T, usersDefaultArgs<ExtArgs>>): Prisma__usersClient<$Result.GetResult<Prisma.$usersPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    space_news_likes<T extends space_news$space_news_likesArgs<ExtArgs> = {}>(args?: Subset<T, space_news$space_news_likesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$space_news_likesPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    space_news_comments<T extends space_news$space_news_commentsArgs<ExtArgs> = {}>(args?: Subset<T, space_news$space_news_commentsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$space_news_commentsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the space_news model
+   */
+  interface space_newsFieldRefs {
+    readonly id: FieldRef<"space_news", 'Int'>
+    readonly image_urls: FieldRef<"space_news", 'Json'>
+    readonly publish_date: FieldRef<"space_news", 'DateTime'>
+    readonly title: FieldRef<"space_news", 'String'>
+    readonly number_of_likes: FieldRef<"space_news", 'Int'>
+    readonly number_of_comments: FieldRef<"space_news", 'Int'>
+    readonly content: FieldRef<"space_news", 'String'>
+    readonly published_by: FieldRef<"space_news", 'Int'>
+    readonly category: FieldRef<"space_news", 'String'>
+    readonly created_at: FieldRef<"space_news", 'DateTime'>
+    readonly last_read_time: FieldRef<"space_news", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * space_news findUnique
+   */
+  export type space_newsFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the space_news
+     */
+    select?: space_newsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the space_news
+     */
+    omit?: space_newsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: space_newsInclude<ExtArgs> | null
+    /**
+     * Filter, which space_news to fetch.
+     */
+    where: space_newsWhereUniqueInput
+  }
+
+  /**
+   * space_news findUniqueOrThrow
+   */
+  export type space_newsFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the space_news
+     */
+    select?: space_newsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the space_news
+     */
+    omit?: space_newsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: space_newsInclude<ExtArgs> | null
+    /**
+     * Filter, which space_news to fetch.
+     */
+    where: space_newsWhereUniqueInput
+  }
+
+  /**
+   * space_news findFirst
+   */
+  export type space_newsFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the space_news
+     */
+    select?: space_newsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the space_news
+     */
+    omit?: space_newsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: space_newsInclude<ExtArgs> | null
+    /**
+     * Filter, which space_news to fetch.
+     */
+    where?: space_newsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of space_news to fetch.
+     */
+    orderBy?: space_newsOrderByWithRelationInput | space_newsOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for space_news.
+     */
+    cursor?: space_newsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` space_news from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` space_news.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of space_news.
+     */
+    distinct?: Space_newsScalarFieldEnum | Space_newsScalarFieldEnum[]
+  }
+
+  /**
+   * space_news findFirstOrThrow
+   */
+  export type space_newsFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the space_news
+     */
+    select?: space_newsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the space_news
+     */
+    omit?: space_newsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: space_newsInclude<ExtArgs> | null
+    /**
+     * Filter, which space_news to fetch.
+     */
+    where?: space_newsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of space_news to fetch.
+     */
+    orderBy?: space_newsOrderByWithRelationInput | space_newsOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for space_news.
+     */
+    cursor?: space_newsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` space_news from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` space_news.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of space_news.
+     */
+    distinct?: Space_newsScalarFieldEnum | Space_newsScalarFieldEnum[]
+  }
+
+  /**
+   * space_news findMany
+   */
+  export type space_newsFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the space_news
+     */
+    select?: space_newsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the space_news
+     */
+    omit?: space_newsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: space_newsInclude<ExtArgs> | null
+    /**
+     * Filter, which space_news to fetch.
+     */
+    where?: space_newsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of space_news to fetch.
+     */
+    orderBy?: space_newsOrderByWithRelationInput | space_newsOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing space_news.
+     */
+    cursor?: space_newsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` space_news from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` space_news.
+     */
+    skip?: number
+    distinct?: Space_newsScalarFieldEnum | Space_newsScalarFieldEnum[]
+  }
+
+  /**
+   * space_news create
+   */
+  export type space_newsCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the space_news
+     */
+    select?: space_newsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the space_news
+     */
+    omit?: space_newsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: space_newsInclude<ExtArgs> | null
+    /**
+     * The data needed to create a space_news.
+     */
+    data: XOR<space_newsCreateInput, space_newsUncheckedCreateInput>
+  }
+
+  /**
+   * space_news createMany
+   */
+  export type space_newsCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many space_news.
+     */
+    data: space_newsCreateManyInput | space_newsCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * space_news createManyAndReturn
+   */
+  export type space_newsCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the space_news
+     */
+    select?: space_newsSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the space_news
+     */
+    omit?: space_newsOmit<ExtArgs> | null
+    /**
+     * The data used to create many space_news.
+     */
+    data: space_newsCreateManyInput | space_newsCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: space_newsIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * space_news update
+   */
+  export type space_newsUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the space_news
+     */
+    select?: space_newsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the space_news
+     */
+    omit?: space_newsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: space_newsInclude<ExtArgs> | null
+    /**
+     * The data needed to update a space_news.
+     */
+    data: XOR<space_newsUpdateInput, space_newsUncheckedUpdateInput>
+    /**
+     * Choose, which space_news to update.
+     */
+    where: space_newsWhereUniqueInput
+  }
+
+  /**
+   * space_news updateMany
+   */
+  export type space_newsUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update space_news.
+     */
+    data: XOR<space_newsUpdateManyMutationInput, space_newsUncheckedUpdateManyInput>
+    /**
+     * Filter which space_news to update
+     */
+    where?: space_newsWhereInput
+    /**
+     * Limit how many space_news to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * space_news updateManyAndReturn
+   */
+  export type space_newsUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the space_news
+     */
+    select?: space_newsSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the space_news
+     */
+    omit?: space_newsOmit<ExtArgs> | null
+    /**
+     * The data used to update space_news.
+     */
+    data: XOR<space_newsUpdateManyMutationInput, space_newsUncheckedUpdateManyInput>
+    /**
+     * Filter which space_news to update
+     */
+    where?: space_newsWhereInput
+    /**
+     * Limit how many space_news to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: space_newsIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * space_news upsert
+   */
+  export type space_newsUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the space_news
+     */
+    select?: space_newsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the space_news
+     */
+    omit?: space_newsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: space_newsInclude<ExtArgs> | null
+    /**
+     * The filter to search for the space_news to update in case it exists.
+     */
+    where: space_newsWhereUniqueInput
+    /**
+     * In case the space_news found by the `where` argument doesn't exist, create a new space_news with this data.
+     */
+    create: XOR<space_newsCreateInput, space_newsUncheckedCreateInput>
+    /**
+     * In case the space_news was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<space_newsUpdateInput, space_newsUncheckedUpdateInput>
+  }
+
+  /**
+   * space_news delete
+   */
+  export type space_newsDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the space_news
+     */
+    select?: space_newsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the space_news
+     */
+    omit?: space_newsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: space_newsInclude<ExtArgs> | null
+    /**
+     * Filter which space_news to delete.
+     */
+    where: space_newsWhereUniqueInput
+  }
+
+  /**
+   * space_news deleteMany
+   */
+  export type space_newsDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which space_news to delete
+     */
+    where?: space_newsWhereInput
+    /**
+     * Limit how many space_news to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * space_news.space_news_likes
+   */
+  export type space_news$space_news_likesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the space_news_likes
+     */
+    select?: space_news_likesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the space_news_likes
+     */
+    omit?: space_news_likesOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: space_news_likesInclude<ExtArgs> | null
+    where?: space_news_likesWhereInput
+    orderBy?: space_news_likesOrderByWithRelationInput | space_news_likesOrderByWithRelationInput[]
+    cursor?: space_news_likesWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: Space_news_likesScalarFieldEnum | Space_news_likesScalarFieldEnum[]
+  }
+
+  /**
+   * space_news.space_news_comments
+   */
+  export type space_news$space_news_commentsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the space_news_comments
+     */
+    select?: space_news_commentsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the space_news_comments
+     */
+    omit?: space_news_commentsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: space_news_commentsInclude<ExtArgs> | null
+    where?: space_news_commentsWhereInput
+    orderBy?: space_news_commentsOrderByWithRelationInput | space_news_commentsOrderByWithRelationInput[]
+    cursor?: space_news_commentsWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: Space_news_commentsScalarFieldEnum | Space_news_commentsScalarFieldEnum[]
+  }
+
+  /**
+   * space_news without action
+   */
+  export type space_newsDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the space_news
+     */
+    select?: space_newsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the space_news
+     */
+    omit?: space_newsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: space_newsInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model space_news_likes
+   */
+
+  export type AggregateSpace_news_likes = {
+    _count: Space_news_likesCountAggregateOutputType | null
+    _avg: Space_news_likesAvgAggregateOutputType | null
+    _sum: Space_news_likesSumAggregateOutputType | null
+    _min: Space_news_likesMinAggregateOutputType | null
+    _max: Space_news_likesMaxAggregateOutputType | null
+  }
+
+  export type Space_news_likesAvgAggregateOutputType = {
+    id: number | null
+    space_news_id: number | null
+    user_id: number | null
+  }
+
+  export type Space_news_likesSumAggregateOutputType = {
+    id: number | null
+    space_news_id: number | null
+    user_id: number | null
+  }
+
+  export type Space_news_likesMinAggregateOutputType = {
+    id: number | null
+    space_news_id: number | null
+    user_id: number | null
+    created_at: Date | null
+  }
+
+  export type Space_news_likesMaxAggregateOutputType = {
+    id: number | null
+    space_news_id: number | null
+    user_id: number | null
+    created_at: Date | null
+  }
+
+  export type Space_news_likesCountAggregateOutputType = {
+    id: number
+    space_news_id: number
+    user_id: number
+    created_at: number
+    _all: number
+  }
+
+
+  export type Space_news_likesAvgAggregateInputType = {
+    id?: true
+    space_news_id?: true
+    user_id?: true
+  }
+
+  export type Space_news_likesSumAggregateInputType = {
+    id?: true
+    space_news_id?: true
+    user_id?: true
+  }
+
+  export type Space_news_likesMinAggregateInputType = {
+    id?: true
+    space_news_id?: true
+    user_id?: true
+    created_at?: true
+  }
+
+  export type Space_news_likesMaxAggregateInputType = {
+    id?: true
+    space_news_id?: true
+    user_id?: true
+    created_at?: true
+  }
+
+  export type Space_news_likesCountAggregateInputType = {
+    id?: true
+    space_news_id?: true
+    user_id?: true
+    created_at?: true
+    _all?: true
+  }
+
+  export type Space_news_likesAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which space_news_likes to aggregate.
+     */
+    where?: space_news_likesWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of space_news_likes to fetch.
+     */
+    orderBy?: space_news_likesOrderByWithRelationInput | space_news_likesOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: space_news_likesWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` space_news_likes from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` space_news_likes.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned space_news_likes
+    **/
+    _count?: true | Space_news_likesCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: Space_news_likesAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: Space_news_likesSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: Space_news_likesMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: Space_news_likesMaxAggregateInputType
+  }
+
+  export type GetSpace_news_likesAggregateType<T extends Space_news_likesAggregateArgs> = {
+        [P in keyof T & keyof AggregateSpace_news_likes]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateSpace_news_likes[P]>
+      : GetScalarType<T[P], AggregateSpace_news_likes[P]>
+  }
+
+
+
+
+  export type space_news_likesGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: space_news_likesWhereInput
+    orderBy?: space_news_likesOrderByWithAggregationInput | space_news_likesOrderByWithAggregationInput[]
+    by: Space_news_likesScalarFieldEnum[] | Space_news_likesScalarFieldEnum
+    having?: space_news_likesScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: Space_news_likesCountAggregateInputType | true
+    _avg?: Space_news_likesAvgAggregateInputType
+    _sum?: Space_news_likesSumAggregateInputType
+    _min?: Space_news_likesMinAggregateInputType
+    _max?: Space_news_likesMaxAggregateInputType
+  }
+
+  export type Space_news_likesGroupByOutputType = {
+    id: number
+    space_news_id: number
+    user_id: number
+    created_at: Date
+    _count: Space_news_likesCountAggregateOutputType | null
+    _avg: Space_news_likesAvgAggregateOutputType | null
+    _sum: Space_news_likesSumAggregateOutputType | null
+    _min: Space_news_likesMinAggregateOutputType | null
+    _max: Space_news_likesMaxAggregateOutputType | null
+  }
+
+  type GetSpace_news_likesGroupByPayload<T extends space_news_likesGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<Space_news_likesGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof Space_news_likesGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], Space_news_likesGroupByOutputType[P]>
+            : GetScalarType<T[P], Space_news_likesGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type space_news_likesSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    space_news_id?: boolean
+    user_id?: boolean
+    created_at?: boolean
+    space_news?: boolean | space_newsDefaultArgs<ExtArgs>
+    user?: boolean | usersDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["space_news_likes"]>
+
+  export type space_news_likesSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    space_news_id?: boolean
+    user_id?: boolean
+    created_at?: boolean
+    space_news?: boolean | space_newsDefaultArgs<ExtArgs>
+    user?: boolean | usersDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["space_news_likes"]>
+
+  export type space_news_likesSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    space_news_id?: boolean
+    user_id?: boolean
+    created_at?: boolean
+    space_news?: boolean | space_newsDefaultArgs<ExtArgs>
+    user?: boolean | usersDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["space_news_likes"]>
+
+  export type space_news_likesSelectScalar = {
+    id?: boolean
+    space_news_id?: boolean
+    user_id?: boolean
+    created_at?: boolean
+  }
+
+  export type space_news_likesOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "space_news_id" | "user_id" | "created_at", ExtArgs["result"]["space_news_likes"]>
+  export type space_news_likesInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    space_news?: boolean | space_newsDefaultArgs<ExtArgs>
+    user?: boolean | usersDefaultArgs<ExtArgs>
+  }
+  export type space_news_likesIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    space_news?: boolean | space_newsDefaultArgs<ExtArgs>
+    user?: boolean | usersDefaultArgs<ExtArgs>
+  }
+  export type space_news_likesIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    space_news?: boolean | space_newsDefaultArgs<ExtArgs>
+    user?: boolean | usersDefaultArgs<ExtArgs>
+  }
+
+  export type $space_news_likesPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "space_news_likes"
+    objects: {
+      space_news: Prisma.$space_newsPayload<ExtArgs>
+      user: Prisma.$usersPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: number
+      space_news_id: number
+      user_id: number
+      created_at: Date
+    }, ExtArgs["result"]["space_news_likes"]>
+    composites: {}
+  }
+
+  type space_news_likesGetPayload<S extends boolean | null | undefined | space_news_likesDefaultArgs> = $Result.GetResult<Prisma.$space_news_likesPayload, S>
+
+  type space_news_likesCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<space_news_likesFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: Space_news_likesCountAggregateInputType | true
+    }
+
+  export interface space_news_likesDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['space_news_likes'], meta: { name: 'space_news_likes' } }
+    /**
+     * Find zero or one Space_news_likes that matches the filter.
+     * @param {space_news_likesFindUniqueArgs} args - Arguments to find a Space_news_likes
+     * @example
+     * // Get one Space_news_likes
+     * const space_news_likes = await prisma.space_news_likes.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends space_news_likesFindUniqueArgs>(args: SelectSubset<T, space_news_likesFindUniqueArgs<ExtArgs>>): Prisma__space_news_likesClient<$Result.GetResult<Prisma.$space_news_likesPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Space_news_likes that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {space_news_likesFindUniqueOrThrowArgs} args - Arguments to find a Space_news_likes
+     * @example
+     * // Get one Space_news_likes
+     * const space_news_likes = await prisma.space_news_likes.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends space_news_likesFindUniqueOrThrowArgs>(args: SelectSubset<T, space_news_likesFindUniqueOrThrowArgs<ExtArgs>>): Prisma__space_news_likesClient<$Result.GetResult<Prisma.$space_news_likesPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Space_news_likes that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {space_news_likesFindFirstArgs} args - Arguments to find a Space_news_likes
+     * @example
+     * // Get one Space_news_likes
+     * const space_news_likes = await prisma.space_news_likes.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends space_news_likesFindFirstArgs>(args?: SelectSubset<T, space_news_likesFindFirstArgs<ExtArgs>>): Prisma__space_news_likesClient<$Result.GetResult<Prisma.$space_news_likesPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Space_news_likes that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {space_news_likesFindFirstOrThrowArgs} args - Arguments to find a Space_news_likes
+     * @example
+     * // Get one Space_news_likes
+     * const space_news_likes = await prisma.space_news_likes.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends space_news_likesFindFirstOrThrowArgs>(args?: SelectSubset<T, space_news_likesFindFirstOrThrowArgs<ExtArgs>>): Prisma__space_news_likesClient<$Result.GetResult<Prisma.$space_news_likesPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Space_news_likes that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {space_news_likesFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Space_news_likes
+     * const space_news_likes = await prisma.space_news_likes.findMany()
+     * 
+     * // Get first 10 Space_news_likes
+     * const space_news_likes = await prisma.space_news_likes.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const space_news_likesWithIdOnly = await prisma.space_news_likes.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends space_news_likesFindManyArgs>(args?: SelectSubset<T, space_news_likesFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$space_news_likesPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Space_news_likes.
+     * @param {space_news_likesCreateArgs} args - Arguments to create a Space_news_likes.
+     * @example
+     * // Create one Space_news_likes
+     * const Space_news_likes = await prisma.space_news_likes.create({
+     *   data: {
+     *     // ... data to create a Space_news_likes
+     *   }
+     * })
+     * 
+     */
+    create<T extends space_news_likesCreateArgs>(args: SelectSubset<T, space_news_likesCreateArgs<ExtArgs>>): Prisma__space_news_likesClient<$Result.GetResult<Prisma.$space_news_likesPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Space_news_likes.
+     * @param {space_news_likesCreateManyArgs} args - Arguments to create many Space_news_likes.
+     * @example
+     * // Create many Space_news_likes
+     * const space_news_likes = await prisma.space_news_likes.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends space_news_likesCreateManyArgs>(args?: SelectSubset<T, space_news_likesCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many Space_news_likes and returns the data saved in the database.
+     * @param {space_news_likesCreateManyAndReturnArgs} args - Arguments to create many Space_news_likes.
+     * @example
+     * // Create many Space_news_likes
+     * const space_news_likes = await prisma.space_news_likes.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many Space_news_likes and only return the `id`
+     * const space_news_likesWithIdOnly = await prisma.space_news_likes.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends space_news_likesCreateManyAndReturnArgs>(args?: SelectSubset<T, space_news_likesCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$space_news_likesPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a Space_news_likes.
+     * @param {space_news_likesDeleteArgs} args - Arguments to delete one Space_news_likes.
+     * @example
+     * // Delete one Space_news_likes
+     * const Space_news_likes = await prisma.space_news_likes.delete({
+     *   where: {
+     *     // ... filter to delete one Space_news_likes
+     *   }
+     * })
+     * 
+     */
+    delete<T extends space_news_likesDeleteArgs>(args: SelectSubset<T, space_news_likesDeleteArgs<ExtArgs>>): Prisma__space_news_likesClient<$Result.GetResult<Prisma.$space_news_likesPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Space_news_likes.
+     * @param {space_news_likesUpdateArgs} args - Arguments to update one Space_news_likes.
+     * @example
+     * // Update one Space_news_likes
+     * const space_news_likes = await prisma.space_news_likes.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends space_news_likesUpdateArgs>(args: SelectSubset<T, space_news_likesUpdateArgs<ExtArgs>>): Prisma__space_news_likesClient<$Result.GetResult<Prisma.$space_news_likesPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Space_news_likes.
+     * @param {space_news_likesDeleteManyArgs} args - Arguments to filter Space_news_likes to delete.
+     * @example
+     * // Delete a few Space_news_likes
+     * const { count } = await prisma.space_news_likes.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends space_news_likesDeleteManyArgs>(args?: SelectSubset<T, space_news_likesDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Space_news_likes.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {space_news_likesUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Space_news_likes
+     * const space_news_likes = await prisma.space_news_likes.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends space_news_likesUpdateManyArgs>(args: SelectSubset<T, space_news_likesUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Space_news_likes and returns the data updated in the database.
+     * @param {space_news_likesUpdateManyAndReturnArgs} args - Arguments to update many Space_news_likes.
+     * @example
+     * // Update many Space_news_likes
+     * const space_news_likes = await prisma.space_news_likes.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more Space_news_likes and only return the `id`
+     * const space_news_likesWithIdOnly = await prisma.space_news_likes.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends space_news_likesUpdateManyAndReturnArgs>(args: SelectSubset<T, space_news_likesUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$space_news_likesPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one Space_news_likes.
+     * @param {space_news_likesUpsertArgs} args - Arguments to update or create a Space_news_likes.
+     * @example
+     * // Update or create a Space_news_likes
+     * const space_news_likes = await prisma.space_news_likes.upsert({
+     *   create: {
+     *     // ... data to create a Space_news_likes
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Space_news_likes we want to update
+     *   }
+     * })
+     */
+    upsert<T extends space_news_likesUpsertArgs>(args: SelectSubset<T, space_news_likesUpsertArgs<ExtArgs>>): Prisma__space_news_likesClient<$Result.GetResult<Prisma.$space_news_likesPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of Space_news_likes.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {space_news_likesCountArgs} args - Arguments to filter Space_news_likes to count.
+     * @example
+     * // Count the number of Space_news_likes
+     * const count = await prisma.space_news_likes.count({
+     *   where: {
+     *     // ... the filter for the Space_news_likes we want to count
+     *   }
+     * })
+    **/
+    count<T extends space_news_likesCountArgs>(
+      args?: Subset<T, space_news_likesCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], Space_news_likesCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Space_news_likes.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {Space_news_likesAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends Space_news_likesAggregateArgs>(args: Subset<T, Space_news_likesAggregateArgs>): Prisma.PrismaPromise<GetSpace_news_likesAggregateType<T>>
+
+    /**
+     * Group by Space_news_likes.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {space_news_likesGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends space_news_likesGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: space_news_likesGroupByArgs['orderBy'] }
+        : { orderBy?: space_news_likesGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, space_news_likesGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetSpace_news_likesGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the space_news_likes model
+   */
+  readonly fields: space_news_likesFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for space_news_likes.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__space_news_likesClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    space_news<T extends space_newsDefaultArgs<ExtArgs> = {}>(args?: Subset<T, space_newsDefaultArgs<ExtArgs>>): Prisma__space_newsClient<$Result.GetResult<Prisma.$space_newsPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    user<T extends usersDefaultArgs<ExtArgs> = {}>(args?: Subset<T, usersDefaultArgs<ExtArgs>>): Prisma__usersClient<$Result.GetResult<Prisma.$usersPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the space_news_likes model
+   */
+  interface space_news_likesFieldRefs {
+    readonly id: FieldRef<"space_news_likes", 'Int'>
+    readonly space_news_id: FieldRef<"space_news_likes", 'Int'>
+    readonly user_id: FieldRef<"space_news_likes", 'Int'>
+    readonly created_at: FieldRef<"space_news_likes", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * space_news_likes findUnique
+   */
+  export type space_news_likesFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the space_news_likes
+     */
+    select?: space_news_likesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the space_news_likes
+     */
+    omit?: space_news_likesOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: space_news_likesInclude<ExtArgs> | null
+    /**
+     * Filter, which space_news_likes to fetch.
+     */
+    where: space_news_likesWhereUniqueInput
+  }
+
+  /**
+   * space_news_likes findUniqueOrThrow
+   */
+  export type space_news_likesFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the space_news_likes
+     */
+    select?: space_news_likesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the space_news_likes
+     */
+    omit?: space_news_likesOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: space_news_likesInclude<ExtArgs> | null
+    /**
+     * Filter, which space_news_likes to fetch.
+     */
+    where: space_news_likesWhereUniqueInput
+  }
+
+  /**
+   * space_news_likes findFirst
+   */
+  export type space_news_likesFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the space_news_likes
+     */
+    select?: space_news_likesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the space_news_likes
+     */
+    omit?: space_news_likesOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: space_news_likesInclude<ExtArgs> | null
+    /**
+     * Filter, which space_news_likes to fetch.
+     */
+    where?: space_news_likesWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of space_news_likes to fetch.
+     */
+    orderBy?: space_news_likesOrderByWithRelationInput | space_news_likesOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for space_news_likes.
+     */
+    cursor?: space_news_likesWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` space_news_likes from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` space_news_likes.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of space_news_likes.
+     */
+    distinct?: Space_news_likesScalarFieldEnum | Space_news_likesScalarFieldEnum[]
+  }
+
+  /**
+   * space_news_likes findFirstOrThrow
+   */
+  export type space_news_likesFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the space_news_likes
+     */
+    select?: space_news_likesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the space_news_likes
+     */
+    omit?: space_news_likesOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: space_news_likesInclude<ExtArgs> | null
+    /**
+     * Filter, which space_news_likes to fetch.
+     */
+    where?: space_news_likesWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of space_news_likes to fetch.
+     */
+    orderBy?: space_news_likesOrderByWithRelationInput | space_news_likesOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for space_news_likes.
+     */
+    cursor?: space_news_likesWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` space_news_likes from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` space_news_likes.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of space_news_likes.
+     */
+    distinct?: Space_news_likesScalarFieldEnum | Space_news_likesScalarFieldEnum[]
+  }
+
+  /**
+   * space_news_likes findMany
+   */
+  export type space_news_likesFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the space_news_likes
+     */
+    select?: space_news_likesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the space_news_likes
+     */
+    omit?: space_news_likesOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: space_news_likesInclude<ExtArgs> | null
+    /**
+     * Filter, which space_news_likes to fetch.
+     */
+    where?: space_news_likesWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of space_news_likes to fetch.
+     */
+    orderBy?: space_news_likesOrderByWithRelationInput | space_news_likesOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing space_news_likes.
+     */
+    cursor?: space_news_likesWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` space_news_likes from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` space_news_likes.
+     */
+    skip?: number
+    distinct?: Space_news_likesScalarFieldEnum | Space_news_likesScalarFieldEnum[]
+  }
+
+  /**
+   * space_news_likes create
+   */
+  export type space_news_likesCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the space_news_likes
+     */
+    select?: space_news_likesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the space_news_likes
+     */
+    omit?: space_news_likesOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: space_news_likesInclude<ExtArgs> | null
+    /**
+     * The data needed to create a space_news_likes.
+     */
+    data: XOR<space_news_likesCreateInput, space_news_likesUncheckedCreateInput>
+  }
+
+  /**
+   * space_news_likes createMany
+   */
+  export type space_news_likesCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many space_news_likes.
+     */
+    data: space_news_likesCreateManyInput | space_news_likesCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * space_news_likes createManyAndReturn
+   */
+  export type space_news_likesCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the space_news_likes
+     */
+    select?: space_news_likesSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the space_news_likes
+     */
+    omit?: space_news_likesOmit<ExtArgs> | null
+    /**
+     * The data used to create many space_news_likes.
+     */
+    data: space_news_likesCreateManyInput | space_news_likesCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: space_news_likesIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * space_news_likes update
+   */
+  export type space_news_likesUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the space_news_likes
+     */
+    select?: space_news_likesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the space_news_likes
+     */
+    omit?: space_news_likesOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: space_news_likesInclude<ExtArgs> | null
+    /**
+     * The data needed to update a space_news_likes.
+     */
+    data: XOR<space_news_likesUpdateInput, space_news_likesUncheckedUpdateInput>
+    /**
+     * Choose, which space_news_likes to update.
+     */
+    where: space_news_likesWhereUniqueInput
+  }
+
+  /**
+   * space_news_likes updateMany
+   */
+  export type space_news_likesUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update space_news_likes.
+     */
+    data: XOR<space_news_likesUpdateManyMutationInput, space_news_likesUncheckedUpdateManyInput>
+    /**
+     * Filter which space_news_likes to update
+     */
+    where?: space_news_likesWhereInput
+    /**
+     * Limit how many space_news_likes to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * space_news_likes updateManyAndReturn
+   */
+  export type space_news_likesUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the space_news_likes
+     */
+    select?: space_news_likesSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the space_news_likes
+     */
+    omit?: space_news_likesOmit<ExtArgs> | null
+    /**
+     * The data used to update space_news_likes.
+     */
+    data: XOR<space_news_likesUpdateManyMutationInput, space_news_likesUncheckedUpdateManyInput>
+    /**
+     * Filter which space_news_likes to update
+     */
+    where?: space_news_likesWhereInput
+    /**
+     * Limit how many space_news_likes to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: space_news_likesIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * space_news_likes upsert
+   */
+  export type space_news_likesUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the space_news_likes
+     */
+    select?: space_news_likesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the space_news_likes
+     */
+    omit?: space_news_likesOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: space_news_likesInclude<ExtArgs> | null
+    /**
+     * The filter to search for the space_news_likes to update in case it exists.
+     */
+    where: space_news_likesWhereUniqueInput
+    /**
+     * In case the space_news_likes found by the `where` argument doesn't exist, create a new space_news_likes with this data.
+     */
+    create: XOR<space_news_likesCreateInput, space_news_likesUncheckedCreateInput>
+    /**
+     * In case the space_news_likes was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<space_news_likesUpdateInput, space_news_likesUncheckedUpdateInput>
+  }
+
+  /**
+   * space_news_likes delete
+   */
+  export type space_news_likesDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the space_news_likes
+     */
+    select?: space_news_likesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the space_news_likes
+     */
+    omit?: space_news_likesOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: space_news_likesInclude<ExtArgs> | null
+    /**
+     * Filter which space_news_likes to delete.
+     */
+    where: space_news_likesWhereUniqueInput
+  }
+
+  /**
+   * space_news_likes deleteMany
+   */
+  export type space_news_likesDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which space_news_likes to delete
+     */
+    where?: space_news_likesWhereInput
+    /**
+     * Limit how many space_news_likes to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * space_news_likes without action
+   */
+  export type space_news_likesDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the space_news_likes
+     */
+    select?: space_news_likesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the space_news_likes
+     */
+    omit?: space_news_likesOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: space_news_likesInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model space_news_comments
+   */
+
+  export type AggregateSpace_news_comments = {
+    _count: Space_news_commentsCountAggregateOutputType | null
+    _avg: Space_news_commentsAvgAggregateOutputType | null
+    _sum: Space_news_commentsSumAggregateOutputType | null
+    _min: Space_news_commentsMinAggregateOutputType | null
+    _max: Space_news_commentsMaxAggregateOutputType | null
+  }
+
+  export type Space_news_commentsAvgAggregateOutputType = {
+    id: number | null
+    space_news_id: number | null
+    user_id: number | null
+    parent_comment_id: number | null
+  }
+
+  export type Space_news_commentsSumAggregateOutputType = {
+    id: number | null
+    space_news_id: number | null
+    user_id: number | null
+    parent_comment_id: number | null
+  }
+
+  export type Space_news_commentsMinAggregateOutputType = {
+    id: number | null
+    space_news_id: number | null
+    user_id: number | null
+    parent_comment_id: number | null
+    content: string | null
+    is_edited: boolean | null
+    created_at: Date | null
+    updated_at: Date | null
+  }
+
+  export type Space_news_commentsMaxAggregateOutputType = {
+    id: number | null
+    space_news_id: number | null
+    user_id: number | null
+    parent_comment_id: number | null
+    content: string | null
+    is_edited: boolean | null
+    created_at: Date | null
+    updated_at: Date | null
+  }
+
+  export type Space_news_commentsCountAggregateOutputType = {
+    id: number
+    space_news_id: number
+    user_id: number
+    parent_comment_id: number
+    content: number
+    is_edited: number
+    created_at: number
+    updated_at: number
+    _all: number
+  }
+
+
+  export type Space_news_commentsAvgAggregateInputType = {
+    id?: true
+    space_news_id?: true
+    user_id?: true
+    parent_comment_id?: true
+  }
+
+  export type Space_news_commentsSumAggregateInputType = {
+    id?: true
+    space_news_id?: true
+    user_id?: true
+    parent_comment_id?: true
+  }
+
+  export type Space_news_commentsMinAggregateInputType = {
+    id?: true
+    space_news_id?: true
+    user_id?: true
+    parent_comment_id?: true
+    content?: true
+    is_edited?: true
+    created_at?: true
+    updated_at?: true
+  }
+
+  export type Space_news_commentsMaxAggregateInputType = {
+    id?: true
+    space_news_id?: true
+    user_id?: true
+    parent_comment_id?: true
+    content?: true
+    is_edited?: true
+    created_at?: true
+    updated_at?: true
+  }
+
+  export type Space_news_commentsCountAggregateInputType = {
+    id?: true
+    space_news_id?: true
+    user_id?: true
+    parent_comment_id?: true
+    content?: true
+    is_edited?: true
+    created_at?: true
+    updated_at?: true
+    _all?: true
+  }
+
+  export type Space_news_commentsAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which space_news_comments to aggregate.
+     */
+    where?: space_news_commentsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of space_news_comments to fetch.
+     */
+    orderBy?: space_news_commentsOrderByWithRelationInput | space_news_commentsOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: space_news_commentsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` space_news_comments from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` space_news_comments.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned space_news_comments
+    **/
+    _count?: true | Space_news_commentsCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: Space_news_commentsAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: Space_news_commentsSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: Space_news_commentsMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: Space_news_commentsMaxAggregateInputType
+  }
+
+  export type GetSpace_news_commentsAggregateType<T extends Space_news_commentsAggregateArgs> = {
+        [P in keyof T & keyof AggregateSpace_news_comments]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateSpace_news_comments[P]>
+      : GetScalarType<T[P], AggregateSpace_news_comments[P]>
+  }
+
+
+
+
+  export type space_news_commentsGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: space_news_commentsWhereInput
+    orderBy?: space_news_commentsOrderByWithAggregationInput | space_news_commentsOrderByWithAggregationInput[]
+    by: Space_news_commentsScalarFieldEnum[] | Space_news_commentsScalarFieldEnum
+    having?: space_news_commentsScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: Space_news_commentsCountAggregateInputType | true
+    _avg?: Space_news_commentsAvgAggregateInputType
+    _sum?: Space_news_commentsSumAggregateInputType
+    _min?: Space_news_commentsMinAggregateInputType
+    _max?: Space_news_commentsMaxAggregateInputType
+  }
+
+  export type Space_news_commentsGroupByOutputType = {
+    id: number
+    space_news_id: number
+    user_id: number
+    parent_comment_id: number | null
+    content: string
+    is_edited: boolean
+    created_at: Date
+    updated_at: Date
+    _count: Space_news_commentsCountAggregateOutputType | null
+    _avg: Space_news_commentsAvgAggregateOutputType | null
+    _sum: Space_news_commentsSumAggregateOutputType | null
+    _min: Space_news_commentsMinAggregateOutputType | null
+    _max: Space_news_commentsMaxAggregateOutputType | null
+  }
+
+  type GetSpace_news_commentsGroupByPayload<T extends space_news_commentsGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<Space_news_commentsGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof Space_news_commentsGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], Space_news_commentsGroupByOutputType[P]>
+            : GetScalarType<T[P], Space_news_commentsGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type space_news_commentsSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    space_news_id?: boolean
+    user_id?: boolean
+    parent_comment_id?: boolean
+    content?: boolean
+    is_edited?: boolean
+    created_at?: boolean
+    updated_at?: boolean
+    space_news?: boolean | space_newsDefaultArgs<ExtArgs>
+    user?: boolean | usersDefaultArgs<ExtArgs>
+    parent_comment?: boolean | space_news_comments$parent_commentArgs<ExtArgs>
+    replies?: boolean | space_news_comments$repliesArgs<ExtArgs>
+    _count?: boolean | Space_news_commentsCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["space_news_comments"]>
+
+  export type space_news_commentsSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    space_news_id?: boolean
+    user_id?: boolean
+    parent_comment_id?: boolean
+    content?: boolean
+    is_edited?: boolean
+    created_at?: boolean
+    updated_at?: boolean
+    space_news?: boolean | space_newsDefaultArgs<ExtArgs>
+    user?: boolean | usersDefaultArgs<ExtArgs>
+    parent_comment?: boolean | space_news_comments$parent_commentArgs<ExtArgs>
+  }, ExtArgs["result"]["space_news_comments"]>
+
+  export type space_news_commentsSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    space_news_id?: boolean
+    user_id?: boolean
+    parent_comment_id?: boolean
+    content?: boolean
+    is_edited?: boolean
+    created_at?: boolean
+    updated_at?: boolean
+    space_news?: boolean | space_newsDefaultArgs<ExtArgs>
+    user?: boolean | usersDefaultArgs<ExtArgs>
+    parent_comment?: boolean | space_news_comments$parent_commentArgs<ExtArgs>
+  }, ExtArgs["result"]["space_news_comments"]>
+
+  export type space_news_commentsSelectScalar = {
+    id?: boolean
+    space_news_id?: boolean
+    user_id?: boolean
+    parent_comment_id?: boolean
+    content?: boolean
+    is_edited?: boolean
+    created_at?: boolean
+    updated_at?: boolean
+  }
+
+  export type space_news_commentsOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "space_news_id" | "user_id" | "parent_comment_id" | "content" | "is_edited" | "created_at" | "updated_at", ExtArgs["result"]["space_news_comments"]>
+  export type space_news_commentsInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    space_news?: boolean | space_newsDefaultArgs<ExtArgs>
+    user?: boolean | usersDefaultArgs<ExtArgs>
+    parent_comment?: boolean | space_news_comments$parent_commentArgs<ExtArgs>
+    replies?: boolean | space_news_comments$repliesArgs<ExtArgs>
+    _count?: boolean | Space_news_commentsCountOutputTypeDefaultArgs<ExtArgs>
+  }
+  export type space_news_commentsIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    space_news?: boolean | space_newsDefaultArgs<ExtArgs>
+    user?: boolean | usersDefaultArgs<ExtArgs>
+    parent_comment?: boolean | space_news_comments$parent_commentArgs<ExtArgs>
+  }
+  export type space_news_commentsIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    space_news?: boolean | space_newsDefaultArgs<ExtArgs>
+    user?: boolean | usersDefaultArgs<ExtArgs>
+    parent_comment?: boolean | space_news_comments$parent_commentArgs<ExtArgs>
+  }
+
+  export type $space_news_commentsPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "space_news_comments"
+    objects: {
+      space_news: Prisma.$space_newsPayload<ExtArgs>
+      user: Prisma.$usersPayload<ExtArgs>
+      parent_comment: Prisma.$space_news_commentsPayload<ExtArgs> | null
+      replies: Prisma.$space_news_commentsPayload<ExtArgs>[]
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: number
+      space_news_id: number
+      user_id: number
+      parent_comment_id: number | null
+      content: string
+      is_edited: boolean
+      created_at: Date
+      updated_at: Date
+    }, ExtArgs["result"]["space_news_comments"]>
+    composites: {}
+  }
+
+  type space_news_commentsGetPayload<S extends boolean | null | undefined | space_news_commentsDefaultArgs> = $Result.GetResult<Prisma.$space_news_commentsPayload, S>
+
+  type space_news_commentsCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<space_news_commentsFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: Space_news_commentsCountAggregateInputType | true
+    }
+
+  export interface space_news_commentsDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['space_news_comments'], meta: { name: 'space_news_comments' } }
+    /**
+     * Find zero or one Space_news_comments that matches the filter.
+     * @param {space_news_commentsFindUniqueArgs} args - Arguments to find a Space_news_comments
+     * @example
+     * // Get one Space_news_comments
+     * const space_news_comments = await prisma.space_news_comments.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends space_news_commentsFindUniqueArgs>(args: SelectSubset<T, space_news_commentsFindUniqueArgs<ExtArgs>>): Prisma__space_news_commentsClient<$Result.GetResult<Prisma.$space_news_commentsPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Space_news_comments that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {space_news_commentsFindUniqueOrThrowArgs} args - Arguments to find a Space_news_comments
+     * @example
+     * // Get one Space_news_comments
+     * const space_news_comments = await prisma.space_news_comments.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends space_news_commentsFindUniqueOrThrowArgs>(args: SelectSubset<T, space_news_commentsFindUniqueOrThrowArgs<ExtArgs>>): Prisma__space_news_commentsClient<$Result.GetResult<Prisma.$space_news_commentsPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Space_news_comments that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {space_news_commentsFindFirstArgs} args - Arguments to find a Space_news_comments
+     * @example
+     * // Get one Space_news_comments
+     * const space_news_comments = await prisma.space_news_comments.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends space_news_commentsFindFirstArgs>(args?: SelectSubset<T, space_news_commentsFindFirstArgs<ExtArgs>>): Prisma__space_news_commentsClient<$Result.GetResult<Prisma.$space_news_commentsPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Space_news_comments that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {space_news_commentsFindFirstOrThrowArgs} args - Arguments to find a Space_news_comments
+     * @example
+     * // Get one Space_news_comments
+     * const space_news_comments = await prisma.space_news_comments.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends space_news_commentsFindFirstOrThrowArgs>(args?: SelectSubset<T, space_news_commentsFindFirstOrThrowArgs<ExtArgs>>): Prisma__space_news_commentsClient<$Result.GetResult<Prisma.$space_news_commentsPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Space_news_comments that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {space_news_commentsFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Space_news_comments
+     * const space_news_comments = await prisma.space_news_comments.findMany()
+     * 
+     * // Get first 10 Space_news_comments
+     * const space_news_comments = await prisma.space_news_comments.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const space_news_commentsWithIdOnly = await prisma.space_news_comments.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends space_news_commentsFindManyArgs>(args?: SelectSubset<T, space_news_commentsFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$space_news_commentsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Space_news_comments.
+     * @param {space_news_commentsCreateArgs} args - Arguments to create a Space_news_comments.
+     * @example
+     * // Create one Space_news_comments
+     * const Space_news_comments = await prisma.space_news_comments.create({
+     *   data: {
+     *     // ... data to create a Space_news_comments
+     *   }
+     * })
+     * 
+     */
+    create<T extends space_news_commentsCreateArgs>(args: SelectSubset<T, space_news_commentsCreateArgs<ExtArgs>>): Prisma__space_news_commentsClient<$Result.GetResult<Prisma.$space_news_commentsPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Space_news_comments.
+     * @param {space_news_commentsCreateManyArgs} args - Arguments to create many Space_news_comments.
+     * @example
+     * // Create many Space_news_comments
+     * const space_news_comments = await prisma.space_news_comments.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends space_news_commentsCreateManyArgs>(args?: SelectSubset<T, space_news_commentsCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many Space_news_comments and returns the data saved in the database.
+     * @param {space_news_commentsCreateManyAndReturnArgs} args - Arguments to create many Space_news_comments.
+     * @example
+     * // Create many Space_news_comments
+     * const space_news_comments = await prisma.space_news_comments.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many Space_news_comments and only return the `id`
+     * const space_news_commentsWithIdOnly = await prisma.space_news_comments.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends space_news_commentsCreateManyAndReturnArgs>(args?: SelectSubset<T, space_news_commentsCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$space_news_commentsPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a Space_news_comments.
+     * @param {space_news_commentsDeleteArgs} args - Arguments to delete one Space_news_comments.
+     * @example
+     * // Delete one Space_news_comments
+     * const Space_news_comments = await prisma.space_news_comments.delete({
+     *   where: {
+     *     // ... filter to delete one Space_news_comments
+     *   }
+     * })
+     * 
+     */
+    delete<T extends space_news_commentsDeleteArgs>(args: SelectSubset<T, space_news_commentsDeleteArgs<ExtArgs>>): Prisma__space_news_commentsClient<$Result.GetResult<Prisma.$space_news_commentsPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Space_news_comments.
+     * @param {space_news_commentsUpdateArgs} args - Arguments to update one Space_news_comments.
+     * @example
+     * // Update one Space_news_comments
+     * const space_news_comments = await prisma.space_news_comments.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends space_news_commentsUpdateArgs>(args: SelectSubset<T, space_news_commentsUpdateArgs<ExtArgs>>): Prisma__space_news_commentsClient<$Result.GetResult<Prisma.$space_news_commentsPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Space_news_comments.
+     * @param {space_news_commentsDeleteManyArgs} args - Arguments to filter Space_news_comments to delete.
+     * @example
+     * // Delete a few Space_news_comments
+     * const { count } = await prisma.space_news_comments.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends space_news_commentsDeleteManyArgs>(args?: SelectSubset<T, space_news_commentsDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Space_news_comments.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {space_news_commentsUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Space_news_comments
+     * const space_news_comments = await prisma.space_news_comments.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends space_news_commentsUpdateManyArgs>(args: SelectSubset<T, space_news_commentsUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Space_news_comments and returns the data updated in the database.
+     * @param {space_news_commentsUpdateManyAndReturnArgs} args - Arguments to update many Space_news_comments.
+     * @example
+     * // Update many Space_news_comments
+     * const space_news_comments = await prisma.space_news_comments.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more Space_news_comments and only return the `id`
+     * const space_news_commentsWithIdOnly = await prisma.space_news_comments.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends space_news_commentsUpdateManyAndReturnArgs>(args: SelectSubset<T, space_news_commentsUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$space_news_commentsPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one Space_news_comments.
+     * @param {space_news_commentsUpsertArgs} args - Arguments to update or create a Space_news_comments.
+     * @example
+     * // Update or create a Space_news_comments
+     * const space_news_comments = await prisma.space_news_comments.upsert({
+     *   create: {
+     *     // ... data to create a Space_news_comments
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Space_news_comments we want to update
+     *   }
+     * })
+     */
+    upsert<T extends space_news_commentsUpsertArgs>(args: SelectSubset<T, space_news_commentsUpsertArgs<ExtArgs>>): Prisma__space_news_commentsClient<$Result.GetResult<Prisma.$space_news_commentsPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of Space_news_comments.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {space_news_commentsCountArgs} args - Arguments to filter Space_news_comments to count.
+     * @example
+     * // Count the number of Space_news_comments
+     * const count = await prisma.space_news_comments.count({
+     *   where: {
+     *     // ... the filter for the Space_news_comments we want to count
+     *   }
+     * })
+    **/
+    count<T extends space_news_commentsCountArgs>(
+      args?: Subset<T, space_news_commentsCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], Space_news_commentsCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Space_news_comments.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {Space_news_commentsAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends Space_news_commentsAggregateArgs>(args: Subset<T, Space_news_commentsAggregateArgs>): Prisma.PrismaPromise<GetSpace_news_commentsAggregateType<T>>
+
+    /**
+     * Group by Space_news_comments.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {space_news_commentsGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends space_news_commentsGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: space_news_commentsGroupByArgs['orderBy'] }
+        : { orderBy?: space_news_commentsGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, space_news_commentsGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetSpace_news_commentsGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the space_news_comments model
+   */
+  readonly fields: space_news_commentsFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for space_news_comments.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__space_news_commentsClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    space_news<T extends space_newsDefaultArgs<ExtArgs> = {}>(args?: Subset<T, space_newsDefaultArgs<ExtArgs>>): Prisma__space_newsClient<$Result.GetResult<Prisma.$space_newsPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    user<T extends usersDefaultArgs<ExtArgs> = {}>(args?: Subset<T, usersDefaultArgs<ExtArgs>>): Prisma__usersClient<$Result.GetResult<Prisma.$usersPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    parent_comment<T extends space_news_comments$parent_commentArgs<ExtArgs> = {}>(args?: Subset<T, space_news_comments$parent_commentArgs<ExtArgs>>): Prisma__space_news_commentsClient<$Result.GetResult<Prisma.$space_news_commentsPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    replies<T extends space_news_comments$repliesArgs<ExtArgs> = {}>(args?: Subset<T, space_news_comments$repliesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$space_news_commentsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the space_news_comments model
+   */
+  interface space_news_commentsFieldRefs {
+    readonly id: FieldRef<"space_news_comments", 'Int'>
+    readonly space_news_id: FieldRef<"space_news_comments", 'Int'>
+    readonly user_id: FieldRef<"space_news_comments", 'Int'>
+    readonly parent_comment_id: FieldRef<"space_news_comments", 'Int'>
+    readonly content: FieldRef<"space_news_comments", 'String'>
+    readonly is_edited: FieldRef<"space_news_comments", 'Boolean'>
+    readonly created_at: FieldRef<"space_news_comments", 'DateTime'>
+    readonly updated_at: FieldRef<"space_news_comments", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * space_news_comments findUnique
+   */
+  export type space_news_commentsFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the space_news_comments
+     */
+    select?: space_news_commentsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the space_news_comments
+     */
+    omit?: space_news_commentsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: space_news_commentsInclude<ExtArgs> | null
+    /**
+     * Filter, which space_news_comments to fetch.
+     */
+    where: space_news_commentsWhereUniqueInput
+  }
+
+  /**
+   * space_news_comments findUniqueOrThrow
+   */
+  export type space_news_commentsFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the space_news_comments
+     */
+    select?: space_news_commentsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the space_news_comments
+     */
+    omit?: space_news_commentsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: space_news_commentsInclude<ExtArgs> | null
+    /**
+     * Filter, which space_news_comments to fetch.
+     */
+    where: space_news_commentsWhereUniqueInput
+  }
+
+  /**
+   * space_news_comments findFirst
+   */
+  export type space_news_commentsFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the space_news_comments
+     */
+    select?: space_news_commentsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the space_news_comments
+     */
+    omit?: space_news_commentsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: space_news_commentsInclude<ExtArgs> | null
+    /**
+     * Filter, which space_news_comments to fetch.
+     */
+    where?: space_news_commentsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of space_news_comments to fetch.
+     */
+    orderBy?: space_news_commentsOrderByWithRelationInput | space_news_commentsOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for space_news_comments.
+     */
+    cursor?: space_news_commentsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` space_news_comments from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` space_news_comments.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of space_news_comments.
+     */
+    distinct?: Space_news_commentsScalarFieldEnum | Space_news_commentsScalarFieldEnum[]
+  }
+
+  /**
+   * space_news_comments findFirstOrThrow
+   */
+  export type space_news_commentsFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the space_news_comments
+     */
+    select?: space_news_commentsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the space_news_comments
+     */
+    omit?: space_news_commentsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: space_news_commentsInclude<ExtArgs> | null
+    /**
+     * Filter, which space_news_comments to fetch.
+     */
+    where?: space_news_commentsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of space_news_comments to fetch.
+     */
+    orderBy?: space_news_commentsOrderByWithRelationInput | space_news_commentsOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for space_news_comments.
+     */
+    cursor?: space_news_commentsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` space_news_comments from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` space_news_comments.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of space_news_comments.
+     */
+    distinct?: Space_news_commentsScalarFieldEnum | Space_news_commentsScalarFieldEnum[]
+  }
+
+  /**
+   * space_news_comments findMany
+   */
+  export type space_news_commentsFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the space_news_comments
+     */
+    select?: space_news_commentsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the space_news_comments
+     */
+    omit?: space_news_commentsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: space_news_commentsInclude<ExtArgs> | null
+    /**
+     * Filter, which space_news_comments to fetch.
+     */
+    where?: space_news_commentsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of space_news_comments to fetch.
+     */
+    orderBy?: space_news_commentsOrderByWithRelationInput | space_news_commentsOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing space_news_comments.
+     */
+    cursor?: space_news_commentsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` space_news_comments from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` space_news_comments.
+     */
+    skip?: number
+    distinct?: Space_news_commentsScalarFieldEnum | Space_news_commentsScalarFieldEnum[]
+  }
+
+  /**
+   * space_news_comments create
+   */
+  export type space_news_commentsCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the space_news_comments
+     */
+    select?: space_news_commentsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the space_news_comments
+     */
+    omit?: space_news_commentsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: space_news_commentsInclude<ExtArgs> | null
+    /**
+     * The data needed to create a space_news_comments.
+     */
+    data: XOR<space_news_commentsCreateInput, space_news_commentsUncheckedCreateInput>
+  }
+
+  /**
+   * space_news_comments createMany
+   */
+  export type space_news_commentsCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many space_news_comments.
+     */
+    data: space_news_commentsCreateManyInput | space_news_commentsCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * space_news_comments createManyAndReturn
+   */
+  export type space_news_commentsCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the space_news_comments
+     */
+    select?: space_news_commentsSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the space_news_comments
+     */
+    omit?: space_news_commentsOmit<ExtArgs> | null
+    /**
+     * The data used to create many space_news_comments.
+     */
+    data: space_news_commentsCreateManyInput | space_news_commentsCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: space_news_commentsIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * space_news_comments update
+   */
+  export type space_news_commentsUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the space_news_comments
+     */
+    select?: space_news_commentsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the space_news_comments
+     */
+    omit?: space_news_commentsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: space_news_commentsInclude<ExtArgs> | null
+    /**
+     * The data needed to update a space_news_comments.
+     */
+    data: XOR<space_news_commentsUpdateInput, space_news_commentsUncheckedUpdateInput>
+    /**
+     * Choose, which space_news_comments to update.
+     */
+    where: space_news_commentsWhereUniqueInput
+  }
+
+  /**
+   * space_news_comments updateMany
+   */
+  export type space_news_commentsUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update space_news_comments.
+     */
+    data: XOR<space_news_commentsUpdateManyMutationInput, space_news_commentsUncheckedUpdateManyInput>
+    /**
+     * Filter which space_news_comments to update
+     */
+    where?: space_news_commentsWhereInput
+    /**
+     * Limit how many space_news_comments to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * space_news_comments updateManyAndReturn
+   */
+  export type space_news_commentsUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the space_news_comments
+     */
+    select?: space_news_commentsSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the space_news_comments
+     */
+    omit?: space_news_commentsOmit<ExtArgs> | null
+    /**
+     * The data used to update space_news_comments.
+     */
+    data: XOR<space_news_commentsUpdateManyMutationInput, space_news_commentsUncheckedUpdateManyInput>
+    /**
+     * Filter which space_news_comments to update
+     */
+    where?: space_news_commentsWhereInput
+    /**
+     * Limit how many space_news_comments to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: space_news_commentsIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * space_news_comments upsert
+   */
+  export type space_news_commentsUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the space_news_comments
+     */
+    select?: space_news_commentsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the space_news_comments
+     */
+    omit?: space_news_commentsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: space_news_commentsInclude<ExtArgs> | null
+    /**
+     * The filter to search for the space_news_comments to update in case it exists.
+     */
+    where: space_news_commentsWhereUniqueInput
+    /**
+     * In case the space_news_comments found by the `where` argument doesn't exist, create a new space_news_comments with this data.
+     */
+    create: XOR<space_news_commentsCreateInput, space_news_commentsUncheckedCreateInput>
+    /**
+     * In case the space_news_comments was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<space_news_commentsUpdateInput, space_news_commentsUncheckedUpdateInput>
+  }
+
+  /**
+   * space_news_comments delete
+   */
+  export type space_news_commentsDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the space_news_comments
+     */
+    select?: space_news_commentsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the space_news_comments
+     */
+    omit?: space_news_commentsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: space_news_commentsInclude<ExtArgs> | null
+    /**
+     * Filter which space_news_comments to delete.
+     */
+    where: space_news_commentsWhereUniqueInput
+  }
+
+  /**
+   * space_news_comments deleteMany
+   */
+  export type space_news_commentsDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which space_news_comments to delete
+     */
+    where?: space_news_commentsWhereInput
+    /**
+     * Limit how many space_news_comments to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * space_news_comments.parent_comment
+   */
+  export type space_news_comments$parent_commentArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the space_news_comments
+     */
+    select?: space_news_commentsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the space_news_comments
+     */
+    omit?: space_news_commentsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: space_news_commentsInclude<ExtArgs> | null
+    where?: space_news_commentsWhereInput
+  }
+
+  /**
+   * space_news_comments.replies
+   */
+  export type space_news_comments$repliesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the space_news_comments
+     */
+    select?: space_news_commentsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the space_news_comments
+     */
+    omit?: space_news_commentsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: space_news_commentsInclude<ExtArgs> | null
+    where?: space_news_commentsWhereInput
+    orderBy?: space_news_commentsOrderByWithRelationInput | space_news_commentsOrderByWithRelationInput[]
+    cursor?: space_news_commentsWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: Space_news_commentsScalarFieldEnum | Space_news_commentsScalarFieldEnum[]
+  }
+
+  /**
+   * space_news_comments without action
+   */
+  export type space_news_commentsDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the space_news_comments
+     */
+    select?: space_news_commentsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the space_news_comments
+     */
+    omit?: space_news_commentsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: space_news_commentsInclude<ExtArgs> | null
+  }
+
+
+  /**
    * Enums
    */
 
@@ -48160,6 +52154,47 @@ export namespace Prisma {
   };
 
   export type QuizzesScalarFieldEnum = (typeof QuizzesScalarFieldEnum)[keyof typeof QuizzesScalarFieldEnum]
+
+
+  export const Space_newsScalarFieldEnum: {
+    id: 'id',
+    image_urls: 'image_urls',
+    publish_date: 'publish_date',
+    title: 'title',
+    number_of_likes: 'number_of_likes',
+    number_of_comments: 'number_of_comments',
+    content: 'content',
+    published_by: 'published_by',
+    category: 'category',
+    created_at: 'created_at',
+    last_read_time: 'last_read_time'
+  };
+
+  export type Space_newsScalarFieldEnum = (typeof Space_newsScalarFieldEnum)[keyof typeof Space_newsScalarFieldEnum]
+
+
+  export const Space_news_likesScalarFieldEnum: {
+    id: 'id',
+    space_news_id: 'space_news_id',
+    user_id: 'user_id',
+    created_at: 'created_at'
+  };
+
+  export type Space_news_likesScalarFieldEnum = (typeof Space_news_likesScalarFieldEnum)[keyof typeof Space_news_likesScalarFieldEnum]
+
+
+  export const Space_news_commentsScalarFieldEnum: {
+    id: 'id',
+    space_news_id: 'space_news_id',
+    user_id: 'user_id',
+    parent_comment_id: 'parent_comment_id',
+    content: 'content',
+    is_edited: 'is_edited',
+    created_at: 'created_at',
+    updated_at: 'updated_at'
+  };
+
+  export type Space_news_commentsScalarFieldEnum = (typeof Space_news_commentsScalarFieldEnum)[keyof typeof Space_news_commentsScalarFieldEnum]
 
 
   export const SortOrder: {
@@ -49785,6 +53820,9 @@ export namespace Prisma {
     group_memberships?: Group_membersListRelationFilter
     chat_messages?: Chat_messagesListRelationFilter
     message_reactions?: Message_reactionsListRelationFilter
+    published_space_news?: Space_newsListRelationFilter
+    space_news_likes?: Space_news_likesListRelationFilter
+    space_news_comments?: Space_news_commentsListRelationFilter
   }
 
   export type usersOrderByWithRelationInput = {
@@ -49832,6 +53870,9 @@ export namespace Prisma {
     group_memberships?: group_membersOrderByRelationAggregateInput
     chat_messages?: chat_messagesOrderByRelationAggregateInput
     message_reactions?: message_reactionsOrderByRelationAggregateInput
+    published_space_news?: space_newsOrderByRelationAggregateInput
+    space_news_likes?: space_news_likesOrderByRelationAggregateInput
+    space_news_comments?: space_news_commentsOrderByRelationAggregateInput
   }
 
   export type usersWhereUniqueInput = Prisma.AtLeast<{
@@ -49882,6 +53923,9 @@ export namespace Prisma {
     group_memberships?: Group_membersListRelationFilter
     chat_messages?: Chat_messagesListRelationFilter
     message_reactions?: Message_reactionsListRelationFilter
+    published_space_news?: Space_newsListRelationFilter
+    space_news_likes?: Space_news_likesListRelationFilter
+    space_news_comments?: Space_news_commentsListRelationFilter
   }, "id" | "firebase_uid" | "email">
 
   export type usersOrderByWithAggregationInput = {
@@ -51621,6 +55665,236 @@ export namespace Prisma {
     level?: Enumquiz_difficulty_levelWithAggregatesFilter<"Quizzes"> | $Enums.quiz_difficulty_level
   }
 
+  export type space_newsWhereInput = {
+    AND?: space_newsWhereInput | space_newsWhereInput[]
+    OR?: space_newsWhereInput[]
+    NOT?: space_newsWhereInput | space_newsWhereInput[]
+    id?: IntFilter<"space_news"> | number
+    image_urls?: JsonNullableFilter<"space_news">
+    publish_date?: DateTimeFilter<"space_news"> | Date | string
+    title?: StringFilter<"space_news"> | string
+    number_of_likes?: IntFilter<"space_news"> | number
+    number_of_comments?: IntFilter<"space_news"> | number
+    content?: StringFilter<"space_news"> | string
+    published_by?: IntFilter<"space_news"> | number
+    category?: StringFilter<"space_news"> | string
+    created_at?: DateTimeFilter<"space_news"> | Date | string
+    last_read_time?: DateTimeNullableFilter<"space_news"> | Date | string | null
+    publisher?: XOR<UsersScalarRelationFilter, usersWhereInput>
+    space_news_likes?: Space_news_likesListRelationFilter
+    space_news_comments?: Space_news_commentsListRelationFilter
+  }
+
+  export type space_newsOrderByWithRelationInput = {
+    id?: SortOrder
+    image_urls?: SortOrderInput | SortOrder
+    publish_date?: SortOrder
+    title?: SortOrder
+    number_of_likes?: SortOrder
+    number_of_comments?: SortOrder
+    content?: SortOrder
+    published_by?: SortOrder
+    category?: SortOrder
+    created_at?: SortOrder
+    last_read_time?: SortOrderInput | SortOrder
+    publisher?: usersOrderByWithRelationInput
+    space_news_likes?: space_news_likesOrderByRelationAggregateInput
+    space_news_comments?: space_news_commentsOrderByRelationAggregateInput
+  }
+
+  export type space_newsWhereUniqueInput = Prisma.AtLeast<{
+    id?: number
+    AND?: space_newsWhereInput | space_newsWhereInput[]
+    OR?: space_newsWhereInput[]
+    NOT?: space_newsWhereInput | space_newsWhereInput[]
+    image_urls?: JsonNullableFilter<"space_news">
+    publish_date?: DateTimeFilter<"space_news"> | Date | string
+    title?: StringFilter<"space_news"> | string
+    number_of_likes?: IntFilter<"space_news"> | number
+    number_of_comments?: IntFilter<"space_news"> | number
+    content?: StringFilter<"space_news"> | string
+    published_by?: IntFilter<"space_news"> | number
+    category?: StringFilter<"space_news"> | string
+    created_at?: DateTimeFilter<"space_news"> | Date | string
+    last_read_time?: DateTimeNullableFilter<"space_news"> | Date | string | null
+    publisher?: XOR<UsersScalarRelationFilter, usersWhereInput>
+    space_news_likes?: Space_news_likesListRelationFilter
+    space_news_comments?: Space_news_commentsListRelationFilter
+  }, "id">
+
+  export type space_newsOrderByWithAggregationInput = {
+    id?: SortOrder
+    image_urls?: SortOrderInput | SortOrder
+    publish_date?: SortOrder
+    title?: SortOrder
+    number_of_likes?: SortOrder
+    number_of_comments?: SortOrder
+    content?: SortOrder
+    published_by?: SortOrder
+    category?: SortOrder
+    created_at?: SortOrder
+    last_read_time?: SortOrderInput | SortOrder
+    _count?: space_newsCountOrderByAggregateInput
+    _avg?: space_newsAvgOrderByAggregateInput
+    _max?: space_newsMaxOrderByAggregateInput
+    _min?: space_newsMinOrderByAggregateInput
+    _sum?: space_newsSumOrderByAggregateInput
+  }
+
+  export type space_newsScalarWhereWithAggregatesInput = {
+    AND?: space_newsScalarWhereWithAggregatesInput | space_newsScalarWhereWithAggregatesInput[]
+    OR?: space_newsScalarWhereWithAggregatesInput[]
+    NOT?: space_newsScalarWhereWithAggregatesInput | space_newsScalarWhereWithAggregatesInput[]
+    id?: IntWithAggregatesFilter<"space_news"> | number
+    image_urls?: JsonNullableWithAggregatesFilter<"space_news">
+    publish_date?: DateTimeWithAggregatesFilter<"space_news"> | Date | string
+    title?: StringWithAggregatesFilter<"space_news"> | string
+    number_of_likes?: IntWithAggregatesFilter<"space_news"> | number
+    number_of_comments?: IntWithAggregatesFilter<"space_news"> | number
+    content?: StringWithAggregatesFilter<"space_news"> | string
+    published_by?: IntWithAggregatesFilter<"space_news"> | number
+    category?: StringWithAggregatesFilter<"space_news"> | string
+    created_at?: DateTimeWithAggregatesFilter<"space_news"> | Date | string
+    last_read_time?: DateTimeNullableWithAggregatesFilter<"space_news"> | Date | string | null
+  }
+
+  export type space_news_likesWhereInput = {
+    AND?: space_news_likesWhereInput | space_news_likesWhereInput[]
+    OR?: space_news_likesWhereInput[]
+    NOT?: space_news_likesWhereInput | space_news_likesWhereInput[]
+    id?: IntFilter<"space_news_likes"> | number
+    space_news_id?: IntFilter<"space_news_likes"> | number
+    user_id?: IntFilter<"space_news_likes"> | number
+    created_at?: DateTimeFilter<"space_news_likes"> | Date | string
+    space_news?: XOR<Space_newsScalarRelationFilter, space_newsWhereInput>
+    user?: XOR<UsersScalarRelationFilter, usersWhereInput>
+  }
+
+  export type space_news_likesOrderByWithRelationInput = {
+    id?: SortOrder
+    space_news_id?: SortOrder
+    user_id?: SortOrder
+    created_at?: SortOrder
+    space_news?: space_newsOrderByWithRelationInput
+    user?: usersOrderByWithRelationInput
+  }
+
+  export type space_news_likesWhereUniqueInput = Prisma.AtLeast<{
+    id?: number
+    space_news_id_user_id?: space_news_likesSpace_news_idUser_idCompoundUniqueInput
+    AND?: space_news_likesWhereInput | space_news_likesWhereInput[]
+    OR?: space_news_likesWhereInput[]
+    NOT?: space_news_likesWhereInput | space_news_likesWhereInput[]
+    space_news_id?: IntFilter<"space_news_likes"> | number
+    user_id?: IntFilter<"space_news_likes"> | number
+    created_at?: DateTimeFilter<"space_news_likes"> | Date | string
+    space_news?: XOR<Space_newsScalarRelationFilter, space_newsWhereInput>
+    user?: XOR<UsersScalarRelationFilter, usersWhereInput>
+  }, "id" | "space_news_id_user_id">
+
+  export type space_news_likesOrderByWithAggregationInput = {
+    id?: SortOrder
+    space_news_id?: SortOrder
+    user_id?: SortOrder
+    created_at?: SortOrder
+    _count?: space_news_likesCountOrderByAggregateInput
+    _avg?: space_news_likesAvgOrderByAggregateInput
+    _max?: space_news_likesMaxOrderByAggregateInput
+    _min?: space_news_likesMinOrderByAggregateInput
+    _sum?: space_news_likesSumOrderByAggregateInput
+  }
+
+  export type space_news_likesScalarWhereWithAggregatesInput = {
+    AND?: space_news_likesScalarWhereWithAggregatesInput | space_news_likesScalarWhereWithAggregatesInput[]
+    OR?: space_news_likesScalarWhereWithAggregatesInput[]
+    NOT?: space_news_likesScalarWhereWithAggregatesInput | space_news_likesScalarWhereWithAggregatesInput[]
+    id?: IntWithAggregatesFilter<"space_news_likes"> | number
+    space_news_id?: IntWithAggregatesFilter<"space_news_likes"> | number
+    user_id?: IntWithAggregatesFilter<"space_news_likes"> | number
+    created_at?: DateTimeWithAggregatesFilter<"space_news_likes"> | Date | string
+  }
+
+  export type space_news_commentsWhereInput = {
+    AND?: space_news_commentsWhereInput | space_news_commentsWhereInput[]
+    OR?: space_news_commentsWhereInput[]
+    NOT?: space_news_commentsWhereInput | space_news_commentsWhereInput[]
+    id?: IntFilter<"space_news_comments"> | number
+    space_news_id?: IntFilter<"space_news_comments"> | number
+    user_id?: IntFilter<"space_news_comments"> | number
+    parent_comment_id?: IntNullableFilter<"space_news_comments"> | number | null
+    content?: StringFilter<"space_news_comments"> | string
+    is_edited?: BoolFilter<"space_news_comments"> | boolean
+    created_at?: DateTimeFilter<"space_news_comments"> | Date | string
+    updated_at?: DateTimeFilter<"space_news_comments"> | Date | string
+    space_news?: XOR<Space_newsScalarRelationFilter, space_newsWhereInput>
+    user?: XOR<UsersScalarRelationFilter, usersWhereInput>
+    parent_comment?: XOR<Space_news_commentsNullableScalarRelationFilter, space_news_commentsWhereInput> | null
+    replies?: Space_news_commentsListRelationFilter
+  }
+
+  export type space_news_commentsOrderByWithRelationInput = {
+    id?: SortOrder
+    space_news_id?: SortOrder
+    user_id?: SortOrder
+    parent_comment_id?: SortOrderInput | SortOrder
+    content?: SortOrder
+    is_edited?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+    space_news?: space_newsOrderByWithRelationInput
+    user?: usersOrderByWithRelationInput
+    parent_comment?: space_news_commentsOrderByWithRelationInput
+    replies?: space_news_commentsOrderByRelationAggregateInput
+  }
+
+  export type space_news_commentsWhereUniqueInput = Prisma.AtLeast<{
+    id?: number
+    AND?: space_news_commentsWhereInput | space_news_commentsWhereInput[]
+    OR?: space_news_commentsWhereInput[]
+    NOT?: space_news_commentsWhereInput | space_news_commentsWhereInput[]
+    space_news_id?: IntFilter<"space_news_comments"> | number
+    user_id?: IntFilter<"space_news_comments"> | number
+    parent_comment_id?: IntNullableFilter<"space_news_comments"> | number | null
+    content?: StringFilter<"space_news_comments"> | string
+    is_edited?: BoolFilter<"space_news_comments"> | boolean
+    created_at?: DateTimeFilter<"space_news_comments"> | Date | string
+    updated_at?: DateTimeFilter<"space_news_comments"> | Date | string
+    space_news?: XOR<Space_newsScalarRelationFilter, space_newsWhereInput>
+    user?: XOR<UsersScalarRelationFilter, usersWhereInput>
+    parent_comment?: XOR<Space_news_commentsNullableScalarRelationFilter, space_news_commentsWhereInput> | null
+    replies?: Space_news_commentsListRelationFilter
+  }, "id">
+
+  export type space_news_commentsOrderByWithAggregationInput = {
+    id?: SortOrder
+    space_news_id?: SortOrder
+    user_id?: SortOrder
+    parent_comment_id?: SortOrderInput | SortOrder
+    content?: SortOrder
+    is_edited?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+    _count?: space_news_commentsCountOrderByAggregateInput
+    _avg?: space_news_commentsAvgOrderByAggregateInput
+    _max?: space_news_commentsMaxOrderByAggregateInput
+    _min?: space_news_commentsMinOrderByAggregateInput
+    _sum?: space_news_commentsSumOrderByAggregateInput
+  }
+
+  export type space_news_commentsScalarWhereWithAggregatesInput = {
+    AND?: space_news_commentsScalarWhereWithAggregatesInput | space_news_commentsScalarWhereWithAggregatesInput[]
+    OR?: space_news_commentsScalarWhereWithAggregatesInput[]
+    NOT?: space_news_commentsScalarWhereWithAggregatesInput | space_news_commentsScalarWhereWithAggregatesInput[]
+    id?: IntWithAggregatesFilter<"space_news_comments"> | number
+    space_news_id?: IntWithAggregatesFilter<"space_news_comments"> | number
+    user_id?: IntWithAggregatesFilter<"space_news_comments"> | number
+    parent_comment_id?: IntNullableWithAggregatesFilter<"space_news_comments"> | number | null
+    content?: StringWithAggregatesFilter<"space_news_comments"> | string
+    is_edited?: BoolWithAggregatesFilter<"space_news_comments"> | boolean
+    created_at?: DateTimeWithAggregatesFilter<"space_news_comments"> | Date | string
+    updated_at?: DateTimeWithAggregatesFilter<"space_news_comments"> | Date | string
+  }
+
   export type subscriptionsCreateInput = {
     plan_type: $Enums.subscription_plan
     status?: $Enums.subscription_status | null
@@ -52987,6 +57261,9 @@ export namespace Prisma {
     group_memberships?: group_membersCreateNestedManyWithoutUserInput
     chat_messages?: chat_messagesCreateNestedManyWithoutUserInput
     message_reactions?: message_reactionsCreateNestedManyWithoutUserInput
+    published_space_news?: space_newsCreateNestedManyWithoutPublisherInput
+    space_news_likes?: space_news_likesCreateNestedManyWithoutUserInput
+    space_news_comments?: space_news_commentsCreateNestedManyWithoutUserInput
   }
 
   export type usersUncheckedCreateInput = {
@@ -53034,6 +57311,9 @@ export namespace Prisma {
     group_memberships?: group_membersUncheckedCreateNestedManyWithoutUserInput
     chat_messages?: chat_messagesUncheckedCreateNestedManyWithoutUserInput
     message_reactions?: message_reactionsUncheckedCreateNestedManyWithoutUserInput
+    published_space_news?: space_newsUncheckedCreateNestedManyWithoutPublisherInput
+    space_news_likes?: space_news_likesUncheckedCreateNestedManyWithoutUserInput
+    space_news_comments?: space_news_commentsUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type usersUpdateInput = {
@@ -53080,6 +57360,9 @@ export namespace Prisma {
     group_memberships?: group_membersUpdateManyWithoutUserNestedInput
     chat_messages?: chat_messagesUpdateManyWithoutUserNestedInput
     message_reactions?: message_reactionsUpdateManyWithoutUserNestedInput
+    published_space_news?: space_newsUpdateManyWithoutPublisherNestedInput
+    space_news_likes?: space_news_likesUpdateManyWithoutUserNestedInput
+    space_news_comments?: space_news_commentsUpdateManyWithoutUserNestedInput
   }
 
   export type usersUncheckedUpdateInput = {
@@ -53127,6 +57410,9 @@ export namespace Prisma {
     group_memberships?: group_membersUncheckedUpdateManyWithoutUserNestedInput
     chat_messages?: chat_messagesUncheckedUpdateManyWithoutUserNestedInput
     message_reactions?: message_reactionsUncheckedUpdateManyWithoutUserNestedInput
+    published_space_news?: space_newsUncheckedUpdateManyWithoutPublisherNestedInput
+    space_news_likes?: space_news_likesUncheckedUpdateManyWithoutUserNestedInput
+    space_news_comments?: space_news_commentsUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type usersCreateManyInput = {
@@ -55028,6 +59314,227 @@ export namespace Prisma {
     level?: Enumquiz_difficulty_levelFieldUpdateOperationsInput | $Enums.quiz_difficulty_level
   }
 
+  export type space_newsCreateInput = {
+    image_urls?: NullableJsonNullValueInput | InputJsonValue
+    publish_date: Date | string
+    title: string
+    number_of_likes?: number
+    number_of_comments?: number
+    content: string
+    category: string
+    created_at?: Date | string
+    last_read_time?: Date | string | null
+    publisher: usersCreateNestedOneWithoutPublished_space_newsInput
+    space_news_likes?: space_news_likesCreateNestedManyWithoutSpace_newsInput
+    space_news_comments?: space_news_commentsCreateNestedManyWithoutSpace_newsInput
+  }
+
+  export type space_newsUncheckedCreateInput = {
+    id?: number
+    image_urls?: NullableJsonNullValueInput | InputJsonValue
+    publish_date: Date | string
+    title: string
+    number_of_likes?: number
+    number_of_comments?: number
+    content: string
+    published_by: number
+    category: string
+    created_at?: Date | string
+    last_read_time?: Date | string | null
+    space_news_likes?: space_news_likesUncheckedCreateNestedManyWithoutSpace_newsInput
+    space_news_comments?: space_news_commentsUncheckedCreateNestedManyWithoutSpace_newsInput
+  }
+
+  export type space_newsUpdateInput = {
+    image_urls?: NullableJsonNullValueInput | InputJsonValue
+    publish_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    title?: StringFieldUpdateOperationsInput | string
+    number_of_likes?: IntFieldUpdateOperationsInput | number
+    number_of_comments?: IntFieldUpdateOperationsInput | number
+    content?: StringFieldUpdateOperationsInput | string
+    category?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    last_read_time?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    publisher?: usersUpdateOneRequiredWithoutPublished_space_newsNestedInput
+    space_news_likes?: space_news_likesUpdateManyWithoutSpace_newsNestedInput
+    space_news_comments?: space_news_commentsUpdateManyWithoutSpace_newsNestedInput
+  }
+
+  export type space_newsUncheckedUpdateInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    image_urls?: NullableJsonNullValueInput | InputJsonValue
+    publish_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    title?: StringFieldUpdateOperationsInput | string
+    number_of_likes?: IntFieldUpdateOperationsInput | number
+    number_of_comments?: IntFieldUpdateOperationsInput | number
+    content?: StringFieldUpdateOperationsInput | string
+    published_by?: IntFieldUpdateOperationsInput | number
+    category?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    last_read_time?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    space_news_likes?: space_news_likesUncheckedUpdateManyWithoutSpace_newsNestedInput
+    space_news_comments?: space_news_commentsUncheckedUpdateManyWithoutSpace_newsNestedInput
+  }
+
+  export type space_newsCreateManyInput = {
+    id?: number
+    image_urls?: NullableJsonNullValueInput | InputJsonValue
+    publish_date: Date | string
+    title: string
+    number_of_likes?: number
+    number_of_comments?: number
+    content: string
+    published_by: number
+    category: string
+    created_at?: Date | string
+    last_read_time?: Date | string | null
+  }
+
+  export type space_newsUpdateManyMutationInput = {
+    image_urls?: NullableJsonNullValueInput | InputJsonValue
+    publish_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    title?: StringFieldUpdateOperationsInput | string
+    number_of_likes?: IntFieldUpdateOperationsInput | number
+    number_of_comments?: IntFieldUpdateOperationsInput | number
+    content?: StringFieldUpdateOperationsInput | string
+    category?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    last_read_time?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
+  export type space_newsUncheckedUpdateManyInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    image_urls?: NullableJsonNullValueInput | InputJsonValue
+    publish_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    title?: StringFieldUpdateOperationsInput | string
+    number_of_likes?: IntFieldUpdateOperationsInput | number
+    number_of_comments?: IntFieldUpdateOperationsInput | number
+    content?: StringFieldUpdateOperationsInput | string
+    published_by?: IntFieldUpdateOperationsInput | number
+    category?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    last_read_time?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
+  export type space_news_likesCreateInput = {
+    created_at?: Date | string
+    space_news: space_newsCreateNestedOneWithoutSpace_news_likesInput
+    user: usersCreateNestedOneWithoutSpace_news_likesInput
+  }
+
+  export type space_news_likesUncheckedCreateInput = {
+    id?: number
+    space_news_id: number
+    user_id: number
+    created_at?: Date | string
+  }
+
+  export type space_news_likesUpdateInput = {
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    space_news?: space_newsUpdateOneRequiredWithoutSpace_news_likesNestedInput
+    user?: usersUpdateOneRequiredWithoutSpace_news_likesNestedInput
+  }
+
+  export type space_news_likesUncheckedUpdateInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    space_news_id?: IntFieldUpdateOperationsInput | number
+    user_id?: IntFieldUpdateOperationsInput | number
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type space_news_likesCreateManyInput = {
+    id?: number
+    space_news_id: number
+    user_id: number
+    created_at?: Date | string
+  }
+
+  export type space_news_likesUpdateManyMutationInput = {
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type space_news_likesUncheckedUpdateManyInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    space_news_id?: IntFieldUpdateOperationsInput | number
+    user_id?: IntFieldUpdateOperationsInput | number
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type space_news_commentsCreateInput = {
+    content: string
+    is_edited?: boolean
+    created_at?: Date | string
+    updated_at?: Date | string
+    space_news: space_newsCreateNestedOneWithoutSpace_news_commentsInput
+    user: usersCreateNestedOneWithoutSpace_news_commentsInput
+    parent_comment?: space_news_commentsCreateNestedOneWithoutRepliesInput
+    replies?: space_news_commentsCreateNestedManyWithoutParent_commentInput
+  }
+
+  export type space_news_commentsUncheckedCreateInput = {
+    id?: number
+    space_news_id: number
+    user_id: number
+    parent_comment_id?: number | null
+    content: string
+    is_edited?: boolean
+    created_at?: Date | string
+    updated_at?: Date | string
+    replies?: space_news_commentsUncheckedCreateNestedManyWithoutParent_commentInput
+  }
+
+  export type space_news_commentsUpdateInput = {
+    content?: StringFieldUpdateOperationsInput | string
+    is_edited?: BoolFieldUpdateOperationsInput | boolean
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    space_news?: space_newsUpdateOneRequiredWithoutSpace_news_commentsNestedInput
+    user?: usersUpdateOneRequiredWithoutSpace_news_commentsNestedInput
+    parent_comment?: space_news_commentsUpdateOneWithoutRepliesNestedInput
+    replies?: space_news_commentsUpdateManyWithoutParent_commentNestedInput
+  }
+
+  export type space_news_commentsUncheckedUpdateInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    space_news_id?: IntFieldUpdateOperationsInput | number
+    user_id?: IntFieldUpdateOperationsInput | number
+    parent_comment_id?: NullableIntFieldUpdateOperationsInput | number | null
+    content?: StringFieldUpdateOperationsInput | string
+    is_edited?: BoolFieldUpdateOperationsInput | boolean
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    replies?: space_news_commentsUncheckedUpdateManyWithoutParent_commentNestedInput
+  }
+
+  export type space_news_commentsCreateManyInput = {
+    id?: number
+    space_news_id: number
+    user_id: number
+    parent_comment_id?: number | null
+    content: string
+    is_edited?: boolean
+    created_at?: Date | string
+    updated_at?: Date | string
+  }
+
+  export type space_news_commentsUpdateManyMutationInput = {
+    content?: StringFieldUpdateOperationsInput | string
+    is_edited?: BoolFieldUpdateOperationsInput | boolean
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type space_news_commentsUncheckedUpdateManyInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    space_news_id?: IntFieldUpdateOperationsInput | number
+    user_id?: IntFieldUpdateOperationsInput | number
+    parent_comment_id?: NullableIntFieldUpdateOperationsInput | number | null
+    content?: StringFieldUpdateOperationsInput | string
+    is_edited?: BoolFieldUpdateOperationsInput | boolean
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type IntFilter<$PrismaModel = never> = {
     equals?: number | IntFieldRefInput<$PrismaModel>
     in?: number[] | ListIntFieldRefInput<$PrismaModel>
@@ -56523,6 +61030,24 @@ export namespace Prisma {
     none?: group_chatsWhereInput
   }
 
+  export type Space_newsListRelationFilter = {
+    every?: space_newsWhereInput
+    some?: space_newsWhereInput
+    none?: space_newsWhereInput
+  }
+
+  export type Space_news_likesListRelationFilter = {
+    every?: space_news_likesWhereInput
+    some?: space_news_likesWhereInput
+    none?: space_news_likesWhereInput
+  }
+
+  export type Space_news_commentsListRelationFilter = {
+    every?: space_news_commentsWhereInput
+    some?: space_news_commentsWhereInput
+    none?: space_news_commentsWhereInput
+  }
+
   export type QuizParticipantsOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
@@ -56568,6 +61093,18 @@ export namespace Prisma {
   }
 
   export type group_chatsOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type space_newsOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type space_news_likesOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type space_news_commentsOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -57826,6 +62363,155 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedEnumquiz_difficulty_levelFilter<$PrismaModel>
     _max?: NestedEnumquiz_difficulty_levelFilter<$PrismaModel>
+  }
+
+  export type space_newsCountOrderByAggregateInput = {
+    id?: SortOrder
+    image_urls?: SortOrder
+    publish_date?: SortOrder
+    title?: SortOrder
+    number_of_likes?: SortOrder
+    number_of_comments?: SortOrder
+    content?: SortOrder
+    published_by?: SortOrder
+    category?: SortOrder
+    created_at?: SortOrder
+    last_read_time?: SortOrder
+  }
+
+  export type space_newsAvgOrderByAggregateInput = {
+    id?: SortOrder
+    number_of_likes?: SortOrder
+    number_of_comments?: SortOrder
+    published_by?: SortOrder
+  }
+
+  export type space_newsMaxOrderByAggregateInput = {
+    id?: SortOrder
+    publish_date?: SortOrder
+    title?: SortOrder
+    number_of_likes?: SortOrder
+    number_of_comments?: SortOrder
+    content?: SortOrder
+    published_by?: SortOrder
+    category?: SortOrder
+    created_at?: SortOrder
+    last_read_time?: SortOrder
+  }
+
+  export type space_newsMinOrderByAggregateInput = {
+    id?: SortOrder
+    publish_date?: SortOrder
+    title?: SortOrder
+    number_of_likes?: SortOrder
+    number_of_comments?: SortOrder
+    content?: SortOrder
+    published_by?: SortOrder
+    category?: SortOrder
+    created_at?: SortOrder
+    last_read_time?: SortOrder
+  }
+
+  export type space_newsSumOrderByAggregateInput = {
+    id?: SortOrder
+    number_of_likes?: SortOrder
+    number_of_comments?: SortOrder
+    published_by?: SortOrder
+  }
+
+  export type Space_newsScalarRelationFilter = {
+    is?: space_newsWhereInput
+    isNot?: space_newsWhereInput
+  }
+
+  export type space_news_likesSpace_news_idUser_idCompoundUniqueInput = {
+    space_news_id: number
+    user_id: number
+  }
+
+  export type space_news_likesCountOrderByAggregateInput = {
+    id?: SortOrder
+    space_news_id?: SortOrder
+    user_id?: SortOrder
+    created_at?: SortOrder
+  }
+
+  export type space_news_likesAvgOrderByAggregateInput = {
+    id?: SortOrder
+    space_news_id?: SortOrder
+    user_id?: SortOrder
+  }
+
+  export type space_news_likesMaxOrderByAggregateInput = {
+    id?: SortOrder
+    space_news_id?: SortOrder
+    user_id?: SortOrder
+    created_at?: SortOrder
+  }
+
+  export type space_news_likesMinOrderByAggregateInput = {
+    id?: SortOrder
+    space_news_id?: SortOrder
+    user_id?: SortOrder
+    created_at?: SortOrder
+  }
+
+  export type space_news_likesSumOrderByAggregateInput = {
+    id?: SortOrder
+    space_news_id?: SortOrder
+    user_id?: SortOrder
+  }
+
+  export type Space_news_commentsNullableScalarRelationFilter = {
+    is?: space_news_commentsWhereInput | null
+    isNot?: space_news_commentsWhereInput | null
+  }
+
+  export type space_news_commentsCountOrderByAggregateInput = {
+    id?: SortOrder
+    space_news_id?: SortOrder
+    user_id?: SortOrder
+    parent_comment_id?: SortOrder
+    content?: SortOrder
+    is_edited?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+  }
+
+  export type space_news_commentsAvgOrderByAggregateInput = {
+    id?: SortOrder
+    space_news_id?: SortOrder
+    user_id?: SortOrder
+    parent_comment_id?: SortOrder
+  }
+
+  export type space_news_commentsMaxOrderByAggregateInput = {
+    id?: SortOrder
+    space_news_id?: SortOrder
+    user_id?: SortOrder
+    parent_comment_id?: SortOrder
+    content?: SortOrder
+    is_edited?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+  }
+
+  export type space_news_commentsMinOrderByAggregateInput = {
+    id?: SortOrder
+    space_news_id?: SortOrder
+    user_id?: SortOrder
+    parent_comment_id?: SortOrder
+    content?: SortOrder
+    is_edited?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+  }
+
+  export type space_news_commentsSumOrderByAggregateInput = {
+    id?: SortOrder
+    space_news_id?: SortOrder
+    user_id?: SortOrder
+    parent_comment_id?: SortOrder
   }
 
   export type paymentsCreateNestedManyWithoutSubscriptionsInput = {
@@ -59159,6 +63845,27 @@ export namespace Prisma {
     connect?: message_reactionsWhereUniqueInput | message_reactionsWhereUniqueInput[]
   }
 
+  export type space_newsCreateNestedManyWithoutPublisherInput = {
+    create?: XOR<space_newsCreateWithoutPublisherInput, space_newsUncheckedCreateWithoutPublisherInput> | space_newsCreateWithoutPublisherInput[] | space_newsUncheckedCreateWithoutPublisherInput[]
+    connectOrCreate?: space_newsCreateOrConnectWithoutPublisherInput | space_newsCreateOrConnectWithoutPublisherInput[]
+    createMany?: space_newsCreateManyPublisherInputEnvelope
+    connect?: space_newsWhereUniqueInput | space_newsWhereUniqueInput[]
+  }
+
+  export type space_news_likesCreateNestedManyWithoutUserInput = {
+    create?: XOR<space_news_likesCreateWithoutUserInput, space_news_likesUncheckedCreateWithoutUserInput> | space_news_likesCreateWithoutUserInput[] | space_news_likesUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: space_news_likesCreateOrConnectWithoutUserInput | space_news_likesCreateOrConnectWithoutUserInput[]
+    createMany?: space_news_likesCreateManyUserInputEnvelope
+    connect?: space_news_likesWhereUniqueInput | space_news_likesWhereUniqueInput[]
+  }
+
+  export type space_news_commentsCreateNestedManyWithoutUserInput = {
+    create?: XOR<space_news_commentsCreateWithoutUserInput, space_news_commentsUncheckedCreateWithoutUserInput> | space_news_commentsCreateWithoutUserInput[] | space_news_commentsUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: space_news_commentsCreateOrConnectWithoutUserInput | space_news_commentsCreateOrConnectWithoutUserInput[]
+    createMany?: space_news_commentsCreateManyUserInputEnvelope
+    connect?: space_news_commentsWhereUniqueInput | space_news_commentsWhereUniqueInput[]
+  }
+
   export type QuizParticipantsUncheckedCreateNestedManyWithoutUsersInput = {
     create?: XOR<QuizParticipantsCreateWithoutUsersInput, QuizParticipantsUncheckedCreateWithoutUsersInput> | QuizParticipantsCreateWithoutUsersInput[] | QuizParticipantsUncheckedCreateWithoutUsersInput[]
     connectOrCreate?: QuizParticipantsCreateOrConnectWithoutUsersInput | QuizParticipantsCreateOrConnectWithoutUsersInput[]
@@ -59324,6 +64031,27 @@ export namespace Prisma {
     connectOrCreate?: message_reactionsCreateOrConnectWithoutUserInput | message_reactionsCreateOrConnectWithoutUserInput[]
     createMany?: message_reactionsCreateManyUserInputEnvelope
     connect?: message_reactionsWhereUniqueInput | message_reactionsWhereUniqueInput[]
+  }
+
+  export type space_newsUncheckedCreateNestedManyWithoutPublisherInput = {
+    create?: XOR<space_newsCreateWithoutPublisherInput, space_newsUncheckedCreateWithoutPublisherInput> | space_newsCreateWithoutPublisherInput[] | space_newsUncheckedCreateWithoutPublisherInput[]
+    connectOrCreate?: space_newsCreateOrConnectWithoutPublisherInput | space_newsCreateOrConnectWithoutPublisherInput[]
+    createMany?: space_newsCreateManyPublisherInputEnvelope
+    connect?: space_newsWhereUniqueInput | space_newsWhereUniqueInput[]
+  }
+
+  export type space_news_likesUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<space_news_likesCreateWithoutUserInput, space_news_likesUncheckedCreateWithoutUserInput> | space_news_likesCreateWithoutUserInput[] | space_news_likesUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: space_news_likesCreateOrConnectWithoutUserInput | space_news_likesCreateOrConnectWithoutUserInput[]
+    createMany?: space_news_likesCreateManyUserInputEnvelope
+    connect?: space_news_likesWhereUniqueInput | space_news_likesWhereUniqueInput[]
+  }
+
+  export type space_news_commentsUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<space_news_commentsCreateWithoutUserInput, space_news_commentsUncheckedCreateWithoutUserInput> | space_news_commentsCreateWithoutUserInput[] | space_news_commentsUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: space_news_commentsCreateOrConnectWithoutUserInput | space_news_commentsCreateOrConnectWithoutUserInput[]
+    createMany?: space_news_commentsCreateManyUserInputEnvelope
+    connect?: space_news_commentsWhereUniqueInput | space_news_commentsWhereUniqueInput[]
   }
 
   export type NullableEnumuser_roleFieldUpdateOperationsInput = {
@@ -59666,6 +64394,48 @@ export namespace Prisma {
     deleteMany?: message_reactionsScalarWhereInput | message_reactionsScalarWhereInput[]
   }
 
+  export type space_newsUpdateManyWithoutPublisherNestedInput = {
+    create?: XOR<space_newsCreateWithoutPublisherInput, space_newsUncheckedCreateWithoutPublisherInput> | space_newsCreateWithoutPublisherInput[] | space_newsUncheckedCreateWithoutPublisherInput[]
+    connectOrCreate?: space_newsCreateOrConnectWithoutPublisherInput | space_newsCreateOrConnectWithoutPublisherInput[]
+    upsert?: space_newsUpsertWithWhereUniqueWithoutPublisherInput | space_newsUpsertWithWhereUniqueWithoutPublisherInput[]
+    createMany?: space_newsCreateManyPublisherInputEnvelope
+    set?: space_newsWhereUniqueInput | space_newsWhereUniqueInput[]
+    disconnect?: space_newsWhereUniqueInput | space_newsWhereUniqueInput[]
+    delete?: space_newsWhereUniqueInput | space_newsWhereUniqueInput[]
+    connect?: space_newsWhereUniqueInput | space_newsWhereUniqueInput[]
+    update?: space_newsUpdateWithWhereUniqueWithoutPublisherInput | space_newsUpdateWithWhereUniqueWithoutPublisherInput[]
+    updateMany?: space_newsUpdateManyWithWhereWithoutPublisherInput | space_newsUpdateManyWithWhereWithoutPublisherInput[]
+    deleteMany?: space_newsScalarWhereInput | space_newsScalarWhereInput[]
+  }
+
+  export type space_news_likesUpdateManyWithoutUserNestedInput = {
+    create?: XOR<space_news_likesCreateWithoutUserInput, space_news_likesUncheckedCreateWithoutUserInput> | space_news_likesCreateWithoutUserInput[] | space_news_likesUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: space_news_likesCreateOrConnectWithoutUserInput | space_news_likesCreateOrConnectWithoutUserInput[]
+    upsert?: space_news_likesUpsertWithWhereUniqueWithoutUserInput | space_news_likesUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: space_news_likesCreateManyUserInputEnvelope
+    set?: space_news_likesWhereUniqueInput | space_news_likesWhereUniqueInput[]
+    disconnect?: space_news_likesWhereUniqueInput | space_news_likesWhereUniqueInput[]
+    delete?: space_news_likesWhereUniqueInput | space_news_likesWhereUniqueInput[]
+    connect?: space_news_likesWhereUniqueInput | space_news_likesWhereUniqueInput[]
+    update?: space_news_likesUpdateWithWhereUniqueWithoutUserInput | space_news_likesUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: space_news_likesUpdateManyWithWhereWithoutUserInput | space_news_likesUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: space_news_likesScalarWhereInput | space_news_likesScalarWhereInput[]
+  }
+
+  export type space_news_commentsUpdateManyWithoutUserNestedInput = {
+    create?: XOR<space_news_commentsCreateWithoutUserInput, space_news_commentsUncheckedCreateWithoutUserInput> | space_news_commentsCreateWithoutUserInput[] | space_news_commentsUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: space_news_commentsCreateOrConnectWithoutUserInput | space_news_commentsCreateOrConnectWithoutUserInput[]
+    upsert?: space_news_commentsUpsertWithWhereUniqueWithoutUserInput | space_news_commentsUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: space_news_commentsCreateManyUserInputEnvelope
+    set?: space_news_commentsWhereUniqueInput | space_news_commentsWhereUniqueInput[]
+    disconnect?: space_news_commentsWhereUniqueInput | space_news_commentsWhereUniqueInput[]
+    delete?: space_news_commentsWhereUniqueInput | space_news_commentsWhereUniqueInput[]
+    connect?: space_news_commentsWhereUniqueInput | space_news_commentsWhereUniqueInput[]
+    update?: space_news_commentsUpdateWithWhereUniqueWithoutUserInput | space_news_commentsUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: space_news_commentsUpdateManyWithWhereWithoutUserInput | space_news_commentsUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: space_news_commentsScalarWhereInput | space_news_commentsScalarWhereInput[]
+  }
+
   export type QuizParticipantsUncheckedUpdateManyWithoutUsersNestedInput = {
     create?: XOR<QuizParticipantsCreateWithoutUsersInput, QuizParticipantsUncheckedCreateWithoutUsersInput> | QuizParticipantsCreateWithoutUsersInput[] | QuizParticipantsUncheckedCreateWithoutUsersInput[]
     connectOrCreate?: QuizParticipantsCreateOrConnectWithoutUsersInput | QuizParticipantsCreateOrConnectWithoutUsersInput[]
@@ -59996,6 +64766,48 @@ export namespace Prisma {
     update?: message_reactionsUpdateWithWhereUniqueWithoutUserInput | message_reactionsUpdateWithWhereUniqueWithoutUserInput[]
     updateMany?: message_reactionsUpdateManyWithWhereWithoutUserInput | message_reactionsUpdateManyWithWhereWithoutUserInput[]
     deleteMany?: message_reactionsScalarWhereInput | message_reactionsScalarWhereInput[]
+  }
+
+  export type space_newsUncheckedUpdateManyWithoutPublisherNestedInput = {
+    create?: XOR<space_newsCreateWithoutPublisherInput, space_newsUncheckedCreateWithoutPublisherInput> | space_newsCreateWithoutPublisherInput[] | space_newsUncheckedCreateWithoutPublisherInput[]
+    connectOrCreate?: space_newsCreateOrConnectWithoutPublisherInput | space_newsCreateOrConnectWithoutPublisherInput[]
+    upsert?: space_newsUpsertWithWhereUniqueWithoutPublisherInput | space_newsUpsertWithWhereUniqueWithoutPublisherInput[]
+    createMany?: space_newsCreateManyPublisherInputEnvelope
+    set?: space_newsWhereUniqueInput | space_newsWhereUniqueInput[]
+    disconnect?: space_newsWhereUniqueInput | space_newsWhereUniqueInput[]
+    delete?: space_newsWhereUniqueInput | space_newsWhereUniqueInput[]
+    connect?: space_newsWhereUniqueInput | space_newsWhereUniqueInput[]
+    update?: space_newsUpdateWithWhereUniqueWithoutPublisherInput | space_newsUpdateWithWhereUniqueWithoutPublisherInput[]
+    updateMany?: space_newsUpdateManyWithWhereWithoutPublisherInput | space_newsUpdateManyWithWhereWithoutPublisherInput[]
+    deleteMany?: space_newsScalarWhereInput | space_newsScalarWhereInput[]
+  }
+
+  export type space_news_likesUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<space_news_likesCreateWithoutUserInput, space_news_likesUncheckedCreateWithoutUserInput> | space_news_likesCreateWithoutUserInput[] | space_news_likesUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: space_news_likesCreateOrConnectWithoutUserInput | space_news_likesCreateOrConnectWithoutUserInput[]
+    upsert?: space_news_likesUpsertWithWhereUniqueWithoutUserInput | space_news_likesUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: space_news_likesCreateManyUserInputEnvelope
+    set?: space_news_likesWhereUniqueInput | space_news_likesWhereUniqueInput[]
+    disconnect?: space_news_likesWhereUniqueInput | space_news_likesWhereUniqueInput[]
+    delete?: space_news_likesWhereUniqueInput | space_news_likesWhereUniqueInput[]
+    connect?: space_news_likesWhereUniqueInput | space_news_likesWhereUniqueInput[]
+    update?: space_news_likesUpdateWithWhereUniqueWithoutUserInput | space_news_likesUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: space_news_likesUpdateManyWithWhereWithoutUserInput | space_news_likesUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: space_news_likesScalarWhereInput | space_news_likesScalarWhereInput[]
+  }
+
+  export type space_news_commentsUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<space_news_commentsCreateWithoutUserInput, space_news_commentsUncheckedCreateWithoutUserInput> | space_news_commentsCreateWithoutUserInput[] | space_news_commentsUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: space_news_commentsCreateOrConnectWithoutUserInput | space_news_commentsCreateOrConnectWithoutUserInput[]
+    upsert?: space_news_commentsUpsertWithWhereUniqueWithoutUserInput | space_news_commentsUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: space_news_commentsCreateManyUserInputEnvelope
+    set?: space_news_commentsWhereUniqueInput | space_news_commentsWhereUniqueInput[]
+    disconnect?: space_news_commentsWhereUniqueInput | space_news_commentsWhereUniqueInput[]
+    delete?: space_news_commentsWhereUniqueInput | space_news_commentsWhereUniqueInput[]
+    connect?: space_news_commentsWhereUniqueInput | space_news_commentsWhereUniqueInput[]
+    update?: space_news_commentsUpdateWithWhereUniqueWithoutUserInput | space_news_commentsUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: space_news_commentsUpdateManyWithWhereWithoutUserInput | space_news_commentsUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: space_news_commentsScalarWhereInput | space_news_commentsScalarWhereInput[]
   }
 
   export type blogsCreateNestedOneWithoutBlog_likesInput = {
@@ -60529,6 +65341,218 @@ export namespace Prisma {
     update?: QuizQuestionUpdateWithWhereUniqueWithoutQuizzesInput | QuizQuestionUpdateWithWhereUniqueWithoutQuizzesInput[]
     updateMany?: QuizQuestionUpdateManyWithWhereWithoutQuizzesInput | QuizQuestionUpdateManyWithWhereWithoutQuizzesInput[]
     deleteMany?: QuizQuestionScalarWhereInput | QuizQuestionScalarWhereInput[]
+  }
+
+  export type usersCreateNestedOneWithoutPublished_space_newsInput = {
+    create?: XOR<usersCreateWithoutPublished_space_newsInput, usersUncheckedCreateWithoutPublished_space_newsInput>
+    connectOrCreate?: usersCreateOrConnectWithoutPublished_space_newsInput
+    connect?: usersWhereUniqueInput
+  }
+
+  export type space_news_likesCreateNestedManyWithoutSpace_newsInput = {
+    create?: XOR<space_news_likesCreateWithoutSpace_newsInput, space_news_likesUncheckedCreateWithoutSpace_newsInput> | space_news_likesCreateWithoutSpace_newsInput[] | space_news_likesUncheckedCreateWithoutSpace_newsInput[]
+    connectOrCreate?: space_news_likesCreateOrConnectWithoutSpace_newsInput | space_news_likesCreateOrConnectWithoutSpace_newsInput[]
+    createMany?: space_news_likesCreateManySpace_newsInputEnvelope
+    connect?: space_news_likesWhereUniqueInput | space_news_likesWhereUniqueInput[]
+  }
+
+  export type space_news_commentsCreateNestedManyWithoutSpace_newsInput = {
+    create?: XOR<space_news_commentsCreateWithoutSpace_newsInput, space_news_commentsUncheckedCreateWithoutSpace_newsInput> | space_news_commentsCreateWithoutSpace_newsInput[] | space_news_commentsUncheckedCreateWithoutSpace_newsInput[]
+    connectOrCreate?: space_news_commentsCreateOrConnectWithoutSpace_newsInput | space_news_commentsCreateOrConnectWithoutSpace_newsInput[]
+    createMany?: space_news_commentsCreateManySpace_newsInputEnvelope
+    connect?: space_news_commentsWhereUniqueInput | space_news_commentsWhereUniqueInput[]
+  }
+
+  export type space_news_likesUncheckedCreateNestedManyWithoutSpace_newsInput = {
+    create?: XOR<space_news_likesCreateWithoutSpace_newsInput, space_news_likesUncheckedCreateWithoutSpace_newsInput> | space_news_likesCreateWithoutSpace_newsInput[] | space_news_likesUncheckedCreateWithoutSpace_newsInput[]
+    connectOrCreate?: space_news_likesCreateOrConnectWithoutSpace_newsInput | space_news_likesCreateOrConnectWithoutSpace_newsInput[]
+    createMany?: space_news_likesCreateManySpace_newsInputEnvelope
+    connect?: space_news_likesWhereUniqueInput | space_news_likesWhereUniqueInput[]
+  }
+
+  export type space_news_commentsUncheckedCreateNestedManyWithoutSpace_newsInput = {
+    create?: XOR<space_news_commentsCreateWithoutSpace_newsInput, space_news_commentsUncheckedCreateWithoutSpace_newsInput> | space_news_commentsCreateWithoutSpace_newsInput[] | space_news_commentsUncheckedCreateWithoutSpace_newsInput[]
+    connectOrCreate?: space_news_commentsCreateOrConnectWithoutSpace_newsInput | space_news_commentsCreateOrConnectWithoutSpace_newsInput[]
+    createMany?: space_news_commentsCreateManySpace_newsInputEnvelope
+    connect?: space_news_commentsWhereUniqueInput | space_news_commentsWhereUniqueInput[]
+  }
+
+  export type usersUpdateOneRequiredWithoutPublished_space_newsNestedInput = {
+    create?: XOR<usersCreateWithoutPublished_space_newsInput, usersUncheckedCreateWithoutPublished_space_newsInput>
+    connectOrCreate?: usersCreateOrConnectWithoutPublished_space_newsInput
+    upsert?: usersUpsertWithoutPublished_space_newsInput
+    connect?: usersWhereUniqueInput
+    update?: XOR<XOR<usersUpdateToOneWithWhereWithoutPublished_space_newsInput, usersUpdateWithoutPublished_space_newsInput>, usersUncheckedUpdateWithoutPublished_space_newsInput>
+  }
+
+  export type space_news_likesUpdateManyWithoutSpace_newsNestedInput = {
+    create?: XOR<space_news_likesCreateWithoutSpace_newsInput, space_news_likesUncheckedCreateWithoutSpace_newsInput> | space_news_likesCreateWithoutSpace_newsInput[] | space_news_likesUncheckedCreateWithoutSpace_newsInput[]
+    connectOrCreate?: space_news_likesCreateOrConnectWithoutSpace_newsInput | space_news_likesCreateOrConnectWithoutSpace_newsInput[]
+    upsert?: space_news_likesUpsertWithWhereUniqueWithoutSpace_newsInput | space_news_likesUpsertWithWhereUniqueWithoutSpace_newsInput[]
+    createMany?: space_news_likesCreateManySpace_newsInputEnvelope
+    set?: space_news_likesWhereUniqueInput | space_news_likesWhereUniqueInput[]
+    disconnect?: space_news_likesWhereUniqueInput | space_news_likesWhereUniqueInput[]
+    delete?: space_news_likesWhereUniqueInput | space_news_likesWhereUniqueInput[]
+    connect?: space_news_likesWhereUniqueInput | space_news_likesWhereUniqueInput[]
+    update?: space_news_likesUpdateWithWhereUniqueWithoutSpace_newsInput | space_news_likesUpdateWithWhereUniqueWithoutSpace_newsInput[]
+    updateMany?: space_news_likesUpdateManyWithWhereWithoutSpace_newsInput | space_news_likesUpdateManyWithWhereWithoutSpace_newsInput[]
+    deleteMany?: space_news_likesScalarWhereInput | space_news_likesScalarWhereInput[]
+  }
+
+  export type space_news_commentsUpdateManyWithoutSpace_newsNestedInput = {
+    create?: XOR<space_news_commentsCreateWithoutSpace_newsInput, space_news_commentsUncheckedCreateWithoutSpace_newsInput> | space_news_commentsCreateWithoutSpace_newsInput[] | space_news_commentsUncheckedCreateWithoutSpace_newsInput[]
+    connectOrCreate?: space_news_commentsCreateOrConnectWithoutSpace_newsInput | space_news_commentsCreateOrConnectWithoutSpace_newsInput[]
+    upsert?: space_news_commentsUpsertWithWhereUniqueWithoutSpace_newsInput | space_news_commentsUpsertWithWhereUniqueWithoutSpace_newsInput[]
+    createMany?: space_news_commentsCreateManySpace_newsInputEnvelope
+    set?: space_news_commentsWhereUniqueInput | space_news_commentsWhereUniqueInput[]
+    disconnect?: space_news_commentsWhereUniqueInput | space_news_commentsWhereUniqueInput[]
+    delete?: space_news_commentsWhereUniqueInput | space_news_commentsWhereUniqueInput[]
+    connect?: space_news_commentsWhereUniqueInput | space_news_commentsWhereUniqueInput[]
+    update?: space_news_commentsUpdateWithWhereUniqueWithoutSpace_newsInput | space_news_commentsUpdateWithWhereUniqueWithoutSpace_newsInput[]
+    updateMany?: space_news_commentsUpdateManyWithWhereWithoutSpace_newsInput | space_news_commentsUpdateManyWithWhereWithoutSpace_newsInput[]
+    deleteMany?: space_news_commentsScalarWhereInput | space_news_commentsScalarWhereInput[]
+  }
+
+  export type space_news_likesUncheckedUpdateManyWithoutSpace_newsNestedInput = {
+    create?: XOR<space_news_likesCreateWithoutSpace_newsInput, space_news_likesUncheckedCreateWithoutSpace_newsInput> | space_news_likesCreateWithoutSpace_newsInput[] | space_news_likesUncheckedCreateWithoutSpace_newsInput[]
+    connectOrCreate?: space_news_likesCreateOrConnectWithoutSpace_newsInput | space_news_likesCreateOrConnectWithoutSpace_newsInput[]
+    upsert?: space_news_likesUpsertWithWhereUniqueWithoutSpace_newsInput | space_news_likesUpsertWithWhereUniqueWithoutSpace_newsInput[]
+    createMany?: space_news_likesCreateManySpace_newsInputEnvelope
+    set?: space_news_likesWhereUniqueInput | space_news_likesWhereUniqueInput[]
+    disconnect?: space_news_likesWhereUniqueInput | space_news_likesWhereUniqueInput[]
+    delete?: space_news_likesWhereUniqueInput | space_news_likesWhereUniqueInput[]
+    connect?: space_news_likesWhereUniqueInput | space_news_likesWhereUniqueInput[]
+    update?: space_news_likesUpdateWithWhereUniqueWithoutSpace_newsInput | space_news_likesUpdateWithWhereUniqueWithoutSpace_newsInput[]
+    updateMany?: space_news_likesUpdateManyWithWhereWithoutSpace_newsInput | space_news_likesUpdateManyWithWhereWithoutSpace_newsInput[]
+    deleteMany?: space_news_likesScalarWhereInput | space_news_likesScalarWhereInput[]
+  }
+
+  export type space_news_commentsUncheckedUpdateManyWithoutSpace_newsNestedInput = {
+    create?: XOR<space_news_commentsCreateWithoutSpace_newsInput, space_news_commentsUncheckedCreateWithoutSpace_newsInput> | space_news_commentsCreateWithoutSpace_newsInput[] | space_news_commentsUncheckedCreateWithoutSpace_newsInput[]
+    connectOrCreate?: space_news_commentsCreateOrConnectWithoutSpace_newsInput | space_news_commentsCreateOrConnectWithoutSpace_newsInput[]
+    upsert?: space_news_commentsUpsertWithWhereUniqueWithoutSpace_newsInput | space_news_commentsUpsertWithWhereUniqueWithoutSpace_newsInput[]
+    createMany?: space_news_commentsCreateManySpace_newsInputEnvelope
+    set?: space_news_commentsWhereUniqueInput | space_news_commentsWhereUniqueInput[]
+    disconnect?: space_news_commentsWhereUniqueInput | space_news_commentsWhereUniqueInput[]
+    delete?: space_news_commentsWhereUniqueInput | space_news_commentsWhereUniqueInput[]
+    connect?: space_news_commentsWhereUniqueInput | space_news_commentsWhereUniqueInput[]
+    update?: space_news_commentsUpdateWithWhereUniqueWithoutSpace_newsInput | space_news_commentsUpdateWithWhereUniqueWithoutSpace_newsInput[]
+    updateMany?: space_news_commentsUpdateManyWithWhereWithoutSpace_newsInput | space_news_commentsUpdateManyWithWhereWithoutSpace_newsInput[]
+    deleteMany?: space_news_commentsScalarWhereInput | space_news_commentsScalarWhereInput[]
+  }
+
+  export type space_newsCreateNestedOneWithoutSpace_news_likesInput = {
+    create?: XOR<space_newsCreateWithoutSpace_news_likesInput, space_newsUncheckedCreateWithoutSpace_news_likesInput>
+    connectOrCreate?: space_newsCreateOrConnectWithoutSpace_news_likesInput
+    connect?: space_newsWhereUniqueInput
+  }
+
+  export type usersCreateNestedOneWithoutSpace_news_likesInput = {
+    create?: XOR<usersCreateWithoutSpace_news_likesInput, usersUncheckedCreateWithoutSpace_news_likesInput>
+    connectOrCreate?: usersCreateOrConnectWithoutSpace_news_likesInput
+    connect?: usersWhereUniqueInput
+  }
+
+  export type space_newsUpdateOneRequiredWithoutSpace_news_likesNestedInput = {
+    create?: XOR<space_newsCreateWithoutSpace_news_likesInput, space_newsUncheckedCreateWithoutSpace_news_likesInput>
+    connectOrCreate?: space_newsCreateOrConnectWithoutSpace_news_likesInput
+    upsert?: space_newsUpsertWithoutSpace_news_likesInput
+    connect?: space_newsWhereUniqueInput
+    update?: XOR<XOR<space_newsUpdateToOneWithWhereWithoutSpace_news_likesInput, space_newsUpdateWithoutSpace_news_likesInput>, space_newsUncheckedUpdateWithoutSpace_news_likesInput>
+  }
+
+  export type usersUpdateOneRequiredWithoutSpace_news_likesNestedInput = {
+    create?: XOR<usersCreateWithoutSpace_news_likesInput, usersUncheckedCreateWithoutSpace_news_likesInput>
+    connectOrCreate?: usersCreateOrConnectWithoutSpace_news_likesInput
+    upsert?: usersUpsertWithoutSpace_news_likesInput
+    connect?: usersWhereUniqueInput
+    update?: XOR<XOR<usersUpdateToOneWithWhereWithoutSpace_news_likesInput, usersUpdateWithoutSpace_news_likesInput>, usersUncheckedUpdateWithoutSpace_news_likesInput>
+  }
+
+  export type space_newsCreateNestedOneWithoutSpace_news_commentsInput = {
+    create?: XOR<space_newsCreateWithoutSpace_news_commentsInput, space_newsUncheckedCreateWithoutSpace_news_commentsInput>
+    connectOrCreate?: space_newsCreateOrConnectWithoutSpace_news_commentsInput
+    connect?: space_newsWhereUniqueInput
+  }
+
+  export type usersCreateNestedOneWithoutSpace_news_commentsInput = {
+    create?: XOR<usersCreateWithoutSpace_news_commentsInput, usersUncheckedCreateWithoutSpace_news_commentsInput>
+    connectOrCreate?: usersCreateOrConnectWithoutSpace_news_commentsInput
+    connect?: usersWhereUniqueInput
+  }
+
+  export type space_news_commentsCreateNestedOneWithoutRepliesInput = {
+    create?: XOR<space_news_commentsCreateWithoutRepliesInput, space_news_commentsUncheckedCreateWithoutRepliesInput>
+    connectOrCreate?: space_news_commentsCreateOrConnectWithoutRepliesInput
+    connect?: space_news_commentsWhereUniqueInput
+  }
+
+  export type space_news_commentsCreateNestedManyWithoutParent_commentInput = {
+    create?: XOR<space_news_commentsCreateWithoutParent_commentInput, space_news_commentsUncheckedCreateWithoutParent_commentInput> | space_news_commentsCreateWithoutParent_commentInput[] | space_news_commentsUncheckedCreateWithoutParent_commentInput[]
+    connectOrCreate?: space_news_commentsCreateOrConnectWithoutParent_commentInput | space_news_commentsCreateOrConnectWithoutParent_commentInput[]
+    createMany?: space_news_commentsCreateManyParent_commentInputEnvelope
+    connect?: space_news_commentsWhereUniqueInput | space_news_commentsWhereUniqueInput[]
+  }
+
+  export type space_news_commentsUncheckedCreateNestedManyWithoutParent_commentInput = {
+    create?: XOR<space_news_commentsCreateWithoutParent_commentInput, space_news_commentsUncheckedCreateWithoutParent_commentInput> | space_news_commentsCreateWithoutParent_commentInput[] | space_news_commentsUncheckedCreateWithoutParent_commentInput[]
+    connectOrCreate?: space_news_commentsCreateOrConnectWithoutParent_commentInput | space_news_commentsCreateOrConnectWithoutParent_commentInput[]
+    createMany?: space_news_commentsCreateManyParent_commentInputEnvelope
+    connect?: space_news_commentsWhereUniqueInput | space_news_commentsWhereUniqueInput[]
+  }
+
+  export type space_newsUpdateOneRequiredWithoutSpace_news_commentsNestedInput = {
+    create?: XOR<space_newsCreateWithoutSpace_news_commentsInput, space_newsUncheckedCreateWithoutSpace_news_commentsInput>
+    connectOrCreate?: space_newsCreateOrConnectWithoutSpace_news_commentsInput
+    upsert?: space_newsUpsertWithoutSpace_news_commentsInput
+    connect?: space_newsWhereUniqueInput
+    update?: XOR<XOR<space_newsUpdateToOneWithWhereWithoutSpace_news_commentsInput, space_newsUpdateWithoutSpace_news_commentsInput>, space_newsUncheckedUpdateWithoutSpace_news_commentsInput>
+  }
+
+  export type usersUpdateOneRequiredWithoutSpace_news_commentsNestedInput = {
+    create?: XOR<usersCreateWithoutSpace_news_commentsInput, usersUncheckedCreateWithoutSpace_news_commentsInput>
+    connectOrCreate?: usersCreateOrConnectWithoutSpace_news_commentsInput
+    upsert?: usersUpsertWithoutSpace_news_commentsInput
+    connect?: usersWhereUniqueInput
+    update?: XOR<XOR<usersUpdateToOneWithWhereWithoutSpace_news_commentsInput, usersUpdateWithoutSpace_news_commentsInput>, usersUncheckedUpdateWithoutSpace_news_commentsInput>
+  }
+
+  export type space_news_commentsUpdateOneWithoutRepliesNestedInput = {
+    create?: XOR<space_news_commentsCreateWithoutRepliesInput, space_news_commentsUncheckedCreateWithoutRepliesInput>
+    connectOrCreate?: space_news_commentsCreateOrConnectWithoutRepliesInput
+    upsert?: space_news_commentsUpsertWithoutRepliesInput
+    disconnect?: space_news_commentsWhereInput | boolean
+    delete?: space_news_commentsWhereInput | boolean
+    connect?: space_news_commentsWhereUniqueInput
+    update?: XOR<XOR<space_news_commentsUpdateToOneWithWhereWithoutRepliesInput, space_news_commentsUpdateWithoutRepliesInput>, space_news_commentsUncheckedUpdateWithoutRepliesInput>
+  }
+
+  export type space_news_commentsUpdateManyWithoutParent_commentNestedInput = {
+    create?: XOR<space_news_commentsCreateWithoutParent_commentInput, space_news_commentsUncheckedCreateWithoutParent_commentInput> | space_news_commentsCreateWithoutParent_commentInput[] | space_news_commentsUncheckedCreateWithoutParent_commentInput[]
+    connectOrCreate?: space_news_commentsCreateOrConnectWithoutParent_commentInput | space_news_commentsCreateOrConnectWithoutParent_commentInput[]
+    upsert?: space_news_commentsUpsertWithWhereUniqueWithoutParent_commentInput | space_news_commentsUpsertWithWhereUniqueWithoutParent_commentInput[]
+    createMany?: space_news_commentsCreateManyParent_commentInputEnvelope
+    set?: space_news_commentsWhereUniqueInput | space_news_commentsWhereUniqueInput[]
+    disconnect?: space_news_commentsWhereUniqueInput | space_news_commentsWhereUniqueInput[]
+    delete?: space_news_commentsWhereUniqueInput | space_news_commentsWhereUniqueInput[]
+    connect?: space_news_commentsWhereUniqueInput | space_news_commentsWhereUniqueInput[]
+    update?: space_news_commentsUpdateWithWhereUniqueWithoutParent_commentInput | space_news_commentsUpdateWithWhereUniqueWithoutParent_commentInput[]
+    updateMany?: space_news_commentsUpdateManyWithWhereWithoutParent_commentInput | space_news_commentsUpdateManyWithWhereWithoutParent_commentInput[]
+    deleteMany?: space_news_commentsScalarWhereInput | space_news_commentsScalarWhereInput[]
+  }
+
+  export type space_news_commentsUncheckedUpdateManyWithoutParent_commentNestedInput = {
+    create?: XOR<space_news_commentsCreateWithoutParent_commentInput, space_news_commentsUncheckedCreateWithoutParent_commentInput> | space_news_commentsCreateWithoutParent_commentInput[] | space_news_commentsUncheckedCreateWithoutParent_commentInput[]
+    connectOrCreate?: space_news_commentsCreateOrConnectWithoutParent_commentInput | space_news_commentsCreateOrConnectWithoutParent_commentInput[]
+    upsert?: space_news_commentsUpsertWithWhereUniqueWithoutParent_commentInput | space_news_commentsUpsertWithWhereUniqueWithoutParent_commentInput[]
+    createMany?: space_news_commentsCreateManyParent_commentInputEnvelope
+    set?: space_news_commentsWhereUniqueInput | space_news_commentsWhereUniqueInput[]
+    disconnect?: space_news_commentsWhereUniqueInput | space_news_commentsWhereUniqueInput[]
+    delete?: space_news_commentsWhereUniqueInput | space_news_commentsWhereUniqueInput[]
+    connect?: space_news_commentsWhereUniqueInput | space_news_commentsWhereUniqueInput[]
+    update?: space_news_commentsUpdateWithWhereUniqueWithoutParent_commentInput | space_news_commentsUpdateWithWhereUniqueWithoutParent_commentInput[]
+    updateMany?: space_news_commentsUpdateManyWithWhereWithoutParent_commentInput | space_news_commentsUpdateManyWithWhereWithoutParent_commentInput[]
+    deleteMany?: space_news_commentsScalarWhereInput | space_news_commentsScalarWhereInput[]
   }
 
   export type NestedIntFilter<$PrismaModel = never> = {
@@ -61166,6 +66190,9 @@ export namespace Prisma {
     group_memberships?: group_membersCreateNestedManyWithoutUserInput
     chat_messages?: chat_messagesCreateNestedManyWithoutUserInput
     message_reactions?: message_reactionsCreateNestedManyWithoutUserInput
+    published_space_news?: space_newsCreateNestedManyWithoutPublisherInput
+    space_news_likes?: space_news_likesCreateNestedManyWithoutUserInput
+    space_news_comments?: space_news_commentsCreateNestedManyWithoutUserInput
   }
 
   export type usersUncheckedCreateWithoutSubscriptionsInput = {
@@ -61212,6 +66239,9 @@ export namespace Prisma {
     group_memberships?: group_membersUncheckedCreateNestedManyWithoutUserInput
     chat_messages?: chat_messagesUncheckedCreateNestedManyWithoutUserInput
     message_reactions?: message_reactionsUncheckedCreateNestedManyWithoutUserInput
+    published_space_news?: space_newsUncheckedCreateNestedManyWithoutPublisherInput
+    space_news_likes?: space_news_likesUncheckedCreateNestedManyWithoutUserInput
+    space_news_comments?: space_news_commentsUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type usersCreateOrConnectWithoutSubscriptionsInput = {
@@ -61309,6 +66339,9 @@ export namespace Prisma {
     group_memberships?: group_membersUpdateManyWithoutUserNestedInput
     chat_messages?: chat_messagesUpdateManyWithoutUserNestedInput
     message_reactions?: message_reactionsUpdateManyWithoutUserNestedInput
+    published_space_news?: space_newsUpdateManyWithoutPublisherNestedInput
+    space_news_likes?: space_news_likesUpdateManyWithoutUserNestedInput
+    space_news_comments?: space_news_commentsUpdateManyWithoutUserNestedInput
   }
 
   export type usersUncheckedUpdateWithoutSubscriptionsInput = {
@@ -61355,6 +66388,9 @@ export namespace Prisma {
     group_memberships?: group_membersUncheckedUpdateManyWithoutUserNestedInput
     chat_messages?: chat_messagesUncheckedUpdateManyWithoutUserNestedInput
     message_reactions?: message_reactionsUncheckedUpdateManyWithoutUserNestedInput
+    published_space_news?: space_newsUncheckedUpdateManyWithoutPublisherNestedInput
+    space_news_likes?: space_news_likesUncheckedUpdateManyWithoutUserNestedInput
+    space_news_comments?: space_news_commentsUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type usersCreateWithoutCreated_groupsInput = {
@@ -61400,6 +66436,9 @@ export namespace Prisma {
     group_memberships?: group_membersCreateNestedManyWithoutUserInput
     chat_messages?: chat_messagesCreateNestedManyWithoutUserInput
     message_reactions?: message_reactionsCreateNestedManyWithoutUserInput
+    published_space_news?: space_newsCreateNestedManyWithoutPublisherInput
+    space_news_likes?: space_news_likesCreateNestedManyWithoutUserInput
+    space_news_comments?: space_news_commentsCreateNestedManyWithoutUserInput
   }
 
   export type usersUncheckedCreateWithoutCreated_groupsInput = {
@@ -61446,6 +66485,9 @@ export namespace Prisma {
     group_memberships?: group_membersUncheckedCreateNestedManyWithoutUserInput
     chat_messages?: chat_messagesUncheckedCreateNestedManyWithoutUserInput
     message_reactions?: message_reactionsUncheckedCreateNestedManyWithoutUserInput
+    published_space_news?: space_newsUncheckedCreateNestedManyWithoutPublisherInput
+    space_news_likes?: space_news_likesUncheckedCreateNestedManyWithoutUserInput
+    space_news_comments?: space_news_commentsUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type usersCreateOrConnectWithoutCreated_groupsInput = {
@@ -61569,6 +66611,9 @@ export namespace Prisma {
     group_memberships?: group_membersUpdateManyWithoutUserNestedInput
     chat_messages?: chat_messagesUpdateManyWithoutUserNestedInput
     message_reactions?: message_reactionsUpdateManyWithoutUserNestedInput
+    published_space_news?: space_newsUpdateManyWithoutPublisherNestedInput
+    space_news_likes?: space_news_likesUpdateManyWithoutUserNestedInput
+    space_news_comments?: space_news_commentsUpdateManyWithoutUserNestedInput
   }
 
   export type usersUncheckedUpdateWithoutCreated_groupsInput = {
@@ -61615,6 +66660,9 @@ export namespace Prisma {
     group_memberships?: group_membersUncheckedUpdateManyWithoutUserNestedInput
     chat_messages?: chat_messagesUncheckedUpdateManyWithoutUserNestedInput
     message_reactions?: message_reactionsUncheckedUpdateManyWithoutUserNestedInput
+    published_space_news?: space_newsUncheckedUpdateManyWithoutPublisherNestedInput
+    space_news_likes?: space_news_likesUncheckedUpdateManyWithoutUserNestedInput
+    space_news_comments?: space_news_commentsUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type group_membersUpsertWithWhereUniqueWithoutGroupInput = {
@@ -61752,6 +66800,9 @@ export namespace Prisma {
     created_groups?: group_chatsCreateNestedManyWithoutCreatorInput
     chat_messages?: chat_messagesCreateNestedManyWithoutUserInput
     message_reactions?: message_reactionsCreateNestedManyWithoutUserInput
+    published_space_news?: space_newsCreateNestedManyWithoutPublisherInput
+    space_news_likes?: space_news_likesCreateNestedManyWithoutUserInput
+    space_news_comments?: space_news_commentsCreateNestedManyWithoutUserInput
   }
 
   export type usersUncheckedCreateWithoutGroup_membershipsInput = {
@@ -61798,6 +66849,9 @@ export namespace Prisma {
     created_groups?: group_chatsUncheckedCreateNestedManyWithoutCreatorInput
     chat_messages?: chat_messagesUncheckedCreateNestedManyWithoutUserInput
     message_reactions?: message_reactionsUncheckedCreateNestedManyWithoutUserInput
+    published_space_news?: space_newsUncheckedCreateNestedManyWithoutPublisherInput
+    space_news_likes?: space_news_likesUncheckedCreateNestedManyWithoutUserInput
+    space_news_comments?: space_news_commentsUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type usersCreateOrConnectWithoutGroup_membershipsInput = {
@@ -61897,6 +66951,9 @@ export namespace Prisma {
     created_groups?: group_chatsUpdateManyWithoutCreatorNestedInput
     chat_messages?: chat_messagesUpdateManyWithoutUserNestedInput
     message_reactions?: message_reactionsUpdateManyWithoutUserNestedInput
+    published_space_news?: space_newsUpdateManyWithoutPublisherNestedInput
+    space_news_likes?: space_news_likesUpdateManyWithoutUserNestedInput
+    space_news_comments?: space_news_commentsUpdateManyWithoutUserNestedInput
   }
 
   export type usersUncheckedUpdateWithoutGroup_membershipsInput = {
@@ -61943,6 +67000,9 @@ export namespace Prisma {
     created_groups?: group_chatsUncheckedUpdateManyWithoutCreatorNestedInput
     chat_messages?: chat_messagesUncheckedUpdateManyWithoutUserNestedInput
     message_reactions?: message_reactionsUncheckedUpdateManyWithoutUserNestedInput
+    published_space_news?: space_newsUncheckedUpdateManyWithoutPublisherNestedInput
+    space_news_likes?: space_news_likesUncheckedUpdateManyWithoutUserNestedInput
+    space_news_comments?: space_news_commentsUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type group_chatsCreateWithoutMessagesInput = {
@@ -62020,6 +67080,9 @@ export namespace Prisma {
     created_groups?: group_chatsCreateNestedManyWithoutCreatorInput
     group_memberships?: group_membersCreateNestedManyWithoutUserInput
     message_reactions?: message_reactionsCreateNestedManyWithoutUserInput
+    published_space_news?: space_newsCreateNestedManyWithoutPublisherInput
+    space_news_likes?: space_news_likesCreateNestedManyWithoutUserInput
+    space_news_comments?: space_news_commentsCreateNestedManyWithoutUserInput
   }
 
   export type usersUncheckedCreateWithoutChat_messagesInput = {
@@ -62066,6 +67129,9 @@ export namespace Prisma {
     created_groups?: group_chatsUncheckedCreateNestedManyWithoutCreatorInput
     group_memberships?: group_membersUncheckedCreateNestedManyWithoutUserInput
     message_reactions?: message_reactionsUncheckedCreateNestedManyWithoutUserInput
+    published_space_news?: space_newsUncheckedCreateNestedManyWithoutPublisherInput
+    space_news_likes?: space_news_likesUncheckedCreateNestedManyWithoutUserInput
+    space_news_comments?: space_news_commentsUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type usersCreateOrConnectWithoutChat_messagesInput = {
@@ -62257,6 +67323,9 @@ export namespace Prisma {
     created_groups?: group_chatsUpdateManyWithoutCreatorNestedInput
     group_memberships?: group_membersUpdateManyWithoutUserNestedInput
     message_reactions?: message_reactionsUpdateManyWithoutUserNestedInput
+    published_space_news?: space_newsUpdateManyWithoutPublisherNestedInput
+    space_news_likes?: space_news_likesUpdateManyWithoutUserNestedInput
+    space_news_comments?: space_news_commentsUpdateManyWithoutUserNestedInput
   }
 
   export type usersUncheckedUpdateWithoutChat_messagesInput = {
@@ -62303,6 +67372,9 @@ export namespace Prisma {
     created_groups?: group_chatsUncheckedUpdateManyWithoutCreatorNestedInput
     group_memberships?: group_membersUncheckedUpdateManyWithoutUserNestedInput
     message_reactions?: message_reactionsUncheckedUpdateManyWithoutUserNestedInput
+    published_space_news?: space_newsUncheckedUpdateManyWithoutPublisherNestedInput
+    space_news_likes?: space_news_likesUncheckedUpdateManyWithoutUserNestedInput
+    space_news_comments?: space_news_commentsUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type chat_messagesUpsertWithoutRepliesInput = {
@@ -62461,6 +67533,9 @@ export namespace Prisma {
     created_groups?: group_chatsCreateNestedManyWithoutCreatorInput
     group_memberships?: group_membersCreateNestedManyWithoutUserInput
     chat_messages?: chat_messagesCreateNestedManyWithoutUserInput
+    published_space_news?: space_newsCreateNestedManyWithoutPublisherInput
+    space_news_likes?: space_news_likesCreateNestedManyWithoutUserInput
+    space_news_comments?: space_news_commentsCreateNestedManyWithoutUserInput
   }
 
   export type usersUncheckedCreateWithoutMessage_reactionsInput = {
@@ -62507,6 +67582,9 @@ export namespace Prisma {
     created_groups?: group_chatsUncheckedCreateNestedManyWithoutCreatorInput
     group_memberships?: group_membersUncheckedCreateNestedManyWithoutUserInput
     chat_messages?: chat_messagesUncheckedCreateNestedManyWithoutUserInput
+    published_space_news?: space_newsUncheckedCreateNestedManyWithoutPublisherInput
+    space_news_likes?: space_news_likesUncheckedCreateNestedManyWithoutUserInput
+    space_news_comments?: space_news_commentsUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type usersCreateOrConnectWithoutMessage_reactionsInput = {
@@ -62606,6 +67684,9 @@ export namespace Prisma {
     created_groups?: group_chatsUpdateManyWithoutCreatorNestedInput
     group_memberships?: group_membersUpdateManyWithoutUserNestedInput
     chat_messages?: chat_messagesUpdateManyWithoutUserNestedInput
+    published_space_news?: space_newsUpdateManyWithoutPublisherNestedInput
+    space_news_likes?: space_news_likesUpdateManyWithoutUserNestedInput
+    space_news_comments?: space_news_commentsUpdateManyWithoutUserNestedInput
   }
 
   export type usersUncheckedUpdateWithoutMessage_reactionsInput = {
@@ -62652,6 +67733,9 @@ export namespace Prisma {
     created_groups?: group_chatsUncheckedUpdateManyWithoutCreatorNestedInput
     group_memberships?: group_membersUncheckedUpdateManyWithoutUserNestedInput
     chat_messages?: chat_messagesUncheckedUpdateManyWithoutUserNestedInput
+    published_space_news?: space_newsUncheckedUpdateManyWithoutPublisherNestedInput
+    space_news_likes?: space_news_likesUncheckedUpdateManyWithoutUserNestedInput
+    space_news_comments?: space_news_commentsUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type blogsCreateWithoutBlog_viewsInput = {
@@ -62755,6 +67839,9 @@ export namespace Prisma {
     group_memberships?: group_membersCreateNestedManyWithoutUserInput
     chat_messages?: chat_messagesCreateNestedManyWithoutUserInput
     message_reactions?: message_reactionsCreateNestedManyWithoutUserInput
+    published_space_news?: space_newsCreateNestedManyWithoutPublisherInput
+    space_news_likes?: space_news_likesCreateNestedManyWithoutUserInput
+    space_news_comments?: space_news_commentsCreateNestedManyWithoutUserInput
   }
 
   export type usersUncheckedCreateWithoutBlog_viewsInput = {
@@ -62801,6 +67888,9 @@ export namespace Prisma {
     group_memberships?: group_membersUncheckedCreateNestedManyWithoutUserInput
     chat_messages?: chat_messagesUncheckedCreateNestedManyWithoutUserInput
     message_reactions?: message_reactionsUncheckedCreateNestedManyWithoutUserInput
+    published_space_news?: space_newsUncheckedCreateNestedManyWithoutPublisherInput
+    space_news_likes?: space_news_likesUncheckedCreateNestedManyWithoutUserInput
+    space_news_comments?: space_news_commentsUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type usersCreateOrConnectWithoutBlog_viewsInput = {
@@ -62926,6 +68016,9 @@ export namespace Prisma {
     group_memberships?: group_membersUpdateManyWithoutUserNestedInput
     chat_messages?: chat_messagesUpdateManyWithoutUserNestedInput
     message_reactions?: message_reactionsUpdateManyWithoutUserNestedInput
+    published_space_news?: space_newsUpdateManyWithoutPublisherNestedInput
+    space_news_likes?: space_news_likesUpdateManyWithoutUserNestedInput
+    space_news_comments?: space_news_commentsUpdateManyWithoutUserNestedInput
   }
 
   export type usersUncheckedUpdateWithoutBlog_viewsInput = {
@@ -62972,6 +68065,9 @@ export namespace Prisma {
     group_memberships?: group_membersUncheckedUpdateManyWithoutUserNestedInput
     chat_messages?: chat_messagesUncheckedUpdateManyWithoutUserNestedInput
     message_reactions?: message_reactionsUncheckedUpdateManyWithoutUserNestedInput
+    published_space_news?: space_newsUncheckedUpdateManyWithoutPublisherNestedInput
+    space_news_likes?: space_news_likesUncheckedUpdateManyWithoutUserNestedInput
+    space_news_comments?: space_news_commentsUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type night_camp_registrationsCreateWithoutNight_campsInput = {
@@ -63469,6 +68565,9 @@ export namespace Prisma {
     group_memberships?: group_membersCreateNestedManyWithoutUserInput
     chat_messages?: chat_messagesCreateNestedManyWithoutUserInput
     message_reactions?: message_reactionsCreateNestedManyWithoutUserInput
+    published_space_news?: space_newsCreateNestedManyWithoutPublisherInput
+    space_news_likes?: space_news_likesCreateNestedManyWithoutUserInput
+    space_news_comments?: space_news_commentsCreateNestedManyWithoutUserInput
   }
 
   export type usersUncheckedCreateWithoutChatbot_sessionsInput = {
@@ -63515,6 +68614,9 @@ export namespace Prisma {
     group_memberships?: group_membersUncheckedCreateNestedManyWithoutUserInput
     chat_messages?: chat_messagesUncheckedCreateNestedManyWithoutUserInput
     message_reactions?: message_reactionsUncheckedCreateNestedManyWithoutUserInput
+    published_space_news?: space_newsUncheckedCreateNestedManyWithoutPublisherInput
+    space_news_likes?: space_news_likesUncheckedCreateNestedManyWithoutUserInput
+    space_news_comments?: space_news_commentsUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type usersCreateOrConnectWithoutChatbot_sessionsInput = {
@@ -63636,6 +68738,9 @@ export namespace Prisma {
     group_memberships?: group_membersUpdateManyWithoutUserNestedInput
     chat_messages?: chat_messagesUpdateManyWithoutUserNestedInput
     message_reactions?: message_reactionsUpdateManyWithoutUserNestedInput
+    published_space_news?: space_newsUpdateManyWithoutPublisherNestedInput
+    space_news_likes?: space_news_likesUpdateManyWithoutUserNestedInput
+    space_news_comments?: space_news_commentsUpdateManyWithoutUserNestedInput
   }
 
   export type usersUncheckedUpdateWithoutChatbot_sessionsInput = {
@@ -63682,6 +68787,9 @@ export namespace Prisma {
     group_memberships?: group_membersUncheckedUpdateManyWithoutUserNestedInput
     chat_messages?: chat_messagesUncheckedUpdateManyWithoutUserNestedInput
     message_reactions?: message_reactionsUncheckedUpdateManyWithoutUserNestedInput
+    published_space_news?: space_newsUncheckedUpdateManyWithoutPublisherNestedInput
+    space_news_likes?: space_news_likesUncheckedUpdateManyWithoutUserNestedInput
+    space_news_comments?: space_news_commentsUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type subscriptionsCreateWithoutPaymentsInput = {
@@ -63759,6 +68867,9 @@ export namespace Prisma {
     group_memberships?: group_membersCreateNestedManyWithoutUserInput
     chat_messages?: chat_messagesCreateNestedManyWithoutUserInput
     message_reactions?: message_reactionsCreateNestedManyWithoutUserInput
+    published_space_news?: space_newsCreateNestedManyWithoutPublisherInput
+    space_news_likes?: space_news_likesCreateNestedManyWithoutUserInput
+    space_news_comments?: space_news_commentsCreateNestedManyWithoutUserInput
   }
 
   export type usersUncheckedCreateWithoutPaymentsInput = {
@@ -63805,6 +68916,9 @@ export namespace Prisma {
     group_memberships?: group_membersUncheckedCreateNestedManyWithoutUserInput
     chat_messages?: chat_messagesUncheckedCreateNestedManyWithoutUserInput
     message_reactions?: message_reactionsUncheckedCreateNestedManyWithoutUserInput
+    published_space_news?: space_newsUncheckedCreateNestedManyWithoutPublisherInput
+    space_news_likes?: space_news_likesUncheckedCreateNestedManyWithoutUserInput
+    space_news_comments?: space_news_commentsUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type usersCreateOrConnectWithoutPaymentsInput = {
@@ -63904,6 +69018,9 @@ export namespace Prisma {
     group_memberships?: group_membersUpdateManyWithoutUserNestedInput
     chat_messages?: chat_messagesUpdateManyWithoutUserNestedInput
     message_reactions?: message_reactionsUpdateManyWithoutUserNestedInput
+    published_space_news?: space_newsUpdateManyWithoutPublisherNestedInput
+    space_news_likes?: space_news_likesUpdateManyWithoutUserNestedInput
+    space_news_comments?: space_news_commentsUpdateManyWithoutUserNestedInput
   }
 
   export type usersUncheckedUpdateWithoutPaymentsInput = {
@@ -63950,6 +69067,9 @@ export namespace Prisma {
     group_memberships?: group_membersUncheckedUpdateManyWithoutUserNestedInput
     chat_messages?: chat_messagesUncheckedUpdateManyWithoutUserNestedInput
     message_reactions?: message_reactionsUncheckedUpdateManyWithoutUserNestedInput
+    published_space_news?: space_newsUncheckedUpdateManyWithoutPublisherNestedInput
+    space_news_likes?: space_news_likesUncheckedUpdateManyWithoutUserNestedInput
+    space_news_comments?: space_news_commentsUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type blog_category_relationsCreateWithoutBlogsInput = {
@@ -64091,6 +69211,9 @@ export namespace Prisma {
     group_memberships?: group_membersCreateNestedManyWithoutUserInput
     chat_messages?: chat_messagesCreateNestedManyWithoutUserInput
     message_reactions?: message_reactionsCreateNestedManyWithoutUserInput
+    published_space_news?: space_newsCreateNestedManyWithoutPublisherInput
+    space_news_likes?: space_news_likesCreateNestedManyWithoutUserInput
+    space_news_comments?: space_news_commentsCreateNestedManyWithoutUserInput
   }
 
   export type usersUncheckedCreateWithoutBlogsInput = {
@@ -64137,6 +69260,9 @@ export namespace Prisma {
     group_memberships?: group_membersUncheckedCreateNestedManyWithoutUserInput
     chat_messages?: chat_messagesUncheckedCreateNestedManyWithoutUserInput
     message_reactions?: message_reactionsUncheckedCreateNestedManyWithoutUserInput
+    published_space_news?: space_newsUncheckedCreateNestedManyWithoutPublisherInput
+    space_news_likes?: space_news_likesUncheckedCreateNestedManyWithoutUserInput
+    space_news_comments?: space_news_commentsUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type usersCreateOrConnectWithoutBlogsInput = {
@@ -64307,6 +69433,9 @@ export namespace Prisma {
     group_memberships?: group_membersUpdateManyWithoutUserNestedInput
     chat_messages?: chat_messagesUpdateManyWithoutUserNestedInput
     message_reactions?: message_reactionsUpdateManyWithoutUserNestedInput
+    published_space_news?: space_newsUpdateManyWithoutPublisherNestedInput
+    space_news_likes?: space_news_likesUpdateManyWithoutUserNestedInput
+    space_news_comments?: space_news_commentsUpdateManyWithoutUserNestedInput
   }
 
   export type usersUncheckedUpdateWithoutBlogsInput = {
@@ -64353,6 +69482,9 @@ export namespace Prisma {
     group_memberships?: group_membersUncheckedUpdateManyWithoutUserNestedInput
     chat_messages?: chat_messagesUncheckedUpdateManyWithoutUserNestedInput
     message_reactions?: message_reactionsUncheckedUpdateManyWithoutUserNestedInput
+    published_space_news?: space_newsUncheckedUpdateManyWithoutPublisherNestedInput
+    space_news_likes?: space_news_likesUncheckedUpdateManyWithoutUserNestedInput
+    space_news_comments?: space_news_commentsUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type blogsCreateWithoutBlog_category_relationsInput = {
@@ -64597,6 +69729,9 @@ export namespace Prisma {
     group_memberships?: group_membersCreateNestedManyWithoutUserInput
     chat_messages?: chat_messagesCreateNestedManyWithoutUserInput
     message_reactions?: message_reactionsCreateNestedManyWithoutUserInput
+    published_space_news?: space_newsCreateNestedManyWithoutPublisherInput
+    space_news_likes?: space_news_likesCreateNestedManyWithoutUserInput
+    space_news_comments?: space_news_commentsCreateNestedManyWithoutUserInput
   }
 
   export type usersUncheckedCreateWithoutChatbot_usageInput = {
@@ -64643,6 +69778,9 @@ export namespace Prisma {
     group_memberships?: group_membersUncheckedCreateNestedManyWithoutUserInput
     chat_messages?: chat_messagesUncheckedCreateNestedManyWithoutUserInput
     message_reactions?: message_reactionsUncheckedCreateNestedManyWithoutUserInput
+    published_space_news?: space_newsUncheckedCreateNestedManyWithoutPublisherInput
+    space_news_likes?: space_news_likesUncheckedCreateNestedManyWithoutUserInput
+    space_news_comments?: space_news_commentsUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type usersCreateOrConnectWithoutChatbot_usageInput = {
@@ -64704,6 +69842,9 @@ export namespace Prisma {
     group_memberships?: group_membersUpdateManyWithoutUserNestedInput
     chat_messages?: chat_messagesUpdateManyWithoutUserNestedInput
     message_reactions?: message_reactionsUpdateManyWithoutUserNestedInput
+    published_space_news?: space_newsUpdateManyWithoutPublisherNestedInput
+    space_news_likes?: space_news_likesUpdateManyWithoutUserNestedInput
+    space_news_comments?: space_news_commentsUpdateManyWithoutUserNestedInput
   }
 
   export type usersUncheckedUpdateWithoutChatbot_usageInput = {
@@ -64750,6 +69891,9 @@ export namespace Prisma {
     group_memberships?: group_membersUncheckedUpdateManyWithoutUserNestedInput
     chat_messages?: chat_messagesUncheckedUpdateManyWithoutUserNestedInput
     message_reactions?: message_reactionsUncheckedUpdateManyWithoutUserNestedInput
+    published_space_news?: space_newsUncheckedUpdateManyWithoutPublisherNestedInput
+    space_news_likes?: space_news_likesUncheckedUpdateManyWithoutUserNestedInput
+    space_news_comments?: space_news_commentsUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type blogsCreateWithoutBlog_commentsInput = {
@@ -64910,6 +70054,9 @@ export namespace Prisma {
     group_memberships?: group_membersCreateNestedManyWithoutUserInput
     chat_messages?: chat_messagesCreateNestedManyWithoutUserInput
     message_reactions?: message_reactionsCreateNestedManyWithoutUserInput
+    published_space_news?: space_newsCreateNestedManyWithoutPublisherInput
+    space_news_likes?: space_news_likesCreateNestedManyWithoutUserInput
+    space_news_comments?: space_news_commentsCreateNestedManyWithoutUserInput
   }
 
   export type usersUncheckedCreateWithoutBlog_commentsInput = {
@@ -64956,6 +70103,9 @@ export namespace Prisma {
     group_memberships?: group_membersUncheckedCreateNestedManyWithoutUserInput
     chat_messages?: chat_messagesUncheckedCreateNestedManyWithoutUserInput
     message_reactions?: message_reactionsUncheckedCreateNestedManyWithoutUserInput
+    published_space_news?: space_newsUncheckedCreateNestedManyWithoutPublisherInput
+    space_news_likes?: space_news_likesUncheckedCreateNestedManyWithoutUserInput
+    space_news_comments?: space_news_commentsUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type usersCreateOrConnectWithoutBlog_commentsInput = {
@@ -65129,6 +70279,9 @@ export namespace Prisma {
     group_memberships?: group_membersUpdateManyWithoutUserNestedInput
     chat_messages?: chat_messagesUpdateManyWithoutUserNestedInput
     message_reactions?: message_reactionsUpdateManyWithoutUserNestedInput
+    published_space_news?: space_newsUpdateManyWithoutPublisherNestedInput
+    space_news_likes?: space_news_likesUpdateManyWithoutUserNestedInput
+    space_news_comments?: space_news_commentsUpdateManyWithoutUserNestedInput
   }
 
   export type usersUncheckedUpdateWithoutBlog_commentsInput = {
@@ -65175,6 +70328,9 @@ export namespace Prisma {
     group_memberships?: group_membersUncheckedUpdateManyWithoutUserNestedInput
     chat_messages?: chat_messagesUncheckedUpdateManyWithoutUserNestedInput
     message_reactions?: message_reactionsUncheckedUpdateManyWithoutUserNestedInput
+    published_space_news?: space_newsUncheckedUpdateManyWithoutPublisherNestedInput
+    space_news_likes?: space_news_likesUncheckedUpdateManyWithoutUserNestedInput
+    space_news_comments?: space_news_commentsUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type QuizParticipantsCreateWithoutUsersInput = {
@@ -66093,6 +71249,97 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type space_newsCreateWithoutPublisherInput = {
+    image_urls?: NullableJsonNullValueInput | InputJsonValue
+    publish_date: Date | string
+    title: string
+    number_of_likes?: number
+    number_of_comments?: number
+    content: string
+    category: string
+    created_at?: Date | string
+    last_read_time?: Date | string | null
+    space_news_likes?: space_news_likesCreateNestedManyWithoutSpace_newsInput
+    space_news_comments?: space_news_commentsCreateNestedManyWithoutSpace_newsInput
+  }
+
+  export type space_newsUncheckedCreateWithoutPublisherInput = {
+    id?: number
+    image_urls?: NullableJsonNullValueInput | InputJsonValue
+    publish_date: Date | string
+    title: string
+    number_of_likes?: number
+    number_of_comments?: number
+    content: string
+    category: string
+    created_at?: Date | string
+    last_read_time?: Date | string | null
+    space_news_likes?: space_news_likesUncheckedCreateNestedManyWithoutSpace_newsInput
+    space_news_comments?: space_news_commentsUncheckedCreateNestedManyWithoutSpace_newsInput
+  }
+
+  export type space_newsCreateOrConnectWithoutPublisherInput = {
+    where: space_newsWhereUniqueInput
+    create: XOR<space_newsCreateWithoutPublisherInput, space_newsUncheckedCreateWithoutPublisherInput>
+  }
+
+  export type space_newsCreateManyPublisherInputEnvelope = {
+    data: space_newsCreateManyPublisherInput | space_newsCreateManyPublisherInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type space_news_likesCreateWithoutUserInput = {
+    created_at?: Date | string
+    space_news: space_newsCreateNestedOneWithoutSpace_news_likesInput
+  }
+
+  export type space_news_likesUncheckedCreateWithoutUserInput = {
+    id?: number
+    space_news_id: number
+    created_at?: Date | string
+  }
+
+  export type space_news_likesCreateOrConnectWithoutUserInput = {
+    where: space_news_likesWhereUniqueInput
+    create: XOR<space_news_likesCreateWithoutUserInput, space_news_likesUncheckedCreateWithoutUserInput>
+  }
+
+  export type space_news_likesCreateManyUserInputEnvelope = {
+    data: space_news_likesCreateManyUserInput | space_news_likesCreateManyUserInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type space_news_commentsCreateWithoutUserInput = {
+    content: string
+    is_edited?: boolean
+    created_at?: Date | string
+    updated_at?: Date | string
+    space_news: space_newsCreateNestedOneWithoutSpace_news_commentsInput
+    parent_comment?: space_news_commentsCreateNestedOneWithoutRepliesInput
+    replies?: space_news_commentsCreateNestedManyWithoutParent_commentInput
+  }
+
+  export type space_news_commentsUncheckedCreateWithoutUserInput = {
+    id?: number
+    space_news_id: number
+    parent_comment_id?: number | null
+    content: string
+    is_edited?: boolean
+    created_at?: Date | string
+    updated_at?: Date | string
+    replies?: space_news_commentsUncheckedCreateNestedManyWithoutParent_commentInput
+  }
+
+  export type space_news_commentsCreateOrConnectWithoutUserInput = {
+    where: space_news_commentsWhereUniqueInput
+    create: XOR<space_news_commentsCreateWithoutUserInput, space_news_commentsUncheckedCreateWithoutUserInput>
+  }
+
+  export type space_news_commentsCreateManyUserInputEnvelope = {
+    data: space_news_commentsCreateManyUserInput | space_news_commentsCreateManyUserInput[]
+    skipDuplicates?: boolean
+  }
+
   export type QuizParticipantsUpsertWithWhereUniqueWithoutUsersInput = {
     where: QuizParticipantsWhereUniqueInput
     update: XOR<QuizParticipantsUpdateWithoutUsersInput, QuizParticipantsUncheckedUpdateWithoutUsersInput>
@@ -66743,6 +71990,95 @@ export namespace Prisma {
     data: XOR<message_reactionsUpdateManyMutationInput, message_reactionsUncheckedUpdateManyWithoutUserInput>
   }
 
+  export type space_newsUpsertWithWhereUniqueWithoutPublisherInput = {
+    where: space_newsWhereUniqueInput
+    update: XOR<space_newsUpdateWithoutPublisherInput, space_newsUncheckedUpdateWithoutPublisherInput>
+    create: XOR<space_newsCreateWithoutPublisherInput, space_newsUncheckedCreateWithoutPublisherInput>
+  }
+
+  export type space_newsUpdateWithWhereUniqueWithoutPublisherInput = {
+    where: space_newsWhereUniqueInput
+    data: XOR<space_newsUpdateWithoutPublisherInput, space_newsUncheckedUpdateWithoutPublisherInput>
+  }
+
+  export type space_newsUpdateManyWithWhereWithoutPublisherInput = {
+    where: space_newsScalarWhereInput
+    data: XOR<space_newsUpdateManyMutationInput, space_newsUncheckedUpdateManyWithoutPublisherInput>
+  }
+
+  export type space_newsScalarWhereInput = {
+    AND?: space_newsScalarWhereInput | space_newsScalarWhereInput[]
+    OR?: space_newsScalarWhereInput[]
+    NOT?: space_newsScalarWhereInput | space_newsScalarWhereInput[]
+    id?: IntFilter<"space_news"> | number
+    image_urls?: JsonNullableFilter<"space_news">
+    publish_date?: DateTimeFilter<"space_news"> | Date | string
+    title?: StringFilter<"space_news"> | string
+    number_of_likes?: IntFilter<"space_news"> | number
+    number_of_comments?: IntFilter<"space_news"> | number
+    content?: StringFilter<"space_news"> | string
+    published_by?: IntFilter<"space_news"> | number
+    category?: StringFilter<"space_news"> | string
+    created_at?: DateTimeFilter<"space_news"> | Date | string
+    last_read_time?: DateTimeNullableFilter<"space_news"> | Date | string | null
+  }
+
+  export type space_news_likesUpsertWithWhereUniqueWithoutUserInput = {
+    where: space_news_likesWhereUniqueInput
+    update: XOR<space_news_likesUpdateWithoutUserInput, space_news_likesUncheckedUpdateWithoutUserInput>
+    create: XOR<space_news_likesCreateWithoutUserInput, space_news_likesUncheckedCreateWithoutUserInput>
+  }
+
+  export type space_news_likesUpdateWithWhereUniqueWithoutUserInput = {
+    where: space_news_likesWhereUniqueInput
+    data: XOR<space_news_likesUpdateWithoutUserInput, space_news_likesUncheckedUpdateWithoutUserInput>
+  }
+
+  export type space_news_likesUpdateManyWithWhereWithoutUserInput = {
+    where: space_news_likesScalarWhereInput
+    data: XOR<space_news_likesUpdateManyMutationInput, space_news_likesUncheckedUpdateManyWithoutUserInput>
+  }
+
+  export type space_news_likesScalarWhereInput = {
+    AND?: space_news_likesScalarWhereInput | space_news_likesScalarWhereInput[]
+    OR?: space_news_likesScalarWhereInput[]
+    NOT?: space_news_likesScalarWhereInput | space_news_likesScalarWhereInput[]
+    id?: IntFilter<"space_news_likes"> | number
+    space_news_id?: IntFilter<"space_news_likes"> | number
+    user_id?: IntFilter<"space_news_likes"> | number
+    created_at?: DateTimeFilter<"space_news_likes"> | Date | string
+  }
+
+  export type space_news_commentsUpsertWithWhereUniqueWithoutUserInput = {
+    where: space_news_commentsWhereUniqueInput
+    update: XOR<space_news_commentsUpdateWithoutUserInput, space_news_commentsUncheckedUpdateWithoutUserInput>
+    create: XOR<space_news_commentsCreateWithoutUserInput, space_news_commentsUncheckedCreateWithoutUserInput>
+  }
+
+  export type space_news_commentsUpdateWithWhereUniqueWithoutUserInput = {
+    where: space_news_commentsWhereUniqueInput
+    data: XOR<space_news_commentsUpdateWithoutUserInput, space_news_commentsUncheckedUpdateWithoutUserInput>
+  }
+
+  export type space_news_commentsUpdateManyWithWhereWithoutUserInput = {
+    where: space_news_commentsScalarWhereInput
+    data: XOR<space_news_commentsUpdateManyMutationInput, space_news_commentsUncheckedUpdateManyWithoutUserInput>
+  }
+
+  export type space_news_commentsScalarWhereInput = {
+    AND?: space_news_commentsScalarWhereInput | space_news_commentsScalarWhereInput[]
+    OR?: space_news_commentsScalarWhereInput[]
+    NOT?: space_news_commentsScalarWhereInput | space_news_commentsScalarWhereInput[]
+    id?: IntFilter<"space_news_comments"> | number
+    space_news_id?: IntFilter<"space_news_comments"> | number
+    user_id?: IntFilter<"space_news_comments"> | number
+    parent_comment_id?: IntNullableFilter<"space_news_comments"> | number | null
+    content?: StringFilter<"space_news_comments"> | string
+    is_edited?: BoolFilter<"space_news_comments"> | boolean
+    created_at?: DateTimeFilter<"space_news_comments"> | Date | string
+    updated_at?: DateTimeFilter<"space_news_comments"> | Date | string
+  }
+
   export type blogsCreateWithoutBlog_likesInput = {
     title: string
     content: string
@@ -66844,6 +72180,9 @@ export namespace Prisma {
     group_memberships?: group_membersCreateNestedManyWithoutUserInput
     chat_messages?: chat_messagesCreateNestedManyWithoutUserInput
     message_reactions?: message_reactionsCreateNestedManyWithoutUserInput
+    published_space_news?: space_newsCreateNestedManyWithoutPublisherInput
+    space_news_likes?: space_news_likesCreateNestedManyWithoutUserInput
+    space_news_comments?: space_news_commentsCreateNestedManyWithoutUserInput
   }
 
   export type usersUncheckedCreateWithoutBlog_likesInput = {
@@ -66890,6 +72229,9 @@ export namespace Prisma {
     group_memberships?: group_membersUncheckedCreateNestedManyWithoutUserInput
     chat_messages?: chat_messagesUncheckedCreateNestedManyWithoutUserInput
     message_reactions?: message_reactionsUncheckedCreateNestedManyWithoutUserInput
+    published_space_news?: space_newsUncheckedCreateNestedManyWithoutPublisherInput
+    space_news_likes?: space_news_likesUncheckedCreateNestedManyWithoutUserInput
+    space_news_comments?: space_news_commentsUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type usersCreateOrConnectWithoutBlog_likesInput = {
@@ -67015,6 +72357,9 @@ export namespace Prisma {
     group_memberships?: group_membersUpdateManyWithoutUserNestedInput
     chat_messages?: chat_messagesUpdateManyWithoutUserNestedInput
     message_reactions?: message_reactionsUpdateManyWithoutUserNestedInput
+    published_space_news?: space_newsUpdateManyWithoutPublisherNestedInput
+    space_news_likes?: space_news_likesUpdateManyWithoutUserNestedInput
+    space_news_comments?: space_news_commentsUpdateManyWithoutUserNestedInput
   }
 
   export type usersUncheckedUpdateWithoutBlog_likesInput = {
@@ -67061,6 +72406,9 @@ export namespace Prisma {
     group_memberships?: group_membersUncheckedUpdateManyWithoutUserNestedInput
     chat_messages?: chat_messagesUncheckedUpdateManyWithoutUserNestedInput
     message_reactions?: message_reactionsUncheckedUpdateManyWithoutUserNestedInput
+    published_space_news?: space_newsUncheckedUpdateManyWithoutPublisherNestedInput
+    space_news_likes?: space_news_likesUncheckedUpdateManyWithoutUserNestedInput
+    space_news_comments?: space_news_commentsUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type chatbot_feedbackCreateWithoutChatbot_messagesInput = {
@@ -67312,6 +72660,9 @@ export namespace Prisma {
     group_memberships?: group_membersCreateNestedManyWithoutUserInput
     chat_messages?: chat_messagesCreateNestedManyWithoutUserInput
     message_reactions?: message_reactionsCreateNestedManyWithoutUserInput
+    published_space_news?: space_newsCreateNestedManyWithoutPublisherInput
+    space_news_likes?: space_news_likesCreateNestedManyWithoutUserInput
+    space_news_comments?: space_news_commentsCreateNestedManyWithoutUserInput
   }
 
   export type usersUncheckedCreateWithoutUser_settingsInput = {
@@ -67358,6 +72709,9 @@ export namespace Prisma {
     group_memberships?: group_membersUncheckedCreateNestedManyWithoutUserInput
     chat_messages?: chat_messagesUncheckedCreateNestedManyWithoutUserInput
     message_reactions?: message_reactionsUncheckedCreateNestedManyWithoutUserInput
+    published_space_news?: space_newsUncheckedCreateNestedManyWithoutPublisherInput
+    space_news_likes?: space_news_likesUncheckedCreateNestedManyWithoutUserInput
+    space_news_comments?: space_news_commentsUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type usersCreateOrConnectWithoutUser_settingsInput = {
@@ -67419,6 +72773,9 @@ export namespace Prisma {
     group_memberships?: group_membersUpdateManyWithoutUserNestedInput
     chat_messages?: chat_messagesUpdateManyWithoutUserNestedInput
     message_reactions?: message_reactionsUpdateManyWithoutUserNestedInput
+    published_space_news?: space_newsUpdateManyWithoutPublisherNestedInput
+    space_news_likes?: space_news_likesUpdateManyWithoutUserNestedInput
+    space_news_comments?: space_news_commentsUpdateManyWithoutUserNestedInput
   }
 
   export type usersUncheckedUpdateWithoutUser_settingsInput = {
@@ -67465,6 +72822,9 @@ export namespace Prisma {
     group_memberships?: group_membersUncheckedUpdateManyWithoutUserNestedInput
     chat_messages?: chat_messagesUncheckedUpdateManyWithoutUserNestedInput
     message_reactions?: message_reactionsUncheckedUpdateManyWithoutUserNestedInput
+    published_space_news?: space_newsUncheckedUpdateManyWithoutPublisherNestedInput
+    space_news_likes?: space_news_likesUncheckedUpdateManyWithoutUserNestedInput
+    space_news_comments?: space_news_commentsUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type chatbot_messagesCreateWithoutChatbot_feedbackInput = {
@@ -67736,6 +73096,9 @@ export namespace Prisma {
     group_memberships?: group_membersCreateNestedManyWithoutUserInput
     chat_messages?: chat_messagesCreateNestedManyWithoutUserInput
     message_reactions?: message_reactionsCreateNestedManyWithoutUserInput
+    published_space_news?: space_newsCreateNestedManyWithoutPublisherInput
+    space_news_likes?: space_news_likesCreateNestedManyWithoutUserInput
+    space_news_comments?: space_news_commentsCreateNestedManyWithoutUserInput
   }
 
   export type usersUncheckedCreateWithoutRole_upgrade_requests_role_upgrade_requests_reviewer_idTousersInput = {
@@ -67782,6 +73145,9 @@ export namespace Prisma {
     group_memberships?: group_membersUncheckedCreateNestedManyWithoutUserInput
     chat_messages?: chat_messagesUncheckedCreateNestedManyWithoutUserInput
     message_reactions?: message_reactionsUncheckedCreateNestedManyWithoutUserInput
+    published_space_news?: space_newsUncheckedCreateNestedManyWithoutPublisherInput
+    space_news_likes?: space_news_likesUncheckedCreateNestedManyWithoutUserInput
+    space_news_comments?: space_news_commentsUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type usersCreateOrConnectWithoutRole_upgrade_requests_role_upgrade_requests_reviewer_idTousersInput = {
@@ -67832,6 +73198,9 @@ export namespace Prisma {
     group_memberships?: group_membersCreateNestedManyWithoutUserInput
     chat_messages?: chat_messagesCreateNestedManyWithoutUserInput
     message_reactions?: message_reactionsCreateNestedManyWithoutUserInput
+    published_space_news?: space_newsCreateNestedManyWithoutPublisherInput
+    space_news_likes?: space_news_likesCreateNestedManyWithoutUserInput
+    space_news_comments?: space_news_commentsCreateNestedManyWithoutUserInput
   }
 
   export type usersUncheckedCreateWithoutRole_upgrade_requests_role_upgrade_requests_user_idTousersInput = {
@@ -67878,6 +73247,9 @@ export namespace Prisma {
     group_memberships?: group_membersUncheckedCreateNestedManyWithoutUserInput
     chat_messages?: chat_messagesUncheckedCreateNestedManyWithoutUserInput
     message_reactions?: message_reactionsUncheckedCreateNestedManyWithoutUserInput
+    published_space_news?: space_newsUncheckedCreateNestedManyWithoutPublisherInput
+    space_news_likes?: space_news_likesUncheckedCreateNestedManyWithoutUserInput
+    space_news_comments?: space_news_commentsUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type usersCreateOrConnectWithoutRole_upgrade_requests_role_upgrade_requests_user_idTousersInput = {
@@ -67939,6 +73311,9 @@ export namespace Prisma {
     group_memberships?: group_membersUpdateManyWithoutUserNestedInput
     chat_messages?: chat_messagesUpdateManyWithoutUserNestedInput
     message_reactions?: message_reactionsUpdateManyWithoutUserNestedInput
+    published_space_news?: space_newsUpdateManyWithoutPublisherNestedInput
+    space_news_likes?: space_news_likesUpdateManyWithoutUserNestedInput
+    space_news_comments?: space_news_commentsUpdateManyWithoutUserNestedInput
   }
 
   export type usersUncheckedUpdateWithoutRole_upgrade_requests_role_upgrade_requests_reviewer_idTousersInput = {
@@ -67985,6 +73360,9 @@ export namespace Prisma {
     group_memberships?: group_membersUncheckedUpdateManyWithoutUserNestedInput
     chat_messages?: chat_messagesUncheckedUpdateManyWithoutUserNestedInput
     message_reactions?: message_reactionsUncheckedUpdateManyWithoutUserNestedInput
+    published_space_news?: space_newsUncheckedUpdateManyWithoutPublisherNestedInput
+    space_news_likes?: space_news_likesUncheckedUpdateManyWithoutUserNestedInput
+    space_news_comments?: space_news_commentsUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type usersUpsertWithoutRole_upgrade_requests_role_upgrade_requests_user_idTousersInput = {
@@ -68041,6 +73419,9 @@ export namespace Prisma {
     group_memberships?: group_membersUpdateManyWithoutUserNestedInput
     chat_messages?: chat_messagesUpdateManyWithoutUserNestedInput
     message_reactions?: message_reactionsUpdateManyWithoutUserNestedInput
+    published_space_news?: space_newsUpdateManyWithoutPublisherNestedInput
+    space_news_likes?: space_news_likesUpdateManyWithoutUserNestedInput
+    space_news_comments?: space_news_commentsUpdateManyWithoutUserNestedInput
   }
 
   export type usersUncheckedUpdateWithoutRole_upgrade_requests_role_upgrade_requests_user_idTousersInput = {
@@ -68087,6 +73468,9 @@ export namespace Prisma {
     group_memberships?: group_membersUncheckedUpdateManyWithoutUserNestedInput
     chat_messages?: chat_messagesUncheckedUpdateManyWithoutUserNestedInput
     message_reactions?: message_reactionsUncheckedUpdateManyWithoutUserNestedInput
+    published_space_news?: space_newsUncheckedUpdateManyWithoutPublisherNestedInput
+    space_news_likes?: space_news_likesUncheckedUpdateManyWithoutUserNestedInput
+    space_news_comments?: space_news_commentsUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type usersCreateWithoutGuide_applicationInput = {
@@ -68132,6 +73516,9 @@ export namespace Prisma {
     group_memberships?: group_membersCreateNestedManyWithoutUserInput
     chat_messages?: chat_messagesCreateNestedManyWithoutUserInput
     message_reactions?: message_reactionsCreateNestedManyWithoutUserInput
+    published_space_news?: space_newsCreateNestedManyWithoutPublisherInput
+    space_news_likes?: space_news_likesCreateNestedManyWithoutUserInput
+    space_news_comments?: space_news_commentsCreateNestedManyWithoutUserInput
   }
 
   export type usersUncheckedCreateWithoutGuide_applicationInput = {
@@ -68178,6 +73565,9 @@ export namespace Prisma {
     group_memberships?: group_membersUncheckedCreateNestedManyWithoutUserInput
     chat_messages?: chat_messagesUncheckedCreateNestedManyWithoutUserInput
     message_reactions?: message_reactionsUncheckedCreateNestedManyWithoutUserInput
+    published_space_news?: space_newsUncheckedCreateNestedManyWithoutPublisherInput
+    space_news_likes?: space_news_likesUncheckedCreateNestedManyWithoutUserInput
+    space_news_comments?: space_news_commentsUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type usersCreateOrConnectWithoutGuide_applicationInput = {
@@ -68239,6 +73629,9 @@ export namespace Prisma {
     group_memberships?: group_membersUpdateManyWithoutUserNestedInput
     chat_messages?: chat_messagesUpdateManyWithoutUserNestedInput
     message_reactions?: message_reactionsUpdateManyWithoutUserNestedInput
+    published_space_news?: space_newsUpdateManyWithoutPublisherNestedInput
+    space_news_likes?: space_news_likesUpdateManyWithoutUserNestedInput
+    space_news_comments?: space_news_commentsUpdateManyWithoutUserNestedInput
   }
 
   export type usersUncheckedUpdateWithoutGuide_applicationInput = {
@@ -68285,6 +73678,9 @@ export namespace Prisma {
     group_memberships?: group_membersUncheckedUpdateManyWithoutUserNestedInput
     chat_messages?: chat_messagesUncheckedUpdateManyWithoutUserNestedInput
     message_reactions?: message_reactionsUncheckedUpdateManyWithoutUserNestedInput
+    published_space_news?: space_newsUncheckedUpdateManyWithoutPublisherNestedInput
+    space_news_likes?: space_news_likesUncheckedUpdateManyWithoutUserNestedInput
+    space_news_comments?: space_news_commentsUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type usersCreateWithoutMentor_applicationInput = {
@@ -68330,6 +73726,9 @@ export namespace Prisma {
     group_memberships?: group_membersCreateNestedManyWithoutUserInput
     chat_messages?: chat_messagesCreateNestedManyWithoutUserInput
     message_reactions?: message_reactionsCreateNestedManyWithoutUserInput
+    published_space_news?: space_newsCreateNestedManyWithoutPublisherInput
+    space_news_likes?: space_news_likesCreateNestedManyWithoutUserInput
+    space_news_comments?: space_news_commentsCreateNestedManyWithoutUserInput
   }
 
   export type usersUncheckedCreateWithoutMentor_applicationInput = {
@@ -68376,6 +73775,9 @@ export namespace Prisma {
     group_memberships?: group_membersUncheckedCreateNestedManyWithoutUserInput
     chat_messages?: chat_messagesUncheckedCreateNestedManyWithoutUserInput
     message_reactions?: message_reactionsUncheckedCreateNestedManyWithoutUserInput
+    published_space_news?: space_newsUncheckedCreateNestedManyWithoutPublisherInput
+    space_news_likes?: space_news_likesUncheckedCreateNestedManyWithoutUserInput
+    space_news_comments?: space_news_commentsUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type usersCreateOrConnectWithoutMentor_applicationInput = {
@@ -68437,6 +73839,9 @@ export namespace Prisma {
     group_memberships?: group_membersUpdateManyWithoutUserNestedInput
     chat_messages?: chat_messagesUpdateManyWithoutUserNestedInput
     message_reactions?: message_reactionsUpdateManyWithoutUserNestedInput
+    published_space_news?: space_newsUpdateManyWithoutPublisherNestedInput
+    space_news_likes?: space_news_likesUpdateManyWithoutUserNestedInput
+    space_news_comments?: space_news_commentsUpdateManyWithoutUserNestedInput
   }
 
   export type usersUncheckedUpdateWithoutMentor_applicationInput = {
@@ -68483,6 +73888,9 @@ export namespace Prisma {
     group_memberships?: group_membersUncheckedUpdateManyWithoutUserNestedInput
     chat_messages?: chat_messagesUncheckedUpdateManyWithoutUserNestedInput
     message_reactions?: message_reactionsUncheckedUpdateManyWithoutUserNestedInput
+    published_space_news?: space_newsUncheckedUpdateManyWithoutPublisherNestedInput
+    space_news_likes?: space_news_likesUncheckedUpdateManyWithoutUserNestedInput
+    space_news_comments?: space_news_commentsUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type night_campsCreateWithoutNight_camp_volunteering_applicationsInput = {
@@ -68574,6 +73982,9 @@ export namespace Prisma {
     group_memberships?: group_membersCreateNestedManyWithoutUserInput
     chat_messages?: chat_messagesCreateNestedManyWithoutUserInput
     message_reactions?: message_reactionsCreateNestedManyWithoutUserInput
+    published_space_news?: space_newsCreateNestedManyWithoutPublisherInput
+    space_news_likes?: space_news_likesCreateNestedManyWithoutUserInput
+    space_news_comments?: space_news_commentsCreateNestedManyWithoutUserInput
   }
 
   export type usersUncheckedCreateWithoutNight_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousersInput = {
@@ -68620,6 +74031,9 @@ export namespace Prisma {
     group_memberships?: group_membersUncheckedCreateNestedManyWithoutUserInput
     chat_messages?: chat_messagesUncheckedCreateNestedManyWithoutUserInput
     message_reactions?: message_reactionsUncheckedCreateNestedManyWithoutUserInput
+    published_space_news?: space_newsUncheckedCreateNestedManyWithoutPublisherInput
+    space_news_likes?: space_news_likesUncheckedCreateNestedManyWithoutUserInput
+    space_news_comments?: space_news_commentsUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type usersCreateOrConnectWithoutNight_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousersInput = {
@@ -68670,6 +74084,9 @@ export namespace Prisma {
     group_memberships?: group_membersCreateNestedManyWithoutUserInput
     chat_messages?: chat_messagesCreateNestedManyWithoutUserInput
     message_reactions?: message_reactionsCreateNestedManyWithoutUserInput
+    published_space_news?: space_newsCreateNestedManyWithoutPublisherInput
+    space_news_likes?: space_news_likesCreateNestedManyWithoutUserInput
+    space_news_comments?: space_news_commentsCreateNestedManyWithoutUserInput
   }
 
   export type usersUncheckedCreateWithoutNight_camp_volunteering_applications_night_camp_volunteering_applications_user_idTousersInput = {
@@ -68716,6 +74133,9 @@ export namespace Prisma {
     group_memberships?: group_membersUncheckedCreateNestedManyWithoutUserInput
     chat_messages?: chat_messagesUncheckedCreateNestedManyWithoutUserInput
     message_reactions?: message_reactionsUncheckedCreateNestedManyWithoutUserInput
+    published_space_news?: space_newsUncheckedCreateNestedManyWithoutPublisherInput
+    space_news_likes?: space_news_likesUncheckedCreateNestedManyWithoutUserInput
+    space_news_comments?: space_news_commentsUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type usersCreateOrConnectWithoutNight_camp_volunteering_applications_night_camp_volunteering_applications_user_idTousersInput = {
@@ -68829,6 +74249,9 @@ export namespace Prisma {
     group_memberships?: group_membersUpdateManyWithoutUserNestedInput
     chat_messages?: chat_messagesUpdateManyWithoutUserNestedInput
     message_reactions?: message_reactionsUpdateManyWithoutUserNestedInput
+    published_space_news?: space_newsUpdateManyWithoutPublisherNestedInput
+    space_news_likes?: space_news_likesUpdateManyWithoutUserNestedInput
+    space_news_comments?: space_news_commentsUpdateManyWithoutUserNestedInput
   }
 
   export type usersUncheckedUpdateWithoutNight_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousersInput = {
@@ -68875,6 +74298,9 @@ export namespace Prisma {
     group_memberships?: group_membersUncheckedUpdateManyWithoutUserNestedInput
     chat_messages?: chat_messagesUncheckedUpdateManyWithoutUserNestedInput
     message_reactions?: message_reactionsUncheckedUpdateManyWithoutUserNestedInput
+    published_space_news?: space_newsUncheckedUpdateManyWithoutPublisherNestedInput
+    space_news_likes?: space_news_likesUncheckedUpdateManyWithoutUserNestedInput
+    space_news_comments?: space_news_commentsUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type usersUpsertWithoutNight_camp_volunteering_applications_night_camp_volunteering_applications_user_idTousersInput = {
@@ -68931,6 +74357,9 @@ export namespace Prisma {
     group_memberships?: group_membersUpdateManyWithoutUserNestedInput
     chat_messages?: chat_messagesUpdateManyWithoutUserNestedInput
     message_reactions?: message_reactionsUpdateManyWithoutUserNestedInput
+    published_space_news?: space_newsUpdateManyWithoutPublisherNestedInput
+    space_news_likes?: space_news_likesUpdateManyWithoutUserNestedInput
+    space_news_comments?: space_news_commentsUpdateManyWithoutUserNestedInput
   }
 
   export type usersUncheckedUpdateWithoutNight_camp_volunteering_applications_night_camp_volunteering_applications_user_idTousersInput = {
@@ -68977,6 +74406,9 @@ export namespace Prisma {
     group_memberships?: group_membersUncheckedUpdateManyWithoutUserNestedInput
     chat_messages?: chat_messagesUncheckedUpdateManyWithoutUserNestedInput
     message_reactions?: message_reactionsUncheckedUpdateManyWithoutUserNestedInput
+    published_space_news?: space_newsUncheckedUpdateManyWithoutPublisherNestedInput
+    space_news_likes?: space_news_likesUncheckedUpdateManyWithoutUserNestedInput
+    space_news_comments?: space_news_commentsUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type night_campsCreateWithoutNight_camp_registrationsInput = {
@@ -69068,6 +74500,9 @@ export namespace Prisma {
     group_memberships?: group_membersCreateNestedManyWithoutUserInput
     chat_messages?: chat_messagesCreateNestedManyWithoutUserInput
     message_reactions?: message_reactionsCreateNestedManyWithoutUserInput
+    published_space_news?: space_newsCreateNestedManyWithoutPublisherInput
+    space_news_likes?: space_news_likesCreateNestedManyWithoutUserInput
+    space_news_comments?: space_news_commentsCreateNestedManyWithoutUserInput
   }
 
   export type usersUncheckedCreateWithoutNight_camp_registrationsInput = {
@@ -69114,6 +74549,9 @@ export namespace Prisma {
     group_memberships?: group_membersUncheckedCreateNestedManyWithoutUserInput
     chat_messages?: chat_messagesUncheckedCreateNestedManyWithoutUserInput
     message_reactions?: message_reactionsUncheckedCreateNestedManyWithoutUserInput
+    published_space_news?: space_newsUncheckedCreateNestedManyWithoutPublisherInput
+    space_news_likes?: space_news_likesUncheckedCreateNestedManyWithoutUserInput
+    space_news_comments?: space_news_commentsUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type usersCreateOrConnectWithoutNight_camp_registrationsInput = {
@@ -69227,6 +74665,9 @@ export namespace Prisma {
     group_memberships?: group_membersUpdateManyWithoutUserNestedInput
     chat_messages?: chat_messagesUpdateManyWithoutUserNestedInput
     message_reactions?: message_reactionsUpdateManyWithoutUserNestedInput
+    published_space_news?: space_newsUpdateManyWithoutPublisherNestedInput
+    space_news_likes?: space_news_likesUpdateManyWithoutUserNestedInput
+    space_news_comments?: space_news_commentsUpdateManyWithoutUserNestedInput
   }
 
   export type usersUncheckedUpdateWithoutNight_camp_registrationsInput = {
@@ -69273,6 +74714,9 @@ export namespace Prisma {
     group_memberships?: group_membersUncheckedUpdateManyWithoutUserNestedInput
     chat_messages?: chat_messagesUncheckedUpdateManyWithoutUserNestedInput
     message_reactions?: message_reactionsUncheckedUpdateManyWithoutUserNestedInput
+    published_space_news?: space_newsUncheckedUpdateManyWithoutPublisherNestedInput
+    space_news_likes?: space_news_likesUncheckedUpdateManyWithoutUserNestedInput
+    space_news_comments?: space_news_commentsUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type usersCreateWithoutInfluencer_applicationInput = {
@@ -69318,6 +74762,9 @@ export namespace Prisma {
     group_memberships?: group_membersCreateNestedManyWithoutUserInput
     chat_messages?: chat_messagesCreateNestedManyWithoutUserInput
     message_reactions?: message_reactionsCreateNestedManyWithoutUserInput
+    published_space_news?: space_newsCreateNestedManyWithoutPublisherInput
+    space_news_likes?: space_news_likesCreateNestedManyWithoutUserInput
+    space_news_comments?: space_news_commentsCreateNestedManyWithoutUserInput
   }
 
   export type usersUncheckedCreateWithoutInfluencer_applicationInput = {
@@ -69364,6 +74811,9 @@ export namespace Prisma {
     group_memberships?: group_membersUncheckedCreateNestedManyWithoutUserInput
     chat_messages?: chat_messagesUncheckedCreateNestedManyWithoutUserInput
     message_reactions?: message_reactionsUncheckedCreateNestedManyWithoutUserInput
+    published_space_news?: space_newsUncheckedCreateNestedManyWithoutPublisherInput
+    space_news_likes?: space_news_likesUncheckedCreateNestedManyWithoutUserInput
+    space_news_comments?: space_news_commentsUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type usersCreateOrConnectWithoutInfluencer_applicationInput = {
@@ -69425,6 +74875,9 @@ export namespace Prisma {
     group_memberships?: group_membersUpdateManyWithoutUserNestedInput
     chat_messages?: chat_messagesUpdateManyWithoutUserNestedInput
     message_reactions?: message_reactionsUpdateManyWithoutUserNestedInput
+    published_space_news?: space_newsUpdateManyWithoutPublisherNestedInput
+    space_news_likes?: space_news_likesUpdateManyWithoutUserNestedInput
+    space_news_comments?: space_news_commentsUpdateManyWithoutUserNestedInput
   }
 
   export type usersUncheckedUpdateWithoutInfluencer_applicationInput = {
@@ -69471,6 +74924,9 @@ export namespace Prisma {
     group_memberships?: group_membersUncheckedUpdateManyWithoutUserNestedInput
     chat_messages?: chat_messagesUncheckedUpdateManyWithoutUserNestedInput
     message_reactions?: message_reactionsUncheckedUpdateManyWithoutUserNestedInput
+    published_space_news?: space_newsUncheckedUpdateManyWithoutPublisherNestedInput
+    space_news_likes?: space_news_likesUncheckedUpdateManyWithoutUserNestedInput
+    space_news_comments?: space_news_commentsUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type usersCreateWithoutMedia_uploadsInput = {
@@ -69516,6 +74972,9 @@ export namespace Prisma {
     group_memberships?: group_membersCreateNestedManyWithoutUserInput
     chat_messages?: chat_messagesCreateNestedManyWithoutUserInput
     message_reactions?: message_reactionsCreateNestedManyWithoutUserInput
+    published_space_news?: space_newsCreateNestedManyWithoutPublisherInput
+    space_news_likes?: space_news_likesCreateNestedManyWithoutUserInput
+    space_news_comments?: space_news_commentsCreateNestedManyWithoutUserInput
   }
 
   export type usersUncheckedCreateWithoutMedia_uploadsInput = {
@@ -69562,6 +75021,9 @@ export namespace Prisma {
     group_memberships?: group_membersUncheckedCreateNestedManyWithoutUserInput
     chat_messages?: chat_messagesUncheckedCreateNestedManyWithoutUserInput
     message_reactions?: message_reactionsUncheckedCreateNestedManyWithoutUserInput
+    published_space_news?: space_newsUncheckedCreateNestedManyWithoutPublisherInput
+    space_news_likes?: space_news_likesUncheckedCreateNestedManyWithoutUserInput
+    space_news_comments?: space_news_commentsUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type usersCreateOrConnectWithoutMedia_uploadsInput = {
@@ -69623,6 +75085,9 @@ export namespace Prisma {
     group_memberships?: group_membersUpdateManyWithoutUserNestedInput
     chat_messages?: chat_messagesUpdateManyWithoutUserNestedInput
     message_reactions?: message_reactionsUpdateManyWithoutUserNestedInput
+    published_space_news?: space_newsUpdateManyWithoutPublisherNestedInput
+    space_news_likes?: space_news_likesUpdateManyWithoutUserNestedInput
+    space_news_comments?: space_news_commentsUpdateManyWithoutUserNestedInput
   }
 
   export type usersUncheckedUpdateWithoutMedia_uploadsInput = {
@@ -69669,6 +75134,9 @@ export namespace Prisma {
     group_memberships?: group_membersUncheckedUpdateManyWithoutUserNestedInput
     chat_messages?: chat_messagesUncheckedUpdateManyWithoutUserNestedInput
     message_reactions?: message_reactionsUncheckedUpdateManyWithoutUserNestedInput
+    published_space_news?: space_newsUncheckedUpdateManyWithoutPublisherNestedInput
+    space_news_likes?: space_news_likesUncheckedUpdateManyWithoutUserNestedInput
+    space_news_comments?: space_news_commentsUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type QuizzesCreateWithoutQuizParticipantsInput = {
@@ -69752,6 +75220,9 @@ export namespace Prisma {
     group_memberships?: group_membersCreateNestedManyWithoutUserInput
     chat_messages?: chat_messagesCreateNestedManyWithoutUserInput
     message_reactions?: message_reactionsCreateNestedManyWithoutUserInput
+    published_space_news?: space_newsCreateNestedManyWithoutPublisherInput
+    space_news_likes?: space_news_likesCreateNestedManyWithoutUserInput
+    space_news_comments?: space_news_commentsCreateNestedManyWithoutUserInput
   }
 
   export type usersUncheckedCreateWithoutQuizParticipantsInput = {
@@ -69798,6 +75269,9 @@ export namespace Prisma {
     group_memberships?: group_membersUncheckedCreateNestedManyWithoutUserInput
     chat_messages?: chat_messagesUncheckedCreateNestedManyWithoutUserInput
     message_reactions?: message_reactionsUncheckedCreateNestedManyWithoutUserInput
+    published_space_news?: space_newsUncheckedCreateNestedManyWithoutPublisherInput
+    space_news_likes?: space_news_likesUncheckedCreateNestedManyWithoutUserInput
+    space_news_comments?: space_news_commentsUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type usersCreateOrConnectWithoutQuizParticipantsInput = {
@@ -69903,6 +75377,9 @@ export namespace Prisma {
     group_memberships?: group_membersUpdateManyWithoutUserNestedInput
     chat_messages?: chat_messagesUpdateManyWithoutUserNestedInput
     message_reactions?: message_reactionsUpdateManyWithoutUserNestedInput
+    published_space_news?: space_newsUpdateManyWithoutPublisherNestedInput
+    space_news_likes?: space_news_likesUpdateManyWithoutUserNestedInput
+    space_news_comments?: space_news_commentsUpdateManyWithoutUserNestedInput
   }
 
   export type usersUncheckedUpdateWithoutQuizParticipantsInput = {
@@ -69949,6 +75426,9 @@ export namespace Prisma {
     group_memberships?: group_membersUncheckedUpdateManyWithoutUserNestedInput
     chat_messages?: chat_messagesUncheckedUpdateManyWithoutUserNestedInput
     message_reactions?: message_reactionsUncheckedUpdateManyWithoutUserNestedInput
+    published_space_news?: space_newsUncheckedUpdateManyWithoutPublisherNestedInput
+    space_news_likes?: space_news_likesUncheckedUpdateManyWithoutUserNestedInput
+    space_news_comments?: space_news_commentsUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type QuizzesCreateWithoutQuizQuestionInput = {
@@ -70124,6 +75604,9 @@ export namespace Prisma {
     group_memberships?: group_membersCreateNestedManyWithoutUserInput
     chat_messages?: chat_messagesCreateNestedManyWithoutUserInput
     message_reactions?: message_reactionsCreateNestedManyWithoutUserInput
+    published_space_news?: space_newsCreateNestedManyWithoutPublisherInput
+    space_news_likes?: space_news_likesCreateNestedManyWithoutUserInput
+    space_news_comments?: space_news_commentsCreateNestedManyWithoutUserInput
   }
 
   export type usersUncheckedCreateWithoutQuizzesInput = {
@@ -70170,6 +75653,9 @@ export namespace Prisma {
     group_memberships?: group_membersUncheckedCreateNestedManyWithoutUserInput
     chat_messages?: chat_messagesUncheckedCreateNestedManyWithoutUserInput
     message_reactions?: message_reactionsUncheckedCreateNestedManyWithoutUserInput
+    published_space_news?: space_newsUncheckedCreateNestedManyWithoutPublisherInput
+    space_news_likes?: space_news_likesUncheckedCreateNestedManyWithoutUserInput
+    space_news_comments?: space_news_commentsUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type usersCreateOrConnectWithoutQuizzesInput = {
@@ -70275,6 +75761,9 @@ export namespace Prisma {
     group_memberships?: group_membersUpdateManyWithoutUserNestedInput
     chat_messages?: chat_messagesUpdateManyWithoutUserNestedInput
     message_reactions?: message_reactionsUpdateManyWithoutUserNestedInput
+    published_space_news?: space_newsUpdateManyWithoutPublisherNestedInput
+    space_news_likes?: space_news_likesUpdateManyWithoutUserNestedInput
+    space_news_comments?: space_news_commentsUpdateManyWithoutUserNestedInput
   }
 
   export type usersUncheckedUpdateWithoutQuizzesInput = {
@@ -70321,6 +75810,976 @@ export namespace Prisma {
     group_memberships?: group_membersUncheckedUpdateManyWithoutUserNestedInput
     chat_messages?: chat_messagesUncheckedUpdateManyWithoutUserNestedInput
     message_reactions?: message_reactionsUncheckedUpdateManyWithoutUserNestedInput
+    published_space_news?: space_newsUncheckedUpdateManyWithoutPublisherNestedInput
+    space_news_likes?: space_news_likesUncheckedUpdateManyWithoutUserNestedInput
+    space_news_comments?: space_news_commentsUncheckedUpdateManyWithoutUserNestedInput
+  }
+
+  export type usersCreateWithoutPublished_space_newsInput = {
+    firebase_uid: string
+    email: string
+    role?: $Enums.user_role | null
+    first_name?: string | null
+    last_name?: string | null
+    is_active?: boolean | null
+    last_login?: Date | string | null
+    created_at?: Date | string | null
+    updated_at?: Date | string | null
+    display_name?: string | null
+    profile_data?: NullableJsonNullValueInput | InputJsonValue
+    role_specific_data?: NullableJsonNullValueInput | InputJsonValue
+    subscription_plan?: $Enums.subscription_plan | null
+    subscription_status?: $Enums.subscription_status | null
+    subscription_start_date?: Date | string | null
+    subscription_end_date?: Date | string | null
+    auto_renew?: boolean | null
+    chatbot_questions_used?: number | null
+    chatbot_questions_reset_date?: Date | string | null
+    QuizParticipants?: QuizParticipantsCreateNestedManyWithoutUsersInput
+    Quizzes?: QuizzesCreateNestedManyWithoutUsersInput
+    blog_comments?: blog_commentsCreateNestedManyWithoutUsersInput
+    blog_likes?: blog_likesCreateNestedManyWithoutUsersInput
+    blog_views?: blog_viewsCreateNestedManyWithoutUsersInput
+    blogs?: blogsCreateNestedManyWithoutUsersInput
+    chatbot_sessions?: chatbot_sessionsCreateNestedManyWithoutUsersInput
+    chatbot_usage?: chatbot_usageCreateNestedManyWithoutUsersInput
+    guide_application?: guide_applicationCreateNestedManyWithoutUsersInput
+    influencer_application?: influencer_applicationCreateNestedManyWithoutUsersInput
+    media_uploads?: media_uploadsCreateNestedManyWithoutUserInput
+    mentor_application?: mentor_applicationCreateNestedManyWithoutUsersInput
+    night_camp_registrations?: night_camp_registrationsCreateNestedManyWithoutUsersInput
+    night_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousers?: night_camp_volunteering_applicationsCreateNestedManyWithoutUsers_night_camp_volunteering_applications_reviewed_byTousersInput
+    night_camp_volunteering_applications_night_camp_volunteering_applications_user_idTousers?: night_camp_volunteering_applicationsCreateNestedManyWithoutUsers_night_camp_volunteering_applications_user_idTousersInput
+    payments?: paymentsCreateNestedManyWithoutUsersInput
+    role_upgrade_requests_role_upgrade_requests_reviewer_idTousers?: role_upgrade_requestsCreateNestedManyWithoutUsers_role_upgrade_requests_reviewer_idTousersInput
+    role_upgrade_requests_role_upgrade_requests_user_idTousers?: role_upgrade_requestsCreateNestedManyWithoutUsers_role_upgrade_requests_user_idTousersInput
+    subscriptions?: subscriptionsCreateNestedManyWithoutUsersInput
+    user_settings?: user_settingsCreateNestedOneWithoutUsersInput
+    created_groups?: group_chatsCreateNestedManyWithoutCreatorInput
+    group_memberships?: group_membersCreateNestedManyWithoutUserInput
+    chat_messages?: chat_messagesCreateNestedManyWithoutUserInput
+    message_reactions?: message_reactionsCreateNestedManyWithoutUserInput
+    space_news_likes?: space_news_likesCreateNestedManyWithoutUserInput
+    space_news_comments?: space_news_commentsCreateNestedManyWithoutUserInput
+  }
+
+  export type usersUncheckedCreateWithoutPublished_space_newsInput = {
+    id?: number
+    firebase_uid: string
+    email: string
+    role?: $Enums.user_role | null
+    first_name?: string | null
+    last_name?: string | null
+    is_active?: boolean | null
+    last_login?: Date | string | null
+    created_at?: Date | string | null
+    updated_at?: Date | string | null
+    display_name?: string | null
+    profile_data?: NullableJsonNullValueInput | InputJsonValue
+    role_specific_data?: NullableJsonNullValueInput | InputJsonValue
+    subscription_plan?: $Enums.subscription_plan | null
+    subscription_status?: $Enums.subscription_status | null
+    subscription_start_date?: Date | string | null
+    subscription_end_date?: Date | string | null
+    auto_renew?: boolean | null
+    chatbot_questions_used?: number | null
+    chatbot_questions_reset_date?: Date | string | null
+    QuizParticipants?: QuizParticipantsUncheckedCreateNestedManyWithoutUsersInput
+    Quizzes?: QuizzesUncheckedCreateNestedManyWithoutUsersInput
+    blog_comments?: blog_commentsUncheckedCreateNestedManyWithoutUsersInput
+    blog_likes?: blog_likesUncheckedCreateNestedManyWithoutUsersInput
+    blog_views?: blog_viewsUncheckedCreateNestedManyWithoutUsersInput
+    blogs?: blogsUncheckedCreateNestedManyWithoutUsersInput
+    chatbot_sessions?: chatbot_sessionsUncheckedCreateNestedManyWithoutUsersInput
+    chatbot_usage?: chatbot_usageUncheckedCreateNestedManyWithoutUsersInput
+    guide_application?: guide_applicationUncheckedCreateNestedManyWithoutUsersInput
+    influencer_application?: influencer_applicationUncheckedCreateNestedManyWithoutUsersInput
+    media_uploads?: media_uploadsUncheckedCreateNestedManyWithoutUserInput
+    mentor_application?: mentor_applicationUncheckedCreateNestedManyWithoutUsersInput
+    night_camp_registrations?: night_camp_registrationsUncheckedCreateNestedManyWithoutUsersInput
+    night_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousers?: night_camp_volunteering_applicationsUncheckedCreateNestedManyWithoutUsers_night_camp_volunteering_applications_reviewed_byTousersInput
+    night_camp_volunteering_applications_night_camp_volunteering_applications_user_idTousers?: night_camp_volunteering_applicationsUncheckedCreateNestedManyWithoutUsers_night_camp_volunteering_applications_user_idTousersInput
+    payments?: paymentsUncheckedCreateNestedManyWithoutUsersInput
+    role_upgrade_requests_role_upgrade_requests_reviewer_idTousers?: role_upgrade_requestsUncheckedCreateNestedManyWithoutUsers_role_upgrade_requests_reviewer_idTousersInput
+    role_upgrade_requests_role_upgrade_requests_user_idTousers?: role_upgrade_requestsUncheckedCreateNestedManyWithoutUsers_role_upgrade_requests_user_idTousersInput
+    subscriptions?: subscriptionsUncheckedCreateNestedManyWithoutUsersInput
+    user_settings?: user_settingsUncheckedCreateNestedOneWithoutUsersInput
+    created_groups?: group_chatsUncheckedCreateNestedManyWithoutCreatorInput
+    group_memberships?: group_membersUncheckedCreateNestedManyWithoutUserInput
+    chat_messages?: chat_messagesUncheckedCreateNestedManyWithoutUserInput
+    message_reactions?: message_reactionsUncheckedCreateNestedManyWithoutUserInput
+    space_news_likes?: space_news_likesUncheckedCreateNestedManyWithoutUserInput
+    space_news_comments?: space_news_commentsUncheckedCreateNestedManyWithoutUserInput
+  }
+
+  export type usersCreateOrConnectWithoutPublished_space_newsInput = {
+    where: usersWhereUniqueInput
+    create: XOR<usersCreateWithoutPublished_space_newsInput, usersUncheckedCreateWithoutPublished_space_newsInput>
+  }
+
+  export type space_news_likesCreateWithoutSpace_newsInput = {
+    created_at?: Date | string
+    user: usersCreateNestedOneWithoutSpace_news_likesInput
+  }
+
+  export type space_news_likesUncheckedCreateWithoutSpace_newsInput = {
+    id?: number
+    user_id: number
+    created_at?: Date | string
+  }
+
+  export type space_news_likesCreateOrConnectWithoutSpace_newsInput = {
+    where: space_news_likesWhereUniqueInput
+    create: XOR<space_news_likesCreateWithoutSpace_newsInput, space_news_likesUncheckedCreateWithoutSpace_newsInput>
+  }
+
+  export type space_news_likesCreateManySpace_newsInputEnvelope = {
+    data: space_news_likesCreateManySpace_newsInput | space_news_likesCreateManySpace_newsInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type space_news_commentsCreateWithoutSpace_newsInput = {
+    content: string
+    is_edited?: boolean
+    created_at?: Date | string
+    updated_at?: Date | string
+    user: usersCreateNestedOneWithoutSpace_news_commentsInput
+    parent_comment?: space_news_commentsCreateNestedOneWithoutRepliesInput
+    replies?: space_news_commentsCreateNestedManyWithoutParent_commentInput
+  }
+
+  export type space_news_commentsUncheckedCreateWithoutSpace_newsInput = {
+    id?: number
+    user_id: number
+    parent_comment_id?: number | null
+    content: string
+    is_edited?: boolean
+    created_at?: Date | string
+    updated_at?: Date | string
+    replies?: space_news_commentsUncheckedCreateNestedManyWithoutParent_commentInput
+  }
+
+  export type space_news_commentsCreateOrConnectWithoutSpace_newsInput = {
+    where: space_news_commentsWhereUniqueInput
+    create: XOR<space_news_commentsCreateWithoutSpace_newsInput, space_news_commentsUncheckedCreateWithoutSpace_newsInput>
+  }
+
+  export type space_news_commentsCreateManySpace_newsInputEnvelope = {
+    data: space_news_commentsCreateManySpace_newsInput | space_news_commentsCreateManySpace_newsInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type usersUpsertWithoutPublished_space_newsInput = {
+    update: XOR<usersUpdateWithoutPublished_space_newsInput, usersUncheckedUpdateWithoutPublished_space_newsInput>
+    create: XOR<usersCreateWithoutPublished_space_newsInput, usersUncheckedCreateWithoutPublished_space_newsInput>
+    where?: usersWhereInput
+  }
+
+  export type usersUpdateToOneWithWhereWithoutPublished_space_newsInput = {
+    where?: usersWhereInput
+    data: XOR<usersUpdateWithoutPublished_space_newsInput, usersUncheckedUpdateWithoutPublished_space_newsInput>
+  }
+
+  export type usersUpdateWithoutPublished_space_newsInput = {
+    firebase_uid?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    role?: NullableEnumuser_roleFieldUpdateOperationsInput | $Enums.user_role | null
+    first_name?: NullableStringFieldUpdateOperationsInput | string | null
+    last_name?: NullableStringFieldUpdateOperationsInput | string | null
+    is_active?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    last_login?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    display_name?: NullableStringFieldUpdateOperationsInput | string | null
+    profile_data?: NullableJsonNullValueInput | InputJsonValue
+    role_specific_data?: NullableJsonNullValueInput | InputJsonValue
+    subscription_plan?: NullableEnumsubscription_planFieldUpdateOperationsInput | $Enums.subscription_plan | null
+    subscription_status?: NullableEnumsubscription_statusFieldUpdateOperationsInput | $Enums.subscription_status | null
+    subscription_start_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    subscription_end_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    auto_renew?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    chatbot_questions_used?: NullableIntFieldUpdateOperationsInput | number | null
+    chatbot_questions_reset_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    QuizParticipants?: QuizParticipantsUpdateManyWithoutUsersNestedInput
+    Quizzes?: QuizzesUpdateManyWithoutUsersNestedInput
+    blog_comments?: blog_commentsUpdateManyWithoutUsersNestedInput
+    blog_likes?: blog_likesUpdateManyWithoutUsersNestedInput
+    blog_views?: blog_viewsUpdateManyWithoutUsersNestedInput
+    blogs?: blogsUpdateManyWithoutUsersNestedInput
+    chatbot_sessions?: chatbot_sessionsUpdateManyWithoutUsersNestedInput
+    chatbot_usage?: chatbot_usageUpdateManyWithoutUsersNestedInput
+    guide_application?: guide_applicationUpdateManyWithoutUsersNestedInput
+    influencer_application?: influencer_applicationUpdateManyWithoutUsersNestedInput
+    media_uploads?: media_uploadsUpdateManyWithoutUserNestedInput
+    mentor_application?: mentor_applicationUpdateManyWithoutUsersNestedInput
+    night_camp_registrations?: night_camp_registrationsUpdateManyWithoutUsersNestedInput
+    night_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousers?: night_camp_volunteering_applicationsUpdateManyWithoutUsers_night_camp_volunteering_applications_reviewed_byTousersNestedInput
+    night_camp_volunteering_applications_night_camp_volunteering_applications_user_idTousers?: night_camp_volunteering_applicationsUpdateManyWithoutUsers_night_camp_volunteering_applications_user_idTousersNestedInput
+    payments?: paymentsUpdateManyWithoutUsersNestedInput
+    role_upgrade_requests_role_upgrade_requests_reviewer_idTousers?: role_upgrade_requestsUpdateManyWithoutUsers_role_upgrade_requests_reviewer_idTousersNestedInput
+    role_upgrade_requests_role_upgrade_requests_user_idTousers?: role_upgrade_requestsUpdateManyWithoutUsers_role_upgrade_requests_user_idTousersNestedInput
+    subscriptions?: subscriptionsUpdateManyWithoutUsersNestedInput
+    user_settings?: user_settingsUpdateOneWithoutUsersNestedInput
+    created_groups?: group_chatsUpdateManyWithoutCreatorNestedInput
+    group_memberships?: group_membersUpdateManyWithoutUserNestedInput
+    chat_messages?: chat_messagesUpdateManyWithoutUserNestedInput
+    message_reactions?: message_reactionsUpdateManyWithoutUserNestedInput
+    space_news_likes?: space_news_likesUpdateManyWithoutUserNestedInput
+    space_news_comments?: space_news_commentsUpdateManyWithoutUserNestedInput
+  }
+
+  export type usersUncheckedUpdateWithoutPublished_space_newsInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    firebase_uid?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    role?: NullableEnumuser_roleFieldUpdateOperationsInput | $Enums.user_role | null
+    first_name?: NullableStringFieldUpdateOperationsInput | string | null
+    last_name?: NullableStringFieldUpdateOperationsInput | string | null
+    is_active?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    last_login?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    display_name?: NullableStringFieldUpdateOperationsInput | string | null
+    profile_data?: NullableJsonNullValueInput | InputJsonValue
+    role_specific_data?: NullableJsonNullValueInput | InputJsonValue
+    subscription_plan?: NullableEnumsubscription_planFieldUpdateOperationsInput | $Enums.subscription_plan | null
+    subscription_status?: NullableEnumsubscription_statusFieldUpdateOperationsInput | $Enums.subscription_status | null
+    subscription_start_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    subscription_end_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    auto_renew?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    chatbot_questions_used?: NullableIntFieldUpdateOperationsInput | number | null
+    chatbot_questions_reset_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    QuizParticipants?: QuizParticipantsUncheckedUpdateManyWithoutUsersNestedInput
+    Quizzes?: QuizzesUncheckedUpdateManyWithoutUsersNestedInput
+    blog_comments?: blog_commentsUncheckedUpdateManyWithoutUsersNestedInput
+    blog_likes?: blog_likesUncheckedUpdateManyWithoutUsersNestedInput
+    blog_views?: blog_viewsUncheckedUpdateManyWithoutUsersNestedInput
+    blogs?: blogsUncheckedUpdateManyWithoutUsersNestedInput
+    chatbot_sessions?: chatbot_sessionsUncheckedUpdateManyWithoutUsersNestedInput
+    chatbot_usage?: chatbot_usageUncheckedUpdateManyWithoutUsersNestedInput
+    guide_application?: guide_applicationUncheckedUpdateManyWithoutUsersNestedInput
+    influencer_application?: influencer_applicationUncheckedUpdateManyWithoutUsersNestedInput
+    media_uploads?: media_uploadsUncheckedUpdateManyWithoutUserNestedInput
+    mentor_application?: mentor_applicationUncheckedUpdateManyWithoutUsersNestedInput
+    night_camp_registrations?: night_camp_registrationsUncheckedUpdateManyWithoutUsersNestedInput
+    night_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousers?: night_camp_volunteering_applicationsUncheckedUpdateManyWithoutUsers_night_camp_volunteering_applications_reviewed_byTousersNestedInput
+    night_camp_volunteering_applications_night_camp_volunteering_applications_user_idTousers?: night_camp_volunteering_applicationsUncheckedUpdateManyWithoutUsers_night_camp_volunteering_applications_user_idTousersNestedInput
+    payments?: paymentsUncheckedUpdateManyWithoutUsersNestedInput
+    role_upgrade_requests_role_upgrade_requests_reviewer_idTousers?: role_upgrade_requestsUncheckedUpdateManyWithoutUsers_role_upgrade_requests_reviewer_idTousersNestedInput
+    role_upgrade_requests_role_upgrade_requests_user_idTousers?: role_upgrade_requestsUncheckedUpdateManyWithoutUsers_role_upgrade_requests_user_idTousersNestedInput
+    subscriptions?: subscriptionsUncheckedUpdateManyWithoutUsersNestedInput
+    user_settings?: user_settingsUncheckedUpdateOneWithoutUsersNestedInput
+    created_groups?: group_chatsUncheckedUpdateManyWithoutCreatorNestedInput
+    group_memberships?: group_membersUncheckedUpdateManyWithoutUserNestedInput
+    chat_messages?: chat_messagesUncheckedUpdateManyWithoutUserNestedInput
+    message_reactions?: message_reactionsUncheckedUpdateManyWithoutUserNestedInput
+    space_news_likes?: space_news_likesUncheckedUpdateManyWithoutUserNestedInput
+    space_news_comments?: space_news_commentsUncheckedUpdateManyWithoutUserNestedInput
+  }
+
+  export type space_news_likesUpsertWithWhereUniqueWithoutSpace_newsInput = {
+    where: space_news_likesWhereUniqueInput
+    update: XOR<space_news_likesUpdateWithoutSpace_newsInput, space_news_likesUncheckedUpdateWithoutSpace_newsInput>
+    create: XOR<space_news_likesCreateWithoutSpace_newsInput, space_news_likesUncheckedCreateWithoutSpace_newsInput>
+  }
+
+  export type space_news_likesUpdateWithWhereUniqueWithoutSpace_newsInput = {
+    where: space_news_likesWhereUniqueInput
+    data: XOR<space_news_likesUpdateWithoutSpace_newsInput, space_news_likesUncheckedUpdateWithoutSpace_newsInput>
+  }
+
+  export type space_news_likesUpdateManyWithWhereWithoutSpace_newsInput = {
+    where: space_news_likesScalarWhereInput
+    data: XOR<space_news_likesUpdateManyMutationInput, space_news_likesUncheckedUpdateManyWithoutSpace_newsInput>
+  }
+
+  export type space_news_commentsUpsertWithWhereUniqueWithoutSpace_newsInput = {
+    where: space_news_commentsWhereUniqueInput
+    update: XOR<space_news_commentsUpdateWithoutSpace_newsInput, space_news_commentsUncheckedUpdateWithoutSpace_newsInput>
+    create: XOR<space_news_commentsCreateWithoutSpace_newsInput, space_news_commentsUncheckedCreateWithoutSpace_newsInput>
+  }
+
+  export type space_news_commentsUpdateWithWhereUniqueWithoutSpace_newsInput = {
+    where: space_news_commentsWhereUniqueInput
+    data: XOR<space_news_commentsUpdateWithoutSpace_newsInput, space_news_commentsUncheckedUpdateWithoutSpace_newsInput>
+  }
+
+  export type space_news_commentsUpdateManyWithWhereWithoutSpace_newsInput = {
+    where: space_news_commentsScalarWhereInput
+    data: XOR<space_news_commentsUpdateManyMutationInput, space_news_commentsUncheckedUpdateManyWithoutSpace_newsInput>
+  }
+
+  export type space_newsCreateWithoutSpace_news_likesInput = {
+    image_urls?: NullableJsonNullValueInput | InputJsonValue
+    publish_date: Date | string
+    title: string
+    number_of_likes?: number
+    number_of_comments?: number
+    content: string
+    category: string
+    created_at?: Date | string
+    last_read_time?: Date | string | null
+    publisher: usersCreateNestedOneWithoutPublished_space_newsInput
+    space_news_comments?: space_news_commentsCreateNestedManyWithoutSpace_newsInput
+  }
+
+  export type space_newsUncheckedCreateWithoutSpace_news_likesInput = {
+    id?: number
+    image_urls?: NullableJsonNullValueInput | InputJsonValue
+    publish_date: Date | string
+    title: string
+    number_of_likes?: number
+    number_of_comments?: number
+    content: string
+    published_by: number
+    category: string
+    created_at?: Date | string
+    last_read_time?: Date | string | null
+    space_news_comments?: space_news_commentsUncheckedCreateNestedManyWithoutSpace_newsInput
+  }
+
+  export type space_newsCreateOrConnectWithoutSpace_news_likesInput = {
+    where: space_newsWhereUniqueInput
+    create: XOR<space_newsCreateWithoutSpace_news_likesInput, space_newsUncheckedCreateWithoutSpace_news_likesInput>
+  }
+
+  export type usersCreateWithoutSpace_news_likesInput = {
+    firebase_uid: string
+    email: string
+    role?: $Enums.user_role | null
+    first_name?: string | null
+    last_name?: string | null
+    is_active?: boolean | null
+    last_login?: Date | string | null
+    created_at?: Date | string | null
+    updated_at?: Date | string | null
+    display_name?: string | null
+    profile_data?: NullableJsonNullValueInput | InputJsonValue
+    role_specific_data?: NullableJsonNullValueInput | InputJsonValue
+    subscription_plan?: $Enums.subscription_plan | null
+    subscription_status?: $Enums.subscription_status | null
+    subscription_start_date?: Date | string | null
+    subscription_end_date?: Date | string | null
+    auto_renew?: boolean | null
+    chatbot_questions_used?: number | null
+    chatbot_questions_reset_date?: Date | string | null
+    QuizParticipants?: QuizParticipantsCreateNestedManyWithoutUsersInput
+    Quizzes?: QuizzesCreateNestedManyWithoutUsersInput
+    blog_comments?: blog_commentsCreateNestedManyWithoutUsersInput
+    blog_likes?: blog_likesCreateNestedManyWithoutUsersInput
+    blog_views?: blog_viewsCreateNestedManyWithoutUsersInput
+    blogs?: blogsCreateNestedManyWithoutUsersInput
+    chatbot_sessions?: chatbot_sessionsCreateNestedManyWithoutUsersInput
+    chatbot_usage?: chatbot_usageCreateNestedManyWithoutUsersInput
+    guide_application?: guide_applicationCreateNestedManyWithoutUsersInput
+    influencer_application?: influencer_applicationCreateNestedManyWithoutUsersInput
+    media_uploads?: media_uploadsCreateNestedManyWithoutUserInput
+    mentor_application?: mentor_applicationCreateNestedManyWithoutUsersInput
+    night_camp_registrations?: night_camp_registrationsCreateNestedManyWithoutUsersInput
+    night_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousers?: night_camp_volunteering_applicationsCreateNestedManyWithoutUsers_night_camp_volunteering_applications_reviewed_byTousersInput
+    night_camp_volunteering_applications_night_camp_volunteering_applications_user_idTousers?: night_camp_volunteering_applicationsCreateNestedManyWithoutUsers_night_camp_volunteering_applications_user_idTousersInput
+    payments?: paymentsCreateNestedManyWithoutUsersInput
+    role_upgrade_requests_role_upgrade_requests_reviewer_idTousers?: role_upgrade_requestsCreateNestedManyWithoutUsers_role_upgrade_requests_reviewer_idTousersInput
+    role_upgrade_requests_role_upgrade_requests_user_idTousers?: role_upgrade_requestsCreateNestedManyWithoutUsers_role_upgrade_requests_user_idTousersInput
+    subscriptions?: subscriptionsCreateNestedManyWithoutUsersInput
+    user_settings?: user_settingsCreateNestedOneWithoutUsersInput
+    created_groups?: group_chatsCreateNestedManyWithoutCreatorInput
+    group_memberships?: group_membersCreateNestedManyWithoutUserInput
+    chat_messages?: chat_messagesCreateNestedManyWithoutUserInput
+    message_reactions?: message_reactionsCreateNestedManyWithoutUserInput
+    published_space_news?: space_newsCreateNestedManyWithoutPublisherInput
+    space_news_comments?: space_news_commentsCreateNestedManyWithoutUserInput
+  }
+
+  export type usersUncheckedCreateWithoutSpace_news_likesInput = {
+    id?: number
+    firebase_uid: string
+    email: string
+    role?: $Enums.user_role | null
+    first_name?: string | null
+    last_name?: string | null
+    is_active?: boolean | null
+    last_login?: Date | string | null
+    created_at?: Date | string | null
+    updated_at?: Date | string | null
+    display_name?: string | null
+    profile_data?: NullableJsonNullValueInput | InputJsonValue
+    role_specific_data?: NullableJsonNullValueInput | InputJsonValue
+    subscription_plan?: $Enums.subscription_plan | null
+    subscription_status?: $Enums.subscription_status | null
+    subscription_start_date?: Date | string | null
+    subscription_end_date?: Date | string | null
+    auto_renew?: boolean | null
+    chatbot_questions_used?: number | null
+    chatbot_questions_reset_date?: Date | string | null
+    QuizParticipants?: QuizParticipantsUncheckedCreateNestedManyWithoutUsersInput
+    Quizzes?: QuizzesUncheckedCreateNestedManyWithoutUsersInput
+    blog_comments?: blog_commentsUncheckedCreateNestedManyWithoutUsersInput
+    blog_likes?: blog_likesUncheckedCreateNestedManyWithoutUsersInput
+    blog_views?: blog_viewsUncheckedCreateNestedManyWithoutUsersInput
+    blogs?: blogsUncheckedCreateNestedManyWithoutUsersInput
+    chatbot_sessions?: chatbot_sessionsUncheckedCreateNestedManyWithoutUsersInput
+    chatbot_usage?: chatbot_usageUncheckedCreateNestedManyWithoutUsersInput
+    guide_application?: guide_applicationUncheckedCreateNestedManyWithoutUsersInput
+    influencer_application?: influencer_applicationUncheckedCreateNestedManyWithoutUsersInput
+    media_uploads?: media_uploadsUncheckedCreateNestedManyWithoutUserInput
+    mentor_application?: mentor_applicationUncheckedCreateNestedManyWithoutUsersInput
+    night_camp_registrations?: night_camp_registrationsUncheckedCreateNestedManyWithoutUsersInput
+    night_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousers?: night_camp_volunteering_applicationsUncheckedCreateNestedManyWithoutUsers_night_camp_volunteering_applications_reviewed_byTousersInput
+    night_camp_volunteering_applications_night_camp_volunteering_applications_user_idTousers?: night_camp_volunteering_applicationsUncheckedCreateNestedManyWithoutUsers_night_camp_volunteering_applications_user_idTousersInput
+    payments?: paymentsUncheckedCreateNestedManyWithoutUsersInput
+    role_upgrade_requests_role_upgrade_requests_reviewer_idTousers?: role_upgrade_requestsUncheckedCreateNestedManyWithoutUsers_role_upgrade_requests_reviewer_idTousersInput
+    role_upgrade_requests_role_upgrade_requests_user_idTousers?: role_upgrade_requestsUncheckedCreateNestedManyWithoutUsers_role_upgrade_requests_user_idTousersInput
+    subscriptions?: subscriptionsUncheckedCreateNestedManyWithoutUsersInput
+    user_settings?: user_settingsUncheckedCreateNestedOneWithoutUsersInput
+    created_groups?: group_chatsUncheckedCreateNestedManyWithoutCreatorInput
+    group_memberships?: group_membersUncheckedCreateNestedManyWithoutUserInput
+    chat_messages?: chat_messagesUncheckedCreateNestedManyWithoutUserInput
+    message_reactions?: message_reactionsUncheckedCreateNestedManyWithoutUserInput
+    published_space_news?: space_newsUncheckedCreateNestedManyWithoutPublisherInput
+    space_news_comments?: space_news_commentsUncheckedCreateNestedManyWithoutUserInput
+  }
+
+  export type usersCreateOrConnectWithoutSpace_news_likesInput = {
+    where: usersWhereUniqueInput
+    create: XOR<usersCreateWithoutSpace_news_likesInput, usersUncheckedCreateWithoutSpace_news_likesInput>
+  }
+
+  export type space_newsUpsertWithoutSpace_news_likesInput = {
+    update: XOR<space_newsUpdateWithoutSpace_news_likesInput, space_newsUncheckedUpdateWithoutSpace_news_likesInput>
+    create: XOR<space_newsCreateWithoutSpace_news_likesInput, space_newsUncheckedCreateWithoutSpace_news_likesInput>
+    where?: space_newsWhereInput
+  }
+
+  export type space_newsUpdateToOneWithWhereWithoutSpace_news_likesInput = {
+    where?: space_newsWhereInput
+    data: XOR<space_newsUpdateWithoutSpace_news_likesInput, space_newsUncheckedUpdateWithoutSpace_news_likesInput>
+  }
+
+  export type space_newsUpdateWithoutSpace_news_likesInput = {
+    image_urls?: NullableJsonNullValueInput | InputJsonValue
+    publish_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    title?: StringFieldUpdateOperationsInput | string
+    number_of_likes?: IntFieldUpdateOperationsInput | number
+    number_of_comments?: IntFieldUpdateOperationsInput | number
+    content?: StringFieldUpdateOperationsInput | string
+    category?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    last_read_time?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    publisher?: usersUpdateOneRequiredWithoutPublished_space_newsNestedInput
+    space_news_comments?: space_news_commentsUpdateManyWithoutSpace_newsNestedInput
+  }
+
+  export type space_newsUncheckedUpdateWithoutSpace_news_likesInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    image_urls?: NullableJsonNullValueInput | InputJsonValue
+    publish_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    title?: StringFieldUpdateOperationsInput | string
+    number_of_likes?: IntFieldUpdateOperationsInput | number
+    number_of_comments?: IntFieldUpdateOperationsInput | number
+    content?: StringFieldUpdateOperationsInput | string
+    published_by?: IntFieldUpdateOperationsInput | number
+    category?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    last_read_time?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    space_news_comments?: space_news_commentsUncheckedUpdateManyWithoutSpace_newsNestedInput
+  }
+
+  export type usersUpsertWithoutSpace_news_likesInput = {
+    update: XOR<usersUpdateWithoutSpace_news_likesInput, usersUncheckedUpdateWithoutSpace_news_likesInput>
+    create: XOR<usersCreateWithoutSpace_news_likesInput, usersUncheckedCreateWithoutSpace_news_likesInput>
+    where?: usersWhereInput
+  }
+
+  export type usersUpdateToOneWithWhereWithoutSpace_news_likesInput = {
+    where?: usersWhereInput
+    data: XOR<usersUpdateWithoutSpace_news_likesInput, usersUncheckedUpdateWithoutSpace_news_likesInput>
+  }
+
+  export type usersUpdateWithoutSpace_news_likesInput = {
+    firebase_uid?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    role?: NullableEnumuser_roleFieldUpdateOperationsInput | $Enums.user_role | null
+    first_name?: NullableStringFieldUpdateOperationsInput | string | null
+    last_name?: NullableStringFieldUpdateOperationsInput | string | null
+    is_active?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    last_login?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    display_name?: NullableStringFieldUpdateOperationsInput | string | null
+    profile_data?: NullableJsonNullValueInput | InputJsonValue
+    role_specific_data?: NullableJsonNullValueInput | InputJsonValue
+    subscription_plan?: NullableEnumsubscription_planFieldUpdateOperationsInput | $Enums.subscription_plan | null
+    subscription_status?: NullableEnumsubscription_statusFieldUpdateOperationsInput | $Enums.subscription_status | null
+    subscription_start_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    subscription_end_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    auto_renew?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    chatbot_questions_used?: NullableIntFieldUpdateOperationsInput | number | null
+    chatbot_questions_reset_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    QuizParticipants?: QuizParticipantsUpdateManyWithoutUsersNestedInput
+    Quizzes?: QuizzesUpdateManyWithoutUsersNestedInput
+    blog_comments?: blog_commentsUpdateManyWithoutUsersNestedInput
+    blog_likes?: blog_likesUpdateManyWithoutUsersNestedInput
+    blog_views?: blog_viewsUpdateManyWithoutUsersNestedInput
+    blogs?: blogsUpdateManyWithoutUsersNestedInput
+    chatbot_sessions?: chatbot_sessionsUpdateManyWithoutUsersNestedInput
+    chatbot_usage?: chatbot_usageUpdateManyWithoutUsersNestedInput
+    guide_application?: guide_applicationUpdateManyWithoutUsersNestedInput
+    influencer_application?: influencer_applicationUpdateManyWithoutUsersNestedInput
+    media_uploads?: media_uploadsUpdateManyWithoutUserNestedInput
+    mentor_application?: mentor_applicationUpdateManyWithoutUsersNestedInput
+    night_camp_registrations?: night_camp_registrationsUpdateManyWithoutUsersNestedInput
+    night_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousers?: night_camp_volunteering_applicationsUpdateManyWithoutUsers_night_camp_volunteering_applications_reviewed_byTousersNestedInput
+    night_camp_volunteering_applications_night_camp_volunteering_applications_user_idTousers?: night_camp_volunteering_applicationsUpdateManyWithoutUsers_night_camp_volunteering_applications_user_idTousersNestedInput
+    payments?: paymentsUpdateManyWithoutUsersNestedInput
+    role_upgrade_requests_role_upgrade_requests_reviewer_idTousers?: role_upgrade_requestsUpdateManyWithoutUsers_role_upgrade_requests_reviewer_idTousersNestedInput
+    role_upgrade_requests_role_upgrade_requests_user_idTousers?: role_upgrade_requestsUpdateManyWithoutUsers_role_upgrade_requests_user_idTousersNestedInput
+    subscriptions?: subscriptionsUpdateManyWithoutUsersNestedInput
+    user_settings?: user_settingsUpdateOneWithoutUsersNestedInput
+    created_groups?: group_chatsUpdateManyWithoutCreatorNestedInput
+    group_memberships?: group_membersUpdateManyWithoutUserNestedInput
+    chat_messages?: chat_messagesUpdateManyWithoutUserNestedInput
+    message_reactions?: message_reactionsUpdateManyWithoutUserNestedInput
+    published_space_news?: space_newsUpdateManyWithoutPublisherNestedInput
+    space_news_comments?: space_news_commentsUpdateManyWithoutUserNestedInput
+  }
+
+  export type usersUncheckedUpdateWithoutSpace_news_likesInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    firebase_uid?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    role?: NullableEnumuser_roleFieldUpdateOperationsInput | $Enums.user_role | null
+    first_name?: NullableStringFieldUpdateOperationsInput | string | null
+    last_name?: NullableStringFieldUpdateOperationsInput | string | null
+    is_active?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    last_login?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    display_name?: NullableStringFieldUpdateOperationsInput | string | null
+    profile_data?: NullableJsonNullValueInput | InputJsonValue
+    role_specific_data?: NullableJsonNullValueInput | InputJsonValue
+    subscription_plan?: NullableEnumsubscription_planFieldUpdateOperationsInput | $Enums.subscription_plan | null
+    subscription_status?: NullableEnumsubscription_statusFieldUpdateOperationsInput | $Enums.subscription_status | null
+    subscription_start_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    subscription_end_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    auto_renew?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    chatbot_questions_used?: NullableIntFieldUpdateOperationsInput | number | null
+    chatbot_questions_reset_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    QuizParticipants?: QuizParticipantsUncheckedUpdateManyWithoutUsersNestedInput
+    Quizzes?: QuizzesUncheckedUpdateManyWithoutUsersNestedInput
+    blog_comments?: blog_commentsUncheckedUpdateManyWithoutUsersNestedInput
+    blog_likes?: blog_likesUncheckedUpdateManyWithoutUsersNestedInput
+    blog_views?: blog_viewsUncheckedUpdateManyWithoutUsersNestedInput
+    blogs?: blogsUncheckedUpdateManyWithoutUsersNestedInput
+    chatbot_sessions?: chatbot_sessionsUncheckedUpdateManyWithoutUsersNestedInput
+    chatbot_usage?: chatbot_usageUncheckedUpdateManyWithoutUsersNestedInput
+    guide_application?: guide_applicationUncheckedUpdateManyWithoutUsersNestedInput
+    influencer_application?: influencer_applicationUncheckedUpdateManyWithoutUsersNestedInput
+    media_uploads?: media_uploadsUncheckedUpdateManyWithoutUserNestedInput
+    mentor_application?: mentor_applicationUncheckedUpdateManyWithoutUsersNestedInput
+    night_camp_registrations?: night_camp_registrationsUncheckedUpdateManyWithoutUsersNestedInput
+    night_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousers?: night_camp_volunteering_applicationsUncheckedUpdateManyWithoutUsers_night_camp_volunteering_applications_reviewed_byTousersNestedInput
+    night_camp_volunteering_applications_night_camp_volunteering_applications_user_idTousers?: night_camp_volunteering_applicationsUncheckedUpdateManyWithoutUsers_night_camp_volunteering_applications_user_idTousersNestedInput
+    payments?: paymentsUncheckedUpdateManyWithoutUsersNestedInput
+    role_upgrade_requests_role_upgrade_requests_reviewer_idTousers?: role_upgrade_requestsUncheckedUpdateManyWithoutUsers_role_upgrade_requests_reviewer_idTousersNestedInput
+    role_upgrade_requests_role_upgrade_requests_user_idTousers?: role_upgrade_requestsUncheckedUpdateManyWithoutUsers_role_upgrade_requests_user_idTousersNestedInput
+    subscriptions?: subscriptionsUncheckedUpdateManyWithoutUsersNestedInput
+    user_settings?: user_settingsUncheckedUpdateOneWithoutUsersNestedInput
+    created_groups?: group_chatsUncheckedUpdateManyWithoutCreatorNestedInput
+    group_memberships?: group_membersUncheckedUpdateManyWithoutUserNestedInput
+    chat_messages?: chat_messagesUncheckedUpdateManyWithoutUserNestedInput
+    message_reactions?: message_reactionsUncheckedUpdateManyWithoutUserNestedInput
+    published_space_news?: space_newsUncheckedUpdateManyWithoutPublisherNestedInput
+    space_news_comments?: space_news_commentsUncheckedUpdateManyWithoutUserNestedInput
+  }
+
+  export type space_newsCreateWithoutSpace_news_commentsInput = {
+    image_urls?: NullableJsonNullValueInput | InputJsonValue
+    publish_date: Date | string
+    title: string
+    number_of_likes?: number
+    number_of_comments?: number
+    content: string
+    category: string
+    created_at?: Date | string
+    last_read_time?: Date | string | null
+    publisher: usersCreateNestedOneWithoutPublished_space_newsInput
+    space_news_likes?: space_news_likesCreateNestedManyWithoutSpace_newsInput
+  }
+
+  export type space_newsUncheckedCreateWithoutSpace_news_commentsInput = {
+    id?: number
+    image_urls?: NullableJsonNullValueInput | InputJsonValue
+    publish_date: Date | string
+    title: string
+    number_of_likes?: number
+    number_of_comments?: number
+    content: string
+    published_by: number
+    category: string
+    created_at?: Date | string
+    last_read_time?: Date | string | null
+    space_news_likes?: space_news_likesUncheckedCreateNestedManyWithoutSpace_newsInput
+  }
+
+  export type space_newsCreateOrConnectWithoutSpace_news_commentsInput = {
+    where: space_newsWhereUniqueInput
+    create: XOR<space_newsCreateWithoutSpace_news_commentsInput, space_newsUncheckedCreateWithoutSpace_news_commentsInput>
+  }
+
+  export type usersCreateWithoutSpace_news_commentsInput = {
+    firebase_uid: string
+    email: string
+    role?: $Enums.user_role | null
+    first_name?: string | null
+    last_name?: string | null
+    is_active?: boolean | null
+    last_login?: Date | string | null
+    created_at?: Date | string | null
+    updated_at?: Date | string | null
+    display_name?: string | null
+    profile_data?: NullableJsonNullValueInput | InputJsonValue
+    role_specific_data?: NullableJsonNullValueInput | InputJsonValue
+    subscription_plan?: $Enums.subscription_plan | null
+    subscription_status?: $Enums.subscription_status | null
+    subscription_start_date?: Date | string | null
+    subscription_end_date?: Date | string | null
+    auto_renew?: boolean | null
+    chatbot_questions_used?: number | null
+    chatbot_questions_reset_date?: Date | string | null
+    QuizParticipants?: QuizParticipantsCreateNestedManyWithoutUsersInput
+    Quizzes?: QuizzesCreateNestedManyWithoutUsersInput
+    blog_comments?: blog_commentsCreateNestedManyWithoutUsersInput
+    blog_likes?: blog_likesCreateNestedManyWithoutUsersInput
+    blog_views?: blog_viewsCreateNestedManyWithoutUsersInput
+    blogs?: blogsCreateNestedManyWithoutUsersInput
+    chatbot_sessions?: chatbot_sessionsCreateNestedManyWithoutUsersInput
+    chatbot_usage?: chatbot_usageCreateNestedManyWithoutUsersInput
+    guide_application?: guide_applicationCreateNestedManyWithoutUsersInput
+    influencer_application?: influencer_applicationCreateNestedManyWithoutUsersInput
+    media_uploads?: media_uploadsCreateNestedManyWithoutUserInput
+    mentor_application?: mentor_applicationCreateNestedManyWithoutUsersInput
+    night_camp_registrations?: night_camp_registrationsCreateNestedManyWithoutUsersInput
+    night_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousers?: night_camp_volunteering_applicationsCreateNestedManyWithoutUsers_night_camp_volunteering_applications_reviewed_byTousersInput
+    night_camp_volunteering_applications_night_camp_volunteering_applications_user_idTousers?: night_camp_volunteering_applicationsCreateNestedManyWithoutUsers_night_camp_volunteering_applications_user_idTousersInput
+    payments?: paymentsCreateNestedManyWithoutUsersInput
+    role_upgrade_requests_role_upgrade_requests_reviewer_idTousers?: role_upgrade_requestsCreateNestedManyWithoutUsers_role_upgrade_requests_reviewer_idTousersInput
+    role_upgrade_requests_role_upgrade_requests_user_idTousers?: role_upgrade_requestsCreateNestedManyWithoutUsers_role_upgrade_requests_user_idTousersInput
+    subscriptions?: subscriptionsCreateNestedManyWithoutUsersInput
+    user_settings?: user_settingsCreateNestedOneWithoutUsersInput
+    created_groups?: group_chatsCreateNestedManyWithoutCreatorInput
+    group_memberships?: group_membersCreateNestedManyWithoutUserInput
+    chat_messages?: chat_messagesCreateNestedManyWithoutUserInput
+    message_reactions?: message_reactionsCreateNestedManyWithoutUserInput
+    published_space_news?: space_newsCreateNestedManyWithoutPublisherInput
+    space_news_likes?: space_news_likesCreateNestedManyWithoutUserInput
+  }
+
+  export type usersUncheckedCreateWithoutSpace_news_commentsInput = {
+    id?: number
+    firebase_uid: string
+    email: string
+    role?: $Enums.user_role | null
+    first_name?: string | null
+    last_name?: string | null
+    is_active?: boolean | null
+    last_login?: Date | string | null
+    created_at?: Date | string | null
+    updated_at?: Date | string | null
+    display_name?: string | null
+    profile_data?: NullableJsonNullValueInput | InputJsonValue
+    role_specific_data?: NullableJsonNullValueInput | InputJsonValue
+    subscription_plan?: $Enums.subscription_plan | null
+    subscription_status?: $Enums.subscription_status | null
+    subscription_start_date?: Date | string | null
+    subscription_end_date?: Date | string | null
+    auto_renew?: boolean | null
+    chatbot_questions_used?: number | null
+    chatbot_questions_reset_date?: Date | string | null
+    QuizParticipants?: QuizParticipantsUncheckedCreateNestedManyWithoutUsersInput
+    Quizzes?: QuizzesUncheckedCreateNestedManyWithoutUsersInput
+    blog_comments?: blog_commentsUncheckedCreateNestedManyWithoutUsersInput
+    blog_likes?: blog_likesUncheckedCreateNestedManyWithoutUsersInput
+    blog_views?: blog_viewsUncheckedCreateNestedManyWithoutUsersInput
+    blogs?: blogsUncheckedCreateNestedManyWithoutUsersInput
+    chatbot_sessions?: chatbot_sessionsUncheckedCreateNestedManyWithoutUsersInput
+    chatbot_usage?: chatbot_usageUncheckedCreateNestedManyWithoutUsersInput
+    guide_application?: guide_applicationUncheckedCreateNestedManyWithoutUsersInput
+    influencer_application?: influencer_applicationUncheckedCreateNestedManyWithoutUsersInput
+    media_uploads?: media_uploadsUncheckedCreateNestedManyWithoutUserInput
+    mentor_application?: mentor_applicationUncheckedCreateNestedManyWithoutUsersInput
+    night_camp_registrations?: night_camp_registrationsUncheckedCreateNestedManyWithoutUsersInput
+    night_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousers?: night_camp_volunteering_applicationsUncheckedCreateNestedManyWithoutUsers_night_camp_volunteering_applications_reviewed_byTousersInput
+    night_camp_volunteering_applications_night_camp_volunteering_applications_user_idTousers?: night_camp_volunteering_applicationsUncheckedCreateNestedManyWithoutUsers_night_camp_volunteering_applications_user_idTousersInput
+    payments?: paymentsUncheckedCreateNestedManyWithoutUsersInput
+    role_upgrade_requests_role_upgrade_requests_reviewer_idTousers?: role_upgrade_requestsUncheckedCreateNestedManyWithoutUsers_role_upgrade_requests_reviewer_idTousersInput
+    role_upgrade_requests_role_upgrade_requests_user_idTousers?: role_upgrade_requestsUncheckedCreateNestedManyWithoutUsers_role_upgrade_requests_user_idTousersInput
+    subscriptions?: subscriptionsUncheckedCreateNestedManyWithoutUsersInput
+    user_settings?: user_settingsUncheckedCreateNestedOneWithoutUsersInput
+    created_groups?: group_chatsUncheckedCreateNestedManyWithoutCreatorInput
+    group_memberships?: group_membersUncheckedCreateNestedManyWithoutUserInput
+    chat_messages?: chat_messagesUncheckedCreateNestedManyWithoutUserInput
+    message_reactions?: message_reactionsUncheckedCreateNestedManyWithoutUserInput
+    published_space_news?: space_newsUncheckedCreateNestedManyWithoutPublisherInput
+    space_news_likes?: space_news_likesUncheckedCreateNestedManyWithoutUserInput
+  }
+
+  export type usersCreateOrConnectWithoutSpace_news_commentsInput = {
+    where: usersWhereUniqueInput
+    create: XOR<usersCreateWithoutSpace_news_commentsInput, usersUncheckedCreateWithoutSpace_news_commentsInput>
+  }
+
+  export type space_news_commentsCreateWithoutRepliesInput = {
+    content: string
+    is_edited?: boolean
+    created_at?: Date | string
+    updated_at?: Date | string
+    space_news: space_newsCreateNestedOneWithoutSpace_news_commentsInput
+    user: usersCreateNestedOneWithoutSpace_news_commentsInput
+    parent_comment?: space_news_commentsCreateNestedOneWithoutRepliesInput
+  }
+
+  export type space_news_commentsUncheckedCreateWithoutRepliesInput = {
+    id?: number
+    space_news_id: number
+    user_id: number
+    parent_comment_id?: number | null
+    content: string
+    is_edited?: boolean
+    created_at?: Date | string
+    updated_at?: Date | string
+  }
+
+  export type space_news_commentsCreateOrConnectWithoutRepliesInput = {
+    where: space_news_commentsWhereUniqueInput
+    create: XOR<space_news_commentsCreateWithoutRepliesInput, space_news_commentsUncheckedCreateWithoutRepliesInput>
+  }
+
+  export type space_news_commentsCreateWithoutParent_commentInput = {
+    content: string
+    is_edited?: boolean
+    created_at?: Date | string
+    updated_at?: Date | string
+    space_news: space_newsCreateNestedOneWithoutSpace_news_commentsInput
+    user: usersCreateNestedOneWithoutSpace_news_commentsInput
+    replies?: space_news_commentsCreateNestedManyWithoutParent_commentInput
+  }
+
+  export type space_news_commentsUncheckedCreateWithoutParent_commentInput = {
+    id?: number
+    space_news_id: number
+    user_id: number
+    content: string
+    is_edited?: boolean
+    created_at?: Date | string
+    updated_at?: Date | string
+    replies?: space_news_commentsUncheckedCreateNestedManyWithoutParent_commentInput
+  }
+
+  export type space_news_commentsCreateOrConnectWithoutParent_commentInput = {
+    where: space_news_commentsWhereUniqueInput
+    create: XOR<space_news_commentsCreateWithoutParent_commentInput, space_news_commentsUncheckedCreateWithoutParent_commentInput>
+  }
+
+  export type space_news_commentsCreateManyParent_commentInputEnvelope = {
+    data: space_news_commentsCreateManyParent_commentInput | space_news_commentsCreateManyParent_commentInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type space_newsUpsertWithoutSpace_news_commentsInput = {
+    update: XOR<space_newsUpdateWithoutSpace_news_commentsInput, space_newsUncheckedUpdateWithoutSpace_news_commentsInput>
+    create: XOR<space_newsCreateWithoutSpace_news_commentsInput, space_newsUncheckedCreateWithoutSpace_news_commentsInput>
+    where?: space_newsWhereInput
+  }
+
+  export type space_newsUpdateToOneWithWhereWithoutSpace_news_commentsInput = {
+    where?: space_newsWhereInput
+    data: XOR<space_newsUpdateWithoutSpace_news_commentsInput, space_newsUncheckedUpdateWithoutSpace_news_commentsInput>
+  }
+
+  export type space_newsUpdateWithoutSpace_news_commentsInput = {
+    image_urls?: NullableJsonNullValueInput | InputJsonValue
+    publish_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    title?: StringFieldUpdateOperationsInput | string
+    number_of_likes?: IntFieldUpdateOperationsInput | number
+    number_of_comments?: IntFieldUpdateOperationsInput | number
+    content?: StringFieldUpdateOperationsInput | string
+    category?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    last_read_time?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    publisher?: usersUpdateOneRequiredWithoutPublished_space_newsNestedInput
+    space_news_likes?: space_news_likesUpdateManyWithoutSpace_newsNestedInput
+  }
+
+  export type space_newsUncheckedUpdateWithoutSpace_news_commentsInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    image_urls?: NullableJsonNullValueInput | InputJsonValue
+    publish_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    title?: StringFieldUpdateOperationsInput | string
+    number_of_likes?: IntFieldUpdateOperationsInput | number
+    number_of_comments?: IntFieldUpdateOperationsInput | number
+    content?: StringFieldUpdateOperationsInput | string
+    published_by?: IntFieldUpdateOperationsInput | number
+    category?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    last_read_time?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    space_news_likes?: space_news_likesUncheckedUpdateManyWithoutSpace_newsNestedInput
+  }
+
+  export type usersUpsertWithoutSpace_news_commentsInput = {
+    update: XOR<usersUpdateWithoutSpace_news_commentsInput, usersUncheckedUpdateWithoutSpace_news_commentsInput>
+    create: XOR<usersCreateWithoutSpace_news_commentsInput, usersUncheckedCreateWithoutSpace_news_commentsInput>
+    where?: usersWhereInput
+  }
+
+  export type usersUpdateToOneWithWhereWithoutSpace_news_commentsInput = {
+    where?: usersWhereInput
+    data: XOR<usersUpdateWithoutSpace_news_commentsInput, usersUncheckedUpdateWithoutSpace_news_commentsInput>
+  }
+
+  export type usersUpdateWithoutSpace_news_commentsInput = {
+    firebase_uid?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    role?: NullableEnumuser_roleFieldUpdateOperationsInput | $Enums.user_role | null
+    first_name?: NullableStringFieldUpdateOperationsInput | string | null
+    last_name?: NullableStringFieldUpdateOperationsInput | string | null
+    is_active?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    last_login?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    display_name?: NullableStringFieldUpdateOperationsInput | string | null
+    profile_data?: NullableJsonNullValueInput | InputJsonValue
+    role_specific_data?: NullableJsonNullValueInput | InputJsonValue
+    subscription_plan?: NullableEnumsubscription_planFieldUpdateOperationsInput | $Enums.subscription_plan | null
+    subscription_status?: NullableEnumsubscription_statusFieldUpdateOperationsInput | $Enums.subscription_status | null
+    subscription_start_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    subscription_end_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    auto_renew?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    chatbot_questions_used?: NullableIntFieldUpdateOperationsInput | number | null
+    chatbot_questions_reset_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    QuizParticipants?: QuizParticipantsUpdateManyWithoutUsersNestedInput
+    Quizzes?: QuizzesUpdateManyWithoutUsersNestedInput
+    blog_comments?: blog_commentsUpdateManyWithoutUsersNestedInput
+    blog_likes?: blog_likesUpdateManyWithoutUsersNestedInput
+    blog_views?: blog_viewsUpdateManyWithoutUsersNestedInput
+    blogs?: blogsUpdateManyWithoutUsersNestedInput
+    chatbot_sessions?: chatbot_sessionsUpdateManyWithoutUsersNestedInput
+    chatbot_usage?: chatbot_usageUpdateManyWithoutUsersNestedInput
+    guide_application?: guide_applicationUpdateManyWithoutUsersNestedInput
+    influencer_application?: influencer_applicationUpdateManyWithoutUsersNestedInput
+    media_uploads?: media_uploadsUpdateManyWithoutUserNestedInput
+    mentor_application?: mentor_applicationUpdateManyWithoutUsersNestedInput
+    night_camp_registrations?: night_camp_registrationsUpdateManyWithoutUsersNestedInput
+    night_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousers?: night_camp_volunteering_applicationsUpdateManyWithoutUsers_night_camp_volunteering_applications_reviewed_byTousersNestedInput
+    night_camp_volunteering_applications_night_camp_volunteering_applications_user_idTousers?: night_camp_volunteering_applicationsUpdateManyWithoutUsers_night_camp_volunteering_applications_user_idTousersNestedInput
+    payments?: paymentsUpdateManyWithoutUsersNestedInput
+    role_upgrade_requests_role_upgrade_requests_reviewer_idTousers?: role_upgrade_requestsUpdateManyWithoutUsers_role_upgrade_requests_reviewer_idTousersNestedInput
+    role_upgrade_requests_role_upgrade_requests_user_idTousers?: role_upgrade_requestsUpdateManyWithoutUsers_role_upgrade_requests_user_idTousersNestedInput
+    subscriptions?: subscriptionsUpdateManyWithoutUsersNestedInput
+    user_settings?: user_settingsUpdateOneWithoutUsersNestedInput
+    created_groups?: group_chatsUpdateManyWithoutCreatorNestedInput
+    group_memberships?: group_membersUpdateManyWithoutUserNestedInput
+    chat_messages?: chat_messagesUpdateManyWithoutUserNestedInput
+    message_reactions?: message_reactionsUpdateManyWithoutUserNestedInput
+    published_space_news?: space_newsUpdateManyWithoutPublisherNestedInput
+    space_news_likes?: space_news_likesUpdateManyWithoutUserNestedInput
+  }
+
+  export type usersUncheckedUpdateWithoutSpace_news_commentsInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    firebase_uid?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    role?: NullableEnumuser_roleFieldUpdateOperationsInput | $Enums.user_role | null
+    first_name?: NullableStringFieldUpdateOperationsInput | string | null
+    last_name?: NullableStringFieldUpdateOperationsInput | string | null
+    is_active?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    last_login?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    display_name?: NullableStringFieldUpdateOperationsInput | string | null
+    profile_data?: NullableJsonNullValueInput | InputJsonValue
+    role_specific_data?: NullableJsonNullValueInput | InputJsonValue
+    subscription_plan?: NullableEnumsubscription_planFieldUpdateOperationsInput | $Enums.subscription_plan | null
+    subscription_status?: NullableEnumsubscription_statusFieldUpdateOperationsInput | $Enums.subscription_status | null
+    subscription_start_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    subscription_end_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    auto_renew?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    chatbot_questions_used?: NullableIntFieldUpdateOperationsInput | number | null
+    chatbot_questions_reset_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    QuizParticipants?: QuizParticipantsUncheckedUpdateManyWithoutUsersNestedInput
+    Quizzes?: QuizzesUncheckedUpdateManyWithoutUsersNestedInput
+    blog_comments?: blog_commentsUncheckedUpdateManyWithoutUsersNestedInput
+    blog_likes?: blog_likesUncheckedUpdateManyWithoutUsersNestedInput
+    blog_views?: blog_viewsUncheckedUpdateManyWithoutUsersNestedInput
+    blogs?: blogsUncheckedUpdateManyWithoutUsersNestedInput
+    chatbot_sessions?: chatbot_sessionsUncheckedUpdateManyWithoutUsersNestedInput
+    chatbot_usage?: chatbot_usageUncheckedUpdateManyWithoutUsersNestedInput
+    guide_application?: guide_applicationUncheckedUpdateManyWithoutUsersNestedInput
+    influencer_application?: influencer_applicationUncheckedUpdateManyWithoutUsersNestedInput
+    media_uploads?: media_uploadsUncheckedUpdateManyWithoutUserNestedInput
+    mentor_application?: mentor_applicationUncheckedUpdateManyWithoutUsersNestedInput
+    night_camp_registrations?: night_camp_registrationsUncheckedUpdateManyWithoutUsersNestedInput
+    night_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousers?: night_camp_volunteering_applicationsUncheckedUpdateManyWithoutUsers_night_camp_volunteering_applications_reviewed_byTousersNestedInput
+    night_camp_volunteering_applications_night_camp_volunteering_applications_user_idTousers?: night_camp_volunteering_applicationsUncheckedUpdateManyWithoutUsers_night_camp_volunteering_applications_user_idTousersNestedInput
+    payments?: paymentsUncheckedUpdateManyWithoutUsersNestedInput
+    role_upgrade_requests_role_upgrade_requests_reviewer_idTousers?: role_upgrade_requestsUncheckedUpdateManyWithoutUsers_role_upgrade_requests_reviewer_idTousersNestedInput
+    role_upgrade_requests_role_upgrade_requests_user_idTousers?: role_upgrade_requestsUncheckedUpdateManyWithoutUsers_role_upgrade_requests_user_idTousersNestedInput
+    subscriptions?: subscriptionsUncheckedUpdateManyWithoutUsersNestedInput
+    user_settings?: user_settingsUncheckedUpdateOneWithoutUsersNestedInput
+    created_groups?: group_chatsUncheckedUpdateManyWithoutCreatorNestedInput
+    group_memberships?: group_membersUncheckedUpdateManyWithoutUserNestedInput
+    chat_messages?: chat_messagesUncheckedUpdateManyWithoutUserNestedInput
+    message_reactions?: message_reactionsUncheckedUpdateManyWithoutUserNestedInput
+    published_space_news?: space_newsUncheckedUpdateManyWithoutPublisherNestedInput
+    space_news_likes?: space_news_likesUncheckedUpdateManyWithoutUserNestedInput
+  }
+
+  export type space_news_commentsUpsertWithoutRepliesInput = {
+    update: XOR<space_news_commentsUpdateWithoutRepliesInput, space_news_commentsUncheckedUpdateWithoutRepliesInput>
+    create: XOR<space_news_commentsCreateWithoutRepliesInput, space_news_commentsUncheckedCreateWithoutRepliesInput>
+    where?: space_news_commentsWhereInput
+  }
+
+  export type space_news_commentsUpdateToOneWithWhereWithoutRepliesInput = {
+    where?: space_news_commentsWhereInput
+    data: XOR<space_news_commentsUpdateWithoutRepliesInput, space_news_commentsUncheckedUpdateWithoutRepliesInput>
+  }
+
+  export type space_news_commentsUpdateWithoutRepliesInput = {
+    content?: StringFieldUpdateOperationsInput | string
+    is_edited?: BoolFieldUpdateOperationsInput | boolean
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    space_news?: space_newsUpdateOneRequiredWithoutSpace_news_commentsNestedInput
+    user?: usersUpdateOneRequiredWithoutSpace_news_commentsNestedInput
+    parent_comment?: space_news_commentsUpdateOneWithoutRepliesNestedInput
+  }
+
+  export type space_news_commentsUncheckedUpdateWithoutRepliesInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    space_news_id?: IntFieldUpdateOperationsInput | number
+    user_id?: IntFieldUpdateOperationsInput | number
+    parent_comment_id?: NullableIntFieldUpdateOperationsInput | number | null
+    content?: StringFieldUpdateOperationsInput | string
+    is_edited?: BoolFieldUpdateOperationsInput | boolean
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type space_news_commentsUpsertWithWhereUniqueWithoutParent_commentInput = {
+    where: space_news_commentsWhereUniqueInput
+    update: XOR<space_news_commentsUpdateWithoutParent_commentInput, space_news_commentsUncheckedUpdateWithoutParent_commentInput>
+    create: XOR<space_news_commentsCreateWithoutParent_commentInput, space_news_commentsUncheckedCreateWithoutParent_commentInput>
+  }
+
+  export type space_news_commentsUpdateWithWhereUniqueWithoutParent_commentInput = {
+    where: space_news_commentsWhereUniqueInput
+    data: XOR<space_news_commentsUpdateWithoutParent_commentInput, space_news_commentsUncheckedUpdateWithoutParent_commentInput>
+  }
+
+  export type space_news_commentsUpdateManyWithWhereWithoutParent_commentInput = {
+    where: space_news_commentsScalarWhereInput
+    data: XOR<space_news_commentsUpdateManyMutationInput, space_news_commentsUncheckedUpdateManyWithoutParent_commentInput>
   }
 
   export type paymentsCreateManySubscriptionsInput = {
@@ -71317,6 +77776,35 @@ export namespace Prisma {
     created_at?: Date | string
   }
 
+  export type space_newsCreateManyPublisherInput = {
+    id?: number
+    image_urls?: NullableJsonNullValueInput | InputJsonValue
+    publish_date: Date | string
+    title: string
+    number_of_likes?: number
+    number_of_comments?: number
+    content: string
+    category: string
+    created_at?: Date | string
+    last_read_time?: Date | string | null
+  }
+
+  export type space_news_likesCreateManyUserInput = {
+    id?: number
+    space_news_id: number
+    created_at?: Date | string
+  }
+
+  export type space_news_commentsCreateManyUserInput = {
+    id?: number
+    space_news_id: number
+    parent_comment_id?: number | null
+    content: string
+    is_edited?: boolean
+    created_at?: Date | string
+    updated_at?: Date | string
+  }
+
   export type QuizParticipantsUpdateWithoutUsersInput = {
     correct_question_count?: IntFieldUpdateOperationsInput | number
     score?: IntFieldUpdateOperationsInput | number
@@ -72295,6 +78783,96 @@ export namespace Prisma {
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type space_newsUpdateWithoutPublisherInput = {
+    image_urls?: NullableJsonNullValueInput | InputJsonValue
+    publish_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    title?: StringFieldUpdateOperationsInput | string
+    number_of_likes?: IntFieldUpdateOperationsInput | number
+    number_of_comments?: IntFieldUpdateOperationsInput | number
+    content?: StringFieldUpdateOperationsInput | string
+    category?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    last_read_time?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    space_news_likes?: space_news_likesUpdateManyWithoutSpace_newsNestedInput
+    space_news_comments?: space_news_commentsUpdateManyWithoutSpace_newsNestedInput
+  }
+
+  export type space_newsUncheckedUpdateWithoutPublisherInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    image_urls?: NullableJsonNullValueInput | InputJsonValue
+    publish_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    title?: StringFieldUpdateOperationsInput | string
+    number_of_likes?: IntFieldUpdateOperationsInput | number
+    number_of_comments?: IntFieldUpdateOperationsInput | number
+    content?: StringFieldUpdateOperationsInput | string
+    category?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    last_read_time?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    space_news_likes?: space_news_likesUncheckedUpdateManyWithoutSpace_newsNestedInput
+    space_news_comments?: space_news_commentsUncheckedUpdateManyWithoutSpace_newsNestedInput
+  }
+
+  export type space_newsUncheckedUpdateManyWithoutPublisherInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    image_urls?: NullableJsonNullValueInput | InputJsonValue
+    publish_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    title?: StringFieldUpdateOperationsInput | string
+    number_of_likes?: IntFieldUpdateOperationsInput | number
+    number_of_comments?: IntFieldUpdateOperationsInput | number
+    content?: StringFieldUpdateOperationsInput | string
+    category?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    last_read_time?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
+  export type space_news_likesUpdateWithoutUserInput = {
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    space_news?: space_newsUpdateOneRequiredWithoutSpace_news_likesNestedInput
+  }
+
+  export type space_news_likesUncheckedUpdateWithoutUserInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    space_news_id?: IntFieldUpdateOperationsInput | number
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type space_news_likesUncheckedUpdateManyWithoutUserInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    space_news_id?: IntFieldUpdateOperationsInput | number
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type space_news_commentsUpdateWithoutUserInput = {
+    content?: StringFieldUpdateOperationsInput | string
+    is_edited?: BoolFieldUpdateOperationsInput | boolean
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    space_news?: space_newsUpdateOneRequiredWithoutSpace_news_commentsNestedInput
+    parent_comment?: space_news_commentsUpdateOneWithoutRepliesNestedInput
+    replies?: space_news_commentsUpdateManyWithoutParent_commentNestedInput
+  }
+
+  export type space_news_commentsUncheckedUpdateWithoutUserInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    space_news_id?: IntFieldUpdateOperationsInput | number
+    parent_comment_id?: NullableIntFieldUpdateOperationsInput | number | null
+    content?: StringFieldUpdateOperationsInput | string
+    is_edited?: BoolFieldUpdateOperationsInput | boolean
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    replies?: space_news_commentsUncheckedUpdateManyWithoutParent_commentNestedInput
+  }
+
+  export type space_news_commentsUncheckedUpdateManyWithoutUserInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    space_news_id?: IntFieldUpdateOperationsInput | number
+    parent_comment_id?: NullableIntFieldUpdateOperationsInput | number | null
+    content?: StringFieldUpdateOperationsInput | string
+    is_edited?: BoolFieldUpdateOperationsInput | boolean
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type chatbot_feedbackCreateManyChatbot_messagesInput = {
     id?: string
     session_id?: string | null
@@ -72387,6 +78965,111 @@ export namespace Prisma {
     answers?: QuizQuestionUpdateanswersInput | string[]
     correct_answer?: StringFieldUpdateOperationsInput | string
     question_explanation?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type space_news_likesCreateManySpace_newsInput = {
+    id?: number
+    user_id: number
+    created_at?: Date | string
+  }
+
+  export type space_news_commentsCreateManySpace_newsInput = {
+    id?: number
+    user_id: number
+    parent_comment_id?: number | null
+    content: string
+    is_edited?: boolean
+    created_at?: Date | string
+    updated_at?: Date | string
+  }
+
+  export type space_news_likesUpdateWithoutSpace_newsInput = {
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: usersUpdateOneRequiredWithoutSpace_news_likesNestedInput
+  }
+
+  export type space_news_likesUncheckedUpdateWithoutSpace_newsInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    user_id?: IntFieldUpdateOperationsInput | number
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type space_news_likesUncheckedUpdateManyWithoutSpace_newsInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    user_id?: IntFieldUpdateOperationsInput | number
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type space_news_commentsUpdateWithoutSpace_newsInput = {
+    content?: StringFieldUpdateOperationsInput | string
+    is_edited?: BoolFieldUpdateOperationsInput | boolean
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: usersUpdateOneRequiredWithoutSpace_news_commentsNestedInput
+    parent_comment?: space_news_commentsUpdateOneWithoutRepliesNestedInput
+    replies?: space_news_commentsUpdateManyWithoutParent_commentNestedInput
+  }
+
+  export type space_news_commentsUncheckedUpdateWithoutSpace_newsInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    user_id?: IntFieldUpdateOperationsInput | number
+    parent_comment_id?: NullableIntFieldUpdateOperationsInput | number | null
+    content?: StringFieldUpdateOperationsInput | string
+    is_edited?: BoolFieldUpdateOperationsInput | boolean
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    replies?: space_news_commentsUncheckedUpdateManyWithoutParent_commentNestedInput
+  }
+
+  export type space_news_commentsUncheckedUpdateManyWithoutSpace_newsInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    user_id?: IntFieldUpdateOperationsInput | number
+    parent_comment_id?: NullableIntFieldUpdateOperationsInput | number | null
+    content?: StringFieldUpdateOperationsInput | string
+    is_edited?: BoolFieldUpdateOperationsInput | boolean
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type space_news_commentsCreateManyParent_commentInput = {
+    id?: number
+    space_news_id: number
+    user_id: number
+    content: string
+    is_edited?: boolean
+    created_at?: Date | string
+    updated_at?: Date | string
+  }
+
+  export type space_news_commentsUpdateWithoutParent_commentInput = {
+    content?: StringFieldUpdateOperationsInput | string
+    is_edited?: BoolFieldUpdateOperationsInput | boolean
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    space_news?: space_newsUpdateOneRequiredWithoutSpace_news_commentsNestedInput
+    user?: usersUpdateOneRequiredWithoutSpace_news_commentsNestedInput
+    replies?: space_news_commentsUpdateManyWithoutParent_commentNestedInput
+  }
+
+  export type space_news_commentsUncheckedUpdateWithoutParent_commentInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    space_news_id?: IntFieldUpdateOperationsInput | number
+    user_id?: IntFieldUpdateOperationsInput | number
+    content?: StringFieldUpdateOperationsInput | string
+    is_edited?: BoolFieldUpdateOperationsInput | boolean
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    replies?: space_news_commentsUncheckedUpdateManyWithoutParent_commentNestedInput
+  }
+
+  export type space_news_commentsUncheckedUpdateManyWithoutParent_commentInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    space_news_id?: IntFieldUpdateOperationsInput | number
+    user_id?: IntFieldUpdateOperationsInput | number
+    content?: StringFieldUpdateOperationsInput | string
+    is_edited?: BoolFieldUpdateOperationsInput | boolean
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
 

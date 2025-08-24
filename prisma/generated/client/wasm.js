@@ -601,6 +601,38 @@ exports.Prisma.QuizzesScalarFieldEnum = {
   level: 'level'
 };
 
+exports.Prisma.Space_newsScalarFieldEnum = {
+  id: 'id',
+  image_urls: 'image_urls',
+  publish_date: 'publish_date',
+  title: 'title',
+  number_of_likes: 'number_of_likes',
+  number_of_comments: 'number_of_comments',
+  content: 'content',
+  published_by: 'published_by',
+  category: 'category',
+  created_at: 'created_at',
+  last_read_time: 'last_read_time'
+};
+
+exports.Prisma.Space_news_likesScalarFieldEnum = {
+  id: 'id',
+  space_news_id: 'space_news_id',
+  user_id: 'user_id',
+  created_at: 'created_at'
+};
+
+exports.Prisma.Space_news_commentsScalarFieldEnum = {
+  id: 'id',
+  space_news_id: 'space_news_id',
+  user_id: 'user_id',
+  parent_comment_id: 'parent_comment_id',
+  content: 'content',
+  is_edited: 'is_edited',
+  created_at: 'created_at',
+  updated_at: 'updated_at'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -730,7 +762,10 @@ exports.Prisma.ModelName = {
   events: 'events',
   QuizParticipants: 'QuizParticipants',
   QuizQuestion: 'QuizQuestion',
-  Quizzes: 'Quizzes'
+  Quizzes: 'Quizzes',
+  space_news: 'space_news',
+  space_news_likes: 'space_news_likes',
+  space_news_comments: 'space_news_comments'
 };
 
 /**
