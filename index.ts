@@ -24,6 +24,7 @@ import profileRoutes from "./routes/profile.routes";
 import { errorHandler, notFound } from "./middleware/errorHandler";
 import { gracefulShutdown } from './lib/prisma';
 import { SocketServer } from './socket/socketServer';
+import spaceNewsRoutes from './routes/spaceNews.routes';
 
 // prisma client
 import { PrismaClient } from "@prisma/client";
@@ -74,6 +75,7 @@ app.use("/api/mentor-applications", mentorApplicationRoutes);
 app.use("/api/influencer-applications", influencerApplicationRoutes);
 app.use("/api/guide-applications", guideApplicationRoutes);
 
+
 // Subscription and Payment APIs
 app.use("/api/subscriptions", subscriptionRoutes);
 app.use("/api/payments", paymentRoutes);
@@ -89,6 +91,9 @@ app.use("/api/nasa-opportunities", nasaOpportunitiesRoutes);
 
 // Chat API
 app.use("/api/chat", chatRoutes);
+
+// Space News API
+app.use('/api/space-news', spaceNewsRoutes);
 
 // Universal Upload API
 app.use('/api/upload', uploadRoutes);
