@@ -473,3 +473,437 @@ export const getSpaceNewsCategories = async (req: Request, res: Response): Promi
     errorResponse(res, 'Failed to retrieve categories', 500);
   }
 };
+
+// Toggle like on space news
+export const toggleSpaceNewsLike = async (req: AuthenticatedRequest, res: Response): Promise<void> => {
+  try {
+    const user = req.user;
+    if (!user) {
+      errorResponse(res, 'Authentication required', 401);
+      return;
+    }
+
+    const { id } = req.params;
+    const newsId = parseInt(id);
+
+    if (isNaN(newsId)) {
+      errorResponse(res, 'Invalid news ID', 400);
+      return;
+    }
+
+    // Check if news exists
+    const spaceNews = await prisma.space_news.findUnique({
+      where: { id: newsId }
+    });
+
+    if (!spaceNews) {
+      errorResponse(res, 'Space news not found', 404);
+      return;
+    }
+
+    // Check if user already liked this news
+    const existingLike = await prisma.space_news_likes.findUnique({
+      where: {
+        space_news_id_user_id: {
+          space_news_id: newsId,
+          user_id: user.userId
+        }
+      }
+    });
+
+    let isLiked = false;
+
+    if (existingLike) {
+      // Unlike - remove the like
+      await prisma.space_news_likes.delete({
+        where: {
+          space_news_id_user_id: {
+            space_news_id: newsId,
+            user_id: user.userId
+          }
+        }
+      });
+      isLiked = false;
+    } else {
+      // Like - add the like
+      await prisma.space_news_likes.create({
+        data: {
+          space_news_id: newsId,
+          user_id: user.userId
+        }
+      });
+      isLiked = true;
+    }
+
+    // Get updated like count
+    const likeCount = await prisma.space_news_likes.count({
+      where: { space_news_id: newsId }
+    });
+
+    successResponse(res, isLiked ? 'Space news liked' : 'Space news unliked', {
+      isLiked,
+      likeCount
+    });
+  } catch (error) {
+    console.error('Toggle space news like error:', error);
+    errorResponse(res, 'Failed to toggle like', 500);
+  }
+};
+
+// Get comments for space news
+export const getSpaceNewsComments = async (req: Request, res: Response): Promise<void> => {
+  try {
+    const { id } = req.params;
+    const { page = 1, limit = 20 } = req.query;
+    
+    const newsId = parseInt(id);
+    const pageNum = parseInt(page as string);
+    const limitNum = parseInt(limit as string);
+    const skip = (pageNum - 1) * limitNum;
+
+    if (isNaN(newsId)) {
+      errorResponse(res, 'Invalid news ID', 400);
+      return;
+    }
+
+    if (pageNum < 1 || limitNum < 1 || limitNum > 50) {
+      errorResponse(res, 'Invalid pagination parameters', 400);
+      return;
+    }
+
+    // Check if news exists
+    const spaceNews = await prisma.space_news.findUnique({
+      where: { id: newsId }
+    });
+
+    if (!spaceNews) {
+      errorResponse(res, 'Space news not found', 404);
+      return;
+    }
+
+    // Get total count for pagination
+    const totalCount = await prisma.space_news_comments.count({
+      where: { 
+        space_news_id: newsId,
+        parent_comment_id: null // Only top-level comments
+      }
+    });
+
+    // Get comments with pagination
+    const comments = await prisma.space_news_comments.findMany({
+      where: { 
+        space_news_id: newsId,
+        parent_comment_id: null // Only top-level comments
+      },
+      skip,
+      take: limitNum,
+      orderBy: { created_at: 'desc' },
+      include: {
+        user: {
+          select: {
+            id: true,
+            display_name: true,
+            first_name: true,
+            last_name: true
+          }
+        },
+        replies: {
+          include: {
+            user: {
+              select: {
+                id: true,
+                display_name: true,
+                first_name: true,
+                last_name: true
+              }
+            }
+          },
+          orderBy: { created_at: 'asc' }
+        }
+      }
+    });
+
+    // Format response
+    const formattedComments = comments.map(comment => ({
+      id: comment.id,
+      content: comment.content,
+      created_at: comment.created_at,
+      updated_at: comment.updated_at,
+      is_edited: comment.is_edited,
+      user: {
+        id: comment.user.id,
+        name: comment.user.display_name || 
+              `${comment.user.first_name || ''} ${comment.user.last_name || ''}`.trim() || 
+              'Anonymous User'
+      },
+      replies: comment.replies.map(reply => ({
+        id: reply.id,
+        content: reply.content,
+        created_at: reply.created_at,
+        updated_at: reply.updated_at,
+        is_edited: reply.is_edited,
+        user: {
+          id: reply.user.id,
+          name: reply.user.display_name || 
+                `${reply.user.first_name || ''} ${reply.user.last_name || ''}`.trim() || 
+                'Anonymous User'
+        }
+      }))
+    }));
+
+    const response = {
+      comments: formattedComments,
+      pagination: {
+        page: pageNum,
+        limit: limitNum,
+        total: totalCount,
+        pages: Math.ceil(totalCount / limitNum)
+      }
+    };
+
+    successResponse(res, 'Comments retrieved successfully', response);
+  } catch (error) {
+    console.error('Get space news comments error:', error);
+    errorResponse(res, 'Failed to retrieve comments', 500);
+  }
+};
+
+// Add comment to space news
+export const addSpaceNewsComment = async (req: AuthenticatedRequest, res: Response): Promise<void> => {
+  try {
+    const user = req.user;
+    if (!user) {
+      errorResponse(res, 'Authentication required', 401);
+      return;
+    }
+
+    const { id } = req.params;
+    const { content, parent_comment_id } = req.body;
+    const newsId = parseInt(id);
+
+    if (isNaN(newsId)) {
+      errorResponse(res, 'Invalid news ID', 400);
+      return;
+    }
+
+    if (!content || !content.trim()) {
+      errorResponse(res, 'Comment content is required', 400);
+      return;
+    }
+
+    if (content.trim().length > 1000) {
+      errorResponse(res, 'Comment content must be less than 1000 characters', 400);
+      return;
+    }
+
+    // Check if news exists
+    const spaceNews = await prisma.space_news.findUnique({
+      where: { id: newsId }
+    });
+
+    if (!spaceNews) {
+      errorResponse(res, 'Space news not found', 404);
+      return;
+    }
+
+    // If replying to a comment, check if parent comment exists
+    if (parent_comment_id) {
+      const parentCommentId = parseInt(parent_comment_id);
+      
+      if (isNaN(parentCommentId)) {
+        errorResponse(res, 'Invalid parent comment ID', 400);
+        return;
+      }
+
+      const parentComment = await prisma.space_news_comments.findFirst({
+        where: { 
+          id: parentCommentId,
+          space_news_id: newsId
+        }
+      });
+
+      if (!parentComment) {
+        errorResponse(res, 'Parent comment not found', 404);
+        return;
+      }
+    }
+
+    // Create the comment
+    const comment = await prisma.space_news_comments.create({
+      data: {
+        space_news_id: newsId,
+        user_id: user.userId,
+        parent_comment_id: parent_comment_id ? parseInt(parent_comment_id) : null,
+        content: content.trim()
+      },
+      include: {
+        user: {
+          select: {
+            id: true,
+            display_name: true,
+            first_name: true,
+            last_name: true
+          }
+        }
+      }
+    });
+
+    // Format response
+    const formattedComment = {
+      id: comment.id,
+      content: comment.content,
+      created_at: comment.created_at,
+      updated_at: comment.updated_at,
+      is_edited: comment.is_edited,
+      user: {
+        id: comment.user.id,
+        name: comment.user.display_name || 
+              `${comment.user.first_name || ''} ${comment.user.last_name || ''}`.trim() || 
+              'Anonymous User'
+      }
+    };
+
+    successResponse(res, 'Comment added successfully', formattedComment, 201);
+  } catch (error) {
+    console.error('Add space news comment error:', error);
+    errorResponse(res, 'Failed to add comment', 500);
+  }
+};
+
+// Update comment
+export const updateSpaceNewsComment = async (req: AuthenticatedRequest, res: Response): Promise<void> => {
+  try {
+    const user = req.user;
+    if (!user) {
+      errorResponse(res, 'Authentication required', 401);
+      return;
+    }
+
+    const { id, commentId } = req.params;
+    const { content } = req.body;
+    const newsId = parseInt(id);
+    const commentIdNum = parseInt(commentId);
+
+    if (isNaN(newsId) || isNaN(commentIdNum)) {
+      errorResponse(res, 'Invalid ID parameters', 400);
+      return;
+    }
+
+    if (!content || !content.trim()) {
+      errorResponse(res, 'Comment content is required', 400);
+      return;
+    }
+
+    if (content.trim().length > 1000) {
+      errorResponse(res, 'Comment content must be less than 1000 characters', 400);
+      return;
+    }
+
+    // Find the comment
+    const comment = await prisma.space_news_comments.findFirst({
+      where: { 
+        id: commentIdNum,
+        space_news_id: newsId
+      }
+    });
+
+    if (!comment) {
+      errorResponse(res, 'Comment not found', 404);
+      return;
+    }
+
+    // Check if user owns the comment or is admin/moderator
+    if (comment.user_id !== user.userId && user.role !== 'admin' && user.role !== 'moderator') {
+      errorResponse(res, 'Not authorized to update this comment', 403);
+      return;
+    }
+
+    // Update the comment
+    const updatedComment = await prisma.space_news_comments.update({
+      where: { id: commentIdNum },
+      data: { 
+        content: content.trim(),
+        is_edited: true
+      },
+      include: {
+        user: {
+          select: {
+            id: true,
+            display_name: true,
+            first_name: true,
+            last_name: true
+          }
+        }
+      }
+    });
+
+    // Format response
+    const formattedComment = {
+      id: updatedComment.id,
+      content: updatedComment.content,
+      created_at: updatedComment.created_at,
+      updated_at: updatedComment.updated_at,
+      is_edited: updatedComment.is_edited,
+      user: {
+        id: updatedComment.user.id,
+        name: updatedComment.user.display_name || 
+              `${updatedComment.user.first_name || ''} ${updatedComment.user.last_name || ''}`.trim() || 
+              'Anonymous User'
+      }
+    };
+
+    successResponse(res, 'Comment updated successfully', formattedComment);
+  } catch (error) {
+    console.error('Update space news comment error:', error);
+    errorResponse(res, 'Failed to update comment', 500);
+  }
+};
+
+// Delete comment
+export const deleteSpaceNewsComment = async (req: AuthenticatedRequest, res: Response): Promise<void> => {
+  try {
+    const user = req.user;
+    if (!user) {
+      errorResponse(res, 'Authentication required', 401);
+      return;
+    }
+
+    const { id, commentId } = req.params;
+    const newsId = parseInt(id);
+    const commentIdNum = parseInt(commentId);
+
+    if (isNaN(newsId) || isNaN(commentIdNum)) {
+      errorResponse(res, 'Invalid ID parameters', 400);
+      return;
+    }
+
+    // Find the comment
+    const comment = await prisma.space_news_comments.findFirst({
+      where: { 
+        id: commentIdNum,
+        space_news_id: newsId
+      }
+    });
+
+    if (!comment) {
+      errorResponse(res, 'Comment not found', 404);
+      return;
+    }
+
+    // Check if user owns the comment or is admin/moderator
+    if (comment.user_id !== user.userId && user.role !== 'admin' && user.role !== 'moderator') {
+      errorResponse(res, 'Not authorized to delete this comment', 403);
+      return;
+    }
+
+    // Delete the comment (cascade will handle replies)
+    await prisma.space_news_comments.delete({
+      where: { id: commentIdNum }
+    });
+
+    successResponse(res, 'Comment deleted successfully', null);
+  } catch (error) {
+    console.error('Delete space news comment error:', error);
+    errorResponse(res, 'Failed to delete comment', 500);
+  }
+};
