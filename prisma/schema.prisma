@@ -327,6 +327,9 @@ model users {
   payments                                                                                     payments[]
   role_upgrade_requests_role_upgrade_requests_reviewer_idTousers                               role_upgrade_requests[]                @relation("role_upgrade_requests_reviewer_idTousers")
   role_upgrade_requests_role_upgrade_requests_user_idTousers                                   role_upgrade_requests[]                @relation("role_upgrade_requests_user_idTousers")
+  space_news_published space_news[] @relation("SpaceNewsPublisher")
+  space_news_likes     space_news_likes[] @relation("SpaceNewsLikes")
+  space_news_comments  space_news_comments[] @relation("SpaceNewsComments")
   subscriptions                                                                                subscriptions[]
   user_settings                                                                                user_settings?
   
@@ -700,7 +703,62 @@ model Quizzes {
 
   @@index([user_id], map: "idx_quizzes_user_id")
 }
+model space_news {
+  id                 Int       @id @default(autoincrement())
+  image_urls         Json?     @default("[]")
+  publish_date       DateTime  @db.Timestamp(6)
+  title              String    @db.VarChar(255)
+  number_of_likes    Int       @default(0)
+  number_of_comments Int       @default(0)
+  content            String    @db.Text
+  published_by       Int
+  category           String    @db.VarChar(100)
+  created_at         DateTime  @default(now()) @db.Timestamp(6)
+  last_read_time     DateTime? @db.Timestamp(6)
 
+  publisher           users                 @relation("SpaceNewsPublisher", fields: [published_by], references: [id], onDelete: Cascade)
+  space_news_likes    space_news_likes[]
+  space_news_comments space_news_comments[]
+
+  @@index([published_by], map: "idx_space_news_published_by")
+  @@index([publish_date], map: "idx_space_news_publish_date")
+  @@index([category], map: "idx_space_news_category")
+  @@index([created_at], map: "idx_space_news_created_at")
+}
+
+model space_news_likes {
+  id            Int      @id @default(autoincrement())
+  space_news_id Int
+  user_id       Int
+  created_at    DateTime @default(now()) @db.Timestamp(6)
+
+  space_news space_news @relation(fields: [space_news_id], references: [id], onDelete: Cascade)
+  user       users      @relation("SpaceNewsLikes", fields: [user_id], references: [id], onDelete: Cascade)
+
+  @@unique([space_news_id, user_id])
+  @@index([space_news_id], map: "idx_space_news_likes_news_id")
+  @@index([user_id], map: "idx_space_news_likes_user_id")
+}
+
+model space_news_comments {
+  id                Int      @id @default(autoincrement())
+  space_news_id     Int
+  user_id           Int
+  parent_comment_id Int?
+  content           String   @db.Text
+  is_edited         Boolean  @default(false)
+  created_at        DateTime @default(now()) @db.Timestamp(6)
+  updated_at        DateTime @default(now()) @updatedAt @db.Timestamp(6)
+
+  space_news     space_news            @relation(fields: [space_news_id], references: [id], onDelete: Cascade)
+  user           users                 @relation("SpaceNewsComments", fields: [user_id], references: [id], onDelete: Cascade)
+  parent_comment space_news_comments?  @relation("SpaceNewsCommentReplies", fields: [parent_comment_id], references: [id], onDelete: Cascade)
+  replies        space_news_comments[] @relation("SpaceNewsCommentReplies")
+
+  @@index([space_news_id], map: "idx_space_news_comments_news_id")
+  @@index([user_id], map: "idx_space_news_comments_user_id")
+  @@index([parent_comment_id], map: "idx_space_news_comments_parent_id")
+}
 enum application_status {
   pending
   approved
