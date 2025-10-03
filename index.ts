@@ -11,6 +11,7 @@ import mediaUploadRoutes from './routes/mediaUpload.routes';
 import chatRoutes from './routes/chat.routes';
 import tourMediaRoutes from './routes/tourMedia.routes';
 import eventRoutes from './routes/event.routes';
+import spaceDiscussionRoutes from './routes/spaceDiscussion.routes';
 
 // index.ts
 import express from "express";
@@ -94,6 +95,9 @@ app.use("/api/chat", chatRoutes);
 
 // Space News API
 app.use('/api/space-news', spaceNewsRoutes);
+
+// Space Discussions API
+app.use('/api/space-discussions', spaceDiscussionRoutes);
 
 // Universal Upload API
 app.use('/api/upload', uploadRoutes);
