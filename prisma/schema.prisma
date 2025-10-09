@@ -346,6 +346,10 @@ model users {
   chat_messages                                                                                chat_messages[]                        @relation("ChatMessageUser")
   message_reactions                                                                            message_reactions[]                    @relation("MessageReaction")
 
+  // Astronomy Events relations
+  created_astronomy_events                                                                     astronomy_events[]                     @relation("AstronomyEventCreator")
+  event_reminders                                                                              event_reminders[]                      @relation("UserEventReminders")
+
   @@index([is_active], map: "idx_users_active")
   @@index([email], map: "idx_users_email")
   @@index([firebase_uid], map: "idx_users_firebase_uid")
@@ -898,6 +902,52 @@ enum subscription_status {
   cancelled
   expired
   pending
+}
+
+// Astronomy Events Models
+model astronomy_events {
+  id                Int                 @id @default(autoincrement())
+  name              String              @db.VarChar(255)
+  description       String              @db.Text
+  visibility        String              @db.VarChar(100) // "Northern Hemisphere", "Southern Hemisphere", "Worldwide", etc.
+  best_time         String              @db.VarChar(100) // "2:00 AM - 5:00 AM"
+  image_url         String?             @db.VarChar(500)
+  event_date        DateTime            @db.Timestamp(6) // For single date events
+  end_date          DateTime?           @db.Timestamp(6) // For events with duration
+  duration          String              @db.VarChar(100) // "5 weeks", "4 hours", "1 night"
+  event_type        String              @db.VarChar(100) // "Meteor Shower", "Eclipse", "Opposition", etc.
+  is_active         Boolean             @default(true)
+  created_by        Int                 // ID of moderator who created the event
+  created_at        DateTime            @default(now()) @db.Timestamp(6)
+  updated_at        DateTime            @default(now()) @updatedAt @db.Timestamp(6)
+
+  // Relations
+  creator           users               @relation("AstronomyEventCreator", fields: [created_by], references: [id], onDelete: Cascade)
+  reminders         event_reminders[]
+
+  @@index([event_date], map: "idx_astronomy_events_date")
+  @@index([event_type], map: "idx_astronomy_events_type")
+  @@index([is_active], map: "idx_astronomy_events_active")
+  @@index([created_by], map: "idx_astronomy_events_created_by")
+}
+
+model event_reminders {
+  id                Int                 @id @default(autoincrement())
+  user_id           Int
+  event_id          Int
+  reminder_time     DateTime            @db.Timestamp(6) // When to send the reminder
+  is_sent           Boolean             @default(false)
+  notification_type String              @db.VarChar(50) @default("email") // "email", "push", "both"
+  created_at        DateTime            @default(now()) @db.Timestamp(6)
+  updated_at        DateTime            @default(now()) @updatedAt @db.Timestamp(6)
+
+  // Relations
+  user              users               @relation("UserEventReminders", fields: [user_id], references: [id], onDelete: Cascade)
+  event             astronomy_events    @relation(fields: [event_id], references: [id], onDelete: Cascade)
+
+  @@unique([user_id, event_id], map: "unique_user_event_reminder")
+  @@index([reminder_time], map: "idx_event_reminders_time")
+  @@index([is_sent], map: "idx_event_reminders_sent")
 }
 
 enum user_role {

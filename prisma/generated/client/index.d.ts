@@ -223,6 +223,16 @@ export type space_discussion_likes = $Result.DefaultSelection<Prisma.$space_disc
  * 
  */
 export type space_discussion_comment_likes = $Result.DefaultSelection<Prisma.$space_discussion_comment_likesPayload>
+/**
+ * Model astronomy_events
+ * 
+ */
+export type astronomy_events = $Result.DefaultSelection<Prisma.$astronomy_eventsPayload>
+/**
+ * Model event_reminders
+ * 
+ */
+export type event_reminders = $Result.DefaultSelection<Prisma.$event_remindersPayload>
 
 /**
  * Enums
@@ -935,6 +945,26 @@ export class PrismaClient<
     * ```
     */
   get space_discussion_comment_likes(): Prisma.space_discussion_comment_likesDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.astronomy_events`: Exposes CRUD operations for the **astronomy_events** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Astronomy_events
+    * const astronomy_events = await prisma.astronomy_events.findMany()
+    * ```
+    */
+  get astronomy_events(): Prisma.astronomy_eventsDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.event_reminders`: Exposes CRUD operations for the **event_reminders** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Event_reminders
+    * const event_reminders = await prisma.event_reminders.findMany()
+    * ```
+    */
+  get event_reminders(): Prisma.event_remindersDelegate<ExtArgs, ClientOptions>;
 }
 
 export namespace Prisma {
@@ -1416,7 +1446,9 @@ export namespace Prisma {
     space_discussions: 'space_discussions',
     space_discussion_comments: 'space_discussion_comments',
     space_discussion_likes: 'space_discussion_likes',
-    space_discussion_comment_likes: 'space_discussion_comment_likes'
+    space_discussion_comment_likes: 'space_discussion_comment_likes',
+    astronomy_events: 'astronomy_events',
+    event_reminders: 'event_reminders'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -1435,7 +1467,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "subscriptions" | "group_chats" | "group_members" | "chat_messages" | "message_reactions" | "blog_views" | "night_camps" | "night_camps_activities" | "chatbot_sessions" | "payments" | "blogs" | "blog_category_relations" | "subscription_plans" | "blog_categories" | "chatbot_usage" | "blog_comments" | "users" | "blog_likes" | "chatbot_messages" | "night_camps_equipment" | "user_settings" | "chatbot_feedback" | "night_camp_volunteering" | "role_upgrade_requests" | "guide_application" | "mentor_application" | "night_camp_volunteering_applications" | "night_camp_registrations" | "influencer_application" | "media_uploads" | "tour_media" | "events" | "quizParticipants" | "quizQuestion" | "quizzes" | "space_news" | "space_news_likes" | "space_news_comments" | "space_discussions" | "space_discussion_comments" | "space_discussion_likes" | "space_discussion_comment_likes"
+      modelProps: "subscriptions" | "group_chats" | "group_members" | "chat_messages" | "message_reactions" | "blog_views" | "night_camps" | "night_camps_activities" | "chatbot_sessions" | "payments" | "blogs" | "blog_category_relations" | "subscription_plans" | "blog_categories" | "chatbot_usage" | "blog_comments" | "users" | "blog_likes" | "chatbot_messages" | "night_camps_equipment" | "user_settings" | "chatbot_feedback" | "night_camp_volunteering" | "role_upgrade_requests" | "guide_application" | "mentor_application" | "night_camp_volunteering_applications" | "night_camp_registrations" | "influencer_application" | "media_uploads" | "tour_media" | "events" | "quizParticipants" | "quizQuestion" | "quizzes" | "space_news" | "space_news_likes" | "space_news_comments" | "space_discussions" | "space_discussion_comments" | "space_discussion_likes" | "space_discussion_comment_likes" | "astronomy_events" | "event_reminders"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -4547,6 +4579,154 @@ export namespace Prisma {
           }
         }
       }
+      astronomy_events: {
+        payload: Prisma.$astronomy_eventsPayload<ExtArgs>
+        fields: Prisma.astronomy_eventsFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.astronomy_eventsFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$astronomy_eventsPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.astronomy_eventsFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$astronomy_eventsPayload>
+          }
+          findFirst: {
+            args: Prisma.astronomy_eventsFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$astronomy_eventsPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.astronomy_eventsFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$astronomy_eventsPayload>
+          }
+          findMany: {
+            args: Prisma.astronomy_eventsFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$astronomy_eventsPayload>[]
+          }
+          create: {
+            args: Prisma.astronomy_eventsCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$astronomy_eventsPayload>
+          }
+          createMany: {
+            args: Prisma.astronomy_eventsCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.astronomy_eventsCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$astronomy_eventsPayload>[]
+          }
+          delete: {
+            args: Prisma.astronomy_eventsDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$astronomy_eventsPayload>
+          }
+          update: {
+            args: Prisma.astronomy_eventsUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$astronomy_eventsPayload>
+          }
+          deleteMany: {
+            args: Prisma.astronomy_eventsDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.astronomy_eventsUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.astronomy_eventsUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$astronomy_eventsPayload>[]
+          }
+          upsert: {
+            args: Prisma.astronomy_eventsUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$astronomy_eventsPayload>
+          }
+          aggregate: {
+            args: Prisma.Astronomy_eventsAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateAstronomy_events>
+          }
+          groupBy: {
+            args: Prisma.astronomy_eventsGroupByArgs<ExtArgs>
+            result: $Utils.Optional<Astronomy_eventsGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.astronomy_eventsCountArgs<ExtArgs>
+            result: $Utils.Optional<Astronomy_eventsCountAggregateOutputType> | number
+          }
+        }
+      }
+      event_reminders: {
+        payload: Prisma.$event_remindersPayload<ExtArgs>
+        fields: Prisma.event_remindersFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.event_remindersFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$event_remindersPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.event_remindersFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$event_remindersPayload>
+          }
+          findFirst: {
+            args: Prisma.event_remindersFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$event_remindersPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.event_remindersFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$event_remindersPayload>
+          }
+          findMany: {
+            args: Prisma.event_remindersFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$event_remindersPayload>[]
+          }
+          create: {
+            args: Prisma.event_remindersCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$event_remindersPayload>
+          }
+          createMany: {
+            args: Prisma.event_remindersCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.event_remindersCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$event_remindersPayload>[]
+          }
+          delete: {
+            args: Prisma.event_remindersDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$event_remindersPayload>
+          }
+          update: {
+            args: Prisma.event_remindersUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$event_remindersPayload>
+          }
+          deleteMany: {
+            args: Prisma.event_remindersDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.event_remindersUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.event_remindersUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$event_remindersPayload>[]
+          }
+          upsert: {
+            args: Prisma.event_remindersUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$event_remindersPayload>
+          }
+          aggregate: {
+            args: Prisma.Event_remindersAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateEvent_reminders>
+          }
+          groupBy: {
+            args: Prisma.event_remindersGroupByArgs<ExtArgs>
+            result: $Utils.Optional<Event_remindersGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.event_remindersCountArgs<ExtArgs>
+            result: $Utils.Optional<Event_remindersCountAggregateOutputType> | number
+          }
+        }
+      }
     }
   } & {
     other: {
@@ -4681,6 +4861,8 @@ export namespace Prisma {
     space_discussion_comments?: space_discussion_commentsOmit
     space_discussion_likes?: space_discussion_likesOmit
     space_discussion_comment_likes?: space_discussion_comment_likesOmit
+    astronomy_events?: astronomy_eventsOmit
+    event_reminders?: event_remindersOmit
   }
 
   /* Types for Logging */
@@ -5148,6 +5330,8 @@ export namespace Prisma {
     group_memberships: number
     chat_messages: number
     message_reactions: number
+    created_astronomy_events: number
+    event_reminders: number
   }
 
   export type UsersCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -5181,6 +5365,8 @@ export namespace Prisma {
     group_memberships?: boolean | UsersCountOutputTypeCountGroup_membershipsArgs
     chat_messages?: boolean | UsersCountOutputTypeCountChat_messagesArgs
     message_reactions?: boolean | UsersCountOutputTypeCountMessage_reactionsArgs
+    created_astronomy_events?: boolean | UsersCountOutputTypeCountCreated_astronomy_eventsArgs
+    event_reminders?: boolean | UsersCountOutputTypeCountEvent_remindersArgs
   }
 
   // Custom InputTypes
@@ -5404,6 +5590,20 @@ export namespace Prisma {
     where?: message_reactionsWhereInput
   }
 
+  /**
+   * UsersCountOutputType without action
+   */
+  export type UsersCountOutputTypeCountCreated_astronomy_eventsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: astronomy_eventsWhereInput
+  }
+
+  /**
+   * UsersCountOutputType without action
+   */
+  export type UsersCountOutputTypeCountEvent_remindersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: event_remindersWhereInput
+  }
+
 
   /**
    * Count Type Chatbot_messagesCountOutputType
@@ -5624,6 +5824,37 @@ export namespace Prisma {
    */
   export type Space_discussion_commentsCountOutputTypeCountLikesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: space_discussion_comment_likesWhereInput
+  }
+
+
+  /**
+   * Count Type Astronomy_eventsCountOutputType
+   */
+
+  export type Astronomy_eventsCountOutputType = {
+    reminders: number
+  }
+
+  export type Astronomy_eventsCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    reminders?: boolean | Astronomy_eventsCountOutputTypeCountRemindersArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * Astronomy_eventsCountOutputType without action
+   */
+  export type Astronomy_eventsCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Astronomy_eventsCountOutputType
+     */
+    select?: Astronomy_eventsCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * Astronomy_eventsCountOutputType without action
+   */
+  export type Astronomy_eventsCountOutputTypeCountRemindersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: event_remindersWhereInput
   }
 
 
@@ -25145,6 +25376,8 @@ export namespace Prisma {
     group_memberships?: boolean | users$group_membershipsArgs<ExtArgs>
     chat_messages?: boolean | users$chat_messagesArgs<ExtArgs>
     message_reactions?: boolean | users$message_reactionsArgs<ExtArgs>
+    created_astronomy_events?: boolean | users$created_astronomy_eventsArgs<ExtArgs>
+    event_reminders?: boolean | users$event_remindersArgs<ExtArgs>
     _count?: boolean | UsersCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["users"]>
 
@@ -25250,6 +25483,8 @@ export namespace Prisma {
     group_memberships?: boolean | users$group_membershipsArgs<ExtArgs>
     chat_messages?: boolean | users$chat_messagesArgs<ExtArgs>
     message_reactions?: boolean | users$message_reactionsArgs<ExtArgs>
+    created_astronomy_events?: boolean | users$created_astronomy_eventsArgs<ExtArgs>
+    event_reminders?: boolean | users$event_remindersArgs<ExtArgs>
     _count?: boolean | UsersCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type usersIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
@@ -25289,6 +25524,8 @@ export namespace Prisma {
       group_memberships: Prisma.$group_membersPayload<ExtArgs>[]
       chat_messages: Prisma.$chat_messagesPayload<ExtArgs>[]
       message_reactions: Prisma.$message_reactionsPayload<ExtArgs>[]
+      created_astronomy_events: Prisma.$astronomy_eventsPayload<ExtArgs>[]
+      event_reminders: Prisma.$event_remindersPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: number
@@ -25736,6 +25973,8 @@ export namespace Prisma {
     group_memberships<T extends users$group_membershipsArgs<ExtArgs> = {}>(args?: Subset<T, users$group_membershipsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$group_membersPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     chat_messages<T extends users$chat_messagesArgs<ExtArgs> = {}>(args?: Subset<T, users$chat_messagesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$chat_messagesPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     message_reactions<T extends users$message_reactionsArgs<ExtArgs> = {}>(args?: Subset<T, users$message_reactionsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$message_reactionsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    created_astronomy_events<T extends users$created_astronomy_eventsArgs<ExtArgs> = {}>(args?: Subset<T, users$created_astronomy_eventsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$astronomy_eventsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    event_reminders<T extends users$event_remindersArgs<ExtArgs> = {}>(args?: Subset<T, users$event_remindersArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$event_remindersPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -26909,6 +27148,54 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: Message_reactionsScalarFieldEnum | Message_reactionsScalarFieldEnum[]
+  }
+
+  /**
+   * users.created_astronomy_events
+   */
+  export type users$created_astronomy_eventsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the astronomy_events
+     */
+    select?: astronomy_eventsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the astronomy_events
+     */
+    omit?: astronomy_eventsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: astronomy_eventsInclude<ExtArgs> | null
+    where?: astronomy_eventsWhereInput
+    orderBy?: astronomy_eventsOrderByWithRelationInput | astronomy_eventsOrderByWithRelationInput[]
+    cursor?: astronomy_eventsWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: Astronomy_eventsScalarFieldEnum | Astronomy_eventsScalarFieldEnum[]
+  }
+
+  /**
+   * users.event_reminders
+   */
+  export type users$event_remindersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the event_reminders
+     */
+    select?: event_remindersSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the event_reminders
+     */
+    omit?: event_remindersOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: event_remindersInclude<ExtArgs> | null
+    where?: event_remindersWhereInput
+    orderBy?: event_remindersOrderByWithRelationInput | event_remindersOrderByWithRelationInput[]
+    cursor?: event_remindersWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: Event_remindersScalarFieldEnum | Event_remindersScalarFieldEnum[]
   }
 
   /**
@@ -56828,6 +57115,2396 @@ export namespace Prisma {
 
 
   /**
+   * Model astronomy_events
+   */
+
+  export type AggregateAstronomy_events = {
+    _count: Astronomy_eventsCountAggregateOutputType | null
+    _avg: Astronomy_eventsAvgAggregateOutputType | null
+    _sum: Astronomy_eventsSumAggregateOutputType | null
+    _min: Astronomy_eventsMinAggregateOutputType | null
+    _max: Astronomy_eventsMaxAggregateOutputType | null
+  }
+
+  export type Astronomy_eventsAvgAggregateOutputType = {
+    id: number | null
+    created_by: number | null
+  }
+
+  export type Astronomy_eventsSumAggregateOutputType = {
+    id: number | null
+    created_by: number | null
+  }
+
+  export type Astronomy_eventsMinAggregateOutputType = {
+    id: number | null
+    name: string | null
+    description: string | null
+    visibility: string | null
+    best_time: string | null
+    image_url: string | null
+    event_date: Date | null
+    end_date: Date | null
+    duration: string | null
+    event_type: string | null
+    is_active: boolean | null
+    created_by: number | null
+    created_at: Date | null
+    updated_at: Date | null
+  }
+
+  export type Astronomy_eventsMaxAggregateOutputType = {
+    id: number | null
+    name: string | null
+    description: string | null
+    visibility: string | null
+    best_time: string | null
+    image_url: string | null
+    event_date: Date | null
+    end_date: Date | null
+    duration: string | null
+    event_type: string | null
+    is_active: boolean | null
+    created_by: number | null
+    created_at: Date | null
+    updated_at: Date | null
+  }
+
+  export type Astronomy_eventsCountAggregateOutputType = {
+    id: number
+    name: number
+    description: number
+    visibility: number
+    best_time: number
+    image_url: number
+    event_date: number
+    end_date: number
+    duration: number
+    event_type: number
+    is_active: number
+    created_by: number
+    created_at: number
+    updated_at: number
+    _all: number
+  }
+
+
+  export type Astronomy_eventsAvgAggregateInputType = {
+    id?: true
+    created_by?: true
+  }
+
+  export type Astronomy_eventsSumAggregateInputType = {
+    id?: true
+    created_by?: true
+  }
+
+  export type Astronomy_eventsMinAggregateInputType = {
+    id?: true
+    name?: true
+    description?: true
+    visibility?: true
+    best_time?: true
+    image_url?: true
+    event_date?: true
+    end_date?: true
+    duration?: true
+    event_type?: true
+    is_active?: true
+    created_by?: true
+    created_at?: true
+    updated_at?: true
+  }
+
+  export type Astronomy_eventsMaxAggregateInputType = {
+    id?: true
+    name?: true
+    description?: true
+    visibility?: true
+    best_time?: true
+    image_url?: true
+    event_date?: true
+    end_date?: true
+    duration?: true
+    event_type?: true
+    is_active?: true
+    created_by?: true
+    created_at?: true
+    updated_at?: true
+  }
+
+  export type Astronomy_eventsCountAggregateInputType = {
+    id?: true
+    name?: true
+    description?: true
+    visibility?: true
+    best_time?: true
+    image_url?: true
+    event_date?: true
+    end_date?: true
+    duration?: true
+    event_type?: true
+    is_active?: true
+    created_by?: true
+    created_at?: true
+    updated_at?: true
+    _all?: true
+  }
+
+  export type Astronomy_eventsAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which astronomy_events to aggregate.
+     */
+    where?: astronomy_eventsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of astronomy_events to fetch.
+     */
+    orderBy?: astronomy_eventsOrderByWithRelationInput | astronomy_eventsOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: astronomy_eventsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` astronomy_events from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` astronomy_events.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned astronomy_events
+    **/
+    _count?: true | Astronomy_eventsCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: Astronomy_eventsAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: Astronomy_eventsSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: Astronomy_eventsMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: Astronomy_eventsMaxAggregateInputType
+  }
+
+  export type GetAstronomy_eventsAggregateType<T extends Astronomy_eventsAggregateArgs> = {
+        [P in keyof T & keyof AggregateAstronomy_events]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateAstronomy_events[P]>
+      : GetScalarType<T[P], AggregateAstronomy_events[P]>
+  }
+
+
+
+
+  export type astronomy_eventsGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: astronomy_eventsWhereInput
+    orderBy?: astronomy_eventsOrderByWithAggregationInput | astronomy_eventsOrderByWithAggregationInput[]
+    by: Astronomy_eventsScalarFieldEnum[] | Astronomy_eventsScalarFieldEnum
+    having?: astronomy_eventsScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: Astronomy_eventsCountAggregateInputType | true
+    _avg?: Astronomy_eventsAvgAggregateInputType
+    _sum?: Astronomy_eventsSumAggregateInputType
+    _min?: Astronomy_eventsMinAggregateInputType
+    _max?: Astronomy_eventsMaxAggregateInputType
+  }
+
+  export type Astronomy_eventsGroupByOutputType = {
+    id: number
+    name: string
+    description: string
+    visibility: string
+    best_time: string
+    image_url: string | null
+    event_date: Date
+    end_date: Date | null
+    duration: string
+    event_type: string
+    is_active: boolean
+    created_by: number
+    created_at: Date
+    updated_at: Date
+    _count: Astronomy_eventsCountAggregateOutputType | null
+    _avg: Astronomy_eventsAvgAggregateOutputType | null
+    _sum: Astronomy_eventsSumAggregateOutputType | null
+    _min: Astronomy_eventsMinAggregateOutputType | null
+    _max: Astronomy_eventsMaxAggregateOutputType | null
+  }
+
+  type GetAstronomy_eventsGroupByPayload<T extends astronomy_eventsGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<Astronomy_eventsGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof Astronomy_eventsGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], Astronomy_eventsGroupByOutputType[P]>
+            : GetScalarType<T[P], Astronomy_eventsGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type astronomy_eventsSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    name?: boolean
+    description?: boolean
+    visibility?: boolean
+    best_time?: boolean
+    image_url?: boolean
+    event_date?: boolean
+    end_date?: boolean
+    duration?: boolean
+    event_type?: boolean
+    is_active?: boolean
+    created_by?: boolean
+    created_at?: boolean
+    updated_at?: boolean
+    creator?: boolean | usersDefaultArgs<ExtArgs>
+    reminders?: boolean | astronomy_events$remindersArgs<ExtArgs>
+    _count?: boolean | Astronomy_eventsCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["astronomy_events"]>
+
+  export type astronomy_eventsSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    name?: boolean
+    description?: boolean
+    visibility?: boolean
+    best_time?: boolean
+    image_url?: boolean
+    event_date?: boolean
+    end_date?: boolean
+    duration?: boolean
+    event_type?: boolean
+    is_active?: boolean
+    created_by?: boolean
+    created_at?: boolean
+    updated_at?: boolean
+    creator?: boolean | usersDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["astronomy_events"]>
+
+  export type astronomy_eventsSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    name?: boolean
+    description?: boolean
+    visibility?: boolean
+    best_time?: boolean
+    image_url?: boolean
+    event_date?: boolean
+    end_date?: boolean
+    duration?: boolean
+    event_type?: boolean
+    is_active?: boolean
+    created_by?: boolean
+    created_at?: boolean
+    updated_at?: boolean
+    creator?: boolean | usersDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["astronomy_events"]>
+
+  export type astronomy_eventsSelectScalar = {
+    id?: boolean
+    name?: boolean
+    description?: boolean
+    visibility?: boolean
+    best_time?: boolean
+    image_url?: boolean
+    event_date?: boolean
+    end_date?: boolean
+    duration?: boolean
+    event_type?: boolean
+    is_active?: boolean
+    created_by?: boolean
+    created_at?: boolean
+    updated_at?: boolean
+  }
+
+  export type astronomy_eventsOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "description" | "visibility" | "best_time" | "image_url" | "event_date" | "end_date" | "duration" | "event_type" | "is_active" | "created_by" | "created_at" | "updated_at", ExtArgs["result"]["astronomy_events"]>
+  export type astronomy_eventsInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    creator?: boolean | usersDefaultArgs<ExtArgs>
+    reminders?: boolean | astronomy_events$remindersArgs<ExtArgs>
+    _count?: boolean | Astronomy_eventsCountOutputTypeDefaultArgs<ExtArgs>
+  }
+  export type astronomy_eventsIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    creator?: boolean | usersDefaultArgs<ExtArgs>
+  }
+  export type astronomy_eventsIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    creator?: boolean | usersDefaultArgs<ExtArgs>
+  }
+
+  export type $astronomy_eventsPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "astronomy_events"
+    objects: {
+      creator: Prisma.$usersPayload<ExtArgs>
+      reminders: Prisma.$event_remindersPayload<ExtArgs>[]
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: number
+      name: string
+      description: string
+      visibility: string
+      best_time: string
+      image_url: string | null
+      event_date: Date
+      end_date: Date | null
+      duration: string
+      event_type: string
+      is_active: boolean
+      created_by: number
+      created_at: Date
+      updated_at: Date
+    }, ExtArgs["result"]["astronomy_events"]>
+    composites: {}
+  }
+
+  type astronomy_eventsGetPayload<S extends boolean | null | undefined | astronomy_eventsDefaultArgs> = $Result.GetResult<Prisma.$astronomy_eventsPayload, S>
+
+  type astronomy_eventsCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<astronomy_eventsFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: Astronomy_eventsCountAggregateInputType | true
+    }
+
+  export interface astronomy_eventsDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['astronomy_events'], meta: { name: 'astronomy_events' } }
+    /**
+     * Find zero or one Astronomy_events that matches the filter.
+     * @param {astronomy_eventsFindUniqueArgs} args - Arguments to find a Astronomy_events
+     * @example
+     * // Get one Astronomy_events
+     * const astronomy_events = await prisma.astronomy_events.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends astronomy_eventsFindUniqueArgs>(args: SelectSubset<T, astronomy_eventsFindUniqueArgs<ExtArgs>>): Prisma__astronomy_eventsClient<$Result.GetResult<Prisma.$astronomy_eventsPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Astronomy_events that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {astronomy_eventsFindUniqueOrThrowArgs} args - Arguments to find a Astronomy_events
+     * @example
+     * // Get one Astronomy_events
+     * const astronomy_events = await prisma.astronomy_events.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends astronomy_eventsFindUniqueOrThrowArgs>(args: SelectSubset<T, astronomy_eventsFindUniqueOrThrowArgs<ExtArgs>>): Prisma__astronomy_eventsClient<$Result.GetResult<Prisma.$astronomy_eventsPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Astronomy_events that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {astronomy_eventsFindFirstArgs} args - Arguments to find a Astronomy_events
+     * @example
+     * // Get one Astronomy_events
+     * const astronomy_events = await prisma.astronomy_events.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends astronomy_eventsFindFirstArgs>(args?: SelectSubset<T, astronomy_eventsFindFirstArgs<ExtArgs>>): Prisma__astronomy_eventsClient<$Result.GetResult<Prisma.$astronomy_eventsPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Astronomy_events that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {astronomy_eventsFindFirstOrThrowArgs} args - Arguments to find a Astronomy_events
+     * @example
+     * // Get one Astronomy_events
+     * const astronomy_events = await prisma.astronomy_events.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends astronomy_eventsFindFirstOrThrowArgs>(args?: SelectSubset<T, astronomy_eventsFindFirstOrThrowArgs<ExtArgs>>): Prisma__astronomy_eventsClient<$Result.GetResult<Prisma.$astronomy_eventsPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Astronomy_events that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {astronomy_eventsFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Astronomy_events
+     * const astronomy_events = await prisma.astronomy_events.findMany()
+     * 
+     * // Get first 10 Astronomy_events
+     * const astronomy_events = await prisma.astronomy_events.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const astronomy_eventsWithIdOnly = await prisma.astronomy_events.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends astronomy_eventsFindManyArgs>(args?: SelectSubset<T, astronomy_eventsFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$astronomy_eventsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Astronomy_events.
+     * @param {astronomy_eventsCreateArgs} args - Arguments to create a Astronomy_events.
+     * @example
+     * // Create one Astronomy_events
+     * const Astronomy_events = await prisma.astronomy_events.create({
+     *   data: {
+     *     // ... data to create a Astronomy_events
+     *   }
+     * })
+     * 
+     */
+    create<T extends astronomy_eventsCreateArgs>(args: SelectSubset<T, astronomy_eventsCreateArgs<ExtArgs>>): Prisma__astronomy_eventsClient<$Result.GetResult<Prisma.$astronomy_eventsPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Astronomy_events.
+     * @param {astronomy_eventsCreateManyArgs} args - Arguments to create many Astronomy_events.
+     * @example
+     * // Create many Astronomy_events
+     * const astronomy_events = await prisma.astronomy_events.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends astronomy_eventsCreateManyArgs>(args?: SelectSubset<T, astronomy_eventsCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many Astronomy_events and returns the data saved in the database.
+     * @param {astronomy_eventsCreateManyAndReturnArgs} args - Arguments to create many Astronomy_events.
+     * @example
+     * // Create many Astronomy_events
+     * const astronomy_events = await prisma.astronomy_events.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many Astronomy_events and only return the `id`
+     * const astronomy_eventsWithIdOnly = await prisma.astronomy_events.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends astronomy_eventsCreateManyAndReturnArgs>(args?: SelectSubset<T, astronomy_eventsCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$astronomy_eventsPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a Astronomy_events.
+     * @param {astronomy_eventsDeleteArgs} args - Arguments to delete one Astronomy_events.
+     * @example
+     * // Delete one Astronomy_events
+     * const Astronomy_events = await prisma.astronomy_events.delete({
+     *   where: {
+     *     // ... filter to delete one Astronomy_events
+     *   }
+     * })
+     * 
+     */
+    delete<T extends astronomy_eventsDeleteArgs>(args: SelectSubset<T, astronomy_eventsDeleteArgs<ExtArgs>>): Prisma__astronomy_eventsClient<$Result.GetResult<Prisma.$astronomy_eventsPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Astronomy_events.
+     * @param {astronomy_eventsUpdateArgs} args - Arguments to update one Astronomy_events.
+     * @example
+     * // Update one Astronomy_events
+     * const astronomy_events = await prisma.astronomy_events.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends astronomy_eventsUpdateArgs>(args: SelectSubset<T, astronomy_eventsUpdateArgs<ExtArgs>>): Prisma__astronomy_eventsClient<$Result.GetResult<Prisma.$astronomy_eventsPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Astronomy_events.
+     * @param {astronomy_eventsDeleteManyArgs} args - Arguments to filter Astronomy_events to delete.
+     * @example
+     * // Delete a few Astronomy_events
+     * const { count } = await prisma.astronomy_events.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends astronomy_eventsDeleteManyArgs>(args?: SelectSubset<T, astronomy_eventsDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Astronomy_events.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {astronomy_eventsUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Astronomy_events
+     * const astronomy_events = await prisma.astronomy_events.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends astronomy_eventsUpdateManyArgs>(args: SelectSubset<T, astronomy_eventsUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Astronomy_events and returns the data updated in the database.
+     * @param {astronomy_eventsUpdateManyAndReturnArgs} args - Arguments to update many Astronomy_events.
+     * @example
+     * // Update many Astronomy_events
+     * const astronomy_events = await prisma.astronomy_events.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more Astronomy_events and only return the `id`
+     * const astronomy_eventsWithIdOnly = await prisma.astronomy_events.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends astronomy_eventsUpdateManyAndReturnArgs>(args: SelectSubset<T, astronomy_eventsUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$astronomy_eventsPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one Astronomy_events.
+     * @param {astronomy_eventsUpsertArgs} args - Arguments to update or create a Astronomy_events.
+     * @example
+     * // Update or create a Astronomy_events
+     * const astronomy_events = await prisma.astronomy_events.upsert({
+     *   create: {
+     *     // ... data to create a Astronomy_events
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Astronomy_events we want to update
+     *   }
+     * })
+     */
+    upsert<T extends astronomy_eventsUpsertArgs>(args: SelectSubset<T, astronomy_eventsUpsertArgs<ExtArgs>>): Prisma__astronomy_eventsClient<$Result.GetResult<Prisma.$astronomy_eventsPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of Astronomy_events.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {astronomy_eventsCountArgs} args - Arguments to filter Astronomy_events to count.
+     * @example
+     * // Count the number of Astronomy_events
+     * const count = await prisma.astronomy_events.count({
+     *   where: {
+     *     // ... the filter for the Astronomy_events we want to count
+     *   }
+     * })
+    **/
+    count<T extends astronomy_eventsCountArgs>(
+      args?: Subset<T, astronomy_eventsCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], Astronomy_eventsCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Astronomy_events.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {Astronomy_eventsAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends Astronomy_eventsAggregateArgs>(args: Subset<T, Astronomy_eventsAggregateArgs>): Prisma.PrismaPromise<GetAstronomy_eventsAggregateType<T>>
+
+    /**
+     * Group by Astronomy_events.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {astronomy_eventsGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends astronomy_eventsGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: astronomy_eventsGroupByArgs['orderBy'] }
+        : { orderBy?: astronomy_eventsGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, astronomy_eventsGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetAstronomy_eventsGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the astronomy_events model
+   */
+  readonly fields: astronomy_eventsFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for astronomy_events.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__astronomy_eventsClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    creator<T extends usersDefaultArgs<ExtArgs> = {}>(args?: Subset<T, usersDefaultArgs<ExtArgs>>): Prisma__usersClient<$Result.GetResult<Prisma.$usersPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    reminders<T extends astronomy_events$remindersArgs<ExtArgs> = {}>(args?: Subset<T, astronomy_events$remindersArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$event_remindersPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the astronomy_events model
+   */
+  interface astronomy_eventsFieldRefs {
+    readonly id: FieldRef<"astronomy_events", 'Int'>
+    readonly name: FieldRef<"astronomy_events", 'String'>
+    readonly description: FieldRef<"astronomy_events", 'String'>
+    readonly visibility: FieldRef<"astronomy_events", 'String'>
+    readonly best_time: FieldRef<"astronomy_events", 'String'>
+    readonly image_url: FieldRef<"astronomy_events", 'String'>
+    readonly event_date: FieldRef<"astronomy_events", 'DateTime'>
+    readonly end_date: FieldRef<"astronomy_events", 'DateTime'>
+    readonly duration: FieldRef<"astronomy_events", 'String'>
+    readonly event_type: FieldRef<"astronomy_events", 'String'>
+    readonly is_active: FieldRef<"astronomy_events", 'Boolean'>
+    readonly created_by: FieldRef<"astronomy_events", 'Int'>
+    readonly created_at: FieldRef<"astronomy_events", 'DateTime'>
+    readonly updated_at: FieldRef<"astronomy_events", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * astronomy_events findUnique
+   */
+  export type astronomy_eventsFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the astronomy_events
+     */
+    select?: astronomy_eventsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the astronomy_events
+     */
+    omit?: astronomy_eventsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: astronomy_eventsInclude<ExtArgs> | null
+    /**
+     * Filter, which astronomy_events to fetch.
+     */
+    where: astronomy_eventsWhereUniqueInput
+  }
+
+  /**
+   * astronomy_events findUniqueOrThrow
+   */
+  export type astronomy_eventsFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the astronomy_events
+     */
+    select?: astronomy_eventsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the astronomy_events
+     */
+    omit?: astronomy_eventsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: astronomy_eventsInclude<ExtArgs> | null
+    /**
+     * Filter, which astronomy_events to fetch.
+     */
+    where: astronomy_eventsWhereUniqueInput
+  }
+
+  /**
+   * astronomy_events findFirst
+   */
+  export type astronomy_eventsFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the astronomy_events
+     */
+    select?: astronomy_eventsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the astronomy_events
+     */
+    omit?: astronomy_eventsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: astronomy_eventsInclude<ExtArgs> | null
+    /**
+     * Filter, which astronomy_events to fetch.
+     */
+    where?: astronomy_eventsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of astronomy_events to fetch.
+     */
+    orderBy?: astronomy_eventsOrderByWithRelationInput | astronomy_eventsOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for astronomy_events.
+     */
+    cursor?: astronomy_eventsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` astronomy_events from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` astronomy_events.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of astronomy_events.
+     */
+    distinct?: Astronomy_eventsScalarFieldEnum | Astronomy_eventsScalarFieldEnum[]
+  }
+
+  /**
+   * astronomy_events findFirstOrThrow
+   */
+  export type astronomy_eventsFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the astronomy_events
+     */
+    select?: astronomy_eventsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the astronomy_events
+     */
+    omit?: astronomy_eventsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: astronomy_eventsInclude<ExtArgs> | null
+    /**
+     * Filter, which astronomy_events to fetch.
+     */
+    where?: astronomy_eventsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of astronomy_events to fetch.
+     */
+    orderBy?: astronomy_eventsOrderByWithRelationInput | astronomy_eventsOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for astronomy_events.
+     */
+    cursor?: astronomy_eventsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` astronomy_events from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` astronomy_events.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of astronomy_events.
+     */
+    distinct?: Astronomy_eventsScalarFieldEnum | Astronomy_eventsScalarFieldEnum[]
+  }
+
+  /**
+   * astronomy_events findMany
+   */
+  export type astronomy_eventsFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the astronomy_events
+     */
+    select?: astronomy_eventsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the astronomy_events
+     */
+    omit?: astronomy_eventsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: astronomy_eventsInclude<ExtArgs> | null
+    /**
+     * Filter, which astronomy_events to fetch.
+     */
+    where?: astronomy_eventsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of astronomy_events to fetch.
+     */
+    orderBy?: astronomy_eventsOrderByWithRelationInput | astronomy_eventsOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing astronomy_events.
+     */
+    cursor?: astronomy_eventsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` astronomy_events from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` astronomy_events.
+     */
+    skip?: number
+    distinct?: Astronomy_eventsScalarFieldEnum | Astronomy_eventsScalarFieldEnum[]
+  }
+
+  /**
+   * astronomy_events create
+   */
+  export type astronomy_eventsCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the astronomy_events
+     */
+    select?: astronomy_eventsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the astronomy_events
+     */
+    omit?: astronomy_eventsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: astronomy_eventsInclude<ExtArgs> | null
+    /**
+     * The data needed to create a astronomy_events.
+     */
+    data: XOR<astronomy_eventsCreateInput, astronomy_eventsUncheckedCreateInput>
+  }
+
+  /**
+   * astronomy_events createMany
+   */
+  export type astronomy_eventsCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many astronomy_events.
+     */
+    data: astronomy_eventsCreateManyInput | astronomy_eventsCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * astronomy_events createManyAndReturn
+   */
+  export type astronomy_eventsCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the astronomy_events
+     */
+    select?: astronomy_eventsSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the astronomy_events
+     */
+    omit?: astronomy_eventsOmit<ExtArgs> | null
+    /**
+     * The data used to create many astronomy_events.
+     */
+    data: astronomy_eventsCreateManyInput | astronomy_eventsCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: astronomy_eventsIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * astronomy_events update
+   */
+  export type astronomy_eventsUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the astronomy_events
+     */
+    select?: astronomy_eventsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the astronomy_events
+     */
+    omit?: astronomy_eventsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: astronomy_eventsInclude<ExtArgs> | null
+    /**
+     * The data needed to update a astronomy_events.
+     */
+    data: XOR<astronomy_eventsUpdateInput, astronomy_eventsUncheckedUpdateInput>
+    /**
+     * Choose, which astronomy_events to update.
+     */
+    where: astronomy_eventsWhereUniqueInput
+  }
+
+  /**
+   * astronomy_events updateMany
+   */
+  export type astronomy_eventsUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update astronomy_events.
+     */
+    data: XOR<astronomy_eventsUpdateManyMutationInput, astronomy_eventsUncheckedUpdateManyInput>
+    /**
+     * Filter which astronomy_events to update
+     */
+    where?: astronomy_eventsWhereInput
+    /**
+     * Limit how many astronomy_events to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * astronomy_events updateManyAndReturn
+   */
+  export type astronomy_eventsUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the astronomy_events
+     */
+    select?: astronomy_eventsSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the astronomy_events
+     */
+    omit?: astronomy_eventsOmit<ExtArgs> | null
+    /**
+     * The data used to update astronomy_events.
+     */
+    data: XOR<astronomy_eventsUpdateManyMutationInput, astronomy_eventsUncheckedUpdateManyInput>
+    /**
+     * Filter which astronomy_events to update
+     */
+    where?: astronomy_eventsWhereInput
+    /**
+     * Limit how many astronomy_events to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: astronomy_eventsIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * astronomy_events upsert
+   */
+  export type astronomy_eventsUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the astronomy_events
+     */
+    select?: astronomy_eventsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the astronomy_events
+     */
+    omit?: astronomy_eventsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: astronomy_eventsInclude<ExtArgs> | null
+    /**
+     * The filter to search for the astronomy_events to update in case it exists.
+     */
+    where: astronomy_eventsWhereUniqueInput
+    /**
+     * In case the astronomy_events found by the `where` argument doesn't exist, create a new astronomy_events with this data.
+     */
+    create: XOR<astronomy_eventsCreateInput, astronomy_eventsUncheckedCreateInput>
+    /**
+     * In case the astronomy_events was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<astronomy_eventsUpdateInput, astronomy_eventsUncheckedUpdateInput>
+  }
+
+  /**
+   * astronomy_events delete
+   */
+  export type astronomy_eventsDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the astronomy_events
+     */
+    select?: astronomy_eventsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the astronomy_events
+     */
+    omit?: astronomy_eventsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: astronomy_eventsInclude<ExtArgs> | null
+    /**
+     * Filter which astronomy_events to delete.
+     */
+    where: astronomy_eventsWhereUniqueInput
+  }
+
+  /**
+   * astronomy_events deleteMany
+   */
+  export type astronomy_eventsDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which astronomy_events to delete
+     */
+    where?: astronomy_eventsWhereInput
+    /**
+     * Limit how many astronomy_events to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * astronomy_events.reminders
+   */
+  export type astronomy_events$remindersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the event_reminders
+     */
+    select?: event_remindersSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the event_reminders
+     */
+    omit?: event_remindersOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: event_remindersInclude<ExtArgs> | null
+    where?: event_remindersWhereInput
+    orderBy?: event_remindersOrderByWithRelationInput | event_remindersOrderByWithRelationInput[]
+    cursor?: event_remindersWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: Event_remindersScalarFieldEnum | Event_remindersScalarFieldEnum[]
+  }
+
+  /**
+   * astronomy_events without action
+   */
+  export type astronomy_eventsDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the astronomy_events
+     */
+    select?: astronomy_eventsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the astronomy_events
+     */
+    omit?: astronomy_eventsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: astronomy_eventsInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model event_reminders
+   */
+
+  export type AggregateEvent_reminders = {
+    _count: Event_remindersCountAggregateOutputType | null
+    _avg: Event_remindersAvgAggregateOutputType | null
+    _sum: Event_remindersSumAggregateOutputType | null
+    _min: Event_remindersMinAggregateOutputType | null
+    _max: Event_remindersMaxAggregateOutputType | null
+  }
+
+  export type Event_remindersAvgAggregateOutputType = {
+    id: number | null
+    user_id: number | null
+    event_id: number | null
+  }
+
+  export type Event_remindersSumAggregateOutputType = {
+    id: number | null
+    user_id: number | null
+    event_id: number | null
+  }
+
+  export type Event_remindersMinAggregateOutputType = {
+    id: number | null
+    user_id: number | null
+    event_id: number | null
+    reminder_time: Date | null
+    is_sent: boolean | null
+    notification_type: string | null
+    created_at: Date | null
+    updated_at: Date | null
+  }
+
+  export type Event_remindersMaxAggregateOutputType = {
+    id: number | null
+    user_id: number | null
+    event_id: number | null
+    reminder_time: Date | null
+    is_sent: boolean | null
+    notification_type: string | null
+    created_at: Date | null
+    updated_at: Date | null
+  }
+
+  export type Event_remindersCountAggregateOutputType = {
+    id: number
+    user_id: number
+    event_id: number
+    reminder_time: number
+    is_sent: number
+    notification_type: number
+    created_at: number
+    updated_at: number
+    _all: number
+  }
+
+
+  export type Event_remindersAvgAggregateInputType = {
+    id?: true
+    user_id?: true
+    event_id?: true
+  }
+
+  export type Event_remindersSumAggregateInputType = {
+    id?: true
+    user_id?: true
+    event_id?: true
+  }
+
+  export type Event_remindersMinAggregateInputType = {
+    id?: true
+    user_id?: true
+    event_id?: true
+    reminder_time?: true
+    is_sent?: true
+    notification_type?: true
+    created_at?: true
+    updated_at?: true
+  }
+
+  export type Event_remindersMaxAggregateInputType = {
+    id?: true
+    user_id?: true
+    event_id?: true
+    reminder_time?: true
+    is_sent?: true
+    notification_type?: true
+    created_at?: true
+    updated_at?: true
+  }
+
+  export type Event_remindersCountAggregateInputType = {
+    id?: true
+    user_id?: true
+    event_id?: true
+    reminder_time?: true
+    is_sent?: true
+    notification_type?: true
+    created_at?: true
+    updated_at?: true
+    _all?: true
+  }
+
+  export type Event_remindersAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which event_reminders to aggregate.
+     */
+    where?: event_remindersWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of event_reminders to fetch.
+     */
+    orderBy?: event_remindersOrderByWithRelationInput | event_remindersOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: event_remindersWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` event_reminders from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` event_reminders.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned event_reminders
+    **/
+    _count?: true | Event_remindersCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: Event_remindersAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: Event_remindersSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: Event_remindersMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: Event_remindersMaxAggregateInputType
+  }
+
+  export type GetEvent_remindersAggregateType<T extends Event_remindersAggregateArgs> = {
+        [P in keyof T & keyof AggregateEvent_reminders]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateEvent_reminders[P]>
+      : GetScalarType<T[P], AggregateEvent_reminders[P]>
+  }
+
+
+
+
+  export type event_remindersGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: event_remindersWhereInput
+    orderBy?: event_remindersOrderByWithAggregationInput | event_remindersOrderByWithAggregationInput[]
+    by: Event_remindersScalarFieldEnum[] | Event_remindersScalarFieldEnum
+    having?: event_remindersScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: Event_remindersCountAggregateInputType | true
+    _avg?: Event_remindersAvgAggregateInputType
+    _sum?: Event_remindersSumAggregateInputType
+    _min?: Event_remindersMinAggregateInputType
+    _max?: Event_remindersMaxAggregateInputType
+  }
+
+  export type Event_remindersGroupByOutputType = {
+    id: number
+    user_id: number
+    event_id: number
+    reminder_time: Date
+    is_sent: boolean
+    notification_type: string
+    created_at: Date
+    updated_at: Date
+    _count: Event_remindersCountAggregateOutputType | null
+    _avg: Event_remindersAvgAggregateOutputType | null
+    _sum: Event_remindersSumAggregateOutputType | null
+    _min: Event_remindersMinAggregateOutputType | null
+    _max: Event_remindersMaxAggregateOutputType | null
+  }
+
+  type GetEvent_remindersGroupByPayload<T extends event_remindersGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<Event_remindersGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof Event_remindersGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], Event_remindersGroupByOutputType[P]>
+            : GetScalarType<T[P], Event_remindersGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type event_remindersSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    user_id?: boolean
+    event_id?: boolean
+    reminder_time?: boolean
+    is_sent?: boolean
+    notification_type?: boolean
+    created_at?: boolean
+    updated_at?: boolean
+    user?: boolean | usersDefaultArgs<ExtArgs>
+    event?: boolean | astronomy_eventsDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["event_reminders"]>
+
+  export type event_remindersSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    user_id?: boolean
+    event_id?: boolean
+    reminder_time?: boolean
+    is_sent?: boolean
+    notification_type?: boolean
+    created_at?: boolean
+    updated_at?: boolean
+    user?: boolean | usersDefaultArgs<ExtArgs>
+    event?: boolean | astronomy_eventsDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["event_reminders"]>
+
+  export type event_remindersSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    user_id?: boolean
+    event_id?: boolean
+    reminder_time?: boolean
+    is_sent?: boolean
+    notification_type?: boolean
+    created_at?: boolean
+    updated_at?: boolean
+    user?: boolean | usersDefaultArgs<ExtArgs>
+    event?: boolean | astronomy_eventsDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["event_reminders"]>
+
+  export type event_remindersSelectScalar = {
+    id?: boolean
+    user_id?: boolean
+    event_id?: boolean
+    reminder_time?: boolean
+    is_sent?: boolean
+    notification_type?: boolean
+    created_at?: boolean
+    updated_at?: boolean
+  }
+
+  export type event_remindersOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "user_id" | "event_id" | "reminder_time" | "is_sent" | "notification_type" | "created_at" | "updated_at", ExtArgs["result"]["event_reminders"]>
+  export type event_remindersInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | usersDefaultArgs<ExtArgs>
+    event?: boolean | astronomy_eventsDefaultArgs<ExtArgs>
+  }
+  export type event_remindersIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | usersDefaultArgs<ExtArgs>
+    event?: boolean | astronomy_eventsDefaultArgs<ExtArgs>
+  }
+  export type event_remindersIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | usersDefaultArgs<ExtArgs>
+    event?: boolean | astronomy_eventsDefaultArgs<ExtArgs>
+  }
+
+  export type $event_remindersPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "event_reminders"
+    objects: {
+      user: Prisma.$usersPayload<ExtArgs>
+      event: Prisma.$astronomy_eventsPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: number
+      user_id: number
+      event_id: number
+      reminder_time: Date
+      is_sent: boolean
+      notification_type: string
+      created_at: Date
+      updated_at: Date
+    }, ExtArgs["result"]["event_reminders"]>
+    composites: {}
+  }
+
+  type event_remindersGetPayload<S extends boolean | null | undefined | event_remindersDefaultArgs> = $Result.GetResult<Prisma.$event_remindersPayload, S>
+
+  type event_remindersCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<event_remindersFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: Event_remindersCountAggregateInputType | true
+    }
+
+  export interface event_remindersDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['event_reminders'], meta: { name: 'event_reminders' } }
+    /**
+     * Find zero or one Event_reminders that matches the filter.
+     * @param {event_remindersFindUniqueArgs} args - Arguments to find a Event_reminders
+     * @example
+     * // Get one Event_reminders
+     * const event_reminders = await prisma.event_reminders.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends event_remindersFindUniqueArgs>(args: SelectSubset<T, event_remindersFindUniqueArgs<ExtArgs>>): Prisma__event_remindersClient<$Result.GetResult<Prisma.$event_remindersPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Event_reminders that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {event_remindersFindUniqueOrThrowArgs} args - Arguments to find a Event_reminders
+     * @example
+     * // Get one Event_reminders
+     * const event_reminders = await prisma.event_reminders.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends event_remindersFindUniqueOrThrowArgs>(args: SelectSubset<T, event_remindersFindUniqueOrThrowArgs<ExtArgs>>): Prisma__event_remindersClient<$Result.GetResult<Prisma.$event_remindersPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Event_reminders that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {event_remindersFindFirstArgs} args - Arguments to find a Event_reminders
+     * @example
+     * // Get one Event_reminders
+     * const event_reminders = await prisma.event_reminders.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends event_remindersFindFirstArgs>(args?: SelectSubset<T, event_remindersFindFirstArgs<ExtArgs>>): Prisma__event_remindersClient<$Result.GetResult<Prisma.$event_remindersPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Event_reminders that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {event_remindersFindFirstOrThrowArgs} args - Arguments to find a Event_reminders
+     * @example
+     * // Get one Event_reminders
+     * const event_reminders = await prisma.event_reminders.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends event_remindersFindFirstOrThrowArgs>(args?: SelectSubset<T, event_remindersFindFirstOrThrowArgs<ExtArgs>>): Prisma__event_remindersClient<$Result.GetResult<Prisma.$event_remindersPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Event_reminders that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {event_remindersFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Event_reminders
+     * const event_reminders = await prisma.event_reminders.findMany()
+     * 
+     * // Get first 10 Event_reminders
+     * const event_reminders = await prisma.event_reminders.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const event_remindersWithIdOnly = await prisma.event_reminders.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends event_remindersFindManyArgs>(args?: SelectSubset<T, event_remindersFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$event_remindersPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Event_reminders.
+     * @param {event_remindersCreateArgs} args - Arguments to create a Event_reminders.
+     * @example
+     * // Create one Event_reminders
+     * const Event_reminders = await prisma.event_reminders.create({
+     *   data: {
+     *     // ... data to create a Event_reminders
+     *   }
+     * })
+     * 
+     */
+    create<T extends event_remindersCreateArgs>(args: SelectSubset<T, event_remindersCreateArgs<ExtArgs>>): Prisma__event_remindersClient<$Result.GetResult<Prisma.$event_remindersPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Event_reminders.
+     * @param {event_remindersCreateManyArgs} args - Arguments to create many Event_reminders.
+     * @example
+     * // Create many Event_reminders
+     * const event_reminders = await prisma.event_reminders.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends event_remindersCreateManyArgs>(args?: SelectSubset<T, event_remindersCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many Event_reminders and returns the data saved in the database.
+     * @param {event_remindersCreateManyAndReturnArgs} args - Arguments to create many Event_reminders.
+     * @example
+     * // Create many Event_reminders
+     * const event_reminders = await prisma.event_reminders.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many Event_reminders and only return the `id`
+     * const event_remindersWithIdOnly = await prisma.event_reminders.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends event_remindersCreateManyAndReturnArgs>(args?: SelectSubset<T, event_remindersCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$event_remindersPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a Event_reminders.
+     * @param {event_remindersDeleteArgs} args - Arguments to delete one Event_reminders.
+     * @example
+     * // Delete one Event_reminders
+     * const Event_reminders = await prisma.event_reminders.delete({
+     *   where: {
+     *     // ... filter to delete one Event_reminders
+     *   }
+     * })
+     * 
+     */
+    delete<T extends event_remindersDeleteArgs>(args: SelectSubset<T, event_remindersDeleteArgs<ExtArgs>>): Prisma__event_remindersClient<$Result.GetResult<Prisma.$event_remindersPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Event_reminders.
+     * @param {event_remindersUpdateArgs} args - Arguments to update one Event_reminders.
+     * @example
+     * // Update one Event_reminders
+     * const event_reminders = await prisma.event_reminders.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends event_remindersUpdateArgs>(args: SelectSubset<T, event_remindersUpdateArgs<ExtArgs>>): Prisma__event_remindersClient<$Result.GetResult<Prisma.$event_remindersPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Event_reminders.
+     * @param {event_remindersDeleteManyArgs} args - Arguments to filter Event_reminders to delete.
+     * @example
+     * // Delete a few Event_reminders
+     * const { count } = await prisma.event_reminders.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends event_remindersDeleteManyArgs>(args?: SelectSubset<T, event_remindersDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Event_reminders.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {event_remindersUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Event_reminders
+     * const event_reminders = await prisma.event_reminders.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends event_remindersUpdateManyArgs>(args: SelectSubset<T, event_remindersUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Event_reminders and returns the data updated in the database.
+     * @param {event_remindersUpdateManyAndReturnArgs} args - Arguments to update many Event_reminders.
+     * @example
+     * // Update many Event_reminders
+     * const event_reminders = await prisma.event_reminders.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more Event_reminders and only return the `id`
+     * const event_remindersWithIdOnly = await prisma.event_reminders.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends event_remindersUpdateManyAndReturnArgs>(args: SelectSubset<T, event_remindersUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$event_remindersPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one Event_reminders.
+     * @param {event_remindersUpsertArgs} args - Arguments to update or create a Event_reminders.
+     * @example
+     * // Update or create a Event_reminders
+     * const event_reminders = await prisma.event_reminders.upsert({
+     *   create: {
+     *     // ... data to create a Event_reminders
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Event_reminders we want to update
+     *   }
+     * })
+     */
+    upsert<T extends event_remindersUpsertArgs>(args: SelectSubset<T, event_remindersUpsertArgs<ExtArgs>>): Prisma__event_remindersClient<$Result.GetResult<Prisma.$event_remindersPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of Event_reminders.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {event_remindersCountArgs} args - Arguments to filter Event_reminders to count.
+     * @example
+     * // Count the number of Event_reminders
+     * const count = await prisma.event_reminders.count({
+     *   where: {
+     *     // ... the filter for the Event_reminders we want to count
+     *   }
+     * })
+    **/
+    count<T extends event_remindersCountArgs>(
+      args?: Subset<T, event_remindersCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], Event_remindersCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Event_reminders.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {Event_remindersAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends Event_remindersAggregateArgs>(args: Subset<T, Event_remindersAggregateArgs>): Prisma.PrismaPromise<GetEvent_remindersAggregateType<T>>
+
+    /**
+     * Group by Event_reminders.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {event_remindersGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends event_remindersGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: event_remindersGroupByArgs['orderBy'] }
+        : { orderBy?: event_remindersGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, event_remindersGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetEvent_remindersGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the event_reminders model
+   */
+  readonly fields: event_remindersFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for event_reminders.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__event_remindersClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    user<T extends usersDefaultArgs<ExtArgs> = {}>(args?: Subset<T, usersDefaultArgs<ExtArgs>>): Prisma__usersClient<$Result.GetResult<Prisma.$usersPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    event<T extends astronomy_eventsDefaultArgs<ExtArgs> = {}>(args?: Subset<T, astronomy_eventsDefaultArgs<ExtArgs>>): Prisma__astronomy_eventsClient<$Result.GetResult<Prisma.$astronomy_eventsPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the event_reminders model
+   */
+  interface event_remindersFieldRefs {
+    readonly id: FieldRef<"event_reminders", 'Int'>
+    readonly user_id: FieldRef<"event_reminders", 'Int'>
+    readonly event_id: FieldRef<"event_reminders", 'Int'>
+    readonly reminder_time: FieldRef<"event_reminders", 'DateTime'>
+    readonly is_sent: FieldRef<"event_reminders", 'Boolean'>
+    readonly notification_type: FieldRef<"event_reminders", 'String'>
+    readonly created_at: FieldRef<"event_reminders", 'DateTime'>
+    readonly updated_at: FieldRef<"event_reminders", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * event_reminders findUnique
+   */
+  export type event_remindersFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the event_reminders
+     */
+    select?: event_remindersSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the event_reminders
+     */
+    omit?: event_remindersOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: event_remindersInclude<ExtArgs> | null
+    /**
+     * Filter, which event_reminders to fetch.
+     */
+    where: event_remindersWhereUniqueInput
+  }
+
+  /**
+   * event_reminders findUniqueOrThrow
+   */
+  export type event_remindersFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the event_reminders
+     */
+    select?: event_remindersSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the event_reminders
+     */
+    omit?: event_remindersOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: event_remindersInclude<ExtArgs> | null
+    /**
+     * Filter, which event_reminders to fetch.
+     */
+    where: event_remindersWhereUniqueInput
+  }
+
+  /**
+   * event_reminders findFirst
+   */
+  export type event_remindersFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the event_reminders
+     */
+    select?: event_remindersSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the event_reminders
+     */
+    omit?: event_remindersOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: event_remindersInclude<ExtArgs> | null
+    /**
+     * Filter, which event_reminders to fetch.
+     */
+    where?: event_remindersWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of event_reminders to fetch.
+     */
+    orderBy?: event_remindersOrderByWithRelationInput | event_remindersOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for event_reminders.
+     */
+    cursor?: event_remindersWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` event_reminders from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` event_reminders.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of event_reminders.
+     */
+    distinct?: Event_remindersScalarFieldEnum | Event_remindersScalarFieldEnum[]
+  }
+
+  /**
+   * event_reminders findFirstOrThrow
+   */
+  export type event_remindersFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the event_reminders
+     */
+    select?: event_remindersSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the event_reminders
+     */
+    omit?: event_remindersOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: event_remindersInclude<ExtArgs> | null
+    /**
+     * Filter, which event_reminders to fetch.
+     */
+    where?: event_remindersWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of event_reminders to fetch.
+     */
+    orderBy?: event_remindersOrderByWithRelationInput | event_remindersOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for event_reminders.
+     */
+    cursor?: event_remindersWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` event_reminders from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` event_reminders.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of event_reminders.
+     */
+    distinct?: Event_remindersScalarFieldEnum | Event_remindersScalarFieldEnum[]
+  }
+
+  /**
+   * event_reminders findMany
+   */
+  export type event_remindersFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the event_reminders
+     */
+    select?: event_remindersSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the event_reminders
+     */
+    omit?: event_remindersOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: event_remindersInclude<ExtArgs> | null
+    /**
+     * Filter, which event_reminders to fetch.
+     */
+    where?: event_remindersWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of event_reminders to fetch.
+     */
+    orderBy?: event_remindersOrderByWithRelationInput | event_remindersOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing event_reminders.
+     */
+    cursor?: event_remindersWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` event_reminders from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` event_reminders.
+     */
+    skip?: number
+    distinct?: Event_remindersScalarFieldEnum | Event_remindersScalarFieldEnum[]
+  }
+
+  /**
+   * event_reminders create
+   */
+  export type event_remindersCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the event_reminders
+     */
+    select?: event_remindersSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the event_reminders
+     */
+    omit?: event_remindersOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: event_remindersInclude<ExtArgs> | null
+    /**
+     * The data needed to create a event_reminders.
+     */
+    data: XOR<event_remindersCreateInput, event_remindersUncheckedCreateInput>
+  }
+
+  /**
+   * event_reminders createMany
+   */
+  export type event_remindersCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many event_reminders.
+     */
+    data: event_remindersCreateManyInput | event_remindersCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * event_reminders createManyAndReturn
+   */
+  export type event_remindersCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the event_reminders
+     */
+    select?: event_remindersSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the event_reminders
+     */
+    omit?: event_remindersOmit<ExtArgs> | null
+    /**
+     * The data used to create many event_reminders.
+     */
+    data: event_remindersCreateManyInput | event_remindersCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: event_remindersIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * event_reminders update
+   */
+  export type event_remindersUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the event_reminders
+     */
+    select?: event_remindersSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the event_reminders
+     */
+    omit?: event_remindersOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: event_remindersInclude<ExtArgs> | null
+    /**
+     * The data needed to update a event_reminders.
+     */
+    data: XOR<event_remindersUpdateInput, event_remindersUncheckedUpdateInput>
+    /**
+     * Choose, which event_reminders to update.
+     */
+    where: event_remindersWhereUniqueInput
+  }
+
+  /**
+   * event_reminders updateMany
+   */
+  export type event_remindersUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update event_reminders.
+     */
+    data: XOR<event_remindersUpdateManyMutationInput, event_remindersUncheckedUpdateManyInput>
+    /**
+     * Filter which event_reminders to update
+     */
+    where?: event_remindersWhereInput
+    /**
+     * Limit how many event_reminders to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * event_reminders updateManyAndReturn
+   */
+  export type event_remindersUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the event_reminders
+     */
+    select?: event_remindersSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the event_reminders
+     */
+    omit?: event_remindersOmit<ExtArgs> | null
+    /**
+     * The data used to update event_reminders.
+     */
+    data: XOR<event_remindersUpdateManyMutationInput, event_remindersUncheckedUpdateManyInput>
+    /**
+     * Filter which event_reminders to update
+     */
+    where?: event_remindersWhereInput
+    /**
+     * Limit how many event_reminders to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: event_remindersIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * event_reminders upsert
+   */
+  export type event_remindersUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the event_reminders
+     */
+    select?: event_remindersSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the event_reminders
+     */
+    omit?: event_remindersOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: event_remindersInclude<ExtArgs> | null
+    /**
+     * The filter to search for the event_reminders to update in case it exists.
+     */
+    where: event_remindersWhereUniqueInput
+    /**
+     * In case the event_reminders found by the `where` argument doesn't exist, create a new event_reminders with this data.
+     */
+    create: XOR<event_remindersCreateInput, event_remindersUncheckedCreateInput>
+    /**
+     * In case the event_reminders was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<event_remindersUpdateInput, event_remindersUncheckedUpdateInput>
+  }
+
+  /**
+   * event_reminders delete
+   */
+  export type event_remindersDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the event_reminders
+     */
+    select?: event_remindersSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the event_reminders
+     */
+    omit?: event_remindersOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: event_remindersInclude<ExtArgs> | null
+    /**
+     * Filter which event_reminders to delete.
+     */
+    where: event_remindersWhereUniqueInput
+  }
+
+  /**
+   * event_reminders deleteMany
+   */
+  export type event_remindersDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which event_reminders to delete
+     */
+    where?: event_remindersWhereInput
+    /**
+     * Limit how many event_reminders to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * event_reminders without action
+   */
+  export type event_remindersDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the event_reminders
+     */
+    select?: event_remindersSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the event_reminders
+     */
+    omit?: event_remindersOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: event_remindersInclude<ExtArgs> | null
+  }
+
+
+  /**
    * Enums
    */
 
@@ -57518,6 +60195,40 @@ export namespace Prisma {
   };
 
   export type Space_discussion_comment_likesScalarFieldEnum = (typeof Space_discussion_comment_likesScalarFieldEnum)[keyof typeof Space_discussion_comment_likesScalarFieldEnum]
+
+
+  export const Astronomy_eventsScalarFieldEnum: {
+    id: 'id',
+    name: 'name',
+    description: 'description',
+    visibility: 'visibility',
+    best_time: 'best_time',
+    image_url: 'image_url',
+    event_date: 'event_date',
+    end_date: 'end_date',
+    duration: 'duration',
+    event_type: 'event_type',
+    is_active: 'is_active',
+    created_by: 'created_by',
+    created_at: 'created_at',
+    updated_at: 'updated_at'
+  };
+
+  export type Astronomy_eventsScalarFieldEnum = (typeof Astronomy_eventsScalarFieldEnum)[keyof typeof Astronomy_eventsScalarFieldEnum]
+
+
+  export const Event_remindersScalarFieldEnum: {
+    id: 'id',
+    user_id: 'user_id',
+    event_id: 'event_id',
+    reminder_time: 'reminder_time',
+    is_sent: 'is_sent',
+    notification_type: 'notification_type',
+    created_at: 'created_at',
+    updated_at: 'updated_at'
+  };
+
+  export type Event_remindersScalarFieldEnum = (typeof Event_remindersScalarFieldEnum)[keyof typeof Event_remindersScalarFieldEnum]
 
 
   export const SortOrder: {
@@ -59150,6 +61861,8 @@ export namespace Prisma {
     group_memberships?: Group_membersListRelationFilter
     chat_messages?: Chat_messagesListRelationFilter
     message_reactions?: Message_reactionsListRelationFilter
+    created_astronomy_events?: Astronomy_eventsListRelationFilter
+    event_reminders?: Event_remindersListRelationFilter
   }
 
   export type usersOrderByWithRelationInput = {
@@ -59204,6 +61917,8 @@ export namespace Prisma {
     group_memberships?: group_membersOrderByRelationAggregateInput
     chat_messages?: chat_messagesOrderByRelationAggregateInput
     message_reactions?: message_reactionsOrderByRelationAggregateInput
+    created_astronomy_events?: astronomy_eventsOrderByRelationAggregateInput
+    event_reminders?: event_remindersOrderByRelationAggregateInput
   }
 
   export type usersWhereUniqueInput = Prisma.AtLeast<{
@@ -59261,6 +61976,8 @@ export namespace Prisma {
     group_memberships?: Group_membersListRelationFilter
     chat_messages?: Chat_messagesListRelationFilter
     message_reactions?: Message_reactionsListRelationFilter
+    created_astronomy_events?: Astronomy_eventsListRelationFilter
+    event_reminders?: Event_remindersListRelationFilter
   }, "id" | "firebase_uid" | "email">
 
   export type usersOrderByWithAggregationInput = {
@@ -61524,6 +64241,187 @@ export namespace Prisma {
     created_at?: DateTimeWithAggregatesFilter<"space_discussion_comment_likes"> | Date | string
   }
 
+  export type astronomy_eventsWhereInput = {
+    AND?: astronomy_eventsWhereInput | astronomy_eventsWhereInput[]
+    OR?: astronomy_eventsWhereInput[]
+    NOT?: astronomy_eventsWhereInput | astronomy_eventsWhereInput[]
+    id?: IntFilter<"astronomy_events"> | number
+    name?: StringFilter<"astronomy_events"> | string
+    description?: StringFilter<"astronomy_events"> | string
+    visibility?: StringFilter<"astronomy_events"> | string
+    best_time?: StringFilter<"astronomy_events"> | string
+    image_url?: StringNullableFilter<"astronomy_events"> | string | null
+    event_date?: DateTimeFilter<"astronomy_events"> | Date | string
+    end_date?: DateTimeNullableFilter<"astronomy_events"> | Date | string | null
+    duration?: StringFilter<"astronomy_events"> | string
+    event_type?: StringFilter<"astronomy_events"> | string
+    is_active?: BoolFilter<"astronomy_events"> | boolean
+    created_by?: IntFilter<"astronomy_events"> | number
+    created_at?: DateTimeFilter<"astronomy_events"> | Date | string
+    updated_at?: DateTimeFilter<"astronomy_events"> | Date | string
+    creator?: XOR<UsersScalarRelationFilter, usersWhereInput>
+    reminders?: Event_remindersListRelationFilter
+  }
+
+  export type astronomy_eventsOrderByWithRelationInput = {
+    id?: SortOrder
+    name?: SortOrder
+    description?: SortOrder
+    visibility?: SortOrder
+    best_time?: SortOrder
+    image_url?: SortOrderInput | SortOrder
+    event_date?: SortOrder
+    end_date?: SortOrderInput | SortOrder
+    duration?: SortOrder
+    event_type?: SortOrder
+    is_active?: SortOrder
+    created_by?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+    creator?: usersOrderByWithRelationInput
+    reminders?: event_remindersOrderByRelationAggregateInput
+  }
+
+  export type astronomy_eventsWhereUniqueInput = Prisma.AtLeast<{
+    id?: number
+    AND?: astronomy_eventsWhereInput | astronomy_eventsWhereInput[]
+    OR?: astronomy_eventsWhereInput[]
+    NOT?: astronomy_eventsWhereInput | astronomy_eventsWhereInput[]
+    name?: StringFilter<"astronomy_events"> | string
+    description?: StringFilter<"astronomy_events"> | string
+    visibility?: StringFilter<"astronomy_events"> | string
+    best_time?: StringFilter<"astronomy_events"> | string
+    image_url?: StringNullableFilter<"astronomy_events"> | string | null
+    event_date?: DateTimeFilter<"astronomy_events"> | Date | string
+    end_date?: DateTimeNullableFilter<"astronomy_events"> | Date | string | null
+    duration?: StringFilter<"astronomy_events"> | string
+    event_type?: StringFilter<"astronomy_events"> | string
+    is_active?: BoolFilter<"astronomy_events"> | boolean
+    created_by?: IntFilter<"astronomy_events"> | number
+    created_at?: DateTimeFilter<"astronomy_events"> | Date | string
+    updated_at?: DateTimeFilter<"astronomy_events"> | Date | string
+    creator?: XOR<UsersScalarRelationFilter, usersWhereInput>
+    reminders?: Event_remindersListRelationFilter
+  }, "id">
+
+  export type astronomy_eventsOrderByWithAggregationInput = {
+    id?: SortOrder
+    name?: SortOrder
+    description?: SortOrder
+    visibility?: SortOrder
+    best_time?: SortOrder
+    image_url?: SortOrderInput | SortOrder
+    event_date?: SortOrder
+    end_date?: SortOrderInput | SortOrder
+    duration?: SortOrder
+    event_type?: SortOrder
+    is_active?: SortOrder
+    created_by?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+    _count?: astronomy_eventsCountOrderByAggregateInput
+    _avg?: astronomy_eventsAvgOrderByAggregateInput
+    _max?: astronomy_eventsMaxOrderByAggregateInput
+    _min?: astronomy_eventsMinOrderByAggregateInput
+    _sum?: astronomy_eventsSumOrderByAggregateInput
+  }
+
+  export type astronomy_eventsScalarWhereWithAggregatesInput = {
+    AND?: astronomy_eventsScalarWhereWithAggregatesInput | astronomy_eventsScalarWhereWithAggregatesInput[]
+    OR?: astronomy_eventsScalarWhereWithAggregatesInput[]
+    NOT?: astronomy_eventsScalarWhereWithAggregatesInput | astronomy_eventsScalarWhereWithAggregatesInput[]
+    id?: IntWithAggregatesFilter<"astronomy_events"> | number
+    name?: StringWithAggregatesFilter<"astronomy_events"> | string
+    description?: StringWithAggregatesFilter<"astronomy_events"> | string
+    visibility?: StringWithAggregatesFilter<"astronomy_events"> | string
+    best_time?: StringWithAggregatesFilter<"astronomy_events"> | string
+    image_url?: StringNullableWithAggregatesFilter<"astronomy_events"> | string | null
+    event_date?: DateTimeWithAggregatesFilter<"astronomy_events"> | Date | string
+    end_date?: DateTimeNullableWithAggregatesFilter<"astronomy_events"> | Date | string | null
+    duration?: StringWithAggregatesFilter<"astronomy_events"> | string
+    event_type?: StringWithAggregatesFilter<"astronomy_events"> | string
+    is_active?: BoolWithAggregatesFilter<"astronomy_events"> | boolean
+    created_by?: IntWithAggregatesFilter<"astronomy_events"> | number
+    created_at?: DateTimeWithAggregatesFilter<"astronomy_events"> | Date | string
+    updated_at?: DateTimeWithAggregatesFilter<"astronomy_events"> | Date | string
+  }
+
+  export type event_remindersWhereInput = {
+    AND?: event_remindersWhereInput | event_remindersWhereInput[]
+    OR?: event_remindersWhereInput[]
+    NOT?: event_remindersWhereInput | event_remindersWhereInput[]
+    id?: IntFilter<"event_reminders"> | number
+    user_id?: IntFilter<"event_reminders"> | number
+    event_id?: IntFilter<"event_reminders"> | number
+    reminder_time?: DateTimeFilter<"event_reminders"> | Date | string
+    is_sent?: BoolFilter<"event_reminders"> | boolean
+    notification_type?: StringFilter<"event_reminders"> | string
+    created_at?: DateTimeFilter<"event_reminders"> | Date | string
+    updated_at?: DateTimeFilter<"event_reminders"> | Date | string
+    user?: XOR<UsersScalarRelationFilter, usersWhereInput>
+    event?: XOR<Astronomy_eventsScalarRelationFilter, astronomy_eventsWhereInput>
+  }
+
+  export type event_remindersOrderByWithRelationInput = {
+    id?: SortOrder
+    user_id?: SortOrder
+    event_id?: SortOrder
+    reminder_time?: SortOrder
+    is_sent?: SortOrder
+    notification_type?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+    user?: usersOrderByWithRelationInput
+    event?: astronomy_eventsOrderByWithRelationInput
+  }
+
+  export type event_remindersWhereUniqueInput = Prisma.AtLeast<{
+    id?: number
+    user_id_event_id?: event_remindersUser_idEvent_idCompoundUniqueInput
+    AND?: event_remindersWhereInput | event_remindersWhereInput[]
+    OR?: event_remindersWhereInput[]
+    NOT?: event_remindersWhereInput | event_remindersWhereInput[]
+    user_id?: IntFilter<"event_reminders"> | number
+    event_id?: IntFilter<"event_reminders"> | number
+    reminder_time?: DateTimeFilter<"event_reminders"> | Date | string
+    is_sent?: BoolFilter<"event_reminders"> | boolean
+    notification_type?: StringFilter<"event_reminders"> | string
+    created_at?: DateTimeFilter<"event_reminders"> | Date | string
+    updated_at?: DateTimeFilter<"event_reminders"> | Date | string
+    user?: XOR<UsersScalarRelationFilter, usersWhereInput>
+    event?: XOR<Astronomy_eventsScalarRelationFilter, astronomy_eventsWhereInput>
+  }, "id" | "user_id_event_id">
+
+  export type event_remindersOrderByWithAggregationInput = {
+    id?: SortOrder
+    user_id?: SortOrder
+    event_id?: SortOrder
+    reminder_time?: SortOrder
+    is_sent?: SortOrder
+    notification_type?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+    _count?: event_remindersCountOrderByAggregateInput
+    _avg?: event_remindersAvgOrderByAggregateInput
+    _max?: event_remindersMaxOrderByAggregateInput
+    _min?: event_remindersMinOrderByAggregateInput
+    _sum?: event_remindersSumOrderByAggregateInput
+  }
+
+  export type event_remindersScalarWhereWithAggregatesInput = {
+    AND?: event_remindersScalarWhereWithAggregatesInput | event_remindersScalarWhereWithAggregatesInput[]
+    OR?: event_remindersScalarWhereWithAggregatesInput[]
+    NOT?: event_remindersScalarWhereWithAggregatesInput | event_remindersScalarWhereWithAggregatesInput[]
+    id?: IntWithAggregatesFilter<"event_reminders"> | number
+    user_id?: IntWithAggregatesFilter<"event_reminders"> | number
+    event_id?: IntWithAggregatesFilter<"event_reminders"> | number
+    reminder_time?: DateTimeWithAggregatesFilter<"event_reminders"> | Date | string
+    is_sent?: BoolWithAggregatesFilter<"event_reminders"> | boolean
+    notification_type?: StringWithAggregatesFilter<"event_reminders"> | string
+    created_at?: DateTimeWithAggregatesFilter<"event_reminders"> | Date | string
+    updated_at?: DateTimeWithAggregatesFilter<"event_reminders"> | Date | string
+  }
+
   export type subscriptionsCreateInput = {
     plan_type: $Enums.subscription_plan
     status?: $Enums.subscription_status | null
@@ -62897,6 +65795,8 @@ export namespace Prisma {
     group_memberships?: group_membersCreateNestedManyWithoutUserInput
     chat_messages?: chat_messagesCreateNestedManyWithoutUserInput
     message_reactions?: message_reactionsCreateNestedManyWithoutUserInput
+    created_astronomy_events?: astronomy_eventsCreateNestedManyWithoutCreatorInput
+    event_reminders?: event_remindersCreateNestedManyWithoutUserInput
   }
 
   export type usersUncheckedCreateInput = {
@@ -62951,6 +65851,8 @@ export namespace Prisma {
     group_memberships?: group_membersUncheckedCreateNestedManyWithoutUserInput
     chat_messages?: chat_messagesUncheckedCreateNestedManyWithoutUserInput
     message_reactions?: message_reactionsUncheckedCreateNestedManyWithoutUserInput
+    created_astronomy_events?: astronomy_eventsUncheckedCreateNestedManyWithoutCreatorInput
+    event_reminders?: event_remindersUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type usersUpdateInput = {
@@ -63004,6 +65906,8 @@ export namespace Prisma {
     group_memberships?: group_membersUpdateManyWithoutUserNestedInput
     chat_messages?: chat_messagesUpdateManyWithoutUserNestedInput
     message_reactions?: message_reactionsUpdateManyWithoutUserNestedInput
+    created_astronomy_events?: astronomy_eventsUpdateManyWithoutCreatorNestedInput
+    event_reminders?: event_remindersUpdateManyWithoutUserNestedInput
   }
 
   export type usersUncheckedUpdateInput = {
@@ -63058,6 +65962,8 @@ export namespace Prisma {
     group_memberships?: group_membersUncheckedUpdateManyWithoutUserNestedInput
     chat_messages?: chat_messagesUncheckedUpdateManyWithoutUserNestedInput
     message_reactions?: message_reactionsUncheckedUpdateManyWithoutUserNestedInput
+    created_astronomy_events?: astronomy_eventsUncheckedUpdateManyWithoutCreatorNestedInput
+    event_reminders?: event_remindersUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type usersCreateManyInput = {
@@ -65456,6 +68362,197 @@ export namespace Prisma {
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type astronomy_eventsCreateInput = {
+    name: string
+    description: string
+    visibility: string
+    best_time: string
+    image_url?: string | null
+    event_date: Date | string
+    end_date?: Date | string | null
+    duration: string
+    event_type: string
+    is_active?: boolean
+    created_at?: Date | string
+    updated_at?: Date | string
+    creator: usersCreateNestedOneWithoutCreated_astronomy_eventsInput
+    reminders?: event_remindersCreateNestedManyWithoutEventInput
+  }
+
+  export type astronomy_eventsUncheckedCreateInput = {
+    id?: number
+    name: string
+    description: string
+    visibility: string
+    best_time: string
+    image_url?: string | null
+    event_date: Date | string
+    end_date?: Date | string | null
+    duration: string
+    event_type: string
+    is_active?: boolean
+    created_by: number
+    created_at?: Date | string
+    updated_at?: Date | string
+    reminders?: event_remindersUncheckedCreateNestedManyWithoutEventInput
+  }
+
+  export type astronomy_eventsUpdateInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    visibility?: StringFieldUpdateOperationsInput | string
+    best_time?: StringFieldUpdateOperationsInput | string
+    image_url?: NullableStringFieldUpdateOperationsInput | string | null
+    event_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    end_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    duration?: StringFieldUpdateOperationsInput | string
+    event_type?: StringFieldUpdateOperationsInput | string
+    is_active?: BoolFieldUpdateOperationsInput | boolean
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    creator?: usersUpdateOneRequiredWithoutCreated_astronomy_eventsNestedInput
+    reminders?: event_remindersUpdateManyWithoutEventNestedInput
+  }
+
+  export type astronomy_eventsUncheckedUpdateInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    name?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    visibility?: StringFieldUpdateOperationsInput | string
+    best_time?: StringFieldUpdateOperationsInput | string
+    image_url?: NullableStringFieldUpdateOperationsInput | string | null
+    event_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    end_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    duration?: StringFieldUpdateOperationsInput | string
+    event_type?: StringFieldUpdateOperationsInput | string
+    is_active?: BoolFieldUpdateOperationsInput | boolean
+    created_by?: IntFieldUpdateOperationsInput | number
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    reminders?: event_remindersUncheckedUpdateManyWithoutEventNestedInput
+  }
+
+  export type astronomy_eventsCreateManyInput = {
+    id?: number
+    name: string
+    description: string
+    visibility: string
+    best_time: string
+    image_url?: string | null
+    event_date: Date | string
+    end_date?: Date | string | null
+    duration: string
+    event_type: string
+    is_active?: boolean
+    created_by: number
+    created_at?: Date | string
+    updated_at?: Date | string
+  }
+
+  export type astronomy_eventsUpdateManyMutationInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    visibility?: StringFieldUpdateOperationsInput | string
+    best_time?: StringFieldUpdateOperationsInput | string
+    image_url?: NullableStringFieldUpdateOperationsInput | string | null
+    event_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    end_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    duration?: StringFieldUpdateOperationsInput | string
+    event_type?: StringFieldUpdateOperationsInput | string
+    is_active?: BoolFieldUpdateOperationsInput | boolean
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type astronomy_eventsUncheckedUpdateManyInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    name?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    visibility?: StringFieldUpdateOperationsInput | string
+    best_time?: StringFieldUpdateOperationsInput | string
+    image_url?: NullableStringFieldUpdateOperationsInput | string | null
+    event_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    end_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    duration?: StringFieldUpdateOperationsInput | string
+    event_type?: StringFieldUpdateOperationsInput | string
+    is_active?: BoolFieldUpdateOperationsInput | boolean
+    created_by?: IntFieldUpdateOperationsInput | number
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type event_remindersCreateInput = {
+    reminder_time: Date | string
+    is_sent?: boolean
+    notification_type?: string
+    created_at?: Date | string
+    updated_at?: Date | string
+    user: usersCreateNestedOneWithoutEvent_remindersInput
+    event: astronomy_eventsCreateNestedOneWithoutRemindersInput
+  }
+
+  export type event_remindersUncheckedCreateInput = {
+    id?: number
+    user_id: number
+    event_id: number
+    reminder_time: Date | string
+    is_sent?: boolean
+    notification_type?: string
+    created_at?: Date | string
+    updated_at?: Date | string
+  }
+
+  export type event_remindersUpdateInput = {
+    reminder_time?: DateTimeFieldUpdateOperationsInput | Date | string
+    is_sent?: BoolFieldUpdateOperationsInput | boolean
+    notification_type?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: usersUpdateOneRequiredWithoutEvent_remindersNestedInput
+    event?: astronomy_eventsUpdateOneRequiredWithoutRemindersNestedInput
+  }
+
+  export type event_remindersUncheckedUpdateInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    user_id?: IntFieldUpdateOperationsInput | number
+    event_id?: IntFieldUpdateOperationsInput | number
+    reminder_time?: DateTimeFieldUpdateOperationsInput | Date | string
+    is_sent?: BoolFieldUpdateOperationsInput | boolean
+    notification_type?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type event_remindersCreateManyInput = {
+    id?: number
+    user_id: number
+    event_id: number
+    reminder_time: Date | string
+    is_sent?: boolean
+    notification_type?: string
+    created_at?: Date | string
+    updated_at?: Date | string
+  }
+
+  export type event_remindersUpdateManyMutationInput = {
+    reminder_time?: DateTimeFieldUpdateOperationsInput | Date | string
+    is_sent?: BoolFieldUpdateOperationsInput | boolean
+    notification_type?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type event_remindersUncheckedUpdateManyInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    user_id?: IntFieldUpdateOperationsInput | number
+    event_id?: IntFieldUpdateOperationsInput | number
+    reminder_time?: DateTimeFieldUpdateOperationsInput | Date | string
+    is_sent?: BoolFieldUpdateOperationsInput | boolean
+    notification_type?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type IntFilter<$PrismaModel = never> = {
     equals?: number | IntFieldRefInput<$PrismaModel>
     in?: number[] | ListIntFieldRefInput<$PrismaModel>
@@ -66993,6 +70090,18 @@ export namespace Prisma {
     none?: group_chatsWhereInput
   }
 
+  export type Astronomy_eventsListRelationFilter = {
+    every?: astronomy_eventsWhereInput
+    some?: astronomy_eventsWhereInput
+    none?: astronomy_eventsWhereInput
+  }
+
+  export type Event_remindersListRelationFilter = {
+    every?: event_remindersWhereInput
+    some?: event_remindersWhereInput
+    none?: event_remindersWhereInput
+  }
+
   export type QuizParticipantsOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
@@ -67066,6 +70175,14 @@ export namespace Prisma {
   }
 
   export type group_chatsOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type astronomy_eventsOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type event_remindersOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -68672,6 +71789,122 @@ export namespace Prisma {
     user_id?: SortOrder
   }
 
+  export type astronomy_eventsCountOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    description?: SortOrder
+    visibility?: SortOrder
+    best_time?: SortOrder
+    image_url?: SortOrder
+    event_date?: SortOrder
+    end_date?: SortOrder
+    duration?: SortOrder
+    event_type?: SortOrder
+    is_active?: SortOrder
+    created_by?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+  }
+
+  export type astronomy_eventsAvgOrderByAggregateInput = {
+    id?: SortOrder
+    created_by?: SortOrder
+  }
+
+  export type astronomy_eventsMaxOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    description?: SortOrder
+    visibility?: SortOrder
+    best_time?: SortOrder
+    image_url?: SortOrder
+    event_date?: SortOrder
+    end_date?: SortOrder
+    duration?: SortOrder
+    event_type?: SortOrder
+    is_active?: SortOrder
+    created_by?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+  }
+
+  export type astronomy_eventsMinOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    description?: SortOrder
+    visibility?: SortOrder
+    best_time?: SortOrder
+    image_url?: SortOrder
+    event_date?: SortOrder
+    end_date?: SortOrder
+    duration?: SortOrder
+    event_type?: SortOrder
+    is_active?: SortOrder
+    created_by?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+  }
+
+  export type astronomy_eventsSumOrderByAggregateInput = {
+    id?: SortOrder
+    created_by?: SortOrder
+  }
+
+  export type Astronomy_eventsScalarRelationFilter = {
+    is?: astronomy_eventsWhereInput
+    isNot?: astronomy_eventsWhereInput
+  }
+
+  export type event_remindersUser_idEvent_idCompoundUniqueInput = {
+    user_id: number
+    event_id: number
+  }
+
+  export type event_remindersCountOrderByAggregateInput = {
+    id?: SortOrder
+    user_id?: SortOrder
+    event_id?: SortOrder
+    reminder_time?: SortOrder
+    is_sent?: SortOrder
+    notification_type?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+  }
+
+  export type event_remindersAvgOrderByAggregateInput = {
+    id?: SortOrder
+    user_id?: SortOrder
+    event_id?: SortOrder
+  }
+
+  export type event_remindersMaxOrderByAggregateInput = {
+    id?: SortOrder
+    user_id?: SortOrder
+    event_id?: SortOrder
+    reminder_time?: SortOrder
+    is_sent?: SortOrder
+    notification_type?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+  }
+
+  export type event_remindersMinOrderByAggregateInput = {
+    id?: SortOrder
+    user_id?: SortOrder
+    event_id?: SortOrder
+    reminder_time?: SortOrder
+    is_sent?: SortOrder
+    notification_type?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+  }
+
+  export type event_remindersSumOrderByAggregateInput = {
+    id?: SortOrder
+    user_id?: SortOrder
+    event_id?: SortOrder
+  }
+
   export type paymentsCreateNestedManyWithoutSubscriptionsInput = {
     create?: XOR<paymentsCreateWithoutSubscriptionsInput, paymentsUncheckedCreateWithoutSubscriptionsInput> | paymentsCreateWithoutSubscriptionsInput[] | paymentsUncheckedCreateWithoutSubscriptionsInput[]
     connectOrCreate?: paymentsCreateOrConnectWithoutSubscriptionsInput | paymentsCreateOrConnectWithoutSubscriptionsInput[]
@@ -70052,6 +73285,20 @@ export namespace Prisma {
     connect?: message_reactionsWhereUniqueInput | message_reactionsWhereUniqueInput[]
   }
 
+  export type astronomy_eventsCreateNestedManyWithoutCreatorInput = {
+    create?: XOR<astronomy_eventsCreateWithoutCreatorInput, astronomy_eventsUncheckedCreateWithoutCreatorInput> | astronomy_eventsCreateWithoutCreatorInput[] | astronomy_eventsUncheckedCreateWithoutCreatorInput[]
+    connectOrCreate?: astronomy_eventsCreateOrConnectWithoutCreatorInput | astronomy_eventsCreateOrConnectWithoutCreatorInput[]
+    createMany?: astronomy_eventsCreateManyCreatorInputEnvelope
+    connect?: astronomy_eventsWhereUniqueInput | astronomy_eventsWhereUniqueInput[]
+  }
+
+  export type event_remindersCreateNestedManyWithoutUserInput = {
+    create?: XOR<event_remindersCreateWithoutUserInput, event_remindersUncheckedCreateWithoutUserInput> | event_remindersCreateWithoutUserInput[] | event_remindersUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: event_remindersCreateOrConnectWithoutUserInput | event_remindersCreateOrConnectWithoutUserInput[]
+    createMany?: event_remindersCreateManyUserInputEnvelope
+    connect?: event_remindersWhereUniqueInput | event_remindersWhereUniqueInput[]
+  }
+
   export type QuizParticipantsUncheckedCreateNestedManyWithoutUsersInput = {
     create?: XOR<QuizParticipantsCreateWithoutUsersInput, QuizParticipantsUncheckedCreateWithoutUsersInput> | QuizParticipantsCreateWithoutUsersInput[] | QuizParticipantsUncheckedCreateWithoutUsersInput[]
     connectOrCreate?: QuizParticipantsCreateOrConnectWithoutUsersInput | QuizParticipantsCreateOrConnectWithoutUsersInput[]
@@ -70266,6 +73513,20 @@ export namespace Prisma {
     connectOrCreate?: message_reactionsCreateOrConnectWithoutUserInput | message_reactionsCreateOrConnectWithoutUserInput[]
     createMany?: message_reactionsCreateManyUserInputEnvelope
     connect?: message_reactionsWhereUniqueInput | message_reactionsWhereUniqueInput[]
+  }
+
+  export type astronomy_eventsUncheckedCreateNestedManyWithoutCreatorInput = {
+    create?: XOR<astronomy_eventsCreateWithoutCreatorInput, astronomy_eventsUncheckedCreateWithoutCreatorInput> | astronomy_eventsCreateWithoutCreatorInput[] | astronomy_eventsUncheckedCreateWithoutCreatorInput[]
+    connectOrCreate?: astronomy_eventsCreateOrConnectWithoutCreatorInput | astronomy_eventsCreateOrConnectWithoutCreatorInput[]
+    createMany?: astronomy_eventsCreateManyCreatorInputEnvelope
+    connect?: astronomy_eventsWhereUniqueInput | astronomy_eventsWhereUniqueInput[]
+  }
+
+  export type event_remindersUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<event_remindersCreateWithoutUserInput, event_remindersUncheckedCreateWithoutUserInput> | event_remindersCreateWithoutUserInput[] | event_remindersUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: event_remindersCreateOrConnectWithoutUserInput | event_remindersCreateOrConnectWithoutUserInput[]
+    createMany?: event_remindersCreateManyUserInputEnvelope
+    connect?: event_remindersWhereUniqueInput | event_remindersWhereUniqueInput[]
   }
 
   export type NullableEnumuser_roleFieldUpdateOperationsInput = {
@@ -70706,6 +73967,34 @@ export namespace Prisma {
     deleteMany?: message_reactionsScalarWhereInput | message_reactionsScalarWhereInput[]
   }
 
+  export type astronomy_eventsUpdateManyWithoutCreatorNestedInput = {
+    create?: XOR<astronomy_eventsCreateWithoutCreatorInput, astronomy_eventsUncheckedCreateWithoutCreatorInput> | astronomy_eventsCreateWithoutCreatorInput[] | astronomy_eventsUncheckedCreateWithoutCreatorInput[]
+    connectOrCreate?: astronomy_eventsCreateOrConnectWithoutCreatorInput | astronomy_eventsCreateOrConnectWithoutCreatorInput[]
+    upsert?: astronomy_eventsUpsertWithWhereUniqueWithoutCreatorInput | astronomy_eventsUpsertWithWhereUniqueWithoutCreatorInput[]
+    createMany?: astronomy_eventsCreateManyCreatorInputEnvelope
+    set?: astronomy_eventsWhereUniqueInput | astronomy_eventsWhereUniqueInput[]
+    disconnect?: astronomy_eventsWhereUniqueInput | astronomy_eventsWhereUniqueInput[]
+    delete?: astronomy_eventsWhereUniqueInput | astronomy_eventsWhereUniqueInput[]
+    connect?: astronomy_eventsWhereUniqueInput | astronomy_eventsWhereUniqueInput[]
+    update?: astronomy_eventsUpdateWithWhereUniqueWithoutCreatorInput | astronomy_eventsUpdateWithWhereUniqueWithoutCreatorInput[]
+    updateMany?: astronomy_eventsUpdateManyWithWhereWithoutCreatorInput | astronomy_eventsUpdateManyWithWhereWithoutCreatorInput[]
+    deleteMany?: astronomy_eventsScalarWhereInput | astronomy_eventsScalarWhereInput[]
+  }
+
+  export type event_remindersUpdateManyWithoutUserNestedInput = {
+    create?: XOR<event_remindersCreateWithoutUserInput, event_remindersUncheckedCreateWithoutUserInput> | event_remindersCreateWithoutUserInput[] | event_remindersUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: event_remindersCreateOrConnectWithoutUserInput | event_remindersCreateOrConnectWithoutUserInput[]
+    upsert?: event_remindersUpsertWithWhereUniqueWithoutUserInput | event_remindersUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: event_remindersCreateManyUserInputEnvelope
+    set?: event_remindersWhereUniqueInput | event_remindersWhereUniqueInput[]
+    disconnect?: event_remindersWhereUniqueInput | event_remindersWhereUniqueInput[]
+    delete?: event_remindersWhereUniqueInput | event_remindersWhereUniqueInput[]
+    connect?: event_remindersWhereUniqueInput | event_remindersWhereUniqueInput[]
+    update?: event_remindersUpdateWithWhereUniqueWithoutUserInput | event_remindersUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: event_remindersUpdateManyWithWhereWithoutUserInput | event_remindersUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: event_remindersScalarWhereInput | event_remindersScalarWhereInput[]
+  }
+
   export type QuizParticipantsUncheckedUpdateManyWithoutUsersNestedInput = {
     create?: XOR<QuizParticipantsCreateWithoutUsersInput, QuizParticipantsUncheckedCreateWithoutUsersInput> | QuizParticipantsCreateWithoutUsersInput[] | QuizParticipantsUncheckedCreateWithoutUsersInput[]
     connectOrCreate?: QuizParticipantsCreateOrConnectWithoutUsersInput | QuizParticipantsCreateOrConnectWithoutUsersInput[]
@@ -71134,6 +74423,34 @@ export namespace Prisma {
     update?: message_reactionsUpdateWithWhereUniqueWithoutUserInput | message_reactionsUpdateWithWhereUniqueWithoutUserInput[]
     updateMany?: message_reactionsUpdateManyWithWhereWithoutUserInput | message_reactionsUpdateManyWithWhereWithoutUserInput[]
     deleteMany?: message_reactionsScalarWhereInput | message_reactionsScalarWhereInput[]
+  }
+
+  export type astronomy_eventsUncheckedUpdateManyWithoutCreatorNestedInput = {
+    create?: XOR<astronomy_eventsCreateWithoutCreatorInput, astronomy_eventsUncheckedCreateWithoutCreatorInput> | astronomy_eventsCreateWithoutCreatorInput[] | astronomy_eventsUncheckedCreateWithoutCreatorInput[]
+    connectOrCreate?: astronomy_eventsCreateOrConnectWithoutCreatorInput | astronomy_eventsCreateOrConnectWithoutCreatorInput[]
+    upsert?: astronomy_eventsUpsertWithWhereUniqueWithoutCreatorInput | astronomy_eventsUpsertWithWhereUniqueWithoutCreatorInput[]
+    createMany?: astronomy_eventsCreateManyCreatorInputEnvelope
+    set?: astronomy_eventsWhereUniqueInput | astronomy_eventsWhereUniqueInput[]
+    disconnect?: astronomy_eventsWhereUniqueInput | astronomy_eventsWhereUniqueInput[]
+    delete?: astronomy_eventsWhereUniqueInput | astronomy_eventsWhereUniqueInput[]
+    connect?: astronomy_eventsWhereUniqueInput | astronomy_eventsWhereUniqueInput[]
+    update?: astronomy_eventsUpdateWithWhereUniqueWithoutCreatorInput | astronomy_eventsUpdateWithWhereUniqueWithoutCreatorInput[]
+    updateMany?: astronomy_eventsUpdateManyWithWhereWithoutCreatorInput | astronomy_eventsUpdateManyWithWhereWithoutCreatorInput[]
+    deleteMany?: astronomy_eventsScalarWhereInput | astronomy_eventsScalarWhereInput[]
+  }
+
+  export type event_remindersUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<event_remindersCreateWithoutUserInput, event_remindersUncheckedCreateWithoutUserInput> | event_remindersCreateWithoutUserInput[] | event_remindersUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: event_remindersCreateOrConnectWithoutUserInput | event_remindersCreateOrConnectWithoutUserInput[]
+    upsert?: event_remindersUpsertWithWhereUniqueWithoutUserInput | event_remindersUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: event_remindersCreateManyUserInputEnvelope
+    set?: event_remindersWhereUniqueInput | event_remindersWhereUniqueInput[]
+    disconnect?: event_remindersWhereUniqueInput | event_remindersWhereUniqueInput[]
+    delete?: event_remindersWhereUniqueInput | event_remindersWhereUniqueInput[]
+    connect?: event_remindersWhereUniqueInput | event_remindersWhereUniqueInput[]
+    update?: event_remindersUpdateWithWhereUniqueWithoutUserInput | event_remindersUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: event_remindersUpdateManyWithWhereWithoutUserInput | event_remindersUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: event_remindersScalarWhereInput | event_remindersScalarWhereInput[]
   }
 
   export type blogsCreateNestedOneWithoutBlog_likesInput = {
@@ -72163,6 +75480,90 @@ export namespace Prisma {
     update?: XOR<XOR<usersUpdateToOneWithWhereWithoutDiscussion_comment_likesInput, usersUpdateWithoutDiscussion_comment_likesInput>, usersUncheckedUpdateWithoutDiscussion_comment_likesInput>
   }
 
+  export type usersCreateNestedOneWithoutCreated_astronomy_eventsInput = {
+    create?: XOR<usersCreateWithoutCreated_astronomy_eventsInput, usersUncheckedCreateWithoutCreated_astronomy_eventsInput>
+    connectOrCreate?: usersCreateOrConnectWithoutCreated_astronomy_eventsInput
+    connect?: usersWhereUniqueInput
+  }
+
+  export type event_remindersCreateNestedManyWithoutEventInput = {
+    create?: XOR<event_remindersCreateWithoutEventInput, event_remindersUncheckedCreateWithoutEventInput> | event_remindersCreateWithoutEventInput[] | event_remindersUncheckedCreateWithoutEventInput[]
+    connectOrCreate?: event_remindersCreateOrConnectWithoutEventInput | event_remindersCreateOrConnectWithoutEventInput[]
+    createMany?: event_remindersCreateManyEventInputEnvelope
+    connect?: event_remindersWhereUniqueInput | event_remindersWhereUniqueInput[]
+  }
+
+  export type event_remindersUncheckedCreateNestedManyWithoutEventInput = {
+    create?: XOR<event_remindersCreateWithoutEventInput, event_remindersUncheckedCreateWithoutEventInput> | event_remindersCreateWithoutEventInput[] | event_remindersUncheckedCreateWithoutEventInput[]
+    connectOrCreate?: event_remindersCreateOrConnectWithoutEventInput | event_remindersCreateOrConnectWithoutEventInput[]
+    createMany?: event_remindersCreateManyEventInputEnvelope
+    connect?: event_remindersWhereUniqueInput | event_remindersWhereUniqueInput[]
+  }
+
+  export type usersUpdateOneRequiredWithoutCreated_astronomy_eventsNestedInput = {
+    create?: XOR<usersCreateWithoutCreated_astronomy_eventsInput, usersUncheckedCreateWithoutCreated_astronomy_eventsInput>
+    connectOrCreate?: usersCreateOrConnectWithoutCreated_astronomy_eventsInput
+    upsert?: usersUpsertWithoutCreated_astronomy_eventsInput
+    connect?: usersWhereUniqueInput
+    update?: XOR<XOR<usersUpdateToOneWithWhereWithoutCreated_astronomy_eventsInput, usersUpdateWithoutCreated_astronomy_eventsInput>, usersUncheckedUpdateWithoutCreated_astronomy_eventsInput>
+  }
+
+  export type event_remindersUpdateManyWithoutEventNestedInput = {
+    create?: XOR<event_remindersCreateWithoutEventInput, event_remindersUncheckedCreateWithoutEventInput> | event_remindersCreateWithoutEventInput[] | event_remindersUncheckedCreateWithoutEventInput[]
+    connectOrCreate?: event_remindersCreateOrConnectWithoutEventInput | event_remindersCreateOrConnectWithoutEventInput[]
+    upsert?: event_remindersUpsertWithWhereUniqueWithoutEventInput | event_remindersUpsertWithWhereUniqueWithoutEventInput[]
+    createMany?: event_remindersCreateManyEventInputEnvelope
+    set?: event_remindersWhereUniqueInput | event_remindersWhereUniqueInput[]
+    disconnect?: event_remindersWhereUniqueInput | event_remindersWhereUniqueInput[]
+    delete?: event_remindersWhereUniqueInput | event_remindersWhereUniqueInput[]
+    connect?: event_remindersWhereUniqueInput | event_remindersWhereUniqueInput[]
+    update?: event_remindersUpdateWithWhereUniqueWithoutEventInput | event_remindersUpdateWithWhereUniqueWithoutEventInput[]
+    updateMany?: event_remindersUpdateManyWithWhereWithoutEventInput | event_remindersUpdateManyWithWhereWithoutEventInput[]
+    deleteMany?: event_remindersScalarWhereInput | event_remindersScalarWhereInput[]
+  }
+
+  export type event_remindersUncheckedUpdateManyWithoutEventNestedInput = {
+    create?: XOR<event_remindersCreateWithoutEventInput, event_remindersUncheckedCreateWithoutEventInput> | event_remindersCreateWithoutEventInput[] | event_remindersUncheckedCreateWithoutEventInput[]
+    connectOrCreate?: event_remindersCreateOrConnectWithoutEventInput | event_remindersCreateOrConnectWithoutEventInput[]
+    upsert?: event_remindersUpsertWithWhereUniqueWithoutEventInput | event_remindersUpsertWithWhereUniqueWithoutEventInput[]
+    createMany?: event_remindersCreateManyEventInputEnvelope
+    set?: event_remindersWhereUniqueInput | event_remindersWhereUniqueInput[]
+    disconnect?: event_remindersWhereUniqueInput | event_remindersWhereUniqueInput[]
+    delete?: event_remindersWhereUniqueInput | event_remindersWhereUniqueInput[]
+    connect?: event_remindersWhereUniqueInput | event_remindersWhereUniqueInput[]
+    update?: event_remindersUpdateWithWhereUniqueWithoutEventInput | event_remindersUpdateWithWhereUniqueWithoutEventInput[]
+    updateMany?: event_remindersUpdateManyWithWhereWithoutEventInput | event_remindersUpdateManyWithWhereWithoutEventInput[]
+    deleteMany?: event_remindersScalarWhereInput | event_remindersScalarWhereInput[]
+  }
+
+  export type usersCreateNestedOneWithoutEvent_remindersInput = {
+    create?: XOR<usersCreateWithoutEvent_remindersInput, usersUncheckedCreateWithoutEvent_remindersInput>
+    connectOrCreate?: usersCreateOrConnectWithoutEvent_remindersInput
+    connect?: usersWhereUniqueInput
+  }
+
+  export type astronomy_eventsCreateNestedOneWithoutRemindersInput = {
+    create?: XOR<astronomy_eventsCreateWithoutRemindersInput, astronomy_eventsUncheckedCreateWithoutRemindersInput>
+    connectOrCreate?: astronomy_eventsCreateOrConnectWithoutRemindersInput
+    connect?: astronomy_eventsWhereUniqueInput
+  }
+
+  export type usersUpdateOneRequiredWithoutEvent_remindersNestedInput = {
+    create?: XOR<usersCreateWithoutEvent_remindersInput, usersUncheckedCreateWithoutEvent_remindersInput>
+    connectOrCreate?: usersCreateOrConnectWithoutEvent_remindersInput
+    upsert?: usersUpsertWithoutEvent_remindersInput
+    connect?: usersWhereUniqueInput
+    update?: XOR<XOR<usersUpdateToOneWithWhereWithoutEvent_remindersInput, usersUpdateWithoutEvent_remindersInput>, usersUncheckedUpdateWithoutEvent_remindersInput>
+  }
+
+  export type astronomy_eventsUpdateOneRequiredWithoutRemindersNestedInput = {
+    create?: XOR<astronomy_eventsCreateWithoutRemindersInput, astronomy_eventsUncheckedCreateWithoutRemindersInput>
+    connectOrCreate?: astronomy_eventsCreateOrConnectWithoutRemindersInput
+    upsert?: astronomy_eventsUpsertWithoutRemindersInput
+    connect?: astronomy_eventsWhereUniqueInput
+    update?: XOR<XOR<astronomy_eventsUpdateToOneWithWhereWithoutRemindersInput, astronomy_eventsUpdateWithoutRemindersInput>, astronomy_eventsUncheckedUpdateWithoutRemindersInput>
+  }
+
   export type NestedIntFilter<$PrismaModel = never> = {
     equals?: number | IntFieldRefInput<$PrismaModel>
     in?: number[] | ListIntFieldRefInput<$PrismaModel>
@@ -72805,6 +76206,8 @@ export namespace Prisma {
     group_memberships?: group_membersCreateNestedManyWithoutUserInput
     chat_messages?: chat_messagesCreateNestedManyWithoutUserInput
     message_reactions?: message_reactionsCreateNestedManyWithoutUserInput
+    created_astronomy_events?: astronomy_eventsCreateNestedManyWithoutCreatorInput
+    event_reminders?: event_remindersCreateNestedManyWithoutUserInput
   }
 
   export type usersUncheckedCreateWithoutSubscriptionsInput = {
@@ -72858,6 +76261,8 @@ export namespace Prisma {
     group_memberships?: group_membersUncheckedCreateNestedManyWithoutUserInput
     chat_messages?: chat_messagesUncheckedCreateNestedManyWithoutUserInput
     message_reactions?: message_reactionsUncheckedCreateNestedManyWithoutUserInput
+    created_astronomy_events?: astronomy_eventsUncheckedCreateNestedManyWithoutCreatorInput
+    event_reminders?: event_remindersUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type usersCreateOrConnectWithoutSubscriptionsInput = {
@@ -72962,6 +76367,8 @@ export namespace Prisma {
     group_memberships?: group_membersUpdateManyWithoutUserNestedInput
     chat_messages?: chat_messagesUpdateManyWithoutUserNestedInput
     message_reactions?: message_reactionsUpdateManyWithoutUserNestedInput
+    created_astronomy_events?: astronomy_eventsUpdateManyWithoutCreatorNestedInput
+    event_reminders?: event_remindersUpdateManyWithoutUserNestedInput
   }
 
   export type usersUncheckedUpdateWithoutSubscriptionsInput = {
@@ -73015,6 +76422,8 @@ export namespace Prisma {
     group_memberships?: group_membersUncheckedUpdateManyWithoutUserNestedInput
     chat_messages?: chat_messagesUncheckedUpdateManyWithoutUserNestedInput
     message_reactions?: message_reactionsUncheckedUpdateManyWithoutUserNestedInput
+    created_astronomy_events?: astronomy_eventsUncheckedUpdateManyWithoutCreatorNestedInput
+    event_reminders?: event_remindersUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type usersCreateWithoutCreated_groupsInput = {
@@ -73067,6 +76476,8 @@ export namespace Prisma {
     group_memberships?: group_membersCreateNestedManyWithoutUserInput
     chat_messages?: chat_messagesCreateNestedManyWithoutUserInput
     message_reactions?: message_reactionsCreateNestedManyWithoutUserInput
+    created_astronomy_events?: astronomy_eventsCreateNestedManyWithoutCreatorInput
+    event_reminders?: event_remindersCreateNestedManyWithoutUserInput
   }
 
   export type usersUncheckedCreateWithoutCreated_groupsInput = {
@@ -73120,6 +76531,8 @@ export namespace Prisma {
     group_memberships?: group_membersUncheckedCreateNestedManyWithoutUserInput
     chat_messages?: chat_messagesUncheckedCreateNestedManyWithoutUserInput
     message_reactions?: message_reactionsUncheckedCreateNestedManyWithoutUserInput
+    created_astronomy_events?: astronomy_eventsUncheckedCreateNestedManyWithoutCreatorInput
+    event_reminders?: event_remindersUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type usersCreateOrConnectWithoutCreated_groupsInput = {
@@ -73250,6 +76663,8 @@ export namespace Prisma {
     group_memberships?: group_membersUpdateManyWithoutUserNestedInput
     chat_messages?: chat_messagesUpdateManyWithoutUserNestedInput
     message_reactions?: message_reactionsUpdateManyWithoutUserNestedInput
+    created_astronomy_events?: astronomy_eventsUpdateManyWithoutCreatorNestedInput
+    event_reminders?: event_remindersUpdateManyWithoutUserNestedInput
   }
 
   export type usersUncheckedUpdateWithoutCreated_groupsInput = {
@@ -73303,6 +76718,8 @@ export namespace Prisma {
     group_memberships?: group_membersUncheckedUpdateManyWithoutUserNestedInput
     chat_messages?: chat_messagesUncheckedUpdateManyWithoutUserNestedInput
     message_reactions?: message_reactionsUncheckedUpdateManyWithoutUserNestedInput
+    created_astronomy_events?: astronomy_eventsUncheckedUpdateManyWithoutCreatorNestedInput
+    event_reminders?: event_remindersUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type group_membersUpsertWithWhereUniqueWithoutGroupInput = {
@@ -73447,6 +76864,8 @@ export namespace Prisma {
     created_groups?: group_chatsCreateNestedManyWithoutCreatorInput
     chat_messages?: chat_messagesCreateNestedManyWithoutUserInput
     message_reactions?: message_reactionsCreateNestedManyWithoutUserInput
+    created_astronomy_events?: astronomy_eventsCreateNestedManyWithoutCreatorInput
+    event_reminders?: event_remindersCreateNestedManyWithoutUserInput
   }
 
   export type usersUncheckedCreateWithoutGroup_membershipsInput = {
@@ -73500,6 +76919,8 @@ export namespace Prisma {
     created_groups?: group_chatsUncheckedCreateNestedManyWithoutCreatorInput
     chat_messages?: chat_messagesUncheckedCreateNestedManyWithoutUserInput
     message_reactions?: message_reactionsUncheckedCreateNestedManyWithoutUserInput
+    created_astronomy_events?: astronomy_eventsUncheckedCreateNestedManyWithoutCreatorInput
+    event_reminders?: event_remindersUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type usersCreateOrConnectWithoutGroup_membershipsInput = {
@@ -73606,6 +77027,8 @@ export namespace Prisma {
     created_groups?: group_chatsUpdateManyWithoutCreatorNestedInput
     chat_messages?: chat_messagesUpdateManyWithoutUserNestedInput
     message_reactions?: message_reactionsUpdateManyWithoutUserNestedInput
+    created_astronomy_events?: astronomy_eventsUpdateManyWithoutCreatorNestedInput
+    event_reminders?: event_remindersUpdateManyWithoutUserNestedInput
   }
 
   export type usersUncheckedUpdateWithoutGroup_membershipsInput = {
@@ -73659,6 +77082,8 @@ export namespace Prisma {
     created_groups?: group_chatsUncheckedUpdateManyWithoutCreatorNestedInput
     chat_messages?: chat_messagesUncheckedUpdateManyWithoutUserNestedInput
     message_reactions?: message_reactionsUncheckedUpdateManyWithoutUserNestedInput
+    created_astronomy_events?: astronomy_eventsUncheckedUpdateManyWithoutCreatorNestedInput
+    event_reminders?: event_remindersUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type group_chatsCreateWithoutMessagesInput = {
@@ -73743,6 +77168,8 @@ export namespace Prisma {
     created_groups?: group_chatsCreateNestedManyWithoutCreatorInput
     group_memberships?: group_membersCreateNestedManyWithoutUserInput
     message_reactions?: message_reactionsCreateNestedManyWithoutUserInput
+    created_astronomy_events?: astronomy_eventsCreateNestedManyWithoutCreatorInput
+    event_reminders?: event_remindersCreateNestedManyWithoutUserInput
   }
 
   export type usersUncheckedCreateWithoutChat_messagesInput = {
@@ -73796,6 +77223,8 @@ export namespace Prisma {
     created_groups?: group_chatsUncheckedCreateNestedManyWithoutCreatorInput
     group_memberships?: group_membersUncheckedCreateNestedManyWithoutUserInput
     message_reactions?: message_reactionsUncheckedCreateNestedManyWithoutUserInput
+    created_astronomy_events?: astronomy_eventsUncheckedCreateNestedManyWithoutCreatorInput
+    event_reminders?: event_remindersUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type usersCreateOrConnectWithoutChat_messagesInput = {
@@ -73994,6 +77423,8 @@ export namespace Prisma {
     created_groups?: group_chatsUpdateManyWithoutCreatorNestedInput
     group_memberships?: group_membersUpdateManyWithoutUserNestedInput
     message_reactions?: message_reactionsUpdateManyWithoutUserNestedInput
+    created_astronomy_events?: astronomy_eventsUpdateManyWithoutCreatorNestedInput
+    event_reminders?: event_remindersUpdateManyWithoutUserNestedInput
   }
 
   export type usersUncheckedUpdateWithoutChat_messagesInput = {
@@ -74047,6 +77478,8 @@ export namespace Prisma {
     created_groups?: group_chatsUncheckedUpdateManyWithoutCreatorNestedInput
     group_memberships?: group_membersUncheckedUpdateManyWithoutUserNestedInput
     message_reactions?: message_reactionsUncheckedUpdateManyWithoutUserNestedInput
+    created_astronomy_events?: astronomy_eventsUncheckedUpdateManyWithoutCreatorNestedInput
+    event_reminders?: event_remindersUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type chat_messagesUpsertWithoutRepliesInput = {
@@ -74212,6 +77645,8 @@ export namespace Prisma {
     created_groups?: group_chatsCreateNestedManyWithoutCreatorInput
     group_memberships?: group_membersCreateNestedManyWithoutUserInput
     chat_messages?: chat_messagesCreateNestedManyWithoutUserInput
+    created_astronomy_events?: astronomy_eventsCreateNestedManyWithoutCreatorInput
+    event_reminders?: event_remindersCreateNestedManyWithoutUserInput
   }
 
   export type usersUncheckedCreateWithoutMessage_reactionsInput = {
@@ -74265,6 +77700,8 @@ export namespace Prisma {
     created_groups?: group_chatsUncheckedCreateNestedManyWithoutCreatorInput
     group_memberships?: group_membersUncheckedCreateNestedManyWithoutUserInput
     chat_messages?: chat_messagesUncheckedCreateNestedManyWithoutUserInput
+    created_astronomy_events?: astronomy_eventsUncheckedCreateNestedManyWithoutCreatorInput
+    event_reminders?: event_remindersUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type usersCreateOrConnectWithoutMessage_reactionsInput = {
@@ -74371,6 +77808,8 @@ export namespace Prisma {
     created_groups?: group_chatsUpdateManyWithoutCreatorNestedInput
     group_memberships?: group_membersUpdateManyWithoutUserNestedInput
     chat_messages?: chat_messagesUpdateManyWithoutUserNestedInput
+    created_astronomy_events?: astronomy_eventsUpdateManyWithoutCreatorNestedInput
+    event_reminders?: event_remindersUpdateManyWithoutUserNestedInput
   }
 
   export type usersUncheckedUpdateWithoutMessage_reactionsInput = {
@@ -74424,6 +77863,8 @@ export namespace Prisma {
     created_groups?: group_chatsUncheckedUpdateManyWithoutCreatorNestedInput
     group_memberships?: group_membersUncheckedUpdateManyWithoutUserNestedInput
     chat_messages?: chat_messagesUncheckedUpdateManyWithoutUserNestedInput
+    created_astronomy_events?: astronomy_eventsUncheckedUpdateManyWithoutCreatorNestedInput
+    event_reminders?: event_remindersUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type blogsCreateWithoutBlog_viewsInput = {
@@ -74534,6 +77975,8 @@ export namespace Prisma {
     group_memberships?: group_membersCreateNestedManyWithoutUserInput
     chat_messages?: chat_messagesCreateNestedManyWithoutUserInput
     message_reactions?: message_reactionsCreateNestedManyWithoutUserInput
+    created_astronomy_events?: astronomy_eventsCreateNestedManyWithoutCreatorInput
+    event_reminders?: event_remindersCreateNestedManyWithoutUserInput
   }
 
   export type usersUncheckedCreateWithoutBlog_viewsInput = {
@@ -74587,6 +78030,8 @@ export namespace Prisma {
     group_memberships?: group_membersUncheckedCreateNestedManyWithoutUserInput
     chat_messages?: chat_messagesUncheckedCreateNestedManyWithoutUserInput
     message_reactions?: message_reactionsUncheckedCreateNestedManyWithoutUserInput
+    created_astronomy_events?: astronomy_eventsUncheckedCreateNestedManyWithoutCreatorInput
+    event_reminders?: event_remindersUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type usersCreateOrConnectWithoutBlog_viewsInput = {
@@ -74719,6 +78164,8 @@ export namespace Prisma {
     group_memberships?: group_membersUpdateManyWithoutUserNestedInput
     chat_messages?: chat_messagesUpdateManyWithoutUserNestedInput
     message_reactions?: message_reactionsUpdateManyWithoutUserNestedInput
+    created_astronomy_events?: astronomy_eventsUpdateManyWithoutCreatorNestedInput
+    event_reminders?: event_remindersUpdateManyWithoutUserNestedInput
   }
 
   export type usersUncheckedUpdateWithoutBlog_viewsInput = {
@@ -74772,6 +78219,8 @@ export namespace Prisma {
     group_memberships?: group_membersUncheckedUpdateManyWithoutUserNestedInput
     chat_messages?: chat_messagesUncheckedUpdateManyWithoutUserNestedInput
     message_reactions?: message_reactionsUncheckedUpdateManyWithoutUserNestedInput
+    created_astronomy_events?: astronomy_eventsUncheckedUpdateManyWithoutCreatorNestedInput
+    event_reminders?: event_remindersUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type night_camp_registrationsCreateWithoutNight_campsInput = {
@@ -75276,6 +78725,8 @@ export namespace Prisma {
     group_memberships?: group_membersCreateNestedManyWithoutUserInput
     chat_messages?: chat_messagesCreateNestedManyWithoutUserInput
     message_reactions?: message_reactionsCreateNestedManyWithoutUserInput
+    created_astronomy_events?: astronomy_eventsCreateNestedManyWithoutCreatorInput
+    event_reminders?: event_remindersCreateNestedManyWithoutUserInput
   }
 
   export type usersUncheckedCreateWithoutChatbot_sessionsInput = {
@@ -75329,6 +78780,8 @@ export namespace Prisma {
     group_memberships?: group_membersUncheckedCreateNestedManyWithoutUserInput
     chat_messages?: chat_messagesUncheckedCreateNestedManyWithoutUserInput
     message_reactions?: message_reactionsUncheckedCreateNestedManyWithoutUserInput
+    created_astronomy_events?: astronomy_eventsUncheckedCreateNestedManyWithoutCreatorInput
+    event_reminders?: event_remindersUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type usersCreateOrConnectWithoutChatbot_sessionsInput = {
@@ -75457,6 +78910,8 @@ export namespace Prisma {
     group_memberships?: group_membersUpdateManyWithoutUserNestedInput
     chat_messages?: chat_messagesUpdateManyWithoutUserNestedInput
     message_reactions?: message_reactionsUpdateManyWithoutUserNestedInput
+    created_astronomy_events?: astronomy_eventsUpdateManyWithoutCreatorNestedInput
+    event_reminders?: event_remindersUpdateManyWithoutUserNestedInput
   }
 
   export type usersUncheckedUpdateWithoutChatbot_sessionsInput = {
@@ -75510,6 +78965,8 @@ export namespace Prisma {
     group_memberships?: group_membersUncheckedUpdateManyWithoutUserNestedInput
     chat_messages?: chat_messagesUncheckedUpdateManyWithoutUserNestedInput
     message_reactions?: message_reactionsUncheckedUpdateManyWithoutUserNestedInput
+    created_astronomy_events?: astronomy_eventsUncheckedUpdateManyWithoutCreatorNestedInput
+    event_reminders?: event_remindersUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type subscriptionsCreateWithoutPaymentsInput = {
@@ -75594,6 +79051,8 @@ export namespace Prisma {
     group_memberships?: group_membersCreateNestedManyWithoutUserInput
     chat_messages?: chat_messagesCreateNestedManyWithoutUserInput
     message_reactions?: message_reactionsCreateNestedManyWithoutUserInput
+    created_astronomy_events?: astronomy_eventsCreateNestedManyWithoutCreatorInput
+    event_reminders?: event_remindersCreateNestedManyWithoutUserInput
   }
 
   export type usersUncheckedCreateWithoutPaymentsInput = {
@@ -75647,6 +79106,8 @@ export namespace Prisma {
     group_memberships?: group_membersUncheckedCreateNestedManyWithoutUserInput
     chat_messages?: chat_messagesUncheckedCreateNestedManyWithoutUserInput
     message_reactions?: message_reactionsUncheckedCreateNestedManyWithoutUserInput
+    created_astronomy_events?: astronomy_eventsUncheckedCreateNestedManyWithoutCreatorInput
+    event_reminders?: event_remindersUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type usersCreateOrConnectWithoutPaymentsInput = {
@@ -75753,6 +79214,8 @@ export namespace Prisma {
     group_memberships?: group_membersUpdateManyWithoutUserNestedInput
     chat_messages?: chat_messagesUpdateManyWithoutUserNestedInput
     message_reactions?: message_reactionsUpdateManyWithoutUserNestedInput
+    created_astronomy_events?: astronomy_eventsUpdateManyWithoutCreatorNestedInput
+    event_reminders?: event_remindersUpdateManyWithoutUserNestedInput
   }
 
   export type usersUncheckedUpdateWithoutPaymentsInput = {
@@ -75806,6 +79269,8 @@ export namespace Prisma {
     group_memberships?: group_membersUncheckedUpdateManyWithoutUserNestedInput
     chat_messages?: chat_messagesUncheckedUpdateManyWithoutUserNestedInput
     message_reactions?: message_reactionsUncheckedUpdateManyWithoutUserNestedInput
+    created_astronomy_events?: astronomy_eventsUncheckedUpdateManyWithoutCreatorNestedInput
+    event_reminders?: event_remindersUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type blog_category_relationsCreateWithoutBlogsInput = {
@@ -75954,6 +79419,8 @@ export namespace Prisma {
     group_memberships?: group_membersCreateNestedManyWithoutUserInput
     chat_messages?: chat_messagesCreateNestedManyWithoutUserInput
     message_reactions?: message_reactionsCreateNestedManyWithoutUserInput
+    created_astronomy_events?: astronomy_eventsCreateNestedManyWithoutCreatorInput
+    event_reminders?: event_remindersCreateNestedManyWithoutUserInput
   }
 
   export type usersUncheckedCreateWithoutBlogsInput = {
@@ -76007,6 +79474,8 @@ export namespace Prisma {
     group_memberships?: group_membersUncheckedCreateNestedManyWithoutUserInput
     chat_messages?: chat_messagesUncheckedCreateNestedManyWithoutUserInput
     message_reactions?: message_reactionsUncheckedCreateNestedManyWithoutUserInput
+    created_astronomy_events?: astronomy_eventsUncheckedCreateNestedManyWithoutCreatorInput
+    event_reminders?: event_remindersUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type usersCreateOrConnectWithoutBlogsInput = {
@@ -76184,6 +79653,8 @@ export namespace Prisma {
     group_memberships?: group_membersUpdateManyWithoutUserNestedInput
     chat_messages?: chat_messagesUpdateManyWithoutUserNestedInput
     message_reactions?: message_reactionsUpdateManyWithoutUserNestedInput
+    created_astronomy_events?: astronomy_eventsUpdateManyWithoutCreatorNestedInput
+    event_reminders?: event_remindersUpdateManyWithoutUserNestedInput
   }
 
   export type usersUncheckedUpdateWithoutBlogsInput = {
@@ -76237,6 +79708,8 @@ export namespace Prisma {
     group_memberships?: group_membersUncheckedUpdateManyWithoutUserNestedInput
     chat_messages?: chat_messagesUncheckedUpdateManyWithoutUserNestedInput
     message_reactions?: message_reactionsUncheckedUpdateManyWithoutUserNestedInput
+    created_astronomy_events?: astronomy_eventsUncheckedUpdateManyWithoutCreatorNestedInput
+    event_reminders?: event_remindersUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type blogsCreateWithoutBlog_category_relationsInput = {
@@ -76488,6 +79961,8 @@ export namespace Prisma {
     group_memberships?: group_membersCreateNestedManyWithoutUserInput
     chat_messages?: chat_messagesCreateNestedManyWithoutUserInput
     message_reactions?: message_reactionsCreateNestedManyWithoutUserInput
+    created_astronomy_events?: astronomy_eventsCreateNestedManyWithoutCreatorInput
+    event_reminders?: event_remindersCreateNestedManyWithoutUserInput
   }
 
   export type usersUncheckedCreateWithoutChatbot_usageInput = {
@@ -76541,6 +80016,8 @@ export namespace Prisma {
     group_memberships?: group_membersUncheckedCreateNestedManyWithoutUserInput
     chat_messages?: chat_messagesUncheckedCreateNestedManyWithoutUserInput
     message_reactions?: message_reactionsUncheckedCreateNestedManyWithoutUserInput
+    created_astronomy_events?: astronomy_eventsUncheckedCreateNestedManyWithoutCreatorInput
+    event_reminders?: event_remindersUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type usersCreateOrConnectWithoutChatbot_usageInput = {
@@ -76609,6 +80086,8 @@ export namespace Prisma {
     group_memberships?: group_membersUpdateManyWithoutUserNestedInput
     chat_messages?: chat_messagesUpdateManyWithoutUserNestedInput
     message_reactions?: message_reactionsUpdateManyWithoutUserNestedInput
+    created_astronomy_events?: astronomy_eventsUpdateManyWithoutCreatorNestedInput
+    event_reminders?: event_remindersUpdateManyWithoutUserNestedInput
   }
 
   export type usersUncheckedUpdateWithoutChatbot_usageInput = {
@@ -76662,6 +80141,8 @@ export namespace Prisma {
     group_memberships?: group_membersUncheckedUpdateManyWithoutUserNestedInput
     chat_messages?: chat_messagesUncheckedUpdateManyWithoutUserNestedInput
     message_reactions?: message_reactionsUncheckedUpdateManyWithoutUserNestedInput
+    created_astronomy_events?: astronomy_eventsUncheckedUpdateManyWithoutCreatorNestedInput
+    event_reminders?: event_remindersUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type blogsCreateWithoutBlog_commentsInput = {
@@ -76829,6 +80310,8 @@ export namespace Prisma {
     group_memberships?: group_membersCreateNestedManyWithoutUserInput
     chat_messages?: chat_messagesCreateNestedManyWithoutUserInput
     message_reactions?: message_reactionsCreateNestedManyWithoutUserInput
+    created_astronomy_events?: astronomy_eventsCreateNestedManyWithoutCreatorInput
+    event_reminders?: event_remindersCreateNestedManyWithoutUserInput
   }
 
   export type usersUncheckedCreateWithoutBlog_commentsInput = {
@@ -76882,6 +80365,8 @@ export namespace Prisma {
     group_memberships?: group_membersUncheckedCreateNestedManyWithoutUserInput
     chat_messages?: chat_messagesUncheckedCreateNestedManyWithoutUserInput
     message_reactions?: message_reactionsUncheckedCreateNestedManyWithoutUserInput
+    created_astronomy_events?: astronomy_eventsUncheckedCreateNestedManyWithoutCreatorInput
+    event_reminders?: event_remindersUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type usersCreateOrConnectWithoutBlog_commentsInput = {
@@ -77062,6 +80547,8 @@ export namespace Prisma {
     group_memberships?: group_membersUpdateManyWithoutUserNestedInput
     chat_messages?: chat_messagesUpdateManyWithoutUserNestedInput
     message_reactions?: message_reactionsUpdateManyWithoutUserNestedInput
+    created_astronomy_events?: astronomy_eventsUpdateManyWithoutCreatorNestedInput
+    event_reminders?: event_remindersUpdateManyWithoutUserNestedInput
   }
 
   export type usersUncheckedUpdateWithoutBlog_commentsInput = {
@@ -77115,6 +80602,8 @@ export namespace Prisma {
     group_memberships?: group_membersUncheckedUpdateManyWithoutUserNestedInput
     chat_messages?: chat_messagesUncheckedUpdateManyWithoutUserNestedInput
     message_reactions?: message_reactionsUncheckedUpdateManyWithoutUserNestedInput
+    created_astronomy_events?: astronomy_eventsUncheckedUpdateManyWithoutCreatorNestedInput
+    event_reminders?: event_remindersUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type QuizParticipantsCreateWithoutUsersInput = {
@@ -78240,6 +81729,78 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type astronomy_eventsCreateWithoutCreatorInput = {
+    name: string
+    description: string
+    visibility: string
+    best_time: string
+    image_url?: string | null
+    event_date: Date | string
+    end_date?: Date | string | null
+    duration: string
+    event_type: string
+    is_active?: boolean
+    created_at?: Date | string
+    updated_at?: Date | string
+    reminders?: event_remindersCreateNestedManyWithoutEventInput
+  }
+
+  export type astronomy_eventsUncheckedCreateWithoutCreatorInput = {
+    id?: number
+    name: string
+    description: string
+    visibility: string
+    best_time: string
+    image_url?: string | null
+    event_date: Date | string
+    end_date?: Date | string | null
+    duration: string
+    event_type: string
+    is_active?: boolean
+    created_at?: Date | string
+    updated_at?: Date | string
+    reminders?: event_remindersUncheckedCreateNestedManyWithoutEventInput
+  }
+
+  export type astronomy_eventsCreateOrConnectWithoutCreatorInput = {
+    where: astronomy_eventsWhereUniqueInput
+    create: XOR<astronomy_eventsCreateWithoutCreatorInput, astronomy_eventsUncheckedCreateWithoutCreatorInput>
+  }
+
+  export type astronomy_eventsCreateManyCreatorInputEnvelope = {
+    data: astronomy_eventsCreateManyCreatorInput | astronomy_eventsCreateManyCreatorInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type event_remindersCreateWithoutUserInput = {
+    reminder_time: Date | string
+    is_sent?: boolean
+    notification_type?: string
+    created_at?: Date | string
+    updated_at?: Date | string
+    event: astronomy_eventsCreateNestedOneWithoutRemindersInput
+  }
+
+  export type event_remindersUncheckedCreateWithoutUserInput = {
+    id?: number
+    event_id: number
+    reminder_time: Date | string
+    is_sent?: boolean
+    notification_type?: string
+    created_at?: Date | string
+    updated_at?: Date | string
+  }
+
+  export type event_remindersCreateOrConnectWithoutUserInput = {
+    where: event_remindersWhereUniqueInput
+    create: XOR<event_remindersCreateWithoutUserInput, event_remindersUncheckedCreateWithoutUserInput>
+  }
+
+  export type event_remindersCreateManyUserInputEnvelope = {
+    data: event_remindersCreateManyUserInput | event_remindersCreateManyUserInput[]
+    skipDuplicates?: boolean
+  }
+
   export type QuizParticipantsUpsertWithWhereUniqueWithoutUsersInput = {
     where: QuizParticipantsWhereUniqueInput
     update: XOR<QuizParticipantsUpdateWithoutUsersInput, QuizParticipantsUncheckedUpdateWithoutUsersInput>
@@ -79095,6 +82656,72 @@ export namespace Prisma {
     data: XOR<message_reactionsUpdateManyMutationInput, message_reactionsUncheckedUpdateManyWithoutUserInput>
   }
 
+  export type astronomy_eventsUpsertWithWhereUniqueWithoutCreatorInput = {
+    where: astronomy_eventsWhereUniqueInput
+    update: XOR<astronomy_eventsUpdateWithoutCreatorInput, astronomy_eventsUncheckedUpdateWithoutCreatorInput>
+    create: XOR<astronomy_eventsCreateWithoutCreatorInput, astronomy_eventsUncheckedCreateWithoutCreatorInput>
+  }
+
+  export type astronomy_eventsUpdateWithWhereUniqueWithoutCreatorInput = {
+    where: astronomy_eventsWhereUniqueInput
+    data: XOR<astronomy_eventsUpdateWithoutCreatorInput, astronomy_eventsUncheckedUpdateWithoutCreatorInput>
+  }
+
+  export type astronomy_eventsUpdateManyWithWhereWithoutCreatorInput = {
+    where: astronomy_eventsScalarWhereInput
+    data: XOR<astronomy_eventsUpdateManyMutationInput, astronomy_eventsUncheckedUpdateManyWithoutCreatorInput>
+  }
+
+  export type astronomy_eventsScalarWhereInput = {
+    AND?: astronomy_eventsScalarWhereInput | astronomy_eventsScalarWhereInput[]
+    OR?: astronomy_eventsScalarWhereInput[]
+    NOT?: astronomy_eventsScalarWhereInput | astronomy_eventsScalarWhereInput[]
+    id?: IntFilter<"astronomy_events"> | number
+    name?: StringFilter<"astronomy_events"> | string
+    description?: StringFilter<"astronomy_events"> | string
+    visibility?: StringFilter<"astronomy_events"> | string
+    best_time?: StringFilter<"astronomy_events"> | string
+    image_url?: StringNullableFilter<"astronomy_events"> | string | null
+    event_date?: DateTimeFilter<"astronomy_events"> | Date | string
+    end_date?: DateTimeNullableFilter<"astronomy_events"> | Date | string | null
+    duration?: StringFilter<"astronomy_events"> | string
+    event_type?: StringFilter<"astronomy_events"> | string
+    is_active?: BoolFilter<"astronomy_events"> | boolean
+    created_by?: IntFilter<"astronomy_events"> | number
+    created_at?: DateTimeFilter<"astronomy_events"> | Date | string
+    updated_at?: DateTimeFilter<"astronomy_events"> | Date | string
+  }
+
+  export type event_remindersUpsertWithWhereUniqueWithoutUserInput = {
+    where: event_remindersWhereUniqueInput
+    update: XOR<event_remindersUpdateWithoutUserInput, event_remindersUncheckedUpdateWithoutUserInput>
+    create: XOR<event_remindersCreateWithoutUserInput, event_remindersUncheckedCreateWithoutUserInput>
+  }
+
+  export type event_remindersUpdateWithWhereUniqueWithoutUserInput = {
+    where: event_remindersWhereUniqueInput
+    data: XOR<event_remindersUpdateWithoutUserInput, event_remindersUncheckedUpdateWithoutUserInput>
+  }
+
+  export type event_remindersUpdateManyWithWhereWithoutUserInput = {
+    where: event_remindersScalarWhereInput
+    data: XOR<event_remindersUpdateManyMutationInput, event_remindersUncheckedUpdateManyWithoutUserInput>
+  }
+
+  export type event_remindersScalarWhereInput = {
+    AND?: event_remindersScalarWhereInput | event_remindersScalarWhereInput[]
+    OR?: event_remindersScalarWhereInput[]
+    NOT?: event_remindersScalarWhereInput | event_remindersScalarWhereInput[]
+    id?: IntFilter<"event_reminders"> | number
+    user_id?: IntFilter<"event_reminders"> | number
+    event_id?: IntFilter<"event_reminders"> | number
+    reminder_time?: DateTimeFilter<"event_reminders"> | Date | string
+    is_sent?: BoolFilter<"event_reminders"> | boolean
+    notification_type?: StringFilter<"event_reminders"> | string
+    created_at?: DateTimeFilter<"event_reminders"> | Date | string
+    updated_at?: DateTimeFilter<"event_reminders"> | Date | string
+  }
+
   export type blogsCreateWithoutBlog_likesInput = {
     title: string
     content: string
@@ -79203,6 +82830,8 @@ export namespace Prisma {
     group_memberships?: group_membersCreateNestedManyWithoutUserInput
     chat_messages?: chat_messagesCreateNestedManyWithoutUserInput
     message_reactions?: message_reactionsCreateNestedManyWithoutUserInput
+    created_astronomy_events?: astronomy_eventsCreateNestedManyWithoutCreatorInput
+    event_reminders?: event_remindersCreateNestedManyWithoutUserInput
   }
 
   export type usersUncheckedCreateWithoutBlog_likesInput = {
@@ -79256,6 +82885,8 @@ export namespace Prisma {
     group_memberships?: group_membersUncheckedCreateNestedManyWithoutUserInput
     chat_messages?: chat_messagesUncheckedCreateNestedManyWithoutUserInput
     message_reactions?: message_reactionsUncheckedCreateNestedManyWithoutUserInput
+    created_astronomy_events?: astronomy_eventsUncheckedCreateNestedManyWithoutCreatorInput
+    event_reminders?: event_remindersUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type usersCreateOrConnectWithoutBlog_likesInput = {
@@ -79388,6 +83019,8 @@ export namespace Prisma {
     group_memberships?: group_membersUpdateManyWithoutUserNestedInput
     chat_messages?: chat_messagesUpdateManyWithoutUserNestedInput
     message_reactions?: message_reactionsUpdateManyWithoutUserNestedInput
+    created_astronomy_events?: astronomy_eventsUpdateManyWithoutCreatorNestedInput
+    event_reminders?: event_remindersUpdateManyWithoutUserNestedInput
   }
 
   export type usersUncheckedUpdateWithoutBlog_likesInput = {
@@ -79441,6 +83074,8 @@ export namespace Prisma {
     group_memberships?: group_membersUncheckedUpdateManyWithoutUserNestedInput
     chat_messages?: chat_messagesUncheckedUpdateManyWithoutUserNestedInput
     message_reactions?: message_reactionsUncheckedUpdateManyWithoutUserNestedInput
+    created_astronomy_events?: astronomy_eventsUncheckedUpdateManyWithoutCreatorNestedInput
+    event_reminders?: event_remindersUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type chatbot_feedbackCreateWithoutChatbot_messagesInput = {
@@ -79699,6 +83334,8 @@ export namespace Prisma {
     group_memberships?: group_membersCreateNestedManyWithoutUserInput
     chat_messages?: chat_messagesCreateNestedManyWithoutUserInput
     message_reactions?: message_reactionsCreateNestedManyWithoutUserInput
+    created_astronomy_events?: astronomy_eventsCreateNestedManyWithoutCreatorInput
+    event_reminders?: event_remindersCreateNestedManyWithoutUserInput
   }
 
   export type usersUncheckedCreateWithoutUser_settingsInput = {
@@ -79752,6 +83389,8 @@ export namespace Prisma {
     group_memberships?: group_membersUncheckedCreateNestedManyWithoutUserInput
     chat_messages?: chat_messagesUncheckedCreateNestedManyWithoutUserInput
     message_reactions?: message_reactionsUncheckedCreateNestedManyWithoutUserInput
+    created_astronomy_events?: astronomy_eventsUncheckedCreateNestedManyWithoutCreatorInput
+    event_reminders?: event_remindersUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type usersCreateOrConnectWithoutUser_settingsInput = {
@@ -79820,6 +83459,8 @@ export namespace Prisma {
     group_memberships?: group_membersUpdateManyWithoutUserNestedInput
     chat_messages?: chat_messagesUpdateManyWithoutUserNestedInput
     message_reactions?: message_reactionsUpdateManyWithoutUserNestedInput
+    created_astronomy_events?: astronomy_eventsUpdateManyWithoutCreatorNestedInput
+    event_reminders?: event_remindersUpdateManyWithoutUserNestedInput
   }
 
   export type usersUncheckedUpdateWithoutUser_settingsInput = {
@@ -79873,6 +83514,8 @@ export namespace Prisma {
     group_memberships?: group_membersUncheckedUpdateManyWithoutUserNestedInput
     chat_messages?: chat_messagesUncheckedUpdateManyWithoutUserNestedInput
     message_reactions?: message_reactionsUncheckedUpdateManyWithoutUserNestedInput
+    created_astronomy_events?: astronomy_eventsUncheckedUpdateManyWithoutCreatorNestedInput
+    event_reminders?: event_remindersUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type chatbot_messagesCreateWithoutChatbot_feedbackInput = {
@@ -80151,6 +83794,8 @@ export namespace Prisma {
     group_memberships?: group_membersCreateNestedManyWithoutUserInput
     chat_messages?: chat_messagesCreateNestedManyWithoutUserInput
     message_reactions?: message_reactionsCreateNestedManyWithoutUserInput
+    created_astronomy_events?: astronomy_eventsCreateNestedManyWithoutCreatorInput
+    event_reminders?: event_remindersCreateNestedManyWithoutUserInput
   }
 
   export type usersUncheckedCreateWithoutRole_upgrade_requests_role_upgrade_requests_reviewer_idTousersInput = {
@@ -80204,6 +83849,8 @@ export namespace Prisma {
     group_memberships?: group_membersUncheckedCreateNestedManyWithoutUserInput
     chat_messages?: chat_messagesUncheckedCreateNestedManyWithoutUserInput
     message_reactions?: message_reactionsUncheckedCreateNestedManyWithoutUserInput
+    created_astronomy_events?: astronomy_eventsUncheckedCreateNestedManyWithoutCreatorInput
+    event_reminders?: event_remindersUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type usersCreateOrConnectWithoutRole_upgrade_requests_role_upgrade_requests_reviewer_idTousersInput = {
@@ -80261,6 +83908,8 @@ export namespace Prisma {
     group_memberships?: group_membersCreateNestedManyWithoutUserInput
     chat_messages?: chat_messagesCreateNestedManyWithoutUserInput
     message_reactions?: message_reactionsCreateNestedManyWithoutUserInput
+    created_astronomy_events?: astronomy_eventsCreateNestedManyWithoutCreatorInput
+    event_reminders?: event_remindersCreateNestedManyWithoutUserInput
   }
 
   export type usersUncheckedCreateWithoutRole_upgrade_requests_role_upgrade_requests_user_idTousersInput = {
@@ -80314,6 +83963,8 @@ export namespace Prisma {
     group_memberships?: group_membersUncheckedCreateNestedManyWithoutUserInput
     chat_messages?: chat_messagesUncheckedCreateNestedManyWithoutUserInput
     message_reactions?: message_reactionsUncheckedCreateNestedManyWithoutUserInput
+    created_astronomy_events?: astronomy_eventsUncheckedCreateNestedManyWithoutCreatorInput
+    event_reminders?: event_remindersUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type usersCreateOrConnectWithoutRole_upgrade_requests_role_upgrade_requests_user_idTousersInput = {
@@ -80382,6 +84033,8 @@ export namespace Prisma {
     group_memberships?: group_membersUpdateManyWithoutUserNestedInput
     chat_messages?: chat_messagesUpdateManyWithoutUserNestedInput
     message_reactions?: message_reactionsUpdateManyWithoutUserNestedInput
+    created_astronomy_events?: astronomy_eventsUpdateManyWithoutCreatorNestedInput
+    event_reminders?: event_remindersUpdateManyWithoutUserNestedInput
   }
 
   export type usersUncheckedUpdateWithoutRole_upgrade_requests_role_upgrade_requests_reviewer_idTousersInput = {
@@ -80435,6 +84088,8 @@ export namespace Prisma {
     group_memberships?: group_membersUncheckedUpdateManyWithoutUserNestedInput
     chat_messages?: chat_messagesUncheckedUpdateManyWithoutUserNestedInput
     message_reactions?: message_reactionsUncheckedUpdateManyWithoutUserNestedInput
+    created_astronomy_events?: astronomy_eventsUncheckedUpdateManyWithoutCreatorNestedInput
+    event_reminders?: event_remindersUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type usersUpsertWithoutRole_upgrade_requests_role_upgrade_requests_user_idTousersInput = {
@@ -80498,6 +84153,8 @@ export namespace Prisma {
     group_memberships?: group_membersUpdateManyWithoutUserNestedInput
     chat_messages?: chat_messagesUpdateManyWithoutUserNestedInput
     message_reactions?: message_reactionsUpdateManyWithoutUserNestedInput
+    created_astronomy_events?: astronomy_eventsUpdateManyWithoutCreatorNestedInput
+    event_reminders?: event_remindersUpdateManyWithoutUserNestedInput
   }
 
   export type usersUncheckedUpdateWithoutRole_upgrade_requests_role_upgrade_requests_user_idTousersInput = {
@@ -80551,6 +84208,8 @@ export namespace Prisma {
     group_memberships?: group_membersUncheckedUpdateManyWithoutUserNestedInput
     chat_messages?: chat_messagesUncheckedUpdateManyWithoutUserNestedInput
     message_reactions?: message_reactionsUncheckedUpdateManyWithoutUserNestedInput
+    created_astronomy_events?: astronomy_eventsUncheckedUpdateManyWithoutCreatorNestedInput
+    event_reminders?: event_remindersUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type usersCreateWithoutGuide_applicationInput = {
@@ -80603,6 +84262,8 @@ export namespace Prisma {
     group_memberships?: group_membersCreateNestedManyWithoutUserInput
     chat_messages?: chat_messagesCreateNestedManyWithoutUserInput
     message_reactions?: message_reactionsCreateNestedManyWithoutUserInput
+    created_astronomy_events?: astronomy_eventsCreateNestedManyWithoutCreatorInput
+    event_reminders?: event_remindersCreateNestedManyWithoutUserInput
   }
 
   export type usersUncheckedCreateWithoutGuide_applicationInput = {
@@ -80656,6 +84317,8 @@ export namespace Prisma {
     group_memberships?: group_membersUncheckedCreateNestedManyWithoutUserInput
     chat_messages?: chat_messagesUncheckedCreateNestedManyWithoutUserInput
     message_reactions?: message_reactionsUncheckedCreateNestedManyWithoutUserInput
+    created_astronomy_events?: astronomy_eventsUncheckedCreateNestedManyWithoutCreatorInput
+    event_reminders?: event_remindersUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type usersCreateOrConnectWithoutGuide_applicationInput = {
@@ -80724,6 +84387,8 @@ export namespace Prisma {
     group_memberships?: group_membersUpdateManyWithoutUserNestedInput
     chat_messages?: chat_messagesUpdateManyWithoutUserNestedInput
     message_reactions?: message_reactionsUpdateManyWithoutUserNestedInput
+    created_astronomy_events?: astronomy_eventsUpdateManyWithoutCreatorNestedInput
+    event_reminders?: event_remindersUpdateManyWithoutUserNestedInput
   }
 
   export type usersUncheckedUpdateWithoutGuide_applicationInput = {
@@ -80777,6 +84442,8 @@ export namespace Prisma {
     group_memberships?: group_membersUncheckedUpdateManyWithoutUserNestedInput
     chat_messages?: chat_messagesUncheckedUpdateManyWithoutUserNestedInput
     message_reactions?: message_reactionsUncheckedUpdateManyWithoutUserNestedInput
+    created_astronomy_events?: astronomy_eventsUncheckedUpdateManyWithoutCreatorNestedInput
+    event_reminders?: event_remindersUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type usersCreateWithoutMentor_applicationInput = {
@@ -80829,6 +84496,8 @@ export namespace Prisma {
     group_memberships?: group_membersCreateNestedManyWithoutUserInput
     chat_messages?: chat_messagesCreateNestedManyWithoutUserInput
     message_reactions?: message_reactionsCreateNestedManyWithoutUserInput
+    created_astronomy_events?: astronomy_eventsCreateNestedManyWithoutCreatorInput
+    event_reminders?: event_remindersCreateNestedManyWithoutUserInput
   }
 
   export type usersUncheckedCreateWithoutMentor_applicationInput = {
@@ -80882,6 +84551,8 @@ export namespace Prisma {
     group_memberships?: group_membersUncheckedCreateNestedManyWithoutUserInput
     chat_messages?: chat_messagesUncheckedCreateNestedManyWithoutUserInput
     message_reactions?: message_reactionsUncheckedCreateNestedManyWithoutUserInput
+    created_astronomy_events?: astronomy_eventsUncheckedCreateNestedManyWithoutCreatorInput
+    event_reminders?: event_remindersUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type usersCreateOrConnectWithoutMentor_applicationInput = {
@@ -80950,6 +84621,8 @@ export namespace Prisma {
     group_memberships?: group_membersUpdateManyWithoutUserNestedInput
     chat_messages?: chat_messagesUpdateManyWithoutUserNestedInput
     message_reactions?: message_reactionsUpdateManyWithoutUserNestedInput
+    created_astronomy_events?: astronomy_eventsUpdateManyWithoutCreatorNestedInput
+    event_reminders?: event_remindersUpdateManyWithoutUserNestedInput
   }
 
   export type usersUncheckedUpdateWithoutMentor_applicationInput = {
@@ -81003,6 +84676,8 @@ export namespace Prisma {
     group_memberships?: group_membersUncheckedUpdateManyWithoutUserNestedInput
     chat_messages?: chat_messagesUncheckedUpdateManyWithoutUserNestedInput
     message_reactions?: message_reactionsUncheckedUpdateManyWithoutUserNestedInput
+    created_astronomy_events?: astronomy_eventsUncheckedUpdateManyWithoutCreatorNestedInput
+    event_reminders?: event_remindersUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type night_campsCreateWithoutNight_camp_volunteering_applicationsInput = {
@@ -81101,6 +84776,8 @@ export namespace Prisma {
     group_memberships?: group_membersCreateNestedManyWithoutUserInput
     chat_messages?: chat_messagesCreateNestedManyWithoutUserInput
     message_reactions?: message_reactionsCreateNestedManyWithoutUserInput
+    created_astronomy_events?: astronomy_eventsCreateNestedManyWithoutCreatorInput
+    event_reminders?: event_remindersCreateNestedManyWithoutUserInput
   }
 
   export type usersUncheckedCreateWithoutNight_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousersInput = {
@@ -81154,6 +84831,8 @@ export namespace Prisma {
     group_memberships?: group_membersUncheckedCreateNestedManyWithoutUserInput
     chat_messages?: chat_messagesUncheckedCreateNestedManyWithoutUserInput
     message_reactions?: message_reactionsUncheckedCreateNestedManyWithoutUserInput
+    created_astronomy_events?: astronomy_eventsUncheckedCreateNestedManyWithoutCreatorInput
+    event_reminders?: event_remindersUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type usersCreateOrConnectWithoutNight_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousersInput = {
@@ -81211,6 +84890,8 @@ export namespace Prisma {
     group_memberships?: group_membersCreateNestedManyWithoutUserInput
     chat_messages?: chat_messagesCreateNestedManyWithoutUserInput
     message_reactions?: message_reactionsCreateNestedManyWithoutUserInput
+    created_astronomy_events?: astronomy_eventsCreateNestedManyWithoutCreatorInput
+    event_reminders?: event_remindersCreateNestedManyWithoutUserInput
   }
 
   export type usersUncheckedCreateWithoutNight_camp_volunteering_applications_night_camp_volunteering_applications_user_idTousersInput = {
@@ -81264,6 +84945,8 @@ export namespace Prisma {
     group_memberships?: group_membersUncheckedCreateNestedManyWithoutUserInput
     chat_messages?: chat_messagesUncheckedCreateNestedManyWithoutUserInput
     message_reactions?: message_reactionsUncheckedCreateNestedManyWithoutUserInput
+    created_astronomy_events?: astronomy_eventsUncheckedCreateNestedManyWithoutCreatorInput
+    event_reminders?: event_remindersUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type usersCreateOrConnectWithoutNight_camp_volunteering_applications_night_camp_volunteering_applications_user_idTousersInput = {
@@ -81384,6 +85067,8 @@ export namespace Prisma {
     group_memberships?: group_membersUpdateManyWithoutUserNestedInput
     chat_messages?: chat_messagesUpdateManyWithoutUserNestedInput
     message_reactions?: message_reactionsUpdateManyWithoutUserNestedInput
+    created_astronomy_events?: astronomy_eventsUpdateManyWithoutCreatorNestedInput
+    event_reminders?: event_remindersUpdateManyWithoutUserNestedInput
   }
 
   export type usersUncheckedUpdateWithoutNight_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousersInput = {
@@ -81437,6 +85122,8 @@ export namespace Prisma {
     group_memberships?: group_membersUncheckedUpdateManyWithoutUserNestedInput
     chat_messages?: chat_messagesUncheckedUpdateManyWithoutUserNestedInput
     message_reactions?: message_reactionsUncheckedUpdateManyWithoutUserNestedInput
+    created_astronomy_events?: astronomy_eventsUncheckedUpdateManyWithoutCreatorNestedInput
+    event_reminders?: event_remindersUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type usersUpsertWithoutNight_camp_volunteering_applications_night_camp_volunteering_applications_user_idTousersInput = {
@@ -81500,6 +85187,8 @@ export namespace Prisma {
     group_memberships?: group_membersUpdateManyWithoutUserNestedInput
     chat_messages?: chat_messagesUpdateManyWithoutUserNestedInput
     message_reactions?: message_reactionsUpdateManyWithoutUserNestedInput
+    created_astronomy_events?: astronomy_eventsUpdateManyWithoutCreatorNestedInput
+    event_reminders?: event_remindersUpdateManyWithoutUserNestedInput
   }
 
   export type usersUncheckedUpdateWithoutNight_camp_volunteering_applications_night_camp_volunteering_applications_user_idTousersInput = {
@@ -81553,6 +85242,8 @@ export namespace Prisma {
     group_memberships?: group_membersUncheckedUpdateManyWithoutUserNestedInput
     chat_messages?: chat_messagesUncheckedUpdateManyWithoutUserNestedInput
     message_reactions?: message_reactionsUncheckedUpdateManyWithoutUserNestedInput
+    created_astronomy_events?: astronomy_eventsUncheckedUpdateManyWithoutCreatorNestedInput
+    event_reminders?: event_remindersUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type night_campsCreateWithoutNight_camp_registrationsInput = {
@@ -81651,6 +85342,8 @@ export namespace Prisma {
     group_memberships?: group_membersCreateNestedManyWithoutUserInput
     chat_messages?: chat_messagesCreateNestedManyWithoutUserInput
     message_reactions?: message_reactionsCreateNestedManyWithoutUserInput
+    created_astronomy_events?: astronomy_eventsCreateNestedManyWithoutCreatorInput
+    event_reminders?: event_remindersCreateNestedManyWithoutUserInput
   }
 
   export type usersUncheckedCreateWithoutNight_camp_registrationsInput = {
@@ -81704,6 +85397,8 @@ export namespace Prisma {
     group_memberships?: group_membersUncheckedCreateNestedManyWithoutUserInput
     chat_messages?: chat_messagesUncheckedCreateNestedManyWithoutUserInput
     message_reactions?: message_reactionsUncheckedCreateNestedManyWithoutUserInput
+    created_astronomy_events?: astronomy_eventsUncheckedCreateNestedManyWithoutCreatorInput
+    event_reminders?: event_remindersUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type usersCreateOrConnectWithoutNight_camp_registrationsInput = {
@@ -81824,6 +85519,8 @@ export namespace Prisma {
     group_memberships?: group_membersUpdateManyWithoutUserNestedInput
     chat_messages?: chat_messagesUpdateManyWithoutUserNestedInput
     message_reactions?: message_reactionsUpdateManyWithoutUserNestedInput
+    created_astronomy_events?: astronomy_eventsUpdateManyWithoutCreatorNestedInput
+    event_reminders?: event_remindersUpdateManyWithoutUserNestedInput
   }
 
   export type usersUncheckedUpdateWithoutNight_camp_registrationsInput = {
@@ -81877,6 +85574,8 @@ export namespace Prisma {
     group_memberships?: group_membersUncheckedUpdateManyWithoutUserNestedInput
     chat_messages?: chat_messagesUncheckedUpdateManyWithoutUserNestedInput
     message_reactions?: message_reactionsUncheckedUpdateManyWithoutUserNestedInput
+    created_astronomy_events?: astronomy_eventsUncheckedUpdateManyWithoutCreatorNestedInput
+    event_reminders?: event_remindersUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type usersCreateWithoutInfluencer_applicationInput = {
@@ -81929,6 +85628,8 @@ export namespace Prisma {
     group_memberships?: group_membersCreateNestedManyWithoutUserInput
     chat_messages?: chat_messagesCreateNestedManyWithoutUserInput
     message_reactions?: message_reactionsCreateNestedManyWithoutUserInput
+    created_astronomy_events?: astronomy_eventsCreateNestedManyWithoutCreatorInput
+    event_reminders?: event_remindersCreateNestedManyWithoutUserInput
   }
 
   export type usersUncheckedCreateWithoutInfluencer_applicationInput = {
@@ -81982,6 +85683,8 @@ export namespace Prisma {
     group_memberships?: group_membersUncheckedCreateNestedManyWithoutUserInput
     chat_messages?: chat_messagesUncheckedCreateNestedManyWithoutUserInput
     message_reactions?: message_reactionsUncheckedCreateNestedManyWithoutUserInput
+    created_astronomy_events?: astronomy_eventsUncheckedCreateNestedManyWithoutCreatorInput
+    event_reminders?: event_remindersUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type usersCreateOrConnectWithoutInfluencer_applicationInput = {
@@ -82050,6 +85753,8 @@ export namespace Prisma {
     group_memberships?: group_membersUpdateManyWithoutUserNestedInput
     chat_messages?: chat_messagesUpdateManyWithoutUserNestedInput
     message_reactions?: message_reactionsUpdateManyWithoutUserNestedInput
+    created_astronomy_events?: astronomy_eventsUpdateManyWithoutCreatorNestedInput
+    event_reminders?: event_remindersUpdateManyWithoutUserNestedInput
   }
 
   export type usersUncheckedUpdateWithoutInfluencer_applicationInput = {
@@ -82103,6 +85808,8 @@ export namespace Prisma {
     group_memberships?: group_membersUncheckedUpdateManyWithoutUserNestedInput
     chat_messages?: chat_messagesUncheckedUpdateManyWithoutUserNestedInput
     message_reactions?: message_reactionsUncheckedUpdateManyWithoutUserNestedInput
+    created_astronomy_events?: astronomy_eventsUncheckedUpdateManyWithoutCreatorNestedInput
+    event_reminders?: event_remindersUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type usersCreateWithoutMedia_uploadsInput = {
@@ -82155,6 +85862,8 @@ export namespace Prisma {
     group_memberships?: group_membersCreateNestedManyWithoutUserInput
     chat_messages?: chat_messagesCreateNestedManyWithoutUserInput
     message_reactions?: message_reactionsCreateNestedManyWithoutUserInput
+    created_astronomy_events?: astronomy_eventsCreateNestedManyWithoutCreatorInput
+    event_reminders?: event_remindersCreateNestedManyWithoutUserInput
   }
 
   export type usersUncheckedCreateWithoutMedia_uploadsInput = {
@@ -82208,6 +85917,8 @@ export namespace Prisma {
     group_memberships?: group_membersUncheckedCreateNestedManyWithoutUserInput
     chat_messages?: chat_messagesUncheckedCreateNestedManyWithoutUserInput
     message_reactions?: message_reactionsUncheckedCreateNestedManyWithoutUserInput
+    created_astronomy_events?: astronomy_eventsUncheckedCreateNestedManyWithoutCreatorInput
+    event_reminders?: event_remindersUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type usersCreateOrConnectWithoutMedia_uploadsInput = {
@@ -82276,6 +85987,8 @@ export namespace Prisma {
     group_memberships?: group_membersUpdateManyWithoutUserNestedInput
     chat_messages?: chat_messagesUpdateManyWithoutUserNestedInput
     message_reactions?: message_reactionsUpdateManyWithoutUserNestedInput
+    created_astronomy_events?: astronomy_eventsUpdateManyWithoutCreatorNestedInput
+    event_reminders?: event_remindersUpdateManyWithoutUserNestedInput
   }
 
   export type usersUncheckedUpdateWithoutMedia_uploadsInput = {
@@ -82329,6 +86042,8 @@ export namespace Prisma {
     group_memberships?: group_membersUncheckedUpdateManyWithoutUserNestedInput
     chat_messages?: chat_messagesUncheckedUpdateManyWithoutUserNestedInput
     message_reactions?: message_reactionsUncheckedUpdateManyWithoutUserNestedInput
+    created_astronomy_events?: astronomy_eventsUncheckedUpdateManyWithoutCreatorNestedInput
+    event_reminders?: event_remindersUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type QuizzesCreateWithoutQuizParticipantsInput = {
@@ -82419,6 +86134,8 @@ export namespace Prisma {
     group_memberships?: group_membersCreateNestedManyWithoutUserInput
     chat_messages?: chat_messagesCreateNestedManyWithoutUserInput
     message_reactions?: message_reactionsCreateNestedManyWithoutUserInput
+    created_astronomy_events?: astronomy_eventsCreateNestedManyWithoutCreatorInput
+    event_reminders?: event_remindersCreateNestedManyWithoutUserInput
   }
 
   export type usersUncheckedCreateWithoutQuizParticipantsInput = {
@@ -82472,6 +86189,8 @@ export namespace Prisma {
     group_memberships?: group_membersUncheckedCreateNestedManyWithoutUserInput
     chat_messages?: chat_messagesUncheckedCreateNestedManyWithoutUserInput
     message_reactions?: message_reactionsUncheckedCreateNestedManyWithoutUserInput
+    created_astronomy_events?: astronomy_eventsUncheckedCreateNestedManyWithoutCreatorInput
+    event_reminders?: event_remindersUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type usersCreateOrConnectWithoutQuizParticipantsInput = {
@@ -82584,6 +86303,8 @@ export namespace Prisma {
     group_memberships?: group_membersUpdateManyWithoutUserNestedInput
     chat_messages?: chat_messagesUpdateManyWithoutUserNestedInput
     message_reactions?: message_reactionsUpdateManyWithoutUserNestedInput
+    created_astronomy_events?: astronomy_eventsUpdateManyWithoutCreatorNestedInput
+    event_reminders?: event_remindersUpdateManyWithoutUserNestedInput
   }
 
   export type usersUncheckedUpdateWithoutQuizParticipantsInput = {
@@ -82637,6 +86358,8 @@ export namespace Prisma {
     group_memberships?: group_membersUncheckedUpdateManyWithoutUserNestedInput
     chat_messages?: chat_messagesUncheckedUpdateManyWithoutUserNestedInput
     message_reactions?: message_reactionsUncheckedUpdateManyWithoutUserNestedInput
+    created_astronomy_events?: astronomy_eventsUncheckedUpdateManyWithoutCreatorNestedInput
+    event_reminders?: event_remindersUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type QuizzesCreateWithoutQuizQuestionInput = {
@@ -82819,6 +86542,8 @@ export namespace Prisma {
     group_memberships?: group_membersCreateNestedManyWithoutUserInput
     chat_messages?: chat_messagesCreateNestedManyWithoutUserInput
     message_reactions?: message_reactionsCreateNestedManyWithoutUserInput
+    created_astronomy_events?: astronomy_eventsCreateNestedManyWithoutCreatorInput
+    event_reminders?: event_remindersCreateNestedManyWithoutUserInput
   }
 
   export type usersUncheckedCreateWithoutQuizzesInput = {
@@ -82872,6 +86597,8 @@ export namespace Prisma {
     group_memberships?: group_membersUncheckedCreateNestedManyWithoutUserInput
     chat_messages?: chat_messagesUncheckedCreateNestedManyWithoutUserInput
     message_reactions?: message_reactionsUncheckedCreateNestedManyWithoutUserInput
+    created_astronomy_events?: astronomy_eventsUncheckedCreateNestedManyWithoutCreatorInput
+    event_reminders?: event_remindersUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type usersCreateOrConnectWithoutQuizzesInput = {
@@ -82984,6 +86711,8 @@ export namespace Prisma {
     group_memberships?: group_membersUpdateManyWithoutUserNestedInput
     chat_messages?: chat_messagesUpdateManyWithoutUserNestedInput
     message_reactions?: message_reactionsUpdateManyWithoutUserNestedInput
+    created_astronomy_events?: astronomy_eventsUpdateManyWithoutCreatorNestedInput
+    event_reminders?: event_remindersUpdateManyWithoutUserNestedInput
   }
 
   export type usersUncheckedUpdateWithoutQuizzesInput = {
@@ -83037,6 +86766,8 @@ export namespace Prisma {
     group_memberships?: group_membersUncheckedUpdateManyWithoutUserNestedInput
     chat_messages?: chat_messagesUncheckedUpdateManyWithoutUserNestedInput
     message_reactions?: message_reactionsUncheckedUpdateManyWithoutUserNestedInput
+    created_astronomy_events?: astronomy_eventsUncheckedUpdateManyWithoutCreatorNestedInput
+    event_reminders?: event_remindersUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type usersCreateWithoutSpace_news_publishedInput = {
@@ -83089,6 +86820,8 @@ export namespace Prisma {
     group_memberships?: group_membersCreateNestedManyWithoutUserInput
     chat_messages?: chat_messagesCreateNestedManyWithoutUserInput
     message_reactions?: message_reactionsCreateNestedManyWithoutUserInput
+    created_astronomy_events?: astronomy_eventsCreateNestedManyWithoutCreatorInput
+    event_reminders?: event_remindersCreateNestedManyWithoutUserInput
   }
 
   export type usersUncheckedCreateWithoutSpace_news_publishedInput = {
@@ -83142,6 +86875,8 @@ export namespace Prisma {
     group_memberships?: group_membersUncheckedCreateNestedManyWithoutUserInput
     chat_messages?: chat_messagesUncheckedCreateNestedManyWithoutUserInput
     message_reactions?: message_reactionsUncheckedCreateNestedManyWithoutUserInput
+    created_astronomy_events?: astronomy_eventsUncheckedCreateNestedManyWithoutCreatorInput
+    event_reminders?: event_remindersUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type usersCreateOrConnectWithoutSpace_news_publishedInput = {
@@ -83262,6 +86997,8 @@ export namespace Prisma {
     group_memberships?: group_membersUpdateManyWithoutUserNestedInput
     chat_messages?: chat_messagesUpdateManyWithoutUserNestedInput
     message_reactions?: message_reactionsUpdateManyWithoutUserNestedInput
+    created_astronomy_events?: astronomy_eventsUpdateManyWithoutCreatorNestedInput
+    event_reminders?: event_remindersUpdateManyWithoutUserNestedInput
   }
 
   export type usersUncheckedUpdateWithoutSpace_news_publishedInput = {
@@ -83315,6 +87052,8 @@ export namespace Prisma {
     group_memberships?: group_membersUncheckedUpdateManyWithoutUserNestedInput
     chat_messages?: chat_messagesUncheckedUpdateManyWithoutUserNestedInput
     message_reactions?: message_reactionsUncheckedUpdateManyWithoutUserNestedInput
+    created_astronomy_events?: astronomy_eventsUncheckedUpdateManyWithoutCreatorNestedInput
+    event_reminders?: event_remindersUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type space_news_likesUpsertWithWhereUniqueWithoutSpace_newsInput = {
@@ -83433,6 +87172,8 @@ export namespace Prisma {
     group_memberships?: group_membersCreateNestedManyWithoutUserInput
     chat_messages?: chat_messagesCreateNestedManyWithoutUserInput
     message_reactions?: message_reactionsCreateNestedManyWithoutUserInput
+    created_astronomy_events?: astronomy_eventsCreateNestedManyWithoutCreatorInput
+    event_reminders?: event_remindersCreateNestedManyWithoutUserInput
   }
 
   export type usersUncheckedCreateWithoutSpace_news_likesInput = {
@@ -83486,6 +87227,8 @@ export namespace Prisma {
     group_memberships?: group_membersUncheckedCreateNestedManyWithoutUserInput
     chat_messages?: chat_messagesUncheckedCreateNestedManyWithoutUserInput
     message_reactions?: message_reactionsUncheckedCreateNestedManyWithoutUserInput
+    created_astronomy_events?: astronomy_eventsUncheckedCreateNestedManyWithoutCreatorInput
+    event_reminders?: event_remindersUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type usersCreateOrConnectWithoutSpace_news_likesInput = {
@@ -83594,6 +87337,8 @@ export namespace Prisma {
     group_memberships?: group_membersUpdateManyWithoutUserNestedInput
     chat_messages?: chat_messagesUpdateManyWithoutUserNestedInput
     message_reactions?: message_reactionsUpdateManyWithoutUserNestedInput
+    created_astronomy_events?: astronomy_eventsUpdateManyWithoutCreatorNestedInput
+    event_reminders?: event_remindersUpdateManyWithoutUserNestedInput
   }
 
   export type usersUncheckedUpdateWithoutSpace_news_likesInput = {
@@ -83647,6 +87392,8 @@ export namespace Prisma {
     group_memberships?: group_membersUncheckedUpdateManyWithoutUserNestedInput
     chat_messages?: chat_messagesUncheckedUpdateManyWithoutUserNestedInput
     message_reactions?: message_reactionsUncheckedUpdateManyWithoutUserNestedInput
+    created_astronomy_events?: astronomy_eventsUncheckedUpdateManyWithoutCreatorNestedInput
+    event_reminders?: event_remindersUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type space_newsCreateWithoutSpace_news_commentsInput = {
@@ -83733,6 +87480,8 @@ export namespace Prisma {
     group_memberships?: group_membersCreateNestedManyWithoutUserInput
     chat_messages?: chat_messagesCreateNestedManyWithoutUserInput
     message_reactions?: message_reactionsCreateNestedManyWithoutUserInput
+    created_astronomy_events?: astronomy_eventsCreateNestedManyWithoutCreatorInput
+    event_reminders?: event_remindersCreateNestedManyWithoutUserInput
   }
 
   export type usersUncheckedCreateWithoutSpace_news_commentsInput = {
@@ -83786,6 +87535,8 @@ export namespace Prisma {
     group_memberships?: group_membersUncheckedCreateNestedManyWithoutUserInput
     chat_messages?: chat_messagesUncheckedCreateNestedManyWithoutUserInput
     message_reactions?: message_reactionsUncheckedCreateNestedManyWithoutUserInput
+    created_astronomy_events?: astronomy_eventsUncheckedCreateNestedManyWithoutCreatorInput
+    event_reminders?: event_remindersUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type usersCreateOrConnectWithoutSpace_news_commentsInput = {
@@ -83951,6 +87702,8 @@ export namespace Prisma {
     group_memberships?: group_membersUpdateManyWithoutUserNestedInput
     chat_messages?: chat_messagesUpdateManyWithoutUserNestedInput
     message_reactions?: message_reactionsUpdateManyWithoutUserNestedInput
+    created_astronomy_events?: astronomy_eventsUpdateManyWithoutCreatorNestedInput
+    event_reminders?: event_remindersUpdateManyWithoutUserNestedInput
   }
 
   export type usersUncheckedUpdateWithoutSpace_news_commentsInput = {
@@ -84004,6 +87757,8 @@ export namespace Prisma {
     group_memberships?: group_membersUncheckedUpdateManyWithoutUserNestedInput
     chat_messages?: chat_messagesUncheckedUpdateManyWithoutUserNestedInput
     message_reactions?: message_reactionsUncheckedUpdateManyWithoutUserNestedInput
+    created_astronomy_events?: astronomy_eventsUncheckedUpdateManyWithoutCreatorNestedInput
+    event_reminders?: event_remindersUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type space_news_commentsUpsertWithoutRepliesInput = {
@@ -84104,6 +87859,8 @@ export namespace Prisma {
     group_memberships?: group_membersCreateNestedManyWithoutUserInput
     chat_messages?: chat_messagesCreateNestedManyWithoutUserInput
     message_reactions?: message_reactionsCreateNestedManyWithoutUserInput
+    created_astronomy_events?: astronomy_eventsCreateNestedManyWithoutCreatorInput
+    event_reminders?: event_remindersCreateNestedManyWithoutUserInput
   }
 
   export type usersUncheckedCreateWithoutAuthored_discussionsInput = {
@@ -84157,6 +87914,8 @@ export namespace Prisma {
     group_memberships?: group_membersUncheckedCreateNestedManyWithoutUserInput
     chat_messages?: chat_messagesUncheckedCreateNestedManyWithoutUserInput
     message_reactions?: message_reactionsUncheckedCreateNestedManyWithoutUserInput
+    created_astronomy_events?: astronomy_eventsUncheckedCreateNestedManyWithoutCreatorInput
+    event_reminders?: event_remindersUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type usersCreateOrConnectWithoutAuthored_discussionsInput = {
@@ -84279,6 +88038,8 @@ export namespace Prisma {
     group_memberships?: group_membersUpdateManyWithoutUserNestedInput
     chat_messages?: chat_messagesUpdateManyWithoutUserNestedInput
     message_reactions?: message_reactionsUpdateManyWithoutUserNestedInput
+    created_astronomy_events?: astronomy_eventsUpdateManyWithoutCreatorNestedInput
+    event_reminders?: event_remindersUpdateManyWithoutUserNestedInput
   }
 
   export type usersUncheckedUpdateWithoutAuthored_discussionsInput = {
@@ -84332,6 +88093,8 @@ export namespace Prisma {
     group_memberships?: group_membersUncheckedUpdateManyWithoutUserNestedInput
     chat_messages?: chat_messagesUncheckedUpdateManyWithoutUserNestedInput
     message_reactions?: message_reactionsUncheckedUpdateManyWithoutUserNestedInput
+    created_astronomy_events?: astronomy_eventsUncheckedUpdateManyWithoutCreatorNestedInput
+    event_reminders?: event_remindersUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type space_discussion_commentsUpsertWithWhereUniqueWithoutDiscussionInput = {
@@ -84452,6 +88215,8 @@ export namespace Prisma {
     group_memberships?: group_membersCreateNestedManyWithoutUserInput
     chat_messages?: chat_messagesCreateNestedManyWithoutUserInput
     message_reactions?: message_reactionsCreateNestedManyWithoutUserInput
+    created_astronomy_events?: astronomy_eventsCreateNestedManyWithoutCreatorInput
+    event_reminders?: event_remindersCreateNestedManyWithoutUserInput
   }
 
   export type usersUncheckedCreateWithoutDiscussion_commentsInput = {
@@ -84505,6 +88270,8 @@ export namespace Prisma {
     group_memberships?: group_membersUncheckedCreateNestedManyWithoutUserInput
     chat_messages?: chat_messagesUncheckedCreateNestedManyWithoutUserInput
     message_reactions?: message_reactionsUncheckedCreateNestedManyWithoutUserInput
+    created_astronomy_events?: astronomy_eventsUncheckedCreateNestedManyWithoutCreatorInput
+    event_reminders?: event_remindersUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type usersCreateOrConnectWithoutDiscussion_commentsInput = {
@@ -84697,6 +88464,8 @@ export namespace Prisma {
     group_memberships?: group_membersUpdateManyWithoutUserNestedInput
     chat_messages?: chat_messagesUpdateManyWithoutUserNestedInput
     message_reactions?: message_reactionsUpdateManyWithoutUserNestedInput
+    created_astronomy_events?: astronomy_eventsUpdateManyWithoutCreatorNestedInput
+    event_reminders?: event_remindersUpdateManyWithoutUserNestedInput
   }
 
   export type usersUncheckedUpdateWithoutDiscussion_commentsInput = {
@@ -84750,6 +88519,8 @@ export namespace Prisma {
     group_memberships?: group_membersUncheckedUpdateManyWithoutUserNestedInput
     chat_messages?: chat_messagesUncheckedUpdateManyWithoutUserNestedInput
     message_reactions?: message_reactionsUncheckedUpdateManyWithoutUserNestedInput
+    created_astronomy_events?: astronomy_eventsUncheckedUpdateManyWithoutCreatorNestedInput
+    event_reminders?: event_remindersUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type space_discussion_commentsUpsertWithoutRepliesInput = {
@@ -84904,6 +88675,8 @@ export namespace Prisma {
     group_memberships?: group_membersCreateNestedManyWithoutUserInput
     chat_messages?: chat_messagesCreateNestedManyWithoutUserInput
     message_reactions?: message_reactionsCreateNestedManyWithoutUserInput
+    created_astronomy_events?: astronomy_eventsCreateNestedManyWithoutCreatorInput
+    event_reminders?: event_remindersCreateNestedManyWithoutUserInput
   }
 
   export type usersUncheckedCreateWithoutDiscussion_likesInput = {
@@ -84957,6 +88730,8 @@ export namespace Prisma {
     group_memberships?: group_membersUncheckedCreateNestedManyWithoutUserInput
     chat_messages?: chat_messagesUncheckedCreateNestedManyWithoutUserInput
     message_reactions?: message_reactionsUncheckedCreateNestedManyWithoutUserInput
+    created_astronomy_events?: astronomy_eventsUncheckedCreateNestedManyWithoutCreatorInput
+    event_reminders?: event_remindersUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type usersCreateOrConnectWithoutDiscussion_likesInput = {
@@ -85067,6 +88842,8 @@ export namespace Prisma {
     group_memberships?: group_membersUpdateManyWithoutUserNestedInput
     chat_messages?: chat_messagesUpdateManyWithoutUserNestedInput
     message_reactions?: message_reactionsUpdateManyWithoutUserNestedInput
+    created_astronomy_events?: astronomy_eventsUpdateManyWithoutCreatorNestedInput
+    event_reminders?: event_remindersUpdateManyWithoutUserNestedInput
   }
 
   export type usersUncheckedUpdateWithoutDiscussion_likesInput = {
@@ -85120,6 +88897,8 @@ export namespace Prisma {
     group_memberships?: group_membersUncheckedUpdateManyWithoutUserNestedInput
     chat_messages?: chat_messagesUncheckedUpdateManyWithoutUserNestedInput
     message_reactions?: message_reactionsUncheckedUpdateManyWithoutUserNestedInput
+    created_astronomy_events?: astronomy_eventsUncheckedUpdateManyWithoutCreatorNestedInput
+    event_reminders?: event_remindersUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type space_discussion_commentsCreateWithoutLikesInput = {
@@ -85200,6 +88979,8 @@ export namespace Prisma {
     group_memberships?: group_membersCreateNestedManyWithoutUserInput
     chat_messages?: chat_messagesCreateNestedManyWithoutUserInput
     message_reactions?: message_reactionsCreateNestedManyWithoutUserInput
+    created_astronomy_events?: astronomy_eventsCreateNestedManyWithoutCreatorInput
+    event_reminders?: event_remindersCreateNestedManyWithoutUserInput
   }
 
   export type usersUncheckedCreateWithoutDiscussion_comment_likesInput = {
@@ -85253,6 +89034,8 @@ export namespace Prisma {
     group_memberships?: group_membersUncheckedCreateNestedManyWithoutUserInput
     chat_messages?: chat_messagesUncheckedCreateNestedManyWithoutUserInput
     message_reactions?: message_reactionsUncheckedCreateNestedManyWithoutUserInput
+    created_astronomy_events?: astronomy_eventsUncheckedCreateNestedManyWithoutCreatorInput
+    event_reminders?: event_remindersUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type usersCreateOrConnectWithoutDiscussion_comment_likesInput = {
@@ -85355,6 +89138,8 @@ export namespace Prisma {
     group_memberships?: group_membersUpdateManyWithoutUserNestedInput
     chat_messages?: chat_messagesUpdateManyWithoutUserNestedInput
     message_reactions?: message_reactionsUpdateManyWithoutUserNestedInput
+    created_astronomy_events?: astronomy_eventsUpdateManyWithoutCreatorNestedInput
+    event_reminders?: event_remindersUpdateManyWithoutUserNestedInput
   }
 
   export type usersUncheckedUpdateWithoutDiscussion_comment_likesInput = {
@@ -85408,6 +89193,603 @@ export namespace Prisma {
     group_memberships?: group_membersUncheckedUpdateManyWithoutUserNestedInput
     chat_messages?: chat_messagesUncheckedUpdateManyWithoutUserNestedInput
     message_reactions?: message_reactionsUncheckedUpdateManyWithoutUserNestedInput
+    created_astronomy_events?: astronomy_eventsUncheckedUpdateManyWithoutCreatorNestedInput
+    event_reminders?: event_remindersUncheckedUpdateManyWithoutUserNestedInput
+  }
+
+  export type usersCreateWithoutCreated_astronomy_eventsInput = {
+    firebase_uid: string
+    email: string
+    role?: $Enums.user_role | null
+    first_name?: string | null
+    last_name?: string | null
+    is_active?: boolean | null
+    last_login?: Date | string | null
+    created_at?: Date | string | null
+    updated_at?: Date | string | null
+    display_name?: string | null
+    profile_data?: NullableJsonNullValueInput | InputJsonValue
+    role_specific_data?: NullableJsonNullValueInput | InputJsonValue
+    subscription_plan?: $Enums.subscription_plan | null
+    subscription_status?: $Enums.subscription_status | null
+    subscription_start_date?: Date | string | null
+    subscription_end_date?: Date | string | null
+    auto_renew?: boolean | null
+    chatbot_questions_used?: number | null
+    chatbot_questions_reset_date?: Date | string | null
+    QuizParticipants?: QuizParticipantsCreateNestedManyWithoutUsersInput
+    Quizzes?: QuizzesCreateNestedManyWithoutUsersInput
+    blog_comments?: blog_commentsCreateNestedManyWithoutUsersInput
+    blog_likes?: blog_likesCreateNestedManyWithoutUsersInput
+    blog_views?: blog_viewsCreateNestedManyWithoutUsersInput
+    blogs?: blogsCreateNestedManyWithoutUsersInput
+    chatbot_sessions?: chatbot_sessionsCreateNestedManyWithoutUsersInput
+    chatbot_usage?: chatbot_usageCreateNestedManyWithoutUsersInput
+    guide_application?: guide_applicationCreateNestedManyWithoutUsersInput
+    influencer_application?: influencer_applicationCreateNestedManyWithoutUsersInput
+    media_uploads?: media_uploadsCreateNestedManyWithoutUserInput
+    mentor_application?: mentor_applicationCreateNestedManyWithoutUsersInput
+    night_camp_registrations?: night_camp_registrationsCreateNestedManyWithoutUsersInput
+    night_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousers?: night_camp_volunteering_applicationsCreateNestedManyWithoutUsers_night_camp_volunteering_applications_reviewed_byTousersInput
+    night_camp_volunteering_applications_night_camp_volunteering_applications_user_idTousers?: night_camp_volunteering_applicationsCreateNestedManyWithoutUsers_night_camp_volunteering_applications_user_idTousersInput
+    payments?: paymentsCreateNestedManyWithoutUsersInput
+    role_upgrade_requests_role_upgrade_requests_reviewer_idTousers?: role_upgrade_requestsCreateNestedManyWithoutUsers_role_upgrade_requests_reviewer_idTousersInput
+    role_upgrade_requests_role_upgrade_requests_user_idTousers?: role_upgrade_requestsCreateNestedManyWithoutUsers_role_upgrade_requests_user_idTousersInput
+    space_news_published?: space_newsCreateNestedManyWithoutPublisherInput
+    space_news_likes?: space_news_likesCreateNestedManyWithoutUserInput
+    space_news_comments?: space_news_commentsCreateNestedManyWithoutUserInput
+    authored_discussions?: space_discussionsCreateNestedManyWithoutAuthorInput
+    discussion_comments?: space_discussion_commentsCreateNestedManyWithoutUserInput
+    discussion_likes?: space_discussion_likesCreateNestedManyWithoutUserInput
+    discussion_comment_likes?: space_discussion_comment_likesCreateNestedManyWithoutUserInput
+    subscriptions?: subscriptionsCreateNestedManyWithoutUsersInput
+    user_settings?: user_settingsCreateNestedOneWithoutUsersInput
+    created_groups?: group_chatsCreateNestedManyWithoutCreatorInput
+    group_memberships?: group_membersCreateNestedManyWithoutUserInput
+    chat_messages?: chat_messagesCreateNestedManyWithoutUserInput
+    message_reactions?: message_reactionsCreateNestedManyWithoutUserInput
+    event_reminders?: event_remindersCreateNestedManyWithoutUserInput
+  }
+
+  export type usersUncheckedCreateWithoutCreated_astronomy_eventsInput = {
+    id?: number
+    firebase_uid: string
+    email: string
+    role?: $Enums.user_role | null
+    first_name?: string | null
+    last_name?: string | null
+    is_active?: boolean | null
+    last_login?: Date | string | null
+    created_at?: Date | string | null
+    updated_at?: Date | string | null
+    display_name?: string | null
+    profile_data?: NullableJsonNullValueInput | InputJsonValue
+    role_specific_data?: NullableJsonNullValueInput | InputJsonValue
+    subscription_plan?: $Enums.subscription_plan | null
+    subscription_status?: $Enums.subscription_status | null
+    subscription_start_date?: Date | string | null
+    subscription_end_date?: Date | string | null
+    auto_renew?: boolean | null
+    chatbot_questions_used?: number | null
+    chatbot_questions_reset_date?: Date | string | null
+    QuizParticipants?: QuizParticipantsUncheckedCreateNestedManyWithoutUsersInput
+    Quizzes?: QuizzesUncheckedCreateNestedManyWithoutUsersInput
+    blog_comments?: blog_commentsUncheckedCreateNestedManyWithoutUsersInput
+    blog_likes?: blog_likesUncheckedCreateNestedManyWithoutUsersInput
+    blog_views?: blog_viewsUncheckedCreateNestedManyWithoutUsersInput
+    blogs?: blogsUncheckedCreateNestedManyWithoutUsersInput
+    chatbot_sessions?: chatbot_sessionsUncheckedCreateNestedManyWithoutUsersInput
+    chatbot_usage?: chatbot_usageUncheckedCreateNestedManyWithoutUsersInput
+    guide_application?: guide_applicationUncheckedCreateNestedManyWithoutUsersInput
+    influencer_application?: influencer_applicationUncheckedCreateNestedManyWithoutUsersInput
+    media_uploads?: media_uploadsUncheckedCreateNestedManyWithoutUserInput
+    mentor_application?: mentor_applicationUncheckedCreateNestedManyWithoutUsersInput
+    night_camp_registrations?: night_camp_registrationsUncheckedCreateNestedManyWithoutUsersInput
+    night_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousers?: night_camp_volunteering_applicationsUncheckedCreateNestedManyWithoutUsers_night_camp_volunteering_applications_reviewed_byTousersInput
+    night_camp_volunteering_applications_night_camp_volunteering_applications_user_idTousers?: night_camp_volunteering_applicationsUncheckedCreateNestedManyWithoutUsers_night_camp_volunteering_applications_user_idTousersInput
+    payments?: paymentsUncheckedCreateNestedManyWithoutUsersInput
+    role_upgrade_requests_role_upgrade_requests_reviewer_idTousers?: role_upgrade_requestsUncheckedCreateNestedManyWithoutUsers_role_upgrade_requests_reviewer_idTousersInput
+    role_upgrade_requests_role_upgrade_requests_user_idTousers?: role_upgrade_requestsUncheckedCreateNestedManyWithoutUsers_role_upgrade_requests_user_idTousersInput
+    space_news_published?: space_newsUncheckedCreateNestedManyWithoutPublisherInput
+    space_news_likes?: space_news_likesUncheckedCreateNestedManyWithoutUserInput
+    space_news_comments?: space_news_commentsUncheckedCreateNestedManyWithoutUserInput
+    authored_discussions?: space_discussionsUncheckedCreateNestedManyWithoutAuthorInput
+    discussion_comments?: space_discussion_commentsUncheckedCreateNestedManyWithoutUserInput
+    discussion_likes?: space_discussion_likesUncheckedCreateNestedManyWithoutUserInput
+    discussion_comment_likes?: space_discussion_comment_likesUncheckedCreateNestedManyWithoutUserInput
+    subscriptions?: subscriptionsUncheckedCreateNestedManyWithoutUsersInput
+    user_settings?: user_settingsUncheckedCreateNestedOneWithoutUsersInput
+    created_groups?: group_chatsUncheckedCreateNestedManyWithoutCreatorInput
+    group_memberships?: group_membersUncheckedCreateNestedManyWithoutUserInput
+    chat_messages?: chat_messagesUncheckedCreateNestedManyWithoutUserInput
+    message_reactions?: message_reactionsUncheckedCreateNestedManyWithoutUserInput
+    event_reminders?: event_remindersUncheckedCreateNestedManyWithoutUserInput
+  }
+
+  export type usersCreateOrConnectWithoutCreated_astronomy_eventsInput = {
+    where: usersWhereUniqueInput
+    create: XOR<usersCreateWithoutCreated_astronomy_eventsInput, usersUncheckedCreateWithoutCreated_astronomy_eventsInput>
+  }
+
+  export type event_remindersCreateWithoutEventInput = {
+    reminder_time: Date | string
+    is_sent?: boolean
+    notification_type?: string
+    created_at?: Date | string
+    updated_at?: Date | string
+    user: usersCreateNestedOneWithoutEvent_remindersInput
+  }
+
+  export type event_remindersUncheckedCreateWithoutEventInput = {
+    id?: number
+    user_id: number
+    reminder_time: Date | string
+    is_sent?: boolean
+    notification_type?: string
+    created_at?: Date | string
+    updated_at?: Date | string
+  }
+
+  export type event_remindersCreateOrConnectWithoutEventInput = {
+    where: event_remindersWhereUniqueInput
+    create: XOR<event_remindersCreateWithoutEventInput, event_remindersUncheckedCreateWithoutEventInput>
+  }
+
+  export type event_remindersCreateManyEventInputEnvelope = {
+    data: event_remindersCreateManyEventInput | event_remindersCreateManyEventInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type usersUpsertWithoutCreated_astronomy_eventsInput = {
+    update: XOR<usersUpdateWithoutCreated_astronomy_eventsInput, usersUncheckedUpdateWithoutCreated_astronomy_eventsInput>
+    create: XOR<usersCreateWithoutCreated_astronomy_eventsInput, usersUncheckedCreateWithoutCreated_astronomy_eventsInput>
+    where?: usersWhereInput
+  }
+
+  export type usersUpdateToOneWithWhereWithoutCreated_astronomy_eventsInput = {
+    where?: usersWhereInput
+    data: XOR<usersUpdateWithoutCreated_astronomy_eventsInput, usersUncheckedUpdateWithoutCreated_astronomy_eventsInput>
+  }
+
+  export type usersUpdateWithoutCreated_astronomy_eventsInput = {
+    firebase_uid?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    role?: NullableEnumuser_roleFieldUpdateOperationsInput | $Enums.user_role | null
+    first_name?: NullableStringFieldUpdateOperationsInput | string | null
+    last_name?: NullableStringFieldUpdateOperationsInput | string | null
+    is_active?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    last_login?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    display_name?: NullableStringFieldUpdateOperationsInput | string | null
+    profile_data?: NullableJsonNullValueInput | InputJsonValue
+    role_specific_data?: NullableJsonNullValueInput | InputJsonValue
+    subscription_plan?: NullableEnumsubscription_planFieldUpdateOperationsInput | $Enums.subscription_plan | null
+    subscription_status?: NullableEnumsubscription_statusFieldUpdateOperationsInput | $Enums.subscription_status | null
+    subscription_start_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    subscription_end_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    auto_renew?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    chatbot_questions_used?: NullableIntFieldUpdateOperationsInput | number | null
+    chatbot_questions_reset_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    QuizParticipants?: QuizParticipantsUpdateManyWithoutUsersNestedInput
+    Quizzes?: QuizzesUpdateManyWithoutUsersNestedInput
+    blog_comments?: blog_commentsUpdateManyWithoutUsersNestedInput
+    blog_likes?: blog_likesUpdateManyWithoutUsersNestedInput
+    blog_views?: blog_viewsUpdateManyWithoutUsersNestedInput
+    blogs?: blogsUpdateManyWithoutUsersNestedInput
+    chatbot_sessions?: chatbot_sessionsUpdateManyWithoutUsersNestedInput
+    chatbot_usage?: chatbot_usageUpdateManyWithoutUsersNestedInput
+    guide_application?: guide_applicationUpdateManyWithoutUsersNestedInput
+    influencer_application?: influencer_applicationUpdateManyWithoutUsersNestedInput
+    media_uploads?: media_uploadsUpdateManyWithoutUserNestedInput
+    mentor_application?: mentor_applicationUpdateManyWithoutUsersNestedInput
+    night_camp_registrations?: night_camp_registrationsUpdateManyWithoutUsersNestedInput
+    night_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousers?: night_camp_volunteering_applicationsUpdateManyWithoutUsers_night_camp_volunteering_applications_reviewed_byTousersNestedInput
+    night_camp_volunteering_applications_night_camp_volunteering_applications_user_idTousers?: night_camp_volunteering_applicationsUpdateManyWithoutUsers_night_camp_volunteering_applications_user_idTousersNestedInput
+    payments?: paymentsUpdateManyWithoutUsersNestedInput
+    role_upgrade_requests_role_upgrade_requests_reviewer_idTousers?: role_upgrade_requestsUpdateManyWithoutUsers_role_upgrade_requests_reviewer_idTousersNestedInput
+    role_upgrade_requests_role_upgrade_requests_user_idTousers?: role_upgrade_requestsUpdateManyWithoutUsers_role_upgrade_requests_user_idTousersNestedInput
+    space_news_published?: space_newsUpdateManyWithoutPublisherNestedInput
+    space_news_likes?: space_news_likesUpdateManyWithoutUserNestedInput
+    space_news_comments?: space_news_commentsUpdateManyWithoutUserNestedInput
+    authored_discussions?: space_discussionsUpdateManyWithoutAuthorNestedInput
+    discussion_comments?: space_discussion_commentsUpdateManyWithoutUserNestedInput
+    discussion_likes?: space_discussion_likesUpdateManyWithoutUserNestedInput
+    discussion_comment_likes?: space_discussion_comment_likesUpdateManyWithoutUserNestedInput
+    subscriptions?: subscriptionsUpdateManyWithoutUsersNestedInput
+    user_settings?: user_settingsUpdateOneWithoutUsersNestedInput
+    created_groups?: group_chatsUpdateManyWithoutCreatorNestedInput
+    group_memberships?: group_membersUpdateManyWithoutUserNestedInput
+    chat_messages?: chat_messagesUpdateManyWithoutUserNestedInput
+    message_reactions?: message_reactionsUpdateManyWithoutUserNestedInput
+    event_reminders?: event_remindersUpdateManyWithoutUserNestedInput
+  }
+
+  export type usersUncheckedUpdateWithoutCreated_astronomy_eventsInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    firebase_uid?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    role?: NullableEnumuser_roleFieldUpdateOperationsInput | $Enums.user_role | null
+    first_name?: NullableStringFieldUpdateOperationsInput | string | null
+    last_name?: NullableStringFieldUpdateOperationsInput | string | null
+    is_active?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    last_login?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    display_name?: NullableStringFieldUpdateOperationsInput | string | null
+    profile_data?: NullableJsonNullValueInput | InputJsonValue
+    role_specific_data?: NullableJsonNullValueInput | InputJsonValue
+    subscription_plan?: NullableEnumsubscription_planFieldUpdateOperationsInput | $Enums.subscription_plan | null
+    subscription_status?: NullableEnumsubscription_statusFieldUpdateOperationsInput | $Enums.subscription_status | null
+    subscription_start_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    subscription_end_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    auto_renew?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    chatbot_questions_used?: NullableIntFieldUpdateOperationsInput | number | null
+    chatbot_questions_reset_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    QuizParticipants?: QuizParticipantsUncheckedUpdateManyWithoutUsersNestedInput
+    Quizzes?: QuizzesUncheckedUpdateManyWithoutUsersNestedInput
+    blog_comments?: blog_commentsUncheckedUpdateManyWithoutUsersNestedInput
+    blog_likes?: blog_likesUncheckedUpdateManyWithoutUsersNestedInput
+    blog_views?: blog_viewsUncheckedUpdateManyWithoutUsersNestedInput
+    blogs?: blogsUncheckedUpdateManyWithoutUsersNestedInput
+    chatbot_sessions?: chatbot_sessionsUncheckedUpdateManyWithoutUsersNestedInput
+    chatbot_usage?: chatbot_usageUncheckedUpdateManyWithoutUsersNestedInput
+    guide_application?: guide_applicationUncheckedUpdateManyWithoutUsersNestedInput
+    influencer_application?: influencer_applicationUncheckedUpdateManyWithoutUsersNestedInput
+    media_uploads?: media_uploadsUncheckedUpdateManyWithoutUserNestedInput
+    mentor_application?: mentor_applicationUncheckedUpdateManyWithoutUsersNestedInput
+    night_camp_registrations?: night_camp_registrationsUncheckedUpdateManyWithoutUsersNestedInput
+    night_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousers?: night_camp_volunteering_applicationsUncheckedUpdateManyWithoutUsers_night_camp_volunteering_applications_reviewed_byTousersNestedInput
+    night_camp_volunteering_applications_night_camp_volunteering_applications_user_idTousers?: night_camp_volunteering_applicationsUncheckedUpdateManyWithoutUsers_night_camp_volunteering_applications_user_idTousersNestedInput
+    payments?: paymentsUncheckedUpdateManyWithoutUsersNestedInput
+    role_upgrade_requests_role_upgrade_requests_reviewer_idTousers?: role_upgrade_requestsUncheckedUpdateManyWithoutUsers_role_upgrade_requests_reviewer_idTousersNestedInput
+    role_upgrade_requests_role_upgrade_requests_user_idTousers?: role_upgrade_requestsUncheckedUpdateManyWithoutUsers_role_upgrade_requests_user_idTousersNestedInput
+    space_news_published?: space_newsUncheckedUpdateManyWithoutPublisherNestedInput
+    space_news_likes?: space_news_likesUncheckedUpdateManyWithoutUserNestedInput
+    space_news_comments?: space_news_commentsUncheckedUpdateManyWithoutUserNestedInput
+    authored_discussions?: space_discussionsUncheckedUpdateManyWithoutAuthorNestedInput
+    discussion_comments?: space_discussion_commentsUncheckedUpdateManyWithoutUserNestedInput
+    discussion_likes?: space_discussion_likesUncheckedUpdateManyWithoutUserNestedInput
+    discussion_comment_likes?: space_discussion_comment_likesUncheckedUpdateManyWithoutUserNestedInput
+    subscriptions?: subscriptionsUncheckedUpdateManyWithoutUsersNestedInput
+    user_settings?: user_settingsUncheckedUpdateOneWithoutUsersNestedInput
+    created_groups?: group_chatsUncheckedUpdateManyWithoutCreatorNestedInput
+    group_memberships?: group_membersUncheckedUpdateManyWithoutUserNestedInput
+    chat_messages?: chat_messagesUncheckedUpdateManyWithoutUserNestedInput
+    message_reactions?: message_reactionsUncheckedUpdateManyWithoutUserNestedInput
+    event_reminders?: event_remindersUncheckedUpdateManyWithoutUserNestedInput
+  }
+
+  export type event_remindersUpsertWithWhereUniqueWithoutEventInput = {
+    where: event_remindersWhereUniqueInput
+    update: XOR<event_remindersUpdateWithoutEventInput, event_remindersUncheckedUpdateWithoutEventInput>
+    create: XOR<event_remindersCreateWithoutEventInput, event_remindersUncheckedCreateWithoutEventInput>
+  }
+
+  export type event_remindersUpdateWithWhereUniqueWithoutEventInput = {
+    where: event_remindersWhereUniqueInput
+    data: XOR<event_remindersUpdateWithoutEventInput, event_remindersUncheckedUpdateWithoutEventInput>
+  }
+
+  export type event_remindersUpdateManyWithWhereWithoutEventInput = {
+    where: event_remindersScalarWhereInput
+    data: XOR<event_remindersUpdateManyMutationInput, event_remindersUncheckedUpdateManyWithoutEventInput>
+  }
+
+  export type usersCreateWithoutEvent_remindersInput = {
+    firebase_uid: string
+    email: string
+    role?: $Enums.user_role | null
+    first_name?: string | null
+    last_name?: string | null
+    is_active?: boolean | null
+    last_login?: Date | string | null
+    created_at?: Date | string | null
+    updated_at?: Date | string | null
+    display_name?: string | null
+    profile_data?: NullableJsonNullValueInput | InputJsonValue
+    role_specific_data?: NullableJsonNullValueInput | InputJsonValue
+    subscription_plan?: $Enums.subscription_plan | null
+    subscription_status?: $Enums.subscription_status | null
+    subscription_start_date?: Date | string | null
+    subscription_end_date?: Date | string | null
+    auto_renew?: boolean | null
+    chatbot_questions_used?: number | null
+    chatbot_questions_reset_date?: Date | string | null
+    QuizParticipants?: QuizParticipantsCreateNestedManyWithoutUsersInput
+    Quizzes?: QuizzesCreateNestedManyWithoutUsersInput
+    blog_comments?: blog_commentsCreateNestedManyWithoutUsersInput
+    blog_likes?: blog_likesCreateNestedManyWithoutUsersInput
+    blog_views?: blog_viewsCreateNestedManyWithoutUsersInput
+    blogs?: blogsCreateNestedManyWithoutUsersInput
+    chatbot_sessions?: chatbot_sessionsCreateNestedManyWithoutUsersInput
+    chatbot_usage?: chatbot_usageCreateNestedManyWithoutUsersInput
+    guide_application?: guide_applicationCreateNestedManyWithoutUsersInput
+    influencer_application?: influencer_applicationCreateNestedManyWithoutUsersInput
+    media_uploads?: media_uploadsCreateNestedManyWithoutUserInput
+    mentor_application?: mentor_applicationCreateNestedManyWithoutUsersInput
+    night_camp_registrations?: night_camp_registrationsCreateNestedManyWithoutUsersInput
+    night_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousers?: night_camp_volunteering_applicationsCreateNestedManyWithoutUsers_night_camp_volunteering_applications_reviewed_byTousersInput
+    night_camp_volunteering_applications_night_camp_volunteering_applications_user_idTousers?: night_camp_volunteering_applicationsCreateNestedManyWithoutUsers_night_camp_volunteering_applications_user_idTousersInput
+    payments?: paymentsCreateNestedManyWithoutUsersInput
+    role_upgrade_requests_role_upgrade_requests_reviewer_idTousers?: role_upgrade_requestsCreateNestedManyWithoutUsers_role_upgrade_requests_reviewer_idTousersInput
+    role_upgrade_requests_role_upgrade_requests_user_idTousers?: role_upgrade_requestsCreateNestedManyWithoutUsers_role_upgrade_requests_user_idTousersInput
+    space_news_published?: space_newsCreateNestedManyWithoutPublisherInput
+    space_news_likes?: space_news_likesCreateNestedManyWithoutUserInput
+    space_news_comments?: space_news_commentsCreateNestedManyWithoutUserInput
+    authored_discussions?: space_discussionsCreateNestedManyWithoutAuthorInput
+    discussion_comments?: space_discussion_commentsCreateNestedManyWithoutUserInput
+    discussion_likes?: space_discussion_likesCreateNestedManyWithoutUserInput
+    discussion_comment_likes?: space_discussion_comment_likesCreateNestedManyWithoutUserInput
+    subscriptions?: subscriptionsCreateNestedManyWithoutUsersInput
+    user_settings?: user_settingsCreateNestedOneWithoutUsersInput
+    created_groups?: group_chatsCreateNestedManyWithoutCreatorInput
+    group_memberships?: group_membersCreateNestedManyWithoutUserInput
+    chat_messages?: chat_messagesCreateNestedManyWithoutUserInput
+    message_reactions?: message_reactionsCreateNestedManyWithoutUserInput
+    created_astronomy_events?: astronomy_eventsCreateNestedManyWithoutCreatorInput
+  }
+
+  export type usersUncheckedCreateWithoutEvent_remindersInput = {
+    id?: number
+    firebase_uid: string
+    email: string
+    role?: $Enums.user_role | null
+    first_name?: string | null
+    last_name?: string | null
+    is_active?: boolean | null
+    last_login?: Date | string | null
+    created_at?: Date | string | null
+    updated_at?: Date | string | null
+    display_name?: string | null
+    profile_data?: NullableJsonNullValueInput | InputJsonValue
+    role_specific_data?: NullableJsonNullValueInput | InputJsonValue
+    subscription_plan?: $Enums.subscription_plan | null
+    subscription_status?: $Enums.subscription_status | null
+    subscription_start_date?: Date | string | null
+    subscription_end_date?: Date | string | null
+    auto_renew?: boolean | null
+    chatbot_questions_used?: number | null
+    chatbot_questions_reset_date?: Date | string | null
+    QuizParticipants?: QuizParticipantsUncheckedCreateNestedManyWithoutUsersInput
+    Quizzes?: QuizzesUncheckedCreateNestedManyWithoutUsersInput
+    blog_comments?: blog_commentsUncheckedCreateNestedManyWithoutUsersInput
+    blog_likes?: blog_likesUncheckedCreateNestedManyWithoutUsersInput
+    blog_views?: blog_viewsUncheckedCreateNestedManyWithoutUsersInput
+    blogs?: blogsUncheckedCreateNestedManyWithoutUsersInput
+    chatbot_sessions?: chatbot_sessionsUncheckedCreateNestedManyWithoutUsersInput
+    chatbot_usage?: chatbot_usageUncheckedCreateNestedManyWithoutUsersInput
+    guide_application?: guide_applicationUncheckedCreateNestedManyWithoutUsersInput
+    influencer_application?: influencer_applicationUncheckedCreateNestedManyWithoutUsersInput
+    media_uploads?: media_uploadsUncheckedCreateNestedManyWithoutUserInput
+    mentor_application?: mentor_applicationUncheckedCreateNestedManyWithoutUsersInput
+    night_camp_registrations?: night_camp_registrationsUncheckedCreateNestedManyWithoutUsersInput
+    night_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousers?: night_camp_volunteering_applicationsUncheckedCreateNestedManyWithoutUsers_night_camp_volunteering_applications_reviewed_byTousersInput
+    night_camp_volunteering_applications_night_camp_volunteering_applications_user_idTousers?: night_camp_volunteering_applicationsUncheckedCreateNestedManyWithoutUsers_night_camp_volunteering_applications_user_idTousersInput
+    payments?: paymentsUncheckedCreateNestedManyWithoutUsersInput
+    role_upgrade_requests_role_upgrade_requests_reviewer_idTousers?: role_upgrade_requestsUncheckedCreateNestedManyWithoutUsers_role_upgrade_requests_reviewer_idTousersInput
+    role_upgrade_requests_role_upgrade_requests_user_idTousers?: role_upgrade_requestsUncheckedCreateNestedManyWithoutUsers_role_upgrade_requests_user_idTousersInput
+    space_news_published?: space_newsUncheckedCreateNestedManyWithoutPublisherInput
+    space_news_likes?: space_news_likesUncheckedCreateNestedManyWithoutUserInput
+    space_news_comments?: space_news_commentsUncheckedCreateNestedManyWithoutUserInput
+    authored_discussions?: space_discussionsUncheckedCreateNestedManyWithoutAuthorInput
+    discussion_comments?: space_discussion_commentsUncheckedCreateNestedManyWithoutUserInput
+    discussion_likes?: space_discussion_likesUncheckedCreateNestedManyWithoutUserInput
+    discussion_comment_likes?: space_discussion_comment_likesUncheckedCreateNestedManyWithoutUserInput
+    subscriptions?: subscriptionsUncheckedCreateNestedManyWithoutUsersInput
+    user_settings?: user_settingsUncheckedCreateNestedOneWithoutUsersInput
+    created_groups?: group_chatsUncheckedCreateNestedManyWithoutCreatorInput
+    group_memberships?: group_membersUncheckedCreateNestedManyWithoutUserInput
+    chat_messages?: chat_messagesUncheckedCreateNestedManyWithoutUserInput
+    message_reactions?: message_reactionsUncheckedCreateNestedManyWithoutUserInput
+    created_astronomy_events?: astronomy_eventsUncheckedCreateNestedManyWithoutCreatorInput
+  }
+
+  export type usersCreateOrConnectWithoutEvent_remindersInput = {
+    where: usersWhereUniqueInput
+    create: XOR<usersCreateWithoutEvent_remindersInput, usersUncheckedCreateWithoutEvent_remindersInput>
+  }
+
+  export type astronomy_eventsCreateWithoutRemindersInput = {
+    name: string
+    description: string
+    visibility: string
+    best_time: string
+    image_url?: string | null
+    event_date: Date | string
+    end_date?: Date | string | null
+    duration: string
+    event_type: string
+    is_active?: boolean
+    created_at?: Date | string
+    updated_at?: Date | string
+    creator: usersCreateNestedOneWithoutCreated_astronomy_eventsInput
+  }
+
+  export type astronomy_eventsUncheckedCreateWithoutRemindersInput = {
+    id?: number
+    name: string
+    description: string
+    visibility: string
+    best_time: string
+    image_url?: string | null
+    event_date: Date | string
+    end_date?: Date | string | null
+    duration: string
+    event_type: string
+    is_active?: boolean
+    created_by: number
+    created_at?: Date | string
+    updated_at?: Date | string
+  }
+
+  export type astronomy_eventsCreateOrConnectWithoutRemindersInput = {
+    where: astronomy_eventsWhereUniqueInput
+    create: XOR<astronomy_eventsCreateWithoutRemindersInput, astronomy_eventsUncheckedCreateWithoutRemindersInput>
+  }
+
+  export type usersUpsertWithoutEvent_remindersInput = {
+    update: XOR<usersUpdateWithoutEvent_remindersInput, usersUncheckedUpdateWithoutEvent_remindersInput>
+    create: XOR<usersCreateWithoutEvent_remindersInput, usersUncheckedCreateWithoutEvent_remindersInput>
+    where?: usersWhereInput
+  }
+
+  export type usersUpdateToOneWithWhereWithoutEvent_remindersInput = {
+    where?: usersWhereInput
+    data: XOR<usersUpdateWithoutEvent_remindersInput, usersUncheckedUpdateWithoutEvent_remindersInput>
+  }
+
+  export type usersUpdateWithoutEvent_remindersInput = {
+    firebase_uid?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    role?: NullableEnumuser_roleFieldUpdateOperationsInput | $Enums.user_role | null
+    first_name?: NullableStringFieldUpdateOperationsInput | string | null
+    last_name?: NullableStringFieldUpdateOperationsInput | string | null
+    is_active?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    last_login?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    display_name?: NullableStringFieldUpdateOperationsInput | string | null
+    profile_data?: NullableJsonNullValueInput | InputJsonValue
+    role_specific_data?: NullableJsonNullValueInput | InputJsonValue
+    subscription_plan?: NullableEnumsubscription_planFieldUpdateOperationsInput | $Enums.subscription_plan | null
+    subscription_status?: NullableEnumsubscription_statusFieldUpdateOperationsInput | $Enums.subscription_status | null
+    subscription_start_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    subscription_end_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    auto_renew?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    chatbot_questions_used?: NullableIntFieldUpdateOperationsInput | number | null
+    chatbot_questions_reset_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    QuizParticipants?: QuizParticipantsUpdateManyWithoutUsersNestedInput
+    Quizzes?: QuizzesUpdateManyWithoutUsersNestedInput
+    blog_comments?: blog_commentsUpdateManyWithoutUsersNestedInput
+    blog_likes?: blog_likesUpdateManyWithoutUsersNestedInput
+    blog_views?: blog_viewsUpdateManyWithoutUsersNestedInput
+    blogs?: blogsUpdateManyWithoutUsersNestedInput
+    chatbot_sessions?: chatbot_sessionsUpdateManyWithoutUsersNestedInput
+    chatbot_usage?: chatbot_usageUpdateManyWithoutUsersNestedInput
+    guide_application?: guide_applicationUpdateManyWithoutUsersNestedInput
+    influencer_application?: influencer_applicationUpdateManyWithoutUsersNestedInput
+    media_uploads?: media_uploadsUpdateManyWithoutUserNestedInput
+    mentor_application?: mentor_applicationUpdateManyWithoutUsersNestedInput
+    night_camp_registrations?: night_camp_registrationsUpdateManyWithoutUsersNestedInput
+    night_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousers?: night_camp_volunteering_applicationsUpdateManyWithoutUsers_night_camp_volunteering_applications_reviewed_byTousersNestedInput
+    night_camp_volunteering_applications_night_camp_volunteering_applications_user_idTousers?: night_camp_volunteering_applicationsUpdateManyWithoutUsers_night_camp_volunteering_applications_user_idTousersNestedInput
+    payments?: paymentsUpdateManyWithoutUsersNestedInput
+    role_upgrade_requests_role_upgrade_requests_reviewer_idTousers?: role_upgrade_requestsUpdateManyWithoutUsers_role_upgrade_requests_reviewer_idTousersNestedInput
+    role_upgrade_requests_role_upgrade_requests_user_idTousers?: role_upgrade_requestsUpdateManyWithoutUsers_role_upgrade_requests_user_idTousersNestedInput
+    space_news_published?: space_newsUpdateManyWithoutPublisherNestedInput
+    space_news_likes?: space_news_likesUpdateManyWithoutUserNestedInput
+    space_news_comments?: space_news_commentsUpdateManyWithoutUserNestedInput
+    authored_discussions?: space_discussionsUpdateManyWithoutAuthorNestedInput
+    discussion_comments?: space_discussion_commentsUpdateManyWithoutUserNestedInput
+    discussion_likes?: space_discussion_likesUpdateManyWithoutUserNestedInput
+    discussion_comment_likes?: space_discussion_comment_likesUpdateManyWithoutUserNestedInput
+    subscriptions?: subscriptionsUpdateManyWithoutUsersNestedInput
+    user_settings?: user_settingsUpdateOneWithoutUsersNestedInput
+    created_groups?: group_chatsUpdateManyWithoutCreatorNestedInput
+    group_memberships?: group_membersUpdateManyWithoutUserNestedInput
+    chat_messages?: chat_messagesUpdateManyWithoutUserNestedInput
+    message_reactions?: message_reactionsUpdateManyWithoutUserNestedInput
+    created_astronomy_events?: astronomy_eventsUpdateManyWithoutCreatorNestedInput
+  }
+
+  export type usersUncheckedUpdateWithoutEvent_remindersInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    firebase_uid?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    role?: NullableEnumuser_roleFieldUpdateOperationsInput | $Enums.user_role | null
+    first_name?: NullableStringFieldUpdateOperationsInput | string | null
+    last_name?: NullableStringFieldUpdateOperationsInput | string | null
+    is_active?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    last_login?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    display_name?: NullableStringFieldUpdateOperationsInput | string | null
+    profile_data?: NullableJsonNullValueInput | InputJsonValue
+    role_specific_data?: NullableJsonNullValueInput | InputJsonValue
+    subscription_plan?: NullableEnumsubscription_planFieldUpdateOperationsInput | $Enums.subscription_plan | null
+    subscription_status?: NullableEnumsubscription_statusFieldUpdateOperationsInput | $Enums.subscription_status | null
+    subscription_start_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    subscription_end_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    auto_renew?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    chatbot_questions_used?: NullableIntFieldUpdateOperationsInput | number | null
+    chatbot_questions_reset_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    QuizParticipants?: QuizParticipantsUncheckedUpdateManyWithoutUsersNestedInput
+    Quizzes?: QuizzesUncheckedUpdateManyWithoutUsersNestedInput
+    blog_comments?: blog_commentsUncheckedUpdateManyWithoutUsersNestedInput
+    blog_likes?: blog_likesUncheckedUpdateManyWithoutUsersNestedInput
+    blog_views?: blog_viewsUncheckedUpdateManyWithoutUsersNestedInput
+    blogs?: blogsUncheckedUpdateManyWithoutUsersNestedInput
+    chatbot_sessions?: chatbot_sessionsUncheckedUpdateManyWithoutUsersNestedInput
+    chatbot_usage?: chatbot_usageUncheckedUpdateManyWithoutUsersNestedInput
+    guide_application?: guide_applicationUncheckedUpdateManyWithoutUsersNestedInput
+    influencer_application?: influencer_applicationUncheckedUpdateManyWithoutUsersNestedInput
+    media_uploads?: media_uploadsUncheckedUpdateManyWithoutUserNestedInput
+    mentor_application?: mentor_applicationUncheckedUpdateManyWithoutUsersNestedInput
+    night_camp_registrations?: night_camp_registrationsUncheckedUpdateManyWithoutUsersNestedInput
+    night_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousers?: night_camp_volunteering_applicationsUncheckedUpdateManyWithoutUsers_night_camp_volunteering_applications_reviewed_byTousersNestedInput
+    night_camp_volunteering_applications_night_camp_volunteering_applications_user_idTousers?: night_camp_volunteering_applicationsUncheckedUpdateManyWithoutUsers_night_camp_volunteering_applications_user_idTousersNestedInput
+    payments?: paymentsUncheckedUpdateManyWithoutUsersNestedInput
+    role_upgrade_requests_role_upgrade_requests_reviewer_idTousers?: role_upgrade_requestsUncheckedUpdateManyWithoutUsers_role_upgrade_requests_reviewer_idTousersNestedInput
+    role_upgrade_requests_role_upgrade_requests_user_idTousers?: role_upgrade_requestsUncheckedUpdateManyWithoutUsers_role_upgrade_requests_user_idTousersNestedInput
+    space_news_published?: space_newsUncheckedUpdateManyWithoutPublisherNestedInput
+    space_news_likes?: space_news_likesUncheckedUpdateManyWithoutUserNestedInput
+    space_news_comments?: space_news_commentsUncheckedUpdateManyWithoutUserNestedInput
+    authored_discussions?: space_discussionsUncheckedUpdateManyWithoutAuthorNestedInput
+    discussion_comments?: space_discussion_commentsUncheckedUpdateManyWithoutUserNestedInput
+    discussion_likes?: space_discussion_likesUncheckedUpdateManyWithoutUserNestedInput
+    discussion_comment_likes?: space_discussion_comment_likesUncheckedUpdateManyWithoutUserNestedInput
+    subscriptions?: subscriptionsUncheckedUpdateManyWithoutUsersNestedInput
+    user_settings?: user_settingsUncheckedUpdateOneWithoutUsersNestedInput
+    created_groups?: group_chatsUncheckedUpdateManyWithoutCreatorNestedInput
+    group_memberships?: group_membersUncheckedUpdateManyWithoutUserNestedInput
+    chat_messages?: chat_messagesUncheckedUpdateManyWithoutUserNestedInput
+    message_reactions?: message_reactionsUncheckedUpdateManyWithoutUserNestedInput
+    created_astronomy_events?: astronomy_eventsUncheckedUpdateManyWithoutCreatorNestedInput
+  }
+
+  export type astronomy_eventsUpsertWithoutRemindersInput = {
+    update: XOR<astronomy_eventsUpdateWithoutRemindersInput, astronomy_eventsUncheckedUpdateWithoutRemindersInput>
+    create: XOR<astronomy_eventsCreateWithoutRemindersInput, astronomy_eventsUncheckedCreateWithoutRemindersInput>
+    where?: astronomy_eventsWhereInput
+  }
+
+  export type astronomy_eventsUpdateToOneWithWhereWithoutRemindersInput = {
+    where?: astronomy_eventsWhereInput
+    data: XOR<astronomy_eventsUpdateWithoutRemindersInput, astronomy_eventsUncheckedUpdateWithoutRemindersInput>
+  }
+
+  export type astronomy_eventsUpdateWithoutRemindersInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    visibility?: StringFieldUpdateOperationsInput | string
+    best_time?: StringFieldUpdateOperationsInput | string
+    image_url?: NullableStringFieldUpdateOperationsInput | string | null
+    event_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    end_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    duration?: StringFieldUpdateOperationsInput | string
+    event_type?: StringFieldUpdateOperationsInput | string
+    is_active?: BoolFieldUpdateOperationsInput | boolean
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    creator?: usersUpdateOneRequiredWithoutCreated_astronomy_eventsNestedInput
+  }
+
+  export type astronomy_eventsUncheckedUpdateWithoutRemindersInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    name?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    visibility?: StringFieldUpdateOperationsInput | string
+    best_time?: StringFieldUpdateOperationsInput | string
+    image_url?: NullableStringFieldUpdateOperationsInput | string | null
+    event_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    end_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    duration?: StringFieldUpdateOperationsInput | string
+    event_type?: StringFieldUpdateOperationsInput | string
+    is_active?: BoolFieldUpdateOperationsInput | boolean
+    created_by?: IntFieldUpdateOperationsInput | number
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type paymentsCreateManySubscriptionsInput = {
@@ -86467,6 +90849,32 @@ export namespace Prisma {
     message_id: number
     reaction: string
     created_at?: Date | string
+  }
+
+  export type astronomy_eventsCreateManyCreatorInput = {
+    id?: number
+    name: string
+    description: string
+    visibility: string
+    best_time: string
+    image_url?: string | null
+    event_date: Date | string
+    end_date?: Date | string | null
+    duration: string
+    event_type: string
+    is_active?: boolean
+    created_at?: Date | string
+    updated_at?: Date | string
+  }
+
+  export type event_remindersCreateManyUserInput = {
+    id?: number
+    event_id: number
+    reminder_time: Date | string
+    is_sent?: boolean
+    notification_type?: string
+    created_at?: Date | string
+    updated_at?: Date | string
   }
 
   export type QuizParticipantsUpdateWithoutUsersInput = {
@@ -87649,6 +92057,84 @@ export namespace Prisma {
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type astronomy_eventsUpdateWithoutCreatorInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    visibility?: StringFieldUpdateOperationsInput | string
+    best_time?: StringFieldUpdateOperationsInput | string
+    image_url?: NullableStringFieldUpdateOperationsInput | string | null
+    event_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    end_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    duration?: StringFieldUpdateOperationsInput | string
+    event_type?: StringFieldUpdateOperationsInput | string
+    is_active?: BoolFieldUpdateOperationsInput | boolean
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    reminders?: event_remindersUpdateManyWithoutEventNestedInput
+  }
+
+  export type astronomy_eventsUncheckedUpdateWithoutCreatorInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    name?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    visibility?: StringFieldUpdateOperationsInput | string
+    best_time?: StringFieldUpdateOperationsInput | string
+    image_url?: NullableStringFieldUpdateOperationsInput | string | null
+    event_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    end_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    duration?: StringFieldUpdateOperationsInput | string
+    event_type?: StringFieldUpdateOperationsInput | string
+    is_active?: BoolFieldUpdateOperationsInput | boolean
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    reminders?: event_remindersUncheckedUpdateManyWithoutEventNestedInput
+  }
+
+  export type astronomy_eventsUncheckedUpdateManyWithoutCreatorInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    name?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    visibility?: StringFieldUpdateOperationsInput | string
+    best_time?: StringFieldUpdateOperationsInput | string
+    image_url?: NullableStringFieldUpdateOperationsInput | string | null
+    event_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    end_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    duration?: StringFieldUpdateOperationsInput | string
+    event_type?: StringFieldUpdateOperationsInput | string
+    is_active?: BoolFieldUpdateOperationsInput | boolean
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type event_remindersUpdateWithoutUserInput = {
+    reminder_time?: DateTimeFieldUpdateOperationsInput | Date | string
+    is_sent?: BoolFieldUpdateOperationsInput | boolean
+    notification_type?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    event?: astronomy_eventsUpdateOneRequiredWithoutRemindersNestedInput
+  }
+
+  export type event_remindersUncheckedUpdateWithoutUserInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    event_id?: IntFieldUpdateOperationsInput | number
+    reminder_time?: DateTimeFieldUpdateOperationsInput | Date | string
+    is_sent?: BoolFieldUpdateOperationsInput | boolean
+    notification_type?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type event_remindersUncheckedUpdateManyWithoutUserInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    event_id?: IntFieldUpdateOperationsInput | number
+    reminder_time?: DateTimeFieldUpdateOperationsInput | Date | string
+    is_sent?: BoolFieldUpdateOperationsInput | boolean
+    notification_type?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type chatbot_feedbackCreateManyChatbot_messagesInput = {
     id?: string
     session_id?: string | null
@@ -87978,6 +92464,45 @@ export namespace Prisma {
     id?: IntFieldUpdateOperationsInput | number
     user_id?: IntFieldUpdateOperationsInput | number
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type event_remindersCreateManyEventInput = {
+    id?: number
+    user_id: number
+    reminder_time: Date | string
+    is_sent?: boolean
+    notification_type?: string
+    created_at?: Date | string
+    updated_at?: Date | string
+  }
+
+  export type event_remindersUpdateWithoutEventInput = {
+    reminder_time?: DateTimeFieldUpdateOperationsInput | Date | string
+    is_sent?: BoolFieldUpdateOperationsInput | boolean
+    notification_type?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: usersUpdateOneRequiredWithoutEvent_remindersNestedInput
+  }
+
+  export type event_remindersUncheckedUpdateWithoutEventInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    user_id?: IntFieldUpdateOperationsInput | number
+    reminder_time?: DateTimeFieldUpdateOperationsInput | Date | string
+    is_sent?: BoolFieldUpdateOperationsInput | boolean
+    notification_type?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type event_remindersUncheckedUpdateManyWithoutEventInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    user_id?: IntFieldUpdateOperationsInput | number
+    reminder_time?: DateTimeFieldUpdateOperationsInput | Date | string
+    is_sent?: BoolFieldUpdateOperationsInput | boolean
+    notification_type?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
 

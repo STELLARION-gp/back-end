@@ -12,6 +12,7 @@ import chatRoutes from './routes/chat.routes';
 import tourMediaRoutes from './routes/tourMedia.routes';
 import eventRoutes from './routes/event.routes';
 import spaceDiscussionRoutes from './routes/spaceDiscussion.routes';
+import astronomyEventsRoutes from './routes/astronomyEvents.routes';
 
 // index.ts
 import express from "express";
@@ -98,6 +99,9 @@ app.use('/api/space-news', spaceNewsRoutes);
 
 // Space Discussions API
 app.use('/api/space-discussions', spaceDiscussionRoutes);
+
+// Astronomy Events API
+app.use('/api/astronomy-events', astronomyEventsRoutes);
 
 // Universal Upload API
 app.use('/api/upload', uploadRoutes);

@@ -673,6 +673,34 @@ exports.Prisma.Space_discussion_comment_likesScalarFieldEnum = {
   created_at: 'created_at'
 };
 
+exports.Prisma.Astronomy_eventsScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  description: 'description',
+  visibility: 'visibility',
+  best_time: 'best_time',
+  image_url: 'image_url',
+  event_date: 'event_date',
+  end_date: 'end_date',
+  duration: 'duration',
+  event_type: 'event_type',
+  is_active: 'is_active',
+  created_by: 'created_by',
+  created_at: 'created_at',
+  updated_at: 'updated_at'
+};
+
+exports.Prisma.Event_remindersScalarFieldEnum = {
+  id: 'id',
+  user_id: 'user_id',
+  event_id: 'event_id',
+  reminder_time: 'reminder_time',
+  is_sent: 'is_sent',
+  notification_type: 'notification_type',
+  created_at: 'created_at',
+  updated_at: 'updated_at'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -809,7 +837,9 @@ exports.Prisma.ModelName = {
   space_discussions: 'space_discussions',
   space_discussion_comments: 'space_discussion_comments',
   space_discussion_likes: 'space_discussion_likes',
-  space_discussion_comment_likes: 'space_discussion_comment_likes'
+  space_discussion_comment_likes: 'space_discussion_comment_likes',
+  astronomy_events: 'astronomy_events',
+  event_reminders: 'event_reminders'
 };
 
 /**
