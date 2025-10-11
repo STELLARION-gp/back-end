@@ -701,6 +701,31 @@ exports.Prisma.Event_remindersScalarFieldEnum = {
   updated_at: 'updated_at'
 };
 
+exports.Prisma.Stargazing_spotsScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  location: 'location',
+  image_url: 'image_url',
+  rating: 'rating',
+  best_time: 'best_time',
+  description: 'description',
+  facilities: 'facilities',
+  created_by: 'created_by',
+  is_active: 'is_active',
+  created_at: 'created_at',
+  updated_at: 'updated_at'
+};
+
+exports.Prisma.Stargazing_spot_reviewsScalarFieldEnum = {
+  id: 'id',
+  stargazing_spot_id: 'stargazing_spot_id',
+  user_id: 'user_id',
+  rating: 'rating',
+  review_text: 'review_text',
+  created_at: 'created_at',
+  updated_at: 'updated_at'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -839,7 +864,9 @@ exports.Prisma.ModelName = {
   space_discussion_likes: 'space_discussion_likes',
   space_discussion_comment_likes: 'space_discussion_comment_likes',
   astronomy_events: 'astronomy_events',
-  event_reminders: 'event_reminders'
+  event_reminders: 'event_reminders',
+  stargazing_spots: 'stargazing_spots',
+  stargazing_spot_reviews: 'stargazing_spot_reviews'
 };
 
 /**

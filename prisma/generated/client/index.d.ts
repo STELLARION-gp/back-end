@@ -233,6 +233,16 @@ export type astronomy_events = $Result.DefaultSelection<Prisma.$astronomy_events
  * 
  */
 export type event_reminders = $Result.DefaultSelection<Prisma.$event_remindersPayload>
+/**
+ * Model stargazing_spots
+ * 
+ */
+export type stargazing_spots = $Result.DefaultSelection<Prisma.$stargazing_spotsPayload>
+/**
+ * Model stargazing_spot_reviews
+ * 
+ */
+export type stargazing_spot_reviews = $Result.DefaultSelection<Prisma.$stargazing_spot_reviewsPayload>
 
 /**
  * Enums
@@ -965,6 +975,26 @@ export class PrismaClient<
     * ```
     */
   get event_reminders(): Prisma.event_remindersDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.stargazing_spots`: Exposes CRUD operations for the **stargazing_spots** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Stargazing_spots
+    * const stargazing_spots = await prisma.stargazing_spots.findMany()
+    * ```
+    */
+  get stargazing_spots(): Prisma.stargazing_spotsDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.stargazing_spot_reviews`: Exposes CRUD operations for the **stargazing_spot_reviews** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Stargazing_spot_reviews
+    * const stargazing_spot_reviews = await prisma.stargazing_spot_reviews.findMany()
+    * ```
+    */
+  get stargazing_spot_reviews(): Prisma.stargazing_spot_reviewsDelegate<ExtArgs, ClientOptions>;
 }
 
 export namespace Prisma {
@@ -1448,7 +1478,9 @@ export namespace Prisma {
     space_discussion_likes: 'space_discussion_likes',
     space_discussion_comment_likes: 'space_discussion_comment_likes',
     astronomy_events: 'astronomy_events',
-    event_reminders: 'event_reminders'
+    event_reminders: 'event_reminders',
+    stargazing_spots: 'stargazing_spots',
+    stargazing_spot_reviews: 'stargazing_spot_reviews'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -1467,7 +1499,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "subscriptions" | "group_chats" | "group_members" | "chat_messages" | "message_reactions" | "blog_views" | "night_camps" | "night_camps_activities" | "chatbot_sessions" | "payments" | "blogs" | "blog_category_relations" | "subscription_plans" | "blog_categories" | "chatbot_usage" | "blog_comments" | "users" | "blog_likes" | "chatbot_messages" | "night_camps_equipment" | "user_settings" | "chatbot_feedback" | "night_camp_volunteering" | "role_upgrade_requests" | "guide_application" | "mentor_application" | "night_camp_volunteering_applications" | "night_camp_registrations" | "influencer_application" | "media_uploads" | "tour_media" | "events" | "quizParticipants" | "quizQuestion" | "quizzes" | "space_news" | "space_news_likes" | "space_news_comments" | "space_discussions" | "space_discussion_comments" | "space_discussion_likes" | "space_discussion_comment_likes" | "astronomy_events" | "event_reminders"
+      modelProps: "subscriptions" | "group_chats" | "group_members" | "chat_messages" | "message_reactions" | "blog_views" | "night_camps" | "night_camps_activities" | "chatbot_sessions" | "payments" | "blogs" | "blog_category_relations" | "subscription_plans" | "blog_categories" | "chatbot_usage" | "blog_comments" | "users" | "blog_likes" | "chatbot_messages" | "night_camps_equipment" | "user_settings" | "chatbot_feedback" | "night_camp_volunteering" | "role_upgrade_requests" | "guide_application" | "mentor_application" | "night_camp_volunteering_applications" | "night_camp_registrations" | "influencer_application" | "media_uploads" | "tour_media" | "events" | "quizParticipants" | "quizQuestion" | "quizzes" | "space_news" | "space_news_likes" | "space_news_comments" | "space_discussions" | "space_discussion_comments" | "space_discussion_likes" | "space_discussion_comment_likes" | "astronomy_events" | "event_reminders" | "stargazing_spots" | "stargazing_spot_reviews"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -4727,6 +4759,154 @@ export namespace Prisma {
           }
         }
       }
+      stargazing_spots: {
+        payload: Prisma.$stargazing_spotsPayload<ExtArgs>
+        fields: Prisma.stargazing_spotsFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.stargazing_spotsFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$stargazing_spotsPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.stargazing_spotsFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$stargazing_spotsPayload>
+          }
+          findFirst: {
+            args: Prisma.stargazing_spotsFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$stargazing_spotsPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.stargazing_spotsFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$stargazing_spotsPayload>
+          }
+          findMany: {
+            args: Prisma.stargazing_spotsFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$stargazing_spotsPayload>[]
+          }
+          create: {
+            args: Prisma.stargazing_spotsCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$stargazing_spotsPayload>
+          }
+          createMany: {
+            args: Prisma.stargazing_spotsCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.stargazing_spotsCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$stargazing_spotsPayload>[]
+          }
+          delete: {
+            args: Prisma.stargazing_spotsDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$stargazing_spotsPayload>
+          }
+          update: {
+            args: Prisma.stargazing_spotsUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$stargazing_spotsPayload>
+          }
+          deleteMany: {
+            args: Prisma.stargazing_spotsDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.stargazing_spotsUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.stargazing_spotsUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$stargazing_spotsPayload>[]
+          }
+          upsert: {
+            args: Prisma.stargazing_spotsUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$stargazing_spotsPayload>
+          }
+          aggregate: {
+            args: Prisma.Stargazing_spotsAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateStargazing_spots>
+          }
+          groupBy: {
+            args: Prisma.stargazing_spotsGroupByArgs<ExtArgs>
+            result: $Utils.Optional<Stargazing_spotsGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.stargazing_spotsCountArgs<ExtArgs>
+            result: $Utils.Optional<Stargazing_spotsCountAggregateOutputType> | number
+          }
+        }
+      }
+      stargazing_spot_reviews: {
+        payload: Prisma.$stargazing_spot_reviewsPayload<ExtArgs>
+        fields: Prisma.stargazing_spot_reviewsFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.stargazing_spot_reviewsFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$stargazing_spot_reviewsPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.stargazing_spot_reviewsFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$stargazing_spot_reviewsPayload>
+          }
+          findFirst: {
+            args: Prisma.stargazing_spot_reviewsFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$stargazing_spot_reviewsPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.stargazing_spot_reviewsFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$stargazing_spot_reviewsPayload>
+          }
+          findMany: {
+            args: Prisma.stargazing_spot_reviewsFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$stargazing_spot_reviewsPayload>[]
+          }
+          create: {
+            args: Prisma.stargazing_spot_reviewsCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$stargazing_spot_reviewsPayload>
+          }
+          createMany: {
+            args: Prisma.stargazing_spot_reviewsCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.stargazing_spot_reviewsCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$stargazing_spot_reviewsPayload>[]
+          }
+          delete: {
+            args: Prisma.stargazing_spot_reviewsDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$stargazing_spot_reviewsPayload>
+          }
+          update: {
+            args: Prisma.stargazing_spot_reviewsUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$stargazing_spot_reviewsPayload>
+          }
+          deleteMany: {
+            args: Prisma.stargazing_spot_reviewsDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.stargazing_spot_reviewsUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.stargazing_spot_reviewsUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$stargazing_spot_reviewsPayload>[]
+          }
+          upsert: {
+            args: Prisma.stargazing_spot_reviewsUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$stargazing_spot_reviewsPayload>
+          }
+          aggregate: {
+            args: Prisma.Stargazing_spot_reviewsAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateStargazing_spot_reviews>
+          }
+          groupBy: {
+            args: Prisma.stargazing_spot_reviewsGroupByArgs<ExtArgs>
+            result: $Utils.Optional<Stargazing_spot_reviewsGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.stargazing_spot_reviewsCountArgs<ExtArgs>
+            result: $Utils.Optional<Stargazing_spot_reviewsCountAggregateOutputType> | number
+          }
+        }
+      }
     }
   } & {
     other: {
@@ -4863,6 +5043,8 @@ export namespace Prisma {
     space_discussion_comment_likes?: space_discussion_comment_likesOmit
     astronomy_events?: astronomy_eventsOmit
     event_reminders?: event_remindersOmit
+    stargazing_spots?: stargazing_spotsOmit
+    stargazing_spot_reviews?: stargazing_spot_reviewsOmit
   }
 
   /* Types for Logging */
@@ -5332,6 +5514,8 @@ export namespace Prisma {
     message_reactions: number
     created_astronomy_events: number
     event_reminders: number
+    created_stargazing_spots: number
+    stargazing_spot_reviews: number
   }
 
   export type UsersCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -5367,6 +5551,8 @@ export namespace Prisma {
     message_reactions?: boolean | UsersCountOutputTypeCountMessage_reactionsArgs
     created_astronomy_events?: boolean | UsersCountOutputTypeCountCreated_astronomy_eventsArgs
     event_reminders?: boolean | UsersCountOutputTypeCountEvent_remindersArgs
+    created_stargazing_spots?: boolean | UsersCountOutputTypeCountCreated_stargazing_spotsArgs
+    stargazing_spot_reviews?: boolean | UsersCountOutputTypeCountStargazing_spot_reviewsArgs
   }
 
   // Custom InputTypes
@@ -5602,6 +5788,20 @@ export namespace Prisma {
    */
   export type UsersCountOutputTypeCountEvent_remindersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: event_remindersWhereInput
+  }
+
+  /**
+   * UsersCountOutputType without action
+   */
+  export type UsersCountOutputTypeCountCreated_stargazing_spotsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: stargazing_spotsWhereInput
+  }
+
+  /**
+   * UsersCountOutputType without action
+   */
+  export type UsersCountOutputTypeCountStargazing_spot_reviewsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: stargazing_spot_reviewsWhereInput
   }
 
 
@@ -5855,6 +6055,37 @@ export namespace Prisma {
    */
   export type Astronomy_eventsCountOutputTypeCountRemindersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: event_remindersWhereInput
+  }
+
+
+  /**
+   * Count Type Stargazing_spotsCountOutputType
+   */
+
+  export type Stargazing_spotsCountOutputType = {
+    reviews: number
+  }
+
+  export type Stargazing_spotsCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    reviews?: boolean | Stargazing_spotsCountOutputTypeCountReviewsArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * Stargazing_spotsCountOutputType without action
+   */
+  export type Stargazing_spotsCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Stargazing_spotsCountOutputType
+     */
+    select?: Stargazing_spotsCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * Stargazing_spotsCountOutputType without action
+   */
+  export type Stargazing_spotsCountOutputTypeCountReviewsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: stargazing_spot_reviewsWhereInput
   }
 
 
@@ -25378,6 +25609,8 @@ export namespace Prisma {
     message_reactions?: boolean | users$message_reactionsArgs<ExtArgs>
     created_astronomy_events?: boolean | users$created_astronomy_eventsArgs<ExtArgs>
     event_reminders?: boolean | users$event_remindersArgs<ExtArgs>
+    created_stargazing_spots?: boolean | users$created_stargazing_spotsArgs<ExtArgs>
+    stargazing_spot_reviews?: boolean | users$stargazing_spot_reviewsArgs<ExtArgs>
     _count?: boolean | UsersCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["users"]>
 
@@ -25485,6 +25718,8 @@ export namespace Prisma {
     message_reactions?: boolean | users$message_reactionsArgs<ExtArgs>
     created_astronomy_events?: boolean | users$created_astronomy_eventsArgs<ExtArgs>
     event_reminders?: boolean | users$event_remindersArgs<ExtArgs>
+    created_stargazing_spots?: boolean | users$created_stargazing_spotsArgs<ExtArgs>
+    stargazing_spot_reviews?: boolean | users$stargazing_spot_reviewsArgs<ExtArgs>
     _count?: boolean | UsersCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type usersIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
@@ -25526,6 +25761,8 @@ export namespace Prisma {
       message_reactions: Prisma.$message_reactionsPayload<ExtArgs>[]
       created_astronomy_events: Prisma.$astronomy_eventsPayload<ExtArgs>[]
       event_reminders: Prisma.$event_remindersPayload<ExtArgs>[]
+      created_stargazing_spots: Prisma.$stargazing_spotsPayload<ExtArgs>[]
+      stargazing_spot_reviews: Prisma.$stargazing_spot_reviewsPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: number
@@ -25975,6 +26212,8 @@ export namespace Prisma {
     message_reactions<T extends users$message_reactionsArgs<ExtArgs> = {}>(args?: Subset<T, users$message_reactionsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$message_reactionsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     created_astronomy_events<T extends users$created_astronomy_eventsArgs<ExtArgs> = {}>(args?: Subset<T, users$created_astronomy_eventsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$astronomy_eventsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     event_reminders<T extends users$event_remindersArgs<ExtArgs> = {}>(args?: Subset<T, users$event_remindersArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$event_remindersPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    created_stargazing_spots<T extends users$created_stargazing_spotsArgs<ExtArgs> = {}>(args?: Subset<T, users$created_stargazing_spotsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$stargazing_spotsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    stargazing_spot_reviews<T extends users$stargazing_spot_reviewsArgs<ExtArgs> = {}>(args?: Subset<T, users$stargazing_spot_reviewsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$stargazing_spot_reviewsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -27196,6 +27435,54 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: Event_remindersScalarFieldEnum | Event_remindersScalarFieldEnum[]
+  }
+
+  /**
+   * users.created_stargazing_spots
+   */
+  export type users$created_stargazing_spotsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the stargazing_spots
+     */
+    select?: stargazing_spotsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the stargazing_spots
+     */
+    omit?: stargazing_spotsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: stargazing_spotsInclude<ExtArgs> | null
+    where?: stargazing_spotsWhereInput
+    orderBy?: stargazing_spotsOrderByWithRelationInput | stargazing_spotsOrderByWithRelationInput[]
+    cursor?: stargazing_spotsWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: Stargazing_spotsScalarFieldEnum | Stargazing_spotsScalarFieldEnum[]
+  }
+
+  /**
+   * users.stargazing_spot_reviews
+   */
+  export type users$stargazing_spot_reviewsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the stargazing_spot_reviews
+     */
+    select?: stargazing_spot_reviewsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the stargazing_spot_reviews
+     */
+    omit?: stargazing_spot_reviewsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: stargazing_spot_reviewsInclude<ExtArgs> | null
+    where?: stargazing_spot_reviewsWhereInput
+    orderBy?: stargazing_spot_reviewsOrderByWithRelationInput | stargazing_spot_reviewsOrderByWithRelationInput[]
+    cursor?: stargazing_spot_reviewsWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: Stargazing_spot_reviewsScalarFieldEnum | Stargazing_spot_reviewsScalarFieldEnum[]
   }
 
   /**
@@ -59505,6 +59792,2361 @@ export namespace Prisma {
 
 
   /**
+   * Model stargazing_spots
+   */
+
+  export type AggregateStargazing_spots = {
+    _count: Stargazing_spotsCountAggregateOutputType | null
+    _avg: Stargazing_spotsAvgAggregateOutputType | null
+    _sum: Stargazing_spotsSumAggregateOutputType | null
+    _min: Stargazing_spotsMinAggregateOutputType | null
+    _max: Stargazing_spotsMaxAggregateOutputType | null
+  }
+
+  export type Stargazing_spotsAvgAggregateOutputType = {
+    id: number | null
+    rating: number | null
+    created_by: number | null
+  }
+
+  export type Stargazing_spotsSumAggregateOutputType = {
+    id: number | null
+    rating: number | null
+    created_by: number | null
+  }
+
+  export type Stargazing_spotsMinAggregateOutputType = {
+    id: number | null
+    name: string | null
+    location: string | null
+    image_url: string | null
+    rating: number | null
+    best_time: string | null
+    description: string | null
+    created_by: number | null
+    is_active: boolean | null
+    created_at: Date | null
+    updated_at: Date | null
+  }
+
+  export type Stargazing_spotsMaxAggregateOutputType = {
+    id: number | null
+    name: string | null
+    location: string | null
+    image_url: string | null
+    rating: number | null
+    best_time: string | null
+    description: string | null
+    created_by: number | null
+    is_active: boolean | null
+    created_at: Date | null
+    updated_at: Date | null
+  }
+
+  export type Stargazing_spotsCountAggregateOutputType = {
+    id: number
+    name: number
+    location: number
+    image_url: number
+    rating: number
+    best_time: number
+    description: number
+    facilities: number
+    created_by: number
+    is_active: number
+    created_at: number
+    updated_at: number
+    _all: number
+  }
+
+
+  export type Stargazing_spotsAvgAggregateInputType = {
+    id?: true
+    rating?: true
+    created_by?: true
+  }
+
+  export type Stargazing_spotsSumAggregateInputType = {
+    id?: true
+    rating?: true
+    created_by?: true
+  }
+
+  export type Stargazing_spotsMinAggregateInputType = {
+    id?: true
+    name?: true
+    location?: true
+    image_url?: true
+    rating?: true
+    best_time?: true
+    description?: true
+    created_by?: true
+    is_active?: true
+    created_at?: true
+    updated_at?: true
+  }
+
+  export type Stargazing_spotsMaxAggregateInputType = {
+    id?: true
+    name?: true
+    location?: true
+    image_url?: true
+    rating?: true
+    best_time?: true
+    description?: true
+    created_by?: true
+    is_active?: true
+    created_at?: true
+    updated_at?: true
+  }
+
+  export type Stargazing_spotsCountAggregateInputType = {
+    id?: true
+    name?: true
+    location?: true
+    image_url?: true
+    rating?: true
+    best_time?: true
+    description?: true
+    facilities?: true
+    created_by?: true
+    is_active?: true
+    created_at?: true
+    updated_at?: true
+    _all?: true
+  }
+
+  export type Stargazing_spotsAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which stargazing_spots to aggregate.
+     */
+    where?: stargazing_spotsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of stargazing_spots to fetch.
+     */
+    orderBy?: stargazing_spotsOrderByWithRelationInput | stargazing_spotsOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: stargazing_spotsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` stargazing_spots from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` stargazing_spots.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned stargazing_spots
+    **/
+    _count?: true | Stargazing_spotsCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: Stargazing_spotsAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: Stargazing_spotsSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: Stargazing_spotsMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: Stargazing_spotsMaxAggregateInputType
+  }
+
+  export type GetStargazing_spotsAggregateType<T extends Stargazing_spotsAggregateArgs> = {
+        [P in keyof T & keyof AggregateStargazing_spots]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateStargazing_spots[P]>
+      : GetScalarType<T[P], AggregateStargazing_spots[P]>
+  }
+
+
+
+
+  export type stargazing_spotsGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: stargazing_spotsWhereInput
+    orderBy?: stargazing_spotsOrderByWithAggregationInput | stargazing_spotsOrderByWithAggregationInput[]
+    by: Stargazing_spotsScalarFieldEnum[] | Stargazing_spotsScalarFieldEnum
+    having?: stargazing_spotsScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: Stargazing_spotsCountAggregateInputType | true
+    _avg?: Stargazing_spotsAvgAggregateInputType
+    _sum?: Stargazing_spotsSumAggregateInputType
+    _min?: Stargazing_spotsMinAggregateInputType
+    _max?: Stargazing_spotsMaxAggregateInputType
+  }
+
+  export type Stargazing_spotsGroupByOutputType = {
+    id: number
+    name: string
+    location: string
+    image_url: string | null
+    rating: number
+    best_time: string | null
+    description: string
+    facilities: JsonValue
+    created_by: number
+    is_active: boolean
+    created_at: Date
+    updated_at: Date
+    _count: Stargazing_spotsCountAggregateOutputType | null
+    _avg: Stargazing_spotsAvgAggregateOutputType | null
+    _sum: Stargazing_spotsSumAggregateOutputType | null
+    _min: Stargazing_spotsMinAggregateOutputType | null
+    _max: Stargazing_spotsMaxAggregateOutputType | null
+  }
+
+  type GetStargazing_spotsGroupByPayload<T extends stargazing_spotsGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<Stargazing_spotsGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof Stargazing_spotsGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], Stargazing_spotsGroupByOutputType[P]>
+            : GetScalarType<T[P], Stargazing_spotsGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type stargazing_spotsSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    name?: boolean
+    location?: boolean
+    image_url?: boolean
+    rating?: boolean
+    best_time?: boolean
+    description?: boolean
+    facilities?: boolean
+    created_by?: boolean
+    is_active?: boolean
+    created_at?: boolean
+    updated_at?: boolean
+    creator?: boolean | usersDefaultArgs<ExtArgs>
+    reviews?: boolean | stargazing_spots$reviewsArgs<ExtArgs>
+    _count?: boolean | Stargazing_spotsCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["stargazing_spots"]>
+
+  export type stargazing_spotsSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    name?: boolean
+    location?: boolean
+    image_url?: boolean
+    rating?: boolean
+    best_time?: boolean
+    description?: boolean
+    facilities?: boolean
+    created_by?: boolean
+    is_active?: boolean
+    created_at?: boolean
+    updated_at?: boolean
+    creator?: boolean | usersDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["stargazing_spots"]>
+
+  export type stargazing_spotsSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    name?: boolean
+    location?: boolean
+    image_url?: boolean
+    rating?: boolean
+    best_time?: boolean
+    description?: boolean
+    facilities?: boolean
+    created_by?: boolean
+    is_active?: boolean
+    created_at?: boolean
+    updated_at?: boolean
+    creator?: boolean | usersDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["stargazing_spots"]>
+
+  export type stargazing_spotsSelectScalar = {
+    id?: boolean
+    name?: boolean
+    location?: boolean
+    image_url?: boolean
+    rating?: boolean
+    best_time?: boolean
+    description?: boolean
+    facilities?: boolean
+    created_by?: boolean
+    is_active?: boolean
+    created_at?: boolean
+    updated_at?: boolean
+  }
+
+  export type stargazing_spotsOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "location" | "image_url" | "rating" | "best_time" | "description" | "facilities" | "created_by" | "is_active" | "created_at" | "updated_at", ExtArgs["result"]["stargazing_spots"]>
+  export type stargazing_spotsInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    creator?: boolean | usersDefaultArgs<ExtArgs>
+    reviews?: boolean | stargazing_spots$reviewsArgs<ExtArgs>
+    _count?: boolean | Stargazing_spotsCountOutputTypeDefaultArgs<ExtArgs>
+  }
+  export type stargazing_spotsIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    creator?: boolean | usersDefaultArgs<ExtArgs>
+  }
+  export type stargazing_spotsIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    creator?: boolean | usersDefaultArgs<ExtArgs>
+  }
+
+  export type $stargazing_spotsPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "stargazing_spots"
+    objects: {
+      creator: Prisma.$usersPayload<ExtArgs>
+      reviews: Prisma.$stargazing_spot_reviewsPayload<ExtArgs>[]
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: number
+      name: string
+      location: string
+      image_url: string | null
+      rating: number
+      best_time: string | null
+      description: string
+      facilities: Prisma.JsonValue
+      created_by: number
+      is_active: boolean
+      created_at: Date
+      updated_at: Date
+    }, ExtArgs["result"]["stargazing_spots"]>
+    composites: {}
+  }
+
+  type stargazing_spotsGetPayload<S extends boolean | null | undefined | stargazing_spotsDefaultArgs> = $Result.GetResult<Prisma.$stargazing_spotsPayload, S>
+
+  type stargazing_spotsCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<stargazing_spotsFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: Stargazing_spotsCountAggregateInputType | true
+    }
+
+  export interface stargazing_spotsDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['stargazing_spots'], meta: { name: 'stargazing_spots' } }
+    /**
+     * Find zero or one Stargazing_spots that matches the filter.
+     * @param {stargazing_spotsFindUniqueArgs} args - Arguments to find a Stargazing_spots
+     * @example
+     * // Get one Stargazing_spots
+     * const stargazing_spots = await prisma.stargazing_spots.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends stargazing_spotsFindUniqueArgs>(args: SelectSubset<T, stargazing_spotsFindUniqueArgs<ExtArgs>>): Prisma__stargazing_spotsClient<$Result.GetResult<Prisma.$stargazing_spotsPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Stargazing_spots that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {stargazing_spotsFindUniqueOrThrowArgs} args - Arguments to find a Stargazing_spots
+     * @example
+     * // Get one Stargazing_spots
+     * const stargazing_spots = await prisma.stargazing_spots.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends stargazing_spotsFindUniqueOrThrowArgs>(args: SelectSubset<T, stargazing_spotsFindUniqueOrThrowArgs<ExtArgs>>): Prisma__stargazing_spotsClient<$Result.GetResult<Prisma.$stargazing_spotsPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Stargazing_spots that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {stargazing_spotsFindFirstArgs} args - Arguments to find a Stargazing_spots
+     * @example
+     * // Get one Stargazing_spots
+     * const stargazing_spots = await prisma.stargazing_spots.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends stargazing_spotsFindFirstArgs>(args?: SelectSubset<T, stargazing_spotsFindFirstArgs<ExtArgs>>): Prisma__stargazing_spotsClient<$Result.GetResult<Prisma.$stargazing_spotsPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Stargazing_spots that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {stargazing_spotsFindFirstOrThrowArgs} args - Arguments to find a Stargazing_spots
+     * @example
+     * // Get one Stargazing_spots
+     * const stargazing_spots = await prisma.stargazing_spots.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends stargazing_spotsFindFirstOrThrowArgs>(args?: SelectSubset<T, stargazing_spotsFindFirstOrThrowArgs<ExtArgs>>): Prisma__stargazing_spotsClient<$Result.GetResult<Prisma.$stargazing_spotsPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Stargazing_spots that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {stargazing_spotsFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Stargazing_spots
+     * const stargazing_spots = await prisma.stargazing_spots.findMany()
+     * 
+     * // Get first 10 Stargazing_spots
+     * const stargazing_spots = await prisma.stargazing_spots.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const stargazing_spotsWithIdOnly = await prisma.stargazing_spots.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends stargazing_spotsFindManyArgs>(args?: SelectSubset<T, stargazing_spotsFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$stargazing_spotsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Stargazing_spots.
+     * @param {stargazing_spotsCreateArgs} args - Arguments to create a Stargazing_spots.
+     * @example
+     * // Create one Stargazing_spots
+     * const Stargazing_spots = await prisma.stargazing_spots.create({
+     *   data: {
+     *     // ... data to create a Stargazing_spots
+     *   }
+     * })
+     * 
+     */
+    create<T extends stargazing_spotsCreateArgs>(args: SelectSubset<T, stargazing_spotsCreateArgs<ExtArgs>>): Prisma__stargazing_spotsClient<$Result.GetResult<Prisma.$stargazing_spotsPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Stargazing_spots.
+     * @param {stargazing_spotsCreateManyArgs} args - Arguments to create many Stargazing_spots.
+     * @example
+     * // Create many Stargazing_spots
+     * const stargazing_spots = await prisma.stargazing_spots.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends stargazing_spotsCreateManyArgs>(args?: SelectSubset<T, stargazing_spotsCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many Stargazing_spots and returns the data saved in the database.
+     * @param {stargazing_spotsCreateManyAndReturnArgs} args - Arguments to create many Stargazing_spots.
+     * @example
+     * // Create many Stargazing_spots
+     * const stargazing_spots = await prisma.stargazing_spots.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many Stargazing_spots and only return the `id`
+     * const stargazing_spotsWithIdOnly = await prisma.stargazing_spots.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends stargazing_spotsCreateManyAndReturnArgs>(args?: SelectSubset<T, stargazing_spotsCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$stargazing_spotsPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a Stargazing_spots.
+     * @param {stargazing_spotsDeleteArgs} args - Arguments to delete one Stargazing_spots.
+     * @example
+     * // Delete one Stargazing_spots
+     * const Stargazing_spots = await prisma.stargazing_spots.delete({
+     *   where: {
+     *     // ... filter to delete one Stargazing_spots
+     *   }
+     * })
+     * 
+     */
+    delete<T extends stargazing_spotsDeleteArgs>(args: SelectSubset<T, stargazing_spotsDeleteArgs<ExtArgs>>): Prisma__stargazing_spotsClient<$Result.GetResult<Prisma.$stargazing_spotsPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Stargazing_spots.
+     * @param {stargazing_spotsUpdateArgs} args - Arguments to update one Stargazing_spots.
+     * @example
+     * // Update one Stargazing_spots
+     * const stargazing_spots = await prisma.stargazing_spots.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends stargazing_spotsUpdateArgs>(args: SelectSubset<T, stargazing_spotsUpdateArgs<ExtArgs>>): Prisma__stargazing_spotsClient<$Result.GetResult<Prisma.$stargazing_spotsPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Stargazing_spots.
+     * @param {stargazing_spotsDeleteManyArgs} args - Arguments to filter Stargazing_spots to delete.
+     * @example
+     * // Delete a few Stargazing_spots
+     * const { count } = await prisma.stargazing_spots.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends stargazing_spotsDeleteManyArgs>(args?: SelectSubset<T, stargazing_spotsDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Stargazing_spots.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {stargazing_spotsUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Stargazing_spots
+     * const stargazing_spots = await prisma.stargazing_spots.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends stargazing_spotsUpdateManyArgs>(args: SelectSubset<T, stargazing_spotsUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Stargazing_spots and returns the data updated in the database.
+     * @param {stargazing_spotsUpdateManyAndReturnArgs} args - Arguments to update many Stargazing_spots.
+     * @example
+     * // Update many Stargazing_spots
+     * const stargazing_spots = await prisma.stargazing_spots.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more Stargazing_spots and only return the `id`
+     * const stargazing_spotsWithIdOnly = await prisma.stargazing_spots.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends stargazing_spotsUpdateManyAndReturnArgs>(args: SelectSubset<T, stargazing_spotsUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$stargazing_spotsPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one Stargazing_spots.
+     * @param {stargazing_spotsUpsertArgs} args - Arguments to update or create a Stargazing_spots.
+     * @example
+     * // Update or create a Stargazing_spots
+     * const stargazing_spots = await prisma.stargazing_spots.upsert({
+     *   create: {
+     *     // ... data to create a Stargazing_spots
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Stargazing_spots we want to update
+     *   }
+     * })
+     */
+    upsert<T extends stargazing_spotsUpsertArgs>(args: SelectSubset<T, stargazing_spotsUpsertArgs<ExtArgs>>): Prisma__stargazing_spotsClient<$Result.GetResult<Prisma.$stargazing_spotsPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of Stargazing_spots.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {stargazing_spotsCountArgs} args - Arguments to filter Stargazing_spots to count.
+     * @example
+     * // Count the number of Stargazing_spots
+     * const count = await prisma.stargazing_spots.count({
+     *   where: {
+     *     // ... the filter for the Stargazing_spots we want to count
+     *   }
+     * })
+    **/
+    count<T extends stargazing_spotsCountArgs>(
+      args?: Subset<T, stargazing_spotsCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], Stargazing_spotsCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Stargazing_spots.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {Stargazing_spotsAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends Stargazing_spotsAggregateArgs>(args: Subset<T, Stargazing_spotsAggregateArgs>): Prisma.PrismaPromise<GetStargazing_spotsAggregateType<T>>
+
+    /**
+     * Group by Stargazing_spots.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {stargazing_spotsGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends stargazing_spotsGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: stargazing_spotsGroupByArgs['orderBy'] }
+        : { orderBy?: stargazing_spotsGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, stargazing_spotsGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetStargazing_spotsGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the stargazing_spots model
+   */
+  readonly fields: stargazing_spotsFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for stargazing_spots.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__stargazing_spotsClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    creator<T extends usersDefaultArgs<ExtArgs> = {}>(args?: Subset<T, usersDefaultArgs<ExtArgs>>): Prisma__usersClient<$Result.GetResult<Prisma.$usersPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    reviews<T extends stargazing_spots$reviewsArgs<ExtArgs> = {}>(args?: Subset<T, stargazing_spots$reviewsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$stargazing_spot_reviewsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the stargazing_spots model
+   */
+  interface stargazing_spotsFieldRefs {
+    readonly id: FieldRef<"stargazing_spots", 'Int'>
+    readonly name: FieldRef<"stargazing_spots", 'String'>
+    readonly location: FieldRef<"stargazing_spots", 'String'>
+    readonly image_url: FieldRef<"stargazing_spots", 'String'>
+    readonly rating: FieldRef<"stargazing_spots", 'Float'>
+    readonly best_time: FieldRef<"stargazing_spots", 'String'>
+    readonly description: FieldRef<"stargazing_spots", 'String'>
+    readonly facilities: FieldRef<"stargazing_spots", 'Json'>
+    readonly created_by: FieldRef<"stargazing_spots", 'Int'>
+    readonly is_active: FieldRef<"stargazing_spots", 'Boolean'>
+    readonly created_at: FieldRef<"stargazing_spots", 'DateTime'>
+    readonly updated_at: FieldRef<"stargazing_spots", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * stargazing_spots findUnique
+   */
+  export type stargazing_spotsFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the stargazing_spots
+     */
+    select?: stargazing_spotsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the stargazing_spots
+     */
+    omit?: stargazing_spotsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: stargazing_spotsInclude<ExtArgs> | null
+    /**
+     * Filter, which stargazing_spots to fetch.
+     */
+    where: stargazing_spotsWhereUniqueInput
+  }
+
+  /**
+   * stargazing_spots findUniqueOrThrow
+   */
+  export type stargazing_spotsFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the stargazing_spots
+     */
+    select?: stargazing_spotsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the stargazing_spots
+     */
+    omit?: stargazing_spotsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: stargazing_spotsInclude<ExtArgs> | null
+    /**
+     * Filter, which stargazing_spots to fetch.
+     */
+    where: stargazing_spotsWhereUniqueInput
+  }
+
+  /**
+   * stargazing_spots findFirst
+   */
+  export type stargazing_spotsFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the stargazing_spots
+     */
+    select?: stargazing_spotsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the stargazing_spots
+     */
+    omit?: stargazing_spotsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: stargazing_spotsInclude<ExtArgs> | null
+    /**
+     * Filter, which stargazing_spots to fetch.
+     */
+    where?: stargazing_spotsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of stargazing_spots to fetch.
+     */
+    orderBy?: stargazing_spotsOrderByWithRelationInput | stargazing_spotsOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for stargazing_spots.
+     */
+    cursor?: stargazing_spotsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` stargazing_spots from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` stargazing_spots.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of stargazing_spots.
+     */
+    distinct?: Stargazing_spotsScalarFieldEnum | Stargazing_spotsScalarFieldEnum[]
+  }
+
+  /**
+   * stargazing_spots findFirstOrThrow
+   */
+  export type stargazing_spotsFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the stargazing_spots
+     */
+    select?: stargazing_spotsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the stargazing_spots
+     */
+    omit?: stargazing_spotsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: stargazing_spotsInclude<ExtArgs> | null
+    /**
+     * Filter, which stargazing_spots to fetch.
+     */
+    where?: stargazing_spotsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of stargazing_spots to fetch.
+     */
+    orderBy?: stargazing_spotsOrderByWithRelationInput | stargazing_spotsOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for stargazing_spots.
+     */
+    cursor?: stargazing_spotsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` stargazing_spots from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` stargazing_spots.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of stargazing_spots.
+     */
+    distinct?: Stargazing_spotsScalarFieldEnum | Stargazing_spotsScalarFieldEnum[]
+  }
+
+  /**
+   * stargazing_spots findMany
+   */
+  export type stargazing_spotsFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the stargazing_spots
+     */
+    select?: stargazing_spotsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the stargazing_spots
+     */
+    omit?: stargazing_spotsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: stargazing_spotsInclude<ExtArgs> | null
+    /**
+     * Filter, which stargazing_spots to fetch.
+     */
+    where?: stargazing_spotsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of stargazing_spots to fetch.
+     */
+    orderBy?: stargazing_spotsOrderByWithRelationInput | stargazing_spotsOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing stargazing_spots.
+     */
+    cursor?: stargazing_spotsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` stargazing_spots from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` stargazing_spots.
+     */
+    skip?: number
+    distinct?: Stargazing_spotsScalarFieldEnum | Stargazing_spotsScalarFieldEnum[]
+  }
+
+  /**
+   * stargazing_spots create
+   */
+  export type stargazing_spotsCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the stargazing_spots
+     */
+    select?: stargazing_spotsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the stargazing_spots
+     */
+    omit?: stargazing_spotsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: stargazing_spotsInclude<ExtArgs> | null
+    /**
+     * The data needed to create a stargazing_spots.
+     */
+    data: XOR<stargazing_spotsCreateInput, stargazing_spotsUncheckedCreateInput>
+  }
+
+  /**
+   * stargazing_spots createMany
+   */
+  export type stargazing_spotsCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many stargazing_spots.
+     */
+    data: stargazing_spotsCreateManyInput | stargazing_spotsCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * stargazing_spots createManyAndReturn
+   */
+  export type stargazing_spotsCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the stargazing_spots
+     */
+    select?: stargazing_spotsSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the stargazing_spots
+     */
+    omit?: stargazing_spotsOmit<ExtArgs> | null
+    /**
+     * The data used to create many stargazing_spots.
+     */
+    data: stargazing_spotsCreateManyInput | stargazing_spotsCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: stargazing_spotsIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * stargazing_spots update
+   */
+  export type stargazing_spotsUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the stargazing_spots
+     */
+    select?: stargazing_spotsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the stargazing_spots
+     */
+    omit?: stargazing_spotsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: stargazing_spotsInclude<ExtArgs> | null
+    /**
+     * The data needed to update a stargazing_spots.
+     */
+    data: XOR<stargazing_spotsUpdateInput, stargazing_spotsUncheckedUpdateInput>
+    /**
+     * Choose, which stargazing_spots to update.
+     */
+    where: stargazing_spotsWhereUniqueInput
+  }
+
+  /**
+   * stargazing_spots updateMany
+   */
+  export type stargazing_spotsUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update stargazing_spots.
+     */
+    data: XOR<stargazing_spotsUpdateManyMutationInput, stargazing_spotsUncheckedUpdateManyInput>
+    /**
+     * Filter which stargazing_spots to update
+     */
+    where?: stargazing_spotsWhereInput
+    /**
+     * Limit how many stargazing_spots to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * stargazing_spots updateManyAndReturn
+   */
+  export type stargazing_spotsUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the stargazing_spots
+     */
+    select?: stargazing_spotsSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the stargazing_spots
+     */
+    omit?: stargazing_spotsOmit<ExtArgs> | null
+    /**
+     * The data used to update stargazing_spots.
+     */
+    data: XOR<stargazing_spotsUpdateManyMutationInput, stargazing_spotsUncheckedUpdateManyInput>
+    /**
+     * Filter which stargazing_spots to update
+     */
+    where?: stargazing_spotsWhereInput
+    /**
+     * Limit how many stargazing_spots to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: stargazing_spotsIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * stargazing_spots upsert
+   */
+  export type stargazing_spotsUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the stargazing_spots
+     */
+    select?: stargazing_spotsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the stargazing_spots
+     */
+    omit?: stargazing_spotsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: stargazing_spotsInclude<ExtArgs> | null
+    /**
+     * The filter to search for the stargazing_spots to update in case it exists.
+     */
+    where: stargazing_spotsWhereUniqueInput
+    /**
+     * In case the stargazing_spots found by the `where` argument doesn't exist, create a new stargazing_spots with this data.
+     */
+    create: XOR<stargazing_spotsCreateInput, stargazing_spotsUncheckedCreateInput>
+    /**
+     * In case the stargazing_spots was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<stargazing_spotsUpdateInput, stargazing_spotsUncheckedUpdateInput>
+  }
+
+  /**
+   * stargazing_spots delete
+   */
+  export type stargazing_spotsDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the stargazing_spots
+     */
+    select?: stargazing_spotsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the stargazing_spots
+     */
+    omit?: stargazing_spotsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: stargazing_spotsInclude<ExtArgs> | null
+    /**
+     * Filter which stargazing_spots to delete.
+     */
+    where: stargazing_spotsWhereUniqueInput
+  }
+
+  /**
+   * stargazing_spots deleteMany
+   */
+  export type stargazing_spotsDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which stargazing_spots to delete
+     */
+    where?: stargazing_spotsWhereInput
+    /**
+     * Limit how many stargazing_spots to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * stargazing_spots.reviews
+   */
+  export type stargazing_spots$reviewsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the stargazing_spot_reviews
+     */
+    select?: stargazing_spot_reviewsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the stargazing_spot_reviews
+     */
+    omit?: stargazing_spot_reviewsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: stargazing_spot_reviewsInclude<ExtArgs> | null
+    where?: stargazing_spot_reviewsWhereInput
+    orderBy?: stargazing_spot_reviewsOrderByWithRelationInput | stargazing_spot_reviewsOrderByWithRelationInput[]
+    cursor?: stargazing_spot_reviewsWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: Stargazing_spot_reviewsScalarFieldEnum | Stargazing_spot_reviewsScalarFieldEnum[]
+  }
+
+  /**
+   * stargazing_spots without action
+   */
+  export type stargazing_spotsDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the stargazing_spots
+     */
+    select?: stargazing_spotsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the stargazing_spots
+     */
+    omit?: stargazing_spotsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: stargazing_spotsInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model stargazing_spot_reviews
+   */
+
+  export type AggregateStargazing_spot_reviews = {
+    _count: Stargazing_spot_reviewsCountAggregateOutputType | null
+    _avg: Stargazing_spot_reviewsAvgAggregateOutputType | null
+    _sum: Stargazing_spot_reviewsSumAggregateOutputType | null
+    _min: Stargazing_spot_reviewsMinAggregateOutputType | null
+    _max: Stargazing_spot_reviewsMaxAggregateOutputType | null
+  }
+
+  export type Stargazing_spot_reviewsAvgAggregateOutputType = {
+    id: number | null
+    stargazing_spot_id: number | null
+    user_id: number | null
+    rating: number | null
+  }
+
+  export type Stargazing_spot_reviewsSumAggregateOutputType = {
+    id: number | null
+    stargazing_spot_id: number | null
+    user_id: number | null
+    rating: number | null
+  }
+
+  export type Stargazing_spot_reviewsMinAggregateOutputType = {
+    id: number | null
+    stargazing_spot_id: number | null
+    user_id: number | null
+    rating: number | null
+    review_text: string | null
+    created_at: Date | null
+    updated_at: Date | null
+  }
+
+  export type Stargazing_spot_reviewsMaxAggregateOutputType = {
+    id: number | null
+    stargazing_spot_id: number | null
+    user_id: number | null
+    rating: number | null
+    review_text: string | null
+    created_at: Date | null
+    updated_at: Date | null
+  }
+
+  export type Stargazing_spot_reviewsCountAggregateOutputType = {
+    id: number
+    stargazing_spot_id: number
+    user_id: number
+    rating: number
+    review_text: number
+    created_at: number
+    updated_at: number
+    _all: number
+  }
+
+
+  export type Stargazing_spot_reviewsAvgAggregateInputType = {
+    id?: true
+    stargazing_spot_id?: true
+    user_id?: true
+    rating?: true
+  }
+
+  export type Stargazing_spot_reviewsSumAggregateInputType = {
+    id?: true
+    stargazing_spot_id?: true
+    user_id?: true
+    rating?: true
+  }
+
+  export type Stargazing_spot_reviewsMinAggregateInputType = {
+    id?: true
+    stargazing_spot_id?: true
+    user_id?: true
+    rating?: true
+    review_text?: true
+    created_at?: true
+    updated_at?: true
+  }
+
+  export type Stargazing_spot_reviewsMaxAggregateInputType = {
+    id?: true
+    stargazing_spot_id?: true
+    user_id?: true
+    rating?: true
+    review_text?: true
+    created_at?: true
+    updated_at?: true
+  }
+
+  export type Stargazing_spot_reviewsCountAggregateInputType = {
+    id?: true
+    stargazing_spot_id?: true
+    user_id?: true
+    rating?: true
+    review_text?: true
+    created_at?: true
+    updated_at?: true
+    _all?: true
+  }
+
+  export type Stargazing_spot_reviewsAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which stargazing_spot_reviews to aggregate.
+     */
+    where?: stargazing_spot_reviewsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of stargazing_spot_reviews to fetch.
+     */
+    orderBy?: stargazing_spot_reviewsOrderByWithRelationInput | stargazing_spot_reviewsOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: stargazing_spot_reviewsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` stargazing_spot_reviews from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` stargazing_spot_reviews.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned stargazing_spot_reviews
+    **/
+    _count?: true | Stargazing_spot_reviewsCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: Stargazing_spot_reviewsAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: Stargazing_spot_reviewsSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: Stargazing_spot_reviewsMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: Stargazing_spot_reviewsMaxAggregateInputType
+  }
+
+  export type GetStargazing_spot_reviewsAggregateType<T extends Stargazing_spot_reviewsAggregateArgs> = {
+        [P in keyof T & keyof AggregateStargazing_spot_reviews]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateStargazing_spot_reviews[P]>
+      : GetScalarType<T[P], AggregateStargazing_spot_reviews[P]>
+  }
+
+
+
+
+  export type stargazing_spot_reviewsGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: stargazing_spot_reviewsWhereInput
+    orderBy?: stargazing_spot_reviewsOrderByWithAggregationInput | stargazing_spot_reviewsOrderByWithAggregationInput[]
+    by: Stargazing_spot_reviewsScalarFieldEnum[] | Stargazing_spot_reviewsScalarFieldEnum
+    having?: stargazing_spot_reviewsScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: Stargazing_spot_reviewsCountAggregateInputType | true
+    _avg?: Stargazing_spot_reviewsAvgAggregateInputType
+    _sum?: Stargazing_spot_reviewsSumAggregateInputType
+    _min?: Stargazing_spot_reviewsMinAggregateInputType
+    _max?: Stargazing_spot_reviewsMaxAggregateInputType
+  }
+
+  export type Stargazing_spot_reviewsGroupByOutputType = {
+    id: number
+    stargazing_spot_id: number
+    user_id: number
+    rating: number
+    review_text: string
+    created_at: Date
+    updated_at: Date
+    _count: Stargazing_spot_reviewsCountAggregateOutputType | null
+    _avg: Stargazing_spot_reviewsAvgAggregateOutputType | null
+    _sum: Stargazing_spot_reviewsSumAggregateOutputType | null
+    _min: Stargazing_spot_reviewsMinAggregateOutputType | null
+    _max: Stargazing_spot_reviewsMaxAggregateOutputType | null
+  }
+
+  type GetStargazing_spot_reviewsGroupByPayload<T extends stargazing_spot_reviewsGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<Stargazing_spot_reviewsGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof Stargazing_spot_reviewsGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], Stargazing_spot_reviewsGroupByOutputType[P]>
+            : GetScalarType<T[P], Stargazing_spot_reviewsGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type stargazing_spot_reviewsSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    stargazing_spot_id?: boolean
+    user_id?: boolean
+    rating?: boolean
+    review_text?: boolean
+    created_at?: boolean
+    updated_at?: boolean
+    stargazing_spot?: boolean | stargazing_spotsDefaultArgs<ExtArgs>
+    user?: boolean | usersDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["stargazing_spot_reviews"]>
+
+  export type stargazing_spot_reviewsSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    stargazing_spot_id?: boolean
+    user_id?: boolean
+    rating?: boolean
+    review_text?: boolean
+    created_at?: boolean
+    updated_at?: boolean
+    stargazing_spot?: boolean | stargazing_spotsDefaultArgs<ExtArgs>
+    user?: boolean | usersDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["stargazing_spot_reviews"]>
+
+  export type stargazing_spot_reviewsSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    stargazing_spot_id?: boolean
+    user_id?: boolean
+    rating?: boolean
+    review_text?: boolean
+    created_at?: boolean
+    updated_at?: boolean
+    stargazing_spot?: boolean | stargazing_spotsDefaultArgs<ExtArgs>
+    user?: boolean | usersDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["stargazing_spot_reviews"]>
+
+  export type stargazing_spot_reviewsSelectScalar = {
+    id?: boolean
+    stargazing_spot_id?: boolean
+    user_id?: boolean
+    rating?: boolean
+    review_text?: boolean
+    created_at?: boolean
+    updated_at?: boolean
+  }
+
+  export type stargazing_spot_reviewsOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "stargazing_spot_id" | "user_id" | "rating" | "review_text" | "created_at" | "updated_at", ExtArgs["result"]["stargazing_spot_reviews"]>
+  export type stargazing_spot_reviewsInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    stargazing_spot?: boolean | stargazing_spotsDefaultArgs<ExtArgs>
+    user?: boolean | usersDefaultArgs<ExtArgs>
+  }
+  export type stargazing_spot_reviewsIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    stargazing_spot?: boolean | stargazing_spotsDefaultArgs<ExtArgs>
+    user?: boolean | usersDefaultArgs<ExtArgs>
+  }
+  export type stargazing_spot_reviewsIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    stargazing_spot?: boolean | stargazing_spotsDefaultArgs<ExtArgs>
+    user?: boolean | usersDefaultArgs<ExtArgs>
+  }
+
+  export type $stargazing_spot_reviewsPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "stargazing_spot_reviews"
+    objects: {
+      stargazing_spot: Prisma.$stargazing_spotsPayload<ExtArgs>
+      user: Prisma.$usersPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: number
+      stargazing_spot_id: number
+      user_id: number
+      rating: number
+      review_text: string
+      created_at: Date
+      updated_at: Date
+    }, ExtArgs["result"]["stargazing_spot_reviews"]>
+    composites: {}
+  }
+
+  type stargazing_spot_reviewsGetPayload<S extends boolean | null | undefined | stargazing_spot_reviewsDefaultArgs> = $Result.GetResult<Prisma.$stargazing_spot_reviewsPayload, S>
+
+  type stargazing_spot_reviewsCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<stargazing_spot_reviewsFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: Stargazing_spot_reviewsCountAggregateInputType | true
+    }
+
+  export interface stargazing_spot_reviewsDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['stargazing_spot_reviews'], meta: { name: 'stargazing_spot_reviews' } }
+    /**
+     * Find zero or one Stargazing_spot_reviews that matches the filter.
+     * @param {stargazing_spot_reviewsFindUniqueArgs} args - Arguments to find a Stargazing_spot_reviews
+     * @example
+     * // Get one Stargazing_spot_reviews
+     * const stargazing_spot_reviews = await prisma.stargazing_spot_reviews.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends stargazing_spot_reviewsFindUniqueArgs>(args: SelectSubset<T, stargazing_spot_reviewsFindUniqueArgs<ExtArgs>>): Prisma__stargazing_spot_reviewsClient<$Result.GetResult<Prisma.$stargazing_spot_reviewsPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Stargazing_spot_reviews that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {stargazing_spot_reviewsFindUniqueOrThrowArgs} args - Arguments to find a Stargazing_spot_reviews
+     * @example
+     * // Get one Stargazing_spot_reviews
+     * const stargazing_spot_reviews = await prisma.stargazing_spot_reviews.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends stargazing_spot_reviewsFindUniqueOrThrowArgs>(args: SelectSubset<T, stargazing_spot_reviewsFindUniqueOrThrowArgs<ExtArgs>>): Prisma__stargazing_spot_reviewsClient<$Result.GetResult<Prisma.$stargazing_spot_reviewsPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Stargazing_spot_reviews that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {stargazing_spot_reviewsFindFirstArgs} args - Arguments to find a Stargazing_spot_reviews
+     * @example
+     * // Get one Stargazing_spot_reviews
+     * const stargazing_spot_reviews = await prisma.stargazing_spot_reviews.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends stargazing_spot_reviewsFindFirstArgs>(args?: SelectSubset<T, stargazing_spot_reviewsFindFirstArgs<ExtArgs>>): Prisma__stargazing_spot_reviewsClient<$Result.GetResult<Prisma.$stargazing_spot_reviewsPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Stargazing_spot_reviews that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {stargazing_spot_reviewsFindFirstOrThrowArgs} args - Arguments to find a Stargazing_spot_reviews
+     * @example
+     * // Get one Stargazing_spot_reviews
+     * const stargazing_spot_reviews = await prisma.stargazing_spot_reviews.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends stargazing_spot_reviewsFindFirstOrThrowArgs>(args?: SelectSubset<T, stargazing_spot_reviewsFindFirstOrThrowArgs<ExtArgs>>): Prisma__stargazing_spot_reviewsClient<$Result.GetResult<Prisma.$stargazing_spot_reviewsPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Stargazing_spot_reviews that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {stargazing_spot_reviewsFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Stargazing_spot_reviews
+     * const stargazing_spot_reviews = await prisma.stargazing_spot_reviews.findMany()
+     * 
+     * // Get first 10 Stargazing_spot_reviews
+     * const stargazing_spot_reviews = await prisma.stargazing_spot_reviews.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const stargazing_spot_reviewsWithIdOnly = await prisma.stargazing_spot_reviews.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends stargazing_spot_reviewsFindManyArgs>(args?: SelectSubset<T, stargazing_spot_reviewsFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$stargazing_spot_reviewsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Stargazing_spot_reviews.
+     * @param {stargazing_spot_reviewsCreateArgs} args - Arguments to create a Stargazing_spot_reviews.
+     * @example
+     * // Create one Stargazing_spot_reviews
+     * const Stargazing_spot_reviews = await prisma.stargazing_spot_reviews.create({
+     *   data: {
+     *     // ... data to create a Stargazing_spot_reviews
+     *   }
+     * })
+     * 
+     */
+    create<T extends stargazing_spot_reviewsCreateArgs>(args: SelectSubset<T, stargazing_spot_reviewsCreateArgs<ExtArgs>>): Prisma__stargazing_spot_reviewsClient<$Result.GetResult<Prisma.$stargazing_spot_reviewsPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Stargazing_spot_reviews.
+     * @param {stargazing_spot_reviewsCreateManyArgs} args - Arguments to create many Stargazing_spot_reviews.
+     * @example
+     * // Create many Stargazing_spot_reviews
+     * const stargazing_spot_reviews = await prisma.stargazing_spot_reviews.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends stargazing_spot_reviewsCreateManyArgs>(args?: SelectSubset<T, stargazing_spot_reviewsCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many Stargazing_spot_reviews and returns the data saved in the database.
+     * @param {stargazing_spot_reviewsCreateManyAndReturnArgs} args - Arguments to create many Stargazing_spot_reviews.
+     * @example
+     * // Create many Stargazing_spot_reviews
+     * const stargazing_spot_reviews = await prisma.stargazing_spot_reviews.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many Stargazing_spot_reviews and only return the `id`
+     * const stargazing_spot_reviewsWithIdOnly = await prisma.stargazing_spot_reviews.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends stargazing_spot_reviewsCreateManyAndReturnArgs>(args?: SelectSubset<T, stargazing_spot_reviewsCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$stargazing_spot_reviewsPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a Stargazing_spot_reviews.
+     * @param {stargazing_spot_reviewsDeleteArgs} args - Arguments to delete one Stargazing_spot_reviews.
+     * @example
+     * // Delete one Stargazing_spot_reviews
+     * const Stargazing_spot_reviews = await prisma.stargazing_spot_reviews.delete({
+     *   where: {
+     *     // ... filter to delete one Stargazing_spot_reviews
+     *   }
+     * })
+     * 
+     */
+    delete<T extends stargazing_spot_reviewsDeleteArgs>(args: SelectSubset<T, stargazing_spot_reviewsDeleteArgs<ExtArgs>>): Prisma__stargazing_spot_reviewsClient<$Result.GetResult<Prisma.$stargazing_spot_reviewsPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Stargazing_spot_reviews.
+     * @param {stargazing_spot_reviewsUpdateArgs} args - Arguments to update one Stargazing_spot_reviews.
+     * @example
+     * // Update one Stargazing_spot_reviews
+     * const stargazing_spot_reviews = await prisma.stargazing_spot_reviews.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends stargazing_spot_reviewsUpdateArgs>(args: SelectSubset<T, stargazing_spot_reviewsUpdateArgs<ExtArgs>>): Prisma__stargazing_spot_reviewsClient<$Result.GetResult<Prisma.$stargazing_spot_reviewsPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Stargazing_spot_reviews.
+     * @param {stargazing_spot_reviewsDeleteManyArgs} args - Arguments to filter Stargazing_spot_reviews to delete.
+     * @example
+     * // Delete a few Stargazing_spot_reviews
+     * const { count } = await prisma.stargazing_spot_reviews.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends stargazing_spot_reviewsDeleteManyArgs>(args?: SelectSubset<T, stargazing_spot_reviewsDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Stargazing_spot_reviews.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {stargazing_spot_reviewsUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Stargazing_spot_reviews
+     * const stargazing_spot_reviews = await prisma.stargazing_spot_reviews.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends stargazing_spot_reviewsUpdateManyArgs>(args: SelectSubset<T, stargazing_spot_reviewsUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Stargazing_spot_reviews and returns the data updated in the database.
+     * @param {stargazing_spot_reviewsUpdateManyAndReturnArgs} args - Arguments to update many Stargazing_spot_reviews.
+     * @example
+     * // Update many Stargazing_spot_reviews
+     * const stargazing_spot_reviews = await prisma.stargazing_spot_reviews.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more Stargazing_spot_reviews and only return the `id`
+     * const stargazing_spot_reviewsWithIdOnly = await prisma.stargazing_spot_reviews.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends stargazing_spot_reviewsUpdateManyAndReturnArgs>(args: SelectSubset<T, stargazing_spot_reviewsUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$stargazing_spot_reviewsPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one Stargazing_spot_reviews.
+     * @param {stargazing_spot_reviewsUpsertArgs} args - Arguments to update or create a Stargazing_spot_reviews.
+     * @example
+     * // Update or create a Stargazing_spot_reviews
+     * const stargazing_spot_reviews = await prisma.stargazing_spot_reviews.upsert({
+     *   create: {
+     *     // ... data to create a Stargazing_spot_reviews
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Stargazing_spot_reviews we want to update
+     *   }
+     * })
+     */
+    upsert<T extends stargazing_spot_reviewsUpsertArgs>(args: SelectSubset<T, stargazing_spot_reviewsUpsertArgs<ExtArgs>>): Prisma__stargazing_spot_reviewsClient<$Result.GetResult<Prisma.$stargazing_spot_reviewsPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of Stargazing_spot_reviews.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {stargazing_spot_reviewsCountArgs} args - Arguments to filter Stargazing_spot_reviews to count.
+     * @example
+     * // Count the number of Stargazing_spot_reviews
+     * const count = await prisma.stargazing_spot_reviews.count({
+     *   where: {
+     *     // ... the filter for the Stargazing_spot_reviews we want to count
+     *   }
+     * })
+    **/
+    count<T extends stargazing_spot_reviewsCountArgs>(
+      args?: Subset<T, stargazing_spot_reviewsCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], Stargazing_spot_reviewsCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Stargazing_spot_reviews.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {Stargazing_spot_reviewsAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends Stargazing_spot_reviewsAggregateArgs>(args: Subset<T, Stargazing_spot_reviewsAggregateArgs>): Prisma.PrismaPromise<GetStargazing_spot_reviewsAggregateType<T>>
+
+    /**
+     * Group by Stargazing_spot_reviews.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {stargazing_spot_reviewsGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends stargazing_spot_reviewsGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: stargazing_spot_reviewsGroupByArgs['orderBy'] }
+        : { orderBy?: stargazing_spot_reviewsGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, stargazing_spot_reviewsGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetStargazing_spot_reviewsGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the stargazing_spot_reviews model
+   */
+  readonly fields: stargazing_spot_reviewsFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for stargazing_spot_reviews.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__stargazing_spot_reviewsClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    stargazing_spot<T extends stargazing_spotsDefaultArgs<ExtArgs> = {}>(args?: Subset<T, stargazing_spotsDefaultArgs<ExtArgs>>): Prisma__stargazing_spotsClient<$Result.GetResult<Prisma.$stargazing_spotsPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    user<T extends usersDefaultArgs<ExtArgs> = {}>(args?: Subset<T, usersDefaultArgs<ExtArgs>>): Prisma__usersClient<$Result.GetResult<Prisma.$usersPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the stargazing_spot_reviews model
+   */
+  interface stargazing_spot_reviewsFieldRefs {
+    readonly id: FieldRef<"stargazing_spot_reviews", 'Int'>
+    readonly stargazing_spot_id: FieldRef<"stargazing_spot_reviews", 'Int'>
+    readonly user_id: FieldRef<"stargazing_spot_reviews", 'Int'>
+    readonly rating: FieldRef<"stargazing_spot_reviews", 'Int'>
+    readonly review_text: FieldRef<"stargazing_spot_reviews", 'String'>
+    readonly created_at: FieldRef<"stargazing_spot_reviews", 'DateTime'>
+    readonly updated_at: FieldRef<"stargazing_spot_reviews", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * stargazing_spot_reviews findUnique
+   */
+  export type stargazing_spot_reviewsFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the stargazing_spot_reviews
+     */
+    select?: stargazing_spot_reviewsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the stargazing_spot_reviews
+     */
+    omit?: stargazing_spot_reviewsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: stargazing_spot_reviewsInclude<ExtArgs> | null
+    /**
+     * Filter, which stargazing_spot_reviews to fetch.
+     */
+    where: stargazing_spot_reviewsWhereUniqueInput
+  }
+
+  /**
+   * stargazing_spot_reviews findUniqueOrThrow
+   */
+  export type stargazing_spot_reviewsFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the stargazing_spot_reviews
+     */
+    select?: stargazing_spot_reviewsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the stargazing_spot_reviews
+     */
+    omit?: stargazing_spot_reviewsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: stargazing_spot_reviewsInclude<ExtArgs> | null
+    /**
+     * Filter, which stargazing_spot_reviews to fetch.
+     */
+    where: stargazing_spot_reviewsWhereUniqueInput
+  }
+
+  /**
+   * stargazing_spot_reviews findFirst
+   */
+  export type stargazing_spot_reviewsFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the stargazing_spot_reviews
+     */
+    select?: stargazing_spot_reviewsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the stargazing_spot_reviews
+     */
+    omit?: stargazing_spot_reviewsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: stargazing_spot_reviewsInclude<ExtArgs> | null
+    /**
+     * Filter, which stargazing_spot_reviews to fetch.
+     */
+    where?: stargazing_spot_reviewsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of stargazing_spot_reviews to fetch.
+     */
+    orderBy?: stargazing_spot_reviewsOrderByWithRelationInput | stargazing_spot_reviewsOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for stargazing_spot_reviews.
+     */
+    cursor?: stargazing_spot_reviewsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` stargazing_spot_reviews from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` stargazing_spot_reviews.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of stargazing_spot_reviews.
+     */
+    distinct?: Stargazing_spot_reviewsScalarFieldEnum | Stargazing_spot_reviewsScalarFieldEnum[]
+  }
+
+  /**
+   * stargazing_spot_reviews findFirstOrThrow
+   */
+  export type stargazing_spot_reviewsFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the stargazing_spot_reviews
+     */
+    select?: stargazing_spot_reviewsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the stargazing_spot_reviews
+     */
+    omit?: stargazing_spot_reviewsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: stargazing_spot_reviewsInclude<ExtArgs> | null
+    /**
+     * Filter, which stargazing_spot_reviews to fetch.
+     */
+    where?: stargazing_spot_reviewsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of stargazing_spot_reviews to fetch.
+     */
+    orderBy?: stargazing_spot_reviewsOrderByWithRelationInput | stargazing_spot_reviewsOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for stargazing_spot_reviews.
+     */
+    cursor?: stargazing_spot_reviewsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` stargazing_spot_reviews from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` stargazing_spot_reviews.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of stargazing_spot_reviews.
+     */
+    distinct?: Stargazing_spot_reviewsScalarFieldEnum | Stargazing_spot_reviewsScalarFieldEnum[]
+  }
+
+  /**
+   * stargazing_spot_reviews findMany
+   */
+  export type stargazing_spot_reviewsFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the stargazing_spot_reviews
+     */
+    select?: stargazing_spot_reviewsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the stargazing_spot_reviews
+     */
+    omit?: stargazing_spot_reviewsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: stargazing_spot_reviewsInclude<ExtArgs> | null
+    /**
+     * Filter, which stargazing_spot_reviews to fetch.
+     */
+    where?: stargazing_spot_reviewsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of stargazing_spot_reviews to fetch.
+     */
+    orderBy?: stargazing_spot_reviewsOrderByWithRelationInput | stargazing_spot_reviewsOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing stargazing_spot_reviews.
+     */
+    cursor?: stargazing_spot_reviewsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` stargazing_spot_reviews from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` stargazing_spot_reviews.
+     */
+    skip?: number
+    distinct?: Stargazing_spot_reviewsScalarFieldEnum | Stargazing_spot_reviewsScalarFieldEnum[]
+  }
+
+  /**
+   * stargazing_spot_reviews create
+   */
+  export type stargazing_spot_reviewsCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the stargazing_spot_reviews
+     */
+    select?: stargazing_spot_reviewsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the stargazing_spot_reviews
+     */
+    omit?: stargazing_spot_reviewsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: stargazing_spot_reviewsInclude<ExtArgs> | null
+    /**
+     * The data needed to create a stargazing_spot_reviews.
+     */
+    data: XOR<stargazing_spot_reviewsCreateInput, stargazing_spot_reviewsUncheckedCreateInput>
+  }
+
+  /**
+   * stargazing_spot_reviews createMany
+   */
+  export type stargazing_spot_reviewsCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many stargazing_spot_reviews.
+     */
+    data: stargazing_spot_reviewsCreateManyInput | stargazing_spot_reviewsCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * stargazing_spot_reviews createManyAndReturn
+   */
+  export type stargazing_spot_reviewsCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the stargazing_spot_reviews
+     */
+    select?: stargazing_spot_reviewsSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the stargazing_spot_reviews
+     */
+    omit?: stargazing_spot_reviewsOmit<ExtArgs> | null
+    /**
+     * The data used to create many stargazing_spot_reviews.
+     */
+    data: stargazing_spot_reviewsCreateManyInput | stargazing_spot_reviewsCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: stargazing_spot_reviewsIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * stargazing_spot_reviews update
+   */
+  export type stargazing_spot_reviewsUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the stargazing_spot_reviews
+     */
+    select?: stargazing_spot_reviewsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the stargazing_spot_reviews
+     */
+    omit?: stargazing_spot_reviewsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: stargazing_spot_reviewsInclude<ExtArgs> | null
+    /**
+     * The data needed to update a stargazing_spot_reviews.
+     */
+    data: XOR<stargazing_spot_reviewsUpdateInput, stargazing_spot_reviewsUncheckedUpdateInput>
+    /**
+     * Choose, which stargazing_spot_reviews to update.
+     */
+    where: stargazing_spot_reviewsWhereUniqueInput
+  }
+
+  /**
+   * stargazing_spot_reviews updateMany
+   */
+  export type stargazing_spot_reviewsUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update stargazing_spot_reviews.
+     */
+    data: XOR<stargazing_spot_reviewsUpdateManyMutationInput, stargazing_spot_reviewsUncheckedUpdateManyInput>
+    /**
+     * Filter which stargazing_spot_reviews to update
+     */
+    where?: stargazing_spot_reviewsWhereInput
+    /**
+     * Limit how many stargazing_spot_reviews to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * stargazing_spot_reviews updateManyAndReturn
+   */
+  export type stargazing_spot_reviewsUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the stargazing_spot_reviews
+     */
+    select?: stargazing_spot_reviewsSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the stargazing_spot_reviews
+     */
+    omit?: stargazing_spot_reviewsOmit<ExtArgs> | null
+    /**
+     * The data used to update stargazing_spot_reviews.
+     */
+    data: XOR<stargazing_spot_reviewsUpdateManyMutationInput, stargazing_spot_reviewsUncheckedUpdateManyInput>
+    /**
+     * Filter which stargazing_spot_reviews to update
+     */
+    where?: stargazing_spot_reviewsWhereInput
+    /**
+     * Limit how many stargazing_spot_reviews to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: stargazing_spot_reviewsIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * stargazing_spot_reviews upsert
+   */
+  export type stargazing_spot_reviewsUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the stargazing_spot_reviews
+     */
+    select?: stargazing_spot_reviewsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the stargazing_spot_reviews
+     */
+    omit?: stargazing_spot_reviewsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: stargazing_spot_reviewsInclude<ExtArgs> | null
+    /**
+     * The filter to search for the stargazing_spot_reviews to update in case it exists.
+     */
+    where: stargazing_spot_reviewsWhereUniqueInput
+    /**
+     * In case the stargazing_spot_reviews found by the `where` argument doesn't exist, create a new stargazing_spot_reviews with this data.
+     */
+    create: XOR<stargazing_spot_reviewsCreateInput, stargazing_spot_reviewsUncheckedCreateInput>
+    /**
+     * In case the stargazing_spot_reviews was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<stargazing_spot_reviewsUpdateInput, stargazing_spot_reviewsUncheckedUpdateInput>
+  }
+
+  /**
+   * stargazing_spot_reviews delete
+   */
+  export type stargazing_spot_reviewsDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the stargazing_spot_reviews
+     */
+    select?: stargazing_spot_reviewsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the stargazing_spot_reviews
+     */
+    omit?: stargazing_spot_reviewsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: stargazing_spot_reviewsInclude<ExtArgs> | null
+    /**
+     * Filter which stargazing_spot_reviews to delete.
+     */
+    where: stargazing_spot_reviewsWhereUniqueInput
+  }
+
+  /**
+   * stargazing_spot_reviews deleteMany
+   */
+  export type stargazing_spot_reviewsDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which stargazing_spot_reviews to delete
+     */
+    where?: stargazing_spot_reviewsWhereInput
+    /**
+     * Limit how many stargazing_spot_reviews to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * stargazing_spot_reviews without action
+   */
+  export type stargazing_spot_reviewsDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the stargazing_spot_reviews
+     */
+    select?: stargazing_spot_reviewsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the stargazing_spot_reviews
+     */
+    omit?: stargazing_spot_reviewsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: stargazing_spot_reviewsInclude<ExtArgs> | null
+  }
+
+
+  /**
    * Enums
    */
 
@@ -60229,6 +62871,37 @@ export namespace Prisma {
   };
 
   export type Event_remindersScalarFieldEnum = (typeof Event_remindersScalarFieldEnum)[keyof typeof Event_remindersScalarFieldEnum]
+
+
+  export const Stargazing_spotsScalarFieldEnum: {
+    id: 'id',
+    name: 'name',
+    location: 'location',
+    image_url: 'image_url',
+    rating: 'rating',
+    best_time: 'best_time',
+    description: 'description',
+    facilities: 'facilities',
+    created_by: 'created_by',
+    is_active: 'is_active',
+    created_at: 'created_at',
+    updated_at: 'updated_at'
+  };
+
+  export type Stargazing_spotsScalarFieldEnum = (typeof Stargazing_spotsScalarFieldEnum)[keyof typeof Stargazing_spotsScalarFieldEnum]
+
+
+  export const Stargazing_spot_reviewsScalarFieldEnum: {
+    id: 'id',
+    stargazing_spot_id: 'stargazing_spot_id',
+    user_id: 'user_id',
+    rating: 'rating',
+    review_text: 'review_text',
+    created_at: 'created_at',
+    updated_at: 'updated_at'
+  };
+
+  export type Stargazing_spot_reviewsScalarFieldEnum = (typeof Stargazing_spot_reviewsScalarFieldEnum)[keyof typeof Stargazing_spot_reviewsScalarFieldEnum]
 
 
   export const SortOrder: {
@@ -61863,6 +64536,8 @@ export namespace Prisma {
     message_reactions?: Message_reactionsListRelationFilter
     created_astronomy_events?: Astronomy_eventsListRelationFilter
     event_reminders?: Event_remindersListRelationFilter
+    created_stargazing_spots?: Stargazing_spotsListRelationFilter
+    stargazing_spot_reviews?: Stargazing_spot_reviewsListRelationFilter
   }
 
   export type usersOrderByWithRelationInput = {
@@ -61919,6 +64594,8 @@ export namespace Prisma {
     message_reactions?: message_reactionsOrderByRelationAggregateInput
     created_astronomy_events?: astronomy_eventsOrderByRelationAggregateInput
     event_reminders?: event_remindersOrderByRelationAggregateInput
+    created_stargazing_spots?: stargazing_spotsOrderByRelationAggregateInput
+    stargazing_spot_reviews?: stargazing_spot_reviewsOrderByRelationAggregateInput
   }
 
   export type usersWhereUniqueInput = Prisma.AtLeast<{
@@ -61978,6 +64655,8 @@ export namespace Prisma {
     message_reactions?: Message_reactionsListRelationFilter
     created_astronomy_events?: Astronomy_eventsListRelationFilter
     event_reminders?: Event_remindersListRelationFilter
+    created_stargazing_spots?: Stargazing_spotsListRelationFilter
+    stargazing_spot_reviews?: Stargazing_spot_reviewsListRelationFilter
   }, "id" | "firebase_uid" | "email">
 
   export type usersOrderByWithAggregationInput = {
@@ -64422,6 +67101,172 @@ export namespace Prisma {
     updated_at?: DateTimeWithAggregatesFilter<"event_reminders"> | Date | string
   }
 
+  export type stargazing_spotsWhereInput = {
+    AND?: stargazing_spotsWhereInput | stargazing_spotsWhereInput[]
+    OR?: stargazing_spotsWhereInput[]
+    NOT?: stargazing_spotsWhereInput | stargazing_spotsWhereInput[]
+    id?: IntFilter<"stargazing_spots"> | number
+    name?: StringFilter<"stargazing_spots"> | string
+    location?: StringFilter<"stargazing_spots"> | string
+    image_url?: StringNullableFilter<"stargazing_spots"> | string | null
+    rating?: FloatFilter<"stargazing_spots"> | number
+    best_time?: StringNullableFilter<"stargazing_spots"> | string | null
+    description?: StringFilter<"stargazing_spots"> | string
+    facilities?: JsonFilter<"stargazing_spots">
+    created_by?: IntFilter<"stargazing_spots"> | number
+    is_active?: BoolFilter<"stargazing_spots"> | boolean
+    created_at?: DateTimeFilter<"stargazing_spots"> | Date | string
+    updated_at?: DateTimeFilter<"stargazing_spots"> | Date | string
+    creator?: XOR<UsersScalarRelationFilter, usersWhereInput>
+    reviews?: Stargazing_spot_reviewsListRelationFilter
+  }
+
+  export type stargazing_spotsOrderByWithRelationInput = {
+    id?: SortOrder
+    name?: SortOrder
+    location?: SortOrder
+    image_url?: SortOrderInput | SortOrder
+    rating?: SortOrder
+    best_time?: SortOrderInput | SortOrder
+    description?: SortOrder
+    facilities?: SortOrder
+    created_by?: SortOrder
+    is_active?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+    creator?: usersOrderByWithRelationInput
+    reviews?: stargazing_spot_reviewsOrderByRelationAggregateInput
+  }
+
+  export type stargazing_spotsWhereUniqueInput = Prisma.AtLeast<{
+    id?: number
+    AND?: stargazing_spotsWhereInput | stargazing_spotsWhereInput[]
+    OR?: stargazing_spotsWhereInput[]
+    NOT?: stargazing_spotsWhereInput | stargazing_spotsWhereInput[]
+    name?: StringFilter<"stargazing_spots"> | string
+    location?: StringFilter<"stargazing_spots"> | string
+    image_url?: StringNullableFilter<"stargazing_spots"> | string | null
+    rating?: FloatFilter<"stargazing_spots"> | number
+    best_time?: StringNullableFilter<"stargazing_spots"> | string | null
+    description?: StringFilter<"stargazing_spots"> | string
+    facilities?: JsonFilter<"stargazing_spots">
+    created_by?: IntFilter<"stargazing_spots"> | number
+    is_active?: BoolFilter<"stargazing_spots"> | boolean
+    created_at?: DateTimeFilter<"stargazing_spots"> | Date | string
+    updated_at?: DateTimeFilter<"stargazing_spots"> | Date | string
+    creator?: XOR<UsersScalarRelationFilter, usersWhereInput>
+    reviews?: Stargazing_spot_reviewsListRelationFilter
+  }, "id">
+
+  export type stargazing_spotsOrderByWithAggregationInput = {
+    id?: SortOrder
+    name?: SortOrder
+    location?: SortOrder
+    image_url?: SortOrderInput | SortOrder
+    rating?: SortOrder
+    best_time?: SortOrderInput | SortOrder
+    description?: SortOrder
+    facilities?: SortOrder
+    created_by?: SortOrder
+    is_active?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+    _count?: stargazing_spotsCountOrderByAggregateInput
+    _avg?: stargazing_spotsAvgOrderByAggregateInput
+    _max?: stargazing_spotsMaxOrderByAggregateInput
+    _min?: stargazing_spotsMinOrderByAggregateInput
+    _sum?: stargazing_spotsSumOrderByAggregateInput
+  }
+
+  export type stargazing_spotsScalarWhereWithAggregatesInput = {
+    AND?: stargazing_spotsScalarWhereWithAggregatesInput | stargazing_spotsScalarWhereWithAggregatesInput[]
+    OR?: stargazing_spotsScalarWhereWithAggregatesInput[]
+    NOT?: stargazing_spotsScalarWhereWithAggregatesInput | stargazing_spotsScalarWhereWithAggregatesInput[]
+    id?: IntWithAggregatesFilter<"stargazing_spots"> | number
+    name?: StringWithAggregatesFilter<"stargazing_spots"> | string
+    location?: StringWithAggregatesFilter<"stargazing_spots"> | string
+    image_url?: StringNullableWithAggregatesFilter<"stargazing_spots"> | string | null
+    rating?: FloatWithAggregatesFilter<"stargazing_spots"> | number
+    best_time?: StringNullableWithAggregatesFilter<"stargazing_spots"> | string | null
+    description?: StringWithAggregatesFilter<"stargazing_spots"> | string
+    facilities?: JsonWithAggregatesFilter<"stargazing_spots">
+    created_by?: IntWithAggregatesFilter<"stargazing_spots"> | number
+    is_active?: BoolWithAggregatesFilter<"stargazing_spots"> | boolean
+    created_at?: DateTimeWithAggregatesFilter<"stargazing_spots"> | Date | string
+    updated_at?: DateTimeWithAggregatesFilter<"stargazing_spots"> | Date | string
+  }
+
+  export type stargazing_spot_reviewsWhereInput = {
+    AND?: stargazing_spot_reviewsWhereInput | stargazing_spot_reviewsWhereInput[]
+    OR?: stargazing_spot_reviewsWhereInput[]
+    NOT?: stargazing_spot_reviewsWhereInput | stargazing_spot_reviewsWhereInput[]
+    id?: IntFilter<"stargazing_spot_reviews"> | number
+    stargazing_spot_id?: IntFilter<"stargazing_spot_reviews"> | number
+    user_id?: IntFilter<"stargazing_spot_reviews"> | number
+    rating?: IntFilter<"stargazing_spot_reviews"> | number
+    review_text?: StringFilter<"stargazing_spot_reviews"> | string
+    created_at?: DateTimeFilter<"stargazing_spot_reviews"> | Date | string
+    updated_at?: DateTimeFilter<"stargazing_spot_reviews"> | Date | string
+    stargazing_spot?: XOR<Stargazing_spotsScalarRelationFilter, stargazing_spotsWhereInput>
+    user?: XOR<UsersScalarRelationFilter, usersWhereInput>
+  }
+
+  export type stargazing_spot_reviewsOrderByWithRelationInput = {
+    id?: SortOrder
+    stargazing_spot_id?: SortOrder
+    user_id?: SortOrder
+    rating?: SortOrder
+    review_text?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+    stargazing_spot?: stargazing_spotsOrderByWithRelationInput
+    user?: usersOrderByWithRelationInput
+  }
+
+  export type stargazing_spot_reviewsWhereUniqueInput = Prisma.AtLeast<{
+    id?: number
+    stargazing_spot_id_user_id?: stargazing_spot_reviewsStargazing_spot_idUser_idCompoundUniqueInput
+    AND?: stargazing_spot_reviewsWhereInput | stargazing_spot_reviewsWhereInput[]
+    OR?: stargazing_spot_reviewsWhereInput[]
+    NOT?: stargazing_spot_reviewsWhereInput | stargazing_spot_reviewsWhereInput[]
+    stargazing_spot_id?: IntFilter<"stargazing_spot_reviews"> | number
+    user_id?: IntFilter<"stargazing_spot_reviews"> | number
+    rating?: IntFilter<"stargazing_spot_reviews"> | number
+    review_text?: StringFilter<"stargazing_spot_reviews"> | string
+    created_at?: DateTimeFilter<"stargazing_spot_reviews"> | Date | string
+    updated_at?: DateTimeFilter<"stargazing_spot_reviews"> | Date | string
+    stargazing_spot?: XOR<Stargazing_spotsScalarRelationFilter, stargazing_spotsWhereInput>
+    user?: XOR<UsersScalarRelationFilter, usersWhereInput>
+  }, "id" | "stargazing_spot_id_user_id">
+
+  export type stargazing_spot_reviewsOrderByWithAggregationInput = {
+    id?: SortOrder
+    stargazing_spot_id?: SortOrder
+    user_id?: SortOrder
+    rating?: SortOrder
+    review_text?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+    _count?: stargazing_spot_reviewsCountOrderByAggregateInput
+    _avg?: stargazing_spot_reviewsAvgOrderByAggregateInput
+    _max?: stargazing_spot_reviewsMaxOrderByAggregateInput
+    _min?: stargazing_spot_reviewsMinOrderByAggregateInput
+    _sum?: stargazing_spot_reviewsSumOrderByAggregateInput
+  }
+
+  export type stargazing_spot_reviewsScalarWhereWithAggregatesInput = {
+    AND?: stargazing_spot_reviewsScalarWhereWithAggregatesInput | stargazing_spot_reviewsScalarWhereWithAggregatesInput[]
+    OR?: stargazing_spot_reviewsScalarWhereWithAggregatesInput[]
+    NOT?: stargazing_spot_reviewsScalarWhereWithAggregatesInput | stargazing_spot_reviewsScalarWhereWithAggregatesInput[]
+    id?: IntWithAggregatesFilter<"stargazing_spot_reviews"> | number
+    stargazing_spot_id?: IntWithAggregatesFilter<"stargazing_spot_reviews"> | number
+    user_id?: IntWithAggregatesFilter<"stargazing_spot_reviews"> | number
+    rating?: IntWithAggregatesFilter<"stargazing_spot_reviews"> | number
+    review_text?: StringWithAggregatesFilter<"stargazing_spot_reviews"> | string
+    created_at?: DateTimeWithAggregatesFilter<"stargazing_spot_reviews"> | Date | string
+    updated_at?: DateTimeWithAggregatesFilter<"stargazing_spot_reviews"> | Date | string
+  }
+
   export type subscriptionsCreateInput = {
     plan_type: $Enums.subscription_plan
     status?: $Enums.subscription_status | null
@@ -65797,6 +68642,8 @@ export namespace Prisma {
     message_reactions?: message_reactionsCreateNestedManyWithoutUserInput
     created_astronomy_events?: astronomy_eventsCreateNestedManyWithoutCreatorInput
     event_reminders?: event_remindersCreateNestedManyWithoutUserInput
+    created_stargazing_spots?: stargazing_spotsCreateNestedManyWithoutCreatorInput
+    stargazing_spot_reviews?: stargazing_spot_reviewsCreateNestedManyWithoutUserInput
   }
 
   export type usersUncheckedCreateInput = {
@@ -65853,6 +68700,8 @@ export namespace Prisma {
     message_reactions?: message_reactionsUncheckedCreateNestedManyWithoutUserInput
     created_astronomy_events?: astronomy_eventsUncheckedCreateNestedManyWithoutCreatorInput
     event_reminders?: event_remindersUncheckedCreateNestedManyWithoutUserInput
+    created_stargazing_spots?: stargazing_spotsUncheckedCreateNestedManyWithoutCreatorInput
+    stargazing_spot_reviews?: stargazing_spot_reviewsUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type usersUpdateInput = {
@@ -65908,6 +68757,8 @@ export namespace Prisma {
     message_reactions?: message_reactionsUpdateManyWithoutUserNestedInput
     created_astronomy_events?: astronomy_eventsUpdateManyWithoutCreatorNestedInput
     event_reminders?: event_remindersUpdateManyWithoutUserNestedInput
+    created_stargazing_spots?: stargazing_spotsUpdateManyWithoutCreatorNestedInput
+    stargazing_spot_reviews?: stargazing_spot_reviewsUpdateManyWithoutUserNestedInput
   }
 
   export type usersUncheckedUpdateInput = {
@@ -65964,6 +68815,8 @@ export namespace Prisma {
     message_reactions?: message_reactionsUncheckedUpdateManyWithoutUserNestedInput
     created_astronomy_events?: astronomy_eventsUncheckedUpdateManyWithoutCreatorNestedInput
     event_reminders?: event_remindersUncheckedUpdateManyWithoutUserNestedInput
+    created_stargazing_spots?: stargazing_spotsUncheckedUpdateManyWithoutCreatorNestedInput
+    stargazing_spot_reviews?: stargazing_spot_reviewsUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type usersCreateManyInput = {
@@ -68553,6 +71406,176 @@ export namespace Prisma {
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type stargazing_spotsCreateInput = {
+    name: string
+    location: string
+    image_url?: string | null
+    rating?: number
+    best_time?: string | null
+    description: string
+    facilities?: JsonNullValueInput | InputJsonValue
+    is_active?: boolean
+    created_at?: Date | string
+    updated_at?: Date | string
+    creator: usersCreateNestedOneWithoutCreated_stargazing_spotsInput
+    reviews?: stargazing_spot_reviewsCreateNestedManyWithoutStargazing_spotInput
+  }
+
+  export type stargazing_spotsUncheckedCreateInput = {
+    id?: number
+    name: string
+    location: string
+    image_url?: string | null
+    rating?: number
+    best_time?: string | null
+    description: string
+    facilities?: JsonNullValueInput | InputJsonValue
+    created_by: number
+    is_active?: boolean
+    created_at?: Date | string
+    updated_at?: Date | string
+    reviews?: stargazing_spot_reviewsUncheckedCreateNestedManyWithoutStargazing_spotInput
+  }
+
+  export type stargazing_spotsUpdateInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    location?: StringFieldUpdateOperationsInput | string
+    image_url?: NullableStringFieldUpdateOperationsInput | string | null
+    rating?: FloatFieldUpdateOperationsInput | number
+    best_time?: NullableStringFieldUpdateOperationsInput | string | null
+    description?: StringFieldUpdateOperationsInput | string
+    facilities?: JsonNullValueInput | InputJsonValue
+    is_active?: BoolFieldUpdateOperationsInput | boolean
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    creator?: usersUpdateOneRequiredWithoutCreated_stargazing_spotsNestedInput
+    reviews?: stargazing_spot_reviewsUpdateManyWithoutStargazing_spotNestedInput
+  }
+
+  export type stargazing_spotsUncheckedUpdateInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    name?: StringFieldUpdateOperationsInput | string
+    location?: StringFieldUpdateOperationsInput | string
+    image_url?: NullableStringFieldUpdateOperationsInput | string | null
+    rating?: FloatFieldUpdateOperationsInput | number
+    best_time?: NullableStringFieldUpdateOperationsInput | string | null
+    description?: StringFieldUpdateOperationsInput | string
+    facilities?: JsonNullValueInput | InputJsonValue
+    created_by?: IntFieldUpdateOperationsInput | number
+    is_active?: BoolFieldUpdateOperationsInput | boolean
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    reviews?: stargazing_spot_reviewsUncheckedUpdateManyWithoutStargazing_spotNestedInput
+  }
+
+  export type stargazing_spotsCreateManyInput = {
+    id?: number
+    name: string
+    location: string
+    image_url?: string | null
+    rating?: number
+    best_time?: string | null
+    description: string
+    facilities?: JsonNullValueInput | InputJsonValue
+    created_by: number
+    is_active?: boolean
+    created_at?: Date | string
+    updated_at?: Date | string
+  }
+
+  export type stargazing_spotsUpdateManyMutationInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    location?: StringFieldUpdateOperationsInput | string
+    image_url?: NullableStringFieldUpdateOperationsInput | string | null
+    rating?: FloatFieldUpdateOperationsInput | number
+    best_time?: NullableStringFieldUpdateOperationsInput | string | null
+    description?: StringFieldUpdateOperationsInput | string
+    facilities?: JsonNullValueInput | InputJsonValue
+    is_active?: BoolFieldUpdateOperationsInput | boolean
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type stargazing_spotsUncheckedUpdateManyInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    name?: StringFieldUpdateOperationsInput | string
+    location?: StringFieldUpdateOperationsInput | string
+    image_url?: NullableStringFieldUpdateOperationsInput | string | null
+    rating?: FloatFieldUpdateOperationsInput | number
+    best_time?: NullableStringFieldUpdateOperationsInput | string | null
+    description?: StringFieldUpdateOperationsInput | string
+    facilities?: JsonNullValueInput | InputJsonValue
+    created_by?: IntFieldUpdateOperationsInput | number
+    is_active?: BoolFieldUpdateOperationsInput | boolean
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type stargazing_spot_reviewsCreateInput = {
+    rating: number
+    review_text: string
+    created_at?: Date | string
+    updated_at?: Date | string
+    stargazing_spot: stargazing_spotsCreateNestedOneWithoutReviewsInput
+    user: usersCreateNestedOneWithoutStargazing_spot_reviewsInput
+  }
+
+  export type stargazing_spot_reviewsUncheckedCreateInput = {
+    id?: number
+    stargazing_spot_id: number
+    user_id: number
+    rating: number
+    review_text: string
+    created_at?: Date | string
+    updated_at?: Date | string
+  }
+
+  export type stargazing_spot_reviewsUpdateInput = {
+    rating?: IntFieldUpdateOperationsInput | number
+    review_text?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    stargazing_spot?: stargazing_spotsUpdateOneRequiredWithoutReviewsNestedInput
+    user?: usersUpdateOneRequiredWithoutStargazing_spot_reviewsNestedInput
+  }
+
+  export type stargazing_spot_reviewsUncheckedUpdateInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    stargazing_spot_id?: IntFieldUpdateOperationsInput | number
+    user_id?: IntFieldUpdateOperationsInput | number
+    rating?: IntFieldUpdateOperationsInput | number
+    review_text?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type stargazing_spot_reviewsCreateManyInput = {
+    id?: number
+    stargazing_spot_id: number
+    user_id: number
+    rating: number
+    review_text: string
+    created_at?: Date | string
+    updated_at?: Date | string
+  }
+
+  export type stargazing_spot_reviewsUpdateManyMutationInput = {
+    rating?: IntFieldUpdateOperationsInput | number
+    review_text?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type stargazing_spot_reviewsUncheckedUpdateManyInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    stargazing_spot_id?: IntFieldUpdateOperationsInput | number
+    user_id?: IntFieldUpdateOperationsInput | number
+    rating?: IntFieldUpdateOperationsInput | number
+    review_text?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type IntFilter<$PrismaModel = never> = {
     equals?: number | IntFieldRefInput<$PrismaModel>
     in?: number[] | ListIntFieldRefInput<$PrismaModel>
@@ -70102,6 +73125,18 @@ export namespace Prisma {
     none?: event_remindersWhereInput
   }
 
+  export type Stargazing_spotsListRelationFilter = {
+    every?: stargazing_spotsWhereInput
+    some?: stargazing_spotsWhereInput
+    none?: stargazing_spotsWhereInput
+  }
+
+  export type Stargazing_spot_reviewsListRelationFilter = {
+    every?: stargazing_spot_reviewsWhereInput
+    some?: stargazing_spot_reviewsWhereInput
+    none?: stargazing_spot_reviewsWhereInput
+  }
+
   export type QuizParticipantsOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
@@ -70183,6 +73218,14 @@ export namespace Prisma {
   }
 
   export type event_remindersOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type stargazing_spotsOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type stargazing_spot_reviewsOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -71905,6 +74948,142 @@ export namespace Prisma {
     event_id?: SortOrder
   }
 
+  export type FloatFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel>
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatFilter<$PrismaModel> | number
+  }
+
+  export type stargazing_spotsCountOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    location?: SortOrder
+    image_url?: SortOrder
+    rating?: SortOrder
+    best_time?: SortOrder
+    description?: SortOrder
+    facilities?: SortOrder
+    created_by?: SortOrder
+    is_active?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+  }
+
+  export type stargazing_spotsAvgOrderByAggregateInput = {
+    id?: SortOrder
+    rating?: SortOrder
+    created_by?: SortOrder
+  }
+
+  export type stargazing_spotsMaxOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    location?: SortOrder
+    image_url?: SortOrder
+    rating?: SortOrder
+    best_time?: SortOrder
+    description?: SortOrder
+    created_by?: SortOrder
+    is_active?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+  }
+
+  export type stargazing_spotsMinOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    location?: SortOrder
+    image_url?: SortOrder
+    rating?: SortOrder
+    best_time?: SortOrder
+    description?: SortOrder
+    created_by?: SortOrder
+    is_active?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+  }
+
+  export type stargazing_spotsSumOrderByAggregateInput = {
+    id?: SortOrder
+    rating?: SortOrder
+    created_by?: SortOrder
+  }
+
+  export type FloatWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel>
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatWithAggregatesFilter<$PrismaModel> | number
+    _count?: NestedIntFilter<$PrismaModel>
+    _avg?: NestedFloatFilter<$PrismaModel>
+    _sum?: NestedFloatFilter<$PrismaModel>
+    _min?: NestedFloatFilter<$PrismaModel>
+    _max?: NestedFloatFilter<$PrismaModel>
+  }
+
+  export type Stargazing_spotsScalarRelationFilter = {
+    is?: stargazing_spotsWhereInput
+    isNot?: stargazing_spotsWhereInput
+  }
+
+  export type stargazing_spot_reviewsStargazing_spot_idUser_idCompoundUniqueInput = {
+    stargazing_spot_id: number
+    user_id: number
+  }
+
+  export type stargazing_spot_reviewsCountOrderByAggregateInput = {
+    id?: SortOrder
+    stargazing_spot_id?: SortOrder
+    user_id?: SortOrder
+    rating?: SortOrder
+    review_text?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+  }
+
+  export type stargazing_spot_reviewsAvgOrderByAggregateInput = {
+    id?: SortOrder
+    stargazing_spot_id?: SortOrder
+    user_id?: SortOrder
+    rating?: SortOrder
+  }
+
+  export type stargazing_spot_reviewsMaxOrderByAggregateInput = {
+    id?: SortOrder
+    stargazing_spot_id?: SortOrder
+    user_id?: SortOrder
+    rating?: SortOrder
+    review_text?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+  }
+
+  export type stargazing_spot_reviewsMinOrderByAggregateInput = {
+    id?: SortOrder
+    stargazing_spot_id?: SortOrder
+    user_id?: SortOrder
+    rating?: SortOrder
+    review_text?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+  }
+
+  export type stargazing_spot_reviewsSumOrderByAggregateInput = {
+    id?: SortOrder
+    stargazing_spot_id?: SortOrder
+    user_id?: SortOrder
+    rating?: SortOrder
+  }
+
   export type paymentsCreateNestedManyWithoutSubscriptionsInput = {
     create?: XOR<paymentsCreateWithoutSubscriptionsInput, paymentsUncheckedCreateWithoutSubscriptionsInput> | paymentsCreateWithoutSubscriptionsInput[] | paymentsUncheckedCreateWithoutSubscriptionsInput[]
     connectOrCreate?: paymentsCreateOrConnectWithoutSubscriptionsInput | paymentsCreateOrConnectWithoutSubscriptionsInput[]
@@ -73299,6 +76478,20 @@ export namespace Prisma {
     connect?: event_remindersWhereUniqueInput | event_remindersWhereUniqueInput[]
   }
 
+  export type stargazing_spotsCreateNestedManyWithoutCreatorInput = {
+    create?: XOR<stargazing_spotsCreateWithoutCreatorInput, stargazing_spotsUncheckedCreateWithoutCreatorInput> | stargazing_spotsCreateWithoutCreatorInput[] | stargazing_spotsUncheckedCreateWithoutCreatorInput[]
+    connectOrCreate?: stargazing_spotsCreateOrConnectWithoutCreatorInput | stargazing_spotsCreateOrConnectWithoutCreatorInput[]
+    createMany?: stargazing_spotsCreateManyCreatorInputEnvelope
+    connect?: stargazing_spotsWhereUniqueInput | stargazing_spotsWhereUniqueInput[]
+  }
+
+  export type stargazing_spot_reviewsCreateNestedManyWithoutUserInput = {
+    create?: XOR<stargazing_spot_reviewsCreateWithoutUserInput, stargazing_spot_reviewsUncheckedCreateWithoutUserInput> | stargazing_spot_reviewsCreateWithoutUserInput[] | stargazing_spot_reviewsUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: stargazing_spot_reviewsCreateOrConnectWithoutUserInput | stargazing_spot_reviewsCreateOrConnectWithoutUserInput[]
+    createMany?: stargazing_spot_reviewsCreateManyUserInputEnvelope
+    connect?: stargazing_spot_reviewsWhereUniqueInput | stargazing_spot_reviewsWhereUniqueInput[]
+  }
+
   export type QuizParticipantsUncheckedCreateNestedManyWithoutUsersInput = {
     create?: XOR<QuizParticipantsCreateWithoutUsersInput, QuizParticipantsUncheckedCreateWithoutUsersInput> | QuizParticipantsCreateWithoutUsersInput[] | QuizParticipantsUncheckedCreateWithoutUsersInput[]
     connectOrCreate?: QuizParticipantsCreateOrConnectWithoutUsersInput | QuizParticipantsCreateOrConnectWithoutUsersInput[]
@@ -73527,6 +76720,20 @@ export namespace Prisma {
     connectOrCreate?: event_remindersCreateOrConnectWithoutUserInput | event_remindersCreateOrConnectWithoutUserInput[]
     createMany?: event_remindersCreateManyUserInputEnvelope
     connect?: event_remindersWhereUniqueInput | event_remindersWhereUniqueInput[]
+  }
+
+  export type stargazing_spotsUncheckedCreateNestedManyWithoutCreatorInput = {
+    create?: XOR<stargazing_spotsCreateWithoutCreatorInput, stargazing_spotsUncheckedCreateWithoutCreatorInput> | stargazing_spotsCreateWithoutCreatorInput[] | stargazing_spotsUncheckedCreateWithoutCreatorInput[]
+    connectOrCreate?: stargazing_spotsCreateOrConnectWithoutCreatorInput | stargazing_spotsCreateOrConnectWithoutCreatorInput[]
+    createMany?: stargazing_spotsCreateManyCreatorInputEnvelope
+    connect?: stargazing_spotsWhereUniqueInput | stargazing_spotsWhereUniqueInput[]
+  }
+
+  export type stargazing_spot_reviewsUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<stargazing_spot_reviewsCreateWithoutUserInput, stargazing_spot_reviewsUncheckedCreateWithoutUserInput> | stargazing_spot_reviewsCreateWithoutUserInput[] | stargazing_spot_reviewsUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: stargazing_spot_reviewsCreateOrConnectWithoutUserInput | stargazing_spot_reviewsCreateOrConnectWithoutUserInput[]
+    createMany?: stargazing_spot_reviewsCreateManyUserInputEnvelope
+    connect?: stargazing_spot_reviewsWhereUniqueInput | stargazing_spot_reviewsWhereUniqueInput[]
   }
 
   export type NullableEnumuser_roleFieldUpdateOperationsInput = {
@@ -73995,6 +77202,34 @@ export namespace Prisma {
     deleteMany?: event_remindersScalarWhereInput | event_remindersScalarWhereInput[]
   }
 
+  export type stargazing_spotsUpdateManyWithoutCreatorNestedInput = {
+    create?: XOR<stargazing_spotsCreateWithoutCreatorInput, stargazing_spotsUncheckedCreateWithoutCreatorInput> | stargazing_spotsCreateWithoutCreatorInput[] | stargazing_spotsUncheckedCreateWithoutCreatorInput[]
+    connectOrCreate?: stargazing_spotsCreateOrConnectWithoutCreatorInput | stargazing_spotsCreateOrConnectWithoutCreatorInput[]
+    upsert?: stargazing_spotsUpsertWithWhereUniqueWithoutCreatorInput | stargazing_spotsUpsertWithWhereUniqueWithoutCreatorInput[]
+    createMany?: stargazing_spotsCreateManyCreatorInputEnvelope
+    set?: stargazing_spotsWhereUniqueInput | stargazing_spotsWhereUniqueInput[]
+    disconnect?: stargazing_spotsWhereUniqueInput | stargazing_spotsWhereUniqueInput[]
+    delete?: stargazing_spotsWhereUniqueInput | stargazing_spotsWhereUniqueInput[]
+    connect?: stargazing_spotsWhereUniqueInput | stargazing_spotsWhereUniqueInput[]
+    update?: stargazing_spotsUpdateWithWhereUniqueWithoutCreatorInput | stargazing_spotsUpdateWithWhereUniqueWithoutCreatorInput[]
+    updateMany?: stargazing_spotsUpdateManyWithWhereWithoutCreatorInput | stargazing_spotsUpdateManyWithWhereWithoutCreatorInput[]
+    deleteMany?: stargazing_spotsScalarWhereInput | stargazing_spotsScalarWhereInput[]
+  }
+
+  export type stargazing_spot_reviewsUpdateManyWithoutUserNestedInput = {
+    create?: XOR<stargazing_spot_reviewsCreateWithoutUserInput, stargazing_spot_reviewsUncheckedCreateWithoutUserInput> | stargazing_spot_reviewsCreateWithoutUserInput[] | stargazing_spot_reviewsUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: stargazing_spot_reviewsCreateOrConnectWithoutUserInput | stargazing_spot_reviewsCreateOrConnectWithoutUserInput[]
+    upsert?: stargazing_spot_reviewsUpsertWithWhereUniqueWithoutUserInput | stargazing_spot_reviewsUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: stargazing_spot_reviewsCreateManyUserInputEnvelope
+    set?: stargazing_spot_reviewsWhereUniqueInput | stargazing_spot_reviewsWhereUniqueInput[]
+    disconnect?: stargazing_spot_reviewsWhereUniqueInput | stargazing_spot_reviewsWhereUniqueInput[]
+    delete?: stargazing_spot_reviewsWhereUniqueInput | stargazing_spot_reviewsWhereUniqueInput[]
+    connect?: stargazing_spot_reviewsWhereUniqueInput | stargazing_spot_reviewsWhereUniqueInput[]
+    update?: stargazing_spot_reviewsUpdateWithWhereUniqueWithoutUserInput | stargazing_spot_reviewsUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: stargazing_spot_reviewsUpdateManyWithWhereWithoutUserInput | stargazing_spot_reviewsUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: stargazing_spot_reviewsScalarWhereInput | stargazing_spot_reviewsScalarWhereInput[]
+  }
+
   export type QuizParticipantsUncheckedUpdateManyWithoutUsersNestedInput = {
     create?: XOR<QuizParticipantsCreateWithoutUsersInput, QuizParticipantsUncheckedCreateWithoutUsersInput> | QuizParticipantsCreateWithoutUsersInput[] | QuizParticipantsUncheckedCreateWithoutUsersInput[]
     connectOrCreate?: QuizParticipantsCreateOrConnectWithoutUsersInput | QuizParticipantsCreateOrConnectWithoutUsersInput[]
@@ -74451,6 +77686,34 @@ export namespace Prisma {
     update?: event_remindersUpdateWithWhereUniqueWithoutUserInput | event_remindersUpdateWithWhereUniqueWithoutUserInput[]
     updateMany?: event_remindersUpdateManyWithWhereWithoutUserInput | event_remindersUpdateManyWithWhereWithoutUserInput[]
     deleteMany?: event_remindersScalarWhereInput | event_remindersScalarWhereInput[]
+  }
+
+  export type stargazing_spotsUncheckedUpdateManyWithoutCreatorNestedInput = {
+    create?: XOR<stargazing_spotsCreateWithoutCreatorInput, stargazing_spotsUncheckedCreateWithoutCreatorInput> | stargazing_spotsCreateWithoutCreatorInput[] | stargazing_spotsUncheckedCreateWithoutCreatorInput[]
+    connectOrCreate?: stargazing_spotsCreateOrConnectWithoutCreatorInput | stargazing_spotsCreateOrConnectWithoutCreatorInput[]
+    upsert?: stargazing_spotsUpsertWithWhereUniqueWithoutCreatorInput | stargazing_spotsUpsertWithWhereUniqueWithoutCreatorInput[]
+    createMany?: stargazing_spotsCreateManyCreatorInputEnvelope
+    set?: stargazing_spotsWhereUniqueInput | stargazing_spotsWhereUniqueInput[]
+    disconnect?: stargazing_spotsWhereUniqueInput | stargazing_spotsWhereUniqueInput[]
+    delete?: stargazing_spotsWhereUniqueInput | stargazing_spotsWhereUniqueInput[]
+    connect?: stargazing_spotsWhereUniqueInput | stargazing_spotsWhereUniqueInput[]
+    update?: stargazing_spotsUpdateWithWhereUniqueWithoutCreatorInput | stargazing_spotsUpdateWithWhereUniqueWithoutCreatorInput[]
+    updateMany?: stargazing_spotsUpdateManyWithWhereWithoutCreatorInput | stargazing_spotsUpdateManyWithWhereWithoutCreatorInput[]
+    deleteMany?: stargazing_spotsScalarWhereInput | stargazing_spotsScalarWhereInput[]
+  }
+
+  export type stargazing_spot_reviewsUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<stargazing_spot_reviewsCreateWithoutUserInput, stargazing_spot_reviewsUncheckedCreateWithoutUserInput> | stargazing_spot_reviewsCreateWithoutUserInput[] | stargazing_spot_reviewsUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: stargazing_spot_reviewsCreateOrConnectWithoutUserInput | stargazing_spot_reviewsCreateOrConnectWithoutUserInput[]
+    upsert?: stargazing_spot_reviewsUpsertWithWhereUniqueWithoutUserInput | stargazing_spot_reviewsUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: stargazing_spot_reviewsCreateManyUserInputEnvelope
+    set?: stargazing_spot_reviewsWhereUniqueInput | stargazing_spot_reviewsWhereUniqueInput[]
+    disconnect?: stargazing_spot_reviewsWhereUniqueInput | stargazing_spot_reviewsWhereUniqueInput[]
+    delete?: stargazing_spot_reviewsWhereUniqueInput | stargazing_spot_reviewsWhereUniqueInput[]
+    connect?: stargazing_spot_reviewsWhereUniqueInput | stargazing_spot_reviewsWhereUniqueInput[]
+    update?: stargazing_spot_reviewsUpdateWithWhereUniqueWithoutUserInput | stargazing_spot_reviewsUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: stargazing_spot_reviewsUpdateManyWithWhereWithoutUserInput | stargazing_spot_reviewsUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: stargazing_spot_reviewsScalarWhereInput | stargazing_spot_reviewsScalarWhereInput[]
   }
 
   export type blogsCreateNestedOneWithoutBlog_likesInput = {
@@ -75564,6 +78827,98 @@ export namespace Prisma {
     update?: XOR<XOR<astronomy_eventsUpdateToOneWithWhereWithoutRemindersInput, astronomy_eventsUpdateWithoutRemindersInput>, astronomy_eventsUncheckedUpdateWithoutRemindersInput>
   }
 
+  export type usersCreateNestedOneWithoutCreated_stargazing_spotsInput = {
+    create?: XOR<usersCreateWithoutCreated_stargazing_spotsInput, usersUncheckedCreateWithoutCreated_stargazing_spotsInput>
+    connectOrCreate?: usersCreateOrConnectWithoutCreated_stargazing_spotsInput
+    connect?: usersWhereUniqueInput
+  }
+
+  export type stargazing_spot_reviewsCreateNestedManyWithoutStargazing_spotInput = {
+    create?: XOR<stargazing_spot_reviewsCreateWithoutStargazing_spotInput, stargazing_spot_reviewsUncheckedCreateWithoutStargazing_spotInput> | stargazing_spot_reviewsCreateWithoutStargazing_spotInput[] | stargazing_spot_reviewsUncheckedCreateWithoutStargazing_spotInput[]
+    connectOrCreate?: stargazing_spot_reviewsCreateOrConnectWithoutStargazing_spotInput | stargazing_spot_reviewsCreateOrConnectWithoutStargazing_spotInput[]
+    createMany?: stargazing_spot_reviewsCreateManyStargazing_spotInputEnvelope
+    connect?: stargazing_spot_reviewsWhereUniqueInput | stargazing_spot_reviewsWhereUniqueInput[]
+  }
+
+  export type stargazing_spot_reviewsUncheckedCreateNestedManyWithoutStargazing_spotInput = {
+    create?: XOR<stargazing_spot_reviewsCreateWithoutStargazing_spotInput, stargazing_spot_reviewsUncheckedCreateWithoutStargazing_spotInput> | stargazing_spot_reviewsCreateWithoutStargazing_spotInput[] | stargazing_spot_reviewsUncheckedCreateWithoutStargazing_spotInput[]
+    connectOrCreate?: stargazing_spot_reviewsCreateOrConnectWithoutStargazing_spotInput | stargazing_spot_reviewsCreateOrConnectWithoutStargazing_spotInput[]
+    createMany?: stargazing_spot_reviewsCreateManyStargazing_spotInputEnvelope
+    connect?: stargazing_spot_reviewsWhereUniqueInput | stargazing_spot_reviewsWhereUniqueInput[]
+  }
+
+  export type FloatFieldUpdateOperationsInput = {
+    set?: number
+    increment?: number
+    decrement?: number
+    multiply?: number
+    divide?: number
+  }
+
+  export type usersUpdateOneRequiredWithoutCreated_stargazing_spotsNestedInput = {
+    create?: XOR<usersCreateWithoutCreated_stargazing_spotsInput, usersUncheckedCreateWithoutCreated_stargazing_spotsInput>
+    connectOrCreate?: usersCreateOrConnectWithoutCreated_stargazing_spotsInput
+    upsert?: usersUpsertWithoutCreated_stargazing_spotsInput
+    connect?: usersWhereUniqueInput
+    update?: XOR<XOR<usersUpdateToOneWithWhereWithoutCreated_stargazing_spotsInput, usersUpdateWithoutCreated_stargazing_spotsInput>, usersUncheckedUpdateWithoutCreated_stargazing_spotsInput>
+  }
+
+  export type stargazing_spot_reviewsUpdateManyWithoutStargazing_spotNestedInput = {
+    create?: XOR<stargazing_spot_reviewsCreateWithoutStargazing_spotInput, stargazing_spot_reviewsUncheckedCreateWithoutStargazing_spotInput> | stargazing_spot_reviewsCreateWithoutStargazing_spotInput[] | stargazing_spot_reviewsUncheckedCreateWithoutStargazing_spotInput[]
+    connectOrCreate?: stargazing_spot_reviewsCreateOrConnectWithoutStargazing_spotInput | stargazing_spot_reviewsCreateOrConnectWithoutStargazing_spotInput[]
+    upsert?: stargazing_spot_reviewsUpsertWithWhereUniqueWithoutStargazing_spotInput | stargazing_spot_reviewsUpsertWithWhereUniqueWithoutStargazing_spotInput[]
+    createMany?: stargazing_spot_reviewsCreateManyStargazing_spotInputEnvelope
+    set?: stargazing_spot_reviewsWhereUniqueInput | stargazing_spot_reviewsWhereUniqueInput[]
+    disconnect?: stargazing_spot_reviewsWhereUniqueInput | stargazing_spot_reviewsWhereUniqueInput[]
+    delete?: stargazing_spot_reviewsWhereUniqueInput | stargazing_spot_reviewsWhereUniqueInput[]
+    connect?: stargazing_spot_reviewsWhereUniqueInput | stargazing_spot_reviewsWhereUniqueInput[]
+    update?: stargazing_spot_reviewsUpdateWithWhereUniqueWithoutStargazing_spotInput | stargazing_spot_reviewsUpdateWithWhereUniqueWithoutStargazing_spotInput[]
+    updateMany?: stargazing_spot_reviewsUpdateManyWithWhereWithoutStargazing_spotInput | stargazing_spot_reviewsUpdateManyWithWhereWithoutStargazing_spotInput[]
+    deleteMany?: stargazing_spot_reviewsScalarWhereInput | stargazing_spot_reviewsScalarWhereInput[]
+  }
+
+  export type stargazing_spot_reviewsUncheckedUpdateManyWithoutStargazing_spotNestedInput = {
+    create?: XOR<stargazing_spot_reviewsCreateWithoutStargazing_spotInput, stargazing_spot_reviewsUncheckedCreateWithoutStargazing_spotInput> | stargazing_spot_reviewsCreateWithoutStargazing_spotInput[] | stargazing_spot_reviewsUncheckedCreateWithoutStargazing_spotInput[]
+    connectOrCreate?: stargazing_spot_reviewsCreateOrConnectWithoutStargazing_spotInput | stargazing_spot_reviewsCreateOrConnectWithoutStargazing_spotInput[]
+    upsert?: stargazing_spot_reviewsUpsertWithWhereUniqueWithoutStargazing_spotInput | stargazing_spot_reviewsUpsertWithWhereUniqueWithoutStargazing_spotInput[]
+    createMany?: stargazing_spot_reviewsCreateManyStargazing_spotInputEnvelope
+    set?: stargazing_spot_reviewsWhereUniqueInput | stargazing_spot_reviewsWhereUniqueInput[]
+    disconnect?: stargazing_spot_reviewsWhereUniqueInput | stargazing_spot_reviewsWhereUniqueInput[]
+    delete?: stargazing_spot_reviewsWhereUniqueInput | stargazing_spot_reviewsWhereUniqueInput[]
+    connect?: stargazing_spot_reviewsWhereUniqueInput | stargazing_spot_reviewsWhereUniqueInput[]
+    update?: stargazing_spot_reviewsUpdateWithWhereUniqueWithoutStargazing_spotInput | stargazing_spot_reviewsUpdateWithWhereUniqueWithoutStargazing_spotInput[]
+    updateMany?: stargazing_spot_reviewsUpdateManyWithWhereWithoutStargazing_spotInput | stargazing_spot_reviewsUpdateManyWithWhereWithoutStargazing_spotInput[]
+    deleteMany?: stargazing_spot_reviewsScalarWhereInput | stargazing_spot_reviewsScalarWhereInput[]
+  }
+
+  export type stargazing_spotsCreateNestedOneWithoutReviewsInput = {
+    create?: XOR<stargazing_spotsCreateWithoutReviewsInput, stargazing_spotsUncheckedCreateWithoutReviewsInput>
+    connectOrCreate?: stargazing_spotsCreateOrConnectWithoutReviewsInput
+    connect?: stargazing_spotsWhereUniqueInput
+  }
+
+  export type usersCreateNestedOneWithoutStargazing_spot_reviewsInput = {
+    create?: XOR<usersCreateWithoutStargazing_spot_reviewsInput, usersUncheckedCreateWithoutStargazing_spot_reviewsInput>
+    connectOrCreate?: usersCreateOrConnectWithoutStargazing_spot_reviewsInput
+    connect?: usersWhereUniqueInput
+  }
+
+  export type stargazing_spotsUpdateOneRequiredWithoutReviewsNestedInput = {
+    create?: XOR<stargazing_spotsCreateWithoutReviewsInput, stargazing_spotsUncheckedCreateWithoutReviewsInput>
+    connectOrCreate?: stargazing_spotsCreateOrConnectWithoutReviewsInput
+    upsert?: stargazing_spotsUpsertWithoutReviewsInput
+    connect?: stargazing_spotsWhereUniqueInput
+    update?: XOR<XOR<stargazing_spotsUpdateToOneWithWhereWithoutReviewsInput, stargazing_spotsUpdateWithoutReviewsInput>, stargazing_spotsUncheckedUpdateWithoutReviewsInput>
+  }
+
+  export type usersUpdateOneRequiredWithoutStargazing_spot_reviewsNestedInput = {
+    create?: XOR<usersCreateWithoutStargazing_spot_reviewsInput, usersUncheckedCreateWithoutStargazing_spot_reviewsInput>
+    connectOrCreate?: usersCreateOrConnectWithoutStargazing_spot_reviewsInput
+    upsert?: usersUpsertWithoutStargazing_spot_reviewsInput
+    connect?: usersWhereUniqueInput
+    update?: XOR<XOR<usersUpdateToOneWithWhereWithoutStargazing_spot_reviewsInput, usersUpdateWithoutStargazing_spot_reviewsInput>, usersUncheckedUpdateWithoutStargazing_spot_reviewsInput>
+  }
+
   export type NestedIntFilter<$PrismaModel = never> = {
     equals?: number | IntFieldRefInput<$PrismaModel>
     in?: number[] | ListIntFieldRefInput<$PrismaModel>
@@ -76115,6 +79470,22 @@ export namespace Prisma {
     _max?: NestedEnumquiz_difficulty_levelFilter<$PrismaModel>
   }
 
+  export type NestedFloatWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel>
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatWithAggregatesFilter<$PrismaModel> | number
+    _count?: NestedIntFilter<$PrismaModel>
+    _avg?: NestedFloatFilter<$PrismaModel>
+    _sum?: NestedFloatFilter<$PrismaModel>
+    _min?: NestedFloatFilter<$PrismaModel>
+    _max?: NestedFloatFilter<$PrismaModel>
+  }
+
   export type paymentsCreateWithoutSubscriptionsInput = {
     amount: Decimal | DecimalJsLike | number | string
     currency?: string | null
@@ -76208,6 +79579,8 @@ export namespace Prisma {
     message_reactions?: message_reactionsCreateNestedManyWithoutUserInput
     created_astronomy_events?: astronomy_eventsCreateNestedManyWithoutCreatorInput
     event_reminders?: event_remindersCreateNestedManyWithoutUserInput
+    created_stargazing_spots?: stargazing_spotsCreateNestedManyWithoutCreatorInput
+    stargazing_spot_reviews?: stargazing_spot_reviewsCreateNestedManyWithoutUserInput
   }
 
   export type usersUncheckedCreateWithoutSubscriptionsInput = {
@@ -76263,6 +79636,8 @@ export namespace Prisma {
     message_reactions?: message_reactionsUncheckedCreateNestedManyWithoutUserInput
     created_astronomy_events?: astronomy_eventsUncheckedCreateNestedManyWithoutCreatorInput
     event_reminders?: event_remindersUncheckedCreateNestedManyWithoutUserInput
+    created_stargazing_spots?: stargazing_spotsUncheckedCreateNestedManyWithoutCreatorInput
+    stargazing_spot_reviews?: stargazing_spot_reviewsUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type usersCreateOrConnectWithoutSubscriptionsInput = {
@@ -76369,6 +79744,8 @@ export namespace Prisma {
     message_reactions?: message_reactionsUpdateManyWithoutUserNestedInput
     created_astronomy_events?: astronomy_eventsUpdateManyWithoutCreatorNestedInput
     event_reminders?: event_remindersUpdateManyWithoutUserNestedInput
+    created_stargazing_spots?: stargazing_spotsUpdateManyWithoutCreatorNestedInput
+    stargazing_spot_reviews?: stargazing_spot_reviewsUpdateManyWithoutUserNestedInput
   }
 
   export type usersUncheckedUpdateWithoutSubscriptionsInput = {
@@ -76424,6 +79801,8 @@ export namespace Prisma {
     message_reactions?: message_reactionsUncheckedUpdateManyWithoutUserNestedInput
     created_astronomy_events?: astronomy_eventsUncheckedUpdateManyWithoutCreatorNestedInput
     event_reminders?: event_remindersUncheckedUpdateManyWithoutUserNestedInput
+    created_stargazing_spots?: stargazing_spotsUncheckedUpdateManyWithoutCreatorNestedInput
+    stargazing_spot_reviews?: stargazing_spot_reviewsUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type usersCreateWithoutCreated_groupsInput = {
@@ -76478,6 +79857,8 @@ export namespace Prisma {
     message_reactions?: message_reactionsCreateNestedManyWithoutUserInput
     created_astronomy_events?: astronomy_eventsCreateNestedManyWithoutCreatorInput
     event_reminders?: event_remindersCreateNestedManyWithoutUserInput
+    created_stargazing_spots?: stargazing_spotsCreateNestedManyWithoutCreatorInput
+    stargazing_spot_reviews?: stargazing_spot_reviewsCreateNestedManyWithoutUserInput
   }
 
   export type usersUncheckedCreateWithoutCreated_groupsInput = {
@@ -76533,6 +79914,8 @@ export namespace Prisma {
     message_reactions?: message_reactionsUncheckedCreateNestedManyWithoutUserInput
     created_astronomy_events?: astronomy_eventsUncheckedCreateNestedManyWithoutCreatorInput
     event_reminders?: event_remindersUncheckedCreateNestedManyWithoutUserInput
+    created_stargazing_spots?: stargazing_spotsUncheckedCreateNestedManyWithoutCreatorInput
+    stargazing_spot_reviews?: stargazing_spot_reviewsUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type usersCreateOrConnectWithoutCreated_groupsInput = {
@@ -76665,6 +80048,8 @@ export namespace Prisma {
     message_reactions?: message_reactionsUpdateManyWithoutUserNestedInput
     created_astronomy_events?: astronomy_eventsUpdateManyWithoutCreatorNestedInput
     event_reminders?: event_remindersUpdateManyWithoutUserNestedInput
+    created_stargazing_spots?: stargazing_spotsUpdateManyWithoutCreatorNestedInput
+    stargazing_spot_reviews?: stargazing_spot_reviewsUpdateManyWithoutUserNestedInput
   }
 
   export type usersUncheckedUpdateWithoutCreated_groupsInput = {
@@ -76720,6 +80105,8 @@ export namespace Prisma {
     message_reactions?: message_reactionsUncheckedUpdateManyWithoutUserNestedInput
     created_astronomy_events?: astronomy_eventsUncheckedUpdateManyWithoutCreatorNestedInput
     event_reminders?: event_remindersUncheckedUpdateManyWithoutUserNestedInput
+    created_stargazing_spots?: stargazing_spotsUncheckedUpdateManyWithoutCreatorNestedInput
+    stargazing_spot_reviews?: stargazing_spot_reviewsUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type group_membersUpsertWithWhereUniqueWithoutGroupInput = {
@@ -76866,6 +80253,8 @@ export namespace Prisma {
     message_reactions?: message_reactionsCreateNestedManyWithoutUserInput
     created_astronomy_events?: astronomy_eventsCreateNestedManyWithoutCreatorInput
     event_reminders?: event_remindersCreateNestedManyWithoutUserInput
+    created_stargazing_spots?: stargazing_spotsCreateNestedManyWithoutCreatorInput
+    stargazing_spot_reviews?: stargazing_spot_reviewsCreateNestedManyWithoutUserInput
   }
 
   export type usersUncheckedCreateWithoutGroup_membershipsInput = {
@@ -76921,6 +80310,8 @@ export namespace Prisma {
     message_reactions?: message_reactionsUncheckedCreateNestedManyWithoutUserInput
     created_astronomy_events?: astronomy_eventsUncheckedCreateNestedManyWithoutCreatorInput
     event_reminders?: event_remindersUncheckedCreateNestedManyWithoutUserInput
+    created_stargazing_spots?: stargazing_spotsUncheckedCreateNestedManyWithoutCreatorInput
+    stargazing_spot_reviews?: stargazing_spot_reviewsUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type usersCreateOrConnectWithoutGroup_membershipsInput = {
@@ -77029,6 +80420,8 @@ export namespace Prisma {
     message_reactions?: message_reactionsUpdateManyWithoutUserNestedInput
     created_astronomy_events?: astronomy_eventsUpdateManyWithoutCreatorNestedInput
     event_reminders?: event_remindersUpdateManyWithoutUserNestedInput
+    created_stargazing_spots?: stargazing_spotsUpdateManyWithoutCreatorNestedInput
+    stargazing_spot_reviews?: stargazing_spot_reviewsUpdateManyWithoutUserNestedInput
   }
 
   export type usersUncheckedUpdateWithoutGroup_membershipsInput = {
@@ -77084,6 +80477,8 @@ export namespace Prisma {
     message_reactions?: message_reactionsUncheckedUpdateManyWithoutUserNestedInput
     created_astronomy_events?: astronomy_eventsUncheckedUpdateManyWithoutCreatorNestedInput
     event_reminders?: event_remindersUncheckedUpdateManyWithoutUserNestedInput
+    created_stargazing_spots?: stargazing_spotsUncheckedUpdateManyWithoutCreatorNestedInput
+    stargazing_spot_reviews?: stargazing_spot_reviewsUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type group_chatsCreateWithoutMessagesInput = {
@@ -77170,6 +80565,8 @@ export namespace Prisma {
     message_reactions?: message_reactionsCreateNestedManyWithoutUserInput
     created_astronomy_events?: astronomy_eventsCreateNestedManyWithoutCreatorInput
     event_reminders?: event_remindersCreateNestedManyWithoutUserInput
+    created_stargazing_spots?: stargazing_spotsCreateNestedManyWithoutCreatorInput
+    stargazing_spot_reviews?: stargazing_spot_reviewsCreateNestedManyWithoutUserInput
   }
 
   export type usersUncheckedCreateWithoutChat_messagesInput = {
@@ -77225,6 +80622,8 @@ export namespace Prisma {
     message_reactions?: message_reactionsUncheckedCreateNestedManyWithoutUserInput
     created_astronomy_events?: astronomy_eventsUncheckedCreateNestedManyWithoutCreatorInput
     event_reminders?: event_remindersUncheckedCreateNestedManyWithoutUserInput
+    created_stargazing_spots?: stargazing_spotsUncheckedCreateNestedManyWithoutCreatorInput
+    stargazing_spot_reviews?: stargazing_spot_reviewsUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type usersCreateOrConnectWithoutChat_messagesInput = {
@@ -77425,6 +80824,8 @@ export namespace Prisma {
     message_reactions?: message_reactionsUpdateManyWithoutUserNestedInput
     created_astronomy_events?: astronomy_eventsUpdateManyWithoutCreatorNestedInput
     event_reminders?: event_remindersUpdateManyWithoutUserNestedInput
+    created_stargazing_spots?: stargazing_spotsUpdateManyWithoutCreatorNestedInput
+    stargazing_spot_reviews?: stargazing_spot_reviewsUpdateManyWithoutUserNestedInput
   }
 
   export type usersUncheckedUpdateWithoutChat_messagesInput = {
@@ -77480,6 +80881,8 @@ export namespace Prisma {
     message_reactions?: message_reactionsUncheckedUpdateManyWithoutUserNestedInput
     created_astronomy_events?: astronomy_eventsUncheckedUpdateManyWithoutCreatorNestedInput
     event_reminders?: event_remindersUncheckedUpdateManyWithoutUserNestedInput
+    created_stargazing_spots?: stargazing_spotsUncheckedUpdateManyWithoutCreatorNestedInput
+    stargazing_spot_reviews?: stargazing_spot_reviewsUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type chat_messagesUpsertWithoutRepliesInput = {
@@ -77647,6 +81050,8 @@ export namespace Prisma {
     chat_messages?: chat_messagesCreateNestedManyWithoutUserInput
     created_astronomy_events?: astronomy_eventsCreateNestedManyWithoutCreatorInput
     event_reminders?: event_remindersCreateNestedManyWithoutUserInput
+    created_stargazing_spots?: stargazing_spotsCreateNestedManyWithoutCreatorInput
+    stargazing_spot_reviews?: stargazing_spot_reviewsCreateNestedManyWithoutUserInput
   }
 
   export type usersUncheckedCreateWithoutMessage_reactionsInput = {
@@ -77702,6 +81107,8 @@ export namespace Prisma {
     chat_messages?: chat_messagesUncheckedCreateNestedManyWithoutUserInput
     created_astronomy_events?: astronomy_eventsUncheckedCreateNestedManyWithoutCreatorInput
     event_reminders?: event_remindersUncheckedCreateNestedManyWithoutUserInput
+    created_stargazing_spots?: stargazing_spotsUncheckedCreateNestedManyWithoutCreatorInput
+    stargazing_spot_reviews?: stargazing_spot_reviewsUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type usersCreateOrConnectWithoutMessage_reactionsInput = {
@@ -77810,6 +81217,8 @@ export namespace Prisma {
     chat_messages?: chat_messagesUpdateManyWithoutUserNestedInput
     created_astronomy_events?: astronomy_eventsUpdateManyWithoutCreatorNestedInput
     event_reminders?: event_remindersUpdateManyWithoutUserNestedInput
+    created_stargazing_spots?: stargazing_spotsUpdateManyWithoutCreatorNestedInput
+    stargazing_spot_reviews?: stargazing_spot_reviewsUpdateManyWithoutUserNestedInput
   }
 
   export type usersUncheckedUpdateWithoutMessage_reactionsInput = {
@@ -77865,6 +81274,8 @@ export namespace Prisma {
     chat_messages?: chat_messagesUncheckedUpdateManyWithoutUserNestedInput
     created_astronomy_events?: astronomy_eventsUncheckedUpdateManyWithoutCreatorNestedInput
     event_reminders?: event_remindersUncheckedUpdateManyWithoutUserNestedInput
+    created_stargazing_spots?: stargazing_spotsUncheckedUpdateManyWithoutCreatorNestedInput
+    stargazing_spot_reviews?: stargazing_spot_reviewsUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type blogsCreateWithoutBlog_viewsInput = {
@@ -77977,6 +81388,8 @@ export namespace Prisma {
     message_reactions?: message_reactionsCreateNestedManyWithoutUserInput
     created_astronomy_events?: astronomy_eventsCreateNestedManyWithoutCreatorInput
     event_reminders?: event_remindersCreateNestedManyWithoutUserInput
+    created_stargazing_spots?: stargazing_spotsCreateNestedManyWithoutCreatorInput
+    stargazing_spot_reviews?: stargazing_spot_reviewsCreateNestedManyWithoutUserInput
   }
 
   export type usersUncheckedCreateWithoutBlog_viewsInput = {
@@ -78032,6 +81445,8 @@ export namespace Prisma {
     message_reactions?: message_reactionsUncheckedCreateNestedManyWithoutUserInput
     created_astronomy_events?: astronomy_eventsUncheckedCreateNestedManyWithoutCreatorInput
     event_reminders?: event_remindersUncheckedCreateNestedManyWithoutUserInput
+    created_stargazing_spots?: stargazing_spotsUncheckedCreateNestedManyWithoutCreatorInput
+    stargazing_spot_reviews?: stargazing_spot_reviewsUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type usersCreateOrConnectWithoutBlog_viewsInput = {
@@ -78166,6 +81581,8 @@ export namespace Prisma {
     message_reactions?: message_reactionsUpdateManyWithoutUserNestedInput
     created_astronomy_events?: astronomy_eventsUpdateManyWithoutCreatorNestedInput
     event_reminders?: event_remindersUpdateManyWithoutUserNestedInput
+    created_stargazing_spots?: stargazing_spotsUpdateManyWithoutCreatorNestedInput
+    stargazing_spot_reviews?: stargazing_spot_reviewsUpdateManyWithoutUserNestedInput
   }
 
   export type usersUncheckedUpdateWithoutBlog_viewsInput = {
@@ -78221,6 +81638,8 @@ export namespace Prisma {
     message_reactions?: message_reactionsUncheckedUpdateManyWithoutUserNestedInput
     created_astronomy_events?: astronomy_eventsUncheckedUpdateManyWithoutCreatorNestedInput
     event_reminders?: event_remindersUncheckedUpdateManyWithoutUserNestedInput
+    created_stargazing_spots?: stargazing_spotsUncheckedUpdateManyWithoutCreatorNestedInput
+    stargazing_spot_reviews?: stargazing_spot_reviewsUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type night_camp_registrationsCreateWithoutNight_campsInput = {
@@ -78727,6 +82146,8 @@ export namespace Prisma {
     message_reactions?: message_reactionsCreateNestedManyWithoutUserInput
     created_astronomy_events?: astronomy_eventsCreateNestedManyWithoutCreatorInput
     event_reminders?: event_remindersCreateNestedManyWithoutUserInput
+    created_stargazing_spots?: stargazing_spotsCreateNestedManyWithoutCreatorInput
+    stargazing_spot_reviews?: stargazing_spot_reviewsCreateNestedManyWithoutUserInput
   }
 
   export type usersUncheckedCreateWithoutChatbot_sessionsInput = {
@@ -78782,6 +82203,8 @@ export namespace Prisma {
     message_reactions?: message_reactionsUncheckedCreateNestedManyWithoutUserInput
     created_astronomy_events?: astronomy_eventsUncheckedCreateNestedManyWithoutCreatorInput
     event_reminders?: event_remindersUncheckedCreateNestedManyWithoutUserInput
+    created_stargazing_spots?: stargazing_spotsUncheckedCreateNestedManyWithoutCreatorInput
+    stargazing_spot_reviews?: stargazing_spot_reviewsUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type usersCreateOrConnectWithoutChatbot_sessionsInput = {
@@ -78912,6 +82335,8 @@ export namespace Prisma {
     message_reactions?: message_reactionsUpdateManyWithoutUserNestedInput
     created_astronomy_events?: astronomy_eventsUpdateManyWithoutCreatorNestedInput
     event_reminders?: event_remindersUpdateManyWithoutUserNestedInput
+    created_stargazing_spots?: stargazing_spotsUpdateManyWithoutCreatorNestedInput
+    stargazing_spot_reviews?: stargazing_spot_reviewsUpdateManyWithoutUserNestedInput
   }
 
   export type usersUncheckedUpdateWithoutChatbot_sessionsInput = {
@@ -78967,6 +82392,8 @@ export namespace Prisma {
     message_reactions?: message_reactionsUncheckedUpdateManyWithoutUserNestedInput
     created_astronomy_events?: astronomy_eventsUncheckedUpdateManyWithoutCreatorNestedInput
     event_reminders?: event_remindersUncheckedUpdateManyWithoutUserNestedInput
+    created_stargazing_spots?: stargazing_spotsUncheckedUpdateManyWithoutCreatorNestedInput
+    stargazing_spot_reviews?: stargazing_spot_reviewsUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type subscriptionsCreateWithoutPaymentsInput = {
@@ -79053,6 +82480,8 @@ export namespace Prisma {
     message_reactions?: message_reactionsCreateNestedManyWithoutUserInput
     created_astronomy_events?: astronomy_eventsCreateNestedManyWithoutCreatorInput
     event_reminders?: event_remindersCreateNestedManyWithoutUserInput
+    created_stargazing_spots?: stargazing_spotsCreateNestedManyWithoutCreatorInput
+    stargazing_spot_reviews?: stargazing_spot_reviewsCreateNestedManyWithoutUserInput
   }
 
   export type usersUncheckedCreateWithoutPaymentsInput = {
@@ -79108,6 +82537,8 @@ export namespace Prisma {
     message_reactions?: message_reactionsUncheckedCreateNestedManyWithoutUserInput
     created_astronomy_events?: astronomy_eventsUncheckedCreateNestedManyWithoutCreatorInput
     event_reminders?: event_remindersUncheckedCreateNestedManyWithoutUserInput
+    created_stargazing_spots?: stargazing_spotsUncheckedCreateNestedManyWithoutCreatorInput
+    stargazing_spot_reviews?: stargazing_spot_reviewsUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type usersCreateOrConnectWithoutPaymentsInput = {
@@ -79216,6 +82647,8 @@ export namespace Prisma {
     message_reactions?: message_reactionsUpdateManyWithoutUserNestedInput
     created_astronomy_events?: astronomy_eventsUpdateManyWithoutCreatorNestedInput
     event_reminders?: event_remindersUpdateManyWithoutUserNestedInput
+    created_stargazing_spots?: stargazing_spotsUpdateManyWithoutCreatorNestedInput
+    stargazing_spot_reviews?: stargazing_spot_reviewsUpdateManyWithoutUserNestedInput
   }
 
   export type usersUncheckedUpdateWithoutPaymentsInput = {
@@ -79271,6 +82704,8 @@ export namespace Prisma {
     message_reactions?: message_reactionsUncheckedUpdateManyWithoutUserNestedInput
     created_astronomy_events?: astronomy_eventsUncheckedUpdateManyWithoutCreatorNestedInput
     event_reminders?: event_remindersUncheckedUpdateManyWithoutUserNestedInput
+    created_stargazing_spots?: stargazing_spotsUncheckedUpdateManyWithoutCreatorNestedInput
+    stargazing_spot_reviews?: stargazing_spot_reviewsUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type blog_category_relationsCreateWithoutBlogsInput = {
@@ -79421,6 +82856,8 @@ export namespace Prisma {
     message_reactions?: message_reactionsCreateNestedManyWithoutUserInput
     created_astronomy_events?: astronomy_eventsCreateNestedManyWithoutCreatorInput
     event_reminders?: event_remindersCreateNestedManyWithoutUserInput
+    created_stargazing_spots?: stargazing_spotsCreateNestedManyWithoutCreatorInput
+    stargazing_spot_reviews?: stargazing_spot_reviewsCreateNestedManyWithoutUserInput
   }
 
   export type usersUncheckedCreateWithoutBlogsInput = {
@@ -79476,6 +82913,8 @@ export namespace Prisma {
     message_reactions?: message_reactionsUncheckedCreateNestedManyWithoutUserInput
     created_astronomy_events?: astronomy_eventsUncheckedCreateNestedManyWithoutCreatorInput
     event_reminders?: event_remindersUncheckedCreateNestedManyWithoutUserInput
+    created_stargazing_spots?: stargazing_spotsUncheckedCreateNestedManyWithoutCreatorInput
+    stargazing_spot_reviews?: stargazing_spot_reviewsUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type usersCreateOrConnectWithoutBlogsInput = {
@@ -79655,6 +83094,8 @@ export namespace Prisma {
     message_reactions?: message_reactionsUpdateManyWithoutUserNestedInput
     created_astronomy_events?: astronomy_eventsUpdateManyWithoutCreatorNestedInput
     event_reminders?: event_remindersUpdateManyWithoutUserNestedInput
+    created_stargazing_spots?: stargazing_spotsUpdateManyWithoutCreatorNestedInput
+    stargazing_spot_reviews?: stargazing_spot_reviewsUpdateManyWithoutUserNestedInput
   }
 
   export type usersUncheckedUpdateWithoutBlogsInput = {
@@ -79710,6 +83151,8 @@ export namespace Prisma {
     message_reactions?: message_reactionsUncheckedUpdateManyWithoutUserNestedInput
     created_astronomy_events?: astronomy_eventsUncheckedUpdateManyWithoutCreatorNestedInput
     event_reminders?: event_remindersUncheckedUpdateManyWithoutUserNestedInput
+    created_stargazing_spots?: stargazing_spotsUncheckedUpdateManyWithoutCreatorNestedInput
+    stargazing_spot_reviews?: stargazing_spot_reviewsUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type blogsCreateWithoutBlog_category_relationsInput = {
@@ -79963,6 +83406,8 @@ export namespace Prisma {
     message_reactions?: message_reactionsCreateNestedManyWithoutUserInput
     created_astronomy_events?: astronomy_eventsCreateNestedManyWithoutCreatorInput
     event_reminders?: event_remindersCreateNestedManyWithoutUserInput
+    created_stargazing_spots?: stargazing_spotsCreateNestedManyWithoutCreatorInput
+    stargazing_spot_reviews?: stargazing_spot_reviewsCreateNestedManyWithoutUserInput
   }
 
   export type usersUncheckedCreateWithoutChatbot_usageInput = {
@@ -80018,6 +83463,8 @@ export namespace Prisma {
     message_reactions?: message_reactionsUncheckedCreateNestedManyWithoutUserInput
     created_astronomy_events?: astronomy_eventsUncheckedCreateNestedManyWithoutCreatorInput
     event_reminders?: event_remindersUncheckedCreateNestedManyWithoutUserInput
+    created_stargazing_spots?: stargazing_spotsUncheckedCreateNestedManyWithoutCreatorInput
+    stargazing_spot_reviews?: stargazing_spot_reviewsUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type usersCreateOrConnectWithoutChatbot_usageInput = {
@@ -80088,6 +83535,8 @@ export namespace Prisma {
     message_reactions?: message_reactionsUpdateManyWithoutUserNestedInput
     created_astronomy_events?: astronomy_eventsUpdateManyWithoutCreatorNestedInput
     event_reminders?: event_remindersUpdateManyWithoutUserNestedInput
+    created_stargazing_spots?: stargazing_spotsUpdateManyWithoutCreatorNestedInput
+    stargazing_spot_reviews?: stargazing_spot_reviewsUpdateManyWithoutUserNestedInput
   }
 
   export type usersUncheckedUpdateWithoutChatbot_usageInput = {
@@ -80143,6 +83592,8 @@ export namespace Prisma {
     message_reactions?: message_reactionsUncheckedUpdateManyWithoutUserNestedInput
     created_astronomy_events?: astronomy_eventsUncheckedUpdateManyWithoutCreatorNestedInput
     event_reminders?: event_remindersUncheckedUpdateManyWithoutUserNestedInput
+    created_stargazing_spots?: stargazing_spotsUncheckedUpdateManyWithoutCreatorNestedInput
+    stargazing_spot_reviews?: stargazing_spot_reviewsUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type blogsCreateWithoutBlog_commentsInput = {
@@ -80312,6 +83763,8 @@ export namespace Prisma {
     message_reactions?: message_reactionsCreateNestedManyWithoutUserInput
     created_astronomy_events?: astronomy_eventsCreateNestedManyWithoutCreatorInput
     event_reminders?: event_remindersCreateNestedManyWithoutUserInput
+    created_stargazing_spots?: stargazing_spotsCreateNestedManyWithoutCreatorInput
+    stargazing_spot_reviews?: stargazing_spot_reviewsCreateNestedManyWithoutUserInput
   }
 
   export type usersUncheckedCreateWithoutBlog_commentsInput = {
@@ -80367,6 +83820,8 @@ export namespace Prisma {
     message_reactions?: message_reactionsUncheckedCreateNestedManyWithoutUserInput
     created_astronomy_events?: astronomy_eventsUncheckedCreateNestedManyWithoutCreatorInput
     event_reminders?: event_remindersUncheckedCreateNestedManyWithoutUserInput
+    created_stargazing_spots?: stargazing_spotsUncheckedCreateNestedManyWithoutCreatorInput
+    stargazing_spot_reviews?: stargazing_spot_reviewsUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type usersCreateOrConnectWithoutBlog_commentsInput = {
@@ -80549,6 +84004,8 @@ export namespace Prisma {
     message_reactions?: message_reactionsUpdateManyWithoutUserNestedInput
     created_astronomy_events?: astronomy_eventsUpdateManyWithoutCreatorNestedInput
     event_reminders?: event_remindersUpdateManyWithoutUserNestedInput
+    created_stargazing_spots?: stargazing_spotsUpdateManyWithoutCreatorNestedInput
+    stargazing_spot_reviews?: stargazing_spot_reviewsUpdateManyWithoutUserNestedInput
   }
 
   export type usersUncheckedUpdateWithoutBlog_commentsInput = {
@@ -80604,6 +84061,8 @@ export namespace Prisma {
     message_reactions?: message_reactionsUncheckedUpdateManyWithoutUserNestedInput
     created_astronomy_events?: astronomy_eventsUncheckedUpdateManyWithoutCreatorNestedInput
     event_reminders?: event_remindersUncheckedUpdateManyWithoutUserNestedInput
+    created_stargazing_spots?: stargazing_spotsUncheckedUpdateManyWithoutCreatorNestedInput
+    stargazing_spot_reviews?: stargazing_spot_reviewsUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type QuizParticipantsCreateWithoutUsersInput = {
@@ -81801,6 +85260,72 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type stargazing_spotsCreateWithoutCreatorInput = {
+    name: string
+    location: string
+    image_url?: string | null
+    rating?: number
+    best_time?: string | null
+    description: string
+    facilities?: JsonNullValueInput | InputJsonValue
+    is_active?: boolean
+    created_at?: Date | string
+    updated_at?: Date | string
+    reviews?: stargazing_spot_reviewsCreateNestedManyWithoutStargazing_spotInput
+  }
+
+  export type stargazing_spotsUncheckedCreateWithoutCreatorInput = {
+    id?: number
+    name: string
+    location: string
+    image_url?: string | null
+    rating?: number
+    best_time?: string | null
+    description: string
+    facilities?: JsonNullValueInput | InputJsonValue
+    is_active?: boolean
+    created_at?: Date | string
+    updated_at?: Date | string
+    reviews?: stargazing_spot_reviewsUncheckedCreateNestedManyWithoutStargazing_spotInput
+  }
+
+  export type stargazing_spotsCreateOrConnectWithoutCreatorInput = {
+    where: stargazing_spotsWhereUniqueInput
+    create: XOR<stargazing_spotsCreateWithoutCreatorInput, stargazing_spotsUncheckedCreateWithoutCreatorInput>
+  }
+
+  export type stargazing_spotsCreateManyCreatorInputEnvelope = {
+    data: stargazing_spotsCreateManyCreatorInput | stargazing_spotsCreateManyCreatorInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type stargazing_spot_reviewsCreateWithoutUserInput = {
+    rating: number
+    review_text: string
+    created_at?: Date | string
+    updated_at?: Date | string
+    stargazing_spot: stargazing_spotsCreateNestedOneWithoutReviewsInput
+  }
+
+  export type stargazing_spot_reviewsUncheckedCreateWithoutUserInput = {
+    id?: number
+    stargazing_spot_id: number
+    rating: number
+    review_text: string
+    created_at?: Date | string
+    updated_at?: Date | string
+  }
+
+  export type stargazing_spot_reviewsCreateOrConnectWithoutUserInput = {
+    where: stargazing_spot_reviewsWhereUniqueInput
+    create: XOR<stargazing_spot_reviewsCreateWithoutUserInput, stargazing_spot_reviewsUncheckedCreateWithoutUserInput>
+  }
+
+  export type stargazing_spot_reviewsCreateManyUserInputEnvelope = {
+    data: stargazing_spot_reviewsCreateManyUserInput | stargazing_spot_reviewsCreateManyUserInput[]
+    skipDuplicates?: boolean
+  }
+
   export type QuizParticipantsUpsertWithWhereUniqueWithoutUsersInput = {
     where: QuizParticipantsWhereUniqueInput
     update: XOR<QuizParticipantsUpdateWithoutUsersInput, QuizParticipantsUncheckedUpdateWithoutUsersInput>
@@ -82722,6 +86247,69 @@ export namespace Prisma {
     updated_at?: DateTimeFilter<"event_reminders"> | Date | string
   }
 
+  export type stargazing_spotsUpsertWithWhereUniqueWithoutCreatorInput = {
+    where: stargazing_spotsWhereUniqueInput
+    update: XOR<stargazing_spotsUpdateWithoutCreatorInput, stargazing_spotsUncheckedUpdateWithoutCreatorInput>
+    create: XOR<stargazing_spotsCreateWithoutCreatorInput, stargazing_spotsUncheckedCreateWithoutCreatorInput>
+  }
+
+  export type stargazing_spotsUpdateWithWhereUniqueWithoutCreatorInput = {
+    where: stargazing_spotsWhereUniqueInput
+    data: XOR<stargazing_spotsUpdateWithoutCreatorInput, stargazing_spotsUncheckedUpdateWithoutCreatorInput>
+  }
+
+  export type stargazing_spotsUpdateManyWithWhereWithoutCreatorInput = {
+    where: stargazing_spotsScalarWhereInput
+    data: XOR<stargazing_spotsUpdateManyMutationInput, stargazing_spotsUncheckedUpdateManyWithoutCreatorInput>
+  }
+
+  export type stargazing_spotsScalarWhereInput = {
+    AND?: stargazing_spotsScalarWhereInput | stargazing_spotsScalarWhereInput[]
+    OR?: stargazing_spotsScalarWhereInput[]
+    NOT?: stargazing_spotsScalarWhereInput | stargazing_spotsScalarWhereInput[]
+    id?: IntFilter<"stargazing_spots"> | number
+    name?: StringFilter<"stargazing_spots"> | string
+    location?: StringFilter<"stargazing_spots"> | string
+    image_url?: StringNullableFilter<"stargazing_spots"> | string | null
+    rating?: FloatFilter<"stargazing_spots"> | number
+    best_time?: StringNullableFilter<"stargazing_spots"> | string | null
+    description?: StringFilter<"stargazing_spots"> | string
+    facilities?: JsonFilter<"stargazing_spots">
+    created_by?: IntFilter<"stargazing_spots"> | number
+    is_active?: BoolFilter<"stargazing_spots"> | boolean
+    created_at?: DateTimeFilter<"stargazing_spots"> | Date | string
+    updated_at?: DateTimeFilter<"stargazing_spots"> | Date | string
+  }
+
+  export type stargazing_spot_reviewsUpsertWithWhereUniqueWithoutUserInput = {
+    where: stargazing_spot_reviewsWhereUniqueInput
+    update: XOR<stargazing_spot_reviewsUpdateWithoutUserInput, stargazing_spot_reviewsUncheckedUpdateWithoutUserInput>
+    create: XOR<stargazing_spot_reviewsCreateWithoutUserInput, stargazing_spot_reviewsUncheckedCreateWithoutUserInput>
+  }
+
+  export type stargazing_spot_reviewsUpdateWithWhereUniqueWithoutUserInput = {
+    where: stargazing_spot_reviewsWhereUniqueInput
+    data: XOR<stargazing_spot_reviewsUpdateWithoutUserInput, stargazing_spot_reviewsUncheckedUpdateWithoutUserInput>
+  }
+
+  export type stargazing_spot_reviewsUpdateManyWithWhereWithoutUserInput = {
+    where: stargazing_spot_reviewsScalarWhereInput
+    data: XOR<stargazing_spot_reviewsUpdateManyMutationInput, stargazing_spot_reviewsUncheckedUpdateManyWithoutUserInput>
+  }
+
+  export type stargazing_spot_reviewsScalarWhereInput = {
+    AND?: stargazing_spot_reviewsScalarWhereInput | stargazing_spot_reviewsScalarWhereInput[]
+    OR?: stargazing_spot_reviewsScalarWhereInput[]
+    NOT?: stargazing_spot_reviewsScalarWhereInput | stargazing_spot_reviewsScalarWhereInput[]
+    id?: IntFilter<"stargazing_spot_reviews"> | number
+    stargazing_spot_id?: IntFilter<"stargazing_spot_reviews"> | number
+    user_id?: IntFilter<"stargazing_spot_reviews"> | number
+    rating?: IntFilter<"stargazing_spot_reviews"> | number
+    review_text?: StringFilter<"stargazing_spot_reviews"> | string
+    created_at?: DateTimeFilter<"stargazing_spot_reviews"> | Date | string
+    updated_at?: DateTimeFilter<"stargazing_spot_reviews"> | Date | string
+  }
+
   export type blogsCreateWithoutBlog_likesInput = {
     title: string
     content: string
@@ -82832,6 +86420,8 @@ export namespace Prisma {
     message_reactions?: message_reactionsCreateNestedManyWithoutUserInput
     created_astronomy_events?: astronomy_eventsCreateNestedManyWithoutCreatorInput
     event_reminders?: event_remindersCreateNestedManyWithoutUserInput
+    created_stargazing_spots?: stargazing_spotsCreateNestedManyWithoutCreatorInput
+    stargazing_spot_reviews?: stargazing_spot_reviewsCreateNestedManyWithoutUserInput
   }
 
   export type usersUncheckedCreateWithoutBlog_likesInput = {
@@ -82887,6 +86477,8 @@ export namespace Prisma {
     message_reactions?: message_reactionsUncheckedCreateNestedManyWithoutUserInput
     created_astronomy_events?: astronomy_eventsUncheckedCreateNestedManyWithoutCreatorInput
     event_reminders?: event_remindersUncheckedCreateNestedManyWithoutUserInput
+    created_stargazing_spots?: stargazing_spotsUncheckedCreateNestedManyWithoutCreatorInput
+    stargazing_spot_reviews?: stargazing_spot_reviewsUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type usersCreateOrConnectWithoutBlog_likesInput = {
@@ -83021,6 +86613,8 @@ export namespace Prisma {
     message_reactions?: message_reactionsUpdateManyWithoutUserNestedInput
     created_astronomy_events?: astronomy_eventsUpdateManyWithoutCreatorNestedInput
     event_reminders?: event_remindersUpdateManyWithoutUserNestedInput
+    created_stargazing_spots?: stargazing_spotsUpdateManyWithoutCreatorNestedInput
+    stargazing_spot_reviews?: stargazing_spot_reviewsUpdateManyWithoutUserNestedInput
   }
 
   export type usersUncheckedUpdateWithoutBlog_likesInput = {
@@ -83076,6 +86670,8 @@ export namespace Prisma {
     message_reactions?: message_reactionsUncheckedUpdateManyWithoutUserNestedInput
     created_astronomy_events?: astronomy_eventsUncheckedUpdateManyWithoutCreatorNestedInput
     event_reminders?: event_remindersUncheckedUpdateManyWithoutUserNestedInput
+    created_stargazing_spots?: stargazing_spotsUncheckedUpdateManyWithoutCreatorNestedInput
+    stargazing_spot_reviews?: stargazing_spot_reviewsUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type chatbot_feedbackCreateWithoutChatbot_messagesInput = {
@@ -83336,6 +86932,8 @@ export namespace Prisma {
     message_reactions?: message_reactionsCreateNestedManyWithoutUserInput
     created_astronomy_events?: astronomy_eventsCreateNestedManyWithoutCreatorInput
     event_reminders?: event_remindersCreateNestedManyWithoutUserInput
+    created_stargazing_spots?: stargazing_spotsCreateNestedManyWithoutCreatorInput
+    stargazing_spot_reviews?: stargazing_spot_reviewsCreateNestedManyWithoutUserInput
   }
 
   export type usersUncheckedCreateWithoutUser_settingsInput = {
@@ -83391,6 +86989,8 @@ export namespace Prisma {
     message_reactions?: message_reactionsUncheckedCreateNestedManyWithoutUserInput
     created_astronomy_events?: astronomy_eventsUncheckedCreateNestedManyWithoutCreatorInput
     event_reminders?: event_remindersUncheckedCreateNestedManyWithoutUserInput
+    created_stargazing_spots?: stargazing_spotsUncheckedCreateNestedManyWithoutCreatorInput
+    stargazing_spot_reviews?: stargazing_spot_reviewsUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type usersCreateOrConnectWithoutUser_settingsInput = {
@@ -83461,6 +87061,8 @@ export namespace Prisma {
     message_reactions?: message_reactionsUpdateManyWithoutUserNestedInput
     created_astronomy_events?: astronomy_eventsUpdateManyWithoutCreatorNestedInput
     event_reminders?: event_remindersUpdateManyWithoutUserNestedInput
+    created_stargazing_spots?: stargazing_spotsUpdateManyWithoutCreatorNestedInput
+    stargazing_spot_reviews?: stargazing_spot_reviewsUpdateManyWithoutUserNestedInput
   }
 
   export type usersUncheckedUpdateWithoutUser_settingsInput = {
@@ -83516,6 +87118,8 @@ export namespace Prisma {
     message_reactions?: message_reactionsUncheckedUpdateManyWithoutUserNestedInput
     created_astronomy_events?: astronomy_eventsUncheckedUpdateManyWithoutCreatorNestedInput
     event_reminders?: event_remindersUncheckedUpdateManyWithoutUserNestedInput
+    created_stargazing_spots?: stargazing_spotsUncheckedUpdateManyWithoutCreatorNestedInput
+    stargazing_spot_reviews?: stargazing_spot_reviewsUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type chatbot_messagesCreateWithoutChatbot_feedbackInput = {
@@ -83796,6 +87400,8 @@ export namespace Prisma {
     message_reactions?: message_reactionsCreateNestedManyWithoutUserInput
     created_astronomy_events?: astronomy_eventsCreateNestedManyWithoutCreatorInput
     event_reminders?: event_remindersCreateNestedManyWithoutUserInput
+    created_stargazing_spots?: stargazing_spotsCreateNestedManyWithoutCreatorInput
+    stargazing_spot_reviews?: stargazing_spot_reviewsCreateNestedManyWithoutUserInput
   }
 
   export type usersUncheckedCreateWithoutRole_upgrade_requests_role_upgrade_requests_reviewer_idTousersInput = {
@@ -83851,6 +87457,8 @@ export namespace Prisma {
     message_reactions?: message_reactionsUncheckedCreateNestedManyWithoutUserInput
     created_astronomy_events?: astronomy_eventsUncheckedCreateNestedManyWithoutCreatorInput
     event_reminders?: event_remindersUncheckedCreateNestedManyWithoutUserInput
+    created_stargazing_spots?: stargazing_spotsUncheckedCreateNestedManyWithoutCreatorInput
+    stargazing_spot_reviews?: stargazing_spot_reviewsUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type usersCreateOrConnectWithoutRole_upgrade_requests_role_upgrade_requests_reviewer_idTousersInput = {
@@ -83910,6 +87518,8 @@ export namespace Prisma {
     message_reactions?: message_reactionsCreateNestedManyWithoutUserInput
     created_astronomy_events?: astronomy_eventsCreateNestedManyWithoutCreatorInput
     event_reminders?: event_remindersCreateNestedManyWithoutUserInput
+    created_stargazing_spots?: stargazing_spotsCreateNestedManyWithoutCreatorInput
+    stargazing_spot_reviews?: stargazing_spot_reviewsCreateNestedManyWithoutUserInput
   }
 
   export type usersUncheckedCreateWithoutRole_upgrade_requests_role_upgrade_requests_user_idTousersInput = {
@@ -83965,6 +87575,8 @@ export namespace Prisma {
     message_reactions?: message_reactionsUncheckedCreateNestedManyWithoutUserInput
     created_astronomy_events?: astronomy_eventsUncheckedCreateNestedManyWithoutCreatorInput
     event_reminders?: event_remindersUncheckedCreateNestedManyWithoutUserInput
+    created_stargazing_spots?: stargazing_spotsUncheckedCreateNestedManyWithoutCreatorInput
+    stargazing_spot_reviews?: stargazing_spot_reviewsUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type usersCreateOrConnectWithoutRole_upgrade_requests_role_upgrade_requests_user_idTousersInput = {
@@ -84035,6 +87647,8 @@ export namespace Prisma {
     message_reactions?: message_reactionsUpdateManyWithoutUserNestedInput
     created_astronomy_events?: astronomy_eventsUpdateManyWithoutCreatorNestedInput
     event_reminders?: event_remindersUpdateManyWithoutUserNestedInput
+    created_stargazing_spots?: stargazing_spotsUpdateManyWithoutCreatorNestedInput
+    stargazing_spot_reviews?: stargazing_spot_reviewsUpdateManyWithoutUserNestedInput
   }
 
   export type usersUncheckedUpdateWithoutRole_upgrade_requests_role_upgrade_requests_reviewer_idTousersInput = {
@@ -84090,6 +87704,8 @@ export namespace Prisma {
     message_reactions?: message_reactionsUncheckedUpdateManyWithoutUserNestedInput
     created_astronomy_events?: astronomy_eventsUncheckedUpdateManyWithoutCreatorNestedInput
     event_reminders?: event_remindersUncheckedUpdateManyWithoutUserNestedInput
+    created_stargazing_spots?: stargazing_spotsUncheckedUpdateManyWithoutCreatorNestedInput
+    stargazing_spot_reviews?: stargazing_spot_reviewsUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type usersUpsertWithoutRole_upgrade_requests_role_upgrade_requests_user_idTousersInput = {
@@ -84155,6 +87771,8 @@ export namespace Prisma {
     message_reactions?: message_reactionsUpdateManyWithoutUserNestedInput
     created_astronomy_events?: astronomy_eventsUpdateManyWithoutCreatorNestedInput
     event_reminders?: event_remindersUpdateManyWithoutUserNestedInput
+    created_stargazing_spots?: stargazing_spotsUpdateManyWithoutCreatorNestedInput
+    stargazing_spot_reviews?: stargazing_spot_reviewsUpdateManyWithoutUserNestedInput
   }
 
   export type usersUncheckedUpdateWithoutRole_upgrade_requests_role_upgrade_requests_user_idTousersInput = {
@@ -84210,6 +87828,8 @@ export namespace Prisma {
     message_reactions?: message_reactionsUncheckedUpdateManyWithoutUserNestedInput
     created_astronomy_events?: astronomy_eventsUncheckedUpdateManyWithoutCreatorNestedInput
     event_reminders?: event_remindersUncheckedUpdateManyWithoutUserNestedInput
+    created_stargazing_spots?: stargazing_spotsUncheckedUpdateManyWithoutCreatorNestedInput
+    stargazing_spot_reviews?: stargazing_spot_reviewsUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type usersCreateWithoutGuide_applicationInput = {
@@ -84264,6 +87884,8 @@ export namespace Prisma {
     message_reactions?: message_reactionsCreateNestedManyWithoutUserInput
     created_astronomy_events?: astronomy_eventsCreateNestedManyWithoutCreatorInput
     event_reminders?: event_remindersCreateNestedManyWithoutUserInput
+    created_stargazing_spots?: stargazing_spotsCreateNestedManyWithoutCreatorInput
+    stargazing_spot_reviews?: stargazing_spot_reviewsCreateNestedManyWithoutUserInput
   }
 
   export type usersUncheckedCreateWithoutGuide_applicationInput = {
@@ -84319,6 +87941,8 @@ export namespace Prisma {
     message_reactions?: message_reactionsUncheckedCreateNestedManyWithoutUserInput
     created_astronomy_events?: astronomy_eventsUncheckedCreateNestedManyWithoutCreatorInput
     event_reminders?: event_remindersUncheckedCreateNestedManyWithoutUserInput
+    created_stargazing_spots?: stargazing_spotsUncheckedCreateNestedManyWithoutCreatorInput
+    stargazing_spot_reviews?: stargazing_spot_reviewsUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type usersCreateOrConnectWithoutGuide_applicationInput = {
@@ -84389,6 +88013,8 @@ export namespace Prisma {
     message_reactions?: message_reactionsUpdateManyWithoutUserNestedInput
     created_astronomy_events?: astronomy_eventsUpdateManyWithoutCreatorNestedInput
     event_reminders?: event_remindersUpdateManyWithoutUserNestedInput
+    created_stargazing_spots?: stargazing_spotsUpdateManyWithoutCreatorNestedInput
+    stargazing_spot_reviews?: stargazing_spot_reviewsUpdateManyWithoutUserNestedInput
   }
 
   export type usersUncheckedUpdateWithoutGuide_applicationInput = {
@@ -84444,6 +88070,8 @@ export namespace Prisma {
     message_reactions?: message_reactionsUncheckedUpdateManyWithoutUserNestedInput
     created_astronomy_events?: astronomy_eventsUncheckedUpdateManyWithoutCreatorNestedInput
     event_reminders?: event_remindersUncheckedUpdateManyWithoutUserNestedInput
+    created_stargazing_spots?: stargazing_spotsUncheckedUpdateManyWithoutCreatorNestedInput
+    stargazing_spot_reviews?: stargazing_spot_reviewsUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type usersCreateWithoutMentor_applicationInput = {
@@ -84498,6 +88126,8 @@ export namespace Prisma {
     message_reactions?: message_reactionsCreateNestedManyWithoutUserInput
     created_astronomy_events?: astronomy_eventsCreateNestedManyWithoutCreatorInput
     event_reminders?: event_remindersCreateNestedManyWithoutUserInput
+    created_stargazing_spots?: stargazing_spotsCreateNestedManyWithoutCreatorInput
+    stargazing_spot_reviews?: stargazing_spot_reviewsCreateNestedManyWithoutUserInput
   }
 
   export type usersUncheckedCreateWithoutMentor_applicationInput = {
@@ -84553,6 +88183,8 @@ export namespace Prisma {
     message_reactions?: message_reactionsUncheckedCreateNestedManyWithoutUserInput
     created_astronomy_events?: astronomy_eventsUncheckedCreateNestedManyWithoutCreatorInput
     event_reminders?: event_remindersUncheckedCreateNestedManyWithoutUserInput
+    created_stargazing_spots?: stargazing_spotsUncheckedCreateNestedManyWithoutCreatorInput
+    stargazing_spot_reviews?: stargazing_spot_reviewsUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type usersCreateOrConnectWithoutMentor_applicationInput = {
@@ -84623,6 +88255,8 @@ export namespace Prisma {
     message_reactions?: message_reactionsUpdateManyWithoutUserNestedInput
     created_astronomy_events?: astronomy_eventsUpdateManyWithoutCreatorNestedInput
     event_reminders?: event_remindersUpdateManyWithoutUserNestedInput
+    created_stargazing_spots?: stargazing_spotsUpdateManyWithoutCreatorNestedInput
+    stargazing_spot_reviews?: stargazing_spot_reviewsUpdateManyWithoutUserNestedInput
   }
 
   export type usersUncheckedUpdateWithoutMentor_applicationInput = {
@@ -84678,6 +88312,8 @@ export namespace Prisma {
     message_reactions?: message_reactionsUncheckedUpdateManyWithoutUserNestedInput
     created_astronomy_events?: astronomy_eventsUncheckedUpdateManyWithoutCreatorNestedInput
     event_reminders?: event_remindersUncheckedUpdateManyWithoutUserNestedInput
+    created_stargazing_spots?: stargazing_spotsUncheckedUpdateManyWithoutCreatorNestedInput
+    stargazing_spot_reviews?: stargazing_spot_reviewsUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type night_campsCreateWithoutNight_camp_volunteering_applicationsInput = {
@@ -84778,6 +88414,8 @@ export namespace Prisma {
     message_reactions?: message_reactionsCreateNestedManyWithoutUserInput
     created_astronomy_events?: astronomy_eventsCreateNestedManyWithoutCreatorInput
     event_reminders?: event_remindersCreateNestedManyWithoutUserInput
+    created_stargazing_spots?: stargazing_spotsCreateNestedManyWithoutCreatorInput
+    stargazing_spot_reviews?: stargazing_spot_reviewsCreateNestedManyWithoutUserInput
   }
 
   export type usersUncheckedCreateWithoutNight_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousersInput = {
@@ -84833,6 +88471,8 @@ export namespace Prisma {
     message_reactions?: message_reactionsUncheckedCreateNestedManyWithoutUserInput
     created_astronomy_events?: astronomy_eventsUncheckedCreateNestedManyWithoutCreatorInput
     event_reminders?: event_remindersUncheckedCreateNestedManyWithoutUserInput
+    created_stargazing_spots?: stargazing_spotsUncheckedCreateNestedManyWithoutCreatorInput
+    stargazing_spot_reviews?: stargazing_spot_reviewsUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type usersCreateOrConnectWithoutNight_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousersInput = {
@@ -84892,6 +88532,8 @@ export namespace Prisma {
     message_reactions?: message_reactionsCreateNestedManyWithoutUserInput
     created_astronomy_events?: astronomy_eventsCreateNestedManyWithoutCreatorInput
     event_reminders?: event_remindersCreateNestedManyWithoutUserInput
+    created_stargazing_spots?: stargazing_spotsCreateNestedManyWithoutCreatorInput
+    stargazing_spot_reviews?: stargazing_spot_reviewsCreateNestedManyWithoutUserInput
   }
 
   export type usersUncheckedCreateWithoutNight_camp_volunteering_applications_night_camp_volunteering_applications_user_idTousersInput = {
@@ -84947,6 +88589,8 @@ export namespace Prisma {
     message_reactions?: message_reactionsUncheckedCreateNestedManyWithoutUserInput
     created_astronomy_events?: astronomy_eventsUncheckedCreateNestedManyWithoutCreatorInput
     event_reminders?: event_remindersUncheckedCreateNestedManyWithoutUserInput
+    created_stargazing_spots?: stargazing_spotsUncheckedCreateNestedManyWithoutCreatorInput
+    stargazing_spot_reviews?: stargazing_spot_reviewsUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type usersCreateOrConnectWithoutNight_camp_volunteering_applications_night_camp_volunteering_applications_user_idTousersInput = {
@@ -85069,6 +88713,8 @@ export namespace Prisma {
     message_reactions?: message_reactionsUpdateManyWithoutUserNestedInput
     created_astronomy_events?: astronomy_eventsUpdateManyWithoutCreatorNestedInput
     event_reminders?: event_remindersUpdateManyWithoutUserNestedInput
+    created_stargazing_spots?: stargazing_spotsUpdateManyWithoutCreatorNestedInput
+    stargazing_spot_reviews?: stargazing_spot_reviewsUpdateManyWithoutUserNestedInput
   }
 
   export type usersUncheckedUpdateWithoutNight_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousersInput = {
@@ -85124,6 +88770,8 @@ export namespace Prisma {
     message_reactions?: message_reactionsUncheckedUpdateManyWithoutUserNestedInput
     created_astronomy_events?: astronomy_eventsUncheckedUpdateManyWithoutCreatorNestedInput
     event_reminders?: event_remindersUncheckedUpdateManyWithoutUserNestedInput
+    created_stargazing_spots?: stargazing_spotsUncheckedUpdateManyWithoutCreatorNestedInput
+    stargazing_spot_reviews?: stargazing_spot_reviewsUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type usersUpsertWithoutNight_camp_volunteering_applications_night_camp_volunteering_applications_user_idTousersInput = {
@@ -85189,6 +88837,8 @@ export namespace Prisma {
     message_reactions?: message_reactionsUpdateManyWithoutUserNestedInput
     created_astronomy_events?: astronomy_eventsUpdateManyWithoutCreatorNestedInput
     event_reminders?: event_remindersUpdateManyWithoutUserNestedInput
+    created_stargazing_spots?: stargazing_spotsUpdateManyWithoutCreatorNestedInput
+    stargazing_spot_reviews?: stargazing_spot_reviewsUpdateManyWithoutUserNestedInput
   }
 
   export type usersUncheckedUpdateWithoutNight_camp_volunteering_applications_night_camp_volunteering_applications_user_idTousersInput = {
@@ -85244,6 +88894,8 @@ export namespace Prisma {
     message_reactions?: message_reactionsUncheckedUpdateManyWithoutUserNestedInput
     created_astronomy_events?: astronomy_eventsUncheckedUpdateManyWithoutCreatorNestedInput
     event_reminders?: event_remindersUncheckedUpdateManyWithoutUserNestedInput
+    created_stargazing_spots?: stargazing_spotsUncheckedUpdateManyWithoutCreatorNestedInput
+    stargazing_spot_reviews?: stargazing_spot_reviewsUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type night_campsCreateWithoutNight_camp_registrationsInput = {
@@ -85344,6 +88996,8 @@ export namespace Prisma {
     message_reactions?: message_reactionsCreateNestedManyWithoutUserInput
     created_astronomy_events?: astronomy_eventsCreateNestedManyWithoutCreatorInput
     event_reminders?: event_remindersCreateNestedManyWithoutUserInput
+    created_stargazing_spots?: stargazing_spotsCreateNestedManyWithoutCreatorInput
+    stargazing_spot_reviews?: stargazing_spot_reviewsCreateNestedManyWithoutUserInput
   }
 
   export type usersUncheckedCreateWithoutNight_camp_registrationsInput = {
@@ -85399,6 +89053,8 @@ export namespace Prisma {
     message_reactions?: message_reactionsUncheckedCreateNestedManyWithoutUserInput
     created_astronomy_events?: astronomy_eventsUncheckedCreateNestedManyWithoutCreatorInput
     event_reminders?: event_remindersUncheckedCreateNestedManyWithoutUserInput
+    created_stargazing_spots?: stargazing_spotsUncheckedCreateNestedManyWithoutCreatorInput
+    stargazing_spot_reviews?: stargazing_spot_reviewsUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type usersCreateOrConnectWithoutNight_camp_registrationsInput = {
@@ -85521,6 +89177,8 @@ export namespace Prisma {
     message_reactions?: message_reactionsUpdateManyWithoutUserNestedInput
     created_astronomy_events?: astronomy_eventsUpdateManyWithoutCreatorNestedInput
     event_reminders?: event_remindersUpdateManyWithoutUserNestedInput
+    created_stargazing_spots?: stargazing_spotsUpdateManyWithoutCreatorNestedInput
+    stargazing_spot_reviews?: stargazing_spot_reviewsUpdateManyWithoutUserNestedInput
   }
 
   export type usersUncheckedUpdateWithoutNight_camp_registrationsInput = {
@@ -85576,6 +89234,8 @@ export namespace Prisma {
     message_reactions?: message_reactionsUncheckedUpdateManyWithoutUserNestedInput
     created_astronomy_events?: astronomy_eventsUncheckedUpdateManyWithoutCreatorNestedInput
     event_reminders?: event_remindersUncheckedUpdateManyWithoutUserNestedInput
+    created_stargazing_spots?: stargazing_spotsUncheckedUpdateManyWithoutCreatorNestedInput
+    stargazing_spot_reviews?: stargazing_spot_reviewsUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type usersCreateWithoutInfluencer_applicationInput = {
@@ -85630,6 +89290,8 @@ export namespace Prisma {
     message_reactions?: message_reactionsCreateNestedManyWithoutUserInput
     created_astronomy_events?: astronomy_eventsCreateNestedManyWithoutCreatorInput
     event_reminders?: event_remindersCreateNestedManyWithoutUserInput
+    created_stargazing_spots?: stargazing_spotsCreateNestedManyWithoutCreatorInput
+    stargazing_spot_reviews?: stargazing_spot_reviewsCreateNestedManyWithoutUserInput
   }
 
   export type usersUncheckedCreateWithoutInfluencer_applicationInput = {
@@ -85685,6 +89347,8 @@ export namespace Prisma {
     message_reactions?: message_reactionsUncheckedCreateNestedManyWithoutUserInput
     created_astronomy_events?: astronomy_eventsUncheckedCreateNestedManyWithoutCreatorInput
     event_reminders?: event_remindersUncheckedCreateNestedManyWithoutUserInput
+    created_stargazing_spots?: stargazing_spotsUncheckedCreateNestedManyWithoutCreatorInput
+    stargazing_spot_reviews?: stargazing_spot_reviewsUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type usersCreateOrConnectWithoutInfluencer_applicationInput = {
@@ -85755,6 +89419,8 @@ export namespace Prisma {
     message_reactions?: message_reactionsUpdateManyWithoutUserNestedInput
     created_astronomy_events?: astronomy_eventsUpdateManyWithoutCreatorNestedInput
     event_reminders?: event_remindersUpdateManyWithoutUserNestedInput
+    created_stargazing_spots?: stargazing_spotsUpdateManyWithoutCreatorNestedInput
+    stargazing_spot_reviews?: stargazing_spot_reviewsUpdateManyWithoutUserNestedInput
   }
 
   export type usersUncheckedUpdateWithoutInfluencer_applicationInput = {
@@ -85810,6 +89476,8 @@ export namespace Prisma {
     message_reactions?: message_reactionsUncheckedUpdateManyWithoutUserNestedInput
     created_astronomy_events?: astronomy_eventsUncheckedUpdateManyWithoutCreatorNestedInput
     event_reminders?: event_remindersUncheckedUpdateManyWithoutUserNestedInput
+    created_stargazing_spots?: stargazing_spotsUncheckedUpdateManyWithoutCreatorNestedInput
+    stargazing_spot_reviews?: stargazing_spot_reviewsUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type usersCreateWithoutMedia_uploadsInput = {
@@ -85864,6 +89532,8 @@ export namespace Prisma {
     message_reactions?: message_reactionsCreateNestedManyWithoutUserInput
     created_astronomy_events?: astronomy_eventsCreateNestedManyWithoutCreatorInput
     event_reminders?: event_remindersCreateNestedManyWithoutUserInput
+    created_stargazing_spots?: stargazing_spotsCreateNestedManyWithoutCreatorInput
+    stargazing_spot_reviews?: stargazing_spot_reviewsCreateNestedManyWithoutUserInput
   }
 
   export type usersUncheckedCreateWithoutMedia_uploadsInput = {
@@ -85919,6 +89589,8 @@ export namespace Prisma {
     message_reactions?: message_reactionsUncheckedCreateNestedManyWithoutUserInput
     created_astronomy_events?: astronomy_eventsUncheckedCreateNestedManyWithoutCreatorInput
     event_reminders?: event_remindersUncheckedCreateNestedManyWithoutUserInput
+    created_stargazing_spots?: stargazing_spotsUncheckedCreateNestedManyWithoutCreatorInput
+    stargazing_spot_reviews?: stargazing_spot_reviewsUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type usersCreateOrConnectWithoutMedia_uploadsInput = {
@@ -85989,6 +89661,8 @@ export namespace Prisma {
     message_reactions?: message_reactionsUpdateManyWithoutUserNestedInput
     created_astronomy_events?: astronomy_eventsUpdateManyWithoutCreatorNestedInput
     event_reminders?: event_remindersUpdateManyWithoutUserNestedInput
+    created_stargazing_spots?: stargazing_spotsUpdateManyWithoutCreatorNestedInput
+    stargazing_spot_reviews?: stargazing_spot_reviewsUpdateManyWithoutUserNestedInput
   }
 
   export type usersUncheckedUpdateWithoutMedia_uploadsInput = {
@@ -86044,6 +89718,8 @@ export namespace Prisma {
     message_reactions?: message_reactionsUncheckedUpdateManyWithoutUserNestedInput
     created_astronomy_events?: astronomy_eventsUncheckedUpdateManyWithoutCreatorNestedInput
     event_reminders?: event_remindersUncheckedUpdateManyWithoutUserNestedInput
+    created_stargazing_spots?: stargazing_spotsUncheckedUpdateManyWithoutCreatorNestedInput
+    stargazing_spot_reviews?: stargazing_spot_reviewsUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type QuizzesCreateWithoutQuizParticipantsInput = {
@@ -86136,6 +89812,8 @@ export namespace Prisma {
     message_reactions?: message_reactionsCreateNestedManyWithoutUserInput
     created_astronomy_events?: astronomy_eventsCreateNestedManyWithoutCreatorInput
     event_reminders?: event_remindersCreateNestedManyWithoutUserInput
+    created_stargazing_spots?: stargazing_spotsCreateNestedManyWithoutCreatorInput
+    stargazing_spot_reviews?: stargazing_spot_reviewsCreateNestedManyWithoutUserInput
   }
 
   export type usersUncheckedCreateWithoutQuizParticipantsInput = {
@@ -86191,6 +89869,8 @@ export namespace Prisma {
     message_reactions?: message_reactionsUncheckedCreateNestedManyWithoutUserInput
     created_astronomy_events?: astronomy_eventsUncheckedCreateNestedManyWithoutCreatorInput
     event_reminders?: event_remindersUncheckedCreateNestedManyWithoutUserInput
+    created_stargazing_spots?: stargazing_spotsUncheckedCreateNestedManyWithoutCreatorInput
+    stargazing_spot_reviews?: stargazing_spot_reviewsUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type usersCreateOrConnectWithoutQuizParticipantsInput = {
@@ -86305,6 +89985,8 @@ export namespace Prisma {
     message_reactions?: message_reactionsUpdateManyWithoutUserNestedInput
     created_astronomy_events?: astronomy_eventsUpdateManyWithoutCreatorNestedInput
     event_reminders?: event_remindersUpdateManyWithoutUserNestedInput
+    created_stargazing_spots?: stargazing_spotsUpdateManyWithoutCreatorNestedInput
+    stargazing_spot_reviews?: stargazing_spot_reviewsUpdateManyWithoutUserNestedInput
   }
 
   export type usersUncheckedUpdateWithoutQuizParticipantsInput = {
@@ -86360,6 +90042,8 @@ export namespace Prisma {
     message_reactions?: message_reactionsUncheckedUpdateManyWithoutUserNestedInput
     created_astronomy_events?: astronomy_eventsUncheckedUpdateManyWithoutCreatorNestedInput
     event_reminders?: event_remindersUncheckedUpdateManyWithoutUserNestedInput
+    created_stargazing_spots?: stargazing_spotsUncheckedUpdateManyWithoutCreatorNestedInput
+    stargazing_spot_reviews?: stargazing_spot_reviewsUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type QuizzesCreateWithoutQuizQuestionInput = {
@@ -86544,6 +90228,8 @@ export namespace Prisma {
     message_reactions?: message_reactionsCreateNestedManyWithoutUserInput
     created_astronomy_events?: astronomy_eventsCreateNestedManyWithoutCreatorInput
     event_reminders?: event_remindersCreateNestedManyWithoutUserInput
+    created_stargazing_spots?: stargazing_spotsCreateNestedManyWithoutCreatorInput
+    stargazing_spot_reviews?: stargazing_spot_reviewsCreateNestedManyWithoutUserInput
   }
 
   export type usersUncheckedCreateWithoutQuizzesInput = {
@@ -86599,6 +90285,8 @@ export namespace Prisma {
     message_reactions?: message_reactionsUncheckedCreateNestedManyWithoutUserInput
     created_astronomy_events?: astronomy_eventsUncheckedCreateNestedManyWithoutCreatorInput
     event_reminders?: event_remindersUncheckedCreateNestedManyWithoutUserInput
+    created_stargazing_spots?: stargazing_spotsUncheckedCreateNestedManyWithoutCreatorInput
+    stargazing_spot_reviews?: stargazing_spot_reviewsUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type usersCreateOrConnectWithoutQuizzesInput = {
@@ -86713,6 +90401,8 @@ export namespace Prisma {
     message_reactions?: message_reactionsUpdateManyWithoutUserNestedInput
     created_astronomy_events?: astronomy_eventsUpdateManyWithoutCreatorNestedInput
     event_reminders?: event_remindersUpdateManyWithoutUserNestedInput
+    created_stargazing_spots?: stargazing_spotsUpdateManyWithoutCreatorNestedInput
+    stargazing_spot_reviews?: stargazing_spot_reviewsUpdateManyWithoutUserNestedInput
   }
 
   export type usersUncheckedUpdateWithoutQuizzesInput = {
@@ -86768,6 +90458,8 @@ export namespace Prisma {
     message_reactions?: message_reactionsUncheckedUpdateManyWithoutUserNestedInput
     created_astronomy_events?: astronomy_eventsUncheckedUpdateManyWithoutCreatorNestedInput
     event_reminders?: event_remindersUncheckedUpdateManyWithoutUserNestedInput
+    created_stargazing_spots?: stargazing_spotsUncheckedUpdateManyWithoutCreatorNestedInput
+    stargazing_spot_reviews?: stargazing_spot_reviewsUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type usersCreateWithoutSpace_news_publishedInput = {
@@ -86822,6 +90514,8 @@ export namespace Prisma {
     message_reactions?: message_reactionsCreateNestedManyWithoutUserInput
     created_astronomy_events?: astronomy_eventsCreateNestedManyWithoutCreatorInput
     event_reminders?: event_remindersCreateNestedManyWithoutUserInput
+    created_stargazing_spots?: stargazing_spotsCreateNestedManyWithoutCreatorInput
+    stargazing_spot_reviews?: stargazing_spot_reviewsCreateNestedManyWithoutUserInput
   }
 
   export type usersUncheckedCreateWithoutSpace_news_publishedInput = {
@@ -86877,6 +90571,8 @@ export namespace Prisma {
     message_reactions?: message_reactionsUncheckedCreateNestedManyWithoutUserInput
     created_astronomy_events?: astronomy_eventsUncheckedCreateNestedManyWithoutCreatorInput
     event_reminders?: event_remindersUncheckedCreateNestedManyWithoutUserInput
+    created_stargazing_spots?: stargazing_spotsUncheckedCreateNestedManyWithoutCreatorInput
+    stargazing_spot_reviews?: stargazing_spot_reviewsUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type usersCreateOrConnectWithoutSpace_news_publishedInput = {
@@ -86999,6 +90695,8 @@ export namespace Prisma {
     message_reactions?: message_reactionsUpdateManyWithoutUserNestedInput
     created_astronomy_events?: astronomy_eventsUpdateManyWithoutCreatorNestedInput
     event_reminders?: event_remindersUpdateManyWithoutUserNestedInput
+    created_stargazing_spots?: stargazing_spotsUpdateManyWithoutCreatorNestedInput
+    stargazing_spot_reviews?: stargazing_spot_reviewsUpdateManyWithoutUserNestedInput
   }
 
   export type usersUncheckedUpdateWithoutSpace_news_publishedInput = {
@@ -87054,6 +90752,8 @@ export namespace Prisma {
     message_reactions?: message_reactionsUncheckedUpdateManyWithoutUserNestedInput
     created_astronomy_events?: astronomy_eventsUncheckedUpdateManyWithoutCreatorNestedInput
     event_reminders?: event_remindersUncheckedUpdateManyWithoutUserNestedInput
+    created_stargazing_spots?: stargazing_spotsUncheckedUpdateManyWithoutCreatorNestedInput
+    stargazing_spot_reviews?: stargazing_spot_reviewsUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type space_news_likesUpsertWithWhereUniqueWithoutSpace_newsInput = {
@@ -87174,6 +90874,8 @@ export namespace Prisma {
     message_reactions?: message_reactionsCreateNestedManyWithoutUserInput
     created_astronomy_events?: astronomy_eventsCreateNestedManyWithoutCreatorInput
     event_reminders?: event_remindersCreateNestedManyWithoutUserInput
+    created_stargazing_spots?: stargazing_spotsCreateNestedManyWithoutCreatorInput
+    stargazing_spot_reviews?: stargazing_spot_reviewsCreateNestedManyWithoutUserInput
   }
 
   export type usersUncheckedCreateWithoutSpace_news_likesInput = {
@@ -87229,6 +90931,8 @@ export namespace Prisma {
     message_reactions?: message_reactionsUncheckedCreateNestedManyWithoutUserInput
     created_astronomy_events?: astronomy_eventsUncheckedCreateNestedManyWithoutCreatorInput
     event_reminders?: event_remindersUncheckedCreateNestedManyWithoutUserInput
+    created_stargazing_spots?: stargazing_spotsUncheckedCreateNestedManyWithoutCreatorInput
+    stargazing_spot_reviews?: stargazing_spot_reviewsUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type usersCreateOrConnectWithoutSpace_news_likesInput = {
@@ -87339,6 +91043,8 @@ export namespace Prisma {
     message_reactions?: message_reactionsUpdateManyWithoutUserNestedInput
     created_astronomy_events?: astronomy_eventsUpdateManyWithoutCreatorNestedInput
     event_reminders?: event_remindersUpdateManyWithoutUserNestedInput
+    created_stargazing_spots?: stargazing_spotsUpdateManyWithoutCreatorNestedInput
+    stargazing_spot_reviews?: stargazing_spot_reviewsUpdateManyWithoutUserNestedInput
   }
 
   export type usersUncheckedUpdateWithoutSpace_news_likesInput = {
@@ -87394,6 +91100,8 @@ export namespace Prisma {
     message_reactions?: message_reactionsUncheckedUpdateManyWithoutUserNestedInput
     created_astronomy_events?: astronomy_eventsUncheckedUpdateManyWithoutCreatorNestedInput
     event_reminders?: event_remindersUncheckedUpdateManyWithoutUserNestedInput
+    created_stargazing_spots?: stargazing_spotsUncheckedUpdateManyWithoutCreatorNestedInput
+    stargazing_spot_reviews?: stargazing_spot_reviewsUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type space_newsCreateWithoutSpace_news_commentsInput = {
@@ -87482,6 +91190,8 @@ export namespace Prisma {
     message_reactions?: message_reactionsCreateNestedManyWithoutUserInput
     created_astronomy_events?: astronomy_eventsCreateNestedManyWithoutCreatorInput
     event_reminders?: event_remindersCreateNestedManyWithoutUserInput
+    created_stargazing_spots?: stargazing_spotsCreateNestedManyWithoutCreatorInput
+    stargazing_spot_reviews?: stargazing_spot_reviewsCreateNestedManyWithoutUserInput
   }
 
   export type usersUncheckedCreateWithoutSpace_news_commentsInput = {
@@ -87537,6 +91247,8 @@ export namespace Prisma {
     message_reactions?: message_reactionsUncheckedCreateNestedManyWithoutUserInput
     created_astronomy_events?: astronomy_eventsUncheckedCreateNestedManyWithoutCreatorInput
     event_reminders?: event_remindersUncheckedCreateNestedManyWithoutUserInput
+    created_stargazing_spots?: stargazing_spotsUncheckedCreateNestedManyWithoutCreatorInput
+    stargazing_spot_reviews?: stargazing_spot_reviewsUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type usersCreateOrConnectWithoutSpace_news_commentsInput = {
@@ -87704,6 +91416,8 @@ export namespace Prisma {
     message_reactions?: message_reactionsUpdateManyWithoutUserNestedInput
     created_astronomy_events?: astronomy_eventsUpdateManyWithoutCreatorNestedInput
     event_reminders?: event_remindersUpdateManyWithoutUserNestedInput
+    created_stargazing_spots?: stargazing_spotsUpdateManyWithoutCreatorNestedInput
+    stargazing_spot_reviews?: stargazing_spot_reviewsUpdateManyWithoutUserNestedInput
   }
 
   export type usersUncheckedUpdateWithoutSpace_news_commentsInput = {
@@ -87759,6 +91473,8 @@ export namespace Prisma {
     message_reactions?: message_reactionsUncheckedUpdateManyWithoutUserNestedInput
     created_astronomy_events?: astronomy_eventsUncheckedUpdateManyWithoutCreatorNestedInput
     event_reminders?: event_remindersUncheckedUpdateManyWithoutUserNestedInput
+    created_stargazing_spots?: stargazing_spotsUncheckedUpdateManyWithoutCreatorNestedInput
+    stargazing_spot_reviews?: stargazing_spot_reviewsUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type space_news_commentsUpsertWithoutRepliesInput = {
@@ -87861,6 +91577,8 @@ export namespace Prisma {
     message_reactions?: message_reactionsCreateNestedManyWithoutUserInput
     created_astronomy_events?: astronomy_eventsCreateNestedManyWithoutCreatorInput
     event_reminders?: event_remindersCreateNestedManyWithoutUserInput
+    created_stargazing_spots?: stargazing_spotsCreateNestedManyWithoutCreatorInput
+    stargazing_spot_reviews?: stargazing_spot_reviewsCreateNestedManyWithoutUserInput
   }
 
   export type usersUncheckedCreateWithoutAuthored_discussionsInput = {
@@ -87916,6 +91634,8 @@ export namespace Prisma {
     message_reactions?: message_reactionsUncheckedCreateNestedManyWithoutUserInput
     created_astronomy_events?: astronomy_eventsUncheckedCreateNestedManyWithoutCreatorInput
     event_reminders?: event_remindersUncheckedCreateNestedManyWithoutUserInput
+    created_stargazing_spots?: stargazing_spotsUncheckedCreateNestedManyWithoutCreatorInput
+    stargazing_spot_reviews?: stargazing_spot_reviewsUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type usersCreateOrConnectWithoutAuthored_discussionsInput = {
@@ -88040,6 +91760,8 @@ export namespace Prisma {
     message_reactions?: message_reactionsUpdateManyWithoutUserNestedInput
     created_astronomy_events?: astronomy_eventsUpdateManyWithoutCreatorNestedInput
     event_reminders?: event_remindersUpdateManyWithoutUserNestedInput
+    created_stargazing_spots?: stargazing_spotsUpdateManyWithoutCreatorNestedInput
+    stargazing_spot_reviews?: stargazing_spot_reviewsUpdateManyWithoutUserNestedInput
   }
 
   export type usersUncheckedUpdateWithoutAuthored_discussionsInput = {
@@ -88095,6 +91817,8 @@ export namespace Prisma {
     message_reactions?: message_reactionsUncheckedUpdateManyWithoutUserNestedInput
     created_astronomy_events?: astronomy_eventsUncheckedUpdateManyWithoutCreatorNestedInput
     event_reminders?: event_remindersUncheckedUpdateManyWithoutUserNestedInput
+    created_stargazing_spots?: stargazing_spotsUncheckedUpdateManyWithoutCreatorNestedInput
+    stargazing_spot_reviews?: stargazing_spot_reviewsUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type space_discussion_commentsUpsertWithWhereUniqueWithoutDiscussionInput = {
@@ -88217,6 +91941,8 @@ export namespace Prisma {
     message_reactions?: message_reactionsCreateNestedManyWithoutUserInput
     created_astronomy_events?: astronomy_eventsCreateNestedManyWithoutCreatorInput
     event_reminders?: event_remindersCreateNestedManyWithoutUserInput
+    created_stargazing_spots?: stargazing_spotsCreateNestedManyWithoutCreatorInput
+    stargazing_spot_reviews?: stargazing_spot_reviewsCreateNestedManyWithoutUserInput
   }
 
   export type usersUncheckedCreateWithoutDiscussion_commentsInput = {
@@ -88272,6 +91998,8 @@ export namespace Prisma {
     message_reactions?: message_reactionsUncheckedCreateNestedManyWithoutUserInput
     created_astronomy_events?: astronomy_eventsUncheckedCreateNestedManyWithoutCreatorInput
     event_reminders?: event_remindersUncheckedCreateNestedManyWithoutUserInput
+    created_stargazing_spots?: stargazing_spotsUncheckedCreateNestedManyWithoutCreatorInput
+    stargazing_spot_reviews?: stargazing_spot_reviewsUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type usersCreateOrConnectWithoutDiscussion_commentsInput = {
@@ -88466,6 +92194,8 @@ export namespace Prisma {
     message_reactions?: message_reactionsUpdateManyWithoutUserNestedInput
     created_astronomy_events?: astronomy_eventsUpdateManyWithoutCreatorNestedInput
     event_reminders?: event_remindersUpdateManyWithoutUserNestedInput
+    created_stargazing_spots?: stargazing_spotsUpdateManyWithoutCreatorNestedInput
+    stargazing_spot_reviews?: stargazing_spot_reviewsUpdateManyWithoutUserNestedInput
   }
 
   export type usersUncheckedUpdateWithoutDiscussion_commentsInput = {
@@ -88521,6 +92251,8 @@ export namespace Prisma {
     message_reactions?: message_reactionsUncheckedUpdateManyWithoutUserNestedInput
     created_astronomy_events?: astronomy_eventsUncheckedUpdateManyWithoutCreatorNestedInput
     event_reminders?: event_remindersUncheckedUpdateManyWithoutUserNestedInput
+    created_stargazing_spots?: stargazing_spotsUncheckedUpdateManyWithoutCreatorNestedInput
+    stargazing_spot_reviews?: stargazing_spot_reviewsUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type space_discussion_commentsUpsertWithoutRepliesInput = {
@@ -88677,6 +92409,8 @@ export namespace Prisma {
     message_reactions?: message_reactionsCreateNestedManyWithoutUserInput
     created_astronomy_events?: astronomy_eventsCreateNestedManyWithoutCreatorInput
     event_reminders?: event_remindersCreateNestedManyWithoutUserInput
+    created_stargazing_spots?: stargazing_spotsCreateNestedManyWithoutCreatorInput
+    stargazing_spot_reviews?: stargazing_spot_reviewsCreateNestedManyWithoutUserInput
   }
 
   export type usersUncheckedCreateWithoutDiscussion_likesInput = {
@@ -88732,6 +92466,8 @@ export namespace Prisma {
     message_reactions?: message_reactionsUncheckedCreateNestedManyWithoutUserInput
     created_astronomy_events?: astronomy_eventsUncheckedCreateNestedManyWithoutCreatorInput
     event_reminders?: event_remindersUncheckedCreateNestedManyWithoutUserInput
+    created_stargazing_spots?: stargazing_spotsUncheckedCreateNestedManyWithoutCreatorInput
+    stargazing_spot_reviews?: stargazing_spot_reviewsUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type usersCreateOrConnectWithoutDiscussion_likesInput = {
@@ -88844,6 +92580,8 @@ export namespace Prisma {
     message_reactions?: message_reactionsUpdateManyWithoutUserNestedInput
     created_astronomy_events?: astronomy_eventsUpdateManyWithoutCreatorNestedInput
     event_reminders?: event_remindersUpdateManyWithoutUserNestedInput
+    created_stargazing_spots?: stargazing_spotsUpdateManyWithoutCreatorNestedInput
+    stargazing_spot_reviews?: stargazing_spot_reviewsUpdateManyWithoutUserNestedInput
   }
 
   export type usersUncheckedUpdateWithoutDiscussion_likesInput = {
@@ -88899,6 +92637,8 @@ export namespace Prisma {
     message_reactions?: message_reactionsUncheckedUpdateManyWithoutUserNestedInput
     created_astronomy_events?: astronomy_eventsUncheckedUpdateManyWithoutCreatorNestedInput
     event_reminders?: event_remindersUncheckedUpdateManyWithoutUserNestedInput
+    created_stargazing_spots?: stargazing_spotsUncheckedUpdateManyWithoutCreatorNestedInput
+    stargazing_spot_reviews?: stargazing_spot_reviewsUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type space_discussion_commentsCreateWithoutLikesInput = {
@@ -88981,6 +92721,8 @@ export namespace Prisma {
     message_reactions?: message_reactionsCreateNestedManyWithoutUserInput
     created_astronomy_events?: astronomy_eventsCreateNestedManyWithoutCreatorInput
     event_reminders?: event_remindersCreateNestedManyWithoutUserInput
+    created_stargazing_spots?: stargazing_spotsCreateNestedManyWithoutCreatorInput
+    stargazing_spot_reviews?: stargazing_spot_reviewsCreateNestedManyWithoutUserInput
   }
 
   export type usersUncheckedCreateWithoutDiscussion_comment_likesInput = {
@@ -89036,6 +92778,8 @@ export namespace Prisma {
     message_reactions?: message_reactionsUncheckedCreateNestedManyWithoutUserInput
     created_astronomy_events?: astronomy_eventsUncheckedCreateNestedManyWithoutCreatorInput
     event_reminders?: event_remindersUncheckedCreateNestedManyWithoutUserInput
+    created_stargazing_spots?: stargazing_spotsUncheckedCreateNestedManyWithoutCreatorInput
+    stargazing_spot_reviews?: stargazing_spot_reviewsUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type usersCreateOrConnectWithoutDiscussion_comment_likesInput = {
@@ -89140,6 +92884,8 @@ export namespace Prisma {
     message_reactions?: message_reactionsUpdateManyWithoutUserNestedInput
     created_astronomy_events?: astronomy_eventsUpdateManyWithoutCreatorNestedInput
     event_reminders?: event_remindersUpdateManyWithoutUserNestedInput
+    created_stargazing_spots?: stargazing_spotsUpdateManyWithoutCreatorNestedInput
+    stargazing_spot_reviews?: stargazing_spot_reviewsUpdateManyWithoutUserNestedInput
   }
 
   export type usersUncheckedUpdateWithoutDiscussion_comment_likesInput = {
@@ -89195,6 +92941,8 @@ export namespace Prisma {
     message_reactions?: message_reactionsUncheckedUpdateManyWithoutUserNestedInput
     created_astronomy_events?: astronomy_eventsUncheckedUpdateManyWithoutCreatorNestedInput
     event_reminders?: event_remindersUncheckedUpdateManyWithoutUserNestedInput
+    created_stargazing_spots?: stargazing_spotsUncheckedUpdateManyWithoutCreatorNestedInput
+    stargazing_spot_reviews?: stargazing_spot_reviewsUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type usersCreateWithoutCreated_astronomy_eventsInput = {
@@ -89249,6 +92997,8 @@ export namespace Prisma {
     chat_messages?: chat_messagesCreateNestedManyWithoutUserInput
     message_reactions?: message_reactionsCreateNestedManyWithoutUserInput
     event_reminders?: event_remindersCreateNestedManyWithoutUserInput
+    created_stargazing_spots?: stargazing_spotsCreateNestedManyWithoutCreatorInput
+    stargazing_spot_reviews?: stargazing_spot_reviewsCreateNestedManyWithoutUserInput
   }
 
   export type usersUncheckedCreateWithoutCreated_astronomy_eventsInput = {
@@ -89304,6 +93054,8 @@ export namespace Prisma {
     chat_messages?: chat_messagesUncheckedCreateNestedManyWithoutUserInput
     message_reactions?: message_reactionsUncheckedCreateNestedManyWithoutUserInput
     event_reminders?: event_remindersUncheckedCreateNestedManyWithoutUserInput
+    created_stargazing_spots?: stargazing_spotsUncheckedCreateNestedManyWithoutCreatorInput
+    stargazing_spot_reviews?: stargazing_spot_reviewsUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type usersCreateOrConnectWithoutCreated_astronomy_eventsInput = {
@@ -89403,6 +93155,8 @@ export namespace Prisma {
     chat_messages?: chat_messagesUpdateManyWithoutUserNestedInput
     message_reactions?: message_reactionsUpdateManyWithoutUserNestedInput
     event_reminders?: event_remindersUpdateManyWithoutUserNestedInput
+    created_stargazing_spots?: stargazing_spotsUpdateManyWithoutCreatorNestedInput
+    stargazing_spot_reviews?: stargazing_spot_reviewsUpdateManyWithoutUserNestedInput
   }
 
   export type usersUncheckedUpdateWithoutCreated_astronomy_eventsInput = {
@@ -89458,6 +93212,8 @@ export namespace Prisma {
     chat_messages?: chat_messagesUncheckedUpdateManyWithoutUserNestedInput
     message_reactions?: message_reactionsUncheckedUpdateManyWithoutUserNestedInput
     event_reminders?: event_remindersUncheckedUpdateManyWithoutUserNestedInput
+    created_stargazing_spots?: stargazing_spotsUncheckedUpdateManyWithoutCreatorNestedInput
+    stargazing_spot_reviews?: stargazing_spot_reviewsUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type event_remindersUpsertWithWhereUniqueWithoutEventInput = {
@@ -89528,6 +93284,8 @@ export namespace Prisma {
     chat_messages?: chat_messagesCreateNestedManyWithoutUserInput
     message_reactions?: message_reactionsCreateNestedManyWithoutUserInput
     created_astronomy_events?: astronomy_eventsCreateNestedManyWithoutCreatorInput
+    created_stargazing_spots?: stargazing_spotsCreateNestedManyWithoutCreatorInput
+    stargazing_spot_reviews?: stargazing_spot_reviewsCreateNestedManyWithoutUserInput
   }
 
   export type usersUncheckedCreateWithoutEvent_remindersInput = {
@@ -89583,6 +93341,8 @@ export namespace Prisma {
     chat_messages?: chat_messagesUncheckedCreateNestedManyWithoutUserInput
     message_reactions?: message_reactionsUncheckedCreateNestedManyWithoutUserInput
     created_astronomy_events?: astronomy_eventsUncheckedCreateNestedManyWithoutCreatorInput
+    created_stargazing_spots?: stargazing_spotsUncheckedCreateNestedManyWithoutCreatorInput
+    stargazing_spot_reviews?: stargazing_spot_reviewsUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type usersCreateOrConnectWithoutEvent_remindersInput = {
@@ -89691,6 +93451,8 @@ export namespace Prisma {
     chat_messages?: chat_messagesUpdateManyWithoutUserNestedInput
     message_reactions?: message_reactionsUpdateManyWithoutUserNestedInput
     created_astronomy_events?: astronomy_eventsUpdateManyWithoutCreatorNestedInput
+    created_stargazing_spots?: stargazing_spotsUpdateManyWithoutCreatorNestedInput
+    stargazing_spot_reviews?: stargazing_spot_reviewsUpdateManyWithoutUserNestedInput
   }
 
   export type usersUncheckedUpdateWithoutEvent_remindersInput = {
@@ -89746,6 +93508,8 @@ export namespace Prisma {
     chat_messages?: chat_messagesUncheckedUpdateManyWithoutUserNestedInput
     message_reactions?: message_reactionsUncheckedUpdateManyWithoutUserNestedInput
     created_astronomy_events?: astronomy_eventsUncheckedUpdateManyWithoutCreatorNestedInput
+    created_stargazing_spots?: stargazing_spotsUncheckedUpdateManyWithoutCreatorNestedInput
+    stargazing_spot_reviews?: stargazing_spot_reviewsUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type astronomy_eventsUpsertWithoutRemindersInput = {
@@ -89790,6 +93554,607 @@ export namespace Prisma {
     created_by?: IntFieldUpdateOperationsInput | number
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type usersCreateWithoutCreated_stargazing_spotsInput = {
+    firebase_uid: string
+    email: string
+    role?: $Enums.user_role | null
+    first_name?: string | null
+    last_name?: string | null
+    is_active?: boolean | null
+    last_login?: Date | string | null
+    created_at?: Date | string | null
+    updated_at?: Date | string | null
+    display_name?: string | null
+    profile_data?: NullableJsonNullValueInput | InputJsonValue
+    role_specific_data?: NullableJsonNullValueInput | InputJsonValue
+    subscription_plan?: $Enums.subscription_plan | null
+    subscription_status?: $Enums.subscription_status | null
+    subscription_start_date?: Date | string | null
+    subscription_end_date?: Date | string | null
+    auto_renew?: boolean | null
+    chatbot_questions_used?: number | null
+    chatbot_questions_reset_date?: Date | string | null
+    QuizParticipants?: QuizParticipantsCreateNestedManyWithoutUsersInput
+    Quizzes?: QuizzesCreateNestedManyWithoutUsersInput
+    blog_comments?: blog_commentsCreateNestedManyWithoutUsersInput
+    blog_likes?: blog_likesCreateNestedManyWithoutUsersInput
+    blog_views?: blog_viewsCreateNestedManyWithoutUsersInput
+    blogs?: blogsCreateNestedManyWithoutUsersInput
+    chatbot_sessions?: chatbot_sessionsCreateNestedManyWithoutUsersInput
+    chatbot_usage?: chatbot_usageCreateNestedManyWithoutUsersInput
+    guide_application?: guide_applicationCreateNestedManyWithoutUsersInput
+    influencer_application?: influencer_applicationCreateNestedManyWithoutUsersInput
+    media_uploads?: media_uploadsCreateNestedManyWithoutUserInput
+    mentor_application?: mentor_applicationCreateNestedManyWithoutUsersInput
+    night_camp_registrations?: night_camp_registrationsCreateNestedManyWithoutUsersInput
+    night_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousers?: night_camp_volunteering_applicationsCreateNestedManyWithoutUsers_night_camp_volunteering_applications_reviewed_byTousersInput
+    night_camp_volunteering_applications_night_camp_volunteering_applications_user_idTousers?: night_camp_volunteering_applicationsCreateNestedManyWithoutUsers_night_camp_volunteering_applications_user_idTousersInput
+    payments?: paymentsCreateNestedManyWithoutUsersInput
+    role_upgrade_requests_role_upgrade_requests_reviewer_idTousers?: role_upgrade_requestsCreateNestedManyWithoutUsers_role_upgrade_requests_reviewer_idTousersInput
+    role_upgrade_requests_role_upgrade_requests_user_idTousers?: role_upgrade_requestsCreateNestedManyWithoutUsers_role_upgrade_requests_user_idTousersInput
+    space_news_published?: space_newsCreateNestedManyWithoutPublisherInput
+    space_news_likes?: space_news_likesCreateNestedManyWithoutUserInput
+    space_news_comments?: space_news_commentsCreateNestedManyWithoutUserInput
+    authored_discussions?: space_discussionsCreateNestedManyWithoutAuthorInput
+    discussion_comments?: space_discussion_commentsCreateNestedManyWithoutUserInput
+    discussion_likes?: space_discussion_likesCreateNestedManyWithoutUserInput
+    discussion_comment_likes?: space_discussion_comment_likesCreateNestedManyWithoutUserInput
+    subscriptions?: subscriptionsCreateNestedManyWithoutUsersInput
+    user_settings?: user_settingsCreateNestedOneWithoutUsersInput
+    created_groups?: group_chatsCreateNestedManyWithoutCreatorInput
+    group_memberships?: group_membersCreateNestedManyWithoutUserInput
+    chat_messages?: chat_messagesCreateNestedManyWithoutUserInput
+    message_reactions?: message_reactionsCreateNestedManyWithoutUserInput
+    created_astronomy_events?: astronomy_eventsCreateNestedManyWithoutCreatorInput
+    event_reminders?: event_remindersCreateNestedManyWithoutUserInput
+    stargazing_spot_reviews?: stargazing_spot_reviewsCreateNestedManyWithoutUserInput
+  }
+
+  export type usersUncheckedCreateWithoutCreated_stargazing_spotsInput = {
+    id?: number
+    firebase_uid: string
+    email: string
+    role?: $Enums.user_role | null
+    first_name?: string | null
+    last_name?: string | null
+    is_active?: boolean | null
+    last_login?: Date | string | null
+    created_at?: Date | string | null
+    updated_at?: Date | string | null
+    display_name?: string | null
+    profile_data?: NullableJsonNullValueInput | InputJsonValue
+    role_specific_data?: NullableJsonNullValueInput | InputJsonValue
+    subscription_plan?: $Enums.subscription_plan | null
+    subscription_status?: $Enums.subscription_status | null
+    subscription_start_date?: Date | string | null
+    subscription_end_date?: Date | string | null
+    auto_renew?: boolean | null
+    chatbot_questions_used?: number | null
+    chatbot_questions_reset_date?: Date | string | null
+    QuizParticipants?: QuizParticipantsUncheckedCreateNestedManyWithoutUsersInput
+    Quizzes?: QuizzesUncheckedCreateNestedManyWithoutUsersInput
+    blog_comments?: blog_commentsUncheckedCreateNestedManyWithoutUsersInput
+    blog_likes?: blog_likesUncheckedCreateNestedManyWithoutUsersInput
+    blog_views?: blog_viewsUncheckedCreateNestedManyWithoutUsersInput
+    blogs?: blogsUncheckedCreateNestedManyWithoutUsersInput
+    chatbot_sessions?: chatbot_sessionsUncheckedCreateNestedManyWithoutUsersInput
+    chatbot_usage?: chatbot_usageUncheckedCreateNestedManyWithoutUsersInput
+    guide_application?: guide_applicationUncheckedCreateNestedManyWithoutUsersInput
+    influencer_application?: influencer_applicationUncheckedCreateNestedManyWithoutUsersInput
+    media_uploads?: media_uploadsUncheckedCreateNestedManyWithoutUserInput
+    mentor_application?: mentor_applicationUncheckedCreateNestedManyWithoutUsersInput
+    night_camp_registrations?: night_camp_registrationsUncheckedCreateNestedManyWithoutUsersInput
+    night_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousers?: night_camp_volunteering_applicationsUncheckedCreateNestedManyWithoutUsers_night_camp_volunteering_applications_reviewed_byTousersInput
+    night_camp_volunteering_applications_night_camp_volunteering_applications_user_idTousers?: night_camp_volunteering_applicationsUncheckedCreateNestedManyWithoutUsers_night_camp_volunteering_applications_user_idTousersInput
+    payments?: paymentsUncheckedCreateNestedManyWithoutUsersInput
+    role_upgrade_requests_role_upgrade_requests_reviewer_idTousers?: role_upgrade_requestsUncheckedCreateNestedManyWithoutUsers_role_upgrade_requests_reviewer_idTousersInput
+    role_upgrade_requests_role_upgrade_requests_user_idTousers?: role_upgrade_requestsUncheckedCreateNestedManyWithoutUsers_role_upgrade_requests_user_idTousersInput
+    space_news_published?: space_newsUncheckedCreateNestedManyWithoutPublisherInput
+    space_news_likes?: space_news_likesUncheckedCreateNestedManyWithoutUserInput
+    space_news_comments?: space_news_commentsUncheckedCreateNestedManyWithoutUserInput
+    authored_discussions?: space_discussionsUncheckedCreateNestedManyWithoutAuthorInput
+    discussion_comments?: space_discussion_commentsUncheckedCreateNestedManyWithoutUserInput
+    discussion_likes?: space_discussion_likesUncheckedCreateNestedManyWithoutUserInput
+    discussion_comment_likes?: space_discussion_comment_likesUncheckedCreateNestedManyWithoutUserInput
+    subscriptions?: subscriptionsUncheckedCreateNestedManyWithoutUsersInput
+    user_settings?: user_settingsUncheckedCreateNestedOneWithoutUsersInput
+    created_groups?: group_chatsUncheckedCreateNestedManyWithoutCreatorInput
+    group_memberships?: group_membersUncheckedCreateNestedManyWithoutUserInput
+    chat_messages?: chat_messagesUncheckedCreateNestedManyWithoutUserInput
+    message_reactions?: message_reactionsUncheckedCreateNestedManyWithoutUserInput
+    created_astronomy_events?: astronomy_eventsUncheckedCreateNestedManyWithoutCreatorInput
+    event_reminders?: event_remindersUncheckedCreateNestedManyWithoutUserInput
+    stargazing_spot_reviews?: stargazing_spot_reviewsUncheckedCreateNestedManyWithoutUserInput
+  }
+
+  export type usersCreateOrConnectWithoutCreated_stargazing_spotsInput = {
+    where: usersWhereUniqueInput
+    create: XOR<usersCreateWithoutCreated_stargazing_spotsInput, usersUncheckedCreateWithoutCreated_stargazing_spotsInput>
+  }
+
+  export type stargazing_spot_reviewsCreateWithoutStargazing_spotInput = {
+    rating: number
+    review_text: string
+    created_at?: Date | string
+    updated_at?: Date | string
+    user: usersCreateNestedOneWithoutStargazing_spot_reviewsInput
+  }
+
+  export type stargazing_spot_reviewsUncheckedCreateWithoutStargazing_spotInput = {
+    id?: number
+    user_id: number
+    rating: number
+    review_text: string
+    created_at?: Date | string
+    updated_at?: Date | string
+  }
+
+  export type stargazing_spot_reviewsCreateOrConnectWithoutStargazing_spotInput = {
+    where: stargazing_spot_reviewsWhereUniqueInput
+    create: XOR<stargazing_spot_reviewsCreateWithoutStargazing_spotInput, stargazing_spot_reviewsUncheckedCreateWithoutStargazing_spotInput>
+  }
+
+  export type stargazing_spot_reviewsCreateManyStargazing_spotInputEnvelope = {
+    data: stargazing_spot_reviewsCreateManyStargazing_spotInput | stargazing_spot_reviewsCreateManyStargazing_spotInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type usersUpsertWithoutCreated_stargazing_spotsInput = {
+    update: XOR<usersUpdateWithoutCreated_stargazing_spotsInput, usersUncheckedUpdateWithoutCreated_stargazing_spotsInput>
+    create: XOR<usersCreateWithoutCreated_stargazing_spotsInput, usersUncheckedCreateWithoutCreated_stargazing_spotsInput>
+    where?: usersWhereInput
+  }
+
+  export type usersUpdateToOneWithWhereWithoutCreated_stargazing_spotsInput = {
+    where?: usersWhereInput
+    data: XOR<usersUpdateWithoutCreated_stargazing_spotsInput, usersUncheckedUpdateWithoutCreated_stargazing_spotsInput>
+  }
+
+  export type usersUpdateWithoutCreated_stargazing_spotsInput = {
+    firebase_uid?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    role?: NullableEnumuser_roleFieldUpdateOperationsInput | $Enums.user_role | null
+    first_name?: NullableStringFieldUpdateOperationsInput | string | null
+    last_name?: NullableStringFieldUpdateOperationsInput | string | null
+    is_active?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    last_login?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    display_name?: NullableStringFieldUpdateOperationsInput | string | null
+    profile_data?: NullableJsonNullValueInput | InputJsonValue
+    role_specific_data?: NullableJsonNullValueInput | InputJsonValue
+    subscription_plan?: NullableEnumsubscription_planFieldUpdateOperationsInput | $Enums.subscription_plan | null
+    subscription_status?: NullableEnumsubscription_statusFieldUpdateOperationsInput | $Enums.subscription_status | null
+    subscription_start_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    subscription_end_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    auto_renew?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    chatbot_questions_used?: NullableIntFieldUpdateOperationsInput | number | null
+    chatbot_questions_reset_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    QuizParticipants?: QuizParticipantsUpdateManyWithoutUsersNestedInput
+    Quizzes?: QuizzesUpdateManyWithoutUsersNestedInput
+    blog_comments?: blog_commentsUpdateManyWithoutUsersNestedInput
+    blog_likes?: blog_likesUpdateManyWithoutUsersNestedInput
+    blog_views?: blog_viewsUpdateManyWithoutUsersNestedInput
+    blogs?: blogsUpdateManyWithoutUsersNestedInput
+    chatbot_sessions?: chatbot_sessionsUpdateManyWithoutUsersNestedInput
+    chatbot_usage?: chatbot_usageUpdateManyWithoutUsersNestedInput
+    guide_application?: guide_applicationUpdateManyWithoutUsersNestedInput
+    influencer_application?: influencer_applicationUpdateManyWithoutUsersNestedInput
+    media_uploads?: media_uploadsUpdateManyWithoutUserNestedInput
+    mentor_application?: mentor_applicationUpdateManyWithoutUsersNestedInput
+    night_camp_registrations?: night_camp_registrationsUpdateManyWithoutUsersNestedInput
+    night_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousers?: night_camp_volunteering_applicationsUpdateManyWithoutUsers_night_camp_volunteering_applications_reviewed_byTousersNestedInput
+    night_camp_volunteering_applications_night_camp_volunteering_applications_user_idTousers?: night_camp_volunteering_applicationsUpdateManyWithoutUsers_night_camp_volunteering_applications_user_idTousersNestedInput
+    payments?: paymentsUpdateManyWithoutUsersNestedInput
+    role_upgrade_requests_role_upgrade_requests_reviewer_idTousers?: role_upgrade_requestsUpdateManyWithoutUsers_role_upgrade_requests_reviewer_idTousersNestedInput
+    role_upgrade_requests_role_upgrade_requests_user_idTousers?: role_upgrade_requestsUpdateManyWithoutUsers_role_upgrade_requests_user_idTousersNestedInput
+    space_news_published?: space_newsUpdateManyWithoutPublisherNestedInput
+    space_news_likes?: space_news_likesUpdateManyWithoutUserNestedInput
+    space_news_comments?: space_news_commentsUpdateManyWithoutUserNestedInput
+    authored_discussions?: space_discussionsUpdateManyWithoutAuthorNestedInput
+    discussion_comments?: space_discussion_commentsUpdateManyWithoutUserNestedInput
+    discussion_likes?: space_discussion_likesUpdateManyWithoutUserNestedInput
+    discussion_comment_likes?: space_discussion_comment_likesUpdateManyWithoutUserNestedInput
+    subscriptions?: subscriptionsUpdateManyWithoutUsersNestedInput
+    user_settings?: user_settingsUpdateOneWithoutUsersNestedInput
+    created_groups?: group_chatsUpdateManyWithoutCreatorNestedInput
+    group_memberships?: group_membersUpdateManyWithoutUserNestedInput
+    chat_messages?: chat_messagesUpdateManyWithoutUserNestedInput
+    message_reactions?: message_reactionsUpdateManyWithoutUserNestedInput
+    created_astronomy_events?: astronomy_eventsUpdateManyWithoutCreatorNestedInput
+    event_reminders?: event_remindersUpdateManyWithoutUserNestedInput
+    stargazing_spot_reviews?: stargazing_spot_reviewsUpdateManyWithoutUserNestedInput
+  }
+
+  export type usersUncheckedUpdateWithoutCreated_stargazing_spotsInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    firebase_uid?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    role?: NullableEnumuser_roleFieldUpdateOperationsInput | $Enums.user_role | null
+    first_name?: NullableStringFieldUpdateOperationsInput | string | null
+    last_name?: NullableStringFieldUpdateOperationsInput | string | null
+    is_active?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    last_login?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    display_name?: NullableStringFieldUpdateOperationsInput | string | null
+    profile_data?: NullableJsonNullValueInput | InputJsonValue
+    role_specific_data?: NullableJsonNullValueInput | InputJsonValue
+    subscription_plan?: NullableEnumsubscription_planFieldUpdateOperationsInput | $Enums.subscription_plan | null
+    subscription_status?: NullableEnumsubscription_statusFieldUpdateOperationsInput | $Enums.subscription_status | null
+    subscription_start_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    subscription_end_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    auto_renew?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    chatbot_questions_used?: NullableIntFieldUpdateOperationsInput | number | null
+    chatbot_questions_reset_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    QuizParticipants?: QuizParticipantsUncheckedUpdateManyWithoutUsersNestedInput
+    Quizzes?: QuizzesUncheckedUpdateManyWithoutUsersNestedInput
+    blog_comments?: blog_commentsUncheckedUpdateManyWithoutUsersNestedInput
+    blog_likes?: blog_likesUncheckedUpdateManyWithoutUsersNestedInput
+    blog_views?: blog_viewsUncheckedUpdateManyWithoutUsersNestedInput
+    blogs?: blogsUncheckedUpdateManyWithoutUsersNestedInput
+    chatbot_sessions?: chatbot_sessionsUncheckedUpdateManyWithoutUsersNestedInput
+    chatbot_usage?: chatbot_usageUncheckedUpdateManyWithoutUsersNestedInput
+    guide_application?: guide_applicationUncheckedUpdateManyWithoutUsersNestedInput
+    influencer_application?: influencer_applicationUncheckedUpdateManyWithoutUsersNestedInput
+    media_uploads?: media_uploadsUncheckedUpdateManyWithoutUserNestedInput
+    mentor_application?: mentor_applicationUncheckedUpdateManyWithoutUsersNestedInput
+    night_camp_registrations?: night_camp_registrationsUncheckedUpdateManyWithoutUsersNestedInput
+    night_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousers?: night_camp_volunteering_applicationsUncheckedUpdateManyWithoutUsers_night_camp_volunteering_applications_reviewed_byTousersNestedInput
+    night_camp_volunteering_applications_night_camp_volunteering_applications_user_idTousers?: night_camp_volunteering_applicationsUncheckedUpdateManyWithoutUsers_night_camp_volunteering_applications_user_idTousersNestedInput
+    payments?: paymentsUncheckedUpdateManyWithoutUsersNestedInput
+    role_upgrade_requests_role_upgrade_requests_reviewer_idTousers?: role_upgrade_requestsUncheckedUpdateManyWithoutUsers_role_upgrade_requests_reviewer_idTousersNestedInput
+    role_upgrade_requests_role_upgrade_requests_user_idTousers?: role_upgrade_requestsUncheckedUpdateManyWithoutUsers_role_upgrade_requests_user_idTousersNestedInput
+    space_news_published?: space_newsUncheckedUpdateManyWithoutPublisherNestedInput
+    space_news_likes?: space_news_likesUncheckedUpdateManyWithoutUserNestedInput
+    space_news_comments?: space_news_commentsUncheckedUpdateManyWithoutUserNestedInput
+    authored_discussions?: space_discussionsUncheckedUpdateManyWithoutAuthorNestedInput
+    discussion_comments?: space_discussion_commentsUncheckedUpdateManyWithoutUserNestedInput
+    discussion_likes?: space_discussion_likesUncheckedUpdateManyWithoutUserNestedInput
+    discussion_comment_likes?: space_discussion_comment_likesUncheckedUpdateManyWithoutUserNestedInput
+    subscriptions?: subscriptionsUncheckedUpdateManyWithoutUsersNestedInput
+    user_settings?: user_settingsUncheckedUpdateOneWithoutUsersNestedInput
+    created_groups?: group_chatsUncheckedUpdateManyWithoutCreatorNestedInput
+    group_memberships?: group_membersUncheckedUpdateManyWithoutUserNestedInput
+    chat_messages?: chat_messagesUncheckedUpdateManyWithoutUserNestedInput
+    message_reactions?: message_reactionsUncheckedUpdateManyWithoutUserNestedInput
+    created_astronomy_events?: astronomy_eventsUncheckedUpdateManyWithoutCreatorNestedInput
+    event_reminders?: event_remindersUncheckedUpdateManyWithoutUserNestedInput
+    stargazing_spot_reviews?: stargazing_spot_reviewsUncheckedUpdateManyWithoutUserNestedInput
+  }
+
+  export type stargazing_spot_reviewsUpsertWithWhereUniqueWithoutStargazing_spotInput = {
+    where: stargazing_spot_reviewsWhereUniqueInput
+    update: XOR<stargazing_spot_reviewsUpdateWithoutStargazing_spotInput, stargazing_spot_reviewsUncheckedUpdateWithoutStargazing_spotInput>
+    create: XOR<stargazing_spot_reviewsCreateWithoutStargazing_spotInput, stargazing_spot_reviewsUncheckedCreateWithoutStargazing_spotInput>
+  }
+
+  export type stargazing_spot_reviewsUpdateWithWhereUniqueWithoutStargazing_spotInput = {
+    where: stargazing_spot_reviewsWhereUniqueInput
+    data: XOR<stargazing_spot_reviewsUpdateWithoutStargazing_spotInput, stargazing_spot_reviewsUncheckedUpdateWithoutStargazing_spotInput>
+  }
+
+  export type stargazing_spot_reviewsUpdateManyWithWhereWithoutStargazing_spotInput = {
+    where: stargazing_spot_reviewsScalarWhereInput
+    data: XOR<stargazing_spot_reviewsUpdateManyMutationInput, stargazing_spot_reviewsUncheckedUpdateManyWithoutStargazing_spotInput>
+  }
+
+  export type stargazing_spotsCreateWithoutReviewsInput = {
+    name: string
+    location: string
+    image_url?: string | null
+    rating?: number
+    best_time?: string | null
+    description: string
+    facilities?: JsonNullValueInput | InputJsonValue
+    is_active?: boolean
+    created_at?: Date | string
+    updated_at?: Date | string
+    creator: usersCreateNestedOneWithoutCreated_stargazing_spotsInput
+  }
+
+  export type stargazing_spotsUncheckedCreateWithoutReviewsInput = {
+    id?: number
+    name: string
+    location: string
+    image_url?: string | null
+    rating?: number
+    best_time?: string | null
+    description: string
+    facilities?: JsonNullValueInput | InputJsonValue
+    created_by: number
+    is_active?: boolean
+    created_at?: Date | string
+    updated_at?: Date | string
+  }
+
+  export type stargazing_spotsCreateOrConnectWithoutReviewsInput = {
+    where: stargazing_spotsWhereUniqueInput
+    create: XOR<stargazing_spotsCreateWithoutReviewsInput, stargazing_spotsUncheckedCreateWithoutReviewsInput>
+  }
+
+  export type usersCreateWithoutStargazing_spot_reviewsInput = {
+    firebase_uid: string
+    email: string
+    role?: $Enums.user_role | null
+    first_name?: string | null
+    last_name?: string | null
+    is_active?: boolean | null
+    last_login?: Date | string | null
+    created_at?: Date | string | null
+    updated_at?: Date | string | null
+    display_name?: string | null
+    profile_data?: NullableJsonNullValueInput | InputJsonValue
+    role_specific_data?: NullableJsonNullValueInput | InputJsonValue
+    subscription_plan?: $Enums.subscription_plan | null
+    subscription_status?: $Enums.subscription_status | null
+    subscription_start_date?: Date | string | null
+    subscription_end_date?: Date | string | null
+    auto_renew?: boolean | null
+    chatbot_questions_used?: number | null
+    chatbot_questions_reset_date?: Date | string | null
+    QuizParticipants?: QuizParticipantsCreateNestedManyWithoutUsersInput
+    Quizzes?: QuizzesCreateNestedManyWithoutUsersInput
+    blog_comments?: blog_commentsCreateNestedManyWithoutUsersInput
+    blog_likes?: blog_likesCreateNestedManyWithoutUsersInput
+    blog_views?: blog_viewsCreateNestedManyWithoutUsersInput
+    blogs?: blogsCreateNestedManyWithoutUsersInput
+    chatbot_sessions?: chatbot_sessionsCreateNestedManyWithoutUsersInput
+    chatbot_usage?: chatbot_usageCreateNestedManyWithoutUsersInput
+    guide_application?: guide_applicationCreateNestedManyWithoutUsersInput
+    influencer_application?: influencer_applicationCreateNestedManyWithoutUsersInput
+    media_uploads?: media_uploadsCreateNestedManyWithoutUserInput
+    mentor_application?: mentor_applicationCreateNestedManyWithoutUsersInput
+    night_camp_registrations?: night_camp_registrationsCreateNestedManyWithoutUsersInput
+    night_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousers?: night_camp_volunteering_applicationsCreateNestedManyWithoutUsers_night_camp_volunteering_applications_reviewed_byTousersInput
+    night_camp_volunteering_applications_night_camp_volunteering_applications_user_idTousers?: night_camp_volunteering_applicationsCreateNestedManyWithoutUsers_night_camp_volunteering_applications_user_idTousersInput
+    payments?: paymentsCreateNestedManyWithoutUsersInput
+    role_upgrade_requests_role_upgrade_requests_reviewer_idTousers?: role_upgrade_requestsCreateNestedManyWithoutUsers_role_upgrade_requests_reviewer_idTousersInput
+    role_upgrade_requests_role_upgrade_requests_user_idTousers?: role_upgrade_requestsCreateNestedManyWithoutUsers_role_upgrade_requests_user_idTousersInput
+    space_news_published?: space_newsCreateNestedManyWithoutPublisherInput
+    space_news_likes?: space_news_likesCreateNestedManyWithoutUserInput
+    space_news_comments?: space_news_commentsCreateNestedManyWithoutUserInput
+    authored_discussions?: space_discussionsCreateNestedManyWithoutAuthorInput
+    discussion_comments?: space_discussion_commentsCreateNestedManyWithoutUserInput
+    discussion_likes?: space_discussion_likesCreateNestedManyWithoutUserInput
+    discussion_comment_likes?: space_discussion_comment_likesCreateNestedManyWithoutUserInput
+    subscriptions?: subscriptionsCreateNestedManyWithoutUsersInput
+    user_settings?: user_settingsCreateNestedOneWithoutUsersInput
+    created_groups?: group_chatsCreateNestedManyWithoutCreatorInput
+    group_memberships?: group_membersCreateNestedManyWithoutUserInput
+    chat_messages?: chat_messagesCreateNestedManyWithoutUserInput
+    message_reactions?: message_reactionsCreateNestedManyWithoutUserInput
+    created_astronomy_events?: astronomy_eventsCreateNestedManyWithoutCreatorInput
+    event_reminders?: event_remindersCreateNestedManyWithoutUserInput
+    created_stargazing_spots?: stargazing_spotsCreateNestedManyWithoutCreatorInput
+  }
+
+  export type usersUncheckedCreateWithoutStargazing_spot_reviewsInput = {
+    id?: number
+    firebase_uid: string
+    email: string
+    role?: $Enums.user_role | null
+    first_name?: string | null
+    last_name?: string | null
+    is_active?: boolean | null
+    last_login?: Date | string | null
+    created_at?: Date | string | null
+    updated_at?: Date | string | null
+    display_name?: string | null
+    profile_data?: NullableJsonNullValueInput | InputJsonValue
+    role_specific_data?: NullableJsonNullValueInput | InputJsonValue
+    subscription_plan?: $Enums.subscription_plan | null
+    subscription_status?: $Enums.subscription_status | null
+    subscription_start_date?: Date | string | null
+    subscription_end_date?: Date | string | null
+    auto_renew?: boolean | null
+    chatbot_questions_used?: number | null
+    chatbot_questions_reset_date?: Date | string | null
+    QuizParticipants?: QuizParticipantsUncheckedCreateNestedManyWithoutUsersInput
+    Quizzes?: QuizzesUncheckedCreateNestedManyWithoutUsersInput
+    blog_comments?: blog_commentsUncheckedCreateNestedManyWithoutUsersInput
+    blog_likes?: blog_likesUncheckedCreateNestedManyWithoutUsersInput
+    blog_views?: blog_viewsUncheckedCreateNestedManyWithoutUsersInput
+    blogs?: blogsUncheckedCreateNestedManyWithoutUsersInput
+    chatbot_sessions?: chatbot_sessionsUncheckedCreateNestedManyWithoutUsersInput
+    chatbot_usage?: chatbot_usageUncheckedCreateNestedManyWithoutUsersInput
+    guide_application?: guide_applicationUncheckedCreateNestedManyWithoutUsersInput
+    influencer_application?: influencer_applicationUncheckedCreateNestedManyWithoutUsersInput
+    media_uploads?: media_uploadsUncheckedCreateNestedManyWithoutUserInput
+    mentor_application?: mentor_applicationUncheckedCreateNestedManyWithoutUsersInput
+    night_camp_registrations?: night_camp_registrationsUncheckedCreateNestedManyWithoutUsersInput
+    night_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousers?: night_camp_volunteering_applicationsUncheckedCreateNestedManyWithoutUsers_night_camp_volunteering_applications_reviewed_byTousersInput
+    night_camp_volunteering_applications_night_camp_volunteering_applications_user_idTousers?: night_camp_volunteering_applicationsUncheckedCreateNestedManyWithoutUsers_night_camp_volunteering_applications_user_idTousersInput
+    payments?: paymentsUncheckedCreateNestedManyWithoutUsersInput
+    role_upgrade_requests_role_upgrade_requests_reviewer_idTousers?: role_upgrade_requestsUncheckedCreateNestedManyWithoutUsers_role_upgrade_requests_reviewer_idTousersInput
+    role_upgrade_requests_role_upgrade_requests_user_idTousers?: role_upgrade_requestsUncheckedCreateNestedManyWithoutUsers_role_upgrade_requests_user_idTousersInput
+    space_news_published?: space_newsUncheckedCreateNestedManyWithoutPublisherInput
+    space_news_likes?: space_news_likesUncheckedCreateNestedManyWithoutUserInput
+    space_news_comments?: space_news_commentsUncheckedCreateNestedManyWithoutUserInput
+    authored_discussions?: space_discussionsUncheckedCreateNestedManyWithoutAuthorInput
+    discussion_comments?: space_discussion_commentsUncheckedCreateNestedManyWithoutUserInput
+    discussion_likes?: space_discussion_likesUncheckedCreateNestedManyWithoutUserInput
+    discussion_comment_likes?: space_discussion_comment_likesUncheckedCreateNestedManyWithoutUserInput
+    subscriptions?: subscriptionsUncheckedCreateNestedManyWithoutUsersInput
+    user_settings?: user_settingsUncheckedCreateNestedOneWithoutUsersInput
+    created_groups?: group_chatsUncheckedCreateNestedManyWithoutCreatorInput
+    group_memberships?: group_membersUncheckedCreateNestedManyWithoutUserInput
+    chat_messages?: chat_messagesUncheckedCreateNestedManyWithoutUserInput
+    message_reactions?: message_reactionsUncheckedCreateNestedManyWithoutUserInput
+    created_astronomy_events?: astronomy_eventsUncheckedCreateNestedManyWithoutCreatorInput
+    event_reminders?: event_remindersUncheckedCreateNestedManyWithoutUserInput
+    created_stargazing_spots?: stargazing_spotsUncheckedCreateNestedManyWithoutCreatorInput
+  }
+
+  export type usersCreateOrConnectWithoutStargazing_spot_reviewsInput = {
+    where: usersWhereUniqueInput
+    create: XOR<usersCreateWithoutStargazing_spot_reviewsInput, usersUncheckedCreateWithoutStargazing_spot_reviewsInput>
+  }
+
+  export type stargazing_spotsUpsertWithoutReviewsInput = {
+    update: XOR<stargazing_spotsUpdateWithoutReviewsInput, stargazing_spotsUncheckedUpdateWithoutReviewsInput>
+    create: XOR<stargazing_spotsCreateWithoutReviewsInput, stargazing_spotsUncheckedCreateWithoutReviewsInput>
+    where?: stargazing_spotsWhereInput
+  }
+
+  export type stargazing_spotsUpdateToOneWithWhereWithoutReviewsInput = {
+    where?: stargazing_spotsWhereInput
+    data: XOR<stargazing_spotsUpdateWithoutReviewsInput, stargazing_spotsUncheckedUpdateWithoutReviewsInput>
+  }
+
+  export type stargazing_spotsUpdateWithoutReviewsInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    location?: StringFieldUpdateOperationsInput | string
+    image_url?: NullableStringFieldUpdateOperationsInput | string | null
+    rating?: FloatFieldUpdateOperationsInput | number
+    best_time?: NullableStringFieldUpdateOperationsInput | string | null
+    description?: StringFieldUpdateOperationsInput | string
+    facilities?: JsonNullValueInput | InputJsonValue
+    is_active?: BoolFieldUpdateOperationsInput | boolean
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    creator?: usersUpdateOneRequiredWithoutCreated_stargazing_spotsNestedInput
+  }
+
+  export type stargazing_spotsUncheckedUpdateWithoutReviewsInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    name?: StringFieldUpdateOperationsInput | string
+    location?: StringFieldUpdateOperationsInput | string
+    image_url?: NullableStringFieldUpdateOperationsInput | string | null
+    rating?: FloatFieldUpdateOperationsInput | number
+    best_time?: NullableStringFieldUpdateOperationsInput | string | null
+    description?: StringFieldUpdateOperationsInput | string
+    facilities?: JsonNullValueInput | InputJsonValue
+    created_by?: IntFieldUpdateOperationsInput | number
+    is_active?: BoolFieldUpdateOperationsInput | boolean
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type usersUpsertWithoutStargazing_spot_reviewsInput = {
+    update: XOR<usersUpdateWithoutStargazing_spot_reviewsInput, usersUncheckedUpdateWithoutStargazing_spot_reviewsInput>
+    create: XOR<usersCreateWithoutStargazing_spot_reviewsInput, usersUncheckedCreateWithoutStargazing_spot_reviewsInput>
+    where?: usersWhereInput
+  }
+
+  export type usersUpdateToOneWithWhereWithoutStargazing_spot_reviewsInput = {
+    where?: usersWhereInput
+    data: XOR<usersUpdateWithoutStargazing_spot_reviewsInput, usersUncheckedUpdateWithoutStargazing_spot_reviewsInput>
+  }
+
+  export type usersUpdateWithoutStargazing_spot_reviewsInput = {
+    firebase_uid?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    role?: NullableEnumuser_roleFieldUpdateOperationsInput | $Enums.user_role | null
+    first_name?: NullableStringFieldUpdateOperationsInput | string | null
+    last_name?: NullableStringFieldUpdateOperationsInput | string | null
+    is_active?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    last_login?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    display_name?: NullableStringFieldUpdateOperationsInput | string | null
+    profile_data?: NullableJsonNullValueInput | InputJsonValue
+    role_specific_data?: NullableJsonNullValueInput | InputJsonValue
+    subscription_plan?: NullableEnumsubscription_planFieldUpdateOperationsInput | $Enums.subscription_plan | null
+    subscription_status?: NullableEnumsubscription_statusFieldUpdateOperationsInput | $Enums.subscription_status | null
+    subscription_start_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    subscription_end_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    auto_renew?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    chatbot_questions_used?: NullableIntFieldUpdateOperationsInput | number | null
+    chatbot_questions_reset_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    QuizParticipants?: QuizParticipantsUpdateManyWithoutUsersNestedInput
+    Quizzes?: QuizzesUpdateManyWithoutUsersNestedInput
+    blog_comments?: blog_commentsUpdateManyWithoutUsersNestedInput
+    blog_likes?: blog_likesUpdateManyWithoutUsersNestedInput
+    blog_views?: blog_viewsUpdateManyWithoutUsersNestedInput
+    blogs?: blogsUpdateManyWithoutUsersNestedInput
+    chatbot_sessions?: chatbot_sessionsUpdateManyWithoutUsersNestedInput
+    chatbot_usage?: chatbot_usageUpdateManyWithoutUsersNestedInput
+    guide_application?: guide_applicationUpdateManyWithoutUsersNestedInput
+    influencer_application?: influencer_applicationUpdateManyWithoutUsersNestedInput
+    media_uploads?: media_uploadsUpdateManyWithoutUserNestedInput
+    mentor_application?: mentor_applicationUpdateManyWithoutUsersNestedInput
+    night_camp_registrations?: night_camp_registrationsUpdateManyWithoutUsersNestedInput
+    night_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousers?: night_camp_volunteering_applicationsUpdateManyWithoutUsers_night_camp_volunteering_applications_reviewed_byTousersNestedInput
+    night_camp_volunteering_applications_night_camp_volunteering_applications_user_idTousers?: night_camp_volunteering_applicationsUpdateManyWithoutUsers_night_camp_volunteering_applications_user_idTousersNestedInput
+    payments?: paymentsUpdateManyWithoutUsersNestedInput
+    role_upgrade_requests_role_upgrade_requests_reviewer_idTousers?: role_upgrade_requestsUpdateManyWithoutUsers_role_upgrade_requests_reviewer_idTousersNestedInput
+    role_upgrade_requests_role_upgrade_requests_user_idTousers?: role_upgrade_requestsUpdateManyWithoutUsers_role_upgrade_requests_user_idTousersNestedInput
+    space_news_published?: space_newsUpdateManyWithoutPublisherNestedInput
+    space_news_likes?: space_news_likesUpdateManyWithoutUserNestedInput
+    space_news_comments?: space_news_commentsUpdateManyWithoutUserNestedInput
+    authored_discussions?: space_discussionsUpdateManyWithoutAuthorNestedInput
+    discussion_comments?: space_discussion_commentsUpdateManyWithoutUserNestedInput
+    discussion_likes?: space_discussion_likesUpdateManyWithoutUserNestedInput
+    discussion_comment_likes?: space_discussion_comment_likesUpdateManyWithoutUserNestedInput
+    subscriptions?: subscriptionsUpdateManyWithoutUsersNestedInput
+    user_settings?: user_settingsUpdateOneWithoutUsersNestedInput
+    created_groups?: group_chatsUpdateManyWithoutCreatorNestedInput
+    group_memberships?: group_membersUpdateManyWithoutUserNestedInput
+    chat_messages?: chat_messagesUpdateManyWithoutUserNestedInput
+    message_reactions?: message_reactionsUpdateManyWithoutUserNestedInput
+    created_astronomy_events?: astronomy_eventsUpdateManyWithoutCreatorNestedInput
+    event_reminders?: event_remindersUpdateManyWithoutUserNestedInput
+    created_stargazing_spots?: stargazing_spotsUpdateManyWithoutCreatorNestedInput
+  }
+
+  export type usersUncheckedUpdateWithoutStargazing_spot_reviewsInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    firebase_uid?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    role?: NullableEnumuser_roleFieldUpdateOperationsInput | $Enums.user_role | null
+    first_name?: NullableStringFieldUpdateOperationsInput | string | null
+    last_name?: NullableStringFieldUpdateOperationsInput | string | null
+    is_active?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    last_login?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    display_name?: NullableStringFieldUpdateOperationsInput | string | null
+    profile_data?: NullableJsonNullValueInput | InputJsonValue
+    role_specific_data?: NullableJsonNullValueInput | InputJsonValue
+    subscription_plan?: NullableEnumsubscription_planFieldUpdateOperationsInput | $Enums.subscription_plan | null
+    subscription_status?: NullableEnumsubscription_statusFieldUpdateOperationsInput | $Enums.subscription_status | null
+    subscription_start_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    subscription_end_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    auto_renew?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    chatbot_questions_used?: NullableIntFieldUpdateOperationsInput | number | null
+    chatbot_questions_reset_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    QuizParticipants?: QuizParticipantsUncheckedUpdateManyWithoutUsersNestedInput
+    Quizzes?: QuizzesUncheckedUpdateManyWithoutUsersNestedInput
+    blog_comments?: blog_commentsUncheckedUpdateManyWithoutUsersNestedInput
+    blog_likes?: blog_likesUncheckedUpdateManyWithoutUsersNestedInput
+    blog_views?: blog_viewsUncheckedUpdateManyWithoutUsersNestedInput
+    blogs?: blogsUncheckedUpdateManyWithoutUsersNestedInput
+    chatbot_sessions?: chatbot_sessionsUncheckedUpdateManyWithoutUsersNestedInput
+    chatbot_usage?: chatbot_usageUncheckedUpdateManyWithoutUsersNestedInput
+    guide_application?: guide_applicationUncheckedUpdateManyWithoutUsersNestedInput
+    influencer_application?: influencer_applicationUncheckedUpdateManyWithoutUsersNestedInput
+    media_uploads?: media_uploadsUncheckedUpdateManyWithoutUserNestedInput
+    mentor_application?: mentor_applicationUncheckedUpdateManyWithoutUsersNestedInput
+    night_camp_registrations?: night_camp_registrationsUncheckedUpdateManyWithoutUsersNestedInput
+    night_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousers?: night_camp_volunteering_applicationsUncheckedUpdateManyWithoutUsers_night_camp_volunteering_applications_reviewed_byTousersNestedInput
+    night_camp_volunteering_applications_night_camp_volunteering_applications_user_idTousers?: night_camp_volunteering_applicationsUncheckedUpdateManyWithoutUsers_night_camp_volunteering_applications_user_idTousersNestedInput
+    payments?: paymentsUncheckedUpdateManyWithoutUsersNestedInput
+    role_upgrade_requests_role_upgrade_requests_reviewer_idTousers?: role_upgrade_requestsUncheckedUpdateManyWithoutUsers_role_upgrade_requests_reviewer_idTousersNestedInput
+    role_upgrade_requests_role_upgrade_requests_user_idTousers?: role_upgrade_requestsUncheckedUpdateManyWithoutUsers_role_upgrade_requests_user_idTousersNestedInput
+    space_news_published?: space_newsUncheckedUpdateManyWithoutPublisherNestedInput
+    space_news_likes?: space_news_likesUncheckedUpdateManyWithoutUserNestedInput
+    space_news_comments?: space_news_commentsUncheckedUpdateManyWithoutUserNestedInput
+    authored_discussions?: space_discussionsUncheckedUpdateManyWithoutAuthorNestedInput
+    discussion_comments?: space_discussion_commentsUncheckedUpdateManyWithoutUserNestedInput
+    discussion_likes?: space_discussion_likesUncheckedUpdateManyWithoutUserNestedInput
+    discussion_comment_likes?: space_discussion_comment_likesUncheckedUpdateManyWithoutUserNestedInput
+    subscriptions?: subscriptionsUncheckedUpdateManyWithoutUsersNestedInput
+    user_settings?: user_settingsUncheckedUpdateOneWithoutUsersNestedInput
+    created_groups?: group_chatsUncheckedUpdateManyWithoutCreatorNestedInput
+    group_memberships?: group_membersUncheckedUpdateManyWithoutUserNestedInput
+    chat_messages?: chat_messagesUncheckedUpdateManyWithoutUserNestedInput
+    message_reactions?: message_reactionsUncheckedUpdateManyWithoutUserNestedInput
+    created_astronomy_events?: astronomy_eventsUncheckedUpdateManyWithoutCreatorNestedInput
+    event_reminders?: event_remindersUncheckedUpdateManyWithoutUserNestedInput
+    created_stargazing_spots?: stargazing_spotsUncheckedUpdateManyWithoutCreatorNestedInput
   }
 
   export type paymentsCreateManySubscriptionsInput = {
@@ -90873,6 +95238,29 @@ export namespace Prisma {
     reminder_time: Date | string
     is_sent?: boolean
     notification_type?: string
+    created_at?: Date | string
+    updated_at?: Date | string
+  }
+
+  export type stargazing_spotsCreateManyCreatorInput = {
+    id?: number
+    name: string
+    location: string
+    image_url?: string | null
+    rating?: number
+    best_time?: string | null
+    description: string
+    facilities?: JsonNullValueInput | InputJsonValue
+    is_active?: boolean
+    created_at?: Date | string
+    updated_at?: Date | string
+  }
+
+  export type stargazing_spot_reviewsCreateManyUserInput = {
+    id?: number
+    stargazing_spot_id: number
+    rating: number
+    review_text: string
     created_at?: Date | string
     updated_at?: Date | string
   }
@@ -92135,6 +96523,75 @@ export namespace Prisma {
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type stargazing_spotsUpdateWithoutCreatorInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    location?: StringFieldUpdateOperationsInput | string
+    image_url?: NullableStringFieldUpdateOperationsInput | string | null
+    rating?: FloatFieldUpdateOperationsInput | number
+    best_time?: NullableStringFieldUpdateOperationsInput | string | null
+    description?: StringFieldUpdateOperationsInput | string
+    facilities?: JsonNullValueInput | InputJsonValue
+    is_active?: BoolFieldUpdateOperationsInput | boolean
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    reviews?: stargazing_spot_reviewsUpdateManyWithoutStargazing_spotNestedInput
+  }
+
+  export type stargazing_spotsUncheckedUpdateWithoutCreatorInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    name?: StringFieldUpdateOperationsInput | string
+    location?: StringFieldUpdateOperationsInput | string
+    image_url?: NullableStringFieldUpdateOperationsInput | string | null
+    rating?: FloatFieldUpdateOperationsInput | number
+    best_time?: NullableStringFieldUpdateOperationsInput | string | null
+    description?: StringFieldUpdateOperationsInput | string
+    facilities?: JsonNullValueInput | InputJsonValue
+    is_active?: BoolFieldUpdateOperationsInput | boolean
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    reviews?: stargazing_spot_reviewsUncheckedUpdateManyWithoutStargazing_spotNestedInput
+  }
+
+  export type stargazing_spotsUncheckedUpdateManyWithoutCreatorInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    name?: StringFieldUpdateOperationsInput | string
+    location?: StringFieldUpdateOperationsInput | string
+    image_url?: NullableStringFieldUpdateOperationsInput | string | null
+    rating?: FloatFieldUpdateOperationsInput | number
+    best_time?: NullableStringFieldUpdateOperationsInput | string | null
+    description?: StringFieldUpdateOperationsInput | string
+    facilities?: JsonNullValueInput | InputJsonValue
+    is_active?: BoolFieldUpdateOperationsInput | boolean
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type stargazing_spot_reviewsUpdateWithoutUserInput = {
+    rating?: IntFieldUpdateOperationsInput | number
+    review_text?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    stargazing_spot?: stargazing_spotsUpdateOneRequiredWithoutReviewsNestedInput
+  }
+
+  export type stargazing_spot_reviewsUncheckedUpdateWithoutUserInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    stargazing_spot_id?: IntFieldUpdateOperationsInput | number
+    rating?: IntFieldUpdateOperationsInput | number
+    review_text?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type stargazing_spot_reviewsUncheckedUpdateManyWithoutUserInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    stargazing_spot_id?: IntFieldUpdateOperationsInput | number
+    rating?: IntFieldUpdateOperationsInput | number
+    review_text?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type chatbot_feedbackCreateManyChatbot_messagesInput = {
     id?: string
     session_id?: string | null
@@ -92501,6 +96958,41 @@ export namespace Prisma {
     reminder_time?: DateTimeFieldUpdateOperationsInput | Date | string
     is_sent?: BoolFieldUpdateOperationsInput | boolean
     notification_type?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type stargazing_spot_reviewsCreateManyStargazing_spotInput = {
+    id?: number
+    user_id: number
+    rating: number
+    review_text: string
+    created_at?: Date | string
+    updated_at?: Date | string
+  }
+
+  export type stargazing_spot_reviewsUpdateWithoutStargazing_spotInput = {
+    rating?: IntFieldUpdateOperationsInput | number
+    review_text?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: usersUpdateOneRequiredWithoutStargazing_spot_reviewsNestedInput
+  }
+
+  export type stargazing_spot_reviewsUncheckedUpdateWithoutStargazing_spotInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    user_id?: IntFieldUpdateOperationsInput | number
+    rating?: IntFieldUpdateOperationsInput | number
+    review_text?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type stargazing_spot_reviewsUncheckedUpdateManyWithoutStargazing_spotInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    user_id?: IntFieldUpdateOperationsInput | number
+    rating?: IntFieldUpdateOperationsInput | number
+    review_text?: StringFieldUpdateOperationsInput | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }

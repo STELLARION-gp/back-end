@@ -24,13 +24,13 @@ export class NightCampController {
 
             // Get full user details from database using firebase_uid
             const dbUser = await prisma.users.findUnique({
-                where: { firebase_uid: authenticatedUser.firebase_uid }
+                where: { firebase_uid: authenticatedUser.uid }
             });
 
             if (!dbUser) {
                 res.status(404).json({
                     error: 'User not found in database',
-                    debug: `Looking for firebase_uid: ${authenticatedUser.firebase_uid}`
+                    debug: `Looking for firebase_uid: ${authenticatedUser.uid}`
                 });
                 return;
             }
@@ -585,13 +585,13 @@ export class NightCampController {
 
             // Get full user details from database using firebase_uid
             const dbUser = await prisma.users.findFirst({
-                where: { firebase_uid: authenticatedUser.firebase_uid }
+                where: { firebase_uid: authenticatedUser.uid }
             });
 
             if (!dbUser) {
                 res.status(404).json({
                     error: 'User not found in database',
-                    debug: `Looking for firebase_uid: ${authenticatedUser.firebase_uid}`
+                    debug: `Looking for firebase_uid: ${authenticatedUser.uid}`
                 });
                 return;
             }
@@ -690,13 +690,13 @@ export class NightCampController {
 
             // Get full user details from database using firebase_uid
             const dbUser = await prisma.users.findFirst({
-                where: { firebase_uid: authenticatedUser.firebase_uid }
+                where: { firebase_uid: authenticatedUser.uid }
             });
 
             if (!dbUser) {
                 res.status(404).json({
                     error: 'User not found in database',
-                    debug: `Looking for firebase_uid: ${authenticatedUser.firebase_uid}`
+                    debug: `Looking for firebase_uid: ${authenticatedUser.uid}`
                 });
                 return;
             }
@@ -830,7 +830,7 @@ export class NightCampController {
 
             // Get full user details from database using firebase_uid
             const dbUser = await prisma.users.findFirst({
-                where: { firebase_uid: authenticatedUser.firebase_uid }
+                where: { firebase_uid: authenticatedUser.uid }
             });
 
             if (!dbUser) {
@@ -883,7 +883,7 @@ export class NightCampController {
             const authenticatedUser = (req as any).user;
             if (!authenticatedUser) { res.status(401).json({ error: 'Authentication required' }); return; }
 
-            const dbUser = await prisma.users.findFirst({ where: { firebase_uid: authenticatedUser.firebase_uid } });
+            const dbUser = await prisma.users.findFirst({ where: { firebase_uid: authenticatedUser.uid } });
             if (!dbUser) { res.status(404).json({ error: 'User not found in database' }); return; }
 
             const appId = parseInt(applicationId);
@@ -940,13 +940,13 @@ export class NightCampController {
 
             // Get full user details from database using firebase_uid
             const dbUser = await prisma.users.findFirst({
-                where: { firebase_uid: authenticatedUser.firebase_uid }
+                where: { firebase_uid: authenticatedUser.uid }
             });
 
             if (!dbUser) {
                 res.status(404).json({
                     error: 'User not found in database',
-                    debug: `Looking for firebase_uid: ${authenticatedUser.firebase_uid}`
+                    debug: `Looking for firebase_uid: ${authenticatedUser.uid}`
                 });
                 return;
             }
@@ -1031,13 +1031,13 @@ export class NightCampController {
 
             // Get full user details from database using firebase_uid
             const dbUser = await prisma.users.findFirst({
-                where: { firebase_uid: authenticatedUser.firebase_uid }
+                where: { firebase_uid: authenticatedUser.uid }
             });
 
             if (!dbUser) {
                 res.status(404).json({
                     error: 'User not found in database',
-                    debug: `Looking for firebase_uid: ${authenticatedUser.firebase_uid}`
+                    debug: `Looking for firebase_uid: ${authenticatedUser.uid}`
                 });
                 return;
             }
@@ -1091,7 +1091,7 @@ export class NightCampController {
 
             // Get full user details from database using firebase_uid
             const dbUser = await prisma.users.findFirst({
-                where: { firebase_uid: authenticatedUser.firebase_uid }
+                where: { firebase_uid: authenticatedUser.uid }
             });
 
             if (!dbUser) {
@@ -1184,7 +1184,7 @@ export class NightCampController {
 
             // Get full user details from database using firebase_uid
             const dbUser = await prisma.users.findFirst({
-                where: { firebase_uid: authenticatedUser.firebase_uid }
+                where: { firebase_uid: authenticatedUser.uid }
             });
 
             if (!dbUser) {
@@ -1316,7 +1316,7 @@ export class NightCampController {
 
             // Get full user details from database using firebase_uid
             const dbUser = await prisma.users.findFirst({
-                where: { firebase_uid: authenticatedUser.firebase_uid }
+                where: { firebase_uid: authenticatedUser.uid }
             });
 
             if (!dbUser) {
@@ -1392,7 +1392,7 @@ export class NightCampController {
 
             // Get full user details from database using firebase_uid
             const dbUser = await prisma.users.findFirst({
-                where: { firebase_uid: authenticatedUser.firebase_uid }
+                where: { firebase_uid: authenticatedUser.uid }
             });
 
             if (!dbUser) {
