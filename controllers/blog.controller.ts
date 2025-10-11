@@ -1,6 +1,7 @@
 // controllers/blog.controller.ts
 import { Request, Response } from 'express';
 import { prisma } from '../lib/prisma';
+import cloudinary from '../config/cloudinary';
 import {
     Blog,
     BlogComment,
@@ -12,6 +13,38 @@ import {
     UpdateCommentRequest,
     ApiResponse
 } from '../types';
+
+// Helper function to upload image to Cloudinary
+async function uploadImageToCloudinary(file: Express.Multer.File, blogId?: string): Promise<string> {
+    return new Promise((resolve, reject) => {
+        console.log('[blog-image-upload] Starting upload to Cloudinary...');
+        const stream: any = cloudinary.uploader.upload_stream(
+            {
+                folder: 'blogs',
+                resource_type: 'image',
+                public_id: blogId ? `blog_${blogId}_${Date.now()}` : `blog_${Date.now()}`,
+                transformation: [
+                    { width: 1200, height: 630, crop: 'limit' }, // Limit size for blog images
+                    { quality: 'auto' },
+                    { fetch_format: 'auto' }
+                ]
+            },
+            (error, result) => {
+                if (error) {
+                    console.error('[blog-image-upload] Cloudinary error:', error);
+                    return reject(error);
+                }
+                if (!result) {
+                    console.error('[blog-image-upload] Empty result from Cloudinary');
+                    return reject(new Error('Empty result from Cloudinary'));
+                }
+                console.log('[blog-image-upload] Upload successful:', result.secure_url);
+                resolve(result.secure_url);
+            }
+        );
+        stream.end(file.buffer);
+    });
+}
 
 // Helper function to build Prisma query options with filters
 const buildBlogQueryOptions = (filters: BlogFilters, userIdForLike?: number) => {
@@ -224,8 +257,13 @@ export const getBlogById = async (req: Request, res: Response): Promise<void> =>
 // Create new blog
 export const createBlog = async (req: Request, res: Response): Promise<void> => {
     try {
+        console.log('[blog][create] Request received');
+        console.log('[blog][create] Body:', req.body);
+        console.log('[blog][create] File present:', !!req.file);
+        
         const firebaseUser = (req as any).user;
         if (!firebaseUser) {
+            console.log('[blog][create] No Firebase user found');
             res.status(401).json({
                 success: false,
                 message: "Authentication required"
@@ -233,26 +271,54 @@ export const createBlog = async (req: Request, res: Response): Promise<void> => 
             return;
         }
 
+        console.log('[blog][create] Firebase user:', firebaseUser.uid, firebaseUser.email);
+
         const userId = await getUserIdFromFirebaseUid(firebaseUser.uid);
         if (!userId) {
+            console.log('[blog][create] User ID not found for Firebase UID:', firebaseUser.uid);
             res.status(404).json({
                 success: false,
-                message: "User not found"
+                message: "User not found in database"
             });
             return;
         }
 
-        const {
-            title,
-            content,
-            excerpt,
-            featured_image,
-            status = 'draft',
-            tags = [],
-            metadata = {}
-        }: CreateBlogRequest = req.body;
+        console.log('[blog][create] Database user ID:', userId);
+
+        // Handle both multipart/form-data (with image) and JSON (without image)
+        let title: string;
+        let content: string;
+        let excerpt: string | undefined;
+        let featured_image: string | undefined;
+        let status: string = 'draft';
+        let tags: string[] = [];
+        let metadata: any = {};
+
+        // Parse data based on content type
+        if (req.file) {
+            // Multipart form data
+            title = req.body.title;
+            content = req.body.content;
+            excerpt = req.body.excerpt;
+            status = req.body.status || 'draft';
+            tags = req.body.tags ? (typeof req.body.tags === 'string' ? JSON.parse(req.body.tags) : req.body.tags) : [];
+            metadata = req.body.metadata ? (typeof req.body.metadata === 'string' ? JSON.parse(req.body.metadata) : req.body.metadata) : {};
+        } else {
+            // JSON data
+            const data: CreateBlogRequest = req.body;
+            title = data.title;
+            content = data.content;
+            excerpt = data.excerpt;
+            featured_image = data.featured_image; // May be provided from frontend Firebase upload
+            status = data.status || 'draft';
+            tags = data.tags || [];
+            metadata = data.metadata || {};
+        }
+
+        console.log('[blog][create] Parsed data:', { title, content, status, hasImage: !!req.file });
 
         if (!title || !content) {
+            console.log('[blog][create] Missing required fields');
             res.status(400).json({
                 success: false,
                 message: "Title and content are required"
@@ -260,30 +326,88 @@ export const createBlog = async (req: Request, res: Response): Promise<void> => 
             return;
         }
 
+        // Upload image to Cloudinary if provided
+        let imageUrl: string | undefined = featured_image; // Use provided URL if exists
+        
+        if (req.file) {
+            try {
+                console.log('[blog][create] Uploading image to Cloudinary...');
+                imageUrl = await uploadImageToCloudinary(req.file);
+                console.log('[blog][create] Image uploaded successfully:', imageUrl);
+            } catch (uploadError: any) {
+                console.error('[blog][create] Image upload failed:', uploadError);
+                res.status(500).json({
+                    success: false,
+                    message: "Failed to upload image",
+                    error: uploadError.message
+                });
+                return;
+            }
+        }
+
+        console.log('[blog][create] Creating blog in database...');
+
         // Create blog with Prisma
         const newBlog = await prisma.blogs.create({
             data: {
                 title,
                 content,
                 excerpt,
-                featured_image,
+                featured_image: imageUrl,
+                image_url: imageUrl, // Also populate image_url for backward compatibility
                 author_id: userId,
                 status,
                 published_at: status === 'published' ? new Date() : null,
                 tags: tags as any, // JSON field
                 metadata: metadata as any // JSON field
+            },
+            include: {
+                users: {
+                    select: {
+                        first_name: true,
+                        last_name: true,
+                        email: true,
+                        display_name: true
+                    }
+                }
             }
         });
+
+        console.log('[blog][create] Blog created successfully, ID:', newBlog.id);
+
+        // Format response
+        const blogResponse: Blog = {
+            id: newBlog.id,
+            title: newBlog.title,
+            content: newBlog.content,
+            excerpt: newBlog.excerpt ?? undefined,
+            image_url: newBlog.image_url ?? undefined,
+            featured_image: newBlog.featured_image ?? undefined,
+            author_id: newBlog.author_id!,
+            status: newBlog.status as BlogStatus,
+            published_at: newBlog.published_at ? newBlog.published_at.toISOString() : undefined,
+            view_count: newBlog.view_count ?? 0,
+            like_count: newBlog.like_count ?? 0,
+            comment_count: newBlog.comment_count ?? 0,
+            tags: (newBlog.tags as string[]) || [],
+            metadata: (newBlog.metadata as any) || {},
+            created_at: newBlog.created_at ? newBlog.created_at.toISOString() : '',
+            updated_at: newBlog.updated_at ? newBlog.updated_at.toISOString() : '',
+            author_name: newBlog.users ? `${newBlog.users.first_name || ''} ${newBlog.users.last_name || ''}`.trim() : undefined,
+            author_email: newBlog.users?.email,
+            author_display_name: newBlog.users?.display_name
+        };
 
         const response: ApiResponse<Blog> = {
             success: true,
             message: "Blog created successfully",
-            data: newBlog as any
+            data: blogResponse
         };
 
         res.status(201).json(response);
     } catch (error: any) {
-        console.error("Create blog error:", error);
+        console.error('[blog][create] Error:', error);
+        console.error('[blog][create] Stack:', error.stack);
         res.status(500).json({
             success: false,
             message: "Failed to create blog",
@@ -295,10 +419,15 @@ export const createBlog = async (req: Request, res: Response): Promise<void> => 
 // Update blog
 export const updateBlog = async (req: Request, res: Response): Promise<void> => {
     try {
+        console.log('[blog][update] Request received for blog ID:', req.params.id);
+        console.log('[blog][update] Body:', req.body);
+        console.log('[blog][update] File present:', !!req.file);
+        
         const { id } = req.params;
         const firebaseUser = (req as any).user;
 
         if (!firebaseUser) {
+            console.log('[blog][update] No Firebase user found');
             res.status(401).json({
                 success: false,
                 message: "Authentication required"
@@ -307,6 +436,7 @@ export const updateBlog = async (req: Request, res: Response): Promise<void> => 
         }
 
         const userId = await getUserIdFromFirebaseUid(firebaseUser.uid);
+        console.log('[blog][update] User ID:', userId);
 
         // Check if blog exists
         const existingBlog = await prisma.blogs.findUnique({
@@ -314,6 +444,7 @@ export const updateBlog = async (req: Request, res: Response): Promise<void> => 
         });
 
         if (!existingBlog) {
+            console.log('[blog][update] Blog not found:', id);
             res.status(404).json({
                 success: false,
                 message: "Blog not found"
@@ -332,6 +463,7 @@ export const updateBlog = async (req: Request, res: Response): Promise<void> => 
         const isAdmin = userRole === 'admin' || userRole === 'moderator';
 
         if (!isAuthor && !isAdmin) {
+            console.log('[blog][update] User not authorized');
             res.status(403).json({
                 success: false,
                 message: "You don't have permission to update this blog"
@@ -339,17 +471,58 @@ export const updateBlog = async (req: Request, res: Response): Promise<void> => 
             return;
         }
 
-        const updateData: UpdateBlogRequest = req.body;
+        // Parse update data (handle both multipart and JSON)
+        let updateData: any = {};
+        
+        if (req.file) {
+            // Multipart form data
+            if (req.body.title !== undefined) updateData.title = req.body.title;
+            if (req.body.content !== undefined) updateData.content = req.body.content;
+            if (req.body.excerpt !== undefined) updateData.excerpt = req.body.excerpt;
+            if (req.body.status !== undefined) updateData.status = req.body.status;
+            if (req.body.tags !== undefined) {
+                updateData.tags = typeof req.body.tags === 'string' ? JSON.parse(req.body.tags) : req.body.tags;
+            }
+            if (req.body.metadata !== undefined) {
+                updateData.metadata = typeof req.body.metadata === 'string' ? JSON.parse(req.body.metadata) : req.body.metadata;
+            }
+        } else {
+            // JSON data
+            updateData = req.body;
+        }
+
         const updateFields: any = {};
 
         // Add fields to update if they are defined
         if (updateData.title !== undefined) updateFields.title = updateData.title;
         if (updateData.content !== undefined) updateFields.content = updateData.content;
         if (updateData.excerpt !== undefined) updateFields.excerpt = updateData.excerpt;
-        if (updateData.featured_image !== undefined) updateFields.featured_image = updateData.featured_image;
         if (updateData.status !== undefined) updateFields.status = updateData.status;
         if (updateData.tags !== undefined) updateFields.tags = updateData.tags as any;
         if (updateData.metadata !== undefined) updateFields.metadata = updateData.metadata as any;
+
+        // Handle image upload if new image provided
+        if (req.file) {
+            try {
+                console.log('[blog][update] Uploading new image to Cloudinary...');
+                const imageUrl = await uploadImageToCloudinary(req.file, id);
+                console.log('[blog][update] New image uploaded:', imageUrl);
+                updateFields.featured_image = imageUrl;
+                updateFields.image_url = imageUrl; // Also update image_url
+            } catch (uploadError: any) {
+                console.error('[blog][update] Image upload failed:', uploadError);
+                res.status(500).json({
+                    success: false,
+                    message: "Failed to upload new image",
+                    error: uploadError.message
+                });
+                return;
+            }
+        } else if (updateData.featured_image !== undefined) {
+            // If featured_image provided in JSON (from frontend Firebase upload)
+            updateFields.featured_image = updateData.featured_image;
+            updateFields.image_url = updateData.featured_image;
+        }
 
         // Update timestamp
         updateFields.updated_at = new Date();
@@ -357,9 +530,11 @@ export const updateBlog = async (req: Request, res: Response): Promise<void> => 
         // Check if we're changing status from draft to published
         if (existingBlog.status !== 'published' && updateData.status === 'published') {
             updateFields.published_at = new Date();
+            console.log('[blog][update] Publishing blog');
         }
 
-        if (Object.keys(updateFields).length === 0) {
+        if (Object.keys(updateFields).length === 1 && updateFields.updated_at) {
+            console.log('[blog][update] No valid fields to update');
             res.status(400).json({
                 success: false,
                 message: "No valid fields to update"
@@ -367,20 +542,58 @@ export const updateBlog = async (req: Request, res: Response): Promise<void> => 
             return;
         }
 
+        console.log('[blog][update] Updating blog with fields:', Object.keys(updateFields));
+
         const updatedBlog = await prisma.blogs.update({
             where: { id: parseInt(id) },
-            data: updateFields
+            data: updateFields,
+            include: {
+                users: {
+                    select: {
+                        first_name: true,
+                        last_name: true,
+                        email: true,
+                        display_name: true
+                    }
+                }
+            }
         });
+
+        console.log('[blog][update] Blog updated successfully');
+
+        // Format response
+        const blogResponse: Blog = {
+            id: updatedBlog.id,
+            title: updatedBlog.title,
+            content: updatedBlog.content,
+            excerpt: updatedBlog.excerpt ?? undefined,
+            image_url: updatedBlog.image_url ?? undefined,
+            featured_image: updatedBlog.featured_image ?? undefined,
+            author_id: updatedBlog.author_id!,
+            status: updatedBlog.status as BlogStatus,
+            published_at: updatedBlog.published_at ? updatedBlog.published_at.toISOString() : undefined,
+            view_count: updatedBlog.view_count ?? 0,
+            like_count: updatedBlog.like_count ?? 0,
+            comment_count: updatedBlog.comment_count ?? 0,
+            tags: (updatedBlog.tags as string[]) || [],
+            metadata: (updatedBlog.metadata as any) || {},
+            created_at: updatedBlog.created_at ? updatedBlog.created_at.toISOString() : '',
+            updated_at: updatedBlog.updated_at ? updatedBlog.updated_at.toISOString() : '',
+            author_name: updatedBlog.users ? `${updatedBlog.users.first_name || ''} ${updatedBlog.users.last_name || ''}`.trim() : undefined,
+            author_email: updatedBlog.users?.email,
+            author_display_name: updatedBlog.users?.display_name
+        };
 
         const response: ApiResponse<Blog> = {
             success: true,
             message: "Blog updated successfully",
-            data: updatedBlog as any
+            data: blogResponse
         };
 
         res.json(response);
     } catch (error: any) {
-        console.error("Update blog error:", error);
+        console.error('[blog][update] Error:', error);
+        console.error('[blog][update] Stack:', error.stack);
         res.status(500).json({
             success: false,
             message: "Failed to update blog",
