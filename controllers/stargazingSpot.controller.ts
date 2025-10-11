@@ -50,6 +50,7 @@ export interface CreateStargazingSpotRequest {
     best_time?: string;
     description: string;
     facilities?: string[];
+    rating?: number;
 }
 
 export interface UpdateStargazingSpotRequest {
@@ -279,7 +280,7 @@ export const getStargazingSpotById = async (req: Request, res: Response) => {
 // Create a new stargazing spot
 export const createStargazingSpot = async (req: Request, res: Response) => {
     try {
-        const userId = (req as any).user?.id;
+        const userId = (req as any).user?.userId;
         if (!userId) {
             res.status(401).json({
                 success: false,
@@ -288,7 +289,7 @@ export const createStargazingSpot = async (req: Request, res: Response) => {
             return;
         }
 
-        const { name, location, image_url, best_time, description, facilities }: CreateStargazingSpotRequest = req.body;
+        const { name, location, image_url, best_time, description, facilities, rating }: CreateStargazingSpotRequest = req.body;
 
         // Validate required fields
         if (!name || !location || !description) {
@@ -297,6 +298,19 @@ export const createStargazingSpot = async (req: Request, res: Response) => {
                 message: 'Name, location, and description are required'
             });
             return;
+        }
+
+        // Validate rating if provided
+        let validatedRating = 0; // Default rating
+        if (rating !== undefined && rating !== null) {
+            if (typeof rating !== 'number' || rating < 0 || rating > 5) {
+                res.status(400).json({
+                    success: false,
+                    message: 'Rating must be a number between 0 and 5'
+                });
+                return;
+            }
+            validatedRating = rating;
         }
 
         const newSpot = await prisma.stargazing_spots.create({
@@ -308,7 +322,7 @@ export const createStargazingSpot = async (req: Request, res: Response) => {
                 description: description.trim(),
                 facilities: facilities || [],
                 created_by: userId,
-                rating: 0,
+                rating: validatedRating,
                 is_active: true
             },
             include: {
@@ -348,7 +362,7 @@ export const createStargazingSpot = async (req: Request, res: Response) => {
 // Update a stargazing spot
 export const updateStargazingSpot = async (req: Request, res: Response) => {
     try {
-        const userId = (req as any).user?.id;
+        const userId = (req as any).user?.userId;
         const spotId = parseInt(req.params.id);
 
         if (!userId) {
@@ -457,7 +471,7 @@ export const updateStargazingSpot = async (req: Request, res: Response) => {
 // Delete a stargazing spot (soft delete)
 export const deleteStargazingSpot = async (req: Request, res: Response) => {
     try {
-        const userId = (req as any).user?.id;
+        const userId = (req as any).user?.userId;
         const spotId = parseInt(req.params.id);
 
         if (!userId) {
@@ -526,7 +540,7 @@ export const deleteStargazingSpot = async (req: Request, res: Response) => {
 // Add a review to a stargazing spot
 export const addReview = async (req: Request, res: Response) => {
     try {
-        const userId = (req as any).user?.id;
+        const userId = (req as any).user?.userId;
         const spotId = parseInt(req.params.id);
 
         if (!userId) {
@@ -702,7 +716,7 @@ export const getSpotReviews = async (req: Request, res: Response) => {
 // Update a review
 export const updateReview = async (req: Request, res: Response) => {
     try {
-        const userId = (req as any).user?.id;
+        const userId = (req as any).user?.userId;
         const reviewId = parseInt(req.params.reviewId);
 
         if (!userId) {
@@ -787,7 +801,7 @@ export const updateReview = async (req: Request, res: Response) => {
 // Delete a review
 export const deleteReview = async (req: Request, res: Response) => {
     try {
-        const userId = (req as any).user?.id;
+        const userId = (req as any).user?.userId;
         const reviewId = parseInt(req.params.reviewId);
 
         if (!userId) {
