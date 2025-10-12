@@ -151,6 +151,7 @@ export const getBlogs = async (req: Request, res: Response): Promise<void> => {
                 content: blog.content,
                 excerpt: blog.excerpt || undefined,
                 image_url: blog.image_url || undefined,
+                featured_image: blog.featured_image || undefined, // Include featured_image
                 author_id: blog.author_id!,
                 status: blog.status as BlogStatus,
                 published_at: blog.published_at ? blog.published_at.toISOString() : undefined,
@@ -224,6 +225,7 @@ export const getBlogById = async (req: Request, res: Response): Promise<void> =>
             content: blog.content,
             excerpt: blog.excerpt ?? undefined,
             image_url: blog.image_url ?? undefined,
+            featured_image: blog.featured_image ?? undefined, // Include featured_image
             author_id: blog.author_id!,
             status: blog.status as BlogStatus,
             published_at: blog.published_at ? blog.published_at.toISOString() : undefined,
@@ -290,7 +292,7 @@ export const createBlog = async (req: Request, res: Response): Promise<void> => 
         let content: string;
         let excerpt: string | undefined;
         let featured_image: string | undefined;
-        let status: string = 'draft';
+        let status: string = 'pending'; // Default to pending for moderation
         let tags: string[] = [];
         let metadata: any = {};
 
@@ -300,7 +302,7 @@ export const createBlog = async (req: Request, res: Response): Promise<void> => 
             title = req.body.title;
             content = req.body.content;
             excerpt = req.body.excerpt;
-            status = req.body.status || 'draft';
+            status = req.body.status || 'pending'; // Default to pending for moderation
             tags = req.body.tags ? (typeof req.body.tags === 'string' ? JSON.parse(req.body.tags) : req.body.tags) : [];
             metadata = req.body.metadata ? (typeof req.body.metadata === 'string' ? JSON.parse(req.body.metadata) : req.body.metadata) : {};
         } else {
@@ -310,7 +312,7 @@ export const createBlog = async (req: Request, res: Response): Promise<void> => 
             content = data.content;
             excerpt = data.excerpt;
             featured_image = data.featured_image; // May be provided from frontend Firebase upload
-            status = data.status || 'draft';
+            status = data.status || 'pending'; // Default to pending for moderation
             tags = data.tags || [];
             metadata = data.metadata || {};
         }
@@ -357,7 +359,7 @@ export const createBlog = async (req: Request, res: Response): Promise<void> => 
                 image_url: imageUrl, // Also populate image_url for backward compatibility
                 author_id: userId,
                 status,
-                published_at: status === 'published' ? new Date() : null,
+                published_at: status === 'approved' ? new Date() : null, // Only set published_at when approved
                 tags: tags as any, // JSON field
                 metadata: metadata as any // JSON field
             },
@@ -386,9 +388,9 @@ export const createBlog = async (req: Request, res: Response): Promise<void> => 
             author_id: newBlog.author_id!,
             status: newBlog.status as BlogStatus,
             published_at: newBlog.published_at ? newBlog.published_at.toISOString() : undefined,
-            view_count: newBlog.view_count ?? 0,
-            like_count: newBlog.like_count ?? 0,
-            comment_count: newBlog.comment_count ?? 0,
+            views_count: newBlog.view_count ?? 0,
+            likes_count: newBlog.like_count ?? 0,
+            comments_count: newBlog.comment_count ?? 0,
             tags: (newBlog.tags as string[]) || [],
             metadata: (newBlog.metadata as any) || {},
             created_at: newBlog.created_at ? newBlog.created_at.toISOString() : '',
@@ -527,10 +529,16 @@ export const updateBlog = async (req: Request, res: Response): Promise<void> => 
         // Update timestamp
         updateFields.updated_at = new Date();
 
-        // Check if we're changing status from draft to published
-        if (existingBlog.status !== 'published' && updateData.status === 'published') {
+        // Check if we're changing status to approved (moderator approval)
+        if (existingBlog.status !== 'approved' && updateData.status === 'approved') {
             updateFields.published_at = new Date();
-            console.log('[blog][update] Publishing blog');
+            console.log('[blog][update] Approving blog - setting published_at');
+        }
+        
+        // If status changes from approved to anything else, clear published_at
+        if (existingBlog.status === 'approved' && updateData.status && updateData.status !== 'approved') {
+            updateFields.published_at = null;
+            console.log('[blog][update] Unapproving blog - clearing published_at');
         }
 
         if (Object.keys(updateFields).length === 1 && updateFields.updated_at) {
@@ -572,9 +580,9 @@ export const updateBlog = async (req: Request, res: Response): Promise<void> => 
             author_id: updatedBlog.author_id!,
             status: updatedBlog.status as BlogStatus,
             published_at: updatedBlog.published_at ? updatedBlog.published_at.toISOString() : undefined,
-            view_count: updatedBlog.view_count ?? 0,
-            like_count: updatedBlog.like_count ?? 0,
-            comment_count: updatedBlog.comment_count ?? 0,
+            views_count: updatedBlog.view_count ?? 0,
+            likes_count: updatedBlog.like_count ?? 0,
+            comments_count: updatedBlog.comment_count ?? 0,
             tags: (updatedBlog.tags as string[]) || [],
             metadata: (updatedBlog.metadata as any) || {},
             created_at: updatedBlog.created_at ? updatedBlog.created_at.toISOString() : '',
