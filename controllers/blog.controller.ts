@@ -151,6 +151,7 @@ export const getBlogs = async (req: Request, res: Response): Promise<void> => {
                 content: blog.content,
                 excerpt: blog.excerpt || undefined,
                 image_url: blog.image_url || undefined,
+                featured_image: blog.featured_image || undefined, // Include featured_image
                 author_id: blog.author_id!,
                 status: blog.status as BlogStatus,
                 published_at: blog.published_at ? blog.published_at.toISOString() : undefined,
@@ -224,6 +225,7 @@ export const getBlogById = async (req: Request, res: Response): Promise<void> =>
             content: blog.content,
             excerpt: blog.excerpt ?? undefined,
             image_url: blog.image_url ?? undefined,
+            featured_image: blog.featured_image ?? undefined, // Include featured_image
             author_id: blog.author_id!,
             status: blog.status as BlogStatus,
             published_at: blog.published_at ? blog.published_at.toISOString() : undefined,
@@ -290,7 +292,7 @@ export const createBlog = async (req: Request, res: Response): Promise<void> => 
         let content: string;
         let excerpt: string | undefined;
         let featured_image: string | undefined;
-        let status: string = 'draft';
+        let status: string = 'pending'; // Default to pending for moderation
         let tags: string[] = [];
         let metadata: any = {};
 
@@ -300,7 +302,7 @@ export const createBlog = async (req: Request, res: Response): Promise<void> => 
             title = req.body.title;
             content = req.body.content;
             excerpt = req.body.excerpt;
-            status = req.body.status || 'draft';
+            status = req.body.status || 'pending'; // Default to pending for moderation
             tags = req.body.tags ? (typeof req.body.tags === 'string' ? JSON.parse(req.body.tags) : req.body.tags) : [];
             metadata = req.body.metadata ? (typeof req.body.metadata === 'string' ? JSON.parse(req.body.metadata) : req.body.metadata) : {};
         } else {
@@ -310,7 +312,7 @@ export const createBlog = async (req: Request, res: Response): Promise<void> => 
             content = data.content;
             excerpt = data.excerpt;
             featured_image = data.featured_image; // May be provided from frontend Firebase upload
-            status = data.status || 'draft';
+            status = data.status || 'pending'; // Default to pending for moderation
             tags = data.tags || [];
             metadata = data.metadata || {};
         }
@@ -357,7 +359,7 @@ export const createBlog = async (req: Request, res: Response): Promise<void> => 
                 image_url: imageUrl, // Also populate image_url for backward compatibility
                 author_id: userId,
                 status,
-                published_at: status === 'published' ? new Date() : null,
+                published_at: status === 'published' ? new Date() : null, // Only set published_at when published
                 tags: tags as any, // JSON field
                 metadata: metadata as any // JSON field
             },
@@ -386,9 +388,9 @@ export const createBlog = async (req: Request, res: Response): Promise<void> => 
             author_id: newBlog.author_id!,
             status: newBlog.status as BlogStatus,
             published_at: newBlog.published_at ? newBlog.published_at.toISOString() : undefined,
-            view_count: newBlog.view_count ?? 0,
-            like_count: newBlog.like_count ?? 0,
-            comment_count: newBlog.comment_count ?? 0,
+            views_count: newBlog.view_count ?? 0,
+            likes_count: newBlog.like_count ?? 0,
+            comments_count: newBlog.comment_count ?? 0,
             tags: (newBlog.tags as string[]) || [],
             metadata: (newBlog.metadata as any) || {},
             created_at: newBlog.created_at ? newBlog.created_at.toISOString() : '',
@@ -527,10 +529,16 @@ export const updateBlog = async (req: Request, res: Response): Promise<void> => 
         // Update timestamp
         updateFields.updated_at = new Date();
 
-        // Check if we're changing status from draft to published
+        // Check if we're changing status to published (moderator approval)
         if (existingBlog.status !== 'published' && updateData.status === 'published') {
             updateFields.published_at = new Date();
-            console.log('[blog][update] Publishing blog');
+            console.log('[blog][update] Approving blog - setting published_at');
+        }
+        
+        // If status changes from published to anything else, clear published_at
+        if (existingBlog.status === 'published' && updateData.status && updateData.status !== 'published') {
+            updateFields.published_at = null;
+            console.log('[blog][update] Unpublishing blog - clearing published_at');
         }
 
         if (Object.keys(updateFields).length === 1 && updateFields.updated_at) {
@@ -572,9 +580,9 @@ export const updateBlog = async (req: Request, res: Response): Promise<void> => 
             author_id: updatedBlog.author_id!,
             status: updatedBlog.status as BlogStatus,
             published_at: updatedBlog.published_at ? updatedBlog.published_at.toISOString() : undefined,
-            view_count: updatedBlog.view_count ?? 0,
-            like_count: updatedBlog.like_count ?? 0,
-            comment_count: updatedBlog.comment_count ?? 0,
+            views_count: updatedBlog.view_count ?? 0,
+            likes_count: updatedBlog.like_count ?? 0,
+            comments_count: updatedBlog.comment_count ?? 0,
             tags: (updatedBlog.tags as string[]) || [],
             metadata: (updatedBlog.metadata as any) || {},
             created_at: updatedBlog.created_at ? updatedBlog.created_at.toISOString() : '',
@@ -664,6 +672,162 @@ export const deleteBlog = async (req: Request, res: Response): Promise<void> => 
         res.status(500).json({
             success: false,
             message: "Failed to delete blog",
+            error: error.message
+        });
+    }
+};
+
+// Moderate blog (dedicated endpoint for moderator actions)
+export const moderateBlog = async (req: Request, res: Response): Promise<void> => {
+    try {
+        console.log('[blog][moderate] Request received for blog ID:', req.params.id);
+        console.log('[blog][moderate] Action:', req.body.action);
+        
+        const { id } = req.params;
+        const { action, reason } = req.body;
+        const firebaseUser = (req as any).user;
+
+        if (!firebaseUser) {
+            console.log('[blog][moderate] No Firebase user found');
+            res.status(401).json({
+                success: false,
+                message: "Authentication required"
+            });
+            return;
+        }
+
+        const userId = await getUserIdFromFirebaseUid(firebaseUser.uid);
+
+        // Check if user is moderator or admin
+        const user = await prisma.users.findUnique({
+            where: { id: userId },
+            select: { role: true }
+        });
+
+        const isModerator = user?.role === 'moderator' || user?.role === 'admin';
+
+        if (!isModerator) {
+            console.log('[blog][moderate] User not authorized - role:', user?.role);
+            res.status(403).json({
+                success: false,
+                message: "You don't have permission to moderate blogs. Moderator or admin role required."
+            });
+            return;
+        }
+
+        // Check if blog exists and is in pending status
+        const existingBlog = await prisma.blogs.findUnique({
+            where: { id: parseInt(id) }
+        });
+
+        if (!existingBlog) {
+            console.log('[blog][moderate] Blog not found:', id);
+            res.status(404).json({
+                success: false,
+                message: "Blog not found"
+            });
+            return;
+        }
+
+        if (existingBlog.status !== 'pending') {
+            console.log('[blog][moderate] Blog not in pending status:', existingBlog.status);
+            res.status(400).json({
+                success: false,
+                message: "Only pending blogs can be moderated"
+            });
+            return;
+        }
+
+        // Validate action
+        if (!['approve', 'reject'].includes(action)) {
+            console.log('[blog][moderate] Invalid action:', action);
+            res.status(400).json({
+                success: false,
+                message: "Invalid action. Must be 'approve' or 'reject'"
+            });
+            return;
+        }
+
+        console.log('[blog][moderate] Moderating blog:', action);
+
+        // Update blog status based on action
+        const updateData: any = {
+            updated_at: new Date()
+        };
+
+        if (action === 'approve') {
+            updateData.status = 'published'; // Use 'published' for approved blogs
+            updateData.published_at = new Date();
+            console.log('[blog][moderate] Approving blog - setting status to published');
+        } else if (action === 'reject') {
+            updateData.status = 'rejected';
+            updateData.published_at = null;
+            if (reason) {
+                // Store rejection reason in metadata
+                const currentMetadata = (existingBlog.metadata as any) || {};
+                updateData.metadata = {
+                    ...currentMetadata,
+                    rejection_reason: reason,
+                    rejected_at: new Date().toISOString(),
+                    rejected_by: userId
+                };
+            }
+            console.log('[blog][moderate] Rejecting blog');
+        }
+
+        const updatedBlog = await prisma.blogs.update({
+            where: { id: parseInt(id) },
+            data: updateData,
+            include: {
+                users: {
+                    select: {
+                        first_name: true,
+                        last_name: true,
+                        email: true,
+                        display_name: true
+                    }
+                }
+            }
+        });
+
+        console.log('[blog][moderate] Blog moderated successfully');
+
+        // Format response
+        const blogResponse: Blog = {
+            id: updatedBlog.id,
+            title: updatedBlog.title,
+            content: updatedBlog.content,
+            excerpt: updatedBlog.excerpt ?? undefined,
+            image_url: updatedBlog.image_url ?? undefined,
+            featured_image: updatedBlog.featured_image ?? undefined,
+            author_id: updatedBlog.author_id!,
+            status: updatedBlog.status as BlogStatus,
+            published_at: updatedBlog.published_at ? updatedBlog.published_at.toISOString() : undefined,
+            views_count: updatedBlog.view_count ?? 0,
+            likes_count: updatedBlog.like_count ?? 0,
+            comments_count: updatedBlog.comment_count ?? 0,
+            tags: (updatedBlog.tags as string[]) || [],
+            metadata: (updatedBlog.metadata as any) || {},
+            created_at: updatedBlog.created_at ? updatedBlog.created_at.toISOString() : '',
+            updated_at: updatedBlog.updated_at ? updatedBlog.updated_at.toISOString() : '',
+            author_name: updatedBlog.users ? `${updatedBlog.users.first_name || ''} ${updatedBlog.users.last_name || ''}`.trim() : undefined,
+            author_email: updatedBlog.users?.email,
+            author_display_name: updatedBlog.users?.display_name
+        };
+
+        const response: ApiResponse<Blog> = {
+            success: true,
+            message: action === 'approve' ? "Blog approved successfully" : "Blog rejected successfully",
+            data: blogResponse
+        };
+
+        res.json(response);
+    } catch (error: any) {
+        console.error('[blog][moderate] Error:', error);
+        console.error('[blog][moderate] Stack:', error.stack);
+        res.status(500).json({
+            success: false,
+            message: "Failed to moderate blog",
             error: error.message
         });
     }
