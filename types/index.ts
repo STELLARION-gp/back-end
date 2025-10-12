@@ -272,7 +272,7 @@ export interface RoleUpgradeRequestData {
 }
 
 // Blog types
-export type BlogStatus = 'draft' | 'published' | 'archived';
+export type BlogStatus = 'draft' | 'pending' | 'approved' | 'rejected' | 'published' | 'archived';
 
 export interface Blog {
     id: number;
@@ -280,6 +280,7 @@ export interface Blog {
     content: string;
     excerpt?: string;
     image_url?: string; // Database field
+    featured_image?: string; // Database field
     author_id: number;
     status: BlogStatus;
     published_at?: string;
