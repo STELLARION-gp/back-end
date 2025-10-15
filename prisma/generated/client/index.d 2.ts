@@ -460,6 +460,13 @@ export class PrismaClient<
    */
   $disconnect(): $Utils.JsPromise<void>;
 
+  /**
+   * Add a middleware
+   * @deprecated since 4.16.0. For new code, prefer client extensions instead.
+   * @see https://pris.ly/d/extensions
+   */
+  $use(cb: Prisma.Middleware): void
+
 /**
    * Executes a prepared raw query and returns the number of affected rows.
    * @example
@@ -1046,8 +1053,8 @@ export namespace Prisma {
   export import Exact = $Public.Exact
 
   /**
-   * Prisma Client JS version: 6.17.1
-   * Query Engine version: 272a37d34178c2894197e17273bf937f25acdeac
+   * Prisma Client JS version: 6.13.0
+   * Query Engine version: 361e86d0ea4987e9f53a565309b3eed797a6bcbd
    */
   export type PrismaVersion = {
     client: string
@@ -4976,10 +4983,6 @@ export namespace Prisma {
       isolationLevel?: Prisma.TransactionIsolationLevel
     }
     /**
-     * Instance of a Driver Adapter, e.g., like one provided by `@prisma/adapter-planetscale`
-     */
-    adapter?: runtime.SqlDriverAdapterFactory | null
-    /**
      * Global configuration for omitting model fields by default.
      * 
      * @example
@@ -5099,6 +5102,25 @@ export namespace Prisma {
     | 'runCommandRaw'
     | 'findRaw'
     | 'groupBy'
+
+  /**
+   * These options are being passed into the middleware as "params"
+   */
+  export type MiddlewareParams = {
+    model?: ModelName
+    action: PrismaAction
+    args: any
+    dataPath: string[]
+    runInTransaction: boolean
+  }
+
+  /**
+   * The `T` type makes sure, that the `return proceed` is not forgotten in the middleware implementation
+   */
+  export type Middleware<T = any> = (
+    params: MiddlewareParams,
+    next: (params: MiddlewareParams) => $Utils.JsPromise<T>,
+  ) => $Utils.JsPromise<T>
 
   // tested in getLogLevel.test.ts
   export function getLogLevel(log: Array<LogLevel | LogDefinition>): LogLevel | undefined;
@@ -25254,13 +25276,11 @@ export namespace Prisma {
 
   export type UsersAvgAggregateOutputType = {
     id: number | null
-    subscription_level: number | null
     chatbot_questions_used: number | null
   }
 
   export type UsersSumAggregateOutputType = {
     id: number | null
-    subscription_level: number | null
     chatbot_questions_used: number | null
   }
 
@@ -25278,7 +25298,6 @@ export namespace Prisma {
     display_name: string | null
     subscription_plan: $Enums.subscription_plan | null
     subscription_status: $Enums.subscription_status | null
-    subscription_level: number | null
     subscription_start_date: Date | null
     subscription_end_date: Date | null
     auto_renew: boolean | null
@@ -25300,7 +25319,6 @@ export namespace Prisma {
     display_name: string | null
     subscription_plan: $Enums.subscription_plan | null
     subscription_status: $Enums.subscription_status | null
-    subscription_level: number | null
     subscription_start_date: Date | null
     subscription_end_date: Date | null
     auto_renew: boolean | null
@@ -25324,7 +25342,6 @@ export namespace Prisma {
     role_specific_data: number
     subscription_plan: number
     subscription_status: number
-    subscription_level: number
     subscription_start_date: number
     subscription_end_date: number
     auto_renew: number
@@ -25336,13 +25353,11 @@ export namespace Prisma {
 
   export type UsersAvgAggregateInputType = {
     id?: true
-    subscription_level?: true
     chatbot_questions_used?: true
   }
 
   export type UsersSumAggregateInputType = {
     id?: true
-    subscription_level?: true
     chatbot_questions_used?: true
   }
 
@@ -25360,7 +25375,6 @@ export namespace Prisma {
     display_name?: true
     subscription_plan?: true
     subscription_status?: true
-    subscription_level?: true
     subscription_start_date?: true
     subscription_end_date?: true
     auto_renew?: true
@@ -25382,7 +25396,6 @@ export namespace Prisma {
     display_name?: true
     subscription_plan?: true
     subscription_status?: true
-    subscription_level?: true
     subscription_start_date?: true
     subscription_end_date?: true
     auto_renew?: true
@@ -25406,7 +25419,6 @@ export namespace Prisma {
     role_specific_data?: true
     subscription_plan?: true
     subscription_status?: true
-    subscription_level?: true
     subscription_start_date?: true
     subscription_end_date?: true
     auto_renew?: true
@@ -25517,7 +25529,6 @@ export namespace Prisma {
     role_specific_data: JsonValue | null
     subscription_plan: $Enums.subscription_plan | null
     subscription_status: $Enums.subscription_status | null
-    subscription_level: number | null
     subscription_start_date: Date | null
     subscription_end_date: Date | null
     auto_renew: boolean | null
@@ -25560,7 +25571,6 @@ export namespace Prisma {
     role_specific_data?: boolean
     subscription_plan?: boolean
     subscription_status?: boolean
-    subscription_level?: boolean
     subscription_start_date?: boolean
     subscription_end_date?: boolean
     auto_renew?: boolean
@@ -25620,7 +25630,6 @@ export namespace Prisma {
     role_specific_data?: boolean
     subscription_plan?: boolean
     subscription_status?: boolean
-    subscription_level?: boolean
     subscription_start_date?: boolean
     subscription_end_date?: boolean
     auto_renew?: boolean
@@ -25644,7 +25653,6 @@ export namespace Prisma {
     role_specific_data?: boolean
     subscription_plan?: boolean
     subscription_status?: boolean
-    subscription_level?: boolean
     subscription_start_date?: boolean
     subscription_end_date?: boolean
     auto_renew?: boolean
@@ -25668,7 +25676,6 @@ export namespace Prisma {
     role_specific_data?: boolean
     subscription_plan?: boolean
     subscription_status?: boolean
-    subscription_level?: boolean
     subscription_start_date?: boolean
     subscription_end_date?: boolean
     auto_renew?: boolean
@@ -25676,7 +25683,7 @@ export namespace Prisma {
     chatbot_questions_reset_date?: boolean
   }
 
-  export type usersOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "firebase_uid" | "email" | "role" | "first_name" | "last_name" | "is_active" | "last_login" | "created_at" | "updated_at" | "display_name" | "profile_data" | "role_specific_data" | "subscription_plan" | "subscription_status" | "subscription_level" | "subscription_start_date" | "subscription_end_date" | "auto_renew" | "chatbot_questions_used" | "chatbot_questions_reset_date", ExtArgs["result"]["users"]>
+  export type usersOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "firebase_uid" | "email" | "role" | "first_name" | "last_name" | "is_active" | "last_login" | "created_at" | "updated_at" | "display_name" | "profile_data" | "role_specific_data" | "subscription_plan" | "subscription_status" | "subscription_start_date" | "subscription_end_date" | "auto_renew" | "chatbot_questions_used" | "chatbot_questions_reset_date", ExtArgs["result"]["users"]>
   export type usersInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     QuizParticipants?: boolean | users$QuizParticipantsArgs<ExtArgs>
     Quizzes?: boolean | users$QuizzesArgs<ExtArgs>
@@ -25773,7 +25780,6 @@ export namespace Prisma {
       role_specific_data: Prisma.JsonValue | null
       subscription_plan: $Enums.subscription_plan | null
       subscription_status: $Enums.subscription_status | null
-      subscription_level: number | null
       subscription_start_date: Date | null
       subscription_end_date: Date | null
       auto_renew: boolean | null
@@ -26252,7 +26258,6 @@ export namespace Prisma {
     readonly role_specific_data: FieldRef<"users", 'Json'>
     readonly subscription_plan: FieldRef<"users", 'subscription_plan'>
     readonly subscription_status: FieldRef<"users", 'subscription_status'>
-    readonly subscription_level: FieldRef<"users", 'Int'>
     readonly subscription_start_date: FieldRef<"users", 'DateTime'>
     readonly subscription_end_date: FieldRef<"users", 'DateTime'>
     readonly auto_renew: FieldRef<"users", 'Boolean'>
@@ -62407,7 +62412,6 @@ export namespace Prisma {
     role_specific_data: 'role_specific_data',
     subscription_plan: 'subscription_plan',
     subscription_status: 'subscription_status',
-    subscription_level: 'subscription_level',
     subscription_start_date: 'subscription_start_date',
     subscription_end_date: 'subscription_end_date',
     auto_renew: 'auto_renew',
@@ -64494,7 +64498,6 @@ export namespace Prisma {
     role_specific_data?: JsonNullableFilter<"users">
     subscription_plan?: Enumsubscription_planNullableFilter<"users"> | $Enums.subscription_plan | null
     subscription_status?: Enumsubscription_statusNullableFilter<"users"> | $Enums.subscription_status | null
-    subscription_level?: IntNullableFilter<"users"> | number | null
     subscription_start_date?: DateTimeNullableFilter<"users"> | Date | string | null
     subscription_end_date?: DateTimeNullableFilter<"users"> | Date | string | null
     auto_renew?: BoolNullableFilter<"users"> | boolean | null
@@ -64553,7 +64556,6 @@ export namespace Prisma {
     role_specific_data?: SortOrderInput | SortOrder
     subscription_plan?: SortOrderInput | SortOrder
     subscription_status?: SortOrderInput | SortOrder
-    subscription_level?: SortOrderInput | SortOrder
     subscription_start_date?: SortOrderInput | SortOrder
     subscription_end_date?: SortOrderInput | SortOrder
     auto_renew?: SortOrderInput | SortOrder
@@ -64615,7 +64617,6 @@ export namespace Prisma {
     role_specific_data?: JsonNullableFilter<"users">
     subscription_plan?: Enumsubscription_planNullableFilter<"users"> | $Enums.subscription_plan | null
     subscription_status?: Enumsubscription_statusNullableFilter<"users"> | $Enums.subscription_status | null
-    subscription_level?: IntNullableFilter<"users"> | number | null
     subscription_start_date?: DateTimeNullableFilter<"users"> | Date | string | null
     subscription_end_date?: DateTimeNullableFilter<"users"> | Date | string | null
     auto_renew?: BoolNullableFilter<"users"> | boolean | null
@@ -64674,7 +64675,6 @@ export namespace Prisma {
     role_specific_data?: SortOrderInput | SortOrder
     subscription_plan?: SortOrderInput | SortOrder
     subscription_status?: SortOrderInput | SortOrder
-    subscription_level?: SortOrderInput | SortOrder
     subscription_start_date?: SortOrderInput | SortOrder
     subscription_end_date?: SortOrderInput | SortOrder
     auto_renew?: SortOrderInput | SortOrder
@@ -64706,7 +64706,6 @@ export namespace Prisma {
     role_specific_data?: JsonNullableWithAggregatesFilter<"users">
     subscription_plan?: Enumsubscription_planNullableWithAggregatesFilter<"users"> | $Enums.subscription_plan | null
     subscription_status?: Enumsubscription_statusNullableWithAggregatesFilter<"users"> | $Enums.subscription_status | null
-    subscription_level?: IntNullableWithAggregatesFilter<"users"> | number | null
     subscription_start_date?: DateTimeNullableWithAggregatesFilter<"users"> | Date | string | null
     subscription_end_date?: DateTimeNullableWithAggregatesFilter<"users"> | Date | string | null
     auto_renew?: BoolNullableWithAggregatesFilter<"users"> | boolean | null
@@ -68605,7 +68604,6 @@ export namespace Prisma {
     role_specific_data?: NullableJsonNullValueInput | InputJsonValue
     subscription_plan?: $Enums.subscription_plan | null
     subscription_status?: $Enums.subscription_status | null
-    subscription_level?: number | null
     subscription_start_date?: Date | string | null
     subscription_end_date?: Date | string | null
     auto_renew?: boolean | null
@@ -68664,7 +68662,6 @@ export namespace Prisma {
     role_specific_data?: NullableJsonNullValueInput | InputJsonValue
     subscription_plan?: $Enums.subscription_plan | null
     subscription_status?: $Enums.subscription_status | null
-    subscription_level?: number | null
     subscription_start_date?: Date | string | null
     subscription_end_date?: Date | string | null
     auto_renew?: boolean | null
@@ -68722,7 +68719,6 @@ export namespace Prisma {
     role_specific_data?: NullableJsonNullValueInput | InputJsonValue
     subscription_plan?: NullableEnumsubscription_planFieldUpdateOperationsInput | $Enums.subscription_plan | null
     subscription_status?: NullableEnumsubscription_statusFieldUpdateOperationsInput | $Enums.subscription_status | null
-    subscription_level?: NullableIntFieldUpdateOperationsInput | number | null
     subscription_start_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     subscription_end_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     auto_renew?: NullableBoolFieldUpdateOperationsInput | boolean | null
@@ -68781,7 +68777,6 @@ export namespace Prisma {
     role_specific_data?: NullableJsonNullValueInput | InputJsonValue
     subscription_plan?: NullableEnumsubscription_planFieldUpdateOperationsInput | $Enums.subscription_plan | null
     subscription_status?: NullableEnumsubscription_statusFieldUpdateOperationsInput | $Enums.subscription_status | null
-    subscription_level?: NullableIntFieldUpdateOperationsInput | number | null
     subscription_start_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     subscription_end_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     auto_renew?: NullableBoolFieldUpdateOperationsInput | boolean | null
@@ -68840,7 +68835,6 @@ export namespace Prisma {
     role_specific_data?: NullableJsonNullValueInput | InputJsonValue
     subscription_plan?: $Enums.subscription_plan | null
     subscription_status?: $Enums.subscription_status | null
-    subscription_level?: number | null
     subscription_start_date?: Date | string | null
     subscription_end_date?: Date | string | null
     auto_renew?: boolean | null
@@ -68863,7 +68857,6 @@ export namespace Prisma {
     role_specific_data?: NullableJsonNullValueInput | InputJsonValue
     subscription_plan?: NullableEnumsubscription_planFieldUpdateOperationsInput | $Enums.subscription_plan | null
     subscription_status?: NullableEnumsubscription_statusFieldUpdateOperationsInput | $Enums.subscription_status | null
-    subscription_level?: NullableIntFieldUpdateOperationsInput | number | null
     subscription_start_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     subscription_end_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     auto_renew?: NullableBoolFieldUpdateOperationsInput | boolean | null
@@ -68887,7 +68880,6 @@ export namespace Prisma {
     role_specific_data?: NullableJsonNullValueInput | InputJsonValue
     subscription_plan?: NullableEnumsubscription_planFieldUpdateOperationsInput | $Enums.subscription_plan | null
     subscription_status?: NullableEnumsubscription_statusFieldUpdateOperationsInput | $Enums.subscription_status | null
-    subscription_level?: NullableIntFieldUpdateOperationsInput | number | null
     subscription_start_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     subscription_end_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     auto_renew?: NullableBoolFieldUpdateOperationsInput | boolean | null
@@ -73253,7 +73245,6 @@ export namespace Prisma {
     role_specific_data?: SortOrder
     subscription_plan?: SortOrder
     subscription_status?: SortOrder
-    subscription_level?: SortOrder
     subscription_start_date?: SortOrder
     subscription_end_date?: SortOrder
     auto_renew?: SortOrder
@@ -73263,7 +73254,6 @@ export namespace Prisma {
 
   export type usersAvgOrderByAggregateInput = {
     id?: SortOrder
-    subscription_level?: SortOrder
     chatbot_questions_used?: SortOrder
   }
 
@@ -73281,7 +73271,6 @@ export namespace Prisma {
     display_name?: SortOrder
     subscription_plan?: SortOrder
     subscription_status?: SortOrder
-    subscription_level?: SortOrder
     subscription_start_date?: SortOrder
     subscription_end_date?: SortOrder
     auto_renew?: SortOrder
@@ -73303,7 +73292,6 @@ export namespace Prisma {
     display_name?: SortOrder
     subscription_plan?: SortOrder
     subscription_status?: SortOrder
-    subscription_level?: SortOrder
     subscription_start_date?: SortOrder
     subscription_end_date?: SortOrder
     auto_renew?: SortOrder
@@ -73313,7 +73301,6 @@ export namespace Prisma {
 
   export type usersSumOrderByAggregateInput = {
     id?: SortOrder
-    subscription_level?: SortOrder
     chatbot_questions_used?: SortOrder
   }
 
@@ -79555,7 +79542,6 @@ export namespace Prisma {
     role_specific_data?: NullableJsonNullValueInput | InputJsonValue
     subscription_plan?: $Enums.subscription_plan | null
     subscription_status?: $Enums.subscription_status | null
-    subscription_level?: number | null
     subscription_start_date?: Date | string | null
     subscription_end_date?: Date | string | null
     auto_renew?: boolean | null
@@ -79613,7 +79599,6 @@ export namespace Prisma {
     role_specific_data?: NullableJsonNullValueInput | InputJsonValue
     subscription_plan?: $Enums.subscription_plan | null
     subscription_status?: $Enums.subscription_status | null
-    subscription_level?: number | null
     subscription_start_date?: Date | string | null
     subscription_end_date?: Date | string | null
     auto_renew?: boolean | null
@@ -79722,7 +79707,6 @@ export namespace Prisma {
     role_specific_data?: NullableJsonNullValueInput | InputJsonValue
     subscription_plan?: NullableEnumsubscription_planFieldUpdateOperationsInput | $Enums.subscription_plan | null
     subscription_status?: NullableEnumsubscription_statusFieldUpdateOperationsInput | $Enums.subscription_status | null
-    subscription_level?: NullableIntFieldUpdateOperationsInput | number | null
     subscription_start_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     subscription_end_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     auto_renew?: NullableBoolFieldUpdateOperationsInput | boolean | null
@@ -79780,7 +79764,6 @@ export namespace Prisma {
     role_specific_data?: NullableJsonNullValueInput | InputJsonValue
     subscription_plan?: NullableEnumsubscription_planFieldUpdateOperationsInput | $Enums.subscription_plan | null
     subscription_status?: NullableEnumsubscription_statusFieldUpdateOperationsInput | $Enums.subscription_status | null
-    subscription_level?: NullableIntFieldUpdateOperationsInput | number | null
     subscription_start_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     subscription_end_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     auto_renew?: NullableBoolFieldUpdateOperationsInput | boolean | null
@@ -79837,7 +79820,6 @@ export namespace Prisma {
     role_specific_data?: NullableJsonNullValueInput | InputJsonValue
     subscription_plan?: $Enums.subscription_plan | null
     subscription_status?: $Enums.subscription_status | null
-    subscription_level?: number | null
     subscription_start_date?: Date | string | null
     subscription_end_date?: Date | string | null
     auto_renew?: boolean | null
@@ -79895,7 +79877,6 @@ export namespace Prisma {
     role_specific_data?: NullableJsonNullValueInput | InputJsonValue
     subscription_plan?: $Enums.subscription_plan | null
     subscription_status?: $Enums.subscription_status | null
-    subscription_level?: number | null
     subscription_start_date?: Date | string | null
     subscription_end_date?: Date | string | null
     auto_renew?: boolean | null
@@ -80030,7 +80011,6 @@ export namespace Prisma {
     role_specific_data?: NullableJsonNullValueInput | InputJsonValue
     subscription_plan?: NullableEnumsubscription_planFieldUpdateOperationsInput | $Enums.subscription_plan | null
     subscription_status?: NullableEnumsubscription_statusFieldUpdateOperationsInput | $Enums.subscription_status | null
-    subscription_level?: NullableIntFieldUpdateOperationsInput | number | null
     subscription_start_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     subscription_end_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     auto_renew?: NullableBoolFieldUpdateOperationsInput | boolean | null
@@ -80088,7 +80068,6 @@ export namespace Prisma {
     role_specific_data?: NullableJsonNullValueInput | InputJsonValue
     subscription_plan?: NullableEnumsubscription_planFieldUpdateOperationsInput | $Enums.subscription_plan | null
     subscription_status?: NullableEnumsubscription_statusFieldUpdateOperationsInput | $Enums.subscription_status | null
-    subscription_level?: NullableIntFieldUpdateOperationsInput | number | null
     subscription_start_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     subscription_end_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     auto_renew?: NullableBoolFieldUpdateOperationsInput | boolean | null
@@ -80237,7 +80216,6 @@ export namespace Prisma {
     role_specific_data?: NullableJsonNullValueInput | InputJsonValue
     subscription_plan?: $Enums.subscription_plan | null
     subscription_status?: $Enums.subscription_status | null
-    subscription_level?: number | null
     subscription_start_date?: Date | string | null
     subscription_end_date?: Date | string | null
     auto_renew?: boolean | null
@@ -80295,7 +80273,6 @@ export namespace Prisma {
     role_specific_data?: NullableJsonNullValueInput | InputJsonValue
     subscription_plan?: $Enums.subscription_plan | null
     subscription_status?: $Enums.subscription_status | null
-    subscription_level?: number | null
     subscription_start_date?: Date | string | null
     subscription_end_date?: Date | string | null
     auto_renew?: boolean | null
@@ -80406,7 +80383,6 @@ export namespace Prisma {
     role_specific_data?: NullableJsonNullValueInput | InputJsonValue
     subscription_plan?: NullableEnumsubscription_planFieldUpdateOperationsInput | $Enums.subscription_plan | null
     subscription_status?: NullableEnumsubscription_statusFieldUpdateOperationsInput | $Enums.subscription_status | null
-    subscription_level?: NullableIntFieldUpdateOperationsInput | number | null
     subscription_start_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     subscription_end_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     auto_renew?: NullableBoolFieldUpdateOperationsInput | boolean | null
@@ -80464,7 +80440,6 @@ export namespace Prisma {
     role_specific_data?: NullableJsonNullValueInput | InputJsonValue
     subscription_plan?: NullableEnumsubscription_planFieldUpdateOperationsInput | $Enums.subscription_plan | null
     subscription_status?: NullableEnumsubscription_statusFieldUpdateOperationsInput | $Enums.subscription_status | null
-    subscription_level?: NullableIntFieldUpdateOperationsInput | number | null
     subscription_start_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     subscription_end_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     auto_renew?: NullableBoolFieldUpdateOperationsInput | boolean | null
@@ -80553,7 +80528,6 @@ export namespace Prisma {
     role_specific_data?: NullableJsonNullValueInput | InputJsonValue
     subscription_plan?: $Enums.subscription_plan | null
     subscription_status?: $Enums.subscription_status | null
-    subscription_level?: number | null
     subscription_start_date?: Date | string | null
     subscription_end_date?: Date | string | null
     auto_renew?: boolean | null
@@ -80611,7 +80585,6 @@ export namespace Prisma {
     role_specific_data?: NullableJsonNullValueInput | InputJsonValue
     subscription_plan?: $Enums.subscription_plan | null
     subscription_status?: $Enums.subscription_status | null
-    subscription_level?: number | null
     subscription_start_date?: Date | string | null
     subscription_end_date?: Date | string | null
     auto_renew?: boolean | null
@@ -80814,7 +80787,6 @@ export namespace Prisma {
     role_specific_data?: NullableJsonNullValueInput | InputJsonValue
     subscription_plan?: NullableEnumsubscription_planFieldUpdateOperationsInput | $Enums.subscription_plan | null
     subscription_status?: NullableEnumsubscription_statusFieldUpdateOperationsInput | $Enums.subscription_status | null
-    subscription_level?: NullableIntFieldUpdateOperationsInput | number | null
     subscription_start_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     subscription_end_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     auto_renew?: NullableBoolFieldUpdateOperationsInput | boolean | null
@@ -80872,7 +80844,6 @@ export namespace Prisma {
     role_specific_data?: NullableJsonNullValueInput | InputJsonValue
     subscription_plan?: NullableEnumsubscription_planFieldUpdateOperationsInput | $Enums.subscription_plan | null
     subscription_status?: NullableEnumsubscription_statusFieldUpdateOperationsInput | $Enums.subscription_status | null
-    subscription_level?: NullableIntFieldUpdateOperationsInput | number | null
     subscription_start_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     subscription_end_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     auto_renew?: NullableBoolFieldUpdateOperationsInput | boolean | null
@@ -81042,7 +81013,6 @@ export namespace Prisma {
     role_specific_data?: NullableJsonNullValueInput | InputJsonValue
     subscription_plan?: $Enums.subscription_plan | null
     subscription_status?: $Enums.subscription_status | null
-    subscription_level?: number | null
     subscription_start_date?: Date | string | null
     subscription_end_date?: Date | string | null
     auto_renew?: boolean | null
@@ -81100,7 +81070,6 @@ export namespace Prisma {
     role_specific_data?: NullableJsonNullValueInput | InputJsonValue
     subscription_plan?: $Enums.subscription_plan | null
     subscription_status?: $Enums.subscription_status | null
-    subscription_level?: number | null
     subscription_start_date?: Date | string | null
     subscription_end_date?: Date | string | null
     auto_renew?: boolean | null
@@ -81211,7 +81180,6 @@ export namespace Prisma {
     role_specific_data?: NullableJsonNullValueInput | InputJsonValue
     subscription_plan?: NullableEnumsubscription_planFieldUpdateOperationsInput | $Enums.subscription_plan | null
     subscription_status?: NullableEnumsubscription_statusFieldUpdateOperationsInput | $Enums.subscription_status | null
-    subscription_level?: NullableIntFieldUpdateOperationsInput | number | null
     subscription_start_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     subscription_end_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     auto_renew?: NullableBoolFieldUpdateOperationsInput | boolean | null
@@ -81269,7 +81237,6 @@ export namespace Prisma {
     role_specific_data?: NullableJsonNullValueInput | InputJsonValue
     subscription_plan?: NullableEnumsubscription_planFieldUpdateOperationsInput | $Enums.subscription_plan | null
     subscription_status?: NullableEnumsubscription_statusFieldUpdateOperationsInput | $Enums.subscription_status | null
-    subscription_level?: NullableIntFieldUpdateOperationsInput | number | null
     subscription_start_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     subscription_end_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     auto_renew?: NullableBoolFieldUpdateOperationsInput | boolean | null
@@ -81384,7 +81351,6 @@ export namespace Prisma {
     role_specific_data?: NullableJsonNullValueInput | InputJsonValue
     subscription_plan?: $Enums.subscription_plan | null
     subscription_status?: $Enums.subscription_status | null
-    subscription_level?: number | null
     subscription_start_date?: Date | string | null
     subscription_end_date?: Date | string | null
     auto_renew?: boolean | null
@@ -81442,7 +81408,6 @@ export namespace Prisma {
     role_specific_data?: NullableJsonNullValueInput | InputJsonValue
     subscription_plan?: $Enums.subscription_plan | null
     subscription_status?: $Enums.subscription_status | null
-    subscription_level?: number | null
     subscription_start_date?: Date | string | null
     subscription_end_date?: Date | string | null
     auto_renew?: boolean | null
@@ -81579,7 +81544,6 @@ export namespace Prisma {
     role_specific_data?: NullableJsonNullValueInput | InputJsonValue
     subscription_plan?: NullableEnumsubscription_planFieldUpdateOperationsInput | $Enums.subscription_plan | null
     subscription_status?: NullableEnumsubscription_statusFieldUpdateOperationsInput | $Enums.subscription_status | null
-    subscription_level?: NullableIntFieldUpdateOperationsInput | number | null
     subscription_start_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     subscription_end_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     auto_renew?: NullableBoolFieldUpdateOperationsInput | boolean | null
@@ -81637,7 +81601,6 @@ export namespace Prisma {
     role_specific_data?: NullableJsonNullValueInput | InputJsonValue
     subscription_plan?: NullableEnumsubscription_planFieldUpdateOperationsInput | $Enums.subscription_plan | null
     subscription_status?: NullableEnumsubscription_statusFieldUpdateOperationsInput | $Enums.subscription_status | null
-    subscription_level?: NullableIntFieldUpdateOperationsInput | number | null
     subscription_start_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     subscription_end_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     auto_renew?: NullableBoolFieldUpdateOperationsInput | boolean | null
@@ -82146,7 +82109,6 @@ export namespace Prisma {
     role_specific_data?: NullableJsonNullValueInput | InputJsonValue
     subscription_plan?: $Enums.subscription_plan | null
     subscription_status?: $Enums.subscription_status | null
-    subscription_level?: number | null
     subscription_start_date?: Date | string | null
     subscription_end_date?: Date | string | null
     auto_renew?: boolean | null
@@ -82204,7 +82166,6 @@ export namespace Prisma {
     role_specific_data?: NullableJsonNullValueInput | InputJsonValue
     subscription_plan?: $Enums.subscription_plan | null
     subscription_status?: $Enums.subscription_status | null
-    subscription_level?: number | null
     subscription_start_date?: Date | string | null
     subscription_end_date?: Date | string | null
     auto_renew?: boolean | null
@@ -82337,7 +82298,6 @@ export namespace Prisma {
     role_specific_data?: NullableJsonNullValueInput | InputJsonValue
     subscription_plan?: NullableEnumsubscription_planFieldUpdateOperationsInput | $Enums.subscription_plan | null
     subscription_status?: NullableEnumsubscription_statusFieldUpdateOperationsInput | $Enums.subscription_status | null
-    subscription_level?: NullableIntFieldUpdateOperationsInput | number | null
     subscription_start_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     subscription_end_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     auto_renew?: NullableBoolFieldUpdateOperationsInput | boolean | null
@@ -82395,7 +82355,6 @@ export namespace Prisma {
     role_specific_data?: NullableJsonNullValueInput | InputJsonValue
     subscription_plan?: NullableEnumsubscription_planFieldUpdateOperationsInput | $Enums.subscription_plan | null
     subscription_status?: NullableEnumsubscription_statusFieldUpdateOperationsInput | $Enums.subscription_status | null
-    subscription_level?: NullableIntFieldUpdateOperationsInput | number | null
     subscription_start_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     subscription_end_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     auto_renew?: NullableBoolFieldUpdateOperationsInput | boolean | null
@@ -82484,7 +82443,6 @@ export namespace Prisma {
     role_specific_data?: NullableJsonNullValueInput | InputJsonValue
     subscription_plan?: $Enums.subscription_plan | null
     subscription_status?: $Enums.subscription_status | null
-    subscription_level?: number | null
     subscription_start_date?: Date | string | null
     subscription_end_date?: Date | string | null
     auto_renew?: boolean | null
@@ -82542,7 +82500,6 @@ export namespace Prisma {
     role_specific_data?: NullableJsonNullValueInput | InputJsonValue
     subscription_plan?: $Enums.subscription_plan | null
     subscription_status?: $Enums.subscription_status | null
-    subscription_level?: number | null
     subscription_start_date?: Date | string | null
     subscription_end_date?: Date | string | null
     auto_renew?: boolean | null
@@ -82653,7 +82610,6 @@ export namespace Prisma {
     role_specific_data?: NullableJsonNullValueInput | InputJsonValue
     subscription_plan?: NullableEnumsubscription_planFieldUpdateOperationsInput | $Enums.subscription_plan | null
     subscription_status?: NullableEnumsubscription_statusFieldUpdateOperationsInput | $Enums.subscription_status | null
-    subscription_level?: NullableIntFieldUpdateOperationsInput | number | null
     subscription_start_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     subscription_end_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     auto_renew?: NullableBoolFieldUpdateOperationsInput | boolean | null
@@ -82711,7 +82667,6 @@ export namespace Prisma {
     role_specific_data?: NullableJsonNullValueInput | InputJsonValue
     subscription_plan?: NullableEnumsubscription_planFieldUpdateOperationsInput | $Enums.subscription_plan | null
     subscription_status?: NullableEnumsubscription_statusFieldUpdateOperationsInput | $Enums.subscription_status | null
-    subscription_level?: NullableIntFieldUpdateOperationsInput | number | null
     subscription_start_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     subscription_end_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     auto_renew?: NullableBoolFieldUpdateOperationsInput | boolean | null
@@ -82864,7 +82819,6 @@ export namespace Prisma {
     role_specific_data?: NullableJsonNullValueInput | InputJsonValue
     subscription_plan?: $Enums.subscription_plan | null
     subscription_status?: $Enums.subscription_status | null
-    subscription_level?: number | null
     subscription_start_date?: Date | string | null
     subscription_end_date?: Date | string | null
     auto_renew?: boolean | null
@@ -82922,7 +82876,6 @@ export namespace Prisma {
     role_specific_data?: NullableJsonNullValueInput | InputJsonValue
     subscription_plan?: $Enums.subscription_plan | null
     subscription_status?: $Enums.subscription_status | null
-    subscription_level?: number | null
     subscription_start_date?: Date | string | null
     subscription_end_date?: Date | string | null
     auto_renew?: boolean | null
@@ -83104,7 +83057,6 @@ export namespace Prisma {
     role_specific_data?: NullableJsonNullValueInput | InputJsonValue
     subscription_plan?: NullableEnumsubscription_planFieldUpdateOperationsInput | $Enums.subscription_plan | null
     subscription_status?: NullableEnumsubscription_statusFieldUpdateOperationsInput | $Enums.subscription_status | null
-    subscription_level?: NullableIntFieldUpdateOperationsInput | number | null
     subscription_start_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     subscription_end_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     auto_renew?: NullableBoolFieldUpdateOperationsInput | boolean | null
@@ -83162,7 +83114,6 @@ export namespace Prisma {
     role_specific_data?: NullableJsonNullValueInput | InputJsonValue
     subscription_plan?: NullableEnumsubscription_planFieldUpdateOperationsInput | $Enums.subscription_plan | null
     subscription_status?: NullableEnumsubscription_statusFieldUpdateOperationsInput | $Enums.subscription_status | null
-    subscription_level?: NullableIntFieldUpdateOperationsInput | number | null
     subscription_start_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     subscription_end_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     auto_renew?: NullableBoolFieldUpdateOperationsInput | boolean | null
@@ -83418,7 +83369,6 @@ export namespace Prisma {
     role_specific_data?: NullableJsonNullValueInput | InputJsonValue
     subscription_plan?: $Enums.subscription_plan | null
     subscription_status?: $Enums.subscription_status | null
-    subscription_level?: number | null
     subscription_start_date?: Date | string | null
     subscription_end_date?: Date | string | null
     auto_renew?: boolean | null
@@ -83476,7 +83426,6 @@ export namespace Prisma {
     role_specific_data?: NullableJsonNullValueInput | InputJsonValue
     subscription_plan?: $Enums.subscription_plan | null
     subscription_status?: $Enums.subscription_status | null
-    subscription_level?: number | null
     subscription_start_date?: Date | string | null
     subscription_end_date?: Date | string | null
     auto_renew?: boolean | null
@@ -83549,7 +83498,6 @@ export namespace Prisma {
     role_specific_data?: NullableJsonNullValueInput | InputJsonValue
     subscription_plan?: NullableEnumsubscription_planFieldUpdateOperationsInput | $Enums.subscription_plan | null
     subscription_status?: NullableEnumsubscription_statusFieldUpdateOperationsInput | $Enums.subscription_status | null
-    subscription_level?: NullableIntFieldUpdateOperationsInput | number | null
     subscription_start_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     subscription_end_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     auto_renew?: NullableBoolFieldUpdateOperationsInput | boolean | null
@@ -83607,7 +83555,6 @@ export namespace Prisma {
     role_specific_data?: NullableJsonNullValueInput | InputJsonValue
     subscription_plan?: NullableEnumsubscription_planFieldUpdateOperationsInput | $Enums.subscription_plan | null
     subscription_status?: NullableEnumsubscription_statusFieldUpdateOperationsInput | $Enums.subscription_status | null
-    subscription_level?: NullableIntFieldUpdateOperationsInput | number | null
     subscription_start_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     subscription_end_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     auto_renew?: NullableBoolFieldUpdateOperationsInput | boolean | null
@@ -83779,7 +83726,6 @@ export namespace Prisma {
     role_specific_data?: NullableJsonNullValueInput | InputJsonValue
     subscription_plan?: $Enums.subscription_plan | null
     subscription_status?: $Enums.subscription_status | null
-    subscription_level?: number | null
     subscription_start_date?: Date | string | null
     subscription_end_date?: Date | string | null
     auto_renew?: boolean | null
@@ -83837,7 +83783,6 @@ export namespace Prisma {
     role_specific_data?: NullableJsonNullValueInput | InputJsonValue
     subscription_plan?: $Enums.subscription_plan | null
     subscription_status?: $Enums.subscription_status | null
-    subscription_level?: number | null
     subscription_start_date?: Date | string | null
     subscription_end_date?: Date | string | null
     auto_renew?: boolean | null
@@ -84022,7 +83967,6 @@ export namespace Prisma {
     role_specific_data?: NullableJsonNullValueInput | InputJsonValue
     subscription_plan?: NullableEnumsubscription_planFieldUpdateOperationsInput | $Enums.subscription_plan | null
     subscription_status?: NullableEnumsubscription_statusFieldUpdateOperationsInput | $Enums.subscription_status | null
-    subscription_level?: NullableIntFieldUpdateOperationsInput | number | null
     subscription_start_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     subscription_end_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     auto_renew?: NullableBoolFieldUpdateOperationsInput | boolean | null
@@ -84080,7 +84024,6 @@ export namespace Prisma {
     role_specific_data?: NullableJsonNullValueInput | InputJsonValue
     subscription_plan?: NullableEnumsubscription_planFieldUpdateOperationsInput | $Enums.subscription_plan | null
     subscription_status?: NullableEnumsubscription_statusFieldUpdateOperationsInput | $Enums.subscription_status | null
-    subscription_level?: NullableIntFieldUpdateOperationsInput | number | null
     subscription_start_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     subscription_end_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     auto_renew?: NullableBoolFieldUpdateOperationsInput | boolean | null
@@ -86440,7 +86383,6 @@ export namespace Prisma {
     role_specific_data?: NullableJsonNullValueInput | InputJsonValue
     subscription_plan?: $Enums.subscription_plan | null
     subscription_status?: $Enums.subscription_status | null
-    subscription_level?: number | null
     subscription_start_date?: Date | string | null
     subscription_end_date?: Date | string | null
     auto_renew?: boolean | null
@@ -86498,7 +86440,6 @@ export namespace Prisma {
     role_specific_data?: NullableJsonNullValueInput | InputJsonValue
     subscription_plan?: $Enums.subscription_plan | null
     subscription_status?: $Enums.subscription_status | null
-    subscription_level?: number | null
     subscription_start_date?: Date | string | null
     subscription_end_date?: Date | string | null
     auto_renew?: boolean | null
@@ -86635,7 +86576,6 @@ export namespace Prisma {
     role_specific_data?: NullableJsonNullValueInput | InputJsonValue
     subscription_plan?: NullableEnumsubscription_planFieldUpdateOperationsInput | $Enums.subscription_plan | null
     subscription_status?: NullableEnumsubscription_statusFieldUpdateOperationsInput | $Enums.subscription_status | null
-    subscription_level?: NullableIntFieldUpdateOperationsInput | number | null
     subscription_start_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     subscription_end_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     auto_renew?: NullableBoolFieldUpdateOperationsInput | boolean | null
@@ -86693,7 +86633,6 @@ export namespace Prisma {
     role_specific_data?: NullableJsonNullValueInput | InputJsonValue
     subscription_plan?: NullableEnumsubscription_planFieldUpdateOperationsInput | $Enums.subscription_plan | null
     subscription_status?: NullableEnumsubscription_statusFieldUpdateOperationsInput | $Enums.subscription_status | null
-    subscription_level?: NullableIntFieldUpdateOperationsInput | number | null
     subscription_start_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     subscription_end_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     auto_renew?: NullableBoolFieldUpdateOperationsInput | boolean | null
@@ -86956,7 +86895,6 @@ export namespace Prisma {
     role_specific_data?: NullableJsonNullValueInput | InputJsonValue
     subscription_plan?: $Enums.subscription_plan | null
     subscription_status?: $Enums.subscription_status | null
-    subscription_level?: number | null
     subscription_start_date?: Date | string | null
     subscription_end_date?: Date | string | null
     auto_renew?: boolean | null
@@ -87014,7 +86952,6 @@ export namespace Prisma {
     role_specific_data?: NullableJsonNullValueInput | InputJsonValue
     subscription_plan?: $Enums.subscription_plan | null
     subscription_status?: $Enums.subscription_status | null
-    subscription_level?: number | null
     subscription_start_date?: Date | string | null
     subscription_end_date?: Date | string | null
     auto_renew?: boolean | null
@@ -87087,7 +87024,6 @@ export namespace Prisma {
     role_specific_data?: NullableJsonNullValueInput | InputJsonValue
     subscription_plan?: NullableEnumsubscription_planFieldUpdateOperationsInput | $Enums.subscription_plan | null
     subscription_status?: NullableEnumsubscription_statusFieldUpdateOperationsInput | $Enums.subscription_status | null
-    subscription_level?: NullableIntFieldUpdateOperationsInput | number | null
     subscription_start_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     subscription_end_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     auto_renew?: NullableBoolFieldUpdateOperationsInput | boolean | null
@@ -87145,7 +87081,6 @@ export namespace Prisma {
     role_specific_data?: NullableJsonNullValueInput | InputJsonValue
     subscription_plan?: NullableEnumsubscription_planFieldUpdateOperationsInput | $Enums.subscription_plan | null
     subscription_status?: NullableEnumsubscription_statusFieldUpdateOperationsInput | $Enums.subscription_status | null
-    subscription_level?: NullableIntFieldUpdateOperationsInput | number | null
     subscription_start_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     subscription_end_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     auto_renew?: NullableBoolFieldUpdateOperationsInput | boolean | null
@@ -87428,7 +87363,6 @@ export namespace Prisma {
     role_specific_data?: NullableJsonNullValueInput | InputJsonValue
     subscription_plan?: $Enums.subscription_plan | null
     subscription_status?: $Enums.subscription_status | null
-    subscription_level?: number | null
     subscription_start_date?: Date | string | null
     subscription_end_date?: Date | string | null
     auto_renew?: boolean | null
@@ -87486,7 +87420,6 @@ export namespace Prisma {
     role_specific_data?: NullableJsonNullValueInput | InputJsonValue
     subscription_plan?: $Enums.subscription_plan | null
     subscription_status?: $Enums.subscription_status | null
-    subscription_level?: number | null
     subscription_start_date?: Date | string | null
     subscription_end_date?: Date | string | null
     auto_renew?: boolean | null
@@ -87548,7 +87481,6 @@ export namespace Prisma {
     role_specific_data?: NullableJsonNullValueInput | InputJsonValue
     subscription_plan?: $Enums.subscription_plan | null
     subscription_status?: $Enums.subscription_status | null
-    subscription_level?: number | null
     subscription_start_date?: Date | string | null
     subscription_end_date?: Date | string | null
     auto_renew?: boolean | null
@@ -87606,7 +87538,6 @@ export namespace Prisma {
     role_specific_data?: NullableJsonNullValueInput | InputJsonValue
     subscription_plan?: $Enums.subscription_plan | null
     subscription_status?: $Enums.subscription_status | null
-    subscription_level?: number | null
     subscription_start_date?: Date | string | null
     subscription_end_date?: Date | string | null
     auto_renew?: boolean | null
@@ -87679,7 +87610,6 @@ export namespace Prisma {
     role_specific_data?: NullableJsonNullValueInput | InputJsonValue
     subscription_plan?: NullableEnumsubscription_planFieldUpdateOperationsInput | $Enums.subscription_plan | null
     subscription_status?: NullableEnumsubscription_statusFieldUpdateOperationsInput | $Enums.subscription_status | null
-    subscription_level?: NullableIntFieldUpdateOperationsInput | number | null
     subscription_start_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     subscription_end_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     auto_renew?: NullableBoolFieldUpdateOperationsInput | boolean | null
@@ -87737,7 +87667,6 @@ export namespace Prisma {
     role_specific_data?: NullableJsonNullValueInput | InputJsonValue
     subscription_plan?: NullableEnumsubscription_planFieldUpdateOperationsInput | $Enums.subscription_plan | null
     subscription_status?: NullableEnumsubscription_statusFieldUpdateOperationsInput | $Enums.subscription_status | null
-    subscription_level?: NullableIntFieldUpdateOperationsInput | number | null
     subscription_start_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     subscription_end_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     auto_renew?: NullableBoolFieldUpdateOperationsInput | boolean | null
@@ -87805,7 +87734,6 @@ export namespace Prisma {
     role_specific_data?: NullableJsonNullValueInput | InputJsonValue
     subscription_plan?: NullableEnumsubscription_planFieldUpdateOperationsInput | $Enums.subscription_plan | null
     subscription_status?: NullableEnumsubscription_statusFieldUpdateOperationsInput | $Enums.subscription_status | null
-    subscription_level?: NullableIntFieldUpdateOperationsInput | number | null
     subscription_start_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     subscription_end_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     auto_renew?: NullableBoolFieldUpdateOperationsInput | boolean | null
@@ -87863,7 +87791,6 @@ export namespace Prisma {
     role_specific_data?: NullableJsonNullValueInput | InputJsonValue
     subscription_plan?: NullableEnumsubscription_planFieldUpdateOperationsInput | $Enums.subscription_plan | null
     subscription_status?: NullableEnumsubscription_statusFieldUpdateOperationsInput | $Enums.subscription_status | null
-    subscription_level?: NullableIntFieldUpdateOperationsInput | number | null
     subscription_start_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     subscription_end_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     auto_renew?: NullableBoolFieldUpdateOperationsInput | boolean | null
@@ -87920,7 +87847,6 @@ export namespace Prisma {
     role_specific_data?: NullableJsonNullValueInput | InputJsonValue
     subscription_plan?: $Enums.subscription_plan | null
     subscription_status?: $Enums.subscription_status | null
-    subscription_level?: number | null
     subscription_start_date?: Date | string | null
     subscription_end_date?: Date | string | null
     auto_renew?: boolean | null
@@ -87978,7 +87904,6 @@ export namespace Prisma {
     role_specific_data?: NullableJsonNullValueInput | InputJsonValue
     subscription_plan?: $Enums.subscription_plan | null
     subscription_status?: $Enums.subscription_status | null
-    subscription_level?: number | null
     subscription_start_date?: Date | string | null
     subscription_end_date?: Date | string | null
     auto_renew?: boolean | null
@@ -88051,7 +87976,6 @@ export namespace Prisma {
     role_specific_data?: NullableJsonNullValueInput | InputJsonValue
     subscription_plan?: NullableEnumsubscription_planFieldUpdateOperationsInput | $Enums.subscription_plan | null
     subscription_status?: NullableEnumsubscription_statusFieldUpdateOperationsInput | $Enums.subscription_status | null
-    subscription_level?: NullableIntFieldUpdateOperationsInput | number | null
     subscription_start_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     subscription_end_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     auto_renew?: NullableBoolFieldUpdateOperationsInput | boolean | null
@@ -88109,7 +88033,6 @@ export namespace Prisma {
     role_specific_data?: NullableJsonNullValueInput | InputJsonValue
     subscription_plan?: NullableEnumsubscription_planFieldUpdateOperationsInput | $Enums.subscription_plan | null
     subscription_status?: NullableEnumsubscription_statusFieldUpdateOperationsInput | $Enums.subscription_status | null
-    subscription_level?: NullableIntFieldUpdateOperationsInput | number | null
     subscription_start_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     subscription_end_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     auto_renew?: NullableBoolFieldUpdateOperationsInput | boolean | null
@@ -88166,7 +88089,6 @@ export namespace Prisma {
     role_specific_data?: NullableJsonNullValueInput | InputJsonValue
     subscription_plan?: $Enums.subscription_plan | null
     subscription_status?: $Enums.subscription_status | null
-    subscription_level?: number | null
     subscription_start_date?: Date | string | null
     subscription_end_date?: Date | string | null
     auto_renew?: boolean | null
@@ -88224,7 +88146,6 @@ export namespace Prisma {
     role_specific_data?: NullableJsonNullValueInput | InputJsonValue
     subscription_plan?: $Enums.subscription_plan | null
     subscription_status?: $Enums.subscription_status | null
-    subscription_level?: number | null
     subscription_start_date?: Date | string | null
     subscription_end_date?: Date | string | null
     auto_renew?: boolean | null
@@ -88297,7 +88218,6 @@ export namespace Prisma {
     role_specific_data?: NullableJsonNullValueInput | InputJsonValue
     subscription_plan?: NullableEnumsubscription_planFieldUpdateOperationsInput | $Enums.subscription_plan | null
     subscription_status?: NullableEnumsubscription_statusFieldUpdateOperationsInput | $Enums.subscription_status | null
-    subscription_level?: NullableIntFieldUpdateOperationsInput | number | null
     subscription_start_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     subscription_end_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     auto_renew?: NullableBoolFieldUpdateOperationsInput | boolean | null
@@ -88355,7 +88275,6 @@ export namespace Prisma {
     role_specific_data?: NullableJsonNullValueInput | InputJsonValue
     subscription_plan?: NullableEnumsubscription_planFieldUpdateOperationsInput | $Enums.subscription_plan | null
     subscription_status?: NullableEnumsubscription_statusFieldUpdateOperationsInput | $Enums.subscription_status | null
-    subscription_level?: NullableIntFieldUpdateOperationsInput | number | null
     subscription_start_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     subscription_end_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     auto_renew?: NullableBoolFieldUpdateOperationsInput | boolean | null
@@ -88458,7 +88377,6 @@ export namespace Prisma {
     role_specific_data?: NullableJsonNullValueInput | InputJsonValue
     subscription_plan?: $Enums.subscription_plan | null
     subscription_status?: $Enums.subscription_status | null
-    subscription_level?: number | null
     subscription_start_date?: Date | string | null
     subscription_end_date?: Date | string | null
     auto_renew?: boolean | null
@@ -88516,7 +88434,6 @@ export namespace Prisma {
     role_specific_data?: NullableJsonNullValueInput | InputJsonValue
     subscription_plan?: $Enums.subscription_plan | null
     subscription_status?: $Enums.subscription_status | null
-    subscription_level?: number | null
     subscription_start_date?: Date | string | null
     subscription_end_date?: Date | string | null
     auto_renew?: boolean | null
@@ -88578,7 +88495,6 @@ export namespace Prisma {
     role_specific_data?: NullableJsonNullValueInput | InputJsonValue
     subscription_plan?: $Enums.subscription_plan | null
     subscription_status?: $Enums.subscription_status | null
-    subscription_level?: number | null
     subscription_start_date?: Date | string | null
     subscription_end_date?: Date | string | null
     auto_renew?: boolean | null
@@ -88636,7 +88552,6 @@ export namespace Prisma {
     role_specific_data?: NullableJsonNullValueInput | InputJsonValue
     subscription_plan?: $Enums.subscription_plan | null
     subscription_status?: $Enums.subscription_status | null
-    subscription_level?: number | null
     subscription_start_date?: Date | string | null
     subscription_end_date?: Date | string | null
     auto_renew?: boolean | null
@@ -88761,7 +88676,6 @@ export namespace Prisma {
     role_specific_data?: NullableJsonNullValueInput | InputJsonValue
     subscription_plan?: NullableEnumsubscription_planFieldUpdateOperationsInput | $Enums.subscription_plan | null
     subscription_status?: NullableEnumsubscription_statusFieldUpdateOperationsInput | $Enums.subscription_status | null
-    subscription_level?: NullableIntFieldUpdateOperationsInput | number | null
     subscription_start_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     subscription_end_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     auto_renew?: NullableBoolFieldUpdateOperationsInput | boolean | null
@@ -88819,7 +88733,6 @@ export namespace Prisma {
     role_specific_data?: NullableJsonNullValueInput | InputJsonValue
     subscription_plan?: NullableEnumsubscription_planFieldUpdateOperationsInput | $Enums.subscription_plan | null
     subscription_status?: NullableEnumsubscription_statusFieldUpdateOperationsInput | $Enums.subscription_status | null
-    subscription_level?: NullableIntFieldUpdateOperationsInput | number | null
     subscription_start_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     subscription_end_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     auto_renew?: NullableBoolFieldUpdateOperationsInput | boolean | null
@@ -88887,7 +88800,6 @@ export namespace Prisma {
     role_specific_data?: NullableJsonNullValueInput | InputJsonValue
     subscription_plan?: NullableEnumsubscription_planFieldUpdateOperationsInput | $Enums.subscription_plan | null
     subscription_status?: NullableEnumsubscription_statusFieldUpdateOperationsInput | $Enums.subscription_status | null
-    subscription_level?: NullableIntFieldUpdateOperationsInput | number | null
     subscription_start_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     subscription_end_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     auto_renew?: NullableBoolFieldUpdateOperationsInput | boolean | null
@@ -88945,7 +88857,6 @@ export namespace Prisma {
     role_specific_data?: NullableJsonNullValueInput | InputJsonValue
     subscription_plan?: NullableEnumsubscription_planFieldUpdateOperationsInput | $Enums.subscription_plan | null
     subscription_status?: NullableEnumsubscription_statusFieldUpdateOperationsInput | $Enums.subscription_status | null
-    subscription_level?: NullableIntFieldUpdateOperationsInput | number | null
     subscription_start_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     subscription_end_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     auto_renew?: NullableBoolFieldUpdateOperationsInput | boolean | null
@@ -89048,7 +88959,6 @@ export namespace Prisma {
     role_specific_data?: NullableJsonNullValueInput | InputJsonValue
     subscription_plan?: $Enums.subscription_plan | null
     subscription_status?: $Enums.subscription_status | null
-    subscription_level?: number | null
     subscription_start_date?: Date | string | null
     subscription_end_date?: Date | string | null
     auto_renew?: boolean | null
@@ -89106,7 +89016,6 @@ export namespace Prisma {
     role_specific_data?: NullableJsonNullValueInput | InputJsonValue
     subscription_plan?: $Enums.subscription_plan | null
     subscription_status?: $Enums.subscription_status | null
-    subscription_level?: number | null
     subscription_start_date?: Date | string | null
     subscription_end_date?: Date | string | null
     auto_renew?: boolean | null
@@ -89231,7 +89140,6 @@ export namespace Prisma {
     role_specific_data?: NullableJsonNullValueInput | InputJsonValue
     subscription_plan?: NullableEnumsubscription_planFieldUpdateOperationsInput | $Enums.subscription_plan | null
     subscription_status?: NullableEnumsubscription_statusFieldUpdateOperationsInput | $Enums.subscription_status | null
-    subscription_level?: NullableIntFieldUpdateOperationsInput | number | null
     subscription_start_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     subscription_end_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     auto_renew?: NullableBoolFieldUpdateOperationsInput | boolean | null
@@ -89289,7 +89197,6 @@ export namespace Prisma {
     role_specific_data?: NullableJsonNullValueInput | InputJsonValue
     subscription_plan?: NullableEnumsubscription_planFieldUpdateOperationsInput | $Enums.subscription_plan | null
     subscription_status?: NullableEnumsubscription_statusFieldUpdateOperationsInput | $Enums.subscription_status | null
-    subscription_level?: NullableIntFieldUpdateOperationsInput | number | null
     subscription_start_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     subscription_end_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     auto_renew?: NullableBoolFieldUpdateOperationsInput | boolean | null
@@ -89346,7 +89253,6 @@ export namespace Prisma {
     role_specific_data?: NullableJsonNullValueInput | InputJsonValue
     subscription_plan?: $Enums.subscription_plan | null
     subscription_status?: $Enums.subscription_status | null
-    subscription_level?: number | null
     subscription_start_date?: Date | string | null
     subscription_end_date?: Date | string | null
     auto_renew?: boolean | null
@@ -89404,7 +89310,6 @@ export namespace Prisma {
     role_specific_data?: NullableJsonNullValueInput | InputJsonValue
     subscription_plan?: $Enums.subscription_plan | null
     subscription_status?: $Enums.subscription_status | null
-    subscription_level?: number | null
     subscription_start_date?: Date | string | null
     subscription_end_date?: Date | string | null
     auto_renew?: boolean | null
@@ -89477,7 +89382,6 @@ export namespace Prisma {
     role_specific_data?: NullableJsonNullValueInput | InputJsonValue
     subscription_plan?: NullableEnumsubscription_planFieldUpdateOperationsInput | $Enums.subscription_plan | null
     subscription_status?: NullableEnumsubscription_statusFieldUpdateOperationsInput | $Enums.subscription_status | null
-    subscription_level?: NullableIntFieldUpdateOperationsInput | number | null
     subscription_start_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     subscription_end_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     auto_renew?: NullableBoolFieldUpdateOperationsInput | boolean | null
@@ -89535,7 +89439,6 @@ export namespace Prisma {
     role_specific_data?: NullableJsonNullValueInput | InputJsonValue
     subscription_plan?: NullableEnumsubscription_planFieldUpdateOperationsInput | $Enums.subscription_plan | null
     subscription_status?: NullableEnumsubscription_statusFieldUpdateOperationsInput | $Enums.subscription_status | null
-    subscription_level?: NullableIntFieldUpdateOperationsInput | number | null
     subscription_start_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     subscription_end_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     auto_renew?: NullableBoolFieldUpdateOperationsInput | boolean | null
@@ -89592,7 +89495,6 @@ export namespace Prisma {
     role_specific_data?: NullableJsonNullValueInput | InputJsonValue
     subscription_plan?: $Enums.subscription_plan | null
     subscription_status?: $Enums.subscription_status | null
-    subscription_level?: number | null
     subscription_start_date?: Date | string | null
     subscription_end_date?: Date | string | null
     auto_renew?: boolean | null
@@ -89650,7 +89552,6 @@ export namespace Prisma {
     role_specific_data?: NullableJsonNullValueInput | InputJsonValue
     subscription_plan?: $Enums.subscription_plan | null
     subscription_status?: $Enums.subscription_status | null
-    subscription_level?: number | null
     subscription_start_date?: Date | string | null
     subscription_end_date?: Date | string | null
     auto_renew?: boolean | null
@@ -89723,7 +89624,6 @@ export namespace Prisma {
     role_specific_data?: NullableJsonNullValueInput | InputJsonValue
     subscription_plan?: NullableEnumsubscription_planFieldUpdateOperationsInput | $Enums.subscription_plan | null
     subscription_status?: NullableEnumsubscription_statusFieldUpdateOperationsInput | $Enums.subscription_status | null
-    subscription_level?: NullableIntFieldUpdateOperationsInput | number | null
     subscription_start_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     subscription_end_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     auto_renew?: NullableBoolFieldUpdateOperationsInput | boolean | null
@@ -89781,7 +89681,6 @@ export namespace Prisma {
     role_specific_data?: NullableJsonNullValueInput | InputJsonValue
     subscription_plan?: NullableEnumsubscription_planFieldUpdateOperationsInput | $Enums.subscription_plan | null
     subscription_status?: NullableEnumsubscription_statusFieldUpdateOperationsInput | $Enums.subscription_status | null
-    subscription_level?: NullableIntFieldUpdateOperationsInput | number | null
     subscription_start_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     subscription_end_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     auto_renew?: NullableBoolFieldUpdateOperationsInput | boolean | null
@@ -89876,7 +89775,6 @@ export namespace Prisma {
     role_specific_data?: NullableJsonNullValueInput | InputJsonValue
     subscription_plan?: $Enums.subscription_plan | null
     subscription_status?: $Enums.subscription_status | null
-    subscription_level?: number | null
     subscription_start_date?: Date | string | null
     subscription_end_date?: Date | string | null
     auto_renew?: boolean | null
@@ -89934,7 +89832,6 @@ export namespace Prisma {
     role_specific_data?: NullableJsonNullValueInput | InputJsonValue
     subscription_plan?: $Enums.subscription_plan | null
     subscription_status?: $Enums.subscription_status | null
-    subscription_level?: number | null
     subscription_start_date?: Date | string | null
     subscription_end_date?: Date | string | null
     auto_renew?: boolean | null
@@ -90051,7 +89948,6 @@ export namespace Prisma {
     role_specific_data?: NullableJsonNullValueInput | InputJsonValue
     subscription_plan?: NullableEnumsubscription_planFieldUpdateOperationsInput | $Enums.subscription_plan | null
     subscription_status?: NullableEnumsubscription_statusFieldUpdateOperationsInput | $Enums.subscription_status | null
-    subscription_level?: NullableIntFieldUpdateOperationsInput | number | null
     subscription_start_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     subscription_end_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     auto_renew?: NullableBoolFieldUpdateOperationsInput | boolean | null
@@ -90109,7 +90005,6 @@ export namespace Prisma {
     role_specific_data?: NullableJsonNullValueInput | InputJsonValue
     subscription_plan?: NullableEnumsubscription_planFieldUpdateOperationsInput | $Enums.subscription_plan | null
     subscription_status?: NullableEnumsubscription_statusFieldUpdateOperationsInput | $Enums.subscription_status | null
-    subscription_level?: NullableIntFieldUpdateOperationsInput | number | null
     subscription_start_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     subscription_end_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     auto_renew?: NullableBoolFieldUpdateOperationsInput | boolean | null
@@ -90296,7 +90191,6 @@ export namespace Prisma {
     role_specific_data?: NullableJsonNullValueInput | InputJsonValue
     subscription_plan?: $Enums.subscription_plan | null
     subscription_status?: $Enums.subscription_status | null
-    subscription_level?: number | null
     subscription_start_date?: Date | string | null
     subscription_end_date?: Date | string | null
     auto_renew?: boolean | null
@@ -90354,7 +90248,6 @@ export namespace Prisma {
     role_specific_data?: NullableJsonNullValueInput | InputJsonValue
     subscription_plan?: $Enums.subscription_plan | null
     subscription_status?: $Enums.subscription_status | null
-    subscription_level?: number | null
     subscription_start_date?: Date | string | null
     subscription_end_date?: Date | string | null
     auto_renew?: boolean | null
@@ -90471,7 +90364,6 @@ export namespace Prisma {
     role_specific_data?: NullableJsonNullValueInput | InputJsonValue
     subscription_plan?: NullableEnumsubscription_planFieldUpdateOperationsInput | $Enums.subscription_plan | null
     subscription_status?: NullableEnumsubscription_statusFieldUpdateOperationsInput | $Enums.subscription_status | null
-    subscription_level?: NullableIntFieldUpdateOperationsInput | number | null
     subscription_start_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     subscription_end_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     auto_renew?: NullableBoolFieldUpdateOperationsInput | boolean | null
@@ -90529,7 +90421,6 @@ export namespace Prisma {
     role_specific_data?: NullableJsonNullValueInput | InputJsonValue
     subscription_plan?: NullableEnumsubscription_planFieldUpdateOperationsInput | $Enums.subscription_plan | null
     subscription_status?: NullableEnumsubscription_statusFieldUpdateOperationsInput | $Enums.subscription_status | null
-    subscription_level?: NullableIntFieldUpdateOperationsInput | number | null
     subscription_start_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     subscription_end_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     auto_renew?: NullableBoolFieldUpdateOperationsInput | boolean | null
@@ -90586,7 +90477,6 @@ export namespace Prisma {
     role_specific_data?: NullableJsonNullValueInput | InputJsonValue
     subscription_plan?: $Enums.subscription_plan | null
     subscription_status?: $Enums.subscription_status | null
-    subscription_level?: number | null
     subscription_start_date?: Date | string | null
     subscription_end_date?: Date | string | null
     auto_renew?: boolean | null
@@ -90644,7 +90534,6 @@ export namespace Prisma {
     role_specific_data?: NullableJsonNullValueInput | InputJsonValue
     subscription_plan?: $Enums.subscription_plan | null
     subscription_status?: $Enums.subscription_status | null
-    subscription_level?: number | null
     subscription_start_date?: Date | string | null
     subscription_end_date?: Date | string | null
     auto_renew?: boolean | null
@@ -90769,7 +90658,6 @@ export namespace Prisma {
     role_specific_data?: NullableJsonNullValueInput | InputJsonValue
     subscription_plan?: NullableEnumsubscription_planFieldUpdateOperationsInput | $Enums.subscription_plan | null
     subscription_status?: NullableEnumsubscription_statusFieldUpdateOperationsInput | $Enums.subscription_status | null
-    subscription_level?: NullableIntFieldUpdateOperationsInput | number | null
     subscription_start_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     subscription_end_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     auto_renew?: NullableBoolFieldUpdateOperationsInput | boolean | null
@@ -90827,7 +90715,6 @@ export namespace Prisma {
     role_specific_data?: NullableJsonNullValueInput | InputJsonValue
     subscription_plan?: NullableEnumsubscription_planFieldUpdateOperationsInput | $Enums.subscription_plan | null
     subscription_status?: NullableEnumsubscription_statusFieldUpdateOperationsInput | $Enums.subscription_status | null
-    subscription_level?: NullableIntFieldUpdateOperationsInput | number | null
     subscription_start_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     subscription_end_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     auto_renew?: NullableBoolFieldUpdateOperationsInput | boolean | null
@@ -90950,7 +90837,6 @@ export namespace Prisma {
     role_specific_data?: NullableJsonNullValueInput | InputJsonValue
     subscription_plan?: $Enums.subscription_plan | null
     subscription_status?: $Enums.subscription_status | null
-    subscription_level?: number | null
     subscription_start_date?: Date | string | null
     subscription_end_date?: Date | string | null
     auto_renew?: boolean | null
@@ -91008,7 +90894,6 @@ export namespace Prisma {
     role_specific_data?: NullableJsonNullValueInput | InputJsonValue
     subscription_plan?: $Enums.subscription_plan | null
     subscription_status?: $Enums.subscription_status | null
-    subscription_level?: number | null
     subscription_start_date?: Date | string | null
     subscription_end_date?: Date | string | null
     auto_renew?: boolean | null
@@ -91121,7 +91006,6 @@ export namespace Prisma {
     role_specific_data?: NullableJsonNullValueInput | InputJsonValue
     subscription_plan?: NullableEnumsubscription_planFieldUpdateOperationsInput | $Enums.subscription_plan | null
     subscription_status?: NullableEnumsubscription_statusFieldUpdateOperationsInput | $Enums.subscription_status | null
-    subscription_level?: NullableIntFieldUpdateOperationsInput | number | null
     subscription_start_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     subscription_end_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     auto_renew?: NullableBoolFieldUpdateOperationsInput | boolean | null
@@ -91179,7 +91063,6 @@ export namespace Prisma {
     role_specific_data?: NullableJsonNullValueInput | InputJsonValue
     subscription_plan?: NullableEnumsubscription_planFieldUpdateOperationsInput | $Enums.subscription_plan | null
     subscription_status?: NullableEnumsubscription_statusFieldUpdateOperationsInput | $Enums.subscription_status | null
-    subscription_level?: NullableIntFieldUpdateOperationsInput | number | null
     subscription_start_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     subscription_end_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     auto_renew?: NullableBoolFieldUpdateOperationsInput | boolean | null
@@ -91270,7 +91153,6 @@ export namespace Prisma {
     role_specific_data?: NullableJsonNullValueInput | InputJsonValue
     subscription_plan?: $Enums.subscription_plan | null
     subscription_status?: $Enums.subscription_status | null
-    subscription_level?: number | null
     subscription_start_date?: Date | string | null
     subscription_end_date?: Date | string | null
     auto_renew?: boolean | null
@@ -91328,7 +91210,6 @@ export namespace Prisma {
     role_specific_data?: NullableJsonNullValueInput | InputJsonValue
     subscription_plan?: $Enums.subscription_plan | null
     subscription_status?: $Enums.subscription_status | null
-    subscription_level?: number | null
     subscription_start_date?: Date | string | null
     subscription_end_date?: Date | string | null
     auto_renew?: boolean | null
@@ -91498,7 +91379,6 @@ export namespace Prisma {
     role_specific_data?: NullableJsonNullValueInput | InputJsonValue
     subscription_plan?: NullableEnumsubscription_planFieldUpdateOperationsInput | $Enums.subscription_plan | null
     subscription_status?: NullableEnumsubscription_statusFieldUpdateOperationsInput | $Enums.subscription_status | null
-    subscription_level?: NullableIntFieldUpdateOperationsInput | number | null
     subscription_start_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     subscription_end_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     auto_renew?: NullableBoolFieldUpdateOperationsInput | boolean | null
@@ -91556,7 +91436,6 @@ export namespace Prisma {
     role_specific_data?: NullableJsonNullValueInput | InputJsonValue
     subscription_plan?: NullableEnumsubscription_planFieldUpdateOperationsInput | $Enums.subscription_plan | null
     subscription_status?: NullableEnumsubscription_statusFieldUpdateOperationsInput | $Enums.subscription_status | null
-    subscription_level?: NullableIntFieldUpdateOperationsInput | number | null
     subscription_start_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     subscription_end_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     auto_renew?: NullableBoolFieldUpdateOperationsInput | boolean | null
@@ -91661,7 +91540,6 @@ export namespace Prisma {
     role_specific_data?: NullableJsonNullValueInput | InputJsonValue
     subscription_plan?: $Enums.subscription_plan | null
     subscription_status?: $Enums.subscription_status | null
-    subscription_level?: number | null
     subscription_start_date?: Date | string | null
     subscription_end_date?: Date | string | null
     auto_renew?: boolean | null
@@ -91719,7 +91597,6 @@ export namespace Prisma {
     role_specific_data?: NullableJsonNullValueInput | InputJsonValue
     subscription_plan?: $Enums.subscription_plan | null
     subscription_status?: $Enums.subscription_status | null
-    subscription_level?: number | null
     subscription_start_date?: Date | string | null
     subscription_end_date?: Date | string | null
     auto_renew?: boolean | null
@@ -91846,7 +91723,6 @@ export namespace Prisma {
     role_specific_data?: NullableJsonNullValueInput | InputJsonValue
     subscription_plan?: NullableEnumsubscription_planFieldUpdateOperationsInput | $Enums.subscription_plan | null
     subscription_status?: NullableEnumsubscription_statusFieldUpdateOperationsInput | $Enums.subscription_status | null
-    subscription_level?: NullableIntFieldUpdateOperationsInput | number | null
     subscription_start_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     subscription_end_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     auto_renew?: NullableBoolFieldUpdateOperationsInput | boolean | null
@@ -91904,7 +91780,6 @@ export namespace Prisma {
     role_specific_data?: NullableJsonNullValueInput | InputJsonValue
     subscription_plan?: NullableEnumsubscription_planFieldUpdateOperationsInput | $Enums.subscription_plan | null
     subscription_status?: NullableEnumsubscription_statusFieldUpdateOperationsInput | $Enums.subscription_status | null
-    subscription_level?: NullableIntFieldUpdateOperationsInput | number | null
     subscription_start_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     subscription_end_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     auto_renew?: NullableBoolFieldUpdateOperationsInput | boolean | null
@@ -92029,7 +91904,6 @@ export namespace Prisma {
     role_specific_data?: NullableJsonNullValueInput | InputJsonValue
     subscription_plan?: $Enums.subscription_plan | null
     subscription_status?: $Enums.subscription_status | null
-    subscription_level?: number | null
     subscription_start_date?: Date | string | null
     subscription_end_date?: Date | string | null
     auto_renew?: boolean | null
@@ -92087,7 +91961,6 @@ export namespace Prisma {
     role_specific_data?: NullableJsonNullValueInput | InputJsonValue
     subscription_plan?: $Enums.subscription_plan | null
     subscription_status?: $Enums.subscription_status | null
-    subscription_level?: number | null
     subscription_start_date?: Date | string | null
     subscription_end_date?: Date | string | null
     auto_renew?: boolean | null
@@ -92284,7 +92157,6 @@ export namespace Prisma {
     role_specific_data?: NullableJsonNullValueInput | InputJsonValue
     subscription_plan?: NullableEnumsubscription_planFieldUpdateOperationsInput | $Enums.subscription_plan | null
     subscription_status?: NullableEnumsubscription_statusFieldUpdateOperationsInput | $Enums.subscription_status | null
-    subscription_level?: NullableIntFieldUpdateOperationsInput | number | null
     subscription_start_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     subscription_end_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     auto_renew?: NullableBoolFieldUpdateOperationsInput | boolean | null
@@ -92342,7 +92214,6 @@ export namespace Prisma {
     role_specific_data?: NullableJsonNullValueInput | InputJsonValue
     subscription_plan?: NullableEnumsubscription_planFieldUpdateOperationsInput | $Enums.subscription_plan | null
     subscription_status?: NullableEnumsubscription_statusFieldUpdateOperationsInput | $Enums.subscription_status | null
-    subscription_level?: NullableIntFieldUpdateOperationsInput | number | null
     subscription_start_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     subscription_end_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     auto_renew?: NullableBoolFieldUpdateOperationsInput | boolean | null
@@ -92501,7 +92372,6 @@ export namespace Prisma {
     role_specific_data?: NullableJsonNullValueInput | InputJsonValue
     subscription_plan?: $Enums.subscription_plan | null
     subscription_status?: $Enums.subscription_status | null
-    subscription_level?: number | null
     subscription_start_date?: Date | string | null
     subscription_end_date?: Date | string | null
     auto_renew?: boolean | null
@@ -92559,7 +92429,6 @@ export namespace Prisma {
     role_specific_data?: NullableJsonNullValueInput | InputJsonValue
     subscription_plan?: $Enums.subscription_plan | null
     subscription_status?: $Enums.subscription_status | null
-    subscription_level?: number | null
     subscription_start_date?: Date | string | null
     subscription_end_date?: Date | string | null
     auto_renew?: boolean | null
@@ -92674,7 +92543,6 @@ export namespace Prisma {
     role_specific_data?: NullableJsonNullValueInput | InputJsonValue
     subscription_plan?: NullableEnumsubscription_planFieldUpdateOperationsInput | $Enums.subscription_plan | null
     subscription_status?: NullableEnumsubscription_statusFieldUpdateOperationsInput | $Enums.subscription_status | null
-    subscription_level?: NullableIntFieldUpdateOperationsInput | number | null
     subscription_start_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     subscription_end_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     auto_renew?: NullableBoolFieldUpdateOperationsInput | boolean | null
@@ -92732,7 +92600,6 @@ export namespace Prisma {
     role_specific_data?: NullableJsonNullValueInput | InputJsonValue
     subscription_plan?: NullableEnumsubscription_planFieldUpdateOperationsInput | $Enums.subscription_plan | null
     subscription_status?: NullableEnumsubscription_statusFieldUpdateOperationsInput | $Enums.subscription_status | null
-    subscription_level?: NullableIntFieldUpdateOperationsInput | number | null
     subscription_start_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     subscription_end_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     auto_renew?: NullableBoolFieldUpdateOperationsInput | boolean | null
@@ -92817,7 +92684,6 @@ export namespace Prisma {
     role_specific_data?: NullableJsonNullValueInput | InputJsonValue
     subscription_plan?: $Enums.subscription_plan | null
     subscription_status?: $Enums.subscription_status | null
-    subscription_level?: number | null
     subscription_start_date?: Date | string | null
     subscription_end_date?: Date | string | null
     auto_renew?: boolean | null
@@ -92875,7 +92741,6 @@ export namespace Prisma {
     role_specific_data?: NullableJsonNullValueInput | InputJsonValue
     subscription_plan?: $Enums.subscription_plan | null
     subscription_status?: $Enums.subscription_status | null
-    subscription_level?: number | null
     subscription_start_date?: Date | string | null
     subscription_end_date?: Date | string | null
     auto_renew?: boolean | null
@@ -92982,7 +92847,6 @@ export namespace Prisma {
     role_specific_data?: NullableJsonNullValueInput | InputJsonValue
     subscription_plan?: NullableEnumsubscription_planFieldUpdateOperationsInput | $Enums.subscription_plan | null
     subscription_status?: NullableEnumsubscription_statusFieldUpdateOperationsInput | $Enums.subscription_status | null
-    subscription_level?: NullableIntFieldUpdateOperationsInput | number | null
     subscription_start_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     subscription_end_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     auto_renew?: NullableBoolFieldUpdateOperationsInput | boolean | null
@@ -93040,7 +92904,6 @@ export namespace Prisma {
     role_specific_data?: NullableJsonNullValueInput | InputJsonValue
     subscription_plan?: NullableEnumsubscription_planFieldUpdateOperationsInput | $Enums.subscription_plan | null
     subscription_status?: NullableEnumsubscription_statusFieldUpdateOperationsInput | $Enums.subscription_status | null
-    subscription_level?: NullableIntFieldUpdateOperationsInput | number | null
     subscription_start_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     subscription_end_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     auto_renew?: NullableBoolFieldUpdateOperationsInput | boolean | null
@@ -93097,7 +92960,6 @@ export namespace Prisma {
     role_specific_data?: NullableJsonNullValueInput | InputJsonValue
     subscription_plan?: $Enums.subscription_plan | null
     subscription_status?: $Enums.subscription_status | null
-    subscription_level?: number | null
     subscription_start_date?: Date | string | null
     subscription_end_date?: Date | string | null
     auto_renew?: boolean | null
@@ -93155,7 +93017,6 @@ export namespace Prisma {
     role_specific_data?: NullableJsonNullValueInput | InputJsonValue
     subscription_plan?: $Enums.subscription_plan | null
     subscription_status?: $Enums.subscription_status | null
-    subscription_level?: number | null
     subscription_start_date?: Date | string | null
     subscription_end_date?: Date | string | null
     auto_renew?: boolean | null
@@ -93257,7 +93118,6 @@ export namespace Prisma {
     role_specific_data?: NullableJsonNullValueInput | InputJsonValue
     subscription_plan?: NullableEnumsubscription_planFieldUpdateOperationsInput | $Enums.subscription_plan | null
     subscription_status?: NullableEnumsubscription_statusFieldUpdateOperationsInput | $Enums.subscription_status | null
-    subscription_level?: NullableIntFieldUpdateOperationsInput | number | null
     subscription_start_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     subscription_end_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     auto_renew?: NullableBoolFieldUpdateOperationsInput | boolean | null
@@ -93315,7 +93175,6 @@ export namespace Prisma {
     role_specific_data?: NullableJsonNullValueInput | InputJsonValue
     subscription_plan?: NullableEnumsubscription_planFieldUpdateOperationsInput | $Enums.subscription_plan | null
     subscription_status?: NullableEnumsubscription_statusFieldUpdateOperationsInput | $Enums.subscription_status | null
-    subscription_level?: NullableIntFieldUpdateOperationsInput | number | null
     subscription_start_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     subscription_end_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     auto_renew?: NullableBoolFieldUpdateOperationsInput | boolean | null
@@ -93388,7 +93247,6 @@ export namespace Prisma {
     role_specific_data?: NullableJsonNullValueInput | InputJsonValue
     subscription_plan?: $Enums.subscription_plan | null
     subscription_status?: $Enums.subscription_status | null
-    subscription_level?: number | null
     subscription_start_date?: Date | string | null
     subscription_end_date?: Date | string | null
     auto_renew?: boolean | null
@@ -93446,7 +93304,6 @@ export namespace Prisma {
     role_specific_data?: NullableJsonNullValueInput | InputJsonValue
     subscription_plan?: $Enums.subscription_plan | null
     subscription_status?: $Enums.subscription_status | null
-    subscription_level?: number | null
     subscription_start_date?: Date | string | null
     subscription_end_date?: Date | string | null
     auto_renew?: boolean | null
@@ -93557,7 +93414,6 @@ export namespace Prisma {
     role_specific_data?: NullableJsonNullValueInput | InputJsonValue
     subscription_plan?: NullableEnumsubscription_planFieldUpdateOperationsInput | $Enums.subscription_plan | null
     subscription_status?: NullableEnumsubscription_statusFieldUpdateOperationsInput | $Enums.subscription_status | null
-    subscription_level?: NullableIntFieldUpdateOperationsInput | number | null
     subscription_start_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     subscription_end_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     auto_renew?: NullableBoolFieldUpdateOperationsInput | boolean | null
@@ -93615,7 +93471,6 @@ export namespace Prisma {
     role_specific_data?: NullableJsonNullValueInput | InputJsonValue
     subscription_plan?: NullableEnumsubscription_planFieldUpdateOperationsInput | $Enums.subscription_plan | null
     subscription_status?: NullableEnumsubscription_statusFieldUpdateOperationsInput | $Enums.subscription_status | null
-    subscription_level?: NullableIntFieldUpdateOperationsInput | number | null
     subscription_start_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     subscription_end_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     auto_renew?: NullableBoolFieldUpdateOperationsInput | boolean | null
@@ -93716,7 +93571,6 @@ export namespace Prisma {
     role_specific_data?: NullableJsonNullValueInput | InputJsonValue
     subscription_plan?: $Enums.subscription_plan | null
     subscription_status?: $Enums.subscription_status | null
-    subscription_level?: number | null
     subscription_start_date?: Date | string | null
     subscription_end_date?: Date | string | null
     auto_renew?: boolean | null
@@ -93774,7 +93628,6 @@ export namespace Prisma {
     role_specific_data?: NullableJsonNullValueInput | InputJsonValue
     subscription_plan?: $Enums.subscription_plan | null
     subscription_status?: $Enums.subscription_status | null
-    subscription_level?: number | null
     subscription_start_date?: Date | string | null
     subscription_end_date?: Date | string | null
     auto_renew?: boolean | null
@@ -93874,7 +93727,6 @@ export namespace Prisma {
     role_specific_data?: NullableJsonNullValueInput | InputJsonValue
     subscription_plan?: NullableEnumsubscription_planFieldUpdateOperationsInput | $Enums.subscription_plan | null
     subscription_status?: NullableEnumsubscription_statusFieldUpdateOperationsInput | $Enums.subscription_status | null
-    subscription_level?: NullableIntFieldUpdateOperationsInput | number | null
     subscription_start_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     subscription_end_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     auto_renew?: NullableBoolFieldUpdateOperationsInput | boolean | null
@@ -93932,7 +93784,6 @@ export namespace Prisma {
     role_specific_data?: NullableJsonNullValueInput | InputJsonValue
     subscription_plan?: NullableEnumsubscription_planFieldUpdateOperationsInput | $Enums.subscription_plan | null
     subscription_status?: NullableEnumsubscription_statusFieldUpdateOperationsInput | $Enums.subscription_status | null
-    subscription_level?: NullableIntFieldUpdateOperationsInput | number | null
     subscription_start_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     subscription_end_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     auto_renew?: NullableBoolFieldUpdateOperationsInput | boolean | null
@@ -94039,7 +93890,6 @@ export namespace Prisma {
     role_specific_data?: NullableJsonNullValueInput | InputJsonValue
     subscription_plan?: $Enums.subscription_plan | null
     subscription_status?: $Enums.subscription_status | null
-    subscription_level?: number | null
     subscription_start_date?: Date | string | null
     subscription_end_date?: Date | string | null
     auto_renew?: boolean | null
@@ -94097,7 +93947,6 @@ export namespace Prisma {
     role_specific_data?: NullableJsonNullValueInput | InputJsonValue
     subscription_plan?: $Enums.subscription_plan | null
     subscription_status?: $Enums.subscription_status | null
-    subscription_level?: number | null
     subscription_start_date?: Date | string | null
     subscription_end_date?: Date | string | null
     auto_renew?: boolean | null
@@ -94210,7 +94059,6 @@ export namespace Prisma {
     role_specific_data?: NullableJsonNullValueInput | InputJsonValue
     subscription_plan?: NullableEnumsubscription_planFieldUpdateOperationsInput | $Enums.subscription_plan | null
     subscription_status?: NullableEnumsubscription_statusFieldUpdateOperationsInput | $Enums.subscription_status | null
-    subscription_level?: NullableIntFieldUpdateOperationsInput | number | null
     subscription_start_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     subscription_end_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     auto_renew?: NullableBoolFieldUpdateOperationsInput | boolean | null
@@ -94268,7 +94116,6 @@ export namespace Prisma {
     role_specific_data?: NullableJsonNullValueInput | InputJsonValue
     subscription_plan?: NullableEnumsubscription_planFieldUpdateOperationsInput | $Enums.subscription_plan | null
     subscription_status?: NullableEnumsubscription_statusFieldUpdateOperationsInput | $Enums.subscription_status | null
-    subscription_level?: NullableIntFieldUpdateOperationsInput | number | null
     subscription_start_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     subscription_end_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     auto_renew?: NullableBoolFieldUpdateOperationsInput | boolean | null
