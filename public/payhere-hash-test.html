@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>PayHere Sandbox Direct Test</title>
+    <script
+      type="text/javascript"
+      src="https://www.payhere.lk/lib/payhere.js"
+    ></script>
+  </head>
+  <body style="font-family: Arial; padding: 40px; background: #f5f5f5">
+    <div
+      style="
+        max-width: 800px;
+        margin: 0 auto;
+        background: white;
+        padding: 30px;
+        border-radius: 10px;
+      "
+    >
+      <h1 style="color: #333">PayHere Sandbox Direct Test</h1>
+      <p style="color: #666">
+        Testing different hash methods with PayHere Sandbox
+      </p>
+
+      <div
+        style="
+          margin: 20px 0;
+          padding: 20px;
+          background: #f9f9f9;
+          border-left: 4px solid #007bff;
+        "
+      >
+        <h3>Test Configuration:</h3>
+        <ul>
+          <li><strong>Merchant ID:</strong> 1231282 (Official Sandbox)</li>
+          <li><strong>Amount:</strong> 1000.00 LKR</li>
+          <li><strong>Order ID:</strong> TEST_<span id="timestamp"></span></li>
+        </ul>
+      </div>
+
+      <div style="margin: 20px 0">
+        <button
+          onclick="testMethod1()"
+          style="
+            margin: 10px;
+            padding: 15px 30px;
+            background: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+          "
+        >
+          Test Method 1: Sandbox (merchant_id × 2)
+        </button>
+
+        <button
+          onclick="testMethod2()"
+          style="
+            margin: 10px;
+            padding: 15px 30px;
+            background: #28a745;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+          "
+        >
+          Test Method 2: Production (double MD5)
+        </button>
+
+        <button
+          onclick="testMethod3()"
+          style="
+            margin: 10px;
+            padding: 15px 30px;
+            background: #ffc107;
+            color: black;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+          "
+        >
+          Test Method 3: Simple uppercase
+        </button>
+      </div>
+
+      <div
+        id="log"
+        style="
+          margin-top: 30px;
+          padding: 20px;
+          background: #000;
+          color: #0f0;
+          font-family: monospace;
+          border-radius: 5px;
+          max-height: 400px;
+          overflow-y: auto;
+        "
+      >
+        <div>Ready to test...</div>
+      </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
+    <script>
+      const merchantId = "1231282";
+      const amount = "1000.00";
+      const currency = "LKR";
+      const merchantSecretDecoded = "1783076321324390747777586720571160209";
+
+      // Update timestamp
+      document.getElementById("timestamp").textContent = Date.now();
+
+      function log(message, color = "#0f0") {
+        const logDiv = document.getElementById("log");
+        const entry = document.createElement("div");
+        entry.style.color = color;
+        entry.textContent = `[${new Date().toLocaleTimeString()}] ${message}`;
+        logDiv.appendChild(entry);
+        logDiv.scrollTop = logDiv.scrollHeight;
+        console.log(message);
+      }
+
+      // PayHere event handlers
+      payhere.onCompleted = function onCompleted(orderId) {
+        log("✅ Payment COMPLETED! Order ID: " + orderId, "#0f0");
+        alert("Payment completed successfully! Order ID: " + orderId);
+      };
+
+      payhere.onDismissed = function onDismissed() {
+        log("⚠️ Payment dismissed by user", "#ff0");
+      };
+
+      payhere.onError = function onError(error) {
+        log("❌ Payment ERROR: " + error, "#f00");
+        alert("Payment error: " + error);
+      };
+
+      function testMethod1() {
+        const orderId = "TEST_M1_" + Date.now();
+        log("Testing Method 1: Sandbox with merchant_id repeated", "#00f");
+
+        // Hash: MD5(merchant_id + order_id + amount + currency + merchant_id)
+        const hashString =
+          merchantId + orderId + amount + currency + merchantId;
+        const hash = CryptoJS.MD5(hashString).toString().toUpperCase();
+
+        log("Hash String: " + hashString);
+        log("Hash: " + hash);
+
+        const payment = {
+          sandbox: true,
+          merchant_id: merchantId,
+          return_url: "http://localhost:5000/payment/success",
+          cancel_url: "http://localhost:5000/payment/cancel",
+          notify_url: "http://localhost:5000/api/payments/notify",
+          order_id: orderId,
+          items: "Test Payment Method 1",
+          amount: amount,
+          currency: currency,
+          hash: hash,
+          first_name: "Test",
+          last_name: "User",
+          email: "test@example.com",
+          phone: "0771234567",
+          address: "No. 1, Test Street",
+          city: "Colombo",
+          country: "Sri Lanka",
+        };
+
+        log("Starting PayHere with Method 1...", "#0ff");
+        payhere.startPayment(payment);
+      }
+
+      function testMethod2() {
+        const orderId = "TEST_M2_" + Date.now();
+        log("Testing Method 2: Production with double MD5", "#00f");
+
+        // Hash: MD5(merchant_id + order_id + amount + currency + MD5(merchant_secret).toUpperCase())
+        const secretHash = CryptoJS.MD5(merchantSecretDecoded)
+          .toString()
+          .toUpperCase();
+        const hashString =
+          merchantId + orderId + amount + currency + secretHash;
+        const hash = CryptoJS.MD5(hashString).toString().toUpperCase();
+
+        log("Secret Hash: " + secretHash);
+        log("Hash String: " + hashString);
+        log("Hash: " + hash);
+
+        const payment = {
+          sandbox: true,
+          merchant_id: merchantId,
+          return_url: "http://localhost:5000/payment/success",
+          cancel_url: "http://localhost:5000/payment/cancel",
+          notify_url: "http://localhost:5000/api/payments/notify",
+          order_id: orderId,
+          items: "Test Payment Method 2",
+          amount: amount,
+          currency: currency,
+          hash: hash,
+          first_name: "Test",
+          last_name: "User",
+          email: "test@example.com",
+          phone: "0771234567",
+          address: "No. 1, Test Street",
+          city: "Colombo",
+          country: "Sri Lanka",
+        };
+
+        log("Starting PayHere with Method 2...", "#0ff");
+        payhere.startPayment(payment);
+      }
+
+      function testMethod3() {
+        const orderId = "TEST_M3_" + Date.now();
+        log("Testing Method 3: Simple uppercase secret", "#00f");
+
+        // Hash: MD5(merchant_id + order_id + amount + currency + UPPERCASE(merchant_secret))
+        const hashString =
+          merchantId +
+          orderId +
+          amount +
+          currency +
+          merchantSecretDecoded.toUpperCase();
+        const hash = CryptoJS.MD5(hashString).toString().toUpperCase();
+
+        log("Hash String: " + hashString);
+        log("Hash: " + hash);
+
+        const payment = {
+          sandbox: true,
+          merchant_id: merchantId,
+          return_url: "http://localhost:5000/payment/success",
+          cancel_url: "http://localhost:5000/payment/cancel",
+          notify_url: "http://localhost:5000/api/payments/notify",
+          order_id: orderId,
+          items: "Test Payment Method 3",
+          amount: amount,
+          currency: currency,
+          hash: hash,
+          first_name: "Test",
+          last_name: "User",
+          email: "test@example.com",
+          phone: "0771234567",
+          address: "No. 1, Test Street",
+          city: "Colombo",
+          country: "Sri Lanka",
+        };
+
+        log("Starting PayHere with Method 3...", "#0ff");
+        payhere.startPayment(payment);
+      }
+
+      log("PayHere library loaded successfully", "#0ff");
+      log("Click a button to test different hash methods");
+    </script>
+  </body>
+</html>
