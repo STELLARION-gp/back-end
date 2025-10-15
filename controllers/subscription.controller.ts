@@ -263,11 +263,25 @@ export const getUserSubscription = async (req: Request, res: Response) => {
       user.chatbot_questions_used = 0;
     }
 
+    // Helper function to get plan level
+    const getPlanLevel = (planType: string): number => {
+      switch (planType) {
+        case "starseeker":
+          return 1;
+        case "galaxy_explorer":
+          return 2;
+        case "cosmic_voyager":
+          return 3;
+        default:
+          return 1;
+      }
+    };
+
     // Combine user data with plan details
     const userSubscription = {
       subscription_plan: user.subscription_plan,
       subscription_status: user.subscription_status,
-      subscription_level: user.subscription_level,
+      subscription_level: getPlanLevel(user.subscription_plan || "starseeker"), // Add subscription level
       subscription_start_date: user.subscription_start_date,
       subscription_end_date: user.subscription_end_date,
       auto_renew: user.auto_renew,
@@ -350,14 +364,6 @@ export const updateUserSubscription = async (req: Request, res: Response) => {
       endDate.setMonth(endDate.getMonth() + 1); // 1 month subscription
     }
 
-    // Determine subscription level based on plan type
-    let subscriptionLevel = 1; // Default for starseeker
-    if (plan_type === "galaxy_explorer") {
-      subscriptionLevel = 2;
-    } else if (plan_type === "cosmic_voyager") {
-      subscriptionLevel = 3;
-    }
-
     // Update user subscription using transaction
     await prisma.$transaction(async (tx) => {
       // Update user subscription
@@ -366,7 +372,6 @@ export const updateUserSubscription = async (req: Request, res: Response) => {
         data: {
           subscription_plan: plan_type,
           subscription_status: "active",
-          subscription_level: subscriptionLevel,
           subscription_start_date: startDate,
           subscription_end_date: endDate,
           auto_renew: auto_renew,
@@ -432,7 +437,6 @@ export const cancelSubscription = async (req: Request, res: Response) => {
         data: {
           subscription_plan: "starseeker",
           subscription_status: "cancelled",
-          subscription_level: 1,
           auto_renew: false,
           updated_at: new Date(),
         },
