@@ -749,6 +749,24 @@ exports.Prisma.SessionsScalarFieldEnum = {
   updated_at: 'updated_at'
 };
 
+exports.Prisma.Session_enrollmentsScalarFieldEnum = {
+  id: 'id',
+  user_id: 'user_id',
+  session_id: 'session_id',
+  enrollment_date: 'enrollment_date',
+  payment_status: 'payment_status',
+  payment_amount: 'payment_amount',
+  payment_method: 'payment_method',
+  transaction_id: 'transaction_id',
+  access_granted: 'access_granted',
+  completed: 'completed',
+  progress: 'progress',
+  last_accessed_at: 'last_accessed_at',
+  notes: 'notes',
+  created_at: 'created_at',
+  updated_at: 'updated_at'
+};
+
 exports.Prisma.PollsScalarFieldEnum = {
   id: 'id',
   title: 'title',
@@ -894,6 +912,14 @@ exports.difficulty_level = exports.$Enums.difficulty_level = {
   advanced: 'advanced'
 };
 
+exports.enrollment_payment_status = exports.$Enums.enrollment_payment_status = {
+  pending: 'pending',
+  completed: 'completed',
+  failed: 'failed',
+  refunded: 'refunded',
+  free_access: 'free_access'
+};
+
 exports.Prisma.ModelName = {
   subscriptions: 'subscriptions',
   group_chats: 'group_chats',
@@ -942,6 +968,7 @@ exports.Prisma.ModelName = {
   stargazing_spots: 'stargazing_spots',
   stargazing_spot_reviews: 'stargazing_spot_reviews',
   sessions: 'sessions',
+  session_enrollments: 'session_enrollments',
   polls: 'polls',
   poll_choices: 'poll_choices',
   poll_votes: 'poll_votes',

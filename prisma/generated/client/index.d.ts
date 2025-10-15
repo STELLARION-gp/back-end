@@ -249,6 +249,11 @@ export type stargazing_spot_reviews = $Result.DefaultSelection<Prisma.$stargazin
  */
 export type sessions = $Result.DefaultSelection<Prisma.$sessionsPayload>
 /**
+ * Model session_enrollments
+ * 
+ */
+export type session_enrollments = $Result.DefaultSelection<Prisma.$session_enrollmentsPayload>
+/**
  * Model polls
  * 
  */
@@ -420,6 +425,17 @@ export const poll_choice_type: {
 
 export type poll_choice_type = (typeof poll_choice_type)[keyof typeof poll_choice_type]
 
+
+export const enrollment_payment_status: {
+  pending: 'pending',
+  completed: 'completed',
+  failed: 'failed',
+  refunded: 'refunded',
+  free_access: 'free_access'
+};
+
+export type enrollment_payment_status = (typeof enrollment_payment_status)[keyof typeof enrollment_payment_status]
+
 }
 
 export type application_status = $Enums.application_status
@@ -485,6 +501,10 @@ export const difficulty_level: typeof $Enums.difficulty_level
 export type poll_choice_type = $Enums.poll_choice_type
 
 export const poll_choice_type: typeof $Enums.poll_choice_type
+
+export type enrollment_payment_status = $Enums.enrollment_payment_status
+
+export const enrollment_payment_status: typeof $Enums.enrollment_payment_status
 
 /**
  * ##  Prisma Client ʲˢ
@@ -1075,6 +1095,16 @@ export class PrismaClient<
   get sessions(): Prisma.sessionsDelegate<ExtArgs, ClientOptions>;
 
   /**
+   * `prisma.session_enrollments`: Exposes CRUD operations for the **session_enrollments** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Session_enrollments
+    * const session_enrollments = await prisma.session_enrollments.findMany()
+    * ```
+    */
+  get session_enrollments(): Prisma.session_enrollmentsDelegate<ExtArgs, ClientOptions>;
+
+  /**
    * `prisma.polls`: Exposes CRUD operations for the **polls** model.
     * Example usage:
     * ```ts
@@ -1600,6 +1630,7 @@ export namespace Prisma {
     stargazing_spots: 'stargazing_spots',
     stargazing_spot_reviews: 'stargazing_spot_reviews',
     sessions: 'sessions',
+    session_enrollments: 'session_enrollments',
     polls: 'polls',
     poll_choices: 'poll_choices',
     poll_votes: 'poll_votes',
@@ -1622,7 +1653,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "subscriptions" | "group_chats" | "group_members" | "chat_messages" | "message_reactions" | "blog_views" | "night_camps" | "night_camps_activities" | "chatbot_sessions" | "payments" | "blogs" | "blog_category_relations" | "subscription_plans" | "blog_categories" | "chatbot_usage" | "blog_comments" | "users" | "blog_likes" | "chatbot_messages" | "night_camps_equipment" | "user_settings" | "chatbot_feedback" | "night_camp_volunteering" | "role_upgrade_requests" | "guide_application" | "mentor_application" | "night_camp_volunteering_applications" | "night_camp_registrations" | "influencer_application" | "media_uploads" | "tour_media" | "events" | "quizParticipants" | "quizQuestion" | "quizzes" | "space_news" | "space_news_likes" | "space_news_comments" | "space_discussions" | "space_discussion_comments" | "space_discussion_likes" | "space_discussion_comment_likes" | "astronomy_events" | "event_reminders" | "stargazing_spots" | "stargazing_spot_reviews" | "sessions" | "polls" | "poll_choices" | "poll_votes" | "poll_comments"
+      modelProps: "subscriptions" | "group_chats" | "group_members" | "chat_messages" | "message_reactions" | "blog_views" | "night_camps" | "night_camps_activities" | "chatbot_sessions" | "payments" | "blogs" | "blog_category_relations" | "subscription_plans" | "blog_categories" | "chatbot_usage" | "blog_comments" | "users" | "blog_likes" | "chatbot_messages" | "night_camps_equipment" | "user_settings" | "chatbot_feedback" | "night_camp_volunteering" | "role_upgrade_requests" | "guide_application" | "mentor_application" | "night_camp_volunteering_applications" | "night_camp_registrations" | "influencer_application" | "media_uploads" | "tour_media" | "events" | "quizParticipants" | "quizQuestion" | "quizzes" | "space_news" | "space_news_likes" | "space_news_comments" | "space_discussions" | "space_discussion_comments" | "space_discussion_likes" | "space_discussion_comment_likes" | "astronomy_events" | "event_reminders" | "stargazing_spots" | "stargazing_spot_reviews" | "sessions" | "session_enrollments" | "polls" | "poll_choices" | "poll_votes" | "poll_comments"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -5104,6 +5135,80 @@ export namespace Prisma {
           }
         }
       }
+      session_enrollments: {
+        payload: Prisma.$session_enrollmentsPayload<ExtArgs>
+        fields: Prisma.session_enrollmentsFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.session_enrollmentsFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$session_enrollmentsPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.session_enrollmentsFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$session_enrollmentsPayload>
+          }
+          findFirst: {
+            args: Prisma.session_enrollmentsFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$session_enrollmentsPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.session_enrollmentsFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$session_enrollmentsPayload>
+          }
+          findMany: {
+            args: Prisma.session_enrollmentsFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$session_enrollmentsPayload>[]
+          }
+          create: {
+            args: Prisma.session_enrollmentsCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$session_enrollmentsPayload>
+          }
+          createMany: {
+            args: Prisma.session_enrollmentsCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.session_enrollmentsCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$session_enrollmentsPayload>[]
+          }
+          delete: {
+            args: Prisma.session_enrollmentsDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$session_enrollmentsPayload>
+          }
+          update: {
+            args: Prisma.session_enrollmentsUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$session_enrollmentsPayload>
+          }
+          deleteMany: {
+            args: Prisma.session_enrollmentsDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.session_enrollmentsUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.session_enrollmentsUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$session_enrollmentsPayload>[]
+          }
+          upsert: {
+            args: Prisma.session_enrollmentsUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$session_enrollmentsPayload>
+          }
+          aggregate: {
+            args: Prisma.Session_enrollmentsAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateSession_enrollments>
+          }
+          groupBy: {
+            args: Prisma.session_enrollmentsGroupByArgs<ExtArgs>
+            result: $Utils.Optional<Session_enrollmentsGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.session_enrollmentsCountArgs<ExtArgs>
+            result: $Utils.Optional<Session_enrollmentsCountAggregateOutputType> | number
+          }
+        }
+      }
       polls: {
         payload: Prisma.$pollsPayload<ExtArgs>
         fields: Prisma.pollsFieldRefs
@@ -5543,6 +5648,7 @@ export namespace Prisma {
     stargazing_spots?: stargazing_spotsOmit
     stargazing_spot_reviews?: stargazing_spot_reviewsOmit
     sessions?: sessionsOmit
+    session_enrollments?: session_enrollmentsOmit
     polls?: pollsOmit
     poll_choices?: poll_choicesOmit
     poll_votes?: poll_votesOmit
@@ -5999,6 +6105,7 @@ export namespace Prisma {
     stargazing_spot_reviews: number
     created_stargazing_spots: number
     created_sessions: number
+    session_enrollments: number
     subscriptions: number
     created_polls: number
     poll_votes: number
@@ -6040,6 +6147,7 @@ export namespace Prisma {
     stargazing_spot_reviews?: boolean | UsersCountOutputTypeCountStargazing_spot_reviewsArgs
     created_stargazing_spots?: boolean | UsersCountOutputTypeCountCreated_stargazing_spotsArgs
     created_sessions?: boolean | UsersCountOutputTypeCountCreated_sessionsArgs
+    session_enrollments?: boolean | UsersCountOutputTypeCountSession_enrollmentsArgs
     subscriptions?: boolean | UsersCountOutputTypeCountSubscriptionsArgs
     created_polls?: boolean | UsersCountOutputTypeCountCreated_pollsArgs
     poll_votes?: boolean | UsersCountOutputTypeCountPoll_votesArgs
@@ -6293,6 +6401,13 @@ export namespace Prisma {
    */
   export type UsersCountOutputTypeCountCreated_sessionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: sessionsWhereInput
+  }
+
+  /**
+   * UsersCountOutputType without action
+   */
+  export type UsersCountOutputTypeCountSession_enrollmentsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: session_enrollmentsWhereInput
   }
 
   /**
@@ -6605,6 +6720,37 @@ export namespace Prisma {
    */
   export type Stargazing_spotsCountOutputTypeCountReviewsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: stargazing_spot_reviewsWhereInput
+  }
+
+
+  /**
+   * Count Type SessionsCountOutputType
+   */
+
+  export type SessionsCountOutputType = {
+    enrollments: number
+  }
+
+  export type SessionsCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    enrollments?: boolean | SessionsCountOutputTypeCountEnrollmentsArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * SessionsCountOutputType without action
+   */
+  export type SessionsCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SessionsCountOutputType
+     */
+    select?: SessionsCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * SessionsCountOutputType without action
+   */
+  export type SessionsCountOutputTypeCountEnrollmentsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: session_enrollmentsWhereInput
   }
 
 
@@ -26200,6 +26346,7 @@ export namespace Prisma {
     stargazing_spot_reviews?: boolean | users$stargazing_spot_reviewsArgs<ExtArgs>
     created_stargazing_spots?: boolean | users$created_stargazing_spotsArgs<ExtArgs>
     created_sessions?: boolean | users$created_sessionsArgs<ExtArgs>
+    session_enrollments?: boolean | users$session_enrollmentsArgs<ExtArgs>
     subscriptions?: boolean | users$subscriptionsArgs<ExtArgs>
     user_settings?: boolean | users$user_settingsArgs<ExtArgs>
     created_polls?: boolean | users$created_pollsArgs<ExtArgs>
@@ -26313,6 +26460,7 @@ export namespace Prisma {
     stargazing_spot_reviews?: boolean | users$stargazing_spot_reviewsArgs<ExtArgs>
     created_stargazing_spots?: boolean | users$created_stargazing_spotsArgs<ExtArgs>
     created_sessions?: boolean | users$created_sessionsArgs<ExtArgs>
+    session_enrollments?: boolean | users$session_enrollmentsArgs<ExtArgs>
     subscriptions?: boolean | users$subscriptionsArgs<ExtArgs>
     user_settings?: boolean | users$user_settingsArgs<ExtArgs>
     created_polls?: boolean | users$created_pollsArgs<ExtArgs>
@@ -26360,6 +26508,7 @@ export namespace Prisma {
       stargazing_spot_reviews: Prisma.$stargazing_spot_reviewsPayload<ExtArgs>[]
       created_stargazing_spots: Prisma.$stargazing_spotsPayload<ExtArgs>[]
       created_sessions: Prisma.$sessionsPayload<ExtArgs>[]
+      session_enrollments: Prisma.$session_enrollmentsPayload<ExtArgs>[]
       subscriptions: Prisma.$subscriptionsPayload<ExtArgs>[]
       user_settings: Prisma.$user_settingsPayload<ExtArgs> | null
       created_polls: Prisma.$pollsPayload<ExtArgs>[]
@@ -26815,6 +26964,7 @@ export namespace Prisma {
     stargazing_spot_reviews<T extends users$stargazing_spot_reviewsArgs<ExtArgs> = {}>(args?: Subset<T, users$stargazing_spot_reviewsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$stargazing_spot_reviewsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     created_stargazing_spots<T extends users$created_stargazing_spotsArgs<ExtArgs> = {}>(args?: Subset<T, users$created_stargazing_spotsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$stargazing_spotsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     created_sessions<T extends users$created_sessionsArgs<ExtArgs> = {}>(args?: Subset<T, users$created_sessionsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$sessionsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    session_enrollments<T extends users$session_enrollmentsArgs<ExtArgs> = {}>(args?: Subset<T, users$session_enrollmentsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$session_enrollmentsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     subscriptions<T extends users$subscriptionsArgs<ExtArgs> = {}>(args?: Subset<T, users$subscriptionsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$subscriptionsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     user_settings<T extends users$user_settingsArgs<ExtArgs> = {}>(args?: Subset<T, users$user_settingsArgs<ExtArgs>>): Prisma__user_settingsClient<$Result.GetResult<Prisma.$user_settingsPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     created_polls<T extends users$created_pollsArgs<ExtArgs> = {}>(args?: Subset<T, users$created_pollsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$pollsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
@@ -28070,6 +28220,30 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: SessionsScalarFieldEnum | SessionsScalarFieldEnum[]
+  }
+
+  /**
+   * users.session_enrollments
+   */
+  export type users$session_enrollmentsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the session_enrollments
+     */
+    select?: session_enrollmentsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the session_enrollments
+     */
+    omit?: session_enrollmentsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: session_enrollmentsInclude<ExtArgs> | null
+    where?: session_enrollmentsWhereInput
+    orderBy?: session_enrollmentsOrderByWithRelationInput | session_enrollmentsOrderByWithRelationInput[]
+    cursor?: session_enrollmentsWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: Session_enrollmentsScalarFieldEnum | Session_enrollmentsScalarFieldEnum[]
   }
 
   /**
@@ -63179,6 +63353,8 @@ export namespace Prisma {
     created_at?: boolean
     updated_at?: boolean
     creator?: boolean | usersDefaultArgs<ExtArgs>
+    enrollments?: boolean | sessions$enrollmentsArgs<ExtArgs>
+    _count?: boolean | SessionsCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["sessions"]>
 
   export type sessionsSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -63255,6 +63431,8 @@ export namespace Prisma {
   export type sessionsOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "title" | "session_type" | "payment_type" | "price" | "duration" | "session_date" | "session_time" | "max_participants" | "difficulty_level" | "session_link" | "description" | "materials" | "session_notes" | "created_by" | "created_date" | "created_time" | "is_enabled" | "created_at" | "updated_at", ExtArgs["result"]["sessions"]>
   export type sessionsInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     creator?: boolean | usersDefaultArgs<ExtArgs>
+    enrollments?: boolean | sessions$enrollmentsArgs<ExtArgs>
+    _count?: boolean | SessionsCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type sessionsIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     creator?: boolean | usersDefaultArgs<ExtArgs>
@@ -63267,6 +63445,7 @@ export namespace Prisma {
     name: "sessions"
     objects: {
       creator: Prisma.$usersPayload<ExtArgs>
+      enrollments: Prisma.$session_enrollmentsPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: number
@@ -63684,6 +63863,7 @@ export namespace Prisma {
   export interface Prisma__sessionsClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     creator<T extends usersDefaultArgs<ExtArgs> = {}>(args?: Subset<T, usersDefaultArgs<ExtArgs>>): Prisma__usersClient<$Result.GetResult<Prisma.$usersPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    enrollments<T extends sessions$enrollmentsArgs<ExtArgs> = {}>(args?: Subset<T, sessions$enrollmentsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$session_enrollmentsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -64129,6 +64309,30 @@ export namespace Prisma {
   }
 
   /**
+   * sessions.enrollments
+   */
+  export type sessions$enrollmentsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the session_enrollments
+     */
+    select?: session_enrollmentsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the session_enrollments
+     */
+    omit?: session_enrollmentsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: session_enrollmentsInclude<ExtArgs> | null
+    where?: session_enrollmentsWhereInput
+    orderBy?: session_enrollmentsOrderByWithRelationInput | session_enrollmentsOrderByWithRelationInput[]
+    cursor?: session_enrollmentsWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: Session_enrollmentsScalarFieldEnum | Session_enrollmentsScalarFieldEnum[]
+  }
+
+  /**
    * sessions without action
    */
   export type sessionsDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -64144,6 +64348,1252 @@ export namespace Prisma {
      * Choose, which related nodes to fetch as well
      */
     include?: sessionsInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model session_enrollments
+   */
+
+  export type AggregateSession_enrollments = {
+    _count: Session_enrollmentsCountAggregateOutputType | null
+    _avg: Session_enrollmentsAvgAggregateOutputType | null
+    _sum: Session_enrollmentsSumAggregateOutputType | null
+    _min: Session_enrollmentsMinAggregateOutputType | null
+    _max: Session_enrollmentsMaxAggregateOutputType | null
+  }
+
+  export type Session_enrollmentsAvgAggregateOutputType = {
+    id: number | null
+    user_id: number | null
+    session_id: number | null
+    payment_amount: Decimal | null
+    progress: number | null
+  }
+
+  export type Session_enrollmentsSumAggregateOutputType = {
+    id: number | null
+    user_id: number | null
+    session_id: number | null
+    payment_amount: Decimal | null
+    progress: number | null
+  }
+
+  export type Session_enrollmentsMinAggregateOutputType = {
+    id: number | null
+    user_id: number | null
+    session_id: number | null
+    enrollment_date: Date | null
+    payment_status: $Enums.enrollment_payment_status | null
+    payment_amount: Decimal | null
+    payment_method: string | null
+    transaction_id: string | null
+    access_granted: boolean | null
+    completed: boolean | null
+    progress: number | null
+    last_accessed_at: Date | null
+    notes: string | null
+    created_at: Date | null
+    updated_at: Date | null
+  }
+
+  export type Session_enrollmentsMaxAggregateOutputType = {
+    id: number | null
+    user_id: number | null
+    session_id: number | null
+    enrollment_date: Date | null
+    payment_status: $Enums.enrollment_payment_status | null
+    payment_amount: Decimal | null
+    payment_method: string | null
+    transaction_id: string | null
+    access_granted: boolean | null
+    completed: boolean | null
+    progress: number | null
+    last_accessed_at: Date | null
+    notes: string | null
+    created_at: Date | null
+    updated_at: Date | null
+  }
+
+  export type Session_enrollmentsCountAggregateOutputType = {
+    id: number
+    user_id: number
+    session_id: number
+    enrollment_date: number
+    payment_status: number
+    payment_amount: number
+    payment_method: number
+    transaction_id: number
+    access_granted: number
+    completed: number
+    progress: number
+    last_accessed_at: number
+    notes: number
+    created_at: number
+    updated_at: number
+    _all: number
+  }
+
+
+  export type Session_enrollmentsAvgAggregateInputType = {
+    id?: true
+    user_id?: true
+    session_id?: true
+    payment_amount?: true
+    progress?: true
+  }
+
+  export type Session_enrollmentsSumAggregateInputType = {
+    id?: true
+    user_id?: true
+    session_id?: true
+    payment_amount?: true
+    progress?: true
+  }
+
+  export type Session_enrollmentsMinAggregateInputType = {
+    id?: true
+    user_id?: true
+    session_id?: true
+    enrollment_date?: true
+    payment_status?: true
+    payment_amount?: true
+    payment_method?: true
+    transaction_id?: true
+    access_granted?: true
+    completed?: true
+    progress?: true
+    last_accessed_at?: true
+    notes?: true
+    created_at?: true
+    updated_at?: true
+  }
+
+  export type Session_enrollmentsMaxAggregateInputType = {
+    id?: true
+    user_id?: true
+    session_id?: true
+    enrollment_date?: true
+    payment_status?: true
+    payment_amount?: true
+    payment_method?: true
+    transaction_id?: true
+    access_granted?: true
+    completed?: true
+    progress?: true
+    last_accessed_at?: true
+    notes?: true
+    created_at?: true
+    updated_at?: true
+  }
+
+  export type Session_enrollmentsCountAggregateInputType = {
+    id?: true
+    user_id?: true
+    session_id?: true
+    enrollment_date?: true
+    payment_status?: true
+    payment_amount?: true
+    payment_method?: true
+    transaction_id?: true
+    access_granted?: true
+    completed?: true
+    progress?: true
+    last_accessed_at?: true
+    notes?: true
+    created_at?: true
+    updated_at?: true
+    _all?: true
+  }
+
+  export type Session_enrollmentsAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which session_enrollments to aggregate.
+     */
+    where?: session_enrollmentsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of session_enrollments to fetch.
+     */
+    orderBy?: session_enrollmentsOrderByWithRelationInput | session_enrollmentsOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: session_enrollmentsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` session_enrollments from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` session_enrollments.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned session_enrollments
+    **/
+    _count?: true | Session_enrollmentsCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: Session_enrollmentsAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: Session_enrollmentsSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: Session_enrollmentsMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: Session_enrollmentsMaxAggregateInputType
+  }
+
+  export type GetSession_enrollmentsAggregateType<T extends Session_enrollmentsAggregateArgs> = {
+        [P in keyof T & keyof AggregateSession_enrollments]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateSession_enrollments[P]>
+      : GetScalarType<T[P], AggregateSession_enrollments[P]>
+  }
+
+
+
+
+  export type session_enrollmentsGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: session_enrollmentsWhereInput
+    orderBy?: session_enrollmentsOrderByWithAggregationInput | session_enrollmentsOrderByWithAggregationInput[]
+    by: Session_enrollmentsScalarFieldEnum[] | Session_enrollmentsScalarFieldEnum
+    having?: session_enrollmentsScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: Session_enrollmentsCountAggregateInputType | true
+    _avg?: Session_enrollmentsAvgAggregateInputType
+    _sum?: Session_enrollmentsSumAggregateInputType
+    _min?: Session_enrollmentsMinAggregateInputType
+    _max?: Session_enrollmentsMaxAggregateInputType
+  }
+
+  export type Session_enrollmentsGroupByOutputType = {
+    id: number
+    user_id: number
+    session_id: number
+    enrollment_date: Date
+    payment_status: $Enums.enrollment_payment_status
+    payment_amount: Decimal | null
+    payment_method: string | null
+    transaction_id: string | null
+    access_granted: boolean
+    completed: boolean
+    progress: number | null
+    last_accessed_at: Date | null
+    notes: string | null
+    created_at: Date
+    updated_at: Date
+    _count: Session_enrollmentsCountAggregateOutputType | null
+    _avg: Session_enrollmentsAvgAggregateOutputType | null
+    _sum: Session_enrollmentsSumAggregateOutputType | null
+    _min: Session_enrollmentsMinAggregateOutputType | null
+    _max: Session_enrollmentsMaxAggregateOutputType | null
+  }
+
+  type GetSession_enrollmentsGroupByPayload<T extends session_enrollmentsGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<Session_enrollmentsGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof Session_enrollmentsGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], Session_enrollmentsGroupByOutputType[P]>
+            : GetScalarType<T[P], Session_enrollmentsGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type session_enrollmentsSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    user_id?: boolean
+    session_id?: boolean
+    enrollment_date?: boolean
+    payment_status?: boolean
+    payment_amount?: boolean
+    payment_method?: boolean
+    transaction_id?: boolean
+    access_granted?: boolean
+    completed?: boolean
+    progress?: boolean
+    last_accessed_at?: boolean
+    notes?: boolean
+    created_at?: boolean
+    updated_at?: boolean
+    user?: boolean | usersDefaultArgs<ExtArgs>
+    session?: boolean | sessionsDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["session_enrollments"]>
+
+  export type session_enrollmentsSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    user_id?: boolean
+    session_id?: boolean
+    enrollment_date?: boolean
+    payment_status?: boolean
+    payment_amount?: boolean
+    payment_method?: boolean
+    transaction_id?: boolean
+    access_granted?: boolean
+    completed?: boolean
+    progress?: boolean
+    last_accessed_at?: boolean
+    notes?: boolean
+    created_at?: boolean
+    updated_at?: boolean
+    user?: boolean | usersDefaultArgs<ExtArgs>
+    session?: boolean | sessionsDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["session_enrollments"]>
+
+  export type session_enrollmentsSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    user_id?: boolean
+    session_id?: boolean
+    enrollment_date?: boolean
+    payment_status?: boolean
+    payment_amount?: boolean
+    payment_method?: boolean
+    transaction_id?: boolean
+    access_granted?: boolean
+    completed?: boolean
+    progress?: boolean
+    last_accessed_at?: boolean
+    notes?: boolean
+    created_at?: boolean
+    updated_at?: boolean
+    user?: boolean | usersDefaultArgs<ExtArgs>
+    session?: boolean | sessionsDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["session_enrollments"]>
+
+  export type session_enrollmentsSelectScalar = {
+    id?: boolean
+    user_id?: boolean
+    session_id?: boolean
+    enrollment_date?: boolean
+    payment_status?: boolean
+    payment_amount?: boolean
+    payment_method?: boolean
+    transaction_id?: boolean
+    access_granted?: boolean
+    completed?: boolean
+    progress?: boolean
+    last_accessed_at?: boolean
+    notes?: boolean
+    created_at?: boolean
+    updated_at?: boolean
+  }
+
+  export type session_enrollmentsOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "user_id" | "session_id" | "enrollment_date" | "payment_status" | "payment_amount" | "payment_method" | "transaction_id" | "access_granted" | "completed" | "progress" | "last_accessed_at" | "notes" | "created_at" | "updated_at", ExtArgs["result"]["session_enrollments"]>
+  export type session_enrollmentsInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | usersDefaultArgs<ExtArgs>
+    session?: boolean | sessionsDefaultArgs<ExtArgs>
+  }
+  export type session_enrollmentsIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | usersDefaultArgs<ExtArgs>
+    session?: boolean | sessionsDefaultArgs<ExtArgs>
+  }
+  export type session_enrollmentsIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | usersDefaultArgs<ExtArgs>
+    session?: boolean | sessionsDefaultArgs<ExtArgs>
+  }
+
+  export type $session_enrollmentsPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "session_enrollments"
+    objects: {
+      user: Prisma.$usersPayload<ExtArgs>
+      session: Prisma.$sessionsPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: number
+      user_id: number
+      session_id: number
+      enrollment_date: Date
+      payment_status: $Enums.enrollment_payment_status
+      payment_amount: Prisma.Decimal | null
+      payment_method: string | null
+      transaction_id: string | null
+      access_granted: boolean
+      completed: boolean
+      progress: number | null
+      last_accessed_at: Date | null
+      notes: string | null
+      created_at: Date
+      updated_at: Date
+    }, ExtArgs["result"]["session_enrollments"]>
+    composites: {}
+  }
+
+  type session_enrollmentsGetPayload<S extends boolean | null | undefined | session_enrollmentsDefaultArgs> = $Result.GetResult<Prisma.$session_enrollmentsPayload, S>
+
+  type session_enrollmentsCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<session_enrollmentsFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: Session_enrollmentsCountAggregateInputType | true
+    }
+
+  export interface session_enrollmentsDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['session_enrollments'], meta: { name: 'session_enrollments' } }
+    /**
+     * Find zero or one Session_enrollments that matches the filter.
+     * @param {session_enrollmentsFindUniqueArgs} args - Arguments to find a Session_enrollments
+     * @example
+     * // Get one Session_enrollments
+     * const session_enrollments = await prisma.session_enrollments.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends session_enrollmentsFindUniqueArgs>(args: SelectSubset<T, session_enrollmentsFindUniqueArgs<ExtArgs>>): Prisma__session_enrollmentsClient<$Result.GetResult<Prisma.$session_enrollmentsPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Session_enrollments that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {session_enrollmentsFindUniqueOrThrowArgs} args - Arguments to find a Session_enrollments
+     * @example
+     * // Get one Session_enrollments
+     * const session_enrollments = await prisma.session_enrollments.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends session_enrollmentsFindUniqueOrThrowArgs>(args: SelectSubset<T, session_enrollmentsFindUniqueOrThrowArgs<ExtArgs>>): Prisma__session_enrollmentsClient<$Result.GetResult<Prisma.$session_enrollmentsPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Session_enrollments that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {session_enrollmentsFindFirstArgs} args - Arguments to find a Session_enrollments
+     * @example
+     * // Get one Session_enrollments
+     * const session_enrollments = await prisma.session_enrollments.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends session_enrollmentsFindFirstArgs>(args?: SelectSubset<T, session_enrollmentsFindFirstArgs<ExtArgs>>): Prisma__session_enrollmentsClient<$Result.GetResult<Prisma.$session_enrollmentsPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Session_enrollments that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {session_enrollmentsFindFirstOrThrowArgs} args - Arguments to find a Session_enrollments
+     * @example
+     * // Get one Session_enrollments
+     * const session_enrollments = await prisma.session_enrollments.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends session_enrollmentsFindFirstOrThrowArgs>(args?: SelectSubset<T, session_enrollmentsFindFirstOrThrowArgs<ExtArgs>>): Prisma__session_enrollmentsClient<$Result.GetResult<Prisma.$session_enrollmentsPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Session_enrollments that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {session_enrollmentsFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Session_enrollments
+     * const session_enrollments = await prisma.session_enrollments.findMany()
+     * 
+     * // Get first 10 Session_enrollments
+     * const session_enrollments = await prisma.session_enrollments.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const session_enrollmentsWithIdOnly = await prisma.session_enrollments.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends session_enrollmentsFindManyArgs>(args?: SelectSubset<T, session_enrollmentsFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$session_enrollmentsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Session_enrollments.
+     * @param {session_enrollmentsCreateArgs} args - Arguments to create a Session_enrollments.
+     * @example
+     * // Create one Session_enrollments
+     * const Session_enrollments = await prisma.session_enrollments.create({
+     *   data: {
+     *     // ... data to create a Session_enrollments
+     *   }
+     * })
+     * 
+     */
+    create<T extends session_enrollmentsCreateArgs>(args: SelectSubset<T, session_enrollmentsCreateArgs<ExtArgs>>): Prisma__session_enrollmentsClient<$Result.GetResult<Prisma.$session_enrollmentsPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Session_enrollments.
+     * @param {session_enrollmentsCreateManyArgs} args - Arguments to create many Session_enrollments.
+     * @example
+     * // Create many Session_enrollments
+     * const session_enrollments = await prisma.session_enrollments.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends session_enrollmentsCreateManyArgs>(args?: SelectSubset<T, session_enrollmentsCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many Session_enrollments and returns the data saved in the database.
+     * @param {session_enrollmentsCreateManyAndReturnArgs} args - Arguments to create many Session_enrollments.
+     * @example
+     * // Create many Session_enrollments
+     * const session_enrollments = await prisma.session_enrollments.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many Session_enrollments and only return the `id`
+     * const session_enrollmentsWithIdOnly = await prisma.session_enrollments.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends session_enrollmentsCreateManyAndReturnArgs>(args?: SelectSubset<T, session_enrollmentsCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$session_enrollmentsPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a Session_enrollments.
+     * @param {session_enrollmentsDeleteArgs} args - Arguments to delete one Session_enrollments.
+     * @example
+     * // Delete one Session_enrollments
+     * const Session_enrollments = await prisma.session_enrollments.delete({
+     *   where: {
+     *     // ... filter to delete one Session_enrollments
+     *   }
+     * })
+     * 
+     */
+    delete<T extends session_enrollmentsDeleteArgs>(args: SelectSubset<T, session_enrollmentsDeleteArgs<ExtArgs>>): Prisma__session_enrollmentsClient<$Result.GetResult<Prisma.$session_enrollmentsPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Session_enrollments.
+     * @param {session_enrollmentsUpdateArgs} args - Arguments to update one Session_enrollments.
+     * @example
+     * // Update one Session_enrollments
+     * const session_enrollments = await prisma.session_enrollments.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends session_enrollmentsUpdateArgs>(args: SelectSubset<T, session_enrollmentsUpdateArgs<ExtArgs>>): Prisma__session_enrollmentsClient<$Result.GetResult<Prisma.$session_enrollmentsPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Session_enrollments.
+     * @param {session_enrollmentsDeleteManyArgs} args - Arguments to filter Session_enrollments to delete.
+     * @example
+     * // Delete a few Session_enrollments
+     * const { count } = await prisma.session_enrollments.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends session_enrollmentsDeleteManyArgs>(args?: SelectSubset<T, session_enrollmentsDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Session_enrollments.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {session_enrollmentsUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Session_enrollments
+     * const session_enrollments = await prisma.session_enrollments.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends session_enrollmentsUpdateManyArgs>(args: SelectSubset<T, session_enrollmentsUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Session_enrollments and returns the data updated in the database.
+     * @param {session_enrollmentsUpdateManyAndReturnArgs} args - Arguments to update many Session_enrollments.
+     * @example
+     * // Update many Session_enrollments
+     * const session_enrollments = await prisma.session_enrollments.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more Session_enrollments and only return the `id`
+     * const session_enrollmentsWithIdOnly = await prisma.session_enrollments.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends session_enrollmentsUpdateManyAndReturnArgs>(args: SelectSubset<T, session_enrollmentsUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$session_enrollmentsPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one Session_enrollments.
+     * @param {session_enrollmentsUpsertArgs} args - Arguments to update or create a Session_enrollments.
+     * @example
+     * // Update or create a Session_enrollments
+     * const session_enrollments = await prisma.session_enrollments.upsert({
+     *   create: {
+     *     // ... data to create a Session_enrollments
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Session_enrollments we want to update
+     *   }
+     * })
+     */
+    upsert<T extends session_enrollmentsUpsertArgs>(args: SelectSubset<T, session_enrollmentsUpsertArgs<ExtArgs>>): Prisma__session_enrollmentsClient<$Result.GetResult<Prisma.$session_enrollmentsPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of Session_enrollments.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {session_enrollmentsCountArgs} args - Arguments to filter Session_enrollments to count.
+     * @example
+     * // Count the number of Session_enrollments
+     * const count = await prisma.session_enrollments.count({
+     *   where: {
+     *     // ... the filter for the Session_enrollments we want to count
+     *   }
+     * })
+    **/
+    count<T extends session_enrollmentsCountArgs>(
+      args?: Subset<T, session_enrollmentsCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], Session_enrollmentsCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Session_enrollments.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {Session_enrollmentsAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends Session_enrollmentsAggregateArgs>(args: Subset<T, Session_enrollmentsAggregateArgs>): Prisma.PrismaPromise<GetSession_enrollmentsAggregateType<T>>
+
+    /**
+     * Group by Session_enrollments.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {session_enrollmentsGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends session_enrollmentsGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: session_enrollmentsGroupByArgs['orderBy'] }
+        : { orderBy?: session_enrollmentsGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, session_enrollmentsGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetSession_enrollmentsGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the session_enrollments model
+   */
+  readonly fields: session_enrollmentsFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for session_enrollments.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__session_enrollmentsClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    user<T extends usersDefaultArgs<ExtArgs> = {}>(args?: Subset<T, usersDefaultArgs<ExtArgs>>): Prisma__usersClient<$Result.GetResult<Prisma.$usersPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    session<T extends sessionsDefaultArgs<ExtArgs> = {}>(args?: Subset<T, sessionsDefaultArgs<ExtArgs>>): Prisma__sessionsClient<$Result.GetResult<Prisma.$sessionsPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the session_enrollments model
+   */
+  interface session_enrollmentsFieldRefs {
+    readonly id: FieldRef<"session_enrollments", 'Int'>
+    readonly user_id: FieldRef<"session_enrollments", 'Int'>
+    readonly session_id: FieldRef<"session_enrollments", 'Int'>
+    readonly enrollment_date: FieldRef<"session_enrollments", 'DateTime'>
+    readonly payment_status: FieldRef<"session_enrollments", 'enrollment_payment_status'>
+    readonly payment_amount: FieldRef<"session_enrollments", 'Decimal'>
+    readonly payment_method: FieldRef<"session_enrollments", 'String'>
+    readonly transaction_id: FieldRef<"session_enrollments", 'String'>
+    readonly access_granted: FieldRef<"session_enrollments", 'Boolean'>
+    readonly completed: FieldRef<"session_enrollments", 'Boolean'>
+    readonly progress: FieldRef<"session_enrollments", 'Int'>
+    readonly last_accessed_at: FieldRef<"session_enrollments", 'DateTime'>
+    readonly notes: FieldRef<"session_enrollments", 'String'>
+    readonly created_at: FieldRef<"session_enrollments", 'DateTime'>
+    readonly updated_at: FieldRef<"session_enrollments", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * session_enrollments findUnique
+   */
+  export type session_enrollmentsFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the session_enrollments
+     */
+    select?: session_enrollmentsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the session_enrollments
+     */
+    omit?: session_enrollmentsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: session_enrollmentsInclude<ExtArgs> | null
+    /**
+     * Filter, which session_enrollments to fetch.
+     */
+    where: session_enrollmentsWhereUniqueInput
+  }
+
+  /**
+   * session_enrollments findUniqueOrThrow
+   */
+  export type session_enrollmentsFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the session_enrollments
+     */
+    select?: session_enrollmentsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the session_enrollments
+     */
+    omit?: session_enrollmentsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: session_enrollmentsInclude<ExtArgs> | null
+    /**
+     * Filter, which session_enrollments to fetch.
+     */
+    where: session_enrollmentsWhereUniqueInput
+  }
+
+  /**
+   * session_enrollments findFirst
+   */
+  export type session_enrollmentsFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the session_enrollments
+     */
+    select?: session_enrollmentsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the session_enrollments
+     */
+    omit?: session_enrollmentsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: session_enrollmentsInclude<ExtArgs> | null
+    /**
+     * Filter, which session_enrollments to fetch.
+     */
+    where?: session_enrollmentsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of session_enrollments to fetch.
+     */
+    orderBy?: session_enrollmentsOrderByWithRelationInput | session_enrollmentsOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for session_enrollments.
+     */
+    cursor?: session_enrollmentsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` session_enrollments from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` session_enrollments.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of session_enrollments.
+     */
+    distinct?: Session_enrollmentsScalarFieldEnum | Session_enrollmentsScalarFieldEnum[]
+  }
+
+  /**
+   * session_enrollments findFirstOrThrow
+   */
+  export type session_enrollmentsFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the session_enrollments
+     */
+    select?: session_enrollmentsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the session_enrollments
+     */
+    omit?: session_enrollmentsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: session_enrollmentsInclude<ExtArgs> | null
+    /**
+     * Filter, which session_enrollments to fetch.
+     */
+    where?: session_enrollmentsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of session_enrollments to fetch.
+     */
+    orderBy?: session_enrollmentsOrderByWithRelationInput | session_enrollmentsOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for session_enrollments.
+     */
+    cursor?: session_enrollmentsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` session_enrollments from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` session_enrollments.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of session_enrollments.
+     */
+    distinct?: Session_enrollmentsScalarFieldEnum | Session_enrollmentsScalarFieldEnum[]
+  }
+
+  /**
+   * session_enrollments findMany
+   */
+  export type session_enrollmentsFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the session_enrollments
+     */
+    select?: session_enrollmentsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the session_enrollments
+     */
+    omit?: session_enrollmentsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: session_enrollmentsInclude<ExtArgs> | null
+    /**
+     * Filter, which session_enrollments to fetch.
+     */
+    where?: session_enrollmentsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of session_enrollments to fetch.
+     */
+    orderBy?: session_enrollmentsOrderByWithRelationInput | session_enrollmentsOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing session_enrollments.
+     */
+    cursor?: session_enrollmentsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` session_enrollments from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` session_enrollments.
+     */
+    skip?: number
+    distinct?: Session_enrollmentsScalarFieldEnum | Session_enrollmentsScalarFieldEnum[]
+  }
+
+  /**
+   * session_enrollments create
+   */
+  export type session_enrollmentsCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the session_enrollments
+     */
+    select?: session_enrollmentsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the session_enrollments
+     */
+    omit?: session_enrollmentsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: session_enrollmentsInclude<ExtArgs> | null
+    /**
+     * The data needed to create a session_enrollments.
+     */
+    data: XOR<session_enrollmentsCreateInput, session_enrollmentsUncheckedCreateInput>
+  }
+
+  /**
+   * session_enrollments createMany
+   */
+  export type session_enrollmentsCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many session_enrollments.
+     */
+    data: session_enrollmentsCreateManyInput | session_enrollmentsCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * session_enrollments createManyAndReturn
+   */
+  export type session_enrollmentsCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the session_enrollments
+     */
+    select?: session_enrollmentsSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the session_enrollments
+     */
+    omit?: session_enrollmentsOmit<ExtArgs> | null
+    /**
+     * The data used to create many session_enrollments.
+     */
+    data: session_enrollmentsCreateManyInput | session_enrollmentsCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: session_enrollmentsIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * session_enrollments update
+   */
+  export type session_enrollmentsUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the session_enrollments
+     */
+    select?: session_enrollmentsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the session_enrollments
+     */
+    omit?: session_enrollmentsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: session_enrollmentsInclude<ExtArgs> | null
+    /**
+     * The data needed to update a session_enrollments.
+     */
+    data: XOR<session_enrollmentsUpdateInput, session_enrollmentsUncheckedUpdateInput>
+    /**
+     * Choose, which session_enrollments to update.
+     */
+    where: session_enrollmentsWhereUniqueInput
+  }
+
+  /**
+   * session_enrollments updateMany
+   */
+  export type session_enrollmentsUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update session_enrollments.
+     */
+    data: XOR<session_enrollmentsUpdateManyMutationInput, session_enrollmentsUncheckedUpdateManyInput>
+    /**
+     * Filter which session_enrollments to update
+     */
+    where?: session_enrollmentsWhereInput
+    /**
+     * Limit how many session_enrollments to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * session_enrollments updateManyAndReturn
+   */
+  export type session_enrollmentsUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the session_enrollments
+     */
+    select?: session_enrollmentsSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the session_enrollments
+     */
+    omit?: session_enrollmentsOmit<ExtArgs> | null
+    /**
+     * The data used to update session_enrollments.
+     */
+    data: XOR<session_enrollmentsUpdateManyMutationInput, session_enrollmentsUncheckedUpdateManyInput>
+    /**
+     * Filter which session_enrollments to update
+     */
+    where?: session_enrollmentsWhereInput
+    /**
+     * Limit how many session_enrollments to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: session_enrollmentsIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * session_enrollments upsert
+   */
+  export type session_enrollmentsUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the session_enrollments
+     */
+    select?: session_enrollmentsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the session_enrollments
+     */
+    omit?: session_enrollmentsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: session_enrollmentsInclude<ExtArgs> | null
+    /**
+     * The filter to search for the session_enrollments to update in case it exists.
+     */
+    where: session_enrollmentsWhereUniqueInput
+    /**
+     * In case the session_enrollments found by the `where` argument doesn't exist, create a new session_enrollments with this data.
+     */
+    create: XOR<session_enrollmentsCreateInput, session_enrollmentsUncheckedCreateInput>
+    /**
+     * In case the session_enrollments was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<session_enrollmentsUpdateInput, session_enrollmentsUncheckedUpdateInput>
+  }
+
+  /**
+   * session_enrollments delete
+   */
+  export type session_enrollmentsDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the session_enrollments
+     */
+    select?: session_enrollmentsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the session_enrollments
+     */
+    omit?: session_enrollmentsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: session_enrollmentsInclude<ExtArgs> | null
+    /**
+     * Filter which session_enrollments to delete.
+     */
+    where: session_enrollmentsWhereUniqueInput
+  }
+
+  /**
+   * session_enrollments deleteMany
+   */
+  export type session_enrollmentsDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which session_enrollments to delete
+     */
+    where?: session_enrollmentsWhereInput
+    /**
+     * Limit how many session_enrollments to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * session_enrollments without action
+   */
+  export type session_enrollmentsDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the session_enrollments
+     */
+    select?: session_enrollmentsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the session_enrollments
+     */
+    omit?: session_enrollmentsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: session_enrollmentsInclude<ExtArgs> | null
   }
 
 
@@ -69474,6 +70924,27 @@ export namespace Prisma {
   export type SessionsScalarFieldEnum = (typeof SessionsScalarFieldEnum)[keyof typeof SessionsScalarFieldEnum]
 
 
+  export const Session_enrollmentsScalarFieldEnum: {
+    id: 'id',
+    user_id: 'user_id',
+    session_id: 'session_id',
+    enrollment_date: 'enrollment_date',
+    payment_status: 'payment_status',
+    payment_amount: 'payment_amount',
+    payment_method: 'payment_method',
+    transaction_id: 'transaction_id',
+    access_granted: 'access_granted',
+    completed: 'completed',
+    progress: 'progress',
+    last_accessed_at: 'last_accessed_at',
+    notes: 'notes',
+    created_at: 'created_at',
+    updated_at: 'updated_at'
+  };
+
+  export type Session_enrollmentsScalarFieldEnum = (typeof Session_enrollmentsScalarFieldEnum)[keyof typeof Session_enrollmentsScalarFieldEnum]
+
+
   export const PollsScalarFieldEnum: {
     id: 'id',
     title: 'title',
@@ -69844,6 +71315,20 @@ export namespace Prisma {
    * Reference to a field of type 'difficulty_level[]'
    */
   export type ListEnumdifficulty_levelFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'difficulty_level[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'enrollment_payment_status'
+   */
+  export type Enumenrollment_payment_statusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'enrollment_payment_status'>
+    
+
+
+  /**
+   * Reference to a field of type 'enrollment_payment_status[]'
+   */
+  export type ListEnumenrollment_payment_statusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'enrollment_payment_status[]'>
     
   /**
    * Deep Input Types
@@ -71196,6 +72681,7 @@ export namespace Prisma {
     stargazing_spot_reviews?: Stargazing_spot_reviewsListRelationFilter
     created_stargazing_spots?: Stargazing_spotsListRelationFilter
     created_sessions?: SessionsListRelationFilter
+    session_enrollments?: Session_enrollmentsListRelationFilter
     subscriptions?: SubscriptionsListRelationFilter
     user_settings?: XOR<User_settingsNullableScalarRelationFilter, user_settingsWhereInput> | null
     created_polls?: PollsListRelationFilter
@@ -71258,6 +72744,7 @@ export namespace Prisma {
     stargazing_spot_reviews?: stargazing_spot_reviewsOrderByRelationAggregateInput
     created_stargazing_spots?: stargazing_spotsOrderByRelationAggregateInput
     created_sessions?: sessionsOrderByRelationAggregateInput
+    session_enrollments?: session_enrollmentsOrderByRelationAggregateInput
     subscriptions?: subscriptionsOrderByRelationAggregateInput
     user_settings?: user_settingsOrderByWithRelationInput
     created_polls?: pollsOrderByRelationAggregateInput
@@ -71323,6 +72810,7 @@ export namespace Prisma {
     stargazing_spot_reviews?: Stargazing_spot_reviewsListRelationFilter
     created_stargazing_spots?: Stargazing_spotsListRelationFilter
     created_sessions?: SessionsListRelationFilter
+    session_enrollments?: Session_enrollmentsListRelationFilter
     subscriptions?: SubscriptionsListRelationFilter
     user_settings?: XOR<User_settingsNullableScalarRelationFilter, user_settingsWhereInput> | null
     created_polls?: PollsListRelationFilter
@@ -73963,6 +75451,7 @@ export namespace Prisma {
     created_at?: DateTimeFilter<"sessions"> | Date | string
     updated_at?: DateTimeFilter<"sessions"> | Date | string
     creator?: XOR<UsersScalarRelationFilter, usersWhereInput>
+    enrollments?: Session_enrollmentsListRelationFilter
   }
 
   export type sessionsOrderByWithRelationInput = {
@@ -73987,6 +75476,7 @@ export namespace Prisma {
     created_at?: SortOrder
     updated_at?: SortOrder
     creator?: usersOrderByWithRelationInput
+    enrollments?: session_enrollmentsOrderByRelationAggregateInput
   }
 
   export type sessionsWhereUniqueInput = Prisma.AtLeast<{
@@ -74014,6 +75504,7 @@ export namespace Prisma {
     created_at?: DateTimeFilter<"sessions"> | Date | string
     updated_at?: DateTimeFilter<"sessions"> | Date | string
     creator?: XOR<UsersScalarRelationFilter, usersWhereInput>
+    enrollments?: Session_enrollmentsListRelationFilter
   }, "id">
 
   export type sessionsOrderByWithAggregationInput = {
@@ -74068,6 +75559,117 @@ export namespace Prisma {
     is_enabled?: BoolWithAggregatesFilter<"sessions"> | boolean
     created_at?: DateTimeWithAggregatesFilter<"sessions"> | Date | string
     updated_at?: DateTimeWithAggregatesFilter<"sessions"> | Date | string
+  }
+
+  export type session_enrollmentsWhereInput = {
+    AND?: session_enrollmentsWhereInput | session_enrollmentsWhereInput[]
+    OR?: session_enrollmentsWhereInput[]
+    NOT?: session_enrollmentsWhereInput | session_enrollmentsWhereInput[]
+    id?: IntFilter<"session_enrollments"> | number
+    user_id?: IntFilter<"session_enrollments"> | number
+    session_id?: IntFilter<"session_enrollments"> | number
+    enrollment_date?: DateTimeFilter<"session_enrollments"> | Date | string
+    payment_status?: Enumenrollment_payment_statusFilter<"session_enrollments"> | $Enums.enrollment_payment_status
+    payment_amount?: DecimalNullableFilter<"session_enrollments"> | Decimal | DecimalJsLike | number | string | null
+    payment_method?: StringNullableFilter<"session_enrollments"> | string | null
+    transaction_id?: StringNullableFilter<"session_enrollments"> | string | null
+    access_granted?: BoolFilter<"session_enrollments"> | boolean
+    completed?: BoolFilter<"session_enrollments"> | boolean
+    progress?: IntNullableFilter<"session_enrollments"> | number | null
+    last_accessed_at?: DateTimeNullableFilter<"session_enrollments"> | Date | string | null
+    notes?: StringNullableFilter<"session_enrollments"> | string | null
+    created_at?: DateTimeFilter<"session_enrollments"> | Date | string
+    updated_at?: DateTimeFilter<"session_enrollments"> | Date | string
+    user?: XOR<UsersScalarRelationFilter, usersWhereInput>
+    session?: XOR<SessionsScalarRelationFilter, sessionsWhereInput>
+  }
+
+  export type session_enrollmentsOrderByWithRelationInput = {
+    id?: SortOrder
+    user_id?: SortOrder
+    session_id?: SortOrder
+    enrollment_date?: SortOrder
+    payment_status?: SortOrder
+    payment_amount?: SortOrderInput | SortOrder
+    payment_method?: SortOrderInput | SortOrder
+    transaction_id?: SortOrderInput | SortOrder
+    access_granted?: SortOrder
+    completed?: SortOrder
+    progress?: SortOrderInput | SortOrder
+    last_accessed_at?: SortOrderInput | SortOrder
+    notes?: SortOrderInput | SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+    user?: usersOrderByWithRelationInput
+    session?: sessionsOrderByWithRelationInput
+  }
+
+  export type session_enrollmentsWhereUniqueInput = Prisma.AtLeast<{
+    id?: number
+    user_id_session_id?: session_enrollmentsUser_idSession_idCompoundUniqueInput
+    AND?: session_enrollmentsWhereInput | session_enrollmentsWhereInput[]
+    OR?: session_enrollmentsWhereInput[]
+    NOT?: session_enrollmentsWhereInput | session_enrollmentsWhereInput[]
+    user_id?: IntFilter<"session_enrollments"> | number
+    session_id?: IntFilter<"session_enrollments"> | number
+    enrollment_date?: DateTimeFilter<"session_enrollments"> | Date | string
+    payment_status?: Enumenrollment_payment_statusFilter<"session_enrollments"> | $Enums.enrollment_payment_status
+    payment_amount?: DecimalNullableFilter<"session_enrollments"> | Decimal | DecimalJsLike | number | string | null
+    payment_method?: StringNullableFilter<"session_enrollments"> | string | null
+    transaction_id?: StringNullableFilter<"session_enrollments"> | string | null
+    access_granted?: BoolFilter<"session_enrollments"> | boolean
+    completed?: BoolFilter<"session_enrollments"> | boolean
+    progress?: IntNullableFilter<"session_enrollments"> | number | null
+    last_accessed_at?: DateTimeNullableFilter<"session_enrollments"> | Date | string | null
+    notes?: StringNullableFilter<"session_enrollments"> | string | null
+    created_at?: DateTimeFilter<"session_enrollments"> | Date | string
+    updated_at?: DateTimeFilter<"session_enrollments"> | Date | string
+    user?: XOR<UsersScalarRelationFilter, usersWhereInput>
+    session?: XOR<SessionsScalarRelationFilter, sessionsWhereInput>
+  }, "id" | "user_id_session_id">
+
+  export type session_enrollmentsOrderByWithAggregationInput = {
+    id?: SortOrder
+    user_id?: SortOrder
+    session_id?: SortOrder
+    enrollment_date?: SortOrder
+    payment_status?: SortOrder
+    payment_amount?: SortOrderInput | SortOrder
+    payment_method?: SortOrderInput | SortOrder
+    transaction_id?: SortOrderInput | SortOrder
+    access_granted?: SortOrder
+    completed?: SortOrder
+    progress?: SortOrderInput | SortOrder
+    last_accessed_at?: SortOrderInput | SortOrder
+    notes?: SortOrderInput | SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+    _count?: session_enrollmentsCountOrderByAggregateInput
+    _avg?: session_enrollmentsAvgOrderByAggregateInput
+    _max?: session_enrollmentsMaxOrderByAggregateInput
+    _min?: session_enrollmentsMinOrderByAggregateInput
+    _sum?: session_enrollmentsSumOrderByAggregateInput
+  }
+
+  export type session_enrollmentsScalarWhereWithAggregatesInput = {
+    AND?: session_enrollmentsScalarWhereWithAggregatesInput | session_enrollmentsScalarWhereWithAggregatesInput[]
+    OR?: session_enrollmentsScalarWhereWithAggregatesInput[]
+    NOT?: session_enrollmentsScalarWhereWithAggregatesInput | session_enrollmentsScalarWhereWithAggregatesInput[]
+    id?: IntWithAggregatesFilter<"session_enrollments"> | number
+    user_id?: IntWithAggregatesFilter<"session_enrollments"> | number
+    session_id?: IntWithAggregatesFilter<"session_enrollments"> | number
+    enrollment_date?: DateTimeWithAggregatesFilter<"session_enrollments"> | Date | string
+    payment_status?: Enumenrollment_payment_statusWithAggregatesFilter<"session_enrollments"> | $Enums.enrollment_payment_status
+    payment_amount?: DecimalNullableWithAggregatesFilter<"session_enrollments"> | Decimal | DecimalJsLike | number | string | null
+    payment_method?: StringNullableWithAggregatesFilter<"session_enrollments"> | string | null
+    transaction_id?: StringNullableWithAggregatesFilter<"session_enrollments"> | string | null
+    access_granted?: BoolWithAggregatesFilter<"session_enrollments"> | boolean
+    completed?: BoolWithAggregatesFilter<"session_enrollments"> | boolean
+    progress?: IntNullableWithAggregatesFilter<"session_enrollments"> | number | null
+    last_accessed_at?: DateTimeNullableWithAggregatesFilter<"session_enrollments"> | Date | string | null
+    notes?: StringNullableWithAggregatesFilter<"session_enrollments"> | string | null
+    created_at?: DateTimeWithAggregatesFilter<"session_enrollments"> | Date | string
+    updated_at?: DateTimeWithAggregatesFilter<"session_enrollments"> | Date | string
   }
 
   export type pollsWhereInput = {
@@ -75706,6 +77308,7 @@ export namespace Prisma {
     stargazing_spot_reviews?: stargazing_spot_reviewsCreateNestedManyWithoutUserInput
     created_stargazing_spots?: stargazing_spotsCreateNestedManyWithoutCreatorInput
     created_sessions?: sessionsCreateNestedManyWithoutCreatorInput
+    session_enrollments?: session_enrollmentsCreateNestedManyWithoutUserInput
     subscriptions?: subscriptionsCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsCreateNestedOneWithoutUsersInput
     created_polls?: pollsCreateNestedManyWithoutCreatorInput
@@ -75768,6 +77371,7 @@ export namespace Prisma {
     stargazing_spot_reviews?: stargazing_spot_reviewsUncheckedCreateNestedManyWithoutUserInput
     created_stargazing_spots?: stargazing_spotsUncheckedCreateNestedManyWithoutCreatorInput
     created_sessions?: sessionsUncheckedCreateNestedManyWithoutCreatorInput
+    session_enrollments?: session_enrollmentsUncheckedCreateNestedManyWithoutUserInput
     subscriptions?: subscriptionsUncheckedCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsUncheckedCreateNestedOneWithoutUsersInput
     created_polls?: pollsUncheckedCreateNestedManyWithoutCreatorInput
@@ -75829,6 +77433,7 @@ export namespace Prisma {
     stargazing_spot_reviews?: stargazing_spot_reviewsUpdateManyWithoutUserNestedInput
     created_stargazing_spots?: stargazing_spotsUpdateManyWithoutCreatorNestedInput
     created_sessions?: sessionsUpdateManyWithoutCreatorNestedInput
+    session_enrollments?: session_enrollmentsUpdateManyWithoutUserNestedInput
     subscriptions?: subscriptionsUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUpdateOneWithoutUsersNestedInput
     created_polls?: pollsUpdateManyWithoutCreatorNestedInput
@@ -75891,6 +77496,7 @@ export namespace Prisma {
     stargazing_spot_reviews?: stargazing_spot_reviewsUncheckedUpdateManyWithoutUserNestedInput
     created_stargazing_spots?: stargazing_spotsUncheckedUpdateManyWithoutCreatorNestedInput
     created_sessions?: sessionsUncheckedUpdateManyWithoutCreatorNestedInput
+    session_enrollments?: session_enrollmentsUncheckedUpdateManyWithoutUserNestedInput
     subscriptions?: subscriptionsUncheckedUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUncheckedUpdateOneWithoutUsersNestedInput
     created_polls?: pollsUncheckedUpdateManyWithoutCreatorNestedInput
@@ -78675,6 +80281,7 @@ export namespace Prisma {
     created_at?: Date | string
     updated_at?: Date | string
     creator: usersCreateNestedOneWithoutCreated_sessionsInput
+    enrollments?: session_enrollmentsCreateNestedManyWithoutSessionInput
   }
 
   export type sessionsUncheckedCreateInput = {
@@ -78698,6 +80305,7 @@ export namespace Prisma {
     is_enabled?: boolean
     created_at?: Date | string
     updated_at?: Date | string
+    enrollments?: session_enrollmentsUncheckedCreateNestedManyWithoutSessionInput
   }
 
   export type sessionsUpdateInput = {
@@ -78720,6 +80328,7 @@ export namespace Prisma {
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     creator?: usersUpdateOneRequiredWithoutCreated_sessionsNestedInput
+    enrollments?: session_enrollmentsUpdateManyWithoutSessionNestedInput
   }
 
   export type sessionsUncheckedUpdateInput = {
@@ -78743,6 +80352,7 @@ export namespace Prisma {
     is_enabled?: BoolFieldUpdateOperationsInput | boolean
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    enrollments?: session_enrollmentsUncheckedUpdateManyWithoutSessionNestedInput
   }
 
   export type sessionsCreateManyInput = {
@@ -78808,6 +80418,127 @@ export namespace Prisma {
     created_date?: DateTimeFieldUpdateOperationsInput | Date | string
     created_time?: DateTimeFieldUpdateOperationsInput | Date | string
     is_enabled?: BoolFieldUpdateOperationsInput | boolean
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type session_enrollmentsCreateInput = {
+    enrollment_date?: Date | string
+    payment_status?: $Enums.enrollment_payment_status
+    payment_amount?: Decimal | DecimalJsLike | number | string | null
+    payment_method?: string | null
+    transaction_id?: string | null
+    access_granted?: boolean
+    completed?: boolean
+    progress?: number | null
+    last_accessed_at?: Date | string | null
+    notes?: string | null
+    created_at?: Date | string
+    updated_at?: Date | string
+    user: usersCreateNestedOneWithoutSession_enrollmentsInput
+    session: sessionsCreateNestedOneWithoutEnrollmentsInput
+  }
+
+  export type session_enrollmentsUncheckedCreateInput = {
+    id?: number
+    user_id: number
+    session_id: number
+    enrollment_date?: Date | string
+    payment_status?: $Enums.enrollment_payment_status
+    payment_amount?: Decimal | DecimalJsLike | number | string | null
+    payment_method?: string | null
+    transaction_id?: string | null
+    access_granted?: boolean
+    completed?: boolean
+    progress?: number | null
+    last_accessed_at?: Date | string | null
+    notes?: string | null
+    created_at?: Date | string
+    updated_at?: Date | string
+  }
+
+  export type session_enrollmentsUpdateInput = {
+    enrollment_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    payment_status?: Enumenrollment_payment_statusFieldUpdateOperationsInput | $Enums.enrollment_payment_status
+    payment_amount?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    payment_method?: NullableStringFieldUpdateOperationsInput | string | null
+    transaction_id?: NullableStringFieldUpdateOperationsInput | string | null
+    access_granted?: BoolFieldUpdateOperationsInput | boolean
+    completed?: BoolFieldUpdateOperationsInput | boolean
+    progress?: NullableIntFieldUpdateOperationsInput | number | null
+    last_accessed_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: usersUpdateOneRequiredWithoutSession_enrollmentsNestedInput
+    session?: sessionsUpdateOneRequiredWithoutEnrollmentsNestedInput
+  }
+
+  export type session_enrollmentsUncheckedUpdateInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    user_id?: IntFieldUpdateOperationsInput | number
+    session_id?: IntFieldUpdateOperationsInput | number
+    enrollment_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    payment_status?: Enumenrollment_payment_statusFieldUpdateOperationsInput | $Enums.enrollment_payment_status
+    payment_amount?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    payment_method?: NullableStringFieldUpdateOperationsInput | string | null
+    transaction_id?: NullableStringFieldUpdateOperationsInput | string | null
+    access_granted?: BoolFieldUpdateOperationsInput | boolean
+    completed?: BoolFieldUpdateOperationsInput | boolean
+    progress?: NullableIntFieldUpdateOperationsInput | number | null
+    last_accessed_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type session_enrollmentsCreateManyInput = {
+    id?: number
+    user_id: number
+    session_id: number
+    enrollment_date?: Date | string
+    payment_status?: $Enums.enrollment_payment_status
+    payment_amount?: Decimal | DecimalJsLike | number | string | null
+    payment_method?: string | null
+    transaction_id?: string | null
+    access_granted?: boolean
+    completed?: boolean
+    progress?: number | null
+    last_accessed_at?: Date | string | null
+    notes?: string | null
+    created_at?: Date | string
+    updated_at?: Date | string
+  }
+
+  export type session_enrollmentsUpdateManyMutationInput = {
+    enrollment_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    payment_status?: Enumenrollment_payment_statusFieldUpdateOperationsInput | $Enums.enrollment_payment_status
+    payment_amount?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    payment_method?: NullableStringFieldUpdateOperationsInput | string | null
+    transaction_id?: NullableStringFieldUpdateOperationsInput | string | null
+    access_granted?: BoolFieldUpdateOperationsInput | boolean
+    completed?: BoolFieldUpdateOperationsInput | boolean
+    progress?: NullableIntFieldUpdateOperationsInput | number | null
+    last_accessed_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type session_enrollmentsUncheckedUpdateManyInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    user_id?: IntFieldUpdateOperationsInput | number
+    session_id?: IntFieldUpdateOperationsInput | number
+    enrollment_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    payment_status?: Enumenrollment_payment_statusFieldUpdateOperationsInput | $Enums.enrollment_payment_status
+    payment_amount?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    payment_method?: NullableStringFieldUpdateOperationsInput | string | null
+    transaction_id?: NullableStringFieldUpdateOperationsInput | string | null
+    access_granted?: BoolFieldUpdateOperationsInput | boolean
+    completed?: BoolFieldUpdateOperationsInput | boolean
+    progress?: NullableIntFieldUpdateOperationsInput | number | null
+    last_accessed_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -80607,6 +82338,12 @@ export namespace Prisma {
     none?: sessionsWhereInput
   }
 
+  export type Session_enrollmentsListRelationFilter = {
+    every?: session_enrollmentsWhereInput
+    some?: session_enrollmentsWhereInput
+    none?: session_enrollmentsWhereInput
+  }
+
   export type SubscriptionsListRelationFilter = {
     every?: subscriptionsWhereInput
     some?: subscriptionsWhereInput
@@ -80725,6 +82462,10 @@ export namespace Prisma {
   }
 
   export type sessionsOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type session_enrollmentsOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -82733,6 +84474,103 @@ export namespace Prisma {
     _max?: NestedEnumdifficulty_levelFilter<$PrismaModel>
   }
 
+  export type Enumenrollment_payment_statusFilter<$PrismaModel = never> = {
+    equals?: $Enums.enrollment_payment_status | Enumenrollment_payment_statusFieldRefInput<$PrismaModel>
+    in?: $Enums.enrollment_payment_status[] | ListEnumenrollment_payment_statusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.enrollment_payment_status[] | ListEnumenrollment_payment_statusFieldRefInput<$PrismaModel>
+    not?: NestedEnumenrollment_payment_statusFilter<$PrismaModel> | $Enums.enrollment_payment_status
+  }
+
+  export type SessionsScalarRelationFilter = {
+    is?: sessionsWhereInput
+    isNot?: sessionsWhereInput
+  }
+
+  export type session_enrollmentsUser_idSession_idCompoundUniqueInput = {
+    user_id: number
+    session_id: number
+  }
+
+  export type session_enrollmentsCountOrderByAggregateInput = {
+    id?: SortOrder
+    user_id?: SortOrder
+    session_id?: SortOrder
+    enrollment_date?: SortOrder
+    payment_status?: SortOrder
+    payment_amount?: SortOrder
+    payment_method?: SortOrder
+    transaction_id?: SortOrder
+    access_granted?: SortOrder
+    completed?: SortOrder
+    progress?: SortOrder
+    last_accessed_at?: SortOrder
+    notes?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+  }
+
+  export type session_enrollmentsAvgOrderByAggregateInput = {
+    id?: SortOrder
+    user_id?: SortOrder
+    session_id?: SortOrder
+    payment_amount?: SortOrder
+    progress?: SortOrder
+  }
+
+  export type session_enrollmentsMaxOrderByAggregateInput = {
+    id?: SortOrder
+    user_id?: SortOrder
+    session_id?: SortOrder
+    enrollment_date?: SortOrder
+    payment_status?: SortOrder
+    payment_amount?: SortOrder
+    payment_method?: SortOrder
+    transaction_id?: SortOrder
+    access_granted?: SortOrder
+    completed?: SortOrder
+    progress?: SortOrder
+    last_accessed_at?: SortOrder
+    notes?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+  }
+
+  export type session_enrollmentsMinOrderByAggregateInput = {
+    id?: SortOrder
+    user_id?: SortOrder
+    session_id?: SortOrder
+    enrollment_date?: SortOrder
+    payment_status?: SortOrder
+    payment_amount?: SortOrder
+    payment_method?: SortOrder
+    transaction_id?: SortOrder
+    access_granted?: SortOrder
+    completed?: SortOrder
+    progress?: SortOrder
+    last_accessed_at?: SortOrder
+    notes?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+  }
+
+  export type session_enrollmentsSumOrderByAggregateInput = {
+    id?: SortOrder
+    user_id?: SortOrder
+    session_id?: SortOrder
+    payment_amount?: SortOrder
+    progress?: SortOrder
+  }
+
+  export type Enumenrollment_payment_statusWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.enrollment_payment_status | Enumenrollment_payment_statusFieldRefInput<$PrismaModel>
+    in?: $Enums.enrollment_payment_status[] | ListEnumenrollment_payment_statusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.enrollment_payment_status[] | ListEnumenrollment_payment_statusFieldRefInput<$PrismaModel>
+    not?: NestedEnumenrollment_payment_statusWithAggregatesFilter<$PrismaModel> | $Enums.enrollment_payment_status
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumenrollment_payment_statusFilter<$PrismaModel>
+    _max?: NestedEnumenrollment_payment_statusFilter<$PrismaModel>
+  }
+
   export type Poll_choicesListRelationFilter = {
     every?: poll_choicesWhereInput
     some?: poll_choicesWhereInput
@@ -84318,6 +86156,13 @@ export namespace Prisma {
     connect?: sessionsWhereUniqueInput | sessionsWhereUniqueInput[]
   }
 
+  export type session_enrollmentsCreateNestedManyWithoutUserInput = {
+    create?: XOR<session_enrollmentsCreateWithoutUserInput, session_enrollmentsUncheckedCreateWithoutUserInput> | session_enrollmentsCreateWithoutUserInput[] | session_enrollmentsUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: session_enrollmentsCreateOrConnectWithoutUserInput | session_enrollmentsCreateOrConnectWithoutUserInput[]
+    createMany?: session_enrollmentsCreateManyUserInputEnvelope
+    connect?: session_enrollmentsWhereUniqueInput | session_enrollmentsWhereUniqueInput[]
+  }
+
   export type subscriptionsCreateNestedManyWithoutUsersInput = {
     create?: XOR<subscriptionsCreateWithoutUsersInput, subscriptionsUncheckedCreateWithoutUsersInput> | subscriptionsCreateWithoutUsersInput[] | subscriptionsUncheckedCreateWithoutUsersInput[]
     connectOrCreate?: subscriptionsCreateOrConnectWithoutUsersInput | subscriptionsCreateOrConnectWithoutUsersInput[]
@@ -84588,6 +86433,13 @@ export namespace Prisma {
     connectOrCreate?: sessionsCreateOrConnectWithoutCreatorInput | sessionsCreateOrConnectWithoutCreatorInput[]
     createMany?: sessionsCreateManyCreatorInputEnvelope
     connect?: sessionsWhereUniqueInput | sessionsWhereUniqueInput[]
+  }
+
+  export type session_enrollmentsUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<session_enrollmentsCreateWithoutUserInput, session_enrollmentsUncheckedCreateWithoutUserInput> | session_enrollmentsCreateWithoutUserInput[] | session_enrollmentsUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: session_enrollmentsCreateOrConnectWithoutUserInput | session_enrollmentsCreateOrConnectWithoutUserInput[]
+    createMany?: session_enrollmentsCreateManyUserInputEnvelope
+    connect?: session_enrollmentsWhereUniqueInput | session_enrollmentsWhereUniqueInput[]
   }
 
   export type subscriptionsUncheckedCreateNestedManyWithoutUsersInput = {
@@ -85106,6 +86958,20 @@ export namespace Prisma {
     update?: sessionsUpdateWithWhereUniqueWithoutCreatorInput | sessionsUpdateWithWhereUniqueWithoutCreatorInput[]
     updateMany?: sessionsUpdateManyWithWhereWithoutCreatorInput | sessionsUpdateManyWithWhereWithoutCreatorInput[]
     deleteMany?: sessionsScalarWhereInput | sessionsScalarWhereInput[]
+  }
+
+  export type session_enrollmentsUpdateManyWithoutUserNestedInput = {
+    create?: XOR<session_enrollmentsCreateWithoutUserInput, session_enrollmentsUncheckedCreateWithoutUserInput> | session_enrollmentsCreateWithoutUserInput[] | session_enrollmentsUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: session_enrollmentsCreateOrConnectWithoutUserInput | session_enrollmentsCreateOrConnectWithoutUserInput[]
+    upsert?: session_enrollmentsUpsertWithWhereUniqueWithoutUserInput | session_enrollmentsUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: session_enrollmentsCreateManyUserInputEnvelope
+    set?: session_enrollmentsWhereUniqueInput | session_enrollmentsWhereUniqueInput[]
+    disconnect?: session_enrollmentsWhereUniqueInput | session_enrollmentsWhereUniqueInput[]
+    delete?: session_enrollmentsWhereUniqueInput | session_enrollmentsWhereUniqueInput[]
+    connect?: session_enrollmentsWhereUniqueInput | session_enrollmentsWhereUniqueInput[]
+    update?: session_enrollmentsUpdateWithWhereUniqueWithoutUserInput | session_enrollmentsUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: session_enrollmentsUpdateManyWithWhereWithoutUserInput | session_enrollmentsUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: session_enrollmentsScalarWhereInput | session_enrollmentsScalarWhereInput[]
   }
 
   export type subscriptionsUpdateManyWithoutUsersNestedInput = {
@@ -85648,6 +87514,20 @@ export namespace Prisma {
     update?: sessionsUpdateWithWhereUniqueWithoutCreatorInput | sessionsUpdateWithWhereUniqueWithoutCreatorInput[]
     updateMany?: sessionsUpdateManyWithWhereWithoutCreatorInput | sessionsUpdateManyWithWhereWithoutCreatorInput[]
     deleteMany?: sessionsScalarWhereInput | sessionsScalarWhereInput[]
+  }
+
+  export type session_enrollmentsUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<session_enrollmentsCreateWithoutUserInput, session_enrollmentsUncheckedCreateWithoutUserInput> | session_enrollmentsCreateWithoutUserInput[] | session_enrollmentsUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: session_enrollmentsCreateOrConnectWithoutUserInput | session_enrollmentsCreateOrConnectWithoutUserInput[]
+    upsert?: session_enrollmentsUpsertWithWhereUniqueWithoutUserInput | session_enrollmentsUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: session_enrollmentsCreateManyUserInputEnvelope
+    set?: session_enrollmentsWhereUniqueInput | session_enrollmentsWhereUniqueInput[]
+    disconnect?: session_enrollmentsWhereUniqueInput | session_enrollmentsWhereUniqueInput[]
+    delete?: session_enrollmentsWhereUniqueInput | session_enrollmentsWhereUniqueInput[]
+    connect?: session_enrollmentsWhereUniqueInput | session_enrollmentsWhereUniqueInput[]
+    update?: session_enrollmentsUpdateWithWhereUniqueWithoutUserInput | session_enrollmentsUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: session_enrollmentsUpdateManyWithWhereWithoutUserInput | session_enrollmentsUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: session_enrollmentsScalarWhereInput | session_enrollmentsScalarWhereInput[]
   }
 
   export type subscriptionsUncheckedUpdateManyWithoutUsersNestedInput = {
@@ -86925,6 +88805,20 @@ export namespace Prisma {
     connect?: usersWhereUniqueInput
   }
 
+  export type session_enrollmentsCreateNestedManyWithoutSessionInput = {
+    create?: XOR<session_enrollmentsCreateWithoutSessionInput, session_enrollmentsUncheckedCreateWithoutSessionInput> | session_enrollmentsCreateWithoutSessionInput[] | session_enrollmentsUncheckedCreateWithoutSessionInput[]
+    connectOrCreate?: session_enrollmentsCreateOrConnectWithoutSessionInput | session_enrollmentsCreateOrConnectWithoutSessionInput[]
+    createMany?: session_enrollmentsCreateManySessionInputEnvelope
+    connect?: session_enrollmentsWhereUniqueInput | session_enrollmentsWhereUniqueInput[]
+  }
+
+  export type session_enrollmentsUncheckedCreateNestedManyWithoutSessionInput = {
+    create?: XOR<session_enrollmentsCreateWithoutSessionInput, session_enrollmentsUncheckedCreateWithoutSessionInput> | session_enrollmentsCreateWithoutSessionInput[] | session_enrollmentsUncheckedCreateWithoutSessionInput[]
+    connectOrCreate?: session_enrollmentsCreateOrConnectWithoutSessionInput | session_enrollmentsCreateOrConnectWithoutSessionInput[]
+    createMany?: session_enrollmentsCreateManySessionInputEnvelope
+    connect?: session_enrollmentsWhereUniqueInput | session_enrollmentsWhereUniqueInput[]
+  }
+
   export type Enumsession_typeFieldUpdateOperationsInput = {
     set?: $Enums.session_type
   }
@@ -86943,6 +88837,66 @@ export namespace Prisma {
     upsert?: usersUpsertWithoutCreated_sessionsInput
     connect?: usersWhereUniqueInput
     update?: XOR<XOR<usersUpdateToOneWithWhereWithoutCreated_sessionsInput, usersUpdateWithoutCreated_sessionsInput>, usersUncheckedUpdateWithoutCreated_sessionsInput>
+  }
+
+  export type session_enrollmentsUpdateManyWithoutSessionNestedInput = {
+    create?: XOR<session_enrollmentsCreateWithoutSessionInput, session_enrollmentsUncheckedCreateWithoutSessionInput> | session_enrollmentsCreateWithoutSessionInput[] | session_enrollmentsUncheckedCreateWithoutSessionInput[]
+    connectOrCreate?: session_enrollmentsCreateOrConnectWithoutSessionInput | session_enrollmentsCreateOrConnectWithoutSessionInput[]
+    upsert?: session_enrollmentsUpsertWithWhereUniqueWithoutSessionInput | session_enrollmentsUpsertWithWhereUniqueWithoutSessionInput[]
+    createMany?: session_enrollmentsCreateManySessionInputEnvelope
+    set?: session_enrollmentsWhereUniqueInput | session_enrollmentsWhereUniqueInput[]
+    disconnect?: session_enrollmentsWhereUniqueInput | session_enrollmentsWhereUniqueInput[]
+    delete?: session_enrollmentsWhereUniqueInput | session_enrollmentsWhereUniqueInput[]
+    connect?: session_enrollmentsWhereUniqueInput | session_enrollmentsWhereUniqueInput[]
+    update?: session_enrollmentsUpdateWithWhereUniqueWithoutSessionInput | session_enrollmentsUpdateWithWhereUniqueWithoutSessionInput[]
+    updateMany?: session_enrollmentsUpdateManyWithWhereWithoutSessionInput | session_enrollmentsUpdateManyWithWhereWithoutSessionInput[]
+    deleteMany?: session_enrollmentsScalarWhereInput | session_enrollmentsScalarWhereInput[]
+  }
+
+  export type session_enrollmentsUncheckedUpdateManyWithoutSessionNestedInput = {
+    create?: XOR<session_enrollmentsCreateWithoutSessionInput, session_enrollmentsUncheckedCreateWithoutSessionInput> | session_enrollmentsCreateWithoutSessionInput[] | session_enrollmentsUncheckedCreateWithoutSessionInput[]
+    connectOrCreate?: session_enrollmentsCreateOrConnectWithoutSessionInput | session_enrollmentsCreateOrConnectWithoutSessionInput[]
+    upsert?: session_enrollmentsUpsertWithWhereUniqueWithoutSessionInput | session_enrollmentsUpsertWithWhereUniqueWithoutSessionInput[]
+    createMany?: session_enrollmentsCreateManySessionInputEnvelope
+    set?: session_enrollmentsWhereUniqueInput | session_enrollmentsWhereUniqueInput[]
+    disconnect?: session_enrollmentsWhereUniqueInput | session_enrollmentsWhereUniqueInput[]
+    delete?: session_enrollmentsWhereUniqueInput | session_enrollmentsWhereUniqueInput[]
+    connect?: session_enrollmentsWhereUniqueInput | session_enrollmentsWhereUniqueInput[]
+    update?: session_enrollmentsUpdateWithWhereUniqueWithoutSessionInput | session_enrollmentsUpdateWithWhereUniqueWithoutSessionInput[]
+    updateMany?: session_enrollmentsUpdateManyWithWhereWithoutSessionInput | session_enrollmentsUpdateManyWithWhereWithoutSessionInput[]
+    deleteMany?: session_enrollmentsScalarWhereInput | session_enrollmentsScalarWhereInput[]
+  }
+
+  export type usersCreateNestedOneWithoutSession_enrollmentsInput = {
+    create?: XOR<usersCreateWithoutSession_enrollmentsInput, usersUncheckedCreateWithoutSession_enrollmentsInput>
+    connectOrCreate?: usersCreateOrConnectWithoutSession_enrollmentsInput
+    connect?: usersWhereUniqueInput
+  }
+
+  export type sessionsCreateNestedOneWithoutEnrollmentsInput = {
+    create?: XOR<sessionsCreateWithoutEnrollmentsInput, sessionsUncheckedCreateWithoutEnrollmentsInput>
+    connectOrCreate?: sessionsCreateOrConnectWithoutEnrollmentsInput
+    connect?: sessionsWhereUniqueInput
+  }
+
+  export type Enumenrollment_payment_statusFieldUpdateOperationsInput = {
+    set?: $Enums.enrollment_payment_status
+  }
+
+  export type usersUpdateOneRequiredWithoutSession_enrollmentsNestedInput = {
+    create?: XOR<usersCreateWithoutSession_enrollmentsInput, usersUncheckedCreateWithoutSession_enrollmentsInput>
+    connectOrCreate?: usersCreateOrConnectWithoutSession_enrollmentsInput
+    upsert?: usersUpsertWithoutSession_enrollmentsInput
+    connect?: usersWhereUniqueInput
+    update?: XOR<XOR<usersUpdateToOneWithWhereWithoutSession_enrollmentsInput, usersUpdateWithoutSession_enrollmentsInput>, usersUncheckedUpdateWithoutSession_enrollmentsInput>
+  }
+
+  export type sessionsUpdateOneRequiredWithoutEnrollmentsNestedInput = {
+    create?: XOR<sessionsCreateWithoutEnrollmentsInput, sessionsUncheckedCreateWithoutEnrollmentsInput>
+    connectOrCreate?: sessionsCreateOrConnectWithoutEnrollmentsInput
+    upsert?: sessionsUpsertWithoutEnrollmentsInput
+    connect?: sessionsWhereUniqueInput
+    update?: XOR<XOR<sessionsUpdateToOneWithWhereWithoutEnrollmentsInput, sessionsUpdateWithoutEnrollmentsInput>, sessionsUncheckedUpdateWithoutEnrollmentsInput>
   }
 
   export type usersCreateNestedOneWithoutCreated_pollsInput = {
@@ -87773,6 +89727,23 @@ export namespace Prisma {
     _max?: NestedEnumdifficulty_levelFilter<$PrismaModel>
   }
 
+  export type NestedEnumenrollment_payment_statusFilter<$PrismaModel = never> = {
+    equals?: $Enums.enrollment_payment_status | Enumenrollment_payment_statusFieldRefInput<$PrismaModel>
+    in?: $Enums.enrollment_payment_status[] | ListEnumenrollment_payment_statusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.enrollment_payment_status[] | ListEnumenrollment_payment_statusFieldRefInput<$PrismaModel>
+    not?: NestedEnumenrollment_payment_statusFilter<$PrismaModel> | $Enums.enrollment_payment_status
+  }
+
+  export type NestedEnumenrollment_payment_statusWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.enrollment_payment_status | Enumenrollment_payment_statusFieldRefInput<$PrismaModel>
+    in?: $Enums.enrollment_payment_status[] | ListEnumenrollment_payment_statusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.enrollment_payment_status[] | ListEnumenrollment_payment_statusFieldRefInput<$PrismaModel>
+    not?: NestedEnumenrollment_payment_statusWithAggregatesFilter<$PrismaModel> | $Enums.enrollment_payment_status
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumenrollment_payment_statusFilter<$PrismaModel>
+    _max?: NestedEnumenrollment_payment_statusFilter<$PrismaModel>
+  }
+
   export type paymentsCreateWithoutSubscriptionsInput = {
     amount: Decimal | DecimalJsLike | number | string
     currency?: string | null
@@ -87868,6 +89839,7 @@ export namespace Prisma {
     stargazing_spot_reviews?: stargazing_spot_reviewsCreateNestedManyWithoutUserInput
     created_stargazing_spots?: stargazing_spotsCreateNestedManyWithoutCreatorInput
     created_sessions?: sessionsCreateNestedManyWithoutCreatorInput
+    session_enrollments?: session_enrollmentsCreateNestedManyWithoutUserInput
     user_settings?: user_settingsCreateNestedOneWithoutUsersInput
     created_polls?: pollsCreateNestedManyWithoutCreatorInput
     poll_votes?: poll_votesCreateNestedManyWithoutVoterInput
@@ -87929,6 +89901,7 @@ export namespace Prisma {
     stargazing_spot_reviews?: stargazing_spot_reviewsUncheckedCreateNestedManyWithoutUserInput
     created_stargazing_spots?: stargazing_spotsUncheckedCreateNestedManyWithoutCreatorInput
     created_sessions?: sessionsUncheckedCreateNestedManyWithoutCreatorInput
+    session_enrollments?: session_enrollmentsUncheckedCreateNestedManyWithoutUserInput
     user_settings?: user_settingsUncheckedCreateNestedOneWithoutUsersInput
     created_polls?: pollsUncheckedCreateNestedManyWithoutCreatorInput
     poll_votes?: poll_votesUncheckedCreateNestedManyWithoutVoterInput
@@ -88041,6 +90014,7 @@ export namespace Prisma {
     stargazing_spot_reviews?: stargazing_spot_reviewsUpdateManyWithoutUserNestedInput
     created_stargazing_spots?: stargazing_spotsUpdateManyWithoutCreatorNestedInput
     created_sessions?: sessionsUpdateManyWithoutCreatorNestedInput
+    session_enrollments?: session_enrollmentsUpdateManyWithoutUserNestedInput
     user_settings?: user_settingsUpdateOneWithoutUsersNestedInput
     created_polls?: pollsUpdateManyWithoutCreatorNestedInput
     poll_votes?: poll_votesUpdateManyWithoutVoterNestedInput
@@ -88102,6 +90076,7 @@ export namespace Prisma {
     stargazing_spot_reviews?: stargazing_spot_reviewsUncheckedUpdateManyWithoutUserNestedInput
     created_stargazing_spots?: stargazing_spotsUncheckedUpdateManyWithoutCreatorNestedInput
     created_sessions?: sessionsUncheckedUpdateManyWithoutCreatorNestedInput
+    session_enrollments?: session_enrollmentsUncheckedUpdateManyWithoutUserNestedInput
     user_settings?: user_settingsUncheckedUpdateOneWithoutUsersNestedInput
     created_polls?: pollsUncheckedUpdateManyWithoutCreatorNestedInput
     poll_votes?: poll_votesUncheckedUpdateManyWithoutVoterNestedInput
@@ -88198,6 +90173,7 @@ export namespace Prisma {
     stargazing_spot_reviews?: stargazing_spot_reviewsCreateNestedManyWithoutUserInput
     created_stargazing_spots?: stargazing_spotsCreateNestedManyWithoutCreatorInput
     created_sessions?: sessionsCreateNestedManyWithoutCreatorInput
+    session_enrollments?: session_enrollmentsCreateNestedManyWithoutUserInput
     subscriptions?: subscriptionsCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsCreateNestedOneWithoutUsersInput
     created_polls?: pollsCreateNestedManyWithoutCreatorInput
@@ -88259,6 +90235,7 @@ export namespace Prisma {
     stargazing_spot_reviews?: stargazing_spot_reviewsUncheckedCreateNestedManyWithoutUserInput
     created_stargazing_spots?: stargazing_spotsUncheckedCreateNestedManyWithoutCreatorInput
     created_sessions?: sessionsUncheckedCreateNestedManyWithoutCreatorInput
+    session_enrollments?: session_enrollmentsUncheckedCreateNestedManyWithoutUserInput
     subscriptions?: subscriptionsUncheckedCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsUncheckedCreateNestedOneWithoutUsersInput
     created_polls?: pollsUncheckedCreateNestedManyWithoutCreatorInput
@@ -88392,6 +90369,7 @@ export namespace Prisma {
     stargazing_spot_reviews?: stargazing_spot_reviewsUpdateManyWithoutUserNestedInput
     created_stargazing_spots?: stargazing_spotsUpdateManyWithoutCreatorNestedInput
     created_sessions?: sessionsUpdateManyWithoutCreatorNestedInput
+    session_enrollments?: session_enrollmentsUpdateManyWithoutUserNestedInput
     subscriptions?: subscriptionsUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUpdateOneWithoutUsersNestedInput
     created_polls?: pollsUpdateManyWithoutCreatorNestedInput
@@ -88453,6 +90431,7 @@ export namespace Prisma {
     stargazing_spot_reviews?: stargazing_spot_reviewsUncheckedUpdateManyWithoutUserNestedInput
     created_stargazing_spots?: stargazing_spotsUncheckedUpdateManyWithoutCreatorNestedInput
     created_sessions?: sessionsUncheckedUpdateManyWithoutCreatorNestedInput
+    session_enrollments?: session_enrollmentsUncheckedUpdateManyWithoutUserNestedInput
     subscriptions?: subscriptionsUncheckedUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUncheckedUpdateOneWithoutUsersNestedInput
     created_polls?: pollsUncheckedUpdateManyWithoutCreatorNestedInput
@@ -88573,6 +90552,7 @@ export namespace Prisma {
     stargazing_spot_reviews?: stargazing_spot_reviewsCreateNestedManyWithoutUserInput
     created_stargazing_spots?: stargazing_spotsCreateNestedManyWithoutCreatorInput
     created_sessions?: sessionsCreateNestedManyWithoutCreatorInput
+    session_enrollments?: session_enrollmentsCreateNestedManyWithoutUserInput
     subscriptions?: subscriptionsCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsCreateNestedOneWithoutUsersInput
     created_polls?: pollsCreateNestedManyWithoutCreatorInput
@@ -88634,6 +90614,7 @@ export namespace Prisma {
     stargazing_spot_reviews?: stargazing_spot_reviewsUncheckedCreateNestedManyWithoutUserInput
     created_stargazing_spots?: stargazing_spotsUncheckedCreateNestedManyWithoutCreatorInput
     created_sessions?: sessionsUncheckedCreateNestedManyWithoutCreatorInput
+    session_enrollments?: session_enrollmentsUncheckedCreateNestedManyWithoutUserInput
     subscriptions?: subscriptionsUncheckedCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsUncheckedCreateNestedOneWithoutUsersInput
     created_polls?: pollsUncheckedCreateNestedManyWithoutCreatorInput
@@ -88748,6 +90729,7 @@ export namespace Prisma {
     stargazing_spot_reviews?: stargazing_spot_reviewsUpdateManyWithoutUserNestedInput
     created_stargazing_spots?: stargazing_spotsUpdateManyWithoutCreatorNestedInput
     created_sessions?: sessionsUpdateManyWithoutCreatorNestedInput
+    session_enrollments?: session_enrollmentsUpdateManyWithoutUserNestedInput
     subscriptions?: subscriptionsUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUpdateOneWithoutUsersNestedInput
     created_polls?: pollsUpdateManyWithoutCreatorNestedInput
@@ -88809,6 +90791,7 @@ export namespace Prisma {
     stargazing_spot_reviews?: stargazing_spot_reviewsUncheckedUpdateManyWithoutUserNestedInput
     created_stargazing_spots?: stargazing_spotsUncheckedUpdateManyWithoutCreatorNestedInput
     created_sessions?: sessionsUncheckedUpdateManyWithoutCreatorNestedInput
+    session_enrollments?: session_enrollmentsUncheckedUpdateManyWithoutUserNestedInput
     subscriptions?: subscriptionsUncheckedUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUncheckedUpdateOneWithoutUsersNestedInput
     created_polls?: pollsUncheckedUpdateManyWithoutCreatorNestedInput
@@ -88970,6 +90953,7 @@ export namespace Prisma {
     stargazing_spot_reviews?: stargazing_spot_reviewsCreateNestedManyWithoutUserInput
     created_stargazing_spots?: stargazing_spotsCreateNestedManyWithoutCreatorInput
     created_sessions?: sessionsCreateNestedManyWithoutCreatorInput
+    session_enrollments?: session_enrollmentsCreateNestedManyWithoutUserInput
     subscriptions?: subscriptionsCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsCreateNestedOneWithoutUsersInput
     created_polls?: pollsCreateNestedManyWithoutCreatorInput
@@ -89031,6 +91015,7 @@ export namespace Prisma {
     stargazing_spot_reviews?: stargazing_spot_reviewsUncheckedCreateNestedManyWithoutUserInput
     created_stargazing_spots?: stargazing_spotsUncheckedCreateNestedManyWithoutCreatorInput
     created_sessions?: sessionsUncheckedCreateNestedManyWithoutCreatorInput
+    session_enrollments?: session_enrollmentsUncheckedCreateNestedManyWithoutUserInput
     subscriptions?: subscriptionsUncheckedCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsUncheckedCreateNestedOneWithoutUsersInput
     created_polls?: pollsUncheckedCreateNestedManyWithoutCreatorInput
@@ -89222,6 +91207,7 @@ export namespace Prisma {
     stargazing_spot_reviews?: stargazing_spot_reviewsUpdateManyWithoutUserNestedInput
     created_stargazing_spots?: stargazing_spotsUpdateManyWithoutCreatorNestedInput
     created_sessions?: sessionsUpdateManyWithoutCreatorNestedInput
+    session_enrollments?: session_enrollmentsUpdateManyWithoutUserNestedInput
     subscriptions?: subscriptionsUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUpdateOneWithoutUsersNestedInput
     created_polls?: pollsUpdateManyWithoutCreatorNestedInput
@@ -89283,6 +91269,7 @@ export namespace Prisma {
     stargazing_spot_reviews?: stargazing_spot_reviewsUncheckedUpdateManyWithoutUserNestedInput
     created_stargazing_spots?: stargazing_spotsUncheckedUpdateManyWithoutCreatorNestedInput
     created_sessions?: sessionsUncheckedUpdateManyWithoutCreatorNestedInput
+    session_enrollments?: session_enrollmentsUncheckedUpdateManyWithoutUserNestedInput
     subscriptions?: subscriptionsUncheckedUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUncheckedUpdateOneWithoutUsersNestedInput
     created_polls?: pollsUncheckedUpdateManyWithoutCreatorNestedInput
@@ -89402,6 +91389,7 @@ export namespace Prisma {
     stargazing_spot_reviews?: stargazing_spot_reviewsCreateNestedManyWithoutUserInput
     created_stargazing_spots?: stargazing_spotsCreateNestedManyWithoutCreatorInput
     created_sessions?: sessionsCreateNestedManyWithoutCreatorInput
+    session_enrollments?: session_enrollmentsCreateNestedManyWithoutUserInput
     subscriptions?: subscriptionsCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsCreateNestedOneWithoutUsersInput
     created_polls?: pollsCreateNestedManyWithoutCreatorInput
@@ -89463,6 +91451,7 @@ export namespace Prisma {
     stargazing_spot_reviews?: stargazing_spot_reviewsUncheckedCreateNestedManyWithoutUserInput
     created_stargazing_spots?: stargazing_spotsUncheckedCreateNestedManyWithoutCreatorInput
     created_sessions?: sessionsUncheckedCreateNestedManyWithoutCreatorInput
+    session_enrollments?: session_enrollmentsUncheckedCreateNestedManyWithoutUserInput
     subscriptions?: subscriptionsUncheckedCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsUncheckedCreateNestedOneWithoutUsersInput
     created_polls?: pollsUncheckedCreateNestedManyWithoutCreatorInput
@@ -89577,6 +91566,7 @@ export namespace Prisma {
     stargazing_spot_reviews?: stargazing_spot_reviewsUpdateManyWithoutUserNestedInput
     created_stargazing_spots?: stargazing_spotsUpdateManyWithoutCreatorNestedInput
     created_sessions?: sessionsUpdateManyWithoutCreatorNestedInput
+    session_enrollments?: session_enrollmentsUpdateManyWithoutUserNestedInput
     subscriptions?: subscriptionsUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUpdateOneWithoutUsersNestedInput
     created_polls?: pollsUpdateManyWithoutCreatorNestedInput
@@ -89638,6 +91628,7 @@ export namespace Prisma {
     stargazing_spot_reviews?: stargazing_spot_reviewsUncheckedUpdateManyWithoutUserNestedInput
     created_stargazing_spots?: stargazing_spotsUncheckedUpdateManyWithoutCreatorNestedInput
     created_sessions?: sessionsUncheckedUpdateManyWithoutCreatorNestedInput
+    session_enrollments?: session_enrollmentsUncheckedUpdateManyWithoutUserNestedInput
     subscriptions?: subscriptionsUncheckedUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUncheckedUpdateOneWithoutUsersNestedInput
     created_polls?: pollsUncheckedUpdateManyWithoutCreatorNestedInput
@@ -89756,6 +91747,7 @@ export namespace Prisma {
     stargazing_spot_reviews?: stargazing_spot_reviewsCreateNestedManyWithoutUserInput
     created_stargazing_spots?: stargazing_spotsCreateNestedManyWithoutCreatorInput
     created_sessions?: sessionsCreateNestedManyWithoutCreatorInput
+    session_enrollments?: session_enrollmentsCreateNestedManyWithoutUserInput
     subscriptions?: subscriptionsCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsCreateNestedOneWithoutUsersInput
     created_polls?: pollsCreateNestedManyWithoutCreatorInput
@@ -89817,6 +91809,7 @@ export namespace Prisma {
     stargazing_spot_reviews?: stargazing_spot_reviewsUncheckedCreateNestedManyWithoutUserInput
     created_stargazing_spots?: stargazing_spotsUncheckedCreateNestedManyWithoutCreatorInput
     created_sessions?: sessionsUncheckedCreateNestedManyWithoutCreatorInput
+    session_enrollments?: session_enrollmentsUncheckedCreateNestedManyWithoutUserInput
     subscriptions?: subscriptionsUncheckedCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsUncheckedCreateNestedOneWithoutUsersInput
     created_polls?: pollsUncheckedCreateNestedManyWithoutCreatorInput
@@ -89957,6 +91950,7 @@ export namespace Prisma {
     stargazing_spot_reviews?: stargazing_spot_reviewsUpdateManyWithoutUserNestedInput
     created_stargazing_spots?: stargazing_spotsUpdateManyWithoutCreatorNestedInput
     created_sessions?: sessionsUpdateManyWithoutCreatorNestedInput
+    session_enrollments?: session_enrollmentsUpdateManyWithoutUserNestedInput
     subscriptions?: subscriptionsUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUpdateOneWithoutUsersNestedInput
     created_polls?: pollsUpdateManyWithoutCreatorNestedInput
@@ -90018,6 +92012,7 @@ export namespace Prisma {
     stargazing_spot_reviews?: stargazing_spot_reviewsUncheckedUpdateManyWithoutUserNestedInput
     created_stargazing_spots?: stargazing_spotsUncheckedUpdateManyWithoutCreatorNestedInput
     created_sessions?: sessionsUncheckedUpdateManyWithoutCreatorNestedInput
+    session_enrollments?: session_enrollmentsUncheckedUpdateManyWithoutUserNestedInput
     subscriptions?: subscriptionsUncheckedUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUncheckedUpdateOneWithoutUsersNestedInput
     created_polls?: pollsUncheckedUpdateManyWithoutCreatorNestedInput
@@ -90530,6 +92525,7 @@ export namespace Prisma {
     stargazing_spot_reviews?: stargazing_spot_reviewsCreateNestedManyWithoutUserInput
     created_stargazing_spots?: stargazing_spotsCreateNestedManyWithoutCreatorInput
     created_sessions?: sessionsCreateNestedManyWithoutCreatorInput
+    session_enrollments?: session_enrollmentsCreateNestedManyWithoutUserInput
     subscriptions?: subscriptionsCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsCreateNestedOneWithoutUsersInput
     created_polls?: pollsCreateNestedManyWithoutCreatorInput
@@ -90591,6 +92587,7 @@ export namespace Prisma {
     stargazing_spot_reviews?: stargazing_spot_reviewsUncheckedCreateNestedManyWithoutUserInput
     created_stargazing_spots?: stargazing_spotsUncheckedCreateNestedManyWithoutCreatorInput
     created_sessions?: sessionsUncheckedCreateNestedManyWithoutCreatorInput
+    session_enrollments?: session_enrollmentsUncheckedCreateNestedManyWithoutUserInput
     subscriptions?: subscriptionsUncheckedCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsUncheckedCreateNestedOneWithoutUsersInput
     created_polls?: pollsUncheckedCreateNestedManyWithoutCreatorInput
@@ -90727,6 +92724,7 @@ export namespace Prisma {
     stargazing_spot_reviews?: stargazing_spot_reviewsUpdateManyWithoutUserNestedInput
     created_stargazing_spots?: stargazing_spotsUpdateManyWithoutCreatorNestedInput
     created_sessions?: sessionsUpdateManyWithoutCreatorNestedInput
+    session_enrollments?: session_enrollmentsUpdateManyWithoutUserNestedInput
     subscriptions?: subscriptionsUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUpdateOneWithoutUsersNestedInput
     created_polls?: pollsUpdateManyWithoutCreatorNestedInput
@@ -90788,6 +92786,7 @@ export namespace Prisma {
     stargazing_spot_reviews?: stargazing_spot_reviewsUncheckedUpdateManyWithoutUserNestedInput
     created_stargazing_spots?: stargazing_spotsUncheckedUpdateManyWithoutCreatorNestedInput
     created_sessions?: sessionsUncheckedUpdateManyWithoutCreatorNestedInput
+    session_enrollments?: session_enrollmentsUncheckedUpdateManyWithoutUserNestedInput
     subscriptions?: subscriptionsUncheckedUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUncheckedUpdateOneWithoutUsersNestedInput
     created_polls?: pollsUncheckedUpdateManyWithoutCreatorNestedInput
@@ -90880,6 +92879,7 @@ export namespace Prisma {
     stargazing_spot_reviews?: stargazing_spot_reviewsCreateNestedManyWithoutUserInput
     created_stargazing_spots?: stargazing_spotsCreateNestedManyWithoutCreatorInput
     created_sessions?: sessionsCreateNestedManyWithoutCreatorInput
+    session_enrollments?: session_enrollmentsCreateNestedManyWithoutUserInput
     subscriptions?: subscriptionsCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsCreateNestedOneWithoutUsersInput
     created_polls?: pollsCreateNestedManyWithoutCreatorInput
@@ -90941,6 +92941,7 @@ export namespace Prisma {
     stargazing_spot_reviews?: stargazing_spot_reviewsUncheckedCreateNestedManyWithoutUserInput
     created_stargazing_spots?: stargazing_spotsUncheckedCreateNestedManyWithoutCreatorInput
     created_sessions?: sessionsUncheckedCreateNestedManyWithoutCreatorInput
+    session_enrollments?: session_enrollmentsUncheckedCreateNestedManyWithoutUserInput
     subscriptions?: subscriptionsUncheckedCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsUncheckedCreateNestedOneWithoutUsersInput
     created_polls?: pollsUncheckedCreateNestedManyWithoutCreatorInput
@@ -91055,6 +93056,7 @@ export namespace Prisma {
     stargazing_spot_reviews?: stargazing_spot_reviewsUpdateManyWithoutUserNestedInput
     created_stargazing_spots?: stargazing_spotsUpdateManyWithoutCreatorNestedInput
     created_sessions?: sessionsUpdateManyWithoutCreatorNestedInput
+    session_enrollments?: session_enrollmentsUpdateManyWithoutUserNestedInput
     subscriptions?: subscriptionsUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUpdateOneWithoutUsersNestedInput
     created_polls?: pollsUpdateManyWithoutCreatorNestedInput
@@ -91116,6 +93118,7 @@ export namespace Prisma {
     stargazing_spot_reviews?: stargazing_spot_reviewsUncheckedUpdateManyWithoutUserNestedInput
     created_stargazing_spots?: stargazing_spotsUncheckedUpdateManyWithoutCreatorNestedInput
     created_sessions?: sessionsUncheckedUpdateManyWithoutCreatorNestedInput
+    session_enrollments?: session_enrollmentsUncheckedUpdateManyWithoutUserNestedInput
     subscriptions?: subscriptionsUncheckedUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUncheckedUpdateOneWithoutUsersNestedInput
     created_polls?: pollsUncheckedUpdateManyWithoutCreatorNestedInput
@@ -91272,6 +93275,7 @@ export namespace Prisma {
     stargazing_spot_reviews?: stargazing_spot_reviewsCreateNestedManyWithoutUserInput
     created_stargazing_spots?: stargazing_spotsCreateNestedManyWithoutCreatorInput
     created_sessions?: sessionsCreateNestedManyWithoutCreatorInput
+    session_enrollments?: session_enrollmentsCreateNestedManyWithoutUserInput
     subscriptions?: subscriptionsCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsCreateNestedOneWithoutUsersInput
     created_polls?: pollsCreateNestedManyWithoutCreatorInput
@@ -91333,6 +93337,7 @@ export namespace Prisma {
     stargazing_spot_reviews?: stargazing_spot_reviewsUncheckedCreateNestedManyWithoutUserInput
     created_stargazing_spots?: stargazing_spotsUncheckedCreateNestedManyWithoutCreatorInput
     created_sessions?: sessionsUncheckedCreateNestedManyWithoutCreatorInput
+    session_enrollments?: session_enrollmentsUncheckedCreateNestedManyWithoutUserInput
     subscriptions?: subscriptionsUncheckedCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsUncheckedCreateNestedOneWithoutUsersInput
     created_polls?: pollsUncheckedCreateNestedManyWithoutCreatorInput
@@ -91518,6 +93523,7 @@ export namespace Prisma {
     stargazing_spot_reviews?: stargazing_spot_reviewsUpdateManyWithoutUserNestedInput
     created_stargazing_spots?: stargazing_spotsUpdateManyWithoutCreatorNestedInput
     created_sessions?: sessionsUpdateManyWithoutCreatorNestedInput
+    session_enrollments?: session_enrollmentsUpdateManyWithoutUserNestedInput
     subscriptions?: subscriptionsUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUpdateOneWithoutUsersNestedInput
     created_polls?: pollsUpdateManyWithoutCreatorNestedInput
@@ -91579,6 +93585,7 @@ export namespace Prisma {
     stargazing_spot_reviews?: stargazing_spot_reviewsUncheckedUpdateManyWithoutUserNestedInput
     created_stargazing_spots?: stargazing_spotsUncheckedUpdateManyWithoutCreatorNestedInput
     created_sessions?: sessionsUncheckedUpdateManyWithoutCreatorNestedInput
+    session_enrollments?: session_enrollmentsUncheckedUpdateManyWithoutUserNestedInput
     subscriptions?: subscriptionsUncheckedUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUncheckedUpdateOneWithoutUsersNestedInput
     created_polls?: pollsUncheckedUpdateManyWithoutCreatorNestedInput
@@ -91838,6 +93845,7 @@ export namespace Prisma {
     stargazing_spot_reviews?: stargazing_spot_reviewsCreateNestedManyWithoutUserInput
     created_stargazing_spots?: stargazing_spotsCreateNestedManyWithoutCreatorInput
     created_sessions?: sessionsCreateNestedManyWithoutCreatorInput
+    session_enrollments?: session_enrollmentsCreateNestedManyWithoutUserInput
     subscriptions?: subscriptionsCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsCreateNestedOneWithoutUsersInput
     created_polls?: pollsCreateNestedManyWithoutCreatorInput
@@ -91899,6 +93907,7 @@ export namespace Prisma {
     stargazing_spot_reviews?: stargazing_spot_reviewsUncheckedCreateNestedManyWithoutUserInput
     created_stargazing_spots?: stargazing_spotsUncheckedCreateNestedManyWithoutCreatorInput
     created_sessions?: sessionsUncheckedCreateNestedManyWithoutCreatorInput
+    session_enrollments?: session_enrollmentsUncheckedCreateNestedManyWithoutUserInput
     subscriptions?: subscriptionsUncheckedCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsUncheckedCreateNestedOneWithoutUsersInput
     created_polls?: pollsUncheckedCreateNestedManyWithoutCreatorInput
@@ -91975,6 +93984,7 @@ export namespace Prisma {
     stargazing_spot_reviews?: stargazing_spot_reviewsUpdateManyWithoutUserNestedInput
     created_stargazing_spots?: stargazing_spotsUpdateManyWithoutCreatorNestedInput
     created_sessions?: sessionsUpdateManyWithoutCreatorNestedInput
+    session_enrollments?: session_enrollmentsUpdateManyWithoutUserNestedInput
     subscriptions?: subscriptionsUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUpdateOneWithoutUsersNestedInput
     created_polls?: pollsUpdateManyWithoutCreatorNestedInput
@@ -92036,6 +94046,7 @@ export namespace Prisma {
     stargazing_spot_reviews?: stargazing_spot_reviewsUncheckedUpdateManyWithoutUserNestedInput
     created_stargazing_spots?: stargazing_spotsUncheckedUpdateManyWithoutCreatorNestedInput
     created_sessions?: sessionsUncheckedUpdateManyWithoutCreatorNestedInput
+    session_enrollments?: session_enrollmentsUncheckedUpdateManyWithoutUserNestedInput
     subscriptions?: subscriptionsUncheckedUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUncheckedUpdateOneWithoutUsersNestedInput
     created_polls?: pollsUncheckedUpdateManyWithoutCreatorNestedInput
@@ -92211,6 +94222,7 @@ export namespace Prisma {
     stargazing_spot_reviews?: stargazing_spot_reviewsCreateNestedManyWithoutUserInput
     created_stargazing_spots?: stargazing_spotsCreateNestedManyWithoutCreatorInput
     created_sessions?: sessionsCreateNestedManyWithoutCreatorInput
+    session_enrollments?: session_enrollmentsCreateNestedManyWithoutUserInput
     subscriptions?: subscriptionsCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsCreateNestedOneWithoutUsersInput
     created_polls?: pollsCreateNestedManyWithoutCreatorInput
@@ -92272,6 +94284,7 @@ export namespace Prisma {
     stargazing_spot_reviews?: stargazing_spot_reviewsUncheckedCreateNestedManyWithoutUserInput
     created_stargazing_spots?: stargazing_spotsUncheckedCreateNestedManyWithoutCreatorInput
     created_sessions?: sessionsUncheckedCreateNestedManyWithoutCreatorInput
+    session_enrollments?: session_enrollmentsUncheckedCreateNestedManyWithoutUserInput
     subscriptions?: subscriptionsUncheckedCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsUncheckedCreateNestedOneWithoutUsersInput
     created_polls?: pollsUncheckedCreateNestedManyWithoutCreatorInput
@@ -92460,6 +94473,7 @@ export namespace Prisma {
     stargazing_spot_reviews?: stargazing_spot_reviewsUpdateManyWithoutUserNestedInput
     created_stargazing_spots?: stargazing_spotsUpdateManyWithoutCreatorNestedInput
     created_sessions?: sessionsUpdateManyWithoutCreatorNestedInput
+    session_enrollments?: session_enrollmentsUpdateManyWithoutUserNestedInput
     subscriptions?: subscriptionsUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUpdateOneWithoutUsersNestedInput
     created_polls?: pollsUpdateManyWithoutCreatorNestedInput
@@ -92521,6 +94535,7 @@ export namespace Prisma {
     stargazing_spot_reviews?: stargazing_spot_reviewsUncheckedUpdateManyWithoutUserNestedInput
     created_stargazing_spots?: stargazing_spotsUncheckedUpdateManyWithoutCreatorNestedInput
     created_sessions?: sessionsUncheckedUpdateManyWithoutCreatorNestedInput
+    session_enrollments?: session_enrollmentsUncheckedUpdateManyWithoutUserNestedInput
     subscriptions?: subscriptionsUncheckedUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUncheckedUpdateOneWithoutUsersNestedInput
     created_polls?: pollsUncheckedUpdateManyWithoutCreatorNestedInput
@@ -93739,6 +95754,7 @@ export namespace Prisma {
     is_enabled?: boolean
     created_at?: Date | string
     updated_at?: Date | string
+    enrollments?: session_enrollmentsCreateNestedManyWithoutSessionInput
   }
 
   export type sessionsUncheckedCreateWithoutCreatorInput = {
@@ -93761,6 +95777,7 @@ export namespace Prisma {
     is_enabled?: boolean
     created_at?: Date | string
     updated_at?: Date | string
+    enrollments?: session_enrollmentsUncheckedCreateNestedManyWithoutSessionInput
   }
 
   export type sessionsCreateOrConnectWithoutCreatorInput = {
@@ -93770,6 +95787,49 @@ export namespace Prisma {
 
   export type sessionsCreateManyCreatorInputEnvelope = {
     data: sessionsCreateManyCreatorInput | sessionsCreateManyCreatorInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type session_enrollmentsCreateWithoutUserInput = {
+    enrollment_date?: Date | string
+    payment_status?: $Enums.enrollment_payment_status
+    payment_amount?: Decimal | DecimalJsLike | number | string | null
+    payment_method?: string | null
+    transaction_id?: string | null
+    access_granted?: boolean
+    completed?: boolean
+    progress?: number | null
+    last_accessed_at?: Date | string | null
+    notes?: string | null
+    created_at?: Date | string
+    updated_at?: Date | string
+    session: sessionsCreateNestedOneWithoutEnrollmentsInput
+  }
+
+  export type session_enrollmentsUncheckedCreateWithoutUserInput = {
+    id?: number
+    session_id: number
+    enrollment_date?: Date | string
+    payment_status?: $Enums.enrollment_payment_status
+    payment_amount?: Decimal | DecimalJsLike | number | string | null
+    payment_method?: string | null
+    transaction_id?: string | null
+    access_granted?: boolean
+    completed?: boolean
+    progress?: number | null
+    last_accessed_at?: Date | string | null
+    notes?: string | null
+    created_at?: Date | string
+    updated_at?: Date | string
+  }
+
+  export type session_enrollmentsCreateOrConnectWithoutUserInput = {
+    where: session_enrollmentsWhereUniqueInput
+    create: XOR<session_enrollmentsCreateWithoutUserInput, session_enrollmentsUncheckedCreateWithoutUserInput>
+  }
+
+  export type session_enrollmentsCreateManyUserInputEnvelope = {
+    data: session_enrollmentsCreateManyUserInput | session_enrollmentsCreateManyUserInput[]
     skipDuplicates?: boolean
   }
 
@@ -94876,6 +96936,43 @@ export namespace Prisma {
     updated_at?: DateTimeFilter<"sessions"> | Date | string
   }
 
+  export type session_enrollmentsUpsertWithWhereUniqueWithoutUserInput = {
+    where: session_enrollmentsWhereUniqueInput
+    update: XOR<session_enrollmentsUpdateWithoutUserInput, session_enrollmentsUncheckedUpdateWithoutUserInput>
+    create: XOR<session_enrollmentsCreateWithoutUserInput, session_enrollmentsUncheckedCreateWithoutUserInput>
+  }
+
+  export type session_enrollmentsUpdateWithWhereUniqueWithoutUserInput = {
+    where: session_enrollmentsWhereUniqueInput
+    data: XOR<session_enrollmentsUpdateWithoutUserInput, session_enrollmentsUncheckedUpdateWithoutUserInput>
+  }
+
+  export type session_enrollmentsUpdateManyWithWhereWithoutUserInput = {
+    where: session_enrollmentsScalarWhereInput
+    data: XOR<session_enrollmentsUpdateManyMutationInput, session_enrollmentsUncheckedUpdateManyWithoutUserInput>
+  }
+
+  export type session_enrollmentsScalarWhereInput = {
+    AND?: session_enrollmentsScalarWhereInput | session_enrollmentsScalarWhereInput[]
+    OR?: session_enrollmentsScalarWhereInput[]
+    NOT?: session_enrollmentsScalarWhereInput | session_enrollmentsScalarWhereInput[]
+    id?: IntFilter<"session_enrollments"> | number
+    user_id?: IntFilter<"session_enrollments"> | number
+    session_id?: IntFilter<"session_enrollments"> | number
+    enrollment_date?: DateTimeFilter<"session_enrollments"> | Date | string
+    payment_status?: Enumenrollment_payment_statusFilter<"session_enrollments"> | $Enums.enrollment_payment_status
+    payment_amount?: DecimalNullableFilter<"session_enrollments"> | Decimal | DecimalJsLike | number | string | null
+    payment_method?: StringNullableFilter<"session_enrollments"> | string | null
+    transaction_id?: StringNullableFilter<"session_enrollments"> | string | null
+    access_granted?: BoolFilter<"session_enrollments"> | boolean
+    completed?: BoolFilter<"session_enrollments"> | boolean
+    progress?: IntNullableFilter<"session_enrollments"> | number | null
+    last_accessed_at?: DateTimeNullableFilter<"session_enrollments"> | Date | string | null
+    notes?: StringNullableFilter<"session_enrollments"> | string | null
+    created_at?: DateTimeFilter<"session_enrollments"> | Date | string
+    updated_at?: DateTimeFilter<"session_enrollments"> | Date | string
+  }
+
   export type subscriptionsUpsertWithWhereUniqueWithoutUsersInput = {
     where: subscriptionsWhereUniqueInput
     update: XOR<subscriptionsUpdateWithoutUsersInput, subscriptionsUncheckedUpdateWithoutUsersInput>
@@ -95142,6 +97239,7 @@ export namespace Prisma {
     stargazing_spot_reviews?: stargazing_spot_reviewsCreateNestedManyWithoutUserInput
     created_stargazing_spots?: stargazing_spotsCreateNestedManyWithoutCreatorInput
     created_sessions?: sessionsCreateNestedManyWithoutCreatorInput
+    session_enrollments?: session_enrollmentsCreateNestedManyWithoutUserInput
     subscriptions?: subscriptionsCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsCreateNestedOneWithoutUsersInput
     created_polls?: pollsCreateNestedManyWithoutCreatorInput
@@ -95203,6 +97301,7 @@ export namespace Prisma {
     stargazing_spot_reviews?: stargazing_spot_reviewsUncheckedCreateNestedManyWithoutUserInput
     created_stargazing_spots?: stargazing_spotsUncheckedCreateNestedManyWithoutCreatorInput
     created_sessions?: sessionsUncheckedCreateNestedManyWithoutCreatorInput
+    session_enrollments?: session_enrollmentsUncheckedCreateNestedManyWithoutUserInput
     subscriptions?: subscriptionsUncheckedCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsUncheckedCreateNestedOneWithoutUsersInput
     created_polls?: pollsUncheckedCreateNestedManyWithoutCreatorInput
@@ -95343,6 +97442,7 @@ export namespace Prisma {
     stargazing_spot_reviews?: stargazing_spot_reviewsUpdateManyWithoutUserNestedInput
     created_stargazing_spots?: stargazing_spotsUpdateManyWithoutCreatorNestedInput
     created_sessions?: sessionsUpdateManyWithoutCreatorNestedInput
+    session_enrollments?: session_enrollmentsUpdateManyWithoutUserNestedInput
     subscriptions?: subscriptionsUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUpdateOneWithoutUsersNestedInput
     created_polls?: pollsUpdateManyWithoutCreatorNestedInput
@@ -95404,6 +97504,7 @@ export namespace Prisma {
     stargazing_spot_reviews?: stargazing_spot_reviewsUncheckedUpdateManyWithoutUserNestedInput
     created_stargazing_spots?: stargazing_spotsUncheckedUpdateManyWithoutCreatorNestedInput
     created_sessions?: sessionsUncheckedUpdateManyWithoutCreatorNestedInput
+    session_enrollments?: session_enrollmentsUncheckedUpdateManyWithoutUserNestedInput
     subscriptions?: subscriptionsUncheckedUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUncheckedUpdateOneWithoutUsersNestedInput
     created_polls?: pollsUncheckedUpdateManyWithoutCreatorNestedInput
@@ -95671,6 +97772,7 @@ export namespace Prisma {
     stargazing_spot_reviews?: stargazing_spot_reviewsCreateNestedManyWithoutUserInput
     created_stargazing_spots?: stargazing_spotsCreateNestedManyWithoutCreatorInput
     created_sessions?: sessionsCreateNestedManyWithoutCreatorInput
+    session_enrollments?: session_enrollmentsCreateNestedManyWithoutUserInput
     subscriptions?: subscriptionsCreateNestedManyWithoutUsersInput
     created_polls?: pollsCreateNestedManyWithoutCreatorInput
     poll_votes?: poll_votesCreateNestedManyWithoutVoterInput
@@ -95732,6 +97834,7 @@ export namespace Prisma {
     stargazing_spot_reviews?: stargazing_spot_reviewsUncheckedCreateNestedManyWithoutUserInput
     created_stargazing_spots?: stargazing_spotsUncheckedCreateNestedManyWithoutCreatorInput
     created_sessions?: sessionsUncheckedCreateNestedManyWithoutCreatorInput
+    session_enrollments?: session_enrollmentsUncheckedCreateNestedManyWithoutUserInput
     subscriptions?: subscriptionsUncheckedCreateNestedManyWithoutUsersInput
     created_polls?: pollsUncheckedCreateNestedManyWithoutCreatorInput
     poll_votes?: poll_votesUncheckedCreateNestedManyWithoutVoterInput
@@ -95808,6 +97911,7 @@ export namespace Prisma {
     stargazing_spot_reviews?: stargazing_spot_reviewsUpdateManyWithoutUserNestedInput
     created_stargazing_spots?: stargazing_spotsUpdateManyWithoutCreatorNestedInput
     created_sessions?: sessionsUpdateManyWithoutCreatorNestedInput
+    session_enrollments?: session_enrollmentsUpdateManyWithoutUserNestedInput
     subscriptions?: subscriptionsUpdateManyWithoutUsersNestedInput
     created_polls?: pollsUpdateManyWithoutCreatorNestedInput
     poll_votes?: poll_votesUpdateManyWithoutVoterNestedInput
@@ -95869,6 +97973,7 @@ export namespace Prisma {
     stargazing_spot_reviews?: stargazing_spot_reviewsUncheckedUpdateManyWithoutUserNestedInput
     created_stargazing_spots?: stargazing_spotsUncheckedUpdateManyWithoutCreatorNestedInput
     created_sessions?: sessionsUncheckedUpdateManyWithoutCreatorNestedInput
+    session_enrollments?: session_enrollmentsUncheckedUpdateManyWithoutUserNestedInput
     subscriptions?: subscriptionsUncheckedUpdateManyWithoutUsersNestedInput
     created_polls?: pollsUncheckedUpdateManyWithoutCreatorNestedInput
     poll_votes?: poll_votesUncheckedUpdateManyWithoutVoterNestedInput
@@ -96154,6 +98259,7 @@ export namespace Prisma {
     stargazing_spot_reviews?: stargazing_spot_reviewsCreateNestedManyWithoutUserInput
     created_stargazing_spots?: stargazing_spotsCreateNestedManyWithoutCreatorInput
     created_sessions?: sessionsCreateNestedManyWithoutCreatorInput
+    session_enrollments?: session_enrollmentsCreateNestedManyWithoutUserInput
     subscriptions?: subscriptionsCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsCreateNestedOneWithoutUsersInput
     created_polls?: pollsCreateNestedManyWithoutCreatorInput
@@ -96215,6 +98321,7 @@ export namespace Prisma {
     stargazing_spot_reviews?: stargazing_spot_reviewsUncheckedCreateNestedManyWithoutUserInput
     created_stargazing_spots?: stargazing_spotsUncheckedCreateNestedManyWithoutCreatorInput
     created_sessions?: sessionsUncheckedCreateNestedManyWithoutCreatorInput
+    session_enrollments?: session_enrollmentsUncheckedCreateNestedManyWithoutUserInput
     subscriptions?: subscriptionsUncheckedCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsUncheckedCreateNestedOneWithoutUsersInput
     created_polls?: pollsUncheckedCreateNestedManyWithoutCreatorInput
@@ -96280,6 +98387,7 @@ export namespace Prisma {
     stargazing_spot_reviews?: stargazing_spot_reviewsCreateNestedManyWithoutUserInput
     created_stargazing_spots?: stargazing_spotsCreateNestedManyWithoutCreatorInput
     created_sessions?: sessionsCreateNestedManyWithoutCreatorInput
+    session_enrollments?: session_enrollmentsCreateNestedManyWithoutUserInput
     subscriptions?: subscriptionsCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsCreateNestedOneWithoutUsersInput
     created_polls?: pollsCreateNestedManyWithoutCreatorInput
@@ -96341,6 +98449,7 @@ export namespace Prisma {
     stargazing_spot_reviews?: stargazing_spot_reviewsUncheckedCreateNestedManyWithoutUserInput
     created_stargazing_spots?: stargazing_spotsUncheckedCreateNestedManyWithoutCreatorInput
     created_sessions?: sessionsUncheckedCreateNestedManyWithoutCreatorInput
+    session_enrollments?: session_enrollmentsUncheckedCreateNestedManyWithoutUserInput
     subscriptions?: subscriptionsUncheckedCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsUncheckedCreateNestedOneWithoutUsersInput
     created_polls?: pollsUncheckedCreateNestedManyWithoutCreatorInput
@@ -96417,6 +98526,7 @@ export namespace Prisma {
     stargazing_spot_reviews?: stargazing_spot_reviewsUpdateManyWithoutUserNestedInput
     created_stargazing_spots?: stargazing_spotsUpdateManyWithoutCreatorNestedInput
     created_sessions?: sessionsUpdateManyWithoutCreatorNestedInput
+    session_enrollments?: session_enrollmentsUpdateManyWithoutUserNestedInput
     subscriptions?: subscriptionsUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUpdateOneWithoutUsersNestedInput
     created_polls?: pollsUpdateManyWithoutCreatorNestedInput
@@ -96478,6 +98588,7 @@ export namespace Prisma {
     stargazing_spot_reviews?: stargazing_spot_reviewsUncheckedUpdateManyWithoutUserNestedInput
     created_stargazing_spots?: stargazing_spotsUncheckedUpdateManyWithoutCreatorNestedInput
     created_sessions?: sessionsUncheckedUpdateManyWithoutCreatorNestedInput
+    session_enrollments?: session_enrollmentsUncheckedUpdateManyWithoutUserNestedInput
     subscriptions?: subscriptionsUncheckedUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUncheckedUpdateOneWithoutUsersNestedInput
     created_polls?: pollsUncheckedUpdateManyWithoutCreatorNestedInput
@@ -96549,6 +98660,7 @@ export namespace Prisma {
     stargazing_spot_reviews?: stargazing_spot_reviewsUpdateManyWithoutUserNestedInput
     created_stargazing_spots?: stargazing_spotsUpdateManyWithoutCreatorNestedInput
     created_sessions?: sessionsUpdateManyWithoutCreatorNestedInput
+    session_enrollments?: session_enrollmentsUpdateManyWithoutUserNestedInput
     subscriptions?: subscriptionsUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUpdateOneWithoutUsersNestedInput
     created_polls?: pollsUpdateManyWithoutCreatorNestedInput
@@ -96610,6 +98722,7 @@ export namespace Prisma {
     stargazing_spot_reviews?: stargazing_spot_reviewsUncheckedUpdateManyWithoutUserNestedInput
     created_stargazing_spots?: stargazing_spotsUncheckedUpdateManyWithoutCreatorNestedInput
     created_sessions?: sessionsUncheckedUpdateManyWithoutCreatorNestedInput
+    session_enrollments?: session_enrollmentsUncheckedUpdateManyWithoutUserNestedInput
     subscriptions?: subscriptionsUncheckedUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUncheckedUpdateOneWithoutUsersNestedInput
     created_polls?: pollsUncheckedUpdateManyWithoutCreatorNestedInput
@@ -96670,6 +98783,7 @@ export namespace Prisma {
     stargazing_spot_reviews?: stargazing_spot_reviewsCreateNestedManyWithoutUserInput
     created_stargazing_spots?: stargazing_spotsCreateNestedManyWithoutCreatorInput
     created_sessions?: sessionsCreateNestedManyWithoutCreatorInput
+    session_enrollments?: session_enrollmentsCreateNestedManyWithoutUserInput
     subscriptions?: subscriptionsCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsCreateNestedOneWithoutUsersInput
     created_polls?: pollsCreateNestedManyWithoutCreatorInput
@@ -96731,6 +98845,7 @@ export namespace Prisma {
     stargazing_spot_reviews?: stargazing_spot_reviewsUncheckedCreateNestedManyWithoutUserInput
     created_stargazing_spots?: stargazing_spotsUncheckedCreateNestedManyWithoutCreatorInput
     created_sessions?: sessionsUncheckedCreateNestedManyWithoutCreatorInput
+    session_enrollments?: session_enrollmentsUncheckedCreateNestedManyWithoutUserInput
     subscriptions?: subscriptionsUncheckedCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsUncheckedCreateNestedOneWithoutUsersInput
     created_polls?: pollsUncheckedCreateNestedManyWithoutCreatorInput
@@ -96807,6 +98922,7 @@ export namespace Prisma {
     stargazing_spot_reviews?: stargazing_spot_reviewsUpdateManyWithoutUserNestedInput
     created_stargazing_spots?: stargazing_spotsUpdateManyWithoutCreatorNestedInput
     created_sessions?: sessionsUpdateManyWithoutCreatorNestedInput
+    session_enrollments?: session_enrollmentsUpdateManyWithoutUserNestedInput
     subscriptions?: subscriptionsUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUpdateOneWithoutUsersNestedInput
     created_polls?: pollsUpdateManyWithoutCreatorNestedInput
@@ -96868,6 +98984,7 @@ export namespace Prisma {
     stargazing_spot_reviews?: stargazing_spot_reviewsUncheckedUpdateManyWithoutUserNestedInput
     created_stargazing_spots?: stargazing_spotsUncheckedUpdateManyWithoutCreatorNestedInput
     created_sessions?: sessionsUncheckedUpdateManyWithoutCreatorNestedInput
+    session_enrollments?: session_enrollmentsUncheckedUpdateManyWithoutUserNestedInput
     subscriptions?: subscriptionsUncheckedUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUncheckedUpdateOneWithoutUsersNestedInput
     created_polls?: pollsUncheckedUpdateManyWithoutCreatorNestedInput
@@ -96928,6 +99045,7 @@ export namespace Prisma {
     stargazing_spot_reviews?: stargazing_spot_reviewsCreateNestedManyWithoutUserInput
     created_stargazing_spots?: stargazing_spotsCreateNestedManyWithoutCreatorInput
     created_sessions?: sessionsCreateNestedManyWithoutCreatorInput
+    session_enrollments?: session_enrollmentsCreateNestedManyWithoutUserInput
     subscriptions?: subscriptionsCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsCreateNestedOneWithoutUsersInput
     created_polls?: pollsCreateNestedManyWithoutCreatorInput
@@ -96989,6 +99107,7 @@ export namespace Prisma {
     stargazing_spot_reviews?: stargazing_spot_reviewsUncheckedCreateNestedManyWithoutUserInput
     created_stargazing_spots?: stargazing_spotsUncheckedCreateNestedManyWithoutCreatorInput
     created_sessions?: sessionsUncheckedCreateNestedManyWithoutCreatorInput
+    session_enrollments?: session_enrollmentsUncheckedCreateNestedManyWithoutUserInput
     subscriptions?: subscriptionsUncheckedCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsUncheckedCreateNestedOneWithoutUsersInput
     created_polls?: pollsUncheckedCreateNestedManyWithoutCreatorInput
@@ -97065,6 +99184,7 @@ export namespace Prisma {
     stargazing_spot_reviews?: stargazing_spot_reviewsUpdateManyWithoutUserNestedInput
     created_stargazing_spots?: stargazing_spotsUpdateManyWithoutCreatorNestedInput
     created_sessions?: sessionsUpdateManyWithoutCreatorNestedInput
+    session_enrollments?: session_enrollmentsUpdateManyWithoutUserNestedInput
     subscriptions?: subscriptionsUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUpdateOneWithoutUsersNestedInput
     created_polls?: pollsUpdateManyWithoutCreatorNestedInput
@@ -97126,6 +99246,7 @@ export namespace Prisma {
     stargazing_spot_reviews?: stargazing_spot_reviewsUncheckedUpdateManyWithoutUserNestedInput
     created_stargazing_spots?: stargazing_spotsUncheckedUpdateManyWithoutCreatorNestedInput
     created_sessions?: sessionsUncheckedUpdateManyWithoutCreatorNestedInput
+    session_enrollments?: session_enrollmentsUncheckedUpdateManyWithoutUserNestedInput
     subscriptions?: subscriptionsUncheckedUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUncheckedUpdateOneWithoutUsersNestedInput
     created_polls?: pollsUncheckedUpdateManyWithoutCreatorNestedInput
@@ -97232,6 +99353,7 @@ export namespace Prisma {
     stargazing_spot_reviews?: stargazing_spot_reviewsCreateNestedManyWithoutUserInput
     created_stargazing_spots?: stargazing_spotsCreateNestedManyWithoutCreatorInput
     created_sessions?: sessionsCreateNestedManyWithoutCreatorInput
+    session_enrollments?: session_enrollmentsCreateNestedManyWithoutUserInput
     subscriptions?: subscriptionsCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsCreateNestedOneWithoutUsersInput
     created_polls?: pollsCreateNestedManyWithoutCreatorInput
@@ -97293,6 +99415,7 @@ export namespace Prisma {
     stargazing_spot_reviews?: stargazing_spot_reviewsUncheckedCreateNestedManyWithoutUserInput
     created_stargazing_spots?: stargazing_spotsUncheckedCreateNestedManyWithoutCreatorInput
     created_sessions?: sessionsUncheckedCreateNestedManyWithoutCreatorInput
+    session_enrollments?: session_enrollmentsUncheckedCreateNestedManyWithoutUserInput
     subscriptions?: subscriptionsUncheckedCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsUncheckedCreateNestedOneWithoutUsersInput
     created_polls?: pollsUncheckedCreateNestedManyWithoutCreatorInput
@@ -97358,6 +99481,7 @@ export namespace Prisma {
     stargazing_spot_reviews?: stargazing_spot_reviewsCreateNestedManyWithoutUserInput
     created_stargazing_spots?: stargazing_spotsCreateNestedManyWithoutCreatorInput
     created_sessions?: sessionsCreateNestedManyWithoutCreatorInput
+    session_enrollments?: session_enrollmentsCreateNestedManyWithoutUserInput
     subscriptions?: subscriptionsCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsCreateNestedOneWithoutUsersInput
     created_polls?: pollsCreateNestedManyWithoutCreatorInput
@@ -97419,6 +99543,7 @@ export namespace Prisma {
     stargazing_spot_reviews?: stargazing_spot_reviewsUncheckedCreateNestedManyWithoutUserInput
     created_stargazing_spots?: stargazing_spotsUncheckedCreateNestedManyWithoutCreatorInput
     created_sessions?: sessionsUncheckedCreateNestedManyWithoutCreatorInput
+    session_enrollments?: session_enrollmentsUncheckedCreateNestedManyWithoutUserInput
     subscriptions?: subscriptionsUncheckedCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsUncheckedCreateNestedOneWithoutUsersInput
     created_polls?: pollsUncheckedCreateNestedManyWithoutCreatorInput
@@ -97547,6 +99672,7 @@ export namespace Prisma {
     stargazing_spot_reviews?: stargazing_spot_reviewsUpdateManyWithoutUserNestedInput
     created_stargazing_spots?: stargazing_spotsUpdateManyWithoutCreatorNestedInput
     created_sessions?: sessionsUpdateManyWithoutCreatorNestedInput
+    session_enrollments?: session_enrollmentsUpdateManyWithoutUserNestedInput
     subscriptions?: subscriptionsUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUpdateOneWithoutUsersNestedInput
     created_polls?: pollsUpdateManyWithoutCreatorNestedInput
@@ -97608,6 +99734,7 @@ export namespace Prisma {
     stargazing_spot_reviews?: stargazing_spot_reviewsUncheckedUpdateManyWithoutUserNestedInput
     created_stargazing_spots?: stargazing_spotsUncheckedUpdateManyWithoutCreatorNestedInput
     created_sessions?: sessionsUncheckedUpdateManyWithoutCreatorNestedInput
+    session_enrollments?: session_enrollmentsUncheckedUpdateManyWithoutUserNestedInput
     subscriptions?: subscriptionsUncheckedUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUncheckedUpdateOneWithoutUsersNestedInput
     created_polls?: pollsUncheckedUpdateManyWithoutCreatorNestedInput
@@ -97679,6 +99806,7 @@ export namespace Prisma {
     stargazing_spot_reviews?: stargazing_spot_reviewsUpdateManyWithoutUserNestedInput
     created_stargazing_spots?: stargazing_spotsUpdateManyWithoutCreatorNestedInput
     created_sessions?: sessionsUpdateManyWithoutCreatorNestedInput
+    session_enrollments?: session_enrollmentsUpdateManyWithoutUserNestedInput
     subscriptions?: subscriptionsUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUpdateOneWithoutUsersNestedInput
     created_polls?: pollsUpdateManyWithoutCreatorNestedInput
@@ -97740,6 +99868,7 @@ export namespace Prisma {
     stargazing_spot_reviews?: stargazing_spot_reviewsUncheckedUpdateManyWithoutUserNestedInput
     created_stargazing_spots?: stargazing_spotsUncheckedUpdateManyWithoutCreatorNestedInput
     created_sessions?: sessionsUncheckedUpdateManyWithoutCreatorNestedInput
+    session_enrollments?: session_enrollmentsUncheckedUpdateManyWithoutUserNestedInput
     subscriptions?: subscriptionsUncheckedUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUncheckedUpdateOneWithoutUsersNestedInput
     created_polls?: pollsUncheckedUpdateManyWithoutCreatorNestedInput
@@ -97846,6 +99975,7 @@ export namespace Prisma {
     stargazing_spot_reviews?: stargazing_spot_reviewsCreateNestedManyWithoutUserInput
     created_stargazing_spots?: stargazing_spotsCreateNestedManyWithoutCreatorInput
     created_sessions?: sessionsCreateNestedManyWithoutCreatorInput
+    session_enrollments?: session_enrollmentsCreateNestedManyWithoutUserInput
     subscriptions?: subscriptionsCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsCreateNestedOneWithoutUsersInput
     created_polls?: pollsCreateNestedManyWithoutCreatorInput
@@ -97907,6 +100037,7 @@ export namespace Prisma {
     stargazing_spot_reviews?: stargazing_spot_reviewsUncheckedCreateNestedManyWithoutUserInput
     created_stargazing_spots?: stargazing_spotsUncheckedCreateNestedManyWithoutCreatorInput
     created_sessions?: sessionsUncheckedCreateNestedManyWithoutCreatorInput
+    session_enrollments?: session_enrollmentsUncheckedCreateNestedManyWithoutUserInput
     subscriptions?: subscriptionsUncheckedCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsUncheckedCreateNestedOneWithoutUsersInput
     created_polls?: pollsUncheckedCreateNestedManyWithoutCreatorInput
@@ -98035,6 +100166,7 @@ export namespace Prisma {
     stargazing_spot_reviews?: stargazing_spot_reviewsUpdateManyWithoutUserNestedInput
     created_stargazing_spots?: stargazing_spotsUpdateManyWithoutCreatorNestedInput
     created_sessions?: sessionsUpdateManyWithoutCreatorNestedInput
+    session_enrollments?: session_enrollmentsUpdateManyWithoutUserNestedInput
     subscriptions?: subscriptionsUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUpdateOneWithoutUsersNestedInput
     created_polls?: pollsUpdateManyWithoutCreatorNestedInput
@@ -98096,6 +100228,7 @@ export namespace Prisma {
     stargazing_spot_reviews?: stargazing_spot_reviewsUncheckedUpdateManyWithoutUserNestedInput
     created_stargazing_spots?: stargazing_spotsUncheckedUpdateManyWithoutCreatorNestedInput
     created_sessions?: sessionsUncheckedUpdateManyWithoutCreatorNestedInput
+    session_enrollments?: session_enrollmentsUncheckedUpdateManyWithoutUserNestedInput
     subscriptions?: subscriptionsUncheckedUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUncheckedUpdateOneWithoutUsersNestedInput
     created_polls?: pollsUncheckedUpdateManyWithoutCreatorNestedInput
@@ -98156,6 +100289,7 @@ export namespace Prisma {
     stargazing_spot_reviews?: stargazing_spot_reviewsCreateNestedManyWithoutUserInput
     created_stargazing_spots?: stargazing_spotsCreateNestedManyWithoutCreatorInput
     created_sessions?: sessionsCreateNestedManyWithoutCreatorInput
+    session_enrollments?: session_enrollmentsCreateNestedManyWithoutUserInput
     subscriptions?: subscriptionsCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsCreateNestedOneWithoutUsersInput
     created_polls?: pollsCreateNestedManyWithoutCreatorInput
@@ -98217,6 +100351,7 @@ export namespace Prisma {
     stargazing_spot_reviews?: stargazing_spot_reviewsUncheckedCreateNestedManyWithoutUserInput
     created_stargazing_spots?: stargazing_spotsUncheckedCreateNestedManyWithoutCreatorInput
     created_sessions?: sessionsUncheckedCreateNestedManyWithoutCreatorInput
+    session_enrollments?: session_enrollmentsUncheckedCreateNestedManyWithoutUserInput
     subscriptions?: subscriptionsUncheckedCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsUncheckedCreateNestedOneWithoutUsersInput
     created_polls?: pollsUncheckedCreateNestedManyWithoutCreatorInput
@@ -98293,6 +100428,7 @@ export namespace Prisma {
     stargazing_spot_reviews?: stargazing_spot_reviewsUpdateManyWithoutUserNestedInput
     created_stargazing_spots?: stargazing_spotsUpdateManyWithoutCreatorNestedInput
     created_sessions?: sessionsUpdateManyWithoutCreatorNestedInput
+    session_enrollments?: session_enrollmentsUpdateManyWithoutUserNestedInput
     subscriptions?: subscriptionsUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUpdateOneWithoutUsersNestedInput
     created_polls?: pollsUpdateManyWithoutCreatorNestedInput
@@ -98354,6 +100490,7 @@ export namespace Prisma {
     stargazing_spot_reviews?: stargazing_spot_reviewsUncheckedUpdateManyWithoutUserNestedInput
     created_stargazing_spots?: stargazing_spotsUncheckedUpdateManyWithoutCreatorNestedInput
     created_sessions?: sessionsUncheckedUpdateManyWithoutCreatorNestedInput
+    session_enrollments?: session_enrollmentsUncheckedUpdateManyWithoutUserNestedInput
     subscriptions?: subscriptionsUncheckedUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUncheckedUpdateOneWithoutUsersNestedInput
     created_polls?: pollsUncheckedUpdateManyWithoutCreatorNestedInput
@@ -98414,6 +100551,7 @@ export namespace Prisma {
     stargazing_spot_reviews?: stargazing_spot_reviewsCreateNestedManyWithoutUserInput
     created_stargazing_spots?: stargazing_spotsCreateNestedManyWithoutCreatorInput
     created_sessions?: sessionsCreateNestedManyWithoutCreatorInput
+    session_enrollments?: session_enrollmentsCreateNestedManyWithoutUserInput
     subscriptions?: subscriptionsCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsCreateNestedOneWithoutUsersInput
     created_polls?: pollsCreateNestedManyWithoutCreatorInput
@@ -98475,6 +100613,7 @@ export namespace Prisma {
     stargazing_spot_reviews?: stargazing_spot_reviewsUncheckedCreateNestedManyWithoutUserInput
     created_stargazing_spots?: stargazing_spotsUncheckedCreateNestedManyWithoutCreatorInput
     created_sessions?: sessionsUncheckedCreateNestedManyWithoutCreatorInput
+    session_enrollments?: session_enrollmentsUncheckedCreateNestedManyWithoutUserInput
     subscriptions?: subscriptionsUncheckedCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsUncheckedCreateNestedOneWithoutUsersInput
     created_polls?: pollsUncheckedCreateNestedManyWithoutCreatorInput
@@ -98551,6 +100690,7 @@ export namespace Prisma {
     stargazing_spot_reviews?: stargazing_spot_reviewsUpdateManyWithoutUserNestedInput
     created_stargazing_spots?: stargazing_spotsUpdateManyWithoutCreatorNestedInput
     created_sessions?: sessionsUpdateManyWithoutCreatorNestedInput
+    session_enrollments?: session_enrollmentsUpdateManyWithoutUserNestedInput
     subscriptions?: subscriptionsUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUpdateOneWithoutUsersNestedInput
     created_polls?: pollsUpdateManyWithoutCreatorNestedInput
@@ -98612,6 +100752,7 @@ export namespace Prisma {
     stargazing_spot_reviews?: stargazing_spot_reviewsUncheckedUpdateManyWithoutUserNestedInput
     created_stargazing_spots?: stargazing_spotsUncheckedUpdateManyWithoutCreatorNestedInput
     created_sessions?: sessionsUncheckedUpdateManyWithoutCreatorNestedInput
+    session_enrollments?: session_enrollmentsUncheckedUpdateManyWithoutUserNestedInput
     subscriptions?: subscriptionsUncheckedUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUncheckedUpdateOneWithoutUsersNestedInput
     created_polls?: pollsUncheckedUpdateManyWithoutCreatorNestedInput
@@ -98710,6 +100851,7 @@ export namespace Prisma {
     stargazing_spot_reviews?: stargazing_spot_reviewsCreateNestedManyWithoutUserInput
     created_stargazing_spots?: stargazing_spotsCreateNestedManyWithoutCreatorInput
     created_sessions?: sessionsCreateNestedManyWithoutCreatorInput
+    session_enrollments?: session_enrollmentsCreateNestedManyWithoutUserInput
     subscriptions?: subscriptionsCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsCreateNestedOneWithoutUsersInput
     created_polls?: pollsCreateNestedManyWithoutCreatorInput
@@ -98771,6 +100913,7 @@ export namespace Prisma {
     stargazing_spot_reviews?: stargazing_spot_reviewsUncheckedCreateNestedManyWithoutUserInput
     created_stargazing_spots?: stargazing_spotsUncheckedCreateNestedManyWithoutCreatorInput
     created_sessions?: sessionsUncheckedCreateNestedManyWithoutCreatorInput
+    session_enrollments?: session_enrollmentsUncheckedCreateNestedManyWithoutUserInput
     subscriptions?: subscriptionsUncheckedCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsUncheckedCreateNestedOneWithoutUsersInput
     created_polls?: pollsUncheckedCreateNestedManyWithoutCreatorInput
@@ -98891,6 +101034,7 @@ export namespace Prisma {
     stargazing_spot_reviews?: stargazing_spot_reviewsUpdateManyWithoutUserNestedInput
     created_stargazing_spots?: stargazing_spotsUpdateManyWithoutCreatorNestedInput
     created_sessions?: sessionsUpdateManyWithoutCreatorNestedInput
+    session_enrollments?: session_enrollmentsUpdateManyWithoutUserNestedInput
     subscriptions?: subscriptionsUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUpdateOneWithoutUsersNestedInput
     created_polls?: pollsUpdateManyWithoutCreatorNestedInput
@@ -98952,6 +101096,7 @@ export namespace Prisma {
     stargazing_spot_reviews?: stargazing_spot_reviewsUncheckedUpdateManyWithoutUserNestedInput
     created_stargazing_spots?: stargazing_spotsUncheckedUpdateManyWithoutCreatorNestedInput
     created_sessions?: sessionsUncheckedUpdateManyWithoutCreatorNestedInput
+    session_enrollments?: session_enrollmentsUncheckedUpdateManyWithoutUserNestedInput
     subscriptions?: subscriptionsUncheckedUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUncheckedUpdateOneWithoutUsersNestedInput
     created_polls?: pollsUncheckedUpdateManyWithoutCreatorNestedInput
@@ -99142,6 +101287,7 @@ export namespace Prisma {
     stargazing_spot_reviews?: stargazing_spot_reviewsCreateNestedManyWithoutUserInput
     created_stargazing_spots?: stargazing_spotsCreateNestedManyWithoutCreatorInput
     created_sessions?: sessionsCreateNestedManyWithoutCreatorInput
+    session_enrollments?: session_enrollmentsCreateNestedManyWithoutUserInput
     subscriptions?: subscriptionsCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsCreateNestedOneWithoutUsersInput
     created_polls?: pollsCreateNestedManyWithoutCreatorInput
@@ -99203,6 +101349,7 @@ export namespace Prisma {
     stargazing_spot_reviews?: stargazing_spot_reviewsUncheckedCreateNestedManyWithoutUserInput
     created_stargazing_spots?: stargazing_spotsUncheckedCreateNestedManyWithoutCreatorInput
     created_sessions?: sessionsUncheckedCreateNestedManyWithoutCreatorInput
+    session_enrollments?: session_enrollmentsUncheckedCreateNestedManyWithoutUserInput
     subscriptions?: subscriptionsUncheckedCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsUncheckedCreateNestedOneWithoutUsersInput
     created_polls?: pollsUncheckedCreateNestedManyWithoutCreatorInput
@@ -99323,6 +101470,7 @@ export namespace Prisma {
     stargazing_spot_reviews?: stargazing_spot_reviewsUpdateManyWithoutUserNestedInput
     created_stargazing_spots?: stargazing_spotsUpdateManyWithoutCreatorNestedInput
     created_sessions?: sessionsUpdateManyWithoutCreatorNestedInput
+    session_enrollments?: session_enrollmentsUpdateManyWithoutUserNestedInput
     subscriptions?: subscriptionsUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUpdateOneWithoutUsersNestedInput
     created_polls?: pollsUpdateManyWithoutCreatorNestedInput
@@ -99384,6 +101532,7 @@ export namespace Prisma {
     stargazing_spot_reviews?: stargazing_spot_reviewsUncheckedUpdateManyWithoutUserNestedInput
     created_stargazing_spots?: stargazing_spotsUncheckedUpdateManyWithoutCreatorNestedInput
     created_sessions?: sessionsUncheckedUpdateManyWithoutCreatorNestedInput
+    session_enrollments?: session_enrollmentsUncheckedUpdateManyWithoutUserNestedInput
     subscriptions?: subscriptionsUncheckedUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUncheckedUpdateOneWithoutUsersNestedInput
     created_polls?: pollsUncheckedUpdateManyWithoutCreatorNestedInput
@@ -99444,6 +101593,7 @@ export namespace Prisma {
     stargazing_spot_reviews?: stargazing_spot_reviewsCreateNestedManyWithoutUserInput
     created_stargazing_spots?: stargazing_spotsCreateNestedManyWithoutCreatorInput
     created_sessions?: sessionsCreateNestedManyWithoutCreatorInput
+    session_enrollments?: session_enrollmentsCreateNestedManyWithoutUserInput
     subscriptions?: subscriptionsCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsCreateNestedOneWithoutUsersInput
     created_polls?: pollsCreateNestedManyWithoutCreatorInput
@@ -99505,6 +101655,7 @@ export namespace Prisma {
     stargazing_spot_reviews?: stargazing_spot_reviewsUncheckedCreateNestedManyWithoutUserInput
     created_stargazing_spots?: stargazing_spotsUncheckedCreateNestedManyWithoutCreatorInput
     created_sessions?: sessionsUncheckedCreateNestedManyWithoutCreatorInput
+    session_enrollments?: session_enrollmentsUncheckedCreateNestedManyWithoutUserInput
     subscriptions?: subscriptionsUncheckedCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsUncheckedCreateNestedOneWithoutUsersInput
     created_polls?: pollsUncheckedCreateNestedManyWithoutCreatorInput
@@ -99633,6 +101784,7 @@ export namespace Prisma {
     stargazing_spot_reviews?: stargazing_spot_reviewsUpdateManyWithoutUserNestedInput
     created_stargazing_spots?: stargazing_spotsUpdateManyWithoutCreatorNestedInput
     created_sessions?: sessionsUpdateManyWithoutCreatorNestedInput
+    session_enrollments?: session_enrollmentsUpdateManyWithoutUserNestedInput
     subscriptions?: subscriptionsUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUpdateOneWithoutUsersNestedInput
     created_polls?: pollsUpdateManyWithoutCreatorNestedInput
@@ -99694,6 +101846,7 @@ export namespace Prisma {
     stargazing_spot_reviews?: stargazing_spot_reviewsUncheckedUpdateManyWithoutUserNestedInput
     created_stargazing_spots?: stargazing_spotsUncheckedUpdateManyWithoutCreatorNestedInput
     created_sessions?: sessionsUncheckedUpdateManyWithoutCreatorNestedInput
+    session_enrollments?: session_enrollmentsUncheckedUpdateManyWithoutUserNestedInput
     subscriptions?: subscriptionsUncheckedUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUncheckedUpdateOneWithoutUsersNestedInput
     created_polls?: pollsUncheckedUpdateManyWithoutCreatorNestedInput
@@ -99820,6 +101973,7 @@ export namespace Prisma {
     stargazing_spot_reviews?: stargazing_spot_reviewsCreateNestedManyWithoutUserInput
     created_stargazing_spots?: stargazing_spotsCreateNestedManyWithoutCreatorInput
     created_sessions?: sessionsCreateNestedManyWithoutCreatorInput
+    session_enrollments?: session_enrollmentsCreateNestedManyWithoutUserInput
     subscriptions?: subscriptionsCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsCreateNestedOneWithoutUsersInput
     created_polls?: pollsCreateNestedManyWithoutCreatorInput
@@ -99881,6 +102035,7 @@ export namespace Prisma {
     stargazing_spot_reviews?: stargazing_spot_reviewsUncheckedCreateNestedManyWithoutUserInput
     created_stargazing_spots?: stargazing_spotsUncheckedCreateNestedManyWithoutCreatorInput
     created_sessions?: sessionsUncheckedCreateNestedManyWithoutCreatorInput
+    session_enrollments?: session_enrollmentsUncheckedCreateNestedManyWithoutUserInput
     subscriptions?: subscriptionsUncheckedCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsUncheckedCreateNestedOneWithoutUsersInput
     created_polls?: pollsUncheckedCreateNestedManyWithoutCreatorInput
@@ -99997,6 +102152,7 @@ export namespace Prisma {
     stargazing_spot_reviews?: stargazing_spot_reviewsUpdateManyWithoutUserNestedInput
     created_stargazing_spots?: stargazing_spotsUpdateManyWithoutCreatorNestedInput
     created_sessions?: sessionsUpdateManyWithoutCreatorNestedInput
+    session_enrollments?: session_enrollmentsUpdateManyWithoutUserNestedInput
     subscriptions?: subscriptionsUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUpdateOneWithoutUsersNestedInput
     created_polls?: pollsUpdateManyWithoutCreatorNestedInput
@@ -100058,6 +102214,7 @@ export namespace Prisma {
     stargazing_spot_reviews?: stargazing_spot_reviewsUncheckedUpdateManyWithoutUserNestedInput
     created_stargazing_spots?: stargazing_spotsUncheckedUpdateManyWithoutCreatorNestedInput
     created_sessions?: sessionsUncheckedUpdateManyWithoutCreatorNestedInput
+    session_enrollments?: session_enrollmentsUncheckedUpdateManyWithoutUserNestedInput
     subscriptions?: subscriptionsUncheckedUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUncheckedUpdateOneWithoutUsersNestedInput
     created_polls?: pollsUncheckedUpdateManyWithoutCreatorNestedInput
@@ -100209,6 +102366,7 @@ export namespace Prisma {
     stargazing_spot_reviews?: stargazing_spot_reviewsCreateNestedManyWithoutUserInput
     created_stargazing_spots?: stargazing_spotsCreateNestedManyWithoutCreatorInput
     created_sessions?: sessionsCreateNestedManyWithoutCreatorInput
+    session_enrollments?: session_enrollmentsCreateNestedManyWithoutUserInput
     subscriptions?: subscriptionsCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsCreateNestedOneWithoutUsersInput
     created_polls?: pollsCreateNestedManyWithoutCreatorInput
@@ -100270,6 +102428,7 @@ export namespace Prisma {
     stargazing_spot_reviews?: stargazing_spot_reviewsUncheckedCreateNestedManyWithoutUserInput
     created_stargazing_spots?: stargazing_spotsUncheckedCreateNestedManyWithoutCreatorInput
     created_sessions?: sessionsUncheckedCreateNestedManyWithoutCreatorInput
+    session_enrollments?: session_enrollmentsUncheckedCreateNestedManyWithoutUserInput
     subscriptions?: subscriptionsUncheckedCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsUncheckedCreateNestedOneWithoutUsersInput
     created_polls?: pollsUncheckedCreateNestedManyWithoutCreatorInput
@@ -100434,6 +102593,7 @@ export namespace Prisma {
     stargazing_spot_reviews?: stargazing_spot_reviewsUpdateManyWithoutUserNestedInput
     created_stargazing_spots?: stargazing_spotsUpdateManyWithoutCreatorNestedInput
     created_sessions?: sessionsUpdateManyWithoutCreatorNestedInput
+    session_enrollments?: session_enrollmentsUpdateManyWithoutUserNestedInput
     subscriptions?: subscriptionsUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUpdateOneWithoutUsersNestedInput
     created_polls?: pollsUpdateManyWithoutCreatorNestedInput
@@ -100495,6 +102655,7 @@ export namespace Prisma {
     stargazing_spot_reviews?: stargazing_spot_reviewsUncheckedUpdateManyWithoutUserNestedInput
     created_stargazing_spots?: stargazing_spotsUncheckedUpdateManyWithoutCreatorNestedInput
     created_sessions?: sessionsUncheckedUpdateManyWithoutCreatorNestedInput
+    session_enrollments?: session_enrollmentsUncheckedUpdateManyWithoutUserNestedInput
     subscriptions?: subscriptionsUncheckedUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUncheckedUpdateOneWithoutUsersNestedInput
     created_polls?: pollsUncheckedUpdateManyWithoutCreatorNestedInput
@@ -100609,6 +102770,7 @@ export namespace Prisma {
     stargazing_spot_reviews?: stargazing_spot_reviewsCreateNestedManyWithoutUserInput
     created_stargazing_spots?: stargazing_spotsCreateNestedManyWithoutCreatorInput
     created_sessions?: sessionsCreateNestedManyWithoutCreatorInput
+    session_enrollments?: session_enrollmentsCreateNestedManyWithoutUserInput
     subscriptions?: subscriptionsCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsCreateNestedOneWithoutUsersInput
     created_polls?: pollsCreateNestedManyWithoutCreatorInput
@@ -100670,6 +102832,7 @@ export namespace Prisma {
     stargazing_spot_reviews?: stargazing_spot_reviewsUncheckedCreateNestedManyWithoutUserInput
     created_stargazing_spots?: stargazing_spotsUncheckedCreateNestedManyWithoutCreatorInput
     created_sessions?: sessionsUncheckedCreateNestedManyWithoutCreatorInput
+    session_enrollments?: session_enrollmentsUncheckedCreateNestedManyWithoutUserInput
     subscriptions?: subscriptionsUncheckedCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsUncheckedCreateNestedOneWithoutUsersInput
     created_polls?: pollsUncheckedCreateNestedManyWithoutCreatorInput
@@ -100778,6 +102941,7 @@ export namespace Prisma {
     stargazing_spot_reviews?: stargazing_spot_reviewsUpdateManyWithoutUserNestedInput
     created_stargazing_spots?: stargazing_spotsUpdateManyWithoutCreatorNestedInput
     created_sessions?: sessionsUpdateManyWithoutCreatorNestedInput
+    session_enrollments?: session_enrollmentsUpdateManyWithoutUserNestedInput
     subscriptions?: subscriptionsUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUpdateOneWithoutUsersNestedInput
     created_polls?: pollsUpdateManyWithoutCreatorNestedInput
@@ -100839,6 +103003,7 @@ export namespace Prisma {
     stargazing_spot_reviews?: stargazing_spot_reviewsUncheckedUpdateManyWithoutUserNestedInput
     created_stargazing_spots?: stargazing_spotsUncheckedUpdateManyWithoutCreatorNestedInput
     created_sessions?: sessionsUncheckedUpdateManyWithoutCreatorNestedInput
+    session_enrollments?: session_enrollmentsUncheckedUpdateManyWithoutUserNestedInput
     subscriptions?: subscriptionsUncheckedUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUncheckedUpdateOneWithoutUsersNestedInput
     created_polls?: pollsUncheckedUpdateManyWithoutCreatorNestedInput
@@ -101017,6 +103182,7 @@ export namespace Prisma {
     stargazing_spot_reviews?: stargazing_spot_reviewsCreateNestedManyWithoutUserInput
     created_stargazing_spots?: stargazing_spotsCreateNestedManyWithoutCreatorInput
     created_sessions?: sessionsCreateNestedManyWithoutCreatorInput
+    session_enrollments?: session_enrollmentsCreateNestedManyWithoutUserInput
     subscriptions?: subscriptionsCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsCreateNestedOneWithoutUsersInput
     created_polls?: pollsCreateNestedManyWithoutCreatorInput
@@ -101078,6 +103244,7 @@ export namespace Prisma {
     stargazing_spot_reviews?: stargazing_spot_reviewsUncheckedCreateNestedManyWithoutUserInput
     created_stargazing_spots?: stargazing_spotsUncheckedCreateNestedManyWithoutCreatorInput
     created_sessions?: sessionsUncheckedCreateNestedManyWithoutCreatorInput
+    session_enrollments?: session_enrollmentsUncheckedCreateNestedManyWithoutUserInput
     subscriptions?: subscriptionsUncheckedCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsUncheckedCreateNestedOneWithoutUsersInput
     created_polls?: pollsUncheckedCreateNestedManyWithoutCreatorInput
@@ -101262,6 +103429,7 @@ export namespace Prisma {
     stargazing_spot_reviews?: stargazing_spot_reviewsUpdateManyWithoutUserNestedInput
     created_stargazing_spots?: stargazing_spotsUpdateManyWithoutCreatorNestedInput
     created_sessions?: sessionsUpdateManyWithoutCreatorNestedInput
+    session_enrollments?: session_enrollmentsUpdateManyWithoutUserNestedInput
     subscriptions?: subscriptionsUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUpdateOneWithoutUsersNestedInput
     created_polls?: pollsUpdateManyWithoutCreatorNestedInput
@@ -101323,6 +103491,7 @@ export namespace Prisma {
     stargazing_spot_reviews?: stargazing_spot_reviewsUncheckedUpdateManyWithoutUserNestedInput
     created_stargazing_spots?: stargazing_spotsUncheckedUpdateManyWithoutCreatorNestedInput
     created_sessions?: sessionsUncheckedUpdateManyWithoutCreatorNestedInput
+    session_enrollments?: session_enrollmentsUncheckedUpdateManyWithoutUserNestedInput
     subscriptions?: subscriptionsUncheckedUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUncheckedUpdateOneWithoutUsersNestedInput
     created_polls?: pollsUncheckedUpdateManyWithoutCreatorNestedInput
@@ -101419,6 +103588,7 @@ export namespace Prisma {
     stargazing_spot_reviews?: stargazing_spot_reviewsCreateNestedManyWithoutUserInput
     created_stargazing_spots?: stargazing_spotsCreateNestedManyWithoutCreatorInput
     created_sessions?: sessionsCreateNestedManyWithoutCreatorInput
+    session_enrollments?: session_enrollmentsCreateNestedManyWithoutUserInput
     subscriptions?: subscriptionsCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsCreateNestedOneWithoutUsersInput
     created_polls?: pollsCreateNestedManyWithoutCreatorInput
@@ -101480,6 +103650,7 @@ export namespace Prisma {
     stargazing_spot_reviews?: stargazing_spot_reviewsUncheckedCreateNestedManyWithoutUserInput
     created_stargazing_spots?: stargazing_spotsUncheckedCreateNestedManyWithoutCreatorInput
     created_sessions?: sessionsUncheckedCreateNestedManyWithoutCreatorInput
+    session_enrollments?: session_enrollmentsUncheckedCreateNestedManyWithoutUserInput
     subscriptions?: subscriptionsUncheckedCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsUncheckedCreateNestedOneWithoutUsersInput
     created_polls?: pollsUncheckedCreateNestedManyWithoutCreatorInput
@@ -101598,6 +103769,7 @@ export namespace Prisma {
     stargazing_spot_reviews?: stargazing_spot_reviewsUpdateManyWithoutUserNestedInput
     created_stargazing_spots?: stargazing_spotsUpdateManyWithoutCreatorNestedInput
     created_sessions?: sessionsUpdateManyWithoutCreatorNestedInput
+    session_enrollments?: session_enrollmentsUpdateManyWithoutUserNestedInput
     subscriptions?: subscriptionsUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUpdateOneWithoutUsersNestedInput
     created_polls?: pollsUpdateManyWithoutCreatorNestedInput
@@ -101659,6 +103831,7 @@ export namespace Prisma {
     stargazing_spot_reviews?: stargazing_spot_reviewsUncheckedUpdateManyWithoutUserNestedInput
     created_stargazing_spots?: stargazing_spotsUncheckedUpdateManyWithoutCreatorNestedInput
     created_sessions?: sessionsUncheckedUpdateManyWithoutCreatorNestedInput
+    session_enrollments?: session_enrollmentsUncheckedUpdateManyWithoutUserNestedInput
     subscriptions?: subscriptionsUncheckedUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUncheckedUpdateOneWithoutUsersNestedInput
     created_polls?: pollsUncheckedUpdateManyWithoutCreatorNestedInput
@@ -101747,6 +103920,7 @@ export namespace Prisma {
     stargazing_spot_reviews?: stargazing_spot_reviewsCreateNestedManyWithoutUserInput
     created_stargazing_spots?: stargazing_spotsCreateNestedManyWithoutCreatorInput
     created_sessions?: sessionsCreateNestedManyWithoutCreatorInput
+    session_enrollments?: session_enrollmentsCreateNestedManyWithoutUserInput
     subscriptions?: subscriptionsCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsCreateNestedOneWithoutUsersInput
     created_polls?: pollsCreateNestedManyWithoutCreatorInput
@@ -101808,6 +103982,7 @@ export namespace Prisma {
     stargazing_spot_reviews?: stargazing_spot_reviewsUncheckedCreateNestedManyWithoutUserInput
     created_stargazing_spots?: stargazing_spotsUncheckedCreateNestedManyWithoutCreatorInput
     created_sessions?: sessionsUncheckedCreateNestedManyWithoutCreatorInput
+    session_enrollments?: session_enrollmentsUncheckedCreateNestedManyWithoutUserInput
     subscriptions?: subscriptionsUncheckedCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsUncheckedCreateNestedOneWithoutUsersInput
     created_polls?: pollsUncheckedCreateNestedManyWithoutCreatorInput
@@ -101918,6 +104093,7 @@ export namespace Prisma {
     stargazing_spot_reviews?: stargazing_spot_reviewsUpdateManyWithoutUserNestedInput
     created_stargazing_spots?: stargazing_spotsUpdateManyWithoutCreatorNestedInput
     created_sessions?: sessionsUpdateManyWithoutCreatorNestedInput
+    session_enrollments?: session_enrollmentsUpdateManyWithoutUserNestedInput
     subscriptions?: subscriptionsUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUpdateOneWithoutUsersNestedInput
     created_polls?: pollsUpdateManyWithoutCreatorNestedInput
@@ -101979,6 +104155,7 @@ export namespace Prisma {
     stargazing_spot_reviews?: stargazing_spot_reviewsUncheckedUpdateManyWithoutUserNestedInput
     created_stargazing_spots?: stargazing_spotsUncheckedUpdateManyWithoutCreatorNestedInput
     created_sessions?: sessionsUncheckedUpdateManyWithoutCreatorNestedInput
+    session_enrollments?: session_enrollmentsUncheckedUpdateManyWithoutUserNestedInput
     subscriptions?: subscriptionsUncheckedUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUncheckedUpdateOneWithoutUsersNestedInput
     created_polls?: pollsUncheckedUpdateManyWithoutCreatorNestedInput
@@ -102039,6 +104216,7 @@ export namespace Prisma {
     stargazing_spot_reviews?: stargazing_spot_reviewsCreateNestedManyWithoutUserInput
     created_stargazing_spots?: stargazing_spotsCreateNestedManyWithoutCreatorInput
     created_sessions?: sessionsCreateNestedManyWithoutCreatorInput
+    session_enrollments?: session_enrollmentsCreateNestedManyWithoutUserInput
     subscriptions?: subscriptionsCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsCreateNestedOneWithoutUsersInput
     created_polls?: pollsCreateNestedManyWithoutCreatorInput
@@ -102100,6 +104278,7 @@ export namespace Prisma {
     stargazing_spot_reviews?: stargazing_spot_reviewsUncheckedCreateNestedManyWithoutUserInput
     created_stargazing_spots?: stargazing_spotsUncheckedCreateNestedManyWithoutCreatorInput
     created_sessions?: sessionsUncheckedCreateNestedManyWithoutCreatorInput
+    session_enrollments?: session_enrollmentsUncheckedCreateNestedManyWithoutUserInput
     subscriptions?: subscriptionsUncheckedCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsUncheckedCreateNestedOneWithoutUsersInput
     created_polls?: pollsUncheckedCreateNestedManyWithoutCreatorInput
@@ -102205,6 +104384,7 @@ export namespace Prisma {
     stargazing_spot_reviews?: stargazing_spot_reviewsUpdateManyWithoutUserNestedInput
     created_stargazing_spots?: stargazing_spotsUpdateManyWithoutCreatorNestedInput
     created_sessions?: sessionsUpdateManyWithoutCreatorNestedInput
+    session_enrollments?: session_enrollmentsUpdateManyWithoutUserNestedInput
     subscriptions?: subscriptionsUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUpdateOneWithoutUsersNestedInput
     created_polls?: pollsUpdateManyWithoutCreatorNestedInput
@@ -102266,6 +104446,7 @@ export namespace Prisma {
     stargazing_spot_reviews?: stargazing_spot_reviewsUncheckedUpdateManyWithoutUserNestedInput
     created_stargazing_spots?: stargazing_spotsUncheckedUpdateManyWithoutCreatorNestedInput
     created_sessions?: sessionsUncheckedUpdateManyWithoutCreatorNestedInput
+    session_enrollments?: session_enrollmentsUncheckedUpdateManyWithoutUserNestedInput
     subscriptions?: subscriptionsUncheckedUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUncheckedUpdateOneWithoutUsersNestedInput
     created_polls?: pollsUncheckedUpdateManyWithoutCreatorNestedInput
@@ -102380,6 +104561,7 @@ export namespace Prisma {
     stargazing_spot_reviews?: stargazing_spot_reviewsCreateNestedManyWithoutUserInput
     created_stargazing_spots?: stargazing_spotsCreateNestedManyWithoutCreatorInput
     created_sessions?: sessionsCreateNestedManyWithoutCreatorInput
+    session_enrollments?: session_enrollmentsCreateNestedManyWithoutUserInput
     subscriptions?: subscriptionsCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsCreateNestedOneWithoutUsersInput
     created_polls?: pollsCreateNestedManyWithoutCreatorInput
@@ -102441,6 +104623,7 @@ export namespace Prisma {
     stargazing_spot_reviews?: stargazing_spot_reviewsUncheckedCreateNestedManyWithoutUserInput
     created_stargazing_spots?: stargazing_spotsUncheckedCreateNestedManyWithoutCreatorInput
     created_sessions?: sessionsUncheckedCreateNestedManyWithoutCreatorInput
+    session_enrollments?: session_enrollmentsUncheckedCreateNestedManyWithoutUserInput
     subscriptions?: subscriptionsUncheckedCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsUncheckedCreateNestedOneWithoutUsersInput
     created_polls?: pollsUncheckedCreateNestedManyWithoutCreatorInput
@@ -102561,6 +104744,7 @@ export namespace Prisma {
     stargazing_spot_reviews?: stargazing_spot_reviewsUpdateManyWithoutUserNestedInput
     created_stargazing_spots?: stargazing_spotsUpdateManyWithoutCreatorNestedInput
     created_sessions?: sessionsUpdateManyWithoutCreatorNestedInput
+    session_enrollments?: session_enrollmentsUpdateManyWithoutUserNestedInput
     subscriptions?: subscriptionsUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUpdateOneWithoutUsersNestedInput
     created_polls?: pollsUpdateManyWithoutCreatorNestedInput
@@ -102622,6 +104806,7 @@ export namespace Prisma {
     stargazing_spot_reviews?: stargazing_spot_reviewsUncheckedUpdateManyWithoutUserNestedInput
     created_stargazing_spots?: stargazing_spotsUncheckedUpdateManyWithoutCreatorNestedInput
     created_sessions?: sessionsUncheckedUpdateManyWithoutCreatorNestedInput
+    session_enrollments?: session_enrollmentsUncheckedUpdateManyWithoutUserNestedInput
     subscriptions?: subscriptionsUncheckedUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUncheckedUpdateOneWithoutUsersNestedInput
     created_polls?: pollsUncheckedUpdateManyWithoutCreatorNestedInput
@@ -102709,6 +104894,7 @@ export namespace Prisma {
     space_news_likes?: space_news_likesCreateNestedManyWithoutUserInput
     stargazing_spot_reviews?: stargazing_spot_reviewsCreateNestedManyWithoutUserInput
     created_sessions?: sessionsCreateNestedManyWithoutCreatorInput
+    session_enrollments?: session_enrollmentsCreateNestedManyWithoutUserInput
     subscriptions?: subscriptionsCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsCreateNestedOneWithoutUsersInput
     created_polls?: pollsCreateNestedManyWithoutCreatorInput
@@ -102770,6 +104956,7 @@ export namespace Prisma {
     space_news_likes?: space_news_likesUncheckedCreateNestedManyWithoutUserInput
     stargazing_spot_reviews?: stargazing_spot_reviewsUncheckedCreateNestedManyWithoutUserInput
     created_sessions?: sessionsUncheckedCreateNestedManyWithoutCreatorInput
+    session_enrollments?: session_enrollmentsUncheckedCreateNestedManyWithoutUserInput
     subscriptions?: subscriptionsUncheckedCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsUncheckedCreateNestedOneWithoutUsersInput
     created_polls?: pollsUncheckedCreateNestedManyWithoutCreatorInput
@@ -102862,6 +105049,7 @@ export namespace Prisma {
     space_news_likes?: space_news_likesUpdateManyWithoutUserNestedInput
     stargazing_spot_reviews?: stargazing_spot_reviewsUpdateManyWithoutUserNestedInput
     created_sessions?: sessionsUpdateManyWithoutCreatorNestedInput
+    session_enrollments?: session_enrollmentsUpdateManyWithoutUserNestedInput
     subscriptions?: subscriptionsUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUpdateOneWithoutUsersNestedInput
     created_polls?: pollsUpdateManyWithoutCreatorNestedInput
@@ -102923,6 +105111,7 @@ export namespace Prisma {
     space_news_likes?: space_news_likesUncheckedUpdateManyWithoutUserNestedInput
     stargazing_spot_reviews?: stargazing_spot_reviewsUncheckedUpdateManyWithoutUserNestedInput
     created_sessions?: sessionsUncheckedUpdateManyWithoutCreatorNestedInput
+    session_enrollments?: session_enrollmentsUncheckedUpdateManyWithoutUserNestedInput
     subscriptions?: subscriptionsUncheckedUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUncheckedUpdateOneWithoutUsersNestedInput
     created_polls?: pollsUncheckedUpdateManyWithoutCreatorNestedInput
@@ -103017,6 +105206,7 @@ export namespace Prisma {
     space_news_likes?: space_news_likesCreateNestedManyWithoutUserInput
     created_stargazing_spots?: stargazing_spotsCreateNestedManyWithoutCreatorInput
     created_sessions?: sessionsCreateNestedManyWithoutCreatorInput
+    session_enrollments?: session_enrollmentsCreateNestedManyWithoutUserInput
     subscriptions?: subscriptionsCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsCreateNestedOneWithoutUsersInput
     created_polls?: pollsCreateNestedManyWithoutCreatorInput
@@ -103078,6 +105268,7 @@ export namespace Prisma {
     space_news_likes?: space_news_likesUncheckedCreateNestedManyWithoutUserInput
     created_stargazing_spots?: stargazing_spotsUncheckedCreateNestedManyWithoutCreatorInput
     created_sessions?: sessionsUncheckedCreateNestedManyWithoutCreatorInput
+    session_enrollments?: session_enrollmentsUncheckedCreateNestedManyWithoutUserInput
     subscriptions?: subscriptionsUncheckedCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsUncheckedCreateNestedOneWithoutUsersInput
     created_polls?: pollsUncheckedCreateNestedManyWithoutCreatorInput
@@ -103194,6 +105385,7 @@ export namespace Prisma {
     space_news_likes?: space_news_likesUpdateManyWithoutUserNestedInput
     created_stargazing_spots?: stargazing_spotsUpdateManyWithoutCreatorNestedInput
     created_sessions?: sessionsUpdateManyWithoutCreatorNestedInput
+    session_enrollments?: session_enrollmentsUpdateManyWithoutUserNestedInput
     subscriptions?: subscriptionsUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUpdateOneWithoutUsersNestedInput
     created_polls?: pollsUpdateManyWithoutCreatorNestedInput
@@ -103255,6 +105447,7 @@ export namespace Prisma {
     space_news_likes?: space_news_likesUncheckedUpdateManyWithoutUserNestedInput
     created_stargazing_spots?: stargazing_spotsUncheckedUpdateManyWithoutCreatorNestedInput
     created_sessions?: sessionsUncheckedUpdateManyWithoutCreatorNestedInput
+    session_enrollments?: session_enrollmentsUncheckedUpdateManyWithoutUserNestedInput
     subscriptions?: subscriptionsUncheckedUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUncheckedUpdateOneWithoutUsersNestedInput
     created_polls?: pollsUncheckedUpdateManyWithoutCreatorNestedInput
@@ -103315,6 +105508,7 @@ export namespace Prisma {
     space_news_likes?: space_news_likesCreateNestedManyWithoutUserInput
     stargazing_spot_reviews?: stargazing_spot_reviewsCreateNestedManyWithoutUserInput
     created_stargazing_spots?: stargazing_spotsCreateNestedManyWithoutCreatorInput
+    session_enrollments?: session_enrollmentsCreateNestedManyWithoutUserInput
     subscriptions?: subscriptionsCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsCreateNestedOneWithoutUsersInput
     created_polls?: pollsCreateNestedManyWithoutCreatorInput
@@ -103376,6 +105570,7 @@ export namespace Prisma {
     space_news_likes?: space_news_likesUncheckedCreateNestedManyWithoutUserInput
     stargazing_spot_reviews?: stargazing_spot_reviewsUncheckedCreateNestedManyWithoutUserInput
     created_stargazing_spots?: stargazing_spotsUncheckedCreateNestedManyWithoutCreatorInput
+    session_enrollments?: session_enrollmentsUncheckedCreateNestedManyWithoutUserInput
     subscriptions?: subscriptionsUncheckedCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsUncheckedCreateNestedOneWithoutUsersInput
     created_polls?: pollsUncheckedCreateNestedManyWithoutCreatorInput
@@ -103386,6 +105581,49 @@ export namespace Prisma {
   export type usersCreateOrConnectWithoutCreated_sessionsInput = {
     where: usersWhereUniqueInput
     create: XOR<usersCreateWithoutCreated_sessionsInput, usersUncheckedCreateWithoutCreated_sessionsInput>
+  }
+
+  export type session_enrollmentsCreateWithoutSessionInput = {
+    enrollment_date?: Date | string
+    payment_status?: $Enums.enrollment_payment_status
+    payment_amount?: Decimal | DecimalJsLike | number | string | null
+    payment_method?: string | null
+    transaction_id?: string | null
+    access_granted?: boolean
+    completed?: boolean
+    progress?: number | null
+    last_accessed_at?: Date | string | null
+    notes?: string | null
+    created_at?: Date | string
+    updated_at?: Date | string
+    user: usersCreateNestedOneWithoutSession_enrollmentsInput
+  }
+
+  export type session_enrollmentsUncheckedCreateWithoutSessionInput = {
+    id?: number
+    user_id: number
+    enrollment_date?: Date | string
+    payment_status?: $Enums.enrollment_payment_status
+    payment_amount?: Decimal | DecimalJsLike | number | string | null
+    payment_method?: string | null
+    transaction_id?: string | null
+    access_granted?: boolean
+    completed?: boolean
+    progress?: number | null
+    last_accessed_at?: Date | string | null
+    notes?: string | null
+    created_at?: Date | string
+    updated_at?: Date | string
+  }
+
+  export type session_enrollmentsCreateOrConnectWithoutSessionInput = {
+    where: session_enrollmentsWhereUniqueInput
+    create: XOR<session_enrollmentsCreateWithoutSessionInput, session_enrollmentsUncheckedCreateWithoutSessionInput>
+  }
+
+  export type session_enrollmentsCreateManySessionInputEnvelope = {
+    data: session_enrollmentsCreateManySessionInput | session_enrollmentsCreateManySessionInput[]
+    skipDuplicates?: boolean
   }
 
   export type usersUpsertWithoutCreated_sessionsInput = {
@@ -103452,6 +105690,7 @@ export namespace Prisma {
     space_news_likes?: space_news_likesUpdateManyWithoutUserNestedInput
     stargazing_spot_reviews?: stargazing_spot_reviewsUpdateManyWithoutUserNestedInput
     created_stargazing_spots?: stargazing_spotsUpdateManyWithoutCreatorNestedInput
+    session_enrollments?: session_enrollmentsUpdateManyWithoutUserNestedInput
     subscriptions?: subscriptionsUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUpdateOneWithoutUsersNestedInput
     created_polls?: pollsUpdateManyWithoutCreatorNestedInput
@@ -103513,11 +105752,396 @@ export namespace Prisma {
     space_news_likes?: space_news_likesUncheckedUpdateManyWithoutUserNestedInput
     stargazing_spot_reviews?: stargazing_spot_reviewsUncheckedUpdateManyWithoutUserNestedInput
     created_stargazing_spots?: stargazing_spotsUncheckedUpdateManyWithoutCreatorNestedInput
+    session_enrollments?: session_enrollmentsUncheckedUpdateManyWithoutUserNestedInput
     subscriptions?: subscriptionsUncheckedUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUncheckedUpdateOneWithoutUsersNestedInput
     created_polls?: pollsUncheckedUpdateManyWithoutCreatorNestedInput
     poll_votes?: poll_votesUncheckedUpdateManyWithoutVoterNestedInput
     poll_comments?: poll_commentsUncheckedUpdateManyWithoutCommenterNestedInput
+  }
+
+  export type session_enrollmentsUpsertWithWhereUniqueWithoutSessionInput = {
+    where: session_enrollmentsWhereUniqueInput
+    update: XOR<session_enrollmentsUpdateWithoutSessionInput, session_enrollmentsUncheckedUpdateWithoutSessionInput>
+    create: XOR<session_enrollmentsCreateWithoutSessionInput, session_enrollmentsUncheckedCreateWithoutSessionInput>
+  }
+
+  export type session_enrollmentsUpdateWithWhereUniqueWithoutSessionInput = {
+    where: session_enrollmentsWhereUniqueInput
+    data: XOR<session_enrollmentsUpdateWithoutSessionInput, session_enrollmentsUncheckedUpdateWithoutSessionInput>
+  }
+
+  export type session_enrollmentsUpdateManyWithWhereWithoutSessionInput = {
+    where: session_enrollmentsScalarWhereInput
+    data: XOR<session_enrollmentsUpdateManyMutationInput, session_enrollmentsUncheckedUpdateManyWithoutSessionInput>
+  }
+
+  export type usersCreateWithoutSession_enrollmentsInput = {
+    firebase_uid: string
+    email: string
+    role?: $Enums.user_role | null
+    first_name?: string | null
+    last_name?: string | null
+    is_active?: boolean | null
+    last_login?: Date | string | null
+    created_at?: Date | string | null
+    updated_at?: Date | string | null
+    display_name?: string | null
+    profile_data?: NullableJsonNullValueInput | InputJsonValue
+    role_specific_data?: NullableJsonNullValueInput | InputJsonValue
+    subscription_plan?: $Enums.subscription_plan | null
+    subscription_status?: $Enums.subscription_status | null
+    subscription_start_date?: Date | string | null
+    subscription_end_date?: Date | string | null
+    auto_renew?: boolean | null
+    chatbot_questions_used?: number | null
+    chatbot_questions_reset_date?: Date | string | null
+    QuizParticipants?: QuizParticipantsCreateNestedManyWithoutUsersInput
+    Quizzes?: QuizzesCreateNestedManyWithoutUsersInput
+    created_astronomy_events?: astronomy_eventsCreateNestedManyWithoutCreatorInput
+    blog_comments?: blog_commentsCreateNestedManyWithoutUsersInput
+    blog_likes?: blog_likesCreateNestedManyWithoutUsersInput
+    blog_views?: blog_viewsCreateNestedManyWithoutUsersInput
+    blogs?: blogsCreateNestedManyWithoutUsersInput
+    chat_messages?: chat_messagesCreateNestedManyWithoutUserInput
+    chatbot_sessions?: chatbot_sessionsCreateNestedManyWithoutUsersInput
+    chatbot_usage?: chatbot_usageCreateNestedManyWithoutUsersInput
+    event_reminders?: event_remindersCreateNestedManyWithoutUserInput
+    created_groups?: group_chatsCreateNestedManyWithoutCreatorInput
+    group_memberships?: group_membersCreateNestedManyWithoutUserInput
+    guide_application?: guide_applicationCreateNestedManyWithoutUsersInput
+    influencer_application?: influencer_applicationCreateNestedManyWithoutUsersInput
+    media_uploads?: media_uploadsCreateNestedManyWithoutUserInput
+    mentor_application?: mentor_applicationCreateNestedManyWithoutUsersInput
+    message_reactions?: message_reactionsCreateNestedManyWithoutUserInput
+    night_camp_registrations?: night_camp_registrationsCreateNestedManyWithoutUsersInput
+    night_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousers?: night_camp_volunteering_applicationsCreateNestedManyWithoutUsers_night_camp_volunteering_applications_reviewed_byTousersInput
+    night_camp_volunteering_applications_night_camp_volunteering_applications_user_idTousers?: night_camp_volunteering_applicationsCreateNestedManyWithoutUsers_night_camp_volunteering_applications_user_idTousersInput
+    payments?: paymentsCreateNestedManyWithoutUsersInput
+    role_upgrade_requests_role_upgrade_requests_reviewer_idTousers?: role_upgrade_requestsCreateNestedManyWithoutUsers_role_upgrade_requests_reviewer_idTousersInput
+    role_upgrade_requests_role_upgrade_requests_user_idTousers?: role_upgrade_requestsCreateNestedManyWithoutUsers_role_upgrade_requests_user_idTousersInput
+    discussion_comment_likes?: space_discussion_comment_likesCreateNestedManyWithoutUserInput
+    discussion_comments?: space_discussion_commentsCreateNestedManyWithoutUserInput
+    discussion_likes?: space_discussion_likesCreateNestedManyWithoutUserInput
+    authored_discussions?: space_discussionsCreateNestedManyWithoutAuthorInput
+    space_news_published?: space_newsCreateNestedManyWithoutPublisherInput
+    space_news_comments?: space_news_commentsCreateNestedManyWithoutUserInput
+    space_news_likes?: space_news_likesCreateNestedManyWithoutUserInput
+    stargazing_spot_reviews?: stargazing_spot_reviewsCreateNestedManyWithoutUserInput
+    created_stargazing_spots?: stargazing_spotsCreateNestedManyWithoutCreatorInput
+    created_sessions?: sessionsCreateNestedManyWithoutCreatorInput
+    subscriptions?: subscriptionsCreateNestedManyWithoutUsersInput
+    user_settings?: user_settingsCreateNestedOneWithoutUsersInput
+    created_polls?: pollsCreateNestedManyWithoutCreatorInput
+    poll_votes?: poll_votesCreateNestedManyWithoutVoterInput
+    poll_comments?: poll_commentsCreateNestedManyWithoutCommenterInput
+  }
+
+  export type usersUncheckedCreateWithoutSession_enrollmentsInput = {
+    id?: number
+    firebase_uid: string
+    email: string
+    role?: $Enums.user_role | null
+    first_name?: string | null
+    last_name?: string | null
+    is_active?: boolean | null
+    last_login?: Date | string | null
+    created_at?: Date | string | null
+    updated_at?: Date | string | null
+    display_name?: string | null
+    profile_data?: NullableJsonNullValueInput | InputJsonValue
+    role_specific_data?: NullableJsonNullValueInput | InputJsonValue
+    subscription_plan?: $Enums.subscription_plan | null
+    subscription_status?: $Enums.subscription_status | null
+    subscription_start_date?: Date | string | null
+    subscription_end_date?: Date | string | null
+    auto_renew?: boolean | null
+    chatbot_questions_used?: number | null
+    chatbot_questions_reset_date?: Date | string | null
+    QuizParticipants?: QuizParticipantsUncheckedCreateNestedManyWithoutUsersInput
+    Quizzes?: QuizzesUncheckedCreateNestedManyWithoutUsersInput
+    created_astronomy_events?: astronomy_eventsUncheckedCreateNestedManyWithoutCreatorInput
+    blog_comments?: blog_commentsUncheckedCreateNestedManyWithoutUsersInput
+    blog_likes?: blog_likesUncheckedCreateNestedManyWithoutUsersInput
+    blog_views?: blog_viewsUncheckedCreateNestedManyWithoutUsersInput
+    blogs?: blogsUncheckedCreateNestedManyWithoutUsersInput
+    chat_messages?: chat_messagesUncheckedCreateNestedManyWithoutUserInput
+    chatbot_sessions?: chatbot_sessionsUncheckedCreateNestedManyWithoutUsersInput
+    chatbot_usage?: chatbot_usageUncheckedCreateNestedManyWithoutUsersInput
+    event_reminders?: event_remindersUncheckedCreateNestedManyWithoutUserInput
+    created_groups?: group_chatsUncheckedCreateNestedManyWithoutCreatorInput
+    group_memberships?: group_membersUncheckedCreateNestedManyWithoutUserInput
+    guide_application?: guide_applicationUncheckedCreateNestedManyWithoutUsersInput
+    influencer_application?: influencer_applicationUncheckedCreateNestedManyWithoutUsersInput
+    media_uploads?: media_uploadsUncheckedCreateNestedManyWithoutUserInput
+    mentor_application?: mentor_applicationUncheckedCreateNestedManyWithoutUsersInput
+    message_reactions?: message_reactionsUncheckedCreateNestedManyWithoutUserInput
+    night_camp_registrations?: night_camp_registrationsUncheckedCreateNestedManyWithoutUsersInput
+    night_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousers?: night_camp_volunteering_applicationsUncheckedCreateNestedManyWithoutUsers_night_camp_volunteering_applications_reviewed_byTousersInput
+    night_camp_volunteering_applications_night_camp_volunteering_applications_user_idTousers?: night_camp_volunteering_applicationsUncheckedCreateNestedManyWithoutUsers_night_camp_volunteering_applications_user_idTousersInput
+    payments?: paymentsUncheckedCreateNestedManyWithoutUsersInput
+    role_upgrade_requests_role_upgrade_requests_reviewer_idTousers?: role_upgrade_requestsUncheckedCreateNestedManyWithoutUsers_role_upgrade_requests_reviewer_idTousersInput
+    role_upgrade_requests_role_upgrade_requests_user_idTousers?: role_upgrade_requestsUncheckedCreateNestedManyWithoutUsers_role_upgrade_requests_user_idTousersInput
+    discussion_comment_likes?: space_discussion_comment_likesUncheckedCreateNestedManyWithoutUserInput
+    discussion_comments?: space_discussion_commentsUncheckedCreateNestedManyWithoutUserInput
+    discussion_likes?: space_discussion_likesUncheckedCreateNestedManyWithoutUserInput
+    authored_discussions?: space_discussionsUncheckedCreateNestedManyWithoutAuthorInput
+    space_news_published?: space_newsUncheckedCreateNestedManyWithoutPublisherInput
+    space_news_comments?: space_news_commentsUncheckedCreateNestedManyWithoutUserInput
+    space_news_likes?: space_news_likesUncheckedCreateNestedManyWithoutUserInput
+    stargazing_spot_reviews?: stargazing_spot_reviewsUncheckedCreateNestedManyWithoutUserInput
+    created_stargazing_spots?: stargazing_spotsUncheckedCreateNestedManyWithoutCreatorInput
+    created_sessions?: sessionsUncheckedCreateNestedManyWithoutCreatorInput
+    subscriptions?: subscriptionsUncheckedCreateNestedManyWithoutUsersInput
+    user_settings?: user_settingsUncheckedCreateNestedOneWithoutUsersInput
+    created_polls?: pollsUncheckedCreateNestedManyWithoutCreatorInput
+    poll_votes?: poll_votesUncheckedCreateNestedManyWithoutVoterInput
+    poll_comments?: poll_commentsUncheckedCreateNestedManyWithoutCommenterInput
+  }
+
+  export type usersCreateOrConnectWithoutSession_enrollmentsInput = {
+    where: usersWhereUniqueInput
+    create: XOR<usersCreateWithoutSession_enrollmentsInput, usersUncheckedCreateWithoutSession_enrollmentsInput>
+  }
+
+  export type sessionsCreateWithoutEnrollmentsInput = {
+    title: string
+    session_type: $Enums.session_type
+    payment_type: $Enums.payment_type
+    price?: Decimal | DecimalJsLike | number | string | null
+    duration: number
+    session_date: Date | string
+    session_time: Date | string
+    max_participants?: number | null
+    difficulty_level: $Enums.difficulty_level
+    session_link?: string | null
+    description: string
+    materials?: NullableJsonNullValueInput | InputJsonValue
+    session_notes?: string | null
+    created_date?: Date | string
+    created_time?: Date | string
+    is_enabled?: boolean
+    created_at?: Date | string
+    updated_at?: Date | string
+    creator: usersCreateNestedOneWithoutCreated_sessionsInput
+  }
+
+  export type sessionsUncheckedCreateWithoutEnrollmentsInput = {
+    id?: number
+    title: string
+    session_type: $Enums.session_type
+    payment_type: $Enums.payment_type
+    price?: Decimal | DecimalJsLike | number | string | null
+    duration: number
+    session_date: Date | string
+    session_time: Date | string
+    max_participants?: number | null
+    difficulty_level: $Enums.difficulty_level
+    session_link?: string | null
+    description: string
+    materials?: NullableJsonNullValueInput | InputJsonValue
+    session_notes?: string | null
+    created_by: number
+    created_date?: Date | string
+    created_time?: Date | string
+    is_enabled?: boolean
+    created_at?: Date | string
+    updated_at?: Date | string
+  }
+
+  export type sessionsCreateOrConnectWithoutEnrollmentsInput = {
+    where: sessionsWhereUniqueInput
+    create: XOR<sessionsCreateWithoutEnrollmentsInput, sessionsUncheckedCreateWithoutEnrollmentsInput>
+  }
+
+  export type usersUpsertWithoutSession_enrollmentsInput = {
+    update: XOR<usersUpdateWithoutSession_enrollmentsInput, usersUncheckedUpdateWithoutSession_enrollmentsInput>
+    create: XOR<usersCreateWithoutSession_enrollmentsInput, usersUncheckedCreateWithoutSession_enrollmentsInput>
+    where?: usersWhereInput
+  }
+
+  export type usersUpdateToOneWithWhereWithoutSession_enrollmentsInput = {
+    where?: usersWhereInput
+    data: XOR<usersUpdateWithoutSession_enrollmentsInput, usersUncheckedUpdateWithoutSession_enrollmentsInput>
+  }
+
+  export type usersUpdateWithoutSession_enrollmentsInput = {
+    firebase_uid?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    role?: NullableEnumuser_roleFieldUpdateOperationsInput | $Enums.user_role | null
+    first_name?: NullableStringFieldUpdateOperationsInput | string | null
+    last_name?: NullableStringFieldUpdateOperationsInput | string | null
+    is_active?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    last_login?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    display_name?: NullableStringFieldUpdateOperationsInput | string | null
+    profile_data?: NullableJsonNullValueInput | InputJsonValue
+    role_specific_data?: NullableJsonNullValueInput | InputJsonValue
+    subscription_plan?: NullableEnumsubscription_planFieldUpdateOperationsInput | $Enums.subscription_plan | null
+    subscription_status?: NullableEnumsubscription_statusFieldUpdateOperationsInput | $Enums.subscription_status | null
+    subscription_start_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    subscription_end_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    auto_renew?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    chatbot_questions_used?: NullableIntFieldUpdateOperationsInput | number | null
+    chatbot_questions_reset_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    QuizParticipants?: QuizParticipantsUpdateManyWithoutUsersNestedInput
+    Quizzes?: QuizzesUpdateManyWithoutUsersNestedInput
+    created_astronomy_events?: astronomy_eventsUpdateManyWithoutCreatorNestedInput
+    blog_comments?: blog_commentsUpdateManyWithoutUsersNestedInput
+    blog_likes?: blog_likesUpdateManyWithoutUsersNestedInput
+    blog_views?: blog_viewsUpdateManyWithoutUsersNestedInput
+    blogs?: blogsUpdateManyWithoutUsersNestedInput
+    chat_messages?: chat_messagesUpdateManyWithoutUserNestedInput
+    chatbot_sessions?: chatbot_sessionsUpdateManyWithoutUsersNestedInput
+    chatbot_usage?: chatbot_usageUpdateManyWithoutUsersNestedInput
+    event_reminders?: event_remindersUpdateManyWithoutUserNestedInput
+    created_groups?: group_chatsUpdateManyWithoutCreatorNestedInput
+    group_memberships?: group_membersUpdateManyWithoutUserNestedInput
+    guide_application?: guide_applicationUpdateManyWithoutUsersNestedInput
+    influencer_application?: influencer_applicationUpdateManyWithoutUsersNestedInput
+    media_uploads?: media_uploadsUpdateManyWithoutUserNestedInput
+    mentor_application?: mentor_applicationUpdateManyWithoutUsersNestedInput
+    message_reactions?: message_reactionsUpdateManyWithoutUserNestedInput
+    night_camp_registrations?: night_camp_registrationsUpdateManyWithoutUsersNestedInput
+    night_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousers?: night_camp_volunteering_applicationsUpdateManyWithoutUsers_night_camp_volunteering_applications_reviewed_byTousersNestedInput
+    night_camp_volunteering_applications_night_camp_volunteering_applications_user_idTousers?: night_camp_volunteering_applicationsUpdateManyWithoutUsers_night_camp_volunteering_applications_user_idTousersNestedInput
+    payments?: paymentsUpdateManyWithoutUsersNestedInput
+    role_upgrade_requests_role_upgrade_requests_reviewer_idTousers?: role_upgrade_requestsUpdateManyWithoutUsers_role_upgrade_requests_reviewer_idTousersNestedInput
+    role_upgrade_requests_role_upgrade_requests_user_idTousers?: role_upgrade_requestsUpdateManyWithoutUsers_role_upgrade_requests_user_idTousersNestedInput
+    discussion_comment_likes?: space_discussion_comment_likesUpdateManyWithoutUserNestedInput
+    discussion_comments?: space_discussion_commentsUpdateManyWithoutUserNestedInput
+    discussion_likes?: space_discussion_likesUpdateManyWithoutUserNestedInput
+    authored_discussions?: space_discussionsUpdateManyWithoutAuthorNestedInput
+    space_news_published?: space_newsUpdateManyWithoutPublisherNestedInput
+    space_news_comments?: space_news_commentsUpdateManyWithoutUserNestedInput
+    space_news_likes?: space_news_likesUpdateManyWithoutUserNestedInput
+    stargazing_spot_reviews?: stargazing_spot_reviewsUpdateManyWithoutUserNestedInput
+    created_stargazing_spots?: stargazing_spotsUpdateManyWithoutCreatorNestedInput
+    created_sessions?: sessionsUpdateManyWithoutCreatorNestedInput
+    subscriptions?: subscriptionsUpdateManyWithoutUsersNestedInput
+    user_settings?: user_settingsUpdateOneWithoutUsersNestedInput
+    created_polls?: pollsUpdateManyWithoutCreatorNestedInput
+    poll_votes?: poll_votesUpdateManyWithoutVoterNestedInput
+    poll_comments?: poll_commentsUpdateManyWithoutCommenterNestedInput
+  }
+
+  export type usersUncheckedUpdateWithoutSession_enrollmentsInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    firebase_uid?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    role?: NullableEnumuser_roleFieldUpdateOperationsInput | $Enums.user_role | null
+    first_name?: NullableStringFieldUpdateOperationsInput | string | null
+    last_name?: NullableStringFieldUpdateOperationsInput | string | null
+    is_active?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    last_login?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    display_name?: NullableStringFieldUpdateOperationsInput | string | null
+    profile_data?: NullableJsonNullValueInput | InputJsonValue
+    role_specific_data?: NullableJsonNullValueInput | InputJsonValue
+    subscription_plan?: NullableEnumsubscription_planFieldUpdateOperationsInput | $Enums.subscription_plan | null
+    subscription_status?: NullableEnumsubscription_statusFieldUpdateOperationsInput | $Enums.subscription_status | null
+    subscription_start_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    subscription_end_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    auto_renew?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    chatbot_questions_used?: NullableIntFieldUpdateOperationsInput | number | null
+    chatbot_questions_reset_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    QuizParticipants?: QuizParticipantsUncheckedUpdateManyWithoutUsersNestedInput
+    Quizzes?: QuizzesUncheckedUpdateManyWithoutUsersNestedInput
+    created_astronomy_events?: astronomy_eventsUncheckedUpdateManyWithoutCreatorNestedInput
+    blog_comments?: blog_commentsUncheckedUpdateManyWithoutUsersNestedInput
+    blog_likes?: blog_likesUncheckedUpdateManyWithoutUsersNestedInput
+    blog_views?: blog_viewsUncheckedUpdateManyWithoutUsersNestedInput
+    blogs?: blogsUncheckedUpdateManyWithoutUsersNestedInput
+    chat_messages?: chat_messagesUncheckedUpdateManyWithoutUserNestedInput
+    chatbot_sessions?: chatbot_sessionsUncheckedUpdateManyWithoutUsersNestedInput
+    chatbot_usage?: chatbot_usageUncheckedUpdateManyWithoutUsersNestedInput
+    event_reminders?: event_remindersUncheckedUpdateManyWithoutUserNestedInput
+    created_groups?: group_chatsUncheckedUpdateManyWithoutCreatorNestedInput
+    group_memberships?: group_membersUncheckedUpdateManyWithoutUserNestedInput
+    guide_application?: guide_applicationUncheckedUpdateManyWithoutUsersNestedInput
+    influencer_application?: influencer_applicationUncheckedUpdateManyWithoutUsersNestedInput
+    media_uploads?: media_uploadsUncheckedUpdateManyWithoutUserNestedInput
+    mentor_application?: mentor_applicationUncheckedUpdateManyWithoutUsersNestedInput
+    message_reactions?: message_reactionsUncheckedUpdateManyWithoutUserNestedInput
+    night_camp_registrations?: night_camp_registrationsUncheckedUpdateManyWithoutUsersNestedInput
+    night_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousers?: night_camp_volunteering_applicationsUncheckedUpdateManyWithoutUsers_night_camp_volunteering_applications_reviewed_byTousersNestedInput
+    night_camp_volunteering_applications_night_camp_volunteering_applications_user_idTousers?: night_camp_volunteering_applicationsUncheckedUpdateManyWithoutUsers_night_camp_volunteering_applications_user_idTousersNestedInput
+    payments?: paymentsUncheckedUpdateManyWithoutUsersNestedInput
+    role_upgrade_requests_role_upgrade_requests_reviewer_idTousers?: role_upgrade_requestsUncheckedUpdateManyWithoutUsers_role_upgrade_requests_reviewer_idTousersNestedInput
+    role_upgrade_requests_role_upgrade_requests_user_idTousers?: role_upgrade_requestsUncheckedUpdateManyWithoutUsers_role_upgrade_requests_user_idTousersNestedInput
+    discussion_comment_likes?: space_discussion_comment_likesUncheckedUpdateManyWithoutUserNestedInput
+    discussion_comments?: space_discussion_commentsUncheckedUpdateManyWithoutUserNestedInput
+    discussion_likes?: space_discussion_likesUncheckedUpdateManyWithoutUserNestedInput
+    authored_discussions?: space_discussionsUncheckedUpdateManyWithoutAuthorNestedInput
+    space_news_published?: space_newsUncheckedUpdateManyWithoutPublisherNestedInput
+    space_news_comments?: space_news_commentsUncheckedUpdateManyWithoutUserNestedInput
+    space_news_likes?: space_news_likesUncheckedUpdateManyWithoutUserNestedInput
+    stargazing_spot_reviews?: stargazing_spot_reviewsUncheckedUpdateManyWithoutUserNestedInput
+    created_stargazing_spots?: stargazing_spotsUncheckedUpdateManyWithoutCreatorNestedInput
+    created_sessions?: sessionsUncheckedUpdateManyWithoutCreatorNestedInput
+    subscriptions?: subscriptionsUncheckedUpdateManyWithoutUsersNestedInput
+    user_settings?: user_settingsUncheckedUpdateOneWithoutUsersNestedInput
+    created_polls?: pollsUncheckedUpdateManyWithoutCreatorNestedInput
+    poll_votes?: poll_votesUncheckedUpdateManyWithoutVoterNestedInput
+    poll_comments?: poll_commentsUncheckedUpdateManyWithoutCommenterNestedInput
+  }
+
+  export type sessionsUpsertWithoutEnrollmentsInput = {
+    update: XOR<sessionsUpdateWithoutEnrollmentsInput, sessionsUncheckedUpdateWithoutEnrollmentsInput>
+    create: XOR<sessionsCreateWithoutEnrollmentsInput, sessionsUncheckedCreateWithoutEnrollmentsInput>
+    where?: sessionsWhereInput
+  }
+
+  export type sessionsUpdateToOneWithWhereWithoutEnrollmentsInput = {
+    where?: sessionsWhereInput
+    data: XOR<sessionsUpdateWithoutEnrollmentsInput, sessionsUncheckedUpdateWithoutEnrollmentsInput>
+  }
+
+  export type sessionsUpdateWithoutEnrollmentsInput = {
+    title?: StringFieldUpdateOperationsInput | string
+    session_type?: Enumsession_typeFieldUpdateOperationsInput | $Enums.session_type
+    payment_type?: Enumpayment_typeFieldUpdateOperationsInput | $Enums.payment_type
+    price?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    duration?: IntFieldUpdateOperationsInput | number
+    session_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    session_time?: DateTimeFieldUpdateOperationsInput | Date | string
+    max_participants?: NullableIntFieldUpdateOperationsInput | number | null
+    difficulty_level?: Enumdifficulty_levelFieldUpdateOperationsInput | $Enums.difficulty_level
+    session_link?: NullableStringFieldUpdateOperationsInput | string | null
+    description?: StringFieldUpdateOperationsInput | string
+    materials?: NullableJsonNullValueInput | InputJsonValue
+    session_notes?: NullableStringFieldUpdateOperationsInput | string | null
+    created_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    created_time?: DateTimeFieldUpdateOperationsInput | Date | string
+    is_enabled?: BoolFieldUpdateOperationsInput | boolean
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    creator?: usersUpdateOneRequiredWithoutCreated_sessionsNestedInput
+  }
+
+  export type sessionsUncheckedUpdateWithoutEnrollmentsInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    title?: StringFieldUpdateOperationsInput | string
+    session_type?: Enumsession_typeFieldUpdateOperationsInput | $Enums.session_type
+    payment_type?: Enumpayment_typeFieldUpdateOperationsInput | $Enums.payment_type
+    price?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    duration?: IntFieldUpdateOperationsInput | number
+    session_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    session_time?: DateTimeFieldUpdateOperationsInput | Date | string
+    max_participants?: NullableIntFieldUpdateOperationsInput | number | null
+    difficulty_level?: Enumdifficulty_levelFieldUpdateOperationsInput | $Enums.difficulty_level
+    session_link?: NullableStringFieldUpdateOperationsInput | string | null
+    description?: StringFieldUpdateOperationsInput | string
+    materials?: NullableJsonNullValueInput | InputJsonValue
+    session_notes?: NullableStringFieldUpdateOperationsInput | string | null
+    created_by?: IntFieldUpdateOperationsInput | number
+    created_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    created_time?: DateTimeFieldUpdateOperationsInput | Date | string
+    is_enabled?: BoolFieldUpdateOperationsInput | boolean
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type usersCreateWithoutCreated_pollsInput = {
@@ -103574,6 +106198,7 @@ export namespace Prisma {
     stargazing_spot_reviews?: stargazing_spot_reviewsCreateNestedManyWithoutUserInput
     created_stargazing_spots?: stargazing_spotsCreateNestedManyWithoutCreatorInput
     created_sessions?: sessionsCreateNestedManyWithoutCreatorInput
+    session_enrollments?: session_enrollmentsCreateNestedManyWithoutUserInput
     subscriptions?: subscriptionsCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsCreateNestedOneWithoutUsersInput
     poll_votes?: poll_votesCreateNestedManyWithoutVoterInput
@@ -103635,6 +106260,7 @@ export namespace Prisma {
     stargazing_spot_reviews?: stargazing_spot_reviewsUncheckedCreateNestedManyWithoutUserInput
     created_stargazing_spots?: stargazing_spotsUncheckedCreateNestedManyWithoutCreatorInput
     created_sessions?: sessionsUncheckedCreateNestedManyWithoutCreatorInput
+    session_enrollments?: session_enrollmentsUncheckedCreateNestedManyWithoutUserInput
     subscriptions?: subscriptionsUncheckedCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsUncheckedCreateNestedOneWithoutUsersInput
     poll_votes?: poll_votesUncheckedCreateNestedManyWithoutVoterInput
@@ -103761,6 +106387,7 @@ export namespace Prisma {
     stargazing_spot_reviews?: stargazing_spot_reviewsUpdateManyWithoutUserNestedInput
     created_stargazing_spots?: stargazing_spotsUpdateManyWithoutCreatorNestedInput
     created_sessions?: sessionsUpdateManyWithoutCreatorNestedInput
+    session_enrollments?: session_enrollmentsUpdateManyWithoutUserNestedInput
     subscriptions?: subscriptionsUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUpdateOneWithoutUsersNestedInput
     poll_votes?: poll_votesUpdateManyWithoutVoterNestedInput
@@ -103822,6 +106449,7 @@ export namespace Prisma {
     stargazing_spot_reviews?: stargazing_spot_reviewsUncheckedUpdateManyWithoutUserNestedInput
     created_stargazing_spots?: stargazing_spotsUncheckedUpdateManyWithoutCreatorNestedInput
     created_sessions?: sessionsUncheckedUpdateManyWithoutCreatorNestedInput
+    session_enrollments?: session_enrollmentsUncheckedUpdateManyWithoutUserNestedInput
     subscriptions?: subscriptionsUncheckedUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUncheckedUpdateOneWithoutUsersNestedInput
     poll_votes?: poll_votesUncheckedUpdateManyWithoutVoterNestedInput
@@ -104042,6 +106670,7 @@ export namespace Prisma {
     stargazing_spot_reviews?: stargazing_spot_reviewsCreateNestedManyWithoutUserInput
     created_stargazing_spots?: stargazing_spotsCreateNestedManyWithoutCreatorInput
     created_sessions?: sessionsCreateNestedManyWithoutCreatorInput
+    session_enrollments?: session_enrollmentsCreateNestedManyWithoutUserInput
     subscriptions?: subscriptionsCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsCreateNestedOneWithoutUsersInput
     created_polls?: pollsCreateNestedManyWithoutCreatorInput
@@ -104103,6 +106732,7 @@ export namespace Prisma {
     stargazing_spot_reviews?: stargazing_spot_reviewsUncheckedCreateNestedManyWithoutUserInput
     created_stargazing_spots?: stargazing_spotsUncheckedCreateNestedManyWithoutCreatorInput
     created_sessions?: sessionsUncheckedCreateNestedManyWithoutCreatorInput
+    session_enrollments?: session_enrollmentsUncheckedCreateNestedManyWithoutUserInput
     subscriptions?: subscriptionsUncheckedCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsUncheckedCreateNestedOneWithoutUsersInput
     created_polls?: pollsUncheckedCreateNestedManyWithoutCreatorInput
@@ -104205,6 +106835,7 @@ export namespace Prisma {
     stargazing_spot_reviews?: stargazing_spot_reviewsUpdateManyWithoutUserNestedInput
     created_stargazing_spots?: stargazing_spotsUpdateManyWithoutCreatorNestedInput
     created_sessions?: sessionsUpdateManyWithoutCreatorNestedInput
+    session_enrollments?: session_enrollmentsUpdateManyWithoutUserNestedInput
     subscriptions?: subscriptionsUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUpdateOneWithoutUsersNestedInput
     created_polls?: pollsUpdateManyWithoutCreatorNestedInput
@@ -104266,6 +106897,7 @@ export namespace Prisma {
     stargazing_spot_reviews?: stargazing_spot_reviewsUncheckedUpdateManyWithoutUserNestedInput
     created_stargazing_spots?: stargazing_spotsUncheckedUpdateManyWithoutCreatorNestedInput
     created_sessions?: sessionsUncheckedUpdateManyWithoutCreatorNestedInput
+    session_enrollments?: session_enrollmentsUncheckedUpdateManyWithoutUserNestedInput
     subscriptions?: subscriptionsUncheckedUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUncheckedUpdateOneWithoutUsersNestedInput
     created_polls?: pollsUncheckedUpdateManyWithoutCreatorNestedInput
@@ -104352,6 +106984,7 @@ export namespace Prisma {
     stargazing_spot_reviews?: stargazing_spot_reviewsCreateNestedManyWithoutUserInput
     created_stargazing_spots?: stargazing_spotsCreateNestedManyWithoutCreatorInput
     created_sessions?: sessionsCreateNestedManyWithoutCreatorInput
+    session_enrollments?: session_enrollmentsCreateNestedManyWithoutUserInput
     subscriptions?: subscriptionsCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsCreateNestedOneWithoutUsersInput
     created_polls?: pollsCreateNestedManyWithoutCreatorInput
@@ -104413,6 +107046,7 @@ export namespace Prisma {
     stargazing_spot_reviews?: stargazing_spot_reviewsUncheckedCreateNestedManyWithoutUserInput
     created_stargazing_spots?: stargazing_spotsUncheckedCreateNestedManyWithoutCreatorInput
     created_sessions?: sessionsUncheckedCreateNestedManyWithoutCreatorInput
+    session_enrollments?: session_enrollmentsUncheckedCreateNestedManyWithoutUserInput
     subscriptions?: subscriptionsUncheckedCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsUncheckedCreateNestedOneWithoutUsersInput
     created_polls?: pollsUncheckedCreateNestedManyWithoutCreatorInput
@@ -104521,6 +107155,7 @@ export namespace Prisma {
     stargazing_spot_reviews?: stargazing_spot_reviewsUpdateManyWithoutUserNestedInput
     created_stargazing_spots?: stargazing_spotsUpdateManyWithoutCreatorNestedInput
     created_sessions?: sessionsUpdateManyWithoutCreatorNestedInput
+    session_enrollments?: session_enrollmentsUpdateManyWithoutUserNestedInput
     subscriptions?: subscriptionsUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUpdateOneWithoutUsersNestedInput
     created_polls?: pollsUpdateManyWithoutCreatorNestedInput
@@ -104582,6 +107217,7 @@ export namespace Prisma {
     stargazing_spot_reviews?: stargazing_spot_reviewsUncheckedUpdateManyWithoutUserNestedInput
     created_stargazing_spots?: stargazing_spotsUncheckedUpdateManyWithoutCreatorNestedInput
     created_sessions?: sessionsUncheckedUpdateManyWithoutCreatorNestedInput
+    session_enrollments?: session_enrollmentsUncheckedUpdateManyWithoutUserNestedInput
     subscriptions?: subscriptionsUncheckedUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUncheckedUpdateOneWithoutUsersNestedInput
     created_polls?: pollsUncheckedUpdateManyWithoutCreatorNestedInput
@@ -105701,6 +108337,23 @@ export namespace Prisma {
     created_date?: Date | string
     created_time?: Date | string
     is_enabled?: boolean
+    created_at?: Date | string
+    updated_at?: Date | string
+  }
+
+  export type session_enrollmentsCreateManyUserInput = {
+    id?: number
+    session_id: number
+    enrollment_date?: Date | string
+    payment_status?: $Enums.enrollment_payment_status
+    payment_amount?: Decimal | DecimalJsLike | number | string | null
+    payment_method?: string | null
+    transaction_id?: string | null
+    access_granted?: boolean
+    completed?: boolean
+    progress?: number | null
+    last_accessed_at?: Date | string | null
+    notes?: string | null
     created_at?: Date | string
     updated_at?: Date | string
   }
@@ -107048,6 +109701,7 @@ export namespace Prisma {
     is_enabled?: BoolFieldUpdateOperationsInput | boolean
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    enrollments?: session_enrollmentsUpdateManyWithoutSessionNestedInput
   }
 
   export type sessionsUncheckedUpdateWithoutCreatorInput = {
@@ -107070,6 +109724,7 @@ export namespace Prisma {
     is_enabled?: BoolFieldUpdateOperationsInput | boolean
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    enrollments?: session_enrollmentsUncheckedUpdateManyWithoutSessionNestedInput
   }
 
   export type sessionsUncheckedUpdateManyWithoutCreatorInput = {
@@ -107090,6 +109745,56 @@ export namespace Prisma {
     created_date?: DateTimeFieldUpdateOperationsInput | Date | string
     created_time?: DateTimeFieldUpdateOperationsInput | Date | string
     is_enabled?: BoolFieldUpdateOperationsInput | boolean
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type session_enrollmentsUpdateWithoutUserInput = {
+    enrollment_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    payment_status?: Enumenrollment_payment_statusFieldUpdateOperationsInput | $Enums.enrollment_payment_status
+    payment_amount?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    payment_method?: NullableStringFieldUpdateOperationsInput | string | null
+    transaction_id?: NullableStringFieldUpdateOperationsInput | string | null
+    access_granted?: BoolFieldUpdateOperationsInput | boolean
+    completed?: BoolFieldUpdateOperationsInput | boolean
+    progress?: NullableIntFieldUpdateOperationsInput | number | null
+    last_accessed_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    session?: sessionsUpdateOneRequiredWithoutEnrollmentsNestedInput
+  }
+
+  export type session_enrollmentsUncheckedUpdateWithoutUserInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    session_id?: IntFieldUpdateOperationsInput | number
+    enrollment_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    payment_status?: Enumenrollment_payment_statusFieldUpdateOperationsInput | $Enums.enrollment_payment_status
+    payment_amount?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    payment_method?: NullableStringFieldUpdateOperationsInput | string | null
+    transaction_id?: NullableStringFieldUpdateOperationsInput | string | null
+    access_granted?: BoolFieldUpdateOperationsInput | boolean
+    completed?: BoolFieldUpdateOperationsInput | boolean
+    progress?: NullableIntFieldUpdateOperationsInput | number | null
+    last_accessed_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type session_enrollmentsUncheckedUpdateManyWithoutUserInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    session_id?: IntFieldUpdateOperationsInput | number
+    enrollment_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    payment_status?: Enumenrollment_payment_statusFieldUpdateOperationsInput | $Enums.enrollment_payment_status
+    payment_amount?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    payment_method?: NullableStringFieldUpdateOperationsInput | string | null
+    transaction_id?: NullableStringFieldUpdateOperationsInput | string | null
+    access_granted?: BoolFieldUpdateOperationsInput | boolean
+    completed?: BoolFieldUpdateOperationsInput | boolean
+    progress?: NullableIntFieldUpdateOperationsInput | number | null
+    last_accessed_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -107608,6 +110313,73 @@ export namespace Prisma {
     user_id?: IntFieldUpdateOperationsInput | number
     rating?: IntFieldUpdateOperationsInput | number
     review_text?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type session_enrollmentsCreateManySessionInput = {
+    id?: number
+    user_id: number
+    enrollment_date?: Date | string
+    payment_status?: $Enums.enrollment_payment_status
+    payment_amount?: Decimal | DecimalJsLike | number | string | null
+    payment_method?: string | null
+    transaction_id?: string | null
+    access_granted?: boolean
+    completed?: boolean
+    progress?: number | null
+    last_accessed_at?: Date | string | null
+    notes?: string | null
+    created_at?: Date | string
+    updated_at?: Date | string
+  }
+
+  export type session_enrollmentsUpdateWithoutSessionInput = {
+    enrollment_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    payment_status?: Enumenrollment_payment_statusFieldUpdateOperationsInput | $Enums.enrollment_payment_status
+    payment_amount?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    payment_method?: NullableStringFieldUpdateOperationsInput | string | null
+    transaction_id?: NullableStringFieldUpdateOperationsInput | string | null
+    access_granted?: BoolFieldUpdateOperationsInput | boolean
+    completed?: BoolFieldUpdateOperationsInput | boolean
+    progress?: NullableIntFieldUpdateOperationsInput | number | null
+    last_accessed_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: usersUpdateOneRequiredWithoutSession_enrollmentsNestedInput
+  }
+
+  export type session_enrollmentsUncheckedUpdateWithoutSessionInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    user_id?: IntFieldUpdateOperationsInput | number
+    enrollment_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    payment_status?: Enumenrollment_payment_statusFieldUpdateOperationsInput | $Enums.enrollment_payment_status
+    payment_amount?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    payment_method?: NullableStringFieldUpdateOperationsInput | string | null
+    transaction_id?: NullableStringFieldUpdateOperationsInput | string | null
+    access_granted?: BoolFieldUpdateOperationsInput | boolean
+    completed?: BoolFieldUpdateOperationsInput | boolean
+    progress?: NullableIntFieldUpdateOperationsInput | number | null
+    last_accessed_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type session_enrollmentsUncheckedUpdateManyWithoutSessionInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    user_id?: IntFieldUpdateOperationsInput | number
+    enrollment_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    payment_status?: Enumenrollment_payment_statusFieldUpdateOperationsInput | $Enums.enrollment_payment_status
+    payment_amount?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    payment_method?: NullableStringFieldUpdateOperationsInput | string | null
+    transaction_id?: NullableStringFieldUpdateOperationsInput | string | null
+    access_granted?: BoolFieldUpdateOperationsInput | boolean
+    completed?: BoolFieldUpdateOperationsInput | boolean
+    progress?: NullableIntFieldUpdateOperationsInput | number | null
+    last_accessed_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }

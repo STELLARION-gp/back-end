@@ -338,6 +338,7 @@ model users {
   stargazing_spot_reviews                                                                      stargazing_spot_reviews[]              @relation("StargazingSpotReviews")
   created_stargazing_spots                                                                     stargazing_spots[]                     @relation("StargazingSpotCreator")
   created_sessions                                                                             sessions[]                             @relation("SessionCreator")
+  session_enrollments                                                                          session_enrollments[]                  @relation("UserSessionEnrollments")
   subscriptions                                                                                subscriptions[]
   user_settings                                                                                user_settings?
   created_polls                                                                                polls[]                                @relation("PollCreator")
@@ -911,27 +912,28 @@ model stargazing_spot_reviews {
 }
 
 model sessions {
-  id              Int              @id @default(autoincrement())
-  title           String           @db.VarChar(255)
+  id              Int                   @id @default(autoincrement())
+  title           String                @db.VarChar(255)
   session_type    session_type
   payment_type    payment_type
-  price           Decimal?         @db.Decimal(10, 2)
+  price           Decimal?              @db.Decimal(10, 2)
   duration        Int
-  session_date    DateTime         @db.Date
-  session_time    DateTime         @db.Time(6)
+  session_date    DateTime              @db.Date
+  session_time    DateTime              @db.Time(6)
   max_participants Int?
   difficulty_level difficulty_level
-  session_link    String?          @db.VarChar(500)
+  session_link    String?               @db.VarChar(500)
   description     String
-  materials       Json?            @default("[]")
+  materials       Json?                 @default("[]")
   session_notes   String?
   created_by      Int
-  created_date    DateTime         @default(now()) @db.Date
-  created_time    DateTime         @default(now()) @db.Time(6)
-  is_enabled      Boolean          @default(true)
-  created_at      DateTime         @default(now()) @db.Timestamp(6)
-  updated_at      DateTime         @default(now()) @updatedAt @db.Timestamp(6)
-  creator         users            @relation("SessionCreator", fields: [created_by], references: [id], onDelete: Cascade)
+  created_date    DateTime              @default(now()) @db.Date
+  created_time    DateTime              @default(now()) @db.Time(6)
+  is_enabled      Boolean               @default(true)
+  created_at      DateTime              @default(now()) @db.Timestamp(6)
+  updated_at      DateTime              @default(now()) @updatedAt @db.Timestamp(6)
+  creator         users                 @relation("SessionCreator", fields: [created_by], references: [id], onDelete: Cascade)
+  enrollments     session_enrollments[]
 
   @@index([session_type], map: "idx_sessions_type")
   @@index([payment_type], map: "idx_sessions_payment_type")
@@ -939,6 +941,33 @@ model sessions {
   @@index([difficulty_level], map: "idx_sessions_difficulty")
   @@index([created_by], map: "idx_sessions_created_by")
   @@index([is_enabled], map: "idx_sessions_enabled")
+}
+
+model session_enrollments {
+  id               Int                    @id @default(autoincrement())
+  user_id          Int
+  session_id       Int
+  enrollment_date  DateTime               @default(now()) @db.Timestamp(6)
+  payment_status   enrollment_payment_status @default(pending)
+  payment_amount   Decimal?               @db.Decimal(10, 2)
+  payment_method   String?                @db.VarChar(50)
+  transaction_id   String?                @db.VarChar(255)
+  access_granted   Boolean                @default(false)
+  completed        Boolean                @default(false)
+  progress         Int?                   @default(0)
+  last_accessed_at DateTime?              @db.Timestamp(6)
+  notes            String?
+  created_at       DateTime               @default(now()) @db.Timestamp(6)
+  updated_at       DateTime               @default(now()) @updatedAt @db.Timestamp(6)
+  user             users                  @relation("UserSessionEnrollments", fields: [user_id], references: [id], onDelete: Cascade)
+  session          sessions               @relation(fields: [session_id], references: [id], onDelete: Cascade)
+
+  @@unique([user_id, session_id], map: "unique_user_session_enrollment")
+  @@index([user_id], map: "idx_session_enrollments_user_id")
+  @@index([session_id], map: "idx_session_enrollments_session_id")
+  @@index([payment_status], map: "idx_session_enrollments_payment_status")
+  @@index([enrollment_date], map: "idx_session_enrollments_date")
+  @@index([access_granted], map: "idx_session_enrollments_access")
 }
 
 enum application_status {
@@ -1100,4 +1129,12 @@ enum poll_choice_type {
   yes
   maybe
   no
+}
+
+enum enrollment_payment_status {
+  pending
+  completed
+  failed
+  refunded
+  free_access
 }
