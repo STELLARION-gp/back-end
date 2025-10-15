@@ -33,57 +33,69 @@ const getUserIdFromFirebaseUID = async (
   }
 };
 
+// Helper function to decode merchant secret from Base64
 const getActualMerchantSecret = (merchant_secret: string): string => {
   let actual_secret = merchant_secret.trim();
   try {
-    // Try base64 decode, fallback to original if not valid base64
+    // PayHere merchant secrets are typically Base64 encoded
     const decoded = Buffer.from(actual_secret, "base64").toString("utf8");
-    // If decoding yields mostly printable characters, use it
-    if (/^[\x20-\x7E]+$/.test(decoded) && decoded.length > 5) {
+    // If decoding yields valid characters, use it
+    if (decoded && decoded.length > 0) {
+      console.log("Merchant secret decoded from Base64");
       return decoded;
     }
-  } catch {}
+  } catch (error) {
+    console.log("Merchant secret is not Base64 encoded, using as-is");
+  }
   return actual_secret;
 };
 
-// Generate PayHere hash
+// Generate PayHere hash for payment request
 const generatePayHereHash = (
   merchant_id: string,
   order_id: string,
   amount: string,
   currency: string,
-  merchant_secret: string
+  merchant_secret: string,
+  is_sandbox: boolean = false
 ): string => {
-  // Trim and decode the merchant secret
-  let actual_secret = merchant_secret.trim();
+  // OFFICIAL PAYHERE FORMAT (Same for both Sandbox and Production):
+  // Step 1: MD5(merchant_secret)
+  // Step 2: MD5(merchant_id + order_id + amount + currency + MD5(merchant_secret))
 
-  // try {
-  //     // Try base64 decode
-  //     const decoded = Buffer.from(actual_secret, 'base64').toString('utf8');
-  //     if (/^[\x20-\x7E]+$/.test(decoded) && decoded.length > 5) {
-  //         actual_secret = decoded; // Use decoded value
-  //     }
-  // } catch (err) {
-  //     console.warn('Merchant secret is not base64, using as-is');
-  // }
+  // IMPORTANT: PayHere expects the merchant secret EXACTLY as provided in dashboard
+  // Do NOT decode Base64 - use it as-is!
+  const actual_secret = merchant_secret.trim();
 
-  // PayHere hash format: merchant_id + order_id + amount + currency + decoded_secret (uppercase)
-  const hash_string =
-    merchant_id + order_id + amount + currency + actual_secret.toUpperCase();
+  // Step 1: MD5(merchant_secret)
+  const secret_hash = crypto
+    .createHash("md5")
+    .update(actual_secret)
+    .digest("hex")
+    .toUpperCase();
+
+  // Step 2: MD5(merchant_id + order_id + amount + currency + MD5(merchant_secret))
+  const hash_string = merchant_id + order_id + amount + currency + secret_hash;
   const hash = crypto
     .createHash("md5")
     .update(hash_string)
     .digest("hex")
     .toUpperCase();
 
-  console.log("PayHere Hash Debug:");
-  console.log("- merchant_id:", merchant_id);
-  console.log("- order_id:", order_id);
-  console.log("- amount:", amount);
-  console.log("- currency:", currency);
-  console.log("- actual_secret:", actual_secret);
-  console.log("- hash_string:", hash_string);
-  console.log("- generated_hash:", hash);
+  console.log(
+    `=== PayHere ${
+      is_sandbox ? "SANDBOX" : "PRODUCTION"
+    } Hash Generation (Official Format) ===`
+  );
+  console.log("merchant_id:", merchant_id);
+  console.log("order_id:", order_id);
+  console.log("amount:", amount);
+  console.log("currency:", currency);
+  console.log("merchant_secret:", actual_secret);
+  console.log("Step 1 - MD5(merchant_secret):", secret_hash);
+  console.log("Step 2 - hash_string:", hash_string);
+  console.log("Step 3 - generated_hash:", hash);
+  console.log("=".repeat(60));
 
   return hash;
 };
@@ -186,6 +198,9 @@ export const createPaymentOrder = async (req: Request, res: Response) => {
 
     const payment_id = payment.id;
 
+    // Check if sandbox mode
+    const isSandbox = PAYHERE_SANDBOX === "true";
+
     // Generate PayHere hash
     const formattedAmount = parseFloat(amount).toFixed(2);
     const hash = generatePayHereHash(
@@ -193,7 +208,8 @@ export const createPaymentOrder = async (req: Request, res: Response) => {
       order_id,
       formattedAmount,
       currency,
-      PAYHERE_MERCHANT_SECRET
+      PAYHERE_MERCHANT_SECRET,
+      isSandbox // Pass sandbox flag
     );
 
     // PayHere payment data (to be used by frontend PayHere JS library)
@@ -254,6 +270,11 @@ export const handlePayHereNotification = async (
   res: Response
 ) => {
   try {
+    console.log("=== PayHere Notification Received ===");
+    console.log("Headers:", req.headers);
+    console.log("Body:", req.body);
+    console.log("====================================");
+
     const {
       merchant_id,
       order_id,
@@ -264,22 +285,72 @@ export const handlePayHereNotification = async (
       md5sig,
     } = req.body;
 
-    // Verify the notification
-    const local_md5sig = crypto
+    // Validate required fields
+    if (
+      !merchant_id ||
+      !order_id ||
+      !payhere_amount ||
+      !payhere_currency ||
+      !status_code ||
+      !md5sig
+    ) {
+      console.error("Missing required fields in PayHere notification");
+      return res.status(400).send("Missing required fields");
+    }
+
+    // Check if sandbox mode
+    const isSandbox = PAYHERE_SANDBOX === "true";
+
+    // Generate PayHere signature for verification
+    // OFFICIAL PAYHERE FORMAT (Same for both Sandbox and Production)
+    // Use merchant secret EXACTLY as provided (Base64) - do NOT decode
+    const actual_secret = PAYHERE_MERCHANT_SECRET.trim();
+
+    // Step 1: MD5(merchant_secret)
+    const secret_hash = crypto
       .createHash("md5")
-      .update(
-        merchant_id +
-          order_id +
-          payhere_amount +
-          payhere_currency +
-          status_code +
-          PAYHERE_MERCHANT_SECRET.toUpperCase()
-      )
+      .update(actual_secret)
       .digest("hex")
       .toUpperCase();
 
+    // Step 2: MD5(merchant_id + order_id + payhere_amount + payhere_currency + status_code + MD5(merchant_secret))
+    const hash_string =
+      merchant_id +
+      order_id +
+      payhere_amount +
+      payhere_currency +
+      status_code +
+      secret_hash;
+    const local_md5sig = crypto
+      .createHash("md5")
+      .update(hash_string)
+      .digest("hex")
+      .toUpperCase();
+
+    console.log(
+      `=== PayHere ${
+        isSandbox ? "SANDBOX" : "PRODUCTION"
+      } Signature Verification (Official Format) ===`
+    );
+    console.log("merchant_id:", merchant_id);
+    console.log("order_id:", order_id);
+    console.log("payhere_amount:", payhere_amount);
+    console.log("payhere_currency:", payhere_currency);
+    console.log("status_code:", status_code);
+    console.log("merchant_secret:", actual_secret);
+    console.log("Step 1 - MD5(merchant_secret):", secret_hash);
+    console.log("Step 2 - hash_string:", hash_string);
+    console.log("Calculated MD5:", local_md5sig);
+    console.log("Received MD5:", md5sig);
+    console.log("Match:", local_md5sig === md5sig);
+    console.log("=".repeat(60));
+    console.log("Match:", local_md5sig === md5sig);
+    console.log("=================================================");
+
     if (local_md5sig !== md5sig) {
       console.error("PayHere notification signature verification failed");
+      console.error("Expected:", local_md5sig);
+      console.error("Received:", md5sig);
       return res.status(400).send("Invalid signature");
     }
 
@@ -292,23 +363,35 @@ export const handlePayHereNotification = async (
       console.error("Payment record not found for order:", order_id);
       return res.status(404).send("Payment not found");
     }
+
     let payment_status: PaymentStatus;
 
     // Update payment status based on PayHere status code
+    // Reference: https://support.payhere.lk/api-&-mobile-sdk/payment-notification
     switch (status_code) {
       case "2": // Success
         payment_status = "completed";
+        console.log("Payment completed successfully");
         break;
       case "0": // Pending
         payment_status = "pending";
+        console.log("Payment is pending");
         break;
       case "-1": // Cancelled
+        payment_status = "failed";
+        console.log("Payment was cancelled");
+        break;
       case "-2": // Failed
+        payment_status = "failed";
+        console.log("Payment failed");
+        break;
       case "-3": // Chargedback
         payment_status = "failed";
+        console.log("Payment was charged back");
         break;
       default:
         payment_status = "failed";
+        console.log("Unknown status code:", status_code);
     }
 
     // Update payment record
@@ -323,15 +406,20 @@ export const handlePayHereNotification = async (
           payhere_status_code: status_code,
           payhere_amount: payhere_amount,
           payhere_currency: payhere_currency,
+          notification_received_at: new Date().toISOString(),
         },
         updated_at: new Date(),
       },
     });
 
+    console.log("Payment record updated:", payment.id);
+
     // If payment is successful, update user subscription
     if (payment_status === "completed") {
       const metadata = payment.metadata as any;
       const plan_type = metadata.plan_type;
+
+      console.log("Processing successful payment for plan:", plan_type);
 
       // Calculate subscription dates
       const startDate = new Date();
@@ -342,21 +430,12 @@ export const handlePayHereNotification = async (
         endDate.setMonth(endDate.getMonth() + 1); // 1 month subscription
       }
 
-      // Determine subscription level based on plan type
-      let subscriptionLevel = 1; // Default for starseeker
-      if (plan_type === "galaxy_explorer") {
-        subscriptionLevel = 2;
-      } else if (plan_type === "cosmic_voyager") {
-        subscriptionLevel = 3;
-      }
-
       // Update user subscription
       await prisma.users.update({
         where: { id: payment.user_id! },
         data: {
           subscription_plan: plan_type,
           subscription_status: "active",
-          subscription_level: subscriptionLevel,
           subscription_start_date: startDate,
           subscription_end_date: endDate,
           chatbot_questions_used: 0,
@@ -364,6 +443,8 @@ export const handlePayHereNotification = async (
           updated_at: new Date(),
         },
       });
+
+      console.log("User subscription updated for user:", payment.user_id);
 
       // Create subscription record
       const subscription = await prisma.subscriptions.create({
@@ -376,11 +457,15 @@ export const handlePayHereNotification = async (
         },
       });
 
+      console.log("Subscription record created:", subscription.id);
+
       // Link payment to subscription
       await prisma.payments.update({
         where: { id: payment.id },
         data: { subscription_id: subscription.id },
       });
+
+      console.log("Payment linked to subscription");
     }
 
     res.status(200).send("OK");
@@ -476,6 +561,48 @@ export const getUserPaymentHistory = async (req: Request, res: Response) => {
     res.status(500).json({
       success: false,
       message: "Failed to fetch payment history",
+    });
+  }
+};
+
+// Test endpoint to generate hash for debugging (DEVELOPMENT ONLY)
+export const generateTestHash = async (req: Request, res: Response) => {
+  try {
+    const { merchant_id, order_id, amount, currency } = req.body;
+
+    if (!merchant_id || !order_id || !amount || !currency) {
+      return res.status(400).json({
+        success: false,
+        message:
+          "Missing required fields: merchant_id, order_id, amount, currency",
+      });
+    }
+
+    const isSandbox = PAYHERE_SANDBOX === "true";
+    const formattedAmount = parseFloat(amount).toFixed(2);
+
+    const hash = generatePayHereHash(
+      merchant_id,
+      order_id,
+      formattedAmount,
+      currency,
+      PAYHERE_MERCHANT_SECRET || "",
+      isSandbox
+    );
+
+    res.json({
+      success: true,
+      hash,
+      method: isSandbox ? "sandbox" : "production",
+      hash_string: isSandbox
+        ? `${merchant_id}${order_id}${formattedAmount}${currency}${merchant_id.toUpperCase()}`
+        : "Double MD5 (check console)",
+    });
+  } catch (error) {
+    console.error("Error generating test hash:", error);
+    res.status(500).json({
+      success: false,
+      message: "Failed to generate hash",
     });
   }
 };
