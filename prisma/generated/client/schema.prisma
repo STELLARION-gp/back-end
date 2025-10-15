@@ -340,6 +340,9 @@ model users {
   created_sessions                                                                             sessions[]                             @relation("SessionCreator")
   subscriptions                                                                                subscriptions[]
   user_settings                                                                                user_settings?
+  created_polls                                                                                polls[]                                @relation("PollCreator")
+  poll_votes                                                                                   poll_votes[]                           @relation("PollVoter")
+  poll_comments                                                                                poll_comments[]                        @relation("PollCommenter")
 
   @@index([is_active], map: "idx_users_active")
   @@index([email], map: "idx_users_email")
@@ -1030,4 +1033,71 @@ enum difficulty_level {
   beginner
   intermediate
   advanced
+}
+
+// Poll models
+model polls {
+  id          Int             @id @default(autoincrement())
+  title       String          @db.VarChar(255)
+  description String?
+  created_by  Int
+  created_at  DateTime        @default(now()) @db.Timestamp(6)
+  updated_at  DateTime        @default(now()) @updatedAt @db.Timestamp(6)
+  is_active   Boolean         @default(true)
+  creator     users           @relation("PollCreator", fields: [created_by], references: [id], onDelete: Cascade)
+  choices     poll_choices[]
+  comments    poll_comments[]
+
+  @@index([created_by], map: "idx_polls_created_by")
+  @@index([created_at], map: "idx_polls_created_at")
+  @@index([is_active], map: "idx_polls_is_active")
+}
+
+model poll_choices {
+  id         Int              @id @default(autoincrement())
+  poll_id    Int
+  choice     poll_choice_type
+  vote_count Int              @default(0)
+  created_at DateTime         @default(now()) @db.Timestamp(6)
+  poll       polls            @relation(fields: [poll_id], references: [id], onDelete: Cascade)
+  votes      poll_votes[]
+
+  @@unique([poll_id, choice], map: "unique_poll_choice")
+  @@index([poll_id], map: "idx_poll_choices_poll_id")
+}
+
+model poll_votes {
+  id        Int          @id @default(autoincrement())
+  poll_id   Int
+  choice_id Int
+  user_id   Int
+  voted_at  DateTime     @default(now()) @db.Timestamp(6)
+  choice    poll_choices @relation(fields: [choice_id], references: [id], onDelete: Cascade)
+  voter     users        @relation("PollVoter", fields: [user_id], references: [id], onDelete: Cascade)
+
+  @@unique([poll_id, user_id], map: "unique_user_vote_per_poll")
+  @@index([poll_id], map: "idx_poll_votes_poll_id")
+  @@index([user_id], map: "idx_poll_votes_user_id")
+  @@index([choice_id], map: "idx_poll_votes_choice_id")
+}
+
+model poll_comments {
+  id         Int      @id @default(autoincrement())
+  poll_id    Int
+  user_id    Int
+  comment    String
+  created_at DateTime @default(now()) @db.Timestamp(6)
+  updated_at DateTime @default(now()) @updatedAt @db.Timestamp(6)
+  poll       polls    @relation(fields: [poll_id], references: [id], onDelete: Cascade)
+  commenter  users    @relation("PollCommenter", fields: [user_id], references: [id], onDelete: Cascade)
+
+  @@index([poll_id], map: "idx_poll_comments_poll_id")
+  @@index([user_id], map: "idx_poll_comments_user_id")
+  @@index([created_at], map: "idx_poll_comments_created_at")
+}
+
+enum poll_choice_type {
+  yes
+  maybe
+  no
 }

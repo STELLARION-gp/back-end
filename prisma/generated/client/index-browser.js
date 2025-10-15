@@ -749,6 +749,41 @@ exports.Prisma.SessionsScalarFieldEnum = {
   updated_at: 'updated_at'
 };
 
+exports.Prisma.PollsScalarFieldEnum = {
+  id: 'id',
+  title: 'title',
+  description: 'description',
+  created_by: 'created_by',
+  created_at: 'created_at',
+  updated_at: 'updated_at',
+  is_active: 'is_active'
+};
+
+exports.Prisma.Poll_choicesScalarFieldEnum = {
+  id: 'id',
+  poll_id: 'poll_id',
+  choice: 'choice',
+  vote_count: 'vote_count',
+  created_at: 'created_at'
+};
+
+exports.Prisma.Poll_votesScalarFieldEnum = {
+  id: 'id',
+  poll_id: 'poll_id',
+  choice_id: 'choice_id',
+  user_id: 'user_id',
+  voted_at: 'voted_at'
+};
+
+exports.Prisma.Poll_commentsScalarFieldEnum = {
+  id: 'id',
+  poll_id: 'poll_id',
+  user_id: 'user_id',
+  comment: 'comment',
+  created_at: 'created_at',
+  updated_at: 'updated_at'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -859,6 +894,12 @@ exports.difficulty_level = exports.$Enums.difficulty_level = {
   advanced: 'advanced'
 };
 
+exports.poll_choice_type = exports.$Enums.poll_choice_type = {
+  yes: 'yes',
+  maybe: 'maybe',
+  no: 'no'
+};
+
 exports.Prisma.ModelName = {
   subscriptions: 'subscriptions',
   group_chats: 'group_chats',
@@ -906,7 +947,11 @@ exports.Prisma.ModelName = {
   event_reminders: 'event_reminders',
   stargazing_spots: 'stargazing_spots',
   stargazing_spot_reviews: 'stargazing_spot_reviews',
-  sessions: 'sessions'
+  sessions: 'sessions',
+  polls: 'polls',
+  poll_choices: 'poll_choices',
+  poll_votes: 'poll_votes',
+  poll_comments: 'poll_comments'
 };
 
 /**

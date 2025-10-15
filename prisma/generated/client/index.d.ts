@@ -248,6 +248,26 @@ export type stargazing_spot_reviews = $Result.DefaultSelection<Prisma.$stargazin
  * 
  */
 export type sessions = $Result.DefaultSelection<Prisma.$sessionsPayload>
+/**
+ * Model polls
+ * 
+ */
+export type polls = $Result.DefaultSelection<Prisma.$pollsPayload>
+/**
+ * Model poll_choices
+ * 
+ */
+export type poll_choices = $Result.DefaultSelection<Prisma.$poll_choicesPayload>
+/**
+ * Model poll_votes
+ * 
+ */
+export type poll_votes = $Result.DefaultSelection<Prisma.$poll_votesPayload>
+/**
+ * Model poll_comments
+ * 
+ */
+export type poll_comments = $Result.DefaultSelection<Prisma.$poll_commentsPayload>
 
 /**
  * Enums
@@ -391,6 +411,15 @@ export const difficulty_level: {
 
 export type difficulty_level = (typeof difficulty_level)[keyof typeof difficulty_level]
 
+
+export const poll_choice_type: {
+  yes: 'yes',
+  maybe: 'maybe',
+  no: 'no'
+};
+
+export type poll_choice_type = (typeof poll_choice_type)[keyof typeof poll_choice_type]
+
 }
 
 export type application_status = $Enums.application_status
@@ -452,6 +481,10 @@ export const payment_type: typeof $Enums.payment_type
 export type difficulty_level = $Enums.difficulty_level
 
 export const difficulty_level: typeof $Enums.difficulty_level
+
+export type poll_choice_type = $Enums.poll_choice_type
+
+export const poll_choice_type: typeof $Enums.poll_choice_type
 
 /**
  * ##  Prisma Client ʲˢ
@@ -1040,6 +1073,46 @@ export class PrismaClient<
     * ```
     */
   get sessions(): Prisma.sessionsDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.polls`: Exposes CRUD operations for the **polls** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Polls
+    * const polls = await prisma.polls.findMany()
+    * ```
+    */
+  get polls(): Prisma.pollsDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.poll_choices`: Exposes CRUD operations for the **poll_choices** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Poll_choices
+    * const poll_choices = await prisma.poll_choices.findMany()
+    * ```
+    */
+  get poll_choices(): Prisma.poll_choicesDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.poll_votes`: Exposes CRUD operations for the **poll_votes** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Poll_votes
+    * const poll_votes = await prisma.poll_votes.findMany()
+    * ```
+    */
+  get poll_votes(): Prisma.poll_votesDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.poll_comments`: Exposes CRUD operations for the **poll_comments** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Poll_comments
+    * const poll_comments = await prisma.poll_comments.findMany()
+    * ```
+    */
+  get poll_comments(): Prisma.poll_commentsDelegate<ExtArgs, ClientOptions>;
 }
 
 export namespace Prisma {
@@ -1526,7 +1599,11 @@ export namespace Prisma {
     event_reminders: 'event_reminders',
     stargazing_spots: 'stargazing_spots',
     stargazing_spot_reviews: 'stargazing_spot_reviews',
-    sessions: 'sessions'
+    sessions: 'sessions',
+    polls: 'polls',
+    poll_choices: 'poll_choices',
+    poll_votes: 'poll_votes',
+    poll_comments: 'poll_comments'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -1545,7 +1622,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "subscriptions" | "group_chats" | "group_members" | "chat_messages" | "message_reactions" | "blog_views" | "night_camps" | "night_camps_activities" | "chatbot_sessions" | "payments" | "blogs" | "blog_category_relations" | "subscription_plans" | "blog_categories" | "chatbot_usage" | "blog_comments" | "users" | "blog_likes" | "chatbot_messages" | "night_camps_equipment" | "user_settings" | "chatbot_feedback" | "night_camp_volunteering" | "role_upgrade_requests" | "guide_application" | "mentor_application" | "night_camp_volunteering_applications" | "night_camp_registrations" | "influencer_application" | "media_uploads" | "tour_media" | "events" | "quizParticipants" | "quizQuestion" | "quizzes" | "space_news" | "space_news_likes" | "space_news_comments" | "space_discussions" | "space_discussion_comments" | "space_discussion_likes" | "space_discussion_comment_likes" | "astronomy_events" | "event_reminders" | "stargazing_spots" | "stargazing_spot_reviews" | "sessions"
+      modelProps: "subscriptions" | "group_chats" | "group_members" | "chat_messages" | "message_reactions" | "blog_views" | "night_camps" | "night_camps_activities" | "chatbot_sessions" | "payments" | "blogs" | "blog_category_relations" | "subscription_plans" | "blog_categories" | "chatbot_usage" | "blog_comments" | "users" | "blog_likes" | "chatbot_messages" | "night_camps_equipment" | "user_settings" | "chatbot_feedback" | "night_camp_volunteering" | "role_upgrade_requests" | "guide_application" | "mentor_application" | "night_camp_volunteering_applications" | "night_camp_registrations" | "influencer_application" | "media_uploads" | "tour_media" | "events" | "quizParticipants" | "quizQuestion" | "quizzes" | "space_news" | "space_news_likes" | "space_news_comments" | "space_discussions" | "space_discussion_comments" | "space_discussion_likes" | "space_discussion_comment_likes" | "astronomy_events" | "event_reminders" | "stargazing_spots" | "stargazing_spot_reviews" | "sessions" | "polls" | "poll_choices" | "poll_votes" | "poll_comments"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -5027,6 +5104,302 @@ export namespace Prisma {
           }
         }
       }
+      polls: {
+        payload: Prisma.$pollsPayload<ExtArgs>
+        fields: Prisma.pollsFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.pollsFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$pollsPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.pollsFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$pollsPayload>
+          }
+          findFirst: {
+            args: Prisma.pollsFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$pollsPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.pollsFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$pollsPayload>
+          }
+          findMany: {
+            args: Prisma.pollsFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$pollsPayload>[]
+          }
+          create: {
+            args: Prisma.pollsCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$pollsPayload>
+          }
+          createMany: {
+            args: Prisma.pollsCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.pollsCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$pollsPayload>[]
+          }
+          delete: {
+            args: Prisma.pollsDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$pollsPayload>
+          }
+          update: {
+            args: Prisma.pollsUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$pollsPayload>
+          }
+          deleteMany: {
+            args: Prisma.pollsDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.pollsUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.pollsUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$pollsPayload>[]
+          }
+          upsert: {
+            args: Prisma.pollsUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$pollsPayload>
+          }
+          aggregate: {
+            args: Prisma.PollsAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregatePolls>
+          }
+          groupBy: {
+            args: Prisma.pollsGroupByArgs<ExtArgs>
+            result: $Utils.Optional<PollsGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.pollsCountArgs<ExtArgs>
+            result: $Utils.Optional<PollsCountAggregateOutputType> | number
+          }
+        }
+      }
+      poll_choices: {
+        payload: Prisma.$poll_choicesPayload<ExtArgs>
+        fields: Prisma.poll_choicesFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.poll_choicesFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$poll_choicesPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.poll_choicesFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$poll_choicesPayload>
+          }
+          findFirst: {
+            args: Prisma.poll_choicesFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$poll_choicesPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.poll_choicesFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$poll_choicesPayload>
+          }
+          findMany: {
+            args: Prisma.poll_choicesFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$poll_choicesPayload>[]
+          }
+          create: {
+            args: Prisma.poll_choicesCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$poll_choicesPayload>
+          }
+          createMany: {
+            args: Prisma.poll_choicesCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.poll_choicesCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$poll_choicesPayload>[]
+          }
+          delete: {
+            args: Prisma.poll_choicesDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$poll_choicesPayload>
+          }
+          update: {
+            args: Prisma.poll_choicesUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$poll_choicesPayload>
+          }
+          deleteMany: {
+            args: Prisma.poll_choicesDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.poll_choicesUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.poll_choicesUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$poll_choicesPayload>[]
+          }
+          upsert: {
+            args: Prisma.poll_choicesUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$poll_choicesPayload>
+          }
+          aggregate: {
+            args: Prisma.Poll_choicesAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregatePoll_choices>
+          }
+          groupBy: {
+            args: Prisma.poll_choicesGroupByArgs<ExtArgs>
+            result: $Utils.Optional<Poll_choicesGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.poll_choicesCountArgs<ExtArgs>
+            result: $Utils.Optional<Poll_choicesCountAggregateOutputType> | number
+          }
+        }
+      }
+      poll_votes: {
+        payload: Prisma.$poll_votesPayload<ExtArgs>
+        fields: Prisma.poll_votesFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.poll_votesFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$poll_votesPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.poll_votesFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$poll_votesPayload>
+          }
+          findFirst: {
+            args: Prisma.poll_votesFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$poll_votesPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.poll_votesFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$poll_votesPayload>
+          }
+          findMany: {
+            args: Prisma.poll_votesFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$poll_votesPayload>[]
+          }
+          create: {
+            args: Prisma.poll_votesCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$poll_votesPayload>
+          }
+          createMany: {
+            args: Prisma.poll_votesCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.poll_votesCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$poll_votesPayload>[]
+          }
+          delete: {
+            args: Prisma.poll_votesDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$poll_votesPayload>
+          }
+          update: {
+            args: Prisma.poll_votesUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$poll_votesPayload>
+          }
+          deleteMany: {
+            args: Prisma.poll_votesDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.poll_votesUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.poll_votesUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$poll_votesPayload>[]
+          }
+          upsert: {
+            args: Prisma.poll_votesUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$poll_votesPayload>
+          }
+          aggregate: {
+            args: Prisma.Poll_votesAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregatePoll_votes>
+          }
+          groupBy: {
+            args: Prisma.poll_votesGroupByArgs<ExtArgs>
+            result: $Utils.Optional<Poll_votesGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.poll_votesCountArgs<ExtArgs>
+            result: $Utils.Optional<Poll_votesCountAggregateOutputType> | number
+          }
+        }
+      }
+      poll_comments: {
+        payload: Prisma.$poll_commentsPayload<ExtArgs>
+        fields: Prisma.poll_commentsFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.poll_commentsFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$poll_commentsPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.poll_commentsFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$poll_commentsPayload>
+          }
+          findFirst: {
+            args: Prisma.poll_commentsFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$poll_commentsPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.poll_commentsFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$poll_commentsPayload>
+          }
+          findMany: {
+            args: Prisma.poll_commentsFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$poll_commentsPayload>[]
+          }
+          create: {
+            args: Prisma.poll_commentsCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$poll_commentsPayload>
+          }
+          createMany: {
+            args: Prisma.poll_commentsCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.poll_commentsCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$poll_commentsPayload>[]
+          }
+          delete: {
+            args: Prisma.poll_commentsDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$poll_commentsPayload>
+          }
+          update: {
+            args: Prisma.poll_commentsUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$poll_commentsPayload>
+          }
+          deleteMany: {
+            args: Prisma.poll_commentsDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.poll_commentsUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.poll_commentsUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$poll_commentsPayload>[]
+          }
+          upsert: {
+            args: Prisma.poll_commentsUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$poll_commentsPayload>
+          }
+          aggregate: {
+            args: Prisma.Poll_commentsAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregatePoll_comments>
+          }
+          groupBy: {
+            args: Prisma.poll_commentsGroupByArgs<ExtArgs>
+            result: $Utils.Optional<Poll_commentsGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.poll_commentsCountArgs<ExtArgs>
+            result: $Utils.Optional<Poll_commentsCountAggregateOutputType> | number
+          }
+        }
+      }
     }
   } & {
     other: {
@@ -5170,6 +5543,10 @@ export namespace Prisma {
     stargazing_spots?: stargazing_spotsOmit
     stargazing_spot_reviews?: stargazing_spot_reviewsOmit
     sessions?: sessionsOmit
+    polls?: pollsOmit
+    poll_choices?: poll_choicesOmit
+    poll_votes?: poll_votesOmit
+    poll_comments?: poll_commentsOmit
   }
 
   /* Types for Logging */
@@ -5623,6 +6000,9 @@ export namespace Prisma {
     created_stargazing_spots: number
     created_sessions: number
     subscriptions: number
+    created_polls: number
+    poll_votes: number
+    poll_comments: number
   }
 
   export type UsersCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -5661,6 +6041,9 @@ export namespace Prisma {
     created_stargazing_spots?: boolean | UsersCountOutputTypeCountCreated_stargazing_spotsArgs
     created_sessions?: boolean | UsersCountOutputTypeCountCreated_sessionsArgs
     subscriptions?: boolean | UsersCountOutputTypeCountSubscriptionsArgs
+    created_polls?: boolean | UsersCountOutputTypeCountCreated_pollsArgs
+    poll_votes?: boolean | UsersCountOutputTypeCountPoll_votesArgs
+    poll_comments?: boolean | UsersCountOutputTypeCountPoll_commentsArgs
   }
 
   // Custom InputTypes
@@ -5917,6 +6300,27 @@ export namespace Prisma {
    */
   export type UsersCountOutputTypeCountSubscriptionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: subscriptionsWhereInput
+  }
+
+  /**
+   * UsersCountOutputType without action
+   */
+  export type UsersCountOutputTypeCountCreated_pollsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: pollsWhereInput
+  }
+
+  /**
+   * UsersCountOutputType without action
+   */
+  export type UsersCountOutputTypeCountPoll_votesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: poll_votesWhereInput
+  }
+
+  /**
+   * UsersCountOutputType without action
+   */
+  export type UsersCountOutputTypeCountPoll_commentsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: poll_commentsWhereInput
   }
 
 
@@ -6201,6 +6605,77 @@ export namespace Prisma {
    */
   export type Stargazing_spotsCountOutputTypeCountReviewsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: stargazing_spot_reviewsWhereInput
+  }
+
+
+  /**
+   * Count Type PollsCountOutputType
+   */
+
+  export type PollsCountOutputType = {
+    choices: number
+    comments: number
+  }
+
+  export type PollsCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    choices?: boolean | PollsCountOutputTypeCountChoicesArgs
+    comments?: boolean | PollsCountOutputTypeCountCommentsArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * PollsCountOutputType without action
+   */
+  export type PollsCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PollsCountOutputType
+     */
+    select?: PollsCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * PollsCountOutputType without action
+   */
+  export type PollsCountOutputTypeCountChoicesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: poll_choicesWhereInput
+  }
+
+  /**
+   * PollsCountOutputType without action
+   */
+  export type PollsCountOutputTypeCountCommentsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: poll_commentsWhereInput
+  }
+
+
+  /**
+   * Count Type Poll_choicesCountOutputType
+   */
+
+  export type Poll_choicesCountOutputType = {
+    votes: number
+  }
+
+  export type Poll_choicesCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    votes?: boolean | Poll_choicesCountOutputTypeCountVotesArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * Poll_choicesCountOutputType without action
+   */
+  export type Poll_choicesCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Poll_choicesCountOutputType
+     */
+    select?: Poll_choicesCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * Poll_choicesCountOutputType without action
+   */
+  export type Poll_choicesCountOutputTypeCountVotesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: poll_votesWhereInput
   }
 
 
@@ -25727,6 +26202,9 @@ export namespace Prisma {
     created_sessions?: boolean | users$created_sessionsArgs<ExtArgs>
     subscriptions?: boolean | users$subscriptionsArgs<ExtArgs>
     user_settings?: boolean | users$user_settingsArgs<ExtArgs>
+    created_polls?: boolean | users$created_pollsArgs<ExtArgs>
+    poll_votes?: boolean | users$poll_votesArgs<ExtArgs>
+    poll_comments?: boolean | users$poll_commentsArgs<ExtArgs>
     _count?: boolean | UsersCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["users"]>
 
@@ -25837,6 +26315,9 @@ export namespace Prisma {
     created_sessions?: boolean | users$created_sessionsArgs<ExtArgs>
     subscriptions?: boolean | users$subscriptionsArgs<ExtArgs>
     user_settings?: boolean | users$user_settingsArgs<ExtArgs>
+    created_polls?: boolean | users$created_pollsArgs<ExtArgs>
+    poll_votes?: boolean | users$poll_votesArgs<ExtArgs>
+    poll_comments?: boolean | users$poll_commentsArgs<ExtArgs>
     _count?: boolean | UsersCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type usersIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
@@ -25881,6 +26362,9 @@ export namespace Prisma {
       created_sessions: Prisma.$sessionsPayload<ExtArgs>[]
       subscriptions: Prisma.$subscriptionsPayload<ExtArgs>[]
       user_settings: Prisma.$user_settingsPayload<ExtArgs> | null
+      created_polls: Prisma.$pollsPayload<ExtArgs>[]
+      poll_votes: Prisma.$poll_votesPayload<ExtArgs>[]
+      poll_comments: Prisma.$poll_commentsPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: number
@@ -26333,6 +26817,9 @@ export namespace Prisma {
     created_sessions<T extends users$created_sessionsArgs<ExtArgs> = {}>(args?: Subset<T, users$created_sessionsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$sessionsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     subscriptions<T extends users$subscriptionsArgs<ExtArgs> = {}>(args?: Subset<T, users$subscriptionsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$subscriptionsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     user_settings<T extends users$user_settingsArgs<ExtArgs> = {}>(args?: Subset<T, users$user_settingsArgs<ExtArgs>>): Prisma__user_settingsClient<$Result.GetResult<Prisma.$user_settingsPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    created_polls<T extends users$created_pollsArgs<ExtArgs> = {}>(args?: Subset<T, users$created_pollsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$pollsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    poll_votes<T extends users$poll_votesArgs<ExtArgs> = {}>(args?: Subset<T, users$poll_votesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$poll_votesPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    poll_comments<T extends users$poll_commentsArgs<ExtArgs> = {}>(args?: Subset<T, users$poll_commentsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$poll_commentsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -27626,6 +28113,78 @@ export namespace Prisma {
      */
     include?: user_settingsInclude<ExtArgs> | null
     where?: user_settingsWhereInput
+  }
+
+  /**
+   * users.created_polls
+   */
+  export type users$created_pollsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the polls
+     */
+    select?: pollsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the polls
+     */
+    omit?: pollsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: pollsInclude<ExtArgs> | null
+    where?: pollsWhereInput
+    orderBy?: pollsOrderByWithRelationInput | pollsOrderByWithRelationInput[]
+    cursor?: pollsWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: PollsScalarFieldEnum | PollsScalarFieldEnum[]
+  }
+
+  /**
+   * users.poll_votes
+   */
+  export type users$poll_votesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the poll_votes
+     */
+    select?: poll_votesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the poll_votes
+     */
+    omit?: poll_votesOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: poll_votesInclude<ExtArgs> | null
+    where?: poll_votesWhereInput
+    orderBy?: poll_votesOrderByWithRelationInput | poll_votesOrderByWithRelationInput[]
+    cursor?: poll_votesWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: Poll_votesScalarFieldEnum | Poll_votesScalarFieldEnum[]
+  }
+
+  /**
+   * users.poll_comments
+   */
+  export type users$poll_commentsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the poll_comments
+     */
+    select?: poll_commentsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the poll_comments
+     */
+    omit?: poll_commentsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: poll_commentsInclude<ExtArgs> | null
+    where?: poll_commentsWhereInput
+    orderBy?: poll_commentsOrderByWithRelationInput | poll_commentsOrderByWithRelationInput[]
+    cursor?: poll_commentsWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: Poll_commentsScalarFieldEnum | Poll_commentsScalarFieldEnum[]
   }
 
   /**
@@ -63589,6 +64148,4549 @@ export namespace Prisma {
 
 
   /**
+   * Model polls
+   */
+
+  export type AggregatePolls = {
+    _count: PollsCountAggregateOutputType | null
+    _avg: PollsAvgAggregateOutputType | null
+    _sum: PollsSumAggregateOutputType | null
+    _min: PollsMinAggregateOutputType | null
+    _max: PollsMaxAggregateOutputType | null
+  }
+
+  export type PollsAvgAggregateOutputType = {
+    id: number | null
+    created_by: number | null
+  }
+
+  export type PollsSumAggregateOutputType = {
+    id: number | null
+    created_by: number | null
+  }
+
+  export type PollsMinAggregateOutputType = {
+    id: number | null
+    title: string | null
+    description: string | null
+    created_by: number | null
+    created_at: Date | null
+    updated_at: Date | null
+    is_active: boolean | null
+  }
+
+  export type PollsMaxAggregateOutputType = {
+    id: number | null
+    title: string | null
+    description: string | null
+    created_by: number | null
+    created_at: Date | null
+    updated_at: Date | null
+    is_active: boolean | null
+  }
+
+  export type PollsCountAggregateOutputType = {
+    id: number
+    title: number
+    description: number
+    created_by: number
+    created_at: number
+    updated_at: number
+    is_active: number
+    _all: number
+  }
+
+
+  export type PollsAvgAggregateInputType = {
+    id?: true
+    created_by?: true
+  }
+
+  export type PollsSumAggregateInputType = {
+    id?: true
+    created_by?: true
+  }
+
+  export type PollsMinAggregateInputType = {
+    id?: true
+    title?: true
+    description?: true
+    created_by?: true
+    created_at?: true
+    updated_at?: true
+    is_active?: true
+  }
+
+  export type PollsMaxAggregateInputType = {
+    id?: true
+    title?: true
+    description?: true
+    created_by?: true
+    created_at?: true
+    updated_at?: true
+    is_active?: true
+  }
+
+  export type PollsCountAggregateInputType = {
+    id?: true
+    title?: true
+    description?: true
+    created_by?: true
+    created_at?: true
+    updated_at?: true
+    is_active?: true
+    _all?: true
+  }
+
+  export type PollsAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which polls to aggregate.
+     */
+    where?: pollsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of polls to fetch.
+     */
+    orderBy?: pollsOrderByWithRelationInput | pollsOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: pollsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` polls from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` polls.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned polls
+    **/
+    _count?: true | PollsCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: PollsAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: PollsSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: PollsMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: PollsMaxAggregateInputType
+  }
+
+  export type GetPollsAggregateType<T extends PollsAggregateArgs> = {
+        [P in keyof T & keyof AggregatePolls]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregatePolls[P]>
+      : GetScalarType<T[P], AggregatePolls[P]>
+  }
+
+
+
+
+  export type pollsGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: pollsWhereInput
+    orderBy?: pollsOrderByWithAggregationInput | pollsOrderByWithAggregationInput[]
+    by: PollsScalarFieldEnum[] | PollsScalarFieldEnum
+    having?: pollsScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: PollsCountAggregateInputType | true
+    _avg?: PollsAvgAggregateInputType
+    _sum?: PollsSumAggregateInputType
+    _min?: PollsMinAggregateInputType
+    _max?: PollsMaxAggregateInputType
+  }
+
+  export type PollsGroupByOutputType = {
+    id: number
+    title: string
+    description: string | null
+    created_by: number
+    created_at: Date
+    updated_at: Date
+    is_active: boolean
+    _count: PollsCountAggregateOutputType | null
+    _avg: PollsAvgAggregateOutputType | null
+    _sum: PollsSumAggregateOutputType | null
+    _min: PollsMinAggregateOutputType | null
+    _max: PollsMaxAggregateOutputType | null
+  }
+
+  type GetPollsGroupByPayload<T extends pollsGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<PollsGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof PollsGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], PollsGroupByOutputType[P]>
+            : GetScalarType<T[P], PollsGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type pollsSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    title?: boolean
+    description?: boolean
+    created_by?: boolean
+    created_at?: boolean
+    updated_at?: boolean
+    is_active?: boolean
+    creator?: boolean | usersDefaultArgs<ExtArgs>
+    choices?: boolean | polls$choicesArgs<ExtArgs>
+    comments?: boolean | polls$commentsArgs<ExtArgs>
+    _count?: boolean | PollsCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["polls"]>
+
+  export type pollsSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    title?: boolean
+    description?: boolean
+    created_by?: boolean
+    created_at?: boolean
+    updated_at?: boolean
+    is_active?: boolean
+    creator?: boolean | usersDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["polls"]>
+
+  export type pollsSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    title?: boolean
+    description?: boolean
+    created_by?: boolean
+    created_at?: boolean
+    updated_at?: boolean
+    is_active?: boolean
+    creator?: boolean | usersDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["polls"]>
+
+  export type pollsSelectScalar = {
+    id?: boolean
+    title?: boolean
+    description?: boolean
+    created_by?: boolean
+    created_at?: boolean
+    updated_at?: boolean
+    is_active?: boolean
+  }
+
+  export type pollsOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "title" | "description" | "created_by" | "created_at" | "updated_at" | "is_active", ExtArgs["result"]["polls"]>
+  export type pollsInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    creator?: boolean | usersDefaultArgs<ExtArgs>
+    choices?: boolean | polls$choicesArgs<ExtArgs>
+    comments?: boolean | polls$commentsArgs<ExtArgs>
+    _count?: boolean | PollsCountOutputTypeDefaultArgs<ExtArgs>
+  }
+  export type pollsIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    creator?: boolean | usersDefaultArgs<ExtArgs>
+  }
+  export type pollsIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    creator?: boolean | usersDefaultArgs<ExtArgs>
+  }
+
+  export type $pollsPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "polls"
+    objects: {
+      creator: Prisma.$usersPayload<ExtArgs>
+      choices: Prisma.$poll_choicesPayload<ExtArgs>[]
+      comments: Prisma.$poll_commentsPayload<ExtArgs>[]
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: number
+      title: string
+      description: string | null
+      created_by: number
+      created_at: Date
+      updated_at: Date
+      is_active: boolean
+    }, ExtArgs["result"]["polls"]>
+    composites: {}
+  }
+
+  type pollsGetPayload<S extends boolean | null | undefined | pollsDefaultArgs> = $Result.GetResult<Prisma.$pollsPayload, S>
+
+  type pollsCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<pollsFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: PollsCountAggregateInputType | true
+    }
+
+  export interface pollsDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['polls'], meta: { name: 'polls' } }
+    /**
+     * Find zero or one Polls that matches the filter.
+     * @param {pollsFindUniqueArgs} args - Arguments to find a Polls
+     * @example
+     * // Get one Polls
+     * const polls = await prisma.polls.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends pollsFindUniqueArgs>(args: SelectSubset<T, pollsFindUniqueArgs<ExtArgs>>): Prisma__pollsClient<$Result.GetResult<Prisma.$pollsPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Polls that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {pollsFindUniqueOrThrowArgs} args - Arguments to find a Polls
+     * @example
+     * // Get one Polls
+     * const polls = await prisma.polls.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends pollsFindUniqueOrThrowArgs>(args: SelectSubset<T, pollsFindUniqueOrThrowArgs<ExtArgs>>): Prisma__pollsClient<$Result.GetResult<Prisma.$pollsPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Polls that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {pollsFindFirstArgs} args - Arguments to find a Polls
+     * @example
+     * // Get one Polls
+     * const polls = await prisma.polls.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends pollsFindFirstArgs>(args?: SelectSubset<T, pollsFindFirstArgs<ExtArgs>>): Prisma__pollsClient<$Result.GetResult<Prisma.$pollsPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Polls that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {pollsFindFirstOrThrowArgs} args - Arguments to find a Polls
+     * @example
+     * // Get one Polls
+     * const polls = await prisma.polls.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends pollsFindFirstOrThrowArgs>(args?: SelectSubset<T, pollsFindFirstOrThrowArgs<ExtArgs>>): Prisma__pollsClient<$Result.GetResult<Prisma.$pollsPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Polls that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {pollsFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Polls
+     * const polls = await prisma.polls.findMany()
+     * 
+     * // Get first 10 Polls
+     * const polls = await prisma.polls.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const pollsWithIdOnly = await prisma.polls.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends pollsFindManyArgs>(args?: SelectSubset<T, pollsFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$pollsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Polls.
+     * @param {pollsCreateArgs} args - Arguments to create a Polls.
+     * @example
+     * // Create one Polls
+     * const Polls = await prisma.polls.create({
+     *   data: {
+     *     // ... data to create a Polls
+     *   }
+     * })
+     * 
+     */
+    create<T extends pollsCreateArgs>(args: SelectSubset<T, pollsCreateArgs<ExtArgs>>): Prisma__pollsClient<$Result.GetResult<Prisma.$pollsPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Polls.
+     * @param {pollsCreateManyArgs} args - Arguments to create many Polls.
+     * @example
+     * // Create many Polls
+     * const polls = await prisma.polls.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends pollsCreateManyArgs>(args?: SelectSubset<T, pollsCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many Polls and returns the data saved in the database.
+     * @param {pollsCreateManyAndReturnArgs} args - Arguments to create many Polls.
+     * @example
+     * // Create many Polls
+     * const polls = await prisma.polls.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many Polls and only return the `id`
+     * const pollsWithIdOnly = await prisma.polls.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends pollsCreateManyAndReturnArgs>(args?: SelectSubset<T, pollsCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$pollsPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a Polls.
+     * @param {pollsDeleteArgs} args - Arguments to delete one Polls.
+     * @example
+     * // Delete one Polls
+     * const Polls = await prisma.polls.delete({
+     *   where: {
+     *     // ... filter to delete one Polls
+     *   }
+     * })
+     * 
+     */
+    delete<T extends pollsDeleteArgs>(args: SelectSubset<T, pollsDeleteArgs<ExtArgs>>): Prisma__pollsClient<$Result.GetResult<Prisma.$pollsPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Polls.
+     * @param {pollsUpdateArgs} args - Arguments to update one Polls.
+     * @example
+     * // Update one Polls
+     * const polls = await prisma.polls.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends pollsUpdateArgs>(args: SelectSubset<T, pollsUpdateArgs<ExtArgs>>): Prisma__pollsClient<$Result.GetResult<Prisma.$pollsPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Polls.
+     * @param {pollsDeleteManyArgs} args - Arguments to filter Polls to delete.
+     * @example
+     * // Delete a few Polls
+     * const { count } = await prisma.polls.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends pollsDeleteManyArgs>(args?: SelectSubset<T, pollsDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Polls.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {pollsUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Polls
+     * const polls = await prisma.polls.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends pollsUpdateManyArgs>(args: SelectSubset<T, pollsUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Polls and returns the data updated in the database.
+     * @param {pollsUpdateManyAndReturnArgs} args - Arguments to update many Polls.
+     * @example
+     * // Update many Polls
+     * const polls = await prisma.polls.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more Polls and only return the `id`
+     * const pollsWithIdOnly = await prisma.polls.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends pollsUpdateManyAndReturnArgs>(args: SelectSubset<T, pollsUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$pollsPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one Polls.
+     * @param {pollsUpsertArgs} args - Arguments to update or create a Polls.
+     * @example
+     * // Update or create a Polls
+     * const polls = await prisma.polls.upsert({
+     *   create: {
+     *     // ... data to create a Polls
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Polls we want to update
+     *   }
+     * })
+     */
+    upsert<T extends pollsUpsertArgs>(args: SelectSubset<T, pollsUpsertArgs<ExtArgs>>): Prisma__pollsClient<$Result.GetResult<Prisma.$pollsPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of Polls.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {pollsCountArgs} args - Arguments to filter Polls to count.
+     * @example
+     * // Count the number of Polls
+     * const count = await prisma.polls.count({
+     *   where: {
+     *     // ... the filter for the Polls we want to count
+     *   }
+     * })
+    **/
+    count<T extends pollsCountArgs>(
+      args?: Subset<T, pollsCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], PollsCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Polls.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PollsAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends PollsAggregateArgs>(args: Subset<T, PollsAggregateArgs>): Prisma.PrismaPromise<GetPollsAggregateType<T>>
+
+    /**
+     * Group by Polls.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {pollsGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends pollsGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: pollsGroupByArgs['orderBy'] }
+        : { orderBy?: pollsGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, pollsGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetPollsGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the polls model
+   */
+  readonly fields: pollsFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for polls.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__pollsClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    creator<T extends usersDefaultArgs<ExtArgs> = {}>(args?: Subset<T, usersDefaultArgs<ExtArgs>>): Prisma__usersClient<$Result.GetResult<Prisma.$usersPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    choices<T extends polls$choicesArgs<ExtArgs> = {}>(args?: Subset<T, polls$choicesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$poll_choicesPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    comments<T extends polls$commentsArgs<ExtArgs> = {}>(args?: Subset<T, polls$commentsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$poll_commentsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the polls model
+   */
+  interface pollsFieldRefs {
+    readonly id: FieldRef<"polls", 'Int'>
+    readonly title: FieldRef<"polls", 'String'>
+    readonly description: FieldRef<"polls", 'String'>
+    readonly created_by: FieldRef<"polls", 'Int'>
+    readonly created_at: FieldRef<"polls", 'DateTime'>
+    readonly updated_at: FieldRef<"polls", 'DateTime'>
+    readonly is_active: FieldRef<"polls", 'Boolean'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * polls findUnique
+   */
+  export type pollsFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the polls
+     */
+    select?: pollsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the polls
+     */
+    omit?: pollsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: pollsInclude<ExtArgs> | null
+    /**
+     * Filter, which polls to fetch.
+     */
+    where: pollsWhereUniqueInput
+  }
+
+  /**
+   * polls findUniqueOrThrow
+   */
+  export type pollsFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the polls
+     */
+    select?: pollsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the polls
+     */
+    omit?: pollsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: pollsInclude<ExtArgs> | null
+    /**
+     * Filter, which polls to fetch.
+     */
+    where: pollsWhereUniqueInput
+  }
+
+  /**
+   * polls findFirst
+   */
+  export type pollsFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the polls
+     */
+    select?: pollsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the polls
+     */
+    omit?: pollsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: pollsInclude<ExtArgs> | null
+    /**
+     * Filter, which polls to fetch.
+     */
+    where?: pollsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of polls to fetch.
+     */
+    orderBy?: pollsOrderByWithRelationInput | pollsOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for polls.
+     */
+    cursor?: pollsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` polls from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` polls.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of polls.
+     */
+    distinct?: PollsScalarFieldEnum | PollsScalarFieldEnum[]
+  }
+
+  /**
+   * polls findFirstOrThrow
+   */
+  export type pollsFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the polls
+     */
+    select?: pollsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the polls
+     */
+    omit?: pollsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: pollsInclude<ExtArgs> | null
+    /**
+     * Filter, which polls to fetch.
+     */
+    where?: pollsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of polls to fetch.
+     */
+    orderBy?: pollsOrderByWithRelationInput | pollsOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for polls.
+     */
+    cursor?: pollsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` polls from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` polls.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of polls.
+     */
+    distinct?: PollsScalarFieldEnum | PollsScalarFieldEnum[]
+  }
+
+  /**
+   * polls findMany
+   */
+  export type pollsFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the polls
+     */
+    select?: pollsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the polls
+     */
+    omit?: pollsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: pollsInclude<ExtArgs> | null
+    /**
+     * Filter, which polls to fetch.
+     */
+    where?: pollsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of polls to fetch.
+     */
+    orderBy?: pollsOrderByWithRelationInput | pollsOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing polls.
+     */
+    cursor?: pollsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` polls from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` polls.
+     */
+    skip?: number
+    distinct?: PollsScalarFieldEnum | PollsScalarFieldEnum[]
+  }
+
+  /**
+   * polls create
+   */
+  export type pollsCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the polls
+     */
+    select?: pollsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the polls
+     */
+    omit?: pollsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: pollsInclude<ExtArgs> | null
+    /**
+     * The data needed to create a polls.
+     */
+    data: XOR<pollsCreateInput, pollsUncheckedCreateInput>
+  }
+
+  /**
+   * polls createMany
+   */
+  export type pollsCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many polls.
+     */
+    data: pollsCreateManyInput | pollsCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * polls createManyAndReturn
+   */
+  export type pollsCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the polls
+     */
+    select?: pollsSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the polls
+     */
+    omit?: pollsOmit<ExtArgs> | null
+    /**
+     * The data used to create many polls.
+     */
+    data: pollsCreateManyInput | pollsCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: pollsIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * polls update
+   */
+  export type pollsUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the polls
+     */
+    select?: pollsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the polls
+     */
+    omit?: pollsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: pollsInclude<ExtArgs> | null
+    /**
+     * The data needed to update a polls.
+     */
+    data: XOR<pollsUpdateInput, pollsUncheckedUpdateInput>
+    /**
+     * Choose, which polls to update.
+     */
+    where: pollsWhereUniqueInput
+  }
+
+  /**
+   * polls updateMany
+   */
+  export type pollsUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update polls.
+     */
+    data: XOR<pollsUpdateManyMutationInput, pollsUncheckedUpdateManyInput>
+    /**
+     * Filter which polls to update
+     */
+    where?: pollsWhereInput
+    /**
+     * Limit how many polls to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * polls updateManyAndReturn
+   */
+  export type pollsUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the polls
+     */
+    select?: pollsSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the polls
+     */
+    omit?: pollsOmit<ExtArgs> | null
+    /**
+     * The data used to update polls.
+     */
+    data: XOR<pollsUpdateManyMutationInput, pollsUncheckedUpdateManyInput>
+    /**
+     * Filter which polls to update
+     */
+    where?: pollsWhereInput
+    /**
+     * Limit how many polls to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: pollsIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * polls upsert
+   */
+  export type pollsUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the polls
+     */
+    select?: pollsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the polls
+     */
+    omit?: pollsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: pollsInclude<ExtArgs> | null
+    /**
+     * The filter to search for the polls to update in case it exists.
+     */
+    where: pollsWhereUniqueInput
+    /**
+     * In case the polls found by the `where` argument doesn't exist, create a new polls with this data.
+     */
+    create: XOR<pollsCreateInput, pollsUncheckedCreateInput>
+    /**
+     * In case the polls was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<pollsUpdateInput, pollsUncheckedUpdateInput>
+  }
+
+  /**
+   * polls delete
+   */
+  export type pollsDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the polls
+     */
+    select?: pollsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the polls
+     */
+    omit?: pollsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: pollsInclude<ExtArgs> | null
+    /**
+     * Filter which polls to delete.
+     */
+    where: pollsWhereUniqueInput
+  }
+
+  /**
+   * polls deleteMany
+   */
+  export type pollsDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which polls to delete
+     */
+    where?: pollsWhereInput
+    /**
+     * Limit how many polls to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * polls.choices
+   */
+  export type polls$choicesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the poll_choices
+     */
+    select?: poll_choicesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the poll_choices
+     */
+    omit?: poll_choicesOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: poll_choicesInclude<ExtArgs> | null
+    where?: poll_choicesWhereInput
+    orderBy?: poll_choicesOrderByWithRelationInput | poll_choicesOrderByWithRelationInput[]
+    cursor?: poll_choicesWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: Poll_choicesScalarFieldEnum | Poll_choicesScalarFieldEnum[]
+  }
+
+  /**
+   * polls.comments
+   */
+  export type polls$commentsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the poll_comments
+     */
+    select?: poll_commentsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the poll_comments
+     */
+    omit?: poll_commentsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: poll_commentsInclude<ExtArgs> | null
+    where?: poll_commentsWhereInput
+    orderBy?: poll_commentsOrderByWithRelationInput | poll_commentsOrderByWithRelationInput[]
+    cursor?: poll_commentsWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: Poll_commentsScalarFieldEnum | Poll_commentsScalarFieldEnum[]
+  }
+
+  /**
+   * polls without action
+   */
+  export type pollsDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the polls
+     */
+    select?: pollsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the polls
+     */
+    omit?: pollsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: pollsInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model poll_choices
+   */
+
+  export type AggregatePoll_choices = {
+    _count: Poll_choicesCountAggregateOutputType | null
+    _avg: Poll_choicesAvgAggregateOutputType | null
+    _sum: Poll_choicesSumAggregateOutputType | null
+    _min: Poll_choicesMinAggregateOutputType | null
+    _max: Poll_choicesMaxAggregateOutputType | null
+  }
+
+  export type Poll_choicesAvgAggregateOutputType = {
+    id: number | null
+    poll_id: number | null
+    vote_count: number | null
+  }
+
+  export type Poll_choicesSumAggregateOutputType = {
+    id: number | null
+    poll_id: number | null
+    vote_count: number | null
+  }
+
+  export type Poll_choicesMinAggregateOutputType = {
+    id: number | null
+    poll_id: number | null
+    choice: $Enums.poll_choice_type | null
+    vote_count: number | null
+    created_at: Date | null
+  }
+
+  export type Poll_choicesMaxAggregateOutputType = {
+    id: number | null
+    poll_id: number | null
+    choice: $Enums.poll_choice_type | null
+    vote_count: number | null
+    created_at: Date | null
+  }
+
+  export type Poll_choicesCountAggregateOutputType = {
+    id: number
+    poll_id: number
+    choice: number
+    vote_count: number
+    created_at: number
+    _all: number
+  }
+
+
+  export type Poll_choicesAvgAggregateInputType = {
+    id?: true
+    poll_id?: true
+    vote_count?: true
+  }
+
+  export type Poll_choicesSumAggregateInputType = {
+    id?: true
+    poll_id?: true
+    vote_count?: true
+  }
+
+  export type Poll_choicesMinAggregateInputType = {
+    id?: true
+    poll_id?: true
+    choice?: true
+    vote_count?: true
+    created_at?: true
+  }
+
+  export type Poll_choicesMaxAggregateInputType = {
+    id?: true
+    poll_id?: true
+    choice?: true
+    vote_count?: true
+    created_at?: true
+  }
+
+  export type Poll_choicesCountAggregateInputType = {
+    id?: true
+    poll_id?: true
+    choice?: true
+    vote_count?: true
+    created_at?: true
+    _all?: true
+  }
+
+  export type Poll_choicesAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which poll_choices to aggregate.
+     */
+    where?: poll_choicesWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of poll_choices to fetch.
+     */
+    orderBy?: poll_choicesOrderByWithRelationInput | poll_choicesOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: poll_choicesWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` poll_choices from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` poll_choices.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned poll_choices
+    **/
+    _count?: true | Poll_choicesCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: Poll_choicesAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: Poll_choicesSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: Poll_choicesMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: Poll_choicesMaxAggregateInputType
+  }
+
+  export type GetPoll_choicesAggregateType<T extends Poll_choicesAggregateArgs> = {
+        [P in keyof T & keyof AggregatePoll_choices]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregatePoll_choices[P]>
+      : GetScalarType<T[P], AggregatePoll_choices[P]>
+  }
+
+
+
+
+  export type poll_choicesGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: poll_choicesWhereInput
+    orderBy?: poll_choicesOrderByWithAggregationInput | poll_choicesOrderByWithAggregationInput[]
+    by: Poll_choicesScalarFieldEnum[] | Poll_choicesScalarFieldEnum
+    having?: poll_choicesScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: Poll_choicesCountAggregateInputType | true
+    _avg?: Poll_choicesAvgAggregateInputType
+    _sum?: Poll_choicesSumAggregateInputType
+    _min?: Poll_choicesMinAggregateInputType
+    _max?: Poll_choicesMaxAggregateInputType
+  }
+
+  export type Poll_choicesGroupByOutputType = {
+    id: number
+    poll_id: number
+    choice: $Enums.poll_choice_type
+    vote_count: number
+    created_at: Date
+    _count: Poll_choicesCountAggregateOutputType | null
+    _avg: Poll_choicesAvgAggregateOutputType | null
+    _sum: Poll_choicesSumAggregateOutputType | null
+    _min: Poll_choicesMinAggregateOutputType | null
+    _max: Poll_choicesMaxAggregateOutputType | null
+  }
+
+  type GetPoll_choicesGroupByPayload<T extends poll_choicesGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<Poll_choicesGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof Poll_choicesGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], Poll_choicesGroupByOutputType[P]>
+            : GetScalarType<T[P], Poll_choicesGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type poll_choicesSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    poll_id?: boolean
+    choice?: boolean
+    vote_count?: boolean
+    created_at?: boolean
+    poll?: boolean | pollsDefaultArgs<ExtArgs>
+    votes?: boolean | poll_choices$votesArgs<ExtArgs>
+    _count?: boolean | Poll_choicesCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["poll_choices"]>
+
+  export type poll_choicesSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    poll_id?: boolean
+    choice?: boolean
+    vote_count?: boolean
+    created_at?: boolean
+    poll?: boolean | pollsDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["poll_choices"]>
+
+  export type poll_choicesSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    poll_id?: boolean
+    choice?: boolean
+    vote_count?: boolean
+    created_at?: boolean
+    poll?: boolean | pollsDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["poll_choices"]>
+
+  export type poll_choicesSelectScalar = {
+    id?: boolean
+    poll_id?: boolean
+    choice?: boolean
+    vote_count?: boolean
+    created_at?: boolean
+  }
+
+  export type poll_choicesOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "poll_id" | "choice" | "vote_count" | "created_at", ExtArgs["result"]["poll_choices"]>
+  export type poll_choicesInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    poll?: boolean | pollsDefaultArgs<ExtArgs>
+    votes?: boolean | poll_choices$votesArgs<ExtArgs>
+    _count?: boolean | Poll_choicesCountOutputTypeDefaultArgs<ExtArgs>
+  }
+  export type poll_choicesIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    poll?: boolean | pollsDefaultArgs<ExtArgs>
+  }
+  export type poll_choicesIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    poll?: boolean | pollsDefaultArgs<ExtArgs>
+  }
+
+  export type $poll_choicesPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "poll_choices"
+    objects: {
+      poll: Prisma.$pollsPayload<ExtArgs>
+      votes: Prisma.$poll_votesPayload<ExtArgs>[]
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: number
+      poll_id: number
+      choice: $Enums.poll_choice_type
+      vote_count: number
+      created_at: Date
+    }, ExtArgs["result"]["poll_choices"]>
+    composites: {}
+  }
+
+  type poll_choicesGetPayload<S extends boolean | null | undefined | poll_choicesDefaultArgs> = $Result.GetResult<Prisma.$poll_choicesPayload, S>
+
+  type poll_choicesCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<poll_choicesFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: Poll_choicesCountAggregateInputType | true
+    }
+
+  export interface poll_choicesDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['poll_choices'], meta: { name: 'poll_choices' } }
+    /**
+     * Find zero or one Poll_choices that matches the filter.
+     * @param {poll_choicesFindUniqueArgs} args - Arguments to find a Poll_choices
+     * @example
+     * // Get one Poll_choices
+     * const poll_choices = await prisma.poll_choices.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends poll_choicesFindUniqueArgs>(args: SelectSubset<T, poll_choicesFindUniqueArgs<ExtArgs>>): Prisma__poll_choicesClient<$Result.GetResult<Prisma.$poll_choicesPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Poll_choices that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {poll_choicesFindUniqueOrThrowArgs} args - Arguments to find a Poll_choices
+     * @example
+     * // Get one Poll_choices
+     * const poll_choices = await prisma.poll_choices.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends poll_choicesFindUniqueOrThrowArgs>(args: SelectSubset<T, poll_choicesFindUniqueOrThrowArgs<ExtArgs>>): Prisma__poll_choicesClient<$Result.GetResult<Prisma.$poll_choicesPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Poll_choices that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {poll_choicesFindFirstArgs} args - Arguments to find a Poll_choices
+     * @example
+     * // Get one Poll_choices
+     * const poll_choices = await prisma.poll_choices.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends poll_choicesFindFirstArgs>(args?: SelectSubset<T, poll_choicesFindFirstArgs<ExtArgs>>): Prisma__poll_choicesClient<$Result.GetResult<Prisma.$poll_choicesPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Poll_choices that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {poll_choicesFindFirstOrThrowArgs} args - Arguments to find a Poll_choices
+     * @example
+     * // Get one Poll_choices
+     * const poll_choices = await prisma.poll_choices.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends poll_choicesFindFirstOrThrowArgs>(args?: SelectSubset<T, poll_choicesFindFirstOrThrowArgs<ExtArgs>>): Prisma__poll_choicesClient<$Result.GetResult<Prisma.$poll_choicesPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Poll_choices that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {poll_choicesFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Poll_choices
+     * const poll_choices = await prisma.poll_choices.findMany()
+     * 
+     * // Get first 10 Poll_choices
+     * const poll_choices = await prisma.poll_choices.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const poll_choicesWithIdOnly = await prisma.poll_choices.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends poll_choicesFindManyArgs>(args?: SelectSubset<T, poll_choicesFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$poll_choicesPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Poll_choices.
+     * @param {poll_choicesCreateArgs} args - Arguments to create a Poll_choices.
+     * @example
+     * // Create one Poll_choices
+     * const Poll_choices = await prisma.poll_choices.create({
+     *   data: {
+     *     // ... data to create a Poll_choices
+     *   }
+     * })
+     * 
+     */
+    create<T extends poll_choicesCreateArgs>(args: SelectSubset<T, poll_choicesCreateArgs<ExtArgs>>): Prisma__poll_choicesClient<$Result.GetResult<Prisma.$poll_choicesPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Poll_choices.
+     * @param {poll_choicesCreateManyArgs} args - Arguments to create many Poll_choices.
+     * @example
+     * // Create many Poll_choices
+     * const poll_choices = await prisma.poll_choices.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends poll_choicesCreateManyArgs>(args?: SelectSubset<T, poll_choicesCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many Poll_choices and returns the data saved in the database.
+     * @param {poll_choicesCreateManyAndReturnArgs} args - Arguments to create many Poll_choices.
+     * @example
+     * // Create many Poll_choices
+     * const poll_choices = await prisma.poll_choices.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many Poll_choices and only return the `id`
+     * const poll_choicesWithIdOnly = await prisma.poll_choices.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends poll_choicesCreateManyAndReturnArgs>(args?: SelectSubset<T, poll_choicesCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$poll_choicesPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a Poll_choices.
+     * @param {poll_choicesDeleteArgs} args - Arguments to delete one Poll_choices.
+     * @example
+     * // Delete one Poll_choices
+     * const Poll_choices = await prisma.poll_choices.delete({
+     *   where: {
+     *     // ... filter to delete one Poll_choices
+     *   }
+     * })
+     * 
+     */
+    delete<T extends poll_choicesDeleteArgs>(args: SelectSubset<T, poll_choicesDeleteArgs<ExtArgs>>): Prisma__poll_choicesClient<$Result.GetResult<Prisma.$poll_choicesPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Poll_choices.
+     * @param {poll_choicesUpdateArgs} args - Arguments to update one Poll_choices.
+     * @example
+     * // Update one Poll_choices
+     * const poll_choices = await prisma.poll_choices.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends poll_choicesUpdateArgs>(args: SelectSubset<T, poll_choicesUpdateArgs<ExtArgs>>): Prisma__poll_choicesClient<$Result.GetResult<Prisma.$poll_choicesPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Poll_choices.
+     * @param {poll_choicesDeleteManyArgs} args - Arguments to filter Poll_choices to delete.
+     * @example
+     * // Delete a few Poll_choices
+     * const { count } = await prisma.poll_choices.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends poll_choicesDeleteManyArgs>(args?: SelectSubset<T, poll_choicesDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Poll_choices.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {poll_choicesUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Poll_choices
+     * const poll_choices = await prisma.poll_choices.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends poll_choicesUpdateManyArgs>(args: SelectSubset<T, poll_choicesUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Poll_choices and returns the data updated in the database.
+     * @param {poll_choicesUpdateManyAndReturnArgs} args - Arguments to update many Poll_choices.
+     * @example
+     * // Update many Poll_choices
+     * const poll_choices = await prisma.poll_choices.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more Poll_choices and only return the `id`
+     * const poll_choicesWithIdOnly = await prisma.poll_choices.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends poll_choicesUpdateManyAndReturnArgs>(args: SelectSubset<T, poll_choicesUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$poll_choicesPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one Poll_choices.
+     * @param {poll_choicesUpsertArgs} args - Arguments to update or create a Poll_choices.
+     * @example
+     * // Update or create a Poll_choices
+     * const poll_choices = await prisma.poll_choices.upsert({
+     *   create: {
+     *     // ... data to create a Poll_choices
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Poll_choices we want to update
+     *   }
+     * })
+     */
+    upsert<T extends poll_choicesUpsertArgs>(args: SelectSubset<T, poll_choicesUpsertArgs<ExtArgs>>): Prisma__poll_choicesClient<$Result.GetResult<Prisma.$poll_choicesPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of Poll_choices.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {poll_choicesCountArgs} args - Arguments to filter Poll_choices to count.
+     * @example
+     * // Count the number of Poll_choices
+     * const count = await prisma.poll_choices.count({
+     *   where: {
+     *     // ... the filter for the Poll_choices we want to count
+     *   }
+     * })
+    **/
+    count<T extends poll_choicesCountArgs>(
+      args?: Subset<T, poll_choicesCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], Poll_choicesCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Poll_choices.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {Poll_choicesAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends Poll_choicesAggregateArgs>(args: Subset<T, Poll_choicesAggregateArgs>): Prisma.PrismaPromise<GetPoll_choicesAggregateType<T>>
+
+    /**
+     * Group by Poll_choices.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {poll_choicesGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends poll_choicesGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: poll_choicesGroupByArgs['orderBy'] }
+        : { orderBy?: poll_choicesGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, poll_choicesGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetPoll_choicesGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the poll_choices model
+   */
+  readonly fields: poll_choicesFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for poll_choices.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__poll_choicesClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    poll<T extends pollsDefaultArgs<ExtArgs> = {}>(args?: Subset<T, pollsDefaultArgs<ExtArgs>>): Prisma__pollsClient<$Result.GetResult<Prisma.$pollsPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    votes<T extends poll_choices$votesArgs<ExtArgs> = {}>(args?: Subset<T, poll_choices$votesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$poll_votesPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the poll_choices model
+   */
+  interface poll_choicesFieldRefs {
+    readonly id: FieldRef<"poll_choices", 'Int'>
+    readonly poll_id: FieldRef<"poll_choices", 'Int'>
+    readonly choice: FieldRef<"poll_choices", 'poll_choice_type'>
+    readonly vote_count: FieldRef<"poll_choices", 'Int'>
+    readonly created_at: FieldRef<"poll_choices", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * poll_choices findUnique
+   */
+  export type poll_choicesFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the poll_choices
+     */
+    select?: poll_choicesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the poll_choices
+     */
+    omit?: poll_choicesOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: poll_choicesInclude<ExtArgs> | null
+    /**
+     * Filter, which poll_choices to fetch.
+     */
+    where: poll_choicesWhereUniqueInput
+  }
+
+  /**
+   * poll_choices findUniqueOrThrow
+   */
+  export type poll_choicesFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the poll_choices
+     */
+    select?: poll_choicesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the poll_choices
+     */
+    omit?: poll_choicesOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: poll_choicesInclude<ExtArgs> | null
+    /**
+     * Filter, which poll_choices to fetch.
+     */
+    where: poll_choicesWhereUniqueInput
+  }
+
+  /**
+   * poll_choices findFirst
+   */
+  export type poll_choicesFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the poll_choices
+     */
+    select?: poll_choicesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the poll_choices
+     */
+    omit?: poll_choicesOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: poll_choicesInclude<ExtArgs> | null
+    /**
+     * Filter, which poll_choices to fetch.
+     */
+    where?: poll_choicesWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of poll_choices to fetch.
+     */
+    orderBy?: poll_choicesOrderByWithRelationInput | poll_choicesOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for poll_choices.
+     */
+    cursor?: poll_choicesWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` poll_choices from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` poll_choices.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of poll_choices.
+     */
+    distinct?: Poll_choicesScalarFieldEnum | Poll_choicesScalarFieldEnum[]
+  }
+
+  /**
+   * poll_choices findFirstOrThrow
+   */
+  export type poll_choicesFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the poll_choices
+     */
+    select?: poll_choicesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the poll_choices
+     */
+    omit?: poll_choicesOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: poll_choicesInclude<ExtArgs> | null
+    /**
+     * Filter, which poll_choices to fetch.
+     */
+    where?: poll_choicesWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of poll_choices to fetch.
+     */
+    orderBy?: poll_choicesOrderByWithRelationInput | poll_choicesOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for poll_choices.
+     */
+    cursor?: poll_choicesWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` poll_choices from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` poll_choices.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of poll_choices.
+     */
+    distinct?: Poll_choicesScalarFieldEnum | Poll_choicesScalarFieldEnum[]
+  }
+
+  /**
+   * poll_choices findMany
+   */
+  export type poll_choicesFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the poll_choices
+     */
+    select?: poll_choicesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the poll_choices
+     */
+    omit?: poll_choicesOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: poll_choicesInclude<ExtArgs> | null
+    /**
+     * Filter, which poll_choices to fetch.
+     */
+    where?: poll_choicesWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of poll_choices to fetch.
+     */
+    orderBy?: poll_choicesOrderByWithRelationInput | poll_choicesOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing poll_choices.
+     */
+    cursor?: poll_choicesWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` poll_choices from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` poll_choices.
+     */
+    skip?: number
+    distinct?: Poll_choicesScalarFieldEnum | Poll_choicesScalarFieldEnum[]
+  }
+
+  /**
+   * poll_choices create
+   */
+  export type poll_choicesCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the poll_choices
+     */
+    select?: poll_choicesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the poll_choices
+     */
+    omit?: poll_choicesOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: poll_choicesInclude<ExtArgs> | null
+    /**
+     * The data needed to create a poll_choices.
+     */
+    data: XOR<poll_choicesCreateInput, poll_choicesUncheckedCreateInput>
+  }
+
+  /**
+   * poll_choices createMany
+   */
+  export type poll_choicesCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many poll_choices.
+     */
+    data: poll_choicesCreateManyInput | poll_choicesCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * poll_choices createManyAndReturn
+   */
+  export type poll_choicesCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the poll_choices
+     */
+    select?: poll_choicesSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the poll_choices
+     */
+    omit?: poll_choicesOmit<ExtArgs> | null
+    /**
+     * The data used to create many poll_choices.
+     */
+    data: poll_choicesCreateManyInput | poll_choicesCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: poll_choicesIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * poll_choices update
+   */
+  export type poll_choicesUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the poll_choices
+     */
+    select?: poll_choicesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the poll_choices
+     */
+    omit?: poll_choicesOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: poll_choicesInclude<ExtArgs> | null
+    /**
+     * The data needed to update a poll_choices.
+     */
+    data: XOR<poll_choicesUpdateInput, poll_choicesUncheckedUpdateInput>
+    /**
+     * Choose, which poll_choices to update.
+     */
+    where: poll_choicesWhereUniqueInput
+  }
+
+  /**
+   * poll_choices updateMany
+   */
+  export type poll_choicesUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update poll_choices.
+     */
+    data: XOR<poll_choicesUpdateManyMutationInput, poll_choicesUncheckedUpdateManyInput>
+    /**
+     * Filter which poll_choices to update
+     */
+    where?: poll_choicesWhereInput
+    /**
+     * Limit how many poll_choices to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * poll_choices updateManyAndReturn
+   */
+  export type poll_choicesUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the poll_choices
+     */
+    select?: poll_choicesSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the poll_choices
+     */
+    omit?: poll_choicesOmit<ExtArgs> | null
+    /**
+     * The data used to update poll_choices.
+     */
+    data: XOR<poll_choicesUpdateManyMutationInput, poll_choicesUncheckedUpdateManyInput>
+    /**
+     * Filter which poll_choices to update
+     */
+    where?: poll_choicesWhereInput
+    /**
+     * Limit how many poll_choices to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: poll_choicesIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * poll_choices upsert
+   */
+  export type poll_choicesUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the poll_choices
+     */
+    select?: poll_choicesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the poll_choices
+     */
+    omit?: poll_choicesOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: poll_choicesInclude<ExtArgs> | null
+    /**
+     * The filter to search for the poll_choices to update in case it exists.
+     */
+    where: poll_choicesWhereUniqueInput
+    /**
+     * In case the poll_choices found by the `where` argument doesn't exist, create a new poll_choices with this data.
+     */
+    create: XOR<poll_choicesCreateInput, poll_choicesUncheckedCreateInput>
+    /**
+     * In case the poll_choices was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<poll_choicesUpdateInput, poll_choicesUncheckedUpdateInput>
+  }
+
+  /**
+   * poll_choices delete
+   */
+  export type poll_choicesDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the poll_choices
+     */
+    select?: poll_choicesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the poll_choices
+     */
+    omit?: poll_choicesOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: poll_choicesInclude<ExtArgs> | null
+    /**
+     * Filter which poll_choices to delete.
+     */
+    where: poll_choicesWhereUniqueInput
+  }
+
+  /**
+   * poll_choices deleteMany
+   */
+  export type poll_choicesDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which poll_choices to delete
+     */
+    where?: poll_choicesWhereInput
+    /**
+     * Limit how many poll_choices to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * poll_choices.votes
+   */
+  export type poll_choices$votesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the poll_votes
+     */
+    select?: poll_votesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the poll_votes
+     */
+    omit?: poll_votesOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: poll_votesInclude<ExtArgs> | null
+    where?: poll_votesWhereInput
+    orderBy?: poll_votesOrderByWithRelationInput | poll_votesOrderByWithRelationInput[]
+    cursor?: poll_votesWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: Poll_votesScalarFieldEnum | Poll_votesScalarFieldEnum[]
+  }
+
+  /**
+   * poll_choices without action
+   */
+  export type poll_choicesDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the poll_choices
+     */
+    select?: poll_choicesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the poll_choices
+     */
+    omit?: poll_choicesOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: poll_choicesInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model poll_votes
+   */
+
+  export type AggregatePoll_votes = {
+    _count: Poll_votesCountAggregateOutputType | null
+    _avg: Poll_votesAvgAggregateOutputType | null
+    _sum: Poll_votesSumAggregateOutputType | null
+    _min: Poll_votesMinAggregateOutputType | null
+    _max: Poll_votesMaxAggregateOutputType | null
+  }
+
+  export type Poll_votesAvgAggregateOutputType = {
+    id: number | null
+    poll_id: number | null
+    choice_id: number | null
+    user_id: number | null
+  }
+
+  export type Poll_votesSumAggregateOutputType = {
+    id: number | null
+    poll_id: number | null
+    choice_id: number | null
+    user_id: number | null
+  }
+
+  export type Poll_votesMinAggregateOutputType = {
+    id: number | null
+    poll_id: number | null
+    choice_id: number | null
+    user_id: number | null
+    voted_at: Date | null
+  }
+
+  export type Poll_votesMaxAggregateOutputType = {
+    id: number | null
+    poll_id: number | null
+    choice_id: number | null
+    user_id: number | null
+    voted_at: Date | null
+  }
+
+  export type Poll_votesCountAggregateOutputType = {
+    id: number
+    poll_id: number
+    choice_id: number
+    user_id: number
+    voted_at: number
+    _all: number
+  }
+
+
+  export type Poll_votesAvgAggregateInputType = {
+    id?: true
+    poll_id?: true
+    choice_id?: true
+    user_id?: true
+  }
+
+  export type Poll_votesSumAggregateInputType = {
+    id?: true
+    poll_id?: true
+    choice_id?: true
+    user_id?: true
+  }
+
+  export type Poll_votesMinAggregateInputType = {
+    id?: true
+    poll_id?: true
+    choice_id?: true
+    user_id?: true
+    voted_at?: true
+  }
+
+  export type Poll_votesMaxAggregateInputType = {
+    id?: true
+    poll_id?: true
+    choice_id?: true
+    user_id?: true
+    voted_at?: true
+  }
+
+  export type Poll_votesCountAggregateInputType = {
+    id?: true
+    poll_id?: true
+    choice_id?: true
+    user_id?: true
+    voted_at?: true
+    _all?: true
+  }
+
+  export type Poll_votesAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which poll_votes to aggregate.
+     */
+    where?: poll_votesWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of poll_votes to fetch.
+     */
+    orderBy?: poll_votesOrderByWithRelationInput | poll_votesOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: poll_votesWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` poll_votes from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` poll_votes.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned poll_votes
+    **/
+    _count?: true | Poll_votesCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: Poll_votesAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: Poll_votesSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: Poll_votesMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: Poll_votesMaxAggregateInputType
+  }
+
+  export type GetPoll_votesAggregateType<T extends Poll_votesAggregateArgs> = {
+        [P in keyof T & keyof AggregatePoll_votes]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregatePoll_votes[P]>
+      : GetScalarType<T[P], AggregatePoll_votes[P]>
+  }
+
+
+
+
+  export type poll_votesGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: poll_votesWhereInput
+    orderBy?: poll_votesOrderByWithAggregationInput | poll_votesOrderByWithAggregationInput[]
+    by: Poll_votesScalarFieldEnum[] | Poll_votesScalarFieldEnum
+    having?: poll_votesScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: Poll_votesCountAggregateInputType | true
+    _avg?: Poll_votesAvgAggregateInputType
+    _sum?: Poll_votesSumAggregateInputType
+    _min?: Poll_votesMinAggregateInputType
+    _max?: Poll_votesMaxAggregateInputType
+  }
+
+  export type Poll_votesGroupByOutputType = {
+    id: number
+    poll_id: number
+    choice_id: number
+    user_id: number
+    voted_at: Date
+    _count: Poll_votesCountAggregateOutputType | null
+    _avg: Poll_votesAvgAggregateOutputType | null
+    _sum: Poll_votesSumAggregateOutputType | null
+    _min: Poll_votesMinAggregateOutputType | null
+    _max: Poll_votesMaxAggregateOutputType | null
+  }
+
+  type GetPoll_votesGroupByPayload<T extends poll_votesGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<Poll_votesGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof Poll_votesGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], Poll_votesGroupByOutputType[P]>
+            : GetScalarType<T[P], Poll_votesGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type poll_votesSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    poll_id?: boolean
+    choice_id?: boolean
+    user_id?: boolean
+    voted_at?: boolean
+    choice?: boolean | poll_choicesDefaultArgs<ExtArgs>
+    voter?: boolean | usersDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["poll_votes"]>
+
+  export type poll_votesSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    poll_id?: boolean
+    choice_id?: boolean
+    user_id?: boolean
+    voted_at?: boolean
+    choice?: boolean | poll_choicesDefaultArgs<ExtArgs>
+    voter?: boolean | usersDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["poll_votes"]>
+
+  export type poll_votesSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    poll_id?: boolean
+    choice_id?: boolean
+    user_id?: boolean
+    voted_at?: boolean
+    choice?: boolean | poll_choicesDefaultArgs<ExtArgs>
+    voter?: boolean | usersDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["poll_votes"]>
+
+  export type poll_votesSelectScalar = {
+    id?: boolean
+    poll_id?: boolean
+    choice_id?: boolean
+    user_id?: boolean
+    voted_at?: boolean
+  }
+
+  export type poll_votesOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "poll_id" | "choice_id" | "user_id" | "voted_at", ExtArgs["result"]["poll_votes"]>
+  export type poll_votesInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    choice?: boolean | poll_choicesDefaultArgs<ExtArgs>
+    voter?: boolean | usersDefaultArgs<ExtArgs>
+  }
+  export type poll_votesIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    choice?: boolean | poll_choicesDefaultArgs<ExtArgs>
+    voter?: boolean | usersDefaultArgs<ExtArgs>
+  }
+  export type poll_votesIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    choice?: boolean | poll_choicesDefaultArgs<ExtArgs>
+    voter?: boolean | usersDefaultArgs<ExtArgs>
+  }
+
+  export type $poll_votesPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "poll_votes"
+    objects: {
+      choice: Prisma.$poll_choicesPayload<ExtArgs>
+      voter: Prisma.$usersPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: number
+      poll_id: number
+      choice_id: number
+      user_id: number
+      voted_at: Date
+    }, ExtArgs["result"]["poll_votes"]>
+    composites: {}
+  }
+
+  type poll_votesGetPayload<S extends boolean | null | undefined | poll_votesDefaultArgs> = $Result.GetResult<Prisma.$poll_votesPayload, S>
+
+  type poll_votesCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<poll_votesFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: Poll_votesCountAggregateInputType | true
+    }
+
+  export interface poll_votesDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['poll_votes'], meta: { name: 'poll_votes' } }
+    /**
+     * Find zero or one Poll_votes that matches the filter.
+     * @param {poll_votesFindUniqueArgs} args - Arguments to find a Poll_votes
+     * @example
+     * // Get one Poll_votes
+     * const poll_votes = await prisma.poll_votes.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends poll_votesFindUniqueArgs>(args: SelectSubset<T, poll_votesFindUniqueArgs<ExtArgs>>): Prisma__poll_votesClient<$Result.GetResult<Prisma.$poll_votesPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Poll_votes that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {poll_votesFindUniqueOrThrowArgs} args - Arguments to find a Poll_votes
+     * @example
+     * // Get one Poll_votes
+     * const poll_votes = await prisma.poll_votes.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends poll_votesFindUniqueOrThrowArgs>(args: SelectSubset<T, poll_votesFindUniqueOrThrowArgs<ExtArgs>>): Prisma__poll_votesClient<$Result.GetResult<Prisma.$poll_votesPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Poll_votes that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {poll_votesFindFirstArgs} args - Arguments to find a Poll_votes
+     * @example
+     * // Get one Poll_votes
+     * const poll_votes = await prisma.poll_votes.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends poll_votesFindFirstArgs>(args?: SelectSubset<T, poll_votesFindFirstArgs<ExtArgs>>): Prisma__poll_votesClient<$Result.GetResult<Prisma.$poll_votesPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Poll_votes that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {poll_votesFindFirstOrThrowArgs} args - Arguments to find a Poll_votes
+     * @example
+     * // Get one Poll_votes
+     * const poll_votes = await prisma.poll_votes.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends poll_votesFindFirstOrThrowArgs>(args?: SelectSubset<T, poll_votesFindFirstOrThrowArgs<ExtArgs>>): Prisma__poll_votesClient<$Result.GetResult<Prisma.$poll_votesPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Poll_votes that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {poll_votesFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Poll_votes
+     * const poll_votes = await prisma.poll_votes.findMany()
+     * 
+     * // Get first 10 Poll_votes
+     * const poll_votes = await prisma.poll_votes.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const poll_votesWithIdOnly = await prisma.poll_votes.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends poll_votesFindManyArgs>(args?: SelectSubset<T, poll_votesFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$poll_votesPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Poll_votes.
+     * @param {poll_votesCreateArgs} args - Arguments to create a Poll_votes.
+     * @example
+     * // Create one Poll_votes
+     * const Poll_votes = await prisma.poll_votes.create({
+     *   data: {
+     *     // ... data to create a Poll_votes
+     *   }
+     * })
+     * 
+     */
+    create<T extends poll_votesCreateArgs>(args: SelectSubset<T, poll_votesCreateArgs<ExtArgs>>): Prisma__poll_votesClient<$Result.GetResult<Prisma.$poll_votesPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Poll_votes.
+     * @param {poll_votesCreateManyArgs} args - Arguments to create many Poll_votes.
+     * @example
+     * // Create many Poll_votes
+     * const poll_votes = await prisma.poll_votes.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends poll_votesCreateManyArgs>(args?: SelectSubset<T, poll_votesCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many Poll_votes and returns the data saved in the database.
+     * @param {poll_votesCreateManyAndReturnArgs} args - Arguments to create many Poll_votes.
+     * @example
+     * // Create many Poll_votes
+     * const poll_votes = await prisma.poll_votes.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many Poll_votes and only return the `id`
+     * const poll_votesWithIdOnly = await prisma.poll_votes.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends poll_votesCreateManyAndReturnArgs>(args?: SelectSubset<T, poll_votesCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$poll_votesPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a Poll_votes.
+     * @param {poll_votesDeleteArgs} args - Arguments to delete one Poll_votes.
+     * @example
+     * // Delete one Poll_votes
+     * const Poll_votes = await prisma.poll_votes.delete({
+     *   where: {
+     *     // ... filter to delete one Poll_votes
+     *   }
+     * })
+     * 
+     */
+    delete<T extends poll_votesDeleteArgs>(args: SelectSubset<T, poll_votesDeleteArgs<ExtArgs>>): Prisma__poll_votesClient<$Result.GetResult<Prisma.$poll_votesPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Poll_votes.
+     * @param {poll_votesUpdateArgs} args - Arguments to update one Poll_votes.
+     * @example
+     * // Update one Poll_votes
+     * const poll_votes = await prisma.poll_votes.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends poll_votesUpdateArgs>(args: SelectSubset<T, poll_votesUpdateArgs<ExtArgs>>): Prisma__poll_votesClient<$Result.GetResult<Prisma.$poll_votesPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Poll_votes.
+     * @param {poll_votesDeleteManyArgs} args - Arguments to filter Poll_votes to delete.
+     * @example
+     * // Delete a few Poll_votes
+     * const { count } = await prisma.poll_votes.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends poll_votesDeleteManyArgs>(args?: SelectSubset<T, poll_votesDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Poll_votes.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {poll_votesUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Poll_votes
+     * const poll_votes = await prisma.poll_votes.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends poll_votesUpdateManyArgs>(args: SelectSubset<T, poll_votesUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Poll_votes and returns the data updated in the database.
+     * @param {poll_votesUpdateManyAndReturnArgs} args - Arguments to update many Poll_votes.
+     * @example
+     * // Update many Poll_votes
+     * const poll_votes = await prisma.poll_votes.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more Poll_votes and only return the `id`
+     * const poll_votesWithIdOnly = await prisma.poll_votes.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends poll_votesUpdateManyAndReturnArgs>(args: SelectSubset<T, poll_votesUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$poll_votesPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one Poll_votes.
+     * @param {poll_votesUpsertArgs} args - Arguments to update or create a Poll_votes.
+     * @example
+     * // Update or create a Poll_votes
+     * const poll_votes = await prisma.poll_votes.upsert({
+     *   create: {
+     *     // ... data to create a Poll_votes
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Poll_votes we want to update
+     *   }
+     * })
+     */
+    upsert<T extends poll_votesUpsertArgs>(args: SelectSubset<T, poll_votesUpsertArgs<ExtArgs>>): Prisma__poll_votesClient<$Result.GetResult<Prisma.$poll_votesPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of Poll_votes.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {poll_votesCountArgs} args - Arguments to filter Poll_votes to count.
+     * @example
+     * // Count the number of Poll_votes
+     * const count = await prisma.poll_votes.count({
+     *   where: {
+     *     // ... the filter for the Poll_votes we want to count
+     *   }
+     * })
+    **/
+    count<T extends poll_votesCountArgs>(
+      args?: Subset<T, poll_votesCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], Poll_votesCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Poll_votes.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {Poll_votesAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends Poll_votesAggregateArgs>(args: Subset<T, Poll_votesAggregateArgs>): Prisma.PrismaPromise<GetPoll_votesAggregateType<T>>
+
+    /**
+     * Group by Poll_votes.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {poll_votesGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends poll_votesGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: poll_votesGroupByArgs['orderBy'] }
+        : { orderBy?: poll_votesGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, poll_votesGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetPoll_votesGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the poll_votes model
+   */
+  readonly fields: poll_votesFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for poll_votes.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__poll_votesClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    choice<T extends poll_choicesDefaultArgs<ExtArgs> = {}>(args?: Subset<T, poll_choicesDefaultArgs<ExtArgs>>): Prisma__poll_choicesClient<$Result.GetResult<Prisma.$poll_choicesPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    voter<T extends usersDefaultArgs<ExtArgs> = {}>(args?: Subset<T, usersDefaultArgs<ExtArgs>>): Prisma__usersClient<$Result.GetResult<Prisma.$usersPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the poll_votes model
+   */
+  interface poll_votesFieldRefs {
+    readonly id: FieldRef<"poll_votes", 'Int'>
+    readonly poll_id: FieldRef<"poll_votes", 'Int'>
+    readonly choice_id: FieldRef<"poll_votes", 'Int'>
+    readonly user_id: FieldRef<"poll_votes", 'Int'>
+    readonly voted_at: FieldRef<"poll_votes", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * poll_votes findUnique
+   */
+  export type poll_votesFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the poll_votes
+     */
+    select?: poll_votesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the poll_votes
+     */
+    omit?: poll_votesOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: poll_votesInclude<ExtArgs> | null
+    /**
+     * Filter, which poll_votes to fetch.
+     */
+    where: poll_votesWhereUniqueInput
+  }
+
+  /**
+   * poll_votes findUniqueOrThrow
+   */
+  export type poll_votesFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the poll_votes
+     */
+    select?: poll_votesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the poll_votes
+     */
+    omit?: poll_votesOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: poll_votesInclude<ExtArgs> | null
+    /**
+     * Filter, which poll_votes to fetch.
+     */
+    where: poll_votesWhereUniqueInput
+  }
+
+  /**
+   * poll_votes findFirst
+   */
+  export type poll_votesFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the poll_votes
+     */
+    select?: poll_votesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the poll_votes
+     */
+    omit?: poll_votesOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: poll_votesInclude<ExtArgs> | null
+    /**
+     * Filter, which poll_votes to fetch.
+     */
+    where?: poll_votesWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of poll_votes to fetch.
+     */
+    orderBy?: poll_votesOrderByWithRelationInput | poll_votesOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for poll_votes.
+     */
+    cursor?: poll_votesWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` poll_votes from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` poll_votes.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of poll_votes.
+     */
+    distinct?: Poll_votesScalarFieldEnum | Poll_votesScalarFieldEnum[]
+  }
+
+  /**
+   * poll_votes findFirstOrThrow
+   */
+  export type poll_votesFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the poll_votes
+     */
+    select?: poll_votesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the poll_votes
+     */
+    omit?: poll_votesOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: poll_votesInclude<ExtArgs> | null
+    /**
+     * Filter, which poll_votes to fetch.
+     */
+    where?: poll_votesWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of poll_votes to fetch.
+     */
+    orderBy?: poll_votesOrderByWithRelationInput | poll_votesOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for poll_votes.
+     */
+    cursor?: poll_votesWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` poll_votes from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` poll_votes.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of poll_votes.
+     */
+    distinct?: Poll_votesScalarFieldEnum | Poll_votesScalarFieldEnum[]
+  }
+
+  /**
+   * poll_votes findMany
+   */
+  export type poll_votesFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the poll_votes
+     */
+    select?: poll_votesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the poll_votes
+     */
+    omit?: poll_votesOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: poll_votesInclude<ExtArgs> | null
+    /**
+     * Filter, which poll_votes to fetch.
+     */
+    where?: poll_votesWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of poll_votes to fetch.
+     */
+    orderBy?: poll_votesOrderByWithRelationInput | poll_votesOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing poll_votes.
+     */
+    cursor?: poll_votesWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` poll_votes from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` poll_votes.
+     */
+    skip?: number
+    distinct?: Poll_votesScalarFieldEnum | Poll_votesScalarFieldEnum[]
+  }
+
+  /**
+   * poll_votes create
+   */
+  export type poll_votesCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the poll_votes
+     */
+    select?: poll_votesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the poll_votes
+     */
+    omit?: poll_votesOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: poll_votesInclude<ExtArgs> | null
+    /**
+     * The data needed to create a poll_votes.
+     */
+    data: XOR<poll_votesCreateInput, poll_votesUncheckedCreateInput>
+  }
+
+  /**
+   * poll_votes createMany
+   */
+  export type poll_votesCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many poll_votes.
+     */
+    data: poll_votesCreateManyInput | poll_votesCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * poll_votes createManyAndReturn
+   */
+  export type poll_votesCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the poll_votes
+     */
+    select?: poll_votesSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the poll_votes
+     */
+    omit?: poll_votesOmit<ExtArgs> | null
+    /**
+     * The data used to create many poll_votes.
+     */
+    data: poll_votesCreateManyInput | poll_votesCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: poll_votesIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * poll_votes update
+   */
+  export type poll_votesUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the poll_votes
+     */
+    select?: poll_votesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the poll_votes
+     */
+    omit?: poll_votesOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: poll_votesInclude<ExtArgs> | null
+    /**
+     * The data needed to update a poll_votes.
+     */
+    data: XOR<poll_votesUpdateInput, poll_votesUncheckedUpdateInput>
+    /**
+     * Choose, which poll_votes to update.
+     */
+    where: poll_votesWhereUniqueInput
+  }
+
+  /**
+   * poll_votes updateMany
+   */
+  export type poll_votesUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update poll_votes.
+     */
+    data: XOR<poll_votesUpdateManyMutationInput, poll_votesUncheckedUpdateManyInput>
+    /**
+     * Filter which poll_votes to update
+     */
+    where?: poll_votesWhereInput
+    /**
+     * Limit how many poll_votes to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * poll_votes updateManyAndReturn
+   */
+  export type poll_votesUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the poll_votes
+     */
+    select?: poll_votesSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the poll_votes
+     */
+    omit?: poll_votesOmit<ExtArgs> | null
+    /**
+     * The data used to update poll_votes.
+     */
+    data: XOR<poll_votesUpdateManyMutationInput, poll_votesUncheckedUpdateManyInput>
+    /**
+     * Filter which poll_votes to update
+     */
+    where?: poll_votesWhereInput
+    /**
+     * Limit how many poll_votes to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: poll_votesIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * poll_votes upsert
+   */
+  export type poll_votesUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the poll_votes
+     */
+    select?: poll_votesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the poll_votes
+     */
+    omit?: poll_votesOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: poll_votesInclude<ExtArgs> | null
+    /**
+     * The filter to search for the poll_votes to update in case it exists.
+     */
+    where: poll_votesWhereUniqueInput
+    /**
+     * In case the poll_votes found by the `where` argument doesn't exist, create a new poll_votes with this data.
+     */
+    create: XOR<poll_votesCreateInput, poll_votesUncheckedCreateInput>
+    /**
+     * In case the poll_votes was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<poll_votesUpdateInput, poll_votesUncheckedUpdateInput>
+  }
+
+  /**
+   * poll_votes delete
+   */
+  export type poll_votesDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the poll_votes
+     */
+    select?: poll_votesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the poll_votes
+     */
+    omit?: poll_votesOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: poll_votesInclude<ExtArgs> | null
+    /**
+     * Filter which poll_votes to delete.
+     */
+    where: poll_votesWhereUniqueInput
+  }
+
+  /**
+   * poll_votes deleteMany
+   */
+  export type poll_votesDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which poll_votes to delete
+     */
+    where?: poll_votesWhereInput
+    /**
+     * Limit how many poll_votes to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * poll_votes without action
+   */
+  export type poll_votesDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the poll_votes
+     */
+    select?: poll_votesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the poll_votes
+     */
+    omit?: poll_votesOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: poll_votesInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model poll_comments
+   */
+
+  export type AggregatePoll_comments = {
+    _count: Poll_commentsCountAggregateOutputType | null
+    _avg: Poll_commentsAvgAggregateOutputType | null
+    _sum: Poll_commentsSumAggregateOutputType | null
+    _min: Poll_commentsMinAggregateOutputType | null
+    _max: Poll_commentsMaxAggregateOutputType | null
+  }
+
+  export type Poll_commentsAvgAggregateOutputType = {
+    id: number | null
+    poll_id: number | null
+    user_id: number | null
+  }
+
+  export type Poll_commentsSumAggregateOutputType = {
+    id: number | null
+    poll_id: number | null
+    user_id: number | null
+  }
+
+  export type Poll_commentsMinAggregateOutputType = {
+    id: number | null
+    poll_id: number | null
+    user_id: number | null
+    comment: string | null
+    created_at: Date | null
+    updated_at: Date | null
+  }
+
+  export type Poll_commentsMaxAggregateOutputType = {
+    id: number | null
+    poll_id: number | null
+    user_id: number | null
+    comment: string | null
+    created_at: Date | null
+    updated_at: Date | null
+  }
+
+  export type Poll_commentsCountAggregateOutputType = {
+    id: number
+    poll_id: number
+    user_id: number
+    comment: number
+    created_at: number
+    updated_at: number
+    _all: number
+  }
+
+
+  export type Poll_commentsAvgAggregateInputType = {
+    id?: true
+    poll_id?: true
+    user_id?: true
+  }
+
+  export type Poll_commentsSumAggregateInputType = {
+    id?: true
+    poll_id?: true
+    user_id?: true
+  }
+
+  export type Poll_commentsMinAggregateInputType = {
+    id?: true
+    poll_id?: true
+    user_id?: true
+    comment?: true
+    created_at?: true
+    updated_at?: true
+  }
+
+  export type Poll_commentsMaxAggregateInputType = {
+    id?: true
+    poll_id?: true
+    user_id?: true
+    comment?: true
+    created_at?: true
+    updated_at?: true
+  }
+
+  export type Poll_commentsCountAggregateInputType = {
+    id?: true
+    poll_id?: true
+    user_id?: true
+    comment?: true
+    created_at?: true
+    updated_at?: true
+    _all?: true
+  }
+
+  export type Poll_commentsAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which poll_comments to aggregate.
+     */
+    where?: poll_commentsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of poll_comments to fetch.
+     */
+    orderBy?: poll_commentsOrderByWithRelationInput | poll_commentsOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: poll_commentsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` poll_comments from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` poll_comments.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned poll_comments
+    **/
+    _count?: true | Poll_commentsCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: Poll_commentsAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: Poll_commentsSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: Poll_commentsMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: Poll_commentsMaxAggregateInputType
+  }
+
+  export type GetPoll_commentsAggregateType<T extends Poll_commentsAggregateArgs> = {
+        [P in keyof T & keyof AggregatePoll_comments]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregatePoll_comments[P]>
+      : GetScalarType<T[P], AggregatePoll_comments[P]>
+  }
+
+
+
+
+  export type poll_commentsGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: poll_commentsWhereInput
+    orderBy?: poll_commentsOrderByWithAggregationInput | poll_commentsOrderByWithAggregationInput[]
+    by: Poll_commentsScalarFieldEnum[] | Poll_commentsScalarFieldEnum
+    having?: poll_commentsScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: Poll_commentsCountAggregateInputType | true
+    _avg?: Poll_commentsAvgAggregateInputType
+    _sum?: Poll_commentsSumAggregateInputType
+    _min?: Poll_commentsMinAggregateInputType
+    _max?: Poll_commentsMaxAggregateInputType
+  }
+
+  export type Poll_commentsGroupByOutputType = {
+    id: number
+    poll_id: number
+    user_id: number
+    comment: string
+    created_at: Date
+    updated_at: Date
+    _count: Poll_commentsCountAggregateOutputType | null
+    _avg: Poll_commentsAvgAggregateOutputType | null
+    _sum: Poll_commentsSumAggregateOutputType | null
+    _min: Poll_commentsMinAggregateOutputType | null
+    _max: Poll_commentsMaxAggregateOutputType | null
+  }
+
+  type GetPoll_commentsGroupByPayload<T extends poll_commentsGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<Poll_commentsGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof Poll_commentsGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], Poll_commentsGroupByOutputType[P]>
+            : GetScalarType<T[P], Poll_commentsGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type poll_commentsSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    poll_id?: boolean
+    user_id?: boolean
+    comment?: boolean
+    created_at?: boolean
+    updated_at?: boolean
+    poll?: boolean | pollsDefaultArgs<ExtArgs>
+    commenter?: boolean | usersDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["poll_comments"]>
+
+  export type poll_commentsSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    poll_id?: boolean
+    user_id?: boolean
+    comment?: boolean
+    created_at?: boolean
+    updated_at?: boolean
+    poll?: boolean | pollsDefaultArgs<ExtArgs>
+    commenter?: boolean | usersDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["poll_comments"]>
+
+  export type poll_commentsSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    poll_id?: boolean
+    user_id?: boolean
+    comment?: boolean
+    created_at?: boolean
+    updated_at?: boolean
+    poll?: boolean | pollsDefaultArgs<ExtArgs>
+    commenter?: boolean | usersDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["poll_comments"]>
+
+  export type poll_commentsSelectScalar = {
+    id?: boolean
+    poll_id?: boolean
+    user_id?: boolean
+    comment?: boolean
+    created_at?: boolean
+    updated_at?: boolean
+  }
+
+  export type poll_commentsOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "poll_id" | "user_id" | "comment" | "created_at" | "updated_at", ExtArgs["result"]["poll_comments"]>
+  export type poll_commentsInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    poll?: boolean | pollsDefaultArgs<ExtArgs>
+    commenter?: boolean | usersDefaultArgs<ExtArgs>
+  }
+  export type poll_commentsIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    poll?: boolean | pollsDefaultArgs<ExtArgs>
+    commenter?: boolean | usersDefaultArgs<ExtArgs>
+  }
+  export type poll_commentsIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    poll?: boolean | pollsDefaultArgs<ExtArgs>
+    commenter?: boolean | usersDefaultArgs<ExtArgs>
+  }
+
+  export type $poll_commentsPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "poll_comments"
+    objects: {
+      poll: Prisma.$pollsPayload<ExtArgs>
+      commenter: Prisma.$usersPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: number
+      poll_id: number
+      user_id: number
+      comment: string
+      created_at: Date
+      updated_at: Date
+    }, ExtArgs["result"]["poll_comments"]>
+    composites: {}
+  }
+
+  type poll_commentsGetPayload<S extends boolean | null | undefined | poll_commentsDefaultArgs> = $Result.GetResult<Prisma.$poll_commentsPayload, S>
+
+  type poll_commentsCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<poll_commentsFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: Poll_commentsCountAggregateInputType | true
+    }
+
+  export interface poll_commentsDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['poll_comments'], meta: { name: 'poll_comments' } }
+    /**
+     * Find zero or one Poll_comments that matches the filter.
+     * @param {poll_commentsFindUniqueArgs} args - Arguments to find a Poll_comments
+     * @example
+     * // Get one Poll_comments
+     * const poll_comments = await prisma.poll_comments.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends poll_commentsFindUniqueArgs>(args: SelectSubset<T, poll_commentsFindUniqueArgs<ExtArgs>>): Prisma__poll_commentsClient<$Result.GetResult<Prisma.$poll_commentsPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Poll_comments that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {poll_commentsFindUniqueOrThrowArgs} args - Arguments to find a Poll_comments
+     * @example
+     * // Get one Poll_comments
+     * const poll_comments = await prisma.poll_comments.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends poll_commentsFindUniqueOrThrowArgs>(args: SelectSubset<T, poll_commentsFindUniqueOrThrowArgs<ExtArgs>>): Prisma__poll_commentsClient<$Result.GetResult<Prisma.$poll_commentsPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Poll_comments that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {poll_commentsFindFirstArgs} args - Arguments to find a Poll_comments
+     * @example
+     * // Get one Poll_comments
+     * const poll_comments = await prisma.poll_comments.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends poll_commentsFindFirstArgs>(args?: SelectSubset<T, poll_commentsFindFirstArgs<ExtArgs>>): Prisma__poll_commentsClient<$Result.GetResult<Prisma.$poll_commentsPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Poll_comments that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {poll_commentsFindFirstOrThrowArgs} args - Arguments to find a Poll_comments
+     * @example
+     * // Get one Poll_comments
+     * const poll_comments = await prisma.poll_comments.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends poll_commentsFindFirstOrThrowArgs>(args?: SelectSubset<T, poll_commentsFindFirstOrThrowArgs<ExtArgs>>): Prisma__poll_commentsClient<$Result.GetResult<Prisma.$poll_commentsPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Poll_comments that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {poll_commentsFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Poll_comments
+     * const poll_comments = await prisma.poll_comments.findMany()
+     * 
+     * // Get first 10 Poll_comments
+     * const poll_comments = await prisma.poll_comments.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const poll_commentsWithIdOnly = await prisma.poll_comments.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends poll_commentsFindManyArgs>(args?: SelectSubset<T, poll_commentsFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$poll_commentsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Poll_comments.
+     * @param {poll_commentsCreateArgs} args - Arguments to create a Poll_comments.
+     * @example
+     * // Create one Poll_comments
+     * const Poll_comments = await prisma.poll_comments.create({
+     *   data: {
+     *     // ... data to create a Poll_comments
+     *   }
+     * })
+     * 
+     */
+    create<T extends poll_commentsCreateArgs>(args: SelectSubset<T, poll_commentsCreateArgs<ExtArgs>>): Prisma__poll_commentsClient<$Result.GetResult<Prisma.$poll_commentsPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Poll_comments.
+     * @param {poll_commentsCreateManyArgs} args - Arguments to create many Poll_comments.
+     * @example
+     * // Create many Poll_comments
+     * const poll_comments = await prisma.poll_comments.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends poll_commentsCreateManyArgs>(args?: SelectSubset<T, poll_commentsCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many Poll_comments and returns the data saved in the database.
+     * @param {poll_commentsCreateManyAndReturnArgs} args - Arguments to create many Poll_comments.
+     * @example
+     * // Create many Poll_comments
+     * const poll_comments = await prisma.poll_comments.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many Poll_comments and only return the `id`
+     * const poll_commentsWithIdOnly = await prisma.poll_comments.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends poll_commentsCreateManyAndReturnArgs>(args?: SelectSubset<T, poll_commentsCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$poll_commentsPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a Poll_comments.
+     * @param {poll_commentsDeleteArgs} args - Arguments to delete one Poll_comments.
+     * @example
+     * // Delete one Poll_comments
+     * const Poll_comments = await prisma.poll_comments.delete({
+     *   where: {
+     *     // ... filter to delete one Poll_comments
+     *   }
+     * })
+     * 
+     */
+    delete<T extends poll_commentsDeleteArgs>(args: SelectSubset<T, poll_commentsDeleteArgs<ExtArgs>>): Prisma__poll_commentsClient<$Result.GetResult<Prisma.$poll_commentsPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Poll_comments.
+     * @param {poll_commentsUpdateArgs} args - Arguments to update one Poll_comments.
+     * @example
+     * // Update one Poll_comments
+     * const poll_comments = await prisma.poll_comments.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends poll_commentsUpdateArgs>(args: SelectSubset<T, poll_commentsUpdateArgs<ExtArgs>>): Prisma__poll_commentsClient<$Result.GetResult<Prisma.$poll_commentsPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Poll_comments.
+     * @param {poll_commentsDeleteManyArgs} args - Arguments to filter Poll_comments to delete.
+     * @example
+     * // Delete a few Poll_comments
+     * const { count } = await prisma.poll_comments.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends poll_commentsDeleteManyArgs>(args?: SelectSubset<T, poll_commentsDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Poll_comments.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {poll_commentsUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Poll_comments
+     * const poll_comments = await prisma.poll_comments.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends poll_commentsUpdateManyArgs>(args: SelectSubset<T, poll_commentsUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Poll_comments and returns the data updated in the database.
+     * @param {poll_commentsUpdateManyAndReturnArgs} args - Arguments to update many Poll_comments.
+     * @example
+     * // Update many Poll_comments
+     * const poll_comments = await prisma.poll_comments.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more Poll_comments and only return the `id`
+     * const poll_commentsWithIdOnly = await prisma.poll_comments.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends poll_commentsUpdateManyAndReturnArgs>(args: SelectSubset<T, poll_commentsUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$poll_commentsPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one Poll_comments.
+     * @param {poll_commentsUpsertArgs} args - Arguments to update or create a Poll_comments.
+     * @example
+     * // Update or create a Poll_comments
+     * const poll_comments = await prisma.poll_comments.upsert({
+     *   create: {
+     *     // ... data to create a Poll_comments
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Poll_comments we want to update
+     *   }
+     * })
+     */
+    upsert<T extends poll_commentsUpsertArgs>(args: SelectSubset<T, poll_commentsUpsertArgs<ExtArgs>>): Prisma__poll_commentsClient<$Result.GetResult<Prisma.$poll_commentsPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of Poll_comments.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {poll_commentsCountArgs} args - Arguments to filter Poll_comments to count.
+     * @example
+     * // Count the number of Poll_comments
+     * const count = await prisma.poll_comments.count({
+     *   where: {
+     *     // ... the filter for the Poll_comments we want to count
+     *   }
+     * })
+    **/
+    count<T extends poll_commentsCountArgs>(
+      args?: Subset<T, poll_commentsCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], Poll_commentsCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Poll_comments.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {Poll_commentsAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends Poll_commentsAggregateArgs>(args: Subset<T, Poll_commentsAggregateArgs>): Prisma.PrismaPromise<GetPoll_commentsAggregateType<T>>
+
+    /**
+     * Group by Poll_comments.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {poll_commentsGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends poll_commentsGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: poll_commentsGroupByArgs['orderBy'] }
+        : { orderBy?: poll_commentsGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, poll_commentsGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetPoll_commentsGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the poll_comments model
+   */
+  readonly fields: poll_commentsFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for poll_comments.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__poll_commentsClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    poll<T extends pollsDefaultArgs<ExtArgs> = {}>(args?: Subset<T, pollsDefaultArgs<ExtArgs>>): Prisma__pollsClient<$Result.GetResult<Prisma.$pollsPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    commenter<T extends usersDefaultArgs<ExtArgs> = {}>(args?: Subset<T, usersDefaultArgs<ExtArgs>>): Prisma__usersClient<$Result.GetResult<Prisma.$usersPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the poll_comments model
+   */
+  interface poll_commentsFieldRefs {
+    readonly id: FieldRef<"poll_comments", 'Int'>
+    readonly poll_id: FieldRef<"poll_comments", 'Int'>
+    readonly user_id: FieldRef<"poll_comments", 'Int'>
+    readonly comment: FieldRef<"poll_comments", 'String'>
+    readonly created_at: FieldRef<"poll_comments", 'DateTime'>
+    readonly updated_at: FieldRef<"poll_comments", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * poll_comments findUnique
+   */
+  export type poll_commentsFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the poll_comments
+     */
+    select?: poll_commentsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the poll_comments
+     */
+    omit?: poll_commentsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: poll_commentsInclude<ExtArgs> | null
+    /**
+     * Filter, which poll_comments to fetch.
+     */
+    where: poll_commentsWhereUniqueInput
+  }
+
+  /**
+   * poll_comments findUniqueOrThrow
+   */
+  export type poll_commentsFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the poll_comments
+     */
+    select?: poll_commentsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the poll_comments
+     */
+    omit?: poll_commentsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: poll_commentsInclude<ExtArgs> | null
+    /**
+     * Filter, which poll_comments to fetch.
+     */
+    where: poll_commentsWhereUniqueInput
+  }
+
+  /**
+   * poll_comments findFirst
+   */
+  export type poll_commentsFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the poll_comments
+     */
+    select?: poll_commentsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the poll_comments
+     */
+    omit?: poll_commentsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: poll_commentsInclude<ExtArgs> | null
+    /**
+     * Filter, which poll_comments to fetch.
+     */
+    where?: poll_commentsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of poll_comments to fetch.
+     */
+    orderBy?: poll_commentsOrderByWithRelationInput | poll_commentsOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for poll_comments.
+     */
+    cursor?: poll_commentsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` poll_comments from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` poll_comments.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of poll_comments.
+     */
+    distinct?: Poll_commentsScalarFieldEnum | Poll_commentsScalarFieldEnum[]
+  }
+
+  /**
+   * poll_comments findFirstOrThrow
+   */
+  export type poll_commentsFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the poll_comments
+     */
+    select?: poll_commentsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the poll_comments
+     */
+    omit?: poll_commentsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: poll_commentsInclude<ExtArgs> | null
+    /**
+     * Filter, which poll_comments to fetch.
+     */
+    where?: poll_commentsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of poll_comments to fetch.
+     */
+    orderBy?: poll_commentsOrderByWithRelationInput | poll_commentsOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for poll_comments.
+     */
+    cursor?: poll_commentsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` poll_comments from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` poll_comments.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of poll_comments.
+     */
+    distinct?: Poll_commentsScalarFieldEnum | Poll_commentsScalarFieldEnum[]
+  }
+
+  /**
+   * poll_comments findMany
+   */
+  export type poll_commentsFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the poll_comments
+     */
+    select?: poll_commentsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the poll_comments
+     */
+    omit?: poll_commentsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: poll_commentsInclude<ExtArgs> | null
+    /**
+     * Filter, which poll_comments to fetch.
+     */
+    where?: poll_commentsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of poll_comments to fetch.
+     */
+    orderBy?: poll_commentsOrderByWithRelationInput | poll_commentsOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing poll_comments.
+     */
+    cursor?: poll_commentsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` poll_comments from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` poll_comments.
+     */
+    skip?: number
+    distinct?: Poll_commentsScalarFieldEnum | Poll_commentsScalarFieldEnum[]
+  }
+
+  /**
+   * poll_comments create
+   */
+  export type poll_commentsCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the poll_comments
+     */
+    select?: poll_commentsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the poll_comments
+     */
+    omit?: poll_commentsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: poll_commentsInclude<ExtArgs> | null
+    /**
+     * The data needed to create a poll_comments.
+     */
+    data: XOR<poll_commentsCreateInput, poll_commentsUncheckedCreateInput>
+  }
+
+  /**
+   * poll_comments createMany
+   */
+  export type poll_commentsCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many poll_comments.
+     */
+    data: poll_commentsCreateManyInput | poll_commentsCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * poll_comments createManyAndReturn
+   */
+  export type poll_commentsCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the poll_comments
+     */
+    select?: poll_commentsSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the poll_comments
+     */
+    omit?: poll_commentsOmit<ExtArgs> | null
+    /**
+     * The data used to create many poll_comments.
+     */
+    data: poll_commentsCreateManyInput | poll_commentsCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: poll_commentsIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * poll_comments update
+   */
+  export type poll_commentsUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the poll_comments
+     */
+    select?: poll_commentsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the poll_comments
+     */
+    omit?: poll_commentsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: poll_commentsInclude<ExtArgs> | null
+    /**
+     * The data needed to update a poll_comments.
+     */
+    data: XOR<poll_commentsUpdateInput, poll_commentsUncheckedUpdateInput>
+    /**
+     * Choose, which poll_comments to update.
+     */
+    where: poll_commentsWhereUniqueInput
+  }
+
+  /**
+   * poll_comments updateMany
+   */
+  export type poll_commentsUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update poll_comments.
+     */
+    data: XOR<poll_commentsUpdateManyMutationInput, poll_commentsUncheckedUpdateManyInput>
+    /**
+     * Filter which poll_comments to update
+     */
+    where?: poll_commentsWhereInput
+    /**
+     * Limit how many poll_comments to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * poll_comments updateManyAndReturn
+   */
+  export type poll_commentsUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the poll_comments
+     */
+    select?: poll_commentsSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the poll_comments
+     */
+    omit?: poll_commentsOmit<ExtArgs> | null
+    /**
+     * The data used to update poll_comments.
+     */
+    data: XOR<poll_commentsUpdateManyMutationInput, poll_commentsUncheckedUpdateManyInput>
+    /**
+     * Filter which poll_comments to update
+     */
+    where?: poll_commentsWhereInput
+    /**
+     * Limit how many poll_comments to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: poll_commentsIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * poll_comments upsert
+   */
+  export type poll_commentsUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the poll_comments
+     */
+    select?: poll_commentsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the poll_comments
+     */
+    omit?: poll_commentsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: poll_commentsInclude<ExtArgs> | null
+    /**
+     * The filter to search for the poll_comments to update in case it exists.
+     */
+    where: poll_commentsWhereUniqueInput
+    /**
+     * In case the poll_comments found by the `where` argument doesn't exist, create a new poll_comments with this data.
+     */
+    create: XOR<poll_commentsCreateInput, poll_commentsUncheckedCreateInput>
+    /**
+     * In case the poll_comments was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<poll_commentsUpdateInput, poll_commentsUncheckedUpdateInput>
+  }
+
+  /**
+   * poll_comments delete
+   */
+  export type poll_commentsDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the poll_comments
+     */
+    select?: poll_commentsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the poll_comments
+     */
+    omit?: poll_commentsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: poll_commentsInclude<ExtArgs> | null
+    /**
+     * Filter which poll_comments to delete.
+     */
+    where: poll_commentsWhereUniqueInput
+  }
+
+  /**
+   * poll_comments deleteMany
+   */
+  export type poll_commentsDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which poll_comments to delete
+     */
+    where?: poll_commentsWhereInput
+    /**
+     * Limit how many poll_comments to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * poll_comments without action
+   */
+  export type poll_commentsDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the poll_comments
+     */
+    select?: poll_commentsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the poll_comments
+     */
+    omit?: poll_commentsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: poll_commentsInclude<ExtArgs> | null
+  }
+
+
+  /**
    * Enums
    */
 
@@ -64372,6 +69474,53 @@ export namespace Prisma {
   export type SessionsScalarFieldEnum = (typeof SessionsScalarFieldEnum)[keyof typeof SessionsScalarFieldEnum]
 
 
+  export const PollsScalarFieldEnum: {
+    id: 'id',
+    title: 'title',
+    description: 'description',
+    created_by: 'created_by',
+    created_at: 'created_at',
+    updated_at: 'updated_at',
+    is_active: 'is_active'
+  };
+
+  export type PollsScalarFieldEnum = (typeof PollsScalarFieldEnum)[keyof typeof PollsScalarFieldEnum]
+
+
+  export const Poll_choicesScalarFieldEnum: {
+    id: 'id',
+    poll_id: 'poll_id',
+    choice: 'choice',
+    vote_count: 'vote_count',
+    created_at: 'created_at'
+  };
+
+  export type Poll_choicesScalarFieldEnum = (typeof Poll_choicesScalarFieldEnum)[keyof typeof Poll_choicesScalarFieldEnum]
+
+
+  export const Poll_votesScalarFieldEnum: {
+    id: 'id',
+    poll_id: 'poll_id',
+    choice_id: 'choice_id',
+    user_id: 'user_id',
+    voted_at: 'voted_at'
+  };
+
+  export type Poll_votesScalarFieldEnum = (typeof Poll_votesScalarFieldEnum)[keyof typeof Poll_votesScalarFieldEnum]
+
+
+  export const Poll_commentsScalarFieldEnum: {
+    id: 'id',
+    poll_id: 'poll_id',
+    user_id: 'user_id',
+    comment: 'comment',
+    created_at: 'created_at',
+    updated_at: 'updated_at'
+  };
+
+  export type Poll_commentsScalarFieldEnum = (typeof Poll_commentsScalarFieldEnum)[keyof typeof Poll_commentsScalarFieldEnum]
+
+
   export const SortOrder: {
     asc: 'asc',
     desc: 'desc'
@@ -64695,6 +69844,20 @@ export namespace Prisma {
    * Reference to a field of type 'difficulty_level[]'
    */
   export type ListEnumdifficulty_levelFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'difficulty_level[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'poll_choice_type'
+   */
+  export type Enumpoll_choice_typeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'poll_choice_type'>
+    
+
+
+  /**
+   * Reference to a field of type 'poll_choice_type[]'
+   */
+  export type ListEnumpoll_choice_typeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'poll_choice_type[]'>
     
   /**
    * Deep Input Types
@@ -66049,6 +71212,9 @@ export namespace Prisma {
     created_sessions?: SessionsListRelationFilter
     subscriptions?: SubscriptionsListRelationFilter
     user_settings?: XOR<User_settingsNullableScalarRelationFilter, user_settingsWhereInput> | null
+    created_polls?: PollsListRelationFilter
+    poll_votes?: Poll_votesListRelationFilter
+    poll_comments?: Poll_commentsListRelationFilter
   }
 
   export type usersOrderByWithRelationInput = {
@@ -66108,6 +71274,9 @@ export namespace Prisma {
     created_sessions?: sessionsOrderByRelationAggregateInput
     subscriptions?: subscriptionsOrderByRelationAggregateInput
     user_settings?: user_settingsOrderByWithRelationInput
+    created_polls?: pollsOrderByRelationAggregateInput
+    poll_votes?: poll_votesOrderByRelationAggregateInput
+    poll_comments?: poll_commentsOrderByRelationAggregateInput
   }
 
   export type usersWhereUniqueInput = Prisma.AtLeast<{
@@ -66170,6 +71339,9 @@ export namespace Prisma {
     created_sessions?: SessionsListRelationFilter
     subscriptions?: SubscriptionsListRelationFilter
     user_settings?: XOR<User_settingsNullableScalarRelationFilter, user_settingsWhereInput> | null
+    created_polls?: PollsListRelationFilter
+    poll_votes?: Poll_votesListRelationFilter
+    poll_comments?: Poll_commentsListRelationFilter
   }, "id" | "firebase_uid" | "email">
 
   export type usersOrderByWithAggregationInput = {
@@ -68912,6 +74084,266 @@ export namespace Prisma {
     updated_at?: DateTimeWithAggregatesFilter<"sessions"> | Date | string
   }
 
+  export type pollsWhereInput = {
+    AND?: pollsWhereInput | pollsWhereInput[]
+    OR?: pollsWhereInput[]
+    NOT?: pollsWhereInput | pollsWhereInput[]
+    id?: IntFilter<"polls"> | number
+    title?: StringFilter<"polls"> | string
+    description?: StringNullableFilter<"polls"> | string | null
+    created_by?: IntFilter<"polls"> | number
+    created_at?: DateTimeFilter<"polls"> | Date | string
+    updated_at?: DateTimeFilter<"polls"> | Date | string
+    is_active?: BoolFilter<"polls"> | boolean
+    creator?: XOR<UsersScalarRelationFilter, usersWhereInput>
+    choices?: Poll_choicesListRelationFilter
+    comments?: Poll_commentsListRelationFilter
+  }
+
+  export type pollsOrderByWithRelationInput = {
+    id?: SortOrder
+    title?: SortOrder
+    description?: SortOrderInput | SortOrder
+    created_by?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+    is_active?: SortOrder
+    creator?: usersOrderByWithRelationInput
+    choices?: poll_choicesOrderByRelationAggregateInput
+    comments?: poll_commentsOrderByRelationAggregateInput
+  }
+
+  export type pollsWhereUniqueInput = Prisma.AtLeast<{
+    id?: number
+    AND?: pollsWhereInput | pollsWhereInput[]
+    OR?: pollsWhereInput[]
+    NOT?: pollsWhereInput | pollsWhereInput[]
+    title?: StringFilter<"polls"> | string
+    description?: StringNullableFilter<"polls"> | string | null
+    created_by?: IntFilter<"polls"> | number
+    created_at?: DateTimeFilter<"polls"> | Date | string
+    updated_at?: DateTimeFilter<"polls"> | Date | string
+    is_active?: BoolFilter<"polls"> | boolean
+    creator?: XOR<UsersScalarRelationFilter, usersWhereInput>
+    choices?: Poll_choicesListRelationFilter
+    comments?: Poll_commentsListRelationFilter
+  }, "id">
+
+  export type pollsOrderByWithAggregationInput = {
+    id?: SortOrder
+    title?: SortOrder
+    description?: SortOrderInput | SortOrder
+    created_by?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+    is_active?: SortOrder
+    _count?: pollsCountOrderByAggregateInput
+    _avg?: pollsAvgOrderByAggregateInput
+    _max?: pollsMaxOrderByAggregateInput
+    _min?: pollsMinOrderByAggregateInput
+    _sum?: pollsSumOrderByAggregateInput
+  }
+
+  export type pollsScalarWhereWithAggregatesInput = {
+    AND?: pollsScalarWhereWithAggregatesInput | pollsScalarWhereWithAggregatesInput[]
+    OR?: pollsScalarWhereWithAggregatesInput[]
+    NOT?: pollsScalarWhereWithAggregatesInput | pollsScalarWhereWithAggregatesInput[]
+    id?: IntWithAggregatesFilter<"polls"> | number
+    title?: StringWithAggregatesFilter<"polls"> | string
+    description?: StringNullableWithAggregatesFilter<"polls"> | string | null
+    created_by?: IntWithAggregatesFilter<"polls"> | number
+    created_at?: DateTimeWithAggregatesFilter<"polls"> | Date | string
+    updated_at?: DateTimeWithAggregatesFilter<"polls"> | Date | string
+    is_active?: BoolWithAggregatesFilter<"polls"> | boolean
+  }
+
+  export type poll_choicesWhereInput = {
+    AND?: poll_choicesWhereInput | poll_choicesWhereInput[]
+    OR?: poll_choicesWhereInput[]
+    NOT?: poll_choicesWhereInput | poll_choicesWhereInput[]
+    id?: IntFilter<"poll_choices"> | number
+    poll_id?: IntFilter<"poll_choices"> | number
+    choice?: Enumpoll_choice_typeFilter<"poll_choices"> | $Enums.poll_choice_type
+    vote_count?: IntFilter<"poll_choices"> | number
+    created_at?: DateTimeFilter<"poll_choices"> | Date | string
+    poll?: XOR<PollsScalarRelationFilter, pollsWhereInput>
+    votes?: Poll_votesListRelationFilter
+  }
+
+  export type poll_choicesOrderByWithRelationInput = {
+    id?: SortOrder
+    poll_id?: SortOrder
+    choice?: SortOrder
+    vote_count?: SortOrder
+    created_at?: SortOrder
+    poll?: pollsOrderByWithRelationInput
+    votes?: poll_votesOrderByRelationAggregateInput
+  }
+
+  export type poll_choicesWhereUniqueInput = Prisma.AtLeast<{
+    id?: number
+    poll_id_choice?: poll_choicesPoll_idChoiceCompoundUniqueInput
+    AND?: poll_choicesWhereInput | poll_choicesWhereInput[]
+    OR?: poll_choicesWhereInput[]
+    NOT?: poll_choicesWhereInput | poll_choicesWhereInput[]
+    poll_id?: IntFilter<"poll_choices"> | number
+    choice?: Enumpoll_choice_typeFilter<"poll_choices"> | $Enums.poll_choice_type
+    vote_count?: IntFilter<"poll_choices"> | number
+    created_at?: DateTimeFilter<"poll_choices"> | Date | string
+    poll?: XOR<PollsScalarRelationFilter, pollsWhereInput>
+    votes?: Poll_votesListRelationFilter
+  }, "id" | "poll_id_choice">
+
+  export type poll_choicesOrderByWithAggregationInput = {
+    id?: SortOrder
+    poll_id?: SortOrder
+    choice?: SortOrder
+    vote_count?: SortOrder
+    created_at?: SortOrder
+    _count?: poll_choicesCountOrderByAggregateInput
+    _avg?: poll_choicesAvgOrderByAggregateInput
+    _max?: poll_choicesMaxOrderByAggregateInput
+    _min?: poll_choicesMinOrderByAggregateInput
+    _sum?: poll_choicesSumOrderByAggregateInput
+  }
+
+  export type poll_choicesScalarWhereWithAggregatesInput = {
+    AND?: poll_choicesScalarWhereWithAggregatesInput | poll_choicesScalarWhereWithAggregatesInput[]
+    OR?: poll_choicesScalarWhereWithAggregatesInput[]
+    NOT?: poll_choicesScalarWhereWithAggregatesInput | poll_choicesScalarWhereWithAggregatesInput[]
+    id?: IntWithAggregatesFilter<"poll_choices"> | number
+    poll_id?: IntWithAggregatesFilter<"poll_choices"> | number
+    choice?: Enumpoll_choice_typeWithAggregatesFilter<"poll_choices"> | $Enums.poll_choice_type
+    vote_count?: IntWithAggregatesFilter<"poll_choices"> | number
+    created_at?: DateTimeWithAggregatesFilter<"poll_choices"> | Date | string
+  }
+
+  export type poll_votesWhereInput = {
+    AND?: poll_votesWhereInput | poll_votesWhereInput[]
+    OR?: poll_votesWhereInput[]
+    NOT?: poll_votesWhereInput | poll_votesWhereInput[]
+    id?: IntFilter<"poll_votes"> | number
+    poll_id?: IntFilter<"poll_votes"> | number
+    choice_id?: IntFilter<"poll_votes"> | number
+    user_id?: IntFilter<"poll_votes"> | number
+    voted_at?: DateTimeFilter<"poll_votes"> | Date | string
+    choice?: XOR<Poll_choicesScalarRelationFilter, poll_choicesWhereInput>
+    voter?: XOR<UsersScalarRelationFilter, usersWhereInput>
+  }
+
+  export type poll_votesOrderByWithRelationInput = {
+    id?: SortOrder
+    poll_id?: SortOrder
+    choice_id?: SortOrder
+    user_id?: SortOrder
+    voted_at?: SortOrder
+    choice?: poll_choicesOrderByWithRelationInput
+    voter?: usersOrderByWithRelationInput
+  }
+
+  export type poll_votesWhereUniqueInput = Prisma.AtLeast<{
+    id?: number
+    poll_id_user_id?: poll_votesPoll_idUser_idCompoundUniqueInput
+    AND?: poll_votesWhereInput | poll_votesWhereInput[]
+    OR?: poll_votesWhereInput[]
+    NOT?: poll_votesWhereInput | poll_votesWhereInput[]
+    poll_id?: IntFilter<"poll_votes"> | number
+    choice_id?: IntFilter<"poll_votes"> | number
+    user_id?: IntFilter<"poll_votes"> | number
+    voted_at?: DateTimeFilter<"poll_votes"> | Date | string
+    choice?: XOR<Poll_choicesScalarRelationFilter, poll_choicesWhereInput>
+    voter?: XOR<UsersScalarRelationFilter, usersWhereInput>
+  }, "id" | "poll_id_user_id">
+
+  export type poll_votesOrderByWithAggregationInput = {
+    id?: SortOrder
+    poll_id?: SortOrder
+    choice_id?: SortOrder
+    user_id?: SortOrder
+    voted_at?: SortOrder
+    _count?: poll_votesCountOrderByAggregateInput
+    _avg?: poll_votesAvgOrderByAggregateInput
+    _max?: poll_votesMaxOrderByAggregateInput
+    _min?: poll_votesMinOrderByAggregateInput
+    _sum?: poll_votesSumOrderByAggregateInput
+  }
+
+  export type poll_votesScalarWhereWithAggregatesInput = {
+    AND?: poll_votesScalarWhereWithAggregatesInput | poll_votesScalarWhereWithAggregatesInput[]
+    OR?: poll_votesScalarWhereWithAggregatesInput[]
+    NOT?: poll_votesScalarWhereWithAggregatesInput | poll_votesScalarWhereWithAggregatesInput[]
+    id?: IntWithAggregatesFilter<"poll_votes"> | number
+    poll_id?: IntWithAggregatesFilter<"poll_votes"> | number
+    choice_id?: IntWithAggregatesFilter<"poll_votes"> | number
+    user_id?: IntWithAggregatesFilter<"poll_votes"> | number
+    voted_at?: DateTimeWithAggregatesFilter<"poll_votes"> | Date | string
+  }
+
+  export type poll_commentsWhereInput = {
+    AND?: poll_commentsWhereInput | poll_commentsWhereInput[]
+    OR?: poll_commentsWhereInput[]
+    NOT?: poll_commentsWhereInput | poll_commentsWhereInput[]
+    id?: IntFilter<"poll_comments"> | number
+    poll_id?: IntFilter<"poll_comments"> | number
+    user_id?: IntFilter<"poll_comments"> | number
+    comment?: StringFilter<"poll_comments"> | string
+    created_at?: DateTimeFilter<"poll_comments"> | Date | string
+    updated_at?: DateTimeFilter<"poll_comments"> | Date | string
+    poll?: XOR<PollsScalarRelationFilter, pollsWhereInput>
+    commenter?: XOR<UsersScalarRelationFilter, usersWhereInput>
+  }
+
+  export type poll_commentsOrderByWithRelationInput = {
+    id?: SortOrder
+    poll_id?: SortOrder
+    user_id?: SortOrder
+    comment?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+    poll?: pollsOrderByWithRelationInput
+    commenter?: usersOrderByWithRelationInput
+  }
+
+  export type poll_commentsWhereUniqueInput = Prisma.AtLeast<{
+    id?: number
+    AND?: poll_commentsWhereInput | poll_commentsWhereInput[]
+    OR?: poll_commentsWhereInput[]
+    NOT?: poll_commentsWhereInput | poll_commentsWhereInput[]
+    poll_id?: IntFilter<"poll_comments"> | number
+    user_id?: IntFilter<"poll_comments"> | number
+    comment?: StringFilter<"poll_comments"> | string
+    created_at?: DateTimeFilter<"poll_comments"> | Date | string
+    updated_at?: DateTimeFilter<"poll_comments"> | Date | string
+    poll?: XOR<PollsScalarRelationFilter, pollsWhereInput>
+    commenter?: XOR<UsersScalarRelationFilter, usersWhereInput>
+  }, "id">
+
+  export type poll_commentsOrderByWithAggregationInput = {
+    id?: SortOrder
+    poll_id?: SortOrder
+    user_id?: SortOrder
+    comment?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+    _count?: poll_commentsCountOrderByAggregateInput
+    _avg?: poll_commentsAvgOrderByAggregateInput
+    _max?: poll_commentsMaxOrderByAggregateInput
+    _min?: poll_commentsMinOrderByAggregateInput
+    _sum?: poll_commentsSumOrderByAggregateInput
+  }
+
+  export type poll_commentsScalarWhereWithAggregatesInput = {
+    AND?: poll_commentsScalarWhereWithAggregatesInput | poll_commentsScalarWhereWithAggregatesInput[]
+    OR?: poll_commentsScalarWhereWithAggregatesInput[]
+    NOT?: poll_commentsScalarWhereWithAggregatesInput | poll_commentsScalarWhereWithAggregatesInput[]
+    id?: IntWithAggregatesFilter<"poll_comments"> | number
+    poll_id?: IntWithAggregatesFilter<"poll_comments"> | number
+    user_id?: IntWithAggregatesFilter<"poll_comments"> | number
+    comment?: StringWithAggregatesFilter<"poll_comments"> | string
+    created_at?: DateTimeWithAggregatesFilter<"poll_comments"> | Date | string
+    updated_at?: DateTimeWithAggregatesFilter<"poll_comments"> | Date | string
+  }
+
   export type subscriptionsCreateInput = {
     plan_type: $Enums.subscription_plan
     status?: $Enums.subscription_status | null
@@ -70290,6 +75722,9 @@ export namespace Prisma {
     created_sessions?: sessionsCreateNestedManyWithoutCreatorInput
     subscriptions?: subscriptionsCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsCreateNestedOneWithoutUsersInput
+    created_polls?: pollsCreateNestedManyWithoutCreatorInput
+    poll_votes?: poll_votesCreateNestedManyWithoutVoterInput
+    poll_comments?: poll_commentsCreateNestedManyWithoutCommenterInput
   }
 
   export type usersUncheckedCreateInput = {
@@ -70349,6 +75784,9 @@ export namespace Prisma {
     created_sessions?: sessionsUncheckedCreateNestedManyWithoutCreatorInput
     subscriptions?: subscriptionsUncheckedCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsUncheckedCreateNestedOneWithoutUsersInput
+    created_polls?: pollsUncheckedCreateNestedManyWithoutCreatorInput
+    poll_votes?: poll_votesUncheckedCreateNestedManyWithoutVoterInput
+    poll_comments?: poll_commentsUncheckedCreateNestedManyWithoutCommenterInput
   }
 
   export type usersUpdateInput = {
@@ -70407,6 +75845,9 @@ export namespace Prisma {
     created_sessions?: sessionsUpdateManyWithoutCreatorNestedInput
     subscriptions?: subscriptionsUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUpdateOneWithoutUsersNestedInput
+    created_polls?: pollsUpdateManyWithoutCreatorNestedInput
+    poll_votes?: poll_votesUpdateManyWithoutVoterNestedInput
+    poll_comments?: poll_commentsUpdateManyWithoutCommenterNestedInput
   }
 
   export type usersUncheckedUpdateInput = {
@@ -70466,6 +75907,9 @@ export namespace Prisma {
     created_sessions?: sessionsUncheckedUpdateManyWithoutCreatorNestedInput
     subscriptions?: subscriptionsUncheckedUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUncheckedUpdateOneWithoutUsersNestedInput
+    created_polls?: pollsUncheckedUpdateManyWithoutCreatorNestedInput
+    poll_votes?: poll_votesUncheckedUpdateManyWithoutVoterNestedInput
+    poll_comments?: poll_commentsUncheckedUpdateManyWithoutCommenterNestedInput
   }
 
   export type usersCreateManyInput = {
@@ -73382,6 +78826,245 @@ export namespace Prisma {
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type pollsCreateInput = {
+    title: string
+    description?: string | null
+    created_at?: Date | string
+    updated_at?: Date | string
+    is_active?: boolean
+    creator: usersCreateNestedOneWithoutCreated_pollsInput
+    choices?: poll_choicesCreateNestedManyWithoutPollInput
+    comments?: poll_commentsCreateNestedManyWithoutPollInput
+  }
+
+  export type pollsUncheckedCreateInput = {
+    id?: number
+    title: string
+    description?: string | null
+    created_by: number
+    created_at?: Date | string
+    updated_at?: Date | string
+    is_active?: boolean
+    choices?: poll_choicesUncheckedCreateNestedManyWithoutPollInput
+    comments?: poll_commentsUncheckedCreateNestedManyWithoutPollInput
+  }
+
+  export type pollsUpdateInput = {
+    title?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    is_active?: BoolFieldUpdateOperationsInput | boolean
+    creator?: usersUpdateOneRequiredWithoutCreated_pollsNestedInput
+    choices?: poll_choicesUpdateManyWithoutPollNestedInput
+    comments?: poll_commentsUpdateManyWithoutPollNestedInput
+  }
+
+  export type pollsUncheckedUpdateInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    title?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    created_by?: IntFieldUpdateOperationsInput | number
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    is_active?: BoolFieldUpdateOperationsInput | boolean
+    choices?: poll_choicesUncheckedUpdateManyWithoutPollNestedInput
+    comments?: poll_commentsUncheckedUpdateManyWithoutPollNestedInput
+  }
+
+  export type pollsCreateManyInput = {
+    id?: number
+    title: string
+    description?: string | null
+    created_by: number
+    created_at?: Date | string
+    updated_at?: Date | string
+    is_active?: boolean
+  }
+
+  export type pollsUpdateManyMutationInput = {
+    title?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    is_active?: BoolFieldUpdateOperationsInput | boolean
+  }
+
+  export type pollsUncheckedUpdateManyInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    title?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    created_by?: IntFieldUpdateOperationsInput | number
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    is_active?: BoolFieldUpdateOperationsInput | boolean
+  }
+
+  export type poll_choicesCreateInput = {
+    choice: $Enums.poll_choice_type
+    vote_count?: number
+    created_at?: Date | string
+    poll: pollsCreateNestedOneWithoutChoicesInput
+    votes?: poll_votesCreateNestedManyWithoutChoiceInput
+  }
+
+  export type poll_choicesUncheckedCreateInput = {
+    id?: number
+    poll_id: number
+    choice: $Enums.poll_choice_type
+    vote_count?: number
+    created_at?: Date | string
+    votes?: poll_votesUncheckedCreateNestedManyWithoutChoiceInput
+  }
+
+  export type poll_choicesUpdateInput = {
+    choice?: Enumpoll_choice_typeFieldUpdateOperationsInput | $Enums.poll_choice_type
+    vote_count?: IntFieldUpdateOperationsInput | number
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    poll?: pollsUpdateOneRequiredWithoutChoicesNestedInput
+    votes?: poll_votesUpdateManyWithoutChoiceNestedInput
+  }
+
+  export type poll_choicesUncheckedUpdateInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    poll_id?: IntFieldUpdateOperationsInput | number
+    choice?: Enumpoll_choice_typeFieldUpdateOperationsInput | $Enums.poll_choice_type
+    vote_count?: IntFieldUpdateOperationsInput | number
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    votes?: poll_votesUncheckedUpdateManyWithoutChoiceNestedInput
+  }
+
+  export type poll_choicesCreateManyInput = {
+    id?: number
+    poll_id: number
+    choice: $Enums.poll_choice_type
+    vote_count?: number
+    created_at?: Date | string
+  }
+
+  export type poll_choicesUpdateManyMutationInput = {
+    choice?: Enumpoll_choice_typeFieldUpdateOperationsInput | $Enums.poll_choice_type
+    vote_count?: IntFieldUpdateOperationsInput | number
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type poll_choicesUncheckedUpdateManyInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    poll_id?: IntFieldUpdateOperationsInput | number
+    choice?: Enumpoll_choice_typeFieldUpdateOperationsInput | $Enums.poll_choice_type
+    vote_count?: IntFieldUpdateOperationsInput | number
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type poll_votesCreateInput = {
+    poll_id: number
+    voted_at?: Date | string
+    choice: poll_choicesCreateNestedOneWithoutVotesInput
+    voter: usersCreateNestedOneWithoutPoll_votesInput
+  }
+
+  export type poll_votesUncheckedCreateInput = {
+    id?: number
+    poll_id: number
+    choice_id: number
+    user_id: number
+    voted_at?: Date | string
+  }
+
+  export type poll_votesUpdateInput = {
+    poll_id?: IntFieldUpdateOperationsInput | number
+    voted_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    choice?: poll_choicesUpdateOneRequiredWithoutVotesNestedInput
+    voter?: usersUpdateOneRequiredWithoutPoll_votesNestedInput
+  }
+
+  export type poll_votesUncheckedUpdateInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    poll_id?: IntFieldUpdateOperationsInput | number
+    choice_id?: IntFieldUpdateOperationsInput | number
+    user_id?: IntFieldUpdateOperationsInput | number
+    voted_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type poll_votesCreateManyInput = {
+    id?: number
+    poll_id: number
+    choice_id: number
+    user_id: number
+    voted_at?: Date | string
+  }
+
+  export type poll_votesUpdateManyMutationInput = {
+    poll_id?: IntFieldUpdateOperationsInput | number
+    voted_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type poll_votesUncheckedUpdateManyInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    poll_id?: IntFieldUpdateOperationsInput | number
+    choice_id?: IntFieldUpdateOperationsInput | number
+    user_id?: IntFieldUpdateOperationsInput | number
+    voted_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type poll_commentsCreateInput = {
+    comment: string
+    created_at?: Date | string
+    updated_at?: Date | string
+    poll: pollsCreateNestedOneWithoutCommentsInput
+    commenter: usersCreateNestedOneWithoutPoll_commentsInput
+  }
+
+  export type poll_commentsUncheckedCreateInput = {
+    id?: number
+    poll_id: number
+    user_id: number
+    comment: string
+    created_at?: Date | string
+    updated_at?: Date | string
+  }
+
+  export type poll_commentsUpdateInput = {
+    comment?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    poll?: pollsUpdateOneRequiredWithoutCommentsNestedInput
+    commenter?: usersUpdateOneRequiredWithoutPoll_commentsNestedInput
+  }
+
+  export type poll_commentsUncheckedUpdateInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    poll_id?: IntFieldUpdateOperationsInput | number
+    user_id?: IntFieldUpdateOperationsInput | number
+    comment?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type poll_commentsCreateManyInput = {
+    id?: number
+    poll_id: number
+    user_id: number
+    comment: string
+    created_at?: Date | string
+    updated_at?: Date | string
+  }
+
+  export type poll_commentsUpdateManyMutationInput = {
+    comment?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type poll_commentsUncheckedUpdateManyInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    poll_id?: IntFieldUpdateOperationsInput | number
+    user_id?: IntFieldUpdateOperationsInput | number
+    comment?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type IntFilter<$PrismaModel = never> = {
     equals?: number | IntFieldRefInput<$PrismaModel>
     in?: number[] | ListIntFieldRefInput<$PrismaModel>
@@ -74949,6 +80632,24 @@ export namespace Prisma {
     isNot?: user_settingsWhereInput | null
   }
 
+  export type PollsListRelationFilter = {
+    every?: pollsWhereInput
+    some?: pollsWhereInput
+    none?: pollsWhereInput
+  }
+
+  export type Poll_votesListRelationFilter = {
+    every?: poll_votesWhereInput
+    some?: poll_votesWhereInput
+    none?: poll_votesWhereInput
+  }
+
+  export type Poll_commentsListRelationFilter = {
+    every?: poll_commentsWhereInput
+    some?: poll_commentsWhereInput
+    none?: poll_commentsWhereInput
+  }
+
   export type QuizParticipantsOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
@@ -75042,6 +80743,18 @@ export namespace Prisma {
   }
 
   export type subscriptionsOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type pollsOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type poll_votesOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type poll_commentsOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -77034,6 +82747,206 @@ export namespace Prisma {
     _max?: NestedEnumdifficulty_levelFilter<$PrismaModel>
   }
 
+  export type Poll_choicesListRelationFilter = {
+    every?: poll_choicesWhereInput
+    some?: poll_choicesWhereInput
+    none?: poll_choicesWhereInput
+  }
+
+  export type poll_choicesOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type pollsCountOrderByAggregateInput = {
+    id?: SortOrder
+    title?: SortOrder
+    description?: SortOrder
+    created_by?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+    is_active?: SortOrder
+  }
+
+  export type pollsAvgOrderByAggregateInput = {
+    id?: SortOrder
+    created_by?: SortOrder
+  }
+
+  export type pollsMaxOrderByAggregateInput = {
+    id?: SortOrder
+    title?: SortOrder
+    description?: SortOrder
+    created_by?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+    is_active?: SortOrder
+  }
+
+  export type pollsMinOrderByAggregateInput = {
+    id?: SortOrder
+    title?: SortOrder
+    description?: SortOrder
+    created_by?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+    is_active?: SortOrder
+  }
+
+  export type pollsSumOrderByAggregateInput = {
+    id?: SortOrder
+    created_by?: SortOrder
+  }
+
+  export type Enumpoll_choice_typeFilter<$PrismaModel = never> = {
+    equals?: $Enums.poll_choice_type | Enumpoll_choice_typeFieldRefInput<$PrismaModel>
+    in?: $Enums.poll_choice_type[] | ListEnumpoll_choice_typeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.poll_choice_type[] | ListEnumpoll_choice_typeFieldRefInput<$PrismaModel>
+    not?: NestedEnumpoll_choice_typeFilter<$PrismaModel> | $Enums.poll_choice_type
+  }
+
+  export type PollsScalarRelationFilter = {
+    is?: pollsWhereInput
+    isNot?: pollsWhereInput
+  }
+
+  export type poll_choicesPoll_idChoiceCompoundUniqueInput = {
+    poll_id: number
+    choice: $Enums.poll_choice_type
+  }
+
+  export type poll_choicesCountOrderByAggregateInput = {
+    id?: SortOrder
+    poll_id?: SortOrder
+    choice?: SortOrder
+    vote_count?: SortOrder
+    created_at?: SortOrder
+  }
+
+  export type poll_choicesAvgOrderByAggregateInput = {
+    id?: SortOrder
+    poll_id?: SortOrder
+    vote_count?: SortOrder
+  }
+
+  export type poll_choicesMaxOrderByAggregateInput = {
+    id?: SortOrder
+    poll_id?: SortOrder
+    choice?: SortOrder
+    vote_count?: SortOrder
+    created_at?: SortOrder
+  }
+
+  export type poll_choicesMinOrderByAggregateInput = {
+    id?: SortOrder
+    poll_id?: SortOrder
+    choice?: SortOrder
+    vote_count?: SortOrder
+    created_at?: SortOrder
+  }
+
+  export type poll_choicesSumOrderByAggregateInput = {
+    id?: SortOrder
+    poll_id?: SortOrder
+    vote_count?: SortOrder
+  }
+
+  export type Enumpoll_choice_typeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.poll_choice_type | Enumpoll_choice_typeFieldRefInput<$PrismaModel>
+    in?: $Enums.poll_choice_type[] | ListEnumpoll_choice_typeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.poll_choice_type[] | ListEnumpoll_choice_typeFieldRefInput<$PrismaModel>
+    not?: NestedEnumpoll_choice_typeWithAggregatesFilter<$PrismaModel> | $Enums.poll_choice_type
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumpoll_choice_typeFilter<$PrismaModel>
+    _max?: NestedEnumpoll_choice_typeFilter<$PrismaModel>
+  }
+
+  export type Poll_choicesScalarRelationFilter = {
+    is?: poll_choicesWhereInput
+    isNot?: poll_choicesWhereInput
+  }
+
+  export type poll_votesPoll_idUser_idCompoundUniqueInput = {
+    poll_id: number
+    user_id: number
+  }
+
+  export type poll_votesCountOrderByAggregateInput = {
+    id?: SortOrder
+    poll_id?: SortOrder
+    choice_id?: SortOrder
+    user_id?: SortOrder
+    voted_at?: SortOrder
+  }
+
+  export type poll_votesAvgOrderByAggregateInput = {
+    id?: SortOrder
+    poll_id?: SortOrder
+    choice_id?: SortOrder
+    user_id?: SortOrder
+  }
+
+  export type poll_votesMaxOrderByAggregateInput = {
+    id?: SortOrder
+    poll_id?: SortOrder
+    choice_id?: SortOrder
+    user_id?: SortOrder
+    voted_at?: SortOrder
+  }
+
+  export type poll_votesMinOrderByAggregateInput = {
+    id?: SortOrder
+    poll_id?: SortOrder
+    choice_id?: SortOrder
+    user_id?: SortOrder
+    voted_at?: SortOrder
+  }
+
+  export type poll_votesSumOrderByAggregateInput = {
+    id?: SortOrder
+    poll_id?: SortOrder
+    choice_id?: SortOrder
+    user_id?: SortOrder
+  }
+
+  export type poll_commentsCountOrderByAggregateInput = {
+    id?: SortOrder
+    poll_id?: SortOrder
+    user_id?: SortOrder
+    comment?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+  }
+
+  export type poll_commentsAvgOrderByAggregateInput = {
+    id?: SortOrder
+    poll_id?: SortOrder
+    user_id?: SortOrder
+  }
+
+  export type poll_commentsMaxOrderByAggregateInput = {
+    id?: SortOrder
+    poll_id?: SortOrder
+    user_id?: SortOrder
+    comment?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+  }
+
+  export type poll_commentsMinOrderByAggregateInput = {
+    id?: SortOrder
+    poll_id?: SortOrder
+    user_id?: SortOrder
+    comment?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+  }
+
+  export type poll_commentsSumOrderByAggregateInput = {
+    id?: SortOrder
+    poll_id?: SortOrder
+    user_id?: SortOrder
+  }
+
   export type paymentsCreateNestedManyWithoutSubscriptionsInput = {
     create?: XOR<paymentsCreateWithoutSubscriptionsInput, paymentsUncheckedCreateWithoutSubscriptionsInput> | paymentsCreateWithoutSubscriptionsInput[] | paymentsUncheckedCreateWithoutSubscriptionsInput[]
     connectOrCreate?: paymentsCreateOrConnectWithoutSubscriptionsInput | paymentsCreateOrConnectWithoutSubscriptionsInput[]
@@ -78449,6 +84362,27 @@ export namespace Prisma {
     connect?: user_settingsWhereUniqueInput
   }
 
+  export type pollsCreateNestedManyWithoutCreatorInput = {
+    create?: XOR<pollsCreateWithoutCreatorInput, pollsUncheckedCreateWithoutCreatorInput> | pollsCreateWithoutCreatorInput[] | pollsUncheckedCreateWithoutCreatorInput[]
+    connectOrCreate?: pollsCreateOrConnectWithoutCreatorInput | pollsCreateOrConnectWithoutCreatorInput[]
+    createMany?: pollsCreateManyCreatorInputEnvelope
+    connect?: pollsWhereUniqueInput | pollsWhereUniqueInput[]
+  }
+
+  export type poll_votesCreateNestedManyWithoutVoterInput = {
+    create?: XOR<poll_votesCreateWithoutVoterInput, poll_votesUncheckedCreateWithoutVoterInput> | poll_votesCreateWithoutVoterInput[] | poll_votesUncheckedCreateWithoutVoterInput[]
+    connectOrCreate?: poll_votesCreateOrConnectWithoutVoterInput | poll_votesCreateOrConnectWithoutVoterInput[]
+    createMany?: poll_votesCreateManyVoterInputEnvelope
+    connect?: poll_votesWhereUniqueInput | poll_votesWhereUniqueInput[]
+  }
+
+  export type poll_commentsCreateNestedManyWithoutCommenterInput = {
+    create?: XOR<poll_commentsCreateWithoutCommenterInput, poll_commentsUncheckedCreateWithoutCommenterInput> | poll_commentsCreateWithoutCommenterInput[] | poll_commentsUncheckedCreateWithoutCommenterInput[]
+    connectOrCreate?: poll_commentsCreateOrConnectWithoutCommenterInput | poll_commentsCreateOrConnectWithoutCommenterInput[]
+    createMany?: poll_commentsCreateManyCommenterInputEnvelope
+    connect?: poll_commentsWhereUniqueInput | poll_commentsWhereUniqueInput[]
+  }
+
   export type QuizParticipantsUncheckedCreateNestedManyWithoutUsersInput = {
     create?: XOR<QuizParticipantsCreateWithoutUsersInput, QuizParticipantsUncheckedCreateWithoutUsersInput> | QuizParticipantsCreateWithoutUsersInput[] | QuizParticipantsUncheckedCreateWithoutUsersInput[]
     connectOrCreate?: QuizParticipantsCreateOrConnectWithoutUsersInput | QuizParticipantsCreateOrConnectWithoutUsersInput[]
@@ -78698,6 +84632,27 @@ export namespace Prisma {
     create?: XOR<user_settingsCreateWithoutUsersInput, user_settingsUncheckedCreateWithoutUsersInput>
     connectOrCreate?: user_settingsCreateOrConnectWithoutUsersInput
     connect?: user_settingsWhereUniqueInput
+  }
+
+  export type pollsUncheckedCreateNestedManyWithoutCreatorInput = {
+    create?: XOR<pollsCreateWithoutCreatorInput, pollsUncheckedCreateWithoutCreatorInput> | pollsCreateWithoutCreatorInput[] | pollsUncheckedCreateWithoutCreatorInput[]
+    connectOrCreate?: pollsCreateOrConnectWithoutCreatorInput | pollsCreateOrConnectWithoutCreatorInput[]
+    createMany?: pollsCreateManyCreatorInputEnvelope
+    connect?: pollsWhereUniqueInput | pollsWhereUniqueInput[]
+  }
+
+  export type poll_votesUncheckedCreateNestedManyWithoutVoterInput = {
+    create?: XOR<poll_votesCreateWithoutVoterInput, poll_votesUncheckedCreateWithoutVoterInput> | poll_votesCreateWithoutVoterInput[] | poll_votesUncheckedCreateWithoutVoterInput[]
+    connectOrCreate?: poll_votesCreateOrConnectWithoutVoterInput | poll_votesCreateOrConnectWithoutVoterInput[]
+    createMany?: poll_votesCreateManyVoterInputEnvelope
+    connect?: poll_votesWhereUniqueInput | poll_votesWhereUniqueInput[]
+  }
+
+  export type poll_commentsUncheckedCreateNestedManyWithoutCommenterInput = {
+    create?: XOR<poll_commentsCreateWithoutCommenterInput, poll_commentsUncheckedCreateWithoutCommenterInput> | poll_commentsCreateWithoutCommenterInput[] | poll_commentsUncheckedCreateWithoutCommenterInput[]
+    connectOrCreate?: poll_commentsCreateOrConnectWithoutCommenterInput | poll_commentsCreateOrConnectWithoutCommenterInput[]
+    createMany?: poll_commentsCreateManyCommenterInputEnvelope
+    connect?: poll_commentsWhereUniqueInput | poll_commentsWhereUniqueInput[]
   }
 
   export type NullableEnumuser_roleFieldUpdateOperationsInput = {
@@ -79208,6 +85163,48 @@ export namespace Prisma {
     update?: XOR<XOR<user_settingsUpdateToOneWithWhereWithoutUsersInput, user_settingsUpdateWithoutUsersInput>, user_settingsUncheckedUpdateWithoutUsersInput>
   }
 
+  export type pollsUpdateManyWithoutCreatorNestedInput = {
+    create?: XOR<pollsCreateWithoutCreatorInput, pollsUncheckedCreateWithoutCreatorInput> | pollsCreateWithoutCreatorInput[] | pollsUncheckedCreateWithoutCreatorInput[]
+    connectOrCreate?: pollsCreateOrConnectWithoutCreatorInput | pollsCreateOrConnectWithoutCreatorInput[]
+    upsert?: pollsUpsertWithWhereUniqueWithoutCreatorInput | pollsUpsertWithWhereUniqueWithoutCreatorInput[]
+    createMany?: pollsCreateManyCreatorInputEnvelope
+    set?: pollsWhereUniqueInput | pollsWhereUniqueInput[]
+    disconnect?: pollsWhereUniqueInput | pollsWhereUniqueInput[]
+    delete?: pollsWhereUniqueInput | pollsWhereUniqueInput[]
+    connect?: pollsWhereUniqueInput | pollsWhereUniqueInput[]
+    update?: pollsUpdateWithWhereUniqueWithoutCreatorInput | pollsUpdateWithWhereUniqueWithoutCreatorInput[]
+    updateMany?: pollsUpdateManyWithWhereWithoutCreatorInput | pollsUpdateManyWithWhereWithoutCreatorInput[]
+    deleteMany?: pollsScalarWhereInput | pollsScalarWhereInput[]
+  }
+
+  export type poll_votesUpdateManyWithoutVoterNestedInput = {
+    create?: XOR<poll_votesCreateWithoutVoterInput, poll_votesUncheckedCreateWithoutVoterInput> | poll_votesCreateWithoutVoterInput[] | poll_votesUncheckedCreateWithoutVoterInput[]
+    connectOrCreate?: poll_votesCreateOrConnectWithoutVoterInput | poll_votesCreateOrConnectWithoutVoterInput[]
+    upsert?: poll_votesUpsertWithWhereUniqueWithoutVoterInput | poll_votesUpsertWithWhereUniqueWithoutVoterInput[]
+    createMany?: poll_votesCreateManyVoterInputEnvelope
+    set?: poll_votesWhereUniqueInput | poll_votesWhereUniqueInput[]
+    disconnect?: poll_votesWhereUniqueInput | poll_votesWhereUniqueInput[]
+    delete?: poll_votesWhereUniqueInput | poll_votesWhereUniqueInput[]
+    connect?: poll_votesWhereUniqueInput | poll_votesWhereUniqueInput[]
+    update?: poll_votesUpdateWithWhereUniqueWithoutVoterInput | poll_votesUpdateWithWhereUniqueWithoutVoterInput[]
+    updateMany?: poll_votesUpdateManyWithWhereWithoutVoterInput | poll_votesUpdateManyWithWhereWithoutVoterInput[]
+    deleteMany?: poll_votesScalarWhereInput | poll_votesScalarWhereInput[]
+  }
+
+  export type poll_commentsUpdateManyWithoutCommenterNestedInput = {
+    create?: XOR<poll_commentsCreateWithoutCommenterInput, poll_commentsUncheckedCreateWithoutCommenterInput> | poll_commentsCreateWithoutCommenterInput[] | poll_commentsUncheckedCreateWithoutCommenterInput[]
+    connectOrCreate?: poll_commentsCreateOrConnectWithoutCommenterInput | poll_commentsCreateOrConnectWithoutCommenterInput[]
+    upsert?: poll_commentsUpsertWithWhereUniqueWithoutCommenterInput | poll_commentsUpsertWithWhereUniqueWithoutCommenterInput[]
+    createMany?: poll_commentsCreateManyCommenterInputEnvelope
+    set?: poll_commentsWhereUniqueInput | poll_commentsWhereUniqueInput[]
+    disconnect?: poll_commentsWhereUniqueInput | poll_commentsWhereUniqueInput[]
+    delete?: poll_commentsWhereUniqueInput | poll_commentsWhereUniqueInput[]
+    connect?: poll_commentsWhereUniqueInput | poll_commentsWhereUniqueInput[]
+    update?: poll_commentsUpdateWithWhereUniqueWithoutCommenterInput | poll_commentsUpdateWithWhereUniqueWithoutCommenterInput[]
+    updateMany?: poll_commentsUpdateManyWithWhereWithoutCommenterInput | poll_commentsUpdateManyWithWhereWithoutCommenterInput[]
+    deleteMany?: poll_commentsScalarWhereInput | poll_commentsScalarWhereInput[]
+  }
+
   export type QuizParticipantsUncheckedUpdateManyWithoutUsersNestedInput = {
     create?: XOR<QuizParticipantsCreateWithoutUsersInput, QuizParticipantsUncheckedCreateWithoutUsersInput> | QuizParticipantsCreateWithoutUsersInput[] | QuizParticipantsUncheckedCreateWithoutUsersInput[]
     connectOrCreate?: QuizParticipantsCreateOrConnectWithoutUsersInput | QuizParticipantsCreateOrConnectWithoutUsersInput[]
@@ -79706,6 +85703,48 @@ export namespace Prisma {
     delete?: user_settingsWhereInput | boolean
     connect?: user_settingsWhereUniqueInput
     update?: XOR<XOR<user_settingsUpdateToOneWithWhereWithoutUsersInput, user_settingsUpdateWithoutUsersInput>, user_settingsUncheckedUpdateWithoutUsersInput>
+  }
+
+  export type pollsUncheckedUpdateManyWithoutCreatorNestedInput = {
+    create?: XOR<pollsCreateWithoutCreatorInput, pollsUncheckedCreateWithoutCreatorInput> | pollsCreateWithoutCreatorInput[] | pollsUncheckedCreateWithoutCreatorInput[]
+    connectOrCreate?: pollsCreateOrConnectWithoutCreatorInput | pollsCreateOrConnectWithoutCreatorInput[]
+    upsert?: pollsUpsertWithWhereUniqueWithoutCreatorInput | pollsUpsertWithWhereUniqueWithoutCreatorInput[]
+    createMany?: pollsCreateManyCreatorInputEnvelope
+    set?: pollsWhereUniqueInput | pollsWhereUniqueInput[]
+    disconnect?: pollsWhereUniqueInput | pollsWhereUniqueInput[]
+    delete?: pollsWhereUniqueInput | pollsWhereUniqueInput[]
+    connect?: pollsWhereUniqueInput | pollsWhereUniqueInput[]
+    update?: pollsUpdateWithWhereUniqueWithoutCreatorInput | pollsUpdateWithWhereUniqueWithoutCreatorInput[]
+    updateMany?: pollsUpdateManyWithWhereWithoutCreatorInput | pollsUpdateManyWithWhereWithoutCreatorInput[]
+    deleteMany?: pollsScalarWhereInput | pollsScalarWhereInput[]
+  }
+
+  export type poll_votesUncheckedUpdateManyWithoutVoterNestedInput = {
+    create?: XOR<poll_votesCreateWithoutVoterInput, poll_votesUncheckedCreateWithoutVoterInput> | poll_votesCreateWithoutVoterInput[] | poll_votesUncheckedCreateWithoutVoterInput[]
+    connectOrCreate?: poll_votesCreateOrConnectWithoutVoterInput | poll_votesCreateOrConnectWithoutVoterInput[]
+    upsert?: poll_votesUpsertWithWhereUniqueWithoutVoterInput | poll_votesUpsertWithWhereUniqueWithoutVoterInput[]
+    createMany?: poll_votesCreateManyVoterInputEnvelope
+    set?: poll_votesWhereUniqueInput | poll_votesWhereUniqueInput[]
+    disconnect?: poll_votesWhereUniqueInput | poll_votesWhereUniqueInput[]
+    delete?: poll_votesWhereUniqueInput | poll_votesWhereUniqueInput[]
+    connect?: poll_votesWhereUniqueInput | poll_votesWhereUniqueInput[]
+    update?: poll_votesUpdateWithWhereUniqueWithoutVoterInput | poll_votesUpdateWithWhereUniqueWithoutVoterInput[]
+    updateMany?: poll_votesUpdateManyWithWhereWithoutVoterInput | poll_votesUpdateManyWithWhereWithoutVoterInput[]
+    deleteMany?: poll_votesScalarWhereInput | poll_votesScalarWhereInput[]
+  }
+
+  export type poll_commentsUncheckedUpdateManyWithoutCommenterNestedInput = {
+    create?: XOR<poll_commentsCreateWithoutCommenterInput, poll_commentsUncheckedCreateWithoutCommenterInput> | poll_commentsCreateWithoutCommenterInput[] | poll_commentsUncheckedCreateWithoutCommenterInput[]
+    connectOrCreate?: poll_commentsCreateOrConnectWithoutCommenterInput | poll_commentsCreateOrConnectWithoutCommenterInput[]
+    upsert?: poll_commentsUpsertWithWhereUniqueWithoutCommenterInput | poll_commentsUpsertWithWhereUniqueWithoutCommenterInput[]
+    createMany?: poll_commentsCreateManyCommenterInputEnvelope
+    set?: poll_commentsWhereUniqueInput | poll_commentsWhereUniqueInput[]
+    disconnect?: poll_commentsWhereUniqueInput | poll_commentsWhereUniqueInput[]
+    delete?: poll_commentsWhereUniqueInput | poll_commentsWhereUniqueInput[]
+    connect?: poll_commentsWhereUniqueInput | poll_commentsWhereUniqueInput[]
+    update?: poll_commentsUpdateWithWhereUniqueWithoutCommenterInput | poll_commentsUpdateWithWhereUniqueWithoutCommenterInput[]
+    updateMany?: poll_commentsUpdateManyWithWhereWithoutCommenterInput | poll_commentsUpdateManyWithWhereWithoutCommenterInput[]
+    deleteMany?: poll_commentsScalarWhereInput | poll_commentsScalarWhereInput[]
   }
 
   export type blogsCreateNestedOneWithoutBlog_likesInput = {
@@ -80937,6 +86976,220 @@ export namespace Prisma {
     update?: XOR<XOR<usersUpdateToOneWithWhereWithoutCreated_sessionsInput, usersUpdateWithoutCreated_sessionsInput>, usersUncheckedUpdateWithoutCreated_sessionsInput>
   }
 
+  export type usersCreateNestedOneWithoutCreated_pollsInput = {
+    create?: XOR<usersCreateWithoutCreated_pollsInput, usersUncheckedCreateWithoutCreated_pollsInput>
+    connectOrCreate?: usersCreateOrConnectWithoutCreated_pollsInput
+    connect?: usersWhereUniqueInput
+  }
+
+  export type poll_choicesCreateNestedManyWithoutPollInput = {
+    create?: XOR<poll_choicesCreateWithoutPollInput, poll_choicesUncheckedCreateWithoutPollInput> | poll_choicesCreateWithoutPollInput[] | poll_choicesUncheckedCreateWithoutPollInput[]
+    connectOrCreate?: poll_choicesCreateOrConnectWithoutPollInput | poll_choicesCreateOrConnectWithoutPollInput[]
+    createMany?: poll_choicesCreateManyPollInputEnvelope
+    connect?: poll_choicesWhereUniqueInput | poll_choicesWhereUniqueInput[]
+  }
+
+  export type poll_commentsCreateNestedManyWithoutPollInput = {
+    create?: XOR<poll_commentsCreateWithoutPollInput, poll_commentsUncheckedCreateWithoutPollInput> | poll_commentsCreateWithoutPollInput[] | poll_commentsUncheckedCreateWithoutPollInput[]
+    connectOrCreate?: poll_commentsCreateOrConnectWithoutPollInput | poll_commentsCreateOrConnectWithoutPollInput[]
+    createMany?: poll_commentsCreateManyPollInputEnvelope
+    connect?: poll_commentsWhereUniqueInput | poll_commentsWhereUniqueInput[]
+  }
+
+  export type poll_choicesUncheckedCreateNestedManyWithoutPollInput = {
+    create?: XOR<poll_choicesCreateWithoutPollInput, poll_choicesUncheckedCreateWithoutPollInput> | poll_choicesCreateWithoutPollInput[] | poll_choicesUncheckedCreateWithoutPollInput[]
+    connectOrCreate?: poll_choicesCreateOrConnectWithoutPollInput | poll_choicesCreateOrConnectWithoutPollInput[]
+    createMany?: poll_choicesCreateManyPollInputEnvelope
+    connect?: poll_choicesWhereUniqueInput | poll_choicesWhereUniqueInput[]
+  }
+
+  export type poll_commentsUncheckedCreateNestedManyWithoutPollInput = {
+    create?: XOR<poll_commentsCreateWithoutPollInput, poll_commentsUncheckedCreateWithoutPollInput> | poll_commentsCreateWithoutPollInput[] | poll_commentsUncheckedCreateWithoutPollInput[]
+    connectOrCreate?: poll_commentsCreateOrConnectWithoutPollInput | poll_commentsCreateOrConnectWithoutPollInput[]
+    createMany?: poll_commentsCreateManyPollInputEnvelope
+    connect?: poll_commentsWhereUniqueInput | poll_commentsWhereUniqueInput[]
+  }
+
+  export type usersUpdateOneRequiredWithoutCreated_pollsNestedInput = {
+    create?: XOR<usersCreateWithoutCreated_pollsInput, usersUncheckedCreateWithoutCreated_pollsInput>
+    connectOrCreate?: usersCreateOrConnectWithoutCreated_pollsInput
+    upsert?: usersUpsertWithoutCreated_pollsInput
+    connect?: usersWhereUniqueInput
+    update?: XOR<XOR<usersUpdateToOneWithWhereWithoutCreated_pollsInput, usersUpdateWithoutCreated_pollsInput>, usersUncheckedUpdateWithoutCreated_pollsInput>
+  }
+
+  export type poll_choicesUpdateManyWithoutPollNestedInput = {
+    create?: XOR<poll_choicesCreateWithoutPollInput, poll_choicesUncheckedCreateWithoutPollInput> | poll_choicesCreateWithoutPollInput[] | poll_choicesUncheckedCreateWithoutPollInput[]
+    connectOrCreate?: poll_choicesCreateOrConnectWithoutPollInput | poll_choicesCreateOrConnectWithoutPollInput[]
+    upsert?: poll_choicesUpsertWithWhereUniqueWithoutPollInput | poll_choicesUpsertWithWhereUniqueWithoutPollInput[]
+    createMany?: poll_choicesCreateManyPollInputEnvelope
+    set?: poll_choicesWhereUniqueInput | poll_choicesWhereUniqueInput[]
+    disconnect?: poll_choicesWhereUniqueInput | poll_choicesWhereUniqueInput[]
+    delete?: poll_choicesWhereUniqueInput | poll_choicesWhereUniqueInput[]
+    connect?: poll_choicesWhereUniqueInput | poll_choicesWhereUniqueInput[]
+    update?: poll_choicesUpdateWithWhereUniqueWithoutPollInput | poll_choicesUpdateWithWhereUniqueWithoutPollInput[]
+    updateMany?: poll_choicesUpdateManyWithWhereWithoutPollInput | poll_choicesUpdateManyWithWhereWithoutPollInput[]
+    deleteMany?: poll_choicesScalarWhereInput | poll_choicesScalarWhereInput[]
+  }
+
+  export type poll_commentsUpdateManyWithoutPollNestedInput = {
+    create?: XOR<poll_commentsCreateWithoutPollInput, poll_commentsUncheckedCreateWithoutPollInput> | poll_commentsCreateWithoutPollInput[] | poll_commentsUncheckedCreateWithoutPollInput[]
+    connectOrCreate?: poll_commentsCreateOrConnectWithoutPollInput | poll_commentsCreateOrConnectWithoutPollInput[]
+    upsert?: poll_commentsUpsertWithWhereUniqueWithoutPollInput | poll_commentsUpsertWithWhereUniqueWithoutPollInput[]
+    createMany?: poll_commentsCreateManyPollInputEnvelope
+    set?: poll_commentsWhereUniqueInput | poll_commentsWhereUniqueInput[]
+    disconnect?: poll_commentsWhereUniqueInput | poll_commentsWhereUniqueInput[]
+    delete?: poll_commentsWhereUniqueInput | poll_commentsWhereUniqueInput[]
+    connect?: poll_commentsWhereUniqueInput | poll_commentsWhereUniqueInput[]
+    update?: poll_commentsUpdateWithWhereUniqueWithoutPollInput | poll_commentsUpdateWithWhereUniqueWithoutPollInput[]
+    updateMany?: poll_commentsUpdateManyWithWhereWithoutPollInput | poll_commentsUpdateManyWithWhereWithoutPollInput[]
+    deleteMany?: poll_commentsScalarWhereInput | poll_commentsScalarWhereInput[]
+  }
+
+  export type poll_choicesUncheckedUpdateManyWithoutPollNestedInput = {
+    create?: XOR<poll_choicesCreateWithoutPollInput, poll_choicesUncheckedCreateWithoutPollInput> | poll_choicesCreateWithoutPollInput[] | poll_choicesUncheckedCreateWithoutPollInput[]
+    connectOrCreate?: poll_choicesCreateOrConnectWithoutPollInput | poll_choicesCreateOrConnectWithoutPollInput[]
+    upsert?: poll_choicesUpsertWithWhereUniqueWithoutPollInput | poll_choicesUpsertWithWhereUniqueWithoutPollInput[]
+    createMany?: poll_choicesCreateManyPollInputEnvelope
+    set?: poll_choicesWhereUniqueInput | poll_choicesWhereUniqueInput[]
+    disconnect?: poll_choicesWhereUniqueInput | poll_choicesWhereUniqueInput[]
+    delete?: poll_choicesWhereUniqueInput | poll_choicesWhereUniqueInput[]
+    connect?: poll_choicesWhereUniqueInput | poll_choicesWhereUniqueInput[]
+    update?: poll_choicesUpdateWithWhereUniqueWithoutPollInput | poll_choicesUpdateWithWhereUniqueWithoutPollInput[]
+    updateMany?: poll_choicesUpdateManyWithWhereWithoutPollInput | poll_choicesUpdateManyWithWhereWithoutPollInput[]
+    deleteMany?: poll_choicesScalarWhereInput | poll_choicesScalarWhereInput[]
+  }
+
+  export type poll_commentsUncheckedUpdateManyWithoutPollNestedInput = {
+    create?: XOR<poll_commentsCreateWithoutPollInput, poll_commentsUncheckedCreateWithoutPollInput> | poll_commentsCreateWithoutPollInput[] | poll_commentsUncheckedCreateWithoutPollInput[]
+    connectOrCreate?: poll_commentsCreateOrConnectWithoutPollInput | poll_commentsCreateOrConnectWithoutPollInput[]
+    upsert?: poll_commentsUpsertWithWhereUniqueWithoutPollInput | poll_commentsUpsertWithWhereUniqueWithoutPollInput[]
+    createMany?: poll_commentsCreateManyPollInputEnvelope
+    set?: poll_commentsWhereUniqueInput | poll_commentsWhereUniqueInput[]
+    disconnect?: poll_commentsWhereUniqueInput | poll_commentsWhereUniqueInput[]
+    delete?: poll_commentsWhereUniqueInput | poll_commentsWhereUniqueInput[]
+    connect?: poll_commentsWhereUniqueInput | poll_commentsWhereUniqueInput[]
+    update?: poll_commentsUpdateWithWhereUniqueWithoutPollInput | poll_commentsUpdateWithWhereUniqueWithoutPollInput[]
+    updateMany?: poll_commentsUpdateManyWithWhereWithoutPollInput | poll_commentsUpdateManyWithWhereWithoutPollInput[]
+    deleteMany?: poll_commentsScalarWhereInput | poll_commentsScalarWhereInput[]
+  }
+
+  export type pollsCreateNestedOneWithoutChoicesInput = {
+    create?: XOR<pollsCreateWithoutChoicesInput, pollsUncheckedCreateWithoutChoicesInput>
+    connectOrCreate?: pollsCreateOrConnectWithoutChoicesInput
+    connect?: pollsWhereUniqueInput
+  }
+
+  export type poll_votesCreateNestedManyWithoutChoiceInput = {
+    create?: XOR<poll_votesCreateWithoutChoiceInput, poll_votesUncheckedCreateWithoutChoiceInput> | poll_votesCreateWithoutChoiceInput[] | poll_votesUncheckedCreateWithoutChoiceInput[]
+    connectOrCreate?: poll_votesCreateOrConnectWithoutChoiceInput | poll_votesCreateOrConnectWithoutChoiceInput[]
+    createMany?: poll_votesCreateManyChoiceInputEnvelope
+    connect?: poll_votesWhereUniqueInput | poll_votesWhereUniqueInput[]
+  }
+
+  export type poll_votesUncheckedCreateNestedManyWithoutChoiceInput = {
+    create?: XOR<poll_votesCreateWithoutChoiceInput, poll_votesUncheckedCreateWithoutChoiceInput> | poll_votesCreateWithoutChoiceInput[] | poll_votesUncheckedCreateWithoutChoiceInput[]
+    connectOrCreate?: poll_votesCreateOrConnectWithoutChoiceInput | poll_votesCreateOrConnectWithoutChoiceInput[]
+    createMany?: poll_votesCreateManyChoiceInputEnvelope
+    connect?: poll_votesWhereUniqueInput | poll_votesWhereUniqueInput[]
+  }
+
+  export type Enumpoll_choice_typeFieldUpdateOperationsInput = {
+    set?: $Enums.poll_choice_type
+  }
+
+  export type pollsUpdateOneRequiredWithoutChoicesNestedInput = {
+    create?: XOR<pollsCreateWithoutChoicesInput, pollsUncheckedCreateWithoutChoicesInput>
+    connectOrCreate?: pollsCreateOrConnectWithoutChoicesInput
+    upsert?: pollsUpsertWithoutChoicesInput
+    connect?: pollsWhereUniqueInput
+    update?: XOR<XOR<pollsUpdateToOneWithWhereWithoutChoicesInput, pollsUpdateWithoutChoicesInput>, pollsUncheckedUpdateWithoutChoicesInput>
+  }
+
+  export type poll_votesUpdateManyWithoutChoiceNestedInput = {
+    create?: XOR<poll_votesCreateWithoutChoiceInput, poll_votesUncheckedCreateWithoutChoiceInput> | poll_votesCreateWithoutChoiceInput[] | poll_votesUncheckedCreateWithoutChoiceInput[]
+    connectOrCreate?: poll_votesCreateOrConnectWithoutChoiceInput | poll_votesCreateOrConnectWithoutChoiceInput[]
+    upsert?: poll_votesUpsertWithWhereUniqueWithoutChoiceInput | poll_votesUpsertWithWhereUniqueWithoutChoiceInput[]
+    createMany?: poll_votesCreateManyChoiceInputEnvelope
+    set?: poll_votesWhereUniqueInput | poll_votesWhereUniqueInput[]
+    disconnect?: poll_votesWhereUniqueInput | poll_votesWhereUniqueInput[]
+    delete?: poll_votesWhereUniqueInput | poll_votesWhereUniqueInput[]
+    connect?: poll_votesWhereUniqueInput | poll_votesWhereUniqueInput[]
+    update?: poll_votesUpdateWithWhereUniqueWithoutChoiceInput | poll_votesUpdateWithWhereUniqueWithoutChoiceInput[]
+    updateMany?: poll_votesUpdateManyWithWhereWithoutChoiceInput | poll_votesUpdateManyWithWhereWithoutChoiceInput[]
+    deleteMany?: poll_votesScalarWhereInput | poll_votesScalarWhereInput[]
+  }
+
+  export type poll_votesUncheckedUpdateManyWithoutChoiceNestedInput = {
+    create?: XOR<poll_votesCreateWithoutChoiceInput, poll_votesUncheckedCreateWithoutChoiceInput> | poll_votesCreateWithoutChoiceInput[] | poll_votesUncheckedCreateWithoutChoiceInput[]
+    connectOrCreate?: poll_votesCreateOrConnectWithoutChoiceInput | poll_votesCreateOrConnectWithoutChoiceInput[]
+    upsert?: poll_votesUpsertWithWhereUniqueWithoutChoiceInput | poll_votesUpsertWithWhereUniqueWithoutChoiceInput[]
+    createMany?: poll_votesCreateManyChoiceInputEnvelope
+    set?: poll_votesWhereUniqueInput | poll_votesWhereUniqueInput[]
+    disconnect?: poll_votesWhereUniqueInput | poll_votesWhereUniqueInput[]
+    delete?: poll_votesWhereUniqueInput | poll_votesWhereUniqueInput[]
+    connect?: poll_votesWhereUniqueInput | poll_votesWhereUniqueInput[]
+    update?: poll_votesUpdateWithWhereUniqueWithoutChoiceInput | poll_votesUpdateWithWhereUniqueWithoutChoiceInput[]
+    updateMany?: poll_votesUpdateManyWithWhereWithoutChoiceInput | poll_votesUpdateManyWithWhereWithoutChoiceInput[]
+    deleteMany?: poll_votesScalarWhereInput | poll_votesScalarWhereInput[]
+  }
+
+  export type poll_choicesCreateNestedOneWithoutVotesInput = {
+    create?: XOR<poll_choicesCreateWithoutVotesInput, poll_choicesUncheckedCreateWithoutVotesInput>
+    connectOrCreate?: poll_choicesCreateOrConnectWithoutVotesInput
+    connect?: poll_choicesWhereUniqueInput
+  }
+
+  export type usersCreateNestedOneWithoutPoll_votesInput = {
+    create?: XOR<usersCreateWithoutPoll_votesInput, usersUncheckedCreateWithoutPoll_votesInput>
+    connectOrCreate?: usersCreateOrConnectWithoutPoll_votesInput
+    connect?: usersWhereUniqueInput
+  }
+
+  export type poll_choicesUpdateOneRequiredWithoutVotesNestedInput = {
+    create?: XOR<poll_choicesCreateWithoutVotesInput, poll_choicesUncheckedCreateWithoutVotesInput>
+    connectOrCreate?: poll_choicesCreateOrConnectWithoutVotesInput
+    upsert?: poll_choicesUpsertWithoutVotesInput
+    connect?: poll_choicesWhereUniqueInput
+    update?: XOR<XOR<poll_choicesUpdateToOneWithWhereWithoutVotesInput, poll_choicesUpdateWithoutVotesInput>, poll_choicesUncheckedUpdateWithoutVotesInput>
+  }
+
+  export type usersUpdateOneRequiredWithoutPoll_votesNestedInput = {
+    create?: XOR<usersCreateWithoutPoll_votesInput, usersUncheckedCreateWithoutPoll_votesInput>
+    connectOrCreate?: usersCreateOrConnectWithoutPoll_votesInput
+    upsert?: usersUpsertWithoutPoll_votesInput
+    connect?: usersWhereUniqueInput
+    update?: XOR<XOR<usersUpdateToOneWithWhereWithoutPoll_votesInput, usersUpdateWithoutPoll_votesInput>, usersUncheckedUpdateWithoutPoll_votesInput>
+  }
+
+  export type pollsCreateNestedOneWithoutCommentsInput = {
+    create?: XOR<pollsCreateWithoutCommentsInput, pollsUncheckedCreateWithoutCommentsInput>
+    connectOrCreate?: pollsCreateOrConnectWithoutCommentsInput
+    connect?: pollsWhereUniqueInput
+  }
+
+  export type usersCreateNestedOneWithoutPoll_commentsInput = {
+    create?: XOR<usersCreateWithoutPoll_commentsInput, usersUncheckedCreateWithoutPoll_commentsInput>
+    connectOrCreate?: usersCreateOrConnectWithoutPoll_commentsInput
+    connect?: usersWhereUniqueInput
+  }
+
+  export type pollsUpdateOneRequiredWithoutCommentsNestedInput = {
+    create?: XOR<pollsCreateWithoutCommentsInput, pollsUncheckedCreateWithoutCommentsInput>
+    connectOrCreate?: pollsCreateOrConnectWithoutCommentsInput
+    upsert?: pollsUpsertWithoutCommentsInput
+    connect?: pollsWhereUniqueInput
+    update?: XOR<XOR<pollsUpdateToOneWithWhereWithoutCommentsInput, pollsUpdateWithoutCommentsInput>, pollsUncheckedUpdateWithoutCommentsInput>
+  }
+
+  export type usersUpdateOneRequiredWithoutPoll_commentsNestedInput = {
+    create?: XOR<usersCreateWithoutPoll_commentsInput, usersUncheckedCreateWithoutPoll_commentsInput>
+    connectOrCreate?: usersCreateOrConnectWithoutPoll_commentsInput
+    upsert?: usersUpsertWithoutPoll_commentsInput
+    connect?: usersWhereUniqueInput
+    update?: XOR<XOR<usersUpdateToOneWithWhereWithoutPoll_commentsInput, usersUpdateWithoutPoll_commentsInput>, usersUncheckedUpdateWithoutPoll_commentsInput>
+  }
+
   export type NestedIntFilter<$PrismaModel = never> = {
     equals?: number | IntFieldRefInput<$PrismaModel>
     in?: number[] | ListIntFieldRefInput<$PrismaModel>
@@ -81555,6 +87808,23 @@ export namespace Prisma {
     _max?: NestedEnumdifficulty_levelFilter<$PrismaModel>
   }
 
+  export type NestedEnumpoll_choice_typeFilter<$PrismaModel = never> = {
+    equals?: $Enums.poll_choice_type | Enumpoll_choice_typeFieldRefInput<$PrismaModel>
+    in?: $Enums.poll_choice_type[] | ListEnumpoll_choice_typeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.poll_choice_type[] | ListEnumpoll_choice_typeFieldRefInput<$PrismaModel>
+    not?: NestedEnumpoll_choice_typeFilter<$PrismaModel> | $Enums.poll_choice_type
+  }
+
+  export type NestedEnumpoll_choice_typeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.poll_choice_type | Enumpoll_choice_typeFieldRefInput<$PrismaModel>
+    in?: $Enums.poll_choice_type[] | ListEnumpoll_choice_typeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.poll_choice_type[] | ListEnumpoll_choice_typeFieldRefInput<$PrismaModel>
+    not?: NestedEnumpoll_choice_typeWithAggregatesFilter<$PrismaModel> | $Enums.poll_choice_type
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumpoll_choice_typeFilter<$PrismaModel>
+    _max?: NestedEnumpoll_choice_typeFilter<$PrismaModel>
+  }
+
   export type paymentsCreateWithoutSubscriptionsInput = {
     amount: Decimal | DecimalJsLike | number | string
     currency?: string | null
@@ -81651,6 +87921,9 @@ export namespace Prisma {
     created_stargazing_spots?: stargazing_spotsCreateNestedManyWithoutCreatorInput
     created_sessions?: sessionsCreateNestedManyWithoutCreatorInput
     user_settings?: user_settingsCreateNestedOneWithoutUsersInput
+    created_polls?: pollsCreateNestedManyWithoutCreatorInput
+    poll_votes?: poll_votesCreateNestedManyWithoutVoterInput
+    poll_comments?: poll_commentsCreateNestedManyWithoutCommenterInput
   }
 
   export type usersUncheckedCreateWithoutSubscriptionsInput = {
@@ -81709,6 +87982,9 @@ export namespace Prisma {
     created_stargazing_spots?: stargazing_spotsUncheckedCreateNestedManyWithoutCreatorInput
     created_sessions?: sessionsUncheckedCreateNestedManyWithoutCreatorInput
     user_settings?: user_settingsUncheckedCreateNestedOneWithoutUsersInput
+    created_polls?: pollsUncheckedCreateNestedManyWithoutCreatorInput
+    poll_votes?: poll_votesUncheckedCreateNestedManyWithoutVoterInput
+    poll_comments?: poll_commentsUncheckedCreateNestedManyWithoutCommenterInput
   }
 
   export type usersCreateOrConnectWithoutSubscriptionsInput = {
@@ -81818,6 +88094,9 @@ export namespace Prisma {
     created_stargazing_spots?: stargazing_spotsUpdateManyWithoutCreatorNestedInput
     created_sessions?: sessionsUpdateManyWithoutCreatorNestedInput
     user_settings?: user_settingsUpdateOneWithoutUsersNestedInput
+    created_polls?: pollsUpdateManyWithoutCreatorNestedInput
+    poll_votes?: poll_votesUpdateManyWithoutVoterNestedInput
+    poll_comments?: poll_commentsUpdateManyWithoutCommenterNestedInput
   }
 
   export type usersUncheckedUpdateWithoutSubscriptionsInput = {
@@ -81876,6 +88155,9 @@ export namespace Prisma {
     created_stargazing_spots?: stargazing_spotsUncheckedUpdateManyWithoutCreatorNestedInput
     created_sessions?: sessionsUncheckedUpdateManyWithoutCreatorNestedInput
     user_settings?: user_settingsUncheckedUpdateOneWithoutUsersNestedInput
+    created_polls?: pollsUncheckedUpdateManyWithoutCreatorNestedInput
+    poll_votes?: poll_votesUncheckedUpdateManyWithoutVoterNestedInput
+    poll_comments?: poll_commentsUncheckedUpdateManyWithoutCommenterNestedInput
   }
 
   export type chat_messagesCreateWithoutGroupInput = {
@@ -81970,6 +88252,9 @@ export namespace Prisma {
     created_sessions?: sessionsCreateNestedManyWithoutCreatorInput
     subscriptions?: subscriptionsCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsCreateNestedOneWithoutUsersInput
+    created_polls?: pollsCreateNestedManyWithoutCreatorInput
+    poll_votes?: poll_votesCreateNestedManyWithoutVoterInput
+    poll_comments?: poll_commentsCreateNestedManyWithoutCommenterInput
   }
 
   export type usersUncheckedCreateWithoutCreated_groupsInput = {
@@ -82028,6 +88313,9 @@ export namespace Prisma {
     created_sessions?: sessionsUncheckedCreateNestedManyWithoutCreatorInput
     subscriptions?: subscriptionsUncheckedCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsUncheckedCreateNestedOneWithoutUsersInput
+    created_polls?: pollsUncheckedCreateNestedManyWithoutCreatorInput
+    poll_votes?: poll_votesUncheckedCreateNestedManyWithoutVoterInput
+    poll_comments?: poll_commentsUncheckedCreateNestedManyWithoutCommenterInput
   }
 
   export type usersCreateOrConnectWithoutCreated_groupsInput = {
@@ -82158,6 +88446,9 @@ export namespace Prisma {
     created_sessions?: sessionsUpdateManyWithoutCreatorNestedInput
     subscriptions?: subscriptionsUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUpdateOneWithoutUsersNestedInput
+    created_polls?: pollsUpdateManyWithoutCreatorNestedInput
+    poll_votes?: poll_votesUpdateManyWithoutVoterNestedInput
+    poll_comments?: poll_commentsUpdateManyWithoutCommenterNestedInput
   }
 
   export type usersUncheckedUpdateWithoutCreated_groupsInput = {
@@ -82216,6 +88507,9 @@ export namespace Prisma {
     created_sessions?: sessionsUncheckedUpdateManyWithoutCreatorNestedInput
     subscriptions?: subscriptionsUncheckedUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUncheckedUpdateOneWithoutUsersNestedInput
+    created_polls?: pollsUncheckedUpdateManyWithoutCreatorNestedInput
+    poll_votes?: poll_votesUncheckedUpdateManyWithoutVoterNestedInput
+    poll_comments?: poll_commentsUncheckedUpdateManyWithoutCommenterNestedInput
   }
 
   export type group_membersUpsertWithWhereUniqueWithoutGroupInput = {
@@ -82333,6 +88627,9 @@ export namespace Prisma {
     created_sessions?: sessionsCreateNestedManyWithoutCreatorInput
     subscriptions?: subscriptionsCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsCreateNestedOneWithoutUsersInput
+    created_polls?: pollsCreateNestedManyWithoutCreatorInput
+    poll_votes?: poll_votesCreateNestedManyWithoutVoterInput
+    poll_comments?: poll_commentsCreateNestedManyWithoutCommenterInput
   }
 
   export type usersUncheckedCreateWithoutGroup_membershipsInput = {
@@ -82391,6 +88688,9 @@ export namespace Prisma {
     created_sessions?: sessionsUncheckedCreateNestedManyWithoutCreatorInput
     subscriptions?: subscriptionsUncheckedCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsUncheckedCreateNestedOneWithoutUsersInput
+    created_polls?: pollsUncheckedCreateNestedManyWithoutCreatorInput
+    poll_votes?: poll_votesUncheckedCreateNestedManyWithoutVoterInput
+    poll_comments?: poll_commentsUncheckedCreateNestedManyWithoutCommenterInput
   }
 
   export type usersCreateOrConnectWithoutGroup_membershipsInput = {
@@ -82502,6 +88802,9 @@ export namespace Prisma {
     created_sessions?: sessionsUpdateManyWithoutCreatorNestedInput
     subscriptions?: subscriptionsUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUpdateOneWithoutUsersNestedInput
+    created_polls?: pollsUpdateManyWithoutCreatorNestedInput
+    poll_votes?: poll_votesUpdateManyWithoutVoterNestedInput
+    poll_comments?: poll_commentsUpdateManyWithoutCommenterNestedInput
   }
 
   export type usersUncheckedUpdateWithoutGroup_membershipsInput = {
@@ -82560,6 +88863,9 @@ export namespace Prisma {
     created_sessions?: sessionsUncheckedUpdateManyWithoutCreatorNestedInput
     subscriptions?: subscriptionsUncheckedUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUncheckedUpdateOneWithoutUsersNestedInput
+    created_polls?: pollsUncheckedUpdateManyWithoutCreatorNestedInput
+    poll_votes?: poll_votesUncheckedUpdateManyWithoutVoterNestedInput
+    poll_comments?: poll_commentsUncheckedUpdateManyWithoutCommenterNestedInput
   }
 
   export type group_chatsCreateWithoutMessagesInput = {
@@ -82718,6 +89024,9 @@ export namespace Prisma {
     created_sessions?: sessionsCreateNestedManyWithoutCreatorInput
     subscriptions?: subscriptionsCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsCreateNestedOneWithoutUsersInput
+    created_polls?: pollsCreateNestedManyWithoutCreatorInput
+    poll_votes?: poll_votesCreateNestedManyWithoutVoterInput
+    poll_comments?: poll_commentsCreateNestedManyWithoutCommenterInput
   }
 
   export type usersUncheckedCreateWithoutChat_messagesInput = {
@@ -82776,6 +89085,9 @@ export namespace Prisma {
     created_sessions?: sessionsUncheckedCreateNestedManyWithoutCreatorInput
     subscriptions?: subscriptionsUncheckedCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsUncheckedCreateNestedOneWithoutUsersInput
+    created_polls?: pollsUncheckedCreateNestedManyWithoutCreatorInput
+    poll_votes?: poll_votesUncheckedCreateNestedManyWithoutVoterInput
+    poll_comments?: poll_commentsUncheckedCreateNestedManyWithoutCommenterInput
   }
 
   export type usersCreateOrConnectWithoutChat_messagesInput = {
@@ -82964,6 +89276,9 @@ export namespace Prisma {
     created_sessions?: sessionsUpdateManyWithoutCreatorNestedInput
     subscriptions?: subscriptionsUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUpdateOneWithoutUsersNestedInput
+    created_polls?: pollsUpdateManyWithoutCreatorNestedInput
+    poll_votes?: poll_votesUpdateManyWithoutVoterNestedInput
+    poll_comments?: poll_commentsUpdateManyWithoutCommenterNestedInput
   }
 
   export type usersUncheckedUpdateWithoutChat_messagesInput = {
@@ -83022,6 +89337,9 @@ export namespace Prisma {
     created_sessions?: sessionsUncheckedUpdateManyWithoutCreatorNestedInput
     subscriptions?: subscriptionsUncheckedUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUncheckedUpdateOneWithoutUsersNestedInput
+    created_polls?: pollsUncheckedUpdateManyWithoutCreatorNestedInput
+    poll_votes?: poll_votesUncheckedUpdateManyWithoutVoterNestedInput
+    poll_comments?: poll_commentsUncheckedUpdateManyWithoutCommenterNestedInput
   }
 
   export type message_reactionsUpsertWithWhereUniqueWithoutMessageInput = {
@@ -83138,6 +89456,9 @@ export namespace Prisma {
     created_sessions?: sessionsCreateNestedManyWithoutCreatorInput
     subscriptions?: subscriptionsCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsCreateNestedOneWithoutUsersInput
+    created_polls?: pollsCreateNestedManyWithoutCreatorInput
+    poll_votes?: poll_votesCreateNestedManyWithoutVoterInput
+    poll_comments?: poll_commentsCreateNestedManyWithoutCommenterInput
   }
 
   export type usersUncheckedCreateWithoutMessage_reactionsInput = {
@@ -83196,6 +89517,9 @@ export namespace Prisma {
     created_sessions?: sessionsUncheckedCreateNestedManyWithoutCreatorInput
     subscriptions?: subscriptionsUncheckedCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsUncheckedCreateNestedOneWithoutUsersInput
+    created_polls?: pollsUncheckedCreateNestedManyWithoutCreatorInput
+    poll_votes?: poll_votesUncheckedCreateNestedManyWithoutVoterInput
+    poll_comments?: poll_commentsUncheckedCreateNestedManyWithoutCommenterInput
   }
 
   export type usersCreateOrConnectWithoutMessage_reactionsInput = {
@@ -83307,6 +89631,9 @@ export namespace Prisma {
     created_sessions?: sessionsUpdateManyWithoutCreatorNestedInput
     subscriptions?: subscriptionsUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUpdateOneWithoutUsersNestedInput
+    created_polls?: pollsUpdateManyWithoutCreatorNestedInput
+    poll_votes?: poll_votesUpdateManyWithoutVoterNestedInput
+    poll_comments?: poll_commentsUpdateManyWithoutCommenterNestedInput
   }
 
   export type usersUncheckedUpdateWithoutMessage_reactionsInput = {
@@ -83365,6 +89692,9 @@ export namespace Prisma {
     created_sessions?: sessionsUncheckedUpdateManyWithoutCreatorNestedInput
     subscriptions?: subscriptionsUncheckedUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUncheckedUpdateOneWithoutUsersNestedInput
+    created_polls?: pollsUncheckedUpdateManyWithoutCreatorNestedInput
+    poll_votes?: poll_votesUncheckedUpdateManyWithoutVoterNestedInput
+    poll_comments?: poll_commentsUncheckedUpdateManyWithoutCommenterNestedInput
   }
 
   export type blogsCreateWithoutBlog_viewsInput = {
@@ -83480,6 +89810,9 @@ export namespace Prisma {
     created_sessions?: sessionsCreateNestedManyWithoutCreatorInput
     subscriptions?: subscriptionsCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsCreateNestedOneWithoutUsersInput
+    created_polls?: pollsCreateNestedManyWithoutCreatorInput
+    poll_votes?: poll_votesCreateNestedManyWithoutVoterInput
+    poll_comments?: poll_commentsCreateNestedManyWithoutCommenterInput
   }
 
   export type usersUncheckedCreateWithoutBlog_viewsInput = {
@@ -83538,6 +89871,9 @@ export namespace Prisma {
     created_sessions?: sessionsUncheckedCreateNestedManyWithoutCreatorInput
     subscriptions?: subscriptionsUncheckedCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsUncheckedCreateNestedOneWithoutUsersInput
+    created_polls?: pollsUncheckedCreateNestedManyWithoutCreatorInput
+    poll_votes?: poll_votesUncheckedCreateNestedManyWithoutVoterInput
+    poll_comments?: poll_commentsUncheckedCreateNestedManyWithoutCommenterInput
   }
 
   export type usersCreateOrConnectWithoutBlog_viewsInput = {
@@ -83675,6 +90011,9 @@ export namespace Prisma {
     created_sessions?: sessionsUpdateManyWithoutCreatorNestedInput
     subscriptions?: subscriptionsUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUpdateOneWithoutUsersNestedInput
+    created_polls?: pollsUpdateManyWithoutCreatorNestedInput
+    poll_votes?: poll_votesUpdateManyWithoutVoterNestedInput
+    poll_comments?: poll_commentsUpdateManyWithoutCommenterNestedInput
   }
 
   export type usersUncheckedUpdateWithoutBlog_viewsInput = {
@@ -83733,6 +90072,9 @@ export namespace Prisma {
     created_sessions?: sessionsUncheckedUpdateManyWithoutCreatorNestedInput
     subscriptions?: subscriptionsUncheckedUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUncheckedUpdateOneWithoutUsersNestedInput
+    created_polls?: pollsUncheckedUpdateManyWithoutCreatorNestedInput
+    poll_votes?: poll_votesUncheckedUpdateManyWithoutVoterNestedInput
+    poll_comments?: poll_commentsUncheckedUpdateManyWithoutCommenterNestedInput
   }
 
   export type night_camp_registrationsCreateWithoutNight_campsInput = {
@@ -84242,6 +90584,9 @@ export namespace Prisma {
     created_sessions?: sessionsCreateNestedManyWithoutCreatorInput
     subscriptions?: subscriptionsCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsCreateNestedOneWithoutUsersInput
+    created_polls?: pollsCreateNestedManyWithoutCreatorInput
+    poll_votes?: poll_votesCreateNestedManyWithoutVoterInput
+    poll_comments?: poll_commentsCreateNestedManyWithoutCommenterInput
   }
 
   export type usersUncheckedCreateWithoutChatbot_sessionsInput = {
@@ -84300,6 +90645,9 @@ export namespace Prisma {
     created_sessions?: sessionsUncheckedCreateNestedManyWithoutCreatorInput
     subscriptions?: subscriptionsUncheckedCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsUncheckedCreateNestedOneWithoutUsersInput
+    created_polls?: pollsUncheckedCreateNestedManyWithoutCreatorInput
+    poll_votes?: poll_votesUncheckedCreateNestedManyWithoutVoterInput
+    poll_comments?: poll_commentsUncheckedCreateNestedManyWithoutCommenterInput
   }
 
   export type usersCreateOrConnectWithoutChatbot_sessionsInput = {
@@ -84433,6 +90781,9 @@ export namespace Prisma {
     created_sessions?: sessionsUpdateManyWithoutCreatorNestedInput
     subscriptions?: subscriptionsUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUpdateOneWithoutUsersNestedInput
+    created_polls?: pollsUpdateManyWithoutCreatorNestedInput
+    poll_votes?: poll_votesUpdateManyWithoutVoterNestedInput
+    poll_comments?: poll_commentsUpdateManyWithoutCommenterNestedInput
   }
 
   export type usersUncheckedUpdateWithoutChatbot_sessionsInput = {
@@ -84491,6 +90842,9 @@ export namespace Prisma {
     created_sessions?: sessionsUncheckedUpdateManyWithoutCreatorNestedInput
     subscriptions?: subscriptionsUncheckedUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUncheckedUpdateOneWithoutUsersNestedInput
+    created_polls?: pollsUncheckedUpdateManyWithoutCreatorNestedInput
+    poll_votes?: poll_votesUncheckedUpdateManyWithoutVoterNestedInput
+    poll_comments?: poll_commentsUncheckedUpdateManyWithoutCommenterNestedInput
   }
 
   export type subscriptionsCreateWithoutPaymentsInput = {
@@ -84580,6 +90934,9 @@ export namespace Prisma {
     created_sessions?: sessionsCreateNestedManyWithoutCreatorInput
     subscriptions?: subscriptionsCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsCreateNestedOneWithoutUsersInput
+    created_polls?: pollsCreateNestedManyWithoutCreatorInput
+    poll_votes?: poll_votesCreateNestedManyWithoutVoterInput
+    poll_comments?: poll_commentsCreateNestedManyWithoutCommenterInput
   }
 
   export type usersUncheckedCreateWithoutPaymentsInput = {
@@ -84638,6 +90995,9 @@ export namespace Prisma {
     created_sessions?: sessionsUncheckedCreateNestedManyWithoutCreatorInput
     subscriptions?: subscriptionsUncheckedCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsUncheckedCreateNestedOneWithoutUsersInput
+    created_polls?: pollsUncheckedCreateNestedManyWithoutCreatorInput
+    poll_votes?: poll_votesUncheckedCreateNestedManyWithoutVoterInput
+    poll_comments?: poll_commentsUncheckedCreateNestedManyWithoutCommenterInput
   }
 
   export type usersCreateOrConnectWithoutPaymentsInput = {
@@ -84749,6 +91109,9 @@ export namespace Prisma {
     created_sessions?: sessionsUpdateManyWithoutCreatorNestedInput
     subscriptions?: subscriptionsUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUpdateOneWithoutUsersNestedInput
+    created_polls?: pollsUpdateManyWithoutCreatorNestedInput
+    poll_votes?: poll_votesUpdateManyWithoutVoterNestedInput
+    poll_comments?: poll_commentsUpdateManyWithoutCommenterNestedInput
   }
 
   export type usersUncheckedUpdateWithoutPaymentsInput = {
@@ -84807,6 +91170,9 @@ export namespace Prisma {
     created_sessions?: sessionsUncheckedUpdateManyWithoutCreatorNestedInput
     subscriptions?: subscriptionsUncheckedUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUncheckedUpdateOneWithoutUsersNestedInput
+    created_polls?: pollsUncheckedUpdateManyWithoutCreatorNestedInput
+    poll_votes?: poll_votesUncheckedUpdateManyWithoutVoterNestedInput
+    poll_comments?: poll_commentsUncheckedUpdateManyWithoutCommenterNestedInput
   }
 
   export type blog_category_relationsCreateWithoutBlogsInput = {
@@ -84960,6 +91326,9 @@ export namespace Prisma {
     created_sessions?: sessionsCreateNestedManyWithoutCreatorInput
     subscriptions?: subscriptionsCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsCreateNestedOneWithoutUsersInput
+    created_polls?: pollsCreateNestedManyWithoutCreatorInput
+    poll_votes?: poll_votesCreateNestedManyWithoutVoterInput
+    poll_comments?: poll_commentsCreateNestedManyWithoutCommenterInput
   }
 
   export type usersUncheckedCreateWithoutBlogsInput = {
@@ -85018,6 +91387,9 @@ export namespace Prisma {
     created_sessions?: sessionsUncheckedCreateNestedManyWithoutCreatorInput
     subscriptions?: subscriptionsUncheckedCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsUncheckedCreateNestedOneWithoutUsersInput
+    created_polls?: pollsUncheckedCreateNestedManyWithoutCreatorInput
+    poll_votes?: poll_votesUncheckedCreateNestedManyWithoutVoterInput
+    poll_comments?: poll_commentsUncheckedCreateNestedManyWithoutCommenterInput
   }
 
   export type usersCreateOrConnectWithoutBlogsInput = {
@@ -85200,6 +91572,9 @@ export namespace Prisma {
     created_sessions?: sessionsUpdateManyWithoutCreatorNestedInput
     subscriptions?: subscriptionsUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUpdateOneWithoutUsersNestedInput
+    created_polls?: pollsUpdateManyWithoutCreatorNestedInput
+    poll_votes?: poll_votesUpdateManyWithoutVoterNestedInput
+    poll_comments?: poll_commentsUpdateManyWithoutCommenterNestedInput
   }
 
   export type usersUncheckedUpdateWithoutBlogsInput = {
@@ -85258,6 +91633,9 @@ export namespace Prisma {
     created_sessions?: sessionsUncheckedUpdateManyWithoutCreatorNestedInput
     subscriptions?: subscriptionsUncheckedUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUncheckedUpdateOneWithoutUsersNestedInput
+    created_polls?: pollsUncheckedUpdateManyWithoutCreatorNestedInput
+    poll_votes?: poll_votesUncheckedUpdateManyWithoutVoterNestedInput
+    poll_comments?: poll_commentsUncheckedUpdateManyWithoutCommenterNestedInput
   }
 
   export type blogsCreateWithoutBlog_category_relationsInput = {
@@ -85514,6 +91892,9 @@ export namespace Prisma {
     created_sessions?: sessionsCreateNestedManyWithoutCreatorInput
     subscriptions?: subscriptionsCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsCreateNestedOneWithoutUsersInput
+    created_polls?: pollsCreateNestedManyWithoutCreatorInput
+    poll_votes?: poll_votesCreateNestedManyWithoutVoterInput
+    poll_comments?: poll_commentsCreateNestedManyWithoutCommenterInput
   }
 
   export type usersUncheckedCreateWithoutChatbot_usageInput = {
@@ -85572,6 +91953,9 @@ export namespace Prisma {
     created_sessions?: sessionsUncheckedCreateNestedManyWithoutCreatorInput
     subscriptions?: subscriptionsUncheckedCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsUncheckedCreateNestedOneWithoutUsersInput
+    created_polls?: pollsUncheckedCreateNestedManyWithoutCreatorInput
+    poll_votes?: poll_votesUncheckedCreateNestedManyWithoutVoterInput
+    poll_comments?: poll_commentsUncheckedCreateNestedManyWithoutCommenterInput
   }
 
   export type usersCreateOrConnectWithoutChatbot_usageInput = {
@@ -85645,6 +92029,9 @@ export namespace Prisma {
     created_sessions?: sessionsUpdateManyWithoutCreatorNestedInput
     subscriptions?: subscriptionsUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUpdateOneWithoutUsersNestedInput
+    created_polls?: pollsUpdateManyWithoutCreatorNestedInput
+    poll_votes?: poll_votesUpdateManyWithoutVoterNestedInput
+    poll_comments?: poll_commentsUpdateManyWithoutCommenterNestedInput
   }
 
   export type usersUncheckedUpdateWithoutChatbot_usageInput = {
@@ -85703,6 +92090,9 @@ export namespace Prisma {
     created_sessions?: sessionsUncheckedUpdateManyWithoutCreatorNestedInput
     subscriptions?: subscriptionsUncheckedUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUncheckedUpdateOneWithoutUsersNestedInput
+    created_polls?: pollsUncheckedUpdateManyWithoutCreatorNestedInput
+    poll_votes?: poll_votesUncheckedUpdateManyWithoutVoterNestedInput
+    poll_comments?: poll_commentsUncheckedUpdateManyWithoutCommenterNestedInput
   }
 
   export type blogsCreateWithoutBlog_commentsInput = {
@@ -85875,6 +92265,9 @@ export namespace Prisma {
     created_sessions?: sessionsCreateNestedManyWithoutCreatorInput
     subscriptions?: subscriptionsCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsCreateNestedOneWithoutUsersInput
+    created_polls?: pollsCreateNestedManyWithoutCreatorInput
+    poll_votes?: poll_votesCreateNestedManyWithoutVoterInput
+    poll_comments?: poll_commentsCreateNestedManyWithoutCommenterInput
   }
 
   export type usersUncheckedCreateWithoutBlog_commentsInput = {
@@ -85933,6 +92326,9 @@ export namespace Prisma {
     created_sessions?: sessionsUncheckedCreateNestedManyWithoutCreatorInput
     subscriptions?: subscriptionsUncheckedCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsUncheckedCreateNestedOneWithoutUsersInput
+    created_polls?: pollsUncheckedCreateNestedManyWithoutCreatorInput
+    poll_votes?: poll_votesUncheckedCreateNestedManyWithoutVoterInput
+    poll_comments?: poll_commentsUncheckedCreateNestedManyWithoutCommenterInput
   }
 
   export type usersCreateOrConnectWithoutBlog_commentsInput = {
@@ -86118,6 +92514,9 @@ export namespace Prisma {
     created_sessions?: sessionsUpdateManyWithoutCreatorNestedInput
     subscriptions?: subscriptionsUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUpdateOneWithoutUsersNestedInput
+    created_polls?: pollsUpdateManyWithoutCreatorNestedInput
+    poll_votes?: poll_votesUpdateManyWithoutVoterNestedInput
+    poll_comments?: poll_commentsUpdateManyWithoutCommenterNestedInput
   }
 
   export type usersUncheckedUpdateWithoutBlog_commentsInput = {
@@ -86176,6 +92575,9 @@ export namespace Prisma {
     created_sessions?: sessionsUncheckedUpdateManyWithoutCreatorNestedInput
     subscriptions?: subscriptionsUncheckedUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUncheckedUpdateOneWithoutUsersNestedInput
+    created_polls?: pollsUncheckedUpdateManyWithoutCreatorNestedInput
+    poll_votes?: poll_votesUncheckedUpdateManyWithoutVoterNestedInput
+    poll_comments?: poll_commentsUncheckedUpdateManyWithoutCommenterNestedInput
   }
 
   export type QuizParticipantsCreateWithoutUsersInput = {
@@ -87492,6 +93894,85 @@ export namespace Prisma {
     create: XOR<user_settingsCreateWithoutUsersInput, user_settingsUncheckedCreateWithoutUsersInput>
   }
 
+  export type pollsCreateWithoutCreatorInput = {
+    title: string
+    description?: string | null
+    created_at?: Date | string
+    updated_at?: Date | string
+    is_active?: boolean
+    choices?: poll_choicesCreateNestedManyWithoutPollInput
+    comments?: poll_commentsCreateNestedManyWithoutPollInput
+  }
+
+  export type pollsUncheckedCreateWithoutCreatorInput = {
+    id?: number
+    title: string
+    description?: string | null
+    created_at?: Date | string
+    updated_at?: Date | string
+    is_active?: boolean
+    choices?: poll_choicesUncheckedCreateNestedManyWithoutPollInput
+    comments?: poll_commentsUncheckedCreateNestedManyWithoutPollInput
+  }
+
+  export type pollsCreateOrConnectWithoutCreatorInput = {
+    where: pollsWhereUniqueInput
+    create: XOR<pollsCreateWithoutCreatorInput, pollsUncheckedCreateWithoutCreatorInput>
+  }
+
+  export type pollsCreateManyCreatorInputEnvelope = {
+    data: pollsCreateManyCreatorInput | pollsCreateManyCreatorInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type poll_votesCreateWithoutVoterInput = {
+    poll_id: number
+    voted_at?: Date | string
+    choice: poll_choicesCreateNestedOneWithoutVotesInput
+  }
+
+  export type poll_votesUncheckedCreateWithoutVoterInput = {
+    id?: number
+    poll_id: number
+    choice_id: number
+    voted_at?: Date | string
+  }
+
+  export type poll_votesCreateOrConnectWithoutVoterInput = {
+    where: poll_votesWhereUniqueInput
+    create: XOR<poll_votesCreateWithoutVoterInput, poll_votesUncheckedCreateWithoutVoterInput>
+  }
+
+  export type poll_votesCreateManyVoterInputEnvelope = {
+    data: poll_votesCreateManyVoterInput | poll_votesCreateManyVoterInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type poll_commentsCreateWithoutCommenterInput = {
+    comment: string
+    created_at?: Date | string
+    updated_at?: Date | string
+    poll: pollsCreateNestedOneWithoutCommentsInput
+  }
+
+  export type poll_commentsUncheckedCreateWithoutCommenterInput = {
+    id?: number
+    poll_id: number
+    comment: string
+    created_at?: Date | string
+    updated_at?: Date | string
+  }
+
+  export type poll_commentsCreateOrConnectWithoutCommenterInput = {
+    where: poll_commentsWhereUniqueInput
+    create: XOR<poll_commentsCreateWithoutCommenterInput, poll_commentsUncheckedCreateWithoutCommenterInput>
+  }
+
+  export type poll_commentsCreateManyCommenterInputEnvelope = {
+    data: poll_commentsCreateManyCommenterInput | poll_commentsCreateManyCommenterInput[]
+    skipDuplicates?: boolean
+  }
+
   export type QuizParticipantsUpsertWithWhereUniqueWithoutUsersInput = {
     where: QuizParticipantsWhereUniqueInput
     update: XOR<QuizParticipantsUpdateWithoutUsersInput, QuizParticipantsUncheckedUpdateWithoutUsersInput>
@@ -88518,6 +94999,90 @@ export namespace Prisma {
     updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
+  export type pollsUpsertWithWhereUniqueWithoutCreatorInput = {
+    where: pollsWhereUniqueInput
+    update: XOR<pollsUpdateWithoutCreatorInput, pollsUncheckedUpdateWithoutCreatorInput>
+    create: XOR<pollsCreateWithoutCreatorInput, pollsUncheckedCreateWithoutCreatorInput>
+  }
+
+  export type pollsUpdateWithWhereUniqueWithoutCreatorInput = {
+    where: pollsWhereUniqueInput
+    data: XOR<pollsUpdateWithoutCreatorInput, pollsUncheckedUpdateWithoutCreatorInput>
+  }
+
+  export type pollsUpdateManyWithWhereWithoutCreatorInput = {
+    where: pollsScalarWhereInput
+    data: XOR<pollsUpdateManyMutationInput, pollsUncheckedUpdateManyWithoutCreatorInput>
+  }
+
+  export type pollsScalarWhereInput = {
+    AND?: pollsScalarWhereInput | pollsScalarWhereInput[]
+    OR?: pollsScalarWhereInput[]
+    NOT?: pollsScalarWhereInput | pollsScalarWhereInput[]
+    id?: IntFilter<"polls"> | number
+    title?: StringFilter<"polls"> | string
+    description?: StringNullableFilter<"polls"> | string | null
+    created_by?: IntFilter<"polls"> | number
+    created_at?: DateTimeFilter<"polls"> | Date | string
+    updated_at?: DateTimeFilter<"polls"> | Date | string
+    is_active?: BoolFilter<"polls"> | boolean
+  }
+
+  export type poll_votesUpsertWithWhereUniqueWithoutVoterInput = {
+    where: poll_votesWhereUniqueInput
+    update: XOR<poll_votesUpdateWithoutVoterInput, poll_votesUncheckedUpdateWithoutVoterInput>
+    create: XOR<poll_votesCreateWithoutVoterInput, poll_votesUncheckedCreateWithoutVoterInput>
+  }
+
+  export type poll_votesUpdateWithWhereUniqueWithoutVoterInput = {
+    where: poll_votesWhereUniqueInput
+    data: XOR<poll_votesUpdateWithoutVoterInput, poll_votesUncheckedUpdateWithoutVoterInput>
+  }
+
+  export type poll_votesUpdateManyWithWhereWithoutVoterInput = {
+    where: poll_votesScalarWhereInput
+    data: XOR<poll_votesUpdateManyMutationInput, poll_votesUncheckedUpdateManyWithoutVoterInput>
+  }
+
+  export type poll_votesScalarWhereInput = {
+    AND?: poll_votesScalarWhereInput | poll_votesScalarWhereInput[]
+    OR?: poll_votesScalarWhereInput[]
+    NOT?: poll_votesScalarWhereInput | poll_votesScalarWhereInput[]
+    id?: IntFilter<"poll_votes"> | number
+    poll_id?: IntFilter<"poll_votes"> | number
+    choice_id?: IntFilter<"poll_votes"> | number
+    user_id?: IntFilter<"poll_votes"> | number
+    voted_at?: DateTimeFilter<"poll_votes"> | Date | string
+  }
+
+  export type poll_commentsUpsertWithWhereUniqueWithoutCommenterInput = {
+    where: poll_commentsWhereUniqueInput
+    update: XOR<poll_commentsUpdateWithoutCommenterInput, poll_commentsUncheckedUpdateWithoutCommenterInput>
+    create: XOR<poll_commentsCreateWithoutCommenterInput, poll_commentsUncheckedCreateWithoutCommenterInput>
+  }
+
+  export type poll_commentsUpdateWithWhereUniqueWithoutCommenterInput = {
+    where: poll_commentsWhereUniqueInput
+    data: XOR<poll_commentsUpdateWithoutCommenterInput, poll_commentsUncheckedUpdateWithoutCommenterInput>
+  }
+
+  export type poll_commentsUpdateManyWithWhereWithoutCommenterInput = {
+    where: poll_commentsScalarWhereInput
+    data: XOR<poll_commentsUpdateManyMutationInput, poll_commentsUncheckedUpdateManyWithoutCommenterInput>
+  }
+
+  export type poll_commentsScalarWhereInput = {
+    AND?: poll_commentsScalarWhereInput | poll_commentsScalarWhereInput[]
+    OR?: poll_commentsScalarWhereInput[]
+    NOT?: poll_commentsScalarWhereInput | poll_commentsScalarWhereInput[]
+    id?: IntFilter<"poll_comments"> | number
+    poll_id?: IntFilter<"poll_comments"> | number
+    user_id?: IntFilter<"poll_comments"> | number
+    comment?: StringFilter<"poll_comments"> | string
+    created_at?: DateTimeFilter<"poll_comments"> | Date | string
+    updated_at?: DateTimeFilter<"poll_comments"> | Date | string
+  }
+
   export type blogsCreateWithoutBlog_likesInput = {
     title: string
     content: string
@@ -88631,6 +95196,9 @@ export namespace Prisma {
     created_sessions?: sessionsCreateNestedManyWithoutCreatorInput
     subscriptions?: subscriptionsCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsCreateNestedOneWithoutUsersInput
+    created_polls?: pollsCreateNestedManyWithoutCreatorInput
+    poll_votes?: poll_votesCreateNestedManyWithoutVoterInput
+    poll_comments?: poll_commentsCreateNestedManyWithoutCommenterInput
   }
 
   export type usersUncheckedCreateWithoutBlog_likesInput = {
@@ -88689,6 +95257,9 @@ export namespace Prisma {
     created_sessions?: sessionsUncheckedCreateNestedManyWithoutCreatorInput
     subscriptions?: subscriptionsUncheckedCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsUncheckedCreateNestedOneWithoutUsersInput
+    created_polls?: pollsUncheckedCreateNestedManyWithoutCreatorInput
+    poll_votes?: poll_votesUncheckedCreateNestedManyWithoutVoterInput
+    poll_comments?: poll_commentsUncheckedCreateNestedManyWithoutCommenterInput
   }
 
   export type usersCreateOrConnectWithoutBlog_likesInput = {
@@ -88826,6 +95397,9 @@ export namespace Prisma {
     created_sessions?: sessionsUpdateManyWithoutCreatorNestedInput
     subscriptions?: subscriptionsUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUpdateOneWithoutUsersNestedInput
+    created_polls?: pollsUpdateManyWithoutCreatorNestedInput
+    poll_votes?: poll_votesUpdateManyWithoutVoterNestedInput
+    poll_comments?: poll_commentsUpdateManyWithoutCommenterNestedInput
   }
 
   export type usersUncheckedUpdateWithoutBlog_likesInput = {
@@ -88884,6 +95458,9 @@ export namespace Prisma {
     created_sessions?: sessionsUncheckedUpdateManyWithoutCreatorNestedInput
     subscriptions?: subscriptionsUncheckedUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUncheckedUpdateOneWithoutUsersNestedInput
+    created_polls?: pollsUncheckedUpdateManyWithoutCreatorNestedInput
+    poll_votes?: poll_votesUncheckedUpdateManyWithoutVoterNestedInput
+    poll_comments?: poll_commentsUncheckedUpdateManyWithoutCommenterNestedInput
   }
 
   export type chatbot_feedbackCreateWithoutChatbot_messagesInput = {
@@ -89147,6 +95724,9 @@ export namespace Prisma {
     created_stargazing_spots?: stargazing_spotsCreateNestedManyWithoutCreatorInput
     created_sessions?: sessionsCreateNestedManyWithoutCreatorInput
     subscriptions?: subscriptionsCreateNestedManyWithoutUsersInput
+    created_polls?: pollsCreateNestedManyWithoutCreatorInput
+    poll_votes?: poll_votesCreateNestedManyWithoutVoterInput
+    poll_comments?: poll_commentsCreateNestedManyWithoutCommenterInput
   }
 
   export type usersUncheckedCreateWithoutUser_settingsInput = {
@@ -89205,6 +95785,9 @@ export namespace Prisma {
     created_stargazing_spots?: stargazing_spotsUncheckedCreateNestedManyWithoutCreatorInput
     created_sessions?: sessionsUncheckedCreateNestedManyWithoutCreatorInput
     subscriptions?: subscriptionsUncheckedCreateNestedManyWithoutUsersInput
+    created_polls?: pollsUncheckedCreateNestedManyWithoutCreatorInput
+    poll_votes?: poll_votesUncheckedCreateNestedManyWithoutVoterInput
+    poll_comments?: poll_commentsUncheckedCreateNestedManyWithoutCommenterInput
   }
 
   export type usersCreateOrConnectWithoutUser_settingsInput = {
@@ -89278,6 +95861,9 @@ export namespace Prisma {
     created_stargazing_spots?: stargazing_spotsUpdateManyWithoutCreatorNestedInput
     created_sessions?: sessionsUpdateManyWithoutCreatorNestedInput
     subscriptions?: subscriptionsUpdateManyWithoutUsersNestedInput
+    created_polls?: pollsUpdateManyWithoutCreatorNestedInput
+    poll_votes?: poll_votesUpdateManyWithoutVoterNestedInput
+    poll_comments?: poll_commentsUpdateManyWithoutCommenterNestedInput
   }
 
   export type usersUncheckedUpdateWithoutUser_settingsInput = {
@@ -89336,6 +95922,9 @@ export namespace Prisma {
     created_stargazing_spots?: stargazing_spotsUncheckedUpdateManyWithoutCreatorNestedInput
     created_sessions?: sessionsUncheckedUpdateManyWithoutCreatorNestedInput
     subscriptions?: subscriptionsUncheckedUpdateManyWithoutUsersNestedInput
+    created_polls?: pollsUncheckedUpdateManyWithoutCreatorNestedInput
+    poll_votes?: poll_votesUncheckedUpdateManyWithoutVoterNestedInput
+    poll_comments?: poll_commentsUncheckedUpdateManyWithoutCommenterNestedInput
   }
 
   export type chatbot_messagesCreateWithoutChatbot_feedbackInput = {
@@ -89619,6 +96208,9 @@ export namespace Prisma {
     created_sessions?: sessionsCreateNestedManyWithoutCreatorInput
     subscriptions?: subscriptionsCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsCreateNestedOneWithoutUsersInput
+    created_polls?: pollsCreateNestedManyWithoutCreatorInput
+    poll_votes?: poll_votesCreateNestedManyWithoutVoterInput
+    poll_comments?: poll_commentsCreateNestedManyWithoutCommenterInput
   }
 
   export type usersUncheckedCreateWithoutRole_upgrade_requests_role_upgrade_requests_reviewer_idTousersInput = {
@@ -89677,6 +96269,9 @@ export namespace Prisma {
     created_sessions?: sessionsUncheckedCreateNestedManyWithoutCreatorInput
     subscriptions?: subscriptionsUncheckedCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsUncheckedCreateNestedOneWithoutUsersInput
+    created_polls?: pollsUncheckedCreateNestedManyWithoutCreatorInput
+    poll_votes?: poll_votesUncheckedCreateNestedManyWithoutVoterInput
+    poll_comments?: poll_commentsUncheckedCreateNestedManyWithoutCommenterInput
   }
 
   export type usersCreateOrConnectWithoutRole_upgrade_requests_role_upgrade_requests_reviewer_idTousersInput = {
@@ -89739,6 +96334,9 @@ export namespace Prisma {
     created_sessions?: sessionsCreateNestedManyWithoutCreatorInput
     subscriptions?: subscriptionsCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsCreateNestedOneWithoutUsersInput
+    created_polls?: pollsCreateNestedManyWithoutCreatorInput
+    poll_votes?: poll_votesCreateNestedManyWithoutVoterInput
+    poll_comments?: poll_commentsCreateNestedManyWithoutCommenterInput
   }
 
   export type usersUncheckedCreateWithoutRole_upgrade_requests_role_upgrade_requests_user_idTousersInput = {
@@ -89797,6 +96395,9 @@ export namespace Prisma {
     created_sessions?: sessionsUncheckedCreateNestedManyWithoutCreatorInput
     subscriptions?: subscriptionsUncheckedCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsUncheckedCreateNestedOneWithoutUsersInput
+    created_polls?: pollsUncheckedCreateNestedManyWithoutCreatorInput
+    poll_votes?: poll_votesUncheckedCreateNestedManyWithoutVoterInput
+    poll_comments?: poll_commentsUncheckedCreateNestedManyWithoutCommenterInput
   }
 
   export type usersCreateOrConnectWithoutRole_upgrade_requests_role_upgrade_requests_user_idTousersInput = {
@@ -89870,6 +96471,9 @@ export namespace Prisma {
     created_sessions?: sessionsUpdateManyWithoutCreatorNestedInput
     subscriptions?: subscriptionsUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUpdateOneWithoutUsersNestedInput
+    created_polls?: pollsUpdateManyWithoutCreatorNestedInput
+    poll_votes?: poll_votesUpdateManyWithoutVoterNestedInput
+    poll_comments?: poll_commentsUpdateManyWithoutCommenterNestedInput
   }
 
   export type usersUncheckedUpdateWithoutRole_upgrade_requests_role_upgrade_requests_reviewer_idTousersInput = {
@@ -89928,6 +96532,9 @@ export namespace Prisma {
     created_sessions?: sessionsUncheckedUpdateManyWithoutCreatorNestedInput
     subscriptions?: subscriptionsUncheckedUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUncheckedUpdateOneWithoutUsersNestedInput
+    created_polls?: pollsUncheckedUpdateManyWithoutCreatorNestedInput
+    poll_votes?: poll_votesUncheckedUpdateManyWithoutVoterNestedInput
+    poll_comments?: poll_commentsUncheckedUpdateManyWithoutCommenterNestedInput
   }
 
   export type usersUpsertWithoutRole_upgrade_requests_role_upgrade_requests_user_idTousersInput = {
@@ -89996,6 +96603,9 @@ export namespace Prisma {
     created_sessions?: sessionsUpdateManyWithoutCreatorNestedInput
     subscriptions?: subscriptionsUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUpdateOneWithoutUsersNestedInput
+    created_polls?: pollsUpdateManyWithoutCreatorNestedInput
+    poll_votes?: poll_votesUpdateManyWithoutVoterNestedInput
+    poll_comments?: poll_commentsUpdateManyWithoutCommenterNestedInput
   }
 
   export type usersUncheckedUpdateWithoutRole_upgrade_requests_role_upgrade_requests_user_idTousersInput = {
@@ -90054,6 +96664,9 @@ export namespace Prisma {
     created_sessions?: sessionsUncheckedUpdateManyWithoutCreatorNestedInput
     subscriptions?: subscriptionsUncheckedUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUncheckedUpdateOneWithoutUsersNestedInput
+    created_polls?: pollsUncheckedUpdateManyWithoutCreatorNestedInput
+    poll_votes?: poll_votesUncheckedUpdateManyWithoutVoterNestedInput
+    poll_comments?: poll_commentsUncheckedUpdateManyWithoutCommenterNestedInput
   }
 
   export type usersCreateWithoutGuide_applicationInput = {
@@ -90111,6 +96724,9 @@ export namespace Prisma {
     created_sessions?: sessionsCreateNestedManyWithoutCreatorInput
     subscriptions?: subscriptionsCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsCreateNestedOneWithoutUsersInput
+    created_polls?: pollsCreateNestedManyWithoutCreatorInput
+    poll_votes?: poll_votesCreateNestedManyWithoutVoterInput
+    poll_comments?: poll_commentsCreateNestedManyWithoutCommenterInput
   }
 
   export type usersUncheckedCreateWithoutGuide_applicationInput = {
@@ -90169,6 +96785,9 @@ export namespace Prisma {
     created_sessions?: sessionsUncheckedCreateNestedManyWithoutCreatorInput
     subscriptions?: subscriptionsUncheckedCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsUncheckedCreateNestedOneWithoutUsersInput
+    created_polls?: pollsUncheckedCreateNestedManyWithoutCreatorInput
+    poll_votes?: poll_votesUncheckedCreateNestedManyWithoutVoterInput
+    poll_comments?: poll_commentsUncheckedCreateNestedManyWithoutCommenterInput
   }
 
   export type usersCreateOrConnectWithoutGuide_applicationInput = {
@@ -90242,6 +96861,9 @@ export namespace Prisma {
     created_sessions?: sessionsUpdateManyWithoutCreatorNestedInput
     subscriptions?: subscriptionsUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUpdateOneWithoutUsersNestedInput
+    created_polls?: pollsUpdateManyWithoutCreatorNestedInput
+    poll_votes?: poll_votesUpdateManyWithoutVoterNestedInput
+    poll_comments?: poll_commentsUpdateManyWithoutCommenterNestedInput
   }
 
   export type usersUncheckedUpdateWithoutGuide_applicationInput = {
@@ -90300,6 +96922,9 @@ export namespace Prisma {
     created_sessions?: sessionsUncheckedUpdateManyWithoutCreatorNestedInput
     subscriptions?: subscriptionsUncheckedUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUncheckedUpdateOneWithoutUsersNestedInput
+    created_polls?: pollsUncheckedUpdateManyWithoutCreatorNestedInput
+    poll_votes?: poll_votesUncheckedUpdateManyWithoutVoterNestedInput
+    poll_comments?: poll_commentsUncheckedUpdateManyWithoutCommenterNestedInput
   }
 
   export type usersCreateWithoutMentor_applicationInput = {
@@ -90357,6 +96982,9 @@ export namespace Prisma {
     created_sessions?: sessionsCreateNestedManyWithoutCreatorInput
     subscriptions?: subscriptionsCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsCreateNestedOneWithoutUsersInput
+    created_polls?: pollsCreateNestedManyWithoutCreatorInput
+    poll_votes?: poll_votesCreateNestedManyWithoutVoterInput
+    poll_comments?: poll_commentsCreateNestedManyWithoutCommenterInput
   }
 
   export type usersUncheckedCreateWithoutMentor_applicationInput = {
@@ -90415,6 +97043,9 @@ export namespace Prisma {
     created_sessions?: sessionsUncheckedCreateNestedManyWithoutCreatorInput
     subscriptions?: subscriptionsUncheckedCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsUncheckedCreateNestedOneWithoutUsersInput
+    created_polls?: pollsUncheckedCreateNestedManyWithoutCreatorInput
+    poll_votes?: poll_votesUncheckedCreateNestedManyWithoutVoterInput
+    poll_comments?: poll_commentsUncheckedCreateNestedManyWithoutCommenterInput
   }
 
   export type usersCreateOrConnectWithoutMentor_applicationInput = {
@@ -90488,6 +97119,9 @@ export namespace Prisma {
     created_sessions?: sessionsUpdateManyWithoutCreatorNestedInput
     subscriptions?: subscriptionsUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUpdateOneWithoutUsersNestedInput
+    created_polls?: pollsUpdateManyWithoutCreatorNestedInput
+    poll_votes?: poll_votesUpdateManyWithoutVoterNestedInput
+    poll_comments?: poll_commentsUpdateManyWithoutCommenterNestedInput
   }
 
   export type usersUncheckedUpdateWithoutMentor_applicationInput = {
@@ -90546,6 +97180,9 @@ export namespace Prisma {
     created_sessions?: sessionsUncheckedUpdateManyWithoutCreatorNestedInput
     subscriptions?: subscriptionsUncheckedUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUncheckedUpdateOneWithoutUsersNestedInput
+    created_polls?: pollsUncheckedUpdateManyWithoutCreatorNestedInput
+    poll_votes?: poll_votesUncheckedUpdateManyWithoutVoterNestedInput
+    poll_comments?: poll_commentsUncheckedUpdateManyWithoutCommenterNestedInput
   }
 
   export type night_campsCreateWithoutNight_camp_volunteering_applicationsInput = {
@@ -90649,6 +97286,9 @@ export namespace Prisma {
     created_sessions?: sessionsCreateNestedManyWithoutCreatorInput
     subscriptions?: subscriptionsCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsCreateNestedOneWithoutUsersInput
+    created_polls?: pollsCreateNestedManyWithoutCreatorInput
+    poll_votes?: poll_votesCreateNestedManyWithoutVoterInput
+    poll_comments?: poll_commentsCreateNestedManyWithoutCommenterInput
   }
 
   export type usersUncheckedCreateWithoutNight_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousersInput = {
@@ -90707,6 +97347,9 @@ export namespace Prisma {
     created_sessions?: sessionsUncheckedCreateNestedManyWithoutCreatorInput
     subscriptions?: subscriptionsUncheckedCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsUncheckedCreateNestedOneWithoutUsersInput
+    created_polls?: pollsUncheckedCreateNestedManyWithoutCreatorInput
+    poll_votes?: poll_votesUncheckedCreateNestedManyWithoutVoterInput
+    poll_comments?: poll_commentsUncheckedCreateNestedManyWithoutCommenterInput
   }
 
   export type usersCreateOrConnectWithoutNight_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousersInput = {
@@ -90769,6 +97412,9 @@ export namespace Prisma {
     created_sessions?: sessionsCreateNestedManyWithoutCreatorInput
     subscriptions?: subscriptionsCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsCreateNestedOneWithoutUsersInput
+    created_polls?: pollsCreateNestedManyWithoutCreatorInput
+    poll_votes?: poll_votesCreateNestedManyWithoutVoterInput
+    poll_comments?: poll_commentsCreateNestedManyWithoutCommenterInput
   }
 
   export type usersUncheckedCreateWithoutNight_camp_volunteering_applications_night_camp_volunteering_applications_user_idTousersInput = {
@@ -90827,6 +97473,9 @@ export namespace Prisma {
     created_sessions?: sessionsUncheckedCreateNestedManyWithoutCreatorInput
     subscriptions?: subscriptionsUncheckedCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsUncheckedCreateNestedOneWithoutUsersInput
+    created_polls?: pollsUncheckedCreateNestedManyWithoutCreatorInput
+    poll_votes?: poll_votesUncheckedCreateNestedManyWithoutVoterInput
+    poll_comments?: poll_commentsUncheckedCreateNestedManyWithoutCommenterInput
   }
 
   export type usersCreateOrConnectWithoutNight_camp_volunteering_applications_night_camp_volunteering_applications_user_idTousersInput = {
@@ -90952,6 +97601,9 @@ export namespace Prisma {
     created_sessions?: sessionsUpdateManyWithoutCreatorNestedInput
     subscriptions?: subscriptionsUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUpdateOneWithoutUsersNestedInput
+    created_polls?: pollsUpdateManyWithoutCreatorNestedInput
+    poll_votes?: poll_votesUpdateManyWithoutVoterNestedInput
+    poll_comments?: poll_commentsUpdateManyWithoutCommenterNestedInput
   }
 
   export type usersUncheckedUpdateWithoutNight_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousersInput = {
@@ -91010,6 +97662,9 @@ export namespace Prisma {
     created_sessions?: sessionsUncheckedUpdateManyWithoutCreatorNestedInput
     subscriptions?: subscriptionsUncheckedUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUncheckedUpdateOneWithoutUsersNestedInput
+    created_polls?: pollsUncheckedUpdateManyWithoutCreatorNestedInput
+    poll_votes?: poll_votesUncheckedUpdateManyWithoutVoterNestedInput
+    poll_comments?: poll_commentsUncheckedUpdateManyWithoutCommenterNestedInput
   }
 
   export type usersUpsertWithoutNight_camp_volunteering_applications_night_camp_volunteering_applications_user_idTousersInput = {
@@ -91078,6 +97733,9 @@ export namespace Prisma {
     created_sessions?: sessionsUpdateManyWithoutCreatorNestedInput
     subscriptions?: subscriptionsUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUpdateOneWithoutUsersNestedInput
+    created_polls?: pollsUpdateManyWithoutCreatorNestedInput
+    poll_votes?: poll_votesUpdateManyWithoutVoterNestedInput
+    poll_comments?: poll_commentsUpdateManyWithoutCommenterNestedInput
   }
 
   export type usersUncheckedUpdateWithoutNight_camp_volunteering_applications_night_camp_volunteering_applications_user_idTousersInput = {
@@ -91136,6 +97794,9 @@ export namespace Prisma {
     created_sessions?: sessionsUncheckedUpdateManyWithoutCreatorNestedInput
     subscriptions?: subscriptionsUncheckedUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUncheckedUpdateOneWithoutUsersNestedInput
+    created_polls?: pollsUncheckedUpdateManyWithoutCreatorNestedInput
+    poll_votes?: poll_votesUncheckedUpdateManyWithoutVoterNestedInput
+    poll_comments?: poll_commentsUncheckedUpdateManyWithoutCommenterNestedInput
   }
 
   export type night_campsCreateWithoutNight_camp_registrationsInput = {
@@ -91239,6 +97900,9 @@ export namespace Prisma {
     created_sessions?: sessionsCreateNestedManyWithoutCreatorInput
     subscriptions?: subscriptionsCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsCreateNestedOneWithoutUsersInput
+    created_polls?: pollsCreateNestedManyWithoutCreatorInput
+    poll_votes?: poll_votesCreateNestedManyWithoutVoterInput
+    poll_comments?: poll_commentsCreateNestedManyWithoutCommenterInput
   }
 
   export type usersUncheckedCreateWithoutNight_camp_registrationsInput = {
@@ -91297,6 +97961,9 @@ export namespace Prisma {
     created_sessions?: sessionsUncheckedCreateNestedManyWithoutCreatorInput
     subscriptions?: subscriptionsUncheckedCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsUncheckedCreateNestedOneWithoutUsersInput
+    created_polls?: pollsUncheckedCreateNestedManyWithoutCreatorInput
+    poll_votes?: poll_votesUncheckedCreateNestedManyWithoutVoterInput
+    poll_comments?: poll_commentsUncheckedCreateNestedManyWithoutCommenterInput
   }
 
   export type usersCreateOrConnectWithoutNight_camp_registrationsInput = {
@@ -91422,6 +98089,9 @@ export namespace Prisma {
     created_sessions?: sessionsUpdateManyWithoutCreatorNestedInput
     subscriptions?: subscriptionsUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUpdateOneWithoutUsersNestedInput
+    created_polls?: pollsUpdateManyWithoutCreatorNestedInput
+    poll_votes?: poll_votesUpdateManyWithoutVoterNestedInput
+    poll_comments?: poll_commentsUpdateManyWithoutCommenterNestedInput
   }
 
   export type usersUncheckedUpdateWithoutNight_camp_registrationsInput = {
@@ -91480,6 +98150,9 @@ export namespace Prisma {
     created_sessions?: sessionsUncheckedUpdateManyWithoutCreatorNestedInput
     subscriptions?: subscriptionsUncheckedUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUncheckedUpdateOneWithoutUsersNestedInput
+    created_polls?: pollsUncheckedUpdateManyWithoutCreatorNestedInput
+    poll_votes?: poll_votesUncheckedUpdateManyWithoutVoterNestedInput
+    poll_comments?: poll_commentsUncheckedUpdateManyWithoutCommenterNestedInput
   }
 
   export type usersCreateWithoutInfluencer_applicationInput = {
@@ -91537,6 +98210,9 @@ export namespace Prisma {
     created_sessions?: sessionsCreateNestedManyWithoutCreatorInput
     subscriptions?: subscriptionsCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsCreateNestedOneWithoutUsersInput
+    created_polls?: pollsCreateNestedManyWithoutCreatorInput
+    poll_votes?: poll_votesCreateNestedManyWithoutVoterInput
+    poll_comments?: poll_commentsCreateNestedManyWithoutCommenterInput
   }
 
   export type usersUncheckedCreateWithoutInfluencer_applicationInput = {
@@ -91595,6 +98271,9 @@ export namespace Prisma {
     created_sessions?: sessionsUncheckedCreateNestedManyWithoutCreatorInput
     subscriptions?: subscriptionsUncheckedCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsUncheckedCreateNestedOneWithoutUsersInput
+    created_polls?: pollsUncheckedCreateNestedManyWithoutCreatorInput
+    poll_votes?: poll_votesUncheckedCreateNestedManyWithoutVoterInput
+    poll_comments?: poll_commentsUncheckedCreateNestedManyWithoutCommenterInput
   }
 
   export type usersCreateOrConnectWithoutInfluencer_applicationInput = {
@@ -91668,6 +98347,9 @@ export namespace Prisma {
     created_sessions?: sessionsUpdateManyWithoutCreatorNestedInput
     subscriptions?: subscriptionsUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUpdateOneWithoutUsersNestedInput
+    created_polls?: pollsUpdateManyWithoutCreatorNestedInput
+    poll_votes?: poll_votesUpdateManyWithoutVoterNestedInput
+    poll_comments?: poll_commentsUpdateManyWithoutCommenterNestedInput
   }
 
   export type usersUncheckedUpdateWithoutInfluencer_applicationInput = {
@@ -91726,6 +98408,9 @@ export namespace Prisma {
     created_sessions?: sessionsUncheckedUpdateManyWithoutCreatorNestedInput
     subscriptions?: subscriptionsUncheckedUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUncheckedUpdateOneWithoutUsersNestedInput
+    created_polls?: pollsUncheckedUpdateManyWithoutCreatorNestedInput
+    poll_votes?: poll_votesUncheckedUpdateManyWithoutVoterNestedInput
+    poll_comments?: poll_commentsUncheckedUpdateManyWithoutCommenterNestedInput
   }
 
   export type usersCreateWithoutMedia_uploadsInput = {
@@ -91783,6 +98468,9 @@ export namespace Prisma {
     created_sessions?: sessionsCreateNestedManyWithoutCreatorInput
     subscriptions?: subscriptionsCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsCreateNestedOneWithoutUsersInput
+    created_polls?: pollsCreateNestedManyWithoutCreatorInput
+    poll_votes?: poll_votesCreateNestedManyWithoutVoterInput
+    poll_comments?: poll_commentsCreateNestedManyWithoutCommenterInput
   }
 
   export type usersUncheckedCreateWithoutMedia_uploadsInput = {
@@ -91841,6 +98529,9 @@ export namespace Prisma {
     created_sessions?: sessionsUncheckedCreateNestedManyWithoutCreatorInput
     subscriptions?: subscriptionsUncheckedCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsUncheckedCreateNestedOneWithoutUsersInput
+    created_polls?: pollsUncheckedCreateNestedManyWithoutCreatorInput
+    poll_votes?: poll_votesUncheckedCreateNestedManyWithoutVoterInput
+    poll_comments?: poll_commentsUncheckedCreateNestedManyWithoutCommenterInput
   }
 
   export type usersCreateOrConnectWithoutMedia_uploadsInput = {
@@ -91914,6 +98605,9 @@ export namespace Prisma {
     created_sessions?: sessionsUpdateManyWithoutCreatorNestedInput
     subscriptions?: subscriptionsUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUpdateOneWithoutUsersNestedInput
+    created_polls?: pollsUpdateManyWithoutCreatorNestedInput
+    poll_votes?: poll_votesUpdateManyWithoutVoterNestedInput
+    poll_comments?: poll_commentsUpdateManyWithoutCommenterNestedInput
   }
 
   export type usersUncheckedUpdateWithoutMedia_uploadsInput = {
@@ -91972,6 +98666,9 @@ export namespace Prisma {
     created_sessions?: sessionsUncheckedUpdateManyWithoutCreatorNestedInput
     subscriptions?: subscriptionsUncheckedUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUncheckedUpdateOneWithoutUsersNestedInput
+    created_polls?: pollsUncheckedUpdateManyWithoutCreatorNestedInput
+    poll_votes?: poll_votesUncheckedUpdateManyWithoutVoterNestedInput
+    poll_comments?: poll_commentsUncheckedUpdateManyWithoutCommenterNestedInput
   }
 
   export type QuizzesCreateWithoutQuizParticipantsInput = {
@@ -92067,6 +98764,9 @@ export namespace Prisma {
     created_sessions?: sessionsCreateNestedManyWithoutCreatorInput
     subscriptions?: subscriptionsCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsCreateNestedOneWithoutUsersInput
+    created_polls?: pollsCreateNestedManyWithoutCreatorInput
+    poll_votes?: poll_votesCreateNestedManyWithoutVoterInput
+    poll_comments?: poll_commentsCreateNestedManyWithoutCommenterInput
   }
 
   export type usersUncheckedCreateWithoutQuizParticipantsInput = {
@@ -92125,6 +98825,9 @@ export namespace Prisma {
     created_sessions?: sessionsUncheckedCreateNestedManyWithoutCreatorInput
     subscriptions?: subscriptionsUncheckedCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsUncheckedCreateNestedOneWithoutUsersInput
+    created_polls?: pollsUncheckedCreateNestedManyWithoutCreatorInput
+    poll_votes?: poll_votesUncheckedCreateNestedManyWithoutVoterInput
+    poll_comments?: poll_commentsUncheckedCreateNestedManyWithoutCommenterInput
   }
 
   export type usersCreateOrConnectWithoutQuizParticipantsInput = {
@@ -92242,6 +98945,9 @@ export namespace Prisma {
     created_sessions?: sessionsUpdateManyWithoutCreatorNestedInput
     subscriptions?: subscriptionsUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUpdateOneWithoutUsersNestedInput
+    created_polls?: pollsUpdateManyWithoutCreatorNestedInput
+    poll_votes?: poll_votesUpdateManyWithoutVoterNestedInput
+    poll_comments?: poll_commentsUpdateManyWithoutCommenterNestedInput
   }
 
   export type usersUncheckedUpdateWithoutQuizParticipantsInput = {
@@ -92300,6 +99006,9 @@ export namespace Prisma {
     created_sessions?: sessionsUncheckedUpdateManyWithoutCreatorNestedInput
     subscriptions?: subscriptionsUncheckedUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUncheckedUpdateOneWithoutUsersNestedInput
+    created_polls?: pollsUncheckedUpdateManyWithoutCreatorNestedInput
+    poll_votes?: poll_votesUncheckedUpdateManyWithoutVoterNestedInput
+    poll_comments?: poll_commentsUncheckedUpdateManyWithoutCommenterNestedInput
   }
 
   export type QuizzesCreateWithoutQuizQuestionInput = {
@@ -92487,6 +99196,9 @@ export namespace Prisma {
     created_sessions?: sessionsCreateNestedManyWithoutCreatorInput
     subscriptions?: subscriptionsCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsCreateNestedOneWithoutUsersInput
+    created_polls?: pollsCreateNestedManyWithoutCreatorInput
+    poll_votes?: poll_votesCreateNestedManyWithoutVoterInput
+    poll_comments?: poll_commentsCreateNestedManyWithoutCommenterInput
   }
 
   export type usersUncheckedCreateWithoutQuizzesInput = {
@@ -92545,6 +99257,9 @@ export namespace Prisma {
     created_sessions?: sessionsUncheckedCreateNestedManyWithoutCreatorInput
     subscriptions?: subscriptionsUncheckedCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsUncheckedCreateNestedOneWithoutUsersInput
+    created_polls?: pollsUncheckedCreateNestedManyWithoutCreatorInput
+    poll_votes?: poll_votesUncheckedCreateNestedManyWithoutVoterInput
+    poll_comments?: poll_commentsUncheckedCreateNestedManyWithoutCommenterInput
   }
 
   export type usersCreateOrConnectWithoutQuizzesInput = {
@@ -92662,6 +99377,9 @@ export namespace Prisma {
     created_sessions?: sessionsUpdateManyWithoutCreatorNestedInput
     subscriptions?: subscriptionsUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUpdateOneWithoutUsersNestedInput
+    created_polls?: pollsUpdateManyWithoutCreatorNestedInput
+    poll_votes?: poll_votesUpdateManyWithoutVoterNestedInput
+    poll_comments?: poll_commentsUpdateManyWithoutCommenterNestedInput
   }
 
   export type usersUncheckedUpdateWithoutQuizzesInput = {
@@ -92720,6 +99438,9 @@ export namespace Prisma {
     created_sessions?: sessionsUncheckedUpdateManyWithoutCreatorNestedInput
     subscriptions?: subscriptionsUncheckedUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUncheckedUpdateOneWithoutUsersNestedInput
+    created_polls?: pollsUncheckedUpdateManyWithoutCreatorNestedInput
+    poll_votes?: poll_votesUncheckedUpdateManyWithoutVoterNestedInput
+    poll_comments?: poll_commentsUncheckedUpdateManyWithoutCommenterNestedInput
   }
 
   export type usersCreateWithoutSpace_news_publishedInput = {
@@ -92777,6 +99498,9 @@ export namespace Prisma {
     created_sessions?: sessionsCreateNestedManyWithoutCreatorInput
     subscriptions?: subscriptionsCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsCreateNestedOneWithoutUsersInput
+    created_polls?: pollsCreateNestedManyWithoutCreatorInput
+    poll_votes?: poll_votesCreateNestedManyWithoutVoterInput
+    poll_comments?: poll_commentsCreateNestedManyWithoutCommenterInput
   }
 
   export type usersUncheckedCreateWithoutSpace_news_publishedInput = {
@@ -92835,6 +99559,9 @@ export namespace Prisma {
     created_sessions?: sessionsUncheckedCreateNestedManyWithoutCreatorInput
     subscriptions?: subscriptionsUncheckedCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsUncheckedCreateNestedOneWithoutUsersInput
+    created_polls?: pollsUncheckedCreateNestedManyWithoutCreatorInput
+    poll_votes?: poll_votesUncheckedCreateNestedManyWithoutVoterInput
+    poll_comments?: poll_commentsUncheckedCreateNestedManyWithoutCommenterInput
   }
 
   export type usersCreateOrConnectWithoutSpace_news_publishedInput = {
@@ -92960,6 +99687,9 @@ export namespace Prisma {
     created_sessions?: sessionsUpdateManyWithoutCreatorNestedInput
     subscriptions?: subscriptionsUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUpdateOneWithoutUsersNestedInput
+    created_polls?: pollsUpdateManyWithoutCreatorNestedInput
+    poll_votes?: poll_votesUpdateManyWithoutVoterNestedInput
+    poll_comments?: poll_commentsUpdateManyWithoutCommenterNestedInput
   }
 
   export type usersUncheckedUpdateWithoutSpace_news_publishedInput = {
@@ -93018,6 +99748,9 @@ export namespace Prisma {
     created_sessions?: sessionsUncheckedUpdateManyWithoutCreatorNestedInput
     subscriptions?: subscriptionsUncheckedUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUncheckedUpdateOneWithoutUsersNestedInput
+    created_polls?: pollsUncheckedUpdateManyWithoutCreatorNestedInput
+    poll_votes?: poll_votesUncheckedUpdateManyWithoutVoterNestedInput
+    poll_comments?: poll_commentsUncheckedUpdateManyWithoutCommenterNestedInput
   }
 
   export type space_news_commentsUpsertWithWhereUniqueWithoutSpace_newsInput = {
@@ -93141,6 +99874,9 @@ export namespace Prisma {
     created_sessions?: sessionsCreateNestedManyWithoutCreatorInput
     subscriptions?: subscriptionsCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsCreateNestedOneWithoutUsersInput
+    created_polls?: pollsCreateNestedManyWithoutCreatorInput
+    poll_votes?: poll_votesCreateNestedManyWithoutVoterInput
+    poll_comments?: poll_commentsCreateNestedManyWithoutCommenterInput
   }
 
   export type usersUncheckedCreateWithoutSpace_news_likesInput = {
@@ -93199,6 +99935,9 @@ export namespace Prisma {
     created_sessions?: sessionsUncheckedCreateNestedManyWithoutCreatorInput
     subscriptions?: subscriptionsUncheckedCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsUncheckedCreateNestedOneWithoutUsersInput
+    created_polls?: pollsUncheckedCreateNestedManyWithoutCreatorInput
+    poll_votes?: poll_votesUncheckedCreateNestedManyWithoutVoterInput
+    poll_comments?: poll_commentsUncheckedCreateNestedManyWithoutCommenterInput
   }
 
   export type usersCreateOrConnectWithoutSpace_news_likesInput = {
@@ -93312,6 +100051,9 @@ export namespace Prisma {
     created_sessions?: sessionsUpdateManyWithoutCreatorNestedInput
     subscriptions?: subscriptionsUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUpdateOneWithoutUsersNestedInput
+    created_polls?: pollsUpdateManyWithoutCreatorNestedInput
+    poll_votes?: poll_votesUpdateManyWithoutVoterNestedInput
+    poll_comments?: poll_commentsUpdateManyWithoutCommenterNestedInput
   }
 
   export type usersUncheckedUpdateWithoutSpace_news_likesInput = {
@@ -93370,6 +100112,9 @@ export namespace Prisma {
     created_sessions?: sessionsUncheckedUpdateManyWithoutCreatorNestedInput
     subscriptions?: subscriptionsUncheckedUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUncheckedUpdateOneWithoutUsersNestedInput
+    created_polls?: pollsUncheckedUpdateManyWithoutCreatorNestedInput
+    poll_votes?: poll_votesUncheckedUpdateManyWithoutVoterNestedInput
+    poll_comments?: poll_commentsUncheckedUpdateManyWithoutCommenterNestedInput
   }
 
   export type space_news_commentsCreateWithoutRepliesInput = {
@@ -93518,6 +100263,9 @@ export namespace Prisma {
     created_sessions?: sessionsCreateNestedManyWithoutCreatorInput
     subscriptions?: subscriptionsCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsCreateNestedOneWithoutUsersInput
+    created_polls?: pollsCreateNestedManyWithoutCreatorInput
+    poll_votes?: poll_votesCreateNestedManyWithoutVoterInput
+    poll_comments?: poll_commentsCreateNestedManyWithoutCommenterInput
   }
 
   export type usersUncheckedCreateWithoutSpace_news_commentsInput = {
@@ -93576,6 +100324,9 @@ export namespace Prisma {
     created_sessions?: sessionsUncheckedCreateNestedManyWithoutCreatorInput
     subscriptions?: subscriptionsUncheckedCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsUncheckedCreateNestedOneWithoutUsersInput
+    created_polls?: pollsUncheckedCreateNestedManyWithoutCreatorInput
+    poll_votes?: poll_votesUncheckedCreateNestedManyWithoutVoterInput
+    poll_comments?: poll_commentsUncheckedCreateNestedManyWithoutCommenterInput
   }
 
   export type usersCreateOrConnectWithoutSpace_news_commentsInput = {
@@ -93737,6 +100488,9 @@ export namespace Prisma {
     created_sessions?: sessionsUpdateManyWithoutCreatorNestedInput
     subscriptions?: subscriptionsUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUpdateOneWithoutUsersNestedInput
+    created_polls?: pollsUpdateManyWithoutCreatorNestedInput
+    poll_votes?: poll_votesUpdateManyWithoutVoterNestedInput
+    poll_comments?: poll_commentsUpdateManyWithoutCommenterNestedInput
   }
 
   export type usersUncheckedUpdateWithoutSpace_news_commentsInput = {
@@ -93795,6 +100549,9 @@ export namespace Prisma {
     created_sessions?: sessionsUncheckedUpdateManyWithoutCreatorNestedInput
     subscriptions?: subscriptionsUncheckedUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUncheckedUpdateOneWithoutUsersNestedInput
+    created_polls?: pollsUncheckedUpdateManyWithoutCreatorNestedInput
+    poll_votes?: poll_votesUncheckedUpdateManyWithoutVoterNestedInput
+    poll_comments?: poll_commentsUncheckedUpdateManyWithoutCommenterNestedInput
   }
 
   export type space_discussion_commentsCreateWithoutDiscussionInput = {
@@ -93906,6 +100663,9 @@ export namespace Prisma {
     created_sessions?: sessionsCreateNestedManyWithoutCreatorInput
     subscriptions?: subscriptionsCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsCreateNestedOneWithoutUsersInput
+    created_polls?: pollsCreateNestedManyWithoutCreatorInput
+    poll_votes?: poll_votesCreateNestedManyWithoutVoterInput
+    poll_comments?: poll_commentsCreateNestedManyWithoutCommenterInput
   }
 
   export type usersUncheckedCreateWithoutAuthored_discussionsInput = {
@@ -93964,6 +100724,9 @@ export namespace Prisma {
     created_sessions?: sessionsUncheckedCreateNestedManyWithoutCreatorInput
     subscriptions?: subscriptionsUncheckedCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsUncheckedCreateNestedOneWithoutUsersInput
+    created_polls?: pollsUncheckedCreateNestedManyWithoutCreatorInput
+    poll_votes?: poll_votesUncheckedCreateNestedManyWithoutVoterInput
+    poll_comments?: poll_commentsUncheckedCreateNestedManyWithoutCommenterInput
   }
 
   export type usersCreateOrConnectWithoutAuthored_discussionsInput = {
@@ -94069,6 +100832,9 @@ export namespace Prisma {
     created_sessions?: sessionsUpdateManyWithoutCreatorNestedInput
     subscriptions?: subscriptionsUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUpdateOneWithoutUsersNestedInput
+    created_polls?: pollsUpdateManyWithoutCreatorNestedInput
+    poll_votes?: poll_votesUpdateManyWithoutVoterNestedInput
+    poll_comments?: poll_commentsUpdateManyWithoutCommenterNestedInput
   }
 
   export type usersUncheckedUpdateWithoutAuthored_discussionsInput = {
@@ -94127,6 +100893,9 @@ export namespace Prisma {
     created_sessions?: sessionsUncheckedUpdateManyWithoutCreatorNestedInput
     subscriptions?: subscriptionsUncheckedUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUncheckedUpdateOneWithoutUsersNestedInput
+    created_polls?: pollsUncheckedUpdateManyWithoutCreatorNestedInput
+    poll_votes?: poll_votesUncheckedUpdateManyWithoutVoterNestedInput
+    poll_comments?: poll_commentsUncheckedUpdateManyWithoutCommenterNestedInput
   }
 
   export type space_discussion_comment_likesCreateWithoutCommentInput = {
@@ -94302,6 +101071,9 @@ export namespace Prisma {
     created_sessions?: sessionsCreateNestedManyWithoutCreatorInput
     subscriptions?: subscriptionsCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsCreateNestedOneWithoutUsersInput
+    created_polls?: pollsCreateNestedManyWithoutCreatorInput
+    poll_votes?: poll_votesCreateNestedManyWithoutVoterInput
+    poll_comments?: poll_commentsCreateNestedManyWithoutCommenterInput
   }
 
   export type usersUncheckedCreateWithoutDiscussion_commentsInput = {
@@ -94360,6 +101132,9 @@ export namespace Prisma {
     created_sessions?: sessionsUncheckedCreateNestedManyWithoutCreatorInput
     subscriptions?: subscriptionsUncheckedCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsUncheckedCreateNestedOneWithoutUsersInput
+    created_polls?: pollsUncheckedCreateNestedManyWithoutCreatorInput
+    poll_votes?: poll_votesUncheckedCreateNestedManyWithoutVoterInput
+    poll_comments?: poll_commentsUncheckedCreateNestedManyWithoutCommenterInput
   }
 
   export type usersCreateOrConnectWithoutDiscussion_commentsInput = {
@@ -94541,6 +101316,9 @@ export namespace Prisma {
     created_sessions?: sessionsUpdateManyWithoutCreatorNestedInput
     subscriptions?: subscriptionsUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUpdateOneWithoutUsersNestedInput
+    created_polls?: pollsUpdateManyWithoutCreatorNestedInput
+    poll_votes?: poll_votesUpdateManyWithoutVoterNestedInput
+    poll_comments?: poll_commentsUpdateManyWithoutCommenterNestedInput
   }
 
   export type usersUncheckedUpdateWithoutDiscussion_commentsInput = {
@@ -94599,6 +101377,9 @@ export namespace Prisma {
     created_sessions?: sessionsUncheckedUpdateManyWithoutCreatorNestedInput
     subscriptions?: subscriptionsUncheckedUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUncheckedUpdateOneWithoutUsersNestedInput
+    created_polls?: pollsUncheckedUpdateManyWithoutCreatorNestedInput
+    poll_votes?: poll_votesUncheckedUpdateManyWithoutVoterNestedInput
+    poll_comments?: poll_commentsUncheckedUpdateManyWithoutCommenterNestedInput
   }
 
   export type space_discussionsCreateWithoutLikesInput = {
@@ -94692,6 +101473,9 @@ export namespace Prisma {
     created_sessions?: sessionsCreateNestedManyWithoutCreatorInput
     subscriptions?: subscriptionsCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsCreateNestedOneWithoutUsersInput
+    created_polls?: pollsCreateNestedManyWithoutCreatorInput
+    poll_votes?: poll_votesCreateNestedManyWithoutVoterInput
+    poll_comments?: poll_commentsCreateNestedManyWithoutCommenterInput
   }
 
   export type usersUncheckedCreateWithoutDiscussion_likesInput = {
@@ -94750,6 +101534,9 @@ export namespace Prisma {
     created_sessions?: sessionsUncheckedCreateNestedManyWithoutCreatorInput
     subscriptions?: subscriptionsUncheckedCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsUncheckedCreateNestedOneWithoutUsersInput
+    created_polls?: pollsUncheckedCreateNestedManyWithoutCreatorInput
+    poll_votes?: poll_votesUncheckedCreateNestedManyWithoutVoterInput
+    poll_comments?: poll_commentsUncheckedCreateNestedManyWithoutCommenterInput
   }
 
   export type usersCreateOrConnectWithoutDiscussion_likesInput = {
@@ -94865,6 +101652,9 @@ export namespace Prisma {
     created_sessions?: sessionsUpdateManyWithoutCreatorNestedInput
     subscriptions?: subscriptionsUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUpdateOneWithoutUsersNestedInput
+    created_polls?: pollsUpdateManyWithoutCreatorNestedInput
+    poll_votes?: poll_votesUpdateManyWithoutVoterNestedInput
+    poll_comments?: poll_commentsUpdateManyWithoutCommenterNestedInput
   }
 
   export type usersUncheckedUpdateWithoutDiscussion_likesInput = {
@@ -94923,6 +101713,9 @@ export namespace Prisma {
     created_sessions?: sessionsUncheckedUpdateManyWithoutCreatorNestedInput
     subscriptions?: subscriptionsUncheckedUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUncheckedUpdateOneWithoutUsersNestedInput
+    created_polls?: pollsUncheckedUpdateManyWithoutCreatorNestedInput
+    poll_votes?: poll_votesUncheckedUpdateManyWithoutVoterNestedInput
+    poll_comments?: poll_commentsUncheckedUpdateManyWithoutCommenterNestedInput
   }
 
   export type space_discussion_commentsCreateWithoutLikesInput = {
@@ -95008,6 +101801,9 @@ export namespace Prisma {
     created_sessions?: sessionsCreateNestedManyWithoutCreatorInput
     subscriptions?: subscriptionsCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsCreateNestedOneWithoutUsersInput
+    created_polls?: pollsCreateNestedManyWithoutCreatorInput
+    poll_votes?: poll_votesCreateNestedManyWithoutVoterInput
+    poll_comments?: poll_commentsCreateNestedManyWithoutCommenterInput
   }
 
   export type usersUncheckedCreateWithoutDiscussion_comment_likesInput = {
@@ -95066,6 +101862,9 @@ export namespace Prisma {
     created_sessions?: sessionsUncheckedCreateNestedManyWithoutCreatorInput
     subscriptions?: subscriptionsUncheckedCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsUncheckedCreateNestedOneWithoutUsersInput
+    created_polls?: pollsUncheckedCreateNestedManyWithoutCreatorInput
+    poll_votes?: poll_votesUncheckedCreateNestedManyWithoutVoterInput
+    poll_comments?: poll_commentsUncheckedCreateNestedManyWithoutCommenterInput
   }
 
   export type usersCreateOrConnectWithoutDiscussion_comment_likesInput = {
@@ -95173,6 +101972,9 @@ export namespace Prisma {
     created_sessions?: sessionsUpdateManyWithoutCreatorNestedInput
     subscriptions?: subscriptionsUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUpdateOneWithoutUsersNestedInput
+    created_polls?: pollsUpdateManyWithoutCreatorNestedInput
+    poll_votes?: poll_votesUpdateManyWithoutVoterNestedInput
+    poll_comments?: poll_commentsUpdateManyWithoutCommenterNestedInput
   }
 
   export type usersUncheckedUpdateWithoutDiscussion_comment_likesInput = {
@@ -95231,6 +102033,9 @@ export namespace Prisma {
     created_sessions?: sessionsUncheckedUpdateManyWithoutCreatorNestedInput
     subscriptions?: subscriptionsUncheckedUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUncheckedUpdateOneWithoutUsersNestedInput
+    created_polls?: pollsUncheckedUpdateManyWithoutCreatorNestedInput
+    poll_votes?: poll_votesUncheckedUpdateManyWithoutVoterNestedInput
+    poll_comments?: poll_commentsUncheckedUpdateManyWithoutCommenterNestedInput
   }
 
   export type usersCreateWithoutCreated_astronomy_eventsInput = {
@@ -95288,6 +102093,9 @@ export namespace Prisma {
     created_sessions?: sessionsCreateNestedManyWithoutCreatorInput
     subscriptions?: subscriptionsCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsCreateNestedOneWithoutUsersInput
+    created_polls?: pollsCreateNestedManyWithoutCreatorInput
+    poll_votes?: poll_votesCreateNestedManyWithoutVoterInput
+    poll_comments?: poll_commentsCreateNestedManyWithoutCommenterInput
   }
 
   export type usersUncheckedCreateWithoutCreated_astronomy_eventsInput = {
@@ -95346,6 +102154,9 @@ export namespace Prisma {
     created_sessions?: sessionsUncheckedCreateNestedManyWithoutCreatorInput
     subscriptions?: subscriptionsUncheckedCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsUncheckedCreateNestedOneWithoutUsersInput
+    created_polls?: pollsUncheckedCreateNestedManyWithoutCreatorInput
+    poll_votes?: poll_votesUncheckedCreateNestedManyWithoutVoterInput
+    poll_comments?: poll_commentsUncheckedCreateNestedManyWithoutCommenterInput
   }
 
   export type usersCreateOrConnectWithoutCreated_astronomy_eventsInput = {
@@ -95448,6 +102259,9 @@ export namespace Prisma {
     created_sessions?: sessionsUpdateManyWithoutCreatorNestedInput
     subscriptions?: subscriptionsUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUpdateOneWithoutUsersNestedInput
+    created_polls?: pollsUpdateManyWithoutCreatorNestedInput
+    poll_votes?: poll_votesUpdateManyWithoutVoterNestedInput
+    poll_comments?: poll_commentsUpdateManyWithoutCommenterNestedInput
   }
 
   export type usersUncheckedUpdateWithoutCreated_astronomy_eventsInput = {
@@ -95506,6 +102320,9 @@ export namespace Prisma {
     created_sessions?: sessionsUncheckedUpdateManyWithoutCreatorNestedInput
     subscriptions?: subscriptionsUncheckedUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUncheckedUpdateOneWithoutUsersNestedInput
+    created_polls?: pollsUncheckedUpdateManyWithoutCreatorNestedInput
+    poll_votes?: poll_votesUncheckedUpdateManyWithoutVoterNestedInput
+    poll_comments?: poll_commentsUncheckedUpdateManyWithoutCommenterNestedInput
   }
 
   export type event_remindersUpsertWithWhereUniqueWithoutEventInput = {
@@ -95617,6 +102434,9 @@ export namespace Prisma {
     created_sessions?: sessionsCreateNestedManyWithoutCreatorInput
     subscriptions?: subscriptionsCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsCreateNestedOneWithoutUsersInput
+    created_polls?: pollsCreateNestedManyWithoutCreatorInput
+    poll_votes?: poll_votesCreateNestedManyWithoutVoterInput
+    poll_comments?: poll_commentsCreateNestedManyWithoutCommenterInput
   }
 
   export type usersUncheckedCreateWithoutEvent_remindersInput = {
@@ -95675,6 +102495,9 @@ export namespace Prisma {
     created_sessions?: sessionsUncheckedCreateNestedManyWithoutCreatorInput
     subscriptions?: subscriptionsUncheckedCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsUncheckedCreateNestedOneWithoutUsersInput
+    created_polls?: pollsUncheckedCreateNestedManyWithoutCreatorInput
+    poll_votes?: poll_votesUncheckedCreateNestedManyWithoutVoterInput
+    poll_comments?: poll_commentsUncheckedCreateNestedManyWithoutCommenterInput
   }
 
   export type usersCreateOrConnectWithoutEvent_remindersInput = {
@@ -95792,6 +102615,9 @@ export namespace Prisma {
     created_sessions?: sessionsUpdateManyWithoutCreatorNestedInput
     subscriptions?: subscriptionsUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUpdateOneWithoutUsersNestedInput
+    created_polls?: pollsUpdateManyWithoutCreatorNestedInput
+    poll_votes?: poll_votesUpdateManyWithoutVoterNestedInput
+    poll_comments?: poll_commentsUpdateManyWithoutCommenterNestedInput
   }
 
   export type usersUncheckedUpdateWithoutEvent_remindersInput = {
@@ -95850,6 +102676,9 @@ export namespace Prisma {
     created_sessions?: sessionsUncheckedUpdateManyWithoutCreatorNestedInput
     subscriptions?: subscriptionsUncheckedUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUncheckedUpdateOneWithoutUsersNestedInput
+    created_polls?: pollsUncheckedUpdateManyWithoutCreatorNestedInput
+    poll_votes?: poll_votesUncheckedUpdateManyWithoutVoterNestedInput
+    poll_comments?: poll_commentsUncheckedUpdateManyWithoutCommenterNestedInput
   }
 
   export type stargazing_spot_reviewsCreateWithoutStargazing_spotInput = {
@@ -95934,6 +102763,9 @@ export namespace Prisma {
     created_sessions?: sessionsCreateNestedManyWithoutCreatorInput
     subscriptions?: subscriptionsCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsCreateNestedOneWithoutUsersInput
+    created_polls?: pollsCreateNestedManyWithoutCreatorInput
+    poll_votes?: poll_votesCreateNestedManyWithoutVoterInput
+    poll_comments?: poll_commentsCreateNestedManyWithoutCommenterInput
   }
 
   export type usersUncheckedCreateWithoutCreated_stargazing_spotsInput = {
@@ -95992,6 +102824,9 @@ export namespace Prisma {
     created_sessions?: sessionsUncheckedCreateNestedManyWithoutCreatorInput
     subscriptions?: subscriptionsUncheckedCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsUncheckedCreateNestedOneWithoutUsersInput
+    created_polls?: pollsUncheckedCreateNestedManyWithoutCreatorInput
+    poll_votes?: poll_votesUncheckedCreateNestedManyWithoutVoterInput
+    poll_comments?: poll_commentsUncheckedCreateNestedManyWithoutCommenterInput
   }
 
   export type usersCreateOrConnectWithoutCreated_stargazing_spotsInput = {
@@ -96081,6 +102916,9 @@ export namespace Prisma {
     created_sessions?: sessionsUpdateManyWithoutCreatorNestedInput
     subscriptions?: subscriptionsUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUpdateOneWithoutUsersNestedInput
+    created_polls?: pollsUpdateManyWithoutCreatorNestedInput
+    poll_votes?: poll_votesUpdateManyWithoutVoterNestedInput
+    poll_comments?: poll_commentsUpdateManyWithoutCommenterNestedInput
   }
 
   export type usersUncheckedUpdateWithoutCreated_stargazing_spotsInput = {
@@ -96139,6 +102977,9 @@ export namespace Prisma {
     created_sessions?: sessionsUncheckedUpdateManyWithoutCreatorNestedInput
     subscriptions?: subscriptionsUncheckedUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUncheckedUpdateOneWithoutUsersNestedInput
+    created_polls?: pollsUncheckedUpdateManyWithoutCreatorNestedInput
+    poll_votes?: poll_votesUncheckedUpdateManyWithoutVoterNestedInput
+    poll_comments?: poll_commentsUncheckedUpdateManyWithoutCommenterNestedInput
   }
 
   export type stargazing_spotsCreateWithoutReviewsInput = {
@@ -96230,6 +103071,9 @@ export namespace Prisma {
     created_sessions?: sessionsCreateNestedManyWithoutCreatorInput
     subscriptions?: subscriptionsCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsCreateNestedOneWithoutUsersInput
+    created_polls?: pollsCreateNestedManyWithoutCreatorInput
+    poll_votes?: poll_votesCreateNestedManyWithoutVoterInput
+    poll_comments?: poll_commentsCreateNestedManyWithoutCommenterInput
   }
 
   export type usersUncheckedCreateWithoutStargazing_spot_reviewsInput = {
@@ -96288,6 +103132,9 @@ export namespace Prisma {
     created_sessions?: sessionsUncheckedCreateNestedManyWithoutCreatorInput
     subscriptions?: subscriptionsUncheckedCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsUncheckedCreateNestedOneWithoutUsersInput
+    created_polls?: pollsUncheckedCreateNestedManyWithoutCreatorInput
+    poll_votes?: poll_votesUncheckedCreateNestedManyWithoutVoterInput
+    poll_comments?: poll_commentsUncheckedCreateNestedManyWithoutCommenterInput
   }
 
   export type usersCreateOrConnectWithoutStargazing_spot_reviewsInput = {
@@ -96401,6 +103248,9 @@ export namespace Prisma {
     created_sessions?: sessionsUpdateManyWithoutCreatorNestedInput
     subscriptions?: subscriptionsUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUpdateOneWithoutUsersNestedInput
+    created_polls?: pollsUpdateManyWithoutCreatorNestedInput
+    poll_votes?: poll_votesUpdateManyWithoutVoterNestedInput
+    poll_comments?: poll_commentsUpdateManyWithoutCommenterNestedInput
   }
 
   export type usersUncheckedUpdateWithoutStargazing_spot_reviewsInput = {
@@ -96459,6 +103309,9 @@ export namespace Prisma {
     created_sessions?: sessionsUncheckedUpdateManyWithoutCreatorNestedInput
     subscriptions?: subscriptionsUncheckedUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUncheckedUpdateOneWithoutUsersNestedInput
+    created_polls?: pollsUncheckedUpdateManyWithoutCreatorNestedInput
+    poll_votes?: poll_votesUncheckedUpdateManyWithoutVoterNestedInput
+    poll_comments?: poll_commentsUncheckedUpdateManyWithoutCommenterNestedInput
   }
 
   export type usersCreateWithoutCreated_sessionsInput = {
@@ -96516,6 +103369,9 @@ export namespace Prisma {
     created_stargazing_spots?: stargazing_spotsCreateNestedManyWithoutCreatorInput
     subscriptions?: subscriptionsCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsCreateNestedOneWithoutUsersInput
+    created_polls?: pollsCreateNestedManyWithoutCreatorInput
+    poll_votes?: poll_votesCreateNestedManyWithoutVoterInput
+    poll_comments?: poll_commentsCreateNestedManyWithoutCommenterInput
   }
 
   export type usersUncheckedCreateWithoutCreated_sessionsInput = {
@@ -96574,6 +103430,9 @@ export namespace Prisma {
     created_stargazing_spots?: stargazing_spotsUncheckedCreateNestedManyWithoutCreatorInput
     subscriptions?: subscriptionsUncheckedCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsUncheckedCreateNestedOneWithoutUsersInput
+    created_polls?: pollsUncheckedCreateNestedManyWithoutCreatorInput
+    poll_votes?: poll_votesUncheckedCreateNestedManyWithoutVoterInput
+    poll_comments?: poll_commentsUncheckedCreateNestedManyWithoutCommenterInput
   }
 
   export type usersCreateOrConnectWithoutCreated_sessionsInput = {
@@ -96647,6 +103506,9 @@ export namespace Prisma {
     created_stargazing_spots?: stargazing_spotsUpdateManyWithoutCreatorNestedInput
     subscriptions?: subscriptionsUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUpdateOneWithoutUsersNestedInput
+    created_polls?: pollsUpdateManyWithoutCreatorNestedInput
+    poll_votes?: poll_votesUpdateManyWithoutVoterNestedInput
+    poll_comments?: poll_commentsUpdateManyWithoutCommenterNestedInput
   }
 
   export type usersUncheckedUpdateWithoutCreated_sessionsInput = {
@@ -96705,6 +103567,1077 @@ export namespace Prisma {
     created_stargazing_spots?: stargazing_spotsUncheckedUpdateManyWithoutCreatorNestedInput
     subscriptions?: subscriptionsUncheckedUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUncheckedUpdateOneWithoutUsersNestedInput
+    created_polls?: pollsUncheckedUpdateManyWithoutCreatorNestedInput
+    poll_votes?: poll_votesUncheckedUpdateManyWithoutVoterNestedInput
+    poll_comments?: poll_commentsUncheckedUpdateManyWithoutCommenterNestedInput
+  }
+
+  export type usersCreateWithoutCreated_pollsInput = {
+    firebase_uid: string
+    email: string
+    role?: $Enums.user_role | null
+    first_name?: string | null
+    last_name?: string | null
+    is_active?: boolean | null
+    last_login?: Date | string | null
+    created_at?: Date | string | null
+    updated_at?: Date | string | null
+    display_name?: string | null
+    profile_data?: NullableJsonNullValueInput | InputJsonValue
+    role_specific_data?: NullableJsonNullValueInput | InputJsonValue
+    subscription_plan?: $Enums.subscription_plan | null
+    subscription_status?: $Enums.subscription_status | null
+    subscription_start_date?: Date | string | null
+    subscription_end_date?: Date | string | null
+    auto_renew?: boolean | null
+    chatbot_questions_used?: number | null
+    chatbot_questions_reset_date?: Date | string | null
+    QuizParticipants?: QuizParticipantsCreateNestedManyWithoutUsersInput
+    Quizzes?: QuizzesCreateNestedManyWithoutUsersInput
+    created_astronomy_events?: astronomy_eventsCreateNestedManyWithoutCreatorInput
+    blog_comments?: blog_commentsCreateNestedManyWithoutUsersInput
+    blog_likes?: blog_likesCreateNestedManyWithoutUsersInput
+    blog_views?: blog_viewsCreateNestedManyWithoutUsersInput
+    blogs?: blogsCreateNestedManyWithoutUsersInput
+    chat_messages?: chat_messagesCreateNestedManyWithoutUserInput
+    chatbot_sessions?: chatbot_sessionsCreateNestedManyWithoutUsersInput
+    chatbot_usage?: chatbot_usageCreateNestedManyWithoutUsersInput
+    event_reminders?: event_remindersCreateNestedManyWithoutUserInput
+    created_groups?: group_chatsCreateNestedManyWithoutCreatorInput
+    group_memberships?: group_membersCreateNestedManyWithoutUserInput
+    guide_application?: guide_applicationCreateNestedManyWithoutUsersInput
+    influencer_application?: influencer_applicationCreateNestedManyWithoutUsersInput
+    media_uploads?: media_uploadsCreateNestedManyWithoutUserInput
+    mentor_application?: mentor_applicationCreateNestedManyWithoutUsersInput
+    message_reactions?: message_reactionsCreateNestedManyWithoutUserInput
+    night_camp_registrations?: night_camp_registrationsCreateNestedManyWithoutUsersInput
+    night_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousers?: night_camp_volunteering_applicationsCreateNestedManyWithoutUsers_night_camp_volunteering_applications_reviewed_byTousersInput
+    night_camp_volunteering_applications_night_camp_volunteering_applications_user_idTousers?: night_camp_volunteering_applicationsCreateNestedManyWithoutUsers_night_camp_volunteering_applications_user_idTousersInput
+    payments?: paymentsCreateNestedManyWithoutUsersInput
+    role_upgrade_requests_role_upgrade_requests_reviewer_idTousers?: role_upgrade_requestsCreateNestedManyWithoutUsers_role_upgrade_requests_reviewer_idTousersInput
+    role_upgrade_requests_role_upgrade_requests_user_idTousers?: role_upgrade_requestsCreateNestedManyWithoutUsers_role_upgrade_requests_user_idTousersInput
+    discussion_comment_likes?: space_discussion_comment_likesCreateNestedManyWithoutUserInput
+    discussion_comments?: space_discussion_commentsCreateNestedManyWithoutUserInput
+    discussion_likes?: space_discussion_likesCreateNestedManyWithoutUserInput
+    authored_discussions?: space_discussionsCreateNestedManyWithoutAuthorInput
+    space_news_published?: space_newsCreateNestedManyWithoutPublisherInput
+    space_news_comments?: space_news_commentsCreateNestedManyWithoutUserInput
+    space_news_likes?: space_news_likesCreateNestedManyWithoutUserInput
+    stargazing_spot_reviews?: stargazing_spot_reviewsCreateNestedManyWithoutUserInput
+    created_stargazing_spots?: stargazing_spotsCreateNestedManyWithoutCreatorInput
+    created_sessions?: sessionsCreateNestedManyWithoutCreatorInput
+    subscriptions?: subscriptionsCreateNestedManyWithoutUsersInput
+    user_settings?: user_settingsCreateNestedOneWithoutUsersInput
+    poll_votes?: poll_votesCreateNestedManyWithoutVoterInput
+    poll_comments?: poll_commentsCreateNestedManyWithoutCommenterInput
+  }
+
+  export type usersUncheckedCreateWithoutCreated_pollsInput = {
+    id?: number
+    firebase_uid: string
+    email: string
+    role?: $Enums.user_role | null
+    first_name?: string | null
+    last_name?: string | null
+    is_active?: boolean | null
+    last_login?: Date | string | null
+    created_at?: Date | string | null
+    updated_at?: Date | string | null
+    display_name?: string | null
+    profile_data?: NullableJsonNullValueInput | InputJsonValue
+    role_specific_data?: NullableJsonNullValueInput | InputJsonValue
+    subscription_plan?: $Enums.subscription_plan | null
+    subscription_status?: $Enums.subscription_status | null
+    subscription_start_date?: Date | string | null
+    subscription_end_date?: Date | string | null
+    auto_renew?: boolean | null
+    chatbot_questions_used?: number | null
+    chatbot_questions_reset_date?: Date | string | null
+    QuizParticipants?: QuizParticipantsUncheckedCreateNestedManyWithoutUsersInput
+    Quizzes?: QuizzesUncheckedCreateNestedManyWithoutUsersInput
+    created_astronomy_events?: astronomy_eventsUncheckedCreateNestedManyWithoutCreatorInput
+    blog_comments?: blog_commentsUncheckedCreateNestedManyWithoutUsersInput
+    blog_likes?: blog_likesUncheckedCreateNestedManyWithoutUsersInput
+    blog_views?: blog_viewsUncheckedCreateNestedManyWithoutUsersInput
+    blogs?: blogsUncheckedCreateNestedManyWithoutUsersInput
+    chat_messages?: chat_messagesUncheckedCreateNestedManyWithoutUserInput
+    chatbot_sessions?: chatbot_sessionsUncheckedCreateNestedManyWithoutUsersInput
+    chatbot_usage?: chatbot_usageUncheckedCreateNestedManyWithoutUsersInput
+    event_reminders?: event_remindersUncheckedCreateNestedManyWithoutUserInput
+    created_groups?: group_chatsUncheckedCreateNestedManyWithoutCreatorInput
+    group_memberships?: group_membersUncheckedCreateNestedManyWithoutUserInput
+    guide_application?: guide_applicationUncheckedCreateNestedManyWithoutUsersInput
+    influencer_application?: influencer_applicationUncheckedCreateNestedManyWithoutUsersInput
+    media_uploads?: media_uploadsUncheckedCreateNestedManyWithoutUserInput
+    mentor_application?: mentor_applicationUncheckedCreateNestedManyWithoutUsersInput
+    message_reactions?: message_reactionsUncheckedCreateNestedManyWithoutUserInput
+    night_camp_registrations?: night_camp_registrationsUncheckedCreateNestedManyWithoutUsersInput
+    night_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousers?: night_camp_volunteering_applicationsUncheckedCreateNestedManyWithoutUsers_night_camp_volunteering_applications_reviewed_byTousersInput
+    night_camp_volunteering_applications_night_camp_volunteering_applications_user_idTousers?: night_camp_volunteering_applicationsUncheckedCreateNestedManyWithoutUsers_night_camp_volunteering_applications_user_idTousersInput
+    payments?: paymentsUncheckedCreateNestedManyWithoutUsersInput
+    role_upgrade_requests_role_upgrade_requests_reviewer_idTousers?: role_upgrade_requestsUncheckedCreateNestedManyWithoutUsers_role_upgrade_requests_reviewer_idTousersInput
+    role_upgrade_requests_role_upgrade_requests_user_idTousers?: role_upgrade_requestsUncheckedCreateNestedManyWithoutUsers_role_upgrade_requests_user_idTousersInput
+    discussion_comment_likes?: space_discussion_comment_likesUncheckedCreateNestedManyWithoutUserInput
+    discussion_comments?: space_discussion_commentsUncheckedCreateNestedManyWithoutUserInput
+    discussion_likes?: space_discussion_likesUncheckedCreateNestedManyWithoutUserInput
+    authored_discussions?: space_discussionsUncheckedCreateNestedManyWithoutAuthorInput
+    space_news_published?: space_newsUncheckedCreateNestedManyWithoutPublisherInput
+    space_news_comments?: space_news_commentsUncheckedCreateNestedManyWithoutUserInput
+    space_news_likes?: space_news_likesUncheckedCreateNestedManyWithoutUserInput
+    stargazing_spot_reviews?: stargazing_spot_reviewsUncheckedCreateNestedManyWithoutUserInput
+    created_stargazing_spots?: stargazing_spotsUncheckedCreateNestedManyWithoutCreatorInput
+    created_sessions?: sessionsUncheckedCreateNestedManyWithoutCreatorInput
+    subscriptions?: subscriptionsUncheckedCreateNestedManyWithoutUsersInput
+    user_settings?: user_settingsUncheckedCreateNestedOneWithoutUsersInput
+    poll_votes?: poll_votesUncheckedCreateNestedManyWithoutVoterInput
+    poll_comments?: poll_commentsUncheckedCreateNestedManyWithoutCommenterInput
+  }
+
+  export type usersCreateOrConnectWithoutCreated_pollsInput = {
+    where: usersWhereUniqueInput
+    create: XOR<usersCreateWithoutCreated_pollsInput, usersUncheckedCreateWithoutCreated_pollsInput>
+  }
+
+  export type poll_choicesCreateWithoutPollInput = {
+    choice: $Enums.poll_choice_type
+    vote_count?: number
+    created_at?: Date | string
+    votes?: poll_votesCreateNestedManyWithoutChoiceInput
+  }
+
+  export type poll_choicesUncheckedCreateWithoutPollInput = {
+    id?: number
+    choice: $Enums.poll_choice_type
+    vote_count?: number
+    created_at?: Date | string
+    votes?: poll_votesUncheckedCreateNestedManyWithoutChoiceInput
+  }
+
+  export type poll_choicesCreateOrConnectWithoutPollInput = {
+    where: poll_choicesWhereUniqueInput
+    create: XOR<poll_choicesCreateWithoutPollInput, poll_choicesUncheckedCreateWithoutPollInput>
+  }
+
+  export type poll_choicesCreateManyPollInputEnvelope = {
+    data: poll_choicesCreateManyPollInput | poll_choicesCreateManyPollInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type poll_commentsCreateWithoutPollInput = {
+    comment: string
+    created_at?: Date | string
+    updated_at?: Date | string
+    commenter: usersCreateNestedOneWithoutPoll_commentsInput
+  }
+
+  export type poll_commentsUncheckedCreateWithoutPollInput = {
+    id?: number
+    user_id: number
+    comment: string
+    created_at?: Date | string
+    updated_at?: Date | string
+  }
+
+  export type poll_commentsCreateOrConnectWithoutPollInput = {
+    where: poll_commentsWhereUniqueInput
+    create: XOR<poll_commentsCreateWithoutPollInput, poll_commentsUncheckedCreateWithoutPollInput>
+  }
+
+  export type poll_commentsCreateManyPollInputEnvelope = {
+    data: poll_commentsCreateManyPollInput | poll_commentsCreateManyPollInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type usersUpsertWithoutCreated_pollsInput = {
+    update: XOR<usersUpdateWithoutCreated_pollsInput, usersUncheckedUpdateWithoutCreated_pollsInput>
+    create: XOR<usersCreateWithoutCreated_pollsInput, usersUncheckedCreateWithoutCreated_pollsInput>
+    where?: usersWhereInput
+  }
+
+  export type usersUpdateToOneWithWhereWithoutCreated_pollsInput = {
+    where?: usersWhereInput
+    data: XOR<usersUpdateWithoutCreated_pollsInput, usersUncheckedUpdateWithoutCreated_pollsInput>
+  }
+
+  export type usersUpdateWithoutCreated_pollsInput = {
+    firebase_uid?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    role?: NullableEnumuser_roleFieldUpdateOperationsInput | $Enums.user_role | null
+    first_name?: NullableStringFieldUpdateOperationsInput | string | null
+    last_name?: NullableStringFieldUpdateOperationsInput | string | null
+    is_active?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    last_login?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    display_name?: NullableStringFieldUpdateOperationsInput | string | null
+    profile_data?: NullableJsonNullValueInput | InputJsonValue
+    role_specific_data?: NullableJsonNullValueInput | InputJsonValue
+    subscription_plan?: NullableEnumsubscription_planFieldUpdateOperationsInput | $Enums.subscription_plan | null
+    subscription_status?: NullableEnumsubscription_statusFieldUpdateOperationsInput | $Enums.subscription_status | null
+    subscription_start_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    subscription_end_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    auto_renew?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    chatbot_questions_used?: NullableIntFieldUpdateOperationsInput | number | null
+    chatbot_questions_reset_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    QuizParticipants?: QuizParticipantsUpdateManyWithoutUsersNestedInput
+    Quizzes?: QuizzesUpdateManyWithoutUsersNestedInput
+    created_astronomy_events?: astronomy_eventsUpdateManyWithoutCreatorNestedInput
+    blog_comments?: blog_commentsUpdateManyWithoutUsersNestedInput
+    blog_likes?: blog_likesUpdateManyWithoutUsersNestedInput
+    blog_views?: blog_viewsUpdateManyWithoutUsersNestedInput
+    blogs?: blogsUpdateManyWithoutUsersNestedInput
+    chat_messages?: chat_messagesUpdateManyWithoutUserNestedInput
+    chatbot_sessions?: chatbot_sessionsUpdateManyWithoutUsersNestedInput
+    chatbot_usage?: chatbot_usageUpdateManyWithoutUsersNestedInput
+    event_reminders?: event_remindersUpdateManyWithoutUserNestedInput
+    created_groups?: group_chatsUpdateManyWithoutCreatorNestedInput
+    group_memberships?: group_membersUpdateManyWithoutUserNestedInput
+    guide_application?: guide_applicationUpdateManyWithoutUsersNestedInput
+    influencer_application?: influencer_applicationUpdateManyWithoutUsersNestedInput
+    media_uploads?: media_uploadsUpdateManyWithoutUserNestedInput
+    mentor_application?: mentor_applicationUpdateManyWithoutUsersNestedInput
+    message_reactions?: message_reactionsUpdateManyWithoutUserNestedInput
+    night_camp_registrations?: night_camp_registrationsUpdateManyWithoutUsersNestedInput
+    night_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousers?: night_camp_volunteering_applicationsUpdateManyWithoutUsers_night_camp_volunteering_applications_reviewed_byTousersNestedInput
+    night_camp_volunteering_applications_night_camp_volunteering_applications_user_idTousers?: night_camp_volunteering_applicationsUpdateManyWithoutUsers_night_camp_volunteering_applications_user_idTousersNestedInput
+    payments?: paymentsUpdateManyWithoutUsersNestedInput
+    role_upgrade_requests_role_upgrade_requests_reviewer_idTousers?: role_upgrade_requestsUpdateManyWithoutUsers_role_upgrade_requests_reviewer_idTousersNestedInput
+    role_upgrade_requests_role_upgrade_requests_user_idTousers?: role_upgrade_requestsUpdateManyWithoutUsers_role_upgrade_requests_user_idTousersNestedInput
+    discussion_comment_likes?: space_discussion_comment_likesUpdateManyWithoutUserNestedInput
+    discussion_comments?: space_discussion_commentsUpdateManyWithoutUserNestedInput
+    discussion_likes?: space_discussion_likesUpdateManyWithoutUserNestedInput
+    authored_discussions?: space_discussionsUpdateManyWithoutAuthorNestedInput
+    space_news_published?: space_newsUpdateManyWithoutPublisherNestedInput
+    space_news_comments?: space_news_commentsUpdateManyWithoutUserNestedInput
+    space_news_likes?: space_news_likesUpdateManyWithoutUserNestedInput
+    stargazing_spot_reviews?: stargazing_spot_reviewsUpdateManyWithoutUserNestedInput
+    created_stargazing_spots?: stargazing_spotsUpdateManyWithoutCreatorNestedInput
+    created_sessions?: sessionsUpdateManyWithoutCreatorNestedInput
+    subscriptions?: subscriptionsUpdateManyWithoutUsersNestedInput
+    user_settings?: user_settingsUpdateOneWithoutUsersNestedInput
+    poll_votes?: poll_votesUpdateManyWithoutVoterNestedInput
+    poll_comments?: poll_commentsUpdateManyWithoutCommenterNestedInput
+  }
+
+  export type usersUncheckedUpdateWithoutCreated_pollsInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    firebase_uid?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    role?: NullableEnumuser_roleFieldUpdateOperationsInput | $Enums.user_role | null
+    first_name?: NullableStringFieldUpdateOperationsInput | string | null
+    last_name?: NullableStringFieldUpdateOperationsInput | string | null
+    is_active?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    last_login?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    display_name?: NullableStringFieldUpdateOperationsInput | string | null
+    profile_data?: NullableJsonNullValueInput | InputJsonValue
+    role_specific_data?: NullableJsonNullValueInput | InputJsonValue
+    subscription_plan?: NullableEnumsubscription_planFieldUpdateOperationsInput | $Enums.subscription_plan | null
+    subscription_status?: NullableEnumsubscription_statusFieldUpdateOperationsInput | $Enums.subscription_status | null
+    subscription_start_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    subscription_end_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    auto_renew?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    chatbot_questions_used?: NullableIntFieldUpdateOperationsInput | number | null
+    chatbot_questions_reset_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    QuizParticipants?: QuizParticipantsUncheckedUpdateManyWithoutUsersNestedInput
+    Quizzes?: QuizzesUncheckedUpdateManyWithoutUsersNestedInput
+    created_astronomy_events?: astronomy_eventsUncheckedUpdateManyWithoutCreatorNestedInput
+    blog_comments?: blog_commentsUncheckedUpdateManyWithoutUsersNestedInput
+    blog_likes?: blog_likesUncheckedUpdateManyWithoutUsersNestedInput
+    blog_views?: blog_viewsUncheckedUpdateManyWithoutUsersNestedInput
+    blogs?: blogsUncheckedUpdateManyWithoutUsersNestedInput
+    chat_messages?: chat_messagesUncheckedUpdateManyWithoutUserNestedInput
+    chatbot_sessions?: chatbot_sessionsUncheckedUpdateManyWithoutUsersNestedInput
+    chatbot_usage?: chatbot_usageUncheckedUpdateManyWithoutUsersNestedInput
+    event_reminders?: event_remindersUncheckedUpdateManyWithoutUserNestedInput
+    created_groups?: group_chatsUncheckedUpdateManyWithoutCreatorNestedInput
+    group_memberships?: group_membersUncheckedUpdateManyWithoutUserNestedInput
+    guide_application?: guide_applicationUncheckedUpdateManyWithoutUsersNestedInput
+    influencer_application?: influencer_applicationUncheckedUpdateManyWithoutUsersNestedInput
+    media_uploads?: media_uploadsUncheckedUpdateManyWithoutUserNestedInput
+    mentor_application?: mentor_applicationUncheckedUpdateManyWithoutUsersNestedInput
+    message_reactions?: message_reactionsUncheckedUpdateManyWithoutUserNestedInput
+    night_camp_registrations?: night_camp_registrationsUncheckedUpdateManyWithoutUsersNestedInput
+    night_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousers?: night_camp_volunteering_applicationsUncheckedUpdateManyWithoutUsers_night_camp_volunteering_applications_reviewed_byTousersNestedInput
+    night_camp_volunteering_applications_night_camp_volunteering_applications_user_idTousers?: night_camp_volunteering_applicationsUncheckedUpdateManyWithoutUsers_night_camp_volunteering_applications_user_idTousersNestedInput
+    payments?: paymentsUncheckedUpdateManyWithoutUsersNestedInput
+    role_upgrade_requests_role_upgrade_requests_reviewer_idTousers?: role_upgrade_requestsUncheckedUpdateManyWithoutUsers_role_upgrade_requests_reviewer_idTousersNestedInput
+    role_upgrade_requests_role_upgrade_requests_user_idTousers?: role_upgrade_requestsUncheckedUpdateManyWithoutUsers_role_upgrade_requests_user_idTousersNestedInput
+    discussion_comment_likes?: space_discussion_comment_likesUncheckedUpdateManyWithoutUserNestedInput
+    discussion_comments?: space_discussion_commentsUncheckedUpdateManyWithoutUserNestedInput
+    discussion_likes?: space_discussion_likesUncheckedUpdateManyWithoutUserNestedInput
+    authored_discussions?: space_discussionsUncheckedUpdateManyWithoutAuthorNestedInput
+    space_news_published?: space_newsUncheckedUpdateManyWithoutPublisherNestedInput
+    space_news_comments?: space_news_commentsUncheckedUpdateManyWithoutUserNestedInput
+    space_news_likes?: space_news_likesUncheckedUpdateManyWithoutUserNestedInput
+    stargazing_spot_reviews?: stargazing_spot_reviewsUncheckedUpdateManyWithoutUserNestedInput
+    created_stargazing_spots?: stargazing_spotsUncheckedUpdateManyWithoutCreatorNestedInput
+    created_sessions?: sessionsUncheckedUpdateManyWithoutCreatorNestedInput
+    subscriptions?: subscriptionsUncheckedUpdateManyWithoutUsersNestedInput
+    user_settings?: user_settingsUncheckedUpdateOneWithoutUsersNestedInput
+    poll_votes?: poll_votesUncheckedUpdateManyWithoutVoterNestedInput
+    poll_comments?: poll_commentsUncheckedUpdateManyWithoutCommenterNestedInput
+  }
+
+  export type poll_choicesUpsertWithWhereUniqueWithoutPollInput = {
+    where: poll_choicesWhereUniqueInput
+    update: XOR<poll_choicesUpdateWithoutPollInput, poll_choicesUncheckedUpdateWithoutPollInput>
+    create: XOR<poll_choicesCreateWithoutPollInput, poll_choicesUncheckedCreateWithoutPollInput>
+  }
+
+  export type poll_choicesUpdateWithWhereUniqueWithoutPollInput = {
+    where: poll_choicesWhereUniqueInput
+    data: XOR<poll_choicesUpdateWithoutPollInput, poll_choicesUncheckedUpdateWithoutPollInput>
+  }
+
+  export type poll_choicesUpdateManyWithWhereWithoutPollInput = {
+    where: poll_choicesScalarWhereInput
+    data: XOR<poll_choicesUpdateManyMutationInput, poll_choicesUncheckedUpdateManyWithoutPollInput>
+  }
+
+  export type poll_choicesScalarWhereInput = {
+    AND?: poll_choicesScalarWhereInput | poll_choicesScalarWhereInput[]
+    OR?: poll_choicesScalarWhereInput[]
+    NOT?: poll_choicesScalarWhereInput | poll_choicesScalarWhereInput[]
+    id?: IntFilter<"poll_choices"> | number
+    poll_id?: IntFilter<"poll_choices"> | number
+    choice?: Enumpoll_choice_typeFilter<"poll_choices"> | $Enums.poll_choice_type
+    vote_count?: IntFilter<"poll_choices"> | number
+    created_at?: DateTimeFilter<"poll_choices"> | Date | string
+  }
+
+  export type poll_commentsUpsertWithWhereUniqueWithoutPollInput = {
+    where: poll_commentsWhereUniqueInput
+    update: XOR<poll_commentsUpdateWithoutPollInput, poll_commentsUncheckedUpdateWithoutPollInput>
+    create: XOR<poll_commentsCreateWithoutPollInput, poll_commentsUncheckedCreateWithoutPollInput>
+  }
+
+  export type poll_commentsUpdateWithWhereUniqueWithoutPollInput = {
+    where: poll_commentsWhereUniqueInput
+    data: XOR<poll_commentsUpdateWithoutPollInput, poll_commentsUncheckedUpdateWithoutPollInput>
+  }
+
+  export type poll_commentsUpdateManyWithWhereWithoutPollInput = {
+    where: poll_commentsScalarWhereInput
+    data: XOR<poll_commentsUpdateManyMutationInput, poll_commentsUncheckedUpdateManyWithoutPollInput>
+  }
+
+  export type pollsCreateWithoutChoicesInput = {
+    title: string
+    description?: string | null
+    created_at?: Date | string
+    updated_at?: Date | string
+    is_active?: boolean
+    creator: usersCreateNestedOneWithoutCreated_pollsInput
+    comments?: poll_commentsCreateNestedManyWithoutPollInput
+  }
+
+  export type pollsUncheckedCreateWithoutChoicesInput = {
+    id?: number
+    title: string
+    description?: string | null
+    created_by: number
+    created_at?: Date | string
+    updated_at?: Date | string
+    is_active?: boolean
+    comments?: poll_commentsUncheckedCreateNestedManyWithoutPollInput
+  }
+
+  export type pollsCreateOrConnectWithoutChoicesInput = {
+    where: pollsWhereUniqueInput
+    create: XOR<pollsCreateWithoutChoicesInput, pollsUncheckedCreateWithoutChoicesInput>
+  }
+
+  export type poll_votesCreateWithoutChoiceInput = {
+    poll_id: number
+    voted_at?: Date | string
+    voter: usersCreateNestedOneWithoutPoll_votesInput
+  }
+
+  export type poll_votesUncheckedCreateWithoutChoiceInput = {
+    id?: number
+    poll_id: number
+    user_id: number
+    voted_at?: Date | string
+  }
+
+  export type poll_votesCreateOrConnectWithoutChoiceInput = {
+    where: poll_votesWhereUniqueInput
+    create: XOR<poll_votesCreateWithoutChoiceInput, poll_votesUncheckedCreateWithoutChoiceInput>
+  }
+
+  export type poll_votesCreateManyChoiceInputEnvelope = {
+    data: poll_votesCreateManyChoiceInput | poll_votesCreateManyChoiceInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type pollsUpsertWithoutChoicesInput = {
+    update: XOR<pollsUpdateWithoutChoicesInput, pollsUncheckedUpdateWithoutChoicesInput>
+    create: XOR<pollsCreateWithoutChoicesInput, pollsUncheckedCreateWithoutChoicesInput>
+    where?: pollsWhereInput
+  }
+
+  export type pollsUpdateToOneWithWhereWithoutChoicesInput = {
+    where?: pollsWhereInput
+    data: XOR<pollsUpdateWithoutChoicesInput, pollsUncheckedUpdateWithoutChoicesInput>
+  }
+
+  export type pollsUpdateWithoutChoicesInput = {
+    title?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    is_active?: BoolFieldUpdateOperationsInput | boolean
+    creator?: usersUpdateOneRequiredWithoutCreated_pollsNestedInput
+    comments?: poll_commentsUpdateManyWithoutPollNestedInput
+  }
+
+  export type pollsUncheckedUpdateWithoutChoicesInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    title?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    created_by?: IntFieldUpdateOperationsInput | number
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    is_active?: BoolFieldUpdateOperationsInput | boolean
+    comments?: poll_commentsUncheckedUpdateManyWithoutPollNestedInput
+  }
+
+  export type poll_votesUpsertWithWhereUniqueWithoutChoiceInput = {
+    where: poll_votesWhereUniqueInput
+    update: XOR<poll_votesUpdateWithoutChoiceInput, poll_votesUncheckedUpdateWithoutChoiceInput>
+    create: XOR<poll_votesCreateWithoutChoiceInput, poll_votesUncheckedCreateWithoutChoiceInput>
+  }
+
+  export type poll_votesUpdateWithWhereUniqueWithoutChoiceInput = {
+    where: poll_votesWhereUniqueInput
+    data: XOR<poll_votesUpdateWithoutChoiceInput, poll_votesUncheckedUpdateWithoutChoiceInput>
+  }
+
+  export type poll_votesUpdateManyWithWhereWithoutChoiceInput = {
+    where: poll_votesScalarWhereInput
+    data: XOR<poll_votesUpdateManyMutationInput, poll_votesUncheckedUpdateManyWithoutChoiceInput>
+  }
+
+  export type poll_choicesCreateWithoutVotesInput = {
+    choice: $Enums.poll_choice_type
+    vote_count?: number
+    created_at?: Date | string
+    poll: pollsCreateNestedOneWithoutChoicesInput
+  }
+
+  export type poll_choicesUncheckedCreateWithoutVotesInput = {
+    id?: number
+    poll_id: number
+    choice: $Enums.poll_choice_type
+    vote_count?: number
+    created_at?: Date | string
+  }
+
+  export type poll_choicesCreateOrConnectWithoutVotesInput = {
+    where: poll_choicesWhereUniqueInput
+    create: XOR<poll_choicesCreateWithoutVotesInput, poll_choicesUncheckedCreateWithoutVotesInput>
+  }
+
+  export type usersCreateWithoutPoll_votesInput = {
+    firebase_uid: string
+    email: string
+    role?: $Enums.user_role | null
+    first_name?: string | null
+    last_name?: string | null
+    is_active?: boolean | null
+    last_login?: Date | string | null
+    created_at?: Date | string | null
+    updated_at?: Date | string | null
+    display_name?: string | null
+    profile_data?: NullableJsonNullValueInput | InputJsonValue
+    role_specific_data?: NullableJsonNullValueInput | InputJsonValue
+    subscription_plan?: $Enums.subscription_plan | null
+    subscription_status?: $Enums.subscription_status | null
+    subscription_start_date?: Date | string | null
+    subscription_end_date?: Date | string | null
+    auto_renew?: boolean | null
+    chatbot_questions_used?: number | null
+    chatbot_questions_reset_date?: Date | string | null
+    QuizParticipants?: QuizParticipantsCreateNestedManyWithoutUsersInput
+    Quizzes?: QuizzesCreateNestedManyWithoutUsersInput
+    created_astronomy_events?: astronomy_eventsCreateNestedManyWithoutCreatorInput
+    blog_comments?: blog_commentsCreateNestedManyWithoutUsersInput
+    blog_likes?: blog_likesCreateNestedManyWithoutUsersInput
+    blog_views?: blog_viewsCreateNestedManyWithoutUsersInput
+    blogs?: blogsCreateNestedManyWithoutUsersInput
+    chat_messages?: chat_messagesCreateNestedManyWithoutUserInput
+    chatbot_sessions?: chatbot_sessionsCreateNestedManyWithoutUsersInput
+    chatbot_usage?: chatbot_usageCreateNestedManyWithoutUsersInput
+    event_reminders?: event_remindersCreateNestedManyWithoutUserInput
+    created_groups?: group_chatsCreateNestedManyWithoutCreatorInput
+    group_memberships?: group_membersCreateNestedManyWithoutUserInput
+    guide_application?: guide_applicationCreateNestedManyWithoutUsersInput
+    influencer_application?: influencer_applicationCreateNestedManyWithoutUsersInput
+    media_uploads?: media_uploadsCreateNestedManyWithoutUserInput
+    mentor_application?: mentor_applicationCreateNestedManyWithoutUsersInput
+    message_reactions?: message_reactionsCreateNestedManyWithoutUserInput
+    night_camp_registrations?: night_camp_registrationsCreateNestedManyWithoutUsersInput
+    night_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousers?: night_camp_volunteering_applicationsCreateNestedManyWithoutUsers_night_camp_volunteering_applications_reviewed_byTousersInput
+    night_camp_volunteering_applications_night_camp_volunteering_applications_user_idTousers?: night_camp_volunteering_applicationsCreateNestedManyWithoutUsers_night_camp_volunteering_applications_user_idTousersInput
+    payments?: paymentsCreateNestedManyWithoutUsersInput
+    role_upgrade_requests_role_upgrade_requests_reviewer_idTousers?: role_upgrade_requestsCreateNestedManyWithoutUsers_role_upgrade_requests_reviewer_idTousersInput
+    role_upgrade_requests_role_upgrade_requests_user_idTousers?: role_upgrade_requestsCreateNestedManyWithoutUsers_role_upgrade_requests_user_idTousersInput
+    discussion_comment_likes?: space_discussion_comment_likesCreateNestedManyWithoutUserInput
+    discussion_comments?: space_discussion_commentsCreateNestedManyWithoutUserInput
+    discussion_likes?: space_discussion_likesCreateNestedManyWithoutUserInput
+    authored_discussions?: space_discussionsCreateNestedManyWithoutAuthorInput
+    space_news_published?: space_newsCreateNestedManyWithoutPublisherInput
+    space_news_comments?: space_news_commentsCreateNestedManyWithoutUserInput
+    space_news_likes?: space_news_likesCreateNestedManyWithoutUserInput
+    stargazing_spot_reviews?: stargazing_spot_reviewsCreateNestedManyWithoutUserInput
+    created_stargazing_spots?: stargazing_spotsCreateNestedManyWithoutCreatorInput
+    created_sessions?: sessionsCreateNestedManyWithoutCreatorInput
+    subscriptions?: subscriptionsCreateNestedManyWithoutUsersInput
+    user_settings?: user_settingsCreateNestedOneWithoutUsersInput
+    created_polls?: pollsCreateNestedManyWithoutCreatorInput
+    poll_comments?: poll_commentsCreateNestedManyWithoutCommenterInput
+  }
+
+  export type usersUncheckedCreateWithoutPoll_votesInput = {
+    id?: number
+    firebase_uid: string
+    email: string
+    role?: $Enums.user_role | null
+    first_name?: string | null
+    last_name?: string | null
+    is_active?: boolean | null
+    last_login?: Date | string | null
+    created_at?: Date | string | null
+    updated_at?: Date | string | null
+    display_name?: string | null
+    profile_data?: NullableJsonNullValueInput | InputJsonValue
+    role_specific_data?: NullableJsonNullValueInput | InputJsonValue
+    subscription_plan?: $Enums.subscription_plan | null
+    subscription_status?: $Enums.subscription_status | null
+    subscription_start_date?: Date | string | null
+    subscription_end_date?: Date | string | null
+    auto_renew?: boolean | null
+    chatbot_questions_used?: number | null
+    chatbot_questions_reset_date?: Date | string | null
+    QuizParticipants?: QuizParticipantsUncheckedCreateNestedManyWithoutUsersInput
+    Quizzes?: QuizzesUncheckedCreateNestedManyWithoutUsersInput
+    created_astronomy_events?: astronomy_eventsUncheckedCreateNestedManyWithoutCreatorInput
+    blog_comments?: blog_commentsUncheckedCreateNestedManyWithoutUsersInput
+    blog_likes?: blog_likesUncheckedCreateNestedManyWithoutUsersInput
+    blog_views?: blog_viewsUncheckedCreateNestedManyWithoutUsersInput
+    blogs?: blogsUncheckedCreateNestedManyWithoutUsersInput
+    chat_messages?: chat_messagesUncheckedCreateNestedManyWithoutUserInput
+    chatbot_sessions?: chatbot_sessionsUncheckedCreateNestedManyWithoutUsersInput
+    chatbot_usage?: chatbot_usageUncheckedCreateNestedManyWithoutUsersInput
+    event_reminders?: event_remindersUncheckedCreateNestedManyWithoutUserInput
+    created_groups?: group_chatsUncheckedCreateNestedManyWithoutCreatorInput
+    group_memberships?: group_membersUncheckedCreateNestedManyWithoutUserInput
+    guide_application?: guide_applicationUncheckedCreateNestedManyWithoutUsersInput
+    influencer_application?: influencer_applicationUncheckedCreateNestedManyWithoutUsersInput
+    media_uploads?: media_uploadsUncheckedCreateNestedManyWithoutUserInput
+    mentor_application?: mentor_applicationUncheckedCreateNestedManyWithoutUsersInput
+    message_reactions?: message_reactionsUncheckedCreateNestedManyWithoutUserInput
+    night_camp_registrations?: night_camp_registrationsUncheckedCreateNestedManyWithoutUsersInput
+    night_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousers?: night_camp_volunteering_applicationsUncheckedCreateNestedManyWithoutUsers_night_camp_volunteering_applications_reviewed_byTousersInput
+    night_camp_volunteering_applications_night_camp_volunteering_applications_user_idTousers?: night_camp_volunteering_applicationsUncheckedCreateNestedManyWithoutUsers_night_camp_volunteering_applications_user_idTousersInput
+    payments?: paymentsUncheckedCreateNestedManyWithoutUsersInput
+    role_upgrade_requests_role_upgrade_requests_reviewer_idTousers?: role_upgrade_requestsUncheckedCreateNestedManyWithoutUsers_role_upgrade_requests_reviewer_idTousersInput
+    role_upgrade_requests_role_upgrade_requests_user_idTousers?: role_upgrade_requestsUncheckedCreateNestedManyWithoutUsers_role_upgrade_requests_user_idTousersInput
+    discussion_comment_likes?: space_discussion_comment_likesUncheckedCreateNestedManyWithoutUserInput
+    discussion_comments?: space_discussion_commentsUncheckedCreateNestedManyWithoutUserInput
+    discussion_likes?: space_discussion_likesUncheckedCreateNestedManyWithoutUserInput
+    authored_discussions?: space_discussionsUncheckedCreateNestedManyWithoutAuthorInput
+    space_news_published?: space_newsUncheckedCreateNestedManyWithoutPublisherInput
+    space_news_comments?: space_news_commentsUncheckedCreateNestedManyWithoutUserInput
+    space_news_likes?: space_news_likesUncheckedCreateNestedManyWithoutUserInput
+    stargazing_spot_reviews?: stargazing_spot_reviewsUncheckedCreateNestedManyWithoutUserInput
+    created_stargazing_spots?: stargazing_spotsUncheckedCreateNestedManyWithoutCreatorInput
+    created_sessions?: sessionsUncheckedCreateNestedManyWithoutCreatorInput
+    subscriptions?: subscriptionsUncheckedCreateNestedManyWithoutUsersInput
+    user_settings?: user_settingsUncheckedCreateNestedOneWithoutUsersInput
+    created_polls?: pollsUncheckedCreateNestedManyWithoutCreatorInput
+    poll_comments?: poll_commentsUncheckedCreateNestedManyWithoutCommenterInput
+  }
+
+  export type usersCreateOrConnectWithoutPoll_votesInput = {
+    where: usersWhereUniqueInput
+    create: XOR<usersCreateWithoutPoll_votesInput, usersUncheckedCreateWithoutPoll_votesInput>
+  }
+
+  export type poll_choicesUpsertWithoutVotesInput = {
+    update: XOR<poll_choicesUpdateWithoutVotesInput, poll_choicesUncheckedUpdateWithoutVotesInput>
+    create: XOR<poll_choicesCreateWithoutVotesInput, poll_choicesUncheckedCreateWithoutVotesInput>
+    where?: poll_choicesWhereInput
+  }
+
+  export type poll_choicesUpdateToOneWithWhereWithoutVotesInput = {
+    where?: poll_choicesWhereInput
+    data: XOR<poll_choicesUpdateWithoutVotesInput, poll_choicesUncheckedUpdateWithoutVotesInput>
+  }
+
+  export type poll_choicesUpdateWithoutVotesInput = {
+    choice?: Enumpoll_choice_typeFieldUpdateOperationsInput | $Enums.poll_choice_type
+    vote_count?: IntFieldUpdateOperationsInput | number
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    poll?: pollsUpdateOneRequiredWithoutChoicesNestedInput
+  }
+
+  export type poll_choicesUncheckedUpdateWithoutVotesInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    poll_id?: IntFieldUpdateOperationsInput | number
+    choice?: Enumpoll_choice_typeFieldUpdateOperationsInput | $Enums.poll_choice_type
+    vote_count?: IntFieldUpdateOperationsInput | number
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type usersUpsertWithoutPoll_votesInput = {
+    update: XOR<usersUpdateWithoutPoll_votesInput, usersUncheckedUpdateWithoutPoll_votesInput>
+    create: XOR<usersCreateWithoutPoll_votesInput, usersUncheckedCreateWithoutPoll_votesInput>
+    where?: usersWhereInput
+  }
+
+  export type usersUpdateToOneWithWhereWithoutPoll_votesInput = {
+    where?: usersWhereInput
+    data: XOR<usersUpdateWithoutPoll_votesInput, usersUncheckedUpdateWithoutPoll_votesInput>
+  }
+
+  export type usersUpdateWithoutPoll_votesInput = {
+    firebase_uid?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    role?: NullableEnumuser_roleFieldUpdateOperationsInput | $Enums.user_role | null
+    first_name?: NullableStringFieldUpdateOperationsInput | string | null
+    last_name?: NullableStringFieldUpdateOperationsInput | string | null
+    is_active?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    last_login?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    display_name?: NullableStringFieldUpdateOperationsInput | string | null
+    profile_data?: NullableJsonNullValueInput | InputJsonValue
+    role_specific_data?: NullableJsonNullValueInput | InputJsonValue
+    subscription_plan?: NullableEnumsubscription_planFieldUpdateOperationsInput | $Enums.subscription_plan | null
+    subscription_status?: NullableEnumsubscription_statusFieldUpdateOperationsInput | $Enums.subscription_status | null
+    subscription_start_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    subscription_end_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    auto_renew?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    chatbot_questions_used?: NullableIntFieldUpdateOperationsInput | number | null
+    chatbot_questions_reset_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    QuizParticipants?: QuizParticipantsUpdateManyWithoutUsersNestedInput
+    Quizzes?: QuizzesUpdateManyWithoutUsersNestedInput
+    created_astronomy_events?: astronomy_eventsUpdateManyWithoutCreatorNestedInput
+    blog_comments?: blog_commentsUpdateManyWithoutUsersNestedInput
+    blog_likes?: blog_likesUpdateManyWithoutUsersNestedInput
+    blog_views?: blog_viewsUpdateManyWithoutUsersNestedInput
+    blogs?: blogsUpdateManyWithoutUsersNestedInput
+    chat_messages?: chat_messagesUpdateManyWithoutUserNestedInput
+    chatbot_sessions?: chatbot_sessionsUpdateManyWithoutUsersNestedInput
+    chatbot_usage?: chatbot_usageUpdateManyWithoutUsersNestedInput
+    event_reminders?: event_remindersUpdateManyWithoutUserNestedInput
+    created_groups?: group_chatsUpdateManyWithoutCreatorNestedInput
+    group_memberships?: group_membersUpdateManyWithoutUserNestedInput
+    guide_application?: guide_applicationUpdateManyWithoutUsersNestedInput
+    influencer_application?: influencer_applicationUpdateManyWithoutUsersNestedInput
+    media_uploads?: media_uploadsUpdateManyWithoutUserNestedInput
+    mentor_application?: mentor_applicationUpdateManyWithoutUsersNestedInput
+    message_reactions?: message_reactionsUpdateManyWithoutUserNestedInput
+    night_camp_registrations?: night_camp_registrationsUpdateManyWithoutUsersNestedInput
+    night_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousers?: night_camp_volunteering_applicationsUpdateManyWithoutUsers_night_camp_volunteering_applications_reviewed_byTousersNestedInput
+    night_camp_volunteering_applications_night_camp_volunteering_applications_user_idTousers?: night_camp_volunteering_applicationsUpdateManyWithoutUsers_night_camp_volunteering_applications_user_idTousersNestedInput
+    payments?: paymentsUpdateManyWithoutUsersNestedInput
+    role_upgrade_requests_role_upgrade_requests_reviewer_idTousers?: role_upgrade_requestsUpdateManyWithoutUsers_role_upgrade_requests_reviewer_idTousersNestedInput
+    role_upgrade_requests_role_upgrade_requests_user_idTousers?: role_upgrade_requestsUpdateManyWithoutUsers_role_upgrade_requests_user_idTousersNestedInput
+    discussion_comment_likes?: space_discussion_comment_likesUpdateManyWithoutUserNestedInput
+    discussion_comments?: space_discussion_commentsUpdateManyWithoutUserNestedInput
+    discussion_likes?: space_discussion_likesUpdateManyWithoutUserNestedInput
+    authored_discussions?: space_discussionsUpdateManyWithoutAuthorNestedInput
+    space_news_published?: space_newsUpdateManyWithoutPublisherNestedInput
+    space_news_comments?: space_news_commentsUpdateManyWithoutUserNestedInput
+    space_news_likes?: space_news_likesUpdateManyWithoutUserNestedInput
+    stargazing_spot_reviews?: stargazing_spot_reviewsUpdateManyWithoutUserNestedInput
+    created_stargazing_spots?: stargazing_spotsUpdateManyWithoutCreatorNestedInput
+    created_sessions?: sessionsUpdateManyWithoutCreatorNestedInput
+    subscriptions?: subscriptionsUpdateManyWithoutUsersNestedInput
+    user_settings?: user_settingsUpdateOneWithoutUsersNestedInput
+    created_polls?: pollsUpdateManyWithoutCreatorNestedInput
+    poll_comments?: poll_commentsUpdateManyWithoutCommenterNestedInput
+  }
+
+  export type usersUncheckedUpdateWithoutPoll_votesInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    firebase_uid?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    role?: NullableEnumuser_roleFieldUpdateOperationsInput | $Enums.user_role | null
+    first_name?: NullableStringFieldUpdateOperationsInput | string | null
+    last_name?: NullableStringFieldUpdateOperationsInput | string | null
+    is_active?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    last_login?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    display_name?: NullableStringFieldUpdateOperationsInput | string | null
+    profile_data?: NullableJsonNullValueInput | InputJsonValue
+    role_specific_data?: NullableJsonNullValueInput | InputJsonValue
+    subscription_plan?: NullableEnumsubscription_planFieldUpdateOperationsInput | $Enums.subscription_plan | null
+    subscription_status?: NullableEnumsubscription_statusFieldUpdateOperationsInput | $Enums.subscription_status | null
+    subscription_start_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    subscription_end_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    auto_renew?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    chatbot_questions_used?: NullableIntFieldUpdateOperationsInput | number | null
+    chatbot_questions_reset_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    QuizParticipants?: QuizParticipantsUncheckedUpdateManyWithoutUsersNestedInput
+    Quizzes?: QuizzesUncheckedUpdateManyWithoutUsersNestedInput
+    created_astronomy_events?: astronomy_eventsUncheckedUpdateManyWithoutCreatorNestedInput
+    blog_comments?: blog_commentsUncheckedUpdateManyWithoutUsersNestedInput
+    blog_likes?: blog_likesUncheckedUpdateManyWithoutUsersNestedInput
+    blog_views?: blog_viewsUncheckedUpdateManyWithoutUsersNestedInput
+    blogs?: blogsUncheckedUpdateManyWithoutUsersNestedInput
+    chat_messages?: chat_messagesUncheckedUpdateManyWithoutUserNestedInput
+    chatbot_sessions?: chatbot_sessionsUncheckedUpdateManyWithoutUsersNestedInput
+    chatbot_usage?: chatbot_usageUncheckedUpdateManyWithoutUsersNestedInput
+    event_reminders?: event_remindersUncheckedUpdateManyWithoutUserNestedInput
+    created_groups?: group_chatsUncheckedUpdateManyWithoutCreatorNestedInput
+    group_memberships?: group_membersUncheckedUpdateManyWithoutUserNestedInput
+    guide_application?: guide_applicationUncheckedUpdateManyWithoutUsersNestedInput
+    influencer_application?: influencer_applicationUncheckedUpdateManyWithoutUsersNestedInput
+    media_uploads?: media_uploadsUncheckedUpdateManyWithoutUserNestedInput
+    mentor_application?: mentor_applicationUncheckedUpdateManyWithoutUsersNestedInput
+    message_reactions?: message_reactionsUncheckedUpdateManyWithoutUserNestedInput
+    night_camp_registrations?: night_camp_registrationsUncheckedUpdateManyWithoutUsersNestedInput
+    night_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousers?: night_camp_volunteering_applicationsUncheckedUpdateManyWithoutUsers_night_camp_volunteering_applications_reviewed_byTousersNestedInput
+    night_camp_volunteering_applications_night_camp_volunteering_applications_user_idTousers?: night_camp_volunteering_applicationsUncheckedUpdateManyWithoutUsers_night_camp_volunteering_applications_user_idTousersNestedInput
+    payments?: paymentsUncheckedUpdateManyWithoutUsersNestedInput
+    role_upgrade_requests_role_upgrade_requests_reviewer_idTousers?: role_upgrade_requestsUncheckedUpdateManyWithoutUsers_role_upgrade_requests_reviewer_idTousersNestedInput
+    role_upgrade_requests_role_upgrade_requests_user_idTousers?: role_upgrade_requestsUncheckedUpdateManyWithoutUsers_role_upgrade_requests_user_idTousersNestedInput
+    discussion_comment_likes?: space_discussion_comment_likesUncheckedUpdateManyWithoutUserNestedInput
+    discussion_comments?: space_discussion_commentsUncheckedUpdateManyWithoutUserNestedInput
+    discussion_likes?: space_discussion_likesUncheckedUpdateManyWithoutUserNestedInput
+    authored_discussions?: space_discussionsUncheckedUpdateManyWithoutAuthorNestedInput
+    space_news_published?: space_newsUncheckedUpdateManyWithoutPublisherNestedInput
+    space_news_comments?: space_news_commentsUncheckedUpdateManyWithoutUserNestedInput
+    space_news_likes?: space_news_likesUncheckedUpdateManyWithoutUserNestedInput
+    stargazing_spot_reviews?: stargazing_spot_reviewsUncheckedUpdateManyWithoutUserNestedInput
+    created_stargazing_spots?: stargazing_spotsUncheckedUpdateManyWithoutCreatorNestedInput
+    created_sessions?: sessionsUncheckedUpdateManyWithoutCreatorNestedInput
+    subscriptions?: subscriptionsUncheckedUpdateManyWithoutUsersNestedInput
+    user_settings?: user_settingsUncheckedUpdateOneWithoutUsersNestedInput
+    created_polls?: pollsUncheckedUpdateManyWithoutCreatorNestedInput
+    poll_comments?: poll_commentsUncheckedUpdateManyWithoutCommenterNestedInput
+  }
+
+  export type pollsCreateWithoutCommentsInput = {
+    title: string
+    description?: string | null
+    created_at?: Date | string
+    updated_at?: Date | string
+    is_active?: boolean
+    creator: usersCreateNestedOneWithoutCreated_pollsInput
+    choices?: poll_choicesCreateNestedManyWithoutPollInput
+  }
+
+  export type pollsUncheckedCreateWithoutCommentsInput = {
+    id?: number
+    title: string
+    description?: string | null
+    created_by: number
+    created_at?: Date | string
+    updated_at?: Date | string
+    is_active?: boolean
+    choices?: poll_choicesUncheckedCreateNestedManyWithoutPollInput
+  }
+
+  export type pollsCreateOrConnectWithoutCommentsInput = {
+    where: pollsWhereUniqueInput
+    create: XOR<pollsCreateWithoutCommentsInput, pollsUncheckedCreateWithoutCommentsInput>
+  }
+
+  export type usersCreateWithoutPoll_commentsInput = {
+    firebase_uid: string
+    email: string
+    role?: $Enums.user_role | null
+    first_name?: string | null
+    last_name?: string | null
+    is_active?: boolean | null
+    last_login?: Date | string | null
+    created_at?: Date | string | null
+    updated_at?: Date | string | null
+    display_name?: string | null
+    profile_data?: NullableJsonNullValueInput | InputJsonValue
+    role_specific_data?: NullableJsonNullValueInput | InputJsonValue
+    subscription_plan?: $Enums.subscription_plan | null
+    subscription_status?: $Enums.subscription_status | null
+    subscription_start_date?: Date | string | null
+    subscription_end_date?: Date | string | null
+    auto_renew?: boolean | null
+    chatbot_questions_used?: number | null
+    chatbot_questions_reset_date?: Date | string | null
+    QuizParticipants?: QuizParticipantsCreateNestedManyWithoutUsersInput
+    Quizzes?: QuizzesCreateNestedManyWithoutUsersInput
+    created_astronomy_events?: astronomy_eventsCreateNestedManyWithoutCreatorInput
+    blog_comments?: blog_commentsCreateNestedManyWithoutUsersInput
+    blog_likes?: blog_likesCreateNestedManyWithoutUsersInput
+    blog_views?: blog_viewsCreateNestedManyWithoutUsersInput
+    blogs?: blogsCreateNestedManyWithoutUsersInput
+    chat_messages?: chat_messagesCreateNestedManyWithoutUserInput
+    chatbot_sessions?: chatbot_sessionsCreateNestedManyWithoutUsersInput
+    chatbot_usage?: chatbot_usageCreateNestedManyWithoutUsersInput
+    event_reminders?: event_remindersCreateNestedManyWithoutUserInput
+    created_groups?: group_chatsCreateNestedManyWithoutCreatorInput
+    group_memberships?: group_membersCreateNestedManyWithoutUserInput
+    guide_application?: guide_applicationCreateNestedManyWithoutUsersInput
+    influencer_application?: influencer_applicationCreateNestedManyWithoutUsersInput
+    media_uploads?: media_uploadsCreateNestedManyWithoutUserInput
+    mentor_application?: mentor_applicationCreateNestedManyWithoutUsersInput
+    message_reactions?: message_reactionsCreateNestedManyWithoutUserInput
+    night_camp_registrations?: night_camp_registrationsCreateNestedManyWithoutUsersInput
+    night_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousers?: night_camp_volunteering_applicationsCreateNestedManyWithoutUsers_night_camp_volunteering_applications_reviewed_byTousersInput
+    night_camp_volunteering_applications_night_camp_volunteering_applications_user_idTousers?: night_camp_volunteering_applicationsCreateNestedManyWithoutUsers_night_camp_volunteering_applications_user_idTousersInput
+    payments?: paymentsCreateNestedManyWithoutUsersInput
+    role_upgrade_requests_role_upgrade_requests_reviewer_idTousers?: role_upgrade_requestsCreateNestedManyWithoutUsers_role_upgrade_requests_reviewer_idTousersInput
+    role_upgrade_requests_role_upgrade_requests_user_idTousers?: role_upgrade_requestsCreateNestedManyWithoutUsers_role_upgrade_requests_user_idTousersInput
+    discussion_comment_likes?: space_discussion_comment_likesCreateNestedManyWithoutUserInput
+    discussion_comments?: space_discussion_commentsCreateNestedManyWithoutUserInput
+    discussion_likes?: space_discussion_likesCreateNestedManyWithoutUserInput
+    authored_discussions?: space_discussionsCreateNestedManyWithoutAuthorInput
+    space_news_published?: space_newsCreateNestedManyWithoutPublisherInput
+    space_news_comments?: space_news_commentsCreateNestedManyWithoutUserInput
+    space_news_likes?: space_news_likesCreateNestedManyWithoutUserInput
+    stargazing_spot_reviews?: stargazing_spot_reviewsCreateNestedManyWithoutUserInput
+    created_stargazing_spots?: stargazing_spotsCreateNestedManyWithoutCreatorInput
+    created_sessions?: sessionsCreateNestedManyWithoutCreatorInput
+    subscriptions?: subscriptionsCreateNestedManyWithoutUsersInput
+    user_settings?: user_settingsCreateNestedOneWithoutUsersInput
+    created_polls?: pollsCreateNestedManyWithoutCreatorInput
+    poll_votes?: poll_votesCreateNestedManyWithoutVoterInput
+  }
+
+  export type usersUncheckedCreateWithoutPoll_commentsInput = {
+    id?: number
+    firebase_uid: string
+    email: string
+    role?: $Enums.user_role | null
+    first_name?: string | null
+    last_name?: string | null
+    is_active?: boolean | null
+    last_login?: Date | string | null
+    created_at?: Date | string | null
+    updated_at?: Date | string | null
+    display_name?: string | null
+    profile_data?: NullableJsonNullValueInput | InputJsonValue
+    role_specific_data?: NullableJsonNullValueInput | InputJsonValue
+    subscription_plan?: $Enums.subscription_plan | null
+    subscription_status?: $Enums.subscription_status | null
+    subscription_start_date?: Date | string | null
+    subscription_end_date?: Date | string | null
+    auto_renew?: boolean | null
+    chatbot_questions_used?: number | null
+    chatbot_questions_reset_date?: Date | string | null
+    QuizParticipants?: QuizParticipantsUncheckedCreateNestedManyWithoutUsersInput
+    Quizzes?: QuizzesUncheckedCreateNestedManyWithoutUsersInput
+    created_astronomy_events?: astronomy_eventsUncheckedCreateNestedManyWithoutCreatorInput
+    blog_comments?: blog_commentsUncheckedCreateNestedManyWithoutUsersInput
+    blog_likes?: blog_likesUncheckedCreateNestedManyWithoutUsersInput
+    blog_views?: blog_viewsUncheckedCreateNestedManyWithoutUsersInput
+    blogs?: blogsUncheckedCreateNestedManyWithoutUsersInput
+    chat_messages?: chat_messagesUncheckedCreateNestedManyWithoutUserInput
+    chatbot_sessions?: chatbot_sessionsUncheckedCreateNestedManyWithoutUsersInput
+    chatbot_usage?: chatbot_usageUncheckedCreateNestedManyWithoutUsersInput
+    event_reminders?: event_remindersUncheckedCreateNestedManyWithoutUserInput
+    created_groups?: group_chatsUncheckedCreateNestedManyWithoutCreatorInput
+    group_memberships?: group_membersUncheckedCreateNestedManyWithoutUserInput
+    guide_application?: guide_applicationUncheckedCreateNestedManyWithoutUsersInput
+    influencer_application?: influencer_applicationUncheckedCreateNestedManyWithoutUsersInput
+    media_uploads?: media_uploadsUncheckedCreateNestedManyWithoutUserInput
+    mentor_application?: mentor_applicationUncheckedCreateNestedManyWithoutUsersInput
+    message_reactions?: message_reactionsUncheckedCreateNestedManyWithoutUserInput
+    night_camp_registrations?: night_camp_registrationsUncheckedCreateNestedManyWithoutUsersInput
+    night_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousers?: night_camp_volunteering_applicationsUncheckedCreateNestedManyWithoutUsers_night_camp_volunteering_applications_reviewed_byTousersInput
+    night_camp_volunteering_applications_night_camp_volunteering_applications_user_idTousers?: night_camp_volunteering_applicationsUncheckedCreateNestedManyWithoutUsers_night_camp_volunteering_applications_user_idTousersInput
+    payments?: paymentsUncheckedCreateNestedManyWithoutUsersInput
+    role_upgrade_requests_role_upgrade_requests_reviewer_idTousers?: role_upgrade_requestsUncheckedCreateNestedManyWithoutUsers_role_upgrade_requests_reviewer_idTousersInput
+    role_upgrade_requests_role_upgrade_requests_user_idTousers?: role_upgrade_requestsUncheckedCreateNestedManyWithoutUsers_role_upgrade_requests_user_idTousersInput
+    discussion_comment_likes?: space_discussion_comment_likesUncheckedCreateNestedManyWithoutUserInput
+    discussion_comments?: space_discussion_commentsUncheckedCreateNestedManyWithoutUserInput
+    discussion_likes?: space_discussion_likesUncheckedCreateNestedManyWithoutUserInput
+    authored_discussions?: space_discussionsUncheckedCreateNestedManyWithoutAuthorInput
+    space_news_published?: space_newsUncheckedCreateNestedManyWithoutPublisherInput
+    space_news_comments?: space_news_commentsUncheckedCreateNestedManyWithoutUserInput
+    space_news_likes?: space_news_likesUncheckedCreateNestedManyWithoutUserInput
+    stargazing_spot_reviews?: stargazing_spot_reviewsUncheckedCreateNestedManyWithoutUserInput
+    created_stargazing_spots?: stargazing_spotsUncheckedCreateNestedManyWithoutCreatorInput
+    created_sessions?: sessionsUncheckedCreateNestedManyWithoutCreatorInput
+    subscriptions?: subscriptionsUncheckedCreateNestedManyWithoutUsersInput
+    user_settings?: user_settingsUncheckedCreateNestedOneWithoutUsersInput
+    created_polls?: pollsUncheckedCreateNestedManyWithoutCreatorInput
+    poll_votes?: poll_votesUncheckedCreateNestedManyWithoutVoterInput
+  }
+
+  export type usersCreateOrConnectWithoutPoll_commentsInput = {
+    where: usersWhereUniqueInput
+    create: XOR<usersCreateWithoutPoll_commentsInput, usersUncheckedCreateWithoutPoll_commentsInput>
+  }
+
+  export type pollsUpsertWithoutCommentsInput = {
+    update: XOR<pollsUpdateWithoutCommentsInput, pollsUncheckedUpdateWithoutCommentsInput>
+    create: XOR<pollsCreateWithoutCommentsInput, pollsUncheckedCreateWithoutCommentsInput>
+    where?: pollsWhereInput
+  }
+
+  export type pollsUpdateToOneWithWhereWithoutCommentsInput = {
+    where?: pollsWhereInput
+    data: XOR<pollsUpdateWithoutCommentsInput, pollsUncheckedUpdateWithoutCommentsInput>
+  }
+
+  export type pollsUpdateWithoutCommentsInput = {
+    title?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    is_active?: BoolFieldUpdateOperationsInput | boolean
+    creator?: usersUpdateOneRequiredWithoutCreated_pollsNestedInput
+    choices?: poll_choicesUpdateManyWithoutPollNestedInput
+  }
+
+  export type pollsUncheckedUpdateWithoutCommentsInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    title?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    created_by?: IntFieldUpdateOperationsInput | number
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    is_active?: BoolFieldUpdateOperationsInput | boolean
+    choices?: poll_choicesUncheckedUpdateManyWithoutPollNestedInput
+  }
+
+  export type usersUpsertWithoutPoll_commentsInput = {
+    update: XOR<usersUpdateWithoutPoll_commentsInput, usersUncheckedUpdateWithoutPoll_commentsInput>
+    create: XOR<usersCreateWithoutPoll_commentsInput, usersUncheckedCreateWithoutPoll_commentsInput>
+    where?: usersWhereInput
+  }
+
+  export type usersUpdateToOneWithWhereWithoutPoll_commentsInput = {
+    where?: usersWhereInput
+    data: XOR<usersUpdateWithoutPoll_commentsInput, usersUncheckedUpdateWithoutPoll_commentsInput>
+  }
+
+  export type usersUpdateWithoutPoll_commentsInput = {
+    firebase_uid?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    role?: NullableEnumuser_roleFieldUpdateOperationsInput | $Enums.user_role | null
+    first_name?: NullableStringFieldUpdateOperationsInput | string | null
+    last_name?: NullableStringFieldUpdateOperationsInput | string | null
+    is_active?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    last_login?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    display_name?: NullableStringFieldUpdateOperationsInput | string | null
+    profile_data?: NullableJsonNullValueInput | InputJsonValue
+    role_specific_data?: NullableJsonNullValueInput | InputJsonValue
+    subscription_plan?: NullableEnumsubscription_planFieldUpdateOperationsInput | $Enums.subscription_plan | null
+    subscription_status?: NullableEnumsubscription_statusFieldUpdateOperationsInput | $Enums.subscription_status | null
+    subscription_start_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    subscription_end_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    auto_renew?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    chatbot_questions_used?: NullableIntFieldUpdateOperationsInput | number | null
+    chatbot_questions_reset_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    QuizParticipants?: QuizParticipantsUpdateManyWithoutUsersNestedInput
+    Quizzes?: QuizzesUpdateManyWithoutUsersNestedInput
+    created_astronomy_events?: astronomy_eventsUpdateManyWithoutCreatorNestedInput
+    blog_comments?: blog_commentsUpdateManyWithoutUsersNestedInput
+    blog_likes?: blog_likesUpdateManyWithoutUsersNestedInput
+    blog_views?: blog_viewsUpdateManyWithoutUsersNestedInput
+    blogs?: blogsUpdateManyWithoutUsersNestedInput
+    chat_messages?: chat_messagesUpdateManyWithoutUserNestedInput
+    chatbot_sessions?: chatbot_sessionsUpdateManyWithoutUsersNestedInput
+    chatbot_usage?: chatbot_usageUpdateManyWithoutUsersNestedInput
+    event_reminders?: event_remindersUpdateManyWithoutUserNestedInput
+    created_groups?: group_chatsUpdateManyWithoutCreatorNestedInput
+    group_memberships?: group_membersUpdateManyWithoutUserNestedInput
+    guide_application?: guide_applicationUpdateManyWithoutUsersNestedInput
+    influencer_application?: influencer_applicationUpdateManyWithoutUsersNestedInput
+    media_uploads?: media_uploadsUpdateManyWithoutUserNestedInput
+    mentor_application?: mentor_applicationUpdateManyWithoutUsersNestedInput
+    message_reactions?: message_reactionsUpdateManyWithoutUserNestedInput
+    night_camp_registrations?: night_camp_registrationsUpdateManyWithoutUsersNestedInput
+    night_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousers?: night_camp_volunteering_applicationsUpdateManyWithoutUsers_night_camp_volunteering_applications_reviewed_byTousersNestedInput
+    night_camp_volunteering_applications_night_camp_volunteering_applications_user_idTousers?: night_camp_volunteering_applicationsUpdateManyWithoutUsers_night_camp_volunteering_applications_user_idTousersNestedInput
+    payments?: paymentsUpdateManyWithoutUsersNestedInput
+    role_upgrade_requests_role_upgrade_requests_reviewer_idTousers?: role_upgrade_requestsUpdateManyWithoutUsers_role_upgrade_requests_reviewer_idTousersNestedInput
+    role_upgrade_requests_role_upgrade_requests_user_idTousers?: role_upgrade_requestsUpdateManyWithoutUsers_role_upgrade_requests_user_idTousersNestedInput
+    discussion_comment_likes?: space_discussion_comment_likesUpdateManyWithoutUserNestedInput
+    discussion_comments?: space_discussion_commentsUpdateManyWithoutUserNestedInput
+    discussion_likes?: space_discussion_likesUpdateManyWithoutUserNestedInput
+    authored_discussions?: space_discussionsUpdateManyWithoutAuthorNestedInput
+    space_news_published?: space_newsUpdateManyWithoutPublisherNestedInput
+    space_news_comments?: space_news_commentsUpdateManyWithoutUserNestedInput
+    space_news_likes?: space_news_likesUpdateManyWithoutUserNestedInput
+    stargazing_spot_reviews?: stargazing_spot_reviewsUpdateManyWithoutUserNestedInput
+    created_stargazing_spots?: stargazing_spotsUpdateManyWithoutCreatorNestedInput
+    created_sessions?: sessionsUpdateManyWithoutCreatorNestedInput
+    subscriptions?: subscriptionsUpdateManyWithoutUsersNestedInput
+    user_settings?: user_settingsUpdateOneWithoutUsersNestedInput
+    created_polls?: pollsUpdateManyWithoutCreatorNestedInput
+    poll_votes?: poll_votesUpdateManyWithoutVoterNestedInput
+  }
+
+  export type usersUncheckedUpdateWithoutPoll_commentsInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    firebase_uid?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    role?: NullableEnumuser_roleFieldUpdateOperationsInput | $Enums.user_role | null
+    first_name?: NullableStringFieldUpdateOperationsInput | string | null
+    last_name?: NullableStringFieldUpdateOperationsInput | string | null
+    is_active?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    last_login?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    display_name?: NullableStringFieldUpdateOperationsInput | string | null
+    profile_data?: NullableJsonNullValueInput | InputJsonValue
+    role_specific_data?: NullableJsonNullValueInput | InputJsonValue
+    subscription_plan?: NullableEnumsubscription_planFieldUpdateOperationsInput | $Enums.subscription_plan | null
+    subscription_status?: NullableEnumsubscription_statusFieldUpdateOperationsInput | $Enums.subscription_status | null
+    subscription_start_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    subscription_end_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    auto_renew?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    chatbot_questions_used?: NullableIntFieldUpdateOperationsInput | number | null
+    chatbot_questions_reset_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    QuizParticipants?: QuizParticipantsUncheckedUpdateManyWithoutUsersNestedInput
+    Quizzes?: QuizzesUncheckedUpdateManyWithoutUsersNestedInput
+    created_astronomy_events?: astronomy_eventsUncheckedUpdateManyWithoutCreatorNestedInput
+    blog_comments?: blog_commentsUncheckedUpdateManyWithoutUsersNestedInput
+    blog_likes?: blog_likesUncheckedUpdateManyWithoutUsersNestedInput
+    blog_views?: blog_viewsUncheckedUpdateManyWithoutUsersNestedInput
+    blogs?: blogsUncheckedUpdateManyWithoutUsersNestedInput
+    chat_messages?: chat_messagesUncheckedUpdateManyWithoutUserNestedInput
+    chatbot_sessions?: chatbot_sessionsUncheckedUpdateManyWithoutUsersNestedInput
+    chatbot_usage?: chatbot_usageUncheckedUpdateManyWithoutUsersNestedInput
+    event_reminders?: event_remindersUncheckedUpdateManyWithoutUserNestedInput
+    created_groups?: group_chatsUncheckedUpdateManyWithoutCreatorNestedInput
+    group_memberships?: group_membersUncheckedUpdateManyWithoutUserNestedInput
+    guide_application?: guide_applicationUncheckedUpdateManyWithoutUsersNestedInput
+    influencer_application?: influencer_applicationUncheckedUpdateManyWithoutUsersNestedInput
+    media_uploads?: media_uploadsUncheckedUpdateManyWithoutUserNestedInput
+    mentor_application?: mentor_applicationUncheckedUpdateManyWithoutUsersNestedInput
+    message_reactions?: message_reactionsUncheckedUpdateManyWithoutUserNestedInput
+    night_camp_registrations?: night_camp_registrationsUncheckedUpdateManyWithoutUsersNestedInput
+    night_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousers?: night_camp_volunteering_applicationsUncheckedUpdateManyWithoutUsers_night_camp_volunteering_applications_reviewed_byTousersNestedInput
+    night_camp_volunteering_applications_night_camp_volunteering_applications_user_idTousers?: night_camp_volunteering_applicationsUncheckedUpdateManyWithoutUsers_night_camp_volunteering_applications_user_idTousersNestedInput
+    payments?: paymentsUncheckedUpdateManyWithoutUsersNestedInput
+    role_upgrade_requests_role_upgrade_requests_reviewer_idTousers?: role_upgrade_requestsUncheckedUpdateManyWithoutUsers_role_upgrade_requests_reviewer_idTousersNestedInput
+    role_upgrade_requests_role_upgrade_requests_user_idTousers?: role_upgrade_requestsUncheckedUpdateManyWithoutUsers_role_upgrade_requests_user_idTousersNestedInput
+    discussion_comment_likes?: space_discussion_comment_likesUncheckedUpdateManyWithoutUserNestedInput
+    discussion_comments?: space_discussion_commentsUncheckedUpdateManyWithoutUserNestedInput
+    discussion_likes?: space_discussion_likesUncheckedUpdateManyWithoutUserNestedInput
+    authored_discussions?: space_discussionsUncheckedUpdateManyWithoutAuthorNestedInput
+    space_news_published?: space_newsUncheckedUpdateManyWithoutPublisherNestedInput
+    space_news_comments?: space_news_commentsUncheckedUpdateManyWithoutUserNestedInput
+    space_news_likes?: space_news_likesUncheckedUpdateManyWithoutUserNestedInput
+    stargazing_spot_reviews?: stargazing_spot_reviewsUncheckedUpdateManyWithoutUserNestedInput
+    created_stargazing_spots?: stargazing_spotsUncheckedUpdateManyWithoutCreatorNestedInput
+    created_sessions?: sessionsUncheckedUpdateManyWithoutCreatorNestedInput
+    subscriptions?: subscriptionsUncheckedUpdateManyWithoutUsersNestedInput
+    user_settings?: user_settingsUncheckedUpdateOneWithoutUsersNestedInput
+    created_polls?: pollsUncheckedUpdateManyWithoutCreatorNestedInput
+    poll_votes?: poll_votesUncheckedUpdateManyWithoutVoterNestedInput
   }
 
   export type paymentsCreateManySubscriptionsInput = {
@@ -97835,6 +105768,30 @@ export namespace Prisma {
     updated_at?: Date | string | null
     cancelled_at?: Date | string | null
     cancellation_reason?: string | null
+  }
+
+  export type pollsCreateManyCreatorInput = {
+    id?: number
+    title: string
+    description?: string | null
+    created_at?: Date | string
+    updated_at?: Date | string
+    is_active?: boolean
+  }
+
+  export type poll_votesCreateManyVoterInput = {
+    id?: number
+    poll_id: number
+    choice_id: number
+    voted_at?: Date | string
+  }
+
+  export type poll_commentsCreateManyCommenterInput = {
+    id?: number
+    poll_id: number
+    comment: string
+    created_at?: Date | string
+    updated_at?: Date | string
   }
 
   export type QuizParticipantsUpdateWithoutUsersInput = {
@@ -99229,6 +107186,79 @@ export namespace Prisma {
     cancellation_reason?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
+  export type pollsUpdateWithoutCreatorInput = {
+    title?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    is_active?: BoolFieldUpdateOperationsInput | boolean
+    choices?: poll_choicesUpdateManyWithoutPollNestedInput
+    comments?: poll_commentsUpdateManyWithoutPollNestedInput
+  }
+
+  export type pollsUncheckedUpdateWithoutCreatorInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    title?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    is_active?: BoolFieldUpdateOperationsInput | boolean
+    choices?: poll_choicesUncheckedUpdateManyWithoutPollNestedInput
+    comments?: poll_commentsUncheckedUpdateManyWithoutPollNestedInput
+  }
+
+  export type pollsUncheckedUpdateManyWithoutCreatorInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    title?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    is_active?: BoolFieldUpdateOperationsInput | boolean
+  }
+
+  export type poll_votesUpdateWithoutVoterInput = {
+    poll_id?: IntFieldUpdateOperationsInput | number
+    voted_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    choice?: poll_choicesUpdateOneRequiredWithoutVotesNestedInput
+  }
+
+  export type poll_votesUncheckedUpdateWithoutVoterInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    poll_id?: IntFieldUpdateOperationsInput | number
+    choice_id?: IntFieldUpdateOperationsInput | number
+    voted_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type poll_votesUncheckedUpdateManyWithoutVoterInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    poll_id?: IntFieldUpdateOperationsInput | number
+    choice_id?: IntFieldUpdateOperationsInput | number
+    voted_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type poll_commentsUpdateWithoutCommenterInput = {
+    comment?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    poll?: pollsUpdateOneRequiredWithoutCommentsNestedInput
+  }
+
+  export type poll_commentsUncheckedUpdateWithoutCommenterInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    poll_id?: IntFieldUpdateOperationsInput | number
+    comment?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type poll_commentsUncheckedUpdateManyWithoutCommenterInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    poll_id?: IntFieldUpdateOperationsInput | number
+    comment?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type chatbot_feedbackCreateManyChatbot_messagesInput = {
     id?: string
     session_id?: string | null
@@ -99632,6 +107662,93 @@ export namespace Prisma {
     review_text?: StringFieldUpdateOperationsInput | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type poll_choicesCreateManyPollInput = {
+    id?: number
+    choice: $Enums.poll_choice_type
+    vote_count?: number
+    created_at?: Date | string
+  }
+
+  export type poll_commentsCreateManyPollInput = {
+    id?: number
+    user_id: number
+    comment: string
+    created_at?: Date | string
+    updated_at?: Date | string
+  }
+
+  export type poll_choicesUpdateWithoutPollInput = {
+    choice?: Enumpoll_choice_typeFieldUpdateOperationsInput | $Enums.poll_choice_type
+    vote_count?: IntFieldUpdateOperationsInput | number
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    votes?: poll_votesUpdateManyWithoutChoiceNestedInput
+  }
+
+  export type poll_choicesUncheckedUpdateWithoutPollInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    choice?: Enumpoll_choice_typeFieldUpdateOperationsInput | $Enums.poll_choice_type
+    vote_count?: IntFieldUpdateOperationsInput | number
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    votes?: poll_votesUncheckedUpdateManyWithoutChoiceNestedInput
+  }
+
+  export type poll_choicesUncheckedUpdateManyWithoutPollInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    choice?: Enumpoll_choice_typeFieldUpdateOperationsInput | $Enums.poll_choice_type
+    vote_count?: IntFieldUpdateOperationsInput | number
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type poll_commentsUpdateWithoutPollInput = {
+    comment?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    commenter?: usersUpdateOneRequiredWithoutPoll_commentsNestedInput
+  }
+
+  export type poll_commentsUncheckedUpdateWithoutPollInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    user_id?: IntFieldUpdateOperationsInput | number
+    comment?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type poll_commentsUncheckedUpdateManyWithoutPollInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    user_id?: IntFieldUpdateOperationsInput | number
+    comment?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type poll_votesCreateManyChoiceInput = {
+    id?: number
+    poll_id: number
+    user_id: number
+    voted_at?: Date | string
+  }
+
+  export type poll_votesUpdateWithoutChoiceInput = {
+    poll_id?: IntFieldUpdateOperationsInput | number
+    voted_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    voter?: usersUpdateOneRequiredWithoutPoll_votesNestedInput
+  }
+
+  export type poll_votesUncheckedUpdateWithoutChoiceInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    poll_id?: IntFieldUpdateOperationsInput | number
+    user_id?: IntFieldUpdateOperationsInput | number
+    voted_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type poll_votesUncheckedUpdateManyWithoutChoiceInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    poll_id?: IntFieldUpdateOperationsInput | number
+    user_id?: IntFieldUpdateOperationsInput | number
+    voted_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
 
