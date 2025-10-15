@@ -37,7 +37,7 @@ export const createSession = async (req: Request, res: Response): Promise<void> 
     } = req.body as CreateSessionRequest;
 
     // Get user ID from the authenticated request
-    const userId = (req as any).user?.id;
+    const userId = (req as any).user?.userId;
 
     if (!userId) {
       res.status(401).json({
@@ -165,7 +165,7 @@ export const editSession = async (req: Request, res: Response): Promise<void> =>
     } = req.body as UpdateSessionRequest;
 
     // Get user ID from the authenticated request
-    const userId = (req as any).user?.id;
+    const userId = (req as any).user?.userId;
 
     if (!userId) {
       res.status(401).json({
@@ -297,7 +297,7 @@ export const toggleSessionStatus = async (req: Request, res: Response): Promise<
     const { is_enabled } = req.body as ToggleSessionStatusRequest;
 
     // Get user ID from the authenticated request
-    const userId = (req as any).user?.id;
+    const userId = (req as any).user?.userId;
 
     if (!userId) {
       res.status(401).json({
@@ -381,7 +381,7 @@ export const toggleSessionStatus = async (req: Request, res: Response): Promise<
 export const getMySessions = async (req: Request, res: Response): Promise<void> => {
   try {
     // Get user ID from the authenticated request
-    const userId = (req as any).user?.id;
+    const userId = (req as any).user?.userId;
 
     if (!userId) {
       res.status(401).json({
@@ -419,7 +419,7 @@ export const getMySessions = async (req: Request, res: Response): Promise<void> 
 
     // Build order by clause
     const orderBy: any = {};
-    orderBy[String(sort_by)] = sort_order === 'asc' ? 'asc' : 'desc';
+    orderBy[sort_by] = sort_order === 'asc' ? 'asc' : 'desc';
 
     // Get total count for pagination
     const totalCount = await prisma.sessions.count({ where });
@@ -529,10 +529,10 @@ export const getAllSessions = async (req: Request, res: Response): Promise<void>
       search,
       sort_by = 'session_date',
       sort_order = 'asc'
-    } = req.query;
+    } = req.query as Record<string, string>;
 
-    const pageNumber = parseInt(String(page), 10);
-    const limitNumber = parseInt(String(limit), 10);
+    const pageNumber = parseInt(page, 10);
+    const limitNumber = parseInt(limit, 10);
     const skip = (pageNumber - 1) * limitNumber;
 
     // Build where clause
@@ -540,21 +540,21 @@ export const getAllSessions = async (req: Request, res: Response): Promise<void>
       is_enabled: is_enabled === 'true'
     };
 
-    if (session_type) where.session_type = session_type;
-    if (payment_type) where.payment_type = payment_type;
-    if (difficulty_level) where.difficulty_level = difficulty_level;
+    if (session_type) where.session_type = session_type as SessionType;
+    if (payment_type) where.payment_type = payment_type as PaymentType;
+    if (difficulty_level) where.difficulty_level = difficulty_level as DifficultyLevel;
 
     // Add search functionality
     if (search) {
       where.OR = [
-        { title: { contains: String(search), mode: 'insensitive' } },
-        { description: { contains: String(search), mode: 'insensitive' } }
+        { title: { contains: search, mode: 'insensitive' } },
+        { description: { contains: search, mode: 'insensitive' } }
       ];
     }
 
     // Build order by clause
     const orderBy: any = {};
-    orderBy[String(sort_by)] = sort_order === 'asc' ? 'asc' : 'desc';
+    orderBy[sort_by] = sort_order === 'asc' ? 'asc' : 'desc';
 
     // Get total count for pagination
     const totalCount = await prisma.sessions.count({ where });
@@ -608,7 +608,7 @@ export const deleteSession = async (req: Request, res: Response): Promise<void> 
     const { id } = req.params;
 
     // Get user ID from the authenticated request
-    const userId = (req as any).user?.id;
+    const userId = (req as any).user?.userId;
 
     if (!userId) {
       res.status(401).json({
