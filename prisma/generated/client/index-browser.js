@@ -726,6 +726,82 @@ exports.Prisma.Stargazing_spot_reviewsScalarFieldEnum = {
   updated_at: 'updated_at'
 };
 
+exports.Prisma.SessionsScalarFieldEnum = {
+  id: 'id',
+  title: 'title',
+  session_type: 'session_type',
+  payment_type: 'payment_type',
+  price: 'price',
+  duration: 'duration',
+  session_date: 'session_date',
+  session_time: 'session_time',
+  max_participants: 'max_participants',
+  difficulty_level: 'difficulty_level',
+  session_link: 'session_link',
+  description: 'description',
+  materials: 'materials',
+  session_notes: 'session_notes',
+  created_by: 'created_by',
+  created_date: 'created_date',
+  created_time: 'created_time',
+  is_enabled: 'is_enabled',
+  created_at: 'created_at',
+  updated_at: 'updated_at'
+};
+
+exports.Prisma.Session_enrollmentsScalarFieldEnum = {
+  id: 'id',
+  user_id: 'user_id',
+  session_id: 'session_id',
+  enrollment_date: 'enrollment_date',
+  payment_status: 'payment_status',
+  payment_amount: 'payment_amount',
+  payment_method: 'payment_method',
+  transaction_id: 'transaction_id',
+  access_granted: 'access_granted',
+  completed: 'completed',
+  progress: 'progress',
+  last_accessed_at: 'last_accessed_at',
+  notes: 'notes',
+  created_at: 'created_at',
+  updated_at: 'updated_at'
+};
+
+exports.Prisma.PollsScalarFieldEnum = {
+  id: 'id',
+  title: 'title',
+  description: 'description',
+  created_by: 'created_by',
+  created_at: 'created_at',
+  updated_at: 'updated_at',
+  is_active: 'is_active'
+};
+
+exports.Prisma.Poll_choicesScalarFieldEnum = {
+  id: 'id',
+  poll_id: 'poll_id',
+  choice: 'choice',
+  vote_count: 'vote_count',
+  created_at: 'created_at'
+};
+
+exports.Prisma.Poll_votesScalarFieldEnum = {
+  id: 'id',
+  poll_id: 'poll_id',
+  choice_id: 'choice_id',
+  user_id: 'user_id',
+  voted_at: 'voted_at'
+};
+
+exports.Prisma.Poll_commentsScalarFieldEnum = {
+  id: 'id',
+  poll_id: 'poll_id',
+  user_id: 'user_id',
+  comment: 'comment',
+  created_at: 'created_at',
+  updated_at: 'updated_at'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -820,6 +896,30 @@ exports.quiz_difficulty_level = exports.$Enums.quiz_difficulty_level = {
   Hard: 'Hard'
 };
 
+exports.session_type = exports.$Enums.session_type = {
+  live: 'live',
+  recorded: 'recorded'
+};
+
+exports.payment_type = exports.$Enums.payment_type = {
+  paid: 'paid',
+  free: 'free'
+};
+
+exports.difficulty_level = exports.$Enums.difficulty_level = {
+  beginner: 'beginner',
+  intermediate: 'intermediate',
+  advanced: 'advanced'
+};
+
+exports.enrollment_payment_status = exports.$Enums.enrollment_payment_status = {
+  pending: 'pending',
+  completed: 'completed',
+  failed: 'failed',
+  refunded: 'refunded',
+  free_access: 'free_access'
+};
+
 exports.Prisma.ModelName = {
   subscriptions: 'subscriptions',
   group_chats: 'group_chats',
@@ -866,7 +966,13 @@ exports.Prisma.ModelName = {
   astronomy_events: 'astronomy_events',
   event_reminders: 'event_reminders',
   stargazing_spots: 'stargazing_spots',
-  stargazing_spot_reviews: 'stargazing_spot_reviews'
+  stargazing_spot_reviews: 'stargazing_spot_reviews',
+  sessions: 'sessions',
+  session_enrollments: 'session_enrollments',
+  polls: 'polls',
+  poll_choices: 'poll_choices',
+  poll_votes: 'poll_votes',
+  poll_comments: 'poll_comments'
 };
 
 /**

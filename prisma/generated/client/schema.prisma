@@ -28,22 +28,20 @@ model subscriptions {
   @@index([user_id], map: "idx_subscriptions_user_id")
 }
 
-// Chat Models
 model group_chats {
-  id          Int      @id @default(autoincrement())
-  name        String   @db.VarChar(255)
-  description String?  @db.Text
-  type        String   @default("public") @db.VarChar(20) // 'public' or 'private'
+  id          Int             @id @default(autoincrement())
+  name        String          @db.VarChar(255)
+  description String?
+  type        String          @default("public") @db.VarChar(20)
   created_by  Int
-  avatar_url  String?  @db.VarChar(500)
-  is_active   Boolean  @default(true)
-  max_members Int      @default(1000)
-  created_at  DateTime @default(now()) @db.Timestamp(6)
-  updated_at  DateTime @default(now()) @updatedAt @db.Timestamp(6)
-
-  creator  users           @relation("GroupChatCreator", fields: [created_by], references: [id], onDelete: Cascade)
-  members  group_members[]
-  messages chat_messages[]
+  avatar_url  String?         @db.VarChar(500)
+  is_active   Boolean         @default(true)
+  max_members Int             @default(1000)
+  created_at  DateTime        @default(now()) @db.Timestamp(6)
+  updated_at  DateTime        @default(now()) @updatedAt @db.Timestamp(6)
+  messages    chat_messages[]
+  creator     users           @relation("GroupChatCreator", fields: [created_by], references: [id], onDelete: Cascade)
+  members     group_members[]
 
   @@index([type, is_active], map: "idx_group_chats_type_active")
   @@index([created_by], map: "idx_group_chats_created_by")
@@ -51,15 +49,14 @@ model group_chats {
 }
 
 model group_members {
-  id        Int      @id @default(autoincrement())
+  id        Int         @id @default(autoincrement())
   group_id  Int
   user_id   Int
-  role      String   @default("member") @db.VarChar(20) // 'admin', 'moderator', 'member'
-  joined_at DateTime @default(now()) @db.Timestamp(6)
-  is_muted  Boolean  @default(false)
-
-  group group_chats @relation(fields: [group_id], references: [id], onDelete: Cascade)
-  user  users       @relation("GroupMembership", fields: [user_id], references: [id], onDelete: Cascade)
+  role      String      @default("member") @db.VarChar(20)
+  joined_at DateTime    @default(now()) @db.Timestamp(6)
+  is_muted  Boolean     @default(false)
+  group     group_chats @relation(fields: [group_id], references: [id], onDelete: Cascade)
+  user      users       @relation("GroupMembership", fields: [user_id], references: [id], onDelete: Cascade)
 
   @@unique([group_id, user_id])
   @@index([group_id], map: "idx_group_members_group_id")
@@ -67,22 +64,21 @@ model group_members {
 }
 
 model chat_messages {
-  id           Int      @id @default(autoincrement())
+  id           Int                 @id @default(autoincrement())
   group_id     Int
   user_id      Int?
-  message_text String   @db.Text
-  message_type String   @default("text") @db.VarChar(20) // 'text', 'image', 'file', 'system'
+  message_text String
+  message_type String              @default("text") @db.VarChar(20)
   reply_to     Int?
-  is_edited    Boolean  @default(false)
-  is_deleted   Boolean  @default(false)
-  created_at   DateTime @default(now()) @db.Timestamp(6)
-  updated_at   DateTime @default(now()) @updatedAt @db.Timestamp(6)
-
-  group     group_chats         @relation(fields: [group_id], references: [id], onDelete: Cascade)
-  user      users?              @relation("ChatMessageUser", fields: [user_id], references: [id], onDelete: SetNull)
-  reply_msg chat_messages?      @relation("MessageReply", fields: [reply_to], references: [id], onDelete: SetNull)
-  replies   chat_messages[]     @relation("MessageReply")
-  reactions message_reactions[]
+  is_edited    Boolean             @default(false)
+  is_deleted   Boolean             @default(false)
+  created_at   DateTime            @default(now()) @db.Timestamp(6)
+  updated_at   DateTime            @default(now()) @updatedAt @db.Timestamp(6)
+  group        group_chats         @relation(fields: [group_id], references: [id], onDelete: Cascade)
+  reply_msg    chat_messages?      @relation("MessageReply", fields: [reply_to], references: [id])
+  replies      chat_messages[]     @relation("MessageReply")
+  user         users?              @relation("ChatMessageUser", fields: [user_id], references: [id])
+  reactions    message_reactions[]
 
   @@index([group_id, created_at], map: "idx_chat_messages_group_created")
   @@index([user_id], map: "idx_chat_messages_user_id")
@@ -90,14 +86,13 @@ model chat_messages {
 }
 
 model message_reactions {
-  id         Int      @id @default(autoincrement())
+  id         Int           @id @default(autoincrement())
   message_id Int
   user_id    Int
-  reaction   String   @db.VarChar(50)
-  created_at DateTime @default(now()) @db.Timestamp(6)
-
-  message chat_messages @relation(fields: [message_id], references: [id], onDelete: Cascade)
-  user    users         @relation("MessageReaction", fields: [user_id], references: [id], onDelete: Cascade)
+  reaction   String        @db.VarChar(50)
+  created_at DateTime      @default(now()) @db.Timestamp(6)
+  message    chat_messages @relation(fields: [message_id], references: [id], onDelete: Cascade)
+  user       users         @relation("MessageReaction", fields: [user_id], references: [id], onDelete: Cascade)
 
   @@unique([message_id, user_id, reaction])
   @@index([message_id], map: "idx_message_reactions_message_id")
@@ -312,48 +307,44 @@ model users {
   chatbot_questions_reset_date                                                                 DateTime?                              @default(dbgenerated("CURRENT_DATE")) @db.Date
   QuizParticipants                                                                             QuizParticipants[]
   Quizzes                                                                                      Quizzes[]
+  created_astronomy_events                                                                     astronomy_events[]                     @relation("AstronomyEventCreator")
   blog_comments                                                                                blog_comments[]
   blog_likes                                                                                   blog_likes[]
   blog_views                                                                                   blog_views[]
   blogs                                                                                        blogs[]
+  chat_messages                                                                                chat_messages[]                        @relation("ChatMessageUser")
   chatbot_sessions                                                                             chatbot_sessions[]
   chatbot_usage                                                                                chatbot_usage[]
+  event_reminders                                                                              event_reminders[]                      @relation("UserEventReminders")
+  created_groups                                                                               group_chats[]                          @relation("GroupChatCreator")
+  group_memberships                                                                            group_members[]                        @relation("GroupMembership")
   guide_application                                                                            guide_application[]
   influencer_application                                                                       influencer_application[]
   media_uploads                                                                                media_uploads[]
   mentor_application                                                                           mentor_application[]
+  message_reactions                                                                            message_reactions[]                    @relation("MessageReaction")
   night_camp_registrations                                                                     night_camp_registrations[]
   night_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousers night_camp_volunteering_applications[] @relation("night_camp_volunteering_applications_reviewed_byTousers")
   night_camp_volunteering_applications_night_camp_volunteering_applications_user_idTousers     night_camp_volunteering_applications[] @relation("night_camp_volunteering_applications_user_idTousers")
   payments                                                                                     payments[]
   role_upgrade_requests_role_upgrade_requests_reviewer_idTousers                               role_upgrade_requests[]                @relation("role_upgrade_requests_reviewer_idTousers")
   role_upgrade_requests_role_upgrade_requests_user_idTousers                                   role_upgrade_requests[]                @relation("role_upgrade_requests_user_idTousers")
+  discussion_comment_likes                                                                     space_discussion_comment_likes[]       @relation("DiscussionCommentLikes")
+  discussion_comments                                                                          space_discussion_comments[]            @relation("DiscussionComments")
+  discussion_likes                                                                             space_discussion_likes[]               @relation("DiscussionLikes")
+  authored_discussions                                                                         space_discussions[]                    @relation("DiscussionAuthor")
   space_news_published                                                                         space_news[]                           @relation("SpaceNewsPublisher")
-  space_news_likes                                                                             space_news_likes[]                     @relation("SpaceNewsLikes")
   space_news_comments                                                                          space_news_comments[]                  @relation("SpaceNewsComments")
-
-  // Discussion relations
-  authored_discussions     space_discussions[]              @relation("DiscussionAuthor")
-  discussion_comments      space_discussion_comments[]      @relation("DiscussionComments")
-  discussion_likes         space_discussion_likes[]         @relation("DiscussionLikes")
-  discussion_comment_likes space_discussion_comment_likes[] @relation("DiscussionCommentLikes")
-
-  subscriptions subscriptions[]
-  user_settings user_settings?
-
-  // Chat relations
-  created_groups    group_chats[]       @relation("GroupChatCreator")
-  group_memberships group_members[]     @relation("GroupMembership")
-  chat_messages     chat_messages[]     @relation("ChatMessageUser")
-  message_reactions message_reactions[] @relation("MessageReaction")
-
-  // Astronomy Events relations
-  created_astronomy_events astronomy_events[] @relation("AstronomyEventCreator")
-  event_reminders          event_reminders[]  @relation("UserEventReminders")
-
-  // Stargazing Spots relations
-  created_stargazing_spots stargazing_spots[]        @relation("StargazingSpotCreator")
-  stargazing_spot_reviews  stargazing_spot_reviews[] @relation("StargazingSpotReviews")
+  space_news_likes                                                                             space_news_likes[]                     @relation("SpaceNewsLikes")
+  stargazing_spot_reviews                                                                      stargazing_spot_reviews[]              @relation("StargazingSpotReviews")
+  created_stargazing_spots                                                                     stargazing_spots[]                     @relation("StargazingSpotCreator")
+  created_sessions                                                                             sessions[]                             @relation("SessionCreator")
+  session_enrollments                                                                          session_enrollments[]                  @relation("UserSessionEnrollments")
+  subscriptions                                                                                subscriptions[]
+  user_settings                                                                                user_settings?
+  created_polls                                                                                polls[]                                @relation("PollCreator")
+  poll_votes                                                                                   poll_votes[]                           @relation("PollVoter")
+  poll_comments                                                                                poll_comments[]                        @relation("PollCommenter")
 
   @@index([is_active], map: "idx_users_active")
   @@index([email], map: "idx_users_email")
@@ -634,11 +625,10 @@ model media_uploads {
   @@index([user_id], map: "idx_media_uploads_user_id")
 }
 
-// Tour media table storing tour details and an array of media ids (denormalized linking to media_uploads.id)
 model tour_media {
   tour_id     Int       @id @default(autoincrement())
   tour_name   String    @db.VarChar(255)
-  description String?   @db.Text
+  description String?
   location    String?   @db.VarChar(255)
   tags        String?   @db.VarChar(255)
   media_ids   Int[]     @default([])
@@ -664,12 +654,9 @@ model events {
   max_participants        Int?
   event_status            String    @db.VarChar(50)
   created_at              DateTime? @default(now()) @db.Timestamp(6)
-  // Moderation fields
   status                  String?   @default("pending") @db.VarChar(50)
   created_by              Int?
   moderated_by            Int?
-
-  // (Relations to users removed for now to simplify; created_by and moderated_by kept as scalar FKs without Prisma relation mapping)
 
   @@index([visibility], map: "idx_events_visibility")
   @@index([event_status], map: "idx_events_status")
@@ -721,21 +708,20 @@ model Quizzes {
 }
 
 model space_news {
-  id                 Int       @id @default(autoincrement())
-  image_urls         Json?     @default("[]")
-  publish_date       DateTime  @db.Timestamp(6)
-  title              String    @db.VarChar(255)
-  number_of_likes    Int       @default(0)
-  number_of_comments Int       @default(0)
-  content            String    @db.Text
-  published_by       Int
-  category           String    @db.VarChar(100)
-  created_at         DateTime  @default(now()) @db.Timestamp(6)
-  last_read_time     DateTime? @db.Timestamp(6)
-
+  id                  Int                   @id @default(autoincrement())
+  image_urls          Json?                 @default("[]")
+  publish_date        DateTime              @db.Timestamp(6)
+  title               String                @db.VarChar(255)
+  number_of_likes     Int                   @default(0)
+  number_of_comments  Int                   @default(0)
+  content             String
+  published_by        Int
+  category            String                @db.VarChar(100)
+  created_at          DateTime              @default(now()) @db.Timestamp(6)
+  last_read_time      DateTime?             @db.Timestamp(6)
   publisher           users                 @relation("SpaceNewsPublisher", fields: [published_by], references: [id], onDelete: Cascade)
-  space_news_likes    space_news_likes[]
   space_news_comments space_news_comments[]
+  space_news_likes    space_news_likes[]
 
   @@index([published_by], map: "idx_space_news_published_by")
   @@index([publish_date], map: "idx_space_news_publish_date")
@@ -744,13 +730,12 @@ model space_news {
 }
 
 model space_news_likes {
-  id            Int      @id @default(autoincrement())
+  id            Int        @id @default(autoincrement())
   space_news_id Int
   user_id       Int
-  created_at    DateTime @default(now()) @db.Timestamp(6)
-
-  space_news space_news @relation(fields: [space_news_id], references: [id], onDelete: Cascade)
-  user       users      @relation("SpaceNewsLikes", fields: [user_id], references: [id], onDelete: Cascade)
+  created_at    DateTime   @default(now()) @db.Timestamp(6)
+  space_news    space_news @relation(fields: [space_news_id], references: [id], onDelete: Cascade)
+  user          users      @relation("SpaceNewsLikes", fields: [user_id], references: [id], onDelete: Cascade)
 
   @@unique([space_news_id, user_id])
   @@index([space_news_id], map: "idx_space_news_likes_news_id")
@@ -758,43 +743,40 @@ model space_news_likes {
 }
 
 model space_news_comments {
-  id                Int      @id @default(autoincrement())
+  id                Int                   @id @default(autoincrement())
   space_news_id     Int
   user_id           Int
   parent_comment_id Int?
-  content           String   @db.Text
-  is_edited         Boolean  @default(false)
-  created_at        DateTime @default(now()) @db.Timestamp(6)
-  updated_at        DateTime @default(now()) @updatedAt @db.Timestamp(6)
-
-  space_news     space_news            @relation(fields: [space_news_id], references: [id], onDelete: Cascade)
-  user           users                 @relation("SpaceNewsComments", fields: [user_id], references: [id], onDelete: Cascade)
-  parent_comment space_news_comments?  @relation("SpaceNewsCommentReplies", fields: [parent_comment_id], references: [id], onDelete: Cascade)
-  replies        space_news_comments[] @relation("SpaceNewsCommentReplies")
+  content           String
+  is_edited         Boolean               @default(false)
+  created_at        DateTime              @default(now()) @db.Timestamp(6)
+  updated_at        DateTime              @default(now()) @updatedAt @db.Timestamp(6)
+  parent_comment    space_news_comments?  @relation("SpaceNewsCommentReplies", fields: [parent_comment_id], references: [id], onDelete: Cascade)
+  replies           space_news_comments[] @relation("SpaceNewsCommentReplies")
+  space_news        space_news            @relation(fields: [space_news_id], references: [id], onDelete: Cascade)
+  user              users                 @relation("SpaceNewsComments", fields: [user_id], references: [id], onDelete: Cascade)
 
   @@index([space_news_id], map: "idx_space_news_comments_news_id")
   @@index([user_id], map: "idx_space_news_comments_user_id")
   @@index([parent_comment_id], map: "idx_space_news_comments_parent_id")
 }
 
-// Space Discussion Models
 model space_discussions {
-  id            Int      @id @default(autoincrement())
-  title         String   @db.VarChar(255)
-  content       String   @db.Text
+  id            Int                         @id @default(autoincrement())
+  title         String                      @db.VarChar(255)
+  content       String
   author_id     Int
-  category      String   @db.VarChar(100)
-  is_sticky     Boolean  @default(false)
-  is_closed     Boolean  @default(false)
-  views_count   Int      @default(0)
-  replies_count Int      @default(0)
-  last_activity DateTime @default(now()) @db.Timestamp(6)
-  created_at    DateTime @default(now()) @db.Timestamp(6)
-  updated_at    DateTime @default(now()) @updatedAt @db.Timestamp(6)
-
-  author   users                       @relation("DiscussionAuthor", fields: [author_id], references: [id], onDelete: Cascade)
-  comments space_discussion_comments[]
-  likes    space_discussion_likes[]
+  category      String                      @db.VarChar(100)
+  is_sticky     Boolean                     @default(false)
+  is_closed     Boolean                     @default(false)
+  views_count   Int                         @default(0)
+  replies_count Int                         @default(0)
+  last_activity DateTime                    @default(now()) @db.Timestamp(6)
+  created_at    DateTime                    @default(now()) @db.Timestamp(6)
+  updated_at    DateTime                    @default(now()) @updatedAt @db.Timestamp(6)
+  comments      space_discussion_comments[]
+  likes         space_discussion_likes[]
+  author        users                       @relation("DiscussionAuthor", fields: [author_id], references: [id], onDelete: Cascade)
 
   @@index([author_id], map: "idx_space_discussions_author_id")
   @@index([category], map: "idx_space_discussions_category")
@@ -804,20 +786,19 @@ model space_discussions {
 }
 
 model space_discussion_comments {
-  id            Int      @id @default(autoincrement())
+  id            Int                              @id @default(autoincrement())
   discussion_id Int
   user_id       Int
   parent_id     Int?
-  content       String   @db.Text
-  is_edited     Boolean  @default(false)
-  created_at    DateTime @default(now()) @db.Timestamp(6)
-  updated_at    DateTime @default(now()) @updatedAt @db.Timestamp(6)
-
-  discussion space_discussions                @relation(fields: [discussion_id], references: [id], onDelete: Cascade)
-  user       users                            @relation("DiscussionComments", fields: [user_id], references: [id], onDelete: Cascade)
-  parent     space_discussion_comments?       @relation("CommentReplies", fields: [parent_id], references: [id], onDelete: Cascade)
-  replies    space_discussion_comments[]      @relation("CommentReplies")
-  likes      space_discussion_comment_likes[]
+  content       String
+  is_edited     Boolean                          @default(false)
+  created_at    DateTime                         @default(now()) @db.Timestamp(6)
+  updated_at    DateTime                         @default(now()) @updatedAt @db.Timestamp(6)
+  likes         space_discussion_comment_likes[]
+  discussion    space_discussions                @relation(fields: [discussion_id], references: [id], onDelete: Cascade)
+  parent        space_discussion_comments?       @relation("CommentReplies", fields: [parent_id], references: [id], onDelete: Cascade)
+  replies       space_discussion_comments[]      @relation("CommentReplies")
+  user          users                            @relation("DiscussionComments", fields: [user_id], references: [id], onDelete: Cascade)
 
   @@index([discussion_id], map: "idx_space_discussion_comments_discussion_id")
   @@index([user_id], map: "idx_space_discussion_comments_user_id")
@@ -826,13 +807,12 @@ model space_discussion_comments {
 }
 
 model space_discussion_likes {
-  id            Int      @id @default(autoincrement())
+  id            Int               @id @default(autoincrement())
   discussion_id Int
   user_id       Int
-  created_at    DateTime @default(now()) @db.Timestamp(6)
-
-  discussion space_discussions @relation(fields: [discussion_id], references: [id], onDelete: Cascade)
-  user       users             @relation("DiscussionLikes", fields: [user_id], references: [id], onDelete: Cascade)
+  created_at    DateTime          @default(now()) @db.Timestamp(6)
+  discussion    space_discussions @relation(fields: [discussion_id], references: [id], onDelete: Cascade)
+  user          users             @relation("DiscussionLikes", fields: [user_id], references: [id], onDelete: Cascade)
 
   @@unique([discussion_id, user_id])
   @@index([discussion_id], map: "idx_space_discussion_likes_discussion_id")
@@ -840,17 +820,155 @@ model space_discussion_likes {
 }
 
 model space_discussion_comment_likes {
-  id         Int      @id @default(autoincrement())
+  id         Int                       @id @default(autoincrement())
   comment_id Int
   user_id    Int
-  created_at DateTime @default(now()) @db.Timestamp(6)
-
-  comment space_discussion_comments @relation(fields: [comment_id], references: [id], onDelete: Cascade)
-  user    users                     @relation("DiscussionCommentLikes", fields: [user_id], references: [id], onDelete: Cascade)
+  created_at DateTime                  @default(now()) @db.Timestamp(6)
+  comment    space_discussion_comments @relation(fields: [comment_id], references: [id], onDelete: Cascade)
+  user       users                     @relation("DiscussionCommentLikes", fields: [user_id], references: [id], onDelete: Cascade)
 
   @@unique([comment_id, user_id])
   @@index([comment_id], map: "idx_space_discussion_comment_likes_comment_id")
   @@index([user_id], map: "idx_space_discussion_comment_likes_user_id")
+}
+
+model astronomy_events {
+  id          Int               @id @default(autoincrement())
+  name        String            @db.VarChar(255)
+  description String
+  visibility  String            @db.VarChar(100)
+  best_time   String            @db.VarChar(100)
+  image_url   String?           @db.VarChar(500)
+  event_date  DateTime          @db.Timestamp(6)
+  end_date    DateTime?         @db.Timestamp(6)
+  duration    String            @db.VarChar(100)
+  event_type  String            @db.VarChar(100)
+  is_active   Boolean           @default(true)
+  created_by  Int
+  created_at  DateTime          @default(now()) @db.Timestamp(6)
+  updated_at  DateTime          @default(now()) @updatedAt @db.Timestamp(6)
+  creator     users             @relation("AstronomyEventCreator", fields: [created_by], references: [id], onDelete: Cascade)
+  reminders   event_reminders[]
+
+  @@index([event_date], map: "idx_astronomy_events_date")
+  @@index([event_type], map: "idx_astronomy_events_type")
+  @@index([is_active], map: "idx_astronomy_events_active")
+  @@index([created_by], map: "idx_astronomy_events_created_by")
+}
+
+model event_reminders {
+  id                Int              @id @default(autoincrement())
+  user_id           Int
+  event_id          Int
+  reminder_time     DateTime         @db.Timestamp(6)
+  is_sent           Boolean          @default(false)
+  notification_type String           @default("email") @db.VarChar(50)
+  created_at        DateTime         @default(now()) @db.Timestamp(6)
+  updated_at        DateTime         @default(now()) @updatedAt @db.Timestamp(6)
+  event             astronomy_events @relation(fields: [event_id], references: [id], onDelete: Cascade)
+  user              users            @relation("UserEventReminders", fields: [user_id], references: [id], onDelete: Cascade)
+
+  @@unique([user_id, event_id], map: "unique_user_event_reminder")
+  @@index([reminder_time], map: "idx_event_reminders_time")
+  @@index([is_sent], map: "idx_event_reminders_sent")
+}
+
+model stargazing_spots {
+  id          Int                       @id @default(autoincrement())
+  name        String                    @db.VarChar(255)
+  location    String                    @db.VarChar(255)
+  image_url   String?                   @db.VarChar(500)
+  rating      Float                     @default(0)
+  best_time   String?                   @db.VarChar(100)
+  description String
+  facilities  Json                      @default("[]")
+  created_by  Int
+  is_active   Boolean                   @default(true)
+  created_at  DateTime                  @default(now()) @db.Timestamp(6)
+  updated_at  DateTime                  @default(now()) @updatedAt @db.Timestamp(6)
+  reviews     stargazing_spot_reviews[]
+  creator     users                     @relation("StargazingSpotCreator", fields: [created_by], references: [id], onDelete: Cascade)
+
+  @@index([location], map: "idx_stargazing_spots_location")
+  @@index([rating], map: "idx_stargazing_spots_rating")
+  @@index([created_by], map: "idx_stargazing_spots_created_by")
+  @@index([is_active], map: "idx_stargazing_spots_active")
+}
+
+model stargazing_spot_reviews {
+  id                 Int              @id @default(autoincrement())
+  stargazing_spot_id Int
+  user_id            Int
+  rating             Int              @db.SmallInt
+  review_text        String
+  created_at         DateTime         @default(now()) @db.Timestamp(6)
+  updated_at         DateTime         @default(now()) @updatedAt @db.Timestamp(6)
+  stargazing_spot    stargazing_spots @relation(fields: [stargazing_spot_id], references: [id], onDelete: Cascade)
+  user               users            @relation("StargazingSpotReviews", fields: [user_id], references: [id], onDelete: Cascade)
+
+  @@unique([stargazing_spot_id, user_id], map: "unique_user_review_per_spot")
+  @@index([stargazing_spot_id], map: "idx_stargazing_reviews_spot_id")
+  @@index([user_id], map: "idx_stargazing_reviews_user_id")
+  @@index([rating], map: "idx_stargazing_reviews_rating")
+}
+
+model sessions {
+  id               Int                   @id @default(autoincrement())
+  title            String                @db.VarChar(255)
+  session_type     session_type
+  payment_type     payment_type
+  price            Decimal?              @db.Decimal(10, 2)
+  duration         Int
+  session_date     DateTime              @db.Date
+  session_time     DateTime              @db.Time(6)
+  max_participants Int?
+  difficulty_level difficulty_level
+  session_link     String?               @db.VarChar(500)
+  description      String
+  materials        Json?                 @default("[]")
+  session_notes    String?
+  created_by       Int
+  created_date     DateTime              @default(now()) @db.Date
+  created_time     DateTime              @default(now()) @db.Time(6)
+  is_enabled       Boolean               @default(true)
+  created_at       DateTime              @default(now()) @db.Timestamp(6)
+  updated_at       DateTime              @default(now()) @updatedAt @db.Timestamp(6)
+  creator          users                 @relation("SessionCreator", fields: [created_by], references: [id], onDelete: Cascade)
+  enrollments      session_enrollments[]
+
+  @@index([session_type], map: "idx_sessions_type")
+  @@index([payment_type], map: "idx_sessions_payment_type")
+  @@index([session_date], map: "idx_sessions_date")
+  @@index([difficulty_level], map: "idx_sessions_difficulty")
+  @@index([created_by], map: "idx_sessions_created_by")
+  @@index([is_enabled], map: "idx_sessions_enabled")
+}
+
+model session_enrollments {
+  id               Int                       @id @default(autoincrement())
+  user_id          Int
+  session_id       Int
+  enrollment_date  DateTime                  @default(now()) @db.Timestamp(6)
+  payment_status   enrollment_payment_status @default(pending)
+  payment_amount   Decimal?                  @db.Decimal(10, 2)
+  payment_method   String?                   @db.VarChar(50)
+  transaction_id   String?                   @db.VarChar(255)
+  access_granted   Boolean                   @default(false)
+  completed        Boolean                   @default(false)
+  progress         Int?                      @default(0)
+  last_accessed_at DateTime?                 @db.Timestamp(6)
+  notes            String?
+  created_at       DateTime                  @default(now()) @db.Timestamp(6)
+  updated_at       DateTime                  @default(now()) @updatedAt @db.Timestamp(6)
+  user             users                     @relation("UserSessionEnrollments", fields: [user_id], references: [id], onDelete: Cascade)
+  session          sessions                  @relation(fields: [session_id], references: [id], onDelete: Cascade)
+
+  @@unique([user_id, session_id], map: "unique_user_session_enrollment")
+  @@index([user_id], map: "idx_session_enrollments_user_id")
+  @@index([session_id], map: "idx_session_enrollments_session_id")
+  @@index([payment_status], map: "idx_session_enrollments_payment_status")
+  @@index([enrollment_date], map: "idx_session_enrollments_date")
+  @@index([access_granted], map: "idx_session_enrollments_access")
 }
 
 enum application_status {
@@ -910,52 +1028,6 @@ enum subscription_status {
   pending
 }
 
-// Astronomy Events Models
-model astronomy_events {
-  id          Int       @id @default(autoincrement())
-  name        String    @db.VarChar(255)
-  description String    @db.Text
-  visibility  String    @db.VarChar(100) // "Northern Hemisphere", "Southern Hemisphere", "Worldwide", etc.
-  best_time   String    @db.VarChar(100) // "2:00 AM - 5:00 AM"
-  image_url   String?   @db.VarChar(500)
-  event_date  DateTime  @db.Timestamp(6) // For single date events
-  end_date    DateTime? @db.Timestamp(6) // For events with duration
-  duration    String    @db.VarChar(100) // "5 weeks", "4 hours", "1 night"
-  event_type  String    @db.VarChar(100) // "Meteor Shower", "Eclipse", "Opposition", etc.
-  is_active   Boolean   @default(true)
-  created_by  Int // ID of moderator who created the event
-  created_at  DateTime  @default(now()) @db.Timestamp(6)
-  updated_at  DateTime  @default(now()) @updatedAt @db.Timestamp(6)
-
-  // Relations
-  creator   users             @relation("AstronomyEventCreator", fields: [created_by], references: [id], onDelete: Cascade)
-  reminders event_reminders[]
-
-  @@index([event_date], map: "idx_astronomy_events_date")
-  @@index([event_type], map: "idx_astronomy_events_type")
-  @@index([is_active], map: "idx_astronomy_events_active")
-  @@index([created_by], map: "idx_astronomy_events_created_by")
-}
-
-model event_reminders {
-  id                Int      @id @default(autoincrement())
-  user_id           Int
-  event_id          Int
-  reminder_time     DateTime @db.Timestamp(6) // When to send the reminder
-  is_sent           Boolean  @default(false)
-  notification_type String   @default("email") @db.VarChar(50) // "email", "push", "both"
-  created_at        DateTime @default(now()) @db.Timestamp(6)
-  updated_at        DateTime @default(now()) @updatedAt @db.Timestamp(6)
-
-  // Relations
-  user  users            @relation("UserEventReminders", fields: [user_id], references: [id], onDelete: Cascade)
-  event astronomy_events @relation(fields: [event_id], references: [id], onDelete: Cascade)
-
-  @@unique([user_id, event_id], map: "unique_user_event_reminder")
-  @@index([reminder_time], map: "idx_event_reminders_time")
-  @@index([is_sent], map: "idx_event_reminders_sent")
-}
-
 enum user_role {
   admin
   moderator
@@ -977,44 +1049,93 @@ enum quiz_difficulty_level {
   Hard
 }
 
-// StargazingSpot Models
-model stargazing_spots {
-  id          Int      @id @default(autoincrement())
-  name        String   @db.VarChar(255)
-  location    String   @db.VarChar(255)
-  image_url   String?  @db.VarChar(500)
-  rating      Float    @default(0)
-  best_time   String?  @db.VarChar(100)
-  description String   @db.Text
-  facilities  Json     @default("[]") // Array of facility strings
-  created_by  Int
-  is_active   Boolean  @default(true)
-  created_at  DateTime @default(now()) @db.Timestamp(6)
-  updated_at  DateTime @default(now()) @updatedAt @db.Timestamp(6)
-
-  creator users                     @relation("StargazingSpotCreator", fields: [created_by], references: [id], onDelete: Cascade)
-  reviews stargazing_spot_reviews[]
-
-  @@index([location], map: "idx_stargazing_spots_location")
-  @@index([rating], map: "idx_stargazing_spots_rating")
-  @@index([created_by], map: "idx_stargazing_spots_created_by")
-  @@index([is_active], map: "idx_stargazing_spots_active")
+enum session_type {
+  live
+  recorded
 }
 
-model stargazing_spot_reviews {
-  id                 Int      @id @default(autoincrement())
-  stargazing_spot_id Int
-  user_id            Int
-  rating             Int      @db.SmallInt // 1-5 rating
-  review_text        String   @db.Text
-  created_at         DateTime @default(now()) @db.Timestamp(6)
-  updated_at         DateTime @default(now()) @updatedAt @db.Timestamp(6)
+enum payment_type {
+  paid
+  free
+}
 
-  stargazing_spot stargazing_spots @relation(fields: [stargazing_spot_id], references: [id], onDelete: Cascade)
-  user            users            @relation("StargazingSpotReviews", fields: [user_id], references: [id], onDelete: Cascade)
+enum difficulty_level {
+  beginner
+  intermediate
+  advanced
+}
 
-  @@unique([stargazing_spot_id, user_id], map: "unique_user_review_per_spot")
-  @@index([stargazing_spot_id], map: "idx_stargazing_reviews_spot_id")
-  @@index([user_id], map: "idx_stargazing_reviews_user_id")
-  @@index([rating], map: "idx_stargazing_reviews_rating")
+// Poll models
+model polls {
+  id          Int             @id @default(autoincrement())
+  title       String          @db.VarChar(255)
+  description String?
+  created_by  Int
+  created_at  DateTime        @default(now()) @db.Timestamp(6)
+  updated_at  DateTime        @default(now()) @updatedAt @db.Timestamp(6)
+  is_active   Boolean         @default(true)
+  creator     users           @relation("PollCreator", fields: [created_by], references: [id], onDelete: Cascade)
+  choices     poll_choices[]
+  comments    poll_comments[]
+
+  @@index([created_by], map: "idx_polls_created_by")
+  @@index([created_at], map: "idx_polls_created_at")
+  @@index([is_active], map: "idx_polls_is_active")
+}
+
+model poll_choices {
+  id         Int          @id @default(autoincrement())
+  poll_id    Int
+  choice     String       @db.VarChar(255)
+  vote_count Int          @default(0)
+  created_at DateTime     @default(now()) @db.Timestamp(6)
+  poll       polls        @relation(fields: [poll_id], references: [id], onDelete: Cascade)
+  votes      poll_votes[]
+
+  @@unique([poll_id, choice], map: "unique_poll_choice")
+  @@index([poll_id], map: "idx_poll_choices_poll_id")
+}
+
+model poll_votes {
+  id        Int          @id @default(autoincrement())
+  poll_id   Int
+  choice_id Int
+  user_id   Int
+  voted_at  DateTime     @default(now()) @db.Timestamp(6)
+  choice    poll_choices @relation(fields: [choice_id], references: [id], onDelete: Cascade)
+  voter     users        @relation("PollVoter", fields: [user_id], references: [id], onDelete: Cascade)
+
+  @@unique([poll_id, user_id], map: "unique_user_vote_per_poll")
+  @@index([poll_id], map: "idx_poll_votes_poll_id")
+  @@index([user_id], map: "idx_poll_votes_user_id")
+  @@index([choice_id], map: "idx_poll_votes_choice_id")
+}
+
+model poll_comments {
+  id         Int      @id @default(autoincrement())
+  poll_id    Int
+  user_id    Int
+  comment    String
+  created_at DateTime @default(now()) @db.Timestamp(6)
+  updated_at DateTime @default(now()) @updatedAt @db.Timestamp(6)
+  poll       polls    @relation(fields: [poll_id], references: [id], onDelete: Cascade)
+  commenter  users    @relation("PollCommenter", fields: [user_id], references: [id], onDelete: Cascade)
+
+  @@index([poll_id], map: "idx_poll_comments_poll_id")
+  @@index([user_id], map: "idx_poll_comments_user_id")
+  @@index([created_at], map: "idx_poll_comments_created_at")
+}
+
+enum poll_choice_type {
+  yes
+  maybe
+  no
+}
+
+enum enrollment_payment_status {
+  pending
+  completed
+  failed
+  refunded
+  free_access
 }

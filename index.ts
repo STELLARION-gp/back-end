@@ -6,15 +6,16 @@ import paymentRoutes from "./routes/payment.routes";
 import blogRoutes from "./routes/blog.routes";
 import nightcampRoutes from "./routes/nightcamp.routes";
 import nasaOpportunitiesRoutes from "./routes/nasaOpportunities.routes";
-import uploadRoutes from "./routes/upload.routes";
-import mediaUploadRoutes from "./routes/mediaUpload.routes";
-import chatRoutes from "./routes/chat.routes";
-import tourMediaRoutes from "./routes/tourMedia.routes";
-import eventRoutes from "./routes/event.routes";
-import spaceDiscussionRoutes from "./routes/spaceDiscussion.routes";
-import astronomyEventsRoutes from "./routes/astronomyEvents.routes";
-import stargazingSpotRoutes from "./routes/stargazingSpot.routes";
-import notificationRoutes from "./routes/notification.routes";
+import uploadRoutes from './routes/upload.routes';
+import mediaUploadRoutes from './routes/mediaUpload.routes';
+import chatRoutes from './routes/chat.routes';
+import tourMediaRoutes from './routes/tourMedia.routes';
+import eventRoutes from './routes/event.routes';
+import spaceDiscussionRoutes from './routes/spaceDiscussion.routes';
+import astronomyEventsRoutes from './routes/astronomyEvents.routes';
+import stargazingSpotRoutes from './routes/stargazingSpot.routes';
+import sessionsRoutes from './routes/sessions.routes';
+import pollRoutes from './routes/poll.routes';
 
 // index.ts
 import express from "express";
@@ -109,6 +110,12 @@ app.use("/api/astronomy-events", astronomyEventsRoutes);
 
 // Stargazing Spots API
 app.use("/api/stargazing-spots", stargazingSpotRoutes);
+
+// Sessions API
+app.use('/api/sessions', sessionsRoutes);
+
+// Poll API
+app.use('/api/polls', pollRoutes);
 
 // Universal Upload API
 app.use("/api/upload", uploadRoutes);
