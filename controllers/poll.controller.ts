@@ -215,19 +215,76 @@ export const voteOnPoll = async (req: Request, res: Response): Promise<void> => 
       }
     });
 
+    // If user already voted, update their vote (change vote)
     if (existingVote) {
-      res.status(400).json({
-        success: false,
-        message: "You have already voted on this poll",
-        data: {
-          previous_vote: existingVote.choice.choice,
-          voted_at: existingVote.voted_at
-        }
+      // Check if voting for the same choice
+      if (existingVote.choice.choice === choice.trim()) {
+        res.status(200).json({
+          success: true,
+          message: "You have already voted for this option",
+          data: {
+            previous_vote: existingVote.choice.choice,
+            voted_at: existingVote.voted_at
+          }
+        });
+        return;
+      }
+
+      // Change vote: decrement old choice, increment new choice, update vote record
+      const result = await prisma.$transaction(async (tx) => {
+        // Decrement the old choice vote count
+        await tx.poll_choices.update({
+          where: { id: existingVote.choice_id },
+          data: {
+            vote_count: {
+              decrement: 1
+            }
+          }
+        });
+
+        // Increment the new choice vote count
+        await tx.poll_choices.update({
+          where: { id: selectedChoice.id },
+          data: {
+            vote_count: {
+              increment: 1
+            }
+          }
+        });
+
+        // Update the vote record
+        const updatedVote = await tx.poll_votes.update({
+          where: { id: existingVote.id },
+          data: {
+            choice_id: selectedChoice.id,
+            voted_at: new Date()
+          },
+          include: {
+            choice: true,
+            voter: {
+              select: {
+                id: true,
+                display_name: true,
+                first_name: true,
+                last_name: true
+              }
+            }
+          }
+        });
+
+        return updatedVote;
+      });
+
+      res.status(200).json({
+        success: true,
+        data: result,
+        message: "Vote changed successfully",
+        previous_vote: existingVote.choice.choice
       });
       return;
     }
 
-    // Create vote and increment vote count in a transaction
+    // Create new vote and increment vote count in a transaction
     const result = await prisma.$transaction(async (tx) => {
       // Create the vote
       const vote = await tx.poll_votes.create({
