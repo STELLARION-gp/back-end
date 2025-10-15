@@ -469,3 +469,118 @@ export interface NightCampWithDetails extends NightCamp {
     equipment: NightCampEquipment[];
     volunteering: NightCampVolunteering[];
 }
+
+// Session types
+export type SessionType = 'live' | 'recorded';
+export type PaymentType = 'paid' | 'free';
+export type DifficultyLevel = 'beginner' | 'intermediate' | 'advanced';
+
+export interface Session {
+    id: number;
+    title: string;
+    session_type: SessionType;
+    payment_type: PaymentType;
+    price?: number | null;
+    duration: number; // Duration in minutes
+    session_date: Date | string;
+    session_time: Date | string;
+    max_participants?: number | null;
+    difficulty_level: DifficultyLevel;
+    session_link?: string | null;
+    description: string;
+    materials?: string[] | any; // JSON array
+    session_notes?: string | null;
+    created_by: number;
+    created_date: Date | string;
+    created_time: Date | string;
+    is_enabled: boolean;
+    created_at: Date | string;
+    updated_at: Date | string;
+}
+
+export interface SessionWithCreator extends Session {
+    creator: {
+        id: number;
+        first_name?: string;
+        last_name?: string;
+        email: string;
+        display_name?: string;
+    };
+}
+
+export interface CreateSessionRequest {
+    title: string;
+    session_type: SessionType;
+    payment_type: PaymentType;
+    price?: number;
+    duration: number;
+    session_date: string; // ISO format: YYYY-MM-DD
+    session_time: string; // Format: HH:MM:SS
+    max_participants?: number;
+    difficulty_level: DifficultyLevel;
+    session_link?: string;
+    description: string;
+    materials?: string[];
+    session_notes?: string;
+}
+
+export interface UpdateSessionRequest {
+    title?: string;
+    session_type?: SessionType;
+    payment_type?: PaymentType;
+    price?: number;
+    duration?: number;
+    session_date?: string;
+    session_time?: string;
+    max_participants?: number;
+    difficulty_level?: DifficultyLevel;
+    session_link?: string;
+    description?: string;
+    materials?: string[];
+    session_notes?: string;
+}
+
+export interface ToggleSessionStatusRequest {
+    is_enabled?: boolean;
+}
+
+export interface SessionFilters {
+    page?: number;
+    limit?: number;
+    session_type?: SessionType;
+    payment_type?: PaymentType;
+    difficulty_level?: DifficultyLevel;
+    is_enabled?: boolean;
+    search?: string;
+    sort_by?: 'session_date' | 'created_at' | 'title' | 'duration' | 'price';
+    sort_order?: 'asc' | 'desc';
+}
+
+export interface SessionPaginationResponse {
+    success: boolean;
+    data: SessionWithCreator[];
+    pagination: {
+        total: number;
+        page: number;
+        limit: number;
+        totalPages: number;
+    };
+    message: string;
+}
+
+export interface SessionResponse {
+    success: boolean;
+    data: SessionWithCreator;
+    message: string;
+}
+
+export interface SessionDeleteResponse {
+    success: boolean;
+    message: string;
+}
+
+export interface SessionErrorResponse {
+    success: false;
+    message: string;
+    error?: string;
+}

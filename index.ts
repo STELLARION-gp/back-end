@@ -14,6 +14,7 @@ import eventRoutes from './routes/event.routes';
 import spaceDiscussionRoutes from './routes/spaceDiscussion.routes';
 import astronomyEventsRoutes from './routes/astronomyEvents.routes';
 import stargazingSpotRoutes from './routes/stargazingSpot.routes';
+import sessionsRoutes from './routes/sessions.routes';
 
 // index.ts
 import express from "express";
@@ -106,6 +107,9 @@ app.use('/api/astronomy-events', astronomyEventsRoutes);
 
 // Stargazing Spots API
 app.use('/api/stargazing-spots', stargazingSpotRoutes);
+
+// Sessions API
+app.use('/api/sessions', sessionsRoutes);
 
 // Universal Upload API
 app.use('/api/upload', uploadRoutes);
