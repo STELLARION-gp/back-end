@@ -9,6 +9,7 @@ import {
   getSubscriptionHistory,
 } from "../controllers/subscription.controller";
 import { verifyToken } from "../middleware/verifyToken";
+import { ensureSubscriptionLevel } from "../middleware/ensureSubscriptionLevel";
 
 const router = express.Router();
 
@@ -17,6 +18,9 @@ router.get("/plans", getSubscriptionPlans);
 
 // Apply authentication to all routes below
 router.use(verifyToken);
+
+// Apply subscription level check for authenticated users
+router.use(ensureSubscriptionLevel);
 
 router.get("/user/:user_id", getUserSubscription);
 router.put("/user/:user_id", updateUserSubscription);

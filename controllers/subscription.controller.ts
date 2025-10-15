@@ -267,6 +267,7 @@ export const getUserSubscription = async (req: Request, res: Response) => {
     const userSubscription = {
       subscription_plan: user.subscription_plan,
       subscription_status: user.subscription_status,
+      subscription_level: user.subscription_level,
       subscription_start_date: user.subscription_start_date,
       subscription_end_date: user.subscription_end_date,
       auto_renew: user.auto_renew,
