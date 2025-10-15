@@ -324,7 +324,6 @@ exports.Prisma.UsersScalarFieldEnum = {
   role_specific_data: 'role_specific_data',
   subscription_plan: 'subscription_plan',
   subscription_status: 'subscription_status',
-  subscription_level: 'subscription_level',
   subscription_start_date: 'subscription_start_date',
   subscription_end_date: 'subscription_end_date',
   auto_renew: 'auto_renew',

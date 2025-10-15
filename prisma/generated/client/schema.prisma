@@ -304,7 +304,6 @@ model users {
   role_specific_data                                                                           Json?                                  @default("{}")
   subscription_plan                                                                            subscription_plan?                     @default(starseeker)
   subscription_status                                                                          subscription_status?                   @default(active)
-  subscription_level                                                                           Int?                                   @default(1)
   subscription_start_date                                                                      DateTime?                              @default(now()) @db.Timestamp(6)
   subscription_end_date                                                                        DateTime?                              @db.Timestamp(6)
   auto_renew                                                                                   Boolean?                               @default(false)
