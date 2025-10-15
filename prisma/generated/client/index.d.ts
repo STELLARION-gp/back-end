@@ -65354,7 +65354,7 @@ export namespace Prisma {
   export type Poll_choicesMinAggregateOutputType = {
     id: number | null
     poll_id: number | null
-    choice: $Enums.poll_choice_type | null
+    choice: string | null
     vote_count: number | null
     created_at: Date | null
   }
@@ -65362,7 +65362,7 @@ export namespace Prisma {
   export type Poll_choicesMaxAggregateOutputType = {
     id: number | null
     poll_id: number | null
-    choice: $Enums.poll_choice_type | null
+    choice: string | null
     vote_count: number | null
     created_at: Date | null
   }
@@ -65503,7 +65503,7 @@ export namespace Prisma {
   export type Poll_choicesGroupByOutputType = {
     id: number
     poll_id: number
-    choice: $Enums.poll_choice_type
+    choice: string
     vote_count: number
     created_at: Date
     _count: Poll_choicesCountAggregateOutputType | null
@@ -65586,7 +65586,7 @@ export namespace Prisma {
     scalars: $Extensions.GetPayloadResult<{
       id: number
       poll_id: number
-      choice: $Enums.poll_choice_type
+      choice: string
       vote_count: number
       created_at: Date
     }, ExtArgs["result"]["poll_choices"]>
@@ -66016,7 +66016,7 @@ export namespace Prisma {
   interface poll_choicesFieldRefs {
     readonly id: FieldRef<"poll_choices", 'Int'>
     readonly poll_id: FieldRef<"poll_choices", 'Int'>
-    readonly choice: FieldRef<"poll_choices", 'poll_choice_type'>
+    readonly choice: FieldRef<"poll_choices", 'String'>
     readonly vote_count: FieldRef<"poll_choices", 'Int'>
     readonly created_at: FieldRef<"poll_choices", 'DateTime'>
   }
@@ -69844,20 +69844,6 @@ export namespace Prisma {
    * Reference to a field of type 'difficulty_level[]'
    */
   export type ListEnumdifficulty_levelFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'difficulty_level[]'>
-    
-
-
-  /**
-   * Reference to a field of type 'poll_choice_type'
-   */
-  export type Enumpoll_choice_typeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'poll_choice_type'>
-    
-
-
-  /**
-   * Reference to a field of type 'poll_choice_type[]'
-   */
-  export type ListEnumpoll_choice_typeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'poll_choice_type[]'>
     
   /**
    * Deep Input Types
@@ -74163,7 +74149,7 @@ export namespace Prisma {
     NOT?: poll_choicesWhereInput | poll_choicesWhereInput[]
     id?: IntFilter<"poll_choices"> | number
     poll_id?: IntFilter<"poll_choices"> | number
-    choice?: Enumpoll_choice_typeFilter<"poll_choices"> | $Enums.poll_choice_type
+    choice?: StringFilter<"poll_choices"> | string
     vote_count?: IntFilter<"poll_choices"> | number
     created_at?: DateTimeFilter<"poll_choices"> | Date | string
     poll?: XOR<PollsScalarRelationFilter, pollsWhereInput>
@@ -74187,7 +74173,7 @@ export namespace Prisma {
     OR?: poll_choicesWhereInput[]
     NOT?: poll_choicesWhereInput | poll_choicesWhereInput[]
     poll_id?: IntFilter<"poll_choices"> | number
-    choice?: Enumpoll_choice_typeFilter<"poll_choices"> | $Enums.poll_choice_type
+    choice?: StringFilter<"poll_choices"> | string
     vote_count?: IntFilter<"poll_choices"> | number
     created_at?: DateTimeFilter<"poll_choices"> | Date | string
     poll?: XOR<PollsScalarRelationFilter, pollsWhereInput>
@@ -74213,7 +74199,7 @@ export namespace Prisma {
     NOT?: poll_choicesScalarWhereWithAggregatesInput | poll_choicesScalarWhereWithAggregatesInput[]
     id?: IntWithAggregatesFilter<"poll_choices"> | number
     poll_id?: IntWithAggregatesFilter<"poll_choices"> | number
-    choice?: Enumpoll_choice_typeWithAggregatesFilter<"poll_choices"> | $Enums.poll_choice_type
+    choice?: StringWithAggregatesFilter<"poll_choices"> | string
     vote_count?: IntWithAggregatesFilter<"poll_choices"> | number
     created_at?: DateTimeWithAggregatesFilter<"poll_choices"> | Date | string
   }
@@ -78901,7 +78887,7 @@ export namespace Prisma {
   }
 
   export type poll_choicesCreateInput = {
-    choice: $Enums.poll_choice_type
+    choice: string
     vote_count?: number
     created_at?: Date | string
     poll: pollsCreateNestedOneWithoutChoicesInput
@@ -78911,14 +78897,14 @@ export namespace Prisma {
   export type poll_choicesUncheckedCreateInput = {
     id?: number
     poll_id: number
-    choice: $Enums.poll_choice_type
+    choice: string
     vote_count?: number
     created_at?: Date | string
     votes?: poll_votesUncheckedCreateNestedManyWithoutChoiceInput
   }
 
   export type poll_choicesUpdateInput = {
-    choice?: Enumpoll_choice_typeFieldUpdateOperationsInput | $Enums.poll_choice_type
+    choice?: StringFieldUpdateOperationsInput | string
     vote_count?: IntFieldUpdateOperationsInput | number
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     poll?: pollsUpdateOneRequiredWithoutChoicesNestedInput
@@ -78928,7 +78914,7 @@ export namespace Prisma {
   export type poll_choicesUncheckedUpdateInput = {
     id?: IntFieldUpdateOperationsInput | number
     poll_id?: IntFieldUpdateOperationsInput | number
-    choice?: Enumpoll_choice_typeFieldUpdateOperationsInput | $Enums.poll_choice_type
+    choice?: StringFieldUpdateOperationsInput | string
     vote_count?: IntFieldUpdateOperationsInput | number
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     votes?: poll_votesUncheckedUpdateManyWithoutChoiceNestedInput
@@ -78937,13 +78923,13 @@ export namespace Prisma {
   export type poll_choicesCreateManyInput = {
     id?: number
     poll_id: number
-    choice: $Enums.poll_choice_type
+    choice: string
     vote_count?: number
     created_at?: Date | string
   }
 
   export type poll_choicesUpdateManyMutationInput = {
-    choice?: Enumpoll_choice_typeFieldUpdateOperationsInput | $Enums.poll_choice_type
+    choice?: StringFieldUpdateOperationsInput | string
     vote_count?: IntFieldUpdateOperationsInput | number
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -78951,7 +78937,7 @@ export namespace Prisma {
   export type poll_choicesUncheckedUpdateManyInput = {
     id?: IntFieldUpdateOperationsInput | number
     poll_id?: IntFieldUpdateOperationsInput | number
-    choice?: Enumpoll_choice_typeFieldUpdateOperationsInput | $Enums.poll_choice_type
+    choice?: StringFieldUpdateOperationsInput | string
     vote_count?: IntFieldUpdateOperationsInput | number
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -82797,13 +82783,6 @@ export namespace Prisma {
     created_by?: SortOrder
   }
 
-  export type Enumpoll_choice_typeFilter<$PrismaModel = never> = {
-    equals?: $Enums.poll_choice_type | Enumpoll_choice_typeFieldRefInput<$PrismaModel>
-    in?: $Enums.poll_choice_type[] | ListEnumpoll_choice_typeFieldRefInput<$PrismaModel>
-    notIn?: $Enums.poll_choice_type[] | ListEnumpoll_choice_typeFieldRefInput<$PrismaModel>
-    not?: NestedEnumpoll_choice_typeFilter<$PrismaModel> | $Enums.poll_choice_type
-  }
-
   export type PollsScalarRelationFilter = {
     is?: pollsWhereInput
     isNot?: pollsWhereInput
@@ -82811,7 +82790,7 @@ export namespace Prisma {
 
   export type poll_choicesPoll_idChoiceCompoundUniqueInput = {
     poll_id: number
-    choice: $Enums.poll_choice_type
+    choice: string
   }
 
   export type poll_choicesCountOrderByAggregateInput = {
@@ -82848,16 +82827,6 @@ export namespace Prisma {
     id?: SortOrder
     poll_id?: SortOrder
     vote_count?: SortOrder
-  }
-
-  export type Enumpoll_choice_typeWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: $Enums.poll_choice_type | Enumpoll_choice_typeFieldRefInput<$PrismaModel>
-    in?: $Enums.poll_choice_type[] | ListEnumpoll_choice_typeFieldRefInput<$PrismaModel>
-    notIn?: $Enums.poll_choice_type[] | ListEnumpoll_choice_typeFieldRefInput<$PrismaModel>
-    not?: NestedEnumpoll_choice_typeWithAggregatesFilter<$PrismaModel> | $Enums.poll_choice_type
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedEnumpoll_choice_typeFilter<$PrismaModel>
-    _max?: NestedEnumpoll_choice_typeFilter<$PrismaModel>
   }
 
   export type Poll_choicesScalarRelationFilter = {
@@ -87094,10 +87063,6 @@ export namespace Prisma {
     connect?: poll_votesWhereUniqueInput | poll_votesWhereUniqueInput[]
   }
 
-  export type Enumpoll_choice_typeFieldUpdateOperationsInput = {
-    set?: $Enums.poll_choice_type
-  }
-
   export type pollsUpdateOneRequiredWithoutChoicesNestedInput = {
     create?: XOR<pollsCreateWithoutChoicesInput, pollsUncheckedCreateWithoutChoicesInput>
     connectOrCreate?: pollsCreateOrConnectWithoutChoicesInput
@@ -87806,23 +87771,6 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedEnumdifficulty_levelFilter<$PrismaModel>
     _max?: NestedEnumdifficulty_levelFilter<$PrismaModel>
-  }
-
-  export type NestedEnumpoll_choice_typeFilter<$PrismaModel = never> = {
-    equals?: $Enums.poll_choice_type | Enumpoll_choice_typeFieldRefInput<$PrismaModel>
-    in?: $Enums.poll_choice_type[] | ListEnumpoll_choice_typeFieldRefInput<$PrismaModel>
-    notIn?: $Enums.poll_choice_type[] | ListEnumpoll_choice_typeFieldRefInput<$PrismaModel>
-    not?: NestedEnumpoll_choice_typeFilter<$PrismaModel> | $Enums.poll_choice_type
-  }
-
-  export type NestedEnumpoll_choice_typeWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: $Enums.poll_choice_type | Enumpoll_choice_typeFieldRefInput<$PrismaModel>
-    in?: $Enums.poll_choice_type[] | ListEnumpoll_choice_typeFieldRefInput<$PrismaModel>
-    notIn?: $Enums.poll_choice_type[] | ListEnumpoll_choice_typeFieldRefInput<$PrismaModel>
-    not?: NestedEnumpoll_choice_typeWithAggregatesFilter<$PrismaModel> | $Enums.poll_choice_type
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedEnumpoll_choice_typeFilter<$PrismaModel>
-    _max?: NestedEnumpoll_choice_typeFilter<$PrismaModel>
   }
 
   export type paymentsCreateWithoutSubscriptionsInput = {
@@ -103699,7 +103647,7 @@ export namespace Prisma {
   }
 
   export type poll_choicesCreateWithoutPollInput = {
-    choice: $Enums.poll_choice_type
+    choice: string
     vote_count?: number
     created_at?: Date | string
     votes?: poll_votesCreateNestedManyWithoutChoiceInput
@@ -103707,7 +103655,7 @@ export namespace Prisma {
 
   export type poll_choicesUncheckedCreateWithoutPollInput = {
     id?: number
-    choice: $Enums.poll_choice_type
+    choice: string
     vote_count?: number
     created_at?: Date | string
     votes?: poll_votesUncheckedCreateNestedManyWithoutChoiceInput
@@ -103902,7 +103850,7 @@ export namespace Prisma {
     NOT?: poll_choicesScalarWhereInput | poll_choicesScalarWhereInput[]
     id?: IntFilter<"poll_choices"> | number
     poll_id?: IntFilter<"poll_choices"> | number
-    choice?: Enumpoll_choice_typeFilter<"poll_choices"> | $Enums.poll_choice_type
+    choice?: StringFilter<"poll_choices"> | string
     vote_count?: IntFilter<"poll_choices"> | number
     created_at?: DateTimeFilter<"poll_choices"> | Date | string
   }
@@ -104021,7 +103969,7 @@ export namespace Prisma {
   }
 
   export type poll_choicesCreateWithoutVotesInput = {
-    choice: $Enums.poll_choice_type
+    choice: string
     vote_count?: number
     created_at?: Date | string
     poll: pollsCreateNestedOneWithoutChoicesInput
@@ -104030,7 +103978,7 @@ export namespace Prisma {
   export type poll_choicesUncheckedCreateWithoutVotesInput = {
     id?: number
     poll_id: number
-    choice: $Enums.poll_choice_type
+    choice: string
     vote_count?: number
     created_at?: Date | string
   }
@@ -104178,7 +104126,7 @@ export namespace Prisma {
   }
 
   export type poll_choicesUpdateWithoutVotesInput = {
-    choice?: Enumpoll_choice_typeFieldUpdateOperationsInput | $Enums.poll_choice_type
+    choice?: StringFieldUpdateOperationsInput | string
     vote_count?: IntFieldUpdateOperationsInput | number
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     poll?: pollsUpdateOneRequiredWithoutChoicesNestedInput
@@ -104187,7 +104135,7 @@ export namespace Prisma {
   export type poll_choicesUncheckedUpdateWithoutVotesInput = {
     id?: IntFieldUpdateOperationsInput | number
     poll_id?: IntFieldUpdateOperationsInput | number
-    choice?: Enumpoll_choice_typeFieldUpdateOperationsInput | $Enums.poll_choice_type
+    choice?: StringFieldUpdateOperationsInput | string
     vote_count?: IntFieldUpdateOperationsInput | number
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -107666,7 +107614,7 @@ export namespace Prisma {
 
   export type poll_choicesCreateManyPollInput = {
     id?: number
-    choice: $Enums.poll_choice_type
+    choice: string
     vote_count?: number
     created_at?: Date | string
   }
@@ -107680,7 +107628,7 @@ export namespace Prisma {
   }
 
   export type poll_choicesUpdateWithoutPollInput = {
-    choice?: Enumpoll_choice_typeFieldUpdateOperationsInput | $Enums.poll_choice_type
+    choice?: StringFieldUpdateOperationsInput | string
     vote_count?: IntFieldUpdateOperationsInput | number
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     votes?: poll_votesUpdateManyWithoutChoiceNestedInput
@@ -107688,7 +107636,7 @@ export namespace Prisma {
 
   export type poll_choicesUncheckedUpdateWithoutPollInput = {
     id?: IntFieldUpdateOperationsInput | number
-    choice?: Enumpoll_choice_typeFieldUpdateOperationsInput | $Enums.poll_choice_type
+    choice?: StringFieldUpdateOperationsInput | string
     vote_count?: IntFieldUpdateOperationsInput | number
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     votes?: poll_votesUncheckedUpdateManyWithoutChoiceNestedInput
@@ -107696,7 +107644,7 @@ export namespace Prisma {
 
   export type poll_choicesUncheckedUpdateManyWithoutPollInput = {
     id?: IntFieldUpdateOperationsInput | number
-    choice?: Enumpoll_choice_typeFieldUpdateOperationsInput | $Enums.poll_choice_type
+    choice?: StringFieldUpdateOperationsInput | string
     vote_count?: IntFieldUpdateOperationsInput | number
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }

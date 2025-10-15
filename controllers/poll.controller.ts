@@ -11,7 +11,7 @@ const prisma = new PrismaClient();
  */
 export const createPoll = async (req: Request, res: Response): Promise<void> => {
   try {
-    const { title, description } = req.body;
+    const { title, description, options } = req.body;
 
     // Get user ID from the authenticated request
     const userId = (req as any).user?.userId;
@@ -33,7 +33,64 @@ export const createPoll = async (req: Request, res: Response): Promise<void> => 
       return;
     }
 
-    // Create the poll with all three choice options
+    // Handle custom options or use default Yes/Maybe/No
+    let pollChoices: Array<{ choice: string; vote_count: number }>;
+    
+    if (options && Array.isArray(options) && options.length > 0) {
+      // Custom options provided - validate them
+      if (options.length < 2) {
+        res.status(400).json({
+          success: false,
+          message: "At least 2 poll options are required"
+        });
+        return;
+      }
+      
+      if (options.length > 10) {
+        res.status(400).json({
+          success: false,
+          message: "Maximum 10 poll options allowed"
+        });
+        return;
+      }
+      
+      // Validate each option
+      const validOptions = options
+        .map((opt: string) => opt?.trim())
+        .filter((opt: string) => opt && opt.length > 0);
+      
+      if (validOptions.length < 2) {
+        res.status(400).json({
+          success: false,
+          message: "At least 2 valid poll options are required"
+        });
+        return;
+      }
+      
+      // Check for duplicate options
+      const uniqueOptions = [...new Set(validOptions)];
+      if (uniqueOptions.length !== validOptions.length) {
+        res.status(400).json({
+          success: false,
+          message: "Duplicate poll options are not allowed"
+        });
+        return;
+      }
+      
+      pollChoices = validOptions.map((opt: string) => ({
+        choice: opt,
+        vote_count: 0
+      }));
+    } else {
+      // Use default Yes/Maybe/No options
+      pollChoices = [
+        { choice: 'yes', vote_count: 0 },
+        { choice: 'maybe', vote_count: 0 },
+        { choice: 'no', vote_count: 0 }
+      ];
+    }
+
+    // Create the poll with the choices
     const newPoll = await prisma.polls.create({
       data: {
         title: title.trim(),
@@ -41,11 +98,7 @@ export const createPoll = async (req: Request, res: Response): Promise<void> => 
         created_by: userId,
         is_active: true,
         choices: {
-          create: [
-            { choice: 'yes', vote_count: 0 },
-            { choice: 'maybe', vote_count: 0 },
-            { choice: 'no', vote_count: 0 }
-          ]
+          create: pollChoices
         }
       },
       include: {
@@ -104,10 +157,11 @@ export const voteOnPoll = async (req: Request, res: Response): Promise<void> => 
     }
 
     // Validate choice
-    if (!choice || !['yes', 'maybe', 'no'].includes(choice)) {
+    // Validate choice
+    if (!choice || typeof choice !== 'string' || !choice.trim()) {
       res.status(400).json({
         success: false,
-        message: "Invalid choice. Must be 'yes', 'maybe', or 'no'"
+        message: "Choice is required"
       });
       return;
     }
@@ -138,6 +192,18 @@ export const voteOnPoll = async (req: Request, res: Response): Promise<void> => 
       return;
     }
 
+    // Validate that the choice exists in this poll
+    const selectedChoice = poll.choices.find(c => c.choice === choice.trim());
+
+    if (!selectedChoice) {
+      res.status(400).json({
+        success: false,
+        message: "Invalid choice for this poll",
+        available_choices: poll.choices.map(c => c.choice)
+      });
+      return;
+    }
+
     // Check if user has already voted
     const existingVote = await prisma.poll_votes.findFirst({
       where: {
@@ -157,17 +223,6 @@ export const voteOnPoll = async (req: Request, res: Response): Promise<void> => 
           previous_vote: existingVote.choice.choice,
           voted_at: existingVote.voted_at
         }
-      });
-      return;
-    }
-
-    // Find the choice_id for the selected choice
-    const selectedChoice = poll.choices.find(c => c.choice === choice);
-
-    if (!selectedChoice) {
-      res.status(500).json({
-        success: false,
-        message: "Poll choice configuration error"
       });
       return;
     }

@@ -1054,12 +1054,12 @@ model polls {
 }
 
 model poll_choices {
-  id         Int              @id @default(autoincrement())
+  id         Int          @id @default(autoincrement())
   poll_id    Int
-  choice     poll_choice_type
-  vote_count Int              @default(0)
-  created_at DateTime         @default(now()) @db.Timestamp(6)
-  poll       polls            @relation(fields: [poll_id], references: [id], onDelete: Cascade)
+  choice     String       @db.VarChar(255)
+  vote_count Int          @default(0)
+  created_at DateTime     @default(now()) @db.Timestamp(6)
+  poll       polls        @relation(fields: [poll_id], references: [id], onDelete: Cascade)
   votes      poll_votes[]
 
   @@unique([poll_id, choice], map: "unique_poll_choice")

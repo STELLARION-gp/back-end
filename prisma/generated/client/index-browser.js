@@ -894,12 +894,6 @@ exports.difficulty_level = exports.$Enums.difficulty_level = {
   advanced: 'advanced'
 };
 
-exports.poll_choice_type = exports.$Enums.poll_choice_type = {
-  yes: 'yes',
-  maybe: 'maybe',
-  no: 'no'
-};
-
 exports.Prisma.ModelName = {
   subscriptions: 'subscriptions',
   group_chats: 'group_chats',
