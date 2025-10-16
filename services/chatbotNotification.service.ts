@@ -125,6 +125,7 @@ export class ChatbotNotificationService {
               title: messageTemplate.title,
               message: messageTemplate.getMessage(remaining),
               link: "/chatbot",
+              isSystemGenerated: true, // Mark as system-generated for auto-limiting
               metadata: {
                 remainingPrompts: remaining,
                 totalPrompts: 3,
@@ -173,6 +174,7 @@ export class ChatbotNotificationService {
         message:
           "You've used all 3 free prompts for today! Upgrade to Galaxy Explorer or Cosmic Voyager for unlimited chatbot access. ✨",
         link: "/subscription/plans",
+        isSystemGenerated: true, // Mark as system-generated for auto-limiting
         metadata: {
           limitType: "chatbot",
           upgradeAvailable: true,
@@ -196,6 +198,7 @@ export class ChatbotNotificationService {
         message:
           "This is your last free chatbot question for today. Make it count! 🌟 Or upgrade for unlimited access.",
         link: "/chatbot",
+        isSystemGenerated: true, // Mark as system-generated for auto-limiting
         metadata: {
           remainingPrompts: 1,
           warningType: "lastPrompt",
@@ -219,6 +222,7 @@ export class ChatbotNotificationService {
         message:
           "Good morning, stargazer! Your 3 daily chatbot prompts have been refreshed. Ready to explore the cosmos? 🚀",
         link: "/chatbot",
+        isSystemGenerated: true, // Mark as system-generated for auto-limiting
         metadata: {
           resetType: "daily",
           newPromptCount: 3,
