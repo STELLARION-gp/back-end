@@ -1,6 +1,6 @@
 // controllers/services.controller.ts
 import { Request, Response } from 'express';
-import { PrismaClient } from '@prisma/client';
+import { PrismaClient } from '../prisma/generated/client';
 
 const prisma = new PrismaClient();
 
@@ -56,62 +56,94 @@ export const createService = async (req: Request, res: Response) => {
       group_discount = false,
       private_booking = false,
       instant_booking = true,
-      status = 'draft',
+      status = 'active',
     } = req.body;
 
     // Validation
-    if (!title || !description || !category || !price || !duration || !max_participants || !location || !difficulty || !next_available || !image) {
-      return res.status(400).json({ message: 'Missing required fields' });
+    if (!title || !description || !category || price === undefined || !duration || !max_participants || !location || !difficulty || !next_available || !image) {
+      return res.status(400).json({ 
+        message: 'Missing required fields',
+        required: ['title', 'description', 'category', 'price', 'duration', 'max_participants', 'location', 'difficulty', 'next_available', 'image']
+      });
     }
 
+    // Prepare the data object
+    const serviceData: any = {
+      created_by: user.id,
+      title,
+      description,
+      category,
+      price: parseFloat(price.toString()),
+      duration,
+      max_participants: parseInt(max_participants.toString()),
+      location,
+      difficulty,
+      equipment: Array.isArray(equipment) ? equipment : [],
+      next_available: new Date(next_available),
+      image_url: image,
+      featured: Boolean(featured),
+      tags: Array.isArray(tags) ? tags : [],
+      bookings_count: 0,
+      group_discount: Boolean(group_discount),
+      private_booking: Boolean(private_booking),
+      instant_booking: Boolean(instant_booking),
+      status,
+      languages: Array.isArray(languages) ? languages : [],
+    };
+
+    // Add optional fields only if they are provided
+    if (requirements) serviceData.requirements = requirements;
+    if (cancellation_policy) serviceData.cancellation_policy = cancellation_policy;
+    if (meeting_point) serviceData.meeting_point = meeting_point;
+    if (what_to_expect) serviceData.what_to_expect = what_to_expect;
+    
+    // Validate weather_policy enum
+    if (weather_policy) {
+      const validWeatherPolicies = ['reschedule', 'partial_refund', 'full_refund', 'no_refund'];
+      if (validWeatherPolicies.includes(weather_policy)) {
+        serviceData.weather_policy = weather_policy;
+      } else {
+        console.warn(`Invalid weather_policy value: ${weather_policy}. Skipping.`);
+      }
+    }
+    
+    if (booking_deadline !== undefined) serviceData.booking_deadline = parseInt(booking_deadline.toString());
+    if (certification) serviceData.certification = certification;
+    if (experience) serviceData.experience = experience;
+
+    console.log('Creating service with data:', JSON.stringify(serviceData, null, 2));
+
     const service = await prisma.services.create({
-      data: {
-        guide_id: user.id,
-        title,
-        description,
-        category,
-        price: parseFloat(price),
-        duration,
-        max_participants: parseInt(max_participants),
-        location,
-        difficulty,
-        equipment,
-        next_available: new Date(next_available),
-        image,
-        featured,
-        tags,
-        requirements,
-        cancellation_policy,
-        meeting_point,
-        what_to_expect,
-        weather_policy,
-        booking_deadline: booking_deadline ? parseInt(booking_deadline) : null,
-        languages,
-        certification,
-        experience,
-        group_discount,
-        private_booking,
-        instant_booking,
-        status,
-        total_bookings: 0,
-      },
+      data: serviceData,
       include: {
-        guide: {
+        creator: {
           select: {
             id: true,
             first_name: true,
             last_name: true,
             email: true,
-            profile_image: true,
+            display_name: true,
           },
         },
       },
     });
 
+    console.log('Service created successfully:', service.id);
+
     res.status(201).json(service);
   } catch (error) {
     console.error('Error creating service:', error);
-    res.status(500).json({ message: 'Failed to create service', error: (error as Error).message });
+    
+    // More detailed error message
+    if (error instanceof Error) {
+      res.status(500).json({ 
+        message: 'Failed to create service', 
+        error: error.message,
+        details: (error as any).meta || {}
+      });
+    } else {
+      res.status(500).json({ message: 'Failed to create service', error: String(error) });
+    }
   }
 };
 
@@ -167,13 +199,13 @@ export const getServices = async (req: Request, res: Response) => {
         skip,
         take,
         include: {
-          guide: {
+          creator: {
             select: {
               id: true,
               first_name: true,
               last_name: true,
               email: true,
-              profile_image: true,
+              display_name: true,
             },
           },
         },
@@ -208,23 +240,23 @@ export const getServiceById = async (req: Request, res: Response) => {
     const service = await prisma.services.findUnique({
       where: { id: parseInt(id) },
       include: {
-        guide: {
+        creator: {
           select: {
             id: true,
             first_name: true,
             last_name: true,
             email: true,
-            profile_image: true,
+            display_name: true,
           },
         },
-        service_media: {
+        media: {
           orderBy: { display_order: 'asc' },
         },
-        service_availability: {
+        availability: {
           where: {
-            date: { gte: new Date() },
+            available_date: { gte: new Date() },
           },
-          orderBy: { date: 'asc' },
+          orderBy: { available_date: 'asc' },
         },
       },
     });
@@ -260,7 +292,7 @@ export const getMyServices = async (req: Request, res: Response) => {
     const skip = (parseInt(page as string) - 1) * parseInt(limit as string);
     const take = parseInt(limit as string);
 
-    const where: any = { guide_id: user.id };
+    const where: any = { created_by: user.id };
     if (status) where.status = status;
 
     const [services, total] = await Promise.all([
@@ -269,16 +301,16 @@ export const getMyServices = async (req: Request, res: Response) => {
         skip,
         take,
         include: {
-          service_media: {
+          media: {
             orderBy: { display_order: 'asc' },
           },
-          service_availability: {
+          availability: {
             where: {
-              date: { gte: new Date() },
-              is_available: true,
+              available_date: { gte: new Date() },
+              status: 'available',
             },
             take: 5,
-            orderBy: { date: 'asc' },
+            orderBy: { available_date: 'asc' },
           },
         },
         orderBy: { created_at: 'desc' },
@@ -324,7 +356,7 @@ export const updateService = async (req: Request, res: Response) => {
       return res.status(404).json({ message: 'Service not found' });
     }
 
-    if (existingService.guide_id !== user.id && user.role !== 'admin') {
+    if (existingService.created_by !== user.id && user.role !== 'admin') {
       return res.status(403).json({ message: 'Not authorized to update this service' });
     }
 
@@ -356,13 +388,13 @@ export const updateService = async (req: Request, res: Response) => {
       where: { id: parseInt(id) },
       data: updateData,
       include: {
-        guide: {
+        creator: {
           select: {
             id: true,
             first_name: true,
             last_name: true,
             email: true,
-            profile_image: true,
+            display_name: true,
           },
         },
       },
@@ -400,7 +432,7 @@ export const deleteService = async (req: Request, res: Response) => {
       return res.status(404).json({ message: 'Service not found' });
     }
 
-    if (service.guide_id !== user.id && user.role !== 'admin') {
+    if (service.created_by !== user.id && user.role !== 'admin') {
       return res.status(403).json({ message: 'Not authorized to delete this service' });
     }
 
@@ -454,7 +486,7 @@ export const updateServiceStatus = async (req: Request, res: Response) => {
       return res.status(404).json({ message: 'Service not found' });
     }
 
-    if (service.guide_id !== user.id && user.role !== 'admin') {
+    if (service.created_by !== user.id && user.role !== 'admin') {
       return res.status(403).json({ message: 'Not authorized' });
     }
 
@@ -529,13 +561,13 @@ export const getServiceAvailability = async (req: Request, res: Response) => {
     }
 
     if (available_only === 'true') {
-      where.is_available = true;
+      where.status = 'available';
       where.slots_available = { gt: 0 };
     }
 
     const availability = await prisma.service_availability.findMany({
       where,
-      orderBy: { date: 'asc' },
+      orderBy: { available_date: 'asc' },
     });
 
     res.json(availability);
@@ -575,19 +607,19 @@ export const createAvailability = async (req: Request, res: Response) => {
       return res.status(404).json({ message: 'Service not found' });
     }
 
-    if (service.guide_id !== user.id && user.role !== 'admin') {
+    if (service.created_by !== user.id && user.role !== 'admin') {
       return res.status(403).json({ message: 'Not authorized' });
     }
 
     const availability = await prisma.service_availability.create({
       data: {
         service_id: parseInt(service_id),
-        date: new Date(date),
+        available_date: new Date(date),
         start_time,
         end_time,
         slots_available: parseInt(slots_available),
         slots_booked: 0,
-        is_available: true,
+        status: 'available',
       },
     });
 
@@ -625,18 +657,18 @@ export const createBulkAvailability = async (req: Request, res: Response) => {
       where: { id: { in: serviceIds } },
     });
 
-    if (services.some(s => s.guide_id !== user.id) && user.role !== 'admin') {
+    if (services.some(s => s.created_by !== user.id) && user.role !== 'admin') {
       return res.status(403).json({ message: 'Not authorized for one or more services' });
     }
 
     const availabilityData = slots.map(slot => ({
       service_id: parseInt(slot.service_id),
-      date: new Date(slot.date),
+      available_date: new Date(slot.date),
       start_time: slot.start_time,
       end_time: slot.end_time,
       slots_available: parseInt(slot.slots_available),
       slots_booked: 0,
-      is_available: true,
+      status: 'available' as const,
     }));
 
     const result = await prisma.service_availability.createMany({
@@ -676,16 +708,16 @@ export const updateAvailability = async (req: Request, res: Response) => {
       return res.status(404).json({ message: 'Availability not found' });
     }
 
-    if (availability.service.guide_id !== user.id && user.role !== 'admin') {
+    if (availability.service.created_by !== user.id && user.role !== 'admin') {
       return res.status(403).json({ message: 'Not authorized' });
     }
 
     const updateData: any = {};
-    if (req.body.date !== undefined) updateData.date = new Date(req.body.date);
+    if (req.body.date !== undefined) updateData.available_date = new Date(req.body.date);
     if (req.body.start_time !== undefined) updateData.start_time = req.body.start_time;
     if (req.body.end_time !== undefined) updateData.end_time = req.body.end_time;
     if (req.body.slots_available !== undefined) updateData.slots_available = parseInt(req.body.slots_available);
-    if (req.body.is_available !== undefined) updateData.is_available = req.body.is_available;
+    if (req.body.is_available !== undefined) updateData.status = req.body.is_available ? 'available' : 'unavailable';
 
     const updated = await prisma.service_availability.update({
       where: { id: parseInt(id) },
@@ -725,7 +757,7 @@ export const deleteAvailability = async (req: Request, res: Response) => {
       return res.status(404).json({ message: 'Availability not found' });
     }
 
-    if (availability.service.guide_id !== user.id && user.role !== 'admin') {
+    if (availability.service.created_by !== user.id && user.role !== 'admin') {
       return res.status(403).json({ message: 'Not authorized' });
     }
 
@@ -771,13 +803,13 @@ export const toggleAvailabilityStatus = async (req: Request, res: Response) => {
       return res.status(404).json({ message: 'Availability not found' });
     }
 
-    if (availability.service.guide_id !== user.id && user.role !== 'admin') {
+    if (availability.service.created_by !== user.id && user.role !== 'admin') {
       return res.status(403).json({ message: 'Not authorized' });
     }
 
     const updated = await prisma.service_availability.update({
       where: { id: parseInt(id) },
-      data: { is_available: !availability.is_available },
+      data: { status: availability.status === 'available' ? 'unavailable' : 'available' },
     });
 
     res.json(updated);
@@ -814,7 +846,7 @@ export const deleteBulkAvailability = async (req: Request, res: Response) => {
       include: { service: true },
     });
 
-    if (availabilities.some(a => a.service.guide_id !== user.id) && user.role !== 'admin') {
+    if (availabilities.some(a => a.service.created_by !== user.id) && user.role !== 'admin') {
       return res.status(403).json({ message: 'Not authorized for one or more availability slots' });
     }
 
@@ -873,13 +905,13 @@ export const searchServices = async (req: Request, res: Response) => {
     const services = await prisma.services.findMany({
       where,
       include: {
-        guide: {
+        creator: {
           select: {
             id: true,
             first_name: true,
             last_name: true,
             email: true,
-            profile_image: true,
+            display_name: true,
           },
         },
       },
@@ -911,19 +943,19 @@ export const getFeaturedServices = async (req: Request, res: Response) => {
       },
       take: parseInt(limit as string),
       include: {
-        guide: {
+        creator: {
           select: {
             id: true,
             first_name: true,
             last_name: true,
             email: true,
-            profile_image: true,
+            display_name: true,
           },
         },
       },
       orderBy: [
         { rating: 'desc' },
-        { total_bookings: 'desc' },
+        { bookings_count: 'desc' },
       ],
     });
 
@@ -955,13 +987,13 @@ export const getServicesByCategory = async (req: Request, res: Response) => {
         skip,
         take,
         include: {
-          guide: {
+          creator: {
             select: {
               id: true,
               first_name: true,
               last_name: true,
               email: true,
-              profile_image: true,
+              display_name: true,
             },
           },
         },
@@ -1002,7 +1034,7 @@ export const getServicesByGuide = async (req: Request, res: Response) => {
     const skip = (parseInt(page as string) - 1) * parseInt(limit as string);
     const take = parseInt(limit as string);
 
-    const where: any = { guide_id: parseInt(guideId) };
+    const where: any = { created_by: parseInt(guideId) };
     if (status) where.status = status;
 
     const [services, total] = await Promise.all([
@@ -1011,13 +1043,13 @@ export const getServicesByGuide = async (req: Request, res: Response) => {
         skip,
         take,
         include: {
-          guide: {
+          creator: {
             select: {
               id: true,
               first_name: true,
               last_name: true,
               email: true,
-              profile_image: true,
+              display_name: true,
             },
           },
         },
@@ -1060,10 +1092,10 @@ export const getServiceStats = async (req: Request, res: Response) => {
 
     // Calculate stats (you'll need to implement booking system for accurate data)
     const stats = {
-      total_bookings: service.total_bookings,
-      total_revenue: service.total_bookings * service.price,
+      total_bookings: service.bookings_count,
+      total_revenue: service.bookings_count * Number(service.price),
       average_rating: service.rating || 0,
-      total_reviews: 0, // Implement reviews system
+      total_reviews: service.review_count,
       upcoming_bookings: 0, // Implement bookings system
       completion_rate: 0, // Implement bookings system
     };
@@ -1092,15 +1124,15 @@ export const getGuideServiceStats = async (req: Request, res: Response) => {
     }
 
     const services = await prisma.services.findMany({
-      where: { guide_id: user.id },
+      where: { created_by: user.id },
     });
 
     const stats = {
       total_services: services.length,
       active_services: services.filter(s => s.status === 'active').length,
-      total_bookings: services.reduce((sum, s) => sum + s.total_bookings, 0),
-      total_revenue: services.reduce((sum, s) => sum + (s.total_bookings * s.price), 0),
-      average_rating: services.reduce((sum, s) => sum + (s.rating || 0), 0) / services.length || 0,
+      total_bookings: services.reduce((sum, s) => sum + s.bookings_count, 0),
+      total_revenue: services.reduce((sum, s) => sum + (s.bookings_count * Number(s.price)), 0),
+      average_rating: services.reduce((sum, s) => sum + s.rating, 0) / services.length || 0,
       by_category: services.reduce((acc, s) => {
         acc[s.category] = (acc[s.category] || 0) + 1;
         return acc;

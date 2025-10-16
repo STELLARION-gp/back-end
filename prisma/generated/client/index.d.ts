@@ -6648,8 +6648,16 @@ export namespace Prisma {
     night_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousers: number
     night_camp_volunteering_applications_night_camp_volunteering_applications_user_idTousers: number
     payments: number
+    poll_comments: number
+    poll_votes: number
+    created_polls: number
     role_upgrade_requests_role_upgrade_requests_reviewer_idTousers: number
     role_upgrade_requests_role_upgrade_requests_user_idTousers: number
+    service_bookings: number
+    service_reviews: number
+    created_services: number
+    session_enrollments: number
+    created_sessions: number
     discussion_comment_likes: number
     discussion_comments: number
     discussion_likes: number
@@ -6659,15 +6667,7 @@ export namespace Prisma {
     space_news_likes: number
     stargazing_spot_reviews: number
     created_stargazing_spots: number
-    created_sessions: number
-    session_enrollments: number
-    created_services: number
-    service_bookings: number
-    service_reviews: number
     subscriptions: number
-    created_polls: number
-    poll_votes: number
-    poll_comments: number
   }
 
   export type UsersCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -6693,8 +6693,16 @@ export namespace Prisma {
     night_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousers?: boolean | UsersCountOutputTypeCountNight_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousersArgs
     night_camp_volunteering_applications_night_camp_volunteering_applications_user_idTousers?: boolean | UsersCountOutputTypeCountNight_camp_volunteering_applications_night_camp_volunteering_applications_user_idTousersArgs
     payments?: boolean | UsersCountOutputTypeCountPaymentsArgs
+    poll_comments?: boolean | UsersCountOutputTypeCountPoll_commentsArgs
+    poll_votes?: boolean | UsersCountOutputTypeCountPoll_votesArgs
+    created_polls?: boolean | UsersCountOutputTypeCountCreated_pollsArgs
     role_upgrade_requests_role_upgrade_requests_reviewer_idTousers?: boolean | UsersCountOutputTypeCountRole_upgrade_requests_role_upgrade_requests_reviewer_idTousersArgs
     role_upgrade_requests_role_upgrade_requests_user_idTousers?: boolean | UsersCountOutputTypeCountRole_upgrade_requests_role_upgrade_requests_user_idTousersArgs
+    service_bookings?: boolean | UsersCountOutputTypeCountService_bookingsArgs
+    service_reviews?: boolean | UsersCountOutputTypeCountService_reviewsArgs
+    created_services?: boolean | UsersCountOutputTypeCountCreated_servicesArgs
+    session_enrollments?: boolean | UsersCountOutputTypeCountSession_enrollmentsArgs
+    created_sessions?: boolean | UsersCountOutputTypeCountCreated_sessionsArgs
     discussion_comment_likes?: boolean | UsersCountOutputTypeCountDiscussion_comment_likesArgs
     discussion_comments?: boolean | UsersCountOutputTypeCountDiscussion_commentsArgs
     discussion_likes?: boolean | UsersCountOutputTypeCountDiscussion_likesArgs
@@ -6704,15 +6712,7 @@ export namespace Prisma {
     space_news_likes?: boolean | UsersCountOutputTypeCountSpace_news_likesArgs
     stargazing_spot_reviews?: boolean | UsersCountOutputTypeCountStargazing_spot_reviewsArgs
     created_stargazing_spots?: boolean | UsersCountOutputTypeCountCreated_stargazing_spotsArgs
-    created_sessions?: boolean | UsersCountOutputTypeCountCreated_sessionsArgs
-    session_enrollments?: boolean | UsersCountOutputTypeCountSession_enrollmentsArgs
-    created_services?: boolean | UsersCountOutputTypeCountCreated_servicesArgs
-    service_bookings?: boolean | UsersCountOutputTypeCountService_bookingsArgs
-    service_reviews?: boolean | UsersCountOutputTypeCountService_reviewsArgs
     subscriptions?: boolean | UsersCountOutputTypeCountSubscriptionsArgs
-    created_polls?: boolean | UsersCountOutputTypeCountCreated_pollsArgs
-    poll_votes?: boolean | UsersCountOutputTypeCountPoll_votesArgs
-    poll_comments?: boolean | UsersCountOutputTypeCountPoll_commentsArgs
   }
 
   // Custom InputTypes
@@ -6883,6 +6883,27 @@ export namespace Prisma {
   /**
    * UsersCountOutputType without action
    */
+  export type UsersCountOutputTypeCountPoll_commentsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: poll_commentsWhereInput
+  }
+
+  /**
+   * UsersCountOutputType without action
+   */
+  export type UsersCountOutputTypeCountPoll_votesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: poll_votesWhereInput
+  }
+
+  /**
+   * UsersCountOutputType without action
+   */
+  export type UsersCountOutputTypeCountCreated_pollsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: pollsWhereInput
+  }
+
+  /**
+   * UsersCountOutputType without action
+   */
   export type UsersCountOutputTypeCountRole_upgrade_requests_role_upgrade_requests_reviewer_idTousersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: role_upgrade_requestsWhereInput
   }
@@ -6892,6 +6913,41 @@ export namespace Prisma {
    */
   export type UsersCountOutputTypeCountRole_upgrade_requests_role_upgrade_requests_user_idTousersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: role_upgrade_requestsWhereInput
+  }
+
+  /**
+   * UsersCountOutputType without action
+   */
+  export type UsersCountOutputTypeCountService_bookingsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: service_bookingsWhereInput
+  }
+
+  /**
+   * UsersCountOutputType without action
+   */
+  export type UsersCountOutputTypeCountService_reviewsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: service_reviewsWhereInput
+  }
+
+  /**
+   * UsersCountOutputType without action
+   */
+  export type UsersCountOutputTypeCountCreated_servicesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: servicesWhereInput
+  }
+
+  /**
+   * UsersCountOutputType without action
+   */
+  export type UsersCountOutputTypeCountSession_enrollmentsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: session_enrollmentsWhereInput
+  }
+
+  /**
+   * UsersCountOutputType without action
+   */
+  export type UsersCountOutputTypeCountCreated_sessionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: sessionsWhereInput
   }
 
   /**
@@ -6960,64 +7016,8 @@ export namespace Prisma {
   /**
    * UsersCountOutputType without action
    */
-  export type UsersCountOutputTypeCountCreated_sessionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: sessionsWhereInput
-  }
-
-  /**
-   * UsersCountOutputType without action
-   */
-  export type UsersCountOutputTypeCountSession_enrollmentsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: session_enrollmentsWhereInput
-  }
-
-  /**
-   * UsersCountOutputType without action
-   */
-  export type UsersCountOutputTypeCountCreated_servicesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: servicesWhereInput
-  }
-
-  /**
-   * UsersCountOutputType without action
-   */
-  export type UsersCountOutputTypeCountService_bookingsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: service_bookingsWhereInput
-  }
-
-  /**
-   * UsersCountOutputType without action
-   */
-  export type UsersCountOutputTypeCountService_reviewsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: service_reviewsWhereInput
-  }
-
-  /**
-   * UsersCountOutputType without action
-   */
   export type UsersCountOutputTypeCountSubscriptionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: subscriptionsWhereInput
-  }
-
-  /**
-   * UsersCountOutputType without action
-   */
-  export type UsersCountOutputTypeCountCreated_pollsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: pollsWhereInput
-  }
-
-  /**
-   * UsersCountOutputType without action
-   */
-  export type UsersCountOutputTypeCountPoll_votesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: poll_votesWhereInput
-  }
-
-  /**
-   * UsersCountOutputType without action
-   */
-  export type UsersCountOutputTypeCountPoll_commentsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: poll_commentsWhereInput
   }
 
 
@@ -7341,17 +7341,17 @@ export namespace Prisma {
    */
 
   export type ServicesCountOutputType = {
-    bookings: number
-    reviews: number
     availability: number
+    bookings: number
     media: number
+    reviews: number
   }
 
   export type ServicesCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    bookings?: boolean | ServicesCountOutputTypeCountBookingsArgs
-    reviews?: boolean | ServicesCountOutputTypeCountReviewsArgs
     availability?: boolean | ServicesCountOutputTypeCountAvailabilityArgs
+    bookings?: boolean | ServicesCountOutputTypeCountBookingsArgs
     media?: boolean | ServicesCountOutputTypeCountMediaArgs
+    reviews?: boolean | ServicesCountOutputTypeCountReviewsArgs
   }
 
   // Custom InputTypes
@@ -7368,20 +7368,6 @@ export namespace Prisma {
   /**
    * ServicesCountOutputType without action
    */
-  export type ServicesCountOutputTypeCountBookingsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: service_bookingsWhereInput
-  }
-
-  /**
-   * ServicesCountOutputType without action
-   */
-  export type ServicesCountOutputTypeCountReviewsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: service_reviewsWhereInput
-  }
-
-  /**
-   * ServicesCountOutputType without action
-   */
   export type ServicesCountOutputTypeCountAvailabilityArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: service_availabilityWhereInput
   }
@@ -7389,8 +7375,22 @@ export namespace Prisma {
   /**
    * ServicesCountOutputType without action
    */
+  export type ServicesCountOutputTypeCountBookingsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: service_bookingsWhereInput
+  }
+
+  /**
+   * ServicesCountOutputType without action
+   */
   export type ServicesCountOutputTypeCountMediaArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: service_mediaWhereInput
+  }
+
+  /**
+   * ServicesCountOutputType without action
+   */
+  export type ServicesCountOutputTypeCountReviewsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: service_reviewsWhereInput
   }
 
 
@@ -26974,8 +26974,16 @@ export namespace Prisma {
     night_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousers?: boolean | users$night_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousersArgs<ExtArgs>
     night_camp_volunteering_applications_night_camp_volunteering_applications_user_idTousers?: boolean | users$night_camp_volunteering_applications_night_camp_volunteering_applications_user_idTousersArgs<ExtArgs>
     payments?: boolean | users$paymentsArgs<ExtArgs>
+    poll_comments?: boolean | users$poll_commentsArgs<ExtArgs>
+    poll_votes?: boolean | users$poll_votesArgs<ExtArgs>
+    created_polls?: boolean | users$created_pollsArgs<ExtArgs>
     role_upgrade_requests_role_upgrade_requests_reviewer_idTousers?: boolean | users$role_upgrade_requests_role_upgrade_requests_reviewer_idTousersArgs<ExtArgs>
     role_upgrade_requests_role_upgrade_requests_user_idTousers?: boolean | users$role_upgrade_requests_role_upgrade_requests_user_idTousersArgs<ExtArgs>
+    service_bookings?: boolean | users$service_bookingsArgs<ExtArgs>
+    service_reviews?: boolean | users$service_reviewsArgs<ExtArgs>
+    created_services?: boolean | users$created_servicesArgs<ExtArgs>
+    session_enrollments?: boolean | users$session_enrollmentsArgs<ExtArgs>
+    created_sessions?: boolean | users$created_sessionsArgs<ExtArgs>
     discussion_comment_likes?: boolean | users$discussion_comment_likesArgs<ExtArgs>
     discussion_comments?: boolean | users$discussion_commentsArgs<ExtArgs>
     discussion_likes?: boolean | users$discussion_likesArgs<ExtArgs>
@@ -26985,16 +26993,8 @@ export namespace Prisma {
     space_news_likes?: boolean | users$space_news_likesArgs<ExtArgs>
     stargazing_spot_reviews?: boolean | users$stargazing_spot_reviewsArgs<ExtArgs>
     created_stargazing_spots?: boolean | users$created_stargazing_spotsArgs<ExtArgs>
-    created_sessions?: boolean | users$created_sessionsArgs<ExtArgs>
-    session_enrollments?: boolean | users$session_enrollmentsArgs<ExtArgs>
-    created_services?: boolean | users$created_servicesArgs<ExtArgs>
-    service_bookings?: boolean | users$service_bookingsArgs<ExtArgs>
-    service_reviews?: boolean | users$service_reviewsArgs<ExtArgs>
     subscriptions?: boolean | users$subscriptionsArgs<ExtArgs>
     user_settings?: boolean | users$user_settingsArgs<ExtArgs>
-    created_polls?: boolean | users$created_pollsArgs<ExtArgs>
-    poll_votes?: boolean | users$poll_votesArgs<ExtArgs>
-    poll_comments?: boolean | users$poll_commentsArgs<ExtArgs>
     _count?: boolean | UsersCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["users"]>
 
@@ -27091,8 +27091,16 @@ export namespace Prisma {
     night_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousers?: boolean | users$night_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousersArgs<ExtArgs>
     night_camp_volunteering_applications_night_camp_volunteering_applications_user_idTousers?: boolean | users$night_camp_volunteering_applications_night_camp_volunteering_applications_user_idTousersArgs<ExtArgs>
     payments?: boolean | users$paymentsArgs<ExtArgs>
+    poll_comments?: boolean | users$poll_commentsArgs<ExtArgs>
+    poll_votes?: boolean | users$poll_votesArgs<ExtArgs>
+    created_polls?: boolean | users$created_pollsArgs<ExtArgs>
     role_upgrade_requests_role_upgrade_requests_reviewer_idTousers?: boolean | users$role_upgrade_requests_role_upgrade_requests_reviewer_idTousersArgs<ExtArgs>
     role_upgrade_requests_role_upgrade_requests_user_idTousers?: boolean | users$role_upgrade_requests_role_upgrade_requests_user_idTousersArgs<ExtArgs>
+    service_bookings?: boolean | users$service_bookingsArgs<ExtArgs>
+    service_reviews?: boolean | users$service_reviewsArgs<ExtArgs>
+    created_services?: boolean | users$created_servicesArgs<ExtArgs>
+    session_enrollments?: boolean | users$session_enrollmentsArgs<ExtArgs>
+    created_sessions?: boolean | users$created_sessionsArgs<ExtArgs>
     discussion_comment_likes?: boolean | users$discussion_comment_likesArgs<ExtArgs>
     discussion_comments?: boolean | users$discussion_commentsArgs<ExtArgs>
     discussion_likes?: boolean | users$discussion_likesArgs<ExtArgs>
@@ -27102,16 +27110,8 @@ export namespace Prisma {
     space_news_likes?: boolean | users$space_news_likesArgs<ExtArgs>
     stargazing_spot_reviews?: boolean | users$stargazing_spot_reviewsArgs<ExtArgs>
     created_stargazing_spots?: boolean | users$created_stargazing_spotsArgs<ExtArgs>
-    created_sessions?: boolean | users$created_sessionsArgs<ExtArgs>
-    session_enrollments?: boolean | users$session_enrollmentsArgs<ExtArgs>
-    created_services?: boolean | users$created_servicesArgs<ExtArgs>
-    service_bookings?: boolean | users$service_bookingsArgs<ExtArgs>
-    service_reviews?: boolean | users$service_reviewsArgs<ExtArgs>
     subscriptions?: boolean | users$subscriptionsArgs<ExtArgs>
     user_settings?: boolean | users$user_settingsArgs<ExtArgs>
-    created_polls?: boolean | users$created_pollsArgs<ExtArgs>
-    poll_votes?: boolean | users$poll_votesArgs<ExtArgs>
-    poll_comments?: boolean | users$poll_commentsArgs<ExtArgs>
     _count?: boolean | UsersCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type usersIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
@@ -27142,8 +27142,16 @@ export namespace Prisma {
       night_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousers: Prisma.$night_camp_volunteering_applicationsPayload<ExtArgs>[]
       night_camp_volunteering_applications_night_camp_volunteering_applications_user_idTousers: Prisma.$night_camp_volunteering_applicationsPayload<ExtArgs>[]
       payments: Prisma.$paymentsPayload<ExtArgs>[]
+      poll_comments: Prisma.$poll_commentsPayload<ExtArgs>[]
+      poll_votes: Prisma.$poll_votesPayload<ExtArgs>[]
+      created_polls: Prisma.$pollsPayload<ExtArgs>[]
       role_upgrade_requests_role_upgrade_requests_reviewer_idTousers: Prisma.$role_upgrade_requestsPayload<ExtArgs>[]
       role_upgrade_requests_role_upgrade_requests_user_idTousers: Prisma.$role_upgrade_requestsPayload<ExtArgs>[]
+      service_bookings: Prisma.$service_bookingsPayload<ExtArgs>[]
+      service_reviews: Prisma.$service_reviewsPayload<ExtArgs>[]
+      created_services: Prisma.$servicesPayload<ExtArgs>[]
+      session_enrollments: Prisma.$session_enrollmentsPayload<ExtArgs>[]
+      created_sessions: Prisma.$sessionsPayload<ExtArgs>[]
       discussion_comment_likes: Prisma.$space_discussion_comment_likesPayload<ExtArgs>[]
       discussion_comments: Prisma.$space_discussion_commentsPayload<ExtArgs>[]
       discussion_likes: Prisma.$space_discussion_likesPayload<ExtArgs>[]
@@ -27153,16 +27161,8 @@ export namespace Prisma {
       space_news_likes: Prisma.$space_news_likesPayload<ExtArgs>[]
       stargazing_spot_reviews: Prisma.$stargazing_spot_reviewsPayload<ExtArgs>[]
       created_stargazing_spots: Prisma.$stargazing_spotsPayload<ExtArgs>[]
-      created_sessions: Prisma.$sessionsPayload<ExtArgs>[]
-      session_enrollments: Prisma.$session_enrollmentsPayload<ExtArgs>[]
-      created_services: Prisma.$servicesPayload<ExtArgs>[]
-      service_bookings: Prisma.$service_bookingsPayload<ExtArgs>[]
-      service_reviews: Prisma.$service_reviewsPayload<ExtArgs>[]
       subscriptions: Prisma.$subscriptionsPayload<ExtArgs>[]
       user_settings: Prisma.$user_settingsPayload<ExtArgs> | null
-      created_polls: Prisma.$pollsPayload<ExtArgs>[]
-      poll_votes: Prisma.$poll_votesPayload<ExtArgs>[]
-      poll_comments: Prisma.$poll_commentsPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: number
@@ -27601,8 +27601,16 @@ export namespace Prisma {
     night_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousers<T extends users$night_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousersArgs<ExtArgs> = {}>(args?: Subset<T, users$night_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousersArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$night_camp_volunteering_applicationsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     night_camp_volunteering_applications_night_camp_volunteering_applications_user_idTousers<T extends users$night_camp_volunteering_applications_night_camp_volunteering_applications_user_idTousersArgs<ExtArgs> = {}>(args?: Subset<T, users$night_camp_volunteering_applications_night_camp_volunteering_applications_user_idTousersArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$night_camp_volunteering_applicationsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     payments<T extends users$paymentsArgs<ExtArgs> = {}>(args?: Subset<T, users$paymentsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$paymentsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    poll_comments<T extends users$poll_commentsArgs<ExtArgs> = {}>(args?: Subset<T, users$poll_commentsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$poll_commentsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    poll_votes<T extends users$poll_votesArgs<ExtArgs> = {}>(args?: Subset<T, users$poll_votesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$poll_votesPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    created_polls<T extends users$created_pollsArgs<ExtArgs> = {}>(args?: Subset<T, users$created_pollsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$pollsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     role_upgrade_requests_role_upgrade_requests_reviewer_idTousers<T extends users$role_upgrade_requests_role_upgrade_requests_reviewer_idTousersArgs<ExtArgs> = {}>(args?: Subset<T, users$role_upgrade_requests_role_upgrade_requests_reviewer_idTousersArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$role_upgrade_requestsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     role_upgrade_requests_role_upgrade_requests_user_idTousers<T extends users$role_upgrade_requests_role_upgrade_requests_user_idTousersArgs<ExtArgs> = {}>(args?: Subset<T, users$role_upgrade_requests_role_upgrade_requests_user_idTousersArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$role_upgrade_requestsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    service_bookings<T extends users$service_bookingsArgs<ExtArgs> = {}>(args?: Subset<T, users$service_bookingsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$service_bookingsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    service_reviews<T extends users$service_reviewsArgs<ExtArgs> = {}>(args?: Subset<T, users$service_reviewsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$service_reviewsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    created_services<T extends users$created_servicesArgs<ExtArgs> = {}>(args?: Subset<T, users$created_servicesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$servicesPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    session_enrollments<T extends users$session_enrollmentsArgs<ExtArgs> = {}>(args?: Subset<T, users$session_enrollmentsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$session_enrollmentsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    created_sessions<T extends users$created_sessionsArgs<ExtArgs> = {}>(args?: Subset<T, users$created_sessionsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$sessionsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     discussion_comment_likes<T extends users$discussion_comment_likesArgs<ExtArgs> = {}>(args?: Subset<T, users$discussion_comment_likesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$space_discussion_comment_likesPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     discussion_comments<T extends users$discussion_commentsArgs<ExtArgs> = {}>(args?: Subset<T, users$discussion_commentsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$space_discussion_commentsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     discussion_likes<T extends users$discussion_likesArgs<ExtArgs> = {}>(args?: Subset<T, users$discussion_likesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$space_discussion_likesPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
@@ -27612,16 +27620,8 @@ export namespace Prisma {
     space_news_likes<T extends users$space_news_likesArgs<ExtArgs> = {}>(args?: Subset<T, users$space_news_likesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$space_news_likesPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     stargazing_spot_reviews<T extends users$stargazing_spot_reviewsArgs<ExtArgs> = {}>(args?: Subset<T, users$stargazing_spot_reviewsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$stargazing_spot_reviewsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     created_stargazing_spots<T extends users$created_stargazing_spotsArgs<ExtArgs> = {}>(args?: Subset<T, users$created_stargazing_spotsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$stargazing_spotsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-    created_sessions<T extends users$created_sessionsArgs<ExtArgs> = {}>(args?: Subset<T, users$created_sessionsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$sessionsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-    session_enrollments<T extends users$session_enrollmentsArgs<ExtArgs> = {}>(args?: Subset<T, users$session_enrollmentsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$session_enrollmentsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-    created_services<T extends users$created_servicesArgs<ExtArgs> = {}>(args?: Subset<T, users$created_servicesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$servicesPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-    service_bookings<T extends users$service_bookingsArgs<ExtArgs> = {}>(args?: Subset<T, users$service_bookingsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$service_bookingsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-    service_reviews<T extends users$service_reviewsArgs<ExtArgs> = {}>(args?: Subset<T, users$service_reviewsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$service_reviewsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     subscriptions<T extends users$subscriptionsArgs<ExtArgs> = {}>(args?: Subset<T, users$subscriptionsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$subscriptionsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     user_settings<T extends users$user_settingsArgs<ExtArgs> = {}>(args?: Subset<T, users$user_settingsArgs<ExtArgs>>): Prisma__user_settingsClient<$Result.GetResult<Prisma.$user_settingsPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
-    created_polls<T extends users$created_pollsArgs<ExtArgs> = {}>(args?: Subset<T, users$created_pollsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$pollsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-    poll_votes<T extends users$poll_votesArgs<ExtArgs> = {}>(args?: Subset<T, users$poll_votesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$poll_votesPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-    poll_comments<T extends users$poll_commentsArgs<ExtArgs> = {}>(args?: Subset<T, users$poll_commentsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$poll_commentsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -28587,6 +28587,78 @@ export namespace Prisma {
   }
 
   /**
+   * users.poll_comments
+   */
+  export type users$poll_commentsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the poll_comments
+     */
+    select?: poll_commentsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the poll_comments
+     */
+    omit?: poll_commentsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: poll_commentsInclude<ExtArgs> | null
+    where?: poll_commentsWhereInput
+    orderBy?: poll_commentsOrderByWithRelationInput | poll_commentsOrderByWithRelationInput[]
+    cursor?: poll_commentsWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: Poll_commentsScalarFieldEnum | Poll_commentsScalarFieldEnum[]
+  }
+
+  /**
+   * users.poll_votes
+   */
+  export type users$poll_votesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the poll_votes
+     */
+    select?: poll_votesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the poll_votes
+     */
+    omit?: poll_votesOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: poll_votesInclude<ExtArgs> | null
+    where?: poll_votesWhereInput
+    orderBy?: poll_votesOrderByWithRelationInput | poll_votesOrderByWithRelationInput[]
+    cursor?: poll_votesWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: Poll_votesScalarFieldEnum | Poll_votesScalarFieldEnum[]
+  }
+
+  /**
+   * users.created_polls
+   */
+  export type users$created_pollsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the polls
+     */
+    select?: pollsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the polls
+     */
+    omit?: pollsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: pollsInclude<ExtArgs> | null
+    where?: pollsWhereInput
+    orderBy?: pollsOrderByWithRelationInput | pollsOrderByWithRelationInput[]
+    cursor?: pollsWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: PollsScalarFieldEnum | PollsScalarFieldEnum[]
+  }
+
+  /**
    * users.role_upgrade_requests_role_upgrade_requests_reviewer_idTousers
    */
   export type users$role_upgrade_requests_role_upgrade_requests_reviewer_idTousersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -28632,6 +28704,126 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: Role_upgrade_requestsScalarFieldEnum | Role_upgrade_requestsScalarFieldEnum[]
+  }
+
+  /**
+   * users.service_bookings
+   */
+  export type users$service_bookingsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the service_bookings
+     */
+    select?: service_bookingsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the service_bookings
+     */
+    omit?: service_bookingsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: service_bookingsInclude<ExtArgs> | null
+    where?: service_bookingsWhereInput
+    orderBy?: service_bookingsOrderByWithRelationInput | service_bookingsOrderByWithRelationInput[]
+    cursor?: service_bookingsWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: Service_bookingsScalarFieldEnum | Service_bookingsScalarFieldEnum[]
+  }
+
+  /**
+   * users.service_reviews
+   */
+  export type users$service_reviewsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the service_reviews
+     */
+    select?: service_reviewsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the service_reviews
+     */
+    omit?: service_reviewsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: service_reviewsInclude<ExtArgs> | null
+    where?: service_reviewsWhereInput
+    orderBy?: service_reviewsOrderByWithRelationInput | service_reviewsOrderByWithRelationInput[]
+    cursor?: service_reviewsWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: Service_reviewsScalarFieldEnum | Service_reviewsScalarFieldEnum[]
+  }
+
+  /**
+   * users.created_services
+   */
+  export type users$created_servicesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the services
+     */
+    select?: servicesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the services
+     */
+    omit?: servicesOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: servicesInclude<ExtArgs> | null
+    where?: servicesWhereInput
+    orderBy?: servicesOrderByWithRelationInput | servicesOrderByWithRelationInput[]
+    cursor?: servicesWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: ServicesScalarFieldEnum | ServicesScalarFieldEnum[]
+  }
+
+  /**
+   * users.session_enrollments
+   */
+  export type users$session_enrollmentsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the session_enrollments
+     */
+    select?: session_enrollmentsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the session_enrollments
+     */
+    omit?: session_enrollmentsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: session_enrollmentsInclude<ExtArgs> | null
+    where?: session_enrollmentsWhereInput
+    orderBy?: session_enrollmentsOrderByWithRelationInput | session_enrollmentsOrderByWithRelationInput[]
+    cursor?: session_enrollmentsWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: Session_enrollmentsScalarFieldEnum | Session_enrollmentsScalarFieldEnum[]
+  }
+
+  /**
+   * users.created_sessions
+   */
+  export type users$created_sessionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the sessions
+     */
+    select?: sessionsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the sessions
+     */
+    omit?: sessionsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: sessionsInclude<ExtArgs> | null
+    where?: sessionsWhereInput
+    orderBy?: sessionsOrderByWithRelationInput | sessionsOrderByWithRelationInput[]
+    cursor?: sessionsWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: SessionsScalarFieldEnum | SessionsScalarFieldEnum[]
   }
 
   /**
@@ -28851,126 +29043,6 @@ export namespace Prisma {
   }
 
   /**
-   * users.created_sessions
-   */
-  export type users$created_sessionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the sessions
-     */
-    select?: sessionsSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the sessions
-     */
-    omit?: sessionsOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: sessionsInclude<ExtArgs> | null
-    where?: sessionsWhereInput
-    orderBy?: sessionsOrderByWithRelationInput | sessionsOrderByWithRelationInput[]
-    cursor?: sessionsWhereUniqueInput
-    take?: number
-    skip?: number
-    distinct?: SessionsScalarFieldEnum | SessionsScalarFieldEnum[]
-  }
-
-  /**
-   * users.session_enrollments
-   */
-  export type users$session_enrollmentsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the session_enrollments
-     */
-    select?: session_enrollmentsSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the session_enrollments
-     */
-    omit?: session_enrollmentsOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: session_enrollmentsInclude<ExtArgs> | null
-    where?: session_enrollmentsWhereInput
-    orderBy?: session_enrollmentsOrderByWithRelationInput | session_enrollmentsOrderByWithRelationInput[]
-    cursor?: session_enrollmentsWhereUniqueInput
-    take?: number
-    skip?: number
-    distinct?: Session_enrollmentsScalarFieldEnum | Session_enrollmentsScalarFieldEnum[]
-  }
-
-  /**
-   * users.created_services
-   */
-  export type users$created_servicesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the services
-     */
-    select?: servicesSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the services
-     */
-    omit?: servicesOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: servicesInclude<ExtArgs> | null
-    where?: servicesWhereInput
-    orderBy?: servicesOrderByWithRelationInput | servicesOrderByWithRelationInput[]
-    cursor?: servicesWhereUniqueInput
-    take?: number
-    skip?: number
-    distinct?: ServicesScalarFieldEnum | ServicesScalarFieldEnum[]
-  }
-
-  /**
-   * users.service_bookings
-   */
-  export type users$service_bookingsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the service_bookings
-     */
-    select?: service_bookingsSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the service_bookings
-     */
-    omit?: service_bookingsOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: service_bookingsInclude<ExtArgs> | null
-    where?: service_bookingsWhereInput
-    orderBy?: service_bookingsOrderByWithRelationInput | service_bookingsOrderByWithRelationInput[]
-    cursor?: service_bookingsWhereUniqueInput
-    take?: number
-    skip?: number
-    distinct?: Service_bookingsScalarFieldEnum | Service_bookingsScalarFieldEnum[]
-  }
-
-  /**
-   * users.service_reviews
-   */
-  export type users$service_reviewsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the service_reviews
-     */
-    select?: service_reviewsSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the service_reviews
-     */
-    omit?: service_reviewsOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: service_reviewsInclude<ExtArgs> | null
-    where?: service_reviewsWhereInput
-    orderBy?: service_reviewsOrderByWithRelationInput | service_reviewsOrderByWithRelationInput[]
-    cursor?: service_reviewsWhereUniqueInput
-    take?: number
-    skip?: number
-    distinct?: Service_reviewsScalarFieldEnum | Service_reviewsScalarFieldEnum[]
-  }
-
-  /**
    * users.subscriptions
    */
   export type users$subscriptionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -29011,78 +29083,6 @@ export namespace Prisma {
      */
     include?: user_settingsInclude<ExtArgs> | null
     where?: user_settingsWhereInput
-  }
-
-  /**
-   * users.created_polls
-   */
-  export type users$created_pollsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the polls
-     */
-    select?: pollsSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the polls
-     */
-    omit?: pollsOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: pollsInclude<ExtArgs> | null
-    where?: pollsWhereInput
-    orderBy?: pollsOrderByWithRelationInput | pollsOrderByWithRelationInput[]
-    cursor?: pollsWhereUniqueInput
-    take?: number
-    skip?: number
-    distinct?: PollsScalarFieldEnum | PollsScalarFieldEnum[]
-  }
-
-  /**
-   * users.poll_votes
-   */
-  export type users$poll_votesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the poll_votes
-     */
-    select?: poll_votesSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the poll_votes
-     */
-    omit?: poll_votesOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: poll_votesInclude<ExtArgs> | null
-    where?: poll_votesWhereInput
-    orderBy?: poll_votesOrderByWithRelationInput | poll_votesOrderByWithRelationInput[]
-    cursor?: poll_votesWhereUniqueInput
-    take?: number
-    skip?: number
-    distinct?: Poll_votesScalarFieldEnum | Poll_votesScalarFieldEnum[]
-  }
-
-  /**
-   * users.poll_comments
-   */
-  export type users$poll_commentsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the poll_comments
-     */
-    select?: poll_commentsSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the poll_comments
-     */
-    omit?: poll_commentsOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: poll_commentsInclude<ExtArgs> | null
-    where?: poll_commentsWhereInput
-    orderBy?: poll_commentsOrderByWithRelationInput | poll_commentsOrderByWithRelationInput[]
-    cursor?: poll_commentsWhereUniqueInput
-    take?: number
-    skip?: number
-    distinct?: Poll_commentsScalarFieldEnum | Poll_commentsScalarFieldEnum[]
   }
 
   /**
@@ -64076,8 +64076,8 @@ export namespace Prisma {
     is_enabled?: boolean
     created_at?: boolean
     updated_at?: boolean
-    creator?: boolean | usersDefaultArgs<ExtArgs>
     enrollments?: boolean | sessions$enrollmentsArgs<ExtArgs>
+    creator?: boolean | usersDefaultArgs<ExtArgs>
     _count?: boolean | SessionsCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["sessions"]>
 
@@ -64154,8 +64154,8 @@ export namespace Prisma {
 
   export type sessionsOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "title" | "session_type" | "payment_type" | "price" | "duration" | "session_date" | "session_time" | "max_participants" | "difficulty_level" | "session_link" | "description" | "materials" | "session_notes" | "created_by" | "created_date" | "created_time" | "is_enabled" | "created_at" | "updated_at", ExtArgs["result"]["sessions"]>
   export type sessionsInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    creator?: boolean | usersDefaultArgs<ExtArgs>
     enrollments?: boolean | sessions$enrollmentsArgs<ExtArgs>
+    creator?: boolean | usersDefaultArgs<ExtArgs>
     _count?: boolean | SessionsCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type sessionsIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -64168,8 +64168,8 @@ export namespace Prisma {
   export type $sessionsPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "sessions"
     objects: {
-      creator: Prisma.$usersPayload<ExtArgs>
       enrollments: Prisma.$session_enrollmentsPayload<ExtArgs>[]
+      creator: Prisma.$usersPayload<ExtArgs>
     }
     scalars: $Extensions.GetPayloadResult<{
       id: number
@@ -64586,8 +64586,8 @@ export namespace Prisma {
    */
   export interface Prisma__sessionsClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
-    creator<T extends usersDefaultArgs<ExtArgs> = {}>(args?: Subset<T, usersDefaultArgs<ExtArgs>>): Prisma__usersClient<$Result.GetResult<Prisma.$usersPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     enrollments<T extends sessions$enrollmentsArgs<ExtArgs> = {}>(args?: Subset<T, sessions$enrollmentsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$session_enrollmentsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    creator<T extends usersDefaultArgs<ExtArgs> = {}>(args?: Subset<T, usersDefaultArgs<ExtArgs>>): Prisma__usersClient<$Result.GetResult<Prisma.$usersPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -65533,11 +65533,11 @@ export namespace Prisma {
     is_active?: boolean
     created_at?: boolean
     updated_at?: boolean
-    creator?: boolean | usersDefaultArgs<ExtArgs>
-    bookings?: boolean | services$bookingsArgs<ExtArgs>
-    reviews?: boolean | services$reviewsArgs<ExtArgs>
     availability?: boolean | services$availabilityArgs<ExtArgs>
+    bookings?: boolean | services$bookingsArgs<ExtArgs>
     media?: boolean | services$mediaArgs<ExtArgs>
+    reviews?: boolean | services$reviewsArgs<ExtArgs>
+    creator?: boolean | usersDefaultArgs<ExtArgs>
     _count?: boolean | ServicesCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["services"]>
 
@@ -65659,11 +65659,11 @@ export namespace Prisma {
 
   export type servicesOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "title" | "description" | "category" | "price" | "duration" | "max_participants" | "location" | "difficulty" | "equipment" | "next_available" | "image_url" | "featured" | "tags" | "requirements" | "cancellation_policy" | "meeting_point" | "what_to_expect" | "weather_policy" | "booking_deadline" | "languages" | "certification" | "experience" | "group_discount" | "private_booking" | "instant_booking" | "status" | "views_count" | "bookings_count" | "rating" | "review_count" | "created_by" | "is_active" | "created_at" | "updated_at", ExtArgs["result"]["services"]>
   export type servicesInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    creator?: boolean | usersDefaultArgs<ExtArgs>
-    bookings?: boolean | services$bookingsArgs<ExtArgs>
-    reviews?: boolean | services$reviewsArgs<ExtArgs>
     availability?: boolean | services$availabilityArgs<ExtArgs>
+    bookings?: boolean | services$bookingsArgs<ExtArgs>
     media?: boolean | services$mediaArgs<ExtArgs>
+    reviews?: boolean | services$reviewsArgs<ExtArgs>
+    creator?: boolean | usersDefaultArgs<ExtArgs>
     _count?: boolean | ServicesCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type servicesIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -65676,11 +65676,11 @@ export namespace Prisma {
   export type $servicesPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "services"
     objects: {
-      creator: Prisma.$usersPayload<ExtArgs>
-      bookings: Prisma.$service_bookingsPayload<ExtArgs>[]
-      reviews: Prisma.$service_reviewsPayload<ExtArgs>[]
       availability: Prisma.$service_availabilityPayload<ExtArgs>[]
+      bookings: Prisma.$service_bookingsPayload<ExtArgs>[]
       media: Prisma.$service_mediaPayload<ExtArgs>[]
+      reviews: Prisma.$service_reviewsPayload<ExtArgs>[]
+      creator: Prisma.$usersPayload<ExtArgs>
     }
     scalars: $Extensions.GetPayloadResult<{
       id: number
@@ -66112,11 +66112,11 @@ export namespace Prisma {
    */
   export interface Prisma__servicesClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
-    creator<T extends usersDefaultArgs<ExtArgs> = {}>(args?: Subset<T, usersDefaultArgs<ExtArgs>>): Prisma__usersClient<$Result.GetResult<Prisma.$usersPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-    bookings<T extends services$bookingsArgs<ExtArgs> = {}>(args?: Subset<T, services$bookingsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$service_bookingsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-    reviews<T extends services$reviewsArgs<ExtArgs> = {}>(args?: Subset<T, services$reviewsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$service_reviewsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     availability<T extends services$availabilityArgs<ExtArgs> = {}>(args?: Subset<T, services$availabilityArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$service_availabilityPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    bookings<T extends services$bookingsArgs<ExtArgs> = {}>(args?: Subset<T, services$bookingsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$service_bookingsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     media<T extends services$mediaArgs<ExtArgs> = {}>(args?: Subset<T, services$mediaArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$service_mediaPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    reviews<T extends services$reviewsArgs<ExtArgs> = {}>(args?: Subset<T, services$reviewsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$service_reviewsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    creator<T extends usersDefaultArgs<ExtArgs> = {}>(args?: Subset<T, usersDefaultArgs<ExtArgs>>): Prisma__usersClient<$Result.GetResult<Prisma.$usersPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -66577,54 +66577,6 @@ export namespace Prisma {
   }
 
   /**
-   * services.bookings
-   */
-  export type services$bookingsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the service_bookings
-     */
-    select?: service_bookingsSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the service_bookings
-     */
-    omit?: service_bookingsOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: service_bookingsInclude<ExtArgs> | null
-    where?: service_bookingsWhereInput
-    orderBy?: service_bookingsOrderByWithRelationInput | service_bookingsOrderByWithRelationInput[]
-    cursor?: service_bookingsWhereUniqueInput
-    take?: number
-    skip?: number
-    distinct?: Service_bookingsScalarFieldEnum | Service_bookingsScalarFieldEnum[]
-  }
-
-  /**
-   * services.reviews
-   */
-  export type services$reviewsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the service_reviews
-     */
-    select?: service_reviewsSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the service_reviews
-     */
-    omit?: service_reviewsOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: service_reviewsInclude<ExtArgs> | null
-    where?: service_reviewsWhereInput
-    orderBy?: service_reviewsOrderByWithRelationInput | service_reviewsOrderByWithRelationInput[]
-    cursor?: service_reviewsWhereUniqueInput
-    take?: number
-    skip?: number
-    distinct?: Service_reviewsScalarFieldEnum | Service_reviewsScalarFieldEnum[]
-  }
-
-  /**
    * services.availability
    */
   export type services$availabilityArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -66649,6 +66601,30 @@ export namespace Prisma {
   }
 
   /**
+   * services.bookings
+   */
+  export type services$bookingsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the service_bookings
+     */
+    select?: service_bookingsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the service_bookings
+     */
+    omit?: service_bookingsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: service_bookingsInclude<ExtArgs> | null
+    where?: service_bookingsWhereInput
+    orderBy?: service_bookingsOrderByWithRelationInput | service_bookingsOrderByWithRelationInput[]
+    cursor?: service_bookingsWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: Service_bookingsScalarFieldEnum | Service_bookingsScalarFieldEnum[]
+  }
+
+  /**
    * services.media
    */
   export type services$mediaArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -66670,6 +66646,30 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: Service_mediaScalarFieldEnum | Service_mediaScalarFieldEnum[]
+  }
+
+  /**
+   * services.reviews
+   */
+  export type services$reviewsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the service_reviews
+     */
+    select?: service_reviewsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the service_reviews
+     */
+    omit?: service_reviewsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: service_reviewsInclude<ExtArgs> | null
+    where?: service_reviewsWhereInput
+    orderBy?: service_reviewsOrderByWithRelationInput | service_reviewsOrderByWithRelationInput[]
+    cursor?: service_reviewsWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: Service_reviewsScalarFieldEnum | Service_reviewsScalarFieldEnum[]
   }
 
   /**
@@ -71738,8 +71738,8 @@ export namespace Prisma {
     notes?: boolean
     created_at?: boolean
     updated_at?: boolean
-    user?: boolean | usersDefaultArgs<ExtArgs>
     session?: boolean | sessionsDefaultArgs<ExtArgs>
+    user?: boolean | usersDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["session_enrollments"]>
 
   export type session_enrollmentsSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -71758,8 +71758,8 @@ export namespace Prisma {
     notes?: boolean
     created_at?: boolean
     updated_at?: boolean
-    user?: boolean | usersDefaultArgs<ExtArgs>
     session?: boolean | sessionsDefaultArgs<ExtArgs>
+    user?: boolean | usersDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["session_enrollments"]>
 
   export type session_enrollmentsSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -71778,8 +71778,8 @@ export namespace Prisma {
     notes?: boolean
     created_at?: boolean
     updated_at?: boolean
-    user?: boolean | usersDefaultArgs<ExtArgs>
     session?: boolean | sessionsDefaultArgs<ExtArgs>
+    user?: boolean | usersDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["session_enrollments"]>
 
   export type session_enrollmentsSelectScalar = {
@@ -71802,23 +71802,23 @@ export namespace Prisma {
 
   export type session_enrollmentsOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "user_id" | "session_id" | "enrollment_date" | "payment_status" | "payment_amount" | "payment_method" | "transaction_id" | "access_granted" | "completed" | "progress" | "last_accessed_at" | "notes" | "created_at" | "updated_at", ExtArgs["result"]["session_enrollments"]>
   export type session_enrollmentsInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    user?: boolean | usersDefaultArgs<ExtArgs>
     session?: boolean | sessionsDefaultArgs<ExtArgs>
+    user?: boolean | usersDefaultArgs<ExtArgs>
   }
   export type session_enrollmentsIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    user?: boolean | usersDefaultArgs<ExtArgs>
     session?: boolean | sessionsDefaultArgs<ExtArgs>
+    user?: boolean | usersDefaultArgs<ExtArgs>
   }
   export type session_enrollmentsIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    user?: boolean | usersDefaultArgs<ExtArgs>
     session?: boolean | sessionsDefaultArgs<ExtArgs>
+    user?: boolean | usersDefaultArgs<ExtArgs>
   }
 
   export type $session_enrollmentsPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "session_enrollments"
     objects: {
-      user: Prisma.$usersPayload<ExtArgs>
       session: Prisma.$sessionsPayload<ExtArgs>
+      user: Prisma.$usersPayload<ExtArgs>
     }
     scalars: $Extensions.GetPayloadResult<{
       id: number
@@ -72230,8 +72230,8 @@ export namespace Prisma {
    */
   export interface Prisma__session_enrollmentsClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
-    user<T extends usersDefaultArgs<ExtArgs> = {}>(args?: Subset<T, usersDefaultArgs<ExtArgs>>): Prisma__usersClient<$Result.GetResult<Prisma.$usersPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     session<T extends sessionsDefaultArgs<ExtArgs> = {}>(args?: Subset<T, sessionsDefaultArgs<ExtArgs>>): Prisma__sessionsClient<$Result.GetResult<Prisma.$sessionsPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    user<T extends usersDefaultArgs<ExtArgs> = {}>(args?: Subset<T, usersDefaultArgs<ExtArgs>>): Prisma__usersClient<$Result.GetResult<Prisma.$usersPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -72908,9 +72908,9 @@ export namespace Prisma {
     created_at?: boolean
     updated_at?: boolean
     is_active?: boolean
-    creator?: boolean | usersDefaultArgs<ExtArgs>
     choices?: boolean | polls$choicesArgs<ExtArgs>
     comments?: boolean | polls$commentsArgs<ExtArgs>
+    creator?: boolean | usersDefaultArgs<ExtArgs>
     _count?: boolean | PollsCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["polls"]>
 
@@ -72948,9 +72948,9 @@ export namespace Prisma {
 
   export type pollsOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "title" | "description" | "created_by" | "created_at" | "updated_at" | "is_active", ExtArgs["result"]["polls"]>
   export type pollsInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    creator?: boolean | usersDefaultArgs<ExtArgs>
     choices?: boolean | polls$choicesArgs<ExtArgs>
     comments?: boolean | polls$commentsArgs<ExtArgs>
+    creator?: boolean | usersDefaultArgs<ExtArgs>
     _count?: boolean | PollsCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type pollsIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -72963,9 +72963,9 @@ export namespace Prisma {
   export type $pollsPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "polls"
     objects: {
-      creator: Prisma.$usersPayload<ExtArgs>
       choices: Prisma.$poll_choicesPayload<ExtArgs>[]
       comments: Prisma.$poll_commentsPayload<ExtArgs>[]
+      creator: Prisma.$usersPayload<ExtArgs>
     }
     scalars: $Extensions.GetPayloadResult<{
       id: number
@@ -73369,9 +73369,9 @@ export namespace Prisma {
    */
   export interface Prisma__pollsClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
-    creator<T extends usersDefaultArgs<ExtArgs> = {}>(args?: Subset<T, usersDefaultArgs<ExtArgs>>): Prisma__usersClient<$Result.GetResult<Prisma.$usersPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     choices<T extends polls$choicesArgs<ExtArgs> = {}>(args?: Subset<T, polls$choicesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$poll_choicesPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     comments<T extends polls$commentsArgs<ExtArgs> = {}>(args?: Subset<T, polls$commentsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$poll_commentsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    creator<T extends usersDefaultArgs<ExtArgs> = {}>(args?: Subset<T, usersDefaultArgs<ExtArgs>>): Prisma__usersClient<$Result.GetResult<Prisma.$usersPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -79970,8 +79970,16 @@ export namespace Prisma {
     night_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousers?: Night_camp_volunteering_applicationsListRelationFilter
     night_camp_volunteering_applications_night_camp_volunteering_applications_user_idTousers?: Night_camp_volunteering_applicationsListRelationFilter
     payments?: PaymentsListRelationFilter
+    poll_comments?: Poll_commentsListRelationFilter
+    poll_votes?: Poll_votesListRelationFilter
+    created_polls?: PollsListRelationFilter
     role_upgrade_requests_role_upgrade_requests_reviewer_idTousers?: Role_upgrade_requestsListRelationFilter
     role_upgrade_requests_role_upgrade_requests_user_idTousers?: Role_upgrade_requestsListRelationFilter
+    service_bookings?: Service_bookingsListRelationFilter
+    service_reviews?: Service_reviewsListRelationFilter
+    created_services?: ServicesListRelationFilter
+    session_enrollments?: Session_enrollmentsListRelationFilter
+    created_sessions?: SessionsListRelationFilter
     discussion_comment_likes?: Space_discussion_comment_likesListRelationFilter
     discussion_comments?: Space_discussion_commentsListRelationFilter
     discussion_likes?: Space_discussion_likesListRelationFilter
@@ -79981,16 +79989,8 @@ export namespace Prisma {
     space_news_likes?: Space_news_likesListRelationFilter
     stargazing_spot_reviews?: Stargazing_spot_reviewsListRelationFilter
     created_stargazing_spots?: Stargazing_spotsListRelationFilter
-    created_sessions?: SessionsListRelationFilter
-    session_enrollments?: Session_enrollmentsListRelationFilter
-    created_services?: ServicesListRelationFilter
-    service_bookings?: Service_bookingsListRelationFilter
-    service_reviews?: Service_reviewsListRelationFilter
     subscriptions?: SubscriptionsListRelationFilter
     user_settings?: XOR<User_settingsNullableScalarRelationFilter, user_settingsWhereInput> | null
-    created_polls?: PollsListRelationFilter
-    poll_votes?: Poll_votesListRelationFilter
-    poll_comments?: Poll_commentsListRelationFilter
   }
 
   export type usersOrderByWithRelationInput = {
@@ -80036,8 +80036,16 @@ export namespace Prisma {
     night_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousers?: night_camp_volunteering_applicationsOrderByRelationAggregateInput
     night_camp_volunteering_applications_night_camp_volunteering_applications_user_idTousers?: night_camp_volunteering_applicationsOrderByRelationAggregateInput
     payments?: paymentsOrderByRelationAggregateInput
+    poll_comments?: poll_commentsOrderByRelationAggregateInput
+    poll_votes?: poll_votesOrderByRelationAggregateInput
+    created_polls?: pollsOrderByRelationAggregateInput
     role_upgrade_requests_role_upgrade_requests_reviewer_idTousers?: role_upgrade_requestsOrderByRelationAggregateInput
     role_upgrade_requests_role_upgrade_requests_user_idTousers?: role_upgrade_requestsOrderByRelationAggregateInput
+    service_bookings?: service_bookingsOrderByRelationAggregateInput
+    service_reviews?: service_reviewsOrderByRelationAggregateInput
+    created_services?: servicesOrderByRelationAggregateInput
+    session_enrollments?: session_enrollmentsOrderByRelationAggregateInput
+    created_sessions?: sessionsOrderByRelationAggregateInput
     discussion_comment_likes?: space_discussion_comment_likesOrderByRelationAggregateInput
     discussion_comments?: space_discussion_commentsOrderByRelationAggregateInput
     discussion_likes?: space_discussion_likesOrderByRelationAggregateInput
@@ -80047,16 +80055,8 @@ export namespace Prisma {
     space_news_likes?: space_news_likesOrderByRelationAggregateInput
     stargazing_spot_reviews?: stargazing_spot_reviewsOrderByRelationAggregateInput
     created_stargazing_spots?: stargazing_spotsOrderByRelationAggregateInput
-    created_sessions?: sessionsOrderByRelationAggregateInput
-    session_enrollments?: session_enrollmentsOrderByRelationAggregateInput
-    created_services?: servicesOrderByRelationAggregateInput
-    service_bookings?: service_bookingsOrderByRelationAggregateInput
-    service_reviews?: service_reviewsOrderByRelationAggregateInput
     subscriptions?: subscriptionsOrderByRelationAggregateInput
     user_settings?: user_settingsOrderByWithRelationInput
-    created_polls?: pollsOrderByRelationAggregateInput
-    poll_votes?: poll_votesOrderByRelationAggregateInput
-    poll_comments?: poll_commentsOrderByRelationAggregateInput
   }
 
   export type usersWhereUniqueInput = Prisma.AtLeast<{
@@ -80105,8 +80105,16 @@ export namespace Prisma {
     night_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousers?: Night_camp_volunteering_applicationsListRelationFilter
     night_camp_volunteering_applications_night_camp_volunteering_applications_user_idTousers?: Night_camp_volunteering_applicationsListRelationFilter
     payments?: PaymentsListRelationFilter
+    poll_comments?: Poll_commentsListRelationFilter
+    poll_votes?: Poll_votesListRelationFilter
+    created_polls?: PollsListRelationFilter
     role_upgrade_requests_role_upgrade_requests_reviewer_idTousers?: Role_upgrade_requestsListRelationFilter
     role_upgrade_requests_role_upgrade_requests_user_idTousers?: Role_upgrade_requestsListRelationFilter
+    service_bookings?: Service_bookingsListRelationFilter
+    service_reviews?: Service_reviewsListRelationFilter
+    created_services?: ServicesListRelationFilter
+    session_enrollments?: Session_enrollmentsListRelationFilter
+    created_sessions?: SessionsListRelationFilter
     discussion_comment_likes?: Space_discussion_comment_likesListRelationFilter
     discussion_comments?: Space_discussion_commentsListRelationFilter
     discussion_likes?: Space_discussion_likesListRelationFilter
@@ -80116,16 +80124,8 @@ export namespace Prisma {
     space_news_likes?: Space_news_likesListRelationFilter
     stargazing_spot_reviews?: Stargazing_spot_reviewsListRelationFilter
     created_stargazing_spots?: Stargazing_spotsListRelationFilter
-    created_sessions?: SessionsListRelationFilter
-    session_enrollments?: Session_enrollmentsListRelationFilter
-    created_services?: ServicesListRelationFilter
-    service_bookings?: Service_bookingsListRelationFilter
-    service_reviews?: Service_reviewsListRelationFilter
     subscriptions?: SubscriptionsListRelationFilter
     user_settings?: XOR<User_settingsNullableScalarRelationFilter, user_settingsWhereInput> | null
-    created_polls?: PollsListRelationFilter
-    poll_votes?: Poll_votesListRelationFilter
-    poll_comments?: Poll_commentsListRelationFilter
   }, "id" | "firebase_uid" | "email">
 
   export type usersOrderByWithAggregationInput = {
@@ -82760,8 +82760,8 @@ export namespace Prisma {
     is_enabled?: BoolFilter<"sessions"> | boolean
     created_at?: DateTimeFilter<"sessions"> | Date | string
     updated_at?: DateTimeFilter<"sessions"> | Date | string
-    creator?: XOR<UsersScalarRelationFilter, usersWhereInput>
     enrollments?: Session_enrollmentsListRelationFilter
+    creator?: XOR<UsersScalarRelationFilter, usersWhereInput>
   }
 
   export type sessionsOrderByWithRelationInput = {
@@ -82785,8 +82785,8 @@ export namespace Prisma {
     is_enabled?: SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
-    creator?: usersOrderByWithRelationInput
     enrollments?: session_enrollmentsOrderByRelationAggregateInput
+    creator?: usersOrderByWithRelationInput
   }
 
   export type sessionsWhereUniqueInput = Prisma.AtLeast<{
@@ -82813,8 +82813,8 @@ export namespace Prisma {
     is_enabled?: BoolFilter<"sessions"> | boolean
     created_at?: DateTimeFilter<"sessions"> | Date | string
     updated_at?: DateTimeFilter<"sessions"> | Date | string
-    creator?: XOR<UsersScalarRelationFilter, usersWhereInput>
     enrollments?: Session_enrollmentsListRelationFilter
+    creator?: XOR<UsersScalarRelationFilter, usersWhereInput>
   }, "id">
 
   export type sessionsOrderByWithAggregationInput = {
@@ -82910,11 +82910,11 @@ export namespace Prisma {
     is_active?: BoolFilter<"services"> | boolean
     created_at?: DateTimeFilter<"services"> | Date | string
     updated_at?: DateTimeFilter<"services"> | Date | string
-    creator?: XOR<UsersScalarRelationFilter, usersWhereInput>
-    bookings?: Service_bookingsListRelationFilter
-    reviews?: Service_reviewsListRelationFilter
     availability?: Service_availabilityListRelationFilter
+    bookings?: Service_bookingsListRelationFilter
     media?: Service_mediaListRelationFilter
+    reviews?: Service_reviewsListRelationFilter
+    creator?: XOR<UsersScalarRelationFilter, usersWhereInput>
   }
 
   export type servicesOrderByWithRelationInput = {
@@ -82953,11 +82953,11 @@ export namespace Prisma {
     is_active?: SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
-    creator?: usersOrderByWithRelationInput
-    bookings?: service_bookingsOrderByRelationAggregateInput
-    reviews?: service_reviewsOrderByRelationAggregateInput
     availability?: service_availabilityOrderByRelationAggregateInput
+    bookings?: service_bookingsOrderByRelationAggregateInput
     media?: service_mediaOrderByRelationAggregateInput
+    reviews?: service_reviewsOrderByRelationAggregateInput
+    creator?: usersOrderByWithRelationInput
   }
 
   export type servicesWhereUniqueInput = Prisma.AtLeast<{
@@ -82999,11 +82999,11 @@ export namespace Prisma {
     is_active?: BoolFilter<"services"> | boolean
     created_at?: DateTimeFilter<"services"> | Date | string
     updated_at?: DateTimeFilter<"services"> | Date | string
-    creator?: XOR<UsersScalarRelationFilter, usersWhereInput>
-    bookings?: Service_bookingsListRelationFilter
-    reviews?: Service_reviewsListRelationFilter
     availability?: Service_availabilityListRelationFilter
+    bookings?: Service_bookingsListRelationFilter
     media?: Service_mediaListRelationFilter
+    reviews?: Service_reviewsListRelationFilter
+    creator?: XOR<UsersScalarRelationFilter, usersWhereInput>
   }, "id">
 
   export type servicesOrderByWithAggregationInput = {
@@ -83471,8 +83471,8 @@ export namespace Prisma {
     notes?: StringNullableFilter<"session_enrollments"> | string | null
     created_at?: DateTimeFilter<"session_enrollments"> | Date | string
     updated_at?: DateTimeFilter<"session_enrollments"> | Date | string
-    user?: XOR<UsersScalarRelationFilter, usersWhereInput>
     session?: XOR<SessionsScalarRelationFilter, sessionsWhereInput>
+    user?: XOR<UsersScalarRelationFilter, usersWhereInput>
   }
 
   export type session_enrollmentsOrderByWithRelationInput = {
@@ -83491,8 +83491,8 @@ export namespace Prisma {
     notes?: SortOrderInput | SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
-    user?: usersOrderByWithRelationInput
     session?: sessionsOrderByWithRelationInput
+    user?: usersOrderByWithRelationInput
   }
 
   export type session_enrollmentsWhereUniqueInput = Prisma.AtLeast<{
@@ -83515,8 +83515,8 @@ export namespace Prisma {
     notes?: StringNullableFilter<"session_enrollments"> | string | null
     created_at?: DateTimeFilter<"session_enrollments"> | Date | string
     updated_at?: DateTimeFilter<"session_enrollments"> | Date | string
-    user?: XOR<UsersScalarRelationFilter, usersWhereInput>
     session?: XOR<SessionsScalarRelationFilter, sessionsWhereInput>
+    user?: XOR<UsersScalarRelationFilter, usersWhereInput>
   }, "id" | "user_id_session_id">
 
   export type session_enrollmentsOrderByWithAggregationInput = {
@@ -83574,9 +83574,9 @@ export namespace Prisma {
     created_at?: DateTimeFilter<"polls"> | Date | string
     updated_at?: DateTimeFilter<"polls"> | Date | string
     is_active?: BoolFilter<"polls"> | boolean
-    creator?: XOR<UsersScalarRelationFilter, usersWhereInput>
     choices?: Poll_choicesListRelationFilter
     comments?: Poll_commentsListRelationFilter
+    creator?: XOR<UsersScalarRelationFilter, usersWhereInput>
   }
 
   export type pollsOrderByWithRelationInput = {
@@ -83587,9 +83587,9 @@ export namespace Prisma {
     created_at?: SortOrder
     updated_at?: SortOrder
     is_active?: SortOrder
-    creator?: usersOrderByWithRelationInput
     choices?: poll_choicesOrderByRelationAggregateInput
     comments?: poll_commentsOrderByRelationAggregateInput
+    creator?: usersOrderByWithRelationInput
   }
 
   export type pollsWhereUniqueInput = Prisma.AtLeast<{
@@ -83603,9 +83603,9 @@ export namespace Prisma {
     created_at?: DateTimeFilter<"polls"> | Date | string
     updated_at?: DateTimeFilter<"polls"> | Date | string
     is_active?: BoolFilter<"polls"> | boolean
-    creator?: XOR<UsersScalarRelationFilter, usersWhereInput>
     choices?: Poll_choicesListRelationFilter
     comments?: Poll_commentsListRelationFilter
+    creator?: XOR<UsersScalarRelationFilter, usersWhereInput>
   }, "id">
 
   export type pollsOrderByWithAggregationInput = {
@@ -85187,8 +85187,16 @@ export namespace Prisma {
     night_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousers?: night_camp_volunteering_applicationsCreateNestedManyWithoutUsers_night_camp_volunteering_applications_reviewed_byTousersInput
     night_camp_volunteering_applications_night_camp_volunteering_applications_user_idTousers?: night_camp_volunteering_applicationsCreateNestedManyWithoutUsers_night_camp_volunteering_applications_user_idTousersInput
     payments?: paymentsCreateNestedManyWithoutUsersInput
+    poll_comments?: poll_commentsCreateNestedManyWithoutCommenterInput
+    poll_votes?: poll_votesCreateNestedManyWithoutVoterInput
+    created_polls?: pollsCreateNestedManyWithoutCreatorInput
     role_upgrade_requests_role_upgrade_requests_reviewer_idTousers?: role_upgrade_requestsCreateNestedManyWithoutUsers_role_upgrade_requests_reviewer_idTousersInput
     role_upgrade_requests_role_upgrade_requests_user_idTousers?: role_upgrade_requestsCreateNestedManyWithoutUsers_role_upgrade_requests_user_idTousersInput
+    service_bookings?: service_bookingsCreateNestedManyWithoutUserInput
+    service_reviews?: service_reviewsCreateNestedManyWithoutUserInput
+    created_services?: servicesCreateNestedManyWithoutCreatorInput
+    session_enrollments?: session_enrollmentsCreateNestedManyWithoutUserInput
+    created_sessions?: sessionsCreateNestedManyWithoutCreatorInput
     discussion_comment_likes?: space_discussion_comment_likesCreateNestedManyWithoutUserInput
     discussion_comments?: space_discussion_commentsCreateNestedManyWithoutUserInput
     discussion_likes?: space_discussion_likesCreateNestedManyWithoutUserInput
@@ -85198,16 +85206,8 @@ export namespace Prisma {
     space_news_likes?: space_news_likesCreateNestedManyWithoutUserInput
     stargazing_spot_reviews?: stargazing_spot_reviewsCreateNestedManyWithoutUserInput
     created_stargazing_spots?: stargazing_spotsCreateNestedManyWithoutCreatorInput
-    created_sessions?: sessionsCreateNestedManyWithoutCreatorInput
-    session_enrollments?: session_enrollmentsCreateNestedManyWithoutUserInput
-    created_services?: servicesCreateNestedManyWithoutCreatorInput
-    service_bookings?: service_bookingsCreateNestedManyWithoutUserInput
-    service_reviews?: service_reviewsCreateNestedManyWithoutUserInput
     subscriptions?: subscriptionsCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsCreateNestedOneWithoutUsersInput
-    created_polls?: pollsCreateNestedManyWithoutCreatorInput
-    poll_votes?: poll_votesCreateNestedManyWithoutVoterInput
-    poll_comments?: poll_commentsCreateNestedManyWithoutCommenterInput
   }
 
   export type usersUncheckedCreateInput = {
@@ -85253,8 +85253,16 @@ export namespace Prisma {
     night_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousers?: night_camp_volunteering_applicationsUncheckedCreateNestedManyWithoutUsers_night_camp_volunteering_applications_reviewed_byTousersInput
     night_camp_volunteering_applications_night_camp_volunteering_applications_user_idTousers?: night_camp_volunteering_applicationsUncheckedCreateNestedManyWithoutUsers_night_camp_volunteering_applications_user_idTousersInput
     payments?: paymentsUncheckedCreateNestedManyWithoutUsersInput
+    poll_comments?: poll_commentsUncheckedCreateNestedManyWithoutCommenterInput
+    poll_votes?: poll_votesUncheckedCreateNestedManyWithoutVoterInput
+    created_polls?: pollsUncheckedCreateNestedManyWithoutCreatorInput
     role_upgrade_requests_role_upgrade_requests_reviewer_idTousers?: role_upgrade_requestsUncheckedCreateNestedManyWithoutUsers_role_upgrade_requests_reviewer_idTousersInput
     role_upgrade_requests_role_upgrade_requests_user_idTousers?: role_upgrade_requestsUncheckedCreateNestedManyWithoutUsers_role_upgrade_requests_user_idTousersInput
+    service_bookings?: service_bookingsUncheckedCreateNestedManyWithoutUserInput
+    service_reviews?: service_reviewsUncheckedCreateNestedManyWithoutUserInput
+    created_services?: servicesUncheckedCreateNestedManyWithoutCreatorInput
+    session_enrollments?: session_enrollmentsUncheckedCreateNestedManyWithoutUserInput
+    created_sessions?: sessionsUncheckedCreateNestedManyWithoutCreatorInput
     discussion_comment_likes?: space_discussion_comment_likesUncheckedCreateNestedManyWithoutUserInput
     discussion_comments?: space_discussion_commentsUncheckedCreateNestedManyWithoutUserInput
     discussion_likes?: space_discussion_likesUncheckedCreateNestedManyWithoutUserInput
@@ -85264,16 +85272,8 @@ export namespace Prisma {
     space_news_likes?: space_news_likesUncheckedCreateNestedManyWithoutUserInput
     stargazing_spot_reviews?: stargazing_spot_reviewsUncheckedCreateNestedManyWithoutUserInput
     created_stargazing_spots?: stargazing_spotsUncheckedCreateNestedManyWithoutCreatorInput
-    created_sessions?: sessionsUncheckedCreateNestedManyWithoutCreatorInput
-    session_enrollments?: session_enrollmentsUncheckedCreateNestedManyWithoutUserInput
-    created_services?: servicesUncheckedCreateNestedManyWithoutCreatorInput
-    service_bookings?: service_bookingsUncheckedCreateNestedManyWithoutUserInput
-    service_reviews?: service_reviewsUncheckedCreateNestedManyWithoutUserInput
     subscriptions?: subscriptionsUncheckedCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsUncheckedCreateNestedOneWithoutUsersInput
-    created_polls?: pollsUncheckedCreateNestedManyWithoutCreatorInput
-    poll_votes?: poll_votesUncheckedCreateNestedManyWithoutVoterInput
-    poll_comments?: poll_commentsUncheckedCreateNestedManyWithoutCommenterInput
   }
 
   export type usersUpdateInput = {
@@ -85318,8 +85318,16 @@ export namespace Prisma {
     night_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousers?: night_camp_volunteering_applicationsUpdateManyWithoutUsers_night_camp_volunteering_applications_reviewed_byTousersNestedInput
     night_camp_volunteering_applications_night_camp_volunteering_applications_user_idTousers?: night_camp_volunteering_applicationsUpdateManyWithoutUsers_night_camp_volunteering_applications_user_idTousersNestedInput
     payments?: paymentsUpdateManyWithoutUsersNestedInput
+    poll_comments?: poll_commentsUpdateManyWithoutCommenterNestedInput
+    poll_votes?: poll_votesUpdateManyWithoutVoterNestedInput
+    created_polls?: pollsUpdateManyWithoutCreatorNestedInput
     role_upgrade_requests_role_upgrade_requests_reviewer_idTousers?: role_upgrade_requestsUpdateManyWithoutUsers_role_upgrade_requests_reviewer_idTousersNestedInput
     role_upgrade_requests_role_upgrade_requests_user_idTousers?: role_upgrade_requestsUpdateManyWithoutUsers_role_upgrade_requests_user_idTousersNestedInput
+    service_bookings?: service_bookingsUpdateManyWithoutUserNestedInput
+    service_reviews?: service_reviewsUpdateManyWithoutUserNestedInput
+    created_services?: servicesUpdateManyWithoutCreatorNestedInput
+    session_enrollments?: session_enrollmentsUpdateManyWithoutUserNestedInput
+    created_sessions?: sessionsUpdateManyWithoutCreatorNestedInput
     discussion_comment_likes?: space_discussion_comment_likesUpdateManyWithoutUserNestedInput
     discussion_comments?: space_discussion_commentsUpdateManyWithoutUserNestedInput
     discussion_likes?: space_discussion_likesUpdateManyWithoutUserNestedInput
@@ -85329,16 +85337,8 @@ export namespace Prisma {
     space_news_likes?: space_news_likesUpdateManyWithoutUserNestedInput
     stargazing_spot_reviews?: stargazing_spot_reviewsUpdateManyWithoutUserNestedInput
     created_stargazing_spots?: stargazing_spotsUpdateManyWithoutCreatorNestedInput
-    created_sessions?: sessionsUpdateManyWithoutCreatorNestedInput
-    session_enrollments?: session_enrollmentsUpdateManyWithoutUserNestedInput
-    created_services?: servicesUpdateManyWithoutCreatorNestedInput
-    service_bookings?: service_bookingsUpdateManyWithoutUserNestedInput
-    service_reviews?: service_reviewsUpdateManyWithoutUserNestedInput
     subscriptions?: subscriptionsUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUpdateOneWithoutUsersNestedInput
-    created_polls?: pollsUpdateManyWithoutCreatorNestedInput
-    poll_votes?: poll_votesUpdateManyWithoutVoterNestedInput
-    poll_comments?: poll_commentsUpdateManyWithoutCommenterNestedInput
   }
 
   export type usersUncheckedUpdateInput = {
@@ -85384,8 +85384,16 @@ export namespace Prisma {
     night_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousers?: night_camp_volunteering_applicationsUncheckedUpdateManyWithoutUsers_night_camp_volunteering_applications_reviewed_byTousersNestedInput
     night_camp_volunteering_applications_night_camp_volunteering_applications_user_idTousers?: night_camp_volunteering_applicationsUncheckedUpdateManyWithoutUsers_night_camp_volunteering_applications_user_idTousersNestedInput
     payments?: paymentsUncheckedUpdateManyWithoutUsersNestedInput
+    poll_comments?: poll_commentsUncheckedUpdateManyWithoutCommenterNestedInput
+    poll_votes?: poll_votesUncheckedUpdateManyWithoutVoterNestedInput
+    created_polls?: pollsUncheckedUpdateManyWithoutCreatorNestedInput
     role_upgrade_requests_role_upgrade_requests_reviewer_idTousers?: role_upgrade_requestsUncheckedUpdateManyWithoutUsers_role_upgrade_requests_reviewer_idTousersNestedInput
     role_upgrade_requests_role_upgrade_requests_user_idTousers?: role_upgrade_requestsUncheckedUpdateManyWithoutUsers_role_upgrade_requests_user_idTousersNestedInput
+    service_bookings?: service_bookingsUncheckedUpdateManyWithoutUserNestedInput
+    service_reviews?: service_reviewsUncheckedUpdateManyWithoutUserNestedInput
+    created_services?: servicesUncheckedUpdateManyWithoutCreatorNestedInput
+    session_enrollments?: session_enrollmentsUncheckedUpdateManyWithoutUserNestedInput
+    created_sessions?: sessionsUncheckedUpdateManyWithoutCreatorNestedInput
     discussion_comment_likes?: space_discussion_comment_likesUncheckedUpdateManyWithoutUserNestedInput
     discussion_comments?: space_discussion_commentsUncheckedUpdateManyWithoutUserNestedInput
     discussion_likes?: space_discussion_likesUncheckedUpdateManyWithoutUserNestedInput
@@ -85395,16 +85403,8 @@ export namespace Prisma {
     space_news_likes?: space_news_likesUncheckedUpdateManyWithoutUserNestedInput
     stargazing_spot_reviews?: stargazing_spot_reviewsUncheckedUpdateManyWithoutUserNestedInput
     created_stargazing_spots?: stargazing_spotsUncheckedUpdateManyWithoutCreatorNestedInput
-    created_sessions?: sessionsUncheckedUpdateManyWithoutCreatorNestedInput
-    session_enrollments?: session_enrollmentsUncheckedUpdateManyWithoutUserNestedInput
-    created_services?: servicesUncheckedUpdateManyWithoutCreatorNestedInput
-    service_bookings?: service_bookingsUncheckedUpdateManyWithoutUserNestedInput
-    service_reviews?: service_reviewsUncheckedUpdateManyWithoutUserNestedInput
     subscriptions?: subscriptionsUncheckedUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUncheckedUpdateOneWithoutUsersNestedInput
-    created_polls?: pollsUncheckedUpdateManyWithoutCreatorNestedInput
-    poll_votes?: poll_votesUncheckedUpdateManyWithoutVoterNestedInput
-    poll_comments?: poll_commentsUncheckedUpdateManyWithoutCommenterNestedInput
   }
 
   export type usersCreateManyInput = {
@@ -88183,8 +88183,8 @@ export namespace Prisma {
     is_enabled?: boolean
     created_at?: Date | string
     updated_at?: Date | string
-    creator: usersCreateNestedOneWithoutCreated_sessionsInput
     enrollments?: session_enrollmentsCreateNestedManyWithoutSessionInput
+    creator: usersCreateNestedOneWithoutCreated_sessionsInput
   }
 
   export type sessionsUncheckedCreateInput = {
@@ -88230,8 +88230,8 @@ export namespace Prisma {
     is_enabled?: BoolFieldUpdateOperationsInput | boolean
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    creator?: usersUpdateOneRequiredWithoutCreated_sessionsNestedInput
     enrollments?: session_enrollmentsUpdateManyWithoutSessionNestedInput
+    creator?: usersUpdateOneRequiredWithoutCreated_sessionsNestedInput
   }
 
   export type sessionsUncheckedUpdateInput = {
@@ -88359,11 +88359,11 @@ export namespace Prisma {
     is_active?: boolean
     created_at?: Date | string
     updated_at?: Date | string
-    creator: usersCreateNestedOneWithoutCreated_servicesInput
-    bookings?: service_bookingsCreateNestedManyWithoutServiceInput
-    reviews?: service_reviewsCreateNestedManyWithoutServiceInput
     availability?: service_availabilityCreateNestedManyWithoutServiceInput
+    bookings?: service_bookingsCreateNestedManyWithoutServiceInput
     media?: service_mediaCreateNestedManyWithoutServiceInput
+    reviews?: service_reviewsCreateNestedManyWithoutServiceInput
+    creator: usersCreateNestedOneWithoutCreated_servicesInput
   }
 
   export type servicesUncheckedCreateInput = {
@@ -88402,10 +88402,10 @@ export namespace Prisma {
     is_active?: boolean
     created_at?: Date | string
     updated_at?: Date | string
-    bookings?: service_bookingsUncheckedCreateNestedManyWithoutServiceInput
-    reviews?: service_reviewsUncheckedCreateNestedManyWithoutServiceInput
     availability?: service_availabilityUncheckedCreateNestedManyWithoutServiceInput
+    bookings?: service_bookingsUncheckedCreateNestedManyWithoutServiceInput
     media?: service_mediaUncheckedCreateNestedManyWithoutServiceInput
+    reviews?: service_reviewsUncheckedCreateNestedManyWithoutServiceInput
   }
 
   export type servicesUpdateInput = {
@@ -88442,11 +88442,11 @@ export namespace Prisma {
     is_active?: BoolFieldUpdateOperationsInput | boolean
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    creator?: usersUpdateOneRequiredWithoutCreated_servicesNestedInput
-    bookings?: service_bookingsUpdateManyWithoutServiceNestedInput
-    reviews?: service_reviewsUpdateManyWithoutServiceNestedInput
     availability?: service_availabilityUpdateManyWithoutServiceNestedInput
+    bookings?: service_bookingsUpdateManyWithoutServiceNestedInput
     media?: service_mediaUpdateManyWithoutServiceNestedInput
+    reviews?: service_reviewsUpdateManyWithoutServiceNestedInput
+    creator?: usersUpdateOneRequiredWithoutCreated_servicesNestedInput
   }
 
   export type servicesUncheckedUpdateInput = {
@@ -88485,10 +88485,10 @@ export namespace Prisma {
     is_active?: BoolFieldUpdateOperationsInput | boolean
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    bookings?: service_bookingsUncheckedUpdateManyWithoutServiceNestedInput
-    reviews?: service_reviewsUncheckedUpdateManyWithoutServiceNestedInput
     availability?: service_availabilityUncheckedUpdateManyWithoutServiceNestedInput
+    bookings?: service_bookingsUncheckedUpdateManyWithoutServiceNestedInput
     media?: service_mediaUncheckedUpdateManyWithoutServiceNestedInput
+    reviews?: service_reviewsUncheckedUpdateManyWithoutServiceNestedInput
   }
 
   export type servicesCreateManyInput = {
@@ -88997,8 +88997,8 @@ export namespace Prisma {
     notes?: string | null
     created_at?: Date | string
     updated_at?: Date | string
-    user: usersCreateNestedOneWithoutSession_enrollmentsInput
     session: sessionsCreateNestedOneWithoutEnrollmentsInput
+    user: usersCreateNestedOneWithoutSession_enrollmentsInput
   }
 
   export type session_enrollmentsUncheckedCreateInput = {
@@ -89032,8 +89032,8 @@ export namespace Prisma {
     notes?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    user?: usersUpdateOneRequiredWithoutSession_enrollmentsNestedInput
     session?: sessionsUpdateOneRequiredWithoutEnrollmentsNestedInput
+    user?: usersUpdateOneRequiredWithoutSession_enrollmentsNestedInput
   }
 
   export type session_enrollmentsUncheckedUpdateInput = {
@@ -89111,9 +89111,9 @@ export namespace Prisma {
     created_at?: Date | string
     updated_at?: Date | string
     is_active?: boolean
-    creator: usersCreateNestedOneWithoutCreated_pollsInput
     choices?: poll_choicesCreateNestedManyWithoutPollInput
     comments?: poll_commentsCreateNestedManyWithoutPollInput
+    creator: usersCreateNestedOneWithoutCreated_pollsInput
   }
 
   export type pollsUncheckedCreateInput = {
@@ -89134,9 +89134,9 @@ export namespace Prisma {
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     is_active?: BoolFieldUpdateOperationsInput | boolean
-    creator?: usersUpdateOneRequiredWithoutCreated_pollsNestedInput
     choices?: poll_choicesUpdateManyWithoutPollNestedInput
     comments?: poll_commentsUpdateManyWithoutPollNestedInput
+    creator?: usersUpdateOneRequiredWithoutCreated_pollsNestedInput
   }
 
   export type pollsUncheckedUpdateInput = {
@@ -90834,10 +90834,58 @@ export namespace Prisma {
     none?: mentor_applicationWhereInput
   }
 
+  export type Poll_commentsListRelationFilter = {
+    every?: poll_commentsWhereInput
+    some?: poll_commentsWhereInput
+    none?: poll_commentsWhereInput
+  }
+
+  export type Poll_votesListRelationFilter = {
+    every?: poll_votesWhereInput
+    some?: poll_votesWhereInput
+    none?: poll_votesWhereInput
+  }
+
+  export type PollsListRelationFilter = {
+    every?: pollsWhereInput
+    some?: pollsWhereInput
+    none?: pollsWhereInput
+  }
+
   export type Role_upgrade_requestsListRelationFilter = {
     every?: role_upgrade_requestsWhereInput
     some?: role_upgrade_requestsWhereInput
     none?: role_upgrade_requestsWhereInput
+  }
+
+  export type Service_bookingsListRelationFilter = {
+    every?: service_bookingsWhereInput
+    some?: service_bookingsWhereInput
+    none?: service_bookingsWhereInput
+  }
+
+  export type Service_reviewsListRelationFilter = {
+    every?: service_reviewsWhereInput
+    some?: service_reviewsWhereInput
+    none?: service_reviewsWhereInput
+  }
+
+  export type ServicesListRelationFilter = {
+    every?: servicesWhereInput
+    some?: servicesWhereInput
+    none?: servicesWhereInput
+  }
+
+  export type Session_enrollmentsListRelationFilter = {
+    every?: session_enrollmentsWhereInput
+    some?: session_enrollmentsWhereInput
+    none?: session_enrollmentsWhereInput
+  }
+
+  export type SessionsListRelationFilter = {
+    every?: sessionsWhereInput
+    some?: sessionsWhereInput
+    none?: sessionsWhereInput
   }
 
   export type Space_discussion_comment_likesListRelationFilter = {
@@ -90894,36 +90942,6 @@ export namespace Prisma {
     none?: stargazing_spotsWhereInput
   }
 
-  export type SessionsListRelationFilter = {
-    every?: sessionsWhereInput
-    some?: sessionsWhereInput
-    none?: sessionsWhereInput
-  }
-
-  export type Session_enrollmentsListRelationFilter = {
-    every?: session_enrollmentsWhereInput
-    some?: session_enrollmentsWhereInput
-    none?: session_enrollmentsWhereInput
-  }
-
-  export type ServicesListRelationFilter = {
-    every?: servicesWhereInput
-    some?: servicesWhereInput
-    none?: servicesWhereInput
-  }
-
-  export type Service_bookingsListRelationFilter = {
-    every?: service_bookingsWhereInput
-    some?: service_bookingsWhereInput
-    none?: service_bookingsWhereInput
-  }
-
-  export type Service_reviewsListRelationFilter = {
-    every?: service_reviewsWhereInput
-    some?: service_reviewsWhereInput
-    none?: service_reviewsWhereInput
-  }
-
   export type SubscriptionsListRelationFilter = {
     every?: subscriptionsWhereInput
     some?: subscriptionsWhereInput
@@ -90933,24 +90951,6 @@ export namespace Prisma {
   export type User_settingsNullableScalarRelationFilter = {
     is?: user_settingsWhereInput | null
     isNot?: user_settingsWhereInput | null
-  }
-
-  export type PollsListRelationFilter = {
-    every?: pollsWhereInput
-    some?: pollsWhereInput
-    none?: pollsWhereInput
-  }
-
-  export type Poll_votesListRelationFilter = {
-    every?: poll_votesWhereInput
-    some?: poll_votesWhereInput
-    none?: poll_votesWhereInput
-  }
-
-  export type Poll_commentsListRelationFilter = {
-    every?: poll_commentsWhereInput
-    some?: poll_commentsWhereInput
-    none?: poll_commentsWhereInput
   }
 
   export type QuizParticipantsOrderByRelationAggregateInput = {
@@ -91001,7 +91001,39 @@ export namespace Prisma {
     _count?: SortOrder
   }
 
+  export type poll_commentsOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type poll_votesOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type pollsOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
   export type role_upgrade_requestsOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type service_bookingsOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type service_reviewsOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type servicesOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type session_enrollmentsOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type sessionsOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -91041,39 +91073,7 @@ export namespace Prisma {
     _count?: SortOrder
   }
 
-  export type sessionsOrderByRelationAggregateInput = {
-    _count?: SortOrder
-  }
-
-  export type session_enrollmentsOrderByRelationAggregateInput = {
-    _count?: SortOrder
-  }
-
-  export type servicesOrderByRelationAggregateInput = {
-    _count?: SortOrder
-  }
-
-  export type service_bookingsOrderByRelationAggregateInput = {
-    _count?: SortOrder
-  }
-
-  export type service_reviewsOrderByRelationAggregateInput = {
-    _count?: SortOrder
-  }
-
   export type subscriptionsOrderByRelationAggregateInput = {
-    _count?: SortOrder
-  }
-
-  export type pollsOrderByRelationAggregateInput = {
-    _count?: SortOrder
-  }
-
-  export type poll_votesOrderByRelationAggregateInput = {
-    _count?: SortOrder
-  }
-
-  export type poll_commentsOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -95182,6 +95182,27 @@ export namespace Prisma {
     connect?: paymentsWhereUniqueInput | paymentsWhereUniqueInput[]
   }
 
+  export type poll_commentsCreateNestedManyWithoutCommenterInput = {
+    create?: XOR<poll_commentsCreateWithoutCommenterInput, poll_commentsUncheckedCreateWithoutCommenterInput> | poll_commentsCreateWithoutCommenterInput[] | poll_commentsUncheckedCreateWithoutCommenterInput[]
+    connectOrCreate?: poll_commentsCreateOrConnectWithoutCommenterInput | poll_commentsCreateOrConnectWithoutCommenterInput[]
+    createMany?: poll_commentsCreateManyCommenterInputEnvelope
+    connect?: poll_commentsWhereUniqueInput | poll_commentsWhereUniqueInput[]
+  }
+
+  export type poll_votesCreateNestedManyWithoutVoterInput = {
+    create?: XOR<poll_votesCreateWithoutVoterInput, poll_votesUncheckedCreateWithoutVoterInput> | poll_votesCreateWithoutVoterInput[] | poll_votesUncheckedCreateWithoutVoterInput[]
+    connectOrCreate?: poll_votesCreateOrConnectWithoutVoterInput | poll_votesCreateOrConnectWithoutVoterInput[]
+    createMany?: poll_votesCreateManyVoterInputEnvelope
+    connect?: poll_votesWhereUniqueInput | poll_votesWhereUniqueInput[]
+  }
+
+  export type pollsCreateNestedManyWithoutCreatorInput = {
+    create?: XOR<pollsCreateWithoutCreatorInput, pollsUncheckedCreateWithoutCreatorInput> | pollsCreateWithoutCreatorInput[] | pollsUncheckedCreateWithoutCreatorInput[]
+    connectOrCreate?: pollsCreateOrConnectWithoutCreatorInput | pollsCreateOrConnectWithoutCreatorInput[]
+    createMany?: pollsCreateManyCreatorInputEnvelope
+    connect?: pollsWhereUniqueInput | pollsWhereUniqueInput[]
+  }
+
   export type role_upgrade_requestsCreateNestedManyWithoutUsers_role_upgrade_requests_reviewer_idTousersInput = {
     create?: XOR<role_upgrade_requestsCreateWithoutUsers_role_upgrade_requests_reviewer_idTousersInput, role_upgrade_requestsUncheckedCreateWithoutUsers_role_upgrade_requests_reviewer_idTousersInput> | role_upgrade_requestsCreateWithoutUsers_role_upgrade_requests_reviewer_idTousersInput[] | role_upgrade_requestsUncheckedCreateWithoutUsers_role_upgrade_requests_reviewer_idTousersInput[]
     connectOrCreate?: role_upgrade_requestsCreateOrConnectWithoutUsers_role_upgrade_requests_reviewer_idTousersInput | role_upgrade_requestsCreateOrConnectWithoutUsers_role_upgrade_requests_reviewer_idTousersInput[]
@@ -95194,6 +95215,41 @@ export namespace Prisma {
     connectOrCreate?: role_upgrade_requestsCreateOrConnectWithoutUsers_role_upgrade_requests_user_idTousersInput | role_upgrade_requestsCreateOrConnectWithoutUsers_role_upgrade_requests_user_idTousersInput[]
     createMany?: role_upgrade_requestsCreateManyUsers_role_upgrade_requests_user_idTousersInputEnvelope
     connect?: role_upgrade_requestsWhereUniqueInput | role_upgrade_requestsWhereUniqueInput[]
+  }
+
+  export type service_bookingsCreateNestedManyWithoutUserInput = {
+    create?: XOR<service_bookingsCreateWithoutUserInput, service_bookingsUncheckedCreateWithoutUserInput> | service_bookingsCreateWithoutUserInput[] | service_bookingsUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: service_bookingsCreateOrConnectWithoutUserInput | service_bookingsCreateOrConnectWithoutUserInput[]
+    createMany?: service_bookingsCreateManyUserInputEnvelope
+    connect?: service_bookingsWhereUniqueInput | service_bookingsWhereUniqueInput[]
+  }
+
+  export type service_reviewsCreateNestedManyWithoutUserInput = {
+    create?: XOR<service_reviewsCreateWithoutUserInput, service_reviewsUncheckedCreateWithoutUserInput> | service_reviewsCreateWithoutUserInput[] | service_reviewsUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: service_reviewsCreateOrConnectWithoutUserInput | service_reviewsCreateOrConnectWithoutUserInput[]
+    createMany?: service_reviewsCreateManyUserInputEnvelope
+    connect?: service_reviewsWhereUniqueInput | service_reviewsWhereUniqueInput[]
+  }
+
+  export type servicesCreateNestedManyWithoutCreatorInput = {
+    create?: XOR<servicesCreateWithoutCreatorInput, servicesUncheckedCreateWithoutCreatorInput> | servicesCreateWithoutCreatorInput[] | servicesUncheckedCreateWithoutCreatorInput[]
+    connectOrCreate?: servicesCreateOrConnectWithoutCreatorInput | servicesCreateOrConnectWithoutCreatorInput[]
+    createMany?: servicesCreateManyCreatorInputEnvelope
+    connect?: servicesWhereUniqueInput | servicesWhereUniqueInput[]
+  }
+
+  export type session_enrollmentsCreateNestedManyWithoutUserInput = {
+    create?: XOR<session_enrollmentsCreateWithoutUserInput, session_enrollmentsUncheckedCreateWithoutUserInput> | session_enrollmentsCreateWithoutUserInput[] | session_enrollmentsUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: session_enrollmentsCreateOrConnectWithoutUserInput | session_enrollmentsCreateOrConnectWithoutUserInput[]
+    createMany?: session_enrollmentsCreateManyUserInputEnvelope
+    connect?: session_enrollmentsWhereUniqueInput | session_enrollmentsWhereUniqueInput[]
+  }
+
+  export type sessionsCreateNestedManyWithoutCreatorInput = {
+    create?: XOR<sessionsCreateWithoutCreatorInput, sessionsUncheckedCreateWithoutCreatorInput> | sessionsCreateWithoutCreatorInput[] | sessionsUncheckedCreateWithoutCreatorInput[]
+    connectOrCreate?: sessionsCreateOrConnectWithoutCreatorInput | sessionsCreateOrConnectWithoutCreatorInput[]
+    createMany?: sessionsCreateManyCreatorInputEnvelope
+    connect?: sessionsWhereUniqueInput | sessionsWhereUniqueInput[]
   }
 
   export type space_discussion_comment_likesCreateNestedManyWithoutUserInput = {
@@ -95259,41 +95315,6 @@ export namespace Prisma {
     connect?: stargazing_spotsWhereUniqueInput | stargazing_spotsWhereUniqueInput[]
   }
 
-  export type sessionsCreateNestedManyWithoutCreatorInput = {
-    create?: XOR<sessionsCreateWithoutCreatorInput, sessionsUncheckedCreateWithoutCreatorInput> | sessionsCreateWithoutCreatorInput[] | sessionsUncheckedCreateWithoutCreatorInput[]
-    connectOrCreate?: sessionsCreateOrConnectWithoutCreatorInput | sessionsCreateOrConnectWithoutCreatorInput[]
-    createMany?: sessionsCreateManyCreatorInputEnvelope
-    connect?: sessionsWhereUniqueInput | sessionsWhereUniqueInput[]
-  }
-
-  export type session_enrollmentsCreateNestedManyWithoutUserInput = {
-    create?: XOR<session_enrollmentsCreateWithoutUserInput, session_enrollmentsUncheckedCreateWithoutUserInput> | session_enrollmentsCreateWithoutUserInput[] | session_enrollmentsUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: session_enrollmentsCreateOrConnectWithoutUserInput | session_enrollmentsCreateOrConnectWithoutUserInput[]
-    createMany?: session_enrollmentsCreateManyUserInputEnvelope
-    connect?: session_enrollmentsWhereUniqueInput | session_enrollmentsWhereUniqueInput[]
-  }
-
-  export type servicesCreateNestedManyWithoutCreatorInput = {
-    create?: XOR<servicesCreateWithoutCreatorInput, servicesUncheckedCreateWithoutCreatorInput> | servicesCreateWithoutCreatorInput[] | servicesUncheckedCreateWithoutCreatorInput[]
-    connectOrCreate?: servicesCreateOrConnectWithoutCreatorInput | servicesCreateOrConnectWithoutCreatorInput[]
-    createMany?: servicesCreateManyCreatorInputEnvelope
-    connect?: servicesWhereUniqueInput | servicesWhereUniqueInput[]
-  }
-
-  export type service_bookingsCreateNestedManyWithoutUserInput = {
-    create?: XOR<service_bookingsCreateWithoutUserInput, service_bookingsUncheckedCreateWithoutUserInput> | service_bookingsCreateWithoutUserInput[] | service_bookingsUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: service_bookingsCreateOrConnectWithoutUserInput | service_bookingsCreateOrConnectWithoutUserInput[]
-    createMany?: service_bookingsCreateManyUserInputEnvelope
-    connect?: service_bookingsWhereUniqueInput | service_bookingsWhereUniqueInput[]
-  }
-
-  export type service_reviewsCreateNestedManyWithoutUserInput = {
-    create?: XOR<service_reviewsCreateWithoutUserInput, service_reviewsUncheckedCreateWithoutUserInput> | service_reviewsCreateWithoutUserInput[] | service_reviewsUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: service_reviewsCreateOrConnectWithoutUserInput | service_reviewsCreateOrConnectWithoutUserInput[]
-    createMany?: service_reviewsCreateManyUserInputEnvelope
-    connect?: service_reviewsWhereUniqueInput | service_reviewsWhereUniqueInput[]
-  }
-
   export type subscriptionsCreateNestedManyWithoutUsersInput = {
     create?: XOR<subscriptionsCreateWithoutUsersInput, subscriptionsUncheckedCreateWithoutUsersInput> | subscriptionsCreateWithoutUsersInput[] | subscriptionsUncheckedCreateWithoutUsersInput[]
     connectOrCreate?: subscriptionsCreateOrConnectWithoutUsersInput | subscriptionsCreateOrConnectWithoutUsersInput[]
@@ -95305,27 +95326,6 @@ export namespace Prisma {
     create?: XOR<user_settingsCreateWithoutUsersInput, user_settingsUncheckedCreateWithoutUsersInput>
     connectOrCreate?: user_settingsCreateOrConnectWithoutUsersInput
     connect?: user_settingsWhereUniqueInput
-  }
-
-  export type pollsCreateNestedManyWithoutCreatorInput = {
-    create?: XOR<pollsCreateWithoutCreatorInput, pollsUncheckedCreateWithoutCreatorInput> | pollsCreateWithoutCreatorInput[] | pollsUncheckedCreateWithoutCreatorInput[]
-    connectOrCreate?: pollsCreateOrConnectWithoutCreatorInput | pollsCreateOrConnectWithoutCreatorInput[]
-    createMany?: pollsCreateManyCreatorInputEnvelope
-    connect?: pollsWhereUniqueInput | pollsWhereUniqueInput[]
-  }
-
-  export type poll_votesCreateNestedManyWithoutVoterInput = {
-    create?: XOR<poll_votesCreateWithoutVoterInput, poll_votesUncheckedCreateWithoutVoterInput> | poll_votesCreateWithoutVoterInput[] | poll_votesUncheckedCreateWithoutVoterInput[]
-    connectOrCreate?: poll_votesCreateOrConnectWithoutVoterInput | poll_votesCreateOrConnectWithoutVoterInput[]
-    createMany?: poll_votesCreateManyVoterInputEnvelope
-    connect?: poll_votesWhereUniqueInput | poll_votesWhereUniqueInput[]
-  }
-
-  export type poll_commentsCreateNestedManyWithoutCommenterInput = {
-    create?: XOR<poll_commentsCreateWithoutCommenterInput, poll_commentsUncheckedCreateWithoutCommenterInput> | poll_commentsCreateWithoutCommenterInput[] | poll_commentsUncheckedCreateWithoutCommenterInput[]
-    connectOrCreate?: poll_commentsCreateOrConnectWithoutCommenterInput | poll_commentsCreateOrConnectWithoutCommenterInput[]
-    createMany?: poll_commentsCreateManyCommenterInputEnvelope
-    connect?: poll_commentsWhereUniqueInput | poll_commentsWhereUniqueInput[]
   }
 
   export type QuizParticipantsUncheckedCreateNestedManyWithoutUsersInput = {
@@ -95482,6 +95482,27 @@ export namespace Prisma {
     connect?: paymentsWhereUniqueInput | paymentsWhereUniqueInput[]
   }
 
+  export type poll_commentsUncheckedCreateNestedManyWithoutCommenterInput = {
+    create?: XOR<poll_commentsCreateWithoutCommenterInput, poll_commentsUncheckedCreateWithoutCommenterInput> | poll_commentsCreateWithoutCommenterInput[] | poll_commentsUncheckedCreateWithoutCommenterInput[]
+    connectOrCreate?: poll_commentsCreateOrConnectWithoutCommenterInput | poll_commentsCreateOrConnectWithoutCommenterInput[]
+    createMany?: poll_commentsCreateManyCommenterInputEnvelope
+    connect?: poll_commentsWhereUniqueInput | poll_commentsWhereUniqueInput[]
+  }
+
+  export type poll_votesUncheckedCreateNestedManyWithoutVoterInput = {
+    create?: XOR<poll_votesCreateWithoutVoterInput, poll_votesUncheckedCreateWithoutVoterInput> | poll_votesCreateWithoutVoterInput[] | poll_votesUncheckedCreateWithoutVoterInput[]
+    connectOrCreate?: poll_votesCreateOrConnectWithoutVoterInput | poll_votesCreateOrConnectWithoutVoterInput[]
+    createMany?: poll_votesCreateManyVoterInputEnvelope
+    connect?: poll_votesWhereUniqueInput | poll_votesWhereUniqueInput[]
+  }
+
+  export type pollsUncheckedCreateNestedManyWithoutCreatorInput = {
+    create?: XOR<pollsCreateWithoutCreatorInput, pollsUncheckedCreateWithoutCreatorInput> | pollsCreateWithoutCreatorInput[] | pollsUncheckedCreateWithoutCreatorInput[]
+    connectOrCreate?: pollsCreateOrConnectWithoutCreatorInput | pollsCreateOrConnectWithoutCreatorInput[]
+    createMany?: pollsCreateManyCreatorInputEnvelope
+    connect?: pollsWhereUniqueInput | pollsWhereUniqueInput[]
+  }
+
   export type role_upgrade_requestsUncheckedCreateNestedManyWithoutUsers_role_upgrade_requests_reviewer_idTousersInput = {
     create?: XOR<role_upgrade_requestsCreateWithoutUsers_role_upgrade_requests_reviewer_idTousersInput, role_upgrade_requestsUncheckedCreateWithoutUsers_role_upgrade_requests_reviewer_idTousersInput> | role_upgrade_requestsCreateWithoutUsers_role_upgrade_requests_reviewer_idTousersInput[] | role_upgrade_requestsUncheckedCreateWithoutUsers_role_upgrade_requests_reviewer_idTousersInput[]
     connectOrCreate?: role_upgrade_requestsCreateOrConnectWithoutUsers_role_upgrade_requests_reviewer_idTousersInput | role_upgrade_requestsCreateOrConnectWithoutUsers_role_upgrade_requests_reviewer_idTousersInput[]
@@ -95494,6 +95515,41 @@ export namespace Prisma {
     connectOrCreate?: role_upgrade_requestsCreateOrConnectWithoutUsers_role_upgrade_requests_user_idTousersInput | role_upgrade_requestsCreateOrConnectWithoutUsers_role_upgrade_requests_user_idTousersInput[]
     createMany?: role_upgrade_requestsCreateManyUsers_role_upgrade_requests_user_idTousersInputEnvelope
     connect?: role_upgrade_requestsWhereUniqueInput | role_upgrade_requestsWhereUniqueInput[]
+  }
+
+  export type service_bookingsUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<service_bookingsCreateWithoutUserInput, service_bookingsUncheckedCreateWithoutUserInput> | service_bookingsCreateWithoutUserInput[] | service_bookingsUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: service_bookingsCreateOrConnectWithoutUserInput | service_bookingsCreateOrConnectWithoutUserInput[]
+    createMany?: service_bookingsCreateManyUserInputEnvelope
+    connect?: service_bookingsWhereUniqueInput | service_bookingsWhereUniqueInput[]
+  }
+
+  export type service_reviewsUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<service_reviewsCreateWithoutUserInput, service_reviewsUncheckedCreateWithoutUserInput> | service_reviewsCreateWithoutUserInput[] | service_reviewsUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: service_reviewsCreateOrConnectWithoutUserInput | service_reviewsCreateOrConnectWithoutUserInput[]
+    createMany?: service_reviewsCreateManyUserInputEnvelope
+    connect?: service_reviewsWhereUniqueInput | service_reviewsWhereUniqueInput[]
+  }
+
+  export type servicesUncheckedCreateNestedManyWithoutCreatorInput = {
+    create?: XOR<servicesCreateWithoutCreatorInput, servicesUncheckedCreateWithoutCreatorInput> | servicesCreateWithoutCreatorInput[] | servicesUncheckedCreateWithoutCreatorInput[]
+    connectOrCreate?: servicesCreateOrConnectWithoutCreatorInput | servicesCreateOrConnectWithoutCreatorInput[]
+    createMany?: servicesCreateManyCreatorInputEnvelope
+    connect?: servicesWhereUniqueInput | servicesWhereUniqueInput[]
+  }
+
+  export type session_enrollmentsUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<session_enrollmentsCreateWithoutUserInput, session_enrollmentsUncheckedCreateWithoutUserInput> | session_enrollmentsCreateWithoutUserInput[] | session_enrollmentsUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: session_enrollmentsCreateOrConnectWithoutUserInput | session_enrollmentsCreateOrConnectWithoutUserInput[]
+    createMany?: session_enrollmentsCreateManyUserInputEnvelope
+    connect?: session_enrollmentsWhereUniqueInput | session_enrollmentsWhereUniqueInput[]
+  }
+
+  export type sessionsUncheckedCreateNestedManyWithoutCreatorInput = {
+    create?: XOR<sessionsCreateWithoutCreatorInput, sessionsUncheckedCreateWithoutCreatorInput> | sessionsCreateWithoutCreatorInput[] | sessionsUncheckedCreateWithoutCreatorInput[]
+    connectOrCreate?: sessionsCreateOrConnectWithoutCreatorInput | sessionsCreateOrConnectWithoutCreatorInput[]
+    createMany?: sessionsCreateManyCreatorInputEnvelope
+    connect?: sessionsWhereUniqueInput | sessionsWhereUniqueInput[]
   }
 
   export type space_discussion_comment_likesUncheckedCreateNestedManyWithoutUserInput = {
@@ -95559,41 +95615,6 @@ export namespace Prisma {
     connect?: stargazing_spotsWhereUniqueInput | stargazing_spotsWhereUniqueInput[]
   }
 
-  export type sessionsUncheckedCreateNestedManyWithoutCreatorInput = {
-    create?: XOR<sessionsCreateWithoutCreatorInput, sessionsUncheckedCreateWithoutCreatorInput> | sessionsCreateWithoutCreatorInput[] | sessionsUncheckedCreateWithoutCreatorInput[]
-    connectOrCreate?: sessionsCreateOrConnectWithoutCreatorInput | sessionsCreateOrConnectWithoutCreatorInput[]
-    createMany?: sessionsCreateManyCreatorInputEnvelope
-    connect?: sessionsWhereUniqueInput | sessionsWhereUniqueInput[]
-  }
-
-  export type session_enrollmentsUncheckedCreateNestedManyWithoutUserInput = {
-    create?: XOR<session_enrollmentsCreateWithoutUserInput, session_enrollmentsUncheckedCreateWithoutUserInput> | session_enrollmentsCreateWithoutUserInput[] | session_enrollmentsUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: session_enrollmentsCreateOrConnectWithoutUserInput | session_enrollmentsCreateOrConnectWithoutUserInput[]
-    createMany?: session_enrollmentsCreateManyUserInputEnvelope
-    connect?: session_enrollmentsWhereUniqueInput | session_enrollmentsWhereUniqueInput[]
-  }
-
-  export type servicesUncheckedCreateNestedManyWithoutCreatorInput = {
-    create?: XOR<servicesCreateWithoutCreatorInput, servicesUncheckedCreateWithoutCreatorInput> | servicesCreateWithoutCreatorInput[] | servicesUncheckedCreateWithoutCreatorInput[]
-    connectOrCreate?: servicesCreateOrConnectWithoutCreatorInput | servicesCreateOrConnectWithoutCreatorInput[]
-    createMany?: servicesCreateManyCreatorInputEnvelope
-    connect?: servicesWhereUniqueInput | servicesWhereUniqueInput[]
-  }
-
-  export type service_bookingsUncheckedCreateNestedManyWithoutUserInput = {
-    create?: XOR<service_bookingsCreateWithoutUserInput, service_bookingsUncheckedCreateWithoutUserInput> | service_bookingsCreateWithoutUserInput[] | service_bookingsUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: service_bookingsCreateOrConnectWithoutUserInput | service_bookingsCreateOrConnectWithoutUserInput[]
-    createMany?: service_bookingsCreateManyUserInputEnvelope
-    connect?: service_bookingsWhereUniqueInput | service_bookingsWhereUniqueInput[]
-  }
-
-  export type service_reviewsUncheckedCreateNestedManyWithoutUserInput = {
-    create?: XOR<service_reviewsCreateWithoutUserInput, service_reviewsUncheckedCreateWithoutUserInput> | service_reviewsCreateWithoutUserInput[] | service_reviewsUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: service_reviewsCreateOrConnectWithoutUserInput | service_reviewsCreateOrConnectWithoutUserInput[]
-    createMany?: service_reviewsCreateManyUserInputEnvelope
-    connect?: service_reviewsWhereUniqueInput | service_reviewsWhereUniqueInput[]
-  }
-
   export type subscriptionsUncheckedCreateNestedManyWithoutUsersInput = {
     create?: XOR<subscriptionsCreateWithoutUsersInput, subscriptionsUncheckedCreateWithoutUsersInput> | subscriptionsCreateWithoutUsersInput[] | subscriptionsUncheckedCreateWithoutUsersInput[]
     connectOrCreate?: subscriptionsCreateOrConnectWithoutUsersInput | subscriptionsCreateOrConnectWithoutUsersInput[]
@@ -95605,27 +95626,6 @@ export namespace Prisma {
     create?: XOR<user_settingsCreateWithoutUsersInput, user_settingsUncheckedCreateWithoutUsersInput>
     connectOrCreate?: user_settingsCreateOrConnectWithoutUsersInput
     connect?: user_settingsWhereUniqueInput
-  }
-
-  export type pollsUncheckedCreateNestedManyWithoutCreatorInput = {
-    create?: XOR<pollsCreateWithoutCreatorInput, pollsUncheckedCreateWithoutCreatorInput> | pollsCreateWithoutCreatorInput[] | pollsUncheckedCreateWithoutCreatorInput[]
-    connectOrCreate?: pollsCreateOrConnectWithoutCreatorInput | pollsCreateOrConnectWithoutCreatorInput[]
-    createMany?: pollsCreateManyCreatorInputEnvelope
-    connect?: pollsWhereUniqueInput | pollsWhereUniqueInput[]
-  }
-
-  export type poll_votesUncheckedCreateNestedManyWithoutVoterInput = {
-    create?: XOR<poll_votesCreateWithoutVoterInput, poll_votesUncheckedCreateWithoutVoterInput> | poll_votesCreateWithoutVoterInput[] | poll_votesUncheckedCreateWithoutVoterInput[]
-    connectOrCreate?: poll_votesCreateOrConnectWithoutVoterInput | poll_votesCreateOrConnectWithoutVoterInput[]
-    createMany?: poll_votesCreateManyVoterInputEnvelope
-    connect?: poll_votesWhereUniqueInput | poll_votesWhereUniqueInput[]
-  }
-
-  export type poll_commentsUncheckedCreateNestedManyWithoutCommenterInput = {
-    create?: XOR<poll_commentsCreateWithoutCommenterInput, poll_commentsUncheckedCreateWithoutCommenterInput> | poll_commentsCreateWithoutCommenterInput[] | poll_commentsUncheckedCreateWithoutCommenterInput[]
-    connectOrCreate?: poll_commentsCreateOrConnectWithoutCommenterInput | poll_commentsCreateOrConnectWithoutCommenterInput[]
-    createMany?: poll_commentsCreateManyCommenterInputEnvelope
-    connect?: poll_commentsWhereUniqueInput | poll_commentsWhereUniqueInput[]
   }
 
   export type NullableEnumuser_roleFieldUpdateOperationsInput = {
@@ -95944,6 +95944,48 @@ export namespace Prisma {
     deleteMany?: paymentsScalarWhereInput | paymentsScalarWhereInput[]
   }
 
+  export type poll_commentsUpdateManyWithoutCommenterNestedInput = {
+    create?: XOR<poll_commentsCreateWithoutCommenterInput, poll_commentsUncheckedCreateWithoutCommenterInput> | poll_commentsCreateWithoutCommenterInput[] | poll_commentsUncheckedCreateWithoutCommenterInput[]
+    connectOrCreate?: poll_commentsCreateOrConnectWithoutCommenterInput | poll_commentsCreateOrConnectWithoutCommenterInput[]
+    upsert?: poll_commentsUpsertWithWhereUniqueWithoutCommenterInput | poll_commentsUpsertWithWhereUniqueWithoutCommenterInput[]
+    createMany?: poll_commentsCreateManyCommenterInputEnvelope
+    set?: poll_commentsWhereUniqueInput | poll_commentsWhereUniqueInput[]
+    disconnect?: poll_commentsWhereUniqueInput | poll_commentsWhereUniqueInput[]
+    delete?: poll_commentsWhereUniqueInput | poll_commentsWhereUniqueInput[]
+    connect?: poll_commentsWhereUniqueInput | poll_commentsWhereUniqueInput[]
+    update?: poll_commentsUpdateWithWhereUniqueWithoutCommenterInput | poll_commentsUpdateWithWhereUniqueWithoutCommenterInput[]
+    updateMany?: poll_commentsUpdateManyWithWhereWithoutCommenterInput | poll_commentsUpdateManyWithWhereWithoutCommenterInput[]
+    deleteMany?: poll_commentsScalarWhereInput | poll_commentsScalarWhereInput[]
+  }
+
+  export type poll_votesUpdateManyWithoutVoterNestedInput = {
+    create?: XOR<poll_votesCreateWithoutVoterInput, poll_votesUncheckedCreateWithoutVoterInput> | poll_votesCreateWithoutVoterInput[] | poll_votesUncheckedCreateWithoutVoterInput[]
+    connectOrCreate?: poll_votesCreateOrConnectWithoutVoterInput | poll_votesCreateOrConnectWithoutVoterInput[]
+    upsert?: poll_votesUpsertWithWhereUniqueWithoutVoterInput | poll_votesUpsertWithWhereUniqueWithoutVoterInput[]
+    createMany?: poll_votesCreateManyVoterInputEnvelope
+    set?: poll_votesWhereUniqueInput | poll_votesWhereUniqueInput[]
+    disconnect?: poll_votesWhereUniqueInput | poll_votesWhereUniqueInput[]
+    delete?: poll_votesWhereUniqueInput | poll_votesWhereUniqueInput[]
+    connect?: poll_votesWhereUniqueInput | poll_votesWhereUniqueInput[]
+    update?: poll_votesUpdateWithWhereUniqueWithoutVoterInput | poll_votesUpdateWithWhereUniqueWithoutVoterInput[]
+    updateMany?: poll_votesUpdateManyWithWhereWithoutVoterInput | poll_votesUpdateManyWithWhereWithoutVoterInput[]
+    deleteMany?: poll_votesScalarWhereInput | poll_votesScalarWhereInput[]
+  }
+
+  export type pollsUpdateManyWithoutCreatorNestedInput = {
+    create?: XOR<pollsCreateWithoutCreatorInput, pollsUncheckedCreateWithoutCreatorInput> | pollsCreateWithoutCreatorInput[] | pollsUncheckedCreateWithoutCreatorInput[]
+    connectOrCreate?: pollsCreateOrConnectWithoutCreatorInput | pollsCreateOrConnectWithoutCreatorInput[]
+    upsert?: pollsUpsertWithWhereUniqueWithoutCreatorInput | pollsUpsertWithWhereUniqueWithoutCreatorInput[]
+    createMany?: pollsCreateManyCreatorInputEnvelope
+    set?: pollsWhereUniqueInput | pollsWhereUniqueInput[]
+    disconnect?: pollsWhereUniqueInput | pollsWhereUniqueInput[]
+    delete?: pollsWhereUniqueInput | pollsWhereUniqueInput[]
+    connect?: pollsWhereUniqueInput | pollsWhereUniqueInput[]
+    update?: pollsUpdateWithWhereUniqueWithoutCreatorInput | pollsUpdateWithWhereUniqueWithoutCreatorInput[]
+    updateMany?: pollsUpdateManyWithWhereWithoutCreatorInput | pollsUpdateManyWithWhereWithoutCreatorInput[]
+    deleteMany?: pollsScalarWhereInput | pollsScalarWhereInput[]
+  }
+
   export type role_upgrade_requestsUpdateManyWithoutUsers_role_upgrade_requests_reviewer_idTousersNestedInput = {
     create?: XOR<role_upgrade_requestsCreateWithoutUsers_role_upgrade_requests_reviewer_idTousersInput, role_upgrade_requestsUncheckedCreateWithoutUsers_role_upgrade_requests_reviewer_idTousersInput> | role_upgrade_requestsCreateWithoutUsers_role_upgrade_requests_reviewer_idTousersInput[] | role_upgrade_requestsUncheckedCreateWithoutUsers_role_upgrade_requests_reviewer_idTousersInput[]
     connectOrCreate?: role_upgrade_requestsCreateOrConnectWithoutUsers_role_upgrade_requests_reviewer_idTousersInput | role_upgrade_requestsCreateOrConnectWithoutUsers_role_upgrade_requests_reviewer_idTousersInput[]
@@ -95970,6 +96012,76 @@ export namespace Prisma {
     update?: role_upgrade_requestsUpdateWithWhereUniqueWithoutUsers_role_upgrade_requests_user_idTousersInput | role_upgrade_requestsUpdateWithWhereUniqueWithoutUsers_role_upgrade_requests_user_idTousersInput[]
     updateMany?: role_upgrade_requestsUpdateManyWithWhereWithoutUsers_role_upgrade_requests_user_idTousersInput | role_upgrade_requestsUpdateManyWithWhereWithoutUsers_role_upgrade_requests_user_idTousersInput[]
     deleteMany?: role_upgrade_requestsScalarWhereInput | role_upgrade_requestsScalarWhereInput[]
+  }
+
+  export type service_bookingsUpdateManyWithoutUserNestedInput = {
+    create?: XOR<service_bookingsCreateWithoutUserInput, service_bookingsUncheckedCreateWithoutUserInput> | service_bookingsCreateWithoutUserInput[] | service_bookingsUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: service_bookingsCreateOrConnectWithoutUserInput | service_bookingsCreateOrConnectWithoutUserInput[]
+    upsert?: service_bookingsUpsertWithWhereUniqueWithoutUserInput | service_bookingsUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: service_bookingsCreateManyUserInputEnvelope
+    set?: service_bookingsWhereUniqueInput | service_bookingsWhereUniqueInput[]
+    disconnect?: service_bookingsWhereUniqueInput | service_bookingsWhereUniqueInput[]
+    delete?: service_bookingsWhereUniqueInput | service_bookingsWhereUniqueInput[]
+    connect?: service_bookingsWhereUniqueInput | service_bookingsWhereUniqueInput[]
+    update?: service_bookingsUpdateWithWhereUniqueWithoutUserInput | service_bookingsUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: service_bookingsUpdateManyWithWhereWithoutUserInput | service_bookingsUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: service_bookingsScalarWhereInput | service_bookingsScalarWhereInput[]
+  }
+
+  export type service_reviewsUpdateManyWithoutUserNestedInput = {
+    create?: XOR<service_reviewsCreateWithoutUserInput, service_reviewsUncheckedCreateWithoutUserInput> | service_reviewsCreateWithoutUserInput[] | service_reviewsUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: service_reviewsCreateOrConnectWithoutUserInput | service_reviewsCreateOrConnectWithoutUserInput[]
+    upsert?: service_reviewsUpsertWithWhereUniqueWithoutUserInput | service_reviewsUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: service_reviewsCreateManyUserInputEnvelope
+    set?: service_reviewsWhereUniqueInput | service_reviewsWhereUniqueInput[]
+    disconnect?: service_reviewsWhereUniqueInput | service_reviewsWhereUniqueInput[]
+    delete?: service_reviewsWhereUniqueInput | service_reviewsWhereUniqueInput[]
+    connect?: service_reviewsWhereUniqueInput | service_reviewsWhereUniqueInput[]
+    update?: service_reviewsUpdateWithWhereUniqueWithoutUserInput | service_reviewsUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: service_reviewsUpdateManyWithWhereWithoutUserInput | service_reviewsUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: service_reviewsScalarWhereInput | service_reviewsScalarWhereInput[]
+  }
+
+  export type servicesUpdateManyWithoutCreatorNestedInput = {
+    create?: XOR<servicesCreateWithoutCreatorInput, servicesUncheckedCreateWithoutCreatorInput> | servicesCreateWithoutCreatorInput[] | servicesUncheckedCreateWithoutCreatorInput[]
+    connectOrCreate?: servicesCreateOrConnectWithoutCreatorInput | servicesCreateOrConnectWithoutCreatorInput[]
+    upsert?: servicesUpsertWithWhereUniqueWithoutCreatorInput | servicesUpsertWithWhereUniqueWithoutCreatorInput[]
+    createMany?: servicesCreateManyCreatorInputEnvelope
+    set?: servicesWhereUniqueInput | servicesWhereUniqueInput[]
+    disconnect?: servicesWhereUniqueInput | servicesWhereUniqueInput[]
+    delete?: servicesWhereUniqueInput | servicesWhereUniqueInput[]
+    connect?: servicesWhereUniqueInput | servicesWhereUniqueInput[]
+    update?: servicesUpdateWithWhereUniqueWithoutCreatorInput | servicesUpdateWithWhereUniqueWithoutCreatorInput[]
+    updateMany?: servicesUpdateManyWithWhereWithoutCreatorInput | servicesUpdateManyWithWhereWithoutCreatorInput[]
+    deleteMany?: servicesScalarWhereInput | servicesScalarWhereInput[]
+  }
+
+  export type session_enrollmentsUpdateManyWithoutUserNestedInput = {
+    create?: XOR<session_enrollmentsCreateWithoutUserInput, session_enrollmentsUncheckedCreateWithoutUserInput> | session_enrollmentsCreateWithoutUserInput[] | session_enrollmentsUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: session_enrollmentsCreateOrConnectWithoutUserInput | session_enrollmentsCreateOrConnectWithoutUserInput[]
+    upsert?: session_enrollmentsUpsertWithWhereUniqueWithoutUserInput | session_enrollmentsUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: session_enrollmentsCreateManyUserInputEnvelope
+    set?: session_enrollmentsWhereUniqueInput | session_enrollmentsWhereUniqueInput[]
+    disconnect?: session_enrollmentsWhereUniqueInput | session_enrollmentsWhereUniqueInput[]
+    delete?: session_enrollmentsWhereUniqueInput | session_enrollmentsWhereUniqueInput[]
+    connect?: session_enrollmentsWhereUniqueInput | session_enrollmentsWhereUniqueInput[]
+    update?: session_enrollmentsUpdateWithWhereUniqueWithoutUserInput | session_enrollmentsUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: session_enrollmentsUpdateManyWithWhereWithoutUserInput | session_enrollmentsUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: session_enrollmentsScalarWhereInput | session_enrollmentsScalarWhereInput[]
+  }
+
+  export type sessionsUpdateManyWithoutCreatorNestedInput = {
+    create?: XOR<sessionsCreateWithoutCreatorInput, sessionsUncheckedCreateWithoutCreatorInput> | sessionsCreateWithoutCreatorInput[] | sessionsUncheckedCreateWithoutCreatorInput[]
+    connectOrCreate?: sessionsCreateOrConnectWithoutCreatorInput | sessionsCreateOrConnectWithoutCreatorInput[]
+    upsert?: sessionsUpsertWithWhereUniqueWithoutCreatorInput | sessionsUpsertWithWhereUniqueWithoutCreatorInput[]
+    createMany?: sessionsCreateManyCreatorInputEnvelope
+    set?: sessionsWhereUniqueInput | sessionsWhereUniqueInput[]
+    disconnect?: sessionsWhereUniqueInput | sessionsWhereUniqueInput[]
+    delete?: sessionsWhereUniqueInput | sessionsWhereUniqueInput[]
+    connect?: sessionsWhereUniqueInput | sessionsWhereUniqueInput[]
+    update?: sessionsUpdateWithWhereUniqueWithoutCreatorInput | sessionsUpdateWithWhereUniqueWithoutCreatorInput[]
+    updateMany?: sessionsUpdateManyWithWhereWithoutCreatorInput | sessionsUpdateManyWithWhereWithoutCreatorInput[]
+    deleteMany?: sessionsScalarWhereInput | sessionsScalarWhereInput[]
   }
 
   export type space_discussion_comment_likesUpdateManyWithoutUserNestedInput = {
@@ -96098,76 +96210,6 @@ export namespace Prisma {
     deleteMany?: stargazing_spotsScalarWhereInput | stargazing_spotsScalarWhereInput[]
   }
 
-  export type sessionsUpdateManyWithoutCreatorNestedInput = {
-    create?: XOR<sessionsCreateWithoutCreatorInput, sessionsUncheckedCreateWithoutCreatorInput> | sessionsCreateWithoutCreatorInput[] | sessionsUncheckedCreateWithoutCreatorInput[]
-    connectOrCreate?: sessionsCreateOrConnectWithoutCreatorInput | sessionsCreateOrConnectWithoutCreatorInput[]
-    upsert?: sessionsUpsertWithWhereUniqueWithoutCreatorInput | sessionsUpsertWithWhereUniqueWithoutCreatorInput[]
-    createMany?: sessionsCreateManyCreatorInputEnvelope
-    set?: sessionsWhereUniqueInput | sessionsWhereUniqueInput[]
-    disconnect?: sessionsWhereUniqueInput | sessionsWhereUniqueInput[]
-    delete?: sessionsWhereUniqueInput | sessionsWhereUniqueInput[]
-    connect?: sessionsWhereUniqueInput | sessionsWhereUniqueInput[]
-    update?: sessionsUpdateWithWhereUniqueWithoutCreatorInput | sessionsUpdateWithWhereUniqueWithoutCreatorInput[]
-    updateMany?: sessionsUpdateManyWithWhereWithoutCreatorInput | sessionsUpdateManyWithWhereWithoutCreatorInput[]
-    deleteMany?: sessionsScalarWhereInput | sessionsScalarWhereInput[]
-  }
-
-  export type session_enrollmentsUpdateManyWithoutUserNestedInput = {
-    create?: XOR<session_enrollmentsCreateWithoutUserInput, session_enrollmentsUncheckedCreateWithoutUserInput> | session_enrollmentsCreateWithoutUserInput[] | session_enrollmentsUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: session_enrollmentsCreateOrConnectWithoutUserInput | session_enrollmentsCreateOrConnectWithoutUserInput[]
-    upsert?: session_enrollmentsUpsertWithWhereUniqueWithoutUserInput | session_enrollmentsUpsertWithWhereUniqueWithoutUserInput[]
-    createMany?: session_enrollmentsCreateManyUserInputEnvelope
-    set?: session_enrollmentsWhereUniqueInput | session_enrollmentsWhereUniqueInput[]
-    disconnect?: session_enrollmentsWhereUniqueInput | session_enrollmentsWhereUniqueInput[]
-    delete?: session_enrollmentsWhereUniqueInput | session_enrollmentsWhereUniqueInput[]
-    connect?: session_enrollmentsWhereUniqueInput | session_enrollmentsWhereUniqueInput[]
-    update?: session_enrollmentsUpdateWithWhereUniqueWithoutUserInput | session_enrollmentsUpdateWithWhereUniqueWithoutUserInput[]
-    updateMany?: session_enrollmentsUpdateManyWithWhereWithoutUserInput | session_enrollmentsUpdateManyWithWhereWithoutUserInput[]
-    deleteMany?: session_enrollmentsScalarWhereInput | session_enrollmentsScalarWhereInput[]
-  }
-
-  export type servicesUpdateManyWithoutCreatorNestedInput = {
-    create?: XOR<servicesCreateWithoutCreatorInput, servicesUncheckedCreateWithoutCreatorInput> | servicesCreateWithoutCreatorInput[] | servicesUncheckedCreateWithoutCreatorInput[]
-    connectOrCreate?: servicesCreateOrConnectWithoutCreatorInput | servicesCreateOrConnectWithoutCreatorInput[]
-    upsert?: servicesUpsertWithWhereUniqueWithoutCreatorInput | servicesUpsertWithWhereUniqueWithoutCreatorInput[]
-    createMany?: servicesCreateManyCreatorInputEnvelope
-    set?: servicesWhereUniqueInput | servicesWhereUniqueInput[]
-    disconnect?: servicesWhereUniqueInput | servicesWhereUniqueInput[]
-    delete?: servicesWhereUniqueInput | servicesWhereUniqueInput[]
-    connect?: servicesWhereUniqueInput | servicesWhereUniqueInput[]
-    update?: servicesUpdateWithWhereUniqueWithoutCreatorInput | servicesUpdateWithWhereUniqueWithoutCreatorInput[]
-    updateMany?: servicesUpdateManyWithWhereWithoutCreatorInput | servicesUpdateManyWithWhereWithoutCreatorInput[]
-    deleteMany?: servicesScalarWhereInput | servicesScalarWhereInput[]
-  }
-
-  export type service_bookingsUpdateManyWithoutUserNestedInput = {
-    create?: XOR<service_bookingsCreateWithoutUserInput, service_bookingsUncheckedCreateWithoutUserInput> | service_bookingsCreateWithoutUserInput[] | service_bookingsUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: service_bookingsCreateOrConnectWithoutUserInput | service_bookingsCreateOrConnectWithoutUserInput[]
-    upsert?: service_bookingsUpsertWithWhereUniqueWithoutUserInput | service_bookingsUpsertWithWhereUniqueWithoutUserInput[]
-    createMany?: service_bookingsCreateManyUserInputEnvelope
-    set?: service_bookingsWhereUniqueInput | service_bookingsWhereUniqueInput[]
-    disconnect?: service_bookingsWhereUniqueInput | service_bookingsWhereUniqueInput[]
-    delete?: service_bookingsWhereUniqueInput | service_bookingsWhereUniqueInput[]
-    connect?: service_bookingsWhereUniqueInput | service_bookingsWhereUniqueInput[]
-    update?: service_bookingsUpdateWithWhereUniqueWithoutUserInput | service_bookingsUpdateWithWhereUniqueWithoutUserInput[]
-    updateMany?: service_bookingsUpdateManyWithWhereWithoutUserInput | service_bookingsUpdateManyWithWhereWithoutUserInput[]
-    deleteMany?: service_bookingsScalarWhereInput | service_bookingsScalarWhereInput[]
-  }
-
-  export type service_reviewsUpdateManyWithoutUserNestedInput = {
-    create?: XOR<service_reviewsCreateWithoutUserInput, service_reviewsUncheckedCreateWithoutUserInput> | service_reviewsCreateWithoutUserInput[] | service_reviewsUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: service_reviewsCreateOrConnectWithoutUserInput | service_reviewsCreateOrConnectWithoutUserInput[]
-    upsert?: service_reviewsUpsertWithWhereUniqueWithoutUserInput | service_reviewsUpsertWithWhereUniqueWithoutUserInput[]
-    createMany?: service_reviewsCreateManyUserInputEnvelope
-    set?: service_reviewsWhereUniqueInput | service_reviewsWhereUniqueInput[]
-    disconnect?: service_reviewsWhereUniqueInput | service_reviewsWhereUniqueInput[]
-    delete?: service_reviewsWhereUniqueInput | service_reviewsWhereUniqueInput[]
-    connect?: service_reviewsWhereUniqueInput | service_reviewsWhereUniqueInput[]
-    update?: service_reviewsUpdateWithWhereUniqueWithoutUserInput | service_reviewsUpdateWithWhereUniqueWithoutUserInput[]
-    updateMany?: service_reviewsUpdateManyWithWhereWithoutUserInput | service_reviewsUpdateManyWithWhereWithoutUserInput[]
-    deleteMany?: service_reviewsScalarWhereInput | service_reviewsScalarWhereInput[]
-  }
-
   export type subscriptionsUpdateManyWithoutUsersNestedInput = {
     create?: XOR<subscriptionsCreateWithoutUsersInput, subscriptionsUncheckedCreateWithoutUsersInput> | subscriptionsCreateWithoutUsersInput[] | subscriptionsUncheckedCreateWithoutUsersInput[]
     connectOrCreate?: subscriptionsCreateOrConnectWithoutUsersInput | subscriptionsCreateOrConnectWithoutUsersInput[]
@@ -96190,48 +96232,6 @@ export namespace Prisma {
     delete?: user_settingsWhereInput | boolean
     connect?: user_settingsWhereUniqueInput
     update?: XOR<XOR<user_settingsUpdateToOneWithWhereWithoutUsersInput, user_settingsUpdateWithoutUsersInput>, user_settingsUncheckedUpdateWithoutUsersInput>
-  }
-
-  export type pollsUpdateManyWithoutCreatorNestedInput = {
-    create?: XOR<pollsCreateWithoutCreatorInput, pollsUncheckedCreateWithoutCreatorInput> | pollsCreateWithoutCreatorInput[] | pollsUncheckedCreateWithoutCreatorInput[]
-    connectOrCreate?: pollsCreateOrConnectWithoutCreatorInput | pollsCreateOrConnectWithoutCreatorInput[]
-    upsert?: pollsUpsertWithWhereUniqueWithoutCreatorInput | pollsUpsertWithWhereUniqueWithoutCreatorInput[]
-    createMany?: pollsCreateManyCreatorInputEnvelope
-    set?: pollsWhereUniqueInput | pollsWhereUniqueInput[]
-    disconnect?: pollsWhereUniqueInput | pollsWhereUniqueInput[]
-    delete?: pollsWhereUniqueInput | pollsWhereUniqueInput[]
-    connect?: pollsWhereUniqueInput | pollsWhereUniqueInput[]
-    update?: pollsUpdateWithWhereUniqueWithoutCreatorInput | pollsUpdateWithWhereUniqueWithoutCreatorInput[]
-    updateMany?: pollsUpdateManyWithWhereWithoutCreatorInput | pollsUpdateManyWithWhereWithoutCreatorInput[]
-    deleteMany?: pollsScalarWhereInput | pollsScalarWhereInput[]
-  }
-
-  export type poll_votesUpdateManyWithoutVoterNestedInput = {
-    create?: XOR<poll_votesCreateWithoutVoterInput, poll_votesUncheckedCreateWithoutVoterInput> | poll_votesCreateWithoutVoterInput[] | poll_votesUncheckedCreateWithoutVoterInput[]
-    connectOrCreate?: poll_votesCreateOrConnectWithoutVoterInput | poll_votesCreateOrConnectWithoutVoterInput[]
-    upsert?: poll_votesUpsertWithWhereUniqueWithoutVoterInput | poll_votesUpsertWithWhereUniqueWithoutVoterInput[]
-    createMany?: poll_votesCreateManyVoterInputEnvelope
-    set?: poll_votesWhereUniqueInput | poll_votesWhereUniqueInput[]
-    disconnect?: poll_votesWhereUniqueInput | poll_votesWhereUniqueInput[]
-    delete?: poll_votesWhereUniqueInput | poll_votesWhereUniqueInput[]
-    connect?: poll_votesWhereUniqueInput | poll_votesWhereUniqueInput[]
-    update?: poll_votesUpdateWithWhereUniqueWithoutVoterInput | poll_votesUpdateWithWhereUniqueWithoutVoterInput[]
-    updateMany?: poll_votesUpdateManyWithWhereWithoutVoterInput | poll_votesUpdateManyWithWhereWithoutVoterInput[]
-    deleteMany?: poll_votesScalarWhereInput | poll_votesScalarWhereInput[]
-  }
-
-  export type poll_commentsUpdateManyWithoutCommenterNestedInput = {
-    create?: XOR<poll_commentsCreateWithoutCommenterInput, poll_commentsUncheckedCreateWithoutCommenterInput> | poll_commentsCreateWithoutCommenterInput[] | poll_commentsUncheckedCreateWithoutCommenterInput[]
-    connectOrCreate?: poll_commentsCreateOrConnectWithoutCommenterInput | poll_commentsCreateOrConnectWithoutCommenterInput[]
-    upsert?: poll_commentsUpsertWithWhereUniqueWithoutCommenterInput | poll_commentsUpsertWithWhereUniqueWithoutCommenterInput[]
-    createMany?: poll_commentsCreateManyCommenterInputEnvelope
-    set?: poll_commentsWhereUniqueInput | poll_commentsWhereUniqueInput[]
-    disconnect?: poll_commentsWhereUniqueInput | poll_commentsWhereUniqueInput[]
-    delete?: poll_commentsWhereUniqueInput | poll_commentsWhereUniqueInput[]
-    connect?: poll_commentsWhereUniqueInput | poll_commentsWhereUniqueInput[]
-    update?: poll_commentsUpdateWithWhereUniqueWithoutCommenterInput | poll_commentsUpdateWithWhereUniqueWithoutCommenterInput[]
-    updateMany?: poll_commentsUpdateManyWithWhereWithoutCommenterInput | poll_commentsUpdateManyWithWhereWithoutCommenterInput[]
-    deleteMany?: poll_commentsScalarWhereInput | poll_commentsScalarWhereInput[]
   }
 
   export type QuizParticipantsUncheckedUpdateManyWithoutUsersNestedInput = {
@@ -96542,6 +96542,48 @@ export namespace Prisma {
     deleteMany?: paymentsScalarWhereInput | paymentsScalarWhereInput[]
   }
 
+  export type poll_commentsUncheckedUpdateManyWithoutCommenterNestedInput = {
+    create?: XOR<poll_commentsCreateWithoutCommenterInput, poll_commentsUncheckedCreateWithoutCommenterInput> | poll_commentsCreateWithoutCommenterInput[] | poll_commentsUncheckedCreateWithoutCommenterInput[]
+    connectOrCreate?: poll_commentsCreateOrConnectWithoutCommenterInput | poll_commentsCreateOrConnectWithoutCommenterInput[]
+    upsert?: poll_commentsUpsertWithWhereUniqueWithoutCommenterInput | poll_commentsUpsertWithWhereUniqueWithoutCommenterInput[]
+    createMany?: poll_commentsCreateManyCommenterInputEnvelope
+    set?: poll_commentsWhereUniqueInput | poll_commentsWhereUniqueInput[]
+    disconnect?: poll_commentsWhereUniqueInput | poll_commentsWhereUniqueInput[]
+    delete?: poll_commentsWhereUniqueInput | poll_commentsWhereUniqueInput[]
+    connect?: poll_commentsWhereUniqueInput | poll_commentsWhereUniqueInput[]
+    update?: poll_commentsUpdateWithWhereUniqueWithoutCommenterInput | poll_commentsUpdateWithWhereUniqueWithoutCommenterInput[]
+    updateMany?: poll_commentsUpdateManyWithWhereWithoutCommenterInput | poll_commentsUpdateManyWithWhereWithoutCommenterInput[]
+    deleteMany?: poll_commentsScalarWhereInput | poll_commentsScalarWhereInput[]
+  }
+
+  export type poll_votesUncheckedUpdateManyWithoutVoterNestedInput = {
+    create?: XOR<poll_votesCreateWithoutVoterInput, poll_votesUncheckedCreateWithoutVoterInput> | poll_votesCreateWithoutVoterInput[] | poll_votesUncheckedCreateWithoutVoterInput[]
+    connectOrCreate?: poll_votesCreateOrConnectWithoutVoterInput | poll_votesCreateOrConnectWithoutVoterInput[]
+    upsert?: poll_votesUpsertWithWhereUniqueWithoutVoterInput | poll_votesUpsertWithWhereUniqueWithoutVoterInput[]
+    createMany?: poll_votesCreateManyVoterInputEnvelope
+    set?: poll_votesWhereUniqueInput | poll_votesWhereUniqueInput[]
+    disconnect?: poll_votesWhereUniqueInput | poll_votesWhereUniqueInput[]
+    delete?: poll_votesWhereUniqueInput | poll_votesWhereUniqueInput[]
+    connect?: poll_votesWhereUniqueInput | poll_votesWhereUniqueInput[]
+    update?: poll_votesUpdateWithWhereUniqueWithoutVoterInput | poll_votesUpdateWithWhereUniqueWithoutVoterInput[]
+    updateMany?: poll_votesUpdateManyWithWhereWithoutVoterInput | poll_votesUpdateManyWithWhereWithoutVoterInput[]
+    deleteMany?: poll_votesScalarWhereInput | poll_votesScalarWhereInput[]
+  }
+
+  export type pollsUncheckedUpdateManyWithoutCreatorNestedInput = {
+    create?: XOR<pollsCreateWithoutCreatorInput, pollsUncheckedCreateWithoutCreatorInput> | pollsCreateWithoutCreatorInput[] | pollsUncheckedCreateWithoutCreatorInput[]
+    connectOrCreate?: pollsCreateOrConnectWithoutCreatorInput | pollsCreateOrConnectWithoutCreatorInput[]
+    upsert?: pollsUpsertWithWhereUniqueWithoutCreatorInput | pollsUpsertWithWhereUniqueWithoutCreatorInput[]
+    createMany?: pollsCreateManyCreatorInputEnvelope
+    set?: pollsWhereUniqueInput | pollsWhereUniqueInput[]
+    disconnect?: pollsWhereUniqueInput | pollsWhereUniqueInput[]
+    delete?: pollsWhereUniqueInput | pollsWhereUniqueInput[]
+    connect?: pollsWhereUniqueInput | pollsWhereUniqueInput[]
+    update?: pollsUpdateWithWhereUniqueWithoutCreatorInput | pollsUpdateWithWhereUniqueWithoutCreatorInput[]
+    updateMany?: pollsUpdateManyWithWhereWithoutCreatorInput | pollsUpdateManyWithWhereWithoutCreatorInput[]
+    deleteMany?: pollsScalarWhereInput | pollsScalarWhereInput[]
+  }
+
   export type role_upgrade_requestsUncheckedUpdateManyWithoutUsers_role_upgrade_requests_reviewer_idTousersNestedInput = {
     create?: XOR<role_upgrade_requestsCreateWithoutUsers_role_upgrade_requests_reviewer_idTousersInput, role_upgrade_requestsUncheckedCreateWithoutUsers_role_upgrade_requests_reviewer_idTousersInput> | role_upgrade_requestsCreateWithoutUsers_role_upgrade_requests_reviewer_idTousersInput[] | role_upgrade_requestsUncheckedCreateWithoutUsers_role_upgrade_requests_reviewer_idTousersInput[]
     connectOrCreate?: role_upgrade_requestsCreateOrConnectWithoutUsers_role_upgrade_requests_reviewer_idTousersInput | role_upgrade_requestsCreateOrConnectWithoutUsers_role_upgrade_requests_reviewer_idTousersInput[]
@@ -96568,6 +96610,76 @@ export namespace Prisma {
     update?: role_upgrade_requestsUpdateWithWhereUniqueWithoutUsers_role_upgrade_requests_user_idTousersInput | role_upgrade_requestsUpdateWithWhereUniqueWithoutUsers_role_upgrade_requests_user_idTousersInput[]
     updateMany?: role_upgrade_requestsUpdateManyWithWhereWithoutUsers_role_upgrade_requests_user_idTousersInput | role_upgrade_requestsUpdateManyWithWhereWithoutUsers_role_upgrade_requests_user_idTousersInput[]
     deleteMany?: role_upgrade_requestsScalarWhereInput | role_upgrade_requestsScalarWhereInput[]
+  }
+
+  export type service_bookingsUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<service_bookingsCreateWithoutUserInput, service_bookingsUncheckedCreateWithoutUserInput> | service_bookingsCreateWithoutUserInput[] | service_bookingsUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: service_bookingsCreateOrConnectWithoutUserInput | service_bookingsCreateOrConnectWithoutUserInput[]
+    upsert?: service_bookingsUpsertWithWhereUniqueWithoutUserInput | service_bookingsUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: service_bookingsCreateManyUserInputEnvelope
+    set?: service_bookingsWhereUniqueInput | service_bookingsWhereUniqueInput[]
+    disconnect?: service_bookingsWhereUniqueInput | service_bookingsWhereUniqueInput[]
+    delete?: service_bookingsWhereUniqueInput | service_bookingsWhereUniqueInput[]
+    connect?: service_bookingsWhereUniqueInput | service_bookingsWhereUniqueInput[]
+    update?: service_bookingsUpdateWithWhereUniqueWithoutUserInput | service_bookingsUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: service_bookingsUpdateManyWithWhereWithoutUserInput | service_bookingsUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: service_bookingsScalarWhereInput | service_bookingsScalarWhereInput[]
+  }
+
+  export type service_reviewsUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<service_reviewsCreateWithoutUserInput, service_reviewsUncheckedCreateWithoutUserInput> | service_reviewsCreateWithoutUserInput[] | service_reviewsUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: service_reviewsCreateOrConnectWithoutUserInput | service_reviewsCreateOrConnectWithoutUserInput[]
+    upsert?: service_reviewsUpsertWithWhereUniqueWithoutUserInput | service_reviewsUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: service_reviewsCreateManyUserInputEnvelope
+    set?: service_reviewsWhereUniqueInput | service_reviewsWhereUniqueInput[]
+    disconnect?: service_reviewsWhereUniqueInput | service_reviewsWhereUniqueInput[]
+    delete?: service_reviewsWhereUniqueInput | service_reviewsWhereUniqueInput[]
+    connect?: service_reviewsWhereUniqueInput | service_reviewsWhereUniqueInput[]
+    update?: service_reviewsUpdateWithWhereUniqueWithoutUserInput | service_reviewsUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: service_reviewsUpdateManyWithWhereWithoutUserInput | service_reviewsUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: service_reviewsScalarWhereInput | service_reviewsScalarWhereInput[]
+  }
+
+  export type servicesUncheckedUpdateManyWithoutCreatorNestedInput = {
+    create?: XOR<servicesCreateWithoutCreatorInput, servicesUncheckedCreateWithoutCreatorInput> | servicesCreateWithoutCreatorInput[] | servicesUncheckedCreateWithoutCreatorInput[]
+    connectOrCreate?: servicesCreateOrConnectWithoutCreatorInput | servicesCreateOrConnectWithoutCreatorInput[]
+    upsert?: servicesUpsertWithWhereUniqueWithoutCreatorInput | servicesUpsertWithWhereUniqueWithoutCreatorInput[]
+    createMany?: servicesCreateManyCreatorInputEnvelope
+    set?: servicesWhereUniqueInput | servicesWhereUniqueInput[]
+    disconnect?: servicesWhereUniqueInput | servicesWhereUniqueInput[]
+    delete?: servicesWhereUniqueInput | servicesWhereUniqueInput[]
+    connect?: servicesWhereUniqueInput | servicesWhereUniqueInput[]
+    update?: servicesUpdateWithWhereUniqueWithoutCreatorInput | servicesUpdateWithWhereUniqueWithoutCreatorInput[]
+    updateMany?: servicesUpdateManyWithWhereWithoutCreatorInput | servicesUpdateManyWithWhereWithoutCreatorInput[]
+    deleteMany?: servicesScalarWhereInput | servicesScalarWhereInput[]
+  }
+
+  export type session_enrollmentsUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<session_enrollmentsCreateWithoutUserInput, session_enrollmentsUncheckedCreateWithoutUserInput> | session_enrollmentsCreateWithoutUserInput[] | session_enrollmentsUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: session_enrollmentsCreateOrConnectWithoutUserInput | session_enrollmentsCreateOrConnectWithoutUserInput[]
+    upsert?: session_enrollmentsUpsertWithWhereUniqueWithoutUserInput | session_enrollmentsUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: session_enrollmentsCreateManyUserInputEnvelope
+    set?: session_enrollmentsWhereUniqueInput | session_enrollmentsWhereUniqueInput[]
+    disconnect?: session_enrollmentsWhereUniqueInput | session_enrollmentsWhereUniqueInput[]
+    delete?: session_enrollmentsWhereUniqueInput | session_enrollmentsWhereUniqueInput[]
+    connect?: session_enrollmentsWhereUniqueInput | session_enrollmentsWhereUniqueInput[]
+    update?: session_enrollmentsUpdateWithWhereUniqueWithoutUserInput | session_enrollmentsUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: session_enrollmentsUpdateManyWithWhereWithoutUserInput | session_enrollmentsUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: session_enrollmentsScalarWhereInput | session_enrollmentsScalarWhereInput[]
+  }
+
+  export type sessionsUncheckedUpdateManyWithoutCreatorNestedInput = {
+    create?: XOR<sessionsCreateWithoutCreatorInput, sessionsUncheckedCreateWithoutCreatorInput> | sessionsCreateWithoutCreatorInput[] | sessionsUncheckedCreateWithoutCreatorInput[]
+    connectOrCreate?: sessionsCreateOrConnectWithoutCreatorInput | sessionsCreateOrConnectWithoutCreatorInput[]
+    upsert?: sessionsUpsertWithWhereUniqueWithoutCreatorInput | sessionsUpsertWithWhereUniqueWithoutCreatorInput[]
+    createMany?: sessionsCreateManyCreatorInputEnvelope
+    set?: sessionsWhereUniqueInput | sessionsWhereUniqueInput[]
+    disconnect?: sessionsWhereUniqueInput | sessionsWhereUniqueInput[]
+    delete?: sessionsWhereUniqueInput | sessionsWhereUniqueInput[]
+    connect?: sessionsWhereUniqueInput | sessionsWhereUniqueInput[]
+    update?: sessionsUpdateWithWhereUniqueWithoutCreatorInput | sessionsUpdateWithWhereUniqueWithoutCreatorInput[]
+    updateMany?: sessionsUpdateManyWithWhereWithoutCreatorInput | sessionsUpdateManyWithWhereWithoutCreatorInput[]
+    deleteMany?: sessionsScalarWhereInput | sessionsScalarWhereInput[]
   }
 
   export type space_discussion_comment_likesUncheckedUpdateManyWithoutUserNestedInput = {
@@ -96696,76 +96808,6 @@ export namespace Prisma {
     deleteMany?: stargazing_spotsScalarWhereInput | stargazing_spotsScalarWhereInput[]
   }
 
-  export type sessionsUncheckedUpdateManyWithoutCreatorNestedInput = {
-    create?: XOR<sessionsCreateWithoutCreatorInput, sessionsUncheckedCreateWithoutCreatorInput> | sessionsCreateWithoutCreatorInput[] | sessionsUncheckedCreateWithoutCreatorInput[]
-    connectOrCreate?: sessionsCreateOrConnectWithoutCreatorInput | sessionsCreateOrConnectWithoutCreatorInput[]
-    upsert?: sessionsUpsertWithWhereUniqueWithoutCreatorInput | sessionsUpsertWithWhereUniqueWithoutCreatorInput[]
-    createMany?: sessionsCreateManyCreatorInputEnvelope
-    set?: sessionsWhereUniqueInput | sessionsWhereUniqueInput[]
-    disconnect?: sessionsWhereUniqueInput | sessionsWhereUniqueInput[]
-    delete?: sessionsWhereUniqueInput | sessionsWhereUniqueInput[]
-    connect?: sessionsWhereUniqueInput | sessionsWhereUniqueInput[]
-    update?: sessionsUpdateWithWhereUniqueWithoutCreatorInput | sessionsUpdateWithWhereUniqueWithoutCreatorInput[]
-    updateMany?: sessionsUpdateManyWithWhereWithoutCreatorInput | sessionsUpdateManyWithWhereWithoutCreatorInput[]
-    deleteMany?: sessionsScalarWhereInput | sessionsScalarWhereInput[]
-  }
-
-  export type session_enrollmentsUncheckedUpdateManyWithoutUserNestedInput = {
-    create?: XOR<session_enrollmentsCreateWithoutUserInput, session_enrollmentsUncheckedCreateWithoutUserInput> | session_enrollmentsCreateWithoutUserInput[] | session_enrollmentsUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: session_enrollmentsCreateOrConnectWithoutUserInput | session_enrollmentsCreateOrConnectWithoutUserInput[]
-    upsert?: session_enrollmentsUpsertWithWhereUniqueWithoutUserInput | session_enrollmentsUpsertWithWhereUniqueWithoutUserInput[]
-    createMany?: session_enrollmentsCreateManyUserInputEnvelope
-    set?: session_enrollmentsWhereUniqueInput | session_enrollmentsWhereUniqueInput[]
-    disconnect?: session_enrollmentsWhereUniqueInput | session_enrollmentsWhereUniqueInput[]
-    delete?: session_enrollmentsWhereUniqueInput | session_enrollmentsWhereUniqueInput[]
-    connect?: session_enrollmentsWhereUniqueInput | session_enrollmentsWhereUniqueInput[]
-    update?: session_enrollmentsUpdateWithWhereUniqueWithoutUserInput | session_enrollmentsUpdateWithWhereUniqueWithoutUserInput[]
-    updateMany?: session_enrollmentsUpdateManyWithWhereWithoutUserInput | session_enrollmentsUpdateManyWithWhereWithoutUserInput[]
-    deleteMany?: session_enrollmentsScalarWhereInput | session_enrollmentsScalarWhereInput[]
-  }
-
-  export type servicesUncheckedUpdateManyWithoutCreatorNestedInput = {
-    create?: XOR<servicesCreateWithoutCreatorInput, servicesUncheckedCreateWithoutCreatorInput> | servicesCreateWithoutCreatorInput[] | servicesUncheckedCreateWithoutCreatorInput[]
-    connectOrCreate?: servicesCreateOrConnectWithoutCreatorInput | servicesCreateOrConnectWithoutCreatorInput[]
-    upsert?: servicesUpsertWithWhereUniqueWithoutCreatorInput | servicesUpsertWithWhereUniqueWithoutCreatorInput[]
-    createMany?: servicesCreateManyCreatorInputEnvelope
-    set?: servicesWhereUniqueInput | servicesWhereUniqueInput[]
-    disconnect?: servicesWhereUniqueInput | servicesWhereUniqueInput[]
-    delete?: servicesWhereUniqueInput | servicesWhereUniqueInput[]
-    connect?: servicesWhereUniqueInput | servicesWhereUniqueInput[]
-    update?: servicesUpdateWithWhereUniqueWithoutCreatorInput | servicesUpdateWithWhereUniqueWithoutCreatorInput[]
-    updateMany?: servicesUpdateManyWithWhereWithoutCreatorInput | servicesUpdateManyWithWhereWithoutCreatorInput[]
-    deleteMany?: servicesScalarWhereInput | servicesScalarWhereInput[]
-  }
-
-  export type service_bookingsUncheckedUpdateManyWithoutUserNestedInput = {
-    create?: XOR<service_bookingsCreateWithoutUserInput, service_bookingsUncheckedCreateWithoutUserInput> | service_bookingsCreateWithoutUserInput[] | service_bookingsUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: service_bookingsCreateOrConnectWithoutUserInput | service_bookingsCreateOrConnectWithoutUserInput[]
-    upsert?: service_bookingsUpsertWithWhereUniqueWithoutUserInput | service_bookingsUpsertWithWhereUniqueWithoutUserInput[]
-    createMany?: service_bookingsCreateManyUserInputEnvelope
-    set?: service_bookingsWhereUniqueInput | service_bookingsWhereUniqueInput[]
-    disconnect?: service_bookingsWhereUniqueInput | service_bookingsWhereUniqueInput[]
-    delete?: service_bookingsWhereUniqueInput | service_bookingsWhereUniqueInput[]
-    connect?: service_bookingsWhereUniqueInput | service_bookingsWhereUniqueInput[]
-    update?: service_bookingsUpdateWithWhereUniqueWithoutUserInput | service_bookingsUpdateWithWhereUniqueWithoutUserInput[]
-    updateMany?: service_bookingsUpdateManyWithWhereWithoutUserInput | service_bookingsUpdateManyWithWhereWithoutUserInput[]
-    deleteMany?: service_bookingsScalarWhereInput | service_bookingsScalarWhereInput[]
-  }
-
-  export type service_reviewsUncheckedUpdateManyWithoutUserNestedInput = {
-    create?: XOR<service_reviewsCreateWithoutUserInput, service_reviewsUncheckedCreateWithoutUserInput> | service_reviewsCreateWithoutUserInput[] | service_reviewsUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: service_reviewsCreateOrConnectWithoutUserInput | service_reviewsCreateOrConnectWithoutUserInput[]
-    upsert?: service_reviewsUpsertWithWhereUniqueWithoutUserInput | service_reviewsUpsertWithWhereUniqueWithoutUserInput[]
-    createMany?: service_reviewsCreateManyUserInputEnvelope
-    set?: service_reviewsWhereUniqueInput | service_reviewsWhereUniqueInput[]
-    disconnect?: service_reviewsWhereUniqueInput | service_reviewsWhereUniqueInput[]
-    delete?: service_reviewsWhereUniqueInput | service_reviewsWhereUniqueInput[]
-    connect?: service_reviewsWhereUniqueInput | service_reviewsWhereUniqueInput[]
-    update?: service_reviewsUpdateWithWhereUniqueWithoutUserInput | service_reviewsUpdateWithWhereUniqueWithoutUserInput[]
-    updateMany?: service_reviewsUpdateManyWithWhereWithoutUserInput | service_reviewsUpdateManyWithWhereWithoutUserInput[]
-    deleteMany?: service_reviewsScalarWhereInput | service_reviewsScalarWhereInput[]
-  }
-
   export type subscriptionsUncheckedUpdateManyWithoutUsersNestedInput = {
     create?: XOR<subscriptionsCreateWithoutUsersInput, subscriptionsUncheckedCreateWithoutUsersInput> | subscriptionsCreateWithoutUsersInput[] | subscriptionsUncheckedCreateWithoutUsersInput[]
     connectOrCreate?: subscriptionsCreateOrConnectWithoutUsersInput | subscriptionsCreateOrConnectWithoutUsersInput[]
@@ -96788,48 +96830,6 @@ export namespace Prisma {
     delete?: user_settingsWhereInput | boolean
     connect?: user_settingsWhereUniqueInput
     update?: XOR<XOR<user_settingsUpdateToOneWithWhereWithoutUsersInput, user_settingsUpdateWithoutUsersInput>, user_settingsUncheckedUpdateWithoutUsersInput>
-  }
-
-  export type pollsUncheckedUpdateManyWithoutCreatorNestedInput = {
-    create?: XOR<pollsCreateWithoutCreatorInput, pollsUncheckedCreateWithoutCreatorInput> | pollsCreateWithoutCreatorInput[] | pollsUncheckedCreateWithoutCreatorInput[]
-    connectOrCreate?: pollsCreateOrConnectWithoutCreatorInput | pollsCreateOrConnectWithoutCreatorInput[]
-    upsert?: pollsUpsertWithWhereUniqueWithoutCreatorInput | pollsUpsertWithWhereUniqueWithoutCreatorInput[]
-    createMany?: pollsCreateManyCreatorInputEnvelope
-    set?: pollsWhereUniqueInput | pollsWhereUniqueInput[]
-    disconnect?: pollsWhereUniqueInput | pollsWhereUniqueInput[]
-    delete?: pollsWhereUniqueInput | pollsWhereUniqueInput[]
-    connect?: pollsWhereUniqueInput | pollsWhereUniqueInput[]
-    update?: pollsUpdateWithWhereUniqueWithoutCreatorInput | pollsUpdateWithWhereUniqueWithoutCreatorInput[]
-    updateMany?: pollsUpdateManyWithWhereWithoutCreatorInput | pollsUpdateManyWithWhereWithoutCreatorInput[]
-    deleteMany?: pollsScalarWhereInput | pollsScalarWhereInput[]
-  }
-
-  export type poll_votesUncheckedUpdateManyWithoutVoterNestedInput = {
-    create?: XOR<poll_votesCreateWithoutVoterInput, poll_votesUncheckedCreateWithoutVoterInput> | poll_votesCreateWithoutVoterInput[] | poll_votesUncheckedCreateWithoutVoterInput[]
-    connectOrCreate?: poll_votesCreateOrConnectWithoutVoterInput | poll_votesCreateOrConnectWithoutVoterInput[]
-    upsert?: poll_votesUpsertWithWhereUniqueWithoutVoterInput | poll_votesUpsertWithWhereUniqueWithoutVoterInput[]
-    createMany?: poll_votesCreateManyVoterInputEnvelope
-    set?: poll_votesWhereUniqueInput | poll_votesWhereUniqueInput[]
-    disconnect?: poll_votesWhereUniqueInput | poll_votesWhereUniqueInput[]
-    delete?: poll_votesWhereUniqueInput | poll_votesWhereUniqueInput[]
-    connect?: poll_votesWhereUniqueInput | poll_votesWhereUniqueInput[]
-    update?: poll_votesUpdateWithWhereUniqueWithoutVoterInput | poll_votesUpdateWithWhereUniqueWithoutVoterInput[]
-    updateMany?: poll_votesUpdateManyWithWhereWithoutVoterInput | poll_votesUpdateManyWithWhereWithoutVoterInput[]
-    deleteMany?: poll_votesScalarWhereInput | poll_votesScalarWhereInput[]
-  }
-
-  export type poll_commentsUncheckedUpdateManyWithoutCommenterNestedInput = {
-    create?: XOR<poll_commentsCreateWithoutCommenterInput, poll_commentsUncheckedCreateWithoutCommenterInput> | poll_commentsCreateWithoutCommenterInput[] | poll_commentsUncheckedCreateWithoutCommenterInput[]
-    connectOrCreate?: poll_commentsCreateOrConnectWithoutCommenterInput | poll_commentsCreateOrConnectWithoutCommenterInput[]
-    upsert?: poll_commentsUpsertWithWhereUniqueWithoutCommenterInput | poll_commentsUpsertWithWhereUniqueWithoutCommenterInput[]
-    createMany?: poll_commentsCreateManyCommenterInputEnvelope
-    set?: poll_commentsWhereUniqueInput | poll_commentsWhereUniqueInput[]
-    disconnect?: poll_commentsWhereUniqueInput | poll_commentsWhereUniqueInput[]
-    delete?: poll_commentsWhereUniqueInput | poll_commentsWhereUniqueInput[]
-    connect?: poll_commentsWhereUniqueInput | poll_commentsWhereUniqueInput[]
-    update?: poll_commentsUpdateWithWhereUniqueWithoutCommenterInput | poll_commentsUpdateWithWhereUniqueWithoutCommenterInput[]
-    updateMany?: poll_commentsUpdateManyWithWhereWithoutCommenterInput | poll_commentsUpdateManyWithWhereWithoutCommenterInput[]
-    deleteMany?: poll_commentsScalarWhereInput | poll_commentsScalarWhereInput[]
   }
 
   export type blogsCreateNestedOneWithoutBlog_likesInput = {
@@ -98035,17 +98035,17 @@ export namespace Prisma {
     update?: XOR<XOR<usersUpdateToOneWithWhereWithoutStargazing_spot_reviewsInput, usersUpdateWithoutStargazing_spot_reviewsInput>, usersUncheckedUpdateWithoutStargazing_spot_reviewsInput>
   }
 
-  export type usersCreateNestedOneWithoutCreated_sessionsInput = {
-    create?: XOR<usersCreateWithoutCreated_sessionsInput, usersUncheckedCreateWithoutCreated_sessionsInput>
-    connectOrCreate?: usersCreateOrConnectWithoutCreated_sessionsInput
-    connect?: usersWhereUniqueInput
-  }
-
   export type session_enrollmentsCreateNestedManyWithoutSessionInput = {
     create?: XOR<session_enrollmentsCreateWithoutSessionInput, session_enrollmentsUncheckedCreateWithoutSessionInput> | session_enrollmentsCreateWithoutSessionInput[] | session_enrollmentsUncheckedCreateWithoutSessionInput[]
     connectOrCreate?: session_enrollmentsCreateOrConnectWithoutSessionInput | session_enrollmentsCreateOrConnectWithoutSessionInput[]
     createMany?: session_enrollmentsCreateManySessionInputEnvelope
     connect?: session_enrollmentsWhereUniqueInput | session_enrollmentsWhereUniqueInput[]
+  }
+
+  export type usersCreateNestedOneWithoutCreated_sessionsInput = {
+    create?: XOR<usersCreateWithoutCreated_sessionsInput, usersUncheckedCreateWithoutCreated_sessionsInput>
+    connectOrCreate?: usersCreateOrConnectWithoutCreated_sessionsInput
+    connect?: usersWhereUniqueInput
   }
 
   export type session_enrollmentsUncheckedCreateNestedManyWithoutSessionInput = {
@@ -98067,14 +98067,6 @@ export namespace Prisma {
     set?: $Enums.difficulty_level
   }
 
-  export type usersUpdateOneRequiredWithoutCreated_sessionsNestedInput = {
-    create?: XOR<usersCreateWithoutCreated_sessionsInput, usersUncheckedCreateWithoutCreated_sessionsInput>
-    connectOrCreate?: usersCreateOrConnectWithoutCreated_sessionsInput
-    upsert?: usersUpsertWithoutCreated_sessionsInput
-    connect?: usersWhereUniqueInput
-    update?: XOR<XOR<usersUpdateToOneWithWhereWithoutCreated_sessionsInput, usersUpdateWithoutCreated_sessionsInput>, usersUncheckedUpdateWithoutCreated_sessionsInput>
-  }
-
   export type session_enrollmentsUpdateManyWithoutSessionNestedInput = {
     create?: XOR<session_enrollmentsCreateWithoutSessionInput, session_enrollmentsUncheckedCreateWithoutSessionInput> | session_enrollmentsCreateWithoutSessionInput[] | session_enrollmentsUncheckedCreateWithoutSessionInput[]
     connectOrCreate?: session_enrollmentsCreateOrConnectWithoutSessionInput | session_enrollmentsCreateOrConnectWithoutSessionInput[]
@@ -98087,6 +98079,14 @@ export namespace Prisma {
     update?: session_enrollmentsUpdateWithWhereUniqueWithoutSessionInput | session_enrollmentsUpdateWithWhereUniqueWithoutSessionInput[]
     updateMany?: session_enrollmentsUpdateManyWithWhereWithoutSessionInput | session_enrollmentsUpdateManyWithWhereWithoutSessionInput[]
     deleteMany?: session_enrollmentsScalarWhereInput | session_enrollmentsScalarWhereInput[]
+  }
+
+  export type usersUpdateOneRequiredWithoutCreated_sessionsNestedInput = {
+    create?: XOR<usersCreateWithoutCreated_sessionsInput, usersUncheckedCreateWithoutCreated_sessionsInput>
+    connectOrCreate?: usersCreateOrConnectWithoutCreated_sessionsInput
+    upsert?: usersUpsertWithoutCreated_sessionsInput
+    connect?: usersWhereUniqueInput
+    update?: XOR<XOR<usersUpdateToOneWithWhereWithoutCreated_sessionsInput, usersUpdateWithoutCreated_sessionsInput>, usersUncheckedUpdateWithoutCreated_sessionsInput>
   }
 
   export type session_enrollmentsUncheckedUpdateManyWithoutSessionNestedInput = {
@@ -98103,10 +98103,11 @@ export namespace Prisma {
     deleteMany?: session_enrollmentsScalarWhereInput | session_enrollmentsScalarWhereInput[]
   }
 
-  export type usersCreateNestedOneWithoutCreated_servicesInput = {
-    create?: XOR<usersCreateWithoutCreated_servicesInput, usersUncheckedCreateWithoutCreated_servicesInput>
-    connectOrCreate?: usersCreateOrConnectWithoutCreated_servicesInput
-    connect?: usersWhereUniqueInput
+  export type service_availabilityCreateNestedManyWithoutServiceInput = {
+    create?: XOR<service_availabilityCreateWithoutServiceInput, service_availabilityUncheckedCreateWithoutServiceInput> | service_availabilityCreateWithoutServiceInput[] | service_availabilityUncheckedCreateWithoutServiceInput[]
+    connectOrCreate?: service_availabilityCreateOrConnectWithoutServiceInput | service_availabilityCreateOrConnectWithoutServiceInput[]
+    createMany?: service_availabilityCreateManyServiceInputEnvelope
+    connect?: service_availabilityWhereUniqueInput | service_availabilityWhereUniqueInput[]
   }
 
   export type service_bookingsCreateNestedManyWithoutServiceInput = {
@@ -98116,20 +98117,6 @@ export namespace Prisma {
     connect?: service_bookingsWhereUniqueInput | service_bookingsWhereUniqueInput[]
   }
 
-  export type service_reviewsCreateNestedManyWithoutServiceInput = {
-    create?: XOR<service_reviewsCreateWithoutServiceInput, service_reviewsUncheckedCreateWithoutServiceInput> | service_reviewsCreateWithoutServiceInput[] | service_reviewsUncheckedCreateWithoutServiceInput[]
-    connectOrCreate?: service_reviewsCreateOrConnectWithoutServiceInput | service_reviewsCreateOrConnectWithoutServiceInput[]
-    createMany?: service_reviewsCreateManyServiceInputEnvelope
-    connect?: service_reviewsWhereUniqueInput | service_reviewsWhereUniqueInput[]
-  }
-
-  export type service_availabilityCreateNestedManyWithoutServiceInput = {
-    create?: XOR<service_availabilityCreateWithoutServiceInput, service_availabilityUncheckedCreateWithoutServiceInput> | service_availabilityCreateWithoutServiceInput[] | service_availabilityUncheckedCreateWithoutServiceInput[]
-    connectOrCreate?: service_availabilityCreateOrConnectWithoutServiceInput | service_availabilityCreateOrConnectWithoutServiceInput[]
-    createMany?: service_availabilityCreateManyServiceInputEnvelope
-    connect?: service_availabilityWhereUniqueInput | service_availabilityWhereUniqueInput[]
-  }
-
   export type service_mediaCreateNestedManyWithoutServiceInput = {
     create?: XOR<service_mediaCreateWithoutServiceInput, service_mediaUncheckedCreateWithoutServiceInput> | service_mediaCreateWithoutServiceInput[] | service_mediaUncheckedCreateWithoutServiceInput[]
     connectOrCreate?: service_mediaCreateOrConnectWithoutServiceInput | service_mediaCreateOrConnectWithoutServiceInput[]
@@ -98137,18 +98124,17 @@ export namespace Prisma {
     connect?: service_mediaWhereUniqueInput | service_mediaWhereUniqueInput[]
   }
 
-  export type service_bookingsUncheckedCreateNestedManyWithoutServiceInput = {
-    create?: XOR<service_bookingsCreateWithoutServiceInput, service_bookingsUncheckedCreateWithoutServiceInput> | service_bookingsCreateWithoutServiceInput[] | service_bookingsUncheckedCreateWithoutServiceInput[]
-    connectOrCreate?: service_bookingsCreateOrConnectWithoutServiceInput | service_bookingsCreateOrConnectWithoutServiceInput[]
-    createMany?: service_bookingsCreateManyServiceInputEnvelope
-    connect?: service_bookingsWhereUniqueInput | service_bookingsWhereUniqueInput[]
-  }
-
-  export type service_reviewsUncheckedCreateNestedManyWithoutServiceInput = {
+  export type service_reviewsCreateNestedManyWithoutServiceInput = {
     create?: XOR<service_reviewsCreateWithoutServiceInput, service_reviewsUncheckedCreateWithoutServiceInput> | service_reviewsCreateWithoutServiceInput[] | service_reviewsUncheckedCreateWithoutServiceInput[]
     connectOrCreate?: service_reviewsCreateOrConnectWithoutServiceInput | service_reviewsCreateOrConnectWithoutServiceInput[]
     createMany?: service_reviewsCreateManyServiceInputEnvelope
     connect?: service_reviewsWhereUniqueInput | service_reviewsWhereUniqueInput[]
+  }
+
+  export type usersCreateNestedOneWithoutCreated_servicesInput = {
+    create?: XOR<usersCreateWithoutCreated_servicesInput, usersUncheckedCreateWithoutCreated_servicesInput>
+    connectOrCreate?: usersCreateOrConnectWithoutCreated_servicesInput
+    connect?: usersWhereUniqueInput
   }
 
   export type service_availabilityUncheckedCreateNestedManyWithoutServiceInput = {
@@ -98158,11 +98144,25 @@ export namespace Prisma {
     connect?: service_availabilityWhereUniqueInput | service_availabilityWhereUniqueInput[]
   }
 
+  export type service_bookingsUncheckedCreateNestedManyWithoutServiceInput = {
+    create?: XOR<service_bookingsCreateWithoutServiceInput, service_bookingsUncheckedCreateWithoutServiceInput> | service_bookingsCreateWithoutServiceInput[] | service_bookingsUncheckedCreateWithoutServiceInput[]
+    connectOrCreate?: service_bookingsCreateOrConnectWithoutServiceInput | service_bookingsCreateOrConnectWithoutServiceInput[]
+    createMany?: service_bookingsCreateManyServiceInputEnvelope
+    connect?: service_bookingsWhereUniqueInput | service_bookingsWhereUniqueInput[]
+  }
+
   export type service_mediaUncheckedCreateNestedManyWithoutServiceInput = {
     create?: XOR<service_mediaCreateWithoutServiceInput, service_mediaUncheckedCreateWithoutServiceInput> | service_mediaCreateWithoutServiceInput[] | service_mediaUncheckedCreateWithoutServiceInput[]
     connectOrCreate?: service_mediaCreateOrConnectWithoutServiceInput | service_mediaCreateOrConnectWithoutServiceInput[]
     createMany?: service_mediaCreateManyServiceInputEnvelope
     connect?: service_mediaWhereUniqueInput | service_mediaWhereUniqueInput[]
+  }
+
+  export type service_reviewsUncheckedCreateNestedManyWithoutServiceInput = {
+    create?: XOR<service_reviewsCreateWithoutServiceInput, service_reviewsUncheckedCreateWithoutServiceInput> | service_reviewsCreateWithoutServiceInput[] | service_reviewsUncheckedCreateWithoutServiceInput[]
+    connectOrCreate?: service_reviewsCreateOrConnectWithoutServiceInput | service_reviewsCreateOrConnectWithoutServiceInput[]
+    createMany?: service_reviewsCreateManyServiceInputEnvelope
+    connect?: service_reviewsWhereUniqueInput | service_reviewsWhereUniqueInput[]
   }
 
   export type Enumservice_categoryFieldUpdateOperationsInput = {
@@ -98181,12 +98181,18 @@ export namespace Prisma {
     set?: $Enums.service_status
   }
 
-  export type usersUpdateOneRequiredWithoutCreated_servicesNestedInput = {
-    create?: XOR<usersCreateWithoutCreated_servicesInput, usersUncheckedCreateWithoutCreated_servicesInput>
-    connectOrCreate?: usersCreateOrConnectWithoutCreated_servicesInput
-    upsert?: usersUpsertWithoutCreated_servicesInput
-    connect?: usersWhereUniqueInput
-    update?: XOR<XOR<usersUpdateToOneWithWhereWithoutCreated_servicesInput, usersUpdateWithoutCreated_servicesInput>, usersUncheckedUpdateWithoutCreated_servicesInput>
+  export type service_availabilityUpdateManyWithoutServiceNestedInput = {
+    create?: XOR<service_availabilityCreateWithoutServiceInput, service_availabilityUncheckedCreateWithoutServiceInput> | service_availabilityCreateWithoutServiceInput[] | service_availabilityUncheckedCreateWithoutServiceInput[]
+    connectOrCreate?: service_availabilityCreateOrConnectWithoutServiceInput | service_availabilityCreateOrConnectWithoutServiceInput[]
+    upsert?: service_availabilityUpsertWithWhereUniqueWithoutServiceInput | service_availabilityUpsertWithWhereUniqueWithoutServiceInput[]
+    createMany?: service_availabilityCreateManyServiceInputEnvelope
+    set?: service_availabilityWhereUniqueInput | service_availabilityWhereUniqueInput[]
+    disconnect?: service_availabilityWhereUniqueInput | service_availabilityWhereUniqueInput[]
+    delete?: service_availabilityWhereUniqueInput | service_availabilityWhereUniqueInput[]
+    connect?: service_availabilityWhereUniqueInput | service_availabilityWhereUniqueInput[]
+    update?: service_availabilityUpdateWithWhereUniqueWithoutServiceInput | service_availabilityUpdateWithWhereUniqueWithoutServiceInput[]
+    updateMany?: service_availabilityUpdateManyWithWhereWithoutServiceInput | service_availabilityUpdateManyWithWhereWithoutServiceInput[]
+    deleteMany?: service_availabilityScalarWhereInput | service_availabilityScalarWhereInput[]
   }
 
   export type service_bookingsUpdateManyWithoutServiceNestedInput = {
@@ -98203,34 +98209,6 @@ export namespace Prisma {
     deleteMany?: service_bookingsScalarWhereInput | service_bookingsScalarWhereInput[]
   }
 
-  export type service_reviewsUpdateManyWithoutServiceNestedInput = {
-    create?: XOR<service_reviewsCreateWithoutServiceInput, service_reviewsUncheckedCreateWithoutServiceInput> | service_reviewsCreateWithoutServiceInput[] | service_reviewsUncheckedCreateWithoutServiceInput[]
-    connectOrCreate?: service_reviewsCreateOrConnectWithoutServiceInput | service_reviewsCreateOrConnectWithoutServiceInput[]
-    upsert?: service_reviewsUpsertWithWhereUniqueWithoutServiceInput | service_reviewsUpsertWithWhereUniqueWithoutServiceInput[]
-    createMany?: service_reviewsCreateManyServiceInputEnvelope
-    set?: service_reviewsWhereUniqueInput | service_reviewsWhereUniqueInput[]
-    disconnect?: service_reviewsWhereUniqueInput | service_reviewsWhereUniqueInput[]
-    delete?: service_reviewsWhereUniqueInput | service_reviewsWhereUniqueInput[]
-    connect?: service_reviewsWhereUniqueInput | service_reviewsWhereUniqueInput[]
-    update?: service_reviewsUpdateWithWhereUniqueWithoutServiceInput | service_reviewsUpdateWithWhereUniqueWithoutServiceInput[]
-    updateMany?: service_reviewsUpdateManyWithWhereWithoutServiceInput | service_reviewsUpdateManyWithWhereWithoutServiceInput[]
-    deleteMany?: service_reviewsScalarWhereInput | service_reviewsScalarWhereInput[]
-  }
-
-  export type service_availabilityUpdateManyWithoutServiceNestedInput = {
-    create?: XOR<service_availabilityCreateWithoutServiceInput, service_availabilityUncheckedCreateWithoutServiceInput> | service_availabilityCreateWithoutServiceInput[] | service_availabilityUncheckedCreateWithoutServiceInput[]
-    connectOrCreate?: service_availabilityCreateOrConnectWithoutServiceInput | service_availabilityCreateOrConnectWithoutServiceInput[]
-    upsert?: service_availabilityUpsertWithWhereUniqueWithoutServiceInput | service_availabilityUpsertWithWhereUniqueWithoutServiceInput[]
-    createMany?: service_availabilityCreateManyServiceInputEnvelope
-    set?: service_availabilityWhereUniqueInput | service_availabilityWhereUniqueInput[]
-    disconnect?: service_availabilityWhereUniqueInput | service_availabilityWhereUniqueInput[]
-    delete?: service_availabilityWhereUniqueInput | service_availabilityWhereUniqueInput[]
-    connect?: service_availabilityWhereUniqueInput | service_availabilityWhereUniqueInput[]
-    update?: service_availabilityUpdateWithWhereUniqueWithoutServiceInput | service_availabilityUpdateWithWhereUniqueWithoutServiceInput[]
-    updateMany?: service_availabilityUpdateManyWithWhereWithoutServiceInput | service_availabilityUpdateManyWithWhereWithoutServiceInput[]
-    deleteMany?: service_availabilityScalarWhereInput | service_availabilityScalarWhereInput[]
-  }
-
   export type service_mediaUpdateManyWithoutServiceNestedInput = {
     create?: XOR<service_mediaCreateWithoutServiceInput, service_mediaUncheckedCreateWithoutServiceInput> | service_mediaCreateWithoutServiceInput[] | service_mediaUncheckedCreateWithoutServiceInput[]
     connectOrCreate?: service_mediaCreateOrConnectWithoutServiceInput | service_mediaCreateOrConnectWithoutServiceInput[]
@@ -98245,21 +98223,7 @@ export namespace Prisma {
     deleteMany?: service_mediaScalarWhereInput | service_mediaScalarWhereInput[]
   }
 
-  export type service_bookingsUncheckedUpdateManyWithoutServiceNestedInput = {
-    create?: XOR<service_bookingsCreateWithoutServiceInput, service_bookingsUncheckedCreateWithoutServiceInput> | service_bookingsCreateWithoutServiceInput[] | service_bookingsUncheckedCreateWithoutServiceInput[]
-    connectOrCreate?: service_bookingsCreateOrConnectWithoutServiceInput | service_bookingsCreateOrConnectWithoutServiceInput[]
-    upsert?: service_bookingsUpsertWithWhereUniqueWithoutServiceInput | service_bookingsUpsertWithWhereUniqueWithoutServiceInput[]
-    createMany?: service_bookingsCreateManyServiceInputEnvelope
-    set?: service_bookingsWhereUniqueInput | service_bookingsWhereUniqueInput[]
-    disconnect?: service_bookingsWhereUniqueInput | service_bookingsWhereUniqueInput[]
-    delete?: service_bookingsWhereUniqueInput | service_bookingsWhereUniqueInput[]
-    connect?: service_bookingsWhereUniqueInput | service_bookingsWhereUniqueInput[]
-    update?: service_bookingsUpdateWithWhereUniqueWithoutServiceInput | service_bookingsUpdateWithWhereUniqueWithoutServiceInput[]
-    updateMany?: service_bookingsUpdateManyWithWhereWithoutServiceInput | service_bookingsUpdateManyWithWhereWithoutServiceInput[]
-    deleteMany?: service_bookingsScalarWhereInput | service_bookingsScalarWhereInput[]
-  }
-
-  export type service_reviewsUncheckedUpdateManyWithoutServiceNestedInput = {
+  export type service_reviewsUpdateManyWithoutServiceNestedInput = {
     create?: XOR<service_reviewsCreateWithoutServiceInput, service_reviewsUncheckedCreateWithoutServiceInput> | service_reviewsCreateWithoutServiceInput[] | service_reviewsUncheckedCreateWithoutServiceInput[]
     connectOrCreate?: service_reviewsCreateOrConnectWithoutServiceInput | service_reviewsCreateOrConnectWithoutServiceInput[]
     upsert?: service_reviewsUpsertWithWhereUniqueWithoutServiceInput | service_reviewsUpsertWithWhereUniqueWithoutServiceInput[]
@@ -98271,6 +98235,14 @@ export namespace Prisma {
     update?: service_reviewsUpdateWithWhereUniqueWithoutServiceInput | service_reviewsUpdateWithWhereUniqueWithoutServiceInput[]
     updateMany?: service_reviewsUpdateManyWithWhereWithoutServiceInput | service_reviewsUpdateManyWithWhereWithoutServiceInput[]
     deleteMany?: service_reviewsScalarWhereInput | service_reviewsScalarWhereInput[]
+  }
+
+  export type usersUpdateOneRequiredWithoutCreated_servicesNestedInput = {
+    create?: XOR<usersCreateWithoutCreated_servicesInput, usersUncheckedCreateWithoutCreated_servicesInput>
+    connectOrCreate?: usersCreateOrConnectWithoutCreated_servicesInput
+    upsert?: usersUpsertWithoutCreated_servicesInput
+    connect?: usersWhereUniqueInput
+    update?: XOR<XOR<usersUpdateToOneWithWhereWithoutCreated_servicesInput, usersUpdateWithoutCreated_servicesInput>, usersUncheckedUpdateWithoutCreated_servicesInput>
   }
 
   export type service_availabilityUncheckedUpdateManyWithoutServiceNestedInput = {
@@ -98287,6 +98259,20 @@ export namespace Prisma {
     deleteMany?: service_availabilityScalarWhereInput | service_availabilityScalarWhereInput[]
   }
 
+  export type service_bookingsUncheckedUpdateManyWithoutServiceNestedInput = {
+    create?: XOR<service_bookingsCreateWithoutServiceInput, service_bookingsUncheckedCreateWithoutServiceInput> | service_bookingsCreateWithoutServiceInput[] | service_bookingsUncheckedCreateWithoutServiceInput[]
+    connectOrCreate?: service_bookingsCreateOrConnectWithoutServiceInput | service_bookingsCreateOrConnectWithoutServiceInput[]
+    upsert?: service_bookingsUpsertWithWhereUniqueWithoutServiceInput | service_bookingsUpsertWithWhereUniqueWithoutServiceInput[]
+    createMany?: service_bookingsCreateManyServiceInputEnvelope
+    set?: service_bookingsWhereUniqueInput | service_bookingsWhereUniqueInput[]
+    disconnect?: service_bookingsWhereUniqueInput | service_bookingsWhereUniqueInput[]
+    delete?: service_bookingsWhereUniqueInput | service_bookingsWhereUniqueInput[]
+    connect?: service_bookingsWhereUniqueInput | service_bookingsWhereUniqueInput[]
+    update?: service_bookingsUpdateWithWhereUniqueWithoutServiceInput | service_bookingsUpdateWithWhereUniqueWithoutServiceInput[]
+    updateMany?: service_bookingsUpdateManyWithWhereWithoutServiceInput | service_bookingsUpdateManyWithWhereWithoutServiceInput[]
+    deleteMany?: service_bookingsScalarWhereInput | service_bookingsScalarWhereInput[]
+  }
+
   export type service_mediaUncheckedUpdateManyWithoutServiceNestedInput = {
     create?: XOR<service_mediaCreateWithoutServiceInput, service_mediaUncheckedCreateWithoutServiceInput> | service_mediaCreateWithoutServiceInput[] | service_mediaUncheckedCreateWithoutServiceInput[]
     connectOrCreate?: service_mediaCreateOrConnectWithoutServiceInput | service_mediaCreateOrConnectWithoutServiceInput[]
@@ -98299,6 +98285,20 @@ export namespace Prisma {
     update?: service_mediaUpdateWithWhereUniqueWithoutServiceInput | service_mediaUpdateWithWhereUniqueWithoutServiceInput[]
     updateMany?: service_mediaUpdateManyWithWhereWithoutServiceInput | service_mediaUpdateManyWithWhereWithoutServiceInput[]
     deleteMany?: service_mediaScalarWhereInput | service_mediaScalarWhereInput[]
+  }
+
+  export type service_reviewsUncheckedUpdateManyWithoutServiceNestedInput = {
+    create?: XOR<service_reviewsCreateWithoutServiceInput, service_reviewsUncheckedCreateWithoutServiceInput> | service_reviewsCreateWithoutServiceInput[] | service_reviewsUncheckedCreateWithoutServiceInput[]
+    connectOrCreate?: service_reviewsCreateOrConnectWithoutServiceInput | service_reviewsCreateOrConnectWithoutServiceInput[]
+    upsert?: service_reviewsUpsertWithWhereUniqueWithoutServiceInput | service_reviewsUpsertWithWhereUniqueWithoutServiceInput[]
+    createMany?: service_reviewsCreateManyServiceInputEnvelope
+    set?: service_reviewsWhereUniqueInput | service_reviewsWhereUniqueInput[]
+    disconnect?: service_reviewsWhereUniqueInput | service_reviewsWhereUniqueInput[]
+    delete?: service_reviewsWhereUniqueInput | service_reviewsWhereUniqueInput[]
+    connect?: service_reviewsWhereUniqueInput | service_reviewsWhereUniqueInput[]
+    update?: service_reviewsUpdateWithWhereUniqueWithoutServiceInput | service_reviewsUpdateWithWhereUniqueWithoutServiceInput[]
+    updateMany?: service_reviewsUpdateManyWithWhereWithoutServiceInput | service_reviewsUpdateManyWithWhereWithoutServiceInput[]
+    deleteMany?: service_reviewsScalarWhereInput | service_reviewsScalarWhereInput[]
   }
 
   export type servicesCreateNestedOneWithoutBookingsInput = {
@@ -98397,28 +98397,20 @@ export namespace Prisma {
     update?: XOR<XOR<servicesUpdateToOneWithWhereWithoutMediaInput, servicesUpdateWithoutMediaInput>, servicesUncheckedUpdateWithoutMediaInput>
   }
 
-  export type usersCreateNestedOneWithoutSession_enrollmentsInput = {
-    create?: XOR<usersCreateWithoutSession_enrollmentsInput, usersUncheckedCreateWithoutSession_enrollmentsInput>
-    connectOrCreate?: usersCreateOrConnectWithoutSession_enrollmentsInput
-    connect?: usersWhereUniqueInput
-  }
-
   export type sessionsCreateNestedOneWithoutEnrollmentsInput = {
     create?: XOR<sessionsCreateWithoutEnrollmentsInput, sessionsUncheckedCreateWithoutEnrollmentsInput>
     connectOrCreate?: sessionsCreateOrConnectWithoutEnrollmentsInput
     connect?: sessionsWhereUniqueInput
   }
 
-  export type Enumenrollment_payment_statusFieldUpdateOperationsInput = {
-    set?: $Enums.enrollment_payment_status
-  }
-
-  export type usersUpdateOneRequiredWithoutSession_enrollmentsNestedInput = {
+  export type usersCreateNestedOneWithoutSession_enrollmentsInput = {
     create?: XOR<usersCreateWithoutSession_enrollmentsInput, usersUncheckedCreateWithoutSession_enrollmentsInput>
     connectOrCreate?: usersCreateOrConnectWithoutSession_enrollmentsInput
-    upsert?: usersUpsertWithoutSession_enrollmentsInput
     connect?: usersWhereUniqueInput
-    update?: XOR<XOR<usersUpdateToOneWithWhereWithoutSession_enrollmentsInput, usersUpdateWithoutSession_enrollmentsInput>, usersUncheckedUpdateWithoutSession_enrollmentsInput>
+  }
+
+  export type Enumenrollment_payment_statusFieldUpdateOperationsInput = {
+    set?: $Enums.enrollment_payment_status
   }
 
   export type sessionsUpdateOneRequiredWithoutEnrollmentsNestedInput = {
@@ -98429,10 +98421,12 @@ export namespace Prisma {
     update?: XOR<XOR<sessionsUpdateToOneWithWhereWithoutEnrollmentsInput, sessionsUpdateWithoutEnrollmentsInput>, sessionsUncheckedUpdateWithoutEnrollmentsInput>
   }
 
-  export type usersCreateNestedOneWithoutCreated_pollsInput = {
-    create?: XOR<usersCreateWithoutCreated_pollsInput, usersUncheckedCreateWithoutCreated_pollsInput>
-    connectOrCreate?: usersCreateOrConnectWithoutCreated_pollsInput
+  export type usersUpdateOneRequiredWithoutSession_enrollmentsNestedInput = {
+    create?: XOR<usersCreateWithoutSession_enrollmentsInput, usersUncheckedCreateWithoutSession_enrollmentsInput>
+    connectOrCreate?: usersCreateOrConnectWithoutSession_enrollmentsInput
+    upsert?: usersUpsertWithoutSession_enrollmentsInput
     connect?: usersWhereUniqueInput
+    update?: XOR<XOR<usersUpdateToOneWithWhereWithoutSession_enrollmentsInput, usersUpdateWithoutSession_enrollmentsInput>, usersUncheckedUpdateWithoutSession_enrollmentsInput>
   }
 
   export type poll_choicesCreateNestedManyWithoutPollInput = {
@@ -98449,6 +98443,12 @@ export namespace Prisma {
     connect?: poll_commentsWhereUniqueInput | poll_commentsWhereUniqueInput[]
   }
 
+  export type usersCreateNestedOneWithoutCreated_pollsInput = {
+    create?: XOR<usersCreateWithoutCreated_pollsInput, usersUncheckedCreateWithoutCreated_pollsInput>
+    connectOrCreate?: usersCreateOrConnectWithoutCreated_pollsInput
+    connect?: usersWhereUniqueInput
+  }
+
   export type poll_choicesUncheckedCreateNestedManyWithoutPollInput = {
     create?: XOR<poll_choicesCreateWithoutPollInput, poll_choicesUncheckedCreateWithoutPollInput> | poll_choicesCreateWithoutPollInput[] | poll_choicesUncheckedCreateWithoutPollInput[]
     connectOrCreate?: poll_choicesCreateOrConnectWithoutPollInput | poll_choicesCreateOrConnectWithoutPollInput[]
@@ -98461,14 +98461,6 @@ export namespace Prisma {
     connectOrCreate?: poll_commentsCreateOrConnectWithoutPollInput | poll_commentsCreateOrConnectWithoutPollInput[]
     createMany?: poll_commentsCreateManyPollInputEnvelope
     connect?: poll_commentsWhereUniqueInput | poll_commentsWhereUniqueInput[]
-  }
-
-  export type usersUpdateOneRequiredWithoutCreated_pollsNestedInput = {
-    create?: XOR<usersCreateWithoutCreated_pollsInput, usersUncheckedCreateWithoutCreated_pollsInput>
-    connectOrCreate?: usersCreateOrConnectWithoutCreated_pollsInput
-    upsert?: usersUpsertWithoutCreated_pollsInput
-    connect?: usersWhereUniqueInput
-    update?: XOR<XOR<usersUpdateToOneWithWhereWithoutCreated_pollsInput, usersUpdateWithoutCreated_pollsInput>, usersUncheckedUpdateWithoutCreated_pollsInput>
   }
 
   export type poll_choicesUpdateManyWithoutPollNestedInput = {
@@ -98497,6 +98489,14 @@ export namespace Prisma {
     update?: poll_commentsUpdateWithWhereUniqueWithoutPollInput | poll_commentsUpdateWithWhereUniqueWithoutPollInput[]
     updateMany?: poll_commentsUpdateManyWithWhereWithoutPollInput | poll_commentsUpdateManyWithWhereWithoutPollInput[]
     deleteMany?: poll_commentsScalarWhereInput | poll_commentsScalarWhereInput[]
+  }
+
+  export type usersUpdateOneRequiredWithoutCreated_pollsNestedInput = {
+    create?: XOR<usersCreateWithoutCreated_pollsInput, usersUncheckedCreateWithoutCreated_pollsInput>
+    connectOrCreate?: usersCreateOrConnectWithoutCreated_pollsInput
+    upsert?: usersUpsertWithoutCreated_pollsInput
+    connect?: usersWhereUniqueInput
+    update?: XOR<XOR<usersUpdateToOneWithWhereWithoutCreated_pollsInput, usersUpdateWithoutCreated_pollsInput>, usersUncheckedUpdateWithoutCreated_pollsInput>
   }
 
   export type poll_choicesUncheckedUpdateManyWithoutPollNestedInput = {
@@ -99476,8 +99476,16 @@ export namespace Prisma {
     night_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousers?: night_camp_volunteering_applicationsCreateNestedManyWithoutUsers_night_camp_volunteering_applications_reviewed_byTousersInput
     night_camp_volunteering_applications_night_camp_volunteering_applications_user_idTousers?: night_camp_volunteering_applicationsCreateNestedManyWithoutUsers_night_camp_volunteering_applications_user_idTousersInput
     payments?: paymentsCreateNestedManyWithoutUsersInput
+    poll_comments?: poll_commentsCreateNestedManyWithoutCommenterInput
+    poll_votes?: poll_votesCreateNestedManyWithoutVoterInput
+    created_polls?: pollsCreateNestedManyWithoutCreatorInput
     role_upgrade_requests_role_upgrade_requests_reviewer_idTousers?: role_upgrade_requestsCreateNestedManyWithoutUsers_role_upgrade_requests_reviewer_idTousersInput
     role_upgrade_requests_role_upgrade_requests_user_idTousers?: role_upgrade_requestsCreateNestedManyWithoutUsers_role_upgrade_requests_user_idTousersInput
+    service_bookings?: service_bookingsCreateNestedManyWithoutUserInput
+    service_reviews?: service_reviewsCreateNestedManyWithoutUserInput
+    created_services?: servicesCreateNestedManyWithoutCreatorInput
+    session_enrollments?: session_enrollmentsCreateNestedManyWithoutUserInput
+    created_sessions?: sessionsCreateNestedManyWithoutCreatorInput
     discussion_comment_likes?: space_discussion_comment_likesCreateNestedManyWithoutUserInput
     discussion_comments?: space_discussion_commentsCreateNestedManyWithoutUserInput
     discussion_likes?: space_discussion_likesCreateNestedManyWithoutUserInput
@@ -99487,15 +99495,7 @@ export namespace Prisma {
     space_news_likes?: space_news_likesCreateNestedManyWithoutUserInput
     stargazing_spot_reviews?: stargazing_spot_reviewsCreateNestedManyWithoutUserInput
     created_stargazing_spots?: stargazing_spotsCreateNestedManyWithoutCreatorInput
-    created_sessions?: sessionsCreateNestedManyWithoutCreatorInput
-    session_enrollments?: session_enrollmentsCreateNestedManyWithoutUserInput
-    created_services?: servicesCreateNestedManyWithoutCreatorInput
-    service_bookings?: service_bookingsCreateNestedManyWithoutUserInput
-    service_reviews?: service_reviewsCreateNestedManyWithoutUserInput
     user_settings?: user_settingsCreateNestedOneWithoutUsersInput
-    created_polls?: pollsCreateNestedManyWithoutCreatorInput
-    poll_votes?: poll_votesCreateNestedManyWithoutVoterInput
-    poll_comments?: poll_commentsCreateNestedManyWithoutCommenterInput
   }
 
   export type usersUncheckedCreateWithoutSubscriptionsInput = {
@@ -99541,8 +99541,16 @@ export namespace Prisma {
     night_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousers?: night_camp_volunteering_applicationsUncheckedCreateNestedManyWithoutUsers_night_camp_volunteering_applications_reviewed_byTousersInput
     night_camp_volunteering_applications_night_camp_volunteering_applications_user_idTousers?: night_camp_volunteering_applicationsUncheckedCreateNestedManyWithoutUsers_night_camp_volunteering_applications_user_idTousersInput
     payments?: paymentsUncheckedCreateNestedManyWithoutUsersInput
+    poll_comments?: poll_commentsUncheckedCreateNestedManyWithoutCommenterInput
+    poll_votes?: poll_votesUncheckedCreateNestedManyWithoutVoterInput
+    created_polls?: pollsUncheckedCreateNestedManyWithoutCreatorInput
     role_upgrade_requests_role_upgrade_requests_reviewer_idTousers?: role_upgrade_requestsUncheckedCreateNestedManyWithoutUsers_role_upgrade_requests_reviewer_idTousersInput
     role_upgrade_requests_role_upgrade_requests_user_idTousers?: role_upgrade_requestsUncheckedCreateNestedManyWithoutUsers_role_upgrade_requests_user_idTousersInput
+    service_bookings?: service_bookingsUncheckedCreateNestedManyWithoutUserInput
+    service_reviews?: service_reviewsUncheckedCreateNestedManyWithoutUserInput
+    created_services?: servicesUncheckedCreateNestedManyWithoutCreatorInput
+    session_enrollments?: session_enrollmentsUncheckedCreateNestedManyWithoutUserInput
+    created_sessions?: sessionsUncheckedCreateNestedManyWithoutCreatorInput
     discussion_comment_likes?: space_discussion_comment_likesUncheckedCreateNestedManyWithoutUserInput
     discussion_comments?: space_discussion_commentsUncheckedCreateNestedManyWithoutUserInput
     discussion_likes?: space_discussion_likesUncheckedCreateNestedManyWithoutUserInput
@@ -99552,15 +99560,7 @@ export namespace Prisma {
     space_news_likes?: space_news_likesUncheckedCreateNestedManyWithoutUserInput
     stargazing_spot_reviews?: stargazing_spot_reviewsUncheckedCreateNestedManyWithoutUserInput
     created_stargazing_spots?: stargazing_spotsUncheckedCreateNestedManyWithoutCreatorInput
-    created_sessions?: sessionsUncheckedCreateNestedManyWithoutCreatorInput
-    session_enrollments?: session_enrollmentsUncheckedCreateNestedManyWithoutUserInput
-    created_services?: servicesUncheckedCreateNestedManyWithoutCreatorInput
-    service_bookings?: service_bookingsUncheckedCreateNestedManyWithoutUserInput
-    service_reviews?: service_reviewsUncheckedCreateNestedManyWithoutUserInput
     user_settings?: user_settingsUncheckedCreateNestedOneWithoutUsersInput
-    created_polls?: pollsUncheckedCreateNestedManyWithoutCreatorInput
-    poll_votes?: poll_votesUncheckedCreateNestedManyWithoutVoterInput
-    poll_comments?: poll_commentsUncheckedCreateNestedManyWithoutCommenterInput
   }
 
   export type usersCreateOrConnectWithoutSubscriptionsInput = {
@@ -99657,8 +99657,16 @@ export namespace Prisma {
     night_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousers?: night_camp_volunteering_applicationsUpdateManyWithoutUsers_night_camp_volunteering_applications_reviewed_byTousersNestedInput
     night_camp_volunteering_applications_night_camp_volunteering_applications_user_idTousers?: night_camp_volunteering_applicationsUpdateManyWithoutUsers_night_camp_volunteering_applications_user_idTousersNestedInput
     payments?: paymentsUpdateManyWithoutUsersNestedInput
+    poll_comments?: poll_commentsUpdateManyWithoutCommenterNestedInput
+    poll_votes?: poll_votesUpdateManyWithoutVoterNestedInput
+    created_polls?: pollsUpdateManyWithoutCreatorNestedInput
     role_upgrade_requests_role_upgrade_requests_reviewer_idTousers?: role_upgrade_requestsUpdateManyWithoutUsers_role_upgrade_requests_reviewer_idTousersNestedInput
     role_upgrade_requests_role_upgrade_requests_user_idTousers?: role_upgrade_requestsUpdateManyWithoutUsers_role_upgrade_requests_user_idTousersNestedInput
+    service_bookings?: service_bookingsUpdateManyWithoutUserNestedInput
+    service_reviews?: service_reviewsUpdateManyWithoutUserNestedInput
+    created_services?: servicesUpdateManyWithoutCreatorNestedInput
+    session_enrollments?: session_enrollmentsUpdateManyWithoutUserNestedInput
+    created_sessions?: sessionsUpdateManyWithoutCreatorNestedInput
     discussion_comment_likes?: space_discussion_comment_likesUpdateManyWithoutUserNestedInput
     discussion_comments?: space_discussion_commentsUpdateManyWithoutUserNestedInput
     discussion_likes?: space_discussion_likesUpdateManyWithoutUserNestedInput
@@ -99668,15 +99676,7 @@ export namespace Prisma {
     space_news_likes?: space_news_likesUpdateManyWithoutUserNestedInput
     stargazing_spot_reviews?: stargazing_spot_reviewsUpdateManyWithoutUserNestedInput
     created_stargazing_spots?: stargazing_spotsUpdateManyWithoutCreatorNestedInput
-    created_sessions?: sessionsUpdateManyWithoutCreatorNestedInput
-    session_enrollments?: session_enrollmentsUpdateManyWithoutUserNestedInput
-    created_services?: servicesUpdateManyWithoutCreatorNestedInput
-    service_bookings?: service_bookingsUpdateManyWithoutUserNestedInput
-    service_reviews?: service_reviewsUpdateManyWithoutUserNestedInput
     user_settings?: user_settingsUpdateOneWithoutUsersNestedInput
-    created_polls?: pollsUpdateManyWithoutCreatorNestedInput
-    poll_votes?: poll_votesUpdateManyWithoutVoterNestedInput
-    poll_comments?: poll_commentsUpdateManyWithoutCommenterNestedInput
   }
 
   export type usersUncheckedUpdateWithoutSubscriptionsInput = {
@@ -99722,8 +99722,16 @@ export namespace Prisma {
     night_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousers?: night_camp_volunteering_applicationsUncheckedUpdateManyWithoutUsers_night_camp_volunteering_applications_reviewed_byTousersNestedInput
     night_camp_volunteering_applications_night_camp_volunteering_applications_user_idTousers?: night_camp_volunteering_applicationsUncheckedUpdateManyWithoutUsers_night_camp_volunteering_applications_user_idTousersNestedInput
     payments?: paymentsUncheckedUpdateManyWithoutUsersNestedInput
+    poll_comments?: poll_commentsUncheckedUpdateManyWithoutCommenterNestedInput
+    poll_votes?: poll_votesUncheckedUpdateManyWithoutVoterNestedInput
+    created_polls?: pollsUncheckedUpdateManyWithoutCreatorNestedInput
     role_upgrade_requests_role_upgrade_requests_reviewer_idTousers?: role_upgrade_requestsUncheckedUpdateManyWithoutUsers_role_upgrade_requests_reviewer_idTousersNestedInput
     role_upgrade_requests_role_upgrade_requests_user_idTousers?: role_upgrade_requestsUncheckedUpdateManyWithoutUsers_role_upgrade_requests_user_idTousersNestedInput
+    service_bookings?: service_bookingsUncheckedUpdateManyWithoutUserNestedInput
+    service_reviews?: service_reviewsUncheckedUpdateManyWithoutUserNestedInput
+    created_services?: servicesUncheckedUpdateManyWithoutCreatorNestedInput
+    session_enrollments?: session_enrollmentsUncheckedUpdateManyWithoutUserNestedInput
+    created_sessions?: sessionsUncheckedUpdateManyWithoutCreatorNestedInput
     discussion_comment_likes?: space_discussion_comment_likesUncheckedUpdateManyWithoutUserNestedInput
     discussion_comments?: space_discussion_commentsUncheckedUpdateManyWithoutUserNestedInput
     discussion_likes?: space_discussion_likesUncheckedUpdateManyWithoutUserNestedInput
@@ -99733,15 +99741,7 @@ export namespace Prisma {
     space_news_likes?: space_news_likesUncheckedUpdateManyWithoutUserNestedInput
     stargazing_spot_reviews?: stargazing_spot_reviewsUncheckedUpdateManyWithoutUserNestedInput
     created_stargazing_spots?: stargazing_spotsUncheckedUpdateManyWithoutCreatorNestedInput
-    created_sessions?: sessionsUncheckedUpdateManyWithoutCreatorNestedInput
-    session_enrollments?: session_enrollmentsUncheckedUpdateManyWithoutUserNestedInput
-    created_services?: servicesUncheckedUpdateManyWithoutCreatorNestedInput
-    service_bookings?: service_bookingsUncheckedUpdateManyWithoutUserNestedInput
-    service_reviews?: service_reviewsUncheckedUpdateManyWithoutUserNestedInput
     user_settings?: user_settingsUncheckedUpdateOneWithoutUsersNestedInput
-    created_polls?: pollsUncheckedUpdateManyWithoutCreatorNestedInput
-    poll_votes?: poll_votesUncheckedUpdateManyWithoutVoterNestedInput
-    poll_comments?: poll_commentsUncheckedUpdateManyWithoutCommenterNestedInput
   }
 
   export type chat_messagesCreateWithoutGroupInput = {
@@ -99822,8 +99822,16 @@ export namespace Prisma {
     night_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousers?: night_camp_volunteering_applicationsCreateNestedManyWithoutUsers_night_camp_volunteering_applications_reviewed_byTousersInput
     night_camp_volunteering_applications_night_camp_volunteering_applications_user_idTousers?: night_camp_volunteering_applicationsCreateNestedManyWithoutUsers_night_camp_volunteering_applications_user_idTousersInput
     payments?: paymentsCreateNestedManyWithoutUsersInput
+    poll_comments?: poll_commentsCreateNestedManyWithoutCommenterInput
+    poll_votes?: poll_votesCreateNestedManyWithoutVoterInput
+    created_polls?: pollsCreateNestedManyWithoutCreatorInput
     role_upgrade_requests_role_upgrade_requests_reviewer_idTousers?: role_upgrade_requestsCreateNestedManyWithoutUsers_role_upgrade_requests_reviewer_idTousersInput
     role_upgrade_requests_role_upgrade_requests_user_idTousers?: role_upgrade_requestsCreateNestedManyWithoutUsers_role_upgrade_requests_user_idTousersInput
+    service_bookings?: service_bookingsCreateNestedManyWithoutUserInput
+    service_reviews?: service_reviewsCreateNestedManyWithoutUserInput
+    created_services?: servicesCreateNestedManyWithoutCreatorInput
+    session_enrollments?: session_enrollmentsCreateNestedManyWithoutUserInput
+    created_sessions?: sessionsCreateNestedManyWithoutCreatorInput
     discussion_comment_likes?: space_discussion_comment_likesCreateNestedManyWithoutUserInput
     discussion_comments?: space_discussion_commentsCreateNestedManyWithoutUserInput
     discussion_likes?: space_discussion_likesCreateNestedManyWithoutUserInput
@@ -99833,16 +99841,8 @@ export namespace Prisma {
     space_news_likes?: space_news_likesCreateNestedManyWithoutUserInput
     stargazing_spot_reviews?: stargazing_spot_reviewsCreateNestedManyWithoutUserInput
     created_stargazing_spots?: stargazing_spotsCreateNestedManyWithoutCreatorInput
-    created_sessions?: sessionsCreateNestedManyWithoutCreatorInput
-    session_enrollments?: session_enrollmentsCreateNestedManyWithoutUserInput
-    created_services?: servicesCreateNestedManyWithoutCreatorInput
-    service_bookings?: service_bookingsCreateNestedManyWithoutUserInput
-    service_reviews?: service_reviewsCreateNestedManyWithoutUserInput
     subscriptions?: subscriptionsCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsCreateNestedOneWithoutUsersInput
-    created_polls?: pollsCreateNestedManyWithoutCreatorInput
-    poll_votes?: poll_votesCreateNestedManyWithoutVoterInput
-    poll_comments?: poll_commentsCreateNestedManyWithoutCommenterInput
   }
 
   export type usersUncheckedCreateWithoutCreated_groupsInput = {
@@ -99887,8 +99887,16 @@ export namespace Prisma {
     night_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousers?: night_camp_volunteering_applicationsUncheckedCreateNestedManyWithoutUsers_night_camp_volunteering_applications_reviewed_byTousersInput
     night_camp_volunteering_applications_night_camp_volunteering_applications_user_idTousers?: night_camp_volunteering_applicationsUncheckedCreateNestedManyWithoutUsers_night_camp_volunteering_applications_user_idTousersInput
     payments?: paymentsUncheckedCreateNestedManyWithoutUsersInput
+    poll_comments?: poll_commentsUncheckedCreateNestedManyWithoutCommenterInput
+    poll_votes?: poll_votesUncheckedCreateNestedManyWithoutVoterInput
+    created_polls?: pollsUncheckedCreateNestedManyWithoutCreatorInput
     role_upgrade_requests_role_upgrade_requests_reviewer_idTousers?: role_upgrade_requestsUncheckedCreateNestedManyWithoutUsers_role_upgrade_requests_reviewer_idTousersInput
     role_upgrade_requests_role_upgrade_requests_user_idTousers?: role_upgrade_requestsUncheckedCreateNestedManyWithoutUsers_role_upgrade_requests_user_idTousersInput
+    service_bookings?: service_bookingsUncheckedCreateNestedManyWithoutUserInput
+    service_reviews?: service_reviewsUncheckedCreateNestedManyWithoutUserInput
+    created_services?: servicesUncheckedCreateNestedManyWithoutCreatorInput
+    session_enrollments?: session_enrollmentsUncheckedCreateNestedManyWithoutUserInput
+    created_sessions?: sessionsUncheckedCreateNestedManyWithoutCreatorInput
     discussion_comment_likes?: space_discussion_comment_likesUncheckedCreateNestedManyWithoutUserInput
     discussion_comments?: space_discussion_commentsUncheckedCreateNestedManyWithoutUserInput
     discussion_likes?: space_discussion_likesUncheckedCreateNestedManyWithoutUserInput
@@ -99898,16 +99906,8 @@ export namespace Prisma {
     space_news_likes?: space_news_likesUncheckedCreateNestedManyWithoutUserInput
     stargazing_spot_reviews?: stargazing_spot_reviewsUncheckedCreateNestedManyWithoutUserInput
     created_stargazing_spots?: stargazing_spotsUncheckedCreateNestedManyWithoutCreatorInput
-    created_sessions?: sessionsUncheckedCreateNestedManyWithoutCreatorInput
-    session_enrollments?: session_enrollmentsUncheckedCreateNestedManyWithoutUserInput
-    created_services?: servicesUncheckedCreateNestedManyWithoutCreatorInput
-    service_bookings?: service_bookingsUncheckedCreateNestedManyWithoutUserInput
-    service_reviews?: service_reviewsUncheckedCreateNestedManyWithoutUserInput
     subscriptions?: subscriptionsUncheckedCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsUncheckedCreateNestedOneWithoutUsersInput
-    created_polls?: pollsUncheckedCreateNestedManyWithoutCreatorInput
-    poll_votes?: poll_votesUncheckedCreateNestedManyWithoutVoterInput
-    poll_comments?: poll_commentsUncheckedCreateNestedManyWithoutCommenterInput
   }
 
   export type usersCreateOrConnectWithoutCreated_groupsInput = {
@@ -100024,8 +100024,16 @@ export namespace Prisma {
     night_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousers?: night_camp_volunteering_applicationsUpdateManyWithoutUsers_night_camp_volunteering_applications_reviewed_byTousersNestedInput
     night_camp_volunteering_applications_night_camp_volunteering_applications_user_idTousers?: night_camp_volunteering_applicationsUpdateManyWithoutUsers_night_camp_volunteering_applications_user_idTousersNestedInput
     payments?: paymentsUpdateManyWithoutUsersNestedInput
+    poll_comments?: poll_commentsUpdateManyWithoutCommenterNestedInput
+    poll_votes?: poll_votesUpdateManyWithoutVoterNestedInput
+    created_polls?: pollsUpdateManyWithoutCreatorNestedInput
     role_upgrade_requests_role_upgrade_requests_reviewer_idTousers?: role_upgrade_requestsUpdateManyWithoutUsers_role_upgrade_requests_reviewer_idTousersNestedInput
     role_upgrade_requests_role_upgrade_requests_user_idTousers?: role_upgrade_requestsUpdateManyWithoutUsers_role_upgrade_requests_user_idTousersNestedInput
+    service_bookings?: service_bookingsUpdateManyWithoutUserNestedInput
+    service_reviews?: service_reviewsUpdateManyWithoutUserNestedInput
+    created_services?: servicesUpdateManyWithoutCreatorNestedInput
+    session_enrollments?: session_enrollmentsUpdateManyWithoutUserNestedInput
+    created_sessions?: sessionsUpdateManyWithoutCreatorNestedInput
     discussion_comment_likes?: space_discussion_comment_likesUpdateManyWithoutUserNestedInput
     discussion_comments?: space_discussion_commentsUpdateManyWithoutUserNestedInput
     discussion_likes?: space_discussion_likesUpdateManyWithoutUserNestedInput
@@ -100035,16 +100043,8 @@ export namespace Prisma {
     space_news_likes?: space_news_likesUpdateManyWithoutUserNestedInput
     stargazing_spot_reviews?: stargazing_spot_reviewsUpdateManyWithoutUserNestedInput
     created_stargazing_spots?: stargazing_spotsUpdateManyWithoutCreatorNestedInput
-    created_sessions?: sessionsUpdateManyWithoutCreatorNestedInput
-    session_enrollments?: session_enrollmentsUpdateManyWithoutUserNestedInput
-    created_services?: servicesUpdateManyWithoutCreatorNestedInput
-    service_bookings?: service_bookingsUpdateManyWithoutUserNestedInput
-    service_reviews?: service_reviewsUpdateManyWithoutUserNestedInput
     subscriptions?: subscriptionsUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUpdateOneWithoutUsersNestedInput
-    created_polls?: pollsUpdateManyWithoutCreatorNestedInput
-    poll_votes?: poll_votesUpdateManyWithoutVoterNestedInput
-    poll_comments?: poll_commentsUpdateManyWithoutCommenterNestedInput
   }
 
   export type usersUncheckedUpdateWithoutCreated_groupsInput = {
@@ -100089,8 +100089,16 @@ export namespace Prisma {
     night_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousers?: night_camp_volunteering_applicationsUncheckedUpdateManyWithoutUsers_night_camp_volunteering_applications_reviewed_byTousersNestedInput
     night_camp_volunteering_applications_night_camp_volunteering_applications_user_idTousers?: night_camp_volunteering_applicationsUncheckedUpdateManyWithoutUsers_night_camp_volunteering_applications_user_idTousersNestedInput
     payments?: paymentsUncheckedUpdateManyWithoutUsersNestedInput
+    poll_comments?: poll_commentsUncheckedUpdateManyWithoutCommenterNestedInput
+    poll_votes?: poll_votesUncheckedUpdateManyWithoutVoterNestedInput
+    created_polls?: pollsUncheckedUpdateManyWithoutCreatorNestedInput
     role_upgrade_requests_role_upgrade_requests_reviewer_idTousers?: role_upgrade_requestsUncheckedUpdateManyWithoutUsers_role_upgrade_requests_reviewer_idTousersNestedInput
     role_upgrade_requests_role_upgrade_requests_user_idTousers?: role_upgrade_requestsUncheckedUpdateManyWithoutUsers_role_upgrade_requests_user_idTousersNestedInput
+    service_bookings?: service_bookingsUncheckedUpdateManyWithoutUserNestedInput
+    service_reviews?: service_reviewsUncheckedUpdateManyWithoutUserNestedInput
+    created_services?: servicesUncheckedUpdateManyWithoutCreatorNestedInput
+    session_enrollments?: session_enrollmentsUncheckedUpdateManyWithoutUserNestedInput
+    created_sessions?: sessionsUncheckedUpdateManyWithoutCreatorNestedInput
     discussion_comment_likes?: space_discussion_comment_likesUncheckedUpdateManyWithoutUserNestedInput
     discussion_comments?: space_discussion_commentsUncheckedUpdateManyWithoutUserNestedInput
     discussion_likes?: space_discussion_likesUncheckedUpdateManyWithoutUserNestedInput
@@ -100100,16 +100108,8 @@ export namespace Prisma {
     space_news_likes?: space_news_likesUncheckedUpdateManyWithoutUserNestedInput
     stargazing_spot_reviews?: stargazing_spot_reviewsUncheckedUpdateManyWithoutUserNestedInput
     created_stargazing_spots?: stargazing_spotsUncheckedUpdateManyWithoutCreatorNestedInput
-    created_sessions?: sessionsUncheckedUpdateManyWithoutCreatorNestedInput
-    session_enrollments?: session_enrollmentsUncheckedUpdateManyWithoutUserNestedInput
-    created_services?: servicesUncheckedUpdateManyWithoutCreatorNestedInput
-    service_bookings?: service_bookingsUncheckedUpdateManyWithoutUserNestedInput
-    service_reviews?: service_reviewsUncheckedUpdateManyWithoutUserNestedInput
     subscriptions?: subscriptionsUncheckedUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUncheckedUpdateOneWithoutUsersNestedInput
-    created_polls?: pollsUncheckedUpdateManyWithoutCreatorNestedInput
-    poll_votes?: poll_votesUncheckedUpdateManyWithoutVoterNestedInput
-    poll_comments?: poll_commentsUncheckedUpdateManyWithoutCommenterNestedInput
   }
 
   export type group_membersUpsertWithWhereUniqueWithoutGroupInput = {
@@ -100213,8 +100213,16 @@ export namespace Prisma {
     night_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousers?: night_camp_volunteering_applicationsCreateNestedManyWithoutUsers_night_camp_volunteering_applications_reviewed_byTousersInput
     night_camp_volunteering_applications_night_camp_volunteering_applications_user_idTousers?: night_camp_volunteering_applicationsCreateNestedManyWithoutUsers_night_camp_volunteering_applications_user_idTousersInput
     payments?: paymentsCreateNestedManyWithoutUsersInput
+    poll_comments?: poll_commentsCreateNestedManyWithoutCommenterInput
+    poll_votes?: poll_votesCreateNestedManyWithoutVoterInput
+    created_polls?: pollsCreateNestedManyWithoutCreatorInput
     role_upgrade_requests_role_upgrade_requests_reviewer_idTousers?: role_upgrade_requestsCreateNestedManyWithoutUsers_role_upgrade_requests_reviewer_idTousersInput
     role_upgrade_requests_role_upgrade_requests_user_idTousers?: role_upgrade_requestsCreateNestedManyWithoutUsers_role_upgrade_requests_user_idTousersInput
+    service_bookings?: service_bookingsCreateNestedManyWithoutUserInput
+    service_reviews?: service_reviewsCreateNestedManyWithoutUserInput
+    created_services?: servicesCreateNestedManyWithoutCreatorInput
+    session_enrollments?: session_enrollmentsCreateNestedManyWithoutUserInput
+    created_sessions?: sessionsCreateNestedManyWithoutCreatorInput
     discussion_comment_likes?: space_discussion_comment_likesCreateNestedManyWithoutUserInput
     discussion_comments?: space_discussion_commentsCreateNestedManyWithoutUserInput
     discussion_likes?: space_discussion_likesCreateNestedManyWithoutUserInput
@@ -100224,16 +100232,8 @@ export namespace Prisma {
     space_news_likes?: space_news_likesCreateNestedManyWithoutUserInput
     stargazing_spot_reviews?: stargazing_spot_reviewsCreateNestedManyWithoutUserInput
     created_stargazing_spots?: stargazing_spotsCreateNestedManyWithoutCreatorInput
-    created_sessions?: sessionsCreateNestedManyWithoutCreatorInput
-    session_enrollments?: session_enrollmentsCreateNestedManyWithoutUserInput
-    created_services?: servicesCreateNestedManyWithoutCreatorInput
-    service_bookings?: service_bookingsCreateNestedManyWithoutUserInput
-    service_reviews?: service_reviewsCreateNestedManyWithoutUserInput
     subscriptions?: subscriptionsCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsCreateNestedOneWithoutUsersInput
-    created_polls?: pollsCreateNestedManyWithoutCreatorInput
-    poll_votes?: poll_votesCreateNestedManyWithoutVoterInput
-    poll_comments?: poll_commentsCreateNestedManyWithoutCommenterInput
   }
 
   export type usersUncheckedCreateWithoutGroup_membershipsInput = {
@@ -100278,8 +100278,16 @@ export namespace Prisma {
     night_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousers?: night_camp_volunteering_applicationsUncheckedCreateNestedManyWithoutUsers_night_camp_volunteering_applications_reviewed_byTousersInput
     night_camp_volunteering_applications_night_camp_volunteering_applications_user_idTousers?: night_camp_volunteering_applicationsUncheckedCreateNestedManyWithoutUsers_night_camp_volunteering_applications_user_idTousersInput
     payments?: paymentsUncheckedCreateNestedManyWithoutUsersInput
+    poll_comments?: poll_commentsUncheckedCreateNestedManyWithoutCommenterInput
+    poll_votes?: poll_votesUncheckedCreateNestedManyWithoutVoterInput
+    created_polls?: pollsUncheckedCreateNestedManyWithoutCreatorInput
     role_upgrade_requests_role_upgrade_requests_reviewer_idTousers?: role_upgrade_requestsUncheckedCreateNestedManyWithoutUsers_role_upgrade_requests_reviewer_idTousersInput
     role_upgrade_requests_role_upgrade_requests_user_idTousers?: role_upgrade_requestsUncheckedCreateNestedManyWithoutUsers_role_upgrade_requests_user_idTousersInput
+    service_bookings?: service_bookingsUncheckedCreateNestedManyWithoutUserInput
+    service_reviews?: service_reviewsUncheckedCreateNestedManyWithoutUserInput
+    created_services?: servicesUncheckedCreateNestedManyWithoutCreatorInput
+    session_enrollments?: session_enrollmentsUncheckedCreateNestedManyWithoutUserInput
+    created_sessions?: sessionsUncheckedCreateNestedManyWithoutCreatorInput
     discussion_comment_likes?: space_discussion_comment_likesUncheckedCreateNestedManyWithoutUserInput
     discussion_comments?: space_discussion_commentsUncheckedCreateNestedManyWithoutUserInput
     discussion_likes?: space_discussion_likesUncheckedCreateNestedManyWithoutUserInput
@@ -100289,16 +100297,8 @@ export namespace Prisma {
     space_news_likes?: space_news_likesUncheckedCreateNestedManyWithoutUserInput
     stargazing_spot_reviews?: stargazing_spot_reviewsUncheckedCreateNestedManyWithoutUserInput
     created_stargazing_spots?: stargazing_spotsUncheckedCreateNestedManyWithoutCreatorInput
-    created_sessions?: sessionsUncheckedCreateNestedManyWithoutCreatorInput
-    session_enrollments?: session_enrollmentsUncheckedCreateNestedManyWithoutUserInput
-    created_services?: servicesUncheckedCreateNestedManyWithoutCreatorInput
-    service_bookings?: service_bookingsUncheckedCreateNestedManyWithoutUserInput
-    service_reviews?: service_reviewsUncheckedCreateNestedManyWithoutUserInput
     subscriptions?: subscriptionsUncheckedCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsUncheckedCreateNestedOneWithoutUsersInput
-    created_polls?: pollsUncheckedCreateNestedManyWithoutCreatorInput
-    poll_votes?: poll_votesUncheckedCreateNestedManyWithoutVoterInput
-    poll_comments?: poll_commentsUncheckedCreateNestedManyWithoutCommenterInput
   }
 
   export type usersCreateOrConnectWithoutGroup_membershipsInput = {
@@ -100396,8 +100396,16 @@ export namespace Prisma {
     night_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousers?: night_camp_volunteering_applicationsUpdateManyWithoutUsers_night_camp_volunteering_applications_reviewed_byTousersNestedInput
     night_camp_volunteering_applications_night_camp_volunteering_applications_user_idTousers?: night_camp_volunteering_applicationsUpdateManyWithoutUsers_night_camp_volunteering_applications_user_idTousersNestedInput
     payments?: paymentsUpdateManyWithoutUsersNestedInput
+    poll_comments?: poll_commentsUpdateManyWithoutCommenterNestedInput
+    poll_votes?: poll_votesUpdateManyWithoutVoterNestedInput
+    created_polls?: pollsUpdateManyWithoutCreatorNestedInput
     role_upgrade_requests_role_upgrade_requests_reviewer_idTousers?: role_upgrade_requestsUpdateManyWithoutUsers_role_upgrade_requests_reviewer_idTousersNestedInput
     role_upgrade_requests_role_upgrade_requests_user_idTousers?: role_upgrade_requestsUpdateManyWithoutUsers_role_upgrade_requests_user_idTousersNestedInput
+    service_bookings?: service_bookingsUpdateManyWithoutUserNestedInput
+    service_reviews?: service_reviewsUpdateManyWithoutUserNestedInput
+    created_services?: servicesUpdateManyWithoutCreatorNestedInput
+    session_enrollments?: session_enrollmentsUpdateManyWithoutUserNestedInput
+    created_sessions?: sessionsUpdateManyWithoutCreatorNestedInput
     discussion_comment_likes?: space_discussion_comment_likesUpdateManyWithoutUserNestedInput
     discussion_comments?: space_discussion_commentsUpdateManyWithoutUserNestedInput
     discussion_likes?: space_discussion_likesUpdateManyWithoutUserNestedInput
@@ -100407,16 +100415,8 @@ export namespace Prisma {
     space_news_likes?: space_news_likesUpdateManyWithoutUserNestedInput
     stargazing_spot_reviews?: stargazing_spot_reviewsUpdateManyWithoutUserNestedInput
     created_stargazing_spots?: stargazing_spotsUpdateManyWithoutCreatorNestedInput
-    created_sessions?: sessionsUpdateManyWithoutCreatorNestedInput
-    session_enrollments?: session_enrollmentsUpdateManyWithoutUserNestedInput
-    created_services?: servicesUpdateManyWithoutCreatorNestedInput
-    service_bookings?: service_bookingsUpdateManyWithoutUserNestedInput
-    service_reviews?: service_reviewsUpdateManyWithoutUserNestedInput
     subscriptions?: subscriptionsUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUpdateOneWithoutUsersNestedInput
-    created_polls?: pollsUpdateManyWithoutCreatorNestedInput
-    poll_votes?: poll_votesUpdateManyWithoutVoterNestedInput
-    poll_comments?: poll_commentsUpdateManyWithoutCommenterNestedInput
   }
 
   export type usersUncheckedUpdateWithoutGroup_membershipsInput = {
@@ -100461,8 +100461,16 @@ export namespace Prisma {
     night_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousers?: night_camp_volunteering_applicationsUncheckedUpdateManyWithoutUsers_night_camp_volunteering_applications_reviewed_byTousersNestedInput
     night_camp_volunteering_applications_night_camp_volunteering_applications_user_idTousers?: night_camp_volunteering_applicationsUncheckedUpdateManyWithoutUsers_night_camp_volunteering_applications_user_idTousersNestedInput
     payments?: paymentsUncheckedUpdateManyWithoutUsersNestedInput
+    poll_comments?: poll_commentsUncheckedUpdateManyWithoutCommenterNestedInput
+    poll_votes?: poll_votesUncheckedUpdateManyWithoutVoterNestedInput
+    created_polls?: pollsUncheckedUpdateManyWithoutCreatorNestedInput
     role_upgrade_requests_role_upgrade_requests_reviewer_idTousers?: role_upgrade_requestsUncheckedUpdateManyWithoutUsers_role_upgrade_requests_reviewer_idTousersNestedInput
     role_upgrade_requests_role_upgrade_requests_user_idTousers?: role_upgrade_requestsUncheckedUpdateManyWithoutUsers_role_upgrade_requests_user_idTousersNestedInput
+    service_bookings?: service_bookingsUncheckedUpdateManyWithoutUserNestedInput
+    service_reviews?: service_reviewsUncheckedUpdateManyWithoutUserNestedInput
+    created_services?: servicesUncheckedUpdateManyWithoutCreatorNestedInput
+    session_enrollments?: session_enrollmentsUncheckedUpdateManyWithoutUserNestedInput
+    created_sessions?: sessionsUncheckedUpdateManyWithoutCreatorNestedInput
     discussion_comment_likes?: space_discussion_comment_likesUncheckedUpdateManyWithoutUserNestedInput
     discussion_comments?: space_discussion_commentsUncheckedUpdateManyWithoutUserNestedInput
     discussion_likes?: space_discussion_likesUncheckedUpdateManyWithoutUserNestedInput
@@ -100472,16 +100480,8 @@ export namespace Prisma {
     space_news_likes?: space_news_likesUncheckedUpdateManyWithoutUserNestedInput
     stargazing_spot_reviews?: stargazing_spot_reviewsUncheckedUpdateManyWithoutUserNestedInput
     created_stargazing_spots?: stargazing_spotsUncheckedUpdateManyWithoutCreatorNestedInput
-    created_sessions?: sessionsUncheckedUpdateManyWithoutCreatorNestedInput
-    session_enrollments?: session_enrollmentsUncheckedUpdateManyWithoutUserNestedInput
-    created_services?: servicesUncheckedUpdateManyWithoutCreatorNestedInput
-    service_bookings?: service_bookingsUncheckedUpdateManyWithoutUserNestedInput
-    service_reviews?: service_reviewsUncheckedUpdateManyWithoutUserNestedInput
     subscriptions?: subscriptionsUncheckedUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUncheckedUpdateOneWithoutUsersNestedInput
-    created_polls?: pollsUncheckedUpdateManyWithoutCreatorNestedInput
-    poll_votes?: poll_votesUncheckedUpdateManyWithoutVoterNestedInput
-    poll_comments?: poll_commentsUncheckedUpdateManyWithoutCommenterNestedInput
   }
 
   export type group_chatsCreateWithoutMessagesInput = {
@@ -100626,8 +100626,16 @@ export namespace Prisma {
     night_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousers?: night_camp_volunteering_applicationsCreateNestedManyWithoutUsers_night_camp_volunteering_applications_reviewed_byTousersInput
     night_camp_volunteering_applications_night_camp_volunteering_applications_user_idTousers?: night_camp_volunteering_applicationsCreateNestedManyWithoutUsers_night_camp_volunteering_applications_user_idTousersInput
     payments?: paymentsCreateNestedManyWithoutUsersInput
+    poll_comments?: poll_commentsCreateNestedManyWithoutCommenterInput
+    poll_votes?: poll_votesCreateNestedManyWithoutVoterInput
+    created_polls?: pollsCreateNestedManyWithoutCreatorInput
     role_upgrade_requests_role_upgrade_requests_reviewer_idTousers?: role_upgrade_requestsCreateNestedManyWithoutUsers_role_upgrade_requests_reviewer_idTousersInput
     role_upgrade_requests_role_upgrade_requests_user_idTousers?: role_upgrade_requestsCreateNestedManyWithoutUsers_role_upgrade_requests_user_idTousersInput
+    service_bookings?: service_bookingsCreateNestedManyWithoutUserInput
+    service_reviews?: service_reviewsCreateNestedManyWithoutUserInput
+    created_services?: servicesCreateNestedManyWithoutCreatorInput
+    session_enrollments?: session_enrollmentsCreateNestedManyWithoutUserInput
+    created_sessions?: sessionsCreateNestedManyWithoutCreatorInput
     discussion_comment_likes?: space_discussion_comment_likesCreateNestedManyWithoutUserInput
     discussion_comments?: space_discussion_commentsCreateNestedManyWithoutUserInput
     discussion_likes?: space_discussion_likesCreateNestedManyWithoutUserInput
@@ -100637,16 +100645,8 @@ export namespace Prisma {
     space_news_likes?: space_news_likesCreateNestedManyWithoutUserInput
     stargazing_spot_reviews?: stargazing_spot_reviewsCreateNestedManyWithoutUserInput
     created_stargazing_spots?: stargazing_spotsCreateNestedManyWithoutCreatorInput
-    created_sessions?: sessionsCreateNestedManyWithoutCreatorInput
-    session_enrollments?: session_enrollmentsCreateNestedManyWithoutUserInput
-    created_services?: servicesCreateNestedManyWithoutCreatorInput
-    service_bookings?: service_bookingsCreateNestedManyWithoutUserInput
-    service_reviews?: service_reviewsCreateNestedManyWithoutUserInput
     subscriptions?: subscriptionsCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsCreateNestedOneWithoutUsersInput
-    created_polls?: pollsCreateNestedManyWithoutCreatorInput
-    poll_votes?: poll_votesCreateNestedManyWithoutVoterInput
-    poll_comments?: poll_commentsCreateNestedManyWithoutCommenterInput
   }
 
   export type usersUncheckedCreateWithoutChat_messagesInput = {
@@ -100691,8 +100691,16 @@ export namespace Prisma {
     night_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousers?: night_camp_volunteering_applicationsUncheckedCreateNestedManyWithoutUsers_night_camp_volunteering_applications_reviewed_byTousersInput
     night_camp_volunteering_applications_night_camp_volunteering_applications_user_idTousers?: night_camp_volunteering_applicationsUncheckedCreateNestedManyWithoutUsers_night_camp_volunteering_applications_user_idTousersInput
     payments?: paymentsUncheckedCreateNestedManyWithoutUsersInput
+    poll_comments?: poll_commentsUncheckedCreateNestedManyWithoutCommenterInput
+    poll_votes?: poll_votesUncheckedCreateNestedManyWithoutVoterInput
+    created_polls?: pollsUncheckedCreateNestedManyWithoutCreatorInput
     role_upgrade_requests_role_upgrade_requests_reviewer_idTousers?: role_upgrade_requestsUncheckedCreateNestedManyWithoutUsers_role_upgrade_requests_reviewer_idTousersInput
     role_upgrade_requests_role_upgrade_requests_user_idTousers?: role_upgrade_requestsUncheckedCreateNestedManyWithoutUsers_role_upgrade_requests_user_idTousersInput
+    service_bookings?: service_bookingsUncheckedCreateNestedManyWithoutUserInput
+    service_reviews?: service_reviewsUncheckedCreateNestedManyWithoutUserInput
+    created_services?: servicesUncheckedCreateNestedManyWithoutCreatorInput
+    session_enrollments?: session_enrollmentsUncheckedCreateNestedManyWithoutUserInput
+    created_sessions?: sessionsUncheckedCreateNestedManyWithoutCreatorInput
     discussion_comment_likes?: space_discussion_comment_likesUncheckedCreateNestedManyWithoutUserInput
     discussion_comments?: space_discussion_commentsUncheckedCreateNestedManyWithoutUserInput
     discussion_likes?: space_discussion_likesUncheckedCreateNestedManyWithoutUserInput
@@ -100702,16 +100710,8 @@ export namespace Prisma {
     space_news_likes?: space_news_likesUncheckedCreateNestedManyWithoutUserInput
     stargazing_spot_reviews?: stargazing_spot_reviewsUncheckedCreateNestedManyWithoutUserInput
     created_stargazing_spots?: stargazing_spotsUncheckedCreateNestedManyWithoutCreatorInput
-    created_sessions?: sessionsUncheckedCreateNestedManyWithoutCreatorInput
-    session_enrollments?: session_enrollmentsUncheckedCreateNestedManyWithoutUserInput
-    created_services?: servicesUncheckedCreateNestedManyWithoutCreatorInput
-    service_bookings?: service_bookingsUncheckedCreateNestedManyWithoutUserInput
-    service_reviews?: service_reviewsUncheckedCreateNestedManyWithoutUserInput
     subscriptions?: subscriptionsUncheckedCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsUncheckedCreateNestedOneWithoutUsersInput
-    created_polls?: pollsUncheckedCreateNestedManyWithoutCreatorInput
-    poll_votes?: poll_votesUncheckedCreateNestedManyWithoutVoterInput
-    poll_comments?: poll_commentsUncheckedCreateNestedManyWithoutCommenterInput
   }
 
   export type usersCreateOrConnectWithoutChat_messagesInput = {
@@ -100886,8 +100886,16 @@ export namespace Prisma {
     night_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousers?: night_camp_volunteering_applicationsUpdateManyWithoutUsers_night_camp_volunteering_applications_reviewed_byTousersNestedInput
     night_camp_volunteering_applications_night_camp_volunteering_applications_user_idTousers?: night_camp_volunteering_applicationsUpdateManyWithoutUsers_night_camp_volunteering_applications_user_idTousersNestedInput
     payments?: paymentsUpdateManyWithoutUsersNestedInput
+    poll_comments?: poll_commentsUpdateManyWithoutCommenterNestedInput
+    poll_votes?: poll_votesUpdateManyWithoutVoterNestedInput
+    created_polls?: pollsUpdateManyWithoutCreatorNestedInput
     role_upgrade_requests_role_upgrade_requests_reviewer_idTousers?: role_upgrade_requestsUpdateManyWithoutUsers_role_upgrade_requests_reviewer_idTousersNestedInput
     role_upgrade_requests_role_upgrade_requests_user_idTousers?: role_upgrade_requestsUpdateManyWithoutUsers_role_upgrade_requests_user_idTousersNestedInput
+    service_bookings?: service_bookingsUpdateManyWithoutUserNestedInput
+    service_reviews?: service_reviewsUpdateManyWithoutUserNestedInput
+    created_services?: servicesUpdateManyWithoutCreatorNestedInput
+    session_enrollments?: session_enrollmentsUpdateManyWithoutUserNestedInput
+    created_sessions?: sessionsUpdateManyWithoutCreatorNestedInput
     discussion_comment_likes?: space_discussion_comment_likesUpdateManyWithoutUserNestedInput
     discussion_comments?: space_discussion_commentsUpdateManyWithoutUserNestedInput
     discussion_likes?: space_discussion_likesUpdateManyWithoutUserNestedInput
@@ -100897,16 +100905,8 @@ export namespace Prisma {
     space_news_likes?: space_news_likesUpdateManyWithoutUserNestedInput
     stargazing_spot_reviews?: stargazing_spot_reviewsUpdateManyWithoutUserNestedInput
     created_stargazing_spots?: stargazing_spotsUpdateManyWithoutCreatorNestedInput
-    created_sessions?: sessionsUpdateManyWithoutCreatorNestedInput
-    session_enrollments?: session_enrollmentsUpdateManyWithoutUserNestedInput
-    created_services?: servicesUpdateManyWithoutCreatorNestedInput
-    service_bookings?: service_bookingsUpdateManyWithoutUserNestedInput
-    service_reviews?: service_reviewsUpdateManyWithoutUserNestedInput
     subscriptions?: subscriptionsUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUpdateOneWithoutUsersNestedInput
-    created_polls?: pollsUpdateManyWithoutCreatorNestedInput
-    poll_votes?: poll_votesUpdateManyWithoutVoterNestedInput
-    poll_comments?: poll_commentsUpdateManyWithoutCommenterNestedInput
   }
 
   export type usersUncheckedUpdateWithoutChat_messagesInput = {
@@ -100951,8 +100951,16 @@ export namespace Prisma {
     night_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousers?: night_camp_volunteering_applicationsUncheckedUpdateManyWithoutUsers_night_camp_volunteering_applications_reviewed_byTousersNestedInput
     night_camp_volunteering_applications_night_camp_volunteering_applications_user_idTousers?: night_camp_volunteering_applicationsUncheckedUpdateManyWithoutUsers_night_camp_volunteering_applications_user_idTousersNestedInput
     payments?: paymentsUncheckedUpdateManyWithoutUsersNestedInput
+    poll_comments?: poll_commentsUncheckedUpdateManyWithoutCommenterNestedInput
+    poll_votes?: poll_votesUncheckedUpdateManyWithoutVoterNestedInput
+    created_polls?: pollsUncheckedUpdateManyWithoutCreatorNestedInput
     role_upgrade_requests_role_upgrade_requests_reviewer_idTousers?: role_upgrade_requestsUncheckedUpdateManyWithoutUsers_role_upgrade_requests_reviewer_idTousersNestedInput
     role_upgrade_requests_role_upgrade_requests_user_idTousers?: role_upgrade_requestsUncheckedUpdateManyWithoutUsers_role_upgrade_requests_user_idTousersNestedInput
+    service_bookings?: service_bookingsUncheckedUpdateManyWithoutUserNestedInput
+    service_reviews?: service_reviewsUncheckedUpdateManyWithoutUserNestedInput
+    created_services?: servicesUncheckedUpdateManyWithoutCreatorNestedInput
+    session_enrollments?: session_enrollmentsUncheckedUpdateManyWithoutUserNestedInput
+    created_sessions?: sessionsUncheckedUpdateManyWithoutCreatorNestedInput
     discussion_comment_likes?: space_discussion_comment_likesUncheckedUpdateManyWithoutUserNestedInput
     discussion_comments?: space_discussion_commentsUncheckedUpdateManyWithoutUserNestedInput
     discussion_likes?: space_discussion_likesUncheckedUpdateManyWithoutUserNestedInput
@@ -100962,16 +100970,8 @@ export namespace Prisma {
     space_news_likes?: space_news_likesUncheckedUpdateManyWithoutUserNestedInput
     stargazing_spot_reviews?: stargazing_spot_reviewsUncheckedUpdateManyWithoutUserNestedInput
     created_stargazing_spots?: stargazing_spotsUncheckedUpdateManyWithoutCreatorNestedInput
-    created_sessions?: sessionsUncheckedUpdateManyWithoutCreatorNestedInput
-    session_enrollments?: session_enrollmentsUncheckedUpdateManyWithoutUserNestedInput
-    created_services?: servicesUncheckedUpdateManyWithoutCreatorNestedInput
-    service_bookings?: service_bookingsUncheckedUpdateManyWithoutUserNestedInput
-    service_reviews?: service_reviewsUncheckedUpdateManyWithoutUserNestedInput
     subscriptions?: subscriptionsUncheckedUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUncheckedUpdateOneWithoutUsersNestedInput
-    created_polls?: pollsUncheckedUpdateManyWithoutCreatorNestedInput
-    poll_votes?: poll_votesUncheckedUpdateManyWithoutVoterNestedInput
-    poll_comments?: poll_commentsUncheckedUpdateManyWithoutCommenterNestedInput
   }
 
   export type message_reactionsUpsertWithWhereUniqueWithoutMessageInput = {
@@ -101074,8 +101074,16 @@ export namespace Prisma {
     night_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousers?: night_camp_volunteering_applicationsCreateNestedManyWithoutUsers_night_camp_volunteering_applications_reviewed_byTousersInput
     night_camp_volunteering_applications_night_camp_volunteering_applications_user_idTousers?: night_camp_volunteering_applicationsCreateNestedManyWithoutUsers_night_camp_volunteering_applications_user_idTousersInput
     payments?: paymentsCreateNestedManyWithoutUsersInput
+    poll_comments?: poll_commentsCreateNestedManyWithoutCommenterInput
+    poll_votes?: poll_votesCreateNestedManyWithoutVoterInput
+    created_polls?: pollsCreateNestedManyWithoutCreatorInput
     role_upgrade_requests_role_upgrade_requests_reviewer_idTousers?: role_upgrade_requestsCreateNestedManyWithoutUsers_role_upgrade_requests_reviewer_idTousersInput
     role_upgrade_requests_role_upgrade_requests_user_idTousers?: role_upgrade_requestsCreateNestedManyWithoutUsers_role_upgrade_requests_user_idTousersInput
+    service_bookings?: service_bookingsCreateNestedManyWithoutUserInput
+    service_reviews?: service_reviewsCreateNestedManyWithoutUserInput
+    created_services?: servicesCreateNestedManyWithoutCreatorInput
+    session_enrollments?: session_enrollmentsCreateNestedManyWithoutUserInput
+    created_sessions?: sessionsCreateNestedManyWithoutCreatorInput
     discussion_comment_likes?: space_discussion_comment_likesCreateNestedManyWithoutUserInput
     discussion_comments?: space_discussion_commentsCreateNestedManyWithoutUserInput
     discussion_likes?: space_discussion_likesCreateNestedManyWithoutUserInput
@@ -101085,16 +101093,8 @@ export namespace Prisma {
     space_news_likes?: space_news_likesCreateNestedManyWithoutUserInput
     stargazing_spot_reviews?: stargazing_spot_reviewsCreateNestedManyWithoutUserInput
     created_stargazing_spots?: stargazing_spotsCreateNestedManyWithoutCreatorInput
-    created_sessions?: sessionsCreateNestedManyWithoutCreatorInput
-    session_enrollments?: session_enrollmentsCreateNestedManyWithoutUserInput
-    created_services?: servicesCreateNestedManyWithoutCreatorInput
-    service_bookings?: service_bookingsCreateNestedManyWithoutUserInput
-    service_reviews?: service_reviewsCreateNestedManyWithoutUserInput
     subscriptions?: subscriptionsCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsCreateNestedOneWithoutUsersInput
-    created_polls?: pollsCreateNestedManyWithoutCreatorInput
-    poll_votes?: poll_votesCreateNestedManyWithoutVoterInput
-    poll_comments?: poll_commentsCreateNestedManyWithoutCommenterInput
   }
 
   export type usersUncheckedCreateWithoutMessage_reactionsInput = {
@@ -101139,8 +101139,16 @@ export namespace Prisma {
     night_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousers?: night_camp_volunteering_applicationsUncheckedCreateNestedManyWithoutUsers_night_camp_volunteering_applications_reviewed_byTousersInput
     night_camp_volunteering_applications_night_camp_volunteering_applications_user_idTousers?: night_camp_volunteering_applicationsUncheckedCreateNestedManyWithoutUsers_night_camp_volunteering_applications_user_idTousersInput
     payments?: paymentsUncheckedCreateNestedManyWithoutUsersInput
+    poll_comments?: poll_commentsUncheckedCreateNestedManyWithoutCommenterInput
+    poll_votes?: poll_votesUncheckedCreateNestedManyWithoutVoterInput
+    created_polls?: pollsUncheckedCreateNestedManyWithoutCreatorInput
     role_upgrade_requests_role_upgrade_requests_reviewer_idTousers?: role_upgrade_requestsUncheckedCreateNestedManyWithoutUsers_role_upgrade_requests_reviewer_idTousersInput
     role_upgrade_requests_role_upgrade_requests_user_idTousers?: role_upgrade_requestsUncheckedCreateNestedManyWithoutUsers_role_upgrade_requests_user_idTousersInput
+    service_bookings?: service_bookingsUncheckedCreateNestedManyWithoutUserInput
+    service_reviews?: service_reviewsUncheckedCreateNestedManyWithoutUserInput
+    created_services?: servicesUncheckedCreateNestedManyWithoutCreatorInput
+    session_enrollments?: session_enrollmentsUncheckedCreateNestedManyWithoutUserInput
+    created_sessions?: sessionsUncheckedCreateNestedManyWithoutCreatorInput
     discussion_comment_likes?: space_discussion_comment_likesUncheckedCreateNestedManyWithoutUserInput
     discussion_comments?: space_discussion_commentsUncheckedCreateNestedManyWithoutUserInput
     discussion_likes?: space_discussion_likesUncheckedCreateNestedManyWithoutUserInput
@@ -101150,16 +101158,8 @@ export namespace Prisma {
     space_news_likes?: space_news_likesUncheckedCreateNestedManyWithoutUserInput
     stargazing_spot_reviews?: stargazing_spot_reviewsUncheckedCreateNestedManyWithoutUserInput
     created_stargazing_spots?: stargazing_spotsUncheckedCreateNestedManyWithoutCreatorInput
-    created_sessions?: sessionsUncheckedCreateNestedManyWithoutCreatorInput
-    session_enrollments?: session_enrollmentsUncheckedCreateNestedManyWithoutUserInput
-    created_services?: servicesUncheckedCreateNestedManyWithoutCreatorInput
-    service_bookings?: service_bookingsUncheckedCreateNestedManyWithoutUserInput
-    service_reviews?: service_reviewsUncheckedCreateNestedManyWithoutUserInput
     subscriptions?: subscriptionsUncheckedCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsUncheckedCreateNestedOneWithoutUsersInput
-    created_polls?: pollsUncheckedCreateNestedManyWithoutCreatorInput
-    poll_votes?: poll_votesUncheckedCreateNestedManyWithoutVoterInput
-    poll_comments?: poll_commentsUncheckedCreateNestedManyWithoutCommenterInput
   }
 
   export type usersCreateOrConnectWithoutMessage_reactionsInput = {
@@ -101257,8 +101257,16 @@ export namespace Prisma {
     night_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousers?: night_camp_volunteering_applicationsUpdateManyWithoutUsers_night_camp_volunteering_applications_reviewed_byTousersNestedInput
     night_camp_volunteering_applications_night_camp_volunteering_applications_user_idTousers?: night_camp_volunteering_applicationsUpdateManyWithoutUsers_night_camp_volunteering_applications_user_idTousersNestedInput
     payments?: paymentsUpdateManyWithoutUsersNestedInput
+    poll_comments?: poll_commentsUpdateManyWithoutCommenterNestedInput
+    poll_votes?: poll_votesUpdateManyWithoutVoterNestedInput
+    created_polls?: pollsUpdateManyWithoutCreatorNestedInput
     role_upgrade_requests_role_upgrade_requests_reviewer_idTousers?: role_upgrade_requestsUpdateManyWithoutUsers_role_upgrade_requests_reviewer_idTousersNestedInput
     role_upgrade_requests_role_upgrade_requests_user_idTousers?: role_upgrade_requestsUpdateManyWithoutUsers_role_upgrade_requests_user_idTousersNestedInput
+    service_bookings?: service_bookingsUpdateManyWithoutUserNestedInput
+    service_reviews?: service_reviewsUpdateManyWithoutUserNestedInput
+    created_services?: servicesUpdateManyWithoutCreatorNestedInput
+    session_enrollments?: session_enrollmentsUpdateManyWithoutUserNestedInput
+    created_sessions?: sessionsUpdateManyWithoutCreatorNestedInput
     discussion_comment_likes?: space_discussion_comment_likesUpdateManyWithoutUserNestedInput
     discussion_comments?: space_discussion_commentsUpdateManyWithoutUserNestedInput
     discussion_likes?: space_discussion_likesUpdateManyWithoutUserNestedInput
@@ -101268,16 +101276,8 @@ export namespace Prisma {
     space_news_likes?: space_news_likesUpdateManyWithoutUserNestedInput
     stargazing_spot_reviews?: stargazing_spot_reviewsUpdateManyWithoutUserNestedInput
     created_stargazing_spots?: stargazing_spotsUpdateManyWithoutCreatorNestedInput
-    created_sessions?: sessionsUpdateManyWithoutCreatorNestedInput
-    session_enrollments?: session_enrollmentsUpdateManyWithoutUserNestedInput
-    created_services?: servicesUpdateManyWithoutCreatorNestedInput
-    service_bookings?: service_bookingsUpdateManyWithoutUserNestedInput
-    service_reviews?: service_reviewsUpdateManyWithoutUserNestedInput
     subscriptions?: subscriptionsUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUpdateOneWithoutUsersNestedInput
-    created_polls?: pollsUpdateManyWithoutCreatorNestedInput
-    poll_votes?: poll_votesUpdateManyWithoutVoterNestedInput
-    poll_comments?: poll_commentsUpdateManyWithoutCommenterNestedInput
   }
 
   export type usersUncheckedUpdateWithoutMessage_reactionsInput = {
@@ -101322,8 +101322,16 @@ export namespace Prisma {
     night_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousers?: night_camp_volunteering_applicationsUncheckedUpdateManyWithoutUsers_night_camp_volunteering_applications_reviewed_byTousersNestedInput
     night_camp_volunteering_applications_night_camp_volunteering_applications_user_idTousers?: night_camp_volunteering_applicationsUncheckedUpdateManyWithoutUsers_night_camp_volunteering_applications_user_idTousersNestedInput
     payments?: paymentsUncheckedUpdateManyWithoutUsersNestedInput
+    poll_comments?: poll_commentsUncheckedUpdateManyWithoutCommenterNestedInput
+    poll_votes?: poll_votesUncheckedUpdateManyWithoutVoterNestedInput
+    created_polls?: pollsUncheckedUpdateManyWithoutCreatorNestedInput
     role_upgrade_requests_role_upgrade_requests_reviewer_idTousers?: role_upgrade_requestsUncheckedUpdateManyWithoutUsers_role_upgrade_requests_reviewer_idTousersNestedInput
     role_upgrade_requests_role_upgrade_requests_user_idTousers?: role_upgrade_requestsUncheckedUpdateManyWithoutUsers_role_upgrade_requests_user_idTousersNestedInput
+    service_bookings?: service_bookingsUncheckedUpdateManyWithoutUserNestedInput
+    service_reviews?: service_reviewsUncheckedUpdateManyWithoutUserNestedInput
+    created_services?: servicesUncheckedUpdateManyWithoutCreatorNestedInput
+    session_enrollments?: session_enrollmentsUncheckedUpdateManyWithoutUserNestedInput
+    created_sessions?: sessionsUncheckedUpdateManyWithoutCreatorNestedInput
     discussion_comment_likes?: space_discussion_comment_likesUncheckedUpdateManyWithoutUserNestedInput
     discussion_comments?: space_discussion_commentsUncheckedUpdateManyWithoutUserNestedInput
     discussion_likes?: space_discussion_likesUncheckedUpdateManyWithoutUserNestedInput
@@ -101333,16 +101341,8 @@ export namespace Prisma {
     space_news_likes?: space_news_likesUncheckedUpdateManyWithoutUserNestedInput
     stargazing_spot_reviews?: stargazing_spot_reviewsUncheckedUpdateManyWithoutUserNestedInput
     created_stargazing_spots?: stargazing_spotsUncheckedUpdateManyWithoutCreatorNestedInput
-    created_sessions?: sessionsUncheckedUpdateManyWithoutCreatorNestedInput
-    session_enrollments?: session_enrollmentsUncheckedUpdateManyWithoutUserNestedInput
-    created_services?: servicesUncheckedUpdateManyWithoutCreatorNestedInput
-    service_bookings?: service_bookingsUncheckedUpdateManyWithoutUserNestedInput
-    service_reviews?: service_reviewsUncheckedUpdateManyWithoutUserNestedInput
     subscriptions?: subscriptionsUncheckedUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUncheckedUpdateOneWithoutUsersNestedInput
-    created_polls?: pollsUncheckedUpdateManyWithoutCreatorNestedInput
-    poll_votes?: poll_votesUncheckedUpdateManyWithoutVoterNestedInput
-    poll_comments?: poll_commentsUncheckedUpdateManyWithoutCommenterNestedInput
   }
 
   export type blogsCreateWithoutBlog_viewsInput = {
@@ -101444,8 +101444,16 @@ export namespace Prisma {
     night_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousers?: night_camp_volunteering_applicationsCreateNestedManyWithoutUsers_night_camp_volunteering_applications_reviewed_byTousersInput
     night_camp_volunteering_applications_night_camp_volunteering_applications_user_idTousers?: night_camp_volunteering_applicationsCreateNestedManyWithoutUsers_night_camp_volunteering_applications_user_idTousersInput
     payments?: paymentsCreateNestedManyWithoutUsersInput
+    poll_comments?: poll_commentsCreateNestedManyWithoutCommenterInput
+    poll_votes?: poll_votesCreateNestedManyWithoutVoterInput
+    created_polls?: pollsCreateNestedManyWithoutCreatorInput
     role_upgrade_requests_role_upgrade_requests_reviewer_idTousers?: role_upgrade_requestsCreateNestedManyWithoutUsers_role_upgrade_requests_reviewer_idTousersInput
     role_upgrade_requests_role_upgrade_requests_user_idTousers?: role_upgrade_requestsCreateNestedManyWithoutUsers_role_upgrade_requests_user_idTousersInput
+    service_bookings?: service_bookingsCreateNestedManyWithoutUserInput
+    service_reviews?: service_reviewsCreateNestedManyWithoutUserInput
+    created_services?: servicesCreateNestedManyWithoutCreatorInput
+    session_enrollments?: session_enrollmentsCreateNestedManyWithoutUserInput
+    created_sessions?: sessionsCreateNestedManyWithoutCreatorInput
     discussion_comment_likes?: space_discussion_comment_likesCreateNestedManyWithoutUserInput
     discussion_comments?: space_discussion_commentsCreateNestedManyWithoutUserInput
     discussion_likes?: space_discussion_likesCreateNestedManyWithoutUserInput
@@ -101455,16 +101463,8 @@ export namespace Prisma {
     space_news_likes?: space_news_likesCreateNestedManyWithoutUserInput
     stargazing_spot_reviews?: stargazing_spot_reviewsCreateNestedManyWithoutUserInput
     created_stargazing_spots?: stargazing_spotsCreateNestedManyWithoutCreatorInput
-    created_sessions?: sessionsCreateNestedManyWithoutCreatorInput
-    session_enrollments?: session_enrollmentsCreateNestedManyWithoutUserInput
-    created_services?: servicesCreateNestedManyWithoutCreatorInput
-    service_bookings?: service_bookingsCreateNestedManyWithoutUserInput
-    service_reviews?: service_reviewsCreateNestedManyWithoutUserInput
     subscriptions?: subscriptionsCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsCreateNestedOneWithoutUsersInput
-    created_polls?: pollsCreateNestedManyWithoutCreatorInput
-    poll_votes?: poll_votesCreateNestedManyWithoutVoterInput
-    poll_comments?: poll_commentsCreateNestedManyWithoutCommenterInput
   }
 
   export type usersUncheckedCreateWithoutBlog_viewsInput = {
@@ -101509,8 +101509,16 @@ export namespace Prisma {
     night_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousers?: night_camp_volunteering_applicationsUncheckedCreateNestedManyWithoutUsers_night_camp_volunteering_applications_reviewed_byTousersInput
     night_camp_volunteering_applications_night_camp_volunteering_applications_user_idTousers?: night_camp_volunteering_applicationsUncheckedCreateNestedManyWithoutUsers_night_camp_volunteering_applications_user_idTousersInput
     payments?: paymentsUncheckedCreateNestedManyWithoutUsersInput
+    poll_comments?: poll_commentsUncheckedCreateNestedManyWithoutCommenterInput
+    poll_votes?: poll_votesUncheckedCreateNestedManyWithoutVoterInput
+    created_polls?: pollsUncheckedCreateNestedManyWithoutCreatorInput
     role_upgrade_requests_role_upgrade_requests_reviewer_idTousers?: role_upgrade_requestsUncheckedCreateNestedManyWithoutUsers_role_upgrade_requests_reviewer_idTousersInput
     role_upgrade_requests_role_upgrade_requests_user_idTousers?: role_upgrade_requestsUncheckedCreateNestedManyWithoutUsers_role_upgrade_requests_user_idTousersInput
+    service_bookings?: service_bookingsUncheckedCreateNestedManyWithoutUserInput
+    service_reviews?: service_reviewsUncheckedCreateNestedManyWithoutUserInput
+    created_services?: servicesUncheckedCreateNestedManyWithoutCreatorInput
+    session_enrollments?: session_enrollmentsUncheckedCreateNestedManyWithoutUserInput
+    created_sessions?: sessionsUncheckedCreateNestedManyWithoutCreatorInput
     discussion_comment_likes?: space_discussion_comment_likesUncheckedCreateNestedManyWithoutUserInput
     discussion_comments?: space_discussion_commentsUncheckedCreateNestedManyWithoutUserInput
     discussion_likes?: space_discussion_likesUncheckedCreateNestedManyWithoutUserInput
@@ -101520,16 +101528,8 @@ export namespace Prisma {
     space_news_likes?: space_news_likesUncheckedCreateNestedManyWithoutUserInput
     stargazing_spot_reviews?: stargazing_spot_reviewsUncheckedCreateNestedManyWithoutUserInput
     created_stargazing_spots?: stargazing_spotsUncheckedCreateNestedManyWithoutCreatorInput
-    created_sessions?: sessionsUncheckedCreateNestedManyWithoutCreatorInput
-    session_enrollments?: session_enrollmentsUncheckedCreateNestedManyWithoutUserInput
-    created_services?: servicesUncheckedCreateNestedManyWithoutCreatorInput
-    service_bookings?: service_bookingsUncheckedCreateNestedManyWithoutUserInput
-    service_reviews?: service_reviewsUncheckedCreateNestedManyWithoutUserInput
     subscriptions?: subscriptionsUncheckedCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsUncheckedCreateNestedOneWithoutUsersInput
-    created_polls?: pollsUncheckedCreateNestedManyWithoutCreatorInput
-    poll_votes?: poll_votesUncheckedCreateNestedManyWithoutVoterInput
-    poll_comments?: poll_commentsUncheckedCreateNestedManyWithoutCommenterInput
   }
 
   export type usersCreateOrConnectWithoutBlog_viewsInput = {
@@ -101653,8 +101653,16 @@ export namespace Prisma {
     night_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousers?: night_camp_volunteering_applicationsUpdateManyWithoutUsers_night_camp_volunteering_applications_reviewed_byTousersNestedInput
     night_camp_volunteering_applications_night_camp_volunteering_applications_user_idTousers?: night_camp_volunteering_applicationsUpdateManyWithoutUsers_night_camp_volunteering_applications_user_idTousersNestedInput
     payments?: paymentsUpdateManyWithoutUsersNestedInput
+    poll_comments?: poll_commentsUpdateManyWithoutCommenterNestedInput
+    poll_votes?: poll_votesUpdateManyWithoutVoterNestedInput
+    created_polls?: pollsUpdateManyWithoutCreatorNestedInput
     role_upgrade_requests_role_upgrade_requests_reviewer_idTousers?: role_upgrade_requestsUpdateManyWithoutUsers_role_upgrade_requests_reviewer_idTousersNestedInput
     role_upgrade_requests_role_upgrade_requests_user_idTousers?: role_upgrade_requestsUpdateManyWithoutUsers_role_upgrade_requests_user_idTousersNestedInput
+    service_bookings?: service_bookingsUpdateManyWithoutUserNestedInput
+    service_reviews?: service_reviewsUpdateManyWithoutUserNestedInput
+    created_services?: servicesUpdateManyWithoutCreatorNestedInput
+    session_enrollments?: session_enrollmentsUpdateManyWithoutUserNestedInput
+    created_sessions?: sessionsUpdateManyWithoutCreatorNestedInput
     discussion_comment_likes?: space_discussion_comment_likesUpdateManyWithoutUserNestedInput
     discussion_comments?: space_discussion_commentsUpdateManyWithoutUserNestedInput
     discussion_likes?: space_discussion_likesUpdateManyWithoutUserNestedInput
@@ -101664,16 +101672,8 @@ export namespace Prisma {
     space_news_likes?: space_news_likesUpdateManyWithoutUserNestedInput
     stargazing_spot_reviews?: stargazing_spot_reviewsUpdateManyWithoutUserNestedInput
     created_stargazing_spots?: stargazing_spotsUpdateManyWithoutCreatorNestedInput
-    created_sessions?: sessionsUpdateManyWithoutCreatorNestedInput
-    session_enrollments?: session_enrollmentsUpdateManyWithoutUserNestedInput
-    created_services?: servicesUpdateManyWithoutCreatorNestedInput
-    service_bookings?: service_bookingsUpdateManyWithoutUserNestedInput
-    service_reviews?: service_reviewsUpdateManyWithoutUserNestedInput
     subscriptions?: subscriptionsUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUpdateOneWithoutUsersNestedInput
-    created_polls?: pollsUpdateManyWithoutCreatorNestedInput
-    poll_votes?: poll_votesUpdateManyWithoutVoterNestedInput
-    poll_comments?: poll_commentsUpdateManyWithoutCommenterNestedInput
   }
 
   export type usersUncheckedUpdateWithoutBlog_viewsInput = {
@@ -101718,8 +101718,16 @@ export namespace Prisma {
     night_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousers?: night_camp_volunteering_applicationsUncheckedUpdateManyWithoutUsers_night_camp_volunteering_applications_reviewed_byTousersNestedInput
     night_camp_volunteering_applications_night_camp_volunteering_applications_user_idTousers?: night_camp_volunteering_applicationsUncheckedUpdateManyWithoutUsers_night_camp_volunteering_applications_user_idTousersNestedInput
     payments?: paymentsUncheckedUpdateManyWithoutUsersNestedInput
+    poll_comments?: poll_commentsUncheckedUpdateManyWithoutCommenterNestedInput
+    poll_votes?: poll_votesUncheckedUpdateManyWithoutVoterNestedInput
+    created_polls?: pollsUncheckedUpdateManyWithoutCreatorNestedInput
     role_upgrade_requests_role_upgrade_requests_reviewer_idTousers?: role_upgrade_requestsUncheckedUpdateManyWithoutUsers_role_upgrade_requests_reviewer_idTousersNestedInput
     role_upgrade_requests_role_upgrade_requests_user_idTousers?: role_upgrade_requestsUncheckedUpdateManyWithoutUsers_role_upgrade_requests_user_idTousersNestedInput
+    service_bookings?: service_bookingsUncheckedUpdateManyWithoutUserNestedInput
+    service_reviews?: service_reviewsUncheckedUpdateManyWithoutUserNestedInput
+    created_services?: servicesUncheckedUpdateManyWithoutCreatorNestedInput
+    session_enrollments?: session_enrollmentsUncheckedUpdateManyWithoutUserNestedInput
+    created_sessions?: sessionsUncheckedUpdateManyWithoutCreatorNestedInput
     discussion_comment_likes?: space_discussion_comment_likesUncheckedUpdateManyWithoutUserNestedInput
     discussion_comments?: space_discussion_commentsUncheckedUpdateManyWithoutUserNestedInput
     discussion_likes?: space_discussion_likesUncheckedUpdateManyWithoutUserNestedInput
@@ -101729,16 +101737,8 @@ export namespace Prisma {
     space_news_likes?: space_news_likesUncheckedUpdateManyWithoutUserNestedInput
     stargazing_spot_reviews?: stargazing_spot_reviewsUncheckedUpdateManyWithoutUserNestedInput
     created_stargazing_spots?: stargazing_spotsUncheckedUpdateManyWithoutCreatorNestedInput
-    created_sessions?: sessionsUncheckedUpdateManyWithoutCreatorNestedInput
-    session_enrollments?: session_enrollmentsUncheckedUpdateManyWithoutUserNestedInput
-    created_services?: servicesUncheckedUpdateManyWithoutCreatorNestedInput
-    service_bookings?: service_bookingsUncheckedUpdateManyWithoutUserNestedInput
-    service_reviews?: service_reviewsUncheckedUpdateManyWithoutUserNestedInput
     subscriptions?: subscriptionsUncheckedUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUncheckedUpdateOneWithoutUsersNestedInput
-    created_polls?: pollsUncheckedUpdateManyWithoutCreatorNestedInput
-    poll_votes?: poll_votesUncheckedUpdateManyWithoutVoterNestedInput
-    poll_comments?: poll_commentsUncheckedUpdateManyWithoutCommenterNestedInput
   }
 
   export type night_camp_registrationsCreateWithoutNight_campsInput = {
@@ -102234,8 +102234,16 @@ export namespace Prisma {
     night_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousers?: night_camp_volunteering_applicationsCreateNestedManyWithoutUsers_night_camp_volunteering_applications_reviewed_byTousersInput
     night_camp_volunteering_applications_night_camp_volunteering_applications_user_idTousers?: night_camp_volunteering_applicationsCreateNestedManyWithoutUsers_night_camp_volunteering_applications_user_idTousersInput
     payments?: paymentsCreateNestedManyWithoutUsersInput
+    poll_comments?: poll_commentsCreateNestedManyWithoutCommenterInput
+    poll_votes?: poll_votesCreateNestedManyWithoutVoterInput
+    created_polls?: pollsCreateNestedManyWithoutCreatorInput
     role_upgrade_requests_role_upgrade_requests_reviewer_idTousers?: role_upgrade_requestsCreateNestedManyWithoutUsers_role_upgrade_requests_reviewer_idTousersInput
     role_upgrade_requests_role_upgrade_requests_user_idTousers?: role_upgrade_requestsCreateNestedManyWithoutUsers_role_upgrade_requests_user_idTousersInput
+    service_bookings?: service_bookingsCreateNestedManyWithoutUserInput
+    service_reviews?: service_reviewsCreateNestedManyWithoutUserInput
+    created_services?: servicesCreateNestedManyWithoutCreatorInput
+    session_enrollments?: session_enrollmentsCreateNestedManyWithoutUserInput
+    created_sessions?: sessionsCreateNestedManyWithoutCreatorInput
     discussion_comment_likes?: space_discussion_comment_likesCreateNestedManyWithoutUserInput
     discussion_comments?: space_discussion_commentsCreateNestedManyWithoutUserInput
     discussion_likes?: space_discussion_likesCreateNestedManyWithoutUserInput
@@ -102245,16 +102253,8 @@ export namespace Prisma {
     space_news_likes?: space_news_likesCreateNestedManyWithoutUserInput
     stargazing_spot_reviews?: stargazing_spot_reviewsCreateNestedManyWithoutUserInput
     created_stargazing_spots?: stargazing_spotsCreateNestedManyWithoutCreatorInput
-    created_sessions?: sessionsCreateNestedManyWithoutCreatorInput
-    session_enrollments?: session_enrollmentsCreateNestedManyWithoutUserInput
-    created_services?: servicesCreateNestedManyWithoutCreatorInput
-    service_bookings?: service_bookingsCreateNestedManyWithoutUserInput
-    service_reviews?: service_reviewsCreateNestedManyWithoutUserInput
     subscriptions?: subscriptionsCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsCreateNestedOneWithoutUsersInput
-    created_polls?: pollsCreateNestedManyWithoutCreatorInput
-    poll_votes?: poll_votesCreateNestedManyWithoutVoterInput
-    poll_comments?: poll_commentsCreateNestedManyWithoutCommenterInput
   }
 
   export type usersUncheckedCreateWithoutChatbot_sessionsInput = {
@@ -102299,8 +102299,16 @@ export namespace Prisma {
     night_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousers?: night_camp_volunteering_applicationsUncheckedCreateNestedManyWithoutUsers_night_camp_volunteering_applications_reviewed_byTousersInput
     night_camp_volunteering_applications_night_camp_volunteering_applications_user_idTousers?: night_camp_volunteering_applicationsUncheckedCreateNestedManyWithoutUsers_night_camp_volunteering_applications_user_idTousersInput
     payments?: paymentsUncheckedCreateNestedManyWithoutUsersInput
+    poll_comments?: poll_commentsUncheckedCreateNestedManyWithoutCommenterInput
+    poll_votes?: poll_votesUncheckedCreateNestedManyWithoutVoterInput
+    created_polls?: pollsUncheckedCreateNestedManyWithoutCreatorInput
     role_upgrade_requests_role_upgrade_requests_reviewer_idTousers?: role_upgrade_requestsUncheckedCreateNestedManyWithoutUsers_role_upgrade_requests_reviewer_idTousersInput
     role_upgrade_requests_role_upgrade_requests_user_idTousers?: role_upgrade_requestsUncheckedCreateNestedManyWithoutUsers_role_upgrade_requests_user_idTousersInput
+    service_bookings?: service_bookingsUncheckedCreateNestedManyWithoutUserInput
+    service_reviews?: service_reviewsUncheckedCreateNestedManyWithoutUserInput
+    created_services?: servicesUncheckedCreateNestedManyWithoutCreatorInput
+    session_enrollments?: session_enrollmentsUncheckedCreateNestedManyWithoutUserInput
+    created_sessions?: sessionsUncheckedCreateNestedManyWithoutCreatorInput
     discussion_comment_likes?: space_discussion_comment_likesUncheckedCreateNestedManyWithoutUserInput
     discussion_comments?: space_discussion_commentsUncheckedCreateNestedManyWithoutUserInput
     discussion_likes?: space_discussion_likesUncheckedCreateNestedManyWithoutUserInput
@@ -102310,16 +102318,8 @@ export namespace Prisma {
     space_news_likes?: space_news_likesUncheckedCreateNestedManyWithoutUserInput
     stargazing_spot_reviews?: stargazing_spot_reviewsUncheckedCreateNestedManyWithoutUserInput
     created_stargazing_spots?: stargazing_spotsUncheckedCreateNestedManyWithoutCreatorInput
-    created_sessions?: sessionsUncheckedCreateNestedManyWithoutCreatorInput
-    session_enrollments?: session_enrollmentsUncheckedCreateNestedManyWithoutUserInput
-    created_services?: servicesUncheckedCreateNestedManyWithoutCreatorInput
-    service_bookings?: service_bookingsUncheckedCreateNestedManyWithoutUserInput
-    service_reviews?: service_reviewsUncheckedCreateNestedManyWithoutUserInput
     subscriptions?: subscriptionsUncheckedCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsUncheckedCreateNestedOneWithoutUsersInput
-    created_polls?: pollsUncheckedCreateNestedManyWithoutCreatorInput
-    poll_votes?: poll_votesUncheckedCreateNestedManyWithoutVoterInput
-    poll_comments?: poll_commentsUncheckedCreateNestedManyWithoutCommenterInput
   }
 
   export type usersCreateOrConnectWithoutChatbot_sessionsInput = {
@@ -102439,8 +102439,16 @@ export namespace Prisma {
     night_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousers?: night_camp_volunteering_applicationsUpdateManyWithoutUsers_night_camp_volunteering_applications_reviewed_byTousersNestedInput
     night_camp_volunteering_applications_night_camp_volunteering_applications_user_idTousers?: night_camp_volunteering_applicationsUpdateManyWithoutUsers_night_camp_volunteering_applications_user_idTousersNestedInput
     payments?: paymentsUpdateManyWithoutUsersNestedInput
+    poll_comments?: poll_commentsUpdateManyWithoutCommenterNestedInput
+    poll_votes?: poll_votesUpdateManyWithoutVoterNestedInput
+    created_polls?: pollsUpdateManyWithoutCreatorNestedInput
     role_upgrade_requests_role_upgrade_requests_reviewer_idTousers?: role_upgrade_requestsUpdateManyWithoutUsers_role_upgrade_requests_reviewer_idTousersNestedInput
     role_upgrade_requests_role_upgrade_requests_user_idTousers?: role_upgrade_requestsUpdateManyWithoutUsers_role_upgrade_requests_user_idTousersNestedInput
+    service_bookings?: service_bookingsUpdateManyWithoutUserNestedInput
+    service_reviews?: service_reviewsUpdateManyWithoutUserNestedInput
+    created_services?: servicesUpdateManyWithoutCreatorNestedInput
+    session_enrollments?: session_enrollmentsUpdateManyWithoutUserNestedInput
+    created_sessions?: sessionsUpdateManyWithoutCreatorNestedInput
     discussion_comment_likes?: space_discussion_comment_likesUpdateManyWithoutUserNestedInput
     discussion_comments?: space_discussion_commentsUpdateManyWithoutUserNestedInput
     discussion_likes?: space_discussion_likesUpdateManyWithoutUserNestedInput
@@ -102450,16 +102458,8 @@ export namespace Prisma {
     space_news_likes?: space_news_likesUpdateManyWithoutUserNestedInput
     stargazing_spot_reviews?: stargazing_spot_reviewsUpdateManyWithoutUserNestedInput
     created_stargazing_spots?: stargazing_spotsUpdateManyWithoutCreatorNestedInput
-    created_sessions?: sessionsUpdateManyWithoutCreatorNestedInput
-    session_enrollments?: session_enrollmentsUpdateManyWithoutUserNestedInput
-    created_services?: servicesUpdateManyWithoutCreatorNestedInput
-    service_bookings?: service_bookingsUpdateManyWithoutUserNestedInput
-    service_reviews?: service_reviewsUpdateManyWithoutUserNestedInput
     subscriptions?: subscriptionsUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUpdateOneWithoutUsersNestedInput
-    created_polls?: pollsUpdateManyWithoutCreatorNestedInput
-    poll_votes?: poll_votesUpdateManyWithoutVoterNestedInput
-    poll_comments?: poll_commentsUpdateManyWithoutCommenterNestedInput
   }
 
   export type usersUncheckedUpdateWithoutChatbot_sessionsInput = {
@@ -102504,8 +102504,16 @@ export namespace Prisma {
     night_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousers?: night_camp_volunteering_applicationsUncheckedUpdateManyWithoutUsers_night_camp_volunteering_applications_reviewed_byTousersNestedInput
     night_camp_volunteering_applications_night_camp_volunteering_applications_user_idTousers?: night_camp_volunteering_applicationsUncheckedUpdateManyWithoutUsers_night_camp_volunteering_applications_user_idTousersNestedInput
     payments?: paymentsUncheckedUpdateManyWithoutUsersNestedInput
+    poll_comments?: poll_commentsUncheckedUpdateManyWithoutCommenterNestedInput
+    poll_votes?: poll_votesUncheckedUpdateManyWithoutVoterNestedInput
+    created_polls?: pollsUncheckedUpdateManyWithoutCreatorNestedInput
     role_upgrade_requests_role_upgrade_requests_reviewer_idTousers?: role_upgrade_requestsUncheckedUpdateManyWithoutUsers_role_upgrade_requests_reviewer_idTousersNestedInput
     role_upgrade_requests_role_upgrade_requests_user_idTousers?: role_upgrade_requestsUncheckedUpdateManyWithoutUsers_role_upgrade_requests_user_idTousersNestedInput
+    service_bookings?: service_bookingsUncheckedUpdateManyWithoutUserNestedInput
+    service_reviews?: service_reviewsUncheckedUpdateManyWithoutUserNestedInput
+    created_services?: servicesUncheckedUpdateManyWithoutCreatorNestedInput
+    session_enrollments?: session_enrollmentsUncheckedUpdateManyWithoutUserNestedInput
+    created_sessions?: sessionsUncheckedUpdateManyWithoutCreatorNestedInput
     discussion_comment_likes?: space_discussion_comment_likesUncheckedUpdateManyWithoutUserNestedInput
     discussion_comments?: space_discussion_commentsUncheckedUpdateManyWithoutUserNestedInput
     discussion_likes?: space_discussion_likesUncheckedUpdateManyWithoutUserNestedInput
@@ -102515,16 +102523,8 @@ export namespace Prisma {
     space_news_likes?: space_news_likesUncheckedUpdateManyWithoutUserNestedInput
     stargazing_spot_reviews?: stargazing_spot_reviewsUncheckedUpdateManyWithoutUserNestedInput
     created_stargazing_spots?: stargazing_spotsUncheckedUpdateManyWithoutCreatorNestedInput
-    created_sessions?: sessionsUncheckedUpdateManyWithoutCreatorNestedInput
-    session_enrollments?: session_enrollmentsUncheckedUpdateManyWithoutUserNestedInput
-    created_services?: servicesUncheckedUpdateManyWithoutCreatorNestedInput
-    service_bookings?: service_bookingsUncheckedUpdateManyWithoutUserNestedInput
-    service_reviews?: service_reviewsUncheckedUpdateManyWithoutUserNestedInput
     subscriptions?: subscriptionsUncheckedUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUncheckedUpdateOneWithoutUsersNestedInput
-    created_polls?: pollsUncheckedUpdateManyWithoutCreatorNestedInput
-    poll_votes?: poll_votesUncheckedUpdateManyWithoutVoterNestedInput
-    poll_comments?: poll_commentsUncheckedUpdateManyWithoutCommenterNestedInput
   }
 
   export type subscriptionsCreateWithoutPaymentsInput = {
@@ -102600,8 +102600,16 @@ export namespace Prisma {
     night_camp_registrations?: night_camp_registrationsCreateNestedManyWithoutUsersInput
     night_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousers?: night_camp_volunteering_applicationsCreateNestedManyWithoutUsers_night_camp_volunteering_applications_reviewed_byTousersInput
     night_camp_volunteering_applications_night_camp_volunteering_applications_user_idTousers?: night_camp_volunteering_applicationsCreateNestedManyWithoutUsers_night_camp_volunteering_applications_user_idTousersInput
+    poll_comments?: poll_commentsCreateNestedManyWithoutCommenterInput
+    poll_votes?: poll_votesCreateNestedManyWithoutVoterInput
+    created_polls?: pollsCreateNestedManyWithoutCreatorInput
     role_upgrade_requests_role_upgrade_requests_reviewer_idTousers?: role_upgrade_requestsCreateNestedManyWithoutUsers_role_upgrade_requests_reviewer_idTousersInput
     role_upgrade_requests_role_upgrade_requests_user_idTousers?: role_upgrade_requestsCreateNestedManyWithoutUsers_role_upgrade_requests_user_idTousersInput
+    service_bookings?: service_bookingsCreateNestedManyWithoutUserInput
+    service_reviews?: service_reviewsCreateNestedManyWithoutUserInput
+    created_services?: servicesCreateNestedManyWithoutCreatorInput
+    session_enrollments?: session_enrollmentsCreateNestedManyWithoutUserInput
+    created_sessions?: sessionsCreateNestedManyWithoutCreatorInput
     discussion_comment_likes?: space_discussion_comment_likesCreateNestedManyWithoutUserInput
     discussion_comments?: space_discussion_commentsCreateNestedManyWithoutUserInput
     discussion_likes?: space_discussion_likesCreateNestedManyWithoutUserInput
@@ -102611,16 +102619,8 @@ export namespace Prisma {
     space_news_likes?: space_news_likesCreateNestedManyWithoutUserInput
     stargazing_spot_reviews?: stargazing_spot_reviewsCreateNestedManyWithoutUserInput
     created_stargazing_spots?: stargazing_spotsCreateNestedManyWithoutCreatorInput
-    created_sessions?: sessionsCreateNestedManyWithoutCreatorInput
-    session_enrollments?: session_enrollmentsCreateNestedManyWithoutUserInput
-    created_services?: servicesCreateNestedManyWithoutCreatorInput
-    service_bookings?: service_bookingsCreateNestedManyWithoutUserInput
-    service_reviews?: service_reviewsCreateNestedManyWithoutUserInput
     subscriptions?: subscriptionsCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsCreateNestedOneWithoutUsersInput
-    created_polls?: pollsCreateNestedManyWithoutCreatorInput
-    poll_votes?: poll_votesCreateNestedManyWithoutVoterInput
-    poll_comments?: poll_commentsCreateNestedManyWithoutCommenterInput
   }
 
   export type usersUncheckedCreateWithoutPaymentsInput = {
@@ -102665,8 +102665,16 @@ export namespace Prisma {
     night_camp_registrations?: night_camp_registrationsUncheckedCreateNestedManyWithoutUsersInput
     night_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousers?: night_camp_volunteering_applicationsUncheckedCreateNestedManyWithoutUsers_night_camp_volunteering_applications_reviewed_byTousersInput
     night_camp_volunteering_applications_night_camp_volunteering_applications_user_idTousers?: night_camp_volunteering_applicationsUncheckedCreateNestedManyWithoutUsers_night_camp_volunteering_applications_user_idTousersInput
+    poll_comments?: poll_commentsUncheckedCreateNestedManyWithoutCommenterInput
+    poll_votes?: poll_votesUncheckedCreateNestedManyWithoutVoterInput
+    created_polls?: pollsUncheckedCreateNestedManyWithoutCreatorInput
     role_upgrade_requests_role_upgrade_requests_reviewer_idTousers?: role_upgrade_requestsUncheckedCreateNestedManyWithoutUsers_role_upgrade_requests_reviewer_idTousersInput
     role_upgrade_requests_role_upgrade_requests_user_idTousers?: role_upgrade_requestsUncheckedCreateNestedManyWithoutUsers_role_upgrade_requests_user_idTousersInput
+    service_bookings?: service_bookingsUncheckedCreateNestedManyWithoutUserInput
+    service_reviews?: service_reviewsUncheckedCreateNestedManyWithoutUserInput
+    created_services?: servicesUncheckedCreateNestedManyWithoutCreatorInput
+    session_enrollments?: session_enrollmentsUncheckedCreateNestedManyWithoutUserInput
+    created_sessions?: sessionsUncheckedCreateNestedManyWithoutCreatorInput
     discussion_comment_likes?: space_discussion_comment_likesUncheckedCreateNestedManyWithoutUserInput
     discussion_comments?: space_discussion_commentsUncheckedCreateNestedManyWithoutUserInput
     discussion_likes?: space_discussion_likesUncheckedCreateNestedManyWithoutUserInput
@@ -102676,16 +102684,8 @@ export namespace Prisma {
     space_news_likes?: space_news_likesUncheckedCreateNestedManyWithoutUserInput
     stargazing_spot_reviews?: stargazing_spot_reviewsUncheckedCreateNestedManyWithoutUserInput
     created_stargazing_spots?: stargazing_spotsUncheckedCreateNestedManyWithoutCreatorInput
-    created_sessions?: sessionsUncheckedCreateNestedManyWithoutCreatorInput
-    session_enrollments?: session_enrollmentsUncheckedCreateNestedManyWithoutUserInput
-    created_services?: servicesUncheckedCreateNestedManyWithoutCreatorInput
-    service_bookings?: service_bookingsUncheckedCreateNestedManyWithoutUserInput
-    service_reviews?: service_reviewsUncheckedCreateNestedManyWithoutUserInput
     subscriptions?: subscriptionsUncheckedCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsUncheckedCreateNestedOneWithoutUsersInput
-    created_polls?: pollsUncheckedCreateNestedManyWithoutCreatorInput
-    poll_votes?: poll_votesUncheckedCreateNestedManyWithoutVoterInput
-    poll_comments?: poll_commentsUncheckedCreateNestedManyWithoutCommenterInput
   }
 
   export type usersCreateOrConnectWithoutPaymentsInput = {
@@ -102783,8 +102783,16 @@ export namespace Prisma {
     night_camp_registrations?: night_camp_registrationsUpdateManyWithoutUsersNestedInput
     night_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousers?: night_camp_volunteering_applicationsUpdateManyWithoutUsers_night_camp_volunteering_applications_reviewed_byTousersNestedInput
     night_camp_volunteering_applications_night_camp_volunteering_applications_user_idTousers?: night_camp_volunteering_applicationsUpdateManyWithoutUsers_night_camp_volunteering_applications_user_idTousersNestedInput
+    poll_comments?: poll_commentsUpdateManyWithoutCommenterNestedInput
+    poll_votes?: poll_votesUpdateManyWithoutVoterNestedInput
+    created_polls?: pollsUpdateManyWithoutCreatorNestedInput
     role_upgrade_requests_role_upgrade_requests_reviewer_idTousers?: role_upgrade_requestsUpdateManyWithoutUsers_role_upgrade_requests_reviewer_idTousersNestedInput
     role_upgrade_requests_role_upgrade_requests_user_idTousers?: role_upgrade_requestsUpdateManyWithoutUsers_role_upgrade_requests_user_idTousersNestedInput
+    service_bookings?: service_bookingsUpdateManyWithoutUserNestedInput
+    service_reviews?: service_reviewsUpdateManyWithoutUserNestedInput
+    created_services?: servicesUpdateManyWithoutCreatorNestedInput
+    session_enrollments?: session_enrollmentsUpdateManyWithoutUserNestedInput
+    created_sessions?: sessionsUpdateManyWithoutCreatorNestedInput
     discussion_comment_likes?: space_discussion_comment_likesUpdateManyWithoutUserNestedInput
     discussion_comments?: space_discussion_commentsUpdateManyWithoutUserNestedInput
     discussion_likes?: space_discussion_likesUpdateManyWithoutUserNestedInput
@@ -102794,16 +102802,8 @@ export namespace Prisma {
     space_news_likes?: space_news_likesUpdateManyWithoutUserNestedInput
     stargazing_spot_reviews?: stargazing_spot_reviewsUpdateManyWithoutUserNestedInput
     created_stargazing_spots?: stargazing_spotsUpdateManyWithoutCreatorNestedInput
-    created_sessions?: sessionsUpdateManyWithoutCreatorNestedInput
-    session_enrollments?: session_enrollmentsUpdateManyWithoutUserNestedInput
-    created_services?: servicesUpdateManyWithoutCreatorNestedInput
-    service_bookings?: service_bookingsUpdateManyWithoutUserNestedInput
-    service_reviews?: service_reviewsUpdateManyWithoutUserNestedInput
     subscriptions?: subscriptionsUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUpdateOneWithoutUsersNestedInput
-    created_polls?: pollsUpdateManyWithoutCreatorNestedInput
-    poll_votes?: poll_votesUpdateManyWithoutVoterNestedInput
-    poll_comments?: poll_commentsUpdateManyWithoutCommenterNestedInput
   }
 
   export type usersUncheckedUpdateWithoutPaymentsInput = {
@@ -102848,8 +102848,16 @@ export namespace Prisma {
     night_camp_registrations?: night_camp_registrationsUncheckedUpdateManyWithoutUsersNestedInput
     night_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousers?: night_camp_volunteering_applicationsUncheckedUpdateManyWithoutUsers_night_camp_volunteering_applications_reviewed_byTousersNestedInput
     night_camp_volunteering_applications_night_camp_volunteering_applications_user_idTousers?: night_camp_volunteering_applicationsUncheckedUpdateManyWithoutUsers_night_camp_volunteering_applications_user_idTousersNestedInput
+    poll_comments?: poll_commentsUncheckedUpdateManyWithoutCommenterNestedInput
+    poll_votes?: poll_votesUncheckedUpdateManyWithoutVoterNestedInput
+    created_polls?: pollsUncheckedUpdateManyWithoutCreatorNestedInput
     role_upgrade_requests_role_upgrade_requests_reviewer_idTousers?: role_upgrade_requestsUncheckedUpdateManyWithoutUsers_role_upgrade_requests_reviewer_idTousersNestedInput
     role_upgrade_requests_role_upgrade_requests_user_idTousers?: role_upgrade_requestsUncheckedUpdateManyWithoutUsers_role_upgrade_requests_user_idTousersNestedInput
+    service_bookings?: service_bookingsUncheckedUpdateManyWithoutUserNestedInput
+    service_reviews?: service_reviewsUncheckedUpdateManyWithoutUserNestedInput
+    created_services?: servicesUncheckedUpdateManyWithoutCreatorNestedInput
+    session_enrollments?: session_enrollmentsUncheckedUpdateManyWithoutUserNestedInput
+    created_sessions?: sessionsUncheckedUpdateManyWithoutCreatorNestedInput
     discussion_comment_likes?: space_discussion_comment_likesUncheckedUpdateManyWithoutUserNestedInput
     discussion_comments?: space_discussion_commentsUncheckedUpdateManyWithoutUserNestedInput
     discussion_likes?: space_discussion_likesUncheckedUpdateManyWithoutUserNestedInput
@@ -102859,16 +102867,8 @@ export namespace Prisma {
     space_news_likes?: space_news_likesUncheckedUpdateManyWithoutUserNestedInput
     stargazing_spot_reviews?: stargazing_spot_reviewsUncheckedUpdateManyWithoutUserNestedInput
     created_stargazing_spots?: stargazing_spotsUncheckedUpdateManyWithoutCreatorNestedInput
-    created_sessions?: sessionsUncheckedUpdateManyWithoutCreatorNestedInput
-    session_enrollments?: session_enrollmentsUncheckedUpdateManyWithoutUserNestedInput
-    created_services?: servicesUncheckedUpdateManyWithoutCreatorNestedInput
-    service_bookings?: service_bookingsUncheckedUpdateManyWithoutUserNestedInput
-    service_reviews?: service_reviewsUncheckedUpdateManyWithoutUserNestedInput
     subscriptions?: subscriptionsUncheckedUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUncheckedUpdateOneWithoutUsersNestedInput
-    created_polls?: pollsUncheckedUpdateManyWithoutCreatorNestedInput
-    poll_votes?: poll_votesUncheckedUpdateManyWithoutVoterNestedInput
-    poll_comments?: poll_commentsUncheckedUpdateManyWithoutCommenterNestedInput
   }
 
   export type blog_category_relationsCreateWithoutBlogsInput = {
@@ -103008,8 +103008,16 @@ export namespace Prisma {
     night_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousers?: night_camp_volunteering_applicationsCreateNestedManyWithoutUsers_night_camp_volunteering_applications_reviewed_byTousersInput
     night_camp_volunteering_applications_night_camp_volunteering_applications_user_idTousers?: night_camp_volunteering_applicationsCreateNestedManyWithoutUsers_night_camp_volunteering_applications_user_idTousersInput
     payments?: paymentsCreateNestedManyWithoutUsersInput
+    poll_comments?: poll_commentsCreateNestedManyWithoutCommenterInput
+    poll_votes?: poll_votesCreateNestedManyWithoutVoterInput
+    created_polls?: pollsCreateNestedManyWithoutCreatorInput
     role_upgrade_requests_role_upgrade_requests_reviewer_idTousers?: role_upgrade_requestsCreateNestedManyWithoutUsers_role_upgrade_requests_reviewer_idTousersInput
     role_upgrade_requests_role_upgrade_requests_user_idTousers?: role_upgrade_requestsCreateNestedManyWithoutUsers_role_upgrade_requests_user_idTousersInput
+    service_bookings?: service_bookingsCreateNestedManyWithoutUserInput
+    service_reviews?: service_reviewsCreateNestedManyWithoutUserInput
+    created_services?: servicesCreateNestedManyWithoutCreatorInput
+    session_enrollments?: session_enrollmentsCreateNestedManyWithoutUserInput
+    created_sessions?: sessionsCreateNestedManyWithoutCreatorInput
     discussion_comment_likes?: space_discussion_comment_likesCreateNestedManyWithoutUserInput
     discussion_comments?: space_discussion_commentsCreateNestedManyWithoutUserInput
     discussion_likes?: space_discussion_likesCreateNestedManyWithoutUserInput
@@ -103019,16 +103027,8 @@ export namespace Prisma {
     space_news_likes?: space_news_likesCreateNestedManyWithoutUserInput
     stargazing_spot_reviews?: stargazing_spot_reviewsCreateNestedManyWithoutUserInput
     created_stargazing_spots?: stargazing_spotsCreateNestedManyWithoutCreatorInput
-    created_sessions?: sessionsCreateNestedManyWithoutCreatorInput
-    session_enrollments?: session_enrollmentsCreateNestedManyWithoutUserInput
-    created_services?: servicesCreateNestedManyWithoutCreatorInput
-    service_bookings?: service_bookingsCreateNestedManyWithoutUserInput
-    service_reviews?: service_reviewsCreateNestedManyWithoutUserInput
     subscriptions?: subscriptionsCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsCreateNestedOneWithoutUsersInput
-    created_polls?: pollsCreateNestedManyWithoutCreatorInput
-    poll_votes?: poll_votesCreateNestedManyWithoutVoterInput
-    poll_comments?: poll_commentsCreateNestedManyWithoutCommenterInput
   }
 
   export type usersUncheckedCreateWithoutBlogsInput = {
@@ -103073,8 +103073,16 @@ export namespace Prisma {
     night_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousers?: night_camp_volunteering_applicationsUncheckedCreateNestedManyWithoutUsers_night_camp_volunteering_applications_reviewed_byTousersInput
     night_camp_volunteering_applications_night_camp_volunteering_applications_user_idTousers?: night_camp_volunteering_applicationsUncheckedCreateNestedManyWithoutUsers_night_camp_volunteering_applications_user_idTousersInput
     payments?: paymentsUncheckedCreateNestedManyWithoutUsersInput
+    poll_comments?: poll_commentsUncheckedCreateNestedManyWithoutCommenterInput
+    poll_votes?: poll_votesUncheckedCreateNestedManyWithoutVoterInput
+    created_polls?: pollsUncheckedCreateNestedManyWithoutCreatorInput
     role_upgrade_requests_role_upgrade_requests_reviewer_idTousers?: role_upgrade_requestsUncheckedCreateNestedManyWithoutUsers_role_upgrade_requests_reviewer_idTousersInput
     role_upgrade_requests_role_upgrade_requests_user_idTousers?: role_upgrade_requestsUncheckedCreateNestedManyWithoutUsers_role_upgrade_requests_user_idTousersInput
+    service_bookings?: service_bookingsUncheckedCreateNestedManyWithoutUserInput
+    service_reviews?: service_reviewsUncheckedCreateNestedManyWithoutUserInput
+    created_services?: servicesUncheckedCreateNestedManyWithoutCreatorInput
+    session_enrollments?: session_enrollmentsUncheckedCreateNestedManyWithoutUserInput
+    created_sessions?: sessionsUncheckedCreateNestedManyWithoutCreatorInput
     discussion_comment_likes?: space_discussion_comment_likesUncheckedCreateNestedManyWithoutUserInput
     discussion_comments?: space_discussion_commentsUncheckedCreateNestedManyWithoutUserInput
     discussion_likes?: space_discussion_likesUncheckedCreateNestedManyWithoutUserInput
@@ -103084,16 +103092,8 @@ export namespace Prisma {
     space_news_likes?: space_news_likesUncheckedCreateNestedManyWithoutUserInput
     stargazing_spot_reviews?: stargazing_spot_reviewsUncheckedCreateNestedManyWithoutUserInput
     created_stargazing_spots?: stargazing_spotsUncheckedCreateNestedManyWithoutCreatorInput
-    created_sessions?: sessionsUncheckedCreateNestedManyWithoutCreatorInput
-    session_enrollments?: session_enrollmentsUncheckedCreateNestedManyWithoutUserInput
-    created_services?: servicesUncheckedCreateNestedManyWithoutCreatorInput
-    service_bookings?: service_bookingsUncheckedCreateNestedManyWithoutUserInput
-    service_reviews?: service_reviewsUncheckedCreateNestedManyWithoutUserInput
     subscriptions?: subscriptionsUncheckedCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsUncheckedCreateNestedOneWithoutUsersInput
-    created_polls?: pollsUncheckedCreateNestedManyWithoutCreatorInput
-    poll_votes?: poll_votesUncheckedCreateNestedManyWithoutVoterInput
-    poll_comments?: poll_commentsUncheckedCreateNestedManyWithoutCommenterInput
   }
 
   export type usersCreateOrConnectWithoutBlogsInput = {
@@ -103262,8 +103262,16 @@ export namespace Prisma {
     night_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousers?: night_camp_volunteering_applicationsUpdateManyWithoutUsers_night_camp_volunteering_applications_reviewed_byTousersNestedInput
     night_camp_volunteering_applications_night_camp_volunteering_applications_user_idTousers?: night_camp_volunteering_applicationsUpdateManyWithoutUsers_night_camp_volunteering_applications_user_idTousersNestedInput
     payments?: paymentsUpdateManyWithoutUsersNestedInput
+    poll_comments?: poll_commentsUpdateManyWithoutCommenterNestedInput
+    poll_votes?: poll_votesUpdateManyWithoutVoterNestedInput
+    created_polls?: pollsUpdateManyWithoutCreatorNestedInput
     role_upgrade_requests_role_upgrade_requests_reviewer_idTousers?: role_upgrade_requestsUpdateManyWithoutUsers_role_upgrade_requests_reviewer_idTousersNestedInput
     role_upgrade_requests_role_upgrade_requests_user_idTousers?: role_upgrade_requestsUpdateManyWithoutUsers_role_upgrade_requests_user_idTousersNestedInput
+    service_bookings?: service_bookingsUpdateManyWithoutUserNestedInput
+    service_reviews?: service_reviewsUpdateManyWithoutUserNestedInput
+    created_services?: servicesUpdateManyWithoutCreatorNestedInput
+    session_enrollments?: session_enrollmentsUpdateManyWithoutUserNestedInput
+    created_sessions?: sessionsUpdateManyWithoutCreatorNestedInput
     discussion_comment_likes?: space_discussion_comment_likesUpdateManyWithoutUserNestedInput
     discussion_comments?: space_discussion_commentsUpdateManyWithoutUserNestedInput
     discussion_likes?: space_discussion_likesUpdateManyWithoutUserNestedInput
@@ -103273,16 +103281,8 @@ export namespace Prisma {
     space_news_likes?: space_news_likesUpdateManyWithoutUserNestedInput
     stargazing_spot_reviews?: stargazing_spot_reviewsUpdateManyWithoutUserNestedInput
     created_stargazing_spots?: stargazing_spotsUpdateManyWithoutCreatorNestedInput
-    created_sessions?: sessionsUpdateManyWithoutCreatorNestedInput
-    session_enrollments?: session_enrollmentsUpdateManyWithoutUserNestedInput
-    created_services?: servicesUpdateManyWithoutCreatorNestedInput
-    service_bookings?: service_bookingsUpdateManyWithoutUserNestedInput
-    service_reviews?: service_reviewsUpdateManyWithoutUserNestedInput
     subscriptions?: subscriptionsUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUpdateOneWithoutUsersNestedInput
-    created_polls?: pollsUpdateManyWithoutCreatorNestedInput
-    poll_votes?: poll_votesUpdateManyWithoutVoterNestedInput
-    poll_comments?: poll_commentsUpdateManyWithoutCommenterNestedInput
   }
 
   export type usersUncheckedUpdateWithoutBlogsInput = {
@@ -103327,8 +103327,16 @@ export namespace Prisma {
     night_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousers?: night_camp_volunteering_applicationsUncheckedUpdateManyWithoutUsers_night_camp_volunteering_applications_reviewed_byTousersNestedInput
     night_camp_volunteering_applications_night_camp_volunteering_applications_user_idTousers?: night_camp_volunteering_applicationsUncheckedUpdateManyWithoutUsers_night_camp_volunteering_applications_user_idTousersNestedInput
     payments?: paymentsUncheckedUpdateManyWithoutUsersNestedInput
+    poll_comments?: poll_commentsUncheckedUpdateManyWithoutCommenterNestedInput
+    poll_votes?: poll_votesUncheckedUpdateManyWithoutVoterNestedInput
+    created_polls?: pollsUncheckedUpdateManyWithoutCreatorNestedInput
     role_upgrade_requests_role_upgrade_requests_reviewer_idTousers?: role_upgrade_requestsUncheckedUpdateManyWithoutUsers_role_upgrade_requests_reviewer_idTousersNestedInput
     role_upgrade_requests_role_upgrade_requests_user_idTousers?: role_upgrade_requestsUncheckedUpdateManyWithoutUsers_role_upgrade_requests_user_idTousersNestedInput
+    service_bookings?: service_bookingsUncheckedUpdateManyWithoutUserNestedInput
+    service_reviews?: service_reviewsUncheckedUpdateManyWithoutUserNestedInput
+    created_services?: servicesUncheckedUpdateManyWithoutCreatorNestedInput
+    session_enrollments?: session_enrollmentsUncheckedUpdateManyWithoutUserNestedInput
+    created_sessions?: sessionsUncheckedUpdateManyWithoutCreatorNestedInput
     discussion_comment_likes?: space_discussion_comment_likesUncheckedUpdateManyWithoutUserNestedInput
     discussion_comments?: space_discussion_commentsUncheckedUpdateManyWithoutUserNestedInput
     discussion_likes?: space_discussion_likesUncheckedUpdateManyWithoutUserNestedInput
@@ -103338,16 +103346,8 @@ export namespace Prisma {
     space_news_likes?: space_news_likesUncheckedUpdateManyWithoutUserNestedInput
     stargazing_spot_reviews?: stargazing_spot_reviewsUncheckedUpdateManyWithoutUserNestedInput
     created_stargazing_spots?: stargazing_spotsUncheckedUpdateManyWithoutCreatorNestedInput
-    created_sessions?: sessionsUncheckedUpdateManyWithoutCreatorNestedInput
-    session_enrollments?: session_enrollmentsUncheckedUpdateManyWithoutUserNestedInput
-    created_services?: servicesUncheckedUpdateManyWithoutCreatorNestedInput
-    service_bookings?: service_bookingsUncheckedUpdateManyWithoutUserNestedInput
-    service_reviews?: service_reviewsUncheckedUpdateManyWithoutUserNestedInput
     subscriptions?: subscriptionsUncheckedUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUncheckedUpdateOneWithoutUsersNestedInput
-    created_polls?: pollsUncheckedUpdateManyWithoutCreatorNestedInput
-    poll_votes?: poll_votesUncheckedUpdateManyWithoutVoterNestedInput
-    poll_comments?: poll_commentsUncheckedUpdateManyWithoutCommenterNestedInput
   }
 
   export type blogsCreateWithoutBlog_category_relationsInput = {
@@ -103590,8 +103590,16 @@ export namespace Prisma {
     night_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousers?: night_camp_volunteering_applicationsCreateNestedManyWithoutUsers_night_camp_volunteering_applications_reviewed_byTousersInput
     night_camp_volunteering_applications_night_camp_volunteering_applications_user_idTousers?: night_camp_volunteering_applicationsCreateNestedManyWithoutUsers_night_camp_volunteering_applications_user_idTousersInput
     payments?: paymentsCreateNestedManyWithoutUsersInput
+    poll_comments?: poll_commentsCreateNestedManyWithoutCommenterInput
+    poll_votes?: poll_votesCreateNestedManyWithoutVoterInput
+    created_polls?: pollsCreateNestedManyWithoutCreatorInput
     role_upgrade_requests_role_upgrade_requests_reviewer_idTousers?: role_upgrade_requestsCreateNestedManyWithoutUsers_role_upgrade_requests_reviewer_idTousersInput
     role_upgrade_requests_role_upgrade_requests_user_idTousers?: role_upgrade_requestsCreateNestedManyWithoutUsers_role_upgrade_requests_user_idTousersInput
+    service_bookings?: service_bookingsCreateNestedManyWithoutUserInput
+    service_reviews?: service_reviewsCreateNestedManyWithoutUserInput
+    created_services?: servicesCreateNestedManyWithoutCreatorInput
+    session_enrollments?: session_enrollmentsCreateNestedManyWithoutUserInput
+    created_sessions?: sessionsCreateNestedManyWithoutCreatorInput
     discussion_comment_likes?: space_discussion_comment_likesCreateNestedManyWithoutUserInput
     discussion_comments?: space_discussion_commentsCreateNestedManyWithoutUserInput
     discussion_likes?: space_discussion_likesCreateNestedManyWithoutUserInput
@@ -103601,16 +103609,8 @@ export namespace Prisma {
     space_news_likes?: space_news_likesCreateNestedManyWithoutUserInput
     stargazing_spot_reviews?: stargazing_spot_reviewsCreateNestedManyWithoutUserInput
     created_stargazing_spots?: stargazing_spotsCreateNestedManyWithoutCreatorInput
-    created_sessions?: sessionsCreateNestedManyWithoutCreatorInput
-    session_enrollments?: session_enrollmentsCreateNestedManyWithoutUserInput
-    created_services?: servicesCreateNestedManyWithoutCreatorInput
-    service_bookings?: service_bookingsCreateNestedManyWithoutUserInput
-    service_reviews?: service_reviewsCreateNestedManyWithoutUserInput
     subscriptions?: subscriptionsCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsCreateNestedOneWithoutUsersInput
-    created_polls?: pollsCreateNestedManyWithoutCreatorInput
-    poll_votes?: poll_votesCreateNestedManyWithoutVoterInput
-    poll_comments?: poll_commentsCreateNestedManyWithoutCommenterInput
   }
 
   export type usersUncheckedCreateWithoutChatbot_usageInput = {
@@ -103655,8 +103655,16 @@ export namespace Prisma {
     night_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousers?: night_camp_volunteering_applicationsUncheckedCreateNestedManyWithoutUsers_night_camp_volunteering_applications_reviewed_byTousersInput
     night_camp_volunteering_applications_night_camp_volunteering_applications_user_idTousers?: night_camp_volunteering_applicationsUncheckedCreateNestedManyWithoutUsers_night_camp_volunteering_applications_user_idTousersInput
     payments?: paymentsUncheckedCreateNestedManyWithoutUsersInput
+    poll_comments?: poll_commentsUncheckedCreateNestedManyWithoutCommenterInput
+    poll_votes?: poll_votesUncheckedCreateNestedManyWithoutVoterInput
+    created_polls?: pollsUncheckedCreateNestedManyWithoutCreatorInput
     role_upgrade_requests_role_upgrade_requests_reviewer_idTousers?: role_upgrade_requestsUncheckedCreateNestedManyWithoutUsers_role_upgrade_requests_reviewer_idTousersInput
     role_upgrade_requests_role_upgrade_requests_user_idTousers?: role_upgrade_requestsUncheckedCreateNestedManyWithoutUsers_role_upgrade_requests_user_idTousersInput
+    service_bookings?: service_bookingsUncheckedCreateNestedManyWithoutUserInput
+    service_reviews?: service_reviewsUncheckedCreateNestedManyWithoutUserInput
+    created_services?: servicesUncheckedCreateNestedManyWithoutCreatorInput
+    session_enrollments?: session_enrollmentsUncheckedCreateNestedManyWithoutUserInput
+    created_sessions?: sessionsUncheckedCreateNestedManyWithoutCreatorInput
     discussion_comment_likes?: space_discussion_comment_likesUncheckedCreateNestedManyWithoutUserInput
     discussion_comments?: space_discussion_commentsUncheckedCreateNestedManyWithoutUserInput
     discussion_likes?: space_discussion_likesUncheckedCreateNestedManyWithoutUserInput
@@ -103666,16 +103674,8 @@ export namespace Prisma {
     space_news_likes?: space_news_likesUncheckedCreateNestedManyWithoutUserInput
     stargazing_spot_reviews?: stargazing_spot_reviewsUncheckedCreateNestedManyWithoutUserInput
     created_stargazing_spots?: stargazing_spotsUncheckedCreateNestedManyWithoutCreatorInput
-    created_sessions?: sessionsUncheckedCreateNestedManyWithoutCreatorInput
-    session_enrollments?: session_enrollmentsUncheckedCreateNestedManyWithoutUserInput
-    created_services?: servicesUncheckedCreateNestedManyWithoutCreatorInput
-    service_bookings?: service_bookingsUncheckedCreateNestedManyWithoutUserInput
-    service_reviews?: service_reviewsUncheckedCreateNestedManyWithoutUserInput
     subscriptions?: subscriptionsUncheckedCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsUncheckedCreateNestedOneWithoutUsersInput
-    created_polls?: pollsUncheckedCreateNestedManyWithoutCreatorInput
-    poll_votes?: poll_votesUncheckedCreateNestedManyWithoutVoterInput
-    poll_comments?: poll_commentsUncheckedCreateNestedManyWithoutCommenterInput
   }
 
   export type usersCreateOrConnectWithoutChatbot_usageInput = {
@@ -103735,8 +103735,16 @@ export namespace Prisma {
     night_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousers?: night_camp_volunteering_applicationsUpdateManyWithoutUsers_night_camp_volunteering_applications_reviewed_byTousersNestedInput
     night_camp_volunteering_applications_night_camp_volunteering_applications_user_idTousers?: night_camp_volunteering_applicationsUpdateManyWithoutUsers_night_camp_volunteering_applications_user_idTousersNestedInput
     payments?: paymentsUpdateManyWithoutUsersNestedInput
+    poll_comments?: poll_commentsUpdateManyWithoutCommenterNestedInput
+    poll_votes?: poll_votesUpdateManyWithoutVoterNestedInput
+    created_polls?: pollsUpdateManyWithoutCreatorNestedInput
     role_upgrade_requests_role_upgrade_requests_reviewer_idTousers?: role_upgrade_requestsUpdateManyWithoutUsers_role_upgrade_requests_reviewer_idTousersNestedInput
     role_upgrade_requests_role_upgrade_requests_user_idTousers?: role_upgrade_requestsUpdateManyWithoutUsers_role_upgrade_requests_user_idTousersNestedInput
+    service_bookings?: service_bookingsUpdateManyWithoutUserNestedInput
+    service_reviews?: service_reviewsUpdateManyWithoutUserNestedInput
+    created_services?: servicesUpdateManyWithoutCreatorNestedInput
+    session_enrollments?: session_enrollmentsUpdateManyWithoutUserNestedInput
+    created_sessions?: sessionsUpdateManyWithoutCreatorNestedInput
     discussion_comment_likes?: space_discussion_comment_likesUpdateManyWithoutUserNestedInput
     discussion_comments?: space_discussion_commentsUpdateManyWithoutUserNestedInput
     discussion_likes?: space_discussion_likesUpdateManyWithoutUserNestedInput
@@ -103746,16 +103754,8 @@ export namespace Prisma {
     space_news_likes?: space_news_likesUpdateManyWithoutUserNestedInput
     stargazing_spot_reviews?: stargazing_spot_reviewsUpdateManyWithoutUserNestedInput
     created_stargazing_spots?: stargazing_spotsUpdateManyWithoutCreatorNestedInput
-    created_sessions?: sessionsUpdateManyWithoutCreatorNestedInput
-    session_enrollments?: session_enrollmentsUpdateManyWithoutUserNestedInput
-    created_services?: servicesUpdateManyWithoutCreatorNestedInput
-    service_bookings?: service_bookingsUpdateManyWithoutUserNestedInput
-    service_reviews?: service_reviewsUpdateManyWithoutUserNestedInput
     subscriptions?: subscriptionsUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUpdateOneWithoutUsersNestedInput
-    created_polls?: pollsUpdateManyWithoutCreatorNestedInput
-    poll_votes?: poll_votesUpdateManyWithoutVoterNestedInput
-    poll_comments?: poll_commentsUpdateManyWithoutCommenterNestedInput
   }
 
   export type usersUncheckedUpdateWithoutChatbot_usageInput = {
@@ -103800,8 +103800,16 @@ export namespace Prisma {
     night_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousers?: night_camp_volunteering_applicationsUncheckedUpdateManyWithoutUsers_night_camp_volunteering_applications_reviewed_byTousersNestedInput
     night_camp_volunteering_applications_night_camp_volunteering_applications_user_idTousers?: night_camp_volunteering_applicationsUncheckedUpdateManyWithoutUsers_night_camp_volunteering_applications_user_idTousersNestedInput
     payments?: paymentsUncheckedUpdateManyWithoutUsersNestedInput
+    poll_comments?: poll_commentsUncheckedUpdateManyWithoutCommenterNestedInput
+    poll_votes?: poll_votesUncheckedUpdateManyWithoutVoterNestedInput
+    created_polls?: pollsUncheckedUpdateManyWithoutCreatorNestedInput
     role_upgrade_requests_role_upgrade_requests_reviewer_idTousers?: role_upgrade_requestsUncheckedUpdateManyWithoutUsers_role_upgrade_requests_reviewer_idTousersNestedInput
     role_upgrade_requests_role_upgrade_requests_user_idTousers?: role_upgrade_requestsUncheckedUpdateManyWithoutUsers_role_upgrade_requests_user_idTousersNestedInput
+    service_bookings?: service_bookingsUncheckedUpdateManyWithoutUserNestedInput
+    service_reviews?: service_reviewsUncheckedUpdateManyWithoutUserNestedInput
+    created_services?: servicesUncheckedUpdateManyWithoutCreatorNestedInput
+    session_enrollments?: session_enrollmentsUncheckedUpdateManyWithoutUserNestedInput
+    created_sessions?: sessionsUncheckedUpdateManyWithoutCreatorNestedInput
     discussion_comment_likes?: space_discussion_comment_likesUncheckedUpdateManyWithoutUserNestedInput
     discussion_comments?: space_discussion_commentsUncheckedUpdateManyWithoutUserNestedInput
     discussion_likes?: space_discussion_likesUncheckedUpdateManyWithoutUserNestedInput
@@ -103811,16 +103819,8 @@ export namespace Prisma {
     space_news_likes?: space_news_likesUncheckedUpdateManyWithoutUserNestedInput
     stargazing_spot_reviews?: stargazing_spot_reviewsUncheckedUpdateManyWithoutUserNestedInput
     created_stargazing_spots?: stargazing_spotsUncheckedUpdateManyWithoutCreatorNestedInput
-    created_sessions?: sessionsUncheckedUpdateManyWithoutCreatorNestedInput
-    session_enrollments?: session_enrollmentsUncheckedUpdateManyWithoutUserNestedInput
-    created_services?: servicesUncheckedUpdateManyWithoutCreatorNestedInput
-    service_bookings?: service_bookingsUncheckedUpdateManyWithoutUserNestedInput
-    service_reviews?: service_reviewsUncheckedUpdateManyWithoutUserNestedInput
     subscriptions?: subscriptionsUncheckedUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUncheckedUpdateOneWithoutUsersNestedInput
-    created_polls?: pollsUncheckedUpdateManyWithoutCreatorNestedInput
-    poll_votes?: poll_votesUncheckedUpdateManyWithoutVoterNestedInput
-    poll_comments?: poll_commentsUncheckedUpdateManyWithoutCommenterNestedInput
   }
 
   export type blogsCreateWithoutBlog_commentsInput = {
@@ -103979,8 +103979,16 @@ export namespace Prisma {
     night_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousers?: night_camp_volunteering_applicationsCreateNestedManyWithoutUsers_night_camp_volunteering_applications_reviewed_byTousersInput
     night_camp_volunteering_applications_night_camp_volunteering_applications_user_idTousers?: night_camp_volunteering_applicationsCreateNestedManyWithoutUsers_night_camp_volunteering_applications_user_idTousersInput
     payments?: paymentsCreateNestedManyWithoutUsersInput
+    poll_comments?: poll_commentsCreateNestedManyWithoutCommenterInput
+    poll_votes?: poll_votesCreateNestedManyWithoutVoterInput
+    created_polls?: pollsCreateNestedManyWithoutCreatorInput
     role_upgrade_requests_role_upgrade_requests_reviewer_idTousers?: role_upgrade_requestsCreateNestedManyWithoutUsers_role_upgrade_requests_reviewer_idTousersInput
     role_upgrade_requests_role_upgrade_requests_user_idTousers?: role_upgrade_requestsCreateNestedManyWithoutUsers_role_upgrade_requests_user_idTousersInput
+    service_bookings?: service_bookingsCreateNestedManyWithoutUserInput
+    service_reviews?: service_reviewsCreateNestedManyWithoutUserInput
+    created_services?: servicesCreateNestedManyWithoutCreatorInput
+    session_enrollments?: session_enrollmentsCreateNestedManyWithoutUserInput
+    created_sessions?: sessionsCreateNestedManyWithoutCreatorInput
     discussion_comment_likes?: space_discussion_comment_likesCreateNestedManyWithoutUserInput
     discussion_comments?: space_discussion_commentsCreateNestedManyWithoutUserInput
     discussion_likes?: space_discussion_likesCreateNestedManyWithoutUserInput
@@ -103990,16 +103998,8 @@ export namespace Prisma {
     space_news_likes?: space_news_likesCreateNestedManyWithoutUserInput
     stargazing_spot_reviews?: stargazing_spot_reviewsCreateNestedManyWithoutUserInput
     created_stargazing_spots?: stargazing_spotsCreateNestedManyWithoutCreatorInput
-    created_sessions?: sessionsCreateNestedManyWithoutCreatorInput
-    session_enrollments?: session_enrollmentsCreateNestedManyWithoutUserInput
-    created_services?: servicesCreateNestedManyWithoutCreatorInput
-    service_bookings?: service_bookingsCreateNestedManyWithoutUserInput
-    service_reviews?: service_reviewsCreateNestedManyWithoutUserInput
     subscriptions?: subscriptionsCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsCreateNestedOneWithoutUsersInput
-    created_polls?: pollsCreateNestedManyWithoutCreatorInput
-    poll_votes?: poll_votesCreateNestedManyWithoutVoterInput
-    poll_comments?: poll_commentsCreateNestedManyWithoutCommenterInput
   }
 
   export type usersUncheckedCreateWithoutBlog_commentsInput = {
@@ -104044,8 +104044,16 @@ export namespace Prisma {
     night_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousers?: night_camp_volunteering_applicationsUncheckedCreateNestedManyWithoutUsers_night_camp_volunteering_applications_reviewed_byTousersInput
     night_camp_volunteering_applications_night_camp_volunteering_applications_user_idTousers?: night_camp_volunteering_applicationsUncheckedCreateNestedManyWithoutUsers_night_camp_volunteering_applications_user_idTousersInput
     payments?: paymentsUncheckedCreateNestedManyWithoutUsersInput
+    poll_comments?: poll_commentsUncheckedCreateNestedManyWithoutCommenterInput
+    poll_votes?: poll_votesUncheckedCreateNestedManyWithoutVoterInput
+    created_polls?: pollsUncheckedCreateNestedManyWithoutCreatorInput
     role_upgrade_requests_role_upgrade_requests_reviewer_idTousers?: role_upgrade_requestsUncheckedCreateNestedManyWithoutUsers_role_upgrade_requests_reviewer_idTousersInput
     role_upgrade_requests_role_upgrade_requests_user_idTousers?: role_upgrade_requestsUncheckedCreateNestedManyWithoutUsers_role_upgrade_requests_user_idTousersInput
+    service_bookings?: service_bookingsUncheckedCreateNestedManyWithoutUserInput
+    service_reviews?: service_reviewsUncheckedCreateNestedManyWithoutUserInput
+    created_services?: servicesUncheckedCreateNestedManyWithoutCreatorInput
+    session_enrollments?: session_enrollmentsUncheckedCreateNestedManyWithoutUserInput
+    created_sessions?: sessionsUncheckedCreateNestedManyWithoutCreatorInput
     discussion_comment_likes?: space_discussion_comment_likesUncheckedCreateNestedManyWithoutUserInput
     discussion_comments?: space_discussion_commentsUncheckedCreateNestedManyWithoutUserInput
     discussion_likes?: space_discussion_likesUncheckedCreateNestedManyWithoutUserInput
@@ -104055,16 +104063,8 @@ export namespace Prisma {
     space_news_likes?: space_news_likesUncheckedCreateNestedManyWithoutUserInput
     stargazing_spot_reviews?: stargazing_spot_reviewsUncheckedCreateNestedManyWithoutUserInput
     created_stargazing_spots?: stargazing_spotsUncheckedCreateNestedManyWithoutCreatorInput
-    created_sessions?: sessionsUncheckedCreateNestedManyWithoutCreatorInput
-    session_enrollments?: session_enrollmentsUncheckedCreateNestedManyWithoutUserInput
-    created_services?: servicesUncheckedCreateNestedManyWithoutCreatorInput
-    service_bookings?: service_bookingsUncheckedCreateNestedManyWithoutUserInput
-    service_reviews?: service_reviewsUncheckedCreateNestedManyWithoutUserInput
     subscriptions?: subscriptionsUncheckedCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsUncheckedCreateNestedOneWithoutUsersInput
-    created_polls?: pollsUncheckedCreateNestedManyWithoutCreatorInput
-    poll_votes?: poll_votesUncheckedCreateNestedManyWithoutVoterInput
-    poll_comments?: poll_commentsUncheckedCreateNestedManyWithoutCommenterInput
   }
 
   export type usersCreateOrConnectWithoutBlog_commentsInput = {
@@ -104236,8 +104236,16 @@ export namespace Prisma {
     night_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousers?: night_camp_volunteering_applicationsUpdateManyWithoutUsers_night_camp_volunteering_applications_reviewed_byTousersNestedInput
     night_camp_volunteering_applications_night_camp_volunteering_applications_user_idTousers?: night_camp_volunteering_applicationsUpdateManyWithoutUsers_night_camp_volunteering_applications_user_idTousersNestedInput
     payments?: paymentsUpdateManyWithoutUsersNestedInput
+    poll_comments?: poll_commentsUpdateManyWithoutCommenterNestedInput
+    poll_votes?: poll_votesUpdateManyWithoutVoterNestedInput
+    created_polls?: pollsUpdateManyWithoutCreatorNestedInput
     role_upgrade_requests_role_upgrade_requests_reviewer_idTousers?: role_upgrade_requestsUpdateManyWithoutUsers_role_upgrade_requests_reviewer_idTousersNestedInput
     role_upgrade_requests_role_upgrade_requests_user_idTousers?: role_upgrade_requestsUpdateManyWithoutUsers_role_upgrade_requests_user_idTousersNestedInput
+    service_bookings?: service_bookingsUpdateManyWithoutUserNestedInput
+    service_reviews?: service_reviewsUpdateManyWithoutUserNestedInput
+    created_services?: servicesUpdateManyWithoutCreatorNestedInput
+    session_enrollments?: session_enrollmentsUpdateManyWithoutUserNestedInput
+    created_sessions?: sessionsUpdateManyWithoutCreatorNestedInput
     discussion_comment_likes?: space_discussion_comment_likesUpdateManyWithoutUserNestedInput
     discussion_comments?: space_discussion_commentsUpdateManyWithoutUserNestedInput
     discussion_likes?: space_discussion_likesUpdateManyWithoutUserNestedInput
@@ -104247,16 +104255,8 @@ export namespace Prisma {
     space_news_likes?: space_news_likesUpdateManyWithoutUserNestedInput
     stargazing_spot_reviews?: stargazing_spot_reviewsUpdateManyWithoutUserNestedInput
     created_stargazing_spots?: stargazing_spotsUpdateManyWithoutCreatorNestedInput
-    created_sessions?: sessionsUpdateManyWithoutCreatorNestedInput
-    session_enrollments?: session_enrollmentsUpdateManyWithoutUserNestedInput
-    created_services?: servicesUpdateManyWithoutCreatorNestedInput
-    service_bookings?: service_bookingsUpdateManyWithoutUserNestedInput
-    service_reviews?: service_reviewsUpdateManyWithoutUserNestedInput
     subscriptions?: subscriptionsUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUpdateOneWithoutUsersNestedInput
-    created_polls?: pollsUpdateManyWithoutCreatorNestedInput
-    poll_votes?: poll_votesUpdateManyWithoutVoterNestedInput
-    poll_comments?: poll_commentsUpdateManyWithoutCommenterNestedInput
   }
 
   export type usersUncheckedUpdateWithoutBlog_commentsInput = {
@@ -104301,8 +104301,16 @@ export namespace Prisma {
     night_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousers?: night_camp_volunteering_applicationsUncheckedUpdateManyWithoutUsers_night_camp_volunteering_applications_reviewed_byTousersNestedInput
     night_camp_volunteering_applications_night_camp_volunteering_applications_user_idTousers?: night_camp_volunteering_applicationsUncheckedUpdateManyWithoutUsers_night_camp_volunteering_applications_user_idTousersNestedInput
     payments?: paymentsUncheckedUpdateManyWithoutUsersNestedInput
+    poll_comments?: poll_commentsUncheckedUpdateManyWithoutCommenterNestedInput
+    poll_votes?: poll_votesUncheckedUpdateManyWithoutVoterNestedInput
+    created_polls?: pollsUncheckedUpdateManyWithoutCreatorNestedInput
     role_upgrade_requests_role_upgrade_requests_reviewer_idTousers?: role_upgrade_requestsUncheckedUpdateManyWithoutUsers_role_upgrade_requests_reviewer_idTousersNestedInput
     role_upgrade_requests_role_upgrade_requests_user_idTousers?: role_upgrade_requestsUncheckedUpdateManyWithoutUsers_role_upgrade_requests_user_idTousersNestedInput
+    service_bookings?: service_bookingsUncheckedUpdateManyWithoutUserNestedInput
+    service_reviews?: service_reviewsUncheckedUpdateManyWithoutUserNestedInput
+    created_services?: servicesUncheckedUpdateManyWithoutCreatorNestedInput
+    session_enrollments?: session_enrollmentsUncheckedUpdateManyWithoutUserNestedInput
+    created_sessions?: sessionsUncheckedUpdateManyWithoutCreatorNestedInput
     discussion_comment_likes?: space_discussion_comment_likesUncheckedUpdateManyWithoutUserNestedInput
     discussion_comments?: space_discussion_commentsUncheckedUpdateManyWithoutUserNestedInput
     discussion_likes?: space_discussion_likesUncheckedUpdateManyWithoutUserNestedInput
@@ -104312,16 +104320,8 @@ export namespace Prisma {
     space_news_likes?: space_news_likesUncheckedUpdateManyWithoutUserNestedInput
     stargazing_spot_reviews?: stargazing_spot_reviewsUncheckedUpdateManyWithoutUserNestedInput
     created_stargazing_spots?: stargazing_spotsUncheckedUpdateManyWithoutCreatorNestedInput
-    created_sessions?: sessionsUncheckedUpdateManyWithoutCreatorNestedInput
-    session_enrollments?: session_enrollmentsUncheckedUpdateManyWithoutUserNestedInput
-    created_services?: servicesUncheckedUpdateManyWithoutCreatorNestedInput
-    service_bookings?: service_bookingsUncheckedUpdateManyWithoutUserNestedInput
-    service_reviews?: service_reviewsUncheckedUpdateManyWithoutUserNestedInput
     subscriptions?: subscriptionsUncheckedUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUncheckedUpdateOneWithoutUsersNestedInput
-    created_polls?: pollsUncheckedUpdateManyWithoutCreatorNestedInput
-    poll_votes?: poll_votesUncheckedUpdateManyWithoutVoterNestedInput
-    poll_comments?: poll_commentsUncheckedUpdateManyWithoutCommenterNestedInput
   }
 
   export type QuizParticipantsCreateWithoutUsersInput = {
@@ -105173,6 +105173,85 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type poll_commentsCreateWithoutCommenterInput = {
+    comment: string
+    created_at?: Date | string
+    updated_at?: Date | string
+    poll: pollsCreateNestedOneWithoutCommentsInput
+  }
+
+  export type poll_commentsUncheckedCreateWithoutCommenterInput = {
+    id?: number
+    poll_id: number
+    comment: string
+    created_at?: Date | string
+    updated_at?: Date | string
+  }
+
+  export type poll_commentsCreateOrConnectWithoutCommenterInput = {
+    where: poll_commentsWhereUniqueInput
+    create: XOR<poll_commentsCreateWithoutCommenterInput, poll_commentsUncheckedCreateWithoutCommenterInput>
+  }
+
+  export type poll_commentsCreateManyCommenterInputEnvelope = {
+    data: poll_commentsCreateManyCommenterInput | poll_commentsCreateManyCommenterInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type poll_votesCreateWithoutVoterInput = {
+    poll_id: number
+    voted_at?: Date | string
+    choice: poll_choicesCreateNestedOneWithoutVotesInput
+  }
+
+  export type poll_votesUncheckedCreateWithoutVoterInput = {
+    id?: number
+    poll_id: number
+    choice_id: number
+    voted_at?: Date | string
+  }
+
+  export type poll_votesCreateOrConnectWithoutVoterInput = {
+    where: poll_votesWhereUniqueInput
+    create: XOR<poll_votesCreateWithoutVoterInput, poll_votesUncheckedCreateWithoutVoterInput>
+  }
+
+  export type poll_votesCreateManyVoterInputEnvelope = {
+    data: poll_votesCreateManyVoterInput | poll_votesCreateManyVoterInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type pollsCreateWithoutCreatorInput = {
+    title: string
+    description?: string | null
+    created_at?: Date | string
+    updated_at?: Date | string
+    is_active?: boolean
+    choices?: poll_choicesCreateNestedManyWithoutPollInput
+    comments?: poll_commentsCreateNestedManyWithoutPollInput
+  }
+
+  export type pollsUncheckedCreateWithoutCreatorInput = {
+    id?: number
+    title: string
+    description?: string | null
+    created_at?: Date | string
+    updated_at?: Date | string
+    is_active?: boolean
+    choices?: poll_choicesUncheckedCreateNestedManyWithoutPollInput
+    comments?: poll_commentsUncheckedCreateNestedManyWithoutPollInput
+  }
+
+  export type pollsCreateOrConnectWithoutCreatorInput = {
+    where: pollsWhereUniqueInput
+    create: XOR<pollsCreateWithoutCreatorInput, pollsUncheckedCreateWithoutCreatorInput>
+  }
+
+  export type pollsCreateManyCreatorInputEnvelope = {
+    data: pollsCreateManyCreatorInput | pollsCreateManyCreatorInput[]
+    skipDuplicates?: boolean
+  }
+
   export type role_upgrade_requestsCreateWithoutUsers_role_upgrade_requests_reviewer_idTousersInput = {
     current_user_role: string
     requested_user_role: string
@@ -105240,6 +105319,275 @@ export namespace Prisma {
 
   export type role_upgrade_requestsCreateManyUsers_role_upgrade_requests_user_idTousersInputEnvelope = {
     data: role_upgrade_requestsCreateManyUsers_role_upgrade_requests_user_idTousersInput | role_upgrade_requestsCreateManyUsers_role_upgrade_requests_user_idTousersInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type service_bookingsCreateWithoutUserInput = {
+    booking_date: Date | string
+    booking_time?: Date | string | null
+    participants_count?: number
+    total_amount: Decimal | DecimalJsLike | number | string
+    payment_status?: $Enums.booking_payment_status
+    payment_method?: string | null
+    transaction_id?: string | null
+    booking_status?: $Enums.booking_status
+    special_requests?: string | null
+    cancellation_reason?: string | null
+    cancelled_at?: Date | string | null
+    confirmed_at?: Date | string | null
+    completed_at?: Date | string | null
+    created_at?: Date | string
+    updated_at?: Date | string
+    service: servicesCreateNestedOneWithoutBookingsInput
+  }
+
+  export type service_bookingsUncheckedCreateWithoutUserInput = {
+    id?: number
+    service_id: number
+    booking_date: Date | string
+    booking_time?: Date | string | null
+    participants_count?: number
+    total_amount: Decimal | DecimalJsLike | number | string
+    payment_status?: $Enums.booking_payment_status
+    payment_method?: string | null
+    transaction_id?: string | null
+    booking_status?: $Enums.booking_status
+    special_requests?: string | null
+    cancellation_reason?: string | null
+    cancelled_at?: Date | string | null
+    confirmed_at?: Date | string | null
+    completed_at?: Date | string | null
+    created_at?: Date | string
+    updated_at?: Date | string
+  }
+
+  export type service_bookingsCreateOrConnectWithoutUserInput = {
+    where: service_bookingsWhereUniqueInput
+    create: XOR<service_bookingsCreateWithoutUserInput, service_bookingsUncheckedCreateWithoutUserInput>
+  }
+
+  export type service_bookingsCreateManyUserInputEnvelope = {
+    data: service_bookingsCreateManyUserInput | service_bookingsCreateManyUserInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type service_reviewsCreateWithoutUserInput = {
+    rating: number
+    review: string
+    images?: NullableJsonNullValueInput | InputJsonValue
+    is_verified?: boolean
+    created_at?: Date | string
+    updated_at?: Date | string
+    service: servicesCreateNestedOneWithoutReviewsInput
+  }
+
+  export type service_reviewsUncheckedCreateWithoutUserInput = {
+    id?: number
+    service_id: number
+    rating: number
+    review: string
+    images?: NullableJsonNullValueInput | InputJsonValue
+    is_verified?: boolean
+    created_at?: Date | string
+    updated_at?: Date | string
+  }
+
+  export type service_reviewsCreateOrConnectWithoutUserInput = {
+    where: service_reviewsWhereUniqueInput
+    create: XOR<service_reviewsCreateWithoutUserInput, service_reviewsUncheckedCreateWithoutUserInput>
+  }
+
+  export type service_reviewsCreateManyUserInputEnvelope = {
+    data: service_reviewsCreateManyUserInput | service_reviewsCreateManyUserInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type servicesCreateWithoutCreatorInput = {
+    title: string
+    description: string
+    category: $Enums.service_category
+    price: Decimal | DecimalJsLike | number | string
+    duration: string
+    max_participants: number
+    location: string
+    difficulty: $Enums.service_difficulty
+    equipment?: JsonNullValueInput | InputJsonValue
+    next_available: Date | string
+    image_url?: string | null
+    featured?: boolean
+    tags?: JsonNullValueInput | InputJsonValue
+    requirements?: string | null
+    cancellation_policy?: string | null
+    meeting_point?: string | null
+    what_to_expect?: string | null
+    weather_policy?: $Enums.weather_policy_type | null
+    booking_deadline?: number
+    languages?: JsonNullValueInput | InputJsonValue
+    certification?: string | null
+    experience?: string | null
+    group_discount?: boolean
+    private_booking?: boolean
+    instant_booking?: boolean
+    status?: $Enums.service_status
+    views_count?: number
+    bookings_count?: number
+    rating?: number
+    review_count?: number
+    is_active?: boolean
+    created_at?: Date | string
+    updated_at?: Date | string
+    availability?: service_availabilityCreateNestedManyWithoutServiceInput
+    bookings?: service_bookingsCreateNestedManyWithoutServiceInput
+    media?: service_mediaCreateNestedManyWithoutServiceInput
+    reviews?: service_reviewsCreateNestedManyWithoutServiceInput
+  }
+
+  export type servicesUncheckedCreateWithoutCreatorInput = {
+    id?: number
+    title: string
+    description: string
+    category: $Enums.service_category
+    price: Decimal | DecimalJsLike | number | string
+    duration: string
+    max_participants: number
+    location: string
+    difficulty: $Enums.service_difficulty
+    equipment?: JsonNullValueInput | InputJsonValue
+    next_available: Date | string
+    image_url?: string | null
+    featured?: boolean
+    tags?: JsonNullValueInput | InputJsonValue
+    requirements?: string | null
+    cancellation_policy?: string | null
+    meeting_point?: string | null
+    what_to_expect?: string | null
+    weather_policy?: $Enums.weather_policy_type | null
+    booking_deadline?: number
+    languages?: JsonNullValueInput | InputJsonValue
+    certification?: string | null
+    experience?: string | null
+    group_discount?: boolean
+    private_booking?: boolean
+    instant_booking?: boolean
+    status?: $Enums.service_status
+    views_count?: number
+    bookings_count?: number
+    rating?: number
+    review_count?: number
+    is_active?: boolean
+    created_at?: Date | string
+    updated_at?: Date | string
+    availability?: service_availabilityUncheckedCreateNestedManyWithoutServiceInput
+    bookings?: service_bookingsUncheckedCreateNestedManyWithoutServiceInput
+    media?: service_mediaUncheckedCreateNestedManyWithoutServiceInput
+    reviews?: service_reviewsUncheckedCreateNestedManyWithoutServiceInput
+  }
+
+  export type servicesCreateOrConnectWithoutCreatorInput = {
+    where: servicesWhereUniqueInput
+    create: XOR<servicesCreateWithoutCreatorInput, servicesUncheckedCreateWithoutCreatorInput>
+  }
+
+  export type servicesCreateManyCreatorInputEnvelope = {
+    data: servicesCreateManyCreatorInput | servicesCreateManyCreatorInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type session_enrollmentsCreateWithoutUserInput = {
+    enrollment_date?: Date | string
+    payment_status?: $Enums.enrollment_payment_status
+    payment_amount?: Decimal | DecimalJsLike | number | string | null
+    payment_method?: string | null
+    transaction_id?: string | null
+    access_granted?: boolean
+    completed?: boolean
+    progress?: number | null
+    last_accessed_at?: Date | string | null
+    notes?: string | null
+    created_at?: Date | string
+    updated_at?: Date | string
+    session: sessionsCreateNestedOneWithoutEnrollmentsInput
+  }
+
+  export type session_enrollmentsUncheckedCreateWithoutUserInput = {
+    id?: number
+    session_id: number
+    enrollment_date?: Date | string
+    payment_status?: $Enums.enrollment_payment_status
+    payment_amount?: Decimal | DecimalJsLike | number | string | null
+    payment_method?: string | null
+    transaction_id?: string | null
+    access_granted?: boolean
+    completed?: boolean
+    progress?: number | null
+    last_accessed_at?: Date | string | null
+    notes?: string | null
+    created_at?: Date | string
+    updated_at?: Date | string
+  }
+
+  export type session_enrollmentsCreateOrConnectWithoutUserInput = {
+    where: session_enrollmentsWhereUniqueInput
+    create: XOR<session_enrollmentsCreateWithoutUserInput, session_enrollmentsUncheckedCreateWithoutUserInput>
+  }
+
+  export type session_enrollmentsCreateManyUserInputEnvelope = {
+    data: session_enrollmentsCreateManyUserInput | session_enrollmentsCreateManyUserInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type sessionsCreateWithoutCreatorInput = {
+    title: string
+    session_type: $Enums.session_type
+    payment_type: $Enums.payment_type
+    price?: Decimal | DecimalJsLike | number | string | null
+    duration: number
+    session_date: Date | string
+    session_time: Date | string
+    max_participants?: number | null
+    difficulty_level: $Enums.difficulty_level
+    session_link?: string | null
+    description: string
+    materials?: NullableJsonNullValueInput | InputJsonValue
+    session_notes?: string | null
+    created_date?: Date | string
+    created_time?: Date | string
+    is_enabled?: boolean
+    created_at?: Date | string
+    updated_at?: Date | string
+    enrollments?: session_enrollmentsCreateNestedManyWithoutSessionInput
+  }
+
+  export type sessionsUncheckedCreateWithoutCreatorInput = {
+    id?: number
+    title: string
+    session_type: $Enums.session_type
+    payment_type: $Enums.payment_type
+    price?: Decimal | DecimalJsLike | number | string | null
+    duration: number
+    session_date: Date | string
+    session_time: Date | string
+    max_participants?: number | null
+    difficulty_level: $Enums.difficulty_level
+    session_link?: string | null
+    description: string
+    materials?: NullableJsonNullValueInput | InputJsonValue
+    session_notes?: string | null
+    created_date?: Date | string
+    created_time?: Date | string
+    is_enabled?: boolean
+    created_at?: Date | string
+    updated_at?: Date | string
+    enrollments?: session_enrollmentsUncheckedCreateNestedManyWithoutSessionInput
+  }
+
+  export type sessionsCreateOrConnectWithoutCreatorInput = {
+    where: sessionsWhereUniqueInput
+    create: XOR<sessionsCreateWithoutCreatorInput, sessionsUncheckedCreateWithoutCreatorInput>
+  }
+
+  export type sessionsCreateManyCreatorInputEnvelope = {
+    data: sessionsCreateManyCreatorInput | sessionsCreateManyCreatorInput[]
     skipDuplicates?: boolean
   }
 
@@ -105516,275 +105864,6 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
-  export type sessionsCreateWithoutCreatorInput = {
-    title: string
-    session_type: $Enums.session_type
-    payment_type: $Enums.payment_type
-    price?: Decimal | DecimalJsLike | number | string | null
-    duration: number
-    session_date: Date | string
-    session_time: Date | string
-    max_participants?: number | null
-    difficulty_level: $Enums.difficulty_level
-    session_link?: string | null
-    description: string
-    materials?: NullableJsonNullValueInput | InputJsonValue
-    session_notes?: string | null
-    created_date?: Date | string
-    created_time?: Date | string
-    is_enabled?: boolean
-    created_at?: Date | string
-    updated_at?: Date | string
-    enrollments?: session_enrollmentsCreateNestedManyWithoutSessionInput
-  }
-
-  export type sessionsUncheckedCreateWithoutCreatorInput = {
-    id?: number
-    title: string
-    session_type: $Enums.session_type
-    payment_type: $Enums.payment_type
-    price?: Decimal | DecimalJsLike | number | string | null
-    duration: number
-    session_date: Date | string
-    session_time: Date | string
-    max_participants?: number | null
-    difficulty_level: $Enums.difficulty_level
-    session_link?: string | null
-    description: string
-    materials?: NullableJsonNullValueInput | InputJsonValue
-    session_notes?: string | null
-    created_date?: Date | string
-    created_time?: Date | string
-    is_enabled?: boolean
-    created_at?: Date | string
-    updated_at?: Date | string
-    enrollments?: session_enrollmentsUncheckedCreateNestedManyWithoutSessionInput
-  }
-
-  export type sessionsCreateOrConnectWithoutCreatorInput = {
-    where: sessionsWhereUniqueInput
-    create: XOR<sessionsCreateWithoutCreatorInput, sessionsUncheckedCreateWithoutCreatorInput>
-  }
-
-  export type sessionsCreateManyCreatorInputEnvelope = {
-    data: sessionsCreateManyCreatorInput | sessionsCreateManyCreatorInput[]
-    skipDuplicates?: boolean
-  }
-
-  export type session_enrollmentsCreateWithoutUserInput = {
-    enrollment_date?: Date | string
-    payment_status?: $Enums.enrollment_payment_status
-    payment_amount?: Decimal | DecimalJsLike | number | string | null
-    payment_method?: string | null
-    transaction_id?: string | null
-    access_granted?: boolean
-    completed?: boolean
-    progress?: number | null
-    last_accessed_at?: Date | string | null
-    notes?: string | null
-    created_at?: Date | string
-    updated_at?: Date | string
-    session: sessionsCreateNestedOneWithoutEnrollmentsInput
-  }
-
-  export type session_enrollmentsUncheckedCreateWithoutUserInput = {
-    id?: number
-    session_id: number
-    enrollment_date?: Date | string
-    payment_status?: $Enums.enrollment_payment_status
-    payment_amount?: Decimal | DecimalJsLike | number | string | null
-    payment_method?: string | null
-    transaction_id?: string | null
-    access_granted?: boolean
-    completed?: boolean
-    progress?: number | null
-    last_accessed_at?: Date | string | null
-    notes?: string | null
-    created_at?: Date | string
-    updated_at?: Date | string
-  }
-
-  export type session_enrollmentsCreateOrConnectWithoutUserInput = {
-    where: session_enrollmentsWhereUniqueInput
-    create: XOR<session_enrollmentsCreateWithoutUserInput, session_enrollmentsUncheckedCreateWithoutUserInput>
-  }
-
-  export type session_enrollmentsCreateManyUserInputEnvelope = {
-    data: session_enrollmentsCreateManyUserInput | session_enrollmentsCreateManyUserInput[]
-    skipDuplicates?: boolean
-  }
-
-  export type servicesCreateWithoutCreatorInput = {
-    title: string
-    description: string
-    category: $Enums.service_category
-    price: Decimal | DecimalJsLike | number | string
-    duration: string
-    max_participants: number
-    location: string
-    difficulty: $Enums.service_difficulty
-    equipment?: JsonNullValueInput | InputJsonValue
-    next_available: Date | string
-    image_url?: string | null
-    featured?: boolean
-    tags?: JsonNullValueInput | InputJsonValue
-    requirements?: string | null
-    cancellation_policy?: string | null
-    meeting_point?: string | null
-    what_to_expect?: string | null
-    weather_policy?: $Enums.weather_policy_type | null
-    booking_deadline?: number
-    languages?: JsonNullValueInput | InputJsonValue
-    certification?: string | null
-    experience?: string | null
-    group_discount?: boolean
-    private_booking?: boolean
-    instant_booking?: boolean
-    status?: $Enums.service_status
-    views_count?: number
-    bookings_count?: number
-    rating?: number
-    review_count?: number
-    is_active?: boolean
-    created_at?: Date | string
-    updated_at?: Date | string
-    bookings?: service_bookingsCreateNestedManyWithoutServiceInput
-    reviews?: service_reviewsCreateNestedManyWithoutServiceInput
-    availability?: service_availabilityCreateNestedManyWithoutServiceInput
-    media?: service_mediaCreateNestedManyWithoutServiceInput
-  }
-
-  export type servicesUncheckedCreateWithoutCreatorInput = {
-    id?: number
-    title: string
-    description: string
-    category: $Enums.service_category
-    price: Decimal | DecimalJsLike | number | string
-    duration: string
-    max_participants: number
-    location: string
-    difficulty: $Enums.service_difficulty
-    equipment?: JsonNullValueInput | InputJsonValue
-    next_available: Date | string
-    image_url?: string | null
-    featured?: boolean
-    tags?: JsonNullValueInput | InputJsonValue
-    requirements?: string | null
-    cancellation_policy?: string | null
-    meeting_point?: string | null
-    what_to_expect?: string | null
-    weather_policy?: $Enums.weather_policy_type | null
-    booking_deadline?: number
-    languages?: JsonNullValueInput | InputJsonValue
-    certification?: string | null
-    experience?: string | null
-    group_discount?: boolean
-    private_booking?: boolean
-    instant_booking?: boolean
-    status?: $Enums.service_status
-    views_count?: number
-    bookings_count?: number
-    rating?: number
-    review_count?: number
-    is_active?: boolean
-    created_at?: Date | string
-    updated_at?: Date | string
-    bookings?: service_bookingsUncheckedCreateNestedManyWithoutServiceInput
-    reviews?: service_reviewsUncheckedCreateNestedManyWithoutServiceInput
-    availability?: service_availabilityUncheckedCreateNestedManyWithoutServiceInput
-    media?: service_mediaUncheckedCreateNestedManyWithoutServiceInput
-  }
-
-  export type servicesCreateOrConnectWithoutCreatorInput = {
-    where: servicesWhereUniqueInput
-    create: XOR<servicesCreateWithoutCreatorInput, servicesUncheckedCreateWithoutCreatorInput>
-  }
-
-  export type servicesCreateManyCreatorInputEnvelope = {
-    data: servicesCreateManyCreatorInput | servicesCreateManyCreatorInput[]
-    skipDuplicates?: boolean
-  }
-
-  export type service_bookingsCreateWithoutUserInput = {
-    booking_date: Date | string
-    booking_time?: Date | string | null
-    participants_count?: number
-    total_amount: Decimal | DecimalJsLike | number | string
-    payment_status?: $Enums.booking_payment_status
-    payment_method?: string | null
-    transaction_id?: string | null
-    booking_status?: $Enums.booking_status
-    special_requests?: string | null
-    cancellation_reason?: string | null
-    cancelled_at?: Date | string | null
-    confirmed_at?: Date | string | null
-    completed_at?: Date | string | null
-    created_at?: Date | string
-    updated_at?: Date | string
-    service: servicesCreateNestedOneWithoutBookingsInput
-  }
-
-  export type service_bookingsUncheckedCreateWithoutUserInput = {
-    id?: number
-    service_id: number
-    booking_date: Date | string
-    booking_time?: Date | string | null
-    participants_count?: number
-    total_amount: Decimal | DecimalJsLike | number | string
-    payment_status?: $Enums.booking_payment_status
-    payment_method?: string | null
-    transaction_id?: string | null
-    booking_status?: $Enums.booking_status
-    special_requests?: string | null
-    cancellation_reason?: string | null
-    cancelled_at?: Date | string | null
-    confirmed_at?: Date | string | null
-    completed_at?: Date | string | null
-    created_at?: Date | string
-    updated_at?: Date | string
-  }
-
-  export type service_bookingsCreateOrConnectWithoutUserInput = {
-    where: service_bookingsWhereUniqueInput
-    create: XOR<service_bookingsCreateWithoutUserInput, service_bookingsUncheckedCreateWithoutUserInput>
-  }
-
-  export type service_bookingsCreateManyUserInputEnvelope = {
-    data: service_bookingsCreateManyUserInput | service_bookingsCreateManyUserInput[]
-    skipDuplicates?: boolean
-  }
-
-  export type service_reviewsCreateWithoutUserInput = {
-    rating: number
-    review: string
-    images?: NullableJsonNullValueInput | InputJsonValue
-    is_verified?: boolean
-    created_at?: Date | string
-    updated_at?: Date | string
-    service: servicesCreateNestedOneWithoutReviewsInput
-  }
-
-  export type service_reviewsUncheckedCreateWithoutUserInput = {
-    id?: number
-    service_id: number
-    rating: number
-    review: string
-    images?: NullableJsonNullValueInput | InputJsonValue
-    is_verified?: boolean
-    created_at?: Date | string
-    updated_at?: Date | string
-  }
-
-  export type service_reviewsCreateOrConnectWithoutUserInput = {
-    where: service_reviewsWhereUniqueInput
-    create: XOR<service_reviewsCreateWithoutUserInput, service_reviewsUncheckedCreateWithoutUserInput>
-  }
-
-  export type service_reviewsCreateManyUserInputEnvelope = {
-    data: service_reviewsCreateManyUserInput | service_reviewsCreateManyUserInput[]
-    skipDuplicates?: boolean
-  }
-
   export type subscriptionsCreateWithoutUsersInput = {
     plan_type: $Enums.subscription_plan
     status?: $Enums.subscription_status | null
@@ -105852,85 +105931,6 @@ export namespace Prisma {
   export type user_settingsCreateOrConnectWithoutUsersInput = {
     where: user_settingsWhereUniqueInput
     create: XOR<user_settingsCreateWithoutUsersInput, user_settingsUncheckedCreateWithoutUsersInput>
-  }
-
-  export type pollsCreateWithoutCreatorInput = {
-    title: string
-    description?: string | null
-    created_at?: Date | string
-    updated_at?: Date | string
-    is_active?: boolean
-    choices?: poll_choicesCreateNestedManyWithoutPollInput
-    comments?: poll_commentsCreateNestedManyWithoutPollInput
-  }
-
-  export type pollsUncheckedCreateWithoutCreatorInput = {
-    id?: number
-    title: string
-    description?: string | null
-    created_at?: Date | string
-    updated_at?: Date | string
-    is_active?: boolean
-    choices?: poll_choicesUncheckedCreateNestedManyWithoutPollInput
-    comments?: poll_commentsUncheckedCreateNestedManyWithoutPollInput
-  }
-
-  export type pollsCreateOrConnectWithoutCreatorInput = {
-    where: pollsWhereUniqueInput
-    create: XOR<pollsCreateWithoutCreatorInput, pollsUncheckedCreateWithoutCreatorInput>
-  }
-
-  export type pollsCreateManyCreatorInputEnvelope = {
-    data: pollsCreateManyCreatorInput | pollsCreateManyCreatorInput[]
-    skipDuplicates?: boolean
-  }
-
-  export type poll_votesCreateWithoutVoterInput = {
-    poll_id: number
-    voted_at?: Date | string
-    choice: poll_choicesCreateNestedOneWithoutVotesInput
-  }
-
-  export type poll_votesUncheckedCreateWithoutVoterInput = {
-    id?: number
-    poll_id: number
-    choice_id: number
-    voted_at?: Date | string
-  }
-
-  export type poll_votesCreateOrConnectWithoutVoterInput = {
-    where: poll_votesWhereUniqueInput
-    create: XOR<poll_votesCreateWithoutVoterInput, poll_votesUncheckedCreateWithoutVoterInput>
-  }
-
-  export type poll_votesCreateManyVoterInputEnvelope = {
-    data: poll_votesCreateManyVoterInput | poll_votesCreateManyVoterInput[]
-    skipDuplicates?: boolean
-  }
-
-  export type poll_commentsCreateWithoutCommenterInput = {
-    comment: string
-    created_at?: Date | string
-    updated_at?: Date | string
-    poll: pollsCreateNestedOneWithoutCommentsInput
-  }
-
-  export type poll_commentsUncheckedCreateWithoutCommenterInput = {
-    id?: number
-    poll_id: number
-    comment: string
-    created_at?: Date | string
-    updated_at?: Date | string
-  }
-
-  export type poll_commentsCreateOrConnectWithoutCommenterInput = {
-    where: poll_commentsWhereUniqueInput
-    create: XOR<poll_commentsCreateWithoutCommenterInput, poll_commentsUncheckedCreateWithoutCommenterInput>
-  }
-
-  export type poll_commentsCreateManyCommenterInputEnvelope = {
-    data: poll_commentsCreateManyCommenterInput | poll_commentsCreateManyCommenterInput[]
-    skipDuplicates?: boolean
   }
 
   export type QuizParticipantsUpsertWithWhereUniqueWithoutUsersInput = {
@@ -106529,6 +106529,90 @@ export namespace Prisma {
     data: XOR<paymentsUpdateManyMutationInput, paymentsUncheckedUpdateManyWithoutUsersInput>
   }
 
+  export type poll_commentsUpsertWithWhereUniqueWithoutCommenterInput = {
+    where: poll_commentsWhereUniqueInput
+    update: XOR<poll_commentsUpdateWithoutCommenterInput, poll_commentsUncheckedUpdateWithoutCommenterInput>
+    create: XOR<poll_commentsCreateWithoutCommenterInput, poll_commentsUncheckedCreateWithoutCommenterInput>
+  }
+
+  export type poll_commentsUpdateWithWhereUniqueWithoutCommenterInput = {
+    where: poll_commentsWhereUniqueInput
+    data: XOR<poll_commentsUpdateWithoutCommenterInput, poll_commentsUncheckedUpdateWithoutCommenterInput>
+  }
+
+  export type poll_commentsUpdateManyWithWhereWithoutCommenterInput = {
+    where: poll_commentsScalarWhereInput
+    data: XOR<poll_commentsUpdateManyMutationInput, poll_commentsUncheckedUpdateManyWithoutCommenterInput>
+  }
+
+  export type poll_commentsScalarWhereInput = {
+    AND?: poll_commentsScalarWhereInput | poll_commentsScalarWhereInput[]
+    OR?: poll_commentsScalarWhereInput[]
+    NOT?: poll_commentsScalarWhereInput | poll_commentsScalarWhereInput[]
+    id?: IntFilter<"poll_comments"> | number
+    poll_id?: IntFilter<"poll_comments"> | number
+    user_id?: IntFilter<"poll_comments"> | number
+    comment?: StringFilter<"poll_comments"> | string
+    created_at?: DateTimeFilter<"poll_comments"> | Date | string
+    updated_at?: DateTimeFilter<"poll_comments"> | Date | string
+  }
+
+  export type poll_votesUpsertWithWhereUniqueWithoutVoterInput = {
+    where: poll_votesWhereUniqueInput
+    update: XOR<poll_votesUpdateWithoutVoterInput, poll_votesUncheckedUpdateWithoutVoterInput>
+    create: XOR<poll_votesCreateWithoutVoterInput, poll_votesUncheckedCreateWithoutVoterInput>
+  }
+
+  export type poll_votesUpdateWithWhereUniqueWithoutVoterInput = {
+    where: poll_votesWhereUniqueInput
+    data: XOR<poll_votesUpdateWithoutVoterInput, poll_votesUncheckedUpdateWithoutVoterInput>
+  }
+
+  export type poll_votesUpdateManyWithWhereWithoutVoterInput = {
+    where: poll_votesScalarWhereInput
+    data: XOR<poll_votesUpdateManyMutationInput, poll_votesUncheckedUpdateManyWithoutVoterInput>
+  }
+
+  export type poll_votesScalarWhereInput = {
+    AND?: poll_votesScalarWhereInput | poll_votesScalarWhereInput[]
+    OR?: poll_votesScalarWhereInput[]
+    NOT?: poll_votesScalarWhereInput | poll_votesScalarWhereInput[]
+    id?: IntFilter<"poll_votes"> | number
+    poll_id?: IntFilter<"poll_votes"> | number
+    choice_id?: IntFilter<"poll_votes"> | number
+    user_id?: IntFilter<"poll_votes"> | number
+    voted_at?: DateTimeFilter<"poll_votes"> | Date | string
+  }
+
+  export type pollsUpsertWithWhereUniqueWithoutCreatorInput = {
+    where: pollsWhereUniqueInput
+    update: XOR<pollsUpdateWithoutCreatorInput, pollsUncheckedUpdateWithoutCreatorInput>
+    create: XOR<pollsCreateWithoutCreatorInput, pollsUncheckedCreateWithoutCreatorInput>
+  }
+
+  export type pollsUpdateWithWhereUniqueWithoutCreatorInput = {
+    where: pollsWhereUniqueInput
+    data: XOR<pollsUpdateWithoutCreatorInput, pollsUncheckedUpdateWithoutCreatorInput>
+  }
+
+  export type pollsUpdateManyWithWhereWithoutCreatorInput = {
+    where: pollsScalarWhereInput
+    data: XOR<pollsUpdateManyMutationInput, pollsUncheckedUpdateManyWithoutCreatorInput>
+  }
+
+  export type pollsScalarWhereInput = {
+    AND?: pollsScalarWhereInput | pollsScalarWhereInput[]
+    OR?: pollsScalarWhereInput[]
+    NOT?: pollsScalarWhereInput | pollsScalarWhereInput[]
+    id?: IntFilter<"polls"> | number
+    title?: StringFilter<"polls"> | string
+    description?: StringNullableFilter<"polls"> | string | null
+    created_by?: IntFilter<"polls"> | number
+    created_at?: DateTimeFilter<"polls"> | Date | string
+    updated_at?: DateTimeFilter<"polls"> | Date | string
+    is_active?: BoolFilter<"polls"> | boolean
+  }
+
   export type role_upgrade_requestsUpsertWithWhereUniqueWithoutUsers_role_upgrade_requests_reviewer_idTousersInput = {
     where: role_upgrade_requestsWhereUniqueInput
     update: XOR<role_upgrade_requestsUpdateWithoutUsers_role_upgrade_requests_reviewer_idTousersInput, role_upgrade_requestsUncheckedUpdateWithoutUsers_role_upgrade_requests_reviewer_idTousersInput>
@@ -106576,6 +106660,213 @@ export namespace Prisma {
   export type role_upgrade_requestsUpdateManyWithWhereWithoutUsers_role_upgrade_requests_user_idTousersInput = {
     where: role_upgrade_requestsScalarWhereInput
     data: XOR<role_upgrade_requestsUpdateManyMutationInput, role_upgrade_requestsUncheckedUpdateManyWithoutUsers_role_upgrade_requests_user_idTousersInput>
+  }
+
+  export type service_bookingsUpsertWithWhereUniqueWithoutUserInput = {
+    where: service_bookingsWhereUniqueInput
+    update: XOR<service_bookingsUpdateWithoutUserInput, service_bookingsUncheckedUpdateWithoutUserInput>
+    create: XOR<service_bookingsCreateWithoutUserInput, service_bookingsUncheckedCreateWithoutUserInput>
+  }
+
+  export type service_bookingsUpdateWithWhereUniqueWithoutUserInput = {
+    where: service_bookingsWhereUniqueInput
+    data: XOR<service_bookingsUpdateWithoutUserInput, service_bookingsUncheckedUpdateWithoutUserInput>
+  }
+
+  export type service_bookingsUpdateManyWithWhereWithoutUserInput = {
+    where: service_bookingsScalarWhereInput
+    data: XOR<service_bookingsUpdateManyMutationInput, service_bookingsUncheckedUpdateManyWithoutUserInput>
+  }
+
+  export type service_bookingsScalarWhereInput = {
+    AND?: service_bookingsScalarWhereInput | service_bookingsScalarWhereInput[]
+    OR?: service_bookingsScalarWhereInput[]
+    NOT?: service_bookingsScalarWhereInput | service_bookingsScalarWhereInput[]
+    id?: IntFilter<"service_bookings"> | number
+    service_id?: IntFilter<"service_bookings"> | number
+    user_id?: IntFilter<"service_bookings"> | number
+    booking_date?: DateTimeFilter<"service_bookings"> | Date | string
+    booking_time?: DateTimeNullableFilter<"service_bookings"> | Date | string | null
+    participants_count?: IntFilter<"service_bookings"> | number
+    total_amount?: DecimalFilter<"service_bookings"> | Decimal | DecimalJsLike | number | string
+    payment_status?: Enumbooking_payment_statusFilter<"service_bookings"> | $Enums.booking_payment_status
+    payment_method?: StringNullableFilter<"service_bookings"> | string | null
+    transaction_id?: StringNullableFilter<"service_bookings"> | string | null
+    booking_status?: Enumbooking_statusFilter<"service_bookings"> | $Enums.booking_status
+    special_requests?: StringNullableFilter<"service_bookings"> | string | null
+    cancellation_reason?: StringNullableFilter<"service_bookings"> | string | null
+    cancelled_at?: DateTimeNullableFilter<"service_bookings"> | Date | string | null
+    confirmed_at?: DateTimeNullableFilter<"service_bookings"> | Date | string | null
+    completed_at?: DateTimeNullableFilter<"service_bookings"> | Date | string | null
+    created_at?: DateTimeFilter<"service_bookings"> | Date | string
+    updated_at?: DateTimeFilter<"service_bookings"> | Date | string
+  }
+
+  export type service_reviewsUpsertWithWhereUniqueWithoutUserInput = {
+    where: service_reviewsWhereUniqueInput
+    update: XOR<service_reviewsUpdateWithoutUserInput, service_reviewsUncheckedUpdateWithoutUserInput>
+    create: XOR<service_reviewsCreateWithoutUserInput, service_reviewsUncheckedCreateWithoutUserInput>
+  }
+
+  export type service_reviewsUpdateWithWhereUniqueWithoutUserInput = {
+    where: service_reviewsWhereUniqueInput
+    data: XOR<service_reviewsUpdateWithoutUserInput, service_reviewsUncheckedUpdateWithoutUserInput>
+  }
+
+  export type service_reviewsUpdateManyWithWhereWithoutUserInput = {
+    where: service_reviewsScalarWhereInput
+    data: XOR<service_reviewsUpdateManyMutationInput, service_reviewsUncheckedUpdateManyWithoutUserInput>
+  }
+
+  export type service_reviewsScalarWhereInput = {
+    AND?: service_reviewsScalarWhereInput | service_reviewsScalarWhereInput[]
+    OR?: service_reviewsScalarWhereInput[]
+    NOT?: service_reviewsScalarWhereInput | service_reviewsScalarWhereInput[]
+    id?: IntFilter<"service_reviews"> | number
+    service_id?: IntFilter<"service_reviews"> | number
+    user_id?: IntFilter<"service_reviews"> | number
+    rating?: IntFilter<"service_reviews"> | number
+    review?: StringFilter<"service_reviews"> | string
+    images?: JsonNullableFilter<"service_reviews">
+    is_verified?: BoolFilter<"service_reviews"> | boolean
+    created_at?: DateTimeFilter<"service_reviews"> | Date | string
+    updated_at?: DateTimeFilter<"service_reviews"> | Date | string
+  }
+
+  export type servicesUpsertWithWhereUniqueWithoutCreatorInput = {
+    where: servicesWhereUniqueInput
+    update: XOR<servicesUpdateWithoutCreatorInput, servicesUncheckedUpdateWithoutCreatorInput>
+    create: XOR<servicesCreateWithoutCreatorInput, servicesUncheckedCreateWithoutCreatorInput>
+  }
+
+  export type servicesUpdateWithWhereUniqueWithoutCreatorInput = {
+    where: servicesWhereUniqueInput
+    data: XOR<servicesUpdateWithoutCreatorInput, servicesUncheckedUpdateWithoutCreatorInput>
+  }
+
+  export type servicesUpdateManyWithWhereWithoutCreatorInput = {
+    where: servicesScalarWhereInput
+    data: XOR<servicesUpdateManyMutationInput, servicesUncheckedUpdateManyWithoutCreatorInput>
+  }
+
+  export type servicesScalarWhereInput = {
+    AND?: servicesScalarWhereInput | servicesScalarWhereInput[]
+    OR?: servicesScalarWhereInput[]
+    NOT?: servicesScalarWhereInput | servicesScalarWhereInput[]
+    id?: IntFilter<"services"> | number
+    title?: StringFilter<"services"> | string
+    description?: StringFilter<"services"> | string
+    category?: Enumservice_categoryFilter<"services"> | $Enums.service_category
+    price?: DecimalFilter<"services"> | Decimal | DecimalJsLike | number | string
+    duration?: StringFilter<"services"> | string
+    max_participants?: IntFilter<"services"> | number
+    location?: StringFilter<"services"> | string
+    difficulty?: Enumservice_difficultyFilter<"services"> | $Enums.service_difficulty
+    equipment?: JsonFilter<"services">
+    next_available?: DateTimeFilter<"services"> | Date | string
+    image_url?: StringNullableFilter<"services"> | string | null
+    featured?: BoolFilter<"services"> | boolean
+    tags?: JsonFilter<"services">
+    requirements?: StringNullableFilter<"services"> | string | null
+    cancellation_policy?: StringNullableFilter<"services"> | string | null
+    meeting_point?: StringNullableFilter<"services"> | string | null
+    what_to_expect?: StringNullableFilter<"services"> | string | null
+    weather_policy?: Enumweather_policy_typeNullableFilter<"services"> | $Enums.weather_policy_type | null
+    booking_deadline?: IntFilter<"services"> | number
+    languages?: JsonFilter<"services">
+    certification?: StringNullableFilter<"services"> | string | null
+    experience?: StringNullableFilter<"services"> | string | null
+    group_discount?: BoolFilter<"services"> | boolean
+    private_booking?: BoolFilter<"services"> | boolean
+    instant_booking?: BoolFilter<"services"> | boolean
+    status?: Enumservice_statusFilter<"services"> | $Enums.service_status
+    views_count?: IntFilter<"services"> | number
+    bookings_count?: IntFilter<"services"> | number
+    rating?: FloatFilter<"services"> | number
+    review_count?: IntFilter<"services"> | number
+    created_by?: IntFilter<"services"> | number
+    is_active?: BoolFilter<"services"> | boolean
+    created_at?: DateTimeFilter<"services"> | Date | string
+    updated_at?: DateTimeFilter<"services"> | Date | string
+  }
+
+  export type session_enrollmentsUpsertWithWhereUniqueWithoutUserInput = {
+    where: session_enrollmentsWhereUniqueInput
+    update: XOR<session_enrollmentsUpdateWithoutUserInput, session_enrollmentsUncheckedUpdateWithoutUserInput>
+    create: XOR<session_enrollmentsCreateWithoutUserInput, session_enrollmentsUncheckedCreateWithoutUserInput>
+  }
+
+  export type session_enrollmentsUpdateWithWhereUniqueWithoutUserInput = {
+    where: session_enrollmentsWhereUniqueInput
+    data: XOR<session_enrollmentsUpdateWithoutUserInput, session_enrollmentsUncheckedUpdateWithoutUserInput>
+  }
+
+  export type session_enrollmentsUpdateManyWithWhereWithoutUserInput = {
+    where: session_enrollmentsScalarWhereInput
+    data: XOR<session_enrollmentsUpdateManyMutationInput, session_enrollmentsUncheckedUpdateManyWithoutUserInput>
+  }
+
+  export type session_enrollmentsScalarWhereInput = {
+    AND?: session_enrollmentsScalarWhereInput | session_enrollmentsScalarWhereInput[]
+    OR?: session_enrollmentsScalarWhereInput[]
+    NOT?: session_enrollmentsScalarWhereInput | session_enrollmentsScalarWhereInput[]
+    id?: IntFilter<"session_enrollments"> | number
+    user_id?: IntFilter<"session_enrollments"> | number
+    session_id?: IntFilter<"session_enrollments"> | number
+    enrollment_date?: DateTimeFilter<"session_enrollments"> | Date | string
+    payment_status?: Enumenrollment_payment_statusFilter<"session_enrollments"> | $Enums.enrollment_payment_status
+    payment_amount?: DecimalNullableFilter<"session_enrollments"> | Decimal | DecimalJsLike | number | string | null
+    payment_method?: StringNullableFilter<"session_enrollments"> | string | null
+    transaction_id?: StringNullableFilter<"session_enrollments"> | string | null
+    access_granted?: BoolFilter<"session_enrollments"> | boolean
+    completed?: BoolFilter<"session_enrollments"> | boolean
+    progress?: IntNullableFilter<"session_enrollments"> | number | null
+    last_accessed_at?: DateTimeNullableFilter<"session_enrollments"> | Date | string | null
+    notes?: StringNullableFilter<"session_enrollments"> | string | null
+    created_at?: DateTimeFilter<"session_enrollments"> | Date | string
+    updated_at?: DateTimeFilter<"session_enrollments"> | Date | string
+  }
+
+  export type sessionsUpsertWithWhereUniqueWithoutCreatorInput = {
+    where: sessionsWhereUniqueInput
+    update: XOR<sessionsUpdateWithoutCreatorInput, sessionsUncheckedUpdateWithoutCreatorInput>
+    create: XOR<sessionsCreateWithoutCreatorInput, sessionsUncheckedCreateWithoutCreatorInput>
+  }
+
+  export type sessionsUpdateWithWhereUniqueWithoutCreatorInput = {
+    where: sessionsWhereUniqueInput
+    data: XOR<sessionsUpdateWithoutCreatorInput, sessionsUncheckedUpdateWithoutCreatorInput>
+  }
+
+  export type sessionsUpdateManyWithWhereWithoutCreatorInput = {
+    where: sessionsScalarWhereInput
+    data: XOR<sessionsUpdateManyMutationInput, sessionsUncheckedUpdateManyWithoutCreatorInput>
+  }
+
+  export type sessionsScalarWhereInput = {
+    AND?: sessionsScalarWhereInput | sessionsScalarWhereInput[]
+    OR?: sessionsScalarWhereInput[]
+    NOT?: sessionsScalarWhereInput | sessionsScalarWhereInput[]
+    id?: IntFilter<"sessions"> | number
+    title?: StringFilter<"sessions"> | string
+    session_type?: Enumsession_typeFilter<"sessions"> | $Enums.session_type
+    payment_type?: Enumpayment_typeFilter<"sessions"> | $Enums.payment_type
+    price?: DecimalNullableFilter<"sessions"> | Decimal | DecimalJsLike | number | string | null
+    duration?: IntFilter<"sessions"> | number
+    session_date?: DateTimeFilter<"sessions"> | Date | string
+    session_time?: DateTimeFilter<"sessions"> | Date | string
+    max_participants?: IntNullableFilter<"sessions"> | number | null
+    difficulty_level?: Enumdifficulty_levelFilter<"sessions"> | $Enums.difficulty_level
+    session_link?: StringNullableFilter<"sessions"> | string | null
+    description?: StringFilter<"sessions"> | string
+    materials?: JsonNullableFilter<"sessions">
+    session_notes?: StringNullableFilter<"sessions"> | string | null
+    created_by?: IntFilter<"sessions"> | number
+    created_date?: DateTimeFilter<"sessions"> | Date | string
+    created_time?: DateTimeFilter<"sessions"> | Date | string
+    is_enabled?: BoolFilter<"sessions"> | boolean
+    created_at?: DateTimeFilter<"sessions"> | Date | string
+    updated_at?: DateTimeFilter<"sessions"> | Date | string
   }
 
   export type space_discussion_comment_likesUpsertWithWhereUniqueWithoutUserInput = {
@@ -106846,213 +107137,6 @@ export namespace Prisma {
     updated_at?: DateTimeFilter<"stargazing_spots"> | Date | string
   }
 
-  export type sessionsUpsertWithWhereUniqueWithoutCreatorInput = {
-    where: sessionsWhereUniqueInput
-    update: XOR<sessionsUpdateWithoutCreatorInput, sessionsUncheckedUpdateWithoutCreatorInput>
-    create: XOR<sessionsCreateWithoutCreatorInput, sessionsUncheckedCreateWithoutCreatorInput>
-  }
-
-  export type sessionsUpdateWithWhereUniqueWithoutCreatorInput = {
-    where: sessionsWhereUniqueInput
-    data: XOR<sessionsUpdateWithoutCreatorInput, sessionsUncheckedUpdateWithoutCreatorInput>
-  }
-
-  export type sessionsUpdateManyWithWhereWithoutCreatorInput = {
-    where: sessionsScalarWhereInput
-    data: XOR<sessionsUpdateManyMutationInput, sessionsUncheckedUpdateManyWithoutCreatorInput>
-  }
-
-  export type sessionsScalarWhereInput = {
-    AND?: sessionsScalarWhereInput | sessionsScalarWhereInput[]
-    OR?: sessionsScalarWhereInput[]
-    NOT?: sessionsScalarWhereInput | sessionsScalarWhereInput[]
-    id?: IntFilter<"sessions"> | number
-    title?: StringFilter<"sessions"> | string
-    session_type?: Enumsession_typeFilter<"sessions"> | $Enums.session_type
-    payment_type?: Enumpayment_typeFilter<"sessions"> | $Enums.payment_type
-    price?: DecimalNullableFilter<"sessions"> | Decimal | DecimalJsLike | number | string | null
-    duration?: IntFilter<"sessions"> | number
-    session_date?: DateTimeFilter<"sessions"> | Date | string
-    session_time?: DateTimeFilter<"sessions"> | Date | string
-    max_participants?: IntNullableFilter<"sessions"> | number | null
-    difficulty_level?: Enumdifficulty_levelFilter<"sessions"> | $Enums.difficulty_level
-    session_link?: StringNullableFilter<"sessions"> | string | null
-    description?: StringFilter<"sessions"> | string
-    materials?: JsonNullableFilter<"sessions">
-    session_notes?: StringNullableFilter<"sessions"> | string | null
-    created_by?: IntFilter<"sessions"> | number
-    created_date?: DateTimeFilter<"sessions"> | Date | string
-    created_time?: DateTimeFilter<"sessions"> | Date | string
-    is_enabled?: BoolFilter<"sessions"> | boolean
-    created_at?: DateTimeFilter<"sessions"> | Date | string
-    updated_at?: DateTimeFilter<"sessions"> | Date | string
-  }
-
-  export type session_enrollmentsUpsertWithWhereUniqueWithoutUserInput = {
-    where: session_enrollmentsWhereUniqueInput
-    update: XOR<session_enrollmentsUpdateWithoutUserInput, session_enrollmentsUncheckedUpdateWithoutUserInput>
-    create: XOR<session_enrollmentsCreateWithoutUserInput, session_enrollmentsUncheckedCreateWithoutUserInput>
-  }
-
-  export type session_enrollmentsUpdateWithWhereUniqueWithoutUserInput = {
-    where: session_enrollmentsWhereUniqueInput
-    data: XOR<session_enrollmentsUpdateWithoutUserInput, session_enrollmentsUncheckedUpdateWithoutUserInput>
-  }
-
-  export type session_enrollmentsUpdateManyWithWhereWithoutUserInput = {
-    where: session_enrollmentsScalarWhereInput
-    data: XOR<session_enrollmentsUpdateManyMutationInput, session_enrollmentsUncheckedUpdateManyWithoutUserInput>
-  }
-
-  export type session_enrollmentsScalarWhereInput = {
-    AND?: session_enrollmentsScalarWhereInput | session_enrollmentsScalarWhereInput[]
-    OR?: session_enrollmentsScalarWhereInput[]
-    NOT?: session_enrollmentsScalarWhereInput | session_enrollmentsScalarWhereInput[]
-    id?: IntFilter<"session_enrollments"> | number
-    user_id?: IntFilter<"session_enrollments"> | number
-    session_id?: IntFilter<"session_enrollments"> | number
-    enrollment_date?: DateTimeFilter<"session_enrollments"> | Date | string
-    payment_status?: Enumenrollment_payment_statusFilter<"session_enrollments"> | $Enums.enrollment_payment_status
-    payment_amount?: DecimalNullableFilter<"session_enrollments"> | Decimal | DecimalJsLike | number | string | null
-    payment_method?: StringNullableFilter<"session_enrollments"> | string | null
-    transaction_id?: StringNullableFilter<"session_enrollments"> | string | null
-    access_granted?: BoolFilter<"session_enrollments"> | boolean
-    completed?: BoolFilter<"session_enrollments"> | boolean
-    progress?: IntNullableFilter<"session_enrollments"> | number | null
-    last_accessed_at?: DateTimeNullableFilter<"session_enrollments"> | Date | string | null
-    notes?: StringNullableFilter<"session_enrollments"> | string | null
-    created_at?: DateTimeFilter<"session_enrollments"> | Date | string
-    updated_at?: DateTimeFilter<"session_enrollments"> | Date | string
-  }
-
-  export type servicesUpsertWithWhereUniqueWithoutCreatorInput = {
-    where: servicesWhereUniqueInput
-    update: XOR<servicesUpdateWithoutCreatorInput, servicesUncheckedUpdateWithoutCreatorInput>
-    create: XOR<servicesCreateWithoutCreatorInput, servicesUncheckedCreateWithoutCreatorInput>
-  }
-
-  export type servicesUpdateWithWhereUniqueWithoutCreatorInput = {
-    where: servicesWhereUniqueInput
-    data: XOR<servicesUpdateWithoutCreatorInput, servicesUncheckedUpdateWithoutCreatorInput>
-  }
-
-  export type servicesUpdateManyWithWhereWithoutCreatorInput = {
-    where: servicesScalarWhereInput
-    data: XOR<servicesUpdateManyMutationInput, servicesUncheckedUpdateManyWithoutCreatorInput>
-  }
-
-  export type servicesScalarWhereInput = {
-    AND?: servicesScalarWhereInput | servicesScalarWhereInput[]
-    OR?: servicesScalarWhereInput[]
-    NOT?: servicesScalarWhereInput | servicesScalarWhereInput[]
-    id?: IntFilter<"services"> | number
-    title?: StringFilter<"services"> | string
-    description?: StringFilter<"services"> | string
-    category?: Enumservice_categoryFilter<"services"> | $Enums.service_category
-    price?: DecimalFilter<"services"> | Decimal | DecimalJsLike | number | string
-    duration?: StringFilter<"services"> | string
-    max_participants?: IntFilter<"services"> | number
-    location?: StringFilter<"services"> | string
-    difficulty?: Enumservice_difficultyFilter<"services"> | $Enums.service_difficulty
-    equipment?: JsonFilter<"services">
-    next_available?: DateTimeFilter<"services"> | Date | string
-    image_url?: StringNullableFilter<"services"> | string | null
-    featured?: BoolFilter<"services"> | boolean
-    tags?: JsonFilter<"services">
-    requirements?: StringNullableFilter<"services"> | string | null
-    cancellation_policy?: StringNullableFilter<"services"> | string | null
-    meeting_point?: StringNullableFilter<"services"> | string | null
-    what_to_expect?: StringNullableFilter<"services"> | string | null
-    weather_policy?: Enumweather_policy_typeNullableFilter<"services"> | $Enums.weather_policy_type | null
-    booking_deadline?: IntFilter<"services"> | number
-    languages?: JsonFilter<"services">
-    certification?: StringNullableFilter<"services"> | string | null
-    experience?: StringNullableFilter<"services"> | string | null
-    group_discount?: BoolFilter<"services"> | boolean
-    private_booking?: BoolFilter<"services"> | boolean
-    instant_booking?: BoolFilter<"services"> | boolean
-    status?: Enumservice_statusFilter<"services"> | $Enums.service_status
-    views_count?: IntFilter<"services"> | number
-    bookings_count?: IntFilter<"services"> | number
-    rating?: FloatFilter<"services"> | number
-    review_count?: IntFilter<"services"> | number
-    created_by?: IntFilter<"services"> | number
-    is_active?: BoolFilter<"services"> | boolean
-    created_at?: DateTimeFilter<"services"> | Date | string
-    updated_at?: DateTimeFilter<"services"> | Date | string
-  }
-
-  export type service_bookingsUpsertWithWhereUniqueWithoutUserInput = {
-    where: service_bookingsWhereUniqueInput
-    update: XOR<service_bookingsUpdateWithoutUserInput, service_bookingsUncheckedUpdateWithoutUserInput>
-    create: XOR<service_bookingsCreateWithoutUserInput, service_bookingsUncheckedCreateWithoutUserInput>
-  }
-
-  export type service_bookingsUpdateWithWhereUniqueWithoutUserInput = {
-    where: service_bookingsWhereUniqueInput
-    data: XOR<service_bookingsUpdateWithoutUserInput, service_bookingsUncheckedUpdateWithoutUserInput>
-  }
-
-  export type service_bookingsUpdateManyWithWhereWithoutUserInput = {
-    where: service_bookingsScalarWhereInput
-    data: XOR<service_bookingsUpdateManyMutationInput, service_bookingsUncheckedUpdateManyWithoutUserInput>
-  }
-
-  export type service_bookingsScalarWhereInput = {
-    AND?: service_bookingsScalarWhereInput | service_bookingsScalarWhereInput[]
-    OR?: service_bookingsScalarWhereInput[]
-    NOT?: service_bookingsScalarWhereInput | service_bookingsScalarWhereInput[]
-    id?: IntFilter<"service_bookings"> | number
-    service_id?: IntFilter<"service_bookings"> | number
-    user_id?: IntFilter<"service_bookings"> | number
-    booking_date?: DateTimeFilter<"service_bookings"> | Date | string
-    booking_time?: DateTimeNullableFilter<"service_bookings"> | Date | string | null
-    participants_count?: IntFilter<"service_bookings"> | number
-    total_amount?: DecimalFilter<"service_bookings"> | Decimal | DecimalJsLike | number | string
-    payment_status?: Enumbooking_payment_statusFilter<"service_bookings"> | $Enums.booking_payment_status
-    payment_method?: StringNullableFilter<"service_bookings"> | string | null
-    transaction_id?: StringNullableFilter<"service_bookings"> | string | null
-    booking_status?: Enumbooking_statusFilter<"service_bookings"> | $Enums.booking_status
-    special_requests?: StringNullableFilter<"service_bookings"> | string | null
-    cancellation_reason?: StringNullableFilter<"service_bookings"> | string | null
-    cancelled_at?: DateTimeNullableFilter<"service_bookings"> | Date | string | null
-    confirmed_at?: DateTimeNullableFilter<"service_bookings"> | Date | string | null
-    completed_at?: DateTimeNullableFilter<"service_bookings"> | Date | string | null
-    created_at?: DateTimeFilter<"service_bookings"> | Date | string
-    updated_at?: DateTimeFilter<"service_bookings"> | Date | string
-  }
-
-  export type service_reviewsUpsertWithWhereUniqueWithoutUserInput = {
-    where: service_reviewsWhereUniqueInput
-    update: XOR<service_reviewsUpdateWithoutUserInput, service_reviewsUncheckedUpdateWithoutUserInput>
-    create: XOR<service_reviewsCreateWithoutUserInput, service_reviewsUncheckedCreateWithoutUserInput>
-  }
-
-  export type service_reviewsUpdateWithWhereUniqueWithoutUserInput = {
-    where: service_reviewsWhereUniqueInput
-    data: XOR<service_reviewsUpdateWithoutUserInput, service_reviewsUncheckedUpdateWithoutUserInput>
-  }
-
-  export type service_reviewsUpdateManyWithWhereWithoutUserInput = {
-    where: service_reviewsScalarWhereInput
-    data: XOR<service_reviewsUpdateManyMutationInput, service_reviewsUncheckedUpdateManyWithoutUserInput>
-  }
-
-  export type service_reviewsScalarWhereInput = {
-    AND?: service_reviewsScalarWhereInput | service_reviewsScalarWhereInput[]
-    OR?: service_reviewsScalarWhereInput[]
-    NOT?: service_reviewsScalarWhereInput | service_reviewsScalarWhereInput[]
-    id?: IntFilter<"service_reviews"> | number
-    service_id?: IntFilter<"service_reviews"> | number
-    user_id?: IntFilter<"service_reviews"> | number
-    rating?: IntFilter<"service_reviews"> | number
-    review?: StringFilter<"service_reviews"> | string
-    images?: JsonNullableFilter<"service_reviews">
-    is_verified?: BoolFilter<"service_reviews"> | boolean
-    created_at?: DateTimeFilter<"service_reviews"> | Date | string
-    updated_at?: DateTimeFilter<"service_reviews"> | Date | string
-  }
-
   export type subscriptionsUpsertWithWhereUniqueWithoutUsersInput = {
     where: subscriptionsWhereUniqueInput
     update: XOR<subscriptionsUpdateWithoutUsersInput, subscriptionsUncheckedUpdateWithoutUsersInput>
@@ -107122,90 +107206,6 @@ export namespace Prisma {
     timezone?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  }
-
-  export type pollsUpsertWithWhereUniqueWithoutCreatorInput = {
-    where: pollsWhereUniqueInput
-    update: XOR<pollsUpdateWithoutCreatorInput, pollsUncheckedUpdateWithoutCreatorInput>
-    create: XOR<pollsCreateWithoutCreatorInput, pollsUncheckedCreateWithoutCreatorInput>
-  }
-
-  export type pollsUpdateWithWhereUniqueWithoutCreatorInput = {
-    where: pollsWhereUniqueInput
-    data: XOR<pollsUpdateWithoutCreatorInput, pollsUncheckedUpdateWithoutCreatorInput>
-  }
-
-  export type pollsUpdateManyWithWhereWithoutCreatorInput = {
-    where: pollsScalarWhereInput
-    data: XOR<pollsUpdateManyMutationInput, pollsUncheckedUpdateManyWithoutCreatorInput>
-  }
-
-  export type pollsScalarWhereInput = {
-    AND?: pollsScalarWhereInput | pollsScalarWhereInput[]
-    OR?: pollsScalarWhereInput[]
-    NOT?: pollsScalarWhereInput | pollsScalarWhereInput[]
-    id?: IntFilter<"polls"> | number
-    title?: StringFilter<"polls"> | string
-    description?: StringNullableFilter<"polls"> | string | null
-    created_by?: IntFilter<"polls"> | number
-    created_at?: DateTimeFilter<"polls"> | Date | string
-    updated_at?: DateTimeFilter<"polls"> | Date | string
-    is_active?: BoolFilter<"polls"> | boolean
-  }
-
-  export type poll_votesUpsertWithWhereUniqueWithoutVoterInput = {
-    where: poll_votesWhereUniqueInput
-    update: XOR<poll_votesUpdateWithoutVoterInput, poll_votesUncheckedUpdateWithoutVoterInput>
-    create: XOR<poll_votesCreateWithoutVoterInput, poll_votesUncheckedCreateWithoutVoterInput>
-  }
-
-  export type poll_votesUpdateWithWhereUniqueWithoutVoterInput = {
-    where: poll_votesWhereUniqueInput
-    data: XOR<poll_votesUpdateWithoutVoterInput, poll_votesUncheckedUpdateWithoutVoterInput>
-  }
-
-  export type poll_votesUpdateManyWithWhereWithoutVoterInput = {
-    where: poll_votesScalarWhereInput
-    data: XOR<poll_votesUpdateManyMutationInput, poll_votesUncheckedUpdateManyWithoutVoterInput>
-  }
-
-  export type poll_votesScalarWhereInput = {
-    AND?: poll_votesScalarWhereInput | poll_votesScalarWhereInput[]
-    OR?: poll_votesScalarWhereInput[]
-    NOT?: poll_votesScalarWhereInput | poll_votesScalarWhereInput[]
-    id?: IntFilter<"poll_votes"> | number
-    poll_id?: IntFilter<"poll_votes"> | number
-    choice_id?: IntFilter<"poll_votes"> | number
-    user_id?: IntFilter<"poll_votes"> | number
-    voted_at?: DateTimeFilter<"poll_votes"> | Date | string
-  }
-
-  export type poll_commentsUpsertWithWhereUniqueWithoutCommenterInput = {
-    where: poll_commentsWhereUniqueInput
-    update: XOR<poll_commentsUpdateWithoutCommenterInput, poll_commentsUncheckedUpdateWithoutCommenterInput>
-    create: XOR<poll_commentsCreateWithoutCommenterInput, poll_commentsUncheckedCreateWithoutCommenterInput>
-  }
-
-  export type poll_commentsUpdateWithWhereUniqueWithoutCommenterInput = {
-    where: poll_commentsWhereUniqueInput
-    data: XOR<poll_commentsUpdateWithoutCommenterInput, poll_commentsUncheckedUpdateWithoutCommenterInput>
-  }
-
-  export type poll_commentsUpdateManyWithWhereWithoutCommenterInput = {
-    where: poll_commentsScalarWhereInput
-    data: XOR<poll_commentsUpdateManyMutationInput, poll_commentsUncheckedUpdateManyWithoutCommenterInput>
-  }
-
-  export type poll_commentsScalarWhereInput = {
-    AND?: poll_commentsScalarWhereInput | poll_commentsScalarWhereInput[]
-    OR?: poll_commentsScalarWhereInput[]
-    NOT?: poll_commentsScalarWhereInput | poll_commentsScalarWhereInput[]
-    id?: IntFilter<"poll_comments"> | number
-    poll_id?: IntFilter<"poll_comments"> | number
-    user_id?: IntFilter<"poll_comments"> | number
-    comment?: StringFilter<"poll_comments"> | string
-    created_at?: DateTimeFilter<"poll_comments"> | Date | string
-    updated_at?: DateTimeFilter<"poll_comments"> | Date | string
   }
 
   export type blogsCreateWithoutBlog_likesInput = {
@@ -107307,8 +107307,16 @@ export namespace Prisma {
     night_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousers?: night_camp_volunteering_applicationsCreateNestedManyWithoutUsers_night_camp_volunteering_applications_reviewed_byTousersInput
     night_camp_volunteering_applications_night_camp_volunteering_applications_user_idTousers?: night_camp_volunteering_applicationsCreateNestedManyWithoutUsers_night_camp_volunteering_applications_user_idTousersInput
     payments?: paymentsCreateNestedManyWithoutUsersInput
+    poll_comments?: poll_commentsCreateNestedManyWithoutCommenterInput
+    poll_votes?: poll_votesCreateNestedManyWithoutVoterInput
+    created_polls?: pollsCreateNestedManyWithoutCreatorInput
     role_upgrade_requests_role_upgrade_requests_reviewer_idTousers?: role_upgrade_requestsCreateNestedManyWithoutUsers_role_upgrade_requests_reviewer_idTousersInput
     role_upgrade_requests_role_upgrade_requests_user_idTousers?: role_upgrade_requestsCreateNestedManyWithoutUsers_role_upgrade_requests_user_idTousersInput
+    service_bookings?: service_bookingsCreateNestedManyWithoutUserInput
+    service_reviews?: service_reviewsCreateNestedManyWithoutUserInput
+    created_services?: servicesCreateNestedManyWithoutCreatorInput
+    session_enrollments?: session_enrollmentsCreateNestedManyWithoutUserInput
+    created_sessions?: sessionsCreateNestedManyWithoutCreatorInput
     discussion_comment_likes?: space_discussion_comment_likesCreateNestedManyWithoutUserInput
     discussion_comments?: space_discussion_commentsCreateNestedManyWithoutUserInput
     discussion_likes?: space_discussion_likesCreateNestedManyWithoutUserInput
@@ -107318,16 +107326,8 @@ export namespace Prisma {
     space_news_likes?: space_news_likesCreateNestedManyWithoutUserInput
     stargazing_spot_reviews?: stargazing_spot_reviewsCreateNestedManyWithoutUserInput
     created_stargazing_spots?: stargazing_spotsCreateNestedManyWithoutCreatorInput
-    created_sessions?: sessionsCreateNestedManyWithoutCreatorInput
-    session_enrollments?: session_enrollmentsCreateNestedManyWithoutUserInput
-    created_services?: servicesCreateNestedManyWithoutCreatorInput
-    service_bookings?: service_bookingsCreateNestedManyWithoutUserInput
-    service_reviews?: service_reviewsCreateNestedManyWithoutUserInput
     subscriptions?: subscriptionsCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsCreateNestedOneWithoutUsersInput
-    created_polls?: pollsCreateNestedManyWithoutCreatorInput
-    poll_votes?: poll_votesCreateNestedManyWithoutVoterInput
-    poll_comments?: poll_commentsCreateNestedManyWithoutCommenterInput
   }
 
   export type usersUncheckedCreateWithoutBlog_likesInput = {
@@ -107372,8 +107372,16 @@ export namespace Prisma {
     night_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousers?: night_camp_volunteering_applicationsUncheckedCreateNestedManyWithoutUsers_night_camp_volunteering_applications_reviewed_byTousersInput
     night_camp_volunteering_applications_night_camp_volunteering_applications_user_idTousers?: night_camp_volunteering_applicationsUncheckedCreateNestedManyWithoutUsers_night_camp_volunteering_applications_user_idTousersInput
     payments?: paymentsUncheckedCreateNestedManyWithoutUsersInput
+    poll_comments?: poll_commentsUncheckedCreateNestedManyWithoutCommenterInput
+    poll_votes?: poll_votesUncheckedCreateNestedManyWithoutVoterInput
+    created_polls?: pollsUncheckedCreateNestedManyWithoutCreatorInput
     role_upgrade_requests_role_upgrade_requests_reviewer_idTousers?: role_upgrade_requestsUncheckedCreateNestedManyWithoutUsers_role_upgrade_requests_reviewer_idTousersInput
     role_upgrade_requests_role_upgrade_requests_user_idTousers?: role_upgrade_requestsUncheckedCreateNestedManyWithoutUsers_role_upgrade_requests_user_idTousersInput
+    service_bookings?: service_bookingsUncheckedCreateNestedManyWithoutUserInput
+    service_reviews?: service_reviewsUncheckedCreateNestedManyWithoutUserInput
+    created_services?: servicesUncheckedCreateNestedManyWithoutCreatorInput
+    session_enrollments?: session_enrollmentsUncheckedCreateNestedManyWithoutUserInput
+    created_sessions?: sessionsUncheckedCreateNestedManyWithoutCreatorInput
     discussion_comment_likes?: space_discussion_comment_likesUncheckedCreateNestedManyWithoutUserInput
     discussion_comments?: space_discussion_commentsUncheckedCreateNestedManyWithoutUserInput
     discussion_likes?: space_discussion_likesUncheckedCreateNestedManyWithoutUserInput
@@ -107383,16 +107391,8 @@ export namespace Prisma {
     space_news_likes?: space_news_likesUncheckedCreateNestedManyWithoutUserInput
     stargazing_spot_reviews?: stargazing_spot_reviewsUncheckedCreateNestedManyWithoutUserInput
     created_stargazing_spots?: stargazing_spotsUncheckedCreateNestedManyWithoutCreatorInput
-    created_sessions?: sessionsUncheckedCreateNestedManyWithoutCreatorInput
-    session_enrollments?: session_enrollmentsUncheckedCreateNestedManyWithoutUserInput
-    created_services?: servicesUncheckedCreateNestedManyWithoutCreatorInput
-    service_bookings?: service_bookingsUncheckedCreateNestedManyWithoutUserInput
-    service_reviews?: service_reviewsUncheckedCreateNestedManyWithoutUserInput
     subscriptions?: subscriptionsUncheckedCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsUncheckedCreateNestedOneWithoutUsersInput
-    created_polls?: pollsUncheckedCreateNestedManyWithoutCreatorInput
-    poll_votes?: poll_votesUncheckedCreateNestedManyWithoutVoterInput
-    poll_comments?: poll_commentsUncheckedCreateNestedManyWithoutCommenterInput
   }
 
   export type usersCreateOrConnectWithoutBlog_likesInput = {
@@ -107516,8 +107516,16 @@ export namespace Prisma {
     night_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousers?: night_camp_volunteering_applicationsUpdateManyWithoutUsers_night_camp_volunteering_applications_reviewed_byTousersNestedInput
     night_camp_volunteering_applications_night_camp_volunteering_applications_user_idTousers?: night_camp_volunteering_applicationsUpdateManyWithoutUsers_night_camp_volunteering_applications_user_idTousersNestedInput
     payments?: paymentsUpdateManyWithoutUsersNestedInput
+    poll_comments?: poll_commentsUpdateManyWithoutCommenterNestedInput
+    poll_votes?: poll_votesUpdateManyWithoutVoterNestedInput
+    created_polls?: pollsUpdateManyWithoutCreatorNestedInput
     role_upgrade_requests_role_upgrade_requests_reviewer_idTousers?: role_upgrade_requestsUpdateManyWithoutUsers_role_upgrade_requests_reviewer_idTousersNestedInput
     role_upgrade_requests_role_upgrade_requests_user_idTousers?: role_upgrade_requestsUpdateManyWithoutUsers_role_upgrade_requests_user_idTousersNestedInput
+    service_bookings?: service_bookingsUpdateManyWithoutUserNestedInput
+    service_reviews?: service_reviewsUpdateManyWithoutUserNestedInput
+    created_services?: servicesUpdateManyWithoutCreatorNestedInput
+    session_enrollments?: session_enrollmentsUpdateManyWithoutUserNestedInput
+    created_sessions?: sessionsUpdateManyWithoutCreatorNestedInput
     discussion_comment_likes?: space_discussion_comment_likesUpdateManyWithoutUserNestedInput
     discussion_comments?: space_discussion_commentsUpdateManyWithoutUserNestedInput
     discussion_likes?: space_discussion_likesUpdateManyWithoutUserNestedInput
@@ -107527,16 +107535,8 @@ export namespace Prisma {
     space_news_likes?: space_news_likesUpdateManyWithoutUserNestedInput
     stargazing_spot_reviews?: stargazing_spot_reviewsUpdateManyWithoutUserNestedInput
     created_stargazing_spots?: stargazing_spotsUpdateManyWithoutCreatorNestedInput
-    created_sessions?: sessionsUpdateManyWithoutCreatorNestedInput
-    session_enrollments?: session_enrollmentsUpdateManyWithoutUserNestedInput
-    created_services?: servicesUpdateManyWithoutCreatorNestedInput
-    service_bookings?: service_bookingsUpdateManyWithoutUserNestedInput
-    service_reviews?: service_reviewsUpdateManyWithoutUserNestedInput
     subscriptions?: subscriptionsUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUpdateOneWithoutUsersNestedInput
-    created_polls?: pollsUpdateManyWithoutCreatorNestedInput
-    poll_votes?: poll_votesUpdateManyWithoutVoterNestedInput
-    poll_comments?: poll_commentsUpdateManyWithoutCommenterNestedInput
   }
 
   export type usersUncheckedUpdateWithoutBlog_likesInput = {
@@ -107581,8 +107581,16 @@ export namespace Prisma {
     night_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousers?: night_camp_volunteering_applicationsUncheckedUpdateManyWithoutUsers_night_camp_volunteering_applications_reviewed_byTousersNestedInput
     night_camp_volunteering_applications_night_camp_volunteering_applications_user_idTousers?: night_camp_volunteering_applicationsUncheckedUpdateManyWithoutUsers_night_camp_volunteering_applications_user_idTousersNestedInput
     payments?: paymentsUncheckedUpdateManyWithoutUsersNestedInput
+    poll_comments?: poll_commentsUncheckedUpdateManyWithoutCommenterNestedInput
+    poll_votes?: poll_votesUncheckedUpdateManyWithoutVoterNestedInput
+    created_polls?: pollsUncheckedUpdateManyWithoutCreatorNestedInput
     role_upgrade_requests_role_upgrade_requests_reviewer_idTousers?: role_upgrade_requestsUncheckedUpdateManyWithoutUsers_role_upgrade_requests_reviewer_idTousersNestedInput
     role_upgrade_requests_role_upgrade_requests_user_idTousers?: role_upgrade_requestsUncheckedUpdateManyWithoutUsers_role_upgrade_requests_user_idTousersNestedInput
+    service_bookings?: service_bookingsUncheckedUpdateManyWithoutUserNestedInput
+    service_reviews?: service_reviewsUncheckedUpdateManyWithoutUserNestedInput
+    created_services?: servicesUncheckedUpdateManyWithoutCreatorNestedInput
+    session_enrollments?: session_enrollmentsUncheckedUpdateManyWithoutUserNestedInput
+    created_sessions?: sessionsUncheckedUpdateManyWithoutCreatorNestedInput
     discussion_comment_likes?: space_discussion_comment_likesUncheckedUpdateManyWithoutUserNestedInput
     discussion_comments?: space_discussion_commentsUncheckedUpdateManyWithoutUserNestedInput
     discussion_likes?: space_discussion_likesUncheckedUpdateManyWithoutUserNestedInput
@@ -107592,16 +107600,8 @@ export namespace Prisma {
     space_news_likes?: space_news_likesUncheckedUpdateManyWithoutUserNestedInput
     stargazing_spot_reviews?: stargazing_spot_reviewsUncheckedUpdateManyWithoutUserNestedInput
     created_stargazing_spots?: stargazing_spotsUncheckedUpdateManyWithoutCreatorNestedInput
-    created_sessions?: sessionsUncheckedUpdateManyWithoutCreatorNestedInput
-    session_enrollments?: session_enrollmentsUncheckedUpdateManyWithoutUserNestedInput
-    created_services?: servicesUncheckedUpdateManyWithoutCreatorNestedInput
-    service_bookings?: service_bookingsUncheckedUpdateManyWithoutUserNestedInput
-    service_reviews?: service_reviewsUncheckedUpdateManyWithoutUserNestedInput
     subscriptions?: subscriptionsUncheckedUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUncheckedUpdateOneWithoutUsersNestedInput
-    created_polls?: pollsUncheckedUpdateManyWithoutCreatorNestedInput
-    poll_votes?: poll_votesUncheckedUpdateManyWithoutVoterNestedInput
-    poll_comments?: poll_commentsUncheckedUpdateManyWithoutCommenterNestedInput
   }
 
   export type chatbot_feedbackCreateWithoutChatbot_messagesInput = {
@@ -107852,8 +107852,16 @@ export namespace Prisma {
     night_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousers?: night_camp_volunteering_applicationsCreateNestedManyWithoutUsers_night_camp_volunteering_applications_reviewed_byTousersInput
     night_camp_volunteering_applications_night_camp_volunteering_applications_user_idTousers?: night_camp_volunteering_applicationsCreateNestedManyWithoutUsers_night_camp_volunteering_applications_user_idTousersInput
     payments?: paymentsCreateNestedManyWithoutUsersInput
+    poll_comments?: poll_commentsCreateNestedManyWithoutCommenterInput
+    poll_votes?: poll_votesCreateNestedManyWithoutVoterInput
+    created_polls?: pollsCreateNestedManyWithoutCreatorInput
     role_upgrade_requests_role_upgrade_requests_reviewer_idTousers?: role_upgrade_requestsCreateNestedManyWithoutUsers_role_upgrade_requests_reviewer_idTousersInput
     role_upgrade_requests_role_upgrade_requests_user_idTousers?: role_upgrade_requestsCreateNestedManyWithoutUsers_role_upgrade_requests_user_idTousersInput
+    service_bookings?: service_bookingsCreateNestedManyWithoutUserInput
+    service_reviews?: service_reviewsCreateNestedManyWithoutUserInput
+    created_services?: servicesCreateNestedManyWithoutCreatorInput
+    session_enrollments?: session_enrollmentsCreateNestedManyWithoutUserInput
+    created_sessions?: sessionsCreateNestedManyWithoutCreatorInput
     discussion_comment_likes?: space_discussion_comment_likesCreateNestedManyWithoutUserInput
     discussion_comments?: space_discussion_commentsCreateNestedManyWithoutUserInput
     discussion_likes?: space_discussion_likesCreateNestedManyWithoutUserInput
@@ -107863,15 +107871,7 @@ export namespace Prisma {
     space_news_likes?: space_news_likesCreateNestedManyWithoutUserInput
     stargazing_spot_reviews?: stargazing_spot_reviewsCreateNestedManyWithoutUserInput
     created_stargazing_spots?: stargazing_spotsCreateNestedManyWithoutCreatorInput
-    created_sessions?: sessionsCreateNestedManyWithoutCreatorInput
-    session_enrollments?: session_enrollmentsCreateNestedManyWithoutUserInput
-    created_services?: servicesCreateNestedManyWithoutCreatorInput
-    service_bookings?: service_bookingsCreateNestedManyWithoutUserInput
-    service_reviews?: service_reviewsCreateNestedManyWithoutUserInput
     subscriptions?: subscriptionsCreateNestedManyWithoutUsersInput
-    created_polls?: pollsCreateNestedManyWithoutCreatorInput
-    poll_votes?: poll_votesCreateNestedManyWithoutVoterInput
-    poll_comments?: poll_commentsCreateNestedManyWithoutCommenterInput
   }
 
   export type usersUncheckedCreateWithoutUser_settingsInput = {
@@ -107917,8 +107917,16 @@ export namespace Prisma {
     night_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousers?: night_camp_volunteering_applicationsUncheckedCreateNestedManyWithoutUsers_night_camp_volunteering_applications_reviewed_byTousersInput
     night_camp_volunteering_applications_night_camp_volunteering_applications_user_idTousers?: night_camp_volunteering_applicationsUncheckedCreateNestedManyWithoutUsers_night_camp_volunteering_applications_user_idTousersInput
     payments?: paymentsUncheckedCreateNestedManyWithoutUsersInput
+    poll_comments?: poll_commentsUncheckedCreateNestedManyWithoutCommenterInput
+    poll_votes?: poll_votesUncheckedCreateNestedManyWithoutVoterInput
+    created_polls?: pollsUncheckedCreateNestedManyWithoutCreatorInput
     role_upgrade_requests_role_upgrade_requests_reviewer_idTousers?: role_upgrade_requestsUncheckedCreateNestedManyWithoutUsers_role_upgrade_requests_reviewer_idTousersInput
     role_upgrade_requests_role_upgrade_requests_user_idTousers?: role_upgrade_requestsUncheckedCreateNestedManyWithoutUsers_role_upgrade_requests_user_idTousersInput
+    service_bookings?: service_bookingsUncheckedCreateNestedManyWithoutUserInput
+    service_reviews?: service_reviewsUncheckedCreateNestedManyWithoutUserInput
+    created_services?: servicesUncheckedCreateNestedManyWithoutCreatorInput
+    session_enrollments?: session_enrollmentsUncheckedCreateNestedManyWithoutUserInput
+    created_sessions?: sessionsUncheckedCreateNestedManyWithoutCreatorInput
     discussion_comment_likes?: space_discussion_comment_likesUncheckedCreateNestedManyWithoutUserInput
     discussion_comments?: space_discussion_commentsUncheckedCreateNestedManyWithoutUserInput
     discussion_likes?: space_discussion_likesUncheckedCreateNestedManyWithoutUserInput
@@ -107928,15 +107936,7 @@ export namespace Prisma {
     space_news_likes?: space_news_likesUncheckedCreateNestedManyWithoutUserInput
     stargazing_spot_reviews?: stargazing_spot_reviewsUncheckedCreateNestedManyWithoutUserInput
     created_stargazing_spots?: stargazing_spotsUncheckedCreateNestedManyWithoutCreatorInput
-    created_sessions?: sessionsUncheckedCreateNestedManyWithoutCreatorInput
-    session_enrollments?: session_enrollmentsUncheckedCreateNestedManyWithoutUserInput
-    created_services?: servicesUncheckedCreateNestedManyWithoutCreatorInput
-    service_bookings?: service_bookingsUncheckedCreateNestedManyWithoutUserInput
-    service_reviews?: service_reviewsUncheckedCreateNestedManyWithoutUserInput
     subscriptions?: subscriptionsUncheckedCreateNestedManyWithoutUsersInput
-    created_polls?: pollsUncheckedCreateNestedManyWithoutCreatorInput
-    poll_votes?: poll_votesUncheckedCreateNestedManyWithoutVoterInput
-    poll_comments?: poll_commentsUncheckedCreateNestedManyWithoutCommenterInput
   }
 
   export type usersCreateOrConnectWithoutUser_settingsInput = {
@@ -107997,8 +107997,16 @@ export namespace Prisma {
     night_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousers?: night_camp_volunteering_applicationsUpdateManyWithoutUsers_night_camp_volunteering_applications_reviewed_byTousersNestedInput
     night_camp_volunteering_applications_night_camp_volunteering_applications_user_idTousers?: night_camp_volunteering_applicationsUpdateManyWithoutUsers_night_camp_volunteering_applications_user_idTousersNestedInput
     payments?: paymentsUpdateManyWithoutUsersNestedInput
+    poll_comments?: poll_commentsUpdateManyWithoutCommenterNestedInput
+    poll_votes?: poll_votesUpdateManyWithoutVoterNestedInput
+    created_polls?: pollsUpdateManyWithoutCreatorNestedInput
     role_upgrade_requests_role_upgrade_requests_reviewer_idTousers?: role_upgrade_requestsUpdateManyWithoutUsers_role_upgrade_requests_reviewer_idTousersNestedInput
     role_upgrade_requests_role_upgrade_requests_user_idTousers?: role_upgrade_requestsUpdateManyWithoutUsers_role_upgrade_requests_user_idTousersNestedInput
+    service_bookings?: service_bookingsUpdateManyWithoutUserNestedInput
+    service_reviews?: service_reviewsUpdateManyWithoutUserNestedInput
+    created_services?: servicesUpdateManyWithoutCreatorNestedInput
+    session_enrollments?: session_enrollmentsUpdateManyWithoutUserNestedInput
+    created_sessions?: sessionsUpdateManyWithoutCreatorNestedInput
     discussion_comment_likes?: space_discussion_comment_likesUpdateManyWithoutUserNestedInput
     discussion_comments?: space_discussion_commentsUpdateManyWithoutUserNestedInput
     discussion_likes?: space_discussion_likesUpdateManyWithoutUserNestedInput
@@ -108008,15 +108016,7 @@ export namespace Prisma {
     space_news_likes?: space_news_likesUpdateManyWithoutUserNestedInput
     stargazing_spot_reviews?: stargazing_spot_reviewsUpdateManyWithoutUserNestedInput
     created_stargazing_spots?: stargazing_spotsUpdateManyWithoutCreatorNestedInput
-    created_sessions?: sessionsUpdateManyWithoutCreatorNestedInput
-    session_enrollments?: session_enrollmentsUpdateManyWithoutUserNestedInput
-    created_services?: servicesUpdateManyWithoutCreatorNestedInput
-    service_bookings?: service_bookingsUpdateManyWithoutUserNestedInput
-    service_reviews?: service_reviewsUpdateManyWithoutUserNestedInput
     subscriptions?: subscriptionsUpdateManyWithoutUsersNestedInput
-    created_polls?: pollsUpdateManyWithoutCreatorNestedInput
-    poll_votes?: poll_votesUpdateManyWithoutVoterNestedInput
-    poll_comments?: poll_commentsUpdateManyWithoutCommenterNestedInput
   }
 
   export type usersUncheckedUpdateWithoutUser_settingsInput = {
@@ -108062,8 +108062,16 @@ export namespace Prisma {
     night_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousers?: night_camp_volunteering_applicationsUncheckedUpdateManyWithoutUsers_night_camp_volunteering_applications_reviewed_byTousersNestedInput
     night_camp_volunteering_applications_night_camp_volunteering_applications_user_idTousers?: night_camp_volunteering_applicationsUncheckedUpdateManyWithoutUsers_night_camp_volunteering_applications_user_idTousersNestedInput
     payments?: paymentsUncheckedUpdateManyWithoutUsersNestedInput
+    poll_comments?: poll_commentsUncheckedUpdateManyWithoutCommenterNestedInput
+    poll_votes?: poll_votesUncheckedUpdateManyWithoutVoterNestedInput
+    created_polls?: pollsUncheckedUpdateManyWithoutCreatorNestedInput
     role_upgrade_requests_role_upgrade_requests_reviewer_idTousers?: role_upgrade_requestsUncheckedUpdateManyWithoutUsers_role_upgrade_requests_reviewer_idTousersNestedInput
     role_upgrade_requests_role_upgrade_requests_user_idTousers?: role_upgrade_requestsUncheckedUpdateManyWithoutUsers_role_upgrade_requests_user_idTousersNestedInput
+    service_bookings?: service_bookingsUncheckedUpdateManyWithoutUserNestedInput
+    service_reviews?: service_reviewsUncheckedUpdateManyWithoutUserNestedInput
+    created_services?: servicesUncheckedUpdateManyWithoutCreatorNestedInput
+    session_enrollments?: session_enrollmentsUncheckedUpdateManyWithoutUserNestedInput
+    created_sessions?: sessionsUncheckedUpdateManyWithoutCreatorNestedInput
     discussion_comment_likes?: space_discussion_comment_likesUncheckedUpdateManyWithoutUserNestedInput
     discussion_comments?: space_discussion_commentsUncheckedUpdateManyWithoutUserNestedInput
     discussion_likes?: space_discussion_likesUncheckedUpdateManyWithoutUserNestedInput
@@ -108073,15 +108081,7 @@ export namespace Prisma {
     space_news_likes?: space_news_likesUncheckedUpdateManyWithoutUserNestedInput
     stargazing_spot_reviews?: stargazing_spot_reviewsUncheckedUpdateManyWithoutUserNestedInput
     created_stargazing_spots?: stargazing_spotsUncheckedUpdateManyWithoutCreatorNestedInput
-    created_sessions?: sessionsUncheckedUpdateManyWithoutCreatorNestedInput
-    session_enrollments?: session_enrollmentsUncheckedUpdateManyWithoutUserNestedInput
-    created_services?: servicesUncheckedUpdateManyWithoutCreatorNestedInput
-    service_bookings?: service_bookingsUncheckedUpdateManyWithoutUserNestedInput
-    service_reviews?: service_reviewsUncheckedUpdateManyWithoutUserNestedInput
     subscriptions?: subscriptionsUncheckedUpdateManyWithoutUsersNestedInput
-    created_polls?: pollsUncheckedUpdateManyWithoutCreatorNestedInput
-    poll_votes?: poll_votesUncheckedUpdateManyWithoutVoterNestedInput
-    poll_comments?: poll_commentsUncheckedUpdateManyWithoutCommenterNestedInput
   }
 
   export type chatbot_messagesCreateWithoutChatbot_feedbackInput = {
@@ -108352,7 +108352,15 @@ export namespace Prisma {
     night_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousers?: night_camp_volunteering_applicationsCreateNestedManyWithoutUsers_night_camp_volunteering_applications_reviewed_byTousersInput
     night_camp_volunteering_applications_night_camp_volunteering_applications_user_idTousers?: night_camp_volunteering_applicationsCreateNestedManyWithoutUsers_night_camp_volunteering_applications_user_idTousersInput
     payments?: paymentsCreateNestedManyWithoutUsersInput
+    poll_comments?: poll_commentsCreateNestedManyWithoutCommenterInput
+    poll_votes?: poll_votesCreateNestedManyWithoutVoterInput
+    created_polls?: pollsCreateNestedManyWithoutCreatorInput
     role_upgrade_requests_role_upgrade_requests_user_idTousers?: role_upgrade_requestsCreateNestedManyWithoutUsers_role_upgrade_requests_user_idTousersInput
+    service_bookings?: service_bookingsCreateNestedManyWithoutUserInput
+    service_reviews?: service_reviewsCreateNestedManyWithoutUserInput
+    created_services?: servicesCreateNestedManyWithoutCreatorInput
+    session_enrollments?: session_enrollmentsCreateNestedManyWithoutUserInput
+    created_sessions?: sessionsCreateNestedManyWithoutCreatorInput
     discussion_comment_likes?: space_discussion_comment_likesCreateNestedManyWithoutUserInput
     discussion_comments?: space_discussion_commentsCreateNestedManyWithoutUserInput
     discussion_likes?: space_discussion_likesCreateNestedManyWithoutUserInput
@@ -108362,16 +108370,8 @@ export namespace Prisma {
     space_news_likes?: space_news_likesCreateNestedManyWithoutUserInput
     stargazing_spot_reviews?: stargazing_spot_reviewsCreateNestedManyWithoutUserInput
     created_stargazing_spots?: stargazing_spotsCreateNestedManyWithoutCreatorInput
-    created_sessions?: sessionsCreateNestedManyWithoutCreatorInput
-    session_enrollments?: session_enrollmentsCreateNestedManyWithoutUserInput
-    created_services?: servicesCreateNestedManyWithoutCreatorInput
-    service_bookings?: service_bookingsCreateNestedManyWithoutUserInput
-    service_reviews?: service_reviewsCreateNestedManyWithoutUserInput
     subscriptions?: subscriptionsCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsCreateNestedOneWithoutUsersInput
-    created_polls?: pollsCreateNestedManyWithoutCreatorInput
-    poll_votes?: poll_votesCreateNestedManyWithoutVoterInput
-    poll_comments?: poll_commentsCreateNestedManyWithoutCommenterInput
   }
 
   export type usersUncheckedCreateWithoutRole_upgrade_requests_role_upgrade_requests_reviewer_idTousersInput = {
@@ -108417,7 +108417,15 @@ export namespace Prisma {
     night_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousers?: night_camp_volunteering_applicationsUncheckedCreateNestedManyWithoutUsers_night_camp_volunteering_applications_reviewed_byTousersInput
     night_camp_volunteering_applications_night_camp_volunteering_applications_user_idTousers?: night_camp_volunteering_applicationsUncheckedCreateNestedManyWithoutUsers_night_camp_volunteering_applications_user_idTousersInput
     payments?: paymentsUncheckedCreateNestedManyWithoutUsersInput
+    poll_comments?: poll_commentsUncheckedCreateNestedManyWithoutCommenterInput
+    poll_votes?: poll_votesUncheckedCreateNestedManyWithoutVoterInput
+    created_polls?: pollsUncheckedCreateNestedManyWithoutCreatorInput
     role_upgrade_requests_role_upgrade_requests_user_idTousers?: role_upgrade_requestsUncheckedCreateNestedManyWithoutUsers_role_upgrade_requests_user_idTousersInput
+    service_bookings?: service_bookingsUncheckedCreateNestedManyWithoutUserInput
+    service_reviews?: service_reviewsUncheckedCreateNestedManyWithoutUserInput
+    created_services?: servicesUncheckedCreateNestedManyWithoutCreatorInput
+    session_enrollments?: session_enrollmentsUncheckedCreateNestedManyWithoutUserInput
+    created_sessions?: sessionsUncheckedCreateNestedManyWithoutCreatorInput
     discussion_comment_likes?: space_discussion_comment_likesUncheckedCreateNestedManyWithoutUserInput
     discussion_comments?: space_discussion_commentsUncheckedCreateNestedManyWithoutUserInput
     discussion_likes?: space_discussion_likesUncheckedCreateNestedManyWithoutUserInput
@@ -108427,16 +108435,8 @@ export namespace Prisma {
     space_news_likes?: space_news_likesUncheckedCreateNestedManyWithoutUserInput
     stargazing_spot_reviews?: stargazing_spot_reviewsUncheckedCreateNestedManyWithoutUserInput
     created_stargazing_spots?: stargazing_spotsUncheckedCreateNestedManyWithoutCreatorInput
-    created_sessions?: sessionsUncheckedCreateNestedManyWithoutCreatorInput
-    session_enrollments?: session_enrollmentsUncheckedCreateNestedManyWithoutUserInput
-    created_services?: servicesUncheckedCreateNestedManyWithoutCreatorInput
-    service_bookings?: service_bookingsUncheckedCreateNestedManyWithoutUserInput
-    service_reviews?: service_reviewsUncheckedCreateNestedManyWithoutUserInput
     subscriptions?: subscriptionsUncheckedCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsUncheckedCreateNestedOneWithoutUsersInput
-    created_polls?: pollsUncheckedCreateNestedManyWithoutCreatorInput
-    poll_votes?: poll_votesUncheckedCreateNestedManyWithoutVoterInput
-    poll_comments?: poll_commentsUncheckedCreateNestedManyWithoutCommenterInput
   }
 
   export type usersCreateOrConnectWithoutRole_upgrade_requests_role_upgrade_requests_reviewer_idTousersInput = {
@@ -108486,7 +108486,15 @@ export namespace Prisma {
     night_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousers?: night_camp_volunteering_applicationsCreateNestedManyWithoutUsers_night_camp_volunteering_applications_reviewed_byTousersInput
     night_camp_volunteering_applications_night_camp_volunteering_applications_user_idTousers?: night_camp_volunteering_applicationsCreateNestedManyWithoutUsers_night_camp_volunteering_applications_user_idTousersInput
     payments?: paymentsCreateNestedManyWithoutUsersInput
+    poll_comments?: poll_commentsCreateNestedManyWithoutCommenterInput
+    poll_votes?: poll_votesCreateNestedManyWithoutVoterInput
+    created_polls?: pollsCreateNestedManyWithoutCreatorInput
     role_upgrade_requests_role_upgrade_requests_reviewer_idTousers?: role_upgrade_requestsCreateNestedManyWithoutUsers_role_upgrade_requests_reviewer_idTousersInput
+    service_bookings?: service_bookingsCreateNestedManyWithoutUserInput
+    service_reviews?: service_reviewsCreateNestedManyWithoutUserInput
+    created_services?: servicesCreateNestedManyWithoutCreatorInput
+    session_enrollments?: session_enrollmentsCreateNestedManyWithoutUserInput
+    created_sessions?: sessionsCreateNestedManyWithoutCreatorInput
     discussion_comment_likes?: space_discussion_comment_likesCreateNestedManyWithoutUserInput
     discussion_comments?: space_discussion_commentsCreateNestedManyWithoutUserInput
     discussion_likes?: space_discussion_likesCreateNestedManyWithoutUserInput
@@ -108496,16 +108504,8 @@ export namespace Prisma {
     space_news_likes?: space_news_likesCreateNestedManyWithoutUserInput
     stargazing_spot_reviews?: stargazing_spot_reviewsCreateNestedManyWithoutUserInput
     created_stargazing_spots?: stargazing_spotsCreateNestedManyWithoutCreatorInput
-    created_sessions?: sessionsCreateNestedManyWithoutCreatorInput
-    session_enrollments?: session_enrollmentsCreateNestedManyWithoutUserInput
-    created_services?: servicesCreateNestedManyWithoutCreatorInput
-    service_bookings?: service_bookingsCreateNestedManyWithoutUserInput
-    service_reviews?: service_reviewsCreateNestedManyWithoutUserInput
     subscriptions?: subscriptionsCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsCreateNestedOneWithoutUsersInput
-    created_polls?: pollsCreateNestedManyWithoutCreatorInput
-    poll_votes?: poll_votesCreateNestedManyWithoutVoterInput
-    poll_comments?: poll_commentsCreateNestedManyWithoutCommenterInput
   }
 
   export type usersUncheckedCreateWithoutRole_upgrade_requests_role_upgrade_requests_user_idTousersInput = {
@@ -108551,7 +108551,15 @@ export namespace Prisma {
     night_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousers?: night_camp_volunteering_applicationsUncheckedCreateNestedManyWithoutUsers_night_camp_volunteering_applications_reviewed_byTousersInput
     night_camp_volunteering_applications_night_camp_volunteering_applications_user_idTousers?: night_camp_volunteering_applicationsUncheckedCreateNestedManyWithoutUsers_night_camp_volunteering_applications_user_idTousersInput
     payments?: paymentsUncheckedCreateNestedManyWithoutUsersInput
+    poll_comments?: poll_commentsUncheckedCreateNestedManyWithoutCommenterInput
+    poll_votes?: poll_votesUncheckedCreateNestedManyWithoutVoterInput
+    created_polls?: pollsUncheckedCreateNestedManyWithoutCreatorInput
     role_upgrade_requests_role_upgrade_requests_reviewer_idTousers?: role_upgrade_requestsUncheckedCreateNestedManyWithoutUsers_role_upgrade_requests_reviewer_idTousersInput
+    service_bookings?: service_bookingsUncheckedCreateNestedManyWithoutUserInput
+    service_reviews?: service_reviewsUncheckedCreateNestedManyWithoutUserInput
+    created_services?: servicesUncheckedCreateNestedManyWithoutCreatorInput
+    session_enrollments?: session_enrollmentsUncheckedCreateNestedManyWithoutUserInput
+    created_sessions?: sessionsUncheckedCreateNestedManyWithoutCreatorInput
     discussion_comment_likes?: space_discussion_comment_likesUncheckedCreateNestedManyWithoutUserInput
     discussion_comments?: space_discussion_commentsUncheckedCreateNestedManyWithoutUserInput
     discussion_likes?: space_discussion_likesUncheckedCreateNestedManyWithoutUserInput
@@ -108561,16 +108569,8 @@ export namespace Prisma {
     space_news_likes?: space_news_likesUncheckedCreateNestedManyWithoutUserInput
     stargazing_spot_reviews?: stargazing_spot_reviewsUncheckedCreateNestedManyWithoutUserInput
     created_stargazing_spots?: stargazing_spotsUncheckedCreateNestedManyWithoutCreatorInput
-    created_sessions?: sessionsUncheckedCreateNestedManyWithoutCreatorInput
-    session_enrollments?: session_enrollmentsUncheckedCreateNestedManyWithoutUserInput
-    created_services?: servicesUncheckedCreateNestedManyWithoutCreatorInput
-    service_bookings?: service_bookingsUncheckedCreateNestedManyWithoutUserInput
-    service_reviews?: service_reviewsUncheckedCreateNestedManyWithoutUserInput
     subscriptions?: subscriptionsUncheckedCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsUncheckedCreateNestedOneWithoutUsersInput
-    created_polls?: pollsUncheckedCreateNestedManyWithoutCreatorInput
-    poll_votes?: poll_votesUncheckedCreateNestedManyWithoutVoterInput
-    poll_comments?: poll_commentsUncheckedCreateNestedManyWithoutCommenterInput
   }
 
   export type usersCreateOrConnectWithoutRole_upgrade_requests_role_upgrade_requests_user_idTousersInput = {
@@ -108631,7 +108631,15 @@ export namespace Prisma {
     night_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousers?: night_camp_volunteering_applicationsUpdateManyWithoutUsers_night_camp_volunteering_applications_reviewed_byTousersNestedInput
     night_camp_volunteering_applications_night_camp_volunteering_applications_user_idTousers?: night_camp_volunteering_applicationsUpdateManyWithoutUsers_night_camp_volunteering_applications_user_idTousersNestedInput
     payments?: paymentsUpdateManyWithoutUsersNestedInput
+    poll_comments?: poll_commentsUpdateManyWithoutCommenterNestedInput
+    poll_votes?: poll_votesUpdateManyWithoutVoterNestedInput
+    created_polls?: pollsUpdateManyWithoutCreatorNestedInput
     role_upgrade_requests_role_upgrade_requests_user_idTousers?: role_upgrade_requestsUpdateManyWithoutUsers_role_upgrade_requests_user_idTousersNestedInput
+    service_bookings?: service_bookingsUpdateManyWithoutUserNestedInput
+    service_reviews?: service_reviewsUpdateManyWithoutUserNestedInput
+    created_services?: servicesUpdateManyWithoutCreatorNestedInput
+    session_enrollments?: session_enrollmentsUpdateManyWithoutUserNestedInput
+    created_sessions?: sessionsUpdateManyWithoutCreatorNestedInput
     discussion_comment_likes?: space_discussion_comment_likesUpdateManyWithoutUserNestedInput
     discussion_comments?: space_discussion_commentsUpdateManyWithoutUserNestedInput
     discussion_likes?: space_discussion_likesUpdateManyWithoutUserNestedInput
@@ -108641,16 +108649,8 @@ export namespace Prisma {
     space_news_likes?: space_news_likesUpdateManyWithoutUserNestedInput
     stargazing_spot_reviews?: stargazing_spot_reviewsUpdateManyWithoutUserNestedInput
     created_stargazing_spots?: stargazing_spotsUpdateManyWithoutCreatorNestedInput
-    created_sessions?: sessionsUpdateManyWithoutCreatorNestedInput
-    session_enrollments?: session_enrollmentsUpdateManyWithoutUserNestedInput
-    created_services?: servicesUpdateManyWithoutCreatorNestedInput
-    service_bookings?: service_bookingsUpdateManyWithoutUserNestedInput
-    service_reviews?: service_reviewsUpdateManyWithoutUserNestedInput
     subscriptions?: subscriptionsUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUpdateOneWithoutUsersNestedInput
-    created_polls?: pollsUpdateManyWithoutCreatorNestedInput
-    poll_votes?: poll_votesUpdateManyWithoutVoterNestedInput
-    poll_comments?: poll_commentsUpdateManyWithoutCommenterNestedInput
   }
 
   export type usersUncheckedUpdateWithoutRole_upgrade_requests_role_upgrade_requests_reviewer_idTousersInput = {
@@ -108696,7 +108696,15 @@ export namespace Prisma {
     night_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousers?: night_camp_volunteering_applicationsUncheckedUpdateManyWithoutUsers_night_camp_volunteering_applications_reviewed_byTousersNestedInput
     night_camp_volunteering_applications_night_camp_volunteering_applications_user_idTousers?: night_camp_volunteering_applicationsUncheckedUpdateManyWithoutUsers_night_camp_volunteering_applications_user_idTousersNestedInput
     payments?: paymentsUncheckedUpdateManyWithoutUsersNestedInput
+    poll_comments?: poll_commentsUncheckedUpdateManyWithoutCommenterNestedInput
+    poll_votes?: poll_votesUncheckedUpdateManyWithoutVoterNestedInput
+    created_polls?: pollsUncheckedUpdateManyWithoutCreatorNestedInput
     role_upgrade_requests_role_upgrade_requests_user_idTousers?: role_upgrade_requestsUncheckedUpdateManyWithoutUsers_role_upgrade_requests_user_idTousersNestedInput
+    service_bookings?: service_bookingsUncheckedUpdateManyWithoutUserNestedInput
+    service_reviews?: service_reviewsUncheckedUpdateManyWithoutUserNestedInput
+    created_services?: servicesUncheckedUpdateManyWithoutCreatorNestedInput
+    session_enrollments?: session_enrollmentsUncheckedUpdateManyWithoutUserNestedInput
+    created_sessions?: sessionsUncheckedUpdateManyWithoutCreatorNestedInput
     discussion_comment_likes?: space_discussion_comment_likesUncheckedUpdateManyWithoutUserNestedInput
     discussion_comments?: space_discussion_commentsUncheckedUpdateManyWithoutUserNestedInput
     discussion_likes?: space_discussion_likesUncheckedUpdateManyWithoutUserNestedInput
@@ -108706,16 +108714,8 @@ export namespace Prisma {
     space_news_likes?: space_news_likesUncheckedUpdateManyWithoutUserNestedInput
     stargazing_spot_reviews?: stargazing_spot_reviewsUncheckedUpdateManyWithoutUserNestedInput
     created_stargazing_spots?: stargazing_spotsUncheckedUpdateManyWithoutCreatorNestedInput
-    created_sessions?: sessionsUncheckedUpdateManyWithoutCreatorNestedInput
-    session_enrollments?: session_enrollmentsUncheckedUpdateManyWithoutUserNestedInput
-    created_services?: servicesUncheckedUpdateManyWithoutCreatorNestedInput
-    service_bookings?: service_bookingsUncheckedUpdateManyWithoutUserNestedInput
-    service_reviews?: service_reviewsUncheckedUpdateManyWithoutUserNestedInput
     subscriptions?: subscriptionsUncheckedUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUncheckedUpdateOneWithoutUsersNestedInput
-    created_polls?: pollsUncheckedUpdateManyWithoutCreatorNestedInput
-    poll_votes?: poll_votesUncheckedUpdateManyWithoutVoterNestedInput
-    poll_comments?: poll_commentsUncheckedUpdateManyWithoutCommenterNestedInput
   }
 
   export type usersUpsertWithoutRole_upgrade_requests_role_upgrade_requests_user_idTousersInput = {
@@ -108771,7 +108771,15 @@ export namespace Prisma {
     night_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousers?: night_camp_volunteering_applicationsUpdateManyWithoutUsers_night_camp_volunteering_applications_reviewed_byTousersNestedInput
     night_camp_volunteering_applications_night_camp_volunteering_applications_user_idTousers?: night_camp_volunteering_applicationsUpdateManyWithoutUsers_night_camp_volunteering_applications_user_idTousersNestedInput
     payments?: paymentsUpdateManyWithoutUsersNestedInput
+    poll_comments?: poll_commentsUpdateManyWithoutCommenterNestedInput
+    poll_votes?: poll_votesUpdateManyWithoutVoterNestedInput
+    created_polls?: pollsUpdateManyWithoutCreatorNestedInput
     role_upgrade_requests_role_upgrade_requests_reviewer_idTousers?: role_upgrade_requestsUpdateManyWithoutUsers_role_upgrade_requests_reviewer_idTousersNestedInput
+    service_bookings?: service_bookingsUpdateManyWithoutUserNestedInput
+    service_reviews?: service_reviewsUpdateManyWithoutUserNestedInput
+    created_services?: servicesUpdateManyWithoutCreatorNestedInput
+    session_enrollments?: session_enrollmentsUpdateManyWithoutUserNestedInput
+    created_sessions?: sessionsUpdateManyWithoutCreatorNestedInput
     discussion_comment_likes?: space_discussion_comment_likesUpdateManyWithoutUserNestedInput
     discussion_comments?: space_discussion_commentsUpdateManyWithoutUserNestedInput
     discussion_likes?: space_discussion_likesUpdateManyWithoutUserNestedInput
@@ -108781,16 +108789,8 @@ export namespace Prisma {
     space_news_likes?: space_news_likesUpdateManyWithoutUserNestedInput
     stargazing_spot_reviews?: stargazing_spot_reviewsUpdateManyWithoutUserNestedInput
     created_stargazing_spots?: stargazing_spotsUpdateManyWithoutCreatorNestedInput
-    created_sessions?: sessionsUpdateManyWithoutCreatorNestedInput
-    session_enrollments?: session_enrollmentsUpdateManyWithoutUserNestedInput
-    created_services?: servicesUpdateManyWithoutCreatorNestedInput
-    service_bookings?: service_bookingsUpdateManyWithoutUserNestedInput
-    service_reviews?: service_reviewsUpdateManyWithoutUserNestedInput
     subscriptions?: subscriptionsUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUpdateOneWithoutUsersNestedInput
-    created_polls?: pollsUpdateManyWithoutCreatorNestedInput
-    poll_votes?: poll_votesUpdateManyWithoutVoterNestedInput
-    poll_comments?: poll_commentsUpdateManyWithoutCommenterNestedInput
   }
 
   export type usersUncheckedUpdateWithoutRole_upgrade_requests_role_upgrade_requests_user_idTousersInput = {
@@ -108836,7 +108836,15 @@ export namespace Prisma {
     night_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousers?: night_camp_volunteering_applicationsUncheckedUpdateManyWithoutUsers_night_camp_volunteering_applications_reviewed_byTousersNestedInput
     night_camp_volunteering_applications_night_camp_volunteering_applications_user_idTousers?: night_camp_volunteering_applicationsUncheckedUpdateManyWithoutUsers_night_camp_volunteering_applications_user_idTousersNestedInput
     payments?: paymentsUncheckedUpdateManyWithoutUsersNestedInput
+    poll_comments?: poll_commentsUncheckedUpdateManyWithoutCommenterNestedInput
+    poll_votes?: poll_votesUncheckedUpdateManyWithoutVoterNestedInput
+    created_polls?: pollsUncheckedUpdateManyWithoutCreatorNestedInput
     role_upgrade_requests_role_upgrade_requests_reviewer_idTousers?: role_upgrade_requestsUncheckedUpdateManyWithoutUsers_role_upgrade_requests_reviewer_idTousersNestedInput
+    service_bookings?: service_bookingsUncheckedUpdateManyWithoutUserNestedInput
+    service_reviews?: service_reviewsUncheckedUpdateManyWithoutUserNestedInput
+    created_services?: servicesUncheckedUpdateManyWithoutCreatorNestedInput
+    session_enrollments?: session_enrollmentsUncheckedUpdateManyWithoutUserNestedInput
+    created_sessions?: sessionsUncheckedUpdateManyWithoutCreatorNestedInput
     discussion_comment_likes?: space_discussion_comment_likesUncheckedUpdateManyWithoutUserNestedInput
     discussion_comments?: space_discussion_commentsUncheckedUpdateManyWithoutUserNestedInput
     discussion_likes?: space_discussion_likesUncheckedUpdateManyWithoutUserNestedInput
@@ -108846,16 +108854,8 @@ export namespace Prisma {
     space_news_likes?: space_news_likesUncheckedUpdateManyWithoutUserNestedInput
     stargazing_spot_reviews?: stargazing_spot_reviewsUncheckedUpdateManyWithoutUserNestedInput
     created_stargazing_spots?: stargazing_spotsUncheckedUpdateManyWithoutCreatorNestedInput
-    created_sessions?: sessionsUncheckedUpdateManyWithoutCreatorNestedInput
-    session_enrollments?: session_enrollmentsUncheckedUpdateManyWithoutUserNestedInput
-    created_services?: servicesUncheckedUpdateManyWithoutCreatorNestedInput
-    service_bookings?: service_bookingsUncheckedUpdateManyWithoutUserNestedInput
-    service_reviews?: service_reviewsUncheckedUpdateManyWithoutUserNestedInput
     subscriptions?: subscriptionsUncheckedUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUncheckedUpdateOneWithoutUsersNestedInput
-    created_polls?: pollsUncheckedUpdateManyWithoutCreatorNestedInput
-    poll_votes?: poll_votesUncheckedUpdateManyWithoutVoterNestedInput
-    poll_comments?: poll_commentsUncheckedUpdateManyWithoutCommenterNestedInput
   }
 
   export type usersCreateWithoutGuide_applicationInput = {
@@ -108899,8 +108899,16 @@ export namespace Prisma {
     night_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousers?: night_camp_volunteering_applicationsCreateNestedManyWithoutUsers_night_camp_volunteering_applications_reviewed_byTousersInput
     night_camp_volunteering_applications_night_camp_volunteering_applications_user_idTousers?: night_camp_volunteering_applicationsCreateNestedManyWithoutUsers_night_camp_volunteering_applications_user_idTousersInput
     payments?: paymentsCreateNestedManyWithoutUsersInput
+    poll_comments?: poll_commentsCreateNestedManyWithoutCommenterInput
+    poll_votes?: poll_votesCreateNestedManyWithoutVoterInput
+    created_polls?: pollsCreateNestedManyWithoutCreatorInput
     role_upgrade_requests_role_upgrade_requests_reviewer_idTousers?: role_upgrade_requestsCreateNestedManyWithoutUsers_role_upgrade_requests_reviewer_idTousersInput
     role_upgrade_requests_role_upgrade_requests_user_idTousers?: role_upgrade_requestsCreateNestedManyWithoutUsers_role_upgrade_requests_user_idTousersInput
+    service_bookings?: service_bookingsCreateNestedManyWithoutUserInput
+    service_reviews?: service_reviewsCreateNestedManyWithoutUserInput
+    created_services?: servicesCreateNestedManyWithoutCreatorInput
+    session_enrollments?: session_enrollmentsCreateNestedManyWithoutUserInput
+    created_sessions?: sessionsCreateNestedManyWithoutCreatorInput
     discussion_comment_likes?: space_discussion_comment_likesCreateNestedManyWithoutUserInput
     discussion_comments?: space_discussion_commentsCreateNestedManyWithoutUserInput
     discussion_likes?: space_discussion_likesCreateNestedManyWithoutUserInput
@@ -108910,16 +108918,8 @@ export namespace Prisma {
     space_news_likes?: space_news_likesCreateNestedManyWithoutUserInput
     stargazing_spot_reviews?: stargazing_spot_reviewsCreateNestedManyWithoutUserInput
     created_stargazing_spots?: stargazing_spotsCreateNestedManyWithoutCreatorInput
-    created_sessions?: sessionsCreateNestedManyWithoutCreatorInput
-    session_enrollments?: session_enrollmentsCreateNestedManyWithoutUserInput
-    created_services?: servicesCreateNestedManyWithoutCreatorInput
-    service_bookings?: service_bookingsCreateNestedManyWithoutUserInput
-    service_reviews?: service_reviewsCreateNestedManyWithoutUserInput
     subscriptions?: subscriptionsCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsCreateNestedOneWithoutUsersInput
-    created_polls?: pollsCreateNestedManyWithoutCreatorInput
-    poll_votes?: poll_votesCreateNestedManyWithoutVoterInput
-    poll_comments?: poll_commentsCreateNestedManyWithoutCommenterInput
   }
 
   export type usersUncheckedCreateWithoutGuide_applicationInput = {
@@ -108964,8 +108964,16 @@ export namespace Prisma {
     night_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousers?: night_camp_volunteering_applicationsUncheckedCreateNestedManyWithoutUsers_night_camp_volunteering_applications_reviewed_byTousersInput
     night_camp_volunteering_applications_night_camp_volunteering_applications_user_idTousers?: night_camp_volunteering_applicationsUncheckedCreateNestedManyWithoutUsers_night_camp_volunteering_applications_user_idTousersInput
     payments?: paymentsUncheckedCreateNestedManyWithoutUsersInput
+    poll_comments?: poll_commentsUncheckedCreateNestedManyWithoutCommenterInput
+    poll_votes?: poll_votesUncheckedCreateNestedManyWithoutVoterInput
+    created_polls?: pollsUncheckedCreateNestedManyWithoutCreatorInput
     role_upgrade_requests_role_upgrade_requests_reviewer_idTousers?: role_upgrade_requestsUncheckedCreateNestedManyWithoutUsers_role_upgrade_requests_reviewer_idTousersInput
     role_upgrade_requests_role_upgrade_requests_user_idTousers?: role_upgrade_requestsUncheckedCreateNestedManyWithoutUsers_role_upgrade_requests_user_idTousersInput
+    service_bookings?: service_bookingsUncheckedCreateNestedManyWithoutUserInput
+    service_reviews?: service_reviewsUncheckedCreateNestedManyWithoutUserInput
+    created_services?: servicesUncheckedCreateNestedManyWithoutCreatorInput
+    session_enrollments?: session_enrollmentsUncheckedCreateNestedManyWithoutUserInput
+    created_sessions?: sessionsUncheckedCreateNestedManyWithoutCreatorInput
     discussion_comment_likes?: space_discussion_comment_likesUncheckedCreateNestedManyWithoutUserInput
     discussion_comments?: space_discussion_commentsUncheckedCreateNestedManyWithoutUserInput
     discussion_likes?: space_discussion_likesUncheckedCreateNestedManyWithoutUserInput
@@ -108975,16 +108983,8 @@ export namespace Prisma {
     space_news_likes?: space_news_likesUncheckedCreateNestedManyWithoutUserInput
     stargazing_spot_reviews?: stargazing_spot_reviewsUncheckedCreateNestedManyWithoutUserInput
     created_stargazing_spots?: stargazing_spotsUncheckedCreateNestedManyWithoutCreatorInput
-    created_sessions?: sessionsUncheckedCreateNestedManyWithoutCreatorInput
-    session_enrollments?: session_enrollmentsUncheckedCreateNestedManyWithoutUserInput
-    created_services?: servicesUncheckedCreateNestedManyWithoutCreatorInput
-    service_bookings?: service_bookingsUncheckedCreateNestedManyWithoutUserInput
-    service_reviews?: service_reviewsUncheckedCreateNestedManyWithoutUserInput
     subscriptions?: subscriptionsUncheckedCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsUncheckedCreateNestedOneWithoutUsersInput
-    created_polls?: pollsUncheckedCreateNestedManyWithoutCreatorInput
-    poll_votes?: poll_votesUncheckedCreateNestedManyWithoutVoterInput
-    poll_comments?: poll_commentsUncheckedCreateNestedManyWithoutCommenterInput
   }
 
   export type usersCreateOrConnectWithoutGuide_applicationInput = {
@@ -109044,8 +109044,16 @@ export namespace Prisma {
     night_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousers?: night_camp_volunteering_applicationsUpdateManyWithoutUsers_night_camp_volunteering_applications_reviewed_byTousersNestedInput
     night_camp_volunteering_applications_night_camp_volunteering_applications_user_idTousers?: night_camp_volunteering_applicationsUpdateManyWithoutUsers_night_camp_volunteering_applications_user_idTousersNestedInput
     payments?: paymentsUpdateManyWithoutUsersNestedInput
+    poll_comments?: poll_commentsUpdateManyWithoutCommenterNestedInput
+    poll_votes?: poll_votesUpdateManyWithoutVoterNestedInput
+    created_polls?: pollsUpdateManyWithoutCreatorNestedInput
     role_upgrade_requests_role_upgrade_requests_reviewer_idTousers?: role_upgrade_requestsUpdateManyWithoutUsers_role_upgrade_requests_reviewer_idTousersNestedInput
     role_upgrade_requests_role_upgrade_requests_user_idTousers?: role_upgrade_requestsUpdateManyWithoutUsers_role_upgrade_requests_user_idTousersNestedInput
+    service_bookings?: service_bookingsUpdateManyWithoutUserNestedInput
+    service_reviews?: service_reviewsUpdateManyWithoutUserNestedInput
+    created_services?: servicesUpdateManyWithoutCreatorNestedInput
+    session_enrollments?: session_enrollmentsUpdateManyWithoutUserNestedInput
+    created_sessions?: sessionsUpdateManyWithoutCreatorNestedInput
     discussion_comment_likes?: space_discussion_comment_likesUpdateManyWithoutUserNestedInput
     discussion_comments?: space_discussion_commentsUpdateManyWithoutUserNestedInput
     discussion_likes?: space_discussion_likesUpdateManyWithoutUserNestedInput
@@ -109055,16 +109063,8 @@ export namespace Prisma {
     space_news_likes?: space_news_likesUpdateManyWithoutUserNestedInput
     stargazing_spot_reviews?: stargazing_spot_reviewsUpdateManyWithoutUserNestedInput
     created_stargazing_spots?: stargazing_spotsUpdateManyWithoutCreatorNestedInput
-    created_sessions?: sessionsUpdateManyWithoutCreatorNestedInput
-    session_enrollments?: session_enrollmentsUpdateManyWithoutUserNestedInput
-    created_services?: servicesUpdateManyWithoutCreatorNestedInput
-    service_bookings?: service_bookingsUpdateManyWithoutUserNestedInput
-    service_reviews?: service_reviewsUpdateManyWithoutUserNestedInput
     subscriptions?: subscriptionsUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUpdateOneWithoutUsersNestedInput
-    created_polls?: pollsUpdateManyWithoutCreatorNestedInput
-    poll_votes?: poll_votesUpdateManyWithoutVoterNestedInput
-    poll_comments?: poll_commentsUpdateManyWithoutCommenterNestedInput
   }
 
   export type usersUncheckedUpdateWithoutGuide_applicationInput = {
@@ -109109,8 +109109,16 @@ export namespace Prisma {
     night_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousers?: night_camp_volunteering_applicationsUncheckedUpdateManyWithoutUsers_night_camp_volunteering_applications_reviewed_byTousersNestedInput
     night_camp_volunteering_applications_night_camp_volunteering_applications_user_idTousers?: night_camp_volunteering_applicationsUncheckedUpdateManyWithoutUsers_night_camp_volunteering_applications_user_idTousersNestedInput
     payments?: paymentsUncheckedUpdateManyWithoutUsersNestedInput
+    poll_comments?: poll_commentsUncheckedUpdateManyWithoutCommenterNestedInput
+    poll_votes?: poll_votesUncheckedUpdateManyWithoutVoterNestedInput
+    created_polls?: pollsUncheckedUpdateManyWithoutCreatorNestedInput
     role_upgrade_requests_role_upgrade_requests_reviewer_idTousers?: role_upgrade_requestsUncheckedUpdateManyWithoutUsers_role_upgrade_requests_reviewer_idTousersNestedInput
     role_upgrade_requests_role_upgrade_requests_user_idTousers?: role_upgrade_requestsUncheckedUpdateManyWithoutUsers_role_upgrade_requests_user_idTousersNestedInput
+    service_bookings?: service_bookingsUncheckedUpdateManyWithoutUserNestedInput
+    service_reviews?: service_reviewsUncheckedUpdateManyWithoutUserNestedInput
+    created_services?: servicesUncheckedUpdateManyWithoutCreatorNestedInput
+    session_enrollments?: session_enrollmentsUncheckedUpdateManyWithoutUserNestedInput
+    created_sessions?: sessionsUncheckedUpdateManyWithoutCreatorNestedInput
     discussion_comment_likes?: space_discussion_comment_likesUncheckedUpdateManyWithoutUserNestedInput
     discussion_comments?: space_discussion_commentsUncheckedUpdateManyWithoutUserNestedInput
     discussion_likes?: space_discussion_likesUncheckedUpdateManyWithoutUserNestedInput
@@ -109120,16 +109128,8 @@ export namespace Prisma {
     space_news_likes?: space_news_likesUncheckedUpdateManyWithoutUserNestedInput
     stargazing_spot_reviews?: stargazing_spot_reviewsUncheckedUpdateManyWithoutUserNestedInput
     created_stargazing_spots?: stargazing_spotsUncheckedUpdateManyWithoutCreatorNestedInput
-    created_sessions?: sessionsUncheckedUpdateManyWithoutCreatorNestedInput
-    session_enrollments?: session_enrollmentsUncheckedUpdateManyWithoutUserNestedInput
-    created_services?: servicesUncheckedUpdateManyWithoutCreatorNestedInput
-    service_bookings?: service_bookingsUncheckedUpdateManyWithoutUserNestedInput
-    service_reviews?: service_reviewsUncheckedUpdateManyWithoutUserNestedInput
     subscriptions?: subscriptionsUncheckedUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUncheckedUpdateOneWithoutUsersNestedInput
-    created_polls?: pollsUncheckedUpdateManyWithoutCreatorNestedInput
-    poll_votes?: poll_votesUncheckedUpdateManyWithoutVoterNestedInput
-    poll_comments?: poll_commentsUncheckedUpdateManyWithoutCommenterNestedInput
   }
 
   export type usersCreateWithoutMentor_applicationInput = {
@@ -109173,8 +109173,16 @@ export namespace Prisma {
     night_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousers?: night_camp_volunteering_applicationsCreateNestedManyWithoutUsers_night_camp_volunteering_applications_reviewed_byTousersInput
     night_camp_volunteering_applications_night_camp_volunteering_applications_user_idTousers?: night_camp_volunteering_applicationsCreateNestedManyWithoutUsers_night_camp_volunteering_applications_user_idTousersInput
     payments?: paymentsCreateNestedManyWithoutUsersInput
+    poll_comments?: poll_commentsCreateNestedManyWithoutCommenterInput
+    poll_votes?: poll_votesCreateNestedManyWithoutVoterInput
+    created_polls?: pollsCreateNestedManyWithoutCreatorInput
     role_upgrade_requests_role_upgrade_requests_reviewer_idTousers?: role_upgrade_requestsCreateNestedManyWithoutUsers_role_upgrade_requests_reviewer_idTousersInput
     role_upgrade_requests_role_upgrade_requests_user_idTousers?: role_upgrade_requestsCreateNestedManyWithoutUsers_role_upgrade_requests_user_idTousersInput
+    service_bookings?: service_bookingsCreateNestedManyWithoutUserInput
+    service_reviews?: service_reviewsCreateNestedManyWithoutUserInput
+    created_services?: servicesCreateNestedManyWithoutCreatorInput
+    session_enrollments?: session_enrollmentsCreateNestedManyWithoutUserInput
+    created_sessions?: sessionsCreateNestedManyWithoutCreatorInput
     discussion_comment_likes?: space_discussion_comment_likesCreateNestedManyWithoutUserInput
     discussion_comments?: space_discussion_commentsCreateNestedManyWithoutUserInput
     discussion_likes?: space_discussion_likesCreateNestedManyWithoutUserInput
@@ -109184,16 +109192,8 @@ export namespace Prisma {
     space_news_likes?: space_news_likesCreateNestedManyWithoutUserInput
     stargazing_spot_reviews?: stargazing_spot_reviewsCreateNestedManyWithoutUserInput
     created_stargazing_spots?: stargazing_spotsCreateNestedManyWithoutCreatorInput
-    created_sessions?: sessionsCreateNestedManyWithoutCreatorInput
-    session_enrollments?: session_enrollmentsCreateNestedManyWithoutUserInput
-    created_services?: servicesCreateNestedManyWithoutCreatorInput
-    service_bookings?: service_bookingsCreateNestedManyWithoutUserInput
-    service_reviews?: service_reviewsCreateNestedManyWithoutUserInput
     subscriptions?: subscriptionsCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsCreateNestedOneWithoutUsersInput
-    created_polls?: pollsCreateNestedManyWithoutCreatorInput
-    poll_votes?: poll_votesCreateNestedManyWithoutVoterInput
-    poll_comments?: poll_commentsCreateNestedManyWithoutCommenterInput
   }
 
   export type usersUncheckedCreateWithoutMentor_applicationInput = {
@@ -109238,8 +109238,16 @@ export namespace Prisma {
     night_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousers?: night_camp_volunteering_applicationsUncheckedCreateNestedManyWithoutUsers_night_camp_volunteering_applications_reviewed_byTousersInput
     night_camp_volunteering_applications_night_camp_volunteering_applications_user_idTousers?: night_camp_volunteering_applicationsUncheckedCreateNestedManyWithoutUsers_night_camp_volunteering_applications_user_idTousersInput
     payments?: paymentsUncheckedCreateNestedManyWithoutUsersInput
+    poll_comments?: poll_commentsUncheckedCreateNestedManyWithoutCommenterInput
+    poll_votes?: poll_votesUncheckedCreateNestedManyWithoutVoterInput
+    created_polls?: pollsUncheckedCreateNestedManyWithoutCreatorInput
     role_upgrade_requests_role_upgrade_requests_reviewer_idTousers?: role_upgrade_requestsUncheckedCreateNestedManyWithoutUsers_role_upgrade_requests_reviewer_idTousersInput
     role_upgrade_requests_role_upgrade_requests_user_idTousers?: role_upgrade_requestsUncheckedCreateNestedManyWithoutUsers_role_upgrade_requests_user_idTousersInput
+    service_bookings?: service_bookingsUncheckedCreateNestedManyWithoutUserInput
+    service_reviews?: service_reviewsUncheckedCreateNestedManyWithoutUserInput
+    created_services?: servicesUncheckedCreateNestedManyWithoutCreatorInput
+    session_enrollments?: session_enrollmentsUncheckedCreateNestedManyWithoutUserInput
+    created_sessions?: sessionsUncheckedCreateNestedManyWithoutCreatorInput
     discussion_comment_likes?: space_discussion_comment_likesUncheckedCreateNestedManyWithoutUserInput
     discussion_comments?: space_discussion_commentsUncheckedCreateNestedManyWithoutUserInput
     discussion_likes?: space_discussion_likesUncheckedCreateNestedManyWithoutUserInput
@@ -109249,16 +109257,8 @@ export namespace Prisma {
     space_news_likes?: space_news_likesUncheckedCreateNestedManyWithoutUserInput
     stargazing_spot_reviews?: stargazing_spot_reviewsUncheckedCreateNestedManyWithoutUserInput
     created_stargazing_spots?: stargazing_spotsUncheckedCreateNestedManyWithoutCreatorInput
-    created_sessions?: sessionsUncheckedCreateNestedManyWithoutCreatorInput
-    session_enrollments?: session_enrollmentsUncheckedCreateNestedManyWithoutUserInput
-    created_services?: servicesUncheckedCreateNestedManyWithoutCreatorInput
-    service_bookings?: service_bookingsUncheckedCreateNestedManyWithoutUserInput
-    service_reviews?: service_reviewsUncheckedCreateNestedManyWithoutUserInput
     subscriptions?: subscriptionsUncheckedCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsUncheckedCreateNestedOneWithoutUsersInput
-    created_polls?: pollsUncheckedCreateNestedManyWithoutCreatorInput
-    poll_votes?: poll_votesUncheckedCreateNestedManyWithoutVoterInput
-    poll_comments?: poll_commentsUncheckedCreateNestedManyWithoutCommenterInput
   }
 
   export type usersCreateOrConnectWithoutMentor_applicationInput = {
@@ -109318,8 +109318,16 @@ export namespace Prisma {
     night_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousers?: night_camp_volunteering_applicationsUpdateManyWithoutUsers_night_camp_volunteering_applications_reviewed_byTousersNestedInput
     night_camp_volunteering_applications_night_camp_volunteering_applications_user_idTousers?: night_camp_volunteering_applicationsUpdateManyWithoutUsers_night_camp_volunteering_applications_user_idTousersNestedInput
     payments?: paymentsUpdateManyWithoutUsersNestedInput
+    poll_comments?: poll_commentsUpdateManyWithoutCommenterNestedInput
+    poll_votes?: poll_votesUpdateManyWithoutVoterNestedInput
+    created_polls?: pollsUpdateManyWithoutCreatorNestedInput
     role_upgrade_requests_role_upgrade_requests_reviewer_idTousers?: role_upgrade_requestsUpdateManyWithoutUsers_role_upgrade_requests_reviewer_idTousersNestedInput
     role_upgrade_requests_role_upgrade_requests_user_idTousers?: role_upgrade_requestsUpdateManyWithoutUsers_role_upgrade_requests_user_idTousersNestedInput
+    service_bookings?: service_bookingsUpdateManyWithoutUserNestedInput
+    service_reviews?: service_reviewsUpdateManyWithoutUserNestedInput
+    created_services?: servicesUpdateManyWithoutCreatorNestedInput
+    session_enrollments?: session_enrollmentsUpdateManyWithoutUserNestedInput
+    created_sessions?: sessionsUpdateManyWithoutCreatorNestedInput
     discussion_comment_likes?: space_discussion_comment_likesUpdateManyWithoutUserNestedInput
     discussion_comments?: space_discussion_commentsUpdateManyWithoutUserNestedInput
     discussion_likes?: space_discussion_likesUpdateManyWithoutUserNestedInput
@@ -109329,16 +109337,8 @@ export namespace Prisma {
     space_news_likes?: space_news_likesUpdateManyWithoutUserNestedInput
     stargazing_spot_reviews?: stargazing_spot_reviewsUpdateManyWithoutUserNestedInput
     created_stargazing_spots?: stargazing_spotsUpdateManyWithoutCreatorNestedInput
-    created_sessions?: sessionsUpdateManyWithoutCreatorNestedInput
-    session_enrollments?: session_enrollmentsUpdateManyWithoutUserNestedInput
-    created_services?: servicesUpdateManyWithoutCreatorNestedInput
-    service_bookings?: service_bookingsUpdateManyWithoutUserNestedInput
-    service_reviews?: service_reviewsUpdateManyWithoutUserNestedInput
     subscriptions?: subscriptionsUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUpdateOneWithoutUsersNestedInput
-    created_polls?: pollsUpdateManyWithoutCreatorNestedInput
-    poll_votes?: poll_votesUpdateManyWithoutVoterNestedInput
-    poll_comments?: poll_commentsUpdateManyWithoutCommenterNestedInput
   }
 
   export type usersUncheckedUpdateWithoutMentor_applicationInput = {
@@ -109383,8 +109383,16 @@ export namespace Prisma {
     night_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousers?: night_camp_volunteering_applicationsUncheckedUpdateManyWithoutUsers_night_camp_volunteering_applications_reviewed_byTousersNestedInput
     night_camp_volunteering_applications_night_camp_volunteering_applications_user_idTousers?: night_camp_volunteering_applicationsUncheckedUpdateManyWithoutUsers_night_camp_volunteering_applications_user_idTousersNestedInput
     payments?: paymentsUncheckedUpdateManyWithoutUsersNestedInput
+    poll_comments?: poll_commentsUncheckedUpdateManyWithoutCommenterNestedInput
+    poll_votes?: poll_votesUncheckedUpdateManyWithoutVoterNestedInput
+    created_polls?: pollsUncheckedUpdateManyWithoutCreatorNestedInput
     role_upgrade_requests_role_upgrade_requests_reviewer_idTousers?: role_upgrade_requestsUncheckedUpdateManyWithoutUsers_role_upgrade_requests_reviewer_idTousersNestedInput
     role_upgrade_requests_role_upgrade_requests_user_idTousers?: role_upgrade_requestsUncheckedUpdateManyWithoutUsers_role_upgrade_requests_user_idTousersNestedInput
+    service_bookings?: service_bookingsUncheckedUpdateManyWithoutUserNestedInput
+    service_reviews?: service_reviewsUncheckedUpdateManyWithoutUserNestedInput
+    created_services?: servicesUncheckedUpdateManyWithoutCreatorNestedInput
+    session_enrollments?: session_enrollmentsUncheckedUpdateManyWithoutUserNestedInput
+    created_sessions?: sessionsUncheckedUpdateManyWithoutCreatorNestedInput
     discussion_comment_likes?: space_discussion_comment_likesUncheckedUpdateManyWithoutUserNestedInput
     discussion_comments?: space_discussion_commentsUncheckedUpdateManyWithoutUserNestedInput
     discussion_likes?: space_discussion_likesUncheckedUpdateManyWithoutUserNestedInput
@@ -109394,16 +109402,8 @@ export namespace Prisma {
     space_news_likes?: space_news_likesUncheckedUpdateManyWithoutUserNestedInput
     stargazing_spot_reviews?: stargazing_spot_reviewsUncheckedUpdateManyWithoutUserNestedInput
     created_stargazing_spots?: stargazing_spotsUncheckedUpdateManyWithoutCreatorNestedInput
-    created_sessions?: sessionsUncheckedUpdateManyWithoutCreatorNestedInput
-    session_enrollments?: session_enrollmentsUncheckedUpdateManyWithoutUserNestedInput
-    created_services?: servicesUncheckedUpdateManyWithoutCreatorNestedInput
-    service_bookings?: service_bookingsUncheckedUpdateManyWithoutUserNestedInput
-    service_reviews?: service_reviewsUncheckedUpdateManyWithoutUserNestedInput
     subscriptions?: subscriptionsUncheckedUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUncheckedUpdateOneWithoutUsersNestedInput
-    created_polls?: pollsUncheckedUpdateManyWithoutCreatorNestedInput
-    poll_votes?: poll_votesUncheckedUpdateManyWithoutVoterNestedInput
-    poll_comments?: poll_commentsUncheckedUpdateManyWithoutCommenterNestedInput
   }
 
   export type night_campsCreateWithoutNight_camp_volunteering_applicationsInput = {
@@ -109493,8 +109493,16 @@ export namespace Prisma {
     night_camp_registrations?: night_camp_registrationsCreateNestedManyWithoutUsersInput
     night_camp_volunteering_applications_night_camp_volunteering_applications_user_idTousers?: night_camp_volunteering_applicationsCreateNestedManyWithoutUsers_night_camp_volunteering_applications_user_idTousersInput
     payments?: paymentsCreateNestedManyWithoutUsersInput
+    poll_comments?: poll_commentsCreateNestedManyWithoutCommenterInput
+    poll_votes?: poll_votesCreateNestedManyWithoutVoterInput
+    created_polls?: pollsCreateNestedManyWithoutCreatorInput
     role_upgrade_requests_role_upgrade_requests_reviewer_idTousers?: role_upgrade_requestsCreateNestedManyWithoutUsers_role_upgrade_requests_reviewer_idTousersInput
     role_upgrade_requests_role_upgrade_requests_user_idTousers?: role_upgrade_requestsCreateNestedManyWithoutUsers_role_upgrade_requests_user_idTousersInput
+    service_bookings?: service_bookingsCreateNestedManyWithoutUserInput
+    service_reviews?: service_reviewsCreateNestedManyWithoutUserInput
+    created_services?: servicesCreateNestedManyWithoutCreatorInput
+    session_enrollments?: session_enrollmentsCreateNestedManyWithoutUserInput
+    created_sessions?: sessionsCreateNestedManyWithoutCreatorInput
     discussion_comment_likes?: space_discussion_comment_likesCreateNestedManyWithoutUserInput
     discussion_comments?: space_discussion_commentsCreateNestedManyWithoutUserInput
     discussion_likes?: space_discussion_likesCreateNestedManyWithoutUserInput
@@ -109504,16 +109512,8 @@ export namespace Prisma {
     space_news_likes?: space_news_likesCreateNestedManyWithoutUserInput
     stargazing_spot_reviews?: stargazing_spot_reviewsCreateNestedManyWithoutUserInput
     created_stargazing_spots?: stargazing_spotsCreateNestedManyWithoutCreatorInput
-    created_sessions?: sessionsCreateNestedManyWithoutCreatorInput
-    session_enrollments?: session_enrollmentsCreateNestedManyWithoutUserInput
-    created_services?: servicesCreateNestedManyWithoutCreatorInput
-    service_bookings?: service_bookingsCreateNestedManyWithoutUserInput
-    service_reviews?: service_reviewsCreateNestedManyWithoutUserInput
     subscriptions?: subscriptionsCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsCreateNestedOneWithoutUsersInput
-    created_polls?: pollsCreateNestedManyWithoutCreatorInput
-    poll_votes?: poll_votesCreateNestedManyWithoutVoterInput
-    poll_comments?: poll_commentsCreateNestedManyWithoutCommenterInput
   }
 
   export type usersUncheckedCreateWithoutNight_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousersInput = {
@@ -109558,8 +109558,16 @@ export namespace Prisma {
     night_camp_registrations?: night_camp_registrationsUncheckedCreateNestedManyWithoutUsersInput
     night_camp_volunteering_applications_night_camp_volunteering_applications_user_idTousers?: night_camp_volunteering_applicationsUncheckedCreateNestedManyWithoutUsers_night_camp_volunteering_applications_user_idTousersInput
     payments?: paymentsUncheckedCreateNestedManyWithoutUsersInput
+    poll_comments?: poll_commentsUncheckedCreateNestedManyWithoutCommenterInput
+    poll_votes?: poll_votesUncheckedCreateNestedManyWithoutVoterInput
+    created_polls?: pollsUncheckedCreateNestedManyWithoutCreatorInput
     role_upgrade_requests_role_upgrade_requests_reviewer_idTousers?: role_upgrade_requestsUncheckedCreateNestedManyWithoutUsers_role_upgrade_requests_reviewer_idTousersInput
     role_upgrade_requests_role_upgrade_requests_user_idTousers?: role_upgrade_requestsUncheckedCreateNestedManyWithoutUsers_role_upgrade_requests_user_idTousersInput
+    service_bookings?: service_bookingsUncheckedCreateNestedManyWithoutUserInput
+    service_reviews?: service_reviewsUncheckedCreateNestedManyWithoutUserInput
+    created_services?: servicesUncheckedCreateNestedManyWithoutCreatorInput
+    session_enrollments?: session_enrollmentsUncheckedCreateNestedManyWithoutUserInput
+    created_sessions?: sessionsUncheckedCreateNestedManyWithoutCreatorInput
     discussion_comment_likes?: space_discussion_comment_likesUncheckedCreateNestedManyWithoutUserInput
     discussion_comments?: space_discussion_commentsUncheckedCreateNestedManyWithoutUserInput
     discussion_likes?: space_discussion_likesUncheckedCreateNestedManyWithoutUserInput
@@ -109569,16 +109577,8 @@ export namespace Prisma {
     space_news_likes?: space_news_likesUncheckedCreateNestedManyWithoutUserInput
     stargazing_spot_reviews?: stargazing_spot_reviewsUncheckedCreateNestedManyWithoutUserInput
     created_stargazing_spots?: stargazing_spotsUncheckedCreateNestedManyWithoutCreatorInput
-    created_sessions?: sessionsUncheckedCreateNestedManyWithoutCreatorInput
-    session_enrollments?: session_enrollmentsUncheckedCreateNestedManyWithoutUserInput
-    created_services?: servicesUncheckedCreateNestedManyWithoutCreatorInput
-    service_bookings?: service_bookingsUncheckedCreateNestedManyWithoutUserInput
-    service_reviews?: service_reviewsUncheckedCreateNestedManyWithoutUserInput
     subscriptions?: subscriptionsUncheckedCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsUncheckedCreateNestedOneWithoutUsersInput
-    created_polls?: pollsUncheckedCreateNestedManyWithoutCreatorInput
-    poll_votes?: poll_votesUncheckedCreateNestedManyWithoutVoterInput
-    poll_comments?: poll_commentsUncheckedCreateNestedManyWithoutCommenterInput
   }
 
   export type usersCreateOrConnectWithoutNight_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousersInput = {
@@ -109627,8 +109627,16 @@ export namespace Prisma {
     night_camp_registrations?: night_camp_registrationsCreateNestedManyWithoutUsersInput
     night_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousers?: night_camp_volunteering_applicationsCreateNestedManyWithoutUsers_night_camp_volunteering_applications_reviewed_byTousersInput
     payments?: paymentsCreateNestedManyWithoutUsersInput
+    poll_comments?: poll_commentsCreateNestedManyWithoutCommenterInput
+    poll_votes?: poll_votesCreateNestedManyWithoutVoterInput
+    created_polls?: pollsCreateNestedManyWithoutCreatorInput
     role_upgrade_requests_role_upgrade_requests_reviewer_idTousers?: role_upgrade_requestsCreateNestedManyWithoutUsers_role_upgrade_requests_reviewer_idTousersInput
     role_upgrade_requests_role_upgrade_requests_user_idTousers?: role_upgrade_requestsCreateNestedManyWithoutUsers_role_upgrade_requests_user_idTousersInput
+    service_bookings?: service_bookingsCreateNestedManyWithoutUserInput
+    service_reviews?: service_reviewsCreateNestedManyWithoutUserInput
+    created_services?: servicesCreateNestedManyWithoutCreatorInput
+    session_enrollments?: session_enrollmentsCreateNestedManyWithoutUserInput
+    created_sessions?: sessionsCreateNestedManyWithoutCreatorInput
     discussion_comment_likes?: space_discussion_comment_likesCreateNestedManyWithoutUserInput
     discussion_comments?: space_discussion_commentsCreateNestedManyWithoutUserInput
     discussion_likes?: space_discussion_likesCreateNestedManyWithoutUserInput
@@ -109638,16 +109646,8 @@ export namespace Prisma {
     space_news_likes?: space_news_likesCreateNestedManyWithoutUserInput
     stargazing_spot_reviews?: stargazing_spot_reviewsCreateNestedManyWithoutUserInput
     created_stargazing_spots?: stargazing_spotsCreateNestedManyWithoutCreatorInput
-    created_sessions?: sessionsCreateNestedManyWithoutCreatorInput
-    session_enrollments?: session_enrollmentsCreateNestedManyWithoutUserInput
-    created_services?: servicesCreateNestedManyWithoutCreatorInput
-    service_bookings?: service_bookingsCreateNestedManyWithoutUserInput
-    service_reviews?: service_reviewsCreateNestedManyWithoutUserInput
     subscriptions?: subscriptionsCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsCreateNestedOneWithoutUsersInput
-    created_polls?: pollsCreateNestedManyWithoutCreatorInput
-    poll_votes?: poll_votesCreateNestedManyWithoutVoterInput
-    poll_comments?: poll_commentsCreateNestedManyWithoutCommenterInput
   }
 
   export type usersUncheckedCreateWithoutNight_camp_volunteering_applications_night_camp_volunteering_applications_user_idTousersInput = {
@@ -109692,8 +109692,16 @@ export namespace Prisma {
     night_camp_registrations?: night_camp_registrationsUncheckedCreateNestedManyWithoutUsersInput
     night_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousers?: night_camp_volunteering_applicationsUncheckedCreateNestedManyWithoutUsers_night_camp_volunteering_applications_reviewed_byTousersInput
     payments?: paymentsUncheckedCreateNestedManyWithoutUsersInput
+    poll_comments?: poll_commentsUncheckedCreateNestedManyWithoutCommenterInput
+    poll_votes?: poll_votesUncheckedCreateNestedManyWithoutVoterInput
+    created_polls?: pollsUncheckedCreateNestedManyWithoutCreatorInput
     role_upgrade_requests_role_upgrade_requests_reviewer_idTousers?: role_upgrade_requestsUncheckedCreateNestedManyWithoutUsers_role_upgrade_requests_reviewer_idTousersInput
     role_upgrade_requests_role_upgrade_requests_user_idTousers?: role_upgrade_requestsUncheckedCreateNestedManyWithoutUsers_role_upgrade_requests_user_idTousersInput
+    service_bookings?: service_bookingsUncheckedCreateNestedManyWithoutUserInput
+    service_reviews?: service_reviewsUncheckedCreateNestedManyWithoutUserInput
+    created_services?: servicesUncheckedCreateNestedManyWithoutCreatorInput
+    session_enrollments?: session_enrollmentsUncheckedCreateNestedManyWithoutUserInput
+    created_sessions?: sessionsUncheckedCreateNestedManyWithoutCreatorInput
     discussion_comment_likes?: space_discussion_comment_likesUncheckedCreateNestedManyWithoutUserInput
     discussion_comments?: space_discussion_commentsUncheckedCreateNestedManyWithoutUserInput
     discussion_likes?: space_discussion_likesUncheckedCreateNestedManyWithoutUserInput
@@ -109703,16 +109711,8 @@ export namespace Prisma {
     space_news_likes?: space_news_likesUncheckedCreateNestedManyWithoutUserInput
     stargazing_spot_reviews?: stargazing_spot_reviewsUncheckedCreateNestedManyWithoutUserInput
     created_stargazing_spots?: stargazing_spotsUncheckedCreateNestedManyWithoutCreatorInput
-    created_sessions?: sessionsUncheckedCreateNestedManyWithoutCreatorInput
-    session_enrollments?: session_enrollmentsUncheckedCreateNestedManyWithoutUserInput
-    created_services?: servicesUncheckedCreateNestedManyWithoutCreatorInput
-    service_bookings?: service_bookingsUncheckedCreateNestedManyWithoutUserInput
-    service_reviews?: service_reviewsUncheckedCreateNestedManyWithoutUserInput
     subscriptions?: subscriptionsUncheckedCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsUncheckedCreateNestedOneWithoutUsersInput
-    created_polls?: pollsUncheckedCreateNestedManyWithoutCreatorInput
-    poll_votes?: poll_votesUncheckedCreateNestedManyWithoutVoterInput
-    poll_comments?: poll_commentsUncheckedCreateNestedManyWithoutCommenterInput
   }
 
   export type usersCreateOrConnectWithoutNight_camp_volunteering_applications_night_camp_volunteering_applications_user_idTousersInput = {
@@ -109824,8 +109824,16 @@ export namespace Prisma {
     night_camp_registrations?: night_camp_registrationsUpdateManyWithoutUsersNestedInput
     night_camp_volunteering_applications_night_camp_volunteering_applications_user_idTousers?: night_camp_volunteering_applicationsUpdateManyWithoutUsers_night_camp_volunteering_applications_user_idTousersNestedInput
     payments?: paymentsUpdateManyWithoutUsersNestedInput
+    poll_comments?: poll_commentsUpdateManyWithoutCommenterNestedInput
+    poll_votes?: poll_votesUpdateManyWithoutVoterNestedInput
+    created_polls?: pollsUpdateManyWithoutCreatorNestedInput
     role_upgrade_requests_role_upgrade_requests_reviewer_idTousers?: role_upgrade_requestsUpdateManyWithoutUsers_role_upgrade_requests_reviewer_idTousersNestedInput
     role_upgrade_requests_role_upgrade_requests_user_idTousers?: role_upgrade_requestsUpdateManyWithoutUsers_role_upgrade_requests_user_idTousersNestedInput
+    service_bookings?: service_bookingsUpdateManyWithoutUserNestedInput
+    service_reviews?: service_reviewsUpdateManyWithoutUserNestedInput
+    created_services?: servicesUpdateManyWithoutCreatorNestedInput
+    session_enrollments?: session_enrollmentsUpdateManyWithoutUserNestedInput
+    created_sessions?: sessionsUpdateManyWithoutCreatorNestedInput
     discussion_comment_likes?: space_discussion_comment_likesUpdateManyWithoutUserNestedInput
     discussion_comments?: space_discussion_commentsUpdateManyWithoutUserNestedInput
     discussion_likes?: space_discussion_likesUpdateManyWithoutUserNestedInput
@@ -109835,16 +109843,8 @@ export namespace Prisma {
     space_news_likes?: space_news_likesUpdateManyWithoutUserNestedInput
     stargazing_spot_reviews?: stargazing_spot_reviewsUpdateManyWithoutUserNestedInput
     created_stargazing_spots?: stargazing_spotsUpdateManyWithoutCreatorNestedInput
-    created_sessions?: sessionsUpdateManyWithoutCreatorNestedInput
-    session_enrollments?: session_enrollmentsUpdateManyWithoutUserNestedInput
-    created_services?: servicesUpdateManyWithoutCreatorNestedInput
-    service_bookings?: service_bookingsUpdateManyWithoutUserNestedInput
-    service_reviews?: service_reviewsUpdateManyWithoutUserNestedInput
     subscriptions?: subscriptionsUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUpdateOneWithoutUsersNestedInput
-    created_polls?: pollsUpdateManyWithoutCreatorNestedInput
-    poll_votes?: poll_votesUpdateManyWithoutVoterNestedInput
-    poll_comments?: poll_commentsUpdateManyWithoutCommenterNestedInput
   }
 
   export type usersUncheckedUpdateWithoutNight_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousersInput = {
@@ -109889,8 +109889,16 @@ export namespace Prisma {
     night_camp_registrations?: night_camp_registrationsUncheckedUpdateManyWithoutUsersNestedInput
     night_camp_volunteering_applications_night_camp_volunteering_applications_user_idTousers?: night_camp_volunteering_applicationsUncheckedUpdateManyWithoutUsers_night_camp_volunteering_applications_user_idTousersNestedInput
     payments?: paymentsUncheckedUpdateManyWithoutUsersNestedInput
+    poll_comments?: poll_commentsUncheckedUpdateManyWithoutCommenterNestedInput
+    poll_votes?: poll_votesUncheckedUpdateManyWithoutVoterNestedInput
+    created_polls?: pollsUncheckedUpdateManyWithoutCreatorNestedInput
     role_upgrade_requests_role_upgrade_requests_reviewer_idTousers?: role_upgrade_requestsUncheckedUpdateManyWithoutUsers_role_upgrade_requests_reviewer_idTousersNestedInput
     role_upgrade_requests_role_upgrade_requests_user_idTousers?: role_upgrade_requestsUncheckedUpdateManyWithoutUsers_role_upgrade_requests_user_idTousersNestedInput
+    service_bookings?: service_bookingsUncheckedUpdateManyWithoutUserNestedInput
+    service_reviews?: service_reviewsUncheckedUpdateManyWithoutUserNestedInput
+    created_services?: servicesUncheckedUpdateManyWithoutCreatorNestedInput
+    session_enrollments?: session_enrollmentsUncheckedUpdateManyWithoutUserNestedInput
+    created_sessions?: sessionsUncheckedUpdateManyWithoutCreatorNestedInput
     discussion_comment_likes?: space_discussion_comment_likesUncheckedUpdateManyWithoutUserNestedInput
     discussion_comments?: space_discussion_commentsUncheckedUpdateManyWithoutUserNestedInput
     discussion_likes?: space_discussion_likesUncheckedUpdateManyWithoutUserNestedInput
@@ -109900,16 +109908,8 @@ export namespace Prisma {
     space_news_likes?: space_news_likesUncheckedUpdateManyWithoutUserNestedInput
     stargazing_spot_reviews?: stargazing_spot_reviewsUncheckedUpdateManyWithoutUserNestedInput
     created_stargazing_spots?: stargazing_spotsUncheckedUpdateManyWithoutCreatorNestedInput
-    created_sessions?: sessionsUncheckedUpdateManyWithoutCreatorNestedInput
-    session_enrollments?: session_enrollmentsUncheckedUpdateManyWithoutUserNestedInput
-    created_services?: servicesUncheckedUpdateManyWithoutCreatorNestedInput
-    service_bookings?: service_bookingsUncheckedUpdateManyWithoutUserNestedInput
-    service_reviews?: service_reviewsUncheckedUpdateManyWithoutUserNestedInput
     subscriptions?: subscriptionsUncheckedUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUncheckedUpdateOneWithoutUsersNestedInput
-    created_polls?: pollsUncheckedUpdateManyWithoutCreatorNestedInput
-    poll_votes?: poll_votesUncheckedUpdateManyWithoutVoterNestedInput
-    poll_comments?: poll_commentsUncheckedUpdateManyWithoutCommenterNestedInput
   }
 
   export type usersUpsertWithoutNight_camp_volunteering_applications_night_camp_volunteering_applications_user_idTousersInput = {
@@ -109964,8 +109964,16 @@ export namespace Prisma {
     night_camp_registrations?: night_camp_registrationsUpdateManyWithoutUsersNestedInput
     night_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousers?: night_camp_volunteering_applicationsUpdateManyWithoutUsers_night_camp_volunteering_applications_reviewed_byTousersNestedInput
     payments?: paymentsUpdateManyWithoutUsersNestedInput
+    poll_comments?: poll_commentsUpdateManyWithoutCommenterNestedInput
+    poll_votes?: poll_votesUpdateManyWithoutVoterNestedInput
+    created_polls?: pollsUpdateManyWithoutCreatorNestedInput
     role_upgrade_requests_role_upgrade_requests_reviewer_idTousers?: role_upgrade_requestsUpdateManyWithoutUsers_role_upgrade_requests_reviewer_idTousersNestedInput
     role_upgrade_requests_role_upgrade_requests_user_idTousers?: role_upgrade_requestsUpdateManyWithoutUsers_role_upgrade_requests_user_idTousersNestedInput
+    service_bookings?: service_bookingsUpdateManyWithoutUserNestedInput
+    service_reviews?: service_reviewsUpdateManyWithoutUserNestedInput
+    created_services?: servicesUpdateManyWithoutCreatorNestedInput
+    session_enrollments?: session_enrollmentsUpdateManyWithoutUserNestedInput
+    created_sessions?: sessionsUpdateManyWithoutCreatorNestedInput
     discussion_comment_likes?: space_discussion_comment_likesUpdateManyWithoutUserNestedInput
     discussion_comments?: space_discussion_commentsUpdateManyWithoutUserNestedInput
     discussion_likes?: space_discussion_likesUpdateManyWithoutUserNestedInput
@@ -109975,16 +109983,8 @@ export namespace Prisma {
     space_news_likes?: space_news_likesUpdateManyWithoutUserNestedInput
     stargazing_spot_reviews?: stargazing_spot_reviewsUpdateManyWithoutUserNestedInput
     created_stargazing_spots?: stargazing_spotsUpdateManyWithoutCreatorNestedInput
-    created_sessions?: sessionsUpdateManyWithoutCreatorNestedInput
-    session_enrollments?: session_enrollmentsUpdateManyWithoutUserNestedInput
-    created_services?: servicesUpdateManyWithoutCreatorNestedInput
-    service_bookings?: service_bookingsUpdateManyWithoutUserNestedInput
-    service_reviews?: service_reviewsUpdateManyWithoutUserNestedInput
     subscriptions?: subscriptionsUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUpdateOneWithoutUsersNestedInput
-    created_polls?: pollsUpdateManyWithoutCreatorNestedInput
-    poll_votes?: poll_votesUpdateManyWithoutVoterNestedInput
-    poll_comments?: poll_commentsUpdateManyWithoutCommenterNestedInput
   }
 
   export type usersUncheckedUpdateWithoutNight_camp_volunteering_applications_night_camp_volunteering_applications_user_idTousersInput = {
@@ -110029,8 +110029,16 @@ export namespace Prisma {
     night_camp_registrations?: night_camp_registrationsUncheckedUpdateManyWithoutUsersNestedInput
     night_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousers?: night_camp_volunteering_applicationsUncheckedUpdateManyWithoutUsers_night_camp_volunteering_applications_reviewed_byTousersNestedInput
     payments?: paymentsUncheckedUpdateManyWithoutUsersNestedInput
+    poll_comments?: poll_commentsUncheckedUpdateManyWithoutCommenterNestedInput
+    poll_votes?: poll_votesUncheckedUpdateManyWithoutVoterNestedInput
+    created_polls?: pollsUncheckedUpdateManyWithoutCreatorNestedInput
     role_upgrade_requests_role_upgrade_requests_reviewer_idTousers?: role_upgrade_requestsUncheckedUpdateManyWithoutUsers_role_upgrade_requests_reviewer_idTousersNestedInput
     role_upgrade_requests_role_upgrade_requests_user_idTousers?: role_upgrade_requestsUncheckedUpdateManyWithoutUsers_role_upgrade_requests_user_idTousersNestedInput
+    service_bookings?: service_bookingsUncheckedUpdateManyWithoutUserNestedInput
+    service_reviews?: service_reviewsUncheckedUpdateManyWithoutUserNestedInput
+    created_services?: servicesUncheckedUpdateManyWithoutCreatorNestedInput
+    session_enrollments?: session_enrollmentsUncheckedUpdateManyWithoutUserNestedInput
+    created_sessions?: sessionsUncheckedUpdateManyWithoutCreatorNestedInput
     discussion_comment_likes?: space_discussion_comment_likesUncheckedUpdateManyWithoutUserNestedInput
     discussion_comments?: space_discussion_commentsUncheckedUpdateManyWithoutUserNestedInput
     discussion_likes?: space_discussion_likesUncheckedUpdateManyWithoutUserNestedInput
@@ -110040,16 +110048,8 @@ export namespace Prisma {
     space_news_likes?: space_news_likesUncheckedUpdateManyWithoutUserNestedInput
     stargazing_spot_reviews?: stargazing_spot_reviewsUncheckedUpdateManyWithoutUserNestedInput
     created_stargazing_spots?: stargazing_spotsUncheckedUpdateManyWithoutCreatorNestedInput
-    created_sessions?: sessionsUncheckedUpdateManyWithoutCreatorNestedInput
-    session_enrollments?: session_enrollmentsUncheckedUpdateManyWithoutUserNestedInput
-    created_services?: servicesUncheckedUpdateManyWithoutCreatorNestedInput
-    service_bookings?: service_bookingsUncheckedUpdateManyWithoutUserNestedInput
-    service_reviews?: service_reviewsUncheckedUpdateManyWithoutUserNestedInput
     subscriptions?: subscriptionsUncheckedUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUncheckedUpdateOneWithoutUsersNestedInput
-    created_polls?: pollsUncheckedUpdateManyWithoutCreatorNestedInput
-    poll_votes?: poll_votesUncheckedUpdateManyWithoutVoterNestedInput
-    poll_comments?: poll_commentsUncheckedUpdateManyWithoutCommenterNestedInput
   }
 
   export type night_campsCreateWithoutNight_camp_registrationsInput = {
@@ -110139,8 +110139,16 @@ export namespace Prisma {
     night_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousers?: night_camp_volunteering_applicationsCreateNestedManyWithoutUsers_night_camp_volunteering_applications_reviewed_byTousersInput
     night_camp_volunteering_applications_night_camp_volunteering_applications_user_idTousers?: night_camp_volunteering_applicationsCreateNestedManyWithoutUsers_night_camp_volunteering_applications_user_idTousersInput
     payments?: paymentsCreateNestedManyWithoutUsersInput
+    poll_comments?: poll_commentsCreateNestedManyWithoutCommenterInput
+    poll_votes?: poll_votesCreateNestedManyWithoutVoterInput
+    created_polls?: pollsCreateNestedManyWithoutCreatorInput
     role_upgrade_requests_role_upgrade_requests_reviewer_idTousers?: role_upgrade_requestsCreateNestedManyWithoutUsers_role_upgrade_requests_reviewer_idTousersInput
     role_upgrade_requests_role_upgrade_requests_user_idTousers?: role_upgrade_requestsCreateNestedManyWithoutUsers_role_upgrade_requests_user_idTousersInput
+    service_bookings?: service_bookingsCreateNestedManyWithoutUserInput
+    service_reviews?: service_reviewsCreateNestedManyWithoutUserInput
+    created_services?: servicesCreateNestedManyWithoutCreatorInput
+    session_enrollments?: session_enrollmentsCreateNestedManyWithoutUserInput
+    created_sessions?: sessionsCreateNestedManyWithoutCreatorInput
     discussion_comment_likes?: space_discussion_comment_likesCreateNestedManyWithoutUserInput
     discussion_comments?: space_discussion_commentsCreateNestedManyWithoutUserInput
     discussion_likes?: space_discussion_likesCreateNestedManyWithoutUserInput
@@ -110150,16 +110158,8 @@ export namespace Prisma {
     space_news_likes?: space_news_likesCreateNestedManyWithoutUserInput
     stargazing_spot_reviews?: stargazing_spot_reviewsCreateNestedManyWithoutUserInput
     created_stargazing_spots?: stargazing_spotsCreateNestedManyWithoutCreatorInput
-    created_sessions?: sessionsCreateNestedManyWithoutCreatorInput
-    session_enrollments?: session_enrollmentsCreateNestedManyWithoutUserInput
-    created_services?: servicesCreateNestedManyWithoutCreatorInput
-    service_bookings?: service_bookingsCreateNestedManyWithoutUserInput
-    service_reviews?: service_reviewsCreateNestedManyWithoutUserInput
     subscriptions?: subscriptionsCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsCreateNestedOneWithoutUsersInput
-    created_polls?: pollsCreateNestedManyWithoutCreatorInput
-    poll_votes?: poll_votesCreateNestedManyWithoutVoterInput
-    poll_comments?: poll_commentsCreateNestedManyWithoutCommenterInput
   }
 
   export type usersUncheckedCreateWithoutNight_camp_registrationsInput = {
@@ -110204,8 +110204,16 @@ export namespace Prisma {
     night_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousers?: night_camp_volunteering_applicationsUncheckedCreateNestedManyWithoutUsers_night_camp_volunteering_applications_reviewed_byTousersInput
     night_camp_volunteering_applications_night_camp_volunteering_applications_user_idTousers?: night_camp_volunteering_applicationsUncheckedCreateNestedManyWithoutUsers_night_camp_volunteering_applications_user_idTousersInput
     payments?: paymentsUncheckedCreateNestedManyWithoutUsersInput
+    poll_comments?: poll_commentsUncheckedCreateNestedManyWithoutCommenterInput
+    poll_votes?: poll_votesUncheckedCreateNestedManyWithoutVoterInput
+    created_polls?: pollsUncheckedCreateNestedManyWithoutCreatorInput
     role_upgrade_requests_role_upgrade_requests_reviewer_idTousers?: role_upgrade_requestsUncheckedCreateNestedManyWithoutUsers_role_upgrade_requests_reviewer_idTousersInput
     role_upgrade_requests_role_upgrade_requests_user_idTousers?: role_upgrade_requestsUncheckedCreateNestedManyWithoutUsers_role_upgrade_requests_user_idTousersInput
+    service_bookings?: service_bookingsUncheckedCreateNestedManyWithoutUserInput
+    service_reviews?: service_reviewsUncheckedCreateNestedManyWithoutUserInput
+    created_services?: servicesUncheckedCreateNestedManyWithoutCreatorInput
+    session_enrollments?: session_enrollmentsUncheckedCreateNestedManyWithoutUserInput
+    created_sessions?: sessionsUncheckedCreateNestedManyWithoutCreatorInput
     discussion_comment_likes?: space_discussion_comment_likesUncheckedCreateNestedManyWithoutUserInput
     discussion_comments?: space_discussion_commentsUncheckedCreateNestedManyWithoutUserInput
     discussion_likes?: space_discussion_likesUncheckedCreateNestedManyWithoutUserInput
@@ -110215,16 +110223,8 @@ export namespace Prisma {
     space_news_likes?: space_news_likesUncheckedCreateNestedManyWithoutUserInput
     stargazing_spot_reviews?: stargazing_spot_reviewsUncheckedCreateNestedManyWithoutUserInput
     created_stargazing_spots?: stargazing_spotsUncheckedCreateNestedManyWithoutCreatorInput
-    created_sessions?: sessionsUncheckedCreateNestedManyWithoutCreatorInput
-    session_enrollments?: session_enrollmentsUncheckedCreateNestedManyWithoutUserInput
-    created_services?: servicesUncheckedCreateNestedManyWithoutCreatorInput
-    service_bookings?: service_bookingsUncheckedCreateNestedManyWithoutUserInput
-    service_reviews?: service_reviewsUncheckedCreateNestedManyWithoutUserInput
     subscriptions?: subscriptionsUncheckedCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsUncheckedCreateNestedOneWithoutUsersInput
-    created_polls?: pollsUncheckedCreateNestedManyWithoutCreatorInput
-    poll_votes?: poll_votesUncheckedCreateNestedManyWithoutVoterInput
-    poll_comments?: poll_commentsUncheckedCreateNestedManyWithoutCommenterInput
   }
 
   export type usersCreateOrConnectWithoutNight_camp_registrationsInput = {
@@ -110336,8 +110336,16 @@ export namespace Prisma {
     night_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousers?: night_camp_volunteering_applicationsUpdateManyWithoutUsers_night_camp_volunteering_applications_reviewed_byTousersNestedInput
     night_camp_volunteering_applications_night_camp_volunteering_applications_user_idTousers?: night_camp_volunteering_applicationsUpdateManyWithoutUsers_night_camp_volunteering_applications_user_idTousersNestedInput
     payments?: paymentsUpdateManyWithoutUsersNestedInput
+    poll_comments?: poll_commentsUpdateManyWithoutCommenterNestedInput
+    poll_votes?: poll_votesUpdateManyWithoutVoterNestedInput
+    created_polls?: pollsUpdateManyWithoutCreatorNestedInput
     role_upgrade_requests_role_upgrade_requests_reviewer_idTousers?: role_upgrade_requestsUpdateManyWithoutUsers_role_upgrade_requests_reviewer_idTousersNestedInput
     role_upgrade_requests_role_upgrade_requests_user_idTousers?: role_upgrade_requestsUpdateManyWithoutUsers_role_upgrade_requests_user_idTousersNestedInput
+    service_bookings?: service_bookingsUpdateManyWithoutUserNestedInput
+    service_reviews?: service_reviewsUpdateManyWithoutUserNestedInput
+    created_services?: servicesUpdateManyWithoutCreatorNestedInput
+    session_enrollments?: session_enrollmentsUpdateManyWithoutUserNestedInput
+    created_sessions?: sessionsUpdateManyWithoutCreatorNestedInput
     discussion_comment_likes?: space_discussion_comment_likesUpdateManyWithoutUserNestedInput
     discussion_comments?: space_discussion_commentsUpdateManyWithoutUserNestedInput
     discussion_likes?: space_discussion_likesUpdateManyWithoutUserNestedInput
@@ -110347,16 +110355,8 @@ export namespace Prisma {
     space_news_likes?: space_news_likesUpdateManyWithoutUserNestedInput
     stargazing_spot_reviews?: stargazing_spot_reviewsUpdateManyWithoutUserNestedInput
     created_stargazing_spots?: stargazing_spotsUpdateManyWithoutCreatorNestedInput
-    created_sessions?: sessionsUpdateManyWithoutCreatorNestedInput
-    session_enrollments?: session_enrollmentsUpdateManyWithoutUserNestedInput
-    created_services?: servicesUpdateManyWithoutCreatorNestedInput
-    service_bookings?: service_bookingsUpdateManyWithoutUserNestedInput
-    service_reviews?: service_reviewsUpdateManyWithoutUserNestedInput
     subscriptions?: subscriptionsUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUpdateOneWithoutUsersNestedInput
-    created_polls?: pollsUpdateManyWithoutCreatorNestedInput
-    poll_votes?: poll_votesUpdateManyWithoutVoterNestedInput
-    poll_comments?: poll_commentsUpdateManyWithoutCommenterNestedInput
   }
 
   export type usersUncheckedUpdateWithoutNight_camp_registrationsInput = {
@@ -110401,8 +110401,16 @@ export namespace Prisma {
     night_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousers?: night_camp_volunteering_applicationsUncheckedUpdateManyWithoutUsers_night_camp_volunteering_applications_reviewed_byTousersNestedInput
     night_camp_volunteering_applications_night_camp_volunteering_applications_user_idTousers?: night_camp_volunteering_applicationsUncheckedUpdateManyWithoutUsers_night_camp_volunteering_applications_user_idTousersNestedInput
     payments?: paymentsUncheckedUpdateManyWithoutUsersNestedInput
+    poll_comments?: poll_commentsUncheckedUpdateManyWithoutCommenterNestedInput
+    poll_votes?: poll_votesUncheckedUpdateManyWithoutVoterNestedInput
+    created_polls?: pollsUncheckedUpdateManyWithoutCreatorNestedInput
     role_upgrade_requests_role_upgrade_requests_reviewer_idTousers?: role_upgrade_requestsUncheckedUpdateManyWithoutUsers_role_upgrade_requests_reviewer_idTousersNestedInput
     role_upgrade_requests_role_upgrade_requests_user_idTousers?: role_upgrade_requestsUncheckedUpdateManyWithoutUsers_role_upgrade_requests_user_idTousersNestedInput
+    service_bookings?: service_bookingsUncheckedUpdateManyWithoutUserNestedInput
+    service_reviews?: service_reviewsUncheckedUpdateManyWithoutUserNestedInput
+    created_services?: servicesUncheckedUpdateManyWithoutCreatorNestedInput
+    session_enrollments?: session_enrollmentsUncheckedUpdateManyWithoutUserNestedInput
+    created_sessions?: sessionsUncheckedUpdateManyWithoutCreatorNestedInput
     discussion_comment_likes?: space_discussion_comment_likesUncheckedUpdateManyWithoutUserNestedInput
     discussion_comments?: space_discussion_commentsUncheckedUpdateManyWithoutUserNestedInput
     discussion_likes?: space_discussion_likesUncheckedUpdateManyWithoutUserNestedInput
@@ -110412,16 +110420,8 @@ export namespace Prisma {
     space_news_likes?: space_news_likesUncheckedUpdateManyWithoutUserNestedInput
     stargazing_spot_reviews?: stargazing_spot_reviewsUncheckedUpdateManyWithoutUserNestedInput
     created_stargazing_spots?: stargazing_spotsUncheckedUpdateManyWithoutCreatorNestedInput
-    created_sessions?: sessionsUncheckedUpdateManyWithoutCreatorNestedInput
-    session_enrollments?: session_enrollmentsUncheckedUpdateManyWithoutUserNestedInput
-    created_services?: servicesUncheckedUpdateManyWithoutCreatorNestedInput
-    service_bookings?: service_bookingsUncheckedUpdateManyWithoutUserNestedInput
-    service_reviews?: service_reviewsUncheckedUpdateManyWithoutUserNestedInput
     subscriptions?: subscriptionsUncheckedUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUncheckedUpdateOneWithoutUsersNestedInput
-    created_polls?: pollsUncheckedUpdateManyWithoutCreatorNestedInput
-    poll_votes?: poll_votesUncheckedUpdateManyWithoutVoterNestedInput
-    poll_comments?: poll_commentsUncheckedUpdateManyWithoutCommenterNestedInput
   }
 
   export type usersCreateWithoutInfluencer_applicationInput = {
@@ -110465,8 +110465,16 @@ export namespace Prisma {
     night_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousers?: night_camp_volunteering_applicationsCreateNestedManyWithoutUsers_night_camp_volunteering_applications_reviewed_byTousersInput
     night_camp_volunteering_applications_night_camp_volunteering_applications_user_idTousers?: night_camp_volunteering_applicationsCreateNestedManyWithoutUsers_night_camp_volunteering_applications_user_idTousersInput
     payments?: paymentsCreateNestedManyWithoutUsersInput
+    poll_comments?: poll_commentsCreateNestedManyWithoutCommenterInput
+    poll_votes?: poll_votesCreateNestedManyWithoutVoterInput
+    created_polls?: pollsCreateNestedManyWithoutCreatorInput
     role_upgrade_requests_role_upgrade_requests_reviewer_idTousers?: role_upgrade_requestsCreateNestedManyWithoutUsers_role_upgrade_requests_reviewer_idTousersInput
     role_upgrade_requests_role_upgrade_requests_user_idTousers?: role_upgrade_requestsCreateNestedManyWithoutUsers_role_upgrade_requests_user_idTousersInput
+    service_bookings?: service_bookingsCreateNestedManyWithoutUserInput
+    service_reviews?: service_reviewsCreateNestedManyWithoutUserInput
+    created_services?: servicesCreateNestedManyWithoutCreatorInput
+    session_enrollments?: session_enrollmentsCreateNestedManyWithoutUserInput
+    created_sessions?: sessionsCreateNestedManyWithoutCreatorInput
     discussion_comment_likes?: space_discussion_comment_likesCreateNestedManyWithoutUserInput
     discussion_comments?: space_discussion_commentsCreateNestedManyWithoutUserInput
     discussion_likes?: space_discussion_likesCreateNestedManyWithoutUserInput
@@ -110476,16 +110484,8 @@ export namespace Prisma {
     space_news_likes?: space_news_likesCreateNestedManyWithoutUserInput
     stargazing_spot_reviews?: stargazing_spot_reviewsCreateNestedManyWithoutUserInput
     created_stargazing_spots?: stargazing_spotsCreateNestedManyWithoutCreatorInput
-    created_sessions?: sessionsCreateNestedManyWithoutCreatorInput
-    session_enrollments?: session_enrollmentsCreateNestedManyWithoutUserInput
-    created_services?: servicesCreateNestedManyWithoutCreatorInput
-    service_bookings?: service_bookingsCreateNestedManyWithoutUserInput
-    service_reviews?: service_reviewsCreateNestedManyWithoutUserInput
     subscriptions?: subscriptionsCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsCreateNestedOneWithoutUsersInput
-    created_polls?: pollsCreateNestedManyWithoutCreatorInput
-    poll_votes?: poll_votesCreateNestedManyWithoutVoterInput
-    poll_comments?: poll_commentsCreateNestedManyWithoutCommenterInput
   }
 
   export type usersUncheckedCreateWithoutInfluencer_applicationInput = {
@@ -110530,8 +110530,16 @@ export namespace Prisma {
     night_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousers?: night_camp_volunteering_applicationsUncheckedCreateNestedManyWithoutUsers_night_camp_volunteering_applications_reviewed_byTousersInput
     night_camp_volunteering_applications_night_camp_volunteering_applications_user_idTousers?: night_camp_volunteering_applicationsUncheckedCreateNestedManyWithoutUsers_night_camp_volunteering_applications_user_idTousersInput
     payments?: paymentsUncheckedCreateNestedManyWithoutUsersInput
+    poll_comments?: poll_commentsUncheckedCreateNestedManyWithoutCommenterInput
+    poll_votes?: poll_votesUncheckedCreateNestedManyWithoutVoterInput
+    created_polls?: pollsUncheckedCreateNestedManyWithoutCreatorInput
     role_upgrade_requests_role_upgrade_requests_reviewer_idTousers?: role_upgrade_requestsUncheckedCreateNestedManyWithoutUsers_role_upgrade_requests_reviewer_idTousersInput
     role_upgrade_requests_role_upgrade_requests_user_idTousers?: role_upgrade_requestsUncheckedCreateNestedManyWithoutUsers_role_upgrade_requests_user_idTousersInput
+    service_bookings?: service_bookingsUncheckedCreateNestedManyWithoutUserInput
+    service_reviews?: service_reviewsUncheckedCreateNestedManyWithoutUserInput
+    created_services?: servicesUncheckedCreateNestedManyWithoutCreatorInput
+    session_enrollments?: session_enrollmentsUncheckedCreateNestedManyWithoutUserInput
+    created_sessions?: sessionsUncheckedCreateNestedManyWithoutCreatorInput
     discussion_comment_likes?: space_discussion_comment_likesUncheckedCreateNestedManyWithoutUserInput
     discussion_comments?: space_discussion_commentsUncheckedCreateNestedManyWithoutUserInput
     discussion_likes?: space_discussion_likesUncheckedCreateNestedManyWithoutUserInput
@@ -110541,16 +110549,8 @@ export namespace Prisma {
     space_news_likes?: space_news_likesUncheckedCreateNestedManyWithoutUserInput
     stargazing_spot_reviews?: stargazing_spot_reviewsUncheckedCreateNestedManyWithoutUserInput
     created_stargazing_spots?: stargazing_spotsUncheckedCreateNestedManyWithoutCreatorInput
-    created_sessions?: sessionsUncheckedCreateNestedManyWithoutCreatorInput
-    session_enrollments?: session_enrollmentsUncheckedCreateNestedManyWithoutUserInput
-    created_services?: servicesUncheckedCreateNestedManyWithoutCreatorInput
-    service_bookings?: service_bookingsUncheckedCreateNestedManyWithoutUserInput
-    service_reviews?: service_reviewsUncheckedCreateNestedManyWithoutUserInput
     subscriptions?: subscriptionsUncheckedCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsUncheckedCreateNestedOneWithoutUsersInput
-    created_polls?: pollsUncheckedCreateNestedManyWithoutCreatorInput
-    poll_votes?: poll_votesUncheckedCreateNestedManyWithoutVoterInput
-    poll_comments?: poll_commentsUncheckedCreateNestedManyWithoutCommenterInput
   }
 
   export type usersCreateOrConnectWithoutInfluencer_applicationInput = {
@@ -110610,8 +110610,16 @@ export namespace Prisma {
     night_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousers?: night_camp_volunteering_applicationsUpdateManyWithoutUsers_night_camp_volunteering_applications_reviewed_byTousersNestedInput
     night_camp_volunteering_applications_night_camp_volunteering_applications_user_idTousers?: night_camp_volunteering_applicationsUpdateManyWithoutUsers_night_camp_volunteering_applications_user_idTousersNestedInput
     payments?: paymentsUpdateManyWithoutUsersNestedInput
+    poll_comments?: poll_commentsUpdateManyWithoutCommenterNestedInput
+    poll_votes?: poll_votesUpdateManyWithoutVoterNestedInput
+    created_polls?: pollsUpdateManyWithoutCreatorNestedInput
     role_upgrade_requests_role_upgrade_requests_reviewer_idTousers?: role_upgrade_requestsUpdateManyWithoutUsers_role_upgrade_requests_reviewer_idTousersNestedInput
     role_upgrade_requests_role_upgrade_requests_user_idTousers?: role_upgrade_requestsUpdateManyWithoutUsers_role_upgrade_requests_user_idTousersNestedInput
+    service_bookings?: service_bookingsUpdateManyWithoutUserNestedInput
+    service_reviews?: service_reviewsUpdateManyWithoutUserNestedInput
+    created_services?: servicesUpdateManyWithoutCreatorNestedInput
+    session_enrollments?: session_enrollmentsUpdateManyWithoutUserNestedInput
+    created_sessions?: sessionsUpdateManyWithoutCreatorNestedInput
     discussion_comment_likes?: space_discussion_comment_likesUpdateManyWithoutUserNestedInput
     discussion_comments?: space_discussion_commentsUpdateManyWithoutUserNestedInput
     discussion_likes?: space_discussion_likesUpdateManyWithoutUserNestedInput
@@ -110621,16 +110629,8 @@ export namespace Prisma {
     space_news_likes?: space_news_likesUpdateManyWithoutUserNestedInput
     stargazing_spot_reviews?: stargazing_spot_reviewsUpdateManyWithoutUserNestedInput
     created_stargazing_spots?: stargazing_spotsUpdateManyWithoutCreatorNestedInput
-    created_sessions?: sessionsUpdateManyWithoutCreatorNestedInput
-    session_enrollments?: session_enrollmentsUpdateManyWithoutUserNestedInput
-    created_services?: servicesUpdateManyWithoutCreatorNestedInput
-    service_bookings?: service_bookingsUpdateManyWithoutUserNestedInput
-    service_reviews?: service_reviewsUpdateManyWithoutUserNestedInput
     subscriptions?: subscriptionsUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUpdateOneWithoutUsersNestedInput
-    created_polls?: pollsUpdateManyWithoutCreatorNestedInput
-    poll_votes?: poll_votesUpdateManyWithoutVoterNestedInput
-    poll_comments?: poll_commentsUpdateManyWithoutCommenterNestedInput
   }
 
   export type usersUncheckedUpdateWithoutInfluencer_applicationInput = {
@@ -110675,8 +110675,16 @@ export namespace Prisma {
     night_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousers?: night_camp_volunteering_applicationsUncheckedUpdateManyWithoutUsers_night_camp_volunteering_applications_reviewed_byTousersNestedInput
     night_camp_volunteering_applications_night_camp_volunteering_applications_user_idTousers?: night_camp_volunteering_applicationsUncheckedUpdateManyWithoutUsers_night_camp_volunteering_applications_user_idTousersNestedInput
     payments?: paymentsUncheckedUpdateManyWithoutUsersNestedInput
+    poll_comments?: poll_commentsUncheckedUpdateManyWithoutCommenterNestedInput
+    poll_votes?: poll_votesUncheckedUpdateManyWithoutVoterNestedInput
+    created_polls?: pollsUncheckedUpdateManyWithoutCreatorNestedInput
     role_upgrade_requests_role_upgrade_requests_reviewer_idTousers?: role_upgrade_requestsUncheckedUpdateManyWithoutUsers_role_upgrade_requests_reviewer_idTousersNestedInput
     role_upgrade_requests_role_upgrade_requests_user_idTousers?: role_upgrade_requestsUncheckedUpdateManyWithoutUsers_role_upgrade_requests_user_idTousersNestedInput
+    service_bookings?: service_bookingsUncheckedUpdateManyWithoutUserNestedInput
+    service_reviews?: service_reviewsUncheckedUpdateManyWithoutUserNestedInput
+    created_services?: servicesUncheckedUpdateManyWithoutCreatorNestedInput
+    session_enrollments?: session_enrollmentsUncheckedUpdateManyWithoutUserNestedInput
+    created_sessions?: sessionsUncheckedUpdateManyWithoutCreatorNestedInput
     discussion_comment_likes?: space_discussion_comment_likesUncheckedUpdateManyWithoutUserNestedInput
     discussion_comments?: space_discussion_commentsUncheckedUpdateManyWithoutUserNestedInput
     discussion_likes?: space_discussion_likesUncheckedUpdateManyWithoutUserNestedInput
@@ -110686,16 +110694,8 @@ export namespace Prisma {
     space_news_likes?: space_news_likesUncheckedUpdateManyWithoutUserNestedInput
     stargazing_spot_reviews?: stargazing_spot_reviewsUncheckedUpdateManyWithoutUserNestedInput
     created_stargazing_spots?: stargazing_spotsUncheckedUpdateManyWithoutCreatorNestedInput
-    created_sessions?: sessionsUncheckedUpdateManyWithoutCreatorNestedInput
-    session_enrollments?: session_enrollmentsUncheckedUpdateManyWithoutUserNestedInput
-    created_services?: servicesUncheckedUpdateManyWithoutCreatorNestedInput
-    service_bookings?: service_bookingsUncheckedUpdateManyWithoutUserNestedInput
-    service_reviews?: service_reviewsUncheckedUpdateManyWithoutUserNestedInput
     subscriptions?: subscriptionsUncheckedUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUncheckedUpdateOneWithoutUsersNestedInput
-    created_polls?: pollsUncheckedUpdateManyWithoutCreatorNestedInput
-    poll_votes?: poll_votesUncheckedUpdateManyWithoutVoterNestedInput
-    poll_comments?: poll_commentsUncheckedUpdateManyWithoutCommenterNestedInput
   }
 
   export type usersCreateWithoutMedia_uploadsInput = {
@@ -110739,8 +110739,16 @@ export namespace Prisma {
     night_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousers?: night_camp_volunteering_applicationsCreateNestedManyWithoutUsers_night_camp_volunteering_applications_reviewed_byTousersInput
     night_camp_volunteering_applications_night_camp_volunteering_applications_user_idTousers?: night_camp_volunteering_applicationsCreateNestedManyWithoutUsers_night_camp_volunteering_applications_user_idTousersInput
     payments?: paymentsCreateNestedManyWithoutUsersInput
+    poll_comments?: poll_commentsCreateNestedManyWithoutCommenterInput
+    poll_votes?: poll_votesCreateNestedManyWithoutVoterInput
+    created_polls?: pollsCreateNestedManyWithoutCreatorInput
     role_upgrade_requests_role_upgrade_requests_reviewer_idTousers?: role_upgrade_requestsCreateNestedManyWithoutUsers_role_upgrade_requests_reviewer_idTousersInput
     role_upgrade_requests_role_upgrade_requests_user_idTousers?: role_upgrade_requestsCreateNestedManyWithoutUsers_role_upgrade_requests_user_idTousersInput
+    service_bookings?: service_bookingsCreateNestedManyWithoutUserInput
+    service_reviews?: service_reviewsCreateNestedManyWithoutUserInput
+    created_services?: servicesCreateNestedManyWithoutCreatorInput
+    session_enrollments?: session_enrollmentsCreateNestedManyWithoutUserInput
+    created_sessions?: sessionsCreateNestedManyWithoutCreatorInput
     discussion_comment_likes?: space_discussion_comment_likesCreateNestedManyWithoutUserInput
     discussion_comments?: space_discussion_commentsCreateNestedManyWithoutUserInput
     discussion_likes?: space_discussion_likesCreateNestedManyWithoutUserInput
@@ -110750,16 +110758,8 @@ export namespace Prisma {
     space_news_likes?: space_news_likesCreateNestedManyWithoutUserInput
     stargazing_spot_reviews?: stargazing_spot_reviewsCreateNestedManyWithoutUserInput
     created_stargazing_spots?: stargazing_spotsCreateNestedManyWithoutCreatorInput
-    created_sessions?: sessionsCreateNestedManyWithoutCreatorInput
-    session_enrollments?: session_enrollmentsCreateNestedManyWithoutUserInput
-    created_services?: servicesCreateNestedManyWithoutCreatorInput
-    service_bookings?: service_bookingsCreateNestedManyWithoutUserInput
-    service_reviews?: service_reviewsCreateNestedManyWithoutUserInput
     subscriptions?: subscriptionsCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsCreateNestedOneWithoutUsersInput
-    created_polls?: pollsCreateNestedManyWithoutCreatorInput
-    poll_votes?: poll_votesCreateNestedManyWithoutVoterInput
-    poll_comments?: poll_commentsCreateNestedManyWithoutCommenterInput
   }
 
   export type usersUncheckedCreateWithoutMedia_uploadsInput = {
@@ -110804,8 +110804,16 @@ export namespace Prisma {
     night_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousers?: night_camp_volunteering_applicationsUncheckedCreateNestedManyWithoutUsers_night_camp_volunteering_applications_reviewed_byTousersInput
     night_camp_volunteering_applications_night_camp_volunteering_applications_user_idTousers?: night_camp_volunteering_applicationsUncheckedCreateNestedManyWithoutUsers_night_camp_volunteering_applications_user_idTousersInput
     payments?: paymentsUncheckedCreateNestedManyWithoutUsersInput
+    poll_comments?: poll_commentsUncheckedCreateNestedManyWithoutCommenterInput
+    poll_votes?: poll_votesUncheckedCreateNestedManyWithoutVoterInput
+    created_polls?: pollsUncheckedCreateNestedManyWithoutCreatorInput
     role_upgrade_requests_role_upgrade_requests_reviewer_idTousers?: role_upgrade_requestsUncheckedCreateNestedManyWithoutUsers_role_upgrade_requests_reviewer_idTousersInput
     role_upgrade_requests_role_upgrade_requests_user_idTousers?: role_upgrade_requestsUncheckedCreateNestedManyWithoutUsers_role_upgrade_requests_user_idTousersInput
+    service_bookings?: service_bookingsUncheckedCreateNestedManyWithoutUserInput
+    service_reviews?: service_reviewsUncheckedCreateNestedManyWithoutUserInput
+    created_services?: servicesUncheckedCreateNestedManyWithoutCreatorInput
+    session_enrollments?: session_enrollmentsUncheckedCreateNestedManyWithoutUserInput
+    created_sessions?: sessionsUncheckedCreateNestedManyWithoutCreatorInput
     discussion_comment_likes?: space_discussion_comment_likesUncheckedCreateNestedManyWithoutUserInput
     discussion_comments?: space_discussion_commentsUncheckedCreateNestedManyWithoutUserInput
     discussion_likes?: space_discussion_likesUncheckedCreateNestedManyWithoutUserInput
@@ -110815,16 +110823,8 @@ export namespace Prisma {
     space_news_likes?: space_news_likesUncheckedCreateNestedManyWithoutUserInput
     stargazing_spot_reviews?: stargazing_spot_reviewsUncheckedCreateNestedManyWithoutUserInput
     created_stargazing_spots?: stargazing_spotsUncheckedCreateNestedManyWithoutCreatorInput
-    created_sessions?: sessionsUncheckedCreateNestedManyWithoutCreatorInput
-    session_enrollments?: session_enrollmentsUncheckedCreateNestedManyWithoutUserInput
-    created_services?: servicesUncheckedCreateNestedManyWithoutCreatorInput
-    service_bookings?: service_bookingsUncheckedCreateNestedManyWithoutUserInput
-    service_reviews?: service_reviewsUncheckedCreateNestedManyWithoutUserInput
     subscriptions?: subscriptionsUncheckedCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsUncheckedCreateNestedOneWithoutUsersInput
-    created_polls?: pollsUncheckedCreateNestedManyWithoutCreatorInput
-    poll_votes?: poll_votesUncheckedCreateNestedManyWithoutVoterInput
-    poll_comments?: poll_commentsUncheckedCreateNestedManyWithoutCommenterInput
   }
 
   export type usersCreateOrConnectWithoutMedia_uploadsInput = {
@@ -110884,8 +110884,16 @@ export namespace Prisma {
     night_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousers?: night_camp_volunteering_applicationsUpdateManyWithoutUsers_night_camp_volunteering_applications_reviewed_byTousersNestedInput
     night_camp_volunteering_applications_night_camp_volunteering_applications_user_idTousers?: night_camp_volunteering_applicationsUpdateManyWithoutUsers_night_camp_volunteering_applications_user_idTousersNestedInput
     payments?: paymentsUpdateManyWithoutUsersNestedInput
+    poll_comments?: poll_commentsUpdateManyWithoutCommenterNestedInput
+    poll_votes?: poll_votesUpdateManyWithoutVoterNestedInput
+    created_polls?: pollsUpdateManyWithoutCreatorNestedInput
     role_upgrade_requests_role_upgrade_requests_reviewer_idTousers?: role_upgrade_requestsUpdateManyWithoutUsers_role_upgrade_requests_reviewer_idTousersNestedInput
     role_upgrade_requests_role_upgrade_requests_user_idTousers?: role_upgrade_requestsUpdateManyWithoutUsers_role_upgrade_requests_user_idTousersNestedInput
+    service_bookings?: service_bookingsUpdateManyWithoutUserNestedInput
+    service_reviews?: service_reviewsUpdateManyWithoutUserNestedInput
+    created_services?: servicesUpdateManyWithoutCreatorNestedInput
+    session_enrollments?: session_enrollmentsUpdateManyWithoutUserNestedInput
+    created_sessions?: sessionsUpdateManyWithoutCreatorNestedInput
     discussion_comment_likes?: space_discussion_comment_likesUpdateManyWithoutUserNestedInput
     discussion_comments?: space_discussion_commentsUpdateManyWithoutUserNestedInput
     discussion_likes?: space_discussion_likesUpdateManyWithoutUserNestedInput
@@ -110895,16 +110903,8 @@ export namespace Prisma {
     space_news_likes?: space_news_likesUpdateManyWithoutUserNestedInput
     stargazing_spot_reviews?: stargazing_spot_reviewsUpdateManyWithoutUserNestedInput
     created_stargazing_spots?: stargazing_spotsUpdateManyWithoutCreatorNestedInput
-    created_sessions?: sessionsUpdateManyWithoutCreatorNestedInput
-    session_enrollments?: session_enrollmentsUpdateManyWithoutUserNestedInput
-    created_services?: servicesUpdateManyWithoutCreatorNestedInput
-    service_bookings?: service_bookingsUpdateManyWithoutUserNestedInput
-    service_reviews?: service_reviewsUpdateManyWithoutUserNestedInput
     subscriptions?: subscriptionsUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUpdateOneWithoutUsersNestedInput
-    created_polls?: pollsUpdateManyWithoutCreatorNestedInput
-    poll_votes?: poll_votesUpdateManyWithoutVoterNestedInput
-    poll_comments?: poll_commentsUpdateManyWithoutCommenterNestedInput
   }
 
   export type usersUncheckedUpdateWithoutMedia_uploadsInput = {
@@ -110949,8 +110949,16 @@ export namespace Prisma {
     night_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousers?: night_camp_volunteering_applicationsUncheckedUpdateManyWithoutUsers_night_camp_volunteering_applications_reviewed_byTousersNestedInput
     night_camp_volunteering_applications_night_camp_volunteering_applications_user_idTousers?: night_camp_volunteering_applicationsUncheckedUpdateManyWithoutUsers_night_camp_volunteering_applications_user_idTousersNestedInput
     payments?: paymentsUncheckedUpdateManyWithoutUsersNestedInput
+    poll_comments?: poll_commentsUncheckedUpdateManyWithoutCommenterNestedInput
+    poll_votes?: poll_votesUncheckedUpdateManyWithoutVoterNestedInput
+    created_polls?: pollsUncheckedUpdateManyWithoutCreatorNestedInput
     role_upgrade_requests_role_upgrade_requests_reviewer_idTousers?: role_upgrade_requestsUncheckedUpdateManyWithoutUsers_role_upgrade_requests_reviewer_idTousersNestedInput
     role_upgrade_requests_role_upgrade_requests_user_idTousers?: role_upgrade_requestsUncheckedUpdateManyWithoutUsers_role_upgrade_requests_user_idTousersNestedInput
+    service_bookings?: service_bookingsUncheckedUpdateManyWithoutUserNestedInput
+    service_reviews?: service_reviewsUncheckedUpdateManyWithoutUserNestedInput
+    created_services?: servicesUncheckedUpdateManyWithoutCreatorNestedInput
+    session_enrollments?: session_enrollmentsUncheckedUpdateManyWithoutUserNestedInput
+    created_sessions?: sessionsUncheckedUpdateManyWithoutCreatorNestedInput
     discussion_comment_likes?: space_discussion_comment_likesUncheckedUpdateManyWithoutUserNestedInput
     discussion_comments?: space_discussion_commentsUncheckedUpdateManyWithoutUserNestedInput
     discussion_likes?: space_discussion_likesUncheckedUpdateManyWithoutUserNestedInput
@@ -110960,16 +110968,8 @@ export namespace Prisma {
     space_news_likes?: space_news_likesUncheckedUpdateManyWithoutUserNestedInput
     stargazing_spot_reviews?: stargazing_spot_reviewsUncheckedUpdateManyWithoutUserNestedInput
     created_stargazing_spots?: stargazing_spotsUncheckedUpdateManyWithoutCreatorNestedInput
-    created_sessions?: sessionsUncheckedUpdateManyWithoutCreatorNestedInput
-    session_enrollments?: session_enrollmentsUncheckedUpdateManyWithoutUserNestedInput
-    created_services?: servicesUncheckedUpdateManyWithoutCreatorNestedInput
-    service_bookings?: service_bookingsUncheckedUpdateManyWithoutUserNestedInput
-    service_reviews?: service_reviewsUncheckedUpdateManyWithoutUserNestedInput
     subscriptions?: subscriptionsUncheckedUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUncheckedUpdateOneWithoutUsersNestedInput
-    created_polls?: pollsUncheckedUpdateManyWithoutCreatorNestedInput
-    poll_votes?: poll_votesUncheckedUpdateManyWithoutVoterNestedInput
-    poll_comments?: poll_commentsUncheckedUpdateManyWithoutCommenterNestedInput
   }
 
   export type QuizzesCreateWithoutQuizParticipantsInput = {
@@ -111051,8 +111051,16 @@ export namespace Prisma {
     night_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousers?: night_camp_volunteering_applicationsCreateNestedManyWithoutUsers_night_camp_volunteering_applications_reviewed_byTousersInput
     night_camp_volunteering_applications_night_camp_volunteering_applications_user_idTousers?: night_camp_volunteering_applicationsCreateNestedManyWithoutUsers_night_camp_volunteering_applications_user_idTousersInput
     payments?: paymentsCreateNestedManyWithoutUsersInput
+    poll_comments?: poll_commentsCreateNestedManyWithoutCommenterInput
+    poll_votes?: poll_votesCreateNestedManyWithoutVoterInput
+    created_polls?: pollsCreateNestedManyWithoutCreatorInput
     role_upgrade_requests_role_upgrade_requests_reviewer_idTousers?: role_upgrade_requestsCreateNestedManyWithoutUsers_role_upgrade_requests_reviewer_idTousersInput
     role_upgrade_requests_role_upgrade_requests_user_idTousers?: role_upgrade_requestsCreateNestedManyWithoutUsers_role_upgrade_requests_user_idTousersInput
+    service_bookings?: service_bookingsCreateNestedManyWithoutUserInput
+    service_reviews?: service_reviewsCreateNestedManyWithoutUserInput
+    created_services?: servicesCreateNestedManyWithoutCreatorInput
+    session_enrollments?: session_enrollmentsCreateNestedManyWithoutUserInput
+    created_sessions?: sessionsCreateNestedManyWithoutCreatorInput
     discussion_comment_likes?: space_discussion_comment_likesCreateNestedManyWithoutUserInput
     discussion_comments?: space_discussion_commentsCreateNestedManyWithoutUserInput
     discussion_likes?: space_discussion_likesCreateNestedManyWithoutUserInput
@@ -111062,16 +111070,8 @@ export namespace Prisma {
     space_news_likes?: space_news_likesCreateNestedManyWithoutUserInput
     stargazing_spot_reviews?: stargazing_spot_reviewsCreateNestedManyWithoutUserInput
     created_stargazing_spots?: stargazing_spotsCreateNestedManyWithoutCreatorInput
-    created_sessions?: sessionsCreateNestedManyWithoutCreatorInput
-    session_enrollments?: session_enrollmentsCreateNestedManyWithoutUserInput
-    created_services?: servicesCreateNestedManyWithoutCreatorInput
-    service_bookings?: service_bookingsCreateNestedManyWithoutUserInput
-    service_reviews?: service_reviewsCreateNestedManyWithoutUserInput
     subscriptions?: subscriptionsCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsCreateNestedOneWithoutUsersInput
-    created_polls?: pollsCreateNestedManyWithoutCreatorInput
-    poll_votes?: poll_votesCreateNestedManyWithoutVoterInput
-    poll_comments?: poll_commentsCreateNestedManyWithoutCommenterInput
   }
 
   export type usersUncheckedCreateWithoutQuizParticipantsInput = {
@@ -111116,8 +111116,16 @@ export namespace Prisma {
     night_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousers?: night_camp_volunteering_applicationsUncheckedCreateNestedManyWithoutUsers_night_camp_volunteering_applications_reviewed_byTousersInput
     night_camp_volunteering_applications_night_camp_volunteering_applications_user_idTousers?: night_camp_volunteering_applicationsUncheckedCreateNestedManyWithoutUsers_night_camp_volunteering_applications_user_idTousersInput
     payments?: paymentsUncheckedCreateNestedManyWithoutUsersInput
+    poll_comments?: poll_commentsUncheckedCreateNestedManyWithoutCommenterInput
+    poll_votes?: poll_votesUncheckedCreateNestedManyWithoutVoterInput
+    created_polls?: pollsUncheckedCreateNestedManyWithoutCreatorInput
     role_upgrade_requests_role_upgrade_requests_reviewer_idTousers?: role_upgrade_requestsUncheckedCreateNestedManyWithoutUsers_role_upgrade_requests_reviewer_idTousersInput
     role_upgrade_requests_role_upgrade_requests_user_idTousers?: role_upgrade_requestsUncheckedCreateNestedManyWithoutUsers_role_upgrade_requests_user_idTousersInput
+    service_bookings?: service_bookingsUncheckedCreateNestedManyWithoutUserInput
+    service_reviews?: service_reviewsUncheckedCreateNestedManyWithoutUserInput
+    created_services?: servicesUncheckedCreateNestedManyWithoutCreatorInput
+    session_enrollments?: session_enrollmentsUncheckedCreateNestedManyWithoutUserInput
+    created_sessions?: sessionsUncheckedCreateNestedManyWithoutCreatorInput
     discussion_comment_likes?: space_discussion_comment_likesUncheckedCreateNestedManyWithoutUserInput
     discussion_comments?: space_discussion_commentsUncheckedCreateNestedManyWithoutUserInput
     discussion_likes?: space_discussion_likesUncheckedCreateNestedManyWithoutUserInput
@@ -111127,16 +111135,8 @@ export namespace Prisma {
     space_news_likes?: space_news_likesUncheckedCreateNestedManyWithoutUserInput
     stargazing_spot_reviews?: stargazing_spot_reviewsUncheckedCreateNestedManyWithoutUserInput
     created_stargazing_spots?: stargazing_spotsUncheckedCreateNestedManyWithoutCreatorInput
-    created_sessions?: sessionsUncheckedCreateNestedManyWithoutCreatorInput
-    session_enrollments?: session_enrollmentsUncheckedCreateNestedManyWithoutUserInput
-    created_services?: servicesUncheckedCreateNestedManyWithoutCreatorInput
-    service_bookings?: service_bookingsUncheckedCreateNestedManyWithoutUserInput
-    service_reviews?: service_reviewsUncheckedCreateNestedManyWithoutUserInput
     subscriptions?: subscriptionsUncheckedCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsUncheckedCreateNestedOneWithoutUsersInput
-    created_polls?: pollsUncheckedCreateNestedManyWithoutCreatorInput
-    poll_votes?: poll_votesUncheckedCreateNestedManyWithoutVoterInput
-    poll_comments?: poll_commentsUncheckedCreateNestedManyWithoutCommenterInput
   }
 
   export type usersCreateOrConnectWithoutQuizParticipantsInput = {
@@ -111240,8 +111240,16 @@ export namespace Prisma {
     night_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousers?: night_camp_volunteering_applicationsUpdateManyWithoutUsers_night_camp_volunteering_applications_reviewed_byTousersNestedInput
     night_camp_volunteering_applications_night_camp_volunteering_applications_user_idTousers?: night_camp_volunteering_applicationsUpdateManyWithoutUsers_night_camp_volunteering_applications_user_idTousersNestedInput
     payments?: paymentsUpdateManyWithoutUsersNestedInput
+    poll_comments?: poll_commentsUpdateManyWithoutCommenterNestedInput
+    poll_votes?: poll_votesUpdateManyWithoutVoterNestedInput
+    created_polls?: pollsUpdateManyWithoutCreatorNestedInput
     role_upgrade_requests_role_upgrade_requests_reviewer_idTousers?: role_upgrade_requestsUpdateManyWithoutUsers_role_upgrade_requests_reviewer_idTousersNestedInput
     role_upgrade_requests_role_upgrade_requests_user_idTousers?: role_upgrade_requestsUpdateManyWithoutUsers_role_upgrade_requests_user_idTousersNestedInput
+    service_bookings?: service_bookingsUpdateManyWithoutUserNestedInput
+    service_reviews?: service_reviewsUpdateManyWithoutUserNestedInput
+    created_services?: servicesUpdateManyWithoutCreatorNestedInput
+    session_enrollments?: session_enrollmentsUpdateManyWithoutUserNestedInput
+    created_sessions?: sessionsUpdateManyWithoutCreatorNestedInput
     discussion_comment_likes?: space_discussion_comment_likesUpdateManyWithoutUserNestedInput
     discussion_comments?: space_discussion_commentsUpdateManyWithoutUserNestedInput
     discussion_likes?: space_discussion_likesUpdateManyWithoutUserNestedInput
@@ -111251,16 +111259,8 @@ export namespace Prisma {
     space_news_likes?: space_news_likesUpdateManyWithoutUserNestedInput
     stargazing_spot_reviews?: stargazing_spot_reviewsUpdateManyWithoutUserNestedInput
     created_stargazing_spots?: stargazing_spotsUpdateManyWithoutCreatorNestedInput
-    created_sessions?: sessionsUpdateManyWithoutCreatorNestedInput
-    session_enrollments?: session_enrollmentsUpdateManyWithoutUserNestedInput
-    created_services?: servicesUpdateManyWithoutCreatorNestedInput
-    service_bookings?: service_bookingsUpdateManyWithoutUserNestedInput
-    service_reviews?: service_reviewsUpdateManyWithoutUserNestedInput
     subscriptions?: subscriptionsUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUpdateOneWithoutUsersNestedInput
-    created_polls?: pollsUpdateManyWithoutCreatorNestedInput
-    poll_votes?: poll_votesUpdateManyWithoutVoterNestedInput
-    poll_comments?: poll_commentsUpdateManyWithoutCommenterNestedInput
   }
 
   export type usersUncheckedUpdateWithoutQuizParticipantsInput = {
@@ -111305,8 +111305,16 @@ export namespace Prisma {
     night_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousers?: night_camp_volunteering_applicationsUncheckedUpdateManyWithoutUsers_night_camp_volunteering_applications_reviewed_byTousersNestedInput
     night_camp_volunteering_applications_night_camp_volunteering_applications_user_idTousers?: night_camp_volunteering_applicationsUncheckedUpdateManyWithoutUsers_night_camp_volunteering_applications_user_idTousersNestedInput
     payments?: paymentsUncheckedUpdateManyWithoutUsersNestedInput
+    poll_comments?: poll_commentsUncheckedUpdateManyWithoutCommenterNestedInput
+    poll_votes?: poll_votesUncheckedUpdateManyWithoutVoterNestedInput
+    created_polls?: pollsUncheckedUpdateManyWithoutCreatorNestedInput
     role_upgrade_requests_role_upgrade_requests_reviewer_idTousers?: role_upgrade_requestsUncheckedUpdateManyWithoutUsers_role_upgrade_requests_reviewer_idTousersNestedInput
     role_upgrade_requests_role_upgrade_requests_user_idTousers?: role_upgrade_requestsUncheckedUpdateManyWithoutUsers_role_upgrade_requests_user_idTousersNestedInput
+    service_bookings?: service_bookingsUncheckedUpdateManyWithoutUserNestedInput
+    service_reviews?: service_reviewsUncheckedUpdateManyWithoutUserNestedInput
+    created_services?: servicesUncheckedUpdateManyWithoutCreatorNestedInput
+    session_enrollments?: session_enrollmentsUncheckedUpdateManyWithoutUserNestedInput
+    created_sessions?: sessionsUncheckedUpdateManyWithoutCreatorNestedInput
     discussion_comment_likes?: space_discussion_comment_likesUncheckedUpdateManyWithoutUserNestedInput
     discussion_comments?: space_discussion_commentsUncheckedUpdateManyWithoutUserNestedInput
     discussion_likes?: space_discussion_likesUncheckedUpdateManyWithoutUserNestedInput
@@ -111316,16 +111324,8 @@ export namespace Prisma {
     space_news_likes?: space_news_likesUncheckedUpdateManyWithoutUserNestedInput
     stargazing_spot_reviews?: stargazing_spot_reviewsUncheckedUpdateManyWithoutUserNestedInput
     created_stargazing_spots?: stargazing_spotsUncheckedUpdateManyWithoutCreatorNestedInput
-    created_sessions?: sessionsUncheckedUpdateManyWithoutCreatorNestedInput
-    session_enrollments?: session_enrollmentsUncheckedUpdateManyWithoutUserNestedInput
-    created_services?: servicesUncheckedUpdateManyWithoutCreatorNestedInput
-    service_bookings?: service_bookingsUncheckedUpdateManyWithoutUserNestedInput
-    service_reviews?: service_reviewsUncheckedUpdateManyWithoutUserNestedInput
     subscriptions?: subscriptionsUncheckedUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUncheckedUpdateOneWithoutUsersNestedInput
-    created_polls?: pollsUncheckedUpdateManyWithoutCreatorNestedInput
-    poll_votes?: poll_votesUncheckedUpdateManyWithoutVoterNestedInput
-    poll_comments?: poll_commentsUncheckedUpdateManyWithoutCommenterNestedInput
   }
 
   export type QuizzesCreateWithoutQuizQuestionInput = {
@@ -111499,8 +111499,16 @@ export namespace Prisma {
     night_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousers?: night_camp_volunteering_applicationsCreateNestedManyWithoutUsers_night_camp_volunteering_applications_reviewed_byTousersInput
     night_camp_volunteering_applications_night_camp_volunteering_applications_user_idTousers?: night_camp_volunteering_applicationsCreateNestedManyWithoutUsers_night_camp_volunteering_applications_user_idTousersInput
     payments?: paymentsCreateNestedManyWithoutUsersInput
+    poll_comments?: poll_commentsCreateNestedManyWithoutCommenterInput
+    poll_votes?: poll_votesCreateNestedManyWithoutVoterInput
+    created_polls?: pollsCreateNestedManyWithoutCreatorInput
     role_upgrade_requests_role_upgrade_requests_reviewer_idTousers?: role_upgrade_requestsCreateNestedManyWithoutUsers_role_upgrade_requests_reviewer_idTousersInput
     role_upgrade_requests_role_upgrade_requests_user_idTousers?: role_upgrade_requestsCreateNestedManyWithoutUsers_role_upgrade_requests_user_idTousersInput
+    service_bookings?: service_bookingsCreateNestedManyWithoutUserInput
+    service_reviews?: service_reviewsCreateNestedManyWithoutUserInput
+    created_services?: servicesCreateNestedManyWithoutCreatorInput
+    session_enrollments?: session_enrollmentsCreateNestedManyWithoutUserInput
+    created_sessions?: sessionsCreateNestedManyWithoutCreatorInput
     discussion_comment_likes?: space_discussion_comment_likesCreateNestedManyWithoutUserInput
     discussion_comments?: space_discussion_commentsCreateNestedManyWithoutUserInput
     discussion_likes?: space_discussion_likesCreateNestedManyWithoutUserInput
@@ -111510,16 +111518,8 @@ export namespace Prisma {
     space_news_likes?: space_news_likesCreateNestedManyWithoutUserInput
     stargazing_spot_reviews?: stargazing_spot_reviewsCreateNestedManyWithoutUserInput
     created_stargazing_spots?: stargazing_spotsCreateNestedManyWithoutCreatorInput
-    created_sessions?: sessionsCreateNestedManyWithoutCreatorInput
-    session_enrollments?: session_enrollmentsCreateNestedManyWithoutUserInput
-    created_services?: servicesCreateNestedManyWithoutCreatorInput
-    service_bookings?: service_bookingsCreateNestedManyWithoutUserInput
-    service_reviews?: service_reviewsCreateNestedManyWithoutUserInput
     subscriptions?: subscriptionsCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsCreateNestedOneWithoutUsersInput
-    created_polls?: pollsCreateNestedManyWithoutCreatorInput
-    poll_votes?: poll_votesCreateNestedManyWithoutVoterInput
-    poll_comments?: poll_commentsCreateNestedManyWithoutCommenterInput
   }
 
   export type usersUncheckedCreateWithoutQuizzesInput = {
@@ -111564,8 +111564,16 @@ export namespace Prisma {
     night_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousers?: night_camp_volunteering_applicationsUncheckedCreateNestedManyWithoutUsers_night_camp_volunteering_applications_reviewed_byTousersInput
     night_camp_volunteering_applications_night_camp_volunteering_applications_user_idTousers?: night_camp_volunteering_applicationsUncheckedCreateNestedManyWithoutUsers_night_camp_volunteering_applications_user_idTousersInput
     payments?: paymentsUncheckedCreateNestedManyWithoutUsersInput
+    poll_comments?: poll_commentsUncheckedCreateNestedManyWithoutCommenterInput
+    poll_votes?: poll_votesUncheckedCreateNestedManyWithoutVoterInput
+    created_polls?: pollsUncheckedCreateNestedManyWithoutCreatorInput
     role_upgrade_requests_role_upgrade_requests_reviewer_idTousers?: role_upgrade_requestsUncheckedCreateNestedManyWithoutUsers_role_upgrade_requests_reviewer_idTousersInput
     role_upgrade_requests_role_upgrade_requests_user_idTousers?: role_upgrade_requestsUncheckedCreateNestedManyWithoutUsers_role_upgrade_requests_user_idTousersInput
+    service_bookings?: service_bookingsUncheckedCreateNestedManyWithoutUserInput
+    service_reviews?: service_reviewsUncheckedCreateNestedManyWithoutUserInput
+    created_services?: servicesUncheckedCreateNestedManyWithoutCreatorInput
+    session_enrollments?: session_enrollmentsUncheckedCreateNestedManyWithoutUserInput
+    created_sessions?: sessionsUncheckedCreateNestedManyWithoutCreatorInput
     discussion_comment_likes?: space_discussion_comment_likesUncheckedCreateNestedManyWithoutUserInput
     discussion_comments?: space_discussion_commentsUncheckedCreateNestedManyWithoutUserInput
     discussion_likes?: space_discussion_likesUncheckedCreateNestedManyWithoutUserInput
@@ -111575,16 +111583,8 @@ export namespace Prisma {
     space_news_likes?: space_news_likesUncheckedCreateNestedManyWithoutUserInput
     stargazing_spot_reviews?: stargazing_spot_reviewsUncheckedCreateNestedManyWithoutUserInput
     created_stargazing_spots?: stargazing_spotsUncheckedCreateNestedManyWithoutCreatorInput
-    created_sessions?: sessionsUncheckedCreateNestedManyWithoutCreatorInput
-    session_enrollments?: session_enrollmentsUncheckedCreateNestedManyWithoutUserInput
-    created_services?: servicesUncheckedCreateNestedManyWithoutCreatorInput
-    service_bookings?: service_bookingsUncheckedCreateNestedManyWithoutUserInput
-    service_reviews?: service_reviewsUncheckedCreateNestedManyWithoutUserInput
     subscriptions?: subscriptionsUncheckedCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsUncheckedCreateNestedOneWithoutUsersInput
-    created_polls?: pollsUncheckedCreateNestedManyWithoutCreatorInput
-    poll_votes?: poll_votesUncheckedCreateNestedManyWithoutVoterInput
-    poll_comments?: poll_commentsUncheckedCreateNestedManyWithoutCommenterInput
   }
 
   export type usersCreateOrConnectWithoutQuizzesInput = {
@@ -111688,8 +111688,16 @@ export namespace Prisma {
     night_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousers?: night_camp_volunteering_applicationsUpdateManyWithoutUsers_night_camp_volunteering_applications_reviewed_byTousersNestedInput
     night_camp_volunteering_applications_night_camp_volunteering_applications_user_idTousers?: night_camp_volunteering_applicationsUpdateManyWithoutUsers_night_camp_volunteering_applications_user_idTousersNestedInput
     payments?: paymentsUpdateManyWithoutUsersNestedInput
+    poll_comments?: poll_commentsUpdateManyWithoutCommenterNestedInput
+    poll_votes?: poll_votesUpdateManyWithoutVoterNestedInput
+    created_polls?: pollsUpdateManyWithoutCreatorNestedInput
     role_upgrade_requests_role_upgrade_requests_reviewer_idTousers?: role_upgrade_requestsUpdateManyWithoutUsers_role_upgrade_requests_reviewer_idTousersNestedInput
     role_upgrade_requests_role_upgrade_requests_user_idTousers?: role_upgrade_requestsUpdateManyWithoutUsers_role_upgrade_requests_user_idTousersNestedInput
+    service_bookings?: service_bookingsUpdateManyWithoutUserNestedInput
+    service_reviews?: service_reviewsUpdateManyWithoutUserNestedInput
+    created_services?: servicesUpdateManyWithoutCreatorNestedInput
+    session_enrollments?: session_enrollmentsUpdateManyWithoutUserNestedInput
+    created_sessions?: sessionsUpdateManyWithoutCreatorNestedInput
     discussion_comment_likes?: space_discussion_comment_likesUpdateManyWithoutUserNestedInput
     discussion_comments?: space_discussion_commentsUpdateManyWithoutUserNestedInput
     discussion_likes?: space_discussion_likesUpdateManyWithoutUserNestedInput
@@ -111699,16 +111707,8 @@ export namespace Prisma {
     space_news_likes?: space_news_likesUpdateManyWithoutUserNestedInput
     stargazing_spot_reviews?: stargazing_spot_reviewsUpdateManyWithoutUserNestedInput
     created_stargazing_spots?: stargazing_spotsUpdateManyWithoutCreatorNestedInput
-    created_sessions?: sessionsUpdateManyWithoutCreatorNestedInput
-    session_enrollments?: session_enrollmentsUpdateManyWithoutUserNestedInput
-    created_services?: servicesUpdateManyWithoutCreatorNestedInput
-    service_bookings?: service_bookingsUpdateManyWithoutUserNestedInput
-    service_reviews?: service_reviewsUpdateManyWithoutUserNestedInput
     subscriptions?: subscriptionsUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUpdateOneWithoutUsersNestedInput
-    created_polls?: pollsUpdateManyWithoutCreatorNestedInput
-    poll_votes?: poll_votesUpdateManyWithoutVoterNestedInput
-    poll_comments?: poll_commentsUpdateManyWithoutCommenterNestedInput
   }
 
   export type usersUncheckedUpdateWithoutQuizzesInput = {
@@ -111753,8 +111753,16 @@ export namespace Prisma {
     night_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousers?: night_camp_volunteering_applicationsUncheckedUpdateManyWithoutUsers_night_camp_volunteering_applications_reviewed_byTousersNestedInput
     night_camp_volunteering_applications_night_camp_volunteering_applications_user_idTousers?: night_camp_volunteering_applicationsUncheckedUpdateManyWithoutUsers_night_camp_volunteering_applications_user_idTousersNestedInput
     payments?: paymentsUncheckedUpdateManyWithoutUsersNestedInput
+    poll_comments?: poll_commentsUncheckedUpdateManyWithoutCommenterNestedInput
+    poll_votes?: poll_votesUncheckedUpdateManyWithoutVoterNestedInput
+    created_polls?: pollsUncheckedUpdateManyWithoutCreatorNestedInput
     role_upgrade_requests_role_upgrade_requests_reviewer_idTousers?: role_upgrade_requestsUncheckedUpdateManyWithoutUsers_role_upgrade_requests_reviewer_idTousersNestedInput
     role_upgrade_requests_role_upgrade_requests_user_idTousers?: role_upgrade_requestsUncheckedUpdateManyWithoutUsers_role_upgrade_requests_user_idTousersNestedInput
+    service_bookings?: service_bookingsUncheckedUpdateManyWithoutUserNestedInput
+    service_reviews?: service_reviewsUncheckedUpdateManyWithoutUserNestedInput
+    created_services?: servicesUncheckedUpdateManyWithoutCreatorNestedInput
+    session_enrollments?: session_enrollmentsUncheckedUpdateManyWithoutUserNestedInput
+    created_sessions?: sessionsUncheckedUpdateManyWithoutCreatorNestedInput
     discussion_comment_likes?: space_discussion_comment_likesUncheckedUpdateManyWithoutUserNestedInput
     discussion_comments?: space_discussion_commentsUncheckedUpdateManyWithoutUserNestedInput
     discussion_likes?: space_discussion_likesUncheckedUpdateManyWithoutUserNestedInput
@@ -111764,16 +111772,8 @@ export namespace Prisma {
     space_news_likes?: space_news_likesUncheckedUpdateManyWithoutUserNestedInput
     stargazing_spot_reviews?: stargazing_spot_reviewsUncheckedUpdateManyWithoutUserNestedInput
     created_stargazing_spots?: stargazing_spotsUncheckedUpdateManyWithoutCreatorNestedInput
-    created_sessions?: sessionsUncheckedUpdateManyWithoutCreatorNestedInput
-    session_enrollments?: session_enrollmentsUncheckedUpdateManyWithoutUserNestedInput
-    created_services?: servicesUncheckedUpdateManyWithoutCreatorNestedInput
-    service_bookings?: service_bookingsUncheckedUpdateManyWithoutUserNestedInput
-    service_reviews?: service_reviewsUncheckedUpdateManyWithoutUserNestedInput
     subscriptions?: subscriptionsUncheckedUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUncheckedUpdateOneWithoutUsersNestedInput
-    created_polls?: pollsUncheckedUpdateManyWithoutCreatorNestedInput
-    poll_votes?: poll_votesUncheckedUpdateManyWithoutVoterNestedInput
-    poll_comments?: poll_commentsUncheckedUpdateManyWithoutCommenterNestedInput
   }
 
   export type usersCreateWithoutSpace_news_publishedInput = {
@@ -111818,8 +111818,16 @@ export namespace Prisma {
     night_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousers?: night_camp_volunteering_applicationsCreateNestedManyWithoutUsers_night_camp_volunteering_applications_reviewed_byTousersInput
     night_camp_volunteering_applications_night_camp_volunteering_applications_user_idTousers?: night_camp_volunteering_applicationsCreateNestedManyWithoutUsers_night_camp_volunteering_applications_user_idTousersInput
     payments?: paymentsCreateNestedManyWithoutUsersInput
+    poll_comments?: poll_commentsCreateNestedManyWithoutCommenterInput
+    poll_votes?: poll_votesCreateNestedManyWithoutVoterInput
+    created_polls?: pollsCreateNestedManyWithoutCreatorInput
     role_upgrade_requests_role_upgrade_requests_reviewer_idTousers?: role_upgrade_requestsCreateNestedManyWithoutUsers_role_upgrade_requests_reviewer_idTousersInput
     role_upgrade_requests_role_upgrade_requests_user_idTousers?: role_upgrade_requestsCreateNestedManyWithoutUsers_role_upgrade_requests_user_idTousersInput
+    service_bookings?: service_bookingsCreateNestedManyWithoutUserInput
+    service_reviews?: service_reviewsCreateNestedManyWithoutUserInput
+    created_services?: servicesCreateNestedManyWithoutCreatorInput
+    session_enrollments?: session_enrollmentsCreateNestedManyWithoutUserInput
+    created_sessions?: sessionsCreateNestedManyWithoutCreatorInput
     discussion_comment_likes?: space_discussion_comment_likesCreateNestedManyWithoutUserInput
     discussion_comments?: space_discussion_commentsCreateNestedManyWithoutUserInput
     discussion_likes?: space_discussion_likesCreateNestedManyWithoutUserInput
@@ -111828,16 +111836,8 @@ export namespace Prisma {
     space_news_likes?: space_news_likesCreateNestedManyWithoutUserInput
     stargazing_spot_reviews?: stargazing_spot_reviewsCreateNestedManyWithoutUserInput
     created_stargazing_spots?: stargazing_spotsCreateNestedManyWithoutCreatorInput
-    created_sessions?: sessionsCreateNestedManyWithoutCreatorInput
-    session_enrollments?: session_enrollmentsCreateNestedManyWithoutUserInput
-    created_services?: servicesCreateNestedManyWithoutCreatorInput
-    service_bookings?: service_bookingsCreateNestedManyWithoutUserInput
-    service_reviews?: service_reviewsCreateNestedManyWithoutUserInput
     subscriptions?: subscriptionsCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsCreateNestedOneWithoutUsersInput
-    created_polls?: pollsCreateNestedManyWithoutCreatorInput
-    poll_votes?: poll_votesCreateNestedManyWithoutVoterInput
-    poll_comments?: poll_commentsCreateNestedManyWithoutCommenterInput
   }
 
   export type usersUncheckedCreateWithoutSpace_news_publishedInput = {
@@ -111883,8 +111883,16 @@ export namespace Prisma {
     night_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousers?: night_camp_volunteering_applicationsUncheckedCreateNestedManyWithoutUsers_night_camp_volunteering_applications_reviewed_byTousersInput
     night_camp_volunteering_applications_night_camp_volunteering_applications_user_idTousers?: night_camp_volunteering_applicationsUncheckedCreateNestedManyWithoutUsers_night_camp_volunteering_applications_user_idTousersInput
     payments?: paymentsUncheckedCreateNestedManyWithoutUsersInput
+    poll_comments?: poll_commentsUncheckedCreateNestedManyWithoutCommenterInput
+    poll_votes?: poll_votesUncheckedCreateNestedManyWithoutVoterInput
+    created_polls?: pollsUncheckedCreateNestedManyWithoutCreatorInput
     role_upgrade_requests_role_upgrade_requests_reviewer_idTousers?: role_upgrade_requestsUncheckedCreateNestedManyWithoutUsers_role_upgrade_requests_reviewer_idTousersInput
     role_upgrade_requests_role_upgrade_requests_user_idTousers?: role_upgrade_requestsUncheckedCreateNestedManyWithoutUsers_role_upgrade_requests_user_idTousersInput
+    service_bookings?: service_bookingsUncheckedCreateNestedManyWithoutUserInput
+    service_reviews?: service_reviewsUncheckedCreateNestedManyWithoutUserInput
+    created_services?: servicesUncheckedCreateNestedManyWithoutCreatorInput
+    session_enrollments?: session_enrollmentsUncheckedCreateNestedManyWithoutUserInput
+    created_sessions?: sessionsUncheckedCreateNestedManyWithoutCreatorInput
     discussion_comment_likes?: space_discussion_comment_likesUncheckedCreateNestedManyWithoutUserInput
     discussion_comments?: space_discussion_commentsUncheckedCreateNestedManyWithoutUserInput
     discussion_likes?: space_discussion_likesUncheckedCreateNestedManyWithoutUserInput
@@ -111893,16 +111901,8 @@ export namespace Prisma {
     space_news_likes?: space_news_likesUncheckedCreateNestedManyWithoutUserInput
     stargazing_spot_reviews?: stargazing_spot_reviewsUncheckedCreateNestedManyWithoutUserInput
     created_stargazing_spots?: stargazing_spotsUncheckedCreateNestedManyWithoutCreatorInput
-    created_sessions?: sessionsUncheckedCreateNestedManyWithoutCreatorInput
-    session_enrollments?: session_enrollmentsUncheckedCreateNestedManyWithoutUserInput
-    created_services?: servicesUncheckedCreateNestedManyWithoutCreatorInput
-    service_bookings?: service_bookingsUncheckedCreateNestedManyWithoutUserInput
-    service_reviews?: service_reviewsUncheckedCreateNestedManyWithoutUserInput
     subscriptions?: subscriptionsUncheckedCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsUncheckedCreateNestedOneWithoutUsersInput
-    created_polls?: pollsUncheckedCreateNestedManyWithoutCreatorInput
-    poll_votes?: poll_votesUncheckedCreateNestedManyWithoutVoterInput
-    poll_comments?: poll_commentsUncheckedCreateNestedManyWithoutCommenterInput
   }
 
   export type usersCreateOrConnectWithoutSpace_news_publishedInput = {
@@ -112015,8 +112015,16 @@ export namespace Prisma {
     night_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousers?: night_camp_volunteering_applicationsUpdateManyWithoutUsers_night_camp_volunteering_applications_reviewed_byTousersNestedInput
     night_camp_volunteering_applications_night_camp_volunteering_applications_user_idTousers?: night_camp_volunteering_applicationsUpdateManyWithoutUsers_night_camp_volunteering_applications_user_idTousersNestedInput
     payments?: paymentsUpdateManyWithoutUsersNestedInput
+    poll_comments?: poll_commentsUpdateManyWithoutCommenterNestedInput
+    poll_votes?: poll_votesUpdateManyWithoutVoterNestedInput
+    created_polls?: pollsUpdateManyWithoutCreatorNestedInput
     role_upgrade_requests_role_upgrade_requests_reviewer_idTousers?: role_upgrade_requestsUpdateManyWithoutUsers_role_upgrade_requests_reviewer_idTousersNestedInput
     role_upgrade_requests_role_upgrade_requests_user_idTousers?: role_upgrade_requestsUpdateManyWithoutUsers_role_upgrade_requests_user_idTousersNestedInput
+    service_bookings?: service_bookingsUpdateManyWithoutUserNestedInput
+    service_reviews?: service_reviewsUpdateManyWithoutUserNestedInput
+    created_services?: servicesUpdateManyWithoutCreatorNestedInput
+    session_enrollments?: session_enrollmentsUpdateManyWithoutUserNestedInput
+    created_sessions?: sessionsUpdateManyWithoutCreatorNestedInput
     discussion_comment_likes?: space_discussion_comment_likesUpdateManyWithoutUserNestedInput
     discussion_comments?: space_discussion_commentsUpdateManyWithoutUserNestedInput
     discussion_likes?: space_discussion_likesUpdateManyWithoutUserNestedInput
@@ -112025,16 +112033,8 @@ export namespace Prisma {
     space_news_likes?: space_news_likesUpdateManyWithoutUserNestedInput
     stargazing_spot_reviews?: stargazing_spot_reviewsUpdateManyWithoutUserNestedInput
     created_stargazing_spots?: stargazing_spotsUpdateManyWithoutCreatorNestedInput
-    created_sessions?: sessionsUpdateManyWithoutCreatorNestedInput
-    session_enrollments?: session_enrollmentsUpdateManyWithoutUserNestedInput
-    created_services?: servicesUpdateManyWithoutCreatorNestedInput
-    service_bookings?: service_bookingsUpdateManyWithoutUserNestedInput
-    service_reviews?: service_reviewsUpdateManyWithoutUserNestedInput
     subscriptions?: subscriptionsUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUpdateOneWithoutUsersNestedInput
-    created_polls?: pollsUpdateManyWithoutCreatorNestedInput
-    poll_votes?: poll_votesUpdateManyWithoutVoterNestedInput
-    poll_comments?: poll_commentsUpdateManyWithoutCommenterNestedInput
   }
 
   export type usersUncheckedUpdateWithoutSpace_news_publishedInput = {
@@ -112080,8 +112080,16 @@ export namespace Prisma {
     night_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousers?: night_camp_volunteering_applicationsUncheckedUpdateManyWithoutUsers_night_camp_volunteering_applications_reviewed_byTousersNestedInput
     night_camp_volunteering_applications_night_camp_volunteering_applications_user_idTousers?: night_camp_volunteering_applicationsUncheckedUpdateManyWithoutUsers_night_camp_volunteering_applications_user_idTousersNestedInput
     payments?: paymentsUncheckedUpdateManyWithoutUsersNestedInput
+    poll_comments?: poll_commentsUncheckedUpdateManyWithoutCommenterNestedInput
+    poll_votes?: poll_votesUncheckedUpdateManyWithoutVoterNestedInput
+    created_polls?: pollsUncheckedUpdateManyWithoutCreatorNestedInput
     role_upgrade_requests_role_upgrade_requests_reviewer_idTousers?: role_upgrade_requestsUncheckedUpdateManyWithoutUsers_role_upgrade_requests_reviewer_idTousersNestedInput
     role_upgrade_requests_role_upgrade_requests_user_idTousers?: role_upgrade_requestsUncheckedUpdateManyWithoutUsers_role_upgrade_requests_user_idTousersNestedInput
+    service_bookings?: service_bookingsUncheckedUpdateManyWithoutUserNestedInput
+    service_reviews?: service_reviewsUncheckedUpdateManyWithoutUserNestedInput
+    created_services?: servicesUncheckedUpdateManyWithoutCreatorNestedInput
+    session_enrollments?: session_enrollmentsUncheckedUpdateManyWithoutUserNestedInput
+    created_sessions?: sessionsUncheckedUpdateManyWithoutCreatorNestedInput
     discussion_comment_likes?: space_discussion_comment_likesUncheckedUpdateManyWithoutUserNestedInput
     discussion_comments?: space_discussion_commentsUncheckedUpdateManyWithoutUserNestedInput
     discussion_likes?: space_discussion_likesUncheckedUpdateManyWithoutUserNestedInput
@@ -112090,16 +112098,8 @@ export namespace Prisma {
     space_news_likes?: space_news_likesUncheckedUpdateManyWithoutUserNestedInput
     stargazing_spot_reviews?: stargazing_spot_reviewsUncheckedUpdateManyWithoutUserNestedInput
     created_stargazing_spots?: stargazing_spotsUncheckedUpdateManyWithoutCreatorNestedInput
-    created_sessions?: sessionsUncheckedUpdateManyWithoutCreatorNestedInput
-    session_enrollments?: session_enrollmentsUncheckedUpdateManyWithoutUserNestedInput
-    created_services?: servicesUncheckedUpdateManyWithoutCreatorNestedInput
-    service_bookings?: service_bookingsUncheckedUpdateManyWithoutUserNestedInput
-    service_reviews?: service_reviewsUncheckedUpdateManyWithoutUserNestedInput
     subscriptions?: subscriptionsUncheckedUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUncheckedUpdateOneWithoutUsersNestedInput
-    created_polls?: pollsUncheckedUpdateManyWithoutCreatorNestedInput
-    poll_votes?: poll_votesUncheckedUpdateManyWithoutVoterNestedInput
-    poll_comments?: poll_commentsUncheckedUpdateManyWithoutCommenterNestedInput
   }
 
   export type space_news_commentsUpsertWithWhereUniqueWithoutSpace_newsInput = {
@@ -112210,8 +112210,16 @@ export namespace Prisma {
     night_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousers?: night_camp_volunteering_applicationsCreateNestedManyWithoutUsers_night_camp_volunteering_applications_reviewed_byTousersInput
     night_camp_volunteering_applications_night_camp_volunteering_applications_user_idTousers?: night_camp_volunteering_applicationsCreateNestedManyWithoutUsers_night_camp_volunteering_applications_user_idTousersInput
     payments?: paymentsCreateNestedManyWithoutUsersInput
+    poll_comments?: poll_commentsCreateNestedManyWithoutCommenterInput
+    poll_votes?: poll_votesCreateNestedManyWithoutVoterInput
+    created_polls?: pollsCreateNestedManyWithoutCreatorInput
     role_upgrade_requests_role_upgrade_requests_reviewer_idTousers?: role_upgrade_requestsCreateNestedManyWithoutUsers_role_upgrade_requests_reviewer_idTousersInput
     role_upgrade_requests_role_upgrade_requests_user_idTousers?: role_upgrade_requestsCreateNestedManyWithoutUsers_role_upgrade_requests_user_idTousersInput
+    service_bookings?: service_bookingsCreateNestedManyWithoutUserInput
+    service_reviews?: service_reviewsCreateNestedManyWithoutUserInput
+    created_services?: servicesCreateNestedManyWithoutCreatorInput
+    session_enrollments?: session_enrollmentsCreateNestedManyWithoutUserInput
+    created_sessions?: sessionsCreateNestedManyWithoutCreatorInput
     discussion_comment_likes?: space_discussion_comment_likesCreateNestedManyWithoutUserInput
     discussion_comments?: space_discussion_commentsCreateNestedManyWithoutUserInput
     discussion_likes?: space_discussion_likesCreateNestedManyWithoutUserInput
@@ -112220,16 +112228,8 @@ export namespace Prisma {
     space_news_comments?: space_news_commentsCreateNestedManyWithoutUserInput
     stargazing_spot_reviews?: stargazing_spot_reviewsCreateNestedManyWithoutUserInput
     created_stargazing_spots?: stargazing_spotsCreateNestedManyWithoutCreatorInput
-    created_sessions?: sessionsCreateNestedManyWithoutCreatorInput
-    session_enrollments?: session_enrollmentsCreateNestedManyWithoutUserInput
-    created_services?: servicesCreateNestedManyWithoutCreatorInput
-    service_bookings?: service_bookingsCreateNestedManyWithoutUserInput
-    service_reviews?: service_reviewsCreateNestedManyWithoutUserInput
     subscriptions?: subscriptionsCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsCreateNestedOneWithoutUsersInput
-    created_polls?: pollsCreateNestedManyWithoutCreatorInput
-    poll_votes?: poll_votesCreateNestedManyWithoutVoterInput
-    poll_comments?: poll_commentsCreateNestedManyWithoutCommenterInput
   }
 
   export type usersUncheckedCreateWithoutSpace_news_likesInput = {
@@ -112275,8 +112275,16 @@ export namespace Prisma {
     night_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousers?: night_camp_volunteering_applicationsUncheckedCreateNestedManyWithoutUsers_night_camp_volunteering_applications_reviewed_byTousersInput
     night_camp_volunteering_applications_night_camp_volunteering_applications_user_idTousers?: night_camp_volunteering_applicationsUncheckedCreateNestedManyWithoutUsers_night_camp_volunteering_applications_user_idTousersInput
     payments?: paymentsUncheckedCreateNestedManyWithoutUsersInput
+    poll_comments?: poll_commentsUncheckedCreateNestedManyWithoutCommenterInput
+    poll_votes?: poll_votesUncheckedCreateNestedManyWithoutVoterInput
+    created_polls?: pollsUncheckedCreateNestedManyWithoutCreatorInput
     role_upgrade_requests_role_upgrade_requests_reviewer_idTousers?: role_upgrade_requestsUncheckedCreateNestedManyWithoutUsers_role_upgrade_requests_reviewer_idTousersInput
     role_upgrade_requests_role_upgrade_requests_user_idTousers?: role_upgrade_requestsUncheckedCreateNestedManyWithoutUsers_role_upgrade_requests_user_idTousersInput
+    service_bookings?: service_bookingsUncheckedCreateNestedManyWithoutUserInput
+    service_reviews?: service_reviewsUncheckedCreateNestedManyWithoutUserInput
+    created_services?: servicesUncheckedCreateNestedManyWithoutCreatorInput
+    session_enrollments?: session_enrollmentsUncheckedCreateNestedManyWithoutUserInput
+    created_sessions?: sessionsUncheckedCreateNestedManyWithoutCreatorInput
     discussion_comment_likes?: space_discussion_comment_likesUncheckedCreateNestedManyWithoutUserInput
     discussion_comments?: space_discussion_commentsUncheckedCreateNestedManyWithoutUserInput
     discussion_likes?: space_discussion_likesUncheckedCreateNestedManyWithoutUserInput
@@ -112285,16 +112293,8 @@ export namespace Prisma {
     space_news_comments?: space_news_commentsUncheckedCreateNestedManyWithoutUserInput
     stargazing_spot_reviews?: stargazing_spot_reviewsUncheckedCreateNestedManyWithoutUserInput
     created_stargazing_spots?: stargazing_spotsUncheckedCreateNestedManyWithoutCreatorInput
-    created_sessions?: sessionsUncheckedCreateNestedManyWithoutCreatorInput
-    session_enrollments?: session_enrollmentsUncheckedCreateNestedManyWithoutUserInput
-    created_services?: servicesUncheckedCreateNestedManyWithoutCreatorInput
-    service_bookings?: service_bookingsUncheckedCreateNestedManyWithoutUserInput
-    service_reviews?: service_reviewsUncheckedCreateNestedManyWithoutUserInput
     subscriptions?: subscriptionsUncheckedCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsUncheckedCreateNestedOneWithoutUsersInput
-    created_polls?: pollsUncheckedCreateNestedManyWithoutCreatorInput
-    poll_votes?: poll_votesUncheckedCreateNestedManyWithoutVoterInput
-    poll_comments?: poll_commentsUncheckedCreateNestedManyWithoutCommenterInput
   }
 
   export type usersCreateOrConnectWithoutSpace_news_likesInput = {
@@ -112395,8 +112395,16 @@ export namespace Prisma {
     night_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousers?: night_camp_volunteering_applicationsUpdateManyWithoutUsers_night_camp_volunteering_applications_reviewed_byTousersNestedInput
     night_camp_volunteering_applications_night_camp_volunteering_applications_user_idTousers?: night_camp_volunteering_applicationsUpdateManyWithoutUsers_night_camp_volunteering_applications_user_idTousersNestedInput
     payments?: paymentsUpdateManyWithoutUsersNestedInput
+    poll_comments?: poll_commentsUpdateManyWithoutCommenterNestedInput
+    poll_votes?: poll_votesUpdateManyWithoutVoterNestedInput
+    created_polls?: pollsUpdateManyWithoutCreatorNestedInput
     role_upgrade_requests_role_upgrade_requests_reviewer_idTousers?: role_upgrade_requestsUpdateManyWithoutUsers_role_upgrade_requests_reviewer_idTousersNestedInput
     role_upgrade_requests_role_upgrade_requests_user_idTousers?: role_upgrade_requestsUpdateManyWithoutUsers_role_upgrade_requests_user_idTousersNestedInput
+    service_bookings?: service_bookingsUpdateManyWithoutUserNestedInput
+    service_reviews?: service_reviewsUpdateManyWithoutUserNestedInput
+    created_services?: servicesUpdateManyWithoutCreatorNestedInput
+    session_enrollments?: session_enrollmentsUpdateManyWithoutUserNestedInput
+    created_sessions?: sessionsUpdateManyWithoutCreatorNestedInput
     discussion_comment_likes?: space_discussion_comment_likesUpdateManyWithoutUserNestedInput
     discussion_comments?: space_discussion_commentsUpdateManyWithoutUserNestedInput
     discussion_likes?: space_discussion_likesUpdateManyWithoutUserNestedInput
@@ -112405,16 +112413,8 @@ export namespace Prisma {
     space_news_comments?: space_news_commentsUpdateManyWithoutUserNestedInput
     stargazing_spot_reviews?: stargazing_spot_reviewsUpdateManyWithoutUserNestedInput
     created_stargazing_spots?: stargazing_spotsUpdateManyWithoutCreatorNestedInput
-    created_sessions?: sessionsUpdateManyWithoutCreatorNestedInput
-    session_enrollments?: session_enrollmentsUpdateManyWithoutUserNestedInput
-    created_services?: servicesUpdateManyWithoutCreatorNestedInput
-    service_bookings?: service_bookingsUpdateManyWithoutUserNestedInput
-    service_reviews?: service_reviewsUpdateManyWithoutUserNestedInput
     subscriptions?: subscriptionsUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUpdateOneWithoutUsersNestedInput
-    created_polls?: pollsUpdateManyWithoutCreatorNestedInput
-    poll_votes?: poll_votesUpdateManyWithoutVoterNestedInput
-    poll_comments?: poll_commentsUpdateManyWithoutCommenterNestedInput
   }
 
   export type usersUncheckedUpdateWithoutSpace_news_likesInput = {
@@ -112460,8 +112460,16 @@ export namespace Prisma {
     night_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousers?: night_camp_volunteering_applicationsUncheckedUpdateManyWithoutUsers_night_camp_volunteering_applications_reviewed_byTousersNestedInput
     night_camp_volunteering_applications_night_camp_volunteering_applications_user_idTousers?: night_camp_volunteering_applicationsUncheckedUpdateManyWithoutUsers_night_camp_volunteering_applications_user_idTousersNestedInput
     payments?: paymentsUncheckedUpdateManyWithoutUsersNestedInput
+    poll_comments?: poll_commentsUncheckedUpdateManyWithoutCommenterNestedInput
+    poll_votes?: poll_votesUncheckedUpdateManyWithoutVoterNestedInput
+    created_polls?: pollsUncheckedUpdateManyWithoutCreatorNestedInput
     role_upgrade_requests_role_upgrade_requests_reviewer_idTousers?: role_upgrade_requestsUncheckedUpdateManyWithoutUsers_role_upgrade_requests_reviewer_idTousersNestedInput
     role_upgrade_requests_role_upgrade_requests_user_idTousers?: role_upgrade_requestsUncheckedUpdateManyWithoutUsers_role_upgrade_requests_user_idTousersNestedInput
+    service_bookings?: service_bookingsUncheckedUpdateManyWithoutUserNestedInput
+    service_reviews?: service_reviewsUncheckedUpdateManyWithoutUserNestedInput
+    created_services?: servicesUncheckedUpdateManyWithoutCreatorNestedInput
+    session_enrollments?: session_enrollmentsUncheckedUpdateManyWithoutUserNestedInput
+    created_sessions?: sessionsUncheckedUpdateManyWithoutCreatorNestedInput
     discussion_comment_likes?: space_discussion_comment_likesUncheckedUpdateManyWithoutUserNestedInput
     discussion_comments?: space_discussion_commentsUncheckedUpdateManyWithoutUserNestedInput
     discussion_likes?: space_discussion_likesUncheckedUpdateManyWithoutUserNestedInput
@@ -112470,16 +112478,8 @@ export namespace Prisma {
     space_news_comments?: space_news_commentsUncheckedUpdateManyWithoutUserNestedInput
     stargazing_spot_reviews?: stargazing_spot_reviewsUncheckedUpdateManyWithoutUserNestedInput
     created_stargazing_spots?: stargazing_spotsUncheckedUpdateManyWithoutCreatorNestedInput
-    created_sessions?: sessionsUncheckedUpdateManyWithoutCreatorNestedInput
-    session_enrollments?: session_enrollmentsUncheckedUpdateManyWithoutUserNestedInput
-    created_services?: servicesUncheckedUpdateManyWithoutCreatorNestedInput
-    service_bookings?: service_bookingsUncheckedUpdateManyWithoutUserNestedInput
-    service_reviews?: service_reviewsUncheckedUpdateManyWithoutUserNestedInput
     subscriptions?: subscriptionsUncheckedUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUncheckedUpdateOneWithoutUsersNestedInput
-    created_polls?: pollsUncheckedUpdateManyWithoutCreatorNestedInput
-    poll_votes?: poll_votesUncheckedUpdateManyWithoutVoterNestedInput
-    poll_comments?: poll_commentsUncheckedUpdateManyWithoutCommenterNestedInput
   }
 
   export type space_news_commentsCreateWithoutRepliesInput = {
@@ -112615,8 +112615,16 @@ export namespace Prisma {
     night_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousers?: night_camp_volunteering_applicationsCreateNestedManyWithoutUsers_night_camp_volunteering_applications_reviewed_byTousersInput
     night_camp_volunteering_applications_night_camp_volunteering_applications_user_idTousers?: night_camp_volunteering_applicationsCreateNestedManyWithoutUsers_night_camp_volunteering_applications_user_idTousersInput
     payments?: paymentsCreateNestedManyWithoutUsersInput
+    poll_comments?: poll_commentsCreateNestedManyWithoutCommenterInput
+    poll_votes?: poll_votesCreateNestedManyWithoutVoterInput
+    created_polls?: pollsCreateNestedManyWithoutCreatorInput
     role_upgrade_requests_role_upgrade_requests_reviewer_idTousers?: role_upgrade_requestsCreateNestedManyWithoutUsers_role_upgrade_requests_reviewer_idTousersInput
     role_upgrade_requests_role_upgrade_requests_user_idTousers?: role_upgrade_requestsCreateNestedManyWithoutUsers_role_upgrade_requests_user_idTousersInput
+    service_bookings?: service_bookingsCreateNestedManyWithoutUserInput
+    service_reviews?: service_reviewsCreateNestedManyWithoutUserInput
+    created_services?: servicesCreateNestedManyWithoutCreatorInput
+    session_enrollments?: session_enrollmentsCreateNestedManyWithoutUserInput
+    created_sessions?: sessionsCreateNestedManyWithoutCreatorInput
     discussion_comment_likes?: space_discussion_comment_likesCreateNestedManyWithoutUserInput
     discussion_comments?: space_discussion_commentsCreateNestedManyWithoutUserInput
     discussion_likes?: space_discussion_likesCreateNestedManyWithoutUserInput
@@ -112625,16 +112633,8 @@ export namespace Prisma {
     space_news_likes?: space_news_likesCreateNestedManyWithoutUserInput
     stargazing_spot_reviews?: stargazing_spot_reviewsCreateNestedManyWithoutUserInput
     created_stargazing_spots?: stargazing_spotsCreateNestedManyWithoutCreatorInput
-    created_sessions?: sessionsCreateNestedManyWithoutCreatorInput
-    session_enrollments?: session_enrollmentsCreateNestedManyWithoutUserInput
-    created_services?: servicesCreateNestedManyWithoutCreatorInput
-    service_bookings?: service_bookingsCreateNestedManyWithoutUserInput
-    service_reviews?: service_reviewsCreateNestedManyWithoutUserInput
     subscriptions?: subscriptionsCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsCreateNestedOneWithoutUsersInput
-    created_polls?: pollsCreateNestedManyWithoutCreatorInput
-    poll_votes?: poll_votesCreateNestedManyWithoutVoterInput
-    poll_comments?: poll_commentsCreateNestedManyWithoutCommenterInput
   }
 
   export type usersUncheckedCreateWithoutSpace_news_commentsInput = {
@@ -112680,8 +112680,16 @@ export namespace Prisma {
     night_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousers?: night_camp_volunteering_applicationsUncheckedCreateNestedManyWithoutUsers_night_camp_volunteering_applications_reviewed_byTousersInput
     night_camp_volunteering_applications_night_camp_volunteering_applications_user_idTousers?: night_camp_volunteering_applicationsUncheckedCreateNestedManyWithoutUsers_night_camp_volunteering_applications_user_idTousersInput
     payments?: paymentsUncheckedCreateNestedManyWithoutUsersInput
+    poll_comments?: poll_commentsUncheckedCreateNestedManyWithoutCommenterInput
+    poll_votes?: poll_votesUncheckedCreateNestedManyWithoutVoterInput
+    created_polls?: pollsUncheckedCreateNestedManyWithoutCreatorInput
     role_upgrade_requests_role_upgrade_requests_reviewer_idTousers?: role_upgrade_requestsUncheckedCreateNestedManyWithoutUsers_role_upgrade_requests_reviewer_idTousersInput
     role_upgrade_requests_role_upgrade_requests_user_idTousers?: role_upgrade_requestsUncheckedCreateNestedManyWithoutUsers_role_upgrade_requests_user_idTousersInput
+    service_bookings?: service_bookingsUncheckedCreateNestedManyWithoutUserInput
+    service_reviews?: service_reviewsUncheckedCreateNestedManyWithoutUserInput
+    created_services?: servicesUncheckedCreateNestedManyWithoutCreatorInput
+    session_enrollments?: session_enrollmentsUncheckedCreateNestedManyWithoutUserInput
+    created_sessions?: sessionsUncheckedCreateNestedManyWithoutCreatorInput
     discussion_comment_likes?: space_discussion_comment_likesUncheckedCreateNestedManyWithoutUserInput
     discussion_comments?: space_discussion_commentsUncheckedCreateNestedManyWithoutUserInput
     discussion_likes?: space_discussion_likesUncheckedCreateNestedManyWithoutUserInput
@@ -112690,16 +112698,8 @@ export namespace Prisma {
     space_news_likes?: space_news_likesUncheckedCreateNestedManyWithoutUserInput
     stargazing_spot_reviews?: stargazing_spot_reviewsUncheckedCreateNestedManyWithoutUserInput
     created_stargazing_spots?: stargazing_spotsUncheckedCreateNestedManyWithoutCreatorInput
-    created_sessions?: sessionsUncheckedCreateNestedManyWithoutCreatorInput
-    session_enrollments?: session_enrollmentsUncheckedCreateNestedManyWithoutUserInput
-    created_services?: servicesUncheckedCreateNestedManyWithoutCreatorInput
-    service_bookings?: service_bookingsUncheckedCreateNestedManyWithoutUserInput
-    service_reviews?: service_reviewsUncheckedCreateNestedManyWithoutUserInput
     subscriptions?: subscriptionsUncheckedCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsUncheckedCreateNestedOneWithoutUsersInput
-    created_polls?: pollsUncheckedCreateNestedManyWithoutCreatorInput
-    poll_votes?: poll_votesUncheckedCreateNestedManyWithoutVoterInput
-    poll_comments?: poll_commentsUncheckedCreateNestedManyWithoutCommenterInput
   }
 
   export type usersCreateOrConnectWithoutSpace_news_commentsInput = {
@@ -112848,8 +112848,16 @@ export namespace Prisma {
     night_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousers?: night_camp_volunteering_applicationsUpdateManyWithoutUsers_night_camp_volunteering_applications_reviewed_byTousersNestedInput
     night_camp_volunteering_applications_night_camp_volunteering_applications_user_idTousers?: night_camp_volunteering_applicationsUpdateManyWithoutUsers_night_camp_volunteering_applications_user_idTousersNestedInput
     payments?: paymentsUpdateManyWithoutUsersNestedInput
+    poll_comments?: poll_commentsUpdateManyWithoutCommenterNestedInput
+    poll_votes?: poll_votesUpdateManyWithoutVoterNestedInput
+    created_polls?: pollsUpdateManyWithoutCreatorNestedInput
     role_upgrade_requests_role_upgrade_requests_reviewer_idTousers?: role_upgrade_requestsUpdateManyWithoutUsers_role_upgrade_requests_reviewer_idTousersNestedInput
     role_upgrade_requests_role_upgrade_requests_user_idTousers?: role_upgrade_requestsUpdateManyWithoutUsers_role_upgrade_requests_user_idTousersNestedInput
+    service_bookings?: service_bookingsUpdateManyWithoutUserNestedInput
+    service_reviews?: service_reviewsUpdateManyWithoutUserNestedInput
+    created_services?: servicesUpdateManyWithoutCreatorNestedInput
+    session_enrollments?: session_enrollmentsUpdateManyWithoutUserNestedInput
+    created_sessions?: sessionsUpdateManyWithoutCreatorNestedInput
     discussion_comment_likes?: space_discussion_comment_likesUpdateManyWithoutUserNestedInput
     discussion_comments?: space_discussion_commentsUpdateManyWithoutUserNestedInput
     discussion_likes?: space_discussion_likesUpdateManyWithoutUserNestedInput
@@ -112858,16 +112866,8 @@ export namespace Prisma {
     space_news_likes?: space_news_likesUpdateManyWithoutUserNestedInput
     stargazing_spot_reviews?: stargazing_spot_reviewsUpdateManyWithoutUserNestedInput
     created_stargazing_spots?: stargazing_spotsUpdateManyWithoutCreatorNestedInput
-    created_sessions?: sessionsUpdateManyWithoutCreatorNestedInput
-    session_enrollments?: session_enrollmentsUpdateManyWithoutUserNestedInput
-    created_services?: servicesUpdateManyWithoutCreatorNestedInput
-    service_bookings?: service_bookingsUpdateManyWithoutUserNestedInput
-    service_reviews?: service_reviewsUpdateManyWithoutUserNestedInput
     subscriptions?: subscriptionsUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUpdateOneWithoutUsersNestedInput
-    created_polls?: pollsUpdateManyWithoutCreatorNestedInput
-    poll_votes?: poll_votesUpdateManyWithoutVoterNestedInput
-    poll_comments?: poll_commentsUpdateManyWithoutCommenterNestedInput
   }
 
   export type usersUncheckedUpdateWithoutSpace_news_commentsInput = {
@@ -112913,8 +112913,16 @@ export namespace Prisma {
     night_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousers?: night_camp_volunteering_applicationsUncheckedUpdateManyWithoutUsers_night_camp_volunteering_applications_reviewed_byTousersNestedInput
     night_camp_volunteering_applications_night_camp_volunteering_applications_user_idTousers?: night_camp_volunteering_applicationsUncheckedUpdateManyWithoutUsers_night_camp_volunteering_applications_user_idTousersNestedInput
     payments?: paymentsUncheckedUpdateManyWithoutUsersNestedInput
+    poll_comments?: poll_commentsUncheckedUpdateManyWithoutCommenterNestedInput
+    poll_votes?: poll_votesUncheckedUpdateManyWithoutVoterNestedInput
+    created_polls?: pollsUncheckedUpdateManyWithoutCreatorNestedInput
     role_upgrade_requests_role_upgrade_requests_reviewer_idTousers?: role_upgrade_requestsUncheckedUpdateManyWithoutUsers_role_upgrade_requests_reviewer_idTousersNestedInput
     role_upgrade_requests_role_upgrade_requests_user_idTousers?: role_upgrade_requestsUncheckedUpdateManyWithoutUsers_role_upgrade_requests_user_idTousersNestedInput
+    service_bookings?: service_bookingsUncheckedUpdateManyWithoutUserNestedInput
+    service_reviews?: service_reviewsUncheckedUpdateManyWithoutUserNestedInput
+    created_services?: servicesUncheckedUpdateManyWithoutCreatorNestedInput
+    session_enrollments?: session_enrollmentsUncheckedUpdateManyWithoutUserNestedInput
+    created_sessions?: sessionsUncheckedUpdateManyWithoutCreatorNestedInput
     discussion_comment_likes?: space_discussion_comment_likesUncheckedUpdateManyWithoutUserNestedInput
     discussion_comments?: space_discussion_commentsUncheckedUpdateManyWithoutUserNestedInput
     discussion_likes?: space_discussion_likesUncheckedUpdateManyWithoutUserNestedInput
@@ -112923,16 +112931,8 @@ export namespace Prisma {
     space_news_likes?: space_news_likesUncheckedUpdateManyWithoutUserNestedInput
     stargazing_spot_reviews?: stargazing_spot_reviewsUncheckedUpdateManyWithoutUserNestedInput
     created_stargazing_spots?: stargazing_spotsUncheckedUpdateManyWithoutCreatorNestedInput
-    created_sessions?: sessionsUncheckedUpdateManyWithoutCreatorNestedInput
-    session_enrollments?: session_enrollmentsUncheckedUpdateManyWithoutUserNestedInput
-    created_services?: servicesUncheckedUpdateManyWithoutCreatorNestedInput
-    service_bookings?: service_bookingsUncheckedUpdateManyWithoutUserNestedInput
-    service_reviews?: service_reviewsUncheckedUpdateManyWithoutUserNestedInput
     subscriptions?: subscriptionsUncheckedUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUncheckedUpdateOneWithoutUsersNestedInput
-    created_polls?: pollsUncheckedUpdateManyWithoutCreatorNestedInput
-    poll_votes?: poll_votesUncheckedUpdateManyWithoutVoterNestedInput
-    poll_comments?: poll_commentsUncheckedUpdateManyWithoutCommenterNestedInput
   }
 
   export type space_discussion_commentsCreateWithoutDiscussionInput = {
@@ -113031,8 +113031,16 @@ export namespace Prisma {
     night_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousers?: night_camp_volunteering_applicationsCreateNestedManyWithoutUsers_night_camp_volunteering_applications_reviewed_byTousersInput
     night_camp_volunteering_applications_night_camp_volunteering_applications_user_idTousers?: night_camp_volunteering_applicationsCreateNestedManyWithoutUsers_night_camp_volunteering_applications_user_idTousersInput
     payments?: paymentsCreateNestedManyWithoutUsersInput
+    poll_comments?: poll_commentsCreateNestedManyWithoutCommenterInput
+    poll_votes?: poll_votesCreateNestedManyWithoutVoterInput
+    created_polls?: pollsCreateNestedManyWithoutCreatorInput
     role_upgrade_requests_role_upgrade_requests_reviewer_idTousers?: role_upgrade_requestsCreateNestedManyWithoutUsers_role_upgrade_requests_reviewer_idTousersInput
     role_upgrade_requests_role_upgrade_requests_user_idTousers?: role_upgrade_requestsCreateNestedManyWithoutUsers_role_upgrade_requests_user_idTousersInput
+    service_bookings?: service_bookingsCreateNestedManyWithoutUserInput
+    service_reviews?: service_reviewsCreateNestedManyWithoutUserInput
+    created_services?: servicesCreateNestedManyWithoutCreatorInput
+    session_enrollments?: session_enrollmentsCreateNestedManyWithoutUserInput
+    created_sessions?: sessionsCreateNestedManyWithoutCreatorInput
     discussion_comment_likes?: space_discussion_comment_likesCreateNestedManyWithoutUserInput
     discussion_comments?: space_discussion_commentsCreateNestedManyWithoutUserInput
     discussion_likes?: space_discussion_likesCreateNestedManyWithoutUserInput
@@ -113041,16 +113049,8 @@ export namespace Prisma {
     space_news_likes?: space_news_likesCreateNestedManyWithoutUserInput
     stargazing_spot_reviews?: stargazing_spot_reviewsCreateNestedManyWithoutUserInput
     created_stargazing_spots?: stargazing_spotsCreateNestedManyWithoutCreatorInput
-    created_sessions?: sessionsCreateNestedManyWithoutCreatorInput
-    session_enrollments?: session_enrollmentsCreateNestedManyWithoutUserInput
-    created_services?: servicesCreateNestedManyWithoutCreatorInput
-    service_bookings?: service_bookingsCreateNestedManyWithoutUserInput
-    service_reviews?: service_reviewsCreateNestedManyWithoutUserInput
     subscriptions?: subscriptionsCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsCreateNestedOneWithoutUsersInput
-    created_polls?: pollsCreateNestedManyWithoutCreatorInput
-    poll_votes?: poll_votesCreateNestedManyWithoutVoterInput
-    poll_comments?: poll_commentsCreateNestedManyWithoutCommenterInput
   }
 
   export type usersUncheckedCreateWithoutAuthored_discussionsInput = {
@@ -113096,8 +113096,16 @@ export namespace Prisma {
     night_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousers?: night_camp_volunteering_applicationsUncheckedCreateNestedManyWithoutUsers_night_camp_volunteering_applications_reviewed_byTousersInput
     night_camp_volunteering_applications_night_camp_volunteering_applications_user_idTousers?: night_camp_volunteering_applicationsUncheckedCreateNestedManyWithoutUsers_night_camp_volunteering_applications_user_idTousersInput
     payments?: paymentsUncheckedCreateNestedManyWithoutUsersInput
+    poll_comments?: poll_commentsUncheckedCreateNestedManyWithoutCommenterInput
+    poll_votes?: poll_votesUncheckedCreateNestedManyWithoutVoterInput
+    created_polls?: pollsUncheckedCreateNestedManyWithoutCreatorInput
     role_upgrade_requests_role_upgrade_requests_reviewer_idTousers?: role_upgrade_requestsUncheckedCreateNestedManyWithoutUsers_role_upgrade_requests_reviewer_idTousersInput
     role_upgrade_requests_role_upgrade_requests_user_idTousers?: role_upgrade_requestsUncheckedCreateNestedManyWithoutUsers_role_upgrade_requests_user_idTousersInput
+    service_bookings?: service_bookingsUncheckedCreateNestedManyWithoutUserInput
+    service_reviews?: service_reviewsUncheckedCreateNestedManyWithoutUserInput
+    created_services?: servicesUncheckedCreateNestedManyWithoutCreatorInput
+    session_enrollments?: session_enrollmentsUncheckedCreateNestedManyWithoutUserInput
+    created_sessions?: sessionsUncheckedCreateNestedManyWithoutCreatorInput
     discussion_comment_likes?: space_discussion_comment_likesUncheckedCreateNestedManyWithoutUserInput
     discussion_comments?: space_discussion_commentsUncheckedCreateNestedManyWithoutUserInput
     discussion_likes?: space_discussion_likesUncheckedCreateNestedManyWithoutUserInput
@@ -113106,16 +113114,8 @@ export namespace Prisma {
     space_news_likes?: space_news_likesUncheckedCreateNestedManyWithoutUserInput
     stargazing_spot_reviews?: stargazing_spot_reviewsUncheckedCreateNestedManyWithoutUserInput
     created_stargazing_spots?: stargazing_spotsUncheckedCreateNestedManyWithoutCreatorInput
-    created_sessions?: sessionsUncheckedCreateNestedManyWithoutCreatorInput
-    session_enrollments?: session_enrollmentsUncheckedCreateNestedManyWithoutUserInput
-    created_services?: servicesUncheckedCreateNestedManyWithoutCreatorInput
-    service_bookings?: service_bookingsUncheckedCreateNestedManyWithoutUserInput
-    service_reviews?: service_reviewsUncheckedCreateNestedManyWithoutUserInput
     subscriptions?: subscriptionsUncheckedCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsUncheckedCreateNestedOneWithoutUsersInput
-    created_polls?: pollsUncheckedCreateNestedManyWithoutCreatorInput
-    poll_votes?: poll_votesUncheckedCreateNestedManyWithoutVoterInput
-    poll_comments?: poll_commentsUncheckedCreateNestedManyWithoutCommenterInput
   }
 
   export type usersCreateOrConnectWithoutAuthored_discussionsInput = {
@@ -113208,8 +113208,16 @@ export namespace Prisma {
     night_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousers?: night_camp_volunteering_applicationsUpdateManyWithoutUsers_night_camp_volunteering_applications_reviewed_byTousersNestedInput
     night_camp_volunteering_applications_night_camp_volunteering_applications_user_idTousers?: night_camp_volunteering_applicationsUpdateManyWithoutUsers_night_camp_volunteering_applications_user_idTousersNestedInput
     payments?: paymentsUpdateManyWithoutUsersNestedInput
+    poll_comments?: poll_commentsUpdateManyWithoutCommenterNestedInput
+    poll_votes?: poll_votesUpdateManyWithoutVoterNestedInput
+    created_polls?: pollsUpdateManyWithoutCreatorNestedInput
     role_upgrade_requests_role_upgrade_requests_reviewer_idTousers?: role_upgrade_requestsUpdateManyWithoutUsers_role_upgrade_requests_reviewer_idTousersNestedInput
     role_upgrade_requests_role_upgrade_requests_user_idTousers?: role_upgrade_requestsUpdateManyWithoutUsers_role_upgrade_requests_user_idTousersNestedInput
+    service_bookings?: service_bookingsUpdateManyWithoutUserNestedInput
+    service_reviews?: service_reviewsUpdateManyWithoutUserNestedInput
+    created_services?: servicesUpdateManyWithoutCreatorNestedInput
+    session_enrollments?: session_enrollmentsUpdateManyWithoutUserNestedInput
+    created_sessions?: sessionsUpdateManyWithoutCreatorNestedInput
     discussion_comment_likes?: space_discussion_comment_likesUpdateManyWithoutUserNestedInput
     discussion_comments?: space_discussion_commentsUpdateManyWithoutUserNestedInput
     discussion_likes?: space_discussion_likesUpdateManyWithoutUserNestedInput
@@ -113218,16 +113226,8 @@ export namespace Prisma {
     space_news_likes?: space_news_likesUpdateManyWithoutUserNestedInput
     stargazing_spot_reviews?: stargazing_spot_reviewsUpdateManyWithoutUserNestedInput
     created_stargazing_spots?: stargazing_spotsUpdateManyWithoutCreatorNestedInput
-    created_sessions?: sessionsUpdateManyWithoutCreatorNestedInput
-    session_enrollments?: session_enrollmentsUpdateManyWithoutUserNestedInput
-    created_services?: servicesUpdateManyWithoutCreatorNestedInput
-    service_bookings?: service_bookingsUpdateManyWithoutUserNestedInput
-    service_reviews?: service_reviewsUpdateManyWithoutUserNestedInput
     subscriptions?: subscriptionsUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUpdateOneWithoutUsersNestedInput
-    created_polls?: pollsUpdateManyWithoutCreatorNestedInput
-    poll_votes?: poll_votesUpdateManyWithoutVoterNestedInput
-    poll_comments?: poll_commentsUpdateManyWithoutCommenterNestedInput
   }
 
   export type usersUncheckedUpdateWithoutAuthored_discussionsInput = {
@@ -113273,8 +113273,16 @@ export namespace Prisma {
     night_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousers?: night_camp_volunteering_applicationsUncheckedUpdateManyWithoutUsers_night_camp_volunteering_applications_reviewed_byTousersNestedInput
     night_camp_volunteering_applications_night_camp_volunteering_applications_user_idTousers?: night_camp_volunteering_applicationsUncheckedUpdateManyWithoutUsers_night_camp_volunteering_applications_user_idTousersNestedInput
     payments?: paymentsUncheckedUpdateManyWithoutUsersNestedInput
+    poll_comments?: poll_commentsUncheckedUpdateManyWithoutCommenterNestedInput
+    poll_votes?: poll_votesUncheckedUpdateManyWithoutVoterNestedInput
+    created_polls?: pollsUncheckedUpdateManyWithoutCreatorNestedInput
     role_upgrade_requests_role_upgrade_requests_reviewer_idTousers?: role_upgrade_requestsUncheckedUpdateManyWithoutUsers_role_upgrade_requests_reviewer_idTousersNestedInput
     role_upgrade_requests_role_upgrade_requests_user_idTousers?: role_upgrade_requestsUncheckedUpdateManyWithoutUsers_role_upgrade_requests_user_idTousersNestedInput
+    service_bookings?: service_bookingsUncheckedUpdateManyWithoutUserNestedInput
+    service_reviews?: service_reviewsUncheckedUpdateManyWithoutUserNestedInput
+    created_services?: servicesUncheckedUpdateManyWithoutCreatorNestedInput
+    session_enrollments?: session_enrollmentsUncheckedUpdateManyWithoutUserNestedInput
+    created_sessions?: sessionsUncheckedUpdateManyWithoutCreatorNestedInput
     discussion_comment_likes?: space_discussion_comment_likesUncheckedUpdateManyWithoutUserNestedInput
     discussion_comments?: space_discussion_commentsUncheckedUpdateManyWithoutUserNestedInput
     discussion_likes?: space_discussion_likesUncheckedUpdateManyWithoutUserNestedInput
@@ -113283,16 +113291,8 @@ export namespace Prisma {
     space_news_likes?: space_news_likesUncheckedUpdateManyWithoutUserNestedInput
     stargazing_spot_reviews?: stargazing_spot_reviewsUncheckedUpdateManyWithoutUserNestedInput
     created_stargazing_spots?: stargazing_spotsUncheckedUpdateManyWithoutCreatorNestedInput
-    created_sessions?: sessionsUncheckedUpdateManyWithoutCreatorNestedInput
-    session_enrollments?: session_enrollmentsUncheckedUpdateManyWithoutUserNestedInput
-    created_services?: servicesUncheckedUpdateManyWithoutCreatorNestedInput
-    service_bookings?: service_bookingsUncheckedUpdateManyWithoutUserNestedInput
-    service_reviews?: service_reviewsUncheckedUpdateManyWithoutUserNestedInput
     subscriptions?: subscriptionsUncheckedUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUncheckedUpdateOneWithoutUsersNestedInput
-    created_polls?: pollsUncheckedUpdateManyWithoutCreatorNestedInput
-    poll_votes?: poll_votesUncheckedUpdateManyWithoutVoterNestedInput
-    poll_comments?: poll_commentsUncheckedUpdateManyWithoutCommenterNestedInput
   }
 
   export type space_discussion_comment_likesCreateWithoutCommentInput = {
@@ -113455,8 +113455,16 @@ export namespace Prisma {
     night_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousers?: night_camp_volunteering_applicationsCreateNestedManyWithoutUsers_night_camp_volunteering_applications_reviewed_byTousersInput
     night_camp_volunteering_applications_night_camp_volunteering_applications_user_idTousers?: night_camp_volunteering_applicationsCreateNestedManyWithoutUsers_night_camp_volunteering_applications_user_idTousersInput
     payments?: paymentsCreateNestedManyWithoutUsersInput
+    poll_comments?: poll_commentsCreateNestedManyWithoutCommenterInput
+    poll_votes?: poll_votesCreateNestedManyWithoutVoterInput
+    created_polls?: pollsCreateNestedManyWithoutCreatorInput
     role_upgrade_requests_role_upgrade_requests_reviewer_idTousers?: role_upgrade_requestsCreateNestedManyWithoutUsers_role_upgrade_requests_reviewer_idTousersInput
     role_upgrade_requests_role_upgrade_requests_user_idTousers?: role_upgrade_requestsCreateNestedManyWithoutUsers_role_upgrade_requests_user_idTousersInput
+    service_bookings?: service_bookingsCreateNestedManyWithoutUserInput
+    service_reviews?: service_reviewsCreateNestedManyWithoutUserInput
+    created_services?: servicesCreateNestedManyWithoutCreatorInput
+    session_enrollments?: session_enrollmentsCreateNestedManyWithoutUserInput
+    created_sessions?: sessionsCreateNestedManyWithoutCreatorInput
     discussion_comment_likes?: space_discussion_comment_likesCreateNestedManyWithoutUserInput
     discussion_likes?: space_discussion_likesCreateNestedManyWithoutUserInput
     authored_discussions?: space_discussionsCreateNestedManyWithoutAuthorInput
@@ -113465,16 +113473,8 @@ export namespace Prisma {
     space_news_likes?: space_news_likesCreateNestedManyWithoutUserInput
     stargazing_spot_reviews?: stargazing_spot_reviewsCreateNestedManyWithoutUserInput
     created_stargazing_spots?: stargazing_spotsCreateNestedManyWithoutCreatorInput
-    created_sessions?: sessionsCreateNestedManyWithoutCreatorInput
-    session_enrollments?: session_enrollmentsCreateNestedManyWithoutUserInput
-    created_services?: servicesCreateNestedManyWithoutCreatorInput
-    service_bookings?: service_bookingsCreateNestedManyWithoutUserInput
-    service_reviews?: service_reviewsCreateNestedManyWithoutUserInput
     subscriptions?: subscriptionsCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsCreateNestedOneWithoutUsersInput
-    created_polls?: pollsCreateNestedManyWithoutCreatorInput
-    poll_votes?: poll_votesCreateNestedManyWithoutVoterInput
-    poll_comments?: poll_commentsCreateNestedManyWithoutCommenterInput
   }
 
   export type usersUncheckedCreateWithoutDiscussion_commentsInput = {
@@ -113520,8 +113520,16 @@ export namespace Prisma {
     night_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousers?: night_camp_volunteering_applicationsUncheckedCreateNestedManyWithoutUsers_night_camp_volunteering_applications_reviewed_byTousersInput
     night_camp_volunteering_applications_night_camp_volunteering_applications_user_idTousers?: night_camp_volunteering_applicationsUncheckedCreateNestedManyWithoutUsers_night_camp_volunteering_applications_user_idTousersInput
     payments?: paymentsUncheckedCreateNestedManyWithoutUsersInput
+    poll_comments?: poll_commentsUncheckedCreateNestedManyWithoutCommenterInput
+    poll_votes?: poll_votesUncheckedCreateNestedManyWithoutVoterInput
+    created_polls?: pollsUncheckedCreateNestedManyWithoutCreatorInput
     role_upgrade_requests_role_upgrade_requests_reviewer_idTousers?: role_upgrade_requestsUncheckedCreateNestedManyWithoutUsers_role_upgrade_requests_reviewer_idTousersInput
     role_upgrade_requests_role_upgrade_requests_user_idTousers?: role_upgrade_requestsUncheckedCreateNestedManyWithoutUsers_role_upgrade_requests_user_idTousersInput
+    service_bookings?: service_bookingsUncheckedCreateNestedManyWithoutUserInput
+    service_reviews?: service_reviewsUncheckedCreateNestedManyWithoutUserInput
+    created_services?: servicesUncheckedCreateNestedManyWithoutCreatorInput
+    session_enrollments?: session_enrollmentsUncheckedCreateNestedManyWithoutUserInput
+    created_sessions?: sessionsUncheckedCreateNestedManyWithoutCreatorInput
     discussion_comment_likes?: space_discussion_comment_likesUncheckedCreateNestedManyWithoutUserInput
     discussion_likes?: space_discussion_likesUncheckedCreateNestedManyWithoutUserInput
     authored_discussions?: space_discussionsUncheckedCreateNestedManyWithoutAuthorInput
@@ -113530,16 +113538,8 @@ export namespace Prisma {
     space_news_likes?: space_news_likesUncheckedCreateNestedManyWithoutUserInput
     stargazing_spot_reviews?: stargazing_spot_reviewsUncheckedCreateNestedManyWithoutUserInput
     created_stargazing_spots?: stargazing_spotsUncheckedCreateNestedManyWithoutCreatorInput
-    created_sessions?: sessionsUncheckedCreateNestedManyWithoutCreatorInput
-    session_enrollments?: session_enrollmentsUncheckedCreateNestedManyWithoutUserInput
-    created_services?: servicesUncheckedCreateNestedManyWithoutCreatorInput
-    service_bookings?: service_bookingsUncheckedCreateNestedManyWithoutUserInput
-    service_reviews?: service_reviewsUncheckedCreateNestedManyWithoutUserInput
     subscriptions?: subscriptionsUncheckedCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsUncheckedCreateNestedOneWithoutUsersInput
-    created_polls?: pollsUncheckedCreateNestedManyWithoutCreatorInput
-    poll_votes?: poll_votesUncheckedCreateNestedManyWithoutVoterInput
-    poll_comments?: poll_commentsUncheckedCreateNestedManyWithoutCommenterInput
   }
 
   export type usersCreateOrConnectWithoutDiscussion_commentsInput = {
@@ -113708,8 +113708,16 @@ export namespace Prisma {
     night_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousers?: night_camp_volunteering_applicationsUpdateManyWithoutUsers_night_camp_volunteering_applications_reviewed_byTousersNestedInput
     night_camp_volunteering_applications_night_camp_volunteering_applications_user_idTousers?: night_camp_volunteering_applicationsUpdateManyWithoutUsers_night_camp_volunteering_applications_user_idTousersNestedInput
     payments?: paymentsUpdateManyWithoutUsersNestedInput
+    poll_comments?: poll_commentsUpdateManyWithoutCommenterNestedInput
+    poll_votes?: poll_votesUpdateManyWithoutVoterNestedInput
+    created_polls?: pollsUpdateManyWithoutCreatorNestedInput
     role_upgrade_requests_role_upgrade_requests_reviewer_idTousers?: role_upgrade_requestsUpdateManyWithoutUsers_role_upgrade_requests_reviewer_idTousersNestedInput
     role_upgrade_requests_role_upgrade_requests_user_idTousers?: role_upgrade_requestsUpdateManyWithoutUsers_role_upgrade_requests_user_idTousersNestedInput
+    service_bookings?: service_bookingsUpdateManyWithoutUserNestedInput
+    service_reviews?: service_reviewsUpdateManyWithoutUserNestedInput
+    created_services?: servicesUpdateManyWithoutCreatorNestedInput
+    session_enrollments?: session_enrollmentsUpdateManyWithoutUserNestedInput
+    created_sessions?: sessionsUpdateManyWithoutCreatorNestedInput
     discussion_comment_likes?: space_discussion_comment_likesUpdateManyWithoutUserNestedInput
     discussion_likes?: space_discussion_likesUpdateManyWithoutUserNestedInput
     authored_discussions?: space_discussionsUpdateManyWithoutAuthorNestedInput
@@ -113718,16 +113726,8 @@ export namespace Prisma {
     space_news_likes?: space_news_likesUpdateManyWithoutUserNestedInput
     stargazing_spot_reviews?: stargazing_spot_reviewsUpdateManyWithoutUserNestedInput
     created_stargazing_spots?: stargazing_spotsUpdateManyWithoutCreatorNestedInput
-    created_sessions?: sessionsUpdateManyWithoutCreatorNestedInput
-    session_enrollments?: session_enrollmentsUpdateManyWithoutUserNestedInput
-    created_services?: servicesUpdateManyWithoutCreatorNestedInput
-    service_bookings?: service_bookingsUpdateManyWithoutUserNestedInput
-    service_reviews?: service_reviewsUpdateManyWithoutUserNestedInput
     subscriptions?: subscriptionsUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUpdateOneWithoutUsersNestedInput
-    created_polls?: pollsUpdateManyWithoutCreatorNestedInput
-    poll_votes?: poll_votesUpdateManyWithoutVoterNestedInput
-    poll_comments?: poll_commentsUpdateManyWithoutCommenterNestedInput
   }
 
   export type usersUncheckedUpdateWithoutDiscussion_commentsInput = {
@@ -113773,8 +113773,16 @@ export namespace Prisma {
     night_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousers?: night_camp_volunteering_applicationsUncheckedUpdateManyWithoutUsers_night_camp_volunteering_applications_reviewed_byTousersNestedInput
     night_camp_volunteering_applications_night_camp_volunteering_applications_user_idTousers?: night_camp_volunteering_applicationsUncheckedUpdateManyWithoutUsers_night_camp_volunteering_applications_user_idTousersNestedInput
     payments?: paymentsUncheckedUpdateManyWithoutUsersNestedInput
+    poll_comments?: poll_commentsUncheckedUpdateManyWithoutCommenterNestedInput
+    poll_votes?: poll_votesUncheckedUpdateManyWithoutVoterNestedInput
+    created_polls?: pollsUncheckedUpdateManyWithoutCreatorNestedInput
     role_upgrade_requests_role_upgrade_requests_reviewer_idTousers?: role_upgrade_requestsUncheckedUpdateManyWithoutUsers_role_upgrade_requests_reviewer_idTousersNestedInput
     role_upgrade_requests_role_upgrade_requests_user_idTousers?: role_upgrade_requestsUncheckedUpdateManyWithoutUsers_role_upgrade_requests_user_idTousersNestedInput
+    service_bookings?: service_bookingsUncheckedUpdateManyWithoutUserNestedInput
+    service_reviews?: service_reviewsUncheckedUpdateManyWithoutUserNestedInput
+    created_services?: servicesUncheckedUpdateManyWithoutCreatorNestedInput
+    session_enrollments?: session_enrollmentsUncheckedUpdateManyWithoutUserNestedInput
+    created_sessions?: sessionsUncheckedUpdateManyWithoutCreatorNestedInput
     discussion_comment_likes?: space_discussion_comment_likesUncheckedUpdateManyWithoutUserNestedInput
     discussion_likes?: space_discussion_likesUncheckedUpdateManyWithoutUserNestedInput
     authored_discussions?: space_discussionsUncheckedUpdateManyWithoutAuthorNestedInput
@@ -113783,16 +113791,8 @@ export namespace Prisma {
     space_news_likes?: space_news_likesUncheckedUpdateManyWithoutUserNestedInput
     stargazing_spot_reviews?: stargazing_spot_reviewsUncheckedUpdateManyWithoutUserNestedInput
     created_stargazing_spots?: stargazing_spotsUncheckedUpdateManyWithoutCreatorNestedInput
-    created_sessions?: sessionsUncheckedUpdateManyWithoutCreatorNestedInput
-    session_enrollments?: session_enrollmentsUncheckedUpdateManyWithoutUserNestedInput
-    created_services?: servicesUncheckedUpdateManyWithoutCreatorNestedInput
-    service_bookings?: service_bookingsUncheckedUpdateManyWithoutUserNestedInput
-    service_reviews?: service_reviewsUncheckedUpdateManyWithoutUserNestedInput
     subscriptions?: subscriptionsUncheckedUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUncheckedUpdateOneWithoutUsersNestedInput
-    created_polls?: pollsUncheckedUpdateManyWithoutCreatorNestedInput
-    poll_votes?: poll_votesUncheckedUpdateManyWithoutVoterNestedInput
-    poll_comments?: poll_commentsUncheckedUpdateManyWithoutCommenterNestedInput
   }
 
   export type space_discussionsCreateWithoutLikesInput = {
@@ -113873,8 +113873,16 @@ export namespace Prisma {
     night_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousers?: night_camp_volunteering_applicationsCreateNestedManyWithoutUsers_night_camp_volunteering_applications_reviewed_byTousersInput
     night_camp_volunteering_applications_night_camp_volunteering_applications_user_idTousers?: night_camp_volunteering_applicationsCreateNestedManyWithoutUsers_night_camp_volunteering_applications_user_idTousersInput
     payments?: paymentsCreateNestedManyWithoutUsersInput
+    poll_comments?: poll_commentsCreateNestedManyWithoutCommenterInput
+    poll_votes?: poll_votesCreateNestedManyWithoutVoterInput
+    created_polls?: pollsCreateNestedManyWithoutCreatorInput
     role_upgrade_requests_role_upgrade_requests_reviewer_idTousers?: role_upgrade_requestsCreateNestedManyWithoutUsers_role_upgrade_requests_reviewer_idTousersInput
     role_upgrade_requests_role_upgrade_requests_user_idTousers?: role_upgrade_requestsCreateNestedManyWithoutUsers_role_upgrade_requests_user_idTousersInput
+    service_bookings?: service_bookingsCreateNestedManyWithoutUserInput
+    service_reviews?: service_reviewsCreateNestedManyWithoutUserInput
+    created_services?: servicesCreateNestedManyWithoutCreatorInput
+    session_enrollments?: session_enrollmentsCreateNestedManyWithoutUserInput
+    created_sessions?: sessionsCreateNestedManyWithoutCreatorInput
     discussion_comment_likes?: space_discussion_comment_likesCreateNestedManyWithoutUserInput
     discussion_comments?: space_discussion_commentsCreateNestedManyWithoutUserInput
     authored_discussions?: space_discussionsCreateNestedManyWithoutAuthorInput
@@ -113883,16 +113891,8 @@ export namespace Prisma {
     space_news_likes?: space_news_likesCreateNestedManyWithoutUserInput
     stargazing_spot_reviews?: stargazing_spot_reviewsCreateNestedManyWithoutUserInput
     created_stargazing_spots?: stargazing_spotsCreateNestedManyWithoutCreatorInput
-    created_sessions?: sessionsCreateNestedManyWithoutCreatorInput
-    session_enrollments?: session_enrollmentsCreateNestedManyWithoutUserInput
-    created_services?: servicesCreateNestedManyWithoutCreatorInput
-    service_bookings?: service_bookingsCreateNestedManyWithoutUserInput
-    service_reviews?: service_reviewsCreateNestedManyWithoutUserInput
     subscriptions?: subscriptionsCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsCreateNestedOneWithoutUsersInput
-    created_polls?: pollsCreateNestedManyWithoutCreatorInput
-    poll_votes?: poll_votesCreateNestedManyWithoutVoterInput
-    poll_comments?: poll_commentsCreateNestedManyWithoutCommenterInput
   }
 
   export type usersUncheckedCreateWithoutDiscussion_likesInput = {
@@ -113938,8 +113938,16 @@ export namespace Prisma {
     night_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousers?: night_camp_volunteering_applicationsUncheckedCreateNestedManyWithoutUsers_night_camp_volunteering_applications_reviewed_byTousersInput
     night_camp_volunteering_applications_night_camp_volunteering_applications_user_idTousers?: night_camp_volunteering_applicationsUncheckedCreateNestedManyWithoutUsers_night_camp_volunteering_applications_user_idTousersInput
     payments?: paymentsUncheckedCreateNestedManyWithoutUsersInput
+    poll_comments?: poll_commentsUncheckedCreateNestedManyWithoutCommenterInput
+    poll_votes?: poll_votesUncheckedCreateNestedManyWithoutVoterInput
+    created_polls?: pollsUncheckedCreateNestedManyWithoutCreatorInput
     role_upgrade_requests_role_upgrade_requests_reviewer_idTousers?: role_upgrade_requestsUncheckedCreateNestedManyWithoutUsers_role_upgrade_requests_reviewer_idTousersInput
     role_upgrade_requests_role_upgrade_requests_user_idTousers?: role_upgrade_requestsUncheckedCreateNestedManyWithoutUsers_role_upgrade_requests_user_idTousersInput
+    service_bookings?: service_bookingsUncheckedCreateNestedManyWithoutUserInput
+    service_reviews?: service_reviewsUncheckedCreateNestedManyWithoutUserInput
+    created_services?: servicesUncheckedCreateNestedManyWithoutCreatorInput
+    session_enrollments?: session_enrollmentsUncheckedCreateNestedManyWithoutUserInput
+    created_sessions?: sessionsUncheckedCreateNestedManyWithoutCreatorInput
     discussion_comment_likes?: space_discussion_comment_likesUncheckedCreateNestedManyWithoutUserInput
     discussion_comments?: space_discussion_commentsUncheckedCreateNestedManyWithoutUserInput
     authored_discussions?: space_discussionsUncheckedCreateNestedManyWithoutAuthorInput
@@ -113948,16 +113956,8 @@ export namespace Prisma {
     space_news_likes?: space_news_likesUncheckedCreateNestedManyWithoutUserInput
     stargazing_spot_reviews?: stargazing_spot_reviewsUncheckedCreateNestedManyWithoutUserInput
     created_stargazing_spots?: stargazing_spotsUncheckedCreateNestedManyWithoutCreatorInput
-    created_sessions?: sessionsUncheckedCreateNestedManyWithoutCreatorInput
-    session_enrollments?: session_enrollmentsUncheckedCreateNestedManyWithoutUserInput
-    created_services?: servicesUncheckedCreateNestedManyWithoutCreatorInput
-    service_bookings?: service_bookingsUncheckedCreateNestedManyWithoutUserInput
-    service_reviews?: service_reviewsUncheckedCreateNestedManyWithoutUserInput
     subscriptions?: subscriptionsUncheckedCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsUncheckedCreateNestedOneWithoutUsersInput
-    created_polls?: pollsUncheckedCreateNestedManyWithoutCreatorInput
-    poll_votes?: poll_votesUncheckedCreateNestedManyWithoutVoterInput
-    poll_comments?: poll_commentsUncheckedCreateNestedManyWithoutCommenterInput
   }
 
   export type usersCreateOrConnectWithoutDiscussion_likesInput = {
@@ -114060,8 +114060,16 @@ export namespace Prisma {
     night_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousers?: night_camp_volunteering_applicationsUpdateManyWithoutUsers_night_camp_volunteering_applications_reviewed_byTousersNestedInput
     night_camp_volunteering_applications_night_camp_volunteering_applications_user_idTousers?: night_camp_volunteering_applicationsUpdateManyWithoutUsers_night_camp_volunteering_applications_user_idTousersNestedInput
     payments?: paymentsUpdateManyWithoutUsersNestedInput
+    poll_comments?: poll_commentsUpdateManyWithoutCommenterNestedInput
+    poll_votes?: poll_votesUpdateManyWithoutVoterNestedInput
+    created_polls?: pollsUpdateManyWithoutCreatorNestedInput
     role_upgrade_requests_role_upgrade_requests_reviewer_idTousers?: role_upgrade_requestsUpdateManyWithoutUsers_role_upgrade_requests_reviewer_idTousersNestedInput
     role_upgrade_requests_role_upgrade_requests_user_idTousers?: role_upgrade_requestsUpdateManyWithoutUsers_role_upgrade_requests_user_idTousersNestedInput
+    service_bookings?: service_bookingsUpdateManyWithoutUserNestedInput
+    service_reviews?: service_reviewsUpdateManyWithoutUserNestedInput
+    created_services?: servicesUpdateManyWithoutCreatorNestedInput
+    session_enrollments?: session_enrollmentsUpdateManyWithoutUserNestedInput
+    created_sessions?: sessionsUpdateManyWithoutCreatorNestedInput
     discussion_comment_likes?: space_discussion_comment_likesUpdateManyWithoutUserNestedInput
     discussion_comments?: space_discussion_commentsUpdateManyWithoutUserNestedInput
     authored_discussions?: space_discussionsUpdateManyWithoutAuthorNestedInput
@@ -114070,16 +114078,8 @@ export namespace Prisma {
     space_news_likes?: space_news_likesUpdateManyWithoutUserNestedInput
     stargazing_spot_reviews?: stargazing_spot_reviewsUpdateManyWithoutUserNestedInput
     created_stargazing_spots?: stargazing_spotsUpdateManyWithoutCreatorNestedInput
-    created_sessions?: sessionsUpdateManyWithoutCreatorNestedInput
-    session_enrollments?: session_enrollmentsUpdateManyWithoutUserNestedInput
-    created_services?: servicesUpdateManyWithoutCreatorNestedInput
-    service_bookings?: service_bookingsUpdateManyWithoutUserNestedInput
-    service_reviews?: service_reviewsUpdateManyWithoutUserNestedInput
     subscriptions?: subscriptionsUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUpdateOneWithoutUsersNestedInput
-    created_polls?: pollsUpdateManyWithoutCreatorNestedInput
-    poll_votes?: poll_votesUpdateManyWithoutVoterNestedInput
-    poll_comments?: poll_commentsUpdateManyWithoutCommenterNestedInput
   }
 
   export type usersUncheckedUpdateWithoutDiscussion_likesInput = {
@@ -114125,8 +114125,16 @@ export namespace Prisma {
     night_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousers?: night_camp_volunteering_applicationsUncheckedUpdateManyWithoutUsers_night_camp_volunteering_applications_reviewed_byTousersNestedInput
     night_camp_volunteering_applications_night_camp_volunteering_applications_user_idTousers?: night_camp_volunteering_applicationsUncheckedUpdateManyWithoutUsers_night_camp_volunteering_applications_user_idTousersNestedInput
     payments?: paymentsUncheckedUpdateManyWithoutUsersNestedInput
+    poll_comments?: poll_commentsUncheckedUpdateManyWithoutCommenterNestedInput
+    poll_votes?: poll_votesUncheckedUpdateManyWithoutVoterNestedInput
+    created_polls?: pollsUncheckedUpdateManyWithoutCreatorNestedInput
     role_upgrade_requests_role_upgrade_requests_reviewer_idTousers?: role_upgrade_requestsUncheckedUpdateManyWithoutUsers_role_upgrade_requests_reviewer_idTousersNestedInput
     role_upgrade_requests_role_upgrade_requests_user_idTousers?: role_upgrade_requestsUncheckedUpdateManyWithoutUsers_role_upgrade_requests_user_idTousersNestedInput
+    service_bookings?: service_bookingsUncheckedUpdateManyWithoutUserNestedInput
+    service_reviews?: service_reviewsUncheckedUpdateManyWithoutUserNestedInput
+    created_services?: servicesUncheckedUpdateManyWithoutCreatorNestedInput
+    session_enrollments?: session_enrollmentsUncheckedUpdateManyWithoutUserNestedInput
+    created_sessions?: sessionsUncheckedUpdateManyWithoutCreatorNestedInput
     discussion_comment_likes?: space_discussion_comment_likesUncheckedUpdateManyWithoutUserNestedInput
     discussion_comments?: space_discussion_commentsUncheckedUpdateManyWithoutUserNestedInput
     authored_discussions?: space_discussionsUncheckedUpdateManyWithoutAuthorNestedInput
@@ -114135,16 +114143,8 @@ export namespace Prisma {
     space_news_likes?: space_news_likesUncheckedUpdateManyWithoutUserNestedInput
     stargazing_spot_reviews?: stargazing_spot_reviewsUncheckedUpdateManyWithoutUserNestedInput
     created_stargazing_spots?: stargazing_spotsUncheckedUpdateManyWithoutCreatorNestedInput
-    created_sessions?: sessionsUncheckedUpdateManyWithoutCreatorNestedInput
-    session_enrollments?: session_enrollmentsUncheckedUpdateManyWithoutUserNestedInput
-    created_services?: servicesUncheckedUpdateManyWithoutCreatorNestedInput
-    service_bookings?: service_bookingsUncheckedUpdateManyWithoutUserNestedInput
-    service_reviews?: service_reviewsUncheckedUpdateManyWithoutUserNestedInput
     subscriptions?: subscriptionsUncheckedUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUncheckedUpdateOneWithoutUsersNestedInput
-    created_polls?: pollsUncheckedUpdateManyWithoutCreatorNestedInput
-    poll_votes?: poll_votesUncheckedUpdateManyWithoutVoterNestedInput
-    poll_comments?: poll_commentsUncheckedUpdateManyWithoutCommenterNestedInput
   }
 
   export type space_discussion_commentsCreateWithoutLikesInput = {
@@ -114217,8 +114217,16 @@ export namespace Prisma {
     night_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousers?: night_camp_volunteering_applicationsCreateNestedManyWithoutUsers_night_camp_volunteering_applications_reviewed_byTousersInput
     night_camp_volunteering_applications_night_camp_volunteering_applications_user_idTousers?: night_camp_volunteering_applicationsCreateNestedManyWithoutUsers_night_camp_volunteering_applications_user_idTousersInput
     payments?: paymentsCreateNestedManyWithoutUsersInput
+    poll_comments?: poll_commentsCreateNestedManyWithoutCommenterInput
+    poll_votes?: poll_votesCreateNestedManyWithoutVoterInput
+    created_polls?: pollsCreateNestedManyWithoutCreatorInput
     role_upgrade_requests_role_upgrade_requests_reviewer_idTousers?: role_upgrade_requestsCreateNestedManyWithoutUsers_role_upgrade_requests_reviewer_idTousersInput
     role_upgrade_requests_role_upgrade_requests_user_idTousers?: role_upgrade_requestsCreateNestedManyWithoutUsers_role_upgrade_requests_user_idTousersInput
+    service_bookings?: service_bookingsCreateNestedManyWithoutUserInput
+    service_reviews?: service_reviewsCreateNestedManyWithoutUserInput
+    created_services?: servicesCreateNestedManyWithoutCreatorInput
+    session_enrollments?: session_enrollmentsCreateNestedManyWithoutUserInput
+    created_sessions?: sessionsCreateNestedManyWithoutCreatorInput
     discussion_comments?: space_discussion_commentsCreateNestedManyWithoutUserInput
     discussion_likes?: space_discussion_likesCreateNestedManyWithoutUserInput
     authored_discussions?: space_discussionsCreateNestedManyWithoutAuthorInput
@@ -114227,16 +114235,8 @@ export namespace Prisma {
     space_news_likes?: space_news_likesCreateNestedManyWithoutUserInput
     stargazing_spot_reviews?: stargazing_spot_reviewsCreateNestedManyWithoutUserInput
     created_stargazing_spots?: stargazing_spotsCreateNestedManyWithoutCreatorInput
-    created_sessions?: sessionsCreateNestedManyWithoutCreatorInput
-    session_enrollments?: session_enrollmentsCreateNestedManyWithoutUserInput
-    created_services?: servicesCreateNestedManyWithoutCreatorInput
-    service_bookings?: service_bookingsCreateNestedManyWithoutUserInput
-    service_reviews?: service_reviewsCreateNestedManyWithoutUserInput
     subscriptions?: subscriptionsCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsCreateNestedOneWithoutUsersInput
-    created_polls?: pollsCreateNestedManyWithoutCreatorInput
-    poll_votes?: poll_votesCreateNestedManyWithoutVoterInput
-    poll_comments?: poll_commentsCreateNestedManyWithoutCommenterInput
   }
 
   export type usersUncheckedCreateWithoutDiscussion_comment_likesInput = {
@@ -114282,8 +114282,16 @@ export namespace Prisma {
     night_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousers?: night_camp_volunteering_applicationsUncheckedCreateNestedManyWithoutUsers_night_camp_volunteering_applications_reviewed_byTousersInput
     night_camp_volunteering_applications_night_camp_volunteering_applications_user_idTousers?: night_camp_volunteering_applicationsUncheckedCreateNestedManyWithoutUsers_night_camp_volunteering_applications_user_idTousersInput
     payments?: paymentsUncheckedCreateNestedManyWithoutUsersInput
+    poll_comments?: poll_commentsUncheckedCreateNestedManyWithoutCommenterInput
+    poll_votes?: poll_votesUncheckedCreateNestedManyWithoutVoterInput
+    created_polls?: pollsUncheckedCreateNestedManyWithoutCreatorInput
     role_upgrade_requests_role_upgrade_requests_reviewer_idTousers?: role_upgrade_requestsUncheckedCreateNestedManyWithoutUsers_role_upgrade_requests_reviewer_idTousersInput
     role_upgrade_requests_role_upgrade_requests_user_idTousers?: role_upgrade_requestsUncheckedCreateNestedManyWithoutUsers_role_upgrade_requests_user_idTousersInput
+    service_bookings?: service_bookingsUncheckedCreateNestedManyWithoutUserInput
+    service_reviews?: service_reviewsUncheckedCreateNestedManyWithoutUserInput
+    created_services?: servicesUncheckedCreateNestedManyWithoutCreatorInput
+    session_enrollments?: session_enrollmentsUncheckedCreateNestedManyWithoutUserInput
+    created_sessions?: sessionsUncheckedCreateNestedManyWithoutCreatorInput
     discussion_comments?: space_discussion_commentsUncheckedCreateNestedManyWithoutUserInput
     discussion_likes?: space_discussion_likesUncheckedCreateNestedManyWithoutUserInput
     authored_discussions?: space_discussionsUncheckedCreateNestedManyWithoutAuthorInput
@@ -114292,16 +114300,8 @@ export namespace Prisma {
     space_news_likes?: space_news_likesUncheckedCreateNestedManyWithoutUserInput
     stargazing_spot_reviews?: stargazing_spot_reviewsUncheckedCreateNestedManyWithoutUserInput
     created_stargazing_spots?: stargazing_spotsUncheckedCreateNestedManyWithoutCreatorInput
-    created_sessions?: sessionsUncheckedCreateNestedManyWithoutCreatorInput
-    session_enrollments?: session_enrollmentsUncheckedCreateNestedManyWithoutUserInput
-    created_services?: servicesUncheckedCreateNestedManyWithoutCreatorInput
-    service_bookings?: service_bookingsUncheckedCreateNestedManyWithoutUserInput
-    service_reviews?: service_reviewsUncheckedCreateNestedManyWithoutUserInput
     subscriptions?: subscriptionsUncheckedCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsUncheckedCreateNestedOneWithoutUsersInput
-    created_polls?: pollsUncheckedCreateNestedManyWithoutCreatorInput
-    poll_votes?: poll_votesUncheckedCreateNestedManyWithoutVoterInput
-    poll_comments?: poll_commentsUncheckedCreateNestedManyWithoutCommenterInput
   }
 
   export type usersCreateOrConnectWithoutDiscussion_comment_likesInput = {
@@ -114396,8 +114396,16 @@ export namespace Prisma {
     night_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousers?: night_camp_volunteering_applicationsUpdateManyWithoutUsers_night_camp_volunteering_applications_reviewed_byTousersNestedInput
     night_camp_volunteering_applications_night_camp_volunteering_applications_user_idTousers?: night_camp_volunteering_applicationsUpdateManyWithoutUsers_night_camp_volunteering_applications_user_idTousersNestedInput
     payments?: paymentsUpdateManyWithoutUsersNestedInput
+    poll_comments?: poll_commentsUpdateManyWithoutCommenterNestedInput
+    poll_votes?: poll_votesUpdateManyWithoutVoterNestedInput
+    created_polls?: pollsUpdateManyWithoutCreatorNestedInput
     role_upgrade_requests_role_upgrade_requests_reviewer_idTousers?: role_upgrade_requestsUpdateManyWithoutUsers_role_upgrade_requests_reviewer_idTousersNestedInput
     role_upgrade_requests_role_upgrade_requests_user_idTousers?: role_upgrade_requestsUpdateManyWithoutUsers_role_upgrade_requests_user_idTousersNestedInput
+    service_bookings?: service_bookingsUpdateManyWithoutUserNestedInput
+    service_reviews?: service_reviewsUpdateManyWithoutUserNestedInput
+    created_services?: servicesUpdateManyWithoutCreatorNestedInput
+    session_enrollments?: session_enrollmentsUpdateManyWithoutUserNestedInput
+    created_sessions?: sessionsUpdateManyWithoutCreatorNestedInput
     discussion_comments?: space_discussion_commentsUpdateManyWithoutUserNestedInput
     discussion_likes?: space_discussion_likesUpdateManyWithoutUserNestedInput
     authored_discussions?: space_discussionsUpdateManyWithoutAuthorNestedInput
@@ -114406,16 +114414,8 @@ export namespace Prisma {
     space_news_likes?: space_news_likesUpdateManyWithoutUserNestedInput
     stargazing_spot_reviews?: stargazing_spot_reviewsUpdateManyWithoutUserNestedInput
     created_stargazing_spots?: stargazing_spotsUpdateManyWithoutCreatorNestedInput
-    created_sessions?: sessionsUpdateManyWithoutCreatorNestedInput
-    session_enrollments?: session_enrollmentsUpdateManyWithoutUserNestedInput
-    created_services?: servicesUpdateManyWithoutCreatorNestedInput
-    service_bookings?: service_bookingsUpdateManyWithoutUserNestedInput
-    service_reviews?: service_reviewsUpdateManyWithoutUserNestedInput
     subscriptions?: subscriptionsUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUpdateOneWithoutUsersNestedInput
-    created_polls?: pollsUpdateManyWithoutCreatorNestedInput
-    poll_votes?: poll_votesUpdateManyWithoutVoterNestedInput
-    poll_comments?: poll_commentsUpdateManyWithoutCommenterNestedInput
   }
 
   export type usersUncheckedUpdateWithoutDiscussion_comment_likesInput = {
@@ -114461,8 +114461,16 @@ export namespace Prisma {
     night_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousers?: night_camp_volunteering_applicationsUncheckedUpdateManyWithoutUsers_night_camp_volunteering_applications_reviewed_byTousersNestedInput
     night_camp_volunteering_applications_night_camp_volunteering_applications_user_idTousers?: night_camp_volunteering_applicationsUncheckedUpdateManyWithoutUsers_night_camp_volunteering_applications_user_idTousersNestedInput
     payments?: paymentsUncheckedUpdateManyWithoutUsersNestedInput
+    poll_comments?: poll_commentsUncheckedUpdateManyWithoutCommenterNestedInput
+    poll_votes?: poll_votesUncheckedUpdateManyWithoutVoterNestedInput
+    created_polls?: pollsUncheckedUpdateManyWithoutCreatorNestedInput
     role_upgrade_requests_role_upgrade_requests_reviewer_idTousers?: role_upgrade_requestsUncheckedUpdateManyWithoutUsers_role_upgrade_requests_reviewer_idTousersNestedInput
     role_upgrade_requests_role_upgrade_requests_user_idTousers?: role_upgrade_requestsUncheckedUpdateManyWithoutUsers_role_upgrade_requests_user_idTousersNestedInput
+    service_bookings?: service_bookingsUncheckedUpdateManyWithoutUserNestedInput
+    service_reviews?: service_reviewsUncheckedUpdateManyWithoutUserNestedInput
+    created_services?: servicesUncheckedUpdateManyWithoutCreatorNestedInput
+    session_enrollments?: session_enrollmentsUncheckedUpdateManyWithoutUserNestedInput
+    created_sessions?: sessionsUncheckedUpdateManyWithoutCreatorNestedInput
     discussion_comments?: space_discussion_commentsUncheckedUpdateManyWithoutUserNestedInput
     discussion_likes?: space_discussion_likesUncheckedUpdateManyWithoutUserNestedInput
     authored_discussions?: space_discussionsUncheckedUpdateManyWithoutAuthorNestedInput
@@ -114471,16 +114479,8 @@ export namespace Prisma {
     space_news_likes?: space_news_likesUncheckedUpdateManyWithoutUserNestedInput
     stargazing_spot_reviews?: stargazing_spot_reviewsUncheckedUpdateManyWithoutUserNestedInput
     created_stargazing_spots?: stargazing_spotsUncheckedUpdateManyWithoutCreatorNestedInput
-    created_sessions?: sessionsUncheckedUpdateManyWithoutCreatorNestedInput
-    session_enrollments?: session_enrollmentsUncheckedUpdateManyWithoutUserNestedInput
-    created_services?: servicesUncheckedUpdateManyWithoutCreatorNestedInput
-    service_bookings?: service_bookingsUncheckedUpdateManyWithoutUserNestedInput
-    service_reviews?: service_reviewsUncheckedUpdateManyWithoutUserNestedInput
     subscriptions?: subscriptionsUncheckedUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUncheckedUpdateOneWithoutUsersNestedInput
-    created_polls?: pollsUncheckedUpdateManyWithoutCreatorNestedInput
-    poll_votes?: poll_votesUncheckedUpdateManyWithoutVoterNestedInput
-    poll_comments?: poll_commentsUncheckedUpdateManyWithoutCommenterNestedInput
   }
 
   export type usersCreateWithoutCreated_astronomy_eventsInput = {
@@ -114524,8 +114524,16 @@ export namespace Prisma {
     night_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousers?: night_camp_volunteering_applicationsCreateNestedManyWithoutUsers_night_camp_volunteering_applications_reviewed_byTousersInput
     night_camp_volunteering_applications_night_camp_volunteering_applications_user_idTousers?: night_camp_volunteering_applicationsCreateNestedManyWithoutUsers_night_camp_volunteering_applications_user_idTousersInput
     payments?: paymentsCreateNestedManyWithoutUsersInput
+    poll_comments?: poll_commentsCreateNestedManyWithoutCommenterInput
+    poll_votes?: poll_votesCreateNestedManyWithoutVoterInput
+    created_polls?: pollsCreateNestedManyWithoutCreatorInput
     role_upgrade_requests_role_upgrade_requests_reviewer_idTousers?: role_upgrade_requestsCreateNestedManyWithoutUsers_role_upgrade_requests_reviewer_idTousersInput
     role_upgrade_requests_role_upgrade_requests_user_idTousers?: role_upgrade_requestsCreateNestedManyWithoutUsers_role_upgrade_requests_user_idTousersInput
+    service_bookings?: service_bookingsCreateNestedManyWithoutUserInput
+    service_reviews?: service_reviewsCreateNestedManyWithoutUserInput
+    created_services?: servicesCreateNestedManyWithoutCreatorInput
+    session_enrollments?: session_enrollmentsCreateNestedManyWithoutUserInput
+    created_sessions?: sessionsCreateNestedManyWithoutCreatorInput
     discussion_comment_likes?: space_discussion_comment_likesCreateNestedManyWithoutUserInput
     discussion_comments?: space_discussion_commentsCreateNestedManyWithoutUserInput
     discussion_likes?: space_discussion_likesCreateNestedManyWithoutUserInput
@@ -114535,16 +114543,8 @@ export namespace Prisma {
     space_news_likes?: space_news_likesCreateNestedManyWithoutUserInput
     stargazing_spot_reviews?: stargazing_spot_reviewsCreateNestedManyWithoutUserInput
     created_stargazing_spots?: stargazing_spotsCreateNestedManyWithoutCreatorInput
-    created_sessions?: sessionsCreateNestedManyWithoutCreatorInput
-    session_enrollments?: session_enrollmentsCreateNestedManyWithoutUserInput
-    created_services?: servicesCreateNestedManyWithoutCreatorInput
-    service_bookings?: service_bookingsCreateNestedManyWithoutUserInput
-    service_reviews?: service_reviewsCreateNestedManyWithoutUserInput
     subscriptions?: subscriptionsCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsCreateNestedOneWithoutUsersInput
-    created_polls?: pollsCreateNestedManyWithoutCreatorInput
-    poll_votes?: poll_votesCreateNestedManyWithoutVoterInput
-    poll_comments?: poll_commentsCreateNestedManyWithoutCommenterInput
   }
 
   export type usersUncheckedCreateWithoutCreated_astronomy_eventsInput = {
@@ -114589,8 +114589,16 @@ export namespace Prisma {
     night_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousers?: night_camp_volunteering_applicationsUncheckedCreateNestedManyWithoutUsers_night_camp_volunteering_applications_reviewed_byTousersInput
     night_camp_volunteering_applications_night_camp_volunteering_applications_user_idTousers?: night_camp_volunteering_applicationsUncheckedCreateNestedManyWithoutUsers_night_camp_volunteering_applications_user_idTousersInput
     payments?: paymentsUncheckedCreateNestedManyWithoutUsersInput
+    poll_comments?: poll_commentsUncheckedCreateNestedManyWithoutCommenterInput
+    poll_votes?: poll_votesUncheckedCreateNestedManyWithoutVoterInput
+    created_polls?: pollsUncheckedCreateNestedManyWithoutCreatorInput
     role_upgrade_requests_role_upgrade_requests_reviewer_idTousers?: role_upgrade_requestsUncheckedCreateNestedManyWithoutUsers_role_upgrade_requests_reviewer_idTousersInput
     role_upgrade_requests_role_upgrade_requests_user_idTousers?: role_upgrade_requestsUncheckedCreateNestedManyWithoutUsers_role_upgrade_requests_user_idTousersInput
+    service_bookings?: service_bookingsUncheckedCreateNestedManyWithoutUserInput
+    service_reviews?: service_reviewsUncheckedCreateNestedManyWithoutUserInput
+    created_services?: servicesUncheckedCreateNestedManyWithoutCreatorInput
+    session_enrollments?: session_enrollmentsUncheckedCreateNestedManyWithoutUserInput
+    created_sessions?: sessionsUncheckedCreateNestedManyWithoutCreatorInput
     discussion_comment_likes?: space_discussion_comment_likesUncheckedCreateNestedManyWithoutUserInput
     discussion_comments?: space_discussion_commentsUncheckedCreateNestedManyWithoutUserInput
     discussion_likes?: space_discussion_likesUncheckedCreateNestedManyWithoutUserInput
@@ -114600,16 +114608,8 @@ export namespace Prisma {
     space_news_likes?: space_news_likesUncheckedCreateNestedManyWithoutUserInput
     stargazing_spot_reviews?: stargazing_spot_reviewsUncheckedCreateNestedManyWithoutUserInput
     created_stargazing_spots?: stargazing_spotsUncheckedCreateNestedManyWithoutCreatorInput
-    created_sessions?: sessionsUncheckedCreateNestedManyWithoutCreatorInput
-    session_enrollments?: session_enrollmentsUncheckedCreateNestedManyWithoutUserInput
-    created_services?: servicesUncheckedCreateNestedManyWithoutCreatorInput
-    service_bookings?: service_bookingsUncheckedCreateNestedManyWithoutUserInput
-    service_reviews?: service_reviewsUncheckedCreateNestedManyWithoutUserInput
     subscriptions?: subscriptionsUncheckedCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsUncheckedCreateNestedOneWithoutUsersInput
-    created_polls?: pollsUncheckedCreateNestedManyWithoutCreatorInput
-    poll_votes?: poll_votesUncheckedCreateNestedManyWithoutVoterInput
-    poll_comments?: poll_commentsUncheckedCreateNestedManyWithoutCommenterInput
   }
 
   export type usersCreateOrConnectWithoutCreated_astronomy_eventsInput = {
@@ -114698,8 +114698,16 @@ export namespace Prisma {
     night_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousers?: night_camp_volunteering_applicationsUpdateManyWithoutUsers_night_camp_volunteering_applications_reviewed_byTousersNestedInput
     night_camp_volunteering_applications_night_camp_volunteering_applications_user_idTousers?: night_camp_volunteering_applicationsUpdateManyWithoutUsers_night_camp_volunteering_applications_user_idTousersNestedInput
     payments?: paymentsUpdateManyWithoutUsersNestedInput
+    poll_comments?: poll_commentsUpdateManyWithoutCommenterNestedInput
+    poll_votes?: poll_votesUpdateManyWithoutVoterNestedInput
+    created_polls?: pollsUpdateManyWithoutCreatorNestedInput
     role_upgrade_requests_role_upgrade_requests_reviewer_idTousers?: role_upgrade_requestsUpdateManyWithoutUsers_role_upgrade_requests_reviewer_idTousersNestedInput
     role_upgrade_requests_role_upgrade_requests_user_idTousers?: role_upgrade_requestsUpdateManyWithoutUsers_role_upgrade_requests_user_idTousersNestedInput
+    service_bookings?: service_bookingsUpdateManyWithoutUserNestedInput
+    service_reviews?: service_reviewsUpdateManyWithoutUserNestedInput
+    created_services?: servicesUpdateManyWithoutCreatorNestedInput
+    session_enrollments?: session_enrollmentsUpdateManyWithoutUserNestedInput
+    created_sessions?: sessionsUpdateManyWithoutCreatorNestedInput
     discussion_comment_likes?: space_discussion_comment_likesUpdateManyWithoutUserNestedInput
     discussion_comments?: space_discussion_commentsUpdateManyWithoutUserNestedInput
     discussion_likes?: space_discussion_likesUpdateManyWithoutUserNestedInput
@@ -114709,16 +114717,8 @@ export namespace Prisma {
     space_news_likes?: space_news_likesUpdateManyWithoutUserNestedInput
     stargazing_spot_reviews?: stargazing_spot_reviewsUpdateManyWithoutUserNestedInput
     created_stargazing_spots?: stargazing_spotsUpdateManyWithoutCreatorNestedInput
-    created_sessions?: sessionsUpdateManyWithoutCreatorNestedInput
-    session_enrollments?: session_enrollmentsUpdateManyWithoutUserNestedInput
-    created_services?: servicesUpdateManyWithoutCreatorNestedInput
-    service_bookings?: service_bookingsUpdateManyWithoutUserNestedInput
-    service_reviews?: service_reviewsUpdateManyWithoutUserNestedInput
     subscriptions?: subscriptionsUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUpdateOneWithoutUsersNestedInput
-    created_polls?: pollsUpdateManyWithoutCreatorNestedInput
-    poll_votes?: poll_votesUpdateManyWithoutVoterNestedInput
-    poll_comments?: poll_commentsUpdateManyWithoutCommenterNestedInput
   }
 
   export type usersUncheckedUpdateWithoutCreated_astronomy_eventsInput = {
@@ -114763,8 +114763,16 @@ export namespace Prisma {
     night_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousers?: night_camp_volunteering_applicationsUncheckedUpdateManyWithoutUsers_night_camp_volunteering_applications_reviewed_byTousersNestedInput
     night_camp_volunteering_applications_night_camp_volunteering_applications_user_idTousers?: night_camp_volunteering_applicationsUncheckedUpdateManyWithoutUsers_night_camp_volunteering_applications_user_idTousersNestedInput
     payments?: paymentsUncheckedUpdateManyWithoutUsersNestedInput
+    poll_comments?: poll_commentsUncheckedUpdateManyWithoutCommenterNestedInput
+    poll_votes?: poll_votesUncheckedUpdateManyWithoutVoterNestedInput
+    created_polls?: pollsUncheckedUpdateManyWithoutCreatorNestedInput
     role_upgrade_requests_role_upgrade_requests_reviewer_idTousers?: role_upgrade_requestsUncheckedUpdateManyWithoutUsers_role_upgrade_requests_reviewer_idTousersNestedInput
     role_upgrade_requests_role_upgrade_requests_user_idTousers?: role_upgrade_requestsUncheckedUpdateManyWithoutUsers_role_upgrade_requests_user_idTousersNestedInput
+    service_bookings?: service_bookingsUncheckedUpdateManyWithoutUserNestedInput
+    service_reviews?: service_reviewsUncheckedUpdateManyWithoutUserNestedInput
+    created_services?: servicesUncheckedUpdateManyWithoutCreatorNestedInput
+    session_enrollments?: session_enrollmentsUncheckedUpdateManyWithoutUserNestedInput
+    created_sessions?: sessionsUncheckedUpdateManyWithoutCreatorNestedInput
     discussion_comment_likes?: space_discussion_comment_likesUncheckedUpdateManyWithoutUserNestedInput
     discussion_comments?: space_discussion_commentsUncheckedUpdateManyWithoutUserNestedInput
     discussion_likes?: space_discussion_likesUncheckedUpdateManyWithoutUserNestedInput
@@ -114774,16 +114782,8 @@ export namespace Prisma {
     space_news_likes?: space_news_likesUncheckedUpdateManyWithoutUserNestedInput
     stargazing_spot_reviews?: stargazing_spot_reviewsUncheckedUpdateManyWithoutUserNestedInput
     created_stargazing_spots?: stargazing_spotsUncheckedUpdateManyWithoutCreatorNestedInput
-    created_sessions?: sessionsUncheckedUpdateManyWithoutCreatorNestedInput
-    session_enrollments?: session_enrollmentsUncheckedUpdateManyWithoutUserNestedInput
-    created_services?: servicesUncheckedUpdateManyWithoutCreatorNestedInput
-    service_bookings?: service_bookingsUncheckedUpdateManyWithoutUserNestedInput
-    service_reviews?: service_reviewsUncheckedUpdateManyWithoutUserNestedInput
     subscriptions?: subscriptionsUncheckedUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUncheckedUpdateOneWithoutUsersNestedInput
-    created_polls?: pollsUncheckedUpdateManyWithoutCreatorNestedInput
-    poll_votes?: poll_votesUncheckedUpdateManyWithoutVoterNestedInput
-    poll_comments?: poll_commentsUncheckedUpdateManyWithoutCommenterNestedInput
   }
 
   export type event_remindersUpsertWithWhereUniqueWithoutEventInput = {
@@ -114881,8 +114881,16 @@ export namespace Prisma {
     night_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousers?: night_camp_volunteering_applicationsCreateNestedManyWithoutUsers_night_camp_volunteering_applications_reviewed_byTousersInput
     night_camp_volunteering_applications_night_camp_volunteering_applications_user_idTousers?: night_camp_volunteering_applicationsCreateNestedManyWithoutUsers_night_camp_volunteering_applications_user_idTousersInput
     payments?: paymentsCreateNestedManyWithoutUsersInput
+    poll_comments?: poll_commentsCreateNestedManyWithoutCommenterInput
+    poll_votes?: poll_votesCreateNestedManyWithoutVoterInput
+    created_polls?: pollsCreateNestedManyWithoutCreatorInput
     role_upgrade_requests_role_upgrade_requests_reviewer_idTousers?: role_upgrade_requestsCreateNestedManyWithoutUsers_role_upgrade_requests_reviewer_idTousersInput
     role_upgrade_requests_role_upgrade_requests_user_idTousers?: role_upgrade_requestsCreateNestedManyWithoutUsers_role_upgrade_requests_user_idTousersInput
+    service_bookings?: service_bookingsCreateNestedManyWithoutUserInput
+    service_reviews?: service_reviewsCreateNestedManyWithoutUserInput
+    created_services?: servicesCreateNestedManyWithoutCreatorInput
+    session_enrollments?: session_enrollmentsCreateNestedManyWithoutUserInput
+    created_sessions?: sessionsCreateNestedManyWithoutCreatorInput
     discussion_comment_likes?: space_discussion_comment_likesCreateNestedManyWithoutUserInput
     discussion_comments?: space_discussion_commentsCreateNestedManyWithoutUserInput
     discussion_likes?: space_discussion_likesCreateNestedManyWithoutUserInput
@@ -114892,16 +114900,8 @@ export namespace Prisma {
     space_news_likes?: space_news_likesCreateNestedManyWithoutUserInput
     stargazing_spot_reviews?: stargazing_spot_reviewsCreateNestedManyWithoutUserInput
     created_stargazing_spots?: stargazing_spotsCreateNestedManyWithoutCreatorInput
-    created_sessions?: sessionsCreateNestedManyWithoutCreatorInput
-    session_enrollments?: session_enrollmentsCreateNestedManyWithoutUserInput
-    created_services?: servicesCreateNestedManyWithoutCreatorInput
-    service_bookings?: service_bookingsCreateNestedManyWithoutUserInput
-    service_reviews?: service_reviewsCreateNestedManyWithoutUserInput
     subscriptions?: subscriptionsCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsCreateNestedOneWithoutUsersInput
-    created_polls?: pollsCreateNestedManyWithoutCreatorInput
-    poll_votes?: poll_votesCreateNestedManyWithoutVoterInput
-    poll_comments?: poll_commentsCreateNestedManyWithoutCommenterInput
   }
 
   export type usersUncheckedCreateWithoutEvent_remindersInput = {
@@ -114946,8 +114946,16 @@ export namespace Prisma {
     night_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousers?: night_camp_volunteering_applicationsUncheckedCreateNestedManyWithoutUsers_night_camp_volunteering_applications_reviewed_byTousersInput
     night_camp_volunteering_applications_night_camp_volunteering_applications_user_idTousers?: night_camp_volunteering_applicationsUncheckedCreateNestedManyWithoutUsers_night_camp_volunteering_applications_user_idTousersInput
     payments?: paymentsUncheckedCreateNestedManyWithoutUsersInput
+    poll_comments?: poll_commentsUncheckedCreateNestedManyWithoutCommenterInput
+    poll_votes?: poll_votesUncheckedCreateNestedManyWithoutVoterInput
+    created_polls?: pollsUncheckedCreateNestedManyWithoutCreatorInput
     role_upgrade_requests_role_upgrade_requests_reviewer_idTousers?: role_upgrade_requestsUncheckedCreateNestedManyWithoutUsers_role_upgrade_requests_reviewer_idTousersInput
     role_upgrade_requests_role_upgrade_requests_user_idTousers?: role_upgrade_requestsUncheckedCreateNestedManyWithoutUsers_role_upgrade_requests_user_idTousersInput
+    service_bookings?: service_bookingsUncheckedCreateNestedManyWithoutUserInput
+    service_reviews?: service_reviewsUncheckedCreateNestedManyWithoutUserInput
+    created_services?: servicesUncheckedCreateNestedManyWithoutCreatorInput
+    session_enrollments?: session_enrollmentsUncheckedCreateNestedManyWithoutUserInput
+    created_sessions?: sessionsUncheckedCreateNestedManyWithoutCreatorInput
     discussion_comment_likes?: space_discussion_comment_likesUncheckedCreateNestedManyWithoutUserInput
     discussion_comments?: space_discussion_commentsUncheckedCreateNestedManyWithoutUserInput
     discussion_likes?: space_discussion_likesUncheckedCreateNestedManyWithoutUserInput
@@ -114957,16 +114965,8 @@ export namespace Prisma {
     space_news_likes?: space_news_likesUncheckedCreateNestedManyWithoutUserInput
     stargazing_spot_reviews?: stargazing_spot_reviewsUncheckedCreateNestedManyWithoutUserInput
     created_stargazing_spots?: stargazing_spotsUncheckedCreateNestedManyWithoutCreatorInput
-    created_sessions?: sessionsUncheckedCreateNestedManyWithoutCreatorInput
-    session_enrollments?: session_enrollmentsUncheckedCreateNestedManyWithoutUserInput
-    created_services?: servicesUncheckedCreateNestedManyWithoutCreatorInput
-    service_bookings?: service_bookingsUncheckedCreateNestedManyWithoutUserInput
-    service_reviews?: service_reviewsUncheckedCreateNestedManyWithoutUserInput
     subscriptions?: subscriptionsUncheckedCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsUncheckedCreateNestedOneWithoutUsersInput
-    created_polls?: pollsUncheckedCreateNestedManyWithoutCreatorInput
-    poll_votes?: poll_votesUncheckedCreateNestedManyWithoutVoterInput
-    poll_comments?: poll_commentsUncheckedCreateNestedManyWithoutCommenterInput
   }
 
   export type usersCreateOrConnectWithoutEvent_remindersInput = {
@@ -115070,8 +115070,16 @@ export namespace Prisma {
     night_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousers?: night_camp_volunteering_applicationsUpdateManyWithoutUsers_night_camp_volunteering_applications_reviewed_byTousersNestedInput
     night_camp_volunteering_applications_night_camp_volunteering_applications_user_idTousers?: night_camp_volunteering_applicationsUpdateManyWithoutUsers_night_camp_volunteering_applications_user_idTousersNestedInput
     payments?: paymentsUpdateManyWithoutUsersNestedInput
+    poll_comments?: poll_commentsUpdateManyWithoutCommenterNestedInput
+    poll_votes?: poll_votesUpdateManyWithoutVoterNestedInput
+    created_polls?: pollsUpdateManyWithoutCreatorNestedInput
     role_upgrade_requests_role_upgrade_requests_reviewer_idTousers?: role_upgrade_requestsUpdateManyWithoutUsers_role_upgrade_requests_reviewer_idTousersNestedInput
     role_upgrade_requests_role_upgrade_requests_user_idTousers?: role_upgrade_requestsUpdateManyWithoutUsers_role_upgrade_requests_user_idTousersNestedInput
+    service_bookings?: service_bookingsUpdateManyWithoutUserNestedInput
+    service_reviews?: service_reviewsUpdateManyWithoutUserNestedInput
+    created_services?: servicesUpdateManyWithoutCreatorNestedInput
+    session_enrollments?: session_enrollmentsUpdateManyWithoutUserNestedInput
+    created_sessions?: sessionsUpdateManyWithoutCreatorNestedInput
     discussion_comment_likes?: space_discussion_comment_likesUpdateManyWithoutUserNestedInput
     discussion_comments?: space_discussion_commentsUpdateManyWithoutUserNestedInput
     discussion_likes?: space_discussion_likesUpdateManyWithoutUserNestedInput
@@ -115081,16 +115089,8 @@ export namespace Prisma {
     space_news_likes?: space_news_likesUpdateManyWithoutUserNestedInput
     stargazing_spot_reviews?: stargazing_spot_reviewsUpdateManyWithoutUserNestedInput
     created_stargazing_spots?: stargazing_spotsUpdateManyWithoutCreatorNestedInput
-    created_sessions?: sessionsUpdateManyWithoutCreatorNestedInput
-    session_enrollments?: session_enrollmentsUpdateManyWithoutUserNestedInput
-    created_services?: servicesUpdateManyWithoutCreatorNestedInput
-    service_bookings?: service_bookingsUpdateManyWithoutUserNestedInput
-    service_reviews?: service_reviewsUpdateManyWithoutUserNestedInput
     subscriptions?: subscriptionsUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUpdateOneWithoutUsersNestedInput
-    created_polls?: pollsUpdateManyWithoutCreatorNestedInput
-    poll_votes?: poll_votesUpdateManyWithoutVoterNestedInput
-    poll_comments?: poll_commentsUpdateManyWithoutCommenterNestedInput
   }
 
   export type usersUncheckedUpdateWithoutEvent_remindersInput = {
@@ -115135,8 +115135,16 @@ export namespace Prisma {
     night_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousers?: night_camp_volunteering_applicationsUncheckedUpdateManyWithoutUsers_night_camp_volunteering_applications_reviewed_byTousersNestedInput
     night_camp_volunteering_applications_night_camp_volunteering_applications_user_idTousers?: night_camp_volunteering_applicationsUncheckedUpdateManyWithoutUsers_night_camp_volunteering_applications_user_idTousersNestedInput
     payments?: paymentsUncheckedUpdateManyWithoutUsersNestedInput
+    poll_comments?: poll_commentsUncheckedUpdateManyWithoutCommenterNestedInput
+    poll_votes?: poll_votesUncheckedUpdateManyWithoutVoterNestedInput
+    created_polls?: pollsUncheckedUpdateManyWithoutCreatorNestedInput
     role_upgrade_requests_role_upgrade_requests_reviewer_idTousers?: role_upgrade_requestsUncheckedUpdateManyWithoutUsers_role_upgrade_requests_reviewer_idTousersNestedInput
     role_upgrade_requests_role_upgrade_requests_user_idTousers?: role_upgrade_requestsUncheckedUpdateManyWithoutUsers_role_upgrade_requests_user_idTousersNestedInput
+    service_bookings?: service_bookingsUncheckedUpdateManyWithoutUserNestedInput
+    service_reviews?: service_reviewsUncheckedUpdateManyWithoutUserNestedInput
+    created_services?: servicesUncheckedUpdateManyWithoutCreatorNestedInput
+    session_enrollments?: session_enrollmentsUncheckedUpdateManyWithoutUserNestedInput
+    created_sessions?: sessionsUncheckedUpdateManyWithoutCreatorNestedInput
     discussion_comment_likes?: space_discussion_comment_likesUncheckedUpdateManyWithoutUserNestedInput
     discussion_comments?: space_discussion_commentsUncheckedUpdateManyWithoutUserNestedInput
     discussion_likes?: space_discussion_likesUncheckedUpdateManyWithoutUserNestedInput
@@ -115146,16 +115154,8 @@ export namespace Prisma {
     space_news_likes?: space_news_likesUncheckedUpdateManyWithoutUserNestedInput
     stargazing_spot_reviews?: stargazing_spot_reviewsUncheckedUpdateManyWithoutUserNestedInput
     created_stargazing_spots?: stargazing_spotsUncheckedUpdateManyWithoutCreatorNestedInput
-    created_sessions?: sessionsUncheckedUpdateManyWithoutCreatorNestedInput
-    session_enrollments?: session_enrollmentsUncheckedUpdateManyWithoutUserNestedInput
-    created_services?: servicesUncheckedUpdateManyWithoutCreatorNestedInput
-    service_bookings?: service_bookingsUncheckedUpdateManyWithoutUserNestedInput
-    service_reviews?: service_reviewsUncheckedUpdateManyWithoutUserNestedInput
     subscriptions?: subscriptionsUncheckedUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUncheckedUpdateOneWithoutUsersNestedInput
-    created_polls?: pollsUncheckedUpdateManyWithoutCreatorNestedInput
-    poll_votes?: poll_votesUncheckedUpdateManyWithoutVoterNestedInput
-    poll_comments?: poll_commentsUncheckedUpdateManyWithoutCommenterNestedInput
   }
 
   export type stargazing_spot_reviewsCreateWithoutStargazing_spotInput = {
@@ -115227,8 +115227,16 @@ export namespace Prisma {
     night_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousers?: night_camp_volunteering_applicationsCreateNestedManyWithoutUsers_night_camp_volunteering_applications_reviewed_byTousersInput
     night_camp_volunteering_applications_night_camp_volunteering_applications_user_idTousers?: night_camp_volunteering_applicationsCreateNestedManyWithoutUsers_night_camp_volunteering_applications_user_idTousersInput
     payments?: paymentsCreateNestedManyWithoutUsersInput
+    poll_comments?: poll_commentsCreateNestedManyWithoutCommenterInput
+    poll_votes?: poll_votesCreateNestedManyWithoutVoterInput
+    created_polls?: pollsCreateNestedManyWithoutCreatorInput
     role_upgrade_requests_role_upgrade_requests_reviewer_idTousers?: role_upgrade_requestsCreateNestedManyWithoutUsers_role_upgrade_requests_reviewer_idTousersInput
     role_upgrade_requests_role_upgrade_requests_user_idTousers?: role_upgrade_requestsCreateNestedManyWithoutUsers_role_upgrade_requests_user_idTousersInput
+    service_bookings?: service_bookingsCreateNestedManyWithoutUserInput
+    service_reviews?: service_reviewsCreateNestedManyWithoutUserInput
+    created_services?: servicesCreateNestedManyWithoutCreatorInput
+    session_enrollments?: session_enrollmentsCreateNestedManyWithoutUserInput
+    created_sessions?: sessionsCreateNestedManyWithoutCreatorInput
     discussion_comment_likes?: space_discussion_comment_likesCreateNestedManyWithoutUserInput
     discussion_comments?: space_discussion_commentsCreateNestedManyWithoutUserInput
     discussion_likes?: space_discussion_likesCreateNestedManyWithoutUserInput
@@ -115237,16 +115245,8 @@ export namespace Prisma {
     space_news_comments?: space_news_commentsCreateNestedManyWithoutUserInput
     space_news_likes?: space_news_likesCreateNestedManyWithoutUserInput
     stargazing_spot_reviews?: stargazing_spot_reviewsCreateNestedManyWithoutUserInput
-    created_sessions?: sessionsCreateNestedManyWithoutCreatorInput
-    session_enrollments?: session_enrollmentsCreateNestedManyWithoutUserInput
-    created_services?: servicesCreateNestedManyWithoutCreatorInput
-    service_bookings?: service_bookingsCreateNestedManyWithoutUserInput
-    service_reviews?: service_reviewsCreateNestedManyWithoutUserInput
     subscriptions?: subscriptionsCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsCreateNestedOneWithoutUsersInput
-    created_polls?: pollsCreateNestedManyWithoutCreatorInput
-    poll_votes?: poll_votesCreateNestedManyWithoutVoterInput
-    poll_comments?: poll_commentsCreateNestedManyWithoutCommenterInput
   }
 
   export type usersUncheckedCreateWithoutCreated_stargazing_spotsInput = {
@@ -115292,8 +115292,16 @@ export namespace Prisma {
     night_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousers?: night_camp_volunteering_applicationsUncheckedCreateNestedManyWithoutUsers_night_camp_volunteering_applications_reviewed_byTousersInput
     night_camp_volunteering_applications_night_camp_volunteering_applications_user_idTousers?: night_camp_volunteering_applicationsUncheckedCreateNestedManyWithoutUsers_night_camp_volunteering_applications_user_idTousersInput
     payments?: paymentsUncheckedCreateNestedManyWithoutUsersInput
+    poll_comments?: poll_commentsUncheckedCreateNestedManyWithoutCommenterInput
+    poll_votes?: poll_votesUncheckedCreateNestedManyWithoutVoterInput
+    created_polls?: pollsUncheckedCreateNestedManyWithoutCreatorInput
     role_upgrade_requests_role_upgrade_requests_reviewer_idTousers?: role_upgrade_requestsUncheckedCreateNestedManyWithoutUsers_role_upgrade_requests_reviewer_idTousersInput
     role_upgrade_requests_role_upgrade_requests_user_idTousers?: role_upgrade_requestsUncheckedCreateNestedManyWithoutUsers_role_upgrade_requests_user_idTousersInput
+    service_bookings?: service_bookingsUncheckedCreateNestedManyWithoutUserInput
+    service_reviews?: service_reviewsUncheckedCreateNestedManyWithoutUserInput
+    created_services?: servicesUncheckedCreateNestedManyWithoutCreatorInput
+    session_enrollments?: session_enrollmentsUncheckedCreateNestedManyWithoutUserInput
+    created_sessions?: sessionsUncheckedCreateNestedManyWithoutCreatorInput
     discussion_comment_likes?: space_discussion_comment_likesUncheckedCreateNestedManyWithoutUserInput
     discussion_comments?: space_discussion_commentsUncheckedCreateNestedManyWithoutUserInput
     discussion_likes?: space_discussion_likesUncheckedCreateNestedManyWithoutUserInput
@@ -115302,16 +115310,8 @@ export namespace Prisma {
     space_news_comments?: space_news_commentsUncheckedCreateNestedManyWithoutUserInput
     space_news_likes?: space_news_likesUncheckedCreateNestedManyWithoutUserInput
     stargazing_spot_reviews?: stargazing_spot_reviewsUncheckedCreateNestedManyWithoutUserInput
-    created_sessions?: sessionsUncheckedCreateNestedManyWithoutCreatorInput
-    session_enrollments?: session_enrollmentsUncheckedCreateNestedManyWithoutUserInput
-    created_services?: servicesUncheckedCreateNestedManyWithoutCreatorInput
-    service_bookings?: service_bookingsUncheckedCreateNestedManyWithoutUserInput
-    service_reviews?: service_reviewsUncheckedCreateNestedManyWithoutUserInput
     subscriptions?: subscriptionsUncheckedCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsUncheckedCreateNestedOneWithoutUsersInput
-    created_polls?: pollsUncheckedCreateNestedManyWithoutCreatorInput
-    poll_votes?: poll_votesUncheckedCreateNestedManyWithoutVoterInput
-    poll_comments?: poll_commentsUncheckedCreateNestedManyWithoutCommenterInput
   }
 
   export type usersCreateOrConnectWithoutCreated_stargazing_spotsInput = {
@@ -115388,8 +115388,16 @@ export namespace Prisma {
     night_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousers?: night_camp_volunteering_applicationsUpdateManyWithoutUsers_night_camp_volunteering_applications_reviewed_byTousersNestedInput
     night_camp_volunteering_applications_night_camp_volunteering_applications_user_idTousers?: night_camp_volunteering_applicationsUpdateManyWithoutUsers_night_camp_volunteering_applications_user_idTousersNestedInput
     payments?: paymentsUpdateManyWithoutUsersNestedInput
+    poll_comments?: poll_commentsUpdateManyWithoutCommenterNestedInput
+    poll_votes?: poll_votesUpdateManyWithoutVoterNestedInput
+    created_polls?: pollsUpdateManyWithoutCreatorNestedInput
     role_upgrade_requests_role_upgrade_requests_reviewer_idTousers?: role_upgrade_requestsUpdateManyWithoutUsers_role_upgrade_requests_reviewer_idTousersNestedInput
     role_upgrade_requests_role_upgrade_requests_user_idTousers?: role_upgrade_requestsUpdateManyWithoutUsers_role_upgrade_requests_user_idTousersNestedInput
+    service_bookings?: service_bookingsUpdateManyWithoutUserNestedInput
+    service_reviews?: service_reviewsUpdateManyWithoutUserNestedInput
+    created_services?: servicesUpdateManyWithoutCreatorNestedInput
+    session_enrollments?: session_enrollmentsUpdateManyWithoutUserNestedInput
+    created_sessions?: sessionsUpdateManyWithoutCreatorNestedInput
     discussion_comment_likes?: space_discussion_comment_likesUpdateManyWithoutUserNestedInput
     discussion_comments?: space_discussion_commentsUpdateManyWithoutUserNestedInput
     discussion_likes?: space_discussion_likesUpdateManyWithoutUserNestedInput
@@ -115398,16 +115406,8 @@ export namespace Prisma {
     space_news_comments?: space_news_commentsUpdateManyWithoutUserNestedInput
     space_news_likes?: space_news_likesUpdateManyWithoutUserNestedInput
     stargazing_spot_reviews?: stargazing_spot_reviewsUpdateManyWithoutUserNestedInput
-    created_sessions?: sessionsUpdateManyWithoutCreatorNestedInput
-    session_enrollments?: session_enrollmentsUpdateManyWithoutUserNestedInput
-    created_services?: servicesUpdateManyWithoutCreatorNestedInput
-    service_bookings?: service_bookingsUpdateManyWithoutUserNestedInput
-    service_reviews?: service_reviewsUpdateManyWithoutUserNestedInput
     subscriptions?: subscriptionsUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUpdateOneWithoutUsersNestedInput
-    created_polls?: pollsUpdateManyWithoutCreatorNestedInput
-    poll_votes?: poll_votesUpdateManyWithoutVoterNestedInput
-    poll_comments?: poll_commentsUpdateManyWithoutCommenterNestedInput
   }
 
   export type usersUncheckedUpdateWithoutCreated_stargazing_spotsInput = {
@@ -115453,8 +115453,16 @@ export namespace Prisma {
     night_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousers?: night_camp_volunteering_applicationsUncheckedUpdateManyWithoutUsers_night_camp_volunteering_applications_reviewed_byTousersNestedInput
     night_camp_volunteering_applications_night_camp_volunteering_applications_user_idTousers?: night_camp_volunteering_applicationsUncheckedUpdateManyWithoutUsers_night_camp_volunteering_applications_user_idTousersNestedInput
     payments?: paymentsUncheckedUpdateManyWithoutUsersNestedInput
+    poll_comments?: poll_commentsUncheckedUpdateManyWithoutCommenterNestedInput
+    poll_votes?: poll_votesUncheckedUpdateManyWithoutVoterNestedInput
+    created_polls?: pollsUncheckedUpdateManyWithoutCreatorNestedInput
     role_upgrade_requests_role_upgrade_requests_reviewer_idTousers?: role_upgrade_requestsUncheckedUpdateManyWithoutUsers_role_upgrade_requests_reviewer_idTousersNestedInput
     role_upgrade_requests_role_upgrade_requests_user_idTousers?: role_upgrade_requestsUncheckedUpdateManyWithoutUsers_role_upgrade_requests_user_idTousersNestedInput
+    service_bookings?: service_bookingsUncheckedUpdateManyWithoutUserNestedInput
+    service_reviews?: service_reviewsUncheckedUpdateManyWithoutUserNestedInput
+    created_services?: servicesUncheckedUpdateManyWithoutCreatorNestedInput
+    session_enrollments?: session_enrollmentsUncheckedUpdateManyWithoutUserNestedInput
+    created_sessions?: sessionsUncheckedUpdateManyWithoutCreatorNestedInput
     discussion_comment_likes?: space_discussion_comment_likesUncheckedUpdateManyWithoutUserNestedInput
     discussion_comments?: space_discussion_commentsUncheckedUpdateManyWithoutUserNestedInput
     discussion_likes?: space_discussion_likesUncheckedUpdateManyWithoutUserNestedInput
@@ -115463,16 +115471,8 @@ export namespace Prisma {
     space_news_comments?: space_news_commentsUncheckedUpdateManyWithoutUserNestedInput
     space_news_likes?: space_news_likesUncheckedUpdateManyWithoutUserNestedInput
     stargazing_spot_reviews?: stargazing_spot_reviewsUncheckedUpdateManyWithoutUserNestedInput
-    created_sessions?: sessionsUncheckedUpdateManyWithoutCreatorNestedInput
-    session_enrollments?: session_enrollmentsUncheckedUpdateManyWithoutUserNestedInput
-    created_services?: servicesUncheckedUpdateManyWithoutCreatorNestedInput
-    service_bookings?: service_bookingsUncheckedUpdateManyWithoutUserNestedInput
-    service_reviews?: service_reviewsUncheckedUpdateManyWithoutUserNestedInput
     subscriptions?: subscriptionsUncheckedUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUncheckedUpdateOneWithoutUsersNestedInput
-    created_polls?: pollsUncheckedUpdateManyWithoutCreatorNestedInput
-    poll_votes?: poll_votesUncheckedUpdateManyWithoutVoterNestedInput
-    poll_comments?: poll_commentsUncheckedUpdateManyWithoutCommenterNestedInput
   }
 
   export type stargazing_spotsCreateWithoutReviewsInput = {
@@ -115551,8 +115551,16 @@ export namespace Prisma {
     night_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousers?: night_camp_volunteering_applicationsCreateNestedManyWithoutUsers_night_camp_volunteering_applications_reviewed_byTousersInput
     night_camp_volunteering_applications_night_camp_volunteering_applications_user_idTousers?: night_camp_volunteering_applicationsCreateNestedManyWithoutUsers_night_camp_volunteering_applications_user_idTousersInput
     payments?: paymentsCreateNestedManyWithoutUsersInput
+    poll_comments?: poll_commentsCreateNestedManyWithoutCommenterInput
+    poll_votes?: poll_votesCreateNestedManyWithoutVoterInput
+    created_polls?: pollsCreateNestedManyWithoutCreatorInput
     role_upgrade_requests_role_upgrade_requests_reviewer_idTousers?: role_upgrade_requestsCreateNestedManyWithoutUsers_role_upgrade_requests_reviewer_idTousersInput
     role_upgrade_requests_role_upgrade_requests_user_idTousers?: role_upgrade_requestsCreateNestedManyWithoutUsers_role_upgrade_requests_user_idTousersInput
+    service_bookings?: service_bookingsCreateNestedManyWithoutUserInput
+    service_reviews?: service_reviewsCreateNestedManyWithoutUserInput
+    created_services?: servicesCreateNestedManyWithoutCreatorInput
+    session_enrollments?: session_enrollmentsCreateNestedManyWithoutUserInput
+    created_sessions?: sessionsCreateNestedManyWithoutCreatorInput
     discussion_comment_likes?: space_discussion_comment_likesCreateNestedManyWithoutUserInput
     discussion_comments?: space_discussion_commentsCreateNestedManyWithoutUserInput
     discussion_likes?: space_discussion_likesCreateNestedManyWithoutUserInput
@@ -115561,16 +115569,8 @@ export namespace Prisma {
     space_news_comments?: space_news_commentsCreateNestedManyWithoutUserInput
     space_news_likes?: space_news_likesCreateNestedManyWithoutUserInput
     created_stargazing_spots?: stargazing_spotsCreateNestedManyWithoutCreatorInput
-    created_sessions?: sessionsCreateNestedManyWithoutCreatorInput
-    session_enrollments?: session_enrollmentsCreateNestedManyWithoutUserInput
-    created_services?: servicesCreateNestedManyWithoutCreatorInput
-    service_bookings?: service_bookingsCreateNestedManyWithoutUserInput
-    service_reviews?: service_reviewsCreateNestedManyWithoutUserInput
     subscriptions?: subscriptionsCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsCreateNestedOneWithoutUsersInput
-    created_polls?: pollsCreateNestedManyWithoutCreatorInput
-    poll_votes?: poll_votesCreateNestedManyWithoutVoterInput
-    poll_comments?: poll_commentsCreateNestedManyWithoutCommenterInput
   }
 
   export type usersUncheckedCreateWithoutStargazing_spot_reviewsInput = {
@@ -115616,8 +115616,16 @@ export namespace Prisma {
     night_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousers?: night_camp_volunteering_applicationsUncheckedCreateNestedManyWithoutUsers_night_camp_volunteering_applications_reviewed_byTousersInput
     night_camp_volunteering_applications_night_camp_volunteering_applications_user_idTousers?: night_camp_volunteering_applicationsUncheckedCreateNestedManyWithoutUsers_night_camp_volunteering_applications_user_idTousersInput
     payments?: paymentsUncheckedCreateNestedManyWithoutUsersInput
+    poll_comments?: poll_commentsUncheckedCreateNestedManyWithoutCommenterInput
+    poll_votes?: poll_votesUncheckedCreateNestedManyWithoutVoterInput
+    created_polls?: pollsUncheckedCreateNestedManyWithoutCreatorInput
     role_upgrade_requests_role_upgrade_requests_reviewer_idTousers?: role_upgrade_requestsUncheckedCreateNestedManyWithoutUsers_role_upgrade_requests_reviewer_idTousersInput
     role_upgrade_requests_role_upgrade_requests_user_idTousers?: role_upgrade_requestsUncheckedCreateNestedManyWithoutUsers_role_upgrade_requests_user_idTousersInput
+    service_bookings?: service_bookingsUncheckedCreateNestedManyWithoutUserInput
+    service_reviews?: service_reviewsUncheckedCreateNestedManyWithoutUserInput
+    created_services?: servicesUncheckedCreateNestedManyWithoutCreatorInput
+    session_enrollments?: session_enrollmentsUncheckedCreateNestedManyWithoutUserInput
+    created_sessions?: sessionsUncheckedCreateNestedManyWithoutCreatorInput
     discussion_comment_likes?: space_discussion_comment_likesUncheckedCreateNestedManyWithoutUserInput
     discussion_comments?: space_discussion_commentsUncheckedCreateNestedManyWithoutUserInput
     discussion_likes?: space_discussion_likesUncheckedCreateNestedManyWithoutUserInput
@@ -115626,16 +115634,8 @@ export namespace Prisma {
     space_news_comments?: space_news_commentsUncheckedCreateNestedManyWithoutUserInput
     space_news_likes?: space_news_likesUncheckedCreateNestedManyWithoutUserInput
     created_stargazing_spots?: stargazing_spotsUncheckedCreateNestedManyWithoutCreatorInput
-    created_sessions?: sessionsUncheckedCreateNestedManyWithoutCreatorInput
-    session_enrollments?: session_enrollmentsUncheckedCreateNestedManyWithoutUserInput
-    created_services?: servicesUncheckedCreateNestedManyWithoutCreatorInput
-    service_bookings?: service_bookingsUncheckedCreateNestedManyWithoutUserInput
-    service_reviews?: service_reviewsUncheckedCreateNestedManyWithoutUserInput
     subscriptions?: subscriptionsUncheckedCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsUncheckedCreateNestedOneWithoutUsersInput
-    created_polls?: pollsUncheckedCreateNestedManyWithoutCreatorInput
-    poll_votes?: poll_votesUncheckedCreateNestedManyWithoutVoterInput
-    poll_comments?: poll_commentsUncheckedCreateNestedManyWithoutCommenterInput
   }
 
   export type usersCreateOrConnectWithoutStargazing_spot_reviewsInput = {
@@ -115736,8 +115736,16 @@ export namespace Prisma {
     night_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousers?: night_camp_volunteering_applicationsUpdateManyWithoutUsers_night_camp_volunteering_applications_reviewed_byTousersNestedInput
     night_camp_volunteering_applications_night_camp_volunteering_applications_user_idTousers?: night_camp_volunteering_applicationsUpdateManyWithoutUsers_night_camp_volunteering_applications_user_idTousersNestedInput
     payments?: paymentsUpdateManyWithoutUsersNestedInput
+    poll_comments?: poll_commentsUpdateManyWithoutCommenterNestedInput
+    poll_votes?: poll_votesUpdateManyWithoutVoterNestedInput
+    created_polls?: pollsUpdateManyWithoutCreatorNestedInput
     role_upgrade_requests_role_upgrade_requests_reviewer_idTousers?: role_upgrade_requestsUpdateManyWithoutUsers_role_upgrade_requests_reviewer_idTousersNestedInput
     role_upgrade_requests_role_upgrade_requests_user_idTousers?: role_upgrade_requestsUpdateManyWithoutUsers_role_upgrade_requests_user_idTousersNestedInput
+    service_bookings?: service_bookingsUpdateManyWithoutUserNestedInput
+    service_reviews?: service_reviewsUpdateManyWithoutUserNestedInput
+    created_services?: servicesUpdateManyWithoutCreatorNestedInput
+    session_enrollments?: session_enrollmentsUpdateManyWithoutUserNestedInput
+    created_sessions?: sessionsUpdateManyWithoutCreatorNestedInput
     discussion_comment_likes?: space_discussion_comment_likesUpdateManyWithoutUserNestedInput
     discussion_comments?: space_discussion_commentsUpdateManyWithoutUserNestedInput
     discussion_likes?: space_discussion_likesUpdateManyWithoutUserNestedInput
@@ -115746,16 +115754,8 @@ export namespace Prisma {
     space_news_comments?: space_news_commentsUpdateManyWithoutUserNestedInput
     space_news_likes?: space_news_likesUpdateManyWithoutUserNestedInput
     created_stargazing_spots?: stargazing_spotsUpdateManyWithoutCreatorNestedInput
-    created_sessions?: sessionsUpdateManyWithoutCreatorNestedInput
-    session_enrollments?: session_enrollmentsUpdateManyWithoutUserNestedInput
-    created_services?: servicesUpdateManyWithoutCreatorNestedInput
-    service_bookings?: service_bookingsUpdateManyWithoutUserNestedInput
-    service_reviews?: service_reviewsUpdateManyWithoutUserNestedInput
     subscriptions?: subscriptionsUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUpdateOneWithoutUsersNestedInput
-    created_polls?: pollsUpdateManyWithoutCreatorNestedInput
-    poll_votes?: poll_votesUpdateManyWithoutVoterNestedInput
-    poll_comments?: poll_commentsUpdateManyWithoutCommenterNestedInput
   }
 
   export type usersUncheckedUpdateWithoutStargazing_spot_reviewsInput = {
@@ -115801,8 +115801,16 @@ export namespace Prisma {
     night_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousers?: night_camp_volunteering_applicationsUncheckedUpdateManyWithoutUsers_night_camp_volunteering_applications_reviewed_byTousersNestedInput
     night_camp_volunteering_applications_night_camp_volunteering_applications_user_idTousers?: night_camp_volunteering_applicationsUncheckedUpdateManyWithoutUsers_night_camp_volunteering_applications_user_idTousersNestedInput
     payments?: paymentsUncheckedUpdateManyWithoutUsersNestedInput
+    poll_comments?: poll_commentsUncheckedUpdateManyWithoutCommenterNestedInput
+    poll_votes?: poll_votesUncheckedUpdateManyWithoutVoterNestedInput
+    created_polls?: pollsUncheckedUpdateManyWithoutCreatorNestedInput
     role_upgrade_requests_role_upgrade_requests_reviewer_idTousers?: role_upgrade_requestsUncheckedUpdateManyWithoutUsers_role_upgrade_requests_reviewer_idTousersNestedInput
     role_upgrade_requests_role_upgrade_requests_user_idTousers?: role_upgrade_requestsUncheckedUpdateManyWithoutUsers_role_upgrade_requests_user_idTousersNestedInput
+    service_bookings?: service_bookingsUncheckedUpdateManyWithoutUserNestedInput
+    service_reviews?: service_reviewsUncheckedUpdateManyWithoutUserNestedInput
+    created_services?: servicesUncheckedUpdateManyWithoutCreatorNestedInput
+    session_enrollments?: session_enrollmentsUncheckedUpdateManyWithoutUserNestedInput
+    created_sessions?: sessionsUncheckedUpdateManyWithoutCreatorNestedInput
     discussion_comment_likes?: space_discussion_comment_likesUncheckedUpdateManyWithoutUserNestedInput
     discussion_comments?: space_discussion_commentsUncheckedUpdateManyWithoutUserNestedInput
     discussion_likes?: space_discussion_likesUncheckedUpdateManyWithoutUserNestedInput
@@ -115811,16 +115819,51 @@ export namespace Prisma {
     space_news_comments?: space_news_commentsUncheckedUpdateManyWithoutUserNestedInput
     space_news_likes?: space_news_likesUncheckedUpdateManyWithoutUserNestedInput
     created_stargazing_spots?: stargazing_spotsUncheckedUpdateManyWithoutCreatorNestedInput
-    created_sessions?: sessionsUncheckedUpdateManyWithoutCreatorNestedInput
-    session_enrollments?: session_enrollmentsUncheckedUpdateManyWithoutUserNestedInput
-    created_services?: servicesUncheckedUpdateManyWithoutCreatorNestedInput
-    service_bookings?: service_bookingsUncheckedUpdateManyWithoutUserNestedInput
-    service_reviews?: service_reviewsUncheckedUpdateManyWithoutUserNestedInput
     subscriptions?: subscriptionsUncheckedUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUncheckedUpdateOneWithoutUsersNestedInput
-    created_polls?: pollsUncheckedUpdateManyWithoutCreatorNestedInput
-    poll_votes?: poll_votesUncheckedUpdateManyWithoutVoterNestedInput
-    poll_comments?: poll_commentsUncheckedUpdateManyWithoutCommenterNestedInput
+  }
+
+  export type session_enrollmentsCreateWithoutSessionInput = {
+    enrollment_date?: Date | string
+    payment_status?: $Enums.enrollment_payment_status
+    payment_amount?: Decimal | DecimalJsLike | number | string | null
+    payment_method?: string | null
+    transaction_id?: string | null
+    access_granted?: boolean
+    completed?: boolean
+    progress?: number | null
+    last_accessed_at?: Date | string | null
+    notes?: string | null
+    created_at?: Date | string
+    updated_at?: Date | string
+    user: usersCreateNestedOneWithoutSession_enrollmentsInput
+  }
+
+  export type session_enrollmentsUncheckedCreateWithoutSessionInput = {
+    id?: number
+    user_id: number
+    enrollment_date?: Date | string
+    payment_status?: $Enums.enrollment_payment_status
+    payment_amount?: Decimal | DecimalJsLike | number | string | null
+    payment_method?: string | null
+    transaction_id?: string | null
+    access_granted?: boolean
+    completed?: boolean
+    progress?: number | null
+    last_accessed_at?: Date | string | null
+    notes?: string | null
+    created_at?: Date | string
+    updated_at?: Date | string
+  }
+
+  export type session_enrollmentsCreateOrConnectWithoutSessionInput = {
+    where: session_enrollmentsWhereUniqueInput
+    create: XOR<session_enrollmentsCreateWithoutSessionInput, session_enrollmentsUncheckedCreateWithoutSessionInput>
+  }
+
+  export type session_enrollmentsCreateManySessionInputEnvelope = {
+    data: session_enrollmentsCreateManySessionInput | session_enrollmentsCreateManySessionInput[]
+    skipDuplicates?: boolean
   }
 
   export type usersCreateWithoutCreated_sessionsInput = {
@@ -115865,8 +115908,15 @@ export namespace Prisma {
     night_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousers?: night_camp_volunteering_applicationsCreateNestedManyWithoutUsers_night_camp_volunteering_applications_reviewed_byTousersInput
     night_camp_volunteering_applications_night_camp_volunteering_applications_user_idTousers?: night_camp_volunteering_applicationsCreateNestedManyWithoutUsers_night_camp_volunteering_applications_user_idTousersInput
     payments?: paymentsCreateNestedManyWithoutUsersInput
+    poll_comments?: poll_commentsCreateNestedManyWithoutCommenterInput
+    poll_votes?: poll_votesCreateNestedManyWithoutVoterInput
+    created_polls?: pollsCreateNestedManyWithoutCreatorInput
     role_upgrade_requests_role_upgrade_requests_reviewer_idTousers?: role_upgrade_requestsCreateNestedManyWithoutUsers_role_upgrade_requests_reviewer_idTousersInput
     role_upgrade_requests_role_upgrade_requests_user_idTousers?: role_upgrade_requestsCreateNestedManyWithoutUsers_role_upgrade_requests_user_idTousersInput
+    service_bookings?: service_bookingsCreateNestedManyWithoutUserInput
+    service_reviews?: service_reviewsCreateNestedManyWithoutUserInput
+    created_services?: servicesCreateNestedManyWithoutCreatorInput
+    session_enrollments?: session_enrollmentsCreateNestedManyWithoutUserInput
     discussion_comment_likes?: space_discussion_comment_likesCreateNestedManyWithoutUserInput
     discussion_comments?: space_discussion_commentsCreateNestedManyWithoutUserInput
     discussion_likes?: space_discussion_likesCreateNestedManyWithoutUserInput
@@ -115876,15 +115926,8 @@ export namespace Prisma {
     space_news_likes?: space_news_likesCreateNestedManyWithoutUserInput
     stargazing_spot_reviews?: stargazing_spot_reviewsCreateNestedManyWithoutUserInput
     created_stargazing_spots?: stargazing_spotsCreateNestedManyWithoutCreatorInput
-    session_enrollments?: session_enrollmentsCreateNestedManyWithoutUserInput
-    created_services?: servicesCreateNestedManyWithoutCreatorInput
-    service_bookings?: service_bookingsCreateNestedManyWithoutUserInput
-    service_reviews?: service_reviewsCreateNestedManyWithoutUserInput
     subscriptions?: subscriptionsCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsCreateNestedOneWithoutUsersInput
-    created_polls?: pollsCreateNestedManyWithoutCreatorInput
-    poll_votes?: poll_votesCreateNestedManyWithoutVoterInput
-    poll_comments?: poll_commentsCreateNestedManyWithoutCommenterInput
   }
 
   export type usersUncheckedCreateWithoutCreated_sessionsInput = {
@@ -115930,8 +115973,15 @@ export namespace Prisma {
     night_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousers?: night_camp_volunteering_applicationsUncheckedCreateNestedManyWithoutUsers_night_camp_volunteering_applications_reviewed_byTousersInput
     night_camp_volunteering_applications_night_camp_volunteering_applications_user_idTousers?: night_camp_volunteering_applicationsUncheckedCreateNestedManyWithoutUsers_night_camp_volunteering_applications_user_idTousersInput
     payments?: paymentsUncheckedCreateNestedManyWithoutUsersInput
+    poll_comments?: poll_commentsUncheckedCreateNestedManyWithoutCommenterInput
+    poll_votes?: poll_votesUncheckedCreateNestedManyWithoutVoterInput
+    created_polls?: pollsUncheckedCreateNestedManyWithoutCreatorInput
     role_upgrade_requests_role_upgrade_requests_reviewer_idTousers?: role_upgrade_requestsUncheckedCreateNestedManyWithoutUsers_role_upgrade_requests_reviewer_idTousersInput
     role_upgrade_requests_role_upgrade_requests_user_idTousers?: role_upgrade_requestsUncheckedCreateNestedManyWithoutUsers_role_upgrade_requests_user_idTousersInput
+    service_bookings?: service_bookingsUncheckedCreateNestedManyWithoutUserInput
+    service_reviews?: service_reviewsUncheckedCreateNestedManyWithoutUserInput
+    created_services?: servicesUncheckedCreateNestedManyWithoutCreatorInput
+    session_enrollments?: session_enrollmentsUncheckedCreateNestedManyWithoutUserInput
     discussion_comment_likes?: space_discussion_comment_likesUncheckedCreateNestedManyWithoutUserInput
     discussion_comments?: space_discussion_commentsUncheckedCreateNestedManyWithoutUserInput
     discussion_likes?: space_discussion_likesUncheckedCreateNestedManyWithoutUserInput
@@ -115941,15 +115991,8 @@ export namespace Prisma {
     space_news_likes?: space_news_likesUncheckedCreateNestedManyWithoutUserInput
     stargazing_spot_reviews?: stargazing_spot_reviewsUncheckedCreateNestedManyWithoutUserInput
     created_stargazing_spots?: stargazing_spotsUncheckedCreateNestedManyWithoutCreatorInput
-    session_enrollments?: session_enrollmentsUncheckedCreateNestedManyWithoutUserInput
-    created_services?: servicesUncheckedCreateNestedManyWithoutCreatorInput
-    service_bookings?: service_bookingsUncheckedCreateNestedManyWithoutUserInput
-    service_reviews?: service_reviewsUncheckedCreateNestedManyWithoutUserInput
     subscriptions?: subscriptionsUncheckedCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsUncheckedCreateNestedOneWithoutUsersInput
-    created_polls?: pollsUncheckedCreateNestedManyWithoutCreatorInput
-    poll_votes?: poll_votesUncheckedCreateNestedManyWithoutVoterInput
-    poll_comments?: poll_commentsUncheckedCreateNestedManyWithoutCommenterInput
   }
 
   export type usersCreateOrConnectWithoutCreated_sessionsInput = {
@@ -115957,47 +116000,20 @@ export namespace Prisma {
     create: XOR<usersCreateWithoutCreated_sessionsInput, usersUncheckedCreateWithoutCreated_sessionsInput>
   }
 
-  export type session_enrollmentsCreateWithoutSessionInput = {
-    enrollment_date?: Date | string
-    payment_status?: $Enums.enrollment_payment_status
-    payment_amount?: Decimal | DecimalJsLike | number | string | null
-    payment_method?: string | null
-    transaction_id?: string | null
-    access_granted?: boolean
-    completed?: boolean
-    progress?: number | null
-    last_accessed_at?: Date | string | null
-    notes?: string | null
-    created_at?: Date | string
-    updated_at?: Date | string
-    user: usersCreateNestedOneWithoutSession_enrollmentsInput
-  }
-
-  export type session_enrollmentsUncheckedCreateWithoutSessionInput = {
-    id?: number
-    user_id: number
-    enrollment_date?: Date | string
-    payment_status?: $Enums.enrollment_payment_status
-    payment_amount?: Decimal | DecimalJsLike | number | string | null
-    payment_method?: string | null
-    transaction_id?: string | null
-    access_granted?: boolean
-    completed?: boolean
-    progress?: number | null
-    last_accessed_at?: Date | string | null
-    notes?: string | null
-    created_at?: Date | string
-    updated_at?: Date | string
-  }
-
-  export type session_enrollmentsCreateOrConnectWithoutSessionInput = {
+  export type session_enrollmentsUpsertWithWhereUniqueWithoutSessionInput = {
     where: session_enrollmentsWhereUniqueInput
+    update: XOR<session_enrollmentsUpdateWithoutSessionInput, session_enrollmentsUncheckedUpdateWithoutSessionInput>
     create: XOR<session_enrollmentsCreateWithoutSessionInput, session_enrollmentsUncheckedCreateWithoutSessionInput>
   }
 
-  export type session_enrollmentsCreateManySessionInputEnvelope = {
-    data: session_enrollmentsCreateManySessionInput | session_enrollmentsCreateManySessionInput[]
-    skipDuplicates?: boolean
+  export type session_enrollmentsUpdateWithWhereUniqueWithoutSessionInput = {
+    where: session_enrollmentsWhereUniqueInput
+    data: XOR<session_enrollmentsUpdateWithoutSessionInput, session_enrollmentsUncheckedUpdateWithoutSessionInput>
+  }
+
+  export type session_enrollmentsUpdateManyWithWhereWithoutSessionInput = {
+    where: session_enrollmentsScalarWhereInput
+    data: XOR<session_enrollmentsUpdateManyMutationInput, session_enrollmentsUncheckedUpdateManyWithoutSessionInput>
   }
 
   export type usersUpsertWithoutCreated_sessionsInput = {
@@ -116053,8 +116069,15 @@ export namespace Prisma {
     night_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousers?: night_camp_volunteering_applicationsUpdateManyWithoutUsers_night_camp_volunteering_applications_reviewed_byTousersNestedInput
     night_camp_volunteering_applications_night_camp_volunteering_applications_user_idTousers?: night_camp_volunteering_applicationsUpdateManyWithoutUsers_night_camp_volunteering_applications_user_idTousersNestedInput
     payments?: paymentsUpdateManyWithoutUsersNestedInput
+    poll_comments?: poll_commentsUpdateManyWithoutCommenterNestedInput
+    poll_votes?: poll_votesUpdateManyWithoutVoterNestedInput
+    created_polls?: pollsUpdateManyWithoutCreatorNestedInput
     role_upgrade_requests_role_upgrade_requests_reviewer_idTousers?: role_upgrade_requestsUpdateManyWithoutUsers_role_upgrade_requests_reviewer_idTousersNestedInput
     role_upgrade_requests_role_upgrade_requests_user_idTousers?: role_upgrade_requestsUpdateManyWithoutUsers_role_upgrade_requests_user_idTousersNestedInput
+    service_bookings?: service_bookingsUpdateManyWithoutUserNestedInput
+    service_reviews?: service_reviewsUpdateManyWithoutUserNestedInput
+    created_services?: servicesUpdateManyWithoutCreatorNestedInput
+    session_enrollments?: session_enrollmentsUpdateManyWithoutUserNestedInput
     discussion_comment_likes?: space_discussion_comment_likesUpdateManyWithoutUserNestedInput
     discussion_comments?: space_discussion_commentsUpdateManyWithoutUserNestedInput
     discussion_likes?: space_discussion_likesUpdateManyWithoutUserNestedInput
@@ -116064,15 +116087,8 @@ export namespace Prisma {
     space_news_likes?: space_news_likesUpdateManyWithoutUserNestedInput
     stargazing_spot_reviews?: stargazing_spot_reviewsUpdateManyWithoutUserNestedInput
     created_stargazing_spots?: stargazing_spotsUpdateManyWithoutCreatorNestedInput
-    session_enrollments?: session_enrollmentsUpdateManyWithoutUserNestedInput
-    created_services?: servicesUpdateManyWithoutCreatorNestedInput
-    service_bookings?: service_bookingsUpdateManyWithoutUserNestedInput
-    service_reviews?: service_reviewsUpdateManyWithoutUserNestedInput
     subscriptions?: subscriptionsUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUpdateOneWithoutUsersNestedInput
-    created_polls?: pollsUpdateManyWithoutCreatorNestedInput
-    poll_votes?: poll_votesUpdateManyWithoutVoterNestedInput
-    poll_comments?: poll_commentsUpdateManyWithoutCommenterNestedInput
   }
 
   export type usersUncheckedUpdateWithoutCreated_sessionsInput = {
@@ -116118,8 +116134,15 @@ export namespace Prisma {
     night_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousers?: night_camp_volunteering_applicationsUncheckedUpdateManyWithoutUsers_night_camp_volunteering_applications_reviewed_byTousersNestedInput
     night_camp_volunteering_applications_night_camp_volunteering_applications_user_idTousers?: night_camp_volunteering_applicationsUncheckedUpdateManyWithoutUsers_night_camp_volunteering_applications_user_idTousersNestedInput
     payments?: paymentsUncheckedUpdateManyWithoutUsersNestedInput
+    poll_comments?: poll_commentsUncheckedUpdateManyWithoutCommenterNestedInput
+    poll_votes?: poll_votesUncheckedUpdateManyWithoutVoterNestedInput
+    created_polls?: pollsUncheckedUpdateManyWithoutCreatorNestedInput
     role_upgrade_requests_role_upgrade_requests_reviewer_idTousers?: role_upgrade_requestsUncheckedUpdateManyWithoutUsers_role_upgrade_requests_reviewer_idTousersNestedInput
     role_upgrade_requests_role_upgrade_requests_user_idTousers?: role_upgrade_requestsUncheckedUpdateManyWithoutUsers_role_upgrade_requests_user_idTousersNestedInput
+    service_bookings?: service_bookingsUncheckedUpdateManyWithoutUserNestedInput
+    service_reviews?: service_reviewsUncheckedUpdateManyWithoutUserNestedInput
+    created_services?: servicesUncheckedUpdateManyWithoutCreatorNestedInput
+    session_enrollments?: session_enrollmentsUncheckedUpdateManyWithoutUserNestedInput
     discussion_comment_likes?: space_discussion_comment_likesUncheckedUpdateManyWithoutUserNestedInput
     discussion_comments?: space_discussion_commentsUncheckedUpdateManyWithoutUserNestedInput
     discussion_likes?: space_discussion_likesUncheckedUpdateManyWithoutUserNestedInput
@@ -116129,165 +116152,43 @@ export namespace Prisma {
     space_news_likes?: space_news_likesUncheckedUpdateManyWithoutUserNestedInput
     stargazing_spot_reviews?: stargazing_spot_reviewsUncheckedUpdateManyWithoutUserNestedInput
     created_stargazing_spots?: stargazing_spotsUncheckedUpdateManyWithoutCreatorNestedInput
-    session_enrollments?: session_enrollmentsUncheckedUpdateManyWithoutUserNestedInput
-    created_services?: servicesUncheckedUpdateManyWithoutCreatorNestedInput
-    service_bookings?: service_bookingsUncheckedUpdateManyWithoutUserNestedInput
-    service_reviews?: service_reviewsUncheckedUpdateManyWithoutUserNestedInput
     subscriptions?: subscriptionsUncheckedUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUncheckedUpdateOneWithoutUsersNestedInput
-    created_polls?: pollsUncheckedUpdateManyWithoutCreatorNestedInput
-    poll_votes?: poll_votesUncheckedUpdateManyWithoutVoterNestedInput
-    poll_comments?: poll_commentsUncheckedUpdateManyWithoutCommenterNestedInput
   }
 
-  export type session_enrollmentsUpsertWithWhereUniqueWithoutSessionInput = {
-    where: session_enrollmentsWhereUniqueInput
-    update: XOR<session_enrollmentsUpdateWithoutSessionInput, session_enrollmentsUncheckedUpdateWithoutSessionInput>
-    create: XOR<session_enrollmentsCreateWithoutSessionInput, session_enrollmentsUncheckedCreateWithoutSessionInput>
+  export type service_availabilityCreateWithoutServiceInput = {
+    available_date: Date | string
+    start_time?: Date | string | null
+    end_time?: Date | string | null
+    slots_available: number
+    slots_booked?: number
+    status?: $Enums.availability_status
+    notes?: string | null
+    created_at?: Date | string
+    updated_at?: Date | string
   }
 
-  export type session_enrollmentsUpdateWithWhereUniqueWithoutSessionInput = {
-    where: session_enrollmentsWhereUniqueInput
-    data: XOR<session_enrollmentsUpdateWithoutSessionInput, session_enrollmentsUncheckedUpdateWithoutSessionInput>
-  }
-
-  export type session_enrollmentsUpdateManyWithWhereWithoutSessionInput = {
-    where: session_enrollmentsScalarWhereInput
-    data: XOR<session_enrollmentsUpdateManyMutationInput, session_enrollmentsUncheckedUpdateManyWithoutSessionInput>
-  }
-
-  export type usersCreateWithoutCreated_servicesInput = {
-    firebase_uid: string
-    email: string
-    role?: $Enums.user_role | null
-    first_name?: string | null
-    last_name?: string | null
-    is_active?: boolean | null
-    last_login?: Date | string | null
-    created_at?: Date | string | null
-    updated_at?: Date | string | null
-    display_name?: string | null
-    profile_data?: NullableJsonNullValueInput | InputJsonValue
-    role_specific_data?: NullableJsonNullValueInput | InputJsonValue
-    subscription_plan?: $Enums.subscription_plan | null
-    subscription_status?: $Enums.subscription_status | null
-    subscription_start_date?: Date | string | null
-    subscription_end_date?: Date | string | null
-    auto_renew?: boolean | null
-    chatbot_questions_used?: number | null
-    chatbot_questions_reset_date?: Date | string | null
-    QuizParticipants?: QuizParticipantsCreateNestedManyWithoutUsersInput
-    Quizzes?: QuizzesCreateNestedManyWithoutUsersInput
-    created_astronomy_events?: astronomy_eventsCreateNestedManyWithoutCreatorInput
-    blog_comments?: blog_commentsCreateNestedManyWithoutUsersInput
-    blog_likes?: blog_likesCreateNestedManyWithoutUsersInput
-    blog_views?: blog_viewsCreateNestedManyWithoutUsersInput
-    blogs?: blogsCreateNestedManyWithoutUsersInput
-    chat_messages?: chat_messagesCreateNestedManyWithoutUserInput
-    chatbot_sessions?: chatbot_sessionsCreateNestedManyWithoutUsersInput
-    chatbot_usage?: chatbot_usageCreateNestedManyWithoutUsersInput
-    event_reminders?: event_remindersCreateNestedManyWithoutUserInput
-    created_groups?: group_chatsCreateNestedManyWithoutCreatorInput
-    group_memberships?: group_membersCreateNestedManyWithoutUserInput
-    guide_application?: guide_applicationCreateNestedManyWithoutUsersInput
-    influencer_application?: influencer_applicationCreateNestedManyWithoutUsersInput
-    media_uploads?: media_uploadsCreateNestedManyWithoutUserInput
-    mentor_application?: mentor_applicationCreateNestedManyWithoutUsersInput
-    message_reactions?: message_reactionsCreateNestedManyWithoutUserInput
-    night_camp_registrations?: night_camp_registrationsCreateNestedManyWithoutUsersInput
-    night_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousers?: night_camp_volunteering_applicationsCreateNestedManyWithoutUsers_night_camp_volunteering_applications_reviewed_byTousersInput
-    night_camp_volunteering_applications_night_camp_volunteering_applications_user_idTousers?: night_camp_volunteering_applicationsCreateNestedManyWithoutUsers_night_camp_volunteering_applications_user_idTousersInput
-    payments?: paymentsCreateNestedManyWithoutUsersInput
-    role_upgrade_requests_role_upgrade_requests_reviewer_idTousers?: role_upgrade_requestsCreateNestedManyWithoutUsers_role_upgrade_requests_reviewer_idTousersInput
-    role_upgrade_requests_role_upgrade_requests_user_idTousers?: role_upgrade_requestsCreateNestedManyWithoutUsers_role_upgrade_requests_user_idTousersInput
-    discussion_comment_likes?: space_discussion_comment_likesCreateNestedManyWithoutUserInput
-    discussion_comments?: space_discussion_commentsCreateNestedManyWithoutUserInput
-    discussion_likes?: space_discussion_likesCreateNestedManyWithoutUserInput
-    authored_discussions?: space_discussionsCreateNestedManyWithoutAuthorInput
-    space_news_published?: space_newsCreateNestedManyWithoutPublisherInput
-    space_news_comments?: space_news_commentsCreateNestedManyWithoutUserInput
-    space_news_likes?: space_news_likesCreateNestedManyWithoutUserInput
-    stargazing_spot_reviews?: stargazing_spot_reviewsCreateNestedManyWithoutUserInput
-    created_stargazing_spots?: stargazing_spotsCreateNestedManyWithoutCreatorInput
-    created_sessions?: sessionsCreateNestedManyWithoutCreatorInput
-    session_enrollments?: session_enrollmentsCreateNestedManyWithoutUserInput
-    service_bookings?: service_bookingsCreateNestedManyWithoutUserInput
-    service_reviews?: service_reviewsCreateNestedManyWithoutUserInput
-    subscriptions?: subscriptionsCreateNestedManyWithoutUsersInput
-    user_settings?: user_settingsCreateNestedOneWithoutUsersInput
-    created_polls?: pollsCreateNestedManyWithoutCreatorInput
-    poll_votes?: poll_votesCreateNestedManyWithoutVoterInput
-    poll_comments?: poll_commentsCreateNestedManyWithoutCommenterInput
-  }
-
-  export type usersUncheckedCreateWithoutCreated_servicesInput = {
+  export type service_availabilityUncheckedCreateWithoutServiceInput = {
     id?: number
-    firebase_uid: string
-    email: string
-    role?: $Enums.user_role | null
-    first_name?: string | null
-    last_name?: string | null
-    is_active?: boolean | null
-    last_login?: Date | string | null
-    created_at?: Date | string | null
-    updated_at?: Date | string | null
-    display_name?: string | null
-    profile_data?: NullableJsonNullValueInput | InputJsonValue
-    role_specific_data?: NullableJsonNullValueInput | InputJsonValue
-    subscription_plan?: $Enums.subscription_plan | null
-    subscription_status?: $Enums.subscription_status | null
-    subscription_start_date?: Date | string | null
-    subscription_end_date?: Date | string | null
-    auto_renew?: boolean | null
-    chatbot_questions_used?: number | null
-    chatbot_questions_reset_date?: Date | string | null
-    QuizParticipants?: QuizParticipantsUncheckedCreateNestedManyWithoutUsersInput
-    Quizzes?: QuizzesUncheckedCreateNestedManyWithoutUsersInput
-    created_astronomy_events?: astronomy_eventsUncheckedCreateNestedManyWithoutCreatorInput
-    blog_comments?: blog_commentsUncheckedCreateNestedManyWithoutUsersInput
-    blog_likes?: blog_likesUncheckedCreateNestedManyWithoutUsersInput
-    blog_views?: blog_viewsUncheckedCreateNestedManyWithoutUsersInput
-    blogs?: blogsUncheckedCreateNestedManyWithoutUsersInput
-    chat_messages?: chat_messagesUncheckedCreateNestedManyWithoutUserInput
-    chatbot_sessions?: chatbot_sessionsUncheckedCreateNestedManyWithoutUsersInput
-    chatbot_usage?: chatbot_usageUncheckedCreateNestedManyWithoutUsersInput
-    event_reminders?: event_remindersUncheckedCreateNestedManyWithoutUserInput
-    created_groups?: group_chatsUncheckedCreateNestedManyWithoutCreatorInput
-    group_memberships?: group_membersUncheckedCreateNestedManyWithoutUserInput
-    guide_application?: guide_applicationUncheckedCreateNestedManyWithoutUsersInput
-    influencer_application?: influencer_applicationUncheckedCreateNestedManyWithoutUsersInput
-    media_uploads?: media_uploadsUncheckedCreateNestedManyWithoutUserInput
-    mentor_application?: mentor_applicationUncheckedCreateNestedManyWithoutUsersInput
-    message_reactions?: message_reactionsUncheckedCreateNestedManyWithoutUserInput
-    night_camp_registrations?: night_camp_registrationsUncheckedCreateNestedManyWithoutUsersInput
-    night_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousers?: night_camp_volunteering_applicationsUncheckedCreateNestedManyWithoutUsers_night_camp_volunteering_applications_reviewed_byTousersInput
-    night_camp_volunteering_applications_night_camp_volunteering_applications_user_idTousers?: night_camp_volunteering_applicationsUncheckedCreateNestedManyWithoutUsers_night_camp_volunteering_applications_user_idTousersInput
-    payments?: paymentsUncheckedCreateNestedManyWithoutUsersInput
-    role_upgrade_requests_role_upgrade_requests_reviewer_idTousers?: role_upgrade_requestsUncheckedCreateNestedManyWithoutUsers_role_upgrade_requests_reviewer_idTousersInput
-    role_upgrade_requests_role_upgrade_requests_user_idTousers?: role_upgrade_requestsUncheckedCreateNestedManyWithoutUsers_role_upgrade_requests_user_idTousersInput
-    discussion_comment_likes?: space_discussion_comment_likesUncheckedCreateNestedManyWithoutUserInput
-    discussion_comments?: space_discussion_commentsUncheckedCreateNestedManyWithoutUserInput
-    discussion_likes?: space_discussion_likesUncheckedCreateNestedManyWithoutUserInput
-    authored_discussions?: space_discussionsUncheckedCreateNestedManyWithoutAuthorInput
-    space_news_published?: space_newsUncheckedCreateNestedManyWithoutPublisherInput
-    space_news_comments?: space_news_commentsUncheckedCreateNestedManyWithoutUserInput
-    space_news_likes?: space_news_likesUncheckedCreateNestedManyWithoutUserInput
-    stargazing_spot_reviews?: stargazing_spot_reviewsUncheckedCreateNestedManyWithoutUserInput
-    created_stargazing_spots?: stargazing_spotsUncheckedCreateNestedManyWithoutCreatorInput
-    created_sessions?: sessionsUncheckedCreateNestedManyWithoutCreatorInput
-    session_enrollments?: session_enrollmentsUncheckedCreateNestedManyWithoutUserInput
-    service_bookings?: service_bookingsUncheckedCreateNestedManyWithoutUserInput
-    service_reviews?: service_reviewsUncheckedCreateNestedManyWithoutUserInput
-    subscriptions?: subscriptionsUncheckedCreateNestedManyWithoutUsersInput
-    user_settings?: user_settingsUncheckedCreateNestedOneWithoutUsersInput
-    created_polls?: pollsUncheckedCreateNestedManyWithoutCreatorInput
-    poll_votes?: poll_votesUncheckedCreateNestedManyWithoutVoterInput
-    poll_comments?: poll_commentsUncheckedCreateNestedManyWithoutCommenterInput
+    available_date: Date | string
+    start_time?: Date | string | null
+    end_time?: Date | string | null
+    slots_available: number
+    slots_booked?: number
+    status?: $Enums.availability_status
+    notes?: string | null
+    created_at?: Date | string
+    updated_at?: Date | string
   }
 
-  export type usersCreateOrConnectWithoutCreated_servicesInput = {
-    where: usersWhereUniqueInput
-    create: XOR<usersCreateWithoutCreated_servicesInput, usersUncheckedCreateWithoutCreated_servicesInput>
+  export type service_availabilityCreateOrConnectWithoutServiceInput = {
+    where: service_availabilityWhereUniqueInput
+    create: XOR<service_availabilityCreateWithoutServiceInput, service_availabilityUncheckedCreateWithoutServiceInput>
+  }
+
+  export type service_availabilityCreateManyServiceInputEnvelope = {
+    data: service_availabilityCreateManyServiceInput | service_availabilityCreateManyServiceInput[]
+    skipDuplicates?: boolean
   }
 
   export type service_bookingsCreateWithoutServiceInput = {
@@ -116339,6 +116240,33 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type service_mediaCreateWithoutServiceInput = {
+    media_url: string
+    media_type: string
+    display_order?: number
+    caption?: string | null
+    created_at?: Date | string
+  }
+
+  export type service_mediaUncheckedCreateWithoutServiceInput = {
+    id?: number
+    media_url: string
+    media_type: string
+    display_order?: number
+    caption?: string | null
+    created_at?: Date | string
+  }
+
+  export type service_mediaCreateOrConnectWithoutServiceInput = {
+    where: service_mediaWhereUniqueInput
+    create: XOR<service_mediaCreateWithoutServiceInput, service_mediaUncheckedCreateWithoutServiceInput>
+  }
+
+  export type service_mediaCreateManyServiceInputEnvelope = {
+    data: service_mediaCreateManyServiceInput | service_mediaCreateManyServiceInput[]
+    skipDuplicates?: boolean
+  }
+
   export type service_reviewsCreateWithoutServiceInput = {
     rating: number
     review: string
@@ -116370,66 +116298,232 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
-  export type service_availabilityCreateWithoutServiceInput = {
-    available_date: Date | string
-    start_time?: Date | string | null
-    end_time?: Date | string | null
-    slots_available: number
-    slots_booked?: number
-    status?: $Enums.availability_status
-    notes?: string | null
-    created_at?: Date | string
-    updated_at?: Date | string
+  export type usersCreateWithoutCreated_servicesInput = {
+    firebase_uid: string
+    email: string
+    role?: $Enums.user_role | null
+    first_name?: string | null
+    last_name?: string | null
+    is_active?: boolean | null
+    last_login?: Date | string | null
+    created_at?: Date | string | null
+    updated_at?: Date | string | null
+    display_name?: string | null
+    profile_data?: NullableJsonNullValueInput | InputJsonValue
+    role_specific_data?: NullableJsonNullValueInput | InputJsonValue
+    subscription_plan?: $Enums.subscription_plan | null
+    subscription_status?: $Enums.subscription_status | null
+    subscription_start_date?: Date | string | null
+    subscription_end_date?: Date | string | null
+    auto_renew?: boolean | null
+    chatbot_questions_used?: number | null
+    chatbot_questions_reset_date?: Date | string | null
+    QuizParticipants?: QuizParticipantsCreateNestedManyWithoutUsersInput
+    Quizzes?: QuizzesCreateNestedManyWithoutUsersInput
+    created_astronomy_events?: astronomy_eventsCreateNestedManyWithoutCreatorInput
+    blog_comments?: blog_commentsCreateNestedManyWithoutUsersInput
+    blog_likes?: blog_likesCreateNestedManyWithoutUsersInput
+    blog_views?: blog_viewsCreateNestedManyWithoutUsersInput
+    blogs?: blogsCreateNestedManyWithoutUsersInput
+    chat_messages?: chat_messagesCreateNestedManyWithoutUserInput
+    chatbot_sessions?: chatbot_sessionsCreateNestedManyWithoutUsersInput
+    chatbot_usage?: chatbot_usageCreateNestedManyWithoutUsersInput
+    event_reminders?: event_remindersCreateNestedManyWithoutUserInput
+    created_groups?: group_chatsCreateNestedManyWithoutCreatorInput
+    group_memberships?: group_membersCreateNestedManyWithoutUserInput
+    guide_application?: guide_applicationCreateNestedManyWithoutUsersInput
+    influencer_application?: influencer_applicationCreateNestedManyWithoutUsersInput
+    media_uploads?: media_uploadsCreateNestedManyWithoutUserInput
+    mentor_application?: mentor_applicationCreateNestedManyWithoutUsersInput
+    message_reactions?: message_reactionsCreateNestedManyWithoutUserInput
+    night_camp_registrations?: night_camp_registrationsCreateNestedManyWithoutUsersInput
+    night_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousers?: night_camp_volunteering_applicationsCreateNestedManyWithoutUsers_night_camp_volunteering_applications_reviewed_byTousersInput
+    night_camp_volunteering_applications_night_camp_volunteering_applications_user_idTousers?: night_camp_volunteering_applicationsCreateNestedManyWithoutUsers_night_camp_volunteering_applications_user_idTousersInput
+    payments?: paymentsCreateNestedManyWithoutUsersInput
+    poll_comments?: poll_commentsCreateNestedManyWithoutCommenterInput
+    poll_votes?: poll_votesCreateNestedManyWithoutVoterInput
+    created_polls?: pollsCreateNestedManyWithoutCreatorInput
+    role_upgrade_requests_role_upgrade_requests_reviewer_idTousers?: role_upgrade_requestsCreateNestedManyWithoutUsers_role_upgrade_requests_reviewer_idTousersInput
+    role_upgrade_requests_role_upgrade_requests_user_idTousers?: role_upgrade_requestsCreateNestedManyWithoutUsers_role_upgrade_requests_user_idTousersInput
+    service_bookings?: service_bookingsCreateNestedManyWithoutUserInput
+    service_reviews?: service_reviewsCreateNestedManyWithoutUserInput
+    session_enrollments?: session_enrollmentsCreateNestedManyWithoutUserInput
+    created_sessions?: sessionsCreateNestedManyWithoutCreatorInput
+    discussion_comment_likes?: space_discussion_comment_likesCreateNestedManyWithoutUserInput
+    discussion_comments?: space_discussion_commentsCreateNestedManyWithoutUserInput
+    discussion_likes?: space_discussion_likesCreateNestedManyWithoutUserInput
+    authored_discussions?: space_discussionsCreateNestedManyWithoutAuthorInput
+    space_news_published?: space_newsCreateNestedManyWithoutPublisherInput
+    space_news_comments?: space_news_commentsCreateNestedManyWithoutUserInput
+    space_news_likes?: space_news_likesCreateNestedManyWithoutUserInput
+    stargazing_spot_reviews?: stargazing_spot_reviewsCreateNestedManyWithoutUserInput
+    created_stargazing_spots?: stargazing_spotsCreateNestedManyWithoutCreatorInput
+    subscriptions?: subscriptionsCreateNestedManyWithoutUsersInput
+    user_settings?: user_settingsCreateNestedOneWithoutUsersInput
   }
 
-  export type service_availabilityUncheckedCreateWithoutServiceInput = {
+  export type usersUncheckedCreateWithoutCreated_servicesInput = {
     id?: number
-    available_date: Date | string
-    start_time?: Date | string | null
-    end_time?: Date | string | null
-    slots_available: number
-    slots_booked?: number
-    status?: $Enums.availability_status
-    notes?: string | null
-    created_at?: Date | string
-    updated_at?: Date | string
+    firebase_uid: string
+    email: string
+    role?: $Enums.user_role | null
+    first_name?: string | null
+    last_name?: string | null
+    is_active?: boolean | null
+    last_login?: Date | string | null
+    created_at?: Date | string | null
+    updated_at?: Date | string | null
+    display_name?: string | null
+    profile_data?: NullableJsonNullValueInput | InputJsonValue
+    role_specific_data?: NullableJsonNullValueInput | InputJsonValue
+    subscription_plan?: $Enums.subscription_plan | null
+    subscription_status?: $Enums.subscription_status | null
+    subscription_start_date?: Date | string | null
+    subscription_end_date?: Date | string | null
+    auto_renew?: boolean | null
+    chatbot_questions_used?: number | null
+    chatbot_questions_reset_date?: Date | string | null
+    QuizParticipants?: QuizParticipantsUncheckedCreateNestedManyWithoutUsersInput
+    Quizzes?: QuizzesUncheckedCreateNestedManyWithoutUsersInput
+    created_astronomy_events?: astronomy_eventsUncheckedCreateNestedManyWithoutCreatorInput
+    blog_comments?: blog_commentsUncheckedCreateNestedManyWithoutUsersInput
+    blog_likes?: blog_likesUncheckedCreateNestedManyWithoutUsersInput
+    blog_views?: blog_viewsUncheckedCreateNestedManyWithoutUsersInput
+    blogs?: blogsUncheckedCreateNestedManyWithoutUsersInput
+    chat_messages?: chat_messagesUncheckedCreateNestedManyWithoutUserInput
+    chatbot_sessions?: chatbot_sessionsUncheckedCreateNestedManyWithoutUsersInput
+    chatbot_usage?: chatbot_usageUncheckedCreateNestedManyWithoutUsersInput
+    event_reminders?: event_remindersUncheckedCreateNestedManyWithoutUserInput
+    created_groups?: group_chatsUncheckedCreateNestedManyWithoutCreatorInput
+    group_memberships?: group_membersUncheckedCreateNestedManyWithoutUserInput
+    guide_application?: guide_applicationUncheckedCreateNestedManyWithoutUsersInput
+    influencer_application?: influencer_applicationUncheckedCreateNestedManyWithoutUsersInput
+    media_uploads?: media_uploadsUncheckedCreateNestedManyWithoutUserInput
+    mentor_application?: mentor_applicationUncheckedCreateNestedManyWithoutUsersInput
+    message_reactions?: message_reactionsUncheckedCreateNestedManyWithoutUserInput
+    night_camp_registrations?: night_camp_registrationsUncheckedCreateNestedManyWithoutUsersInput
+    night_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousers?: night_camp_volunteering_applicationsUncheckedCreateNestedManyWithoutUsers_night_camp_volunteering_applications_reviewed_byTousersInput
+    night_camp_volunteering_applications_night_camp_volunteering_applications_user_idTousers?: night_camp_volunteering_applicationsUncheckedCreateNestedManyWithoutUsers_night_camp_volunteering_applications_user_idTousersInput
+    payments?: paymentsUncheckedCreateNestedManyWithoutUsersInput
+    poll_comments?: poll_commentsUncheckedCreateNestedManyWithoutCommenterInput
+    poll_votes?: poll_votesUncheckedCreateNestedManyWithoutVoterInput
+    created_polls?: pollsUncheckedCreateNestedManyWithoutCreatorInput
+    role_upgrade_requests_role_upgrade_requests_reviewer_idTousers?: role_upgrade_requestsUncheckedCreateNestedManyWithoutUsers_role_upgrade_requests_reviewer_idTousersInput
+    role_upgrade_requests_role_upgrade_requests_user_idTousers?: role_upgrade_requestsUncheckedCreateNestedManyWithoutUsers_role_upgrade_requests_user_idTousersInput
+    service_bookings?: service_bookingsUncheckedCreateNestedManyWithoutUserInput
+    service_reviews?: service_reviewsUncheckedCreateNestedManyWithoutUserInput
+    session_enrollments?: session_enrollmentsUncheckedCreateNestedManyWithoutUserInput
+    created_sessions?: sessionsUncheckedCreateNestedManyWithoutCreatorInput
+    discussion_comment_likes?: space_discussion_comment_likesUncheckedCreateNestedManyWithoutUserInput
+    discussion_comments?: space_discussion_commentsUncheckedCreateNestedManyWithoutUserInput
+    discussion_likes?: space_discussion_likesUncheckedCreateNestedManyWithoutUserInput
+    authored_discussions?: space_discussionsUncheckedCreateNestedManyWithoutAuthorInput
+    space_news_published?: space_newsUncheckedCreateNestedManyWithoutPublisherInput
+    space_news_comments?: space_news_commentsUncheckedCreateNestedManyWithoutUserInput
+    space_news_likes?: space_news_likesUncheckedCreateNestedManyWithoutUserInput
+    stargazing_spot_reviews?: stargazing_spot_reviewsUncheckedCreateNestedManyWithoutUserInput
+    created_stargazing_spots?: stargazing_spotsUncheckedCreateNestedManyWithoutCreatorInput
+    subscriptions?: subscriptionsUncheckedCreateNestedManyWithoutUsersInput
+    user_settings?: user_settingsUncheckedCreateNestedOneWithoutUsersInput
   }
 
-  export type service_availabilityCreateOrConnectWithoutServiceInput = {
+  export type usersCreateOrConnectWithoutCreated_servicesInput = {
+    where: usersWhereUniqueInput
+    create: XOR<usersCreateWithoutCreated_servicesInput, usersUncheckedCreateWithoutCreated_servicesInput>
+  }
+
+  export type service_availabilityUpsertWithWhereUniqueWithoutServiceInput = {
     where: service_availabilityWhereUniqueInput
+    update: XOR<service_availabilityUpdateWithoutServiceInput, service_availabilityUncheckedUpdateWithoutServiceInput>
     create: XOR<service_availabilityCreateWithoutServiceInput, service_availabilityUncheckedCreateWithoutServiceInput>
   }
 
-  export type service_availabilityCreateManyServiceInputEnvelope = {
-    data: service_availabilityCreateManyServiceInput | service_availabilityCreateManyServiceInput[]
-    skipDuplicates?: boolean
+  export type service_availabilityUpdateWithWhereUniqueWithoutServiceInput = {
+    where: service_availabilityWhereUniqueInput
+    data: XOR<service_availabilityUpdateWithoutServiceInput, service_availabilityUncheckedUpdateWithoutServiceInput>
   }
 
-  export type service_mediaCreateWithoutServiceInput = {
-    media_url: string
-    media_type: string
-    display_order?: number
-    caption?: string | null
-    created_at?: Date | string
+  export type service_availabilityUpdateManyWithWhereWithoutServiceInput = {
+    where: service_availabilityScalarWhereInput
+    data: XOR<service_availabilityUpdateManyMutationInput, service_availabilityUncheckedUpdateManyWithoutServiceInput>
   }
 
-  export type service_mediaUncheckedCreateWithoutServiceInput = {
-    id?: number
-    media_url: string
-    media_type: string
-    display_order?: number
-    caption?: string | null
-    created_at?: Date | string
+  export type service_availabilityScalarWhereInput = {
+    AND?: service_availabilityScalarWhereInput | service_availabilityScalarWhereInput[]
+    OR?: service_availabilityScalarWhereInput[]
+    NOT?: service_availabilityScalarWhereInput | service_availabilityScalarWhereInput[]
+    id?: IntFilter<"service_availability"> | number
+    service_id?: IntFilter<"service_availability"> | number
+    available_date?: DateTimeFilter<"service_availability"> | Date | string
+    start_time?: DateTimeNullableFilter<"service_availability"> | Date | string | null
+    end_time?: DateTimeNullableFilter<"service_availability"> | Date | string | null
+    slots_available?: IntFilter<"service_availability"> | number
+    slots_booked?: IntFilter<"service_availability"> | number
+    status?: Enumavailability_statusFilter<"service_availability"> | $Enums.availability_status
+    notes?: StringNullableFilter<"service_availability"> | string | null
+    created_at?: DateTimeFilter<"service_availability"> | Date | string
+    updated_at?: DateTimeFilter<"service_availability"> | Date | string
   }
 
-  export type service_mediaCreateOrConnectWithoutServiceInput = {
+  export type service_bookingsUpsertWithWhereUniqueWithoutServiceInput = {
+    where: service_bookingsWhereUniqueInput
+    update: XOR<service_bookingsUpdateWithoutServiceInput, service_bookingsUncheckedUpdateWithoutServiceInput>
+    create: XOR<service_bookingsCreateWithoutServiceInput, service_bookingsUncheckedCreateWithoutServiceInput>
+  }
+
+  export type service_bookingsUpdateWithWhereUniqueWithoutServiceInput = {
+    where: service_bookingsWhereUniqueInput
+    data: XOR<service_bookingsUpdateWithoutServiceInput, service_bookingsUncheckedUpdateWithoutServiceInput>
+  }
+
+  export type service_bookingsUpdateManyWithWhereWithoutServiceInput = {
+    where: service_bookingsScalarWhereInput
+    data: XOR<service_bookingsUpdateManyMutationInput, service_bookingsUncheckedUpdateManyWithoutServiceInput>
+  }
+
+  export type service_mediaUpsertWithWhereUniqueWithoutServiceInput = {
     where: service_mediaWhereUniqueInput
+    update: XOR<service_mediaUpdateWithoutServiceInput, service_mediaUncheckedUpdateWithoutServiceInput>
     create: XOR<service_mediaCreateWithoutServiceInput, service_mediaUncheckedCreateWithoutServiceInput>
   }
 
-  export type service_mediaCreateManyServiceInputEnvelope = {
-    data: service_mediaCreateManyServiceInput | service_mediaCreateManyServiceInput[]
-    skipDuplicates?: boolean
+  export type service_mediaUpdateWithWhereUniqueWithoutServiceInput = {
+    where: service_mediaWhereUniqueInput
+    data: XOR<service_mediaUpdateWithoutServiceInput, service_mediaUncheckedUpdateWithoutServiceInput>
+  }
+
+  export type service_mediaUpdateManyWithWhereWithoutServiceInput = {
+    where: service_mediaScalarWhereInput
+    data: XOR<service_mediaUpdateManyMutationInput, service_mediaUncheckedUpdateManyWithoutServiceInput>
+  }
+
+  export type service_mediaScalarWhereInput = {
+    AND?: service_mediaScalarWhereInput | service_mediaScalarWhereInput[]
+    OR?: service_mediaScalarWhereInput[]
+    NOT?: service_mediaScalarWhereInput | service_mediaScalarWhereInput[]
+    id?: IntFilter<"service_media"> | number
+    service_id?: IntFilter<"service_media"> | number
+    media_url?: StringFilter<"service_media"> | string
+    media_type?: StringFilter<"service_media"> | string
+    display_order?: IntFilter<"service_media"> | number
+    caption?: StringNullableFilter<"service_media"> | string | null
+    created_at?: DateTimeFilter<"service_media"> | Date | string
+  }
+
+  export type service_reviewsUpsertWithWhereUniqueWithoutServiceInput = {
+    where: service_reviewsWhereUniqueInput
+    update: XOR<service_reviewsUpdateWithoutServiceInput, service_reviewsUncheckedUpdateWithoutServiceInput>
+    create: XOR<service_reviewsCreateWithoutServiceInput, service_reviewsUncheckedCreateWithoutServiceInput>
+  }
+
+  export type service_reviewsUpdateWithWhereUniqueWithoutServiceInput = {
+    where: service_reviewsWhereUniqueInput
+    data: XOR<service_reviewsUpdateWithoutServiceInput, service_reviewsUncheckedUpdateWithoutServiceInput>
+  }
+
+  export type service_reviewsUpdateManyWithWhereWithoutServiceInput = {
+    where: service_reviewsScalarWhereInput
+    data: XOR<service_reviewsUpdateManyMutationInput, service_reviewsUncheckedUpdateManyWithoutServiceInput>
   }
 
   export type usersUpsertWithoutCreated_servicesInput = {
@@ -116485,8 +116579,15 @@ export namespace Prisma {
     night_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousers?: night_camp_volunteering_applicationsUpdateManyWithoutUsers_night_camp_volunteering_applications_reviewed_byTousersNestedInput
     night_camp_volunteering_applications_night_camp_volunteering_applications_user_idTousers?: night_camp_volunteering_applicationsUpdateManyWithoutUsers_night_camp_volunteering_applications_user_idTousersNestedInput
     payments?: paymentsUpdateManyWithoutUsersNestedInput
+    poll_comments?: poll_commentsUpdateManyWithoutCommenterNestedInput
+    poll_votes?: poll_votesUpdateManyWithoutVoterNestedInput
+    created_polls?: pollsUpdateManyWithoutCreatorNestedInput
     role_upgrade_requests_role_upgrade_requests_reviewer_idTousers?: role_upgrade_requestsUpdateManyWithoutUsers_role_upgrade_requests_reviewer_idTousersNestedInput
     role_upgrade_requests_role_upgrade_requests_user_idTousers?: role_upgrade_requestsUpdateManyWithoutUsers_role_upgrade_requests_user_idTousersNestedInput
+    service_bookings?: service_bookingsUpdateManyWithoutUserNestedInput
+    service_reviews?: service_reviewsUpdateManyWithoutUserNestedInput
+    session_enrollments?: session_enrollmentsUpdateManyWithoutUserNestedInput
+    created_sessions?: sessionsUpdateManyWithoutCreatorNestedInput
     discussion_comment_likes?: space_discussion_comment_likesUpdateManyWithoutUserNestedInput
     discussion_comments?: space_discussion_commentsUpdateManyWithoutUserNestedInput
     discussion_likes?: space_discussion_likesUpdateManyWithoutUserNestedInput
@@ -116496,15 +116597,8 @@ export namespace Prisma {
     space_news_likes?: space_news_likesUpdateManyWithoutUserNestedInput
     stargazing_spot_reviews?: stargazing_spot_reviewsUpdateManyWithoutUserNestedInput
     created_stargazing_spots?: stargazing_spotsUpdateManyWithoutCreatorNestedInput
-    created_sessions?: sessionsUpdateManyWithoutCreatorNestedInput
-    session_enrollments?: session_enrollmentsUpdateManyWithoutUserNestedInput
-    service_bookings?: service_bookingsUpdateManyWithoutUserNestedInput
-    service_reviews?: service_reviewsUpdateManyWithoutUserNestedInput
     subscriptions?: subscriptionsUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUpdateOneWithoutUsersNestedInput
-    created_polls?: pollsUpdateManyWithoutCreatorNestedInput
-    poll_votes?: poll_votesUpdateManyWithoutVoterNestedInput
-    poll_comments?: poll_commentsUpdateManyWithoutCommenterNestedInput
   }
 
   export type usersUncheckedUpdateWithoutCreated_servicesInput = {
@@ -116550,8 +116644,15 @@ export namespace Prisma {
     night_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousers?: night_camp_volunteering_applicationsUncheckedUpdateManyWithoutUsers_night_camp_volunteering_applications_reviewed_byTousersNestedInput
     night_camp_volunteering_applications_night_camp_volunteering_applications_user_idTousers?: night_camp_volunteering_applicationsUncheckedUpdateManyWithoutUsers_night_camp_volunteering_applications_user_idTousersNestedInput
     payments?: paymentsUncheckedUpdateManyWithoutUsersNestedInput
+    poll_comments?: poll_commentsUncheckedUpdateManyWithoutCommenterNestedInput
+    poll_votes?: poll_votesUncheckedUpdateManyWithoutVoterNestedInput
+    created_polls?: pollsUncheckedUpdateManyWithoutCreatorNestedInput
     role_upgrade_requests_role_upgrade_requests_reviewer_idTousers?: role_upgrade_requestsUncheckedUpdateManyWithoutUsers_role_upgrade_requests_reviewer_idTousersNestedInput
     role_upgrade_requests_role_upgrade_requests_user_idTousers?: role_upgrade_requestsUncheckedUpdateManyWithoutUsers_role_upgrade_requests_user_idTousersNestedInput
+    service_bookings?: service_bookingsUncheckedUpdateManyWithoutUserNestedInput
+    service_reviews?: service_reviewsUncheckedUpdateManyWithoutUserNestedInput
+    session_enrollments?: session_enrollmentsUncheckedUpdateManyWithoutUserNestedInput
+    created_sessions?: sessionsUncheckedUpdateManyWithoutCreatorNestedInput
     discussion_comment_likes?: space_discussion_comment_likesUncheckedUpdateManyWithoutUserNestedInput
     discussion_comments?: space_discussion_commentsUncheckedUpdateManyWithoutUserNestedInput
     discussion_likes?: space_discussion_likesUncheckedUpdateManyWithoutUserNestedInput
@@ -116561,109 +116662,8 @@ export namespace Prisma {
     space_news_likes?: space_news_likesUncheckedUpdateManyWithoutUserNestedInput
     stargazing_spot_reviews?: stargazing_spot_reviewsUncheckedUpdateManyWithoutUserNestedInput
     created_stargazing_spots?: stargazing_spotsUncheckedUpdateManyWithoutCreatorNestedInput
-    created_sessions?: sessionsUncheckedUpdateManyWithoutCreatorNestedInput
-    session_enrollments?: session_enrollmentsUncheckedUpdateManyWithoutUserNestedInput
-    service_bookings?: service_bookingsUncheckedUpdateManyWithoutUserNestedInput
-    service_reviews?: service_reviewsUncheckedUpdateManyWithoutUserNestedInput
     subscriptions?: subscriptionsUncheckedUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUncheckedUpdateOneWithoutUsersNestedInput
-    created_polls?: pollsUncheckedUpdateManyWithoutCreatorNestedInput
-    poll_votes?: poll_votesUncheckedUpdateManyWithoutVoterNestedInput
-    poll_comments?: poll_commentsUncheckedUpdateManyWithoutCommenterNestedInput
-  }
-
-  export type service_bookingsUpsertWithWhereUniqueWithoutServiceInput = {
-    where: service_bookingsWhereUniqueInput
-    update: XOR<service_bookingsUpdateWithoutServiceInput, service_bookingsUncheckedUpdateWithoutServiceInput>
-    create: XOR<service_bookingsCreateWithoutServiceInput, service_bookingsUncheckedCreateWithoutServiceInput>
-  }
-
-  export type service_bookingsUpdateWithWhereUniqueWithoutServiceInput = {
-    where: service_bookingsWhereUniqueInput
-    data: XOR<service_bookingsUpdateWithoutServiceInput, service_bookingsUncheckedUpdateWithoutServiceInput>
-  }
-
-  export type service_bookingsUpdateManyWithWhereWithoutServiceInput = {
-    where: service_bookingsScalarWhereInput
-    data: XOR<service_bookingsUpdateManyMutationInput, service_bookingsUncheckedUpdateManyWithoutServiceInput>
-  }
-
-  export type service_reviewsUpsertWithWhereUniqueWithoutServiceInput = {
-    where: service_reviewsWhereUniqueInput
-    update: XOR<service_reviewsUpdateWithoutServiceInput, service_reviewsUncheckedUpdateWithoutServiceInput>
-    create: XOR<service_reviewsCreateWithoutServiceInput, service_reviewsUncheckedCreateWithoutServiceInput>
-  }
-
-  export type service_reviewsUpdateWithWhereUniqueWithoutServiceInput = {
-    where: service_reviewsWhereUniqueInput
-    data: XOR<service_reviewsUpdateWithoutServiceInput, service_reviewsUncheckedUpdateWithoutServiceInput>
-  }
-
-  export type service_reviewsUpdateManyWithWhereWithoutServiceInput = {
-    where: service_reviewsScalarWhereInput
-    data: XOR<service_reviewsUpdateManyMutationInput, service_reviewsUncheckedUpdateManyWithoutServiceInput>
-  }
-
-  export type service_availabilityUpsertWithWhereUniqueWithoutServiceInput = {
-    where: service_availabilityWhereUniqueInput
-    update: XOR<service_availabilityUpdateWithoutServiceInput, service_availabilityUncheckedUpdateWithoutServiceInput>
-    create: XOR<service_availabilityCreateWithoutServiceInput, service_availabilityUncheckedCreateWithoutServiceInput>
-  }
-
-  export type service_availabilityUpdateWithWhereUniqueWithoutServiceInput = {
-    where: service_availabilityWhereUniqueInput
-    data: XOR<service_availabilityUpdateWithoutServiceInput, service_availabilityUncheckedUpdateWithoutServiceInput>
-  }
-
-  export type service_availabilityUpdateManyWithWhereWithoutServiceInput = {
-    where: service_availabilityScalarWhereInput
-    data: XOR<service_availabilityUpdateManyMutationInput, service_availabilityUncheckedUpdateManyWithoutServiceInput>
-  }
-
-  export type service_availabilityScalarWhereInput = {
-    AND?: service_availabilityScalarWhereInput | service_availabilityScalarWhereInput[]
-    OR?: service_availabilityScalarWhereInput[]
-    NOT?: service_availabilityScalarWhereInput | service_availabilityScalarWhereInput[]
-    id?: IntFilter<"service_availability"> | number
-    service_id?: IntFilter<"service_availability"> | number
-    available_date?: DateTimeFilter<"service_availability"> | Date | string
-    start_time?: DateTimeNullableFilter<"service_availability"> | Date | string | null
-    end_time?: DateTimeNullableFilter<"service_availability"> | Date | string | null
-    slots_available?: IntFilter<"service_availability"> | number
-    slots_booked?: IntFilter<"service_availability"> | number
-    status?: Enumavailability_statusFilter<"service_availability"> | $Enums.availability_status
-    notes?: StringNullableFilter<"service_availability"> | string | null
-    created_at?: DateTimeFilter<"service_availability"> | Date | string
-    updated_at?: DateTimeFilter<"service_availability"> | Date | string
-  }
-
-  export type service_mediaUpsertWithWhereUniqueWithoutServiceInput = {
-    where: service_mediaWhereUniqueInput
-    update: XOR<service_mediaUpdateWithoutServiceInput, service_mediaUncheckedUpdateWithoutServiceInput>
-    create: XOR<service_mediaCreateWithoutServiceInput, service_mediaUncheckedCreateWithoutServiceInput>
-  }
-
-  export type service_mediaUpdateWithWhereUniqueWithoutServiceInput = {
-    where: service_mediaWhereUniqueInput
-    data: XOR<service_mediaUpdateWithoutServiceInput, service_mediaUncheckedUpdateWithoutServiceInput>
-  }
-
-  export type service_mediaUpdateManyWithWhereWithoutServiceInput = {
-    where: service_mediaScalarWhereInput
-    data: XOR<service_mediaUpdateManyMutationInput, service_mediaUncheckedUpdateManyWithoutServiceInput>
-  }
-
-  export type service_mediaScalarWhereInput = {
-    AND?: service_mediaScalarWhereInput | service_mediaScalarWhereInput[]
-    OR?: service_mediaScalarWhereInput[]
-    NOT?: service_mediaScalarWhereInput | service_mediaScalarWhereInput[]
-    id?: IntFilter<"service_media"> | number
-    service_id?: IntFilter<"service_media"> | number
-    media_url?: StringFilter<"service_media"> | string
-    media_type?: StringFilter<"service_media"> | string
-    display_order?: IntFilter<"service_media"> | number
-    caption?: StringNullableFilter<"service_media"> | string | null
-    created_at?: DateTimeFilter<"service_media"> | Date | string
   }
 
   export type servicesCreateWithoutBookingsInput = {
@@ -116700,10 +116700,10 @@ export namespace Prisma {
     is_active?: boolean
     created_at?: Date | string
     updated_at?: Date | string
-    creator: usersCreateNestedOneWithoutCreated_servicesInput
-    reviews?: service_reviewsCreateNestedManyWithoutServiceInput
     availability?: service_availabilityCreateNestedManyWithoutServiceInput
     media?: service_mediaCreateNestedManyWithoutServiceInput
+    reviews?: service_reviewsCreateNestedManyWithoutServiceInput
+    creator: usersCreateNestedOneWithoutCreated_servicesInput
   }
 
   export type servicesUncheckedCreateWithoutBookingsInput = {
@@ -116742,9 +116742,9 @@ export namespace Prisma {
     is_active?: boolean
     created_at?: Date | string
     updated_at?: Date | string
-    reviews?: service_reviewsUncheckedCreateNestedManyWithoutServiceInput
     availability?: service_availabilityUncheckedCreateNestedManyWithoutServiceInput
     media?: service_mediaUncheckedCreateNestedManyWithoutServiceInput
+    reviews?: service_reviewsUncheckedCreateNestedManyWithoutServiceInput
   }
 
   export type servicesCreateOrConnectWithoutBookingsInput = {
@@ -116794,8 +116794,15 @@ export namespace Prisma {
     night_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousers?: night_camp_volunteering_applicationsCreateNestedManyWithoutUsers_night_camp_volunteering_applications_reviewed_byTousersInput
     night_camp_volunteering_applications_night_camp_volunteering_applications_user_idTousers?: night_camp_volunteering_applicationsCreateNestedManyWithoutUsers_night_camp_volunteering_applications_user_idTousersInput
     payments?: paymentsCreateNestedManyWithoutUsersInput
+    poll_comments?: poll_commentsCreateNestedManyWithoutCommenterInput
+    poll_votes?: poll_votesCreateNestedManyWithoutVoterInput
+    created_polls?: pollsCreateNestedManyWithoutCreatorInput
     role_upgrade_requests_role_upgrade_requests_reviewer_idTousers?: role_upgrade_requestsCreateNestedManyWithoutUsers_role_upgrade_requests_reviewer_idTousersInput
     role_upgrade_requests_role_upgrade_requests_user_idTousers?: role_upgrade_requestsCreateNestedManyWithoutUsers_role_upgrade_requests_user_idTousersInput
+    service_reviews?: service_reviewsCreateNestedManyWithoutUserInput
+    created_services?: servicesCreateNestedManyWithoutCreatorInput
+    session_enrollments?: session_enrollmentsCreateNestedManyWithoutUserInput
+    created_sessions?: sessionsCreateNestedManyWithoutCreatorInput
     discussion_comment_likes?: space_discussion_comment_likesCreateNestedManyWithoutUserInput
     discussion_comments?: space_discussion_commentsCreateNestedManyWithoutUserInput
     discussion_likes?: space_discussion_likesCreateNestedManyWithoutUserInput
@@ -116805,15 +116812,8 @@ export namespace Prisma {
     space_news_likes?: space_news_likesCreateNestedManyWithoutUserInput
     stargazing_spot_reviews?: stargazing_spot_reviewsCreateNestedManyWithoutUserInput
     created_stargazing_spots?: stargazing_spotsCreateNestedManyWithoutCreatorInput
-    created_sessions?: sessionsCreateNestedManyWithoutCreatorInput
-    session_enrollments?: session_enrollmentsCreateNestedManyWithoutUserInput
-    created_services?: servicesCreateNestedManyWithoutCreatorInput
-    service_reviews?: service_reviewsCreateNestedManyWithoutUserInput
     subscriptions?: subscriptionsCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsCreateNestedOneWithoutUsersInput
-    created_polls?: pollsCreateNestedManyWithoutCreatorInput
-    poll_votes?: poll_votesCreateNestedManyWithoutVoterInput
-    poll_comments?: poll_commentsCreateNestedManyWithoutCommenterInput
   }
 
   export type usersUncheckedCreateWithoutService_bookingsInput = {
@@ -116859,8 +116859,15 @@ export namespace Prisma {
     night_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousers?: night_camp_volunteering_applicationsUncheckedCreateNestedManyWithoutUsers_night_camp_volunteering_applications_reviewed_byTousersInput
     night_camp_volunteering_applications_night_camp_volunteering_applications_user_idTousers?: night_camp_volunteering_applicationsUncheckedCreateNestedManyWithoutUsers_night_camp_volunteering_applications_user_idTousersInput
     payments?: paymentsUncheckedCreateNestedManyWithoutUsersInput
+    poll_comments?: poll_commentsUncheckedCreateNestedManyWithoutCommenterInput
+    poll_votes?: poll_votesUncheckedCreateNestedManyWithoutVoterInput
+    created_polls?: pollsUncheckedCreateNestedManyWithoutCreatorInput
     role_upgrade_requests_role_upgrade_requests_reviewer_idTousers?: role_upgrade_requestsUncheckedCreateNestedManyWithoutUsers_role_upgrade_requests_reviewer_idTousersInput
     role_upgrade_requests_role_upgrade_requests_user_idTousers?: role_upgrade_requestsUncheckedCreateNestedManyWithoutUsers_role_upgrade_requests_user_idTousersInput
+    service_reviews?: service_reviewsUncheckedCreateNestedManyWithoutUserInput
+    created_services?: servicesUncheckedCreateNestedManyWithoutCreatorInput
+    session_enrollments?: session_enrollmentsUncheckedCreateNestedManyWithoutUserInput
+    created_sessions?: sessionsUncheckedCreateNestedManyWithoutCreatorInput
     discussion_comment_likes?: space_discussion_comment_likesUncheckedCreateNestedManyWithoutUserInput
     discussion_comments?: space_discussion_commentsUncheckedCreateNestedManyWithoutUserInput
     discussion_likes?: space_discussion_likesUncheckedCreateNestedManyWithoutUserInput
@@ -116870,15 +116877,8 @@ export namespace Prisma {
     space_news_likes?: space_news_likesUncheckedCreateNestedManyWithoutUserInput
     stargazing_spot_reviews?: stargazing_spot_reviewsUncheckedCreateNestedManyWithoutUserInput
     created_stargazing_spots?: stargazing_spotsUncheckedCreateNestedManyWithoutCreatorInput
-    created_sessions?: sessionsUncheckedCreateNestedManyWithoutCreatorInput
-    session_enrollments?: session_enrollmentsUncheckedCreateNestedManyWithoutUserInput
-    created_services?: servicesUncheckedCreateNestedManyWithoutCreatorInput
-    service_reviews?: service_reviewsUncheckedCreateNestedManyWithoutUserInput
     subscriptions?: subscriptionsUncheckedCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsUncheckedCreateNestedOneWithoutUsersInput
-    created_polls?: pollsUncheckedCreateNestedManyWithoutCreatorInput
-    poll_votes?: poll_votesUncheckedCreateNestedManyWithoutVoterInput
-    poll_comments?: poll_commentsUncheckedCreateNestedManyWithoutCommenterInput
   }
 
   export type usersCreateOrConnectWithoutService_bookingsInput = {
@@ -116931,10 +116931,10 @@ export namespace Prisma {
     is_active?: BoolFieldUpdateOperationsInput | boolean
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    creator?: usersUpdateOneRequiredWithoutCreated_servicesNestedInput
-    reviews?: service_reviewsUpdateManyWithoutServiceNestedInput
     availability?: service_availabilityUpdateManyWithoutServiceNestedInput
     media?: service_mediaUpdateManyWithoutServiceNestedInput
+    reviews?: service_reviewsUpdateManyWithoutServiceNestedInput
+    creator?: usersUpdateOneRequiredWithoutCreated_servicesNestedInput
   }
 
   export type servicesUncheckedUpdateWithoutBookingsInput = {
@@ -116973,9 +116973,9 @@ export namespace Prisma {
     is_active?: BoolFieldUpdateOperationsInput | boolean
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    reviews?: service_reviewsUncheckedUpdateManyWithoutServiceNestedInput
     availability?: service_availabilityUncheckedUpdateManyWithoutServiceNestedInput
     media?: service_mediaUncheckedUpdateManyWithoutServiceNestedInput
+    reviews?: service_reviewsUncheckedUpdateManyWithoutServiceNestedInput
   }
 
   export type usersUpsertWithoutService_bookingsInput = {
@@ -117031,8 +117031,15 @@ export namespace Prisma {
     night_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousers?: night_camp_volunteering_applicationsUpdateManyWithoutUsers_night_camp_volunteering_applications_reviewed_byTousersNestedInput
     night_camp_volunteering_applications_night_camp_volunteering_applications_user_idTousers?: night_camp_volunteering_applicationsUpdateManyWithoutUsers_night_camp_volunteering_applications_user_idTousersNestedInput
     payments?: paymentsUpdateManyWithoutUsersNestedInput
+    poll_comments?: poll_commentsUpdateManyWithoutCommenterNestedInput
+    poll_votes?: poll_votesUpdateManyWithoutVoterNestedInput
+    created_polls?: pollsUpdateManyWithoutCreatorNestedInput
     role_upgrade_requests_role_upgrade_requests_reviewer_idTousers?: role_upgrade_requestsUpdateManyWithoutUsers_role_upgrade_requests_reviewer_idTousersNestedInput
     role_upgrade_requests_role_upgrade_requests_user_idTousers?: role_upgrade_requestsUpdateManyWithoutUsers_role_upgrade_requests_user_idTousersNestedInput
+    service_reviews?: service_reviewsUpdateManyWithoutUserNestedInput
+    created_services?: servicesUpdateManyWithoutCreatorNestedInput
+    session_enrollments?: session_enrollmentsUpdateManyWithoutUserNestedInput
+    created_sessions?: sessionsUpdateManyWithoutCreatorNestedInput
     discussion_comment_likes?: space_discussion_comment_likesUpdateManyWithoutUserNestedInput
     discussion_comments?: space_discussion_commentsUpdateManyWithoutUserNestedInput
     discussion_likes?: space_discussion_likesUpdateManyWithoutUserNestedInput
@@ -117042,15 +117049,8 @@ export namespace Prisma {
     space_news_likes?: space_news_likesUpdateManyWithoutUserNestedInput
     stargazing_spot_reviews?: stargazing_spot_reviewsUpdateManyWithoutUserNestedInput
     created_stargazing_spots?: stargazing_spotsUpdateManyWithoutCreatorNestedInput
-    created_sessions?: sessionsUpdateManyWithoutCreatorNestedInput
-    session_enrollments?: session_enrollmentsUpdateManyWithoutUserNestedInput
-    created_services?: servicesUpdateManyWithoutCreatorNestedInput
-    service_reviews?: service_reviewsUpdateManyWithoutUserNestedInput
     subscriptions?: subscriptionsUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUpdateOneWithoutUsersNestedInput
-    created_polls?: pollsUpdateManyWithoutCreatorNestedInput
-    poll_votes?: poll_votesUpdateManyWithoutVoterNestedInput
-    poll_comments?: poll_commentsUpdateManyWithoutCommenterNestedInput
   }
 
   export type usersUncheckedUpdateWithoutService_bookingsInput = {
@@ -117096,8 +117096,15 @@ export namespace Prisma {
     night_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousers?: night_camp_volunteering_applicationsUncheckedUpdateManyWithoutUsers_night_camp_volunteering_applications_reviewed_byTousersNestedInput
     night_camp_volunteering_applications_night_camp_volunteering_applications_user_idTousers?: night_camp_volunteering_applicationsUncheckedUpdateManyWithoutUsers_night_camp_volunteering_applications_user_idTousersNestedInput
     payments?: paymentsUncheckedUpdateManyWithoutUsersNestedInput
+    poll_comments?: poll_commentsUncheckedUpdateManyWithoutCommenterNestedInput
+    poll_votes?: poll_votesUncheckedUpdateManyWithoutVoterNestedInput
+    created_polls?: pollsUncheckedUpdateManyWithoutCreatorNestedInput
     role_upgrade_requests_role_upgrade_requests_reviewer_idTousers?: role_upgrade_requestsUncheckedUpdateManyWithoutUsers_role_upgrade_requests_reviewer_idTousersNestedInput
     role_upgrade_requests_role_upgrade_requests_user_idTousers?: role_upgrade_requestsUncheckedUpdateManyWithoutUsers_role_upgrade_requests_user_idTousersNestedInput
+    service_reviews?: service_reviewsUncheckedUpdateManyWithoutUserNestedInput
+    created_services?: servicesUncheckedUpdateManyWithoutCreatorNestedInput
+    session_enrollments?: session_enrollmentsUncheckedUpdateManyWithoutUserNestedInput
+    created_sessions?: sessionsUncheckedUpdateManyWithoutCreatorNestedInput
     discussion_comment_likes?: space_discussion_comment_likesUncheckedUpdateManyWithoutUserNestedInput
     discussion_comments?: space_discussion_commentsUncheckedUpdateManyWithoutUserNestedInput
     discussion_likes?: space_discussion_likesUncheckedUpdateManyWithoutUserNestedInput
@@ -117107,15 +117114,8 @@ export namespace Prisma {
     space_news_likes?: space_news_likesUncheckedUpdateManyWithoutUserNestedInput
     stargazing_spot_reviews?: stargazing_spot_reviewsUncheckedUpdateManyWithoutUserNestedInput
     created_stargazing_spots?: stargazing_spotsUncheckedUpdateManyWithoutCreatorNestedInput
-    created_sessions?: sessionsUncheckedUpdateManyWithoutCreatorNestedInput
-    session_enrollments?: session_enrollmentsUncheckedUpdateManyWithoutUserNestedInput
-    created_services?: servicesUncheckedUpdateManyWithoutCreatorNestedInput
-    service_reviews?: service_reviewsUncheckedUpdateManyWithoutUserNestedInput
     subscriptions?: subscriptionsUncheckedUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUncheckedUpdateOneWithoutUsersNestedInput
-    created_polls?: pollsUncheckedUpdateManyWithoutCreatorNestedInput
-    poll_votes?: poll_votesUncheckedUpdateManyWithoutVoterNestedInput
-    poll_comments?: poll_commentsUncheckedUpdateManyWithoutCommenterNestedInput
   }
 
   export type servicesCreateWithoutReviewsInput = {
@@ -117152,10 +117152,10 @@ export namespace Prisma {
     is_active?: boolean
     created_at?: Date | string
     updated_at?: Date | string
-    creator: usersCreateNestedOneWithoutCreated_servicesInput
-    bookings?: service_bookingsCreateNestedManyWithoutServiceInput
     availability?: service_availabilityCreateNestedManyWithoutServiceInput
+    bookings?: service_bookingsCreateNestedManyWithoutServiceInput
     media?: service_mediaCreateNestedManyWithoutServiceInput
+    creator: usersCreateNestedOneWithoutCreated_servicesInput
   }
 
   export type servicesUncheckedCreateWithoutReviewsInput = {
@@ -117194,8 +117194,8 @@ export namespace Prisma {
     is_active?: boolean
     created_at?: Date | string
     updated_at?: Date | string
-    bookings?: service_bookingsUncheckedCreateNestedManyWithoutServiceInput
     availability?: service_availabilityUncheckedCreateNestedManyWithoutServiceInput
+    bookings?: service_bookingsUncheckedCreateNestedManyWithoutServiceInput
     media?: service_mediaUncheckedCreateNestedManyWithoutServiceInput
   }
 
@@ -117246,8 +117246,15 @@ export namespace Prisma {
     night_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousers?: night_camp_volunteering_applicationsCreateNestedManyWithoutUsers_night_camp_volunteering_applications_reviewed_byTousersInput
     night_camp_volunteering_applications_night_camp_volunteering_applications_user_idTousers?: night_camp_volunteering_applicationsCreateNestedManyWithoutUsers_night_camp_volunteering_applications_user_idTousersInput
     payments?: paymentsCreateNestedManyWithoutUsersInput
+    poll_comments?: poll_commentsCreateNestedManyWithoutCommenterInput
+    poll_votes?: poll_votesCreateNestedManyWithoutVoterInput
+    created_polls?: pollsCreateNestedManyWithoutCreatorInput
     role_upgrade_requests_role_upgrade_requests_reviewer_idTousers?: role_upgrade_requestsCreateNestedManyWithoutUsers_role_upgrade_requests_reviewer_idTousersInput
     role_upgrade_requests_role_upgrade_requests_user_idTousers?: role_upgrade_requestsCreateNestedManyWithoutUsers_role_upgrade_requests_user_idTousersInput
+    service_bookings?: service_bookingsCreateNestedManyWithoutUserInput
+    created_services?: servicesCreateNestedManyWithoutCreatorInput
+    session_enrollments?: session_enrollmentsCreateNestedManyWithoutUserInput
+    created_sessions?: sessionsCreateNestedManyWithoutCreatorInput
     discussion_comment_likes?: space_discussion_comment_likesCreateNestedManyWithoutUserInput
     discussion_comments?: space_discussion_commentsCreateNestedManyWithoutUserInput
     discussion_likes?: space_discussion_likesCreateNestedManyWithoutUserInput
@@ -117257,15 +117264,8 @@ export namespace Prisma {
     space_news_likes?: space_news_likesCreateNestedManyWithoutUserInput
     stargazing_spot_reviews?: stargazing_spot_reviewsCreateNestedManyWithoutUserInput
     created_stargazing_spots?: stargazing_spotsCreateNestedManyWithoutCreatorInput
-    created_sessions?: sessionsCreateNestedManyWithoutCreatorInput
-    session_enrollments?: session_enrollmentsCreateNestedManyWithoutUserInput
-    created_services?: servicesCreateNestedManyWithoutCreatorInput
-    service_bookings?: service_bookingsCreateNestedManyWithoutUserInput
     subscriptions?: subscriptionsCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsCreateNestedOneWithoutUsersInput
-    created_polls?: pollsCreateNestedManyWithoutCreatorInput
-    poll_votes?: poll_votesCreateNestedManyWithoutVoterInput
-    poll_comments?: poll_commentsCreateNestedManyWithoutCommenterInput
   }
 
   export type usersUncheckedCreateWithoutService_reviewsInput = {
@@ -117311,8 +117311,15 @@ export namespace Prisma {
     night_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousers?: night_camp_volunteering_applicationsUncheckedCreateNestedManyWithoutUsers_night_camp_volunteering_applications_reviewed_byTousersInput
     night_camp_volunteering_applications_night_camp_volunteering_applications_user_idTousers?: night_camp_volunteering_applicationsUncheckedCreateNestedManyWithoutUsers_night_camp_volunteering_applications_user_idTousersInput
     payments?: paymentsUncheckedCreateNestedManyWithoutUsersInput
+    poll_comments?: poll_commentsUncheckedCreateNestedManyWithoutCommenterInput
+    poll_votes?: poll_votesUncheckedCreateNestedManyWithoutVoterInput
+    created_polls?: pollsUncheckedCreateNestedManyWithoutCreatorInput
     role_upgrade_requests_role_upgrade_requests_reviewer_idTousers?: role_upgrade_requestsUncheckedCreateNestedManyWithoutUsers_role_upgrade_requests_reviewer_idTousersInput
     role_upgrade_requests_role_upgrade_requests_user_idTousers?: role_upgrade_requestsUncheckedCreateNestedManyWithoutUsers_role_upgrade_requests_user_idTousersInput
+    service_bookings?: service_bookingsUncheckedCreateNestedManyWithoutUserInput
+    created_services?: servicesUncheckedCreateNestedManyWithoutCreatorInput
+    session_enrollments?: session_enrollmentsUncheckedCreateNestedManyWithoutUserInput
+    created_sessions?: sessionsUncheckedCreateNestedManyWithoutCreatorInput
     discussion_comment_likes?: space_discussion_comment_likesUncheckedCreateNestedManyWithoutUserInput
     discussion_comments?: space_discussion_commentsUncheckedCreateNestedManyWithoutUserInput
     discussion_likes?: space_discussion_likesUncheckedCreateNestedManyWithoutUserInput
@@ -117322,15 +117329,8 @@ export namespace Prisma {
     space_news_likes?: space_news_likesUncheckedCreateNestedManyWithoutUserInput
     stargazing_spot_reviews?: stargazing_spot_reviewsUncheckedCreateNestedManyWithoutUserInput
     created_stargazing_spots?: stargazing_spotsUncheckedCreateNestedManyWithoutCreatorInput
-    created_sessions?: sessionsUncheckedCreateNestedManyWithoutCreatorInput
-    session_enrollments?: session_enrollmentsUncheckedCreateNestedManyWithoutUserInput
-    created_services?: servicesUncheckedCreateNestedManyWithoutCreatorInput
-    service_bookings?: service_bookingsUncheckedCreateNestedManyWithoutUserInput
     subscriptions?: subscriptionsUncheckedCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsUncheckedCreateNestedOneWithoutUsersInput
-    created_polls?: pollsUncheckedCreateNestedManyWithoutCreatorInput
-    poll_votes?: poll_votesUncheckedCreateNestedManyWithoutVoterInput
-    poll_comments?: poll_commentsUncheckedCreateNestedManyWithoutCommenterInput
   }
 
   export type usersCreateOrConnectWithoutService_reviewsInput = {
@@ -117383,10 +117383,10 @@ export namespace Prisma {
     is_active?: BoolFieldUpdateOperationsInput | boolean
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    creator?: usersUpdateOneRequiredWithoutCreated_servicesNestedInput
-    bookings?: service_bookingsUpdateManyWithoutServiceNestedInput
     availability?: service_availabilityUpdateManyWithoutServiceNestedInput
+    bookings?: service_bookingsUpdateManyWithoutServiceNestedInput
     media?: service_mediaUpdateManyWithoutServiceNestedInput
+    creator?: usersUpdateOneRequiredWithoutCreated_servicesNestedInput
   }
 
   export type servicesUncheckedUpdateWithoutReviewsInput = {
@@ -117425,8 +117425,8 @@ export namespace Prisma {
     is_active?: BoolFieldUpdateOperationsInput | boolean
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    bookings?: service_bookingsUncheckedUpdateManyWithoutServiceNestedInput
     availability?: service_availabilityUncheckedUpdateManyWithoutServiceNestedInput
+    bookings?: service_bookingsUncheckedUpdateManyWithoutServiceNestedInput
     media?: service_mediaUncheckedUpdateManyWithoutServiceNestedInput
   }
 
@@ -117483,8 +117483,15 @@ export namespace Prisma {
     night_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousers?: night_camp_volunteering_applicationsUpdateManyWithoutUsers_night_camp_volunteering_applications_reviewed_byTousersNestedInput
     night_camp_volunteering_applications_night_camp_volunteering_applications_user_idTousers?: night_camp_volunteering_applicationsUpdateManyWithoutUsers_night_camp_volunteering_applications_user_idTousersNestedInput
     payments?: paymentsUpdateManyWithoutUsersNestedInput
+    poll_comments?: poll_commentsUpdateManyWithoutCommenterNestedInput
+    poll_votes?: poll_votesUpdateManyWithoutVoterNestedInput
+    created_polls?: pollsUpdateManyWithoutCreatorNestedInput
     role_upgrade_requests_role_upgrade_requests_reviewer_idTousers?: role_upgrade_requestsUpdateManyWithoutUsers_role_upgrade_requests_reviewer_idTousersNestedInput
     role_upgrade_requests_role_upgrade_requests_user_idTousers?: role_upgrade_requestsUpdateManyWithoutUsers_role_upgrade_requests_user_idTousersNestedInput
+    service_bookings?: service_bookingsUpdateManyWithoutUserNestedInput
+    created_services?: servicesUpdateManyWithoutCreatorNestedInput
+    session_enrollments?: session_enrollmentsUpdateManyWithoutUserNestedInput
+    created_sessions?: sessionsUpdateManyWithoutCreatorNestedInput
     discussion_comment_likes?: space_discussion_comment_likesUpdateManyWithoutUserNestedInput
     discussion_comments?: space_discussion_commentsUpdateManyWithoutUserNestedInput
     discussion_likes?: space_discussion_likesUpdateManyWithoutUserNestedInput
@@ -117494,15 +117501,8 @@ export namespace Prisma {
     space_news_likes?: space_news_likesUpdateManyWithoutUserNestedInput
     stargazing_spot_reviews?: stargazing_spot_reviewsUpdateManyWithoutUserNestedInput
     created_stargazing_spots?: stargazing_spotsUpdateManyWithoutCreatorNestedInput
-    created_sessions?: sessionsUpdateManyWithoutCreatorNestedInput
-    session_enrollments?: session_enrollmentsUpdateManyWithoutUserNestedInput
-    created_services?: servicesUpdateManyWithoutCreatorNestedInput
-    service_bookings?: service_bookingsUpdateManyWithoutUserNestedInput
     subscriptions?: subscriptionsUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUpdateOneWithoutUsersNestedInput
-    created_polls?: pollsUpdateManyWithoutCreatorNestedInput
-    poll_votes?: poll_votesUpdateManyWithoutVoterNestedInput
-    poll_comments?: poll_commentsUpdateManyWithoutCommenterNestedInput
   }
 
   export type usersUncheckedUpdateWithoutService_reviewsInput = {
@@ -117548,8 +117548,15 @@ export namespace Prisma {
     night_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousers?: night_camp_volunteering_applicationsUncheckedUpdateManyWithoutUsers_night_camp_volunteering_applications_reviewed_byTousersNestedInput
     night_camp_volunteering_applications_night_camp_volunteering_applications_user_idTousers?: night_camp_volunteering_applicationsUncheckedUpdateManyWithoutUsers_night_camp_volunteering_applications_user_idTousersNestedInput
     payments?: paymentsUncheckedUpdateManyWithoutUsersNestedInput
+    poll_comments?: poll_commentsUncheckedUpdateManyWithoutCommenterNestedInput
+    poll_votes?: poll_votesUncheckedUpdateManyWithoutVoterNestedInput
+    created_polls?: pollsUncheckedUpdateManyWithoutCreatorNestedInput
     role_upgrade_requests_role_upgrade_requests_reviewer_idTousers?: role_upgrade_requestsUncheckedUpdateManyWithoutUsers_role_upgrade_requests_reviewer_idTousersNestedInput
     role_upgrade_requests_role_upgrade_requests_user_idTousers?: role_upgrade_requestsUncheckedUpdateManyWithoutUsers_role_upgrade_requests_user_idTousersNestedInput
+    service_bookings?: service_bookingsUncheckedUpdateManyWithoutUserNestedInput
+    created_services?: servicesUncheckedUpdateManyWithoutCreatorNestedInput
+    session_enrollments?: session_enrollmentsUncheckedUpdateManyWithoutUserNestedInput
+    created_sessions?: sessionsUncheckedUpdateManyWithoutCreatorNestedInput
     discussion_comment_likes?: space_discussion_comment_likesUncheckedUpdateManyWithoutUserNestedInput
     discussion_comments?: space_discussion_commentsUncheckedUpdateManyWithoutUserNestedInput
     discussion_likes?: space_discussion_likesUncheckedUpdateManyWithoutUserNestedInput
@@ -117559,15 +117566,8 @@ export namespace Prisma {
     space_news_likes?: space_news_likesUncheckedUpdateManyWithoutUserNestedInput
     stargazing_spot_reviews?: stargazing_spot_reviewsUncheckedUpdateManyWithoutUserNestedInput
     created_stargazing_spots?: stargazing_spotsUncheckedUpdateManyWithoutCreatorNestedInput
-    created_sessions?: sessionsUncheckedUpdateManyWithoutCreatorNestedInput
-    session_enrollments?: session_enrollmentsUncheckedUpdateManyWithoutUserNestedInput
-    created_services?: servicesUncheckedUpdateManyWithoutCreatorNestedInput
-    service_bookings?: service_bookingsUncheckedUpdateManyWithoutUserNestedInput
     subscriptions?: subscriptionsUncheckedUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUncheckedUpdateOneWithoutUsersNestedInput
-    created_polls?: pollsUncheckedUpdateManyWithoutCreatorNestedInput
-    poll_votes?: poll_votesUncheckedUpdateManyWithoutVoterNestedInput
-    poll_comments?: poll_commentsUncheckedUpdateManyWithoutCommenterNestedInput
   }
 
   export type servicesCreateWithoutAvailabilityInput = {
@@ -117604,10 +117604,10 @@ export namespace Prisma {
     is_active?: boolean
     created_at?: Date | string
     updated_at?: Date | string
-    creator: usersCreateNestedOneWithoutCreated_servicesInput
     bookings?: service_bookingsCreateNestedManyWithoutServiceInput
-    reviews?: service_reviewsCreateNestedManyWithoutServiceInput
     media?: service_mediaCreateNestedManyWithoutServiceInput
+    reviews?: service_reviewsCreateNestedManyWithoutServiceInput
+    creator: usersCreateNestedOneWithoutCreated_servicesInput
   }
 
   export type servicesUncheckedCreateWithoutAvailabilityInput = {
@@ -117647,8 +117647,8 @@ export namespace Prisma {
     created_at?: Date | string
     updated_at?: Date | string
     bookings?: service_bookingsUncheckedCreateNestedManyWithoutServiceInput
-    reviews?: service_reviewsUncheckedCreateNestedManyWithoutServiceInput
     media?: service_mediaUncheckedCreateNestedManyWithoutServiceInput
+    reviews?: service_reviewsUncheckedCreateNestedManyWithoutServiceInput
   }
 
   export type servicesCreateOrConnectWithoutAvailabilityInput = {
@@ -117701,10 +117701,10 @@ export namespace Prisma {
     is_active?: BoolFieldUpdateOperationsInput | boolean
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    creator?: usersUpdateOneRequiredWithoutCreated_servicesNestedInput
     bookings?: service_bookingsUpdateManyWithoutServiceNestedInput
-    reviews?: service_reviewsUpdateManyWithoutServiceNestedInput
     media?: service_mediaUpdateManyWithoutServiceNestedInput
+    reviews?: service_reviewsUpdateManyWithoutServiceNestedInput
+    creator?: usersUpdateOneRequiredWithoutCreated_servicesNestedInput
   }
 
   export type servicesUncheckedUpdateWithoutAvailabilityInput = {
@@ -117744,8 +117744,8 @@ export namespace Prisma {
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     bookings?: service_bookingsUncheckedUpdateManyWithoutServiceNestedInput
-    reviews?: service_reviewsUncheckedUpdateManyWithoutServiceNestedInput
     media?: service_mediaUncheckedUpdateManyWithoutServiceNestedInput
+    reviews?: service_reviewsUncheckedUpdateManyWithoutServiceNestedInput
   }
 
   export type servicesCreateWithoutMediaInput = {
@@ -117782,10 +117782,10 @@ export namespace Prisma {
     is_active?: boolean
     created_at?: Date | string
     updated_at?: Date | string
-    creator: usersCreateNestedOneWithoutCreated_servicesInput
+    availability?: service_availabilityCreateNestedManyWithoutServiceInput
     bookings?: service_bookingsCreateNestedManyWithoutServiceInput
     reviews?: service_reviewsCreateNestedManyWithoutServiceInput
-    availability?: service_availabilityCreateNestedManyWithoutServiceInput
+    creator: usersCreateNestedOneWithoutCreated_servicesInput
   }
 
   export type servicesUncheckedCreateWithoutMediaInput = {
@@ -117824,9 +117824,9 @@ export namespace Prisma {
     is_active?: boolean
     created_at?: Date | string
     updated_at?: Date | string
+    availability?: service_availabilityUncheckedCreateNestedManyWithoutServiceInput
     bookings?: service_bookingsUncheckedCreateNestedManyWithoutServiceInput
     reviews?: service_reviewsUncheckedCreateNestedManyWithoutServiceInput
-    availability?: service_availabilityUncheckedCreateNestedManyWithoutServiceInput
   }
 
   export type servicesCreateOrConnectWithoutMediaInput = {
@@ -117879,10 +117879,10 @@ export namespace Prisma {
     is_active?: BoolFieldUpdateOperationsInput | boolean
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    creator?: usersUpdateOneRequiredWithoutCreated_servicesNestedInput
+    availability?: service_availabilityUpdateManyWithoutServiceNestedInput
     bookings?: service_bookingsUpdateManyWithoutServiceNestedInput
     reviews?: service_reviewsUpdateManyWithoutServiceNestedInput
-    availability?: service_availabilityUpdateManyWithoutServiceNestedInput
+    creator?: usersUpdateOneRequiredWithoutCreated_servicesNestedInput
   }
 
   export type servicesUncheckedUpdateWithoutMediaInput = {
@@ -117921,143 +117921,9 @@ export namespace Prisma {
     is_active?: BoolFieldUpdateOperationsInput | boolean
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    availability?: service_availabilityUncheckedUpdateManyWithoutServiceNestedInput
     bookings?: service_bookingsUncheckedUpdateManyWithoutServiceNestedInput
     reviews?: service_reviewsUncheckedUpdateManyWithoutServiceNestedInput
-    availability?: service_availabilityUncheckedUpdateManyWithoutServiceNestedInput
-  }
-
-  export type usersCreateWithoutSession_enrollmentsInput = {
-    firebase_uid: string
-    email: string
-    role?: $Enums.user_role | null
-    first_name?: string | null
-    last_name?: string | null
-    is_active?: boolean | null
-    last_login?: Date | string | null
-    created_at?: Date | string | null
-    updated_at?: Date | string | null
-    display_name?: string | null
-    profile_data?: NullableJsonNullValueInput | InputJsonValue
-    role_specific_data?: NullableJsonNullValueInput | InputJsonValue
-    subscription_plan?: $Enums.subscription_plan | null
-    subscription_status?: $Enums.subscription_status | null
-    subscription_start_date?: Date | string | null
-    subscription_end_date?: Date | string | null
-    auto_renew?: boolean | null
-    chatbot_questions_used?: number | null
-    chatbot_questions_reset_date?: Date | string | null
-    QuizParticipants?: QuizParticipantsCreateNestedManyWithoutUsersInput
-    Quizzes?: QuizzesCreateNestedManyWithoutUsersInput
-    created_astronomy_events?: astronomy_eventsCreateNestedManyWithoutCreatorInput
-    blog_comments?: blog_commentsCreateNestedManyWithoutUsersInput
-    blog_likes?: blog_likesCreateNestedManyWithoutUsersInput
-    blog_views?: blog_viewsCreateNestedManyWithoutUsersInput
-    blogs?: blogsCreateNestedManyWithoutUsersInput
-    chat_messages?: chat_messagesCreateNestedManyWithoutUserInput
-    chatbot_sessions?: chatbot_sessionsCreateNestedManyWithoutUsersInput
-    chatbot_usage?: chatbot_usageCreateNestedManyWithoutUsersInput
-    event_reminders?: event_remindersCreateNestedManyWithoutUserInput
-    created_groups?: group_chatsCreateNestedManyWithoutCreatorInput
-    group_memberships?: group_membersCreateNestedManyWithoutUserInput
-    guide_application?: guide_applicationCreateNestedManyWithoutUsersInput
-    influencer_application?: influencer_applicationCreateNestedManyWithoutUsersInput
-    media_uploads?: media_uploadsCreateNestedManyWithoutUserInput
-    mentor_application?: mentor_applicationCreateNestedManyWithoutUsersInput
-    message_reactions?: message_reactionsCreateNestedManyWithoutUserInput
-    night_camp_registrations?: night_camp_registrationsCreateNestedManyWithoutUsersInput
-    night_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousers?: night_camp_volunteering_applicationsCreateNestedManyWithoutUsers_night_camp_volunteering_applications_reviewed_byTousersInput
-    night_camp_volunteering_applications_night_camp_volunteering_applications_user_idTousers?: night_camp_volunteering_applicationsCreateNestedManyWithoutUsers_night_camp_volunteering_applications_user_idTousersInput
-    payments?: paymentsCreateNestedManyWithoutUsersInput
-    role_upgrade_requests_role_upgrade_requests_reviewer_idTousers?: role_upgrade_requestsCreateNestedManyWithoutUsers_role_upgrade_requests_reviewer_idTousersInput
-    role_upgrade_requests_role_upgrade_requests_user_idTousers?: role_upgrade_requestsCreateNestedManyWithoutUsers_role_upgrade_requests_user_idTousersInput
-    discussion_comment_likes?: space_discussion_comment_likesCreateNestedManyWithoutUserInput
-    discussion_comments?: space_discussion_commentsCreateNestedManyWithoutUserInput
-    discussion_likes?: space_discussion_likesCreateNestedManyWithoutUserInput
-    authored_discussions?: space_discussionsCreateNestedManyWithoutAuthorInput
-    space_news_published?: space_newsCreateNestedManyWithoutPublisherInput
-    space_news_comments?: space_news_commentsCreateNestedManyWithoutUserInput
-    space_news_likes?: space_news_likesCreateNestedManyWithoutUserInput
-    stargazing_spot_reviews?: stargazing_spot_reviewsCreateNestedManyWithoutUserInput
-    created_stargazing_spots?: stargazing_spotsCreateNestedManyWithoutCreatorInput
-    created_sessions?: sessionsCreateNestedManyWithoutCreatorInput
-    created_services?: servicesCreateNestedManyWithoutCreatorInput
-    service_bookings?: service_bookingsCreateNestedManyWithoutUserInput
-    service_reviews?: service_reviewsCreateNestedManyWithoutUserInput
-    subscriptions?: subscriptionsCreateNestedManyWithoutUsersInput
-    user_settings?: user_settingsCreateNestedOneWithoutUsersInput
-    created_polls?: pollsCreateNestedManyWithoutCreatorInput
-    poll_votes?: poll_votesCreateNestedManyWithoutVoterInput
-    poll_comments?: poll_commentsCreateNestedManyWithoutCommenterInput
-  }
-
-  export type usersUncheckedCreateWithoutSession_enrollmentsInput = {
-    id?: number
-    firebase_uid: string
-    email: string
-    role?: $Enums.user_role | null
-    first_name?: string | null
-    last_name?: string | null
-    is_active?: boolean | null
-    last_login?: Date | string | null
-    created_at?: Date | string | null
-    updated_at?: Date | string | null
-    display_name?: string | null
-    profile_data?: NullableJsonNullValueInput | InputJsonValue
-    role_specific_data?: NullableJsonNullValueInput | InputJsonValue
-    subscription_plan?: $Enums.subscription_plan | null
-    subscription_status?: $Enums.subscription_status | null
-    subscription_start_date?: Date | string | null
-    subscription_end_date?: Date | string | null
-    auto_renew?: boolean | null
-    chatbot_questions_used?: number | null
-    chatbot_questions_reset_date?: Date | string | null
-    QuizParticipants?: QuizParticipantsUncheckedCreateNestedManyWithoutUsersInput
-    Quizzes?: QuizzesUncheckedCreateNestedManyWithoutUsersInput
-    created_astronomy_events?: astronomy_eventsUncheckedCreateNestedManyWithoutCreatorInput
-    blog_comments?: blog_commentsUncheckedCreateNestedManyWithoutUsersInput
-    blog_likes?: blog_likesUncheckedCreateNestedManyWithoutUsersInput
-    blog_views?: blog_viewsUncheckedCreateNestedManyWithoutUsersInput
-    blogs?: blogsUncheckedCreateNestedManyWithoutUsersInput
-    chat_messages?: chat_messagesUncheckedCreateNestedManyWithoutUserInput
-    chatbot_sessions?: chatbot_sessionsUncheckedCreateNestedManyWithoutUsersInput
-    chatbot_usage?: chatbot_usageUncheckedCreateNestedManyWithoutUsersInput
-    event_reminders?: event_remindersUncheckedCreateNestedManyWithoutUserInput
-    created_groups?: group_chatsUncheckedCreateNestedManyWithoutCreatorInput
-    group_memberships?: group_membersUncheckedCreateNestedManyWithoutUserInput
-    guide_application?: guide_applicationUncheckedCreateNestedManyWithoutUsersInput
-    influencer_application?: influencer_applicationUncheckedCreateNestedManyWithoutUsersInput
-    media_uploads?: media_uploadsUncheckedCreateNestedManyWithoutUserInput
-    mentor_application?: mentor_applicationUncheckedCreateNestedManyWithoutUsersInput
-    message_reactions?: message_reactionsUncheckedCreateNestedManyWithoutUserInput
-    night_camp_registrations?: night_camp_registrationsUncheckedCreateNestedManyWithoutUsersInput
-    night_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousers?: night_camp_volunteering_applicationsUncheckedCreateNestedManyWithoutUsers_night_camp_volunteering_applications_reviewed_byTousersInput
-    night_camp_volunteering_applications_night_camp_volunteering_applications_user_idTousers?: night_camp_volunteering_applicationsUncheckedCreateNestedManyWithoutUsers_night_camp_volunteering_applications_user_idTousersInput
-    payments?: paymentsUncheckedCreateNestedManyWithoutUsersInput
-    role_upgrade_requests_role_upgrade_requests_reviewer_idTousers?: role_upgrade_requestsUncheckedCreateNestedManyWithoutUsers_role_upgrade_requests_reviewer_idTousersInput
-    role_upgrade_requests_role_upgrade_requests_user_idTousers?: role_upgrade_requestsUncheckedCreateNestedManyWithoutUsers_role_upgrade_requests_user_idTousersInput
-    discussion_comment_likes?: space_discussion_comment_likesUncheckedCreateNestedManyWithoutUserInput
-    discussion_comments?: space_discussion_commentsUncheckedCreateNestedManyWithoutUserInput
-    discussion_likes?: space_discussion_likesUncheckedCreateNestedManyWithoutUserInput
-    authored_discussions?: space_discussionsUncheckedCreateNestedManyWithoutAuthorInput
-    space_news_published?: space_newsUncheckedCreateNestedManyWithoutPublisherInput
-    space_news_comments?: space_news_commentsUncheckedCreateNestedManyWithoutUserInput
-    space_news_likes?: space_news_likesUncheckedCreateNestedManyWithoutUserInput
-    stargazing_spot_reviews?: stargazing_spot_reviewsUncheckedCreateNestedManyWithoutUserInput
-    created_stargazing_spots?: stargazing_spotsUncheckedCreateNestedManyWithoutCreatorInput
-    created_sessions?: sessionsUncheckedCreateNestedManyWithoutCreatorInput
-    created_services?: servicesUncheckedCreateNestedManyWithoutCreatorInput
-    service_bookings?: service_bookingsUncheckedCreateNestedManyWithoutUserInput
-    service_reviews?: service_reviewsUncheckedCreateNestedManyWithoutUserInput
-    subscriptions?: subscriptionsUncheckedCreateNestedManyWithoutUsersInput
-    user_settings?: user_settingsUncheckedCreateNestedOneWithoutUsersInput
-    created_polls?: pollsUncheckedCreateNestedManyWithoutCreatorInput
-    poll_votes?: poll_votesUncheckedCreateNestedManyWithoutVoterInput
-    poll_comments?: poll_commentsUncheckedCreateNestedManyWithoutCommenterInput
-  }
-
-  export type usersCreateOrConnectWithoutSession_enrollmentsInput = {
-    where: usersWhereUniqueInput
-    create: XOR<usersCreateWithoutSession_enrollmentsInput, usersUncheckedCreateWithoutSession_enrollmentsInput>
   }
 
   export type sessionsCreateWithoutEnrollmentsInput = {
@@ -118110,144 +117976,138 @@ export namespace Prisma {
     create: XOR<sessionsCreateWithoutEnrollmentsInput, sessionsUncheckedCreateWithoutEnrollmentsInput>
   }
 
-  export type usersUpsertWithoutSession_enrollmentsInput = {
-    update: XOR<usersUpdateWithoutSession_enrollmentsInput, usersUncheckedUpdateWithoutSession_enrollmentsInput>
+  export type usersCreateWithoutSession_enrollmentsInput = {
+    firebase_uid: string
+    email: string
+    role?: $Enums.user_role | null
+    first_name?: string | null
+    last_name?: string | null
+    is_active?: boolean | null
+    last_login?: Date | string | null
+    created_at?: Date | string | null
+    updated_at?: Date | string | null
+    display_name?: string | null
+    profile_data?: NullableJsonNullValueInput | InputJsonValue
+    role_specific_data?: NullableJsonNullValueInput | InputJsonValue
+    subscription_plan?: $Enums.subscription_plan | null
+    subscription_status?: $Enums.subscription_status | null
+    subscription_start_date?: Date | string | null
+    subscription_end_date?: Date | string | null
+    auto_renew?: boolean | null
+    chatbot_questions_used?: number | null
+    chatbot_questions_reset_date?: Date | string | null
+    QuizParticipants?: QuizParticipantsCreateNestedManyWithoutUsersInput
+    Quizzes?: QuizzesCreateNestedManyWithoutUsersInput
+    created_astronomy_events?: astronomy_eventsCreateNestedManyWithoutCreatorInput
+    blog_comments?: blog_commentsCreateNestedManyWithoutUsersInput
+    blog_likes?: blog_likesCreateNestedManyWithoutUsersInput
+    blog_views?: blog_viewsCreateNestedManyWithoutUsersInput
+    blogs?: blogsCreateNestedManyWithoutUsersInput
+    chat_messages?: chat_messagesCreateNestedManyWithoutUserInput
+    chatbot_sessions?: chatbot_sessionsCreateNestedManyWithoutUsersInput
+    chatbot_usage?: chatbot_usageCreateNestedManyWithoutUsersInput
+    event_reminders?: event_remindersCreateNestedManyWithoutUserInput
+    created_groups?: group_chatsCreateNestedManyWithoutCreatorInput
+    group_memberships?: group_membersCreateNestedManyWithoutUserInput
+    guide_application?: guide_applicationCreateNestedManyWithoutUsersInput
+    influencer_application?: influencer_applicationCreateNestedManyWithoutUsersInput
+    media_uploads?: media_uploadsCreateNestedManyWithoutUserInput
+    mentor_application?: mentor_applicationCreateNestedManyWithoutUsersInput
+    message_reactions?: message_reactionsCreateNestedManyWithoutUserInput
+    night_camp_registrations?: night_camp_registrationsCreateNestedManyWithoutUsersInput
+    night_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousers?: night_camp_volunteering_applicationsCreateNestedManyWithoutUsers_night_camp_volunteering_applications_reviewed_byTousersInput
+    night_camp_volunteering_applications_night_camp_volunteering_applications_user_idTousers?: night_camp_volunteering_applicationsCreateNestedManyWithoutUsers_night_camp_volunteering_applications_user_idTousersInput
+    payments?: paymentsCreateNestedManyWithoutUsersInput
+    poll_comments?: poll_commentsCreateNestedManyWithoutCommenterInput
+    poll_votes?: poll_votesCreateNestedManyWithoutVoterInput
+    created_polls?: pollsCreateNestedManyWithoutCreatorInput
+    role_upgrade_requests_role_upgrade_requests_reviewer_idTousers?: role_upgrade_requestsCreateNestedManyWithoutUsers_role_upgrade_requests_reviewer_idTousersInput
+    role_upgrade_requests_role_upgrade_requests_user_idTousers?: role_upgrade_requestsCreateNestedManyWithoutUsers_role_upgrade_requests_user_idTousersInput
+    service_bookings?: service_bookingsCreateNestedManyWithoutUserInput
+    service_reviews?: service_reviewsCreateNestedManyWithoutUserInput
+    created_services?: servicesCreateNestedManyWithoutCreatorInput
+    created_sessions?: sessionsCreateNestedManyWithoutCreatorInput
+    discussion_comment_likes?: space_discussion_comment_likesCreateNestedManyWithoutUserInput
+    discussion_comments?: space_discussion_commentsCreateNestedManyWithoutUserInput
+    discussion_likes?: space_discussion_likesCreateNestedManyWithoutUserInput
+    authored_discussions?: space_discussionsCreateNestedManyWithoutAuthorInput
+    space_news_published?: space_newsCreateNestedManyWithoutPublisherInput
+    space_news_comments?: space_news_commentsCreateNestedManyWithoutUserInput
+    space_news_likes?: space_news_likesCreateNestedManyWithoutUserInput
+    stargazing_spot_reviews?: stargazing_spot_reviewsCreateNestedManyWithoutUserInput
+    created_stargazing_spots?: stargazing_spotsCreateNestedManyWithoutCreatorInput
+    subscriptions?: subscriptionsCreateNestedManyWithoutUsersInput
+    user_settings?: user_settingsCreateNestedOneWithoutUsersInput
+  }
+
+  export type usersUncheckedCreateWithoutSession_enrollmentsInput = {
+    id?: number
+    firebase_uid: string
+    email: string
+    role?: $Enums.user_role | null
+    first_name?: string | null
+    last_name?: string | null
+    is_active?: boolean | null
+    last_login?: Date | string | null
+    created_at?: Date | string | null
+    updated_at?: Date | string | null
+    display_name?: string | null
+    profile_data?: NullableJsonNullValueInput | InputJsonValue
+    role_specific_data?: NullableJsonNullValueInput | InputJsonValue
+    subscription_plan?: $Enums.subscription_plan | null
+    subscription_status?: $Enums.subscription_status | null
+    subscription_start_date?: Date | string | null
+    subscription_end_date?: Date | string | null
+    auto_renew?: boolean | null
+    chatbot_questions_used?: number | null
+    chatbot_questions_reset_date?: Date | string | null
+    QuizParticipants?: QuizParticipantsUncheckedCreateNestedManyWithoutUsersInput
+    Quizzes?: QuizzesUncheckedCreateNestedManyWithoutUsersInput
+    created_astronomy_events?: astronomy_eventsUncheckedCreateNestedManyWithoutCreatorInput
+    blog_comments?: blog_commentsUncheckedCreateNestedManyWithoutUsersInput
+    blog_likes?: blog_likesUncheckedCreateNestedManyWithoutUsersInput
+    blog_views?: blog_viewsUncheckedCreateNestedManyWithoutUsersInput
+    blogs?: blogsUncheckedCreateNestedManyWithoutUsersInput
+    chat_messages?: chat_messagesUncheckedCreateNestedManyWithoutUserInput
+    chatbot_sessions?: chatbot_sessionsUncheckedCreateNestedManyWithoutUsersInput
+    chatbot_usage?: chatbot_usageUncheckedCreateNestedManyWithoutUsersInput
+    event_reminders?: event_remindersUncheckedCreateNestedManyWithoutUserInput
+    created_groups?: group_chatsUncheckedCreateNestedManyWithoutCreatorInput
+    group_memberships?: group_membersUncheckedCreateNestedManyWithoutUserInput
+    guide_application?: guide_applicationUncheckedCreateNestedManyWithoutUsersInput
+    influencer_application?: influencer_applicationUncheckedCreateNestedManyWithoutUsersInput
+    media_uploads?: media_uploadsUncheckedCreateNestedManyWithoutUserInput
+    mentor_application?: mentor_applicationUncheckedCreateNestedManyWithoutUsersInput
+    message_reactions?: message_reactionsUncheckedCreateNestedManyWithoutUserInput
+    night_camp_registrations?: night_camp_registrationsUncheckedCreateNestedManyWithoutUsersInput
+    night_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousers?: night_camp_volunteering_applicationsUncheckedCreateNestedManyWithoutUsers_night_camp_volunteering_applications_reviewed_byTousersInput
+    night_camp_volunteering_applications_night_camp_volunteering_applications_user_idTousers?: night_camp_volunteering_applicationsUncheckedCreateNestedManyWithoutUsers_night_camp_volunteering_applications_user_idTousersInput
+    payments?: paymentsUncheckedCreateNestedManyWithoutUsersInput
+    poll_comments?: poll_commentsUncheckedCreateNestedManyWithoutCommenterInput
+    poll_votes?: poll_votesUncheckedCreateNestedManyWithoutVoterInput
+    created_polls?: pollsUncheckedCreateNestedManyWithoutCreatorInput
+    role_upgrade_requests_role_upgrade_requests_reviewer_idTousers?: role_upgrade_requestsUncheckedCreateNestedManyWithoutUsers_role_upgrade_requests_reviewer_idTousersInput
+    role_upgrade_requests_role_upgrade_requests_user_idTousers?: role_upgrade_requestsUncheckedCreateNestedManyWithoutUsers_role_upgrade_requests_user_idTousersInput
+    service_bookings?: service_bookingsUncheckedCreateNestedManyWithoutUserInput
+    service_reviews?: service_reviewsUncheckedCreateNestedManyWithoutUserInput
+    created_services?: servicesUncheckedCreateNestedManyWithoutCreatorInput
+    created_sessions?: sessionsUncheckedCreateNestedManyWithoutCreatorInput
+    discussion_comment_likes?: space_discussion_comment_likesUncheckedCreateNestedManyWithoutUserInput
+    discussion_comments?: space_discussion_commentsUncheckedCreateNestedManyWithoutUserInput
+    discussion_likes?: space_discussion_likesUncheckedCreateNestedManyWithoutUserInput
+    authored_discussions?: space_discussionsUncheckedCreateNestedManyWithoutAuthorInput
+    space_news_published?: space_newsUncheckedCreateNestedManyWithoutPublisherInput
+    space_news_comments?: space_news_commentsUncheckedCreateNestedManyWithoutUserInput
+    space_news_likes?: space_news_likesUncheckedCreateNestedManyWithoutUserInput
+    stargazing_spot_reviews?: stargazing_spot_reviewsUncheckedCreateNestedManyWithoutUserInput
+    created_stargazing_spots?: stargazing_spotsUncheckedCreateNestedManyWithoutCreatorInput
+    subscriptions?: subscriptionsUncheckedCreateNestedManyWithoutUsersInput
+    user_settings?: user_settingsUncheckedCreateNestedOneWithoutUsersInput
+  }
+
+  export type usersCreateOrConnectWithoutSession_enrollmentsInput = {
+    where: usersWhereUniqueInput
     create: XOR<usersCreateWithoutSession_enrollmentsInput, usersUncheckedCreateWithoutSession_enrollmentsInput>
-    where?: usersWhereInput
-  }
-
-  export type usersUpdateToOneWithWhereWithoutSession_enrollmentsInput = {
-    where?: usersWhereInput
-    data: XOR<usersUpdateWithoutSession_enrollmentsInput, usersUncheckedUpdateWithoutSession_enrollmentsInput>
-  }
-
-  export type usersUpdateWithoutSession_enrollmentsInput = {
-    firebase_uid?: StringFieldUpdateOperationsInput | string
-    email?: StringFieldUpdateOperationsInput | string
-    role?: NullableEnumuser_roleFieldUpdateOperationsInput | $Enums.user_role | null
-    first_name?: NullableStringFieldUpdateOperationsInput | string | null
-    last_name?: NullableStringFieldUpdateOperationsInput | string | null
-    is_active?: NullableBoolFieldUpdateOperationsInput | boolean | null
-    last_login?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    display_name?: NullableStringFieldUpdateOperationsInput | string | null
-    profile_data?: NullableJsonNullValueInput | InputJsonValue
-    role_specific_data?: NullableJsonNullValueInput | InputJsonValue
-    subscription_plan?: NullableEnumsubscription_planFieldUpdateOperationsInput | $Enums.subscription_plan | null
-    subscription_status?: NullableEnumsubscription_statusFieldUpdateOperationsInput | $Enums.subscription_status | null
-    subscription_start_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    subscription_end_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    auto_renew?: NullableBoolFieldUpdateOperationsInput | boolean | null
-    chatbot_questions_used?: NullableIntFieldUpdateOperationsInput | number | null
-    chatbot_questions_reset_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    QuizParticipants?: QuizParticipantsUpdateManyWithoutUsersNestedInput
-    Quizzes?: QuizzesUpdateManyWithoutUsersNestedInput
-    created_astronomy_events?: astronomy_eventsUpdateManyWithoutCreatorNestedInput
-    blog_comments?: blog_commentsUpdateManyWithoutUsersNestedInput
-    blog_likes?: blog_likesUpdateManyWithoutUsersNestedInput
-    blog_views?: blog_viewsUpdateManyWithoutUsersNestedInput
-    blogs?: blogsUpdateManyWithoutUsersNestedInput
-    chat_messages?: chat_messagesUpdateManyWithoutUserNestedInput
-    chatbot_sessions?: chatbot_sessionsUpdateManyWithoutUsersNestedInput
-    chatbot_usage?: chatbot_usageUpdateManyWithoutUsersNestedInput
-    event_reminders?: event_remindersUpdateManyWithoutUserNestedInput
-    created_groups?: group_chatsUpdateManyWithoutCreatorNestedInput
-    group_memberships?: group_membersUpdateManyWithoutUserNestedInput
-    guide_application?: guide_applicationUpdateManyWithoutUsersNestedInput
-    influencer_application?: influencer_applicationUpdateManyWithoutUsersNestedInput
-    media_uploads?: media_uploadsUpdateManyWithoutUserNestedInput
-    mentor_application?: mentor_applicationUpdateManyWithoutUsersNestedInput
-    message_reactions?: message_reactionsUpdateManyWithoutUserNestedInput
-    night_camp_registrations?: night_camp_registrationsUpdateManyWithoutUsersNestedInput
-    night_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousers?: night_camp_volunteering_applicationsUpdateManyWithoutUsers_night_camp_volunteering_applications_reviewed_byTousersNestedInput
-    night_camp_volunteering_applications_night_camp_volunteering_applications_user_idTousers?: night_camp_volunteering_applicationsUpdateManyWithoutUsers_night_camp_volunteering_applications_user_idTousersNestedInput
-    payments?: paymentsUpdateManyWithoutUsersNestedInput
-    role_upgrade_requests_role_upgrade_requests_reviewer_idTousers?: role_upgrade_requestsUpdateManyWithoutUsers_role_upgrade_requests_reviewer_idTousersNestedInput
-    role_upgrade_requests_role_upgrade_requests_user_idTousers?: role_upgrade_requestsUpdateManyWithoutUsers_role_upgrade_requests_user_idTousersNestedInput
-    discussion_comment_likes?: space_discussion_comment_likesUpdateManyWithoutUserNestedInput
-    discussion_comments?: space_discussion_commentsUpdateManyWithoutUserNestedInput
-    discussion_likes?: space_discussion_likesUpdateManyWithoutUserNestedInput
-    authored_discussions?: space_discussionsUpdateManyWithoutAuthorNestedInput
-    space_news_published?: space_newsUpdateManyWithoutPublisherNestedInput
-    space_news_comments?: space_news_commentsUpdateManyWithoutUserNestedInput
-    space_news_likes?: space_news_likesUpdateManyWithoutUserNestedInput
-    stargazing_spot_reviews?: stargazing_spot_reviewsUpdateManyWithoutUserNestedInput
-    created_stargazing_spots?: stargazing_spotsUpdateManyWithoutCreatorNestedInput
-    created_sessions?: sessionsUpdateManyWithoutCreatorNestedInput
-    created_services?: servicesUpdateManyWithoutCreatorNestedInput
-    service_bookings?: service_bookingsUpdateManyWithoutUserNestedInput
-    service_reviews?: service_reviewsUpdateManyWithoutUserNestedInput
-    subscriptions?: subscriptionsUpdateManyWithoutUsersNestedInput
-    user_settings?: user_settingsUpdateOneWithoutUsersNestedInput
-    created_polls?: pollsUpdateManyWithoutCreatorNestedInput
-    poll_votes?: poll_votesUpdateManyWithoutVoterNestedInput
-    poll_comments?: poll_commentsUpdateManyWithoutCommenterNestedInput
-  }
-
-  export type usersUncheckedUpdateWithoutSession_enrollmentsInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    firebase_uid?: StringFieldUpdateOperationsInput | string
-    email?: StringFieldUpdateOperationsInput | string
-    role?: NullableEnumuser_roleFieldUpdateOperationsInput | $Enums.user_role | null
-    first_name?: NullableStringFieldUpdateOperationsInput | string | null
-    last_name?: NullableStringFieldUpdateOperationsInput | string | null
-    is_active?: NullableBoolFieldUpdateOperationsInput | boolean | null
-    last_login?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    display_name?: NullableStringFieldUpdateOperationsInput | string | null
-    profile_data?: NullableJsonNullValueInput | InputJsonValue
-    role_specific_data?: NullableJsonNullValueInput | InputJsonValue
-    subscription_plan?: NullableEnumsubscription_planFieldUpdateOperationsInput | $Enums.subscription_plan | null
-    subscription_status?: NullableEnumsubscription_statusFieldUpdateOperationsInput | $Enums.subscription_status | null
-    subscription_start_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    subscription_end_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    auto_renew?: NullableBoolFieldUpdateOperationsInput | boolean | null
-    chatbot_questions_used?: NullableIntFieldUpdateOperationsInput | number | null
-    chatbot_questions_reset_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    QuizParticipants?: QuizParticipantsUncheckedUpdateManyWithoutUsersNestedInput
-    Quizzes?: QuizzesUncheckedUpdateManyWithoutUsersNestedInput
-    created_astronomy_events?: astronomy_eventsUncheckedUpdateManyWithoutCreatorNestedInput
-    blog_comments?: blog_commentsUncheckedUpdateManyWithoutUsersNestedInput
-    blog_likes?: blog_likesUncheckedUpdateManyWithoutUsersNestedInput
-    blog_views?: blog_viewsUncheckedUpdateManyWithoutUsersNestedInput
-    blogs?: blogsUncheckedUpdateManyWithoutUsersNestedInput
-    chat_messages?: chat_messagesUncheckedUpdateManyWithoutUserNestedInput
-    chatbot_sessions?: chatbot_sessionsUncheckedUpdateManyWithoutUsersNestedInput
-    chatbot_usage?: chatbot_usageUncheckedUpdateManyWithoutUsersNestedInput
-    event_reminders?: event_remindersUncheckedUpdateManyWithoutUserNestedInput
-    created_groups?: group_chatsUncheckedUpdateManyWithoutCreatorNestedInput
-    group_memberships?: group_membersUncheckedUpdateManyWithoutUserNestedInput
-    guide_application?: guide_applicationUncheckedUpdateManyWithoutUsersNestedInput
-    influencer_application?: influencer_applicationUncheckedUpdateManyWithoutUsersNestedInput
-    media_uploads?: media_uploadsUncheckedUpdateManyWithoutUserNestedInput
-    mentor_application?: mentor_applicationUncheckedUpdateManyWithoutUsersNestedInput
-    message_reactions?: message_reactionsUncheckedUpdateManyWithoutUserNestedInput
-    night_camp_registrations?: night_camp_registrationsUncheckedUpdateManyWithoutUsersNestedInput
-    night_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousers?: night_camp_volunteering_applicationsUncheckedUpdateManyWithoutUsers_night_camp_volunteering_applications_reviewed_byTousersNestedInput
-    night_camp_volunteering_applications_night_camp_volunteering_applications_user_idTousers?: night_camp_volunteering_applicationsUncheckedUpdateManyWithoutUsers_night_camp_volunteering_applications_user_idTousersNestedInput
-    payments?: paymentsUncheckedUpdateManyWithoutUsersNestedInput
-    role_upgrade_requests_role_upgrade_requests_reviewer_idTousers?: role_upgrade_requestsUncheckedUpdateManyWithoutUsers_role_upgrade_requests_reviewer_idTousersNestedInput
-    role_upgrade_requests_role_upgrade_requests_user_idTousers?: role_upgrade_requestsUncheckedUpdateManyWithoutUsers_role_upgrade_requests_user_idTousersNestedInput
-    discussion_comment_likes?: space_discussion_comment_likesUncheckedUpdateManyWithoutUserNestedInput
-    discussion_comments?: space_discussion_commentsUncheckedUpdateManyWithoutUserNestedInput
-    discussion_likes?: space_discussion_likesUncheckedUpdateManyWithoutUserNestedInput
-    authored_discussions?: space_discussionsUncheckedUpdateManyWithoutAuthorNestedInput
-    space_news_published?: space_newsUncheckedUpdateManyWithoutPublisherNestedInput
-    space_news_comments?: space_news_commentsUncheckedUpdateManyWithoutUserNestedInput
-    space_news_likes?: space_news_likesUncheckedUpdateManyWithoutUserNestedInput
-    stargazing_spot_reviews?: stargazing_spot_reviewsUncheckedUpdateManyWithoutUserNestedInput
-    created_stargazing_spots?: stargazing_spotsUncheckedUpdateManyWithoutCreatorNestedInput
-    created_sessions?: sessionsUncheckedUpdateManyWithoutCreatorNestedInput
-    created_services?: servicesUncheckedUpdateManyWithoutCreatorNestedInput
-    service_bookings?: service_bookingsUncheckedUpdateManyWithoutUserNestedInput
-    service_reviews?: service_reviewsUncheckedUpdateManyWithoutUserNestedInput
-    subscriptions?: subscriptionsUncheckedUpdateManyWithoutUsersNestedInput
-    user_settings?: user_settingsUncheckedUpdateOneWithoutUsersNestedInput
-    created_polls?: pollsUncheckedUpdateManyWithoutCreatorNestedInput
-    poll_votes?: poll_votesUncheckedUpdateManyWithoutVoterNestedInput
-    poll_comments?: poll_commentsUncheckedUpdateManyWithoutCommenterNestedInput
   }
 
   export type sessionsUpsertWithoutEnrollmentsInput = {
@@ -118306,138 +118166,144 @@ export namespace Prisma {
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
-  export type usersCreateWithoutCreated_pollsInput = {
-    firebase_uid: string
-    email: string
-    role?: $Enums.user_role | null
-    first_name?: string | null
-    last_name?: string | null
-    is_active?: boolean | null
-    last_login?: Date | string | null
-    created_at?: Date | string | null
-    updated_at?: Date | string | null
-    display_name?: string | null
-    profile_data?: NullableJsonNullValueInput | InputJsonValue
-    role_specific_data?: NullableJsonNullValueInput | InputJsonValue
-    subscription_plan?: $Enums.subscription_plan | null
-    subscription_status?: $Enums.subscription_status | null
-    subscription_start_date?: Date | string | null
-    subscription_end_date?: Date | string | null
-    auto_renew?: boolean | null
-    chatbot_questions_used?: number | null
-    chatbot_questions_reset_date?: Date | string | null
-    QuizParticipants?: QuizParticipantsCreateNestedManyWithoutUsersInput
-    Quizzes?: QuizzesCreateNestedManyWithoutUsersInput
-    created_astronomy_events?: astronomy_eventsCreateNestedManyWithoutCreatorInput
-    blog_comments?: blog_commentsCreateNestedManyWithoutUsersInput
-    blog_likes?: blog_likesCreateNestedManyWithoutUsersInput
-    blog_views?: blog_viewsCreateNestedManyWithoutUsersInput
-    blogs?: blogsCreateNestedManyWithoutUsersInput
-    chat_messages?: chat_messagesCreateNestedManyWithoutUserInput
-    chatbot_sessions?: chatbot_sessionsCreateNestedManyWithoutUsersInput
-    chatbot_usage?: chatbot_usageCreateNestedManyWithoutUsersInput
-    event_reminders?: event_remindersCreateNestedManyWithoutUserInput
-    created_groups?: group_chatsCreateNestedManyWithoutCreatorInput
-    group_memberships?: group_membersCreateNestedManyWithoutUserInput
-    guide_application?: guide_applicationCreateNestedManyWithoutUsersInput
-    influencer_application?: influencer_applicationCreateNestedManyWithoutUsersInput
-    media_uploads?: media_uploadsCreateNestedManyWithoutUserInput
-    mentor_application?: mentor_applicationCreateNestedManyWithoutUsersInput
-    message_reactions?: message_reactionsCreateNestedManyWithoutUserInput
-    night_camp_registrations?: night_camp_registrationsCreateNestedManyWithoutUsersInput
-    night_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousers?: night_camp_volunteering_applicationsCreateNestedManyWithoutUsers_night_camp_volunteering_applications_reviewed_byTousersInput
-    night_camp_volunteering_applications_night_camp_volunteering_applications_user_idTousers?: night_camp_volunteering_applicationsCreateNestedManyWithoutUsers_night_camp_volunteering_applications_user_idTousersInput
-    payments?: paymentsCreateNestedManyWithoutUsersInput
-    role_upgrade_requests_role_upgrade_requests_reviewer_idTousers?: role_upgrade_requestsCreateNestedManyWithoutUsers_role_upgrade_requests_reviewer_idTousersInput
-    role_upgrade_requests_role_upgrade_requests_user_idTousers?: role_upgrade_requestsCreateNestedManyWithoutUsers_role_upgrade_requests_user_idTousersInput
-    discussion_comment_likes?: space_discussion_comment_likesCreateNestedManyWithoutUserInput
-    discussion_comments?: space_discussion_commentsCreateNestedManyWithoutUserInput
-    discussion_likes?: space_discussion_likesCreateNestedManyWithoutUserInput
-    authored_discussions?: space_discussionsCreateNestedManyWithoutAuthorInput
-    space_news_published?: space_newsCreateNestedManyWithoutPublisherInput
-    space_news_comments?: space_news_commentsCreateNestedManyWithoutUserInput
-    space_news_likes?: space_news_likesCreateNestedManyWithoutUserInput
-    stargazing_spot_reviews?: stargazing_spot_reviewsCreateNestedManyWithoutUserInput
-    created_stargazing_spots?: stargazing_spotsCreateNestedManyWithoutCreatorInput
-    created_sessions?: sessionsCreateNestedManyWithoutCreatorInput
-    session_enrollments?: session_enrollmentsCreateNestedManyWithoutUserInput
-    created_services?: servicesCreateNestedManyWithoutCreatorInput
-    service_bookings?: service_bookingsCreateNestedManyWithoutUserInput
-    service_reviews?: service_reviewsCreateNestedManyWithoutUserInput
-    subscriptions?: subscriptionsCreateNestedManyWithoutUsersInput
-    user_settings?: user_settingsCreateNestedOneWithoutUsersInput
-    poll_votes?: poll_votesCreateNestedManyWithoutVoterInput
-    poll_comments?: poll_commentsCreateNestedManyWithoutCommenterInput
+  export type usersUpsertWithoutSession_enrollmentsInput = {
+    update: XOR<usersUpdateWithoutSession_enrollmentsInput, usersUncheckedUpdateWithoutSession_enrollmentsInput>
+    create: XOR<usersCreateWithoutSession_enrollmentsInput, usersUncheckedCreateWithoutSession_enrollmentsInput>
+    where?: usersWhereInput
   }
 
-  export type usersUncheckedCreateWithoutCreated_pollsInput = {
-    id?: number
-    firebase_uid: string
-    email: string
-    role?: $Enums.user_role | null
-    first_name?: string | null
-    last_name?: string | null
-    is_active?: boolean | null
-    last_login?: Date | string | null
-    created_at?: Date | string | null
-    updated_at?: Date | string | null
-    display_name?: string | null
-    profile_data?: NullableJsonNullValueInput | InputJsonValue
-    role_specific_data?: NullableJsonNullValueInput | InputJsonValue
-    subscription_plan?: $Enums.subscription_plan | null
-    subscription_status?: $Enums.subscription_status | null
-    subscription_start_date?: Date | string | null
-    subscription_end_date?: Date | string | null
-    auto_renew?: boolean | null
-    chatbot_questions_used?: number | null
-    chatbot_questions_reset_date?: Date | string | null
-    QuizParticipants?: QuizParticipantsUncheckedCreateNestedManyWithoutUsersInput
-    Quizzes?: QuizzesUncheckedCreateNestedManyWithoutUsersInput
-    created_astronomy_events?: astronomy_eventsUncheckedCreateNestedManyWithoutCreatorInput
-    blog_comments?: blog_commentsUncheckedCreateNestedManyWithoutUsersInput
-    blog_likes?: blog_likesUncheckedCreateNestedManyWithoutUsersInput
-    blog_views?: blog_viewsUncheckedCreateNestedManyWithoutUsersInput
-    blogs?: blogsUncheckedCreateNestedManyWithoutUsersInput
-    chat_messages?: chat_messagesUncheckedCreateNestedManyWithoutUserInput
-    chatbot_sessions?: chatbot_sessionsUncheckedCreateNestedManyWithoutUsersInput
-    chatbot_usage?: chatbot_usageUncheckedCreateNestedManyWithoutUsersInput
-    event_reminders?: event_remindersUncheckedCreateNestedManyWithoutUserInput
-    created_groups?: group_chatsUncheckedCreateNestedManyWithoutCreatorInput
-    group_memberships?: group_membersUncheckedCreateNestedManyWithoutUserInput
-    guide_application?: guide_applicationUncheckedCreateNestedManyWithoutUsersInput
-    influencer_application?: influencer_applicationUncheckedCreateNestedManyWithoutUsersInput
-    media_uploads?: media_uploadsUncheckedCreateNestedManyWithoutUserInput
-    mentor_application?: mentor_applicationUncheckedCreateNestedManyWithoutUsersInput
-    message_reactions?: message_reactionsUncheckedCreateNestedManyWithoutUserInput
-    night_camp_registrations?: night_camp_registrationsUncheckedCreateNestedManyWithoutUsersInput
-    night_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousers?: night_camp_volunteering_applicationsUncheckedCreateNestedManyWithoutUsers_night_camp_volunteering_applications_reviewed_byTousersInput
-    night_camp_volunteering_applications_night_camp_volunteering_applications_user_idTousers?: night_camp_volunteering_applicationsUncheckedCreateNestedManyWithoutUsers_night_camp_volunteering_applications_user_idTousersInput
-    payments?: paymentsUncheckedCreateNestedManyWithoutUsersInput
-    role_upgrade_requests_role_upgrade_requests_reviewer_idTousers?: role_upgrade_requestsUncheckedCreateNestedManyWithoutUsers_role_upgrade_requests_reviewer_idTousersInput
-    role_upgrade_requests_role_upgrade_requests_user_idTousers?: role_upgrade_requestsUncheckedCreateNestedManyWithoutUsers_role_upgrade_requests_user_idTousersInput
-    discussion_comment_likes?: space_discussion_comment_likesUncheckedCreateNestedManyWithoutUserInput
-    discussion_comments?: space_discussion_commentsUncheckedCreateNestedManyWithoutUserInput
-    discussion_likes?: space_discussion_likesUncheckedCreateNestedManyWithoutUserInput
-    authored_discussions?: space_discussionsUncheckedCreateNestedManyWithoutAuthorInput
-    space_news_published?: space_newsUncheckedCreateNestedManyWithoutPublisherInput
-    space_news_comments?: space_news_commentsUncheckedCreateNestedManyWithoutUserInput
-    space_news_likes?: space_news_likesUncheckedCreateNestedManyWithoutUserInput
-    stargazing_spot_reviews?: stargazing_spot_reviewsUncheckedCreateNestedManyWithoutUserInput
-    created_stargazing_spots?: stargazing_spotsUncheckedCreateNestedManyWithoutCreatorInput
-    created_sessions?: sessionsUncheckedCreateNestedManyWithoutCreatorInput
-    session_enrollments?: session_enrollmentsUncheckedCreateNestedManyWithoutUserInput
-    created_services?: servicesUncheckedCreateNestedManyWithoutCreatorInput
-    service_bookings?: service_bookingsUncheckedCreateNestedManyWithoutUserInput
-    service_reviews?: service_reviewsUncheckedCreateNestedManyWithoutUserInput
-    subscriptions?: subscriptionsUncheckedCreateNestedManyWithoutUsersInput
-    user_settings?: user_settingsUncheckedCreateNestedOneWithoutUsersInput
-    poll_votes?: poll_votesUncheckedCreateNestedManyWithoutVoterInput
-    poll_comments?: poll_commentsUncheckedCreateNestedManyWithoutCommenterInput
+  export type usersUpdateToOneWithWhereWithoutSession_enrollmentsInput = {
+    where?: usersWhereInput
+    data: XOR<usersUpdateWithoutSession_enrollmentsInput, usersUncheckedUpdateWithoutSession_enrollmentsInput>
   }
 
-  export type usersCreateOrConnectWithoutCreated_pollsInput = {
-    where: usersWhereUniqueInput
-    create: XOR<usersCreateWithoutCreated_pollsInput, usersUncheckedCreateWithoutCreated_pollsInput>
+  export type usersUpdateWithoutSession_enrollmentsInput = {
+    firebase_uid?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    role?: NullableEnumuser_roleFieldUpdateOperationsInput | $Enums.user_role | null
+    first_name?: NullableStringFieldUpdateOperationsInput | string | null
+    last_name?: NullableStringFieldUpdateOperationsInput | string | null
+    is_active?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    last_login?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    display_name?: NullableStringFieldUpdateOperationsInput | string | null
+    profile_data?: NullableJsonNullValueInput | InputJsonValue
+    role_specific_data?: NullableJsonNullValueInput | InputJsonValue
+    subscription_plan?: NullableEnumsubscription_planFieldUpdateOperationsInput | $Enums.subscription_plan | null
+    subscription_status?: NullableEnumsubscription_statusFieldUpdateOperationsInput | $Enums.subscription_status | null
+    subscription_start_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    subscription_end_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    auto_renew?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    chatbot_questions_used?: NullableIntFieldUpdateOperationsInput | number | null
+    chatbot_questions_reset_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    QuizParticipants?: QuizParticipantsUpdateManyWithoutUsersNestedInput
+    Quizzes?: QuizzesUpdateManyWithoutUsersNestedInput
+    created_astronomy_events?: astronomy_eventsUpdateManyWithoutCreatorNestedInput
+    blog_comments?: blog_commentsUpdateManyWithoutUsersNestedInput
+    blog_likes?: blog_likesUpdateManyWithoutUsersNestedInput
+    blog_views?: blog_viewsUpdateManyWithoutUsersNestedInput
+    blogs?: blogsUpdateManyWithoutUsersNestedInput
+    chat_messages?: chat_messagesUpdateManyWithoutUserNestedInput
+    chatbot_sessions?: chatbot_sessionsUpdateManyWithoutUsersNestedInput
+    chatbot_usage?: chatbot_usageUpdateManyWithoutUsersNestedInput
+    event_reminders?: event_remindersUpdateManyWithoutUserNestedInput
+    created_groups?: group_chatsUpdateManyWithoutCreatorNestedInput
+    group_memberships?: group_membersUpdateManyWithoutUserNestedInput
+    guide_application?: guide_applicationUpdateManyWithoutUsersNestedInput
+    influencer_application?: influencer_applicationUpdateManyWithoutUsersNestedInput
+    media_uploads?: media_uploadsUpdateManyWithoutUserNestedInput
+    mentor_application?: mentor_applicationUpdateManyWithoutUsersNestedInput
+    message_reactions?: message_reactionsUpdateManyWithoutUserNestedInput
+    night_camp_registrations?: night_camp_registrationsUpdateManyWithoutUsersNestedInput
+    night_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousers?: night_camp_volunteering_applicationsUpdateManyWithoutUsers_night_camp_volunteering_applications_reviewed_byTousersNestedInput
+    night_camp_volunteering_applications_night_camp_volunteering_applications_user_idTousers?: night_camp_volunteering_applicationsUpdateManyWithoutUsers_night_camp_volunteering_applications_user_idTousersNestedInput
+    payments?: paymentsUpdateManyWithoutUsersNestedInput
+    poll_comments?: poll_commentsUpdateManyWithoutCommenterNestedInput
+    poll_votes?: poll_votesUpdateManyWithoutVoterNestedInput
+    created_polls?: pollsUpdateManyWithoutCreatorNestedInput
+    role_upgrade_requests_role_upgrade_requests_reviewer_idTousers?: role_upgrade_requestsUpdateManyWithoutUsers_role_upgrade_requests_reviewer_idTousersNestedInput
+    role_upgrade_requests_role_upgrade_requests_user_idTousers?: role_upgrade_requestsUpdateManyWithoutUsers_role_upgrade_requests_user_idTousersNestedInput
+    service_bookings?: service_bookingsUpdateManyWithoutUserNestedInput
+    service_reviews?: service_reviewsUpdateManyWithoutUserNestedInput
+    created_services?: servicesUpdateManyWithoutCreatorNestedInput
+    created_sessions?: sessionsUpdateManyWithoutCreatorNestedInput
+    discussion_comment_likes?: space_discussion_comment_likesUpdateManyWithoutUserNestedInput
+    discussion_comments?: space_discussion_commentsUpdateManyWithoutUserNestedInput
+    discussion_likes?: space_discussion_likesUpdateManyWithoutUserNestedInput
+    authored_discussions?: space_discussionsUpdateManyWithoutAuthorNestedInput
+    space_news_published?: space_newsUpdateManyWithoutPublisherNestedInput
+    space_news_comments?: space_news_commentsUpdateManyWithoutUserNestedInput
+    space_news_likes?: space_news_likesUpdateManyWithoutUserNestedInput
+    stargazing_spot_reviews?: stargazing_spot_reviewsUpdateManyWithoutUserNestedInput
+    created_stargazing_spots?: stargazing_spotsUpdateManyWithoutCreatorNestedInput
+    subscriptions?: subscriptionsUpdateManyWithoutUsersNestedInput
+    user_settings?: user_settingsUpdateOneWithoutUsersNestedInput
+  }
+
+  export type usersUncheckedUpdateWithoutSession_enrollmentsInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    firebase_uid?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    role?: NullableEnumuser_roleFieldUpdateOperationsInput | $Enums.user_role | null
+    first_name?: NullableStringFieldUpdateOperationsInput | string | null
+    last_name?: NullableStringFieldUpdateOperationsInput | string | null
+    is_active?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    last_login?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    display_name?: NullableStringFieldUpdateOperationsInput | string | null
+    profile_data?: NullableJsonNullValueInput | InputJsonValue
+    role_specific_data?: NullableJsonNullValueInput | InputJsonValue
+    subscription_plan?: NullableEnumsubscription_planFieldUpdateOperationsInput | $Enums.subscription_plan | null
+    subscription_status?: NullableEnumsubscription_statusFieldUpdateOperationsInput | $Enums.subscription_status | null
+    subscription_start_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    subscription_end_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    auto_renew?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    chatbot_questions_used?: NullableIntFieldUpdateOperationsInput | number | null
+    chatbot_questions_reset_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    QuizParticipants?: QuizParticipantsUncheckedUpdateManyWithoutUsersNestedInput
+    Quizzes?: QuizzesUncheckedUpdateManyWithoutUsersNestedInput
+    created_astronomy_events?: astronomy_eventsUncheckedUpdateManyWithoutCreatorNestedInput
+    blog_comments?: blog_commentsUncheckedUpdateManyWithoutUsersNestedInput
+    blog_likes?: blog_likesUncheckedUpdateManyWithoutUsersNestedInput
+    blog_views?: blog_viewsUncheckedUpdateManyWithoutUsersNestedInput
+    blogs?: blogsUncheckedUpdateManyWithoutUsersNestedInput
+    chat_messages?: chat_messagesUncheckedUpdateManyWithoutUserNestedInput
+    chatbot_sessions?: chatbot_sessionsUncheckedUpdateManyWithoutUsersNestedInput
+    chatbot_usage?: chatbot_usageUncheckedUpdateManyWithoutUsersNestedInput
+    event_reminders?: event_remindersUncheckedUpdateManyWithoutUserNestedInput
+    created_groups?: group_chatsUncheckedUpdateManyWithoutCreatorNestedInput
+    group_memberships?: group_membersUncheckedUpdateManyWithoutUserNestedInput
+    guide_application?: guide_applicationUncheckedUpdateManyWithoutUsersNestedInput
+    influencer_application?: influencer_applicationUncheckedUpdateManyWithoutUsersNestedInput
+    media_uploads?: media_uploadsUncheckedUpdateManyWithoutUserNestedInput
+    mentor_application?: mentor_applicationUncheckedUpdateManyWithoutUsersNestedInput
+    message_reactions?: message_reactionsUncheckedUpdateManyWithoutUserNestedInput
+    night_camp_registrations?: night_camp_registrationsUncheckedUpdateManyWithoutUsersNestedInput
+    night_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousers?: night_camp_volunteering_applicationsUncheckedUpdateManyWithoutUsers_night_camp_volunteering_applications_reviewed_byTousersNestedInput
+    night_camp_volunteering_applications_night_camp_volunteering_applications_user_idTousers?: night_camp_volunteering_applicationsUncheckedUpdateManyWithoutUsers_night_camp_volunteering_applications_user_idTousersNestedInput
+    payments?: paymentsUncheckedUpdateManyWithoutUsersNestedInput
+    poll_comments?: poll_commentsUncheckedUpdateManyWithoutCommenterNestedInput
+    poll_votes?: poll_votesUncheckedUpdateManyWithoutVoterNestedInput
+    created_polls?: pollsUncheckedUpdateManyWithoutCreatorNestedInput
+    role_upgrade_requests_role_upgrade_requests_reviewer_idTousers?: role_upgrade_requestsUncheckedUpdateManyWithoutUsers_role_upgrade_requests_reviewer_idTousersNestedInput
+    role_upgrade_requests_role_upgrade_requests_user_idTousers?: role_upgrade_requestsUncheckedUpdateManyWithoutUsers_role_upgrade_requests_user_idTousersNestedInput
+    service_bookings?: service_bookingsUncheckedUpdateManyWithoutUserNestedInput
+    service_reviews?: service_reviewsUncheckedUpdateManyWithoutUserNestedInput
+    created_services?: servicesUncheckedUpdateManyWithoutCreatorNestedInput
+    created_sessions?: sessionsUncheckedUpdateManyWithoutCreatorNestedInput
+    discussion_comment_likes?: space_discussion_comment_likesUncheckedUpdateManyWithoutUserNestedInput
+    discussion_comments?: space_discussion_commentsUncheckedUpdateManyWithoutUserNestedInput
+    discussion_likes?: space_discussion_likesUncheckedUpdateManyWithoutUserNestedInput
+    authored_discussions?: space_discussionsUncheckedUpdateManyWithoutAuthorNestedInput
+    space_news_published?: space_newsUncheckedUpdateManyWithoutPublisherNestedInput
+    space_news_comments?: space_news_commentsUncheckedUpdateManyWithoutUserNestedInput
+    space_news_likes?: space_news_likesUncheckedUpdateManyWithoutUserNestedInput
+    stargazing_spot_reviews?: stargazing_spot_reviewsUncheckedUpdateManyWithoutUserNestedInput
+    created_stargazing_spots?: stargazing_spotsUncheckedUpdateManyWithoutCreatorNestedInput
+    subscriptions?: subscriptionsUncheckedUpdateManyWithoutUsersNestedInput
+    user_settings?: user_settingsUncheckedUpdateOneWithoutUsersNestedInput
   }
 
   export type poll_choicesCreateWithoutPollInput = {
@@ -118488,6 +118354,183 @@ export namespace Prisma {
   export type poll_commentsCreateManyPollInputEnvelope = {
     data: poll_commentsCreateManyPollInput | poll_commentsCreateManyPollInput[]
     skipDuplicates?: boolean
+  }
+
+  export type usersCreateWithoutCreated_pollsInput = {
+    firebase_uid: string
+    email: string
+    role?: $Enums.user_role | null
+    first_name?: string | null
+    last_name?: string | null
+    is_active?: boolean | null
+    last_login?: Date | string | null
+    created_at?: Date | string | null
+    updated_at?: Date | string | null
+    display_name?: string | null
+    profile_data?: NullableJsonNullValueInput | InputJsonValue
+    role_specific_data?: NullableJsonNullValueInput | InputJsonValue
+    subscription_plan?: $Enums.subscription_plan | null
+    subscription_status?: $Enums.subscription_status | null
+    subscription_start_date?: Date | string | null
+    subscription_end_date?: Date | string | null
+    auto_renew?: boolean | null
+    chatbot_questions_used?: number | null
+    chatbot_questions_reset_date?: Date | string | null
+    QuizParticipants?: QuizParticipantsCreateNestedManyWithoutUsersInput
+    Quizzes?: QuizzesCreateNestedManyWithoutUsersInput
+    created_astronomy_events?: astronomy_eventsCreateNestedManyWithoutCreatorInput
+    blog_comments?: blog_commentsCreateNestedManyWithoutUsersInput
+    blog_likes?: blog_likesCreateNestedManyWithoutUsersInput
+    blog_views?: blog_viewsCreateNestedManyWithoutUsersInput
+    blogs?: blogsCreateNestedManyWithoutUsersInput
+    chat_messages?: chat_messagesCreateNestedManyWithoutUserInput
+    chatbot_sessions?: chatbot_sessionsCreateNestedManyWithoutUsersInput
+    chatbot_usage?: chatbot_usageCreateNestedManyWithoutUsersInput
+    event_reminders?: event_remindersCreateNestedManyWithoutUserInput
+    created_groups?: group_chatsCreateNestedManyWithoutCreatorInput
+    group_memberships?: group_membersCreateNestedManyWithoutUserInput
+    guide_application?: guide_applicationCreateNestedManyWithoutUsersInput
+    influencer_application?: influencer_applicationCreateNestedManyWithoutUsersInput
+    media_uploads?: media_uploadsCreateNestedManyWithoutUserInput
+    mentor_application?: mentor_applicationCreateNestedManyWithoutUsersInput
+    message_reactions?: message_reactionsCreateNestedManyWithoutUserInput
+    night_camp_registrations?: night_camp_registrationsCreateNestedManyWithoutUsersInput
+    night_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousers?: night_camp_volunteering_applicationsCreateNestedManyWithoutUsers_night_camp_volunteering_applications_reviewed_byTousersInput
+    night_camp_volunteering_applications_night_camp_volunteering_applications_user_idTousers?: night_camp_volunteering_applicationsCreateNestedManyWithoutUsers_night_camp_volunteering_applications_user_idTousersInput
+    payments?: paymentsCreateNestedManyWithoutUsersInput
+    poll_comments?: poll_commentsCreateNestedManyWithoutCommenterInput
+    poll_votes?: poll_votesCreateNestedManyWithoutVoterInput
+    role_upgrade_requests_role_upgrade_requests_reviewer_idTousers?: role_upgrade_requestsCreateNestedManyWithoutUsers_role_upgrade_requests_reviewer_idTousersInput
+    role_upgrade_requests_role_upgrade_requests_user_idTousers?: role_upgrade_requestsCreateNestedManyWithoutUsers_role_upgrade_requests_user_idTousersInput
+    service_bookings?: service_bookingsCreateNestedManyWithoutUserInput
+    service_reviews?: service_reviewsCreateNestedManyWithoutUserInput
+    created_services?: servicesCreateNestedManyWithoutCreatorInput
+    session_enrollments?: session_enrollmentsCreateNestedManyWithoutUserInput
+    created_sessions?: sessionsCreateNestedManyWithoutCreatorInput
+    discussion_comment_likes?: space_discussion_comment_likesCreateNestedManyWithoutUserInput
+    discussion_comments?: space_discussion_commentsCreateNestedManyWithoutUserInput
+    discussion_likes?: space_discussion_likesCreateNestedManyWithoutUserInput
+    authored_discussions?: space_discussionsCreateNestedManyWithoutAuthorInput
+    space_news_published?: space_newsCreateNestedManyWithoutPublisherInput
+    space_news_comments?: space_news_commentsCreateNestedManyWithoutUserInput
+    space_news_likes?: space_news_likesCreateNestedManyWithoutUserInput
+    stargazing_spot_reviews?: stargazing_spot_reviewsCreateNestedManyWithoutUserInput
+    created_stargazing_spots?: stargazing_spotsCreateNestedManyWithoutCreatorInput
+    subscriptions?: subscriptionsCreateNestedManyWithoutUsersInput
+    user_settings?: user_settingsCreateNestedOneWithoutUsersInput
+  }
+
+  export type usersUncheckedCreateWithoutCreated_pollsInput = {
+    id?: number
+    firebase_uid: string
+    email: string
+    role?: $Enums.user_role | null
+    first_name?: string | null
+    last_name?: string | null
+    is_active?: boolean | null
+    last_login?: Date | string | null
+    created_at?: Date | string | null
+    updated_at?: Date | string | null
+    display_name?: string | null
+    profile_data?: NullableJsonNullValueInput | InputJsonValue
+    role_specific_data?: NullableJsonNullValueInput | InputJsonValue
+    subscription_plan?: $Enums.subscription_plan | null
+    subscription_status?: $Enums.subscription_status | null
+    subscription_start_date?: Date | string | null
+    subscription_end_date?: Date | string | null
+    auto_renew?: boolean | null
+    chatbot_questions_used?: number | null
+    chatbot_questions_reset_date?: Date | string | null
+    QuizParticipants?: QuizParticipantsUncheckedCreateNestedManyWithoutUsersInput
+    Quizzes?: QuizzesUncheckedCreateNestedManyWithoutUsersInput
+    created_astronomy_events?: astronomy_eventsUncheckedCreateNestedManyWithoutCreatorInput
+    blog_comments?: blog_commentsUncheckedCreateNestedManyWithoutUsersInput
+    blog_likes?: blog_likesUncheckedCreateNestedManyWithoutUsersInput
+    blog_views?: blog_viewsUncheckedCreateNestedManyWithoutUsersInput
+    blogs?: blogsUncheckedCreateNestedManyWithoutUsersInput
+    chat_messages?: chat_messagesUncheckedCreateNestedManyWithoutUserInput
+    chatbot_sessions?: chatbot_sessionsUncheckedCreateNestedManyWithoutUsersInput
+    chatbot_usage?: chatbot_usageUncheckedCreateNestedManyWithoutUsersInput
+    event_reminders?: event_remindersUncheckedCreateNestedManyWithoutUserInput
+    created_groups?: group_chatsUncheckedCreateNestedManyWithoutCreatorInput
+    group_memberships?: group_membersUncheckedCreateNestedManyWithoutUserInput
+    guide_application?: guide_applicationUncheckedCreateNestedManyWithoutUsersInput
+    influencer_application?: influencer_applicationUncheckedCreateNestedManyWithoutUsersInput
+    media_uploads?: media_uploadsUncheckedCreateNestedManyWithoutUserInput
+    mentor_application?: mentor_applicationUncheckedCreateNestedManyWithoutUsersInput
+    message_reactions?: message_reactionsUncheckedCreateNestedManyWithoutUserInput
+    night_camp_registrations?: night_camp_registrationsUncheckedCreateNestedManyWithoutUsersInput
+    night_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousers?: night_camp_volunteering_applicationsUncheckedCreateNestedManyWithoutUsers_night_camp_volunteering_applications_reviewed_byTousersInput
+    night_camp_volunteering_applications_night_camp_volunteering_applications_user_idTousers?: night_camp_volunteering_applicationsUncheckedCreateNestedManyWithoutUsers_night_camp_volunteering_applications_user_idTousersInput
+    payments?: paymentsUncheckedCreateNestedManyWithoutUsersInput
+    poll_comments?: poll_commentsUncheckedCreateNestedManyWithoutCommenterInput
+    poll_votes?: poll_votesUncheckedCreateNestedManyWithoutVoterInput
+    role_upgrade_requests_role_upgrade_requests_reviewer_idTousers?: role_upgrade_requestsUncheckedCreateNestedManyWithoutUsers_role_upgrade_requests_reviewer_idTousersInput
+    role_upgrade_requests_role_upgrade_requests_user_idTousers?: role_upgrade_requestsUncheckedCreateNestedManyWithoutUsers_role_upgrade_requests_user_idTousersInput
+    service_bookings?: service_bookingsUncheckedCreateNestedManyWithoutUserInput
+    service_reviews?: service_reviewsUncheckedCreateNestedManyWithoutUserInput
+    created_services?: servicesUncheckedCreateNestedManyWithoutCreatorInput
+    session_enrollments?: session_enrollmentsUncheckedCreateNestedManyWithoutUserInput
+    created_sessions?: sessionsUncheckedCreateNestedManyWithoutCreatorInput
+    discussion_comment_likes?: space_discussion_comment_likesUncheckedCreateNestedManyWithoutUserInput
+    discussion_comments?: space_discussion_commentsUncheckedCreateNestedManyWithoutUserInput
+    discussion_likes?: space_discussion_likesUncheckedCreateNestedManyWithoutUserInput
+    authored_discussions?: space_discussionsUncheckedCreateNestedManyWithoutAuthorInput
+    space_news_published?: space_newsUncheckedCreateNestedManyWithoutPublisherInput
+    space_news_comments?: space_news_commentsUncheckedCreateNestedManyWithoutUserInput
+    space_news_likes?: space_news_likesUncheckedCreateNestedManyWithoutUserInput
+    stargazing_spot_reviews?: stargazing_spot_reviewsUncheckedCreateNestedManyWithoutUserInput
+    created_stargazing_spots?: stargazing_spotsUncheckedCreateNestedManyWithoutCreatorInput
+    subscriptions?: subscriptionsUncheckedCreateNestedManyWithoutUsersInput
+    user_settings?: user_settingsUncheckedCreateNestedOneWithoutUsersInput
+  }
+
+  export type usersCreateOrConnectWithoutCreated_pollsInput = {
+    where: usersWhereUniqueInput
+    create: XOR<usersCreateWithoutCreated_pollsInput, usersUncheckedCreateWithoutCreated_pollsInput>
+  }
+
+  export type poll_choicesUpsertWithWhereUniqueWithoutPollInput = {
+    where: poll_choicesWhereUniqueInput
+    update: XOR<poll_choicesUpdateWithoutPollInput, poll_choicesUncheckedUpdateWithoutPollInput>
+    create: XOR<poll_choicesCreateWithoutPollInput, poll_choicesUncheckedCreateWithoutPollInput>
+  }
+
+  export type poll_choicesUpdateWithWhereUniqueWithoutPollInput = {
+    where: poll_choicesWhereUniqueInput
+    data: XOR<poll_choicesUpdateWithoutPollInput, poll_choicesUncheckedUpdateWithoutPollInput>
+  }
+
+  export type poll_choicesUpdateManyWithWhereWithoutPollInput = {
+    where: poll_choicesScalarWhereInput
+    data: XOR<poll_choicesUpdateManyMutationInput, poll_choicesUncheckedUpdateManyWithoutPollInput>
+  }
+
+  export type poll_choicesScalarWhereInput = {
+    AND?: poll_choicesScalarWhereInput | poll_choicesScalarWhereInput[]
+    OR?: poll_choicesScalarWhereInput[]
+    NOT?: poll_choicesScalarWhereInput | poll_choicesScalarWhereInput[]
+    id?: IntFilter<"poll_choices"> | number
+    poll_id?: IntFilter<"poll_choices"> | number
+    choice?: StringFilter<"poll_choices"> | string
+    vote_count?: IntFilter<"poll_choices"> | number
+    created_at?: DateTimeFilter<"poll_choices"> | Date | string
+  }
+
+  export type poll_commentsUpsertWithWhereUniqueWithoutPollInput = {
+    where: poll_commentsWhereUniqueInput
+    update: XOR<poll_commentsUpdateWithoutPollInput, poll_commentsUncheckedUpdateWithoutPollInput>
+    create: XOR<poll_commentsCreateWithoutPollInput, poll_commentsUncheckedCreateWithoutPollInput>
+  }
+
+  export type poll_commentsUpdateWithWhereUniqueWithoutPollInput = {
+    where: poll_commentsWhereUniqueInput
+    data: XOR<poll_commentsUpdateWithoutPollInput, poll_commentsUncheckedUpdateWithoutPollInput>
+  }
+
+  export type poll_commentsUpdateManyWithWhereWithoutPollInput = {
+    where: poll_commentsScalarWhereInput
+    data: XOR<poll_commentsUpdateManyMutationInput, poll_commentsUncheckedUpdateManyWithoutPollInput>
   }
 
   export type usersUpsertWithoutCreated_pollsInput = {
@@ -118543,8 +118586,15 @@ export namespace Prisma {
     night_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousers?: night_camp_volunteering_applicationsUpdateManyWithoutUsers_night_camp_volunteering_applications_reviewed_byTousersNestedInput
     night_camp_volunteering_applications_night_camp_volunteering_applications_user_idTousers?: night_camp_volunteering_applicationsUpdateManyWithoutUsers_night_camp_volunteering_applications_user_idTousersNestedInput
     payments?: paymentsUpdateManyWithoutUsersNestedInput
+    poll_comments?: poll_commentsUpdateManyWithoutCommenterNestedInput
+    poll_votes?: poll_votesUpdateManyWithoutVoterNestedInput
     role_upgrade_requests_role_upgrade_requests_reviewer_idTousers?: role_upgrade_requestsUpdateManyWithoutUsers_role_upgrade_requests_reviewer_idTousersNestedInput
     role_upgrade_requests_role_upgrade_requests_user_idTousers?: role_upgrade_requestsUpdateManyWithoutUsers_role_upgrade_requests_user_idTousersNestedInput
+    service_bookings?: service_bookingsUpdateManyWithoutUserNestedInput
+    service_reviews?: service_reviewsUpdateManyWithoutUserNestedInput
+    created_services?: servicesUpdateManyWithoutCreatorNestedInput
+    session_enrollments?: session_enrollmentsUpdateManyWithoutUserNestedInput
+    created_sessions?: sessionsUpdateManyWithoutCreatorNestedInput
     discussion_comment_likes?: space_discussion_comment_likesUpdateManyWithoutUserNestedInput
     discussion_comments?: space_discussion_commentsUpdateManyWithoutUserNestedInput
     discussion_likes?: space_discussion_likesUpdateManyWithoutUserNestedInput
@@ -118554,15 +118604,8 @@ export namespace Prisma {
     space_news_likes?: space_news_likesUpdateManyWithoutUserNestedInput
     stargazing_spot_reviews?: stargazing_spot_reviewsUpdateManyWithoutUserNestedInput
     created_stargazing_spots?: stargazing_spotsUpdateManyWithoutCreatorNestedInput
-    created_sessions?: sessionsUpdateManyWithoutCreatorNestedInput
-    session_enrollments?: session_enrollmentsUpdateManyWithoutUserNestedInput
-    created_services?: servicesUpdateManyWithoutCreatorNestedInput
-    service_bookings?: service_bookingsUpdateManyWithoutUserNestedInput
-    service_reviews?: service_reviewsUpdateManyWithoutUserNestedInput
     subscriptions?: subscriptionsUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUpdateOneWithoutUsersNestedInput
-    poll_votes?: poll_votesUpdateManyWithoutVoterNestedInput
-    poll_comments?: poll_commentsUpdateManyWithoutCommenterNestedInput
   }
 
   export type usersUncheckedUpdateWithoutCreated_pollsInput = {
@@ -118608,8 +118651,15 @@ export namespace Prisma {
     night_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousers?: night_camp_volunteering_applicationsUncheckedUpdateManyWithoutUsers_night_camp_volunteering_applications_reviewed_byTousersNestedInput
     night_camp_volunteering_applications_night_camp_volunteering_applications_user_idTousers?: night_camp_volunteering_applicationsUncheckedUpdateManyWithoutUsers_night_camp_volunteering_applications_user_idTousersNestedInput
     payments?: paymentsUncheckedUpdateManyWithoutUsersNestedInput
+    poll_comments?: poll_commentsUncheckedUpdateManyWithoutCommenterNestedInput
+    poll_votes?: poll_votesUncheckedUpdateManyWithoutVoterNestedInput
     role_upgrade_requests_role_upgrade_requests_reviewer_idTousers?: role_upgrade_requestsUncheckedUpdateManyWithoutUsers_role_upgrade_requests_reviewer_idTousersNestedInput
     role_upgrade_requests_role_upgrade_requests_user_idTousers?: role_upgrade_requestsUncheckedUpdateManyWithoutUsers_role_upgrade_requests_user_idTousersNestedInput
+    service_bookings?: service_bookingsUncheckedUpdateManyWithoutUserNestedInput
+    service_reviews?: service_reviewsUncheckedUpdateManyWithoutUserNestedInput
+    created_services?: servicesUncheckedUpdateManyWithoutCreatorNestedInput
+    session_enrollments?: session_enrollmentsUncheckedUpdateManyWithoutUserNestedInput
+    created_sessions?: sessionsUncheckedUpdateManyWithoutCreatorNestedInput
     discussion_comment_likes?: space_discussion_comment_likesUncheckedUpdateManyWithoutUserNestedInput
     discussion_comments?: space_discussion_commentsUncheckedUpdateManyWithoutUserNestedInput
     discussion_likes?: space_discussion_likesUncheckedUpdateManyWithoutUserNestedInput
@@ -118619,58 +118669,8 @@ export namespace Prisma {
     space_news_likes?: space_news_likesUncheckedUpdateManyWithoutUserNestedInput
     stargazing_spot_reviews?: stargazing_spot_reviewsUncheckedUpdateManyWithoutUserNestedInput
     created_stargazing_spots?: stargazing_spotsUncheckedUpdateManyWithoutCreatorNestedInput
-    created_sessions?: sessionsUncheckedUpdateManyWithoutCreatorNestedInput
-    session_enrollments?: session_enrollmentsUncheckedUpdateManyWithoutUserNestedInput
-    created_services?: servicesUncheckedUpdateManyWithoutCreatorNestedInput
-    service_bookings?: service_bookingsUncheckedUpdateManyWithoutUserNestedInput
-    service_reviews?: service_reviewsUncheckedUpdateManyWithoutUserNestedInput
     subscriptions?: subscriptionsUncheckedUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUncheckedUpdateOneWithoutUsersNestedInput
-    poll_votes?: poll_votesUncheckedUpdateManyWithoutVoterNestedInput
-    poll_comments?: poll_commentsUncheckedUpdateManyWithoutCommenterNestedInput
-  }
-
-  export type poll_choicesUpsertWithWhereUniqueWithoutPollInput = {
-    where: poll_choicesWhereUniqueInput
-    update: XOR<poll_choicesUpdateWithoutPollInput, poll_choicesUncheckedUpdateWithoutPollInput>
-    create: XOR<poll_choicesCreateWithoutPollInput, poll_choicesUncheckedCreateWithoutPollInput>
-  }
-
-  export type poll_choicesUpdateWithWhereUniqueWithoutPollInput = {
-    where: poll_choicesWhereUniqueInput
-    data: XOR<poll_choicesUpdateWithoutPollInput, poll_choicesUncheckedUpdateWithoutPollInput>
-  }
-
-  export type poll_choicesUpdateManyWithWhereWithoutPollInput = {
-    where: poll_choicesScalarWhereInput
-    data: XOR<poll_choicesUpdateManyMutationInput, poll_choicesUncheckedUpdateManyWithoutPollInput>
-  }
-
-  export type poll_choicesScalarWhereInput = {
-    AND?: poll_choicesScalarWhereInput | poll_choicesScalarWhereInput[]
-    OR?: poll_choicesScalarWhereInput[]
-    NOT?: poll_choicesScalarWhereInput | poll_choicesScalarWhereInput[]
-    id?: IntFilter<"poll_choices"> | number
-    poll_id?: IntFilter<"poll_choices"> | number
-    choice?: StringFilter<"poll_choices"> | string
-    vote_count?: IntFilter<"poll_choices"> | number
-    created_at?: DateTimeFilter<"poll_choices"> | Date | string
-  }
-
-  export type poll_commentsUpsertWithWhereUniqueWithoutPollInput = {
-    where: poll_commentsWhereUniqueInput
-    update: XOR<poll_commentsUpdateWithoutPollInput, poll_commentsUncheckedUpdateWithoutPollInput>
-    create: XOR<poll_commentsCreateWithoutPollInput, poll_commentsUncheckedCreateWithoutPollInput>
-  }
-
-  export type poll_commentsUpdateWithWhereUniqueWithoutPollInput = {
-    where: poll_commentsWhereUniqueInput
-    data: XOR<poll_commentsUpdateWithoutPollInput, poll_commentsUncheckedUpdateWithoutPollInput>
-  }
-
-  export type poll_commentsUpdateManyWithWhereWithoutPollInput = {
-    where: poll_commentsScalarWhereInput
-    data: XOR<poll_commentsUpdateManyMutationInput, poll_commentsUncheckedUpdateManyWithoutPollInput>
   }
 
   export type pollsCreateWithoutChoicesInput = {
@@ -118679,8 +118679,8 @@ export namespace Prisma {
     created_at?: Date | string
     updated_at?: Date | string
     is_active?: boolean
-    creator: usersCreateNestedOneWithoutCreated_pollsInput
     comments?: poll_commentsCreateNestedManyWithoutPollInput
+    creator: usersCreateNestedOneWithoutCreated_pollsInput
   }
 
   export type pollsUncheckedCreateWithoutChoicesInput = {
@@ -118739,8 +118739,8 @@ export namespace Prisma {
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     is_active?: BoolFieldUpdateOperationsInput | boolean
-    creator?: usersUpdateOneRequiredWithoutCreated_pollsNestedInput
     comments?: poll_commentsUpdateManyWithoutPollNestedInput
+    creator?: usersUpdateOneRequiredWithoutCreated_pollsNestedInput
   }
 
   export type pollsUncheckedUpdateWithoutChoicesInput = {
@@ -118832,8 +118832,15 @@ export namespace Prisma {
     night_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousers?: night_camp_volunteering_applicationsCreateNestedManyWithoutUsers_night_camp_volunteering_applications_reviewed_byTousersInput
     night_camp_volunteering_applications_night_camp_volunteering_applications_user_idTousers?: night_camp_volunteering_applicationsCreateNestedManyWithoutUsers_night_camp_volunteering_applications_user_idTousersInput
     payments?: paymentsCreateNestedManyWithoutUsersInput
+    poll_comments?: poll_commentsCreateNestedManyWithoutCommenterInput
+    created_polls?: pollsCreateNestedManyWithoutCreatorInput
     role_upgrade_requests_role_upgrade_requests_reviewer_idTousers?: role_upgrade_requestsCreateNestedManyWithoutUsers_role_upgrade_requests_reviewer_idTousersInput
     role_upgrade_requests_role_upgrade_requests_user_idTousers?: role_upgrade_requestsCreateNestedManyWithoutUsers_role_upgrade_requests_user_idTousersInput
+    service_bookings?: service_bookingsCreateNestedManyWithoutUserInput
+    service_reviews?: service_reviewsCreateNestedManyWithoutUserInput
+    created_services?: servicesCreateNestedManyWithoutCreatorInput
+    session_enrollments?: session_enrollmentsCreateNestedManyWithoutUserInput
+    created_sessions?: sessionsCreateNestedManyWithoutCreatorInput
     discussion_comment_likes?: space_discussion_comment_likesCreateNestedManyWithoutUserInput
     discussion_comments?: space_discussion_commentsCreateNestedManyWithoutUserInput
     discussion_likes?: space_discussion_likesCreateNestedManyWithoutUserInput
@@ -118843,15 +118850,8 @@ export namespace Prisma {
     space_news_likes?: space_news_likesCreateNestedManyWithoutUserInput
     stargazing_spot_reviews?: stargazing_spot_reviewsCreateNestedManyWithoutUserInput
     created_stargazing_spots?: stargazing_spotsCreateNestedManyWithoutCreatorInput
-    created_sessions?: sessionsCreateNestedManyWithoutCreatorInput
-    session_enrollments?: session_enrollmentsCreateNestedManyWithoutUserInput
-    created_services?: servicesCreateNestedManyWithoutCreatorInput
-    service_bookings?: service_bookingsCreateNestedManyWithoutUserInput
-    service_reviews?: service_reviewsCreateNestedManyWithoutUserInput
     subscriptions?: subscriptionsCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsCreateNestedOneWithoutUsersInput
-    created_polls?: pollsCreateNestedManyWithoutCreatorInput
-    poll_comments?: poll_commentsCreateNestedManyWithoutCommenterInput
   }
 
   export type usersUncheckedCreateWithoutPoll_votesInput = {
@@ -118897,8 +118897,15 @@ export namespace Prisma {
     night_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousers?: night_camp_volunteering_applicationsUncheckedCreateNestedManyWithoutUsers_night_camp_volunteering_applications_reviewed_byTousersInput
     night_camp_volunteering_applications_night_camp_volunteering_applications_user_idTousers?: night_camp_volunteering_applicationsUncheckedCreateNestedManyWithoutUsers_night_camp_volunteering_applications_user_idTousersInput
     payments?: paymentsUncheckedCreateNestedManyWithoutUsersInput
+    poll_comments?: poll_commentsUncheckedCreateNestedManyWithoutCommenterInput
+    created_polls?: pollsUncheckedCreateNestedManyWithoutCreatorInput
     role_upgrade_requests_role_upgrade_requests_reviewer_idTousers?: role_upgrade_requestsUncheckedCreateNestedManyWithoutUsers_role_upgrade_requests_reviewer_idTousersInput
     role_upgrade_requests_role_upgrade_requests_user_idTousers?: role_upgrade_requestsUncheckedCreateNestedManyWithoutUsers_role_upgrade_requests_user_idTousersInput
+    service_bookings?: service_bookingsUncheckedCreateNestedManyWithoutUserInput
+    service_reviews?: service_reviewsUncheckedCreateNestedManyWithoutUserInput
+    created_services?: servicesUncheckedCreateNestedManyWithoutCreatorInput
+    session_enrollments?: session_enrollmentsUncheckedCreateNestedManyWithoutUserInput
+    created_sessions?: sessionsUncheckedCreateNestedManyWithoutCreatorInput
     discussion_comment_likes?: space_discussion_comment_likesUncheckedCreateNestedManyWithoutUserInput
     discussion_comments?: space_discussion_commentsUncheckedCreateNestedManyWithoutUserInput
     discussion_likes?: space_discussion_likesUncheckedCreateNestedManyWithoutUserInput
@@ -118908,15 +118915,8 @@ export namespace Prisma {
     space_news_likes?: space_news_likesUncheckedCreateNestedManyWithoutUserInput
     stargazing_spot_reviews?: stargazing_spot_reviewsUncheckedCreateNestedManyWithoutUserInput
     created_stargazing_spots?: stargazing_spotsUncheckedCreateNestedManyWithoutCreatorInput
-    created_sessions?: sessionsUncheckedCreateNestedManyWithoutCreatorInput
-    session_enrollments?: session_enrollmentsUncheckedCreateNestedManyWithoutUserInput
-    created_services?: servicesUncheckedCreateNestedManyWithoutCreatorInput
-    service_bookings?: service_bookingsUncheckedCreateNestedManyWithoutUserInput
-    service_reviews?: service_reviewsUncheckedCreateNestedManyWithoutUserInput
     subscriptions?: subscriptionsUncheckedCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsUncheckedCreateNestedOneWithoutUsersInput
-    created_polls?: pollsUncheckedCreateNestedManyWithoutCreatorInput
-    poll_comments?: poll_commentsUncheckedCreateNestedManyWithoutCommenterInput
   }
 
   export type usersCreateOrConnectWithoutPoll_votesInput = {
@@ -119003,8 +119003,15 @@ export namespace Prisma {
     night_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousers?: night_camp_volunteering_applicationsUpdateManyWithoutUsers_night_camp_volunteering_applications_reviewed_byTousersNestedInput
     night_camp_volunteering_applications_night_camp_volunteering_applications_user_idTousers?: night_camp_volunteering_applicationsUpdateManyWithoutUsers_night_camp_volunteering_applications_user_idTousersNestedInput
     payments?: paymentsUpdateManyWithoutUsersNestedInput
+    poll_comments?: poll_commentsUpdateManyWithoutCommenterNestedInput
+    created_polls?: pollsUpdateManyWithoutCreatorNestedInput
     role_upgrade_requests_role_upgrade_requests_reviewer_idTousers?: role_upgrade_requestsUpdateManyWithoutUsers_role_upgrade_requests_reviewer_idTousersNestedInput
     role_upgrade_requests_role_upgrade_requests_user_idTousers?: role_upgrade_requestsUpdateManyWithoutUsers_role_upgrade_requests_user_idTousersNestedInput
+    service_bookings?: service_bookingsUpdateManyWithoutUserNestedInput
+    service_reviews?: service_reviewsUpdateManyWithoutUserNestedInput
+    created_services?: servicesUpdateManyWithoutCreatorNestedInput
+    session_enrollments?: session_enrollmentsUpdateManyWithoutUserNestedInput
+    created_sessions?: sessionsUpdateManyWithoutCreatorNestedInput
     discussion_comment_likes?: space_discussion_comment_likesUpdateManyWithoutUserNestedInput
     discussion_comments?: space_discussion_commentsUpdateManyWithoutUserNestedInput
     discussion_likes?: space_discussion_likesUpdateManyWithoutUserNestedInput
@@ -119014,15 +119021,8 @@ export namespace Prisma {
     space_news_likes?: space_news_likesUpdateManyWithoutUserNestedInput
     stargazing_spot_reviews?: stargazing_spot_reviewsUpdateManyWithoutUserNestedInput
     created_stargazing_spots?: stargazing_spotsUpdateManyWithoutCreatorNestedInput
-    created_sessions?: sessionsUpdateManyWithoutCreatorNestedInput
-    session_enrollments?: session_enrollmentsUpdateManyWithoutUserNestedInput
-    created_services?: servicesUpdateManyWithoutCreatorNestedInput
-    service_bookings?: service_bookingsUpdateManyWithoutUserNestedInput
-    service_reviews?: service_reviewsUpdateManyWithoutUserNestedInput
     subscriptions?: subscriptionsUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUpdateOneWithoutUsersNestedInput
-    created_polls?: pollsUpdateManyWithoutCreatorNestedInput
-    poll_comments?: poll_commentsUpdateManyWithoutCommenterNestedInput
   }
 
   export type usersUncheckedUpdateWithoutPoll_votesInput = {
@@ -119068,8 +119068,15 @@ export namespace Prisma {
     night_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousers?: night_camp_volunteering_applicationsUncheckedUpdateManyWithoutUsers_night_camp_volunteering_applications_reviewed_byTousersNestedInput
     night_camp_volunteering_applications_night_camp_volunteering_applications_user_idTousers?: night_camp_volunteering_applicationsUncheckedUpdateManyWithoutUsers_night_camp_volunteering_applications_user_idTousersNestedInput
     payments?: paymentsUncheckedUpdateManyWithoutUsersNestedInput
+    poll_comments?: poll_commentsUncheckedUpdateManyWithoutCommenterNestedInput
+    created_polls?: pollsUncheckedUpdateManyWithoutCreatorNestedInput
     role_upgrade_requests_role_upgrade_requests_reviewer_idTousers?: role_upgrade_requestsUncheckedUpdateManyWithoutUsers_role_upgrade_requests_reviewer_idTousersNestedInput
     role_upgrade_requests_role_upgrade_requests_user_idTousers?: role_upgrade_requestsUncheckedUpdateManyWithoutUsers_role_upgrade_requests_user_idTousersNestedInput
+    service_bookings?: service_bookingsUncheckedUpdateManyWithoutUserNestedInput
+    service_reviews?: service_reviewsUncheckedUpdateManyWithoutUserNestedInput
+    created_services?: servicesUncheckedUpdateManyWithoutCreatorNestedInput
+    session_enrollments?: session_enrollmentsUncheckedUpdateManyWithoutUserNestedInput
+    created_sessions?: sessionsUncheckedUpdateManyWithoutCreatorNestedInput
     discussion_comment_likes?: space_discussion_comment_likesUncheckedUpdateManyWithoutUserNestedInput
     discussion_comments?: space_discussion_commentsUncheckedUpdateManyWithoutUserNestedInput
     discussion_likes?: space_discussion_likesUncheckedUpdateManyWithoutUserNestedInput
@@ -119079,15 +119086,8 @@ export namespace Prisma {
     space_news_likes?: space_news_likesUncheckedUpdateManyWithoutUserNestedInput
     stargazing_spot_reviews?: stargazing_spot_reviewsUncheckedUpdateManyWithoutUserNestedInput
     created_stargazing_spots?: stargazing_spotsUncheckedUpdateManyWithoutCreatorNestedInput
-    created_sessions?: sessionsUncheckedUpdateManyWithoutCreatorNestedInput
-    session_enrollments?: session_enrollmentsUncheckedUpdateManyWithoutUserNestedInput
-    created_services?: servicesUncheckedUpdateManyWithoutCreatorNestedInput
-    service_bookings?: service_bookingsUncheckedUpdateManyWithoutUserNestedInput
-    service_reviews?: service_reviewsUncheckedUpdateManyWithoutUserNestedInput
     subscriptions?: subscriptionsUncheckedUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUncheckedUpdateOneWithoutUsersNestedInput
-    created_polls?: pollsUncheckedUpdateManyWithoutCreatorNestedInput
-    poll_comments?: poll_commentsUncheckedUpdateManyWithoutCommenterNestedInput
   }
 
   export type pollsCreateWithoutCommentsInput = {
@@ -119096,8 +119096,8 @@ export namespace Prisma {
     created_at?: Date | string
     updated_at?: Date | string
     is_active?: boolean
-    creator: usersCreateNestedOneWithoutCreated_pollsInput
     choices?: poll_choicesCreateNestedManyWithoutPollInput
+    creator: usersCreateNestedOneWithoutCreated_pollsInput
   }
 
   export type pollsUncheckedCreateWithoutCommentsInput = {
@@ -119158,8 +119158,15 @@ export namespace Prisma {
     night_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousers?: night_camp_volunteering_applicationsCreateNestedManyWithoutUsers_night_camp_volunteering_applications_reviewed_byTousersInput
     night_camp_volunteering_applications_night_camp_volunteering_applications_user_idTousers?: night_camp_volunteering_applicationsCreateNestedManyWithoutUsers_night_camp_volunteering_applications_user_idTousersInput
     payments?: paymentsCreateNestedManyWithoutUsersInput
+    poll_votes?: poll_votesCreateNestedManyWithoutVoterInput
+    created_polls?: pollsCreateNestedManyWithoutCreatorInput
     role_upgrade_requests_role_upgrade_requests_reviewer_idTousers?: role_upgrade_requestsCreateNestedManyWithoutUsers_role_upgrade_requests_reviewer_idTousersInput
     role_upgrade_requests_role_upgrade_requests_user_idTousers?: role_upgrade_requestsCreateNestedManyWithoutUsers_role_upgrade_requests_user_idTousersInput
+    service_bookings?: service_bookingsCreateNestedManyWithoutUserInput
+    service_reviews?: service_reviewsCreateNestedManyWithoutUserInput
+    created_services?: servicesCreateNestedManyWithoutCreatorInput
+    session_enrollments?: session_enrollmentsCreateNestedManyWithoutUserInput
+    created_sessions?: sessionsCreateNestedManyWithoutCreatorInput
     discussion_comment_likes?: space_discussion_comment_likesCreateNestedManyWithoutUserInput
     discussion_comments?: space_discussion_commentsCreateNestedManyWithoutUserInput
     discussion_likes?: space_discussion_likesCreateNestedManyWithoutUserInput
@@ -119169,15 +119176,8 @@ export namespace Prisma {
     space_news_likes?: space_news_likesCreateNestedManyWithoutUserInput
     stargazing_spot_reviews?: stargazing_spot_reviewsCreateNestedManyWithoutUserInput
     created_stargazing_spots?: stargazing_spotsCreateNestedManyWithoutCreatorInput
-    created_sessions?: sessionsCreateNestedManyWithoutCreatorInput
-    session_enrollments?: session_enrollmentsCreateNestedManyWithoutUserInput
-    created_services?: servicesCreateNestedManyWithoutCreatorInput
-    service_bookings?: service_bookingsCreateNestedManyWithoutUserInput
-    service_reviews?: service_reviewsCreateNestedManyWithoutUserInput
     subscriptions?: subscriptionsCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsCreateNestedOneWithoutUsersInput
-    created_polls?: pollsCreateNestedManyWithoutCreatorInput
-    poll_votes?: poll_votesCreateNestedManyWithoutVoterInput
   }
 
   export type usersUncheckedCreateWithoutPoll_commentsInput = {
@@ -119223,8 +119223,15 @@ export namespace Prisma {
     night_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousers?: night_camp_volunteering_applicationsUncheckedCreateNestedManyWithoutUsers_night_camp_volunteering_applications_reviewed_byTousersInput
     night_camp_volunteering_applications_night_camp_volunteering_applications_user_idTousers?: night_camp_volunteering_applicationsUncheckedCreateNestedManyWithoutUsers_night_camp_volunteering_applications_user_idTousersInput
     payments?: paymentsUncheckedCreateNestedManyWithoutUsersInput
+    poll_votes?: poll_votesUncheckedCreateNestedManyWithoutVoterInput
+    created_polls?: pollsUncheckedCreateNestedManyWithoutCreatorInput
     role_upgrade_requests_role_upgrade_requests_reviewer_idTousers?: role_upgrade_requestsUncheckedCreateNestedManyWithoutUsers_role_upgrade_requests_reviewer_idTousersInput
     role_upgrade_requests_role_upgrade_requests_user_idTousers?: role_upgrade_requestsUncheckedCreateNestedManyWithoutUsers_role_upgrade_requests_user_idTousersInput
+    service_bookings?: service_bookingsUncheckedCreateNestedManyWithoutUserInput
+    service_reviews?: service_reviewsUncheckedCreateNestedManyWithoutUserInput
+    created_services?: servicesUncheckedCreateNestedManyWithoutCreatorInput
+    session_enrollments?: session_enrollmentsUncheckedCreateNestedManyWithoutUserInput
+    created_sessions?: sessionsUncheckedCreateNestedManyWithoutCreatorInput
     discussion_comment_likes?: space_discussion_comment_likesUncheckedCreateNestedManyWithoutUserInput
     discussion_comments?: space_discussion_commentsUncheckedCreateNestedManyWithoutUserInput
     discussion_likes?: space_discussion_likesUncheckedCreateNestedManyWithoutUserInput
@@ -119234,15 +119241,8 @@ export namespace Prisma {
     space_news_likes?: space_news_likesUncheckedCreateNestedManyWithoutUserInput
     stargazing_spot_reviews?: stargazing_spot_reviewsUncheckedCreateNestedManyWithoutUserInput
     created_stargazing_spots?: stargazing_spotsUncheckedCreateNestedManyWithoutCreatorInput
-    created_sessions?: sessionsUncheckedCreateNestedManyWithoutCreatorInput
-    session_enrollments?: session_enrollmentsUncheckedCreateNestedManyWithoutUserInput
-    created_services?: servicesUncheckedCreateNestedManyWithoutCreatorInput
-    service_bookings?: service_bookingsUncheckedCreateNestedManyWithoutUserInput
-    service_reviews?: service_reviewsUncheckedCreateNestedManyWithoutUserInput
     subscriptions?: subscriptionsUncheckedCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsUncheckedCreateNestedOneWithoutUsersInput
-    created_polls?: pollsUncheckedCreateNestedManyWithoutCreatorInput
-    poll_votes?: poll_votesUncheckedCreateNestedManyWithoutVoterInput
   }
 
   export type usersCreateOrConnectWithoutPoll_commentsInput = {
@@ -119267,8 +119267,8 @@ export namespace Prisma {
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     is_active?: BoolFieldUpdateOperationsInput | boolean
-    creator?: usersUpdateOneRequiredWithoutCreated_pollsNestedInput
     choices?: poll_choicesUpdateManyWithoutPollNestedInput
+    creator?: usersUpdateOneRequiredWithoutCreated_pollsNestedInput
   }
 
   export type pollsUncheckedUpdateWithoutCommentsInput = {
@@ -119335,8 +119335,15 @@ export namespace Prisma {
     night_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousers?: night_camp_volunteering_applicationsUpdateManyWithoutUsers_night_camp_volunteering_applications_reviewed_byTousersNestedInput
     night_camp_volunteering_applications_night_camp_volunteering_applications_user_idTousers?: night_camp_volunteering_applicationsUpdateManyWithoutUsers_night_camp_volunteering_applications_user_idTousersNestedInput
     payments?: paymentsUpdateManyWithoutUsersNestedInput
+    poll_votes?: poll_votesUpdateManyWithoutVoterNestedInput
+    created_polls?: pollsUpdateManyWithoutCreatorNestedInput
     role_upgrade_requests_role_upgrade_requests_reviewer_idTousers?: role_upgrade_requestsUpdateManyWithoutUsers_role_upgrade_requests_reviewer_idTousersNestedInput
     role_upgrade_requests_role_upgrade_requests_user_idTousers?: role_upgrade_requestsUpdateManyWithoutUsers_role_upgrade_requests_user_idTousersNestedInput
+    service_bookings?: service_bookingsUpdateManyWithoutUserNestedInput
+    service_reviews?: service_reviewsUpdateManyWithoutUserNestedInput
+    created_services?: servicesUpdateManyWithoutCreatorNestedInput
+    session_enrollments?: session_enrollmentsUpdateManyWithoutUserNestedInput
+    created_sessions?: sessionsUpdateManyWithoutCreatorNestedInput
     discussion_comment_likes?: space_discussion_comment_likesUpdateManyWithoutUserNestedInput
     discussion_comments?: space_discussion_commentsUpdateManyWithoutUserNestedInput
     discussion_likes?: space_discussion_likesUpdateManyWithoutUserNestedInput
@@ -119346,15 +119353,8 @@ export namespace Prisma {
     space_news_likes?: space_news_likesUpdateManyWithoutUserNestedInput
     stargazing_spot_reviews?: stargazing_spot_reviewsUpdateManyWithoutUserNestedInput
     created_stargazing_spots?: stargazing_spotsUpdateManyWithoutCreatorNestedInput
-    created_sessions?: sessionsUpdateManyWithoutCreatorNestedInput
-    session_enrollments?: session_enrollmentsUpdateManyWithoutUserNestedInput
-    created_services?: servicesUpdateManyWithoutCreatorNestedInput
-    service_bookings?: service_bookingsUpdateManyWithoutUserNestedInput
-    service_reviews?: service_reviewsUpdateManyWithoutUserNestedInput
     subscriptions?: subscriptionsUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUpdateOneWithoutUsersNestedInput
-    created_polls?: pollsUpdateManyWithoutCreatorNestedInput
-    poll_votes?: poll_votesUpdateManyWithoutVoterNestedInput
   }
 
   export type usersUncheckedUpdateWithoutPoll_commentsInput = {
@@ -119400,8 +119400,15 @@ export namespace Prisma {
     night_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousers?: night_camp_volunteering_applicationsUncheckedUpdateManyWithoutUsers_night_camp_volunteering_applications_reviewed_byTousersNestedInput
     night_camp_volunteering_applications_night_camp_volunteering_applications_user_idTousers?: night_camp_volunteering_applicationsUncheckedUpdateManyWithoutUsers_night_camp_volunteering_applications_user_idTousersNestedInput
     payments?: paymentsUncheckedUpdateManyWithoutUsersNestedInput
+    poll_votes?: poll_votesUncheckedUpdateManyWithoutVoterNestedInput
+    created_polls?: pollsUncheckedUpdateManyWithoutCreatorNestedInput
     role_upgrade_requests_role_upgrade_requests_reviewer_idTousers?: role_upgrade_requestsUncheckedUpdateManyWithoutUsers_role_upgrade_requests_reviewer_idTousersNestedInput
     role_upgrade_requests_role_upgrade_requests_user_idTousers?: role_upgrade_requestsUncheckedUpdateManyWithoutUsers_role_upgrade_requests_user_idTousersNestedInput
+    service_bookings?: service_bookingsUncheckedUpdateManyWithoutUserNestedInput
+    service_reviews?: service_reviewsUncheckedUpdateManyWithoutUserNestedInput
+    created_services?: servicesUncheckedUpdateManyWithoutCreatorNestedInput
+    session_enrollments?: session_enrollmentsUncheckedUpdateManyWithoutUserNestedInput
+    created_sessions?: sessionsUncheckedUpdateManyWithoutCreatorNestedInput
     discussion_comment_likes?: space_discussion_comment_likesUncheckedUpdateManyWithoutUserNestedInput
     discussion_comments?: space_discussion_commentsUncheckedUpdateManyWithoutUserNestedInput
     discussion_likes?: space_discussion_likesUncheckedUpdateManyWithoutUserNestedInput
@@ -119411,15 +119418,8 @@ export namespace Prisma {
     space_news_likes?: space_news_likesUncheckedUpdateManyWithoutUserNestedInput
     stargazing_spot_reviews?: stargazing_spot_reviewsUncheckedUpdateManyWithoutUserNestedInput
     created_stargazing_spots?: stargazing_spotsUncheckedUpdateManyWithoutCreatorNestedInput
-    created_sessions?: sessionsUncheckedUpdateManyWithoutCreatorNestedInput
-    session_enrollments?: session_enrollmentsUncheckedUpdateManyWithoutUserNestedInput
-    created_services?: servicesUncheckedUpdateManyWithoutCreatorNestedInput
-    service_bookings?: service_bookingsUncheckedUpdateManyWithoutUserNestedInput
-    service_reviews?: service_reviewsUncheckedUpdateManyWithoutUserNestedInput
     subscriptions?: subscriptionsUncheckedUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUncheckedUpdateOneWithoutUsersNestedInput
-    created_polls?: pollsUncheckedUpdateManyWithoutCreatorNestedInput
-    poll_votes?: poll_votesUncheckedUpdateManyWithoutVoterNestedInput
   }
 
   export type paymentsCreateManySubscriptionsInput = {
@@ -120403,6 +120403,30 @@ export namespace Prisma {
     updated_at?: Date | string | null
   }
 
+  export type poll_commentsCreateManyCommenterInput = {
+    id?: number
+    poll_id: number
+    comment: string
+    created_at?: Date | string
+    updated_at?: Date | string
+  }
+
+  export type poll_votesCreateManyVoterInput = {
+    id?: number
+    poll_id: number
+    choice_id: number
+    voted_at?: Date | string
+  }
+
+  export type pollsCreateManyCreatorInput = {
+    id?: number
+    title: string
+    description?: string | null
+    created_at?: Date | string
+    updated_at?: Date | string
+    is_active?: boolean
+  }
+
   export type role_upgrade_requestsCreateManyUsers_role_upgrade_requests_reviewer_idTousersInput = {
     id?: number
     user_id?: number | null
@@ -120427,6 +120451,113 @@ export namespace Prisma {
     reviewer_notes?: string | null
     submitted_at?: Date | string | null
     reviewed_at?: Date | string | null
+  }
+
+  export type service_bookingsCreateManyUserInput = {
+    id?: number
+    service_id: number
+    booking_date: Date | string
+    booking_time?: Date | string | null
+    participants_count?: number
+    total_amount: Decimal | DecimalJsLike | number | string
+    payment_status?: $Enums.booking_payment_status
+    payment_method?: string | null
+    transaction_id?: string | null
+    booking_status?: $Enums.booking_status
+    special_requests?: string | null
+    cancellation_reason?: string | null
+    cancelled_at?: Date | string | null
+    confirmed_at?: Date | string | null
+    completed_at?: Date | string | null
+    created_at?: Date | string
+    updated_at?: Date | string
+  }
+
+  export type service_reviewsCreateManyUserInput = {
+    id?: number
+    service_id: number
+    rating: number
+    review: string
+    images?: NullableJsonNullValueInput | InputJsonValue
+    is_verified?: boolean
+    created_at?: Date | string
+    updated_at?: Date | string
+  }
+
+  export type servicesCreateManyCreatorInput = {
+    id?: number
+    title: string
+    description: string
+    category: $Enums.service_category
+    price: Decimal | DecimalJsLike | number | string
+    duration: string
+    max_participants: number
+    location: string
+    difficulty: $Enums.service_difficulty
+    equipment?: JsonNullValueInput | InputJsonValue
+    next_available: Date | string
+    image_url?: string | null
+    featured?: boolean
+    tags?: JsonNullValueInput | InputJsonValue
+    requirements?: string | null
+    cancellation_policy?: string | null
+    meeting_point?: string | null
+    what_to_expect?: string | null
+    weather_policy?: $Enums.weather_policy_type | null
+    booking_deadline?: number
+    languages?: JsonNullValueInput | InputJsonValue
+    certification?: string | null
+    experience?: string | null
+    group_discount?: boolean
+    private_booking?: boolean
+    instant_booking?: boolean
+    status?: $Enums.service_status
+    views_count?: number
+    bookings_count?: number
+    rating?: number
+    review_count?: number
+    is_active?: boolean
+    created_at?: Date | string
+    updated_at?: Date | string
+  }
+
+  export type session_enrollmentsCreateManyUserInput = {
+    id?: number
+    session_id: number
+    enrollment_date?: Date | string
+    payment_status?: $Enums.enrollment_payment_status
+    payment_amount?: Decimal | DecimalJsLike | number | string | null
+    payment_method?: string | null
+    transaction_id?: string | null
+    access_granted?: boolean
+    completed?: boolean
+    progress?: number | null
+    last_accessed_at?: Date | string | null
+    notes?: string | null
+    created_at?: Date | string
+    updated_at?: Date | string
+  }
+
+  export type sessionsCreateManyCreatorInput = {
+    id?: number
+    title: string
+    session_type: $Enums.session_type
+    payment_type: $Enums.payment_type
+    price?: Decimal | DecimalJsLike | number | string | null
+    duration: number
+    session_date: Date | string
+    session_time: Date | string
+    max_participants?: number | null
+    difficulty_level: $Enums.difficulty_level
+    session_link?: string | null
+    description: string
+    materials?: NullableJsonNullValueInput | InputJsonValue
+    session_notes?: string | null
+    created_date?: Date | string
+    created_time?: Date | string
+    is_enabled?: boolean
+    created_at?: Date | string
+    updated_at?: Date | string
   }
 
   export type space_discussion_comment_likesCreateManyUserInput = {
@@ -120517,113 +120648,6 @@ export namespace Prisma {
     updated_at?: Date | string
   }
 
-  export type sessionsCreateManyCreatorInput = {
-    id?: number
-    title: string
-    session_type: $Enums.session_type
-    payment_type: $Enums.payment_type
-    price?: Decimal | DecimalJsLike | number | string | null
-    duration: number
-    session_date: Date | string
-    session_time: Date | string
-    max_participants?: number | null
-    difficulty_level: $Enums.difficulty_level
-    session_link?: string | null
-    description: string
-    materials?: NullableJsonNullValueInput | InputJsonValue
-    session_notes?: string | null
-    created_date?: Date | string
-    created_time?: Date | string
-    is_enabled?: boolean
-    created_at?: Date | string
-    updated_at?: Date | string
-  }
-
-  export type session_enrollmentsCreateManyUserInput = {
-    id?: number
-    session_id: number
-    enrollment_date?: Date | string
-    payment_status?: $Enums.enrollment_payment_status
-    payment_amount?: Decimal | DecimalJsLike | number | string | null
-    payment_method?: string | null
-    transaction_id?: string | null
-    access_granted?: boolean
-    completed?: boolean
-    progress?: number | null
-    last_accessed_at?: Date | string | null
-    notes?: string | null
-    created_at?: Date | string
-    updated_at?: Date | string
-  }
-
-  export type servicesCreateManyCreatorInput = {
-    id?: number
-    title: string
-    description: string
-    category: $Enums.service_category
-    price: Decimal | DecimalJsLike | number | string
-    duration: string
-    max_participants: number
-    location: string
-    difficulty: $Enums.service_difficulty
-    equipment?: JsonNullValueInput | InputJsonValue
-    next_available: Date | string
-    image_url?: string | null
-    featured?: boolean
-    tags?: JsonNullValueInput | InputJsonValue
-    requirements?: string | null
-    cancellation_policy?: string | null
-    meeting_point?: string | null
-    what_to_expect?: string | null
-    weather_policy?: $Enums.weather_policy_type | null
-    booking_deadline?: number
-    languages?: JsonNullValueInput | InputJsonValue
-    certification?: string | null
-    experience?: string | null
-    group_discount?: boolean
-    private_booking?: boolean
-    instant_booking?: boolean
-    status?: $Enums.service_status
-    views_count?: number
-    bookings_count?: number
-    rating?: number
-    review_count?: number
-    is_active?: boolean
-    created_at?: Date | string
-    updated_at?: Date | string
-  }
-
-  export type service_bookingsCreateManyUserInput = {
-    id?: number
-    service_id: number
-    booking_date: Date | string
-    booking_time?: Date | string | null
-    participants_count?: number
-    total_amount: Decimal | DecimalJsLike | number | string
-    payment_status?: $Enums.booking_payment_status
-    payment_method?: string | null
-    transaction_id?: string | null
-    booking_status?: $Enums.booking_status
-    special_requests?: string | null
-    cancellation_reason?: string | null
-    cancelled_at?: Date | string | null
-    confirmed_at?: Date | string | null
-    completed_at?: Date | string | null
-    created_at?: Date | string
-    updated_at?: Date | string
-  }
-
-  export type service_reviewsCreateManyUserInput = {
-    id?: number
-    service_id: number
-    rating: number
-    review: string
-    images?: NullableJsonNullValueInput | InputJsonValue
-    is_verified?: boolean
-    created_at?: Date | string
-    updated_at?: Date | string
-  }
-
   export type subscriptionsCreateManyUsersInput = {
     id?: number
     plan_type: $Enums.subscription_plan
@@ -120635,30 +120659,6 @@ export namespace Prisma {
     updated_at?: Date | string | null
     cancelled_at?: Date | string | null
     cancellation_reason?: string | null
-  }
-
-  export type pollsCreateManyCreatorInput = {
-    id?: number
-    title: string
-    description?: string | null
-    created_at?: Date | string
-    updated_at?: Date | string
-    is_active?: boolean
-  }
-
-  export type poll_votesCreateManyVoterInput = {
-    id?: number
-    poll_id: number
-    choice_id: number
-    voted_at?: Date | string
-  }
-
-  export type poll_commentsCreateManyCommenterInput = {
-    id?: number
-    poll_id: number
-    comment: string
-    created_at?: Date | string
-    updated_at?: Date | string
   }
 
   export type QuizParticipantsUpdateWithoutUsersInput = {
@@ -121601,6 +121601,79 @@ export namespace Prisma {
     updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
+  export type poll_commentsUpdateWithoutCommenterInput = {
+    comment?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    poll?: pollsUpdateOneRequiredWithoutCommentsNestedInput
+  }
+
+  export type poll_commentsUncheckedUpdateWithoutCommenterInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    poll_id?: IntFieldUpdateOperationsInput | number
+    comment?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type poll_commentsUncheckedUpdateManyWithoutCommenterInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    poll_id?: IntFieldUpdateOperationsInput | number
+    comment?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type poll_votesUpdateWithoutVoterInput = {
+    poll_id?: IntFieldUpdateOperationsInput | number
+    voted_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    choice?: poll_choicesUpdateOneRequiredWithoutVotesNestedInput
+  }
+
+  export type poll_votesUncheckedUpdateWithoutVoterInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    poll_id?: IntFieldUpdateOperationsInput | number
+    choice_id?: IntFieldUpdateOperationsInput | number
+    voted_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type poll_votesUncheckedUpdateManyWithoutVoterInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    poll_id?: IntFieldUpdateOperationsInput | number
+    choice_id?: IntFieldUpdateOperationsInput | number
+    voted_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type pollsUpdateWithoutCreatorInput = {
+    title?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    is_active?: BoolFieldUpdateOperationsInput | boolean
+    choices?: poll_choicesUpdateManyWithoutPollNestedInput
+    comments?: poll_commentsUpdateManyWithoutPollNestedInput
+  }
+
+  export type pollsUncheckedUpdateWithoutCreatorInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    title?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    is_active?: BoolFieldUpdateOperationsInput | boolean
+    choices?: poll_choicesUncheckedUpdateManyWithoutPollNestedInput
+    comments?: poll_commentsUncheckedUpdateManyWithoutPollNestedInput
+  }
+
+  export type pollsUncheckedUpdateManyWithoutCreatorInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    title?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    is_active?: BoolFieldUpdateOperationsInput | boolean
+  }
+
   export type role_upgrade_requestsUpdateWithoutUsers_role_upgrade_requests_reviewer_idTousersInput = {
     current_user_role?: StringFieldUpdateOperationsInput | string
     requested_user_role?: StringFieldUpdateOperationsInput | string
@@ -121675,6 +121748,332 @@ export namespace Prisma {
     reviewer_notes?: NullableStringFieldUpdateOperationsInput | string | null
     submitted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     reviewed_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
+  export type service_bookingsUpdateWithoutUserInput = {
+    booking_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    booking_time?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    participants_count?: IntFieldUpdateOperationsInput | number
+    total_amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    payment_status?: Enumbooking_payment_statusFieldUpdateOperationsInput | $Enums.booking_payment_status
+    payment_method?: NullableStringFieldUpdateOperationsInput | string | null
+    transaction_id?: NullableStringFieldUpdateOperationsInput | string | null
+    booking_status?: Enumbooking_statusFieldUpdateOperationsInput | $Enums.booking_status
+    special_requests?: NullableStringFieldUpdateOperationsInput | string | null
+    cancellation_reason?: NullableStringFieldUpdateOperationsInput | string | null
+    cancelled_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    confirmed_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    completed_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    service?: servicesUpdateOneRequiredWithoutBookingsNestedInput
+  }
+
+  export type service_bookingsUncheckedUpdateWithoutUserInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    service_id?: IntFieldUpdateOperationsInput | number
+    booking_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    booking_time?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    participants_count?: IntFieldUpdateOperationsInput | number
+    total_amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    payment_status?: Enumbooking_payment_statusFieldUpdateOperationsInput | $Enums.booking_payment_status
+    payment_method?: NullableStringFieldUpdateOperationsInput | string | null
+    transaction_id?: NullableStringFieldUpdateOperationsInput | string | null
+    booking_status?: Enumbooking_statusFieldUpdateOperationsInput | $Enums.booking_status
+    special_requests?: NullableStringFieldUpdateOperationsInput | string | null
+    cancellation_reason?: NullableStringFieldUpdateOperationsInput | string | null
+    cancelled_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    confirmed_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    completed_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type service_bookingsUncheckedUpdateManyWithoutUserInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    service_id?: IntFieldUpdateOperationsInput | number
+    booking_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    booking_time?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    participants_count?: IntFieldUpdateOperationsInput | number
+    total_amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    payment_status?: Enumbooking_payment_statusFieldUpdateOperationsInput | $Enums.booking_payment_status
+    payment_method?: NullableStringFieldUpdateOperationsInput | string | null
+    transaction_id?: NullableStringFieldUpdateOperationsInput | string | null
+    booking_status?: Enumbooking_statusFieldUpdateOperationsInput | $Enums.booking_status
+    special_requests?: NullableStringFieldUpdateOperationsInput | string | null
+    cancellation_reason?: NullableStringFieldUpdateOperationsInput | string | null
+    cancelled_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    confirmed_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    completed_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type service_reviewsUpdateWithoutUserInput = {
+    rating?: IntFieldUpdateOperationsInput | number
+    review?: StringFieldUpdateOperationsInput | string
+    images?: NullableJsonNullValueInput | InputJsonValue
+    is_verified?: BoolFieldUpdateOperationsInput | boolean
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    service?: servicesUpdateOneRequiredWithoutReviewsNestedInput
+  }
+
+  export type service_reviewsUncheckedUpdateWithoutUserInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    service_id?: IntFieldUpdateOperationsInput | number
+    rating?: IntFieldUpdateOperationsInput | number
+    review?: StringFieldUpdateOperationsInput | string
+    images?: NullableJsonNullValueInput | InputJsonValue
+    is_verified?: BoolFieldUpdateOperationsInput | boolean
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type service_reviewsUncheckedUpdateManyWithoutUserInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    service_id?: IntFieldUpdateOperationsInput | number
+    rating?: IntFieldUpdateOperationsInput | number
+    review?: StringFieldUpdateOperationsInput | string
+    images?: NullableJsonNullValueInput | InputJsonValue
+    is_verified?: BoolFieldUpdateOperationsInput | boolean
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type servicesUpdateWithoutCreatorInput = {
+    title?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    category?: Enumservice_categoryFieldUpdateOperationsInput | $Enums.service_category
+    price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    duration?: StringFieldUpdateOperationsInput | string
+    max_participants?: IntFieldUpdateOperationsInput | number
+    location?: StringFieldUpdateOperationsInput | string
+    difficulty?: Enumservice_difficultyFieldUpdateOperationsInput | $Enums.service_difficulty
+    equipment?: JsonNullValueInput | InputJsonValue
+    next_available?: DateTimeFieldUpdateOperationsInput | Date | string
+    image_url?: NullableStringFieldUpdateOperationsInput | string | null
+    featured?: BoolFieldUpdateOperationsInput | boolean
+    tags?: JsonNullValueInput | InputJsonValue
+    requirements?: NullableStringFieldUpdateOperationsInput | string | null
+    cancellation_policy?: NullableStringFieldUpdateOperationsInput | string | null
+    meeting_point?: NullableStringFieldUpdateOperationsInput | string | null
+    what_to_expect?: NullableStringFieldUpdateOperationsInput | string | null
+    weather_policy?: NullableEnumweather_policy_typeFieldUpdateOperationsInput | $Enums.weather_policy_type | null
+    booking_deadline?: IntFieldUpdateOperationsInput | number
+    languages?: JsonNullValueInput | InputJsonValue
+    certification?: NullableStringFieldUpdateOperationsInput | string | null
+    experience?: NullableStringFieldUpdateOperationsInput | string | null
+    group_discount?: BoolFieldUpdateOperationsInput | boolean
+    private_booking?: BoolFieldUpdateOperationsInput | boolean
+    instant_booking?: BoolFieldUpdateOperationsInput | boolean
+    status?: Enumservice_statusFieldUpdateOperationsInput | $Enums.service_status
+    views_count?: IntFieldUpdateOperationsInput | number
+    bookings_count?: IntFieldUpdateOperationsInput | number
+    rating?: FloatFieldUpdateOperationsInput | number
+    review_count?: IntFieldUpdateOperationsInput | number
+    is_active?: BoolFieldUpdateOperationsInput | boolean
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    availability?: service_availabilityUpdateManyWithoutServiceNestedInput
+    bookings?: service_bookingsUpdateManyWithoutServiceNestedInput
+    media?: service_mediaUpdateManyWithoutServiceNestedInput
+    reviews?: service_reviewsUpdateManyWithoutServiceNestedInput
+  }
+
+  export type servicesUncheckedUpdateWithoutCreatorInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    title?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    category?: Enumservice_categoryFieldUpdateOperationsInput | $Enums.service_category
+    price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    duration?: StringFieldUpdateOperationsInput | string
+    max_participants?: IntFieldUpdateOperationsInput | number
+    location?: StringFieldUpdateOperationsInput | string
+    difficulty?: Enumservice_difficultyFieldUpdateOperationsInput | $Enums.service_difficulty
+    equipment?: JsonNullValueInput | InputJsonValue
+    next_available?: DateTimeFieldUpdateOperationsInput | Date | string
+    image_url?: NullableStringFieldUpdateOperationsInput | string | null
+    featured?: BoolFieldUpdateOperationsInput | boolean
+    tags?: JsonNullValueInput | InputJsonValue
+    requirements?: NullableStringFieldUpdateOperationsInput | string | null
+    cancellation_policy?: NullableStringFieldUpdateOperationsInput | string | null
+    meeting_point?: NullableStringFieldUpdateOperationsInput | string | null
+    what_to_expect?: NullableStringFieldUpdateOperationsInput | string | null
+    weather_policy?: NullableEnumweather_policy_typeFieldUpdateOperationsInput | $Enums.weather_policy_type | null
+    booking_deadline?: IntFieldUpdateOperationsInput | number
+    languages?: JsonNullValueInput | InputJsonValue
+    certification?: NullableStringFieldUpdateOperationsInput | string | null
+    experience?: NullableStringFieldUpdateOperationsInput | string | null
+    group_discount?: BoolFieldUpdateOperationsInput | boolean
+    private_booking?: BoolFieldUpdateOperationsInput | boolean
+    instant_booking?: BoolFieldUpdateOperationsInput | boolean
+    status?: Enumservice_statusFieldUpdateOperationsInput | $Enums.service_status
+    views_count?: IntFieldUpdateOperationsInput | number
+    bookings_count?: IntFieldUpdateOperationsInput | number
+    rating?: FloatFieldUpdateOperationsInput | number
+    review_count?: IntFieldUpdateOperationsInput | number
+    is_active?: BoolFieldUpdateOperationsInput | boolean
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    availability?: service_availabilityUncheckedUpdateManyWithoutServiceNestedInput
+    bookings?: service_bookingsUncheckedUpdateManyWithoutServiceNestedInput
+    media?: service_mediaUncheckedUpdateManyWithoutServiceNestedInput
+    reviews?: service_reviewsUncheckedUpdateManyWithoutServiceNestedInput
+  }
+
+  export type servicesUncheckedUpdateManyWithoutCreatorInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    title?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    category?: Enumservice_categoryFieldUpdateOperationsInput | $Enums.service_category
+    price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    duration?: StringFieldUpdateOperationsInput | string
+    max_participants?: IntFieldUpdateOperationsInput | number
+    location?: StringFieldUpdateOperationsInput | string
+    difficulty?: Enumservice_difficultyFieldUpdateOperationsInput | $Enums.service_difficulty
+    equipment?: JsonNullValueInput | InputJsonValue
+    next_available?: DateTimeFieldUpdateOperationsInput | Date | string
+    image_url?: NullableStringFieldUpdateOperationsInput | string | null
+    featured?: BoolFieldUpdateOperationsInput | boolean
+    tags?: JsonNullValueInput | InputJsonValue
+    requirements?: NullableStringFieldUpdateOperationsInput | string | null
+    cancellation_policy?: NullableStringFieldUpdateOperationsInput | string | null
+    meeting_point?: NullableStringFieldUpdateOperationsInput | string | null
+    what_to_expect?: NullableStringFieldUpdateOperationsInput | string | null
+    weather_policy?: NullableEnumweather_policy_typeFieldUpdateOperationsInput | $Enums.weather_policy_type | null
+    booking_deadline?: IntFieldUpdateOperationsInput | number
+    languages?: JsonNullValueInput | InputJsonValue
+    certification?: NullableStringFieldUpdateOperationsInput | string | null
+    experience?: NullableStringFieldUpdateOperationsInput | string | null
+    group_discount?: BoolFieldUpdateOperationsInput | boolean
+    private_booking?: BoolFieldUpdateOperationsInput | boolean
+    instant_booking?: BoolFieldUpdateOperationsInput | boolean
+    status?: Enumservice_statusFieldUpdateOperationsInput | $Enums.service_status
+    views_count?: IntFieldUpdateOperationsInput | number
+    bookings_count?: IntFieldUpdateOperationsInput | number
+    rating?: FloatFieldUpdateOperationsInput | number
+    review_count?: IntFieldUpdateOperationsInput | number
+    is_active?: BoolFieldUpdateOperationsInput | boolean
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type session_enrollmentsUpdateWithoutUserInput = {
+    enrollment_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    payment_status?: Enumenrollment_payment_statusFieldUpdateOperationsInput | $Enums.enrollment_payment_status
+    payment_amount?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    payment_method?: NullableStringFieldUpdateOperationsInput | string | null
+    transaction_id?: NullableStringFieldUpdateOperationsInput | string | null
+    access_granted?: BoolFieldUpdateOperationsInput | boolean
+    completed?: BoolFieldUpdateOperationsInput | boolean
+    progress?: NullableIntFieldUpdateOperationsInput | number | null
+    last_accessed_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    session?: sessionsUpdateOneRequiredWithoutEnrollmentsNestedInput
+  }
+
+  export type session_enrollmentsUncheckedUpdateWithoutUserInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    session_id?: IntFieldUpdateOperationsInput | number
+    enrollment_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    payment_status?: Enumenrollment_payment_statusFieldUpdateOperationsInput | $Enums.enrollment_payment_status
+    payment_amount?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    payment_method?: NullableStringFieldUpdateOperationsInput | string | null
+    transaction_id?: NullableStringFieldUpdateOperationsInput | string | null
+    access_granted?: BoolFieldUpdateOperationsInput | boolean
+    completed?: BoolFieldUpdateOperationsInput | boolean
+    progress?: NullableIntFieldUpdateOperationsInput | number | null
+    last_accessed_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type session_enrollmentsUncheckedUpdateManyWithoutUserInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    session_id?: IntFieldUpdateOperationsInput | number
+    enrollment_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    payment_status?: Enumenrollment_payment_statusFieldUpdateOperationsInput | $Enums.enrollment_payment_status
+    payment_amount?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    payment_method?: NullableStringFieldUpdateOperationsInput | string | null
+    transaction_id?: NullableStringFieldUpdateOperationsInput | string | null
+    access_granted?: BoolFieldUpdateOperationsInput | boolean
+    completed?: BoolFieldUpdateOperationsInput | boolean
+    progress?: NullableIntFieldUpdateOperationsInput | number | null
+    last_accessed_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type sessionsUpdateWithoutCreatorInput = {
+    title?: StringFieldUpdateOperationsInput | string
+    session_type?: Enumsession_typeFieldUpdateOperationsInput | $Enums.session_type
+    payment_type?: Enumpayment_typeFieldUpdateOperationsInput | $Enums.payment_type
+    price?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    duration?: IntFieldUpdateOperationsInput | number
+    session_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    session_time?: DateTimeFieldUpdateOperationsInput | Date | string
+    max_participants?: NullableIntFieldUpdateOperationsInput | number | null
+    difficulty_level?: Enumdifficulty_levelFieldUpdateOperationsInput | $Enums.difficulty_level
+    session_link?: NullableStringFieldUpdateOperationsInput | string | null
+    description?: StringFieldUpdateOperationsInput | string
+    materials?: NullableJsonNullValueInput | InputJsonValue
+    session_notes?: NullableStringFieldUpdateOperationsInput | string | null
+    created_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    created_time?: DateTimeFieldUpdateOperationsInput | Date | string
+    is_enabled?: BoolFieldUpdateOperationsInput | boolean
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    enrollments?: session_enrollmentsUpdateManyWithoutSessionNestedInput
+  }
+
+  export type sessionsUncheckedUpdateWithoutCreatorInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    title?: StringFieldUpdateOperationsInput | string
+    session_type?: Enumsession_typeFieldUpdateOperationsInput | $Enums.session_type
+    payment_type?: Enumpayment_typeFieldUpdateOperationsInput | $Enums.payment_type
+    price?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    duration?: IntFieldUpdateOperationsInput | number
+    session_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    session_time?: DateTimeFieldUpdateOperationsInput | Date | string
+    max_participants?: NullableIntFieldUpdateOperationsInput | number | null
+    difficulty_level?: Enumdifficulty_levelFieldUpdateOperationsInput | $Enums.difficulty_level
+    session_link?: NullableStringFieldUpdateOperationsInput | string | null
+    description?: StringFieldUpdateOperationsInput | string
+    materials?: NullableJsonNullValueInput | InputJsonValue
+    session_notes?: NullableStringFieldUpdateOperationsInput | string | null
+    created_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    created_time?: DateTimeFieldUpdateOperationsInput | Date | string
+    is_enabled?: BoolFieldUpdateOperationsInput | boolean
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    enrollments?: session_enrollmentsUncheckedUpdateManyWithoutSessionNestedInput
+  }
+
+  export type sessionsUncheckedUpdateManyWithoutCreatorInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    title?: StringFieldUpdateOperationsInput | string
+    session_type?: Enumsession_typeFieldUpdateOperationsInput | $Enums.session_type
+    payment_type?: Enumpayment_typeFieldUpdateOperationsInput | $Enums.payment_type
+    price?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    duration?: IntFieldUpdateOperationsInput | number
+    session_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    session_time?: DateTimeFieldUpdateOperationsInput | Date | string
+    max_participants?: NullableIntFieldUpdateOperationsInput | number | null
+    difficulty_level?: Enumdifficulty_levelFieldUpdateOperationsInput | $Enums.difficulty_level
+    session_link?: NullableStringFieldUpdateOperationsInput | string | null
+    description?: StringFieldUpdateOperationsInput | string
+    materials?: NullableJsonNullValueInput | InputJsonValue
+    session_notes?: NullableStringFieldUpdateOperationsInput | string | null
+    created_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    created_time?: DateTimeFieldUpdateOperationsInput | Date | string
+    is_enabled?: BoolFieldUpdateOperationsInput | boolean
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type space_discussion_comment_likesUpdateWithoutUserInput = {
@@ -121948,332 +122347,6 @@ export namespace Prisma {
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
-  export type sessionsUpdateWithoutCreatorInput = {
-    title?: StringFieldUpdateOperationsInput | string
-    session_type?: Enumsession_typeFieldUpdateOperationsInput | $Enums.session_type
-    payment_type?: Enumpayment_typeFieldUpdateOperationsInput | $Enums.payment_type
-    price?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
-    duration?: IntFieldUpdateOperationsInput | number
-    session_date?: DateTimeFieldUpdateOperationsInput | Date | string
-    session_time?: DateTimeFieldUpdateOperationsInput | Date | string
-    max_participants?: NullableIntFieldUpdateOperationsInput | number | null
-    difficulty_level?: Enumdifficulty_levelFieldUpdateOperationsInput | $Enums.difficulty_level
-    session_link?: NullableStringFieldUpdateOperationsInput | string | null
-    description?: StringFieldUpdateOperationsInput | string
-    materials?: NullableJsonNullValueInput | InputJsonValue
-    session_notes?: NullableStringFieldUpdateOperationsInput | string | null
-    created_date?: DateTimeFieldUpdateOperationsInput | Date | string
-    created_time?: DateTimeFieldUpdateOperationsInput | Date | string
-    is_enabled?: BoolFieldUpdateOperationsInput | boolean
-    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    enrollments?: session_enrollmentsUpdateManyWithoutSessionNestedInput
-  }
-
-  export type sessionsUncheckedUpdateWithoutCreatorInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    title?: StringFieldUpdateOperationsInput | string
-    session_type?: Enumsession_typeFieldUpdateOperationsInput | $Enums.session_type
-    payment_type?: Enumpayment_typeFieldUpdateOperationsInput | $Enums.payment_type
-    price?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
-    duration?: IntFieldUpdateOperationsInput | number
-    session_date?: DateTimeFieldUpdateOperationsInput | Date | string
-    session_time?: DateTimeFieldUpdateOperationsInput | Date | string
-    max_participants?: NullableIntFieldUpdateOperationsInput | number | null
-    difficulty_level?: Enumdifficulty_levelFieldUpdateOperationsInput | $Enums.difficulty_level
-    session_link?: NullableStringFieldUpdateOperationsInput | string | null
-    description?: StringFieldUpdateOperationsInput | string
-    materials?: NullableJsonNullValueInput | InputJsonValue
-    session_notes?: NullableStringFieldUpdateOperationsInput | string | null
-    created_date?: DateTimeFieldUpdateOperationsInput | Date | string
-    created_time?: DateTimeFieldUpdateOperationsInput | Date | string
-    is_enabled?: BoolFieldUpdateOperationsInput | boolean
-    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    enrollments?: session_enrollmentsUncheckedUpdateManyWithoutSessionNestedInput
-  }
-
-  export type sessionsUncheckedUpdateManyWithoutCreatorInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    title?: StringFieldUpdateOperationsInput | string
-    session_type?: Enumsession_typeFieldUpdateOperationsInput | $Enums.session_type
-    payment_type?: Enumpayment_typeFieldUpdateOperationsInput | $Enums.payment_type
-    price?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
-    duration?: IntFieldUpdateOperationsInput | number
-    session_date?: DateTimeFieldUpdateOperationsInput | Date | string
-    session_time?: DateTimeFieldUpdateOperationsInput | Date | string
-    max_participants?: NullableIntFieldUpdateOperationsInput | number | null
-    difficulty_level?: Enumdifficulty_levelFieldUpdateOperationsInput | $Enums.difficulty_level
-    session_link?: NullableStringFieldUpdateOperationsInput | string | null
-    description?: StringFieldUpdateOperationsInput | string
-    materials?: NullableJsonNullValueInput | InputJsonValue
-    session_notes?: NullableStringFieldUpdateOperationsInput | string | null
-    created_date?: DateTimeFieldUpdateOperationsInput | Date | string
-    created_time?: DateTimeFieldUpdateOperationsInput | Date | string
-    is_enabled?: BoolFieldUpdateOperationsInput | boolean
-    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type session_enrollmentsUpdateWithoutUserInput = {
-    enrollment_date?: DateTimeFieldUpdateOperationsInput | Date | string
-    payment_status?: Enumenrollment_payment_statusFieldUpdateOperationsInput | $Enums.enrollment_payment_status
-    payment_amount?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
-    payment_method?: NullableStringFieldUpdateOperationsInput | string | null
-    transaction_id?: NullableStringFieldUpdateOperationsInput | string | null
-    access_granted?: BoolFieldUpdateOperationsInput | boolean
-    completed?: BoolFieldUpdateOperationsInput | boolean
-    progress?: NullableIntFieldUpdateOperationsInput | number | null
-    last_accessed_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    notes?: NullableStringFieldUpdateOperationsInput | string | null
-    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    session?: sessionsUpdateOneRequiredWithoutEnrollmentsNestedInput
-  }
-
-  export type session_enrollmentsUncheckedUpdateWithoutUserInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    session_id?: IntFieldUpdateOperationsInput | number
-    enrollment_date?: DateTimeFieldUpdateOperationsInput | Date | string
-    payment_status?: Enumenrollment_payment_statusFieldUpdateOperationsInput | $Enums.enrollment_payment_status
-    payment_amount?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
-    payment_method?: NullableStringFieldUpdateOperationsInput | string | null
-    transaction_id?: NullableStringFieldUpdateOperationsInput | string | null
-    access_granted?: BoolFieldUpdateOperationsInput | boolean
-    completed?: BoolFieldUpdateOperationsInput | boolean
-    progress?: NullableIntFieldUpdateOperationsInput | number | null
-    last_accessed_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    notes?: NullableStringFieldUpdateOperationsInput | string | null
-    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type session_enrollmentsUncheckedUpdateManyWithoutUserInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    session_id?: IntFieldUpdateOperationsInput | number
-    enrollment_date?: DateTimeFieldUpdateOperationsInput | Date | string
-    payment_status?: Enumenrollment_payment_statusFieldUpdateOperationsInput | $Enums.enrollment_payment_status
-    payment_amount?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
-    payment_method?: NullableStringFieldUpdateOperationsInput | string | null
-    transaction_id?: NullableStringFieldUpdateOperationsInput | string | null
-    access_granted?: BoolFieldUpdateOperationsInput | boolean
-    completed?: BoolFieldUpdateOperationsInput | boolean
-    progress?: NullableIntFieldUpdateOperationsInput | number | null
-    last_accessed_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    notes?: NullableStringFieldUpdateOperationsInput | string | null
-    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type servicesUpdateWithoutCreatorInput = {
-    title?: StringFieldUpdateOperationsInput | string
-    description?: StringFieldUpdateOperationsInput | string
-    category?: Enumservice_categoryFieldUpdateOperationsInput | $Enums.service_category
-    price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    duration?: StringFieldUpdateOperationsInput | string
-    max_participants?: IntFieldUpdateOperationsInput | number
-    location?: StringFieldUpdateOperationsInput | string
-    difficulty?: Enumservice_difficultyFieldUpdateOperationsInput | $Enums.service_difficulty
-    equipment?: JsonNullValueInput | InputJsonValue
-    next_available?: DateTimeFieldUpdateOperationsInput | Date | string
-    image_url?: NullableStringFieldUpdateOperationsInput | string | null
-    featured?: BoolFieldUpdateOperationsInput | boolean
-    tags?: JsonNullValueInput | InputJsonValue
-    requirements?: NullableStringFieldUpdateOperationsInput | string | null
-    cancellation_policy?: NullableStringFieldUpdateOperationsInput | string | null
-    meeting_point?: NullableStringFieldUpdateOperationsInput | string | null
-    what_to_expect?: NullableStringFieldUpdateOperationsInput | string | null
-    weather_policy?: NullableEnumweather_policy_typeFieldUpdateOperationsInput | $Enums.weather_policy_type | null
-    booking_deadline?: IntFieldUpdateOperationsInput | number
-    languages?: JsonNullValueInput | InputJsonValue
-    certification?: NullableStringFieldUpdateOperationsInput | string | null
-    experience?: NullableStringFieldUpdateOperationsInput | string | null
-    group_discount?: BoolFieldUpdateOperationsInput | boolean
-    private_booking?: BoolFieldUpdateOperationsInput | boolean
-    instant_booking?: BoolFieldUpdateOperationsInput | boolean
-    status?: Enumservice_statusFieldUpdateOperationsInput | $Enums.service_status
-    views_count?: IntFieldUpdateOperationsInput | number
-    bookings_count?: IntFieldUpdateOperationsInput | number
-    rating?: FloatFieldUpdateOperationsInput | number
-    review_count?: IntFieldUpdateOperationsInput | number
-    is_active?: BoolFieldUpdateOperationsInput | boolean
-    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    bookings?: service_bookingsUpdateManyWithoutServiceNestedInput
-    reviews?: service_reviewsUpdateManyWithoutServiceNestedInput
-    availability?: service_availabilityUpdateManyWithoutServiceNestedInput
-    media?: service_mediaUpdateManyWithoutServiceNestedInput
-  }
-
-  export type servicesUncheckedUpdateWithoutCreatorInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    title?: StringFieldUpdateOperationsInput | string
-    description?: StringFieldUpdateOperationsInput | string
-    category?: Enumservice_categoryFieldUpdateOperationsInput | $Enums.service_category
-    price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    duration?: StringFieldUpdateOperationsInput | string
-    max_participants?: IntFieldUpdateOperationsInput | number
-    location?: StringFieldUpdateOperationsInput | string
-    difficulty?: Enumservice_difficultyFieldUpdateOperationsInput | $Enums.service_difficulty
-    equipment?: JsonNullValueInput | InputJsonValue
-    next_available?: DateTimeFieldUpdateOperationsInput | Date | string
-    image_url?: NullableStringFieldUpdateOperationsInput | string | null
-    featured?: BoolFieldUpdateOperationsInput | boolean
-    tags?: JsonNullValueInput | InputJsonValue
-    requirements?: NullableStringFieldUpdateOperationsInput | string | null
-    cancellation_policy?: NullableStringFieldUpdateOperationsInput | string | null
-    meeting_point?: NullableStringFieldUpdateOperationsInput | string | null
-    what_to_expect?: NullableStringFieldUpdateOperationsInput | string | null
-    weather_policy?: NullableEnumweather_policy_typeFieldUpdateOperationsInput | $Enums.weather_policy_type | null
-    booking_deadline?: IntFieldUpdateOperationsInput | number
-    languages?: JsonNullValueInput | InputJsonValue
-    certification?: NullableStringFieldUpdateOperationsInput | string | null
-    experience?: NullableStringFieldUpdateOperationsInput | string | null
-    group_discount?: BoolFieldUpdateOperationsInput | boolean
-    private_booking?: BoolFieldUpdateOperationsInput | boolean
-    instant_booking?: BoolFieldUpdateOperationsInput | boolean
-    status?: Enumservice_statusFieldUpdateOperationsInput | $Enums.service_status
-    views_count?: IntFieldUpdateOperationsInput | number
-    bookings_count?: IntFieldUpdateOperationsInput | number
-    rating?: FloatFieldUpdateOperationsInput | number
-    review_count?: IntFieldUpdateOperationsInput | number
-    is_active?: BoolFieldUpdateOperationsInput | boolean
-    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    bookings?: service_bookingsUncheckedUpdateManyWithoutServiceNestedInput
-    reviews?: service_reviewsUncheckedUpdateManyWithoutServiceNestedInput
-    availability?: service_availabilityUncheckedUpdateManyWithoutServiceNestedInput
-    media?: service_mediaUncheckedUpdateManyWithoutServiceNestedInput
-  }
-
-  export type servicesUncheckedUpdateManyWithoutCreatorInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    title?: StringFieldUpdateOperationsInput | string
-    description?: StringFieldUpdateOperationsInput | string
-    category?: Enumservice_categoryFieldUpdateOperationsInput | $Enums.service_category
-    price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    duration?: StringFieldUpdateOperationsInput | string
-    max_participants?: IntFieldUpdateOperationsInput | number
-    location?: StringFieldUpdateOperationsInput | string
-    difficulty?: Enumservice_difficultyFieldUpdateOperationsInput | $Enums.service_difficulty
-    equipment?: JsonNullValueInput | InputJsonValue
-    next_available?: DateTimeFieldUpdateOperationsInput | Date | string
-    image_url?: NullableStringFieldUpdateOperationsInput | string | null
-    featured?: BoolFieldUpdateOperationsInput | boolean
-    tags?: JsonNullValueInput | InputJsonValue
-    requirements?: NullableStringFieldUpdateOperationsInput | string | null
-    cancellation_policy?: NullableStringFieldUpdateOperationsInput | string | null
-    meeting_point?: NullableStringFieldUpdateOperationsInput | string | null
-    what_to_expect?: NullableStringFieldUpdateOperationsInput | string | null
-    weather_policy?: NullableEnumweather_policy_typeFieldUpdateOperationsInput | $Enums.weather_policy_type | null
-    booking_deadline?: IntFieldUpdateOperationsInput | number
-    languages?: JsonNullValueInput | InputJsonValue
-    certification?: NullableStringFieldUpdateOperationsInput | string | null
-    experience?: NullableStringFieldUpdateOperationsInput | string | null
-    group_discount?: BoolFieldUpdateOperationsInput | boolean
-    private_booking?: BoolFieldUpdateOperationsInput | boolean
-    instant_booking?: BoolFieldUpdateOperationsInput | boolean
-    status?: Enumservice_statusFieldUpdateOperationsInput | $Enums.service_status
-    views_count?: IntFieldUpdateOperationsInput | number
-    bookings_count?: IntFieldUpdateOperationsInput | number
-    rating?: FloatFieldUpdateOperationsInput | number
-    review_count?: IntFieldUpdateOperationsInput | number
-    is_active?: BoolFieldUpdateOperationsInput | boolean
-    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type service_bookingsUpdateWithoutUserInput = {
-    booking_date?: DateTimeFieldUpdateOperationsInput | Date | string
-    booking_time?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    participants_count?: IntFieldUpdateOperationsInput | number
-    total_amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    payment_status?: Enumbooking_payment_statusFieldUpdateOperationsInput | $Enums.booking_payment_status
-    payment_method?: NullableStringFieldUpdateOperationsInput | string | null
-    transaction_id?: NullableStringFieldUpdateOperationsInput | string | null
-    booking_status?: Enumbooking_statusFieldUpdateOperationsInput | $Enums.booking_status
-    special_requests?: NullableStringFieldUpdateOperationsInput | string | null
-    cancellation_reason?: NullableStringFieldUpdateOperationsInput | string | null
-    cancelled_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    confirmed_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    completed_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    service?: servicesUpdateOneRequiredWithoutBookingsNestedInput
-  }
-
-  export type service_bookingsUncheckedUpdateWithoutUserInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    service_id?: IntFieldUpdateOperationsInput | number
-    booking_date?: DateTimeFieldUpdateOperationsInput | Date | string
-    booking_time?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    participants_count?: IntFieldUpdateOperationsInput | number
-    total_amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    payment_status?: Enumbooking_payment_statusFieldUpdateOperationsInput | $Enums.booking_payment_status
-    payment_method?: NullableStringFieldUpdateOperationsInput | string | null
-    transaction_id?: NullableStringFieldUpdateOperationsInput | string | null
-    booking_status?: Enumbooking_statusFieldUpdateOperationsInput | $Enums.booking_status
-    special_requests?: NullableStringFieldUpdateOperationsInput | string | null
-    cancellation_reason?: NullableStringFieldUpdateOperationsInput | string | null
-    cancelled_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    confirmed_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    completed_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type service_bookingsUncheckedUpdateManyWithoutUserInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    service_id?: IntFieldUpdateOperationsInput | number
-    booking_date?: DateTimeFieldUpdateOperationsInput | Date | string
-    booking_time?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    participants_count?: IntFieldUpdateOperationsInput | number
-    total_amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    payment_status?: Enumbooking_payment_statusFieldUpdateOperationsInput | $Enums.booking_payment_status
-    payment_method?: NullableStringFieldUpdateOperationsInput | string | null
-    transaction_id?: NullableStringFieldUpdateOperationsInput | string | null
-    booking_status?: Enumbooking_statusFieldUpdateOperationsInput | $Enums.booking_status
-    special_requests?: NullableStringFieldUpdateOperationsInput | string | null
-    cancellation_reason?: NullableStringFieldUpdateOperationsInput | string | null
-    cancelled_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    confirmed_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    completed_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type service_reviewsUpdateWithoutUserInput = {
-    rating?: IntFieldUpdateOperationsInput | number
-    review?: StringFieldUpdateOperationsInput | string
-    images?: NullableJsonNullValueInput | InputJsonValue
-    is_verified?: BoolFieldUpdateOperationsInput | boolean
-    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    service?: servicesUpdateOneRequiredWithoutReviewsNestedInput
-  }
-
-  export type service_reviewsUncheckedUpdateWithoutUserInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    service_id?: IntFieldUpdateOperationsInput | number
-    rating?: IntFieldUpdateOperationsInput | number
-    review?: StringFieldUpdateOperationsInput | string
-    images?: NullableJsonNullValueInput | InputJsonValue
-    is_verified?: BoolFieldUpdateOperationsInput | boolean
-    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type service_reviewsUncheckedUpdateManyWithoutUserInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    service_id?: IntFieldUpdateOperationsInput | number
-    rating?: IntFieldUpdateOperationsInput | number
-    review?: StringFieldUpdateOperationsInput | string
-    images?: NullableJsonNullValueInput | InputJsonValue
-    is_verified?: BoolFieldUpdateOperationsInput | boolean
-    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
   export type subscriptionsUpdateWithoutUsersInput = {
     plan_type?: Enumsubscription_planFieldUpdateOperationsInput | $Enums.subscription_plan
     status?: NullableEnumsubscription_statusFieldUpdateOperationsInput | $Enums.subscription_status | null
@@ -122312,79 +122385,6 @@ export namespace Prisma {
     updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     cancelled_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     cancellation_reason?: NullableStringFieldUpdateOperationsInput | string | null
-  }
-
-  export type pollsUpdateWithoutCreatorInput = {
-    title?: StringFieldUpdateOperationsInput | string
-    description?: NullableStringFieldUpdateOperationsInput | string | null
-    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    is_active?: BoolFieldUpdateOperationsInput | boolean
-    choices?: poll_choicesUpdateManyWithoutPollNestedInput
-    comments?: poll_commentsUpdateManyWithoutPollNestedInput
-  }
-
-  export type pollsUncheckedUpdateWithoutCreatorInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    title?: StringFieldUpdateOperationsInput | string
-    description?: NullableStringFieldUpdateOperationsInput | string | null
-    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    is_active?: BoolFieldUpdateOperationsInput | boolean
-    choices?: poll_choicesUncheckedUpdateManyWithoutPollNestedInput
-    comments?: poll_commentsUncheckedUpdateManyWithoutPollNestedInput
-  }
-
-  export type pollsUncheckedUpdateManyWithoutCreatorInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    title?: StringFieldUpdateOperationsInput | string
-    description?: NullableStringFieldUpdateOperationsInput | string | null
-    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    is_active?: BoolFieldUpdateOperationsInput | boolean
-  }
-
-  export type poll_votesUpdateWithoutVoterInput = {
-    poll_id?: IntFieldUpdateOperationsInput | number
-    voted_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    choice?: poll_choicesUpdateOneRequiredWithoutVotesNestedInput
-  }
-
-  export type poll_votesUncheckedUpdateWithoutVoterInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    poll_id?: IntFieldUpdateOperationsInput | number
-    choice_id?: IntFieldUpdateOperationsInput | number
-    voted_at?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type poll_votesUncheckedUpdateManyWithoutVoterInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    poll_id?: IntFieldUpdateOperationsInput | number
-    choice_id?: IntFieldUpdateOperationsInput | number
-    voted_at?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type poll_commentsUpdateWithoutCommenterInput = {
-    comment?: StringFieldUpdateOperationsInput | string
-    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    poll?: pollsUpdateOneRequiredWithoutCommentsNestedInput
-  }
-
-  export type poll_commentsUncheckedUpdateWithoutCommenterInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    poll_id?: IntFieldUpdateOperationsInput | number
-    comment?: StringFieldUpdateOperationsInput | string
-    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type poll_commentsUncheckedUpdateManyWithoutCommenterInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    poll_id?: IntFieldUpdateOperationsInput | number
-    comment?: StringFieldUpdateOperationsInput | string
-    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type chatbot_feedbackCreateManyChatbot_messagesInput = {
@@ -122859,6 +122859,19 @@ export namespace Prisma {
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type service_availabilityCreateManyServiceInput = {
+    id?: number
+    available_date: Date | string
+    start_time?: Date | string | null
+    end_time?: Date | string | null
+    slots_available: number
+    slots_booked?: number
+    status?: $Enums.availability_status
+    notes?: string | null
+    created_at?: Date | string
+    updated_at?: Date | string
+  }
+
   export type service_bookingsCreateManyServiceInput = {
     id?: number
     user_id: number
@@ -122879,6 +122892,15 @@ export namespace Prisma {
     updated_at?: Date | string
   }
 
+  export type service_mediaCreateManyServiceInput = {
+    id?: number
+    media_url: string
+    media_type: string
+    display_order?: number
+    caption?: string | null
+    created_at?: Date | string
+  }
+
   export type service_reviewsCreateManyServiceInput = {
     id?: number
     user_id: number
@@ -122890,26 +122912,42 @@ export namespace Prisma {
     updated_at?: Date | string
   }
 
-  export type service_availabilityCreateManyServiceInput = {
-    id?: number
-    available_date: Date | string
-    start_time?: Date | string | null
-    end_time?: Date | string | null
-    slots_available: number
-    slots_booked?: number
-    status?: $Enums.availability_status
-    notes?: string | null
-    created_at?: Date | string
-    updated_at?: Date | string
+  export type service_availabilityUpdateWithoutServiceInput = {
+    available_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    start_time?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    end_time?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    slots_available?: IntFieldUpdateOperationsInput | number
+    slots_booked?: IntFieldUpdateOperationsInput | number
+    status?: Enumavailability_statusFieldUpdateOperationsInput | $Enums.availability_status
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
-  export type service_mediaCreateManyServiceInput = {
-    id?: number
-    media_url: string
-    media_type: string
-    display_order?: number
-    caption?: string | null
-    created_at?: Date | string
+  export type service_availabilityUncheckedUpdateWithoutServiceInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    available_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    start_time?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    end_time?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    slots_available?: IntFieldUpdateOperationsInput | number
+    slots_booked?: IntFieldUpdateOperationsInput | number
+    status?: Enumavailability_statusFieldUpdateOperationsInput | $Enums.availability_status
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type service_availabilityUncheckedUpdateManyWithoutServiceInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    available_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    start_time?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    end_time?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    slots_available?: IntFieldUpdateOperationsInput | number
+    slots_booked?: IntFieldUpdateOperationsInput | number
+    status?: Enumavailability_statusFieldUpdateOperationsInput | $Enums.availability_status
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type service_bookingsUpdateWithoutServiceInput = {
@@ -122971,6 +123009,32 @@ export namespace Prisma {
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type service_mediaUpdateWithoutServiceInput = {
+    media_url?: StringFieldUpdateOperationsInput | string
+    media_type?: StringFieldUpdateOperationsInput | string
+    display_order?: IntFieldUpdateOperationsInput | number
+    caption?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type service_mediaUncheckedUpdateWithoutServiceInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    media_url?: StringFieldUpdateOperationsInput | string
+    media_type?: StringFieldUpdateOperationsInput | string
+    display_order?: IntFieldUpdateOperationsInput | number
+    caption?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type service_mediaUncheckedUpdateManyWithoutServiceInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    media_url?: StringFieldUpdateOperationsInput | string
+    media_type?: StringFieldUpdateOperationsInput | string
+    display_order?: IntFieldUpdateOperationsInput | number
+    caption?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type service_reviewsUpdateWithoutServiceInput = {
     rating?: IntFieldUpdateOperationsInput | number
     review?: StringFieldUpdateOperationsInput | string
@@ -123001,70 +123065,6 @@ export namespace Prisma {
     is_verified?: BoolFieldUpdateOperationsInput | boolean
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type service_availabilityUpdateWithoutServiceInput = {
-    available_date?: DateTimeFieldUpdateOperationsInput | Date | string
-    start_time?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    end_time?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    slots_available?: IntFieldUpdateOperationsInput | number
-    slots_booked?: IntFieldUpdateOperationsInput | number
-    status?: Enumavailability_statusFieldUpdateOperationsInput | $Enums.availability_status
-    notes?: NullableStringFieldUpdateOperationsInput | string | null
-    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type service_availabilityUncheckedUpdateWithoutServiceInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    available_date?: DateTimeFieldUpdateOperationsInput | Date | string
-    start_time?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    end_time?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    slots_available?: IntFieldUpdateOperationsInput | number
-    slots_booked?: IntFieldUpdateOperationsInput | number
-    status?: Enumavailability_statusFieldUpdateOperationsInput | $Enums.availability_status
-    notes?: NullableStringFieldUpdateOperationsInput | string | null
-    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type service_availabilityUncheckedUpdateManyWithoutServiceInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    available_date?: DateTimeFieldUpdateOperationsInput | Date | string
-    start_time?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    end_time?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    slots_available?: IntFieldUpdateOperationsInput | number
-    slots_booked?: IntFieldUpdateOperationsInput | number
-    status?: Enumavailability_statusFieldUpdateOperationsInput | $Enums.availability_status
-    notes?: NullableStringFieldUpdateOperationsInput | string | null
-    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type service_mediaUpdateWithoutServiceInput = {
-    media_url?: StringFieldUpdateOperationsInput | string
-    media_type?: StringFieldUpdateOperationsInput | string
-    display_order?: IntFieldUpdateOperationsInput | number
-    caption?: NullableStringFieldUpdateOperationsInput | string | null
-    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type service_mediaUncheckedUpdateWithoutServiceInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    media_url?: StringFieldUpdateOperationsInput | string
-    media_type?: StringFieldUpdateOperationsInput | string
-    display_order?: IntFieldUpdateOperationsInput | number
-    caption?: NullableStringFieldUpdateOperationsInput | string | null
-    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type service_mediaUncheckedUpdateManyWithoutServiceInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    media_url?: StringFieldUpdateOperationsInput | string
-    media_type?: StringFieldUpdateOperationsInput | string
-    display_order?: IntFieldUpdateOperationsInput | number
-    caption?: NullableStringFieldUpdateOperationsInput | string | null
-    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type poll_choicesCreateManyPollInput = {
