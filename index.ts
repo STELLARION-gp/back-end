@@ -124,7 +124,7 @@ app.use("/api/tours", tourMediaRoutes);
 app.use("/api/events", eventRoutes);
 
 // Notifications API
-app.use("/api/notifications", notificationRoutes);
+//app.use("/api/notifications", notificationRoutes);
 
 // Error handling middleware
 app.use(notFound);
