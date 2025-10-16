@@ -1127,12 +1127,18 @@ export const getGuideServiceStats = async (req: Request, res: Response) => {
       where: { created_by: user.id },
     });
 
+    // Calculate average rating (only from services with ratings)
+    const servicesWithRatings = services.filter(s => s.rating !== null && s.rating > 0);
+    const averageRating = servicesWithRatings.length > 0
+      ? servicesWithRatings.reduce((sum, s) => sum + (s.rating || 0), 0) / servicesWithRatings.length
+      : 0;
+
     const stats = {
       total_services: services.length,
       active_services: services.filter(s => s.status === 'active').length,
       total_bookings: services.reduce((sum, s) => sum + s.bookings_count, 0),
       total_revenue: services.reduce((sum, s) => sum + (s.bookings_count * Number(s.price)), 0),
-      average_rating: services.reduce((sum, s) => sum + s.rating, 0) / services.length || 0,
+      average_rating: Number(averageRating.toFixed(1)),
       by_category: services.reduce((acc, s) => {
         acc[s.category] = (acc[s.category] || 0) + 1;
         return acc;

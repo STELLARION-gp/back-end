@@ -16,6 +16,7 @@ import astronomyEventsRoutes from './routes/astronomyEvents.routes';
 import stargazingSpotRoutes from './routes/stargazingSpot.routes';
 import sessionsRoutes from './routes/sessions.routes';
 import servicesRoutes from './routes/services.routes';
+import bookingRoutes from './routes/booking.routes';
 import pollRoutes from './routes/poll.routes';
 
 // index.ts
@@ -117,6 +118,9 @@ app.use('/api/sessions', sessionsRoutes);
 
 // Services API
 app.use('/api/services', servicesRoutes);
+
+// Bookings API
+app.use('/api/bookings', bookingRoutes);
 
 // Poll API
 app.use('/api/polls', pollRoutes);
