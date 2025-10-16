@@ -43,7 +43,12 @@ export const verifyTokenOnly = async (
     try {
       const decodedToken = await admin.auth().verifyIdToken(token);
       console.log("✅ [AUTH] Token verified successfully");
-      console.log("👤 [AUTH] User:", decodedToken.email, "UID:", decodedToken.uid);
+      console.log(
+        "👤 [AUTH] User:",
+        decodedToken.email,
+        "UID:",
+        decodedToken.uid
+      );
 
       // Attach Firebase user info to request (no database check)
       (req as any).user = decodedToken;

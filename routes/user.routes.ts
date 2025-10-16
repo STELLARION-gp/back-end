@@ -6,11 +6,15 @@ import {
   getAllUsers,
   updateUserRole,
   deactivateUser,
-  activateUser
+  activateUser,
 } from "../controllers/user.controller";
 
 import { verifyToken, verifyTokenOnly } from "../middleware/verifyToken";
-import { requireAdmin, requireManager, requireUser } from "../middleware/roleAuth";
+import {
+  requireAdmin,
+  requireManager,
+  requireUser,
+} from "../middleware/roleAuth";
 
 const router = express.Router();
 
