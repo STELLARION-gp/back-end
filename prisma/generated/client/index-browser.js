@@ -749,6 +749,101 @@ exports.Prisma.SessionsScalarFieldEnum = {
   updated_at: 'updated_at'
 };
 
+exports.Prisma.ServicesScalarFieldEnum = {
+  id: 'id',
+  title: 'title',
+  description: 'description',
+  category: 'category',
+  price: 'price',
+  duration: 'duration',
+  max_participants: 'max_participants',
+  location: 'location',
+  difficulty: 'difficulty',
+  equipment: 'equipment',
+  next_available: 'next_available',
+  image_url: 'image_url',
+  featured: 'featured',
+  tags: 'tags',
+  requirements: 'requirements',
+  cancellation_policy: 'cancellation_policy',
+  meeting_point: 'meeting_point',
+  what_to_expect: 'what_to_expect',
+  weather_policy: 'weather_policy',
+  booking_deadline: 'booking_deadline',
+  languages: 'languages',
+  certification: 'certification',
+  experience: 'experience',
+  group_discount: 'group_discount',
+  private_booking: 'private_booking',
+  instant_booking: 'instant_booking',
+  status: 'status',
+  views_count: 'views_count',
+  bookings_count: 'bookings_count',
+  rating: 'rating',
+  review_count: 'review_count',
+  created_by: 'created_by',
+  is_active: 'is_active',
+  created_at: 'created_at',
+  updated_at: 'updated_at'
+};
+
+exports.Prisma.Service_bookingsScalarFieldEnum = {
+  id: 'id',
+  service_id: 'service_id',
+  user_id: 'user_id',
+  booking_date: 'booking_date',
+  booking_time: 'booking_time',
+  participants_count: 'participants_count',
+  total_amount: 'total_amount',
+  payment_status: 'payment_status',
+  payment_method: 'payment_method',
+  transaction_id: 'transaction_id',
+  booking_status: 'booking_status',
+  special_requests: 'special_requests',
+  cancellation_reason: 'cancellation_reason',
+  cancelled_at: 'cancelled_at',
+  confirmed_at: 'confirmed_at',
+  completed_at: 'completed_at',
+  created_at: 'created_at',
+  updated_at: 'updated_at'
+};
+
+exports.Prisma.Service_reviewsScalarFieldEnum = {
+  id: 'id',
+  service_id: 'service_id',
+  user_id: 'user_id',
+  rating: 'rating',
+  review: 'review',
+  images: 'images',
+  is_verified: 'is_verified',
+  created_at: 'created_at',
+  updated_at: 'updated_at'
+};
+
+exports.Prisma.Service_availabilityScalarFieldEnum = {
+  id: 'id',
+  service_id: 'service_id',
+  available_date: 'available_date',
+  start_time: 'start_time',
+  end_time: 'end_time',
+  slots_available: 'slots_available',
+  slots_booked: 'slots_booked',
+  status: 'status',
+  notes: 'notes',
+  created_at: 'created_at',
+  updated_at: 'updated_at'
+};
+
+exports.Prisma.Service_mediaScalarFieldEnum = {
+  id: 'id',
+  service_id: 'service_id',
+  media_url: 'media_url',
+  media_type: 'media_type',
+  display_order: 'display_order',
+  caption: 'caption',
+  created_at: 'created_at'
+};
+
 exports.Prisma.Session_enrollmentsScalarFieldEnum = {
   id: 'id',
   user_id: 'user_id',
@@ -912,6 +1007,57 @@ exports.difficulty_level = exports.$Enums.difficulty_level = {
   advanced: 'advanced'
 };
 
+exports.service_category = exports.$Enums.service_category = {
+  stargazing: 'stargazing',
+  astrophotography: 'astrophotography',
+  telescope: 'telescope',
+  planetarium: 'planetarium',
+  workshop: 'workshop',
+  expedition: 'expedition'
+};
+
+exports.service_difficulty = exports.$Enums.service_difficulty = {
+  Beginner: 'Beginner',
+  Intermediate: 'Intermediate',
+  Advanced: 'Advanced'
+};
+
+exports.weather_policy_type = exports.$Enums.weather_policy_type = {
+  reschedule: 'reschedule',
+  partial_refund: 'partial_refund',
+  full_refund: 'full_refund',
+  no_refund: 'no_refund'
+};
+
+exports.service_status = exports.$Enums.service_status = {
+  draft: 'draft',
+  active: 'active',
+  paused: 'paused',
+  archived: 'archived'
+};
+
+exports.booking_payment_status = exports.$Enums.booking_payment_status = {
+  pending: 'pending',
+  completed: 'completed',
+  failed: 'failed',
+  refunded: 'refunded'
+};
+
+exports.booking_status = exports.$Enums.booking_status = {
+  pending: 'pending',
+  confirmed: 'confirmed',
+  cancelled: 'cancelled',
+  completed: 'completed',
+  no_show: 'no_show'
+};
+
+exports.availability_status = exports.$Enums.availability_status = {
+  available: 'available',
+  fully_booked: 'fully_booked',
+  unavailable: 'unavailable',
+  cancelled: 'cancelled'
+};
+
 exports.enrollment_payment_status = exports.$Enums.enrollment_payment_status = {
   pending: 'pending',
   completed: 'completed',
@@ -968,6 +1114,11 @@ exports.Prisma.ModelName = {
   stargazing_spots: 'stargazing_spots',
   stargazing_spot_reviews: 'stargazing_spot_reviews',
   sessions: 'sessions',
+  services: 'services',
+  service_bookings: 'service_bookings',
+  service_reviews: 'service_reviews',
+  service_availability: 'service_availability',
+  service_media: 'service_media',
   session_enrollments: 'session_enrollments',
   polls: 'polls',
   poll_choices: 'poll_choices',

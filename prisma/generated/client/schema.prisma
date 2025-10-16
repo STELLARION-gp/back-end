@@ -340,6 +340,9 @@ model users {
   created_stargazing_spots                                                                     stargazing_spots[]                     @relation("StargazingSpotCreator")
   created_sessions                                                                             sessions[]                             @relation("SessionCreator")
   session_enrollments                                                                          session_enrollments[]                  @relation("UserSessionEnrollments")
+  created_services                                                                             services[]                             @relation("ServiceCreator")
+  service_bookings                                                                             service_bookings[]                     @relation("ServiceBookingUser")
+  service_reviews                                                                              service_reviews[]                      @relation("ServiceReviewUser")
   subscriptions                                                                                subscriptions[]
   user_settings                                                                                user_settings?
   created_polls                                                                                polls[]                                @relation("PollCreator")
@@ -944,6 +947,141 @@ model sessions {
   @@index([is_enabled], map: "idx_sessions_enabled")
 }
 
+model services {
+  id                  Int                    @id @default(autoincrement())
+  title               String                 @db.VarChar(255)
+  description         String
+  category            service_category
+  price               Decimal                @db.Decimal(10, 2)
+  duration            String                 @db.VarChar(100)
+  max_participants    Int
+  location            String                 @db.VarChar(500)
+  difficulty          service_difficulty
+  equipment           Json                   @default("[]")
+  next_available      DateTime               @db.Date
+  image_url           String?                @db.VarChar(500)
+  featured            Boolean                @default(false)
+  tags                Json                   @default("[]")
+  requirements        String?
+  cancellation_policy String?
+  meeting_point       String?                @db.VarChar(500)
+  what_to_expect      String?
+  weather_policy      weather_policy_type?
+  booking_deadline    Int                    @default(24)
+  languages           Json                   @default("[]")
+  certification       String?                @db.VarChar(500)
+  experience          String?
+  group_discount      Boolean                @default(false)
+  private_booking     Boolean                @default(false)
+  instant_booking     Boolean                @default(true)
+  status              service_status         @default(active)
+  views_count         Int                    @default(0)
+  bookings_count      Int                    @default(0)
+  rating              Float                  @default(0)
+  review_count        Int                    @default(0)
+  created_by          Int
+  is_active           Boolean                @default(true)
+  created_at          DateTime               @default(now()) @db.Timestamp(6)
+  updated_at          DateTime               @default(now()) @updatedAt @db.Timestamp(6)
+  creator             users                  @relation("ServiceCreator", fields: [created_by], references: [id], onDelete: Cascade)
+  bookings            service_bookings[]
+  reviews             service_reviews[]
+  availability        service_availability[]
+  media               service_media[]
+
+  @@index([category], map: "idx_services_category")
+  @@index([difficulty], map: "idx_services_difficulty")
+  @@index([status], map: "idx_services_status")
+  @@index([featured], map: "idx_services_featured")
+  @@index([created_by], map: "idx_services_created_by")
+  @@index([is_active], map: "idx_services_active")
+  @@index([next_available], map: "idx_services_next_available")
+  @@index([rating], map: "idx_services_rating")
+}
+
+model service_bookings {
+  id                  Int                    @id @default(autoincrement())
+  service_id          Int
+  user_id             Int
+  booking_date        DateTime               @db.Date
+  booking_time        DateTime?              @db.Time(6)
+  participants_count  Int                    @default(1)
+  total_amount        Decimal                @db.Decimal(10, 2)
+  payment_status      booking_payment_status @default(pending)
+  payment_method      String?                @db.VarChar(50)
+  transaction_id      String?                @db.VarChar(255)
+  booking_status      booking_status         @default(pending)
+  special_requests    String?
+  cancellation_reason String?
+  cancelled_at        DateTime?              @db.Timestamp(6)
+  confirmed_at        DateTime?              @db.Timestamp(6)
+  completed_at        DateTime?              @db.Timestamp(6)
+  created_at          DateTime               @default(now()) @db.Timestamp(6)
+  updated_at          DateTime               @default(now()) @updatedAt @db.Timestamp(6)
+  service             services               @relation(fields: [service_id], references: [id], onDelete: Cascade)
+  user                users                  @relation("ServiceBookingUser", fields: [user_id], references: [id], onDelete: Cascade)
+
+  @@unique([service_id, user_id, booking_date], map: "unique_service_user_booking")
+  @@index([service_id], map: "idx_service_bookings_service_id")
+  @@index([user_id], map: "idx_service_bookings_user_id")
+  @@index([booking_date], map: "idx_service_bookings_date")
+  @@index([booking_status], map: "idx_service_bookings_status")
+  @@index([payment_status], map: "idx_service_bookings_payment_status")
+}
+
+model service_reviews {
+  id          Int      @id @default(autoincrement())
+  service_id  Int
+  user_id     Int
+  rating      Int      @db.SmallInt
+  review      String
+  images      Json?    @default("[]")
+  is_verified Boolean  @default(false)
+  created_at  DateTime @default(now()) @db.Timestamp(6)
+  updated_at  DateTime @default(now()) @updatedAt @db.Timestamp(6)
+  service     services @relation(fields: [service_id], references: [id], onDelete: Cascade)
+  user        users    @relation("ServiceReviewUser", fields: [user_id], references: [id], onDelete: Cascade)
+
+  @@unique([service_id, user_id], map: "unique_service_user_review")
+  @@index([service_id], map: "idx_service_reviews_service_id")
+  @@index([user_id], map: "idx_service_reviews_user_id")
+  @@index([rating], map: "idx_service_reviews_rating")
+}
+
+model service_availability {
+  id              Int                 @id @default(autoincrement())
+  service_id      Int
+  available_date  DateTime            @db.Date
+  start_time      DateTime?           @db.Time(6)
+  end_time        DateTime?           @db.Time(6)
+  slots_available Int
+  slots_booked    Int                 @default(0)
+  status          availability_status @default(available)
+  notes           String?
+  created_at      DateTime            @default(now()) @db.Timestamp(6)
+  updated_at      DateTime            @default(now()) @updatedAt @db.Timestamp(6)
+  service         services            @relation(fields: [service_id], references: [id], onDelete: Cascade)
+
+  @@unique([service_id, available_date, start_time], map: "unique_service_availability_slot")
+  @@index([service_id], map: "idx_service_availability_service_id")
+  @@index([available_date], map: "idx_service_availability_date")
+  @@index([status], map: "idx_service_availability_status")
+}
+
+model service_media {
+  id            Int      @id @default(autoincrement())
+  service_id    Int
+  media_url     String   @db.VarChar(500)
+  media_type    String   @db.VarChar(50)
+  display_order Int      @default(0)
+  caption       String?  @db.VarChar(255)
+  created_at    DateTime @default(now()) @db.Timestamp(6)
+  service       services @relation(fields: [service_id], references: [id], onDelete: Cascade)
+
+  @@index([service_id], map: "idx_service_media_service_id")
+  @@index([display_order], map: "idx_service_media_order")
+}
+
 model session_enrollments {
   id               Int                       @id @default(autoincrement())
   user_id          Int
@@ -1138,4 +1276,56 @@ enum enrollment_payment_status {
   failed
   refunded
   free_access
+}
+
+// Service enums
+enum service_category {
+  stargazing
+  astrophotography
+  telescope
+  planetarium
+  workshop
+  expedition
+}
+
+enum service_difficulty {
+  Beginner
+  Intermediate
+  Advanced
+}
+
+enum service_status {
+  draft
+  active
+  paused
+  archived
+}
+
+enum weather_policy_type {
+  reschedule
+  partial_refund
+  full_refund
+  no_refund
+}
+
+enum booking_status {
+  pending
+  confirmed
+  cancelled
+  completed
+  no_show
+}
+
+enum booking_payment_status {
+  pending
+  completed
+  failed
+  refunded
+}
+
+enum availability_status {
+  available
+  fully_booked
+  unavailable
+  cancelled
 }

@@ -249,6 +249,31 @@ export type stargazing_spot_reviews = $Result.DefaultSelection<Prisma.$stargazin
  */
 export type sessions = $Result.DefaultSelection<Prisma.$sessionsPayload>
 /**
+ * Model services
+ * 
+ */
+export type services = $Result.DefaultSelection<Prisma.$servicesPayload>
+/**
+ * Model service_bookings
+ * 
+ */
+export type service_bookings = $Result.DefaultSelection<Prisma.$service_bookingsPayload>
+/**
+ * Model service_reviews
+ * 
+ */
+export type service_reviews = $Result.DefaultSelection<Prisma.$service_reviewsPayload>
+/**
+ * Model service_availability
+ * 
+ */
+export type service_availability = $Result.DefaultSelection<Prisma.$service_availabilityPayload>
+/**
+ * Model service_media
+ * 
+ */
+export type service_media = $Result.DefaultSelection<Prisma.$service_mediaPayload>
+/**
  * Model session_enrollments
  * 
  */
@@ -436,6 +461,78 @@ export const enrollment_payment_status: {
 
 export type enrollment_payment_status = (typeof enrollment_payment_status)[keyof typeof enrollment_payment_status]
 
+
+export const service_category: {
+  stargazing: 'stargazing',
+  astrophotography: 'astrophotography',
+  telescope: 'telescope',
+  planetarium: 'planetarium',
+  workshop: 'workshop',
+  expedition: 'expedition'
+};
+
+export type service_category = (typeof service_category)[keyof typeof service_category]
+
+
+export const service_difficulty: {
+  Beginner: 'Beginner',
+  Intermediate: 'Intermediate',
+  Advanced: 'Advanced'
+};
+
+export type service_difficulty = (typeof service_difficulty)[keyof typeof service_difficulty]
+
+
+export const service_status: {
+  draft: 'draft',
+  active: 'active',
+  paused: 'paused',
+  archived: 'archived'
+};
+
+export type service_status = (typeof service_status)[keyof typeof service_status]
+
+
+export const weather_policy_type: {
+  reschedule: 'reschedule',
+  partial_refund: 'partial_refund',
+  full_refund: 'full_refund',
+  no_refund: 'no_refund'
+};
+
+export type weather_policy_type = (typeof weather_policy_type)[keyof typeof weather_policy_type]
+
+
+export const booking_status: {
+  pending: 'pending',
+  confirmed: 'confirmed',
+  cancelled: 'cancelled',
+  completed: 'completed',
+  no_show: 'no_show'
+};
+
+export type booking_status = (typeof booking_status)[keyof typeof booking_status]
+
+
+export const booking_payment_status: {
+  pending: 'pending',
+  completed: 'completed',
+  failed: 'failed',
+  refunded: 'refunded'
+};
+
+export type booking_payment_status = (typeof booking_payment_status)[keyof typeof booking_payment_status]
+
+
+export const availability_status: {
+  available: 'available',
+  fully_booked: 'fully_booked',
+  unavailable: 'unavailable',
+  cancelled: 'cancelled'
+};
+
+export type availability_status = (typeof availability_status)[keyof typeof availability_status]
+
 }
 
 export type application_status = $Enums.application_status
@@ -505,6 +602,34 @@ export const poll_choice_type: typeof $Enums.poll_choice_type
 export type enrollment_payment_status = $Enums.enrollment_payment_status
 
 export const enrollment_payment_status: typeof $Enums.enrollment_payment_status
+
+export type service_category = $Enums.service_category
+
+export const service_category: typeof $Enums.service_category
+
+export type service_difficulty = $Enums.service_difficulty
+
+export const service_difficulty: typeof $Enums.service_difficulty
+
+export type service_status = $Enums.service_status
+
+export const service_status: typeof $Enums.service_status
+
+export type weather_policy_type = $Enums.weather_policy_type
+
+export const weather_policy_type: typeof $Enums.weather_policy_type
+
+export type booking_status = $Enums.booking_status
+
+export const booking_status: typeof $Enums.booking_status
+
+export type booking_payment_status = $Enums.booking_payment_status
+
+export const booking_payment_status: typeof $Enums.booking_payment_status
+
+export type availability_status = $Enums.availability_status
+
+export const availability_status: typeof $Enums.availability_status
 
 /**
  * ##  Prisma Client ʲˢ
@@ -1095,6 +1220,56 @@ export class PrismaClient<
   get sessions(): Prisma.sessionsDelegate<ExtArgs, ClientOptions>;
 
   /**
+   * `prisma.services`: Exposes CRUD operations for the **services** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Services
+    * const services = await prisma.services.findMany()
+    * ```
+    */
+  get services(): Prisma.servicesDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.service_bookings`: Exposes CRUD operations for the **service_bookings** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Service_bookings
+    * const service_bookings = await prisma.service_bookings.findMany()
+    * ```
+    */
+  get service_bookings(): Prisma.service_bookingsDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.service_reviews`: Exposes CRUD operations for the **service_reviews** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Service_reviews
+    * const service_reviews = await prisma.service_reviews.findMany()
+    * ```
+    */
+  get service_reviews(): Prisma.service_reviewsDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.service_availability`: Exposes CRUD operations for the **service_availability** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Service_availabilities
+    * const service_availabilities = await prisma.service_availability.findMany()
+    * ```
+    */
+  get service_availability(): Prisma.service_availabilityDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.service_media`: Exposes CRUD operations for the **service_media** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Service_medias
+    * const service_medias = await prisma.service_media.findMany()
+    * ```
+    */
+  get service_media(): Prisma.service_mediaDelegate<ExtArgs, ClientOptions>;
+
+  /**
    * `prisma.session_enrollments`: Exposes CRUD operations for the **session_enrollments** model.
     * Example usage:
     * ```ts
@@ -1630,6 +1805,11 @@ export namespace Prisma {
     stargazing_spots: 'stargazing_spots',
     stargazing_spot_reviews: 'stargazing_spot_reviews',
     sessions: 'sessions',
+    services: 'services',
+    service_bookings: 'service_bookings',
+    service_reviews: 'service_reviews',
+    service_availability: 'service_availability',
+    service_media: 'service_media',
     session_enrollments: 'session_enrollments',
     polls: 'polls',
     poll_choices: 'poll_choices',
@@ -1653,7 +1833,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "subscriptions" | "group_chats" | "group_members" | "chat_messages" | "message_reactions" | "blog_views" | "night_camps" | "night_camps_activities" | "chatbot_sessions" | "payments" | "blogs" | "blog_category_relations" | "subscription_plans" | "blog_categories" | "chatbot_usage" | "blog_comments" | "users" | "blog_likes" | "chatbot_messages" | "night_camps_equipment" | "user_settings" | "chatbot_feedback" | "night_camp_volunteering" | "role_upgrade_requests" | "guide_application" | "mentor_application" | "night_camp_volunteering_applications" | "night_camp_registrations" | "influencer_application" | "media_uploads" | "tour_media" | "events" | "quizParticipants" | "quizQuestion" | "quizzes" | "space_news" | "space_news_likes" | "space_news_comments" | "space_discussions" | "space_discussion_comments" | "space_discussion_likes" | "space_discussion_comment_likes" | "astronomy_events" | "event_reminders" | "stargazing_spots" | "stargazing_spot_reviews" | "sessions" | "session_enrollments" | "polls" | "poll_choices" | "poll_votes" | "poll_comments"
+      modelProps: "subscriptions" | "group_chats" | "group_members" | "chat_messages" | "message_reactions" | "blog_views" | "night_camps" | "night_camps_activities" | "chatbot_sessions" | "payments" | "blogs" | "blog_category_relations" | "subscription_plans" | "blog_categories" | "chatbot_usage" | "blog_comments" | "users" | "blog_likes" | "chatbot_messages" | "night_camps_equipment" | "user_settings" | "chatbot_feedback" | "night_camp_volunteering" | "role_upgrade_requests" | "guide_application" | "mentor_application" | "night_camp_volunteering_applications" | "night_camp_registrations" | "influencer_application" | "media_uploads" | "tour_media" | "events" | "quizParticipants" | "quizQuestion" | "quizzes" | "space_news" | "space_news_likes" | "space_news_comments" | "space_discussions" | "space_discussion_comments" | "space_discussion_likes" | "space_discussion_comment_likes" | "astronomy_events" | "event_reminders" | "stargazing_spots" | "stargazing_spot_reviews" | "sessions" | "services" | "service_bookings" | "service_reviews" | "service_availability" | "service_media" | "session_enrollments" | "polls" | "poll_choices" | "poll_votes" | "poll_comments"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -5135,6 +5315,376 @@ export namespace Prisma {
           }
         }
       }
+      services: {
+        payload: Prisma.$servicesPayload<ExtArgs>
+        fields: Prisma.servicesFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.servicesFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$servicesPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.servicesFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$servicesPayload>
+          }
+          findFirst: {
+            args: Prisma.servicesFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$servicesPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.servicesFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$servicesPayload>
+          }
+          findMany: {
+            args: Prisma.servicesFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$servicesPayload>[]
+          }
+          create: {
+            args: Prisma.servicesCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$servicesPayload>
+          }
+          createMany: {
+            args: Prisma.servicesCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.servicesCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$servicesPayload>[]
+          }
+          delete: {
+            args: Prisma.servicesDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$servicesPayload>
+          }
+          update: {
+            args: Prisma.servicesUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$servicesPayload>
+          }
+          deleteMany: {
+            args: Prisma.servicesDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.servicesUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.servicesUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$servicesPayload>[]
+          }
+          upsert: {
+            args: Prisma.servicesUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$servicesPayload>
+          }
+          aggregate: {
+            args: Prisma.ServicesAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateServices>
+          }
+          groupBy: {
+            args: Prisma.servicesGroupByArgs<ExtArgs>
+            result: $Utils.Optional<ServicesGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.servicesCountArgs<ExtArgs>
+            result: $Utils.Optional<ServicesCountAggregateOutputType> | number
+          }
+        }
+      }
+      service_bookings: {
+        payload: Prisma.$service_bookingsPayload<ExtArgs>
+        fields: Prisma.service_bookingsFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.service_bookingsFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$service_bookingsPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.service_bookingsFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$service_bookingsPayload>
+          }
+          findFirst: {
+            args: Prisma.service_bookingsFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$service_bookingsPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.service_bookingsFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$service_bookingsPayload>
+          }
+          findMany: {
+            args: Prisma.service_bookingsFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$service_bookingsPayload>[]
+          }
+          create: {
+            args: Prisma.service_bookingsCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$service_bookingsPayload>
+          }
+          createMany: {
+            args: Prisma.service_bookingsCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.service_bookingsCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$service_bookingsPayload>[]
+          }
+          delete: {
+            args: Prisma.service_bookingsDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$service_bookingsPayload>
+          }
+          update: {
+            args: Prisma.service_bookingsUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$service_bookingsPayload>
+          }
+          deleteMany: {
+            args: Prisma.service_bookingsDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.service_bookingsUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.service_bookingsUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$service_bookingsPayload>[]
+          }
+          upsert: {
+            args: Prisma.service_bookingsUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$service_bookingsPayload>
+          }
+          aggregate: {
+            args: Prisma.Service_bookingsAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateService_bookings>
+          }
+          groupBy: {
+            args: Prisma.service_bookingsGroupByArgs<ExtArgs>
+            result: $Utils.Optional<Service_bookingsGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.service_bookingsCountArgs<ExtArgs>
+            result: $Utils.Optional<Service_bookingsCountAggregateOutputType> | number
+          }
+        }
+      }
+      service_reviews: {
+        payload: Prisma.$service_reviewsPayload<ExtArgs>
+        fields: Prisma.service_reviewsFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.service_reviewsFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$service_reviewsPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.service_reviewsFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$service_reviewsPayload>
+          }
+          findFirst: {
+            args: Prisma.service_reviewsFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$service_reviewsPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.service_reviewsFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$service_reviewsPayload>
+          }
+          findMany: {
+            args: Prisma.service_reviewsFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$service_reviewsPayload>[]
+          }
+          create: {
+            args: Prisma.service_reviewsCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$service_reviewsPayload>
+          }
+          createMany: {
+            args: Prisma.service_reviewsCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.service_reviewsCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$service_reviewsPayload>[]
+          }
+          delete: {
+            args: Prisma.service_reviewsDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$service_reviewsPayload>
+          }
+          update: {
+            args: Prisma.service_reviewsUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$service_reviewsPayload>
+          }
+          deleteMany: {
+            args: Prisma.service_reviewsDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.service_reviewsUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.service_reviewsUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$service_reviewsPayload>[]
+          }
+          upsert: {
+            args: Prisma.service_reviewsUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$service_reviewsPayload>
+          }
+          aggregate: {
+            args: Prisma.Service_reviewsAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateService_reviews>
+          }
+          groupBy: {
+            args: Prisma.service_reviewsGroupByArgs<ExtArgs>
+            result: $Utils.Optional<Service_reviewsGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.service_reviewsCountArgs<ExtArgs>
+            result: $Utils.Optional<Service_reviewsCountAggregateOutputType> | number
+          }
+        }
+      }
+      service_availability: {
+        payload: Prisma.$service_availabilityPayload<ExtArgs>
+        fields: Prisma.service_availabilityFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.service_availabilityFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$service_availabilityPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.service_availabilityFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$service_availabilityPayload>
+          }
+          findFirst: {
+            args: Prisma.service_availabilityFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$service_availabilityPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.service_availabilityFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$service_availabilityPayload>
+          }
+          findMany: {
+            args: Prisma.service_availabilityFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$service_availabilityPayload>[]
+          }
+          create: {
+            args: Prisma.service_availabilityCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$service_availabilityPayload>
+          }
+          createMany: {
+            args: Prisma.service_availabilityCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.service_availabilityCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$service_availabilityPayload>[]
+          }
+          delete: {
+            args: Prisma.service_availabilityDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$service_availabilityPayload>
+          }
+          update: {
+            args: Prisma.service_availabilityUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$service_availabilityPayload>
+          }
+          deleteMany: {
+            args: Prisma.service_availabilityDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.service_availabilityUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.service_availabilityUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$service_availabilityPayload>[]
+          }
+          upsert: {
+            args: Prisma.service_availabilityUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$service_availabilityPayload>
+          }
+          aggregate: {
+            args: Prisma.Service_availabilityAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateService_availability>
+          }
+          groupBy: {
+            args: Prisma.service_availabilityGroupByArgs<ExtArgs>
+            result: $Utils.Optional<Service_availabilityGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.service_availabilityCountArgs<ExtArgs>
+            result: $Utils.Optional<Service_availabilityCountAggregateOutputType> | number
+          }
+        }
+      }
+      service_media: {
+        payload: Prisma.$service_mediaPayload<ExtArgs>
+        fields: Prisma.service_mediaFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.service_mediaFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$service_mediaPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.service_mediaFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$service_mediaPayload>
+          }
+          findFirst: {
+            args: Prisma.service_mediaFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$service_mediaPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.service_mediaFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$service_mediaPayload>
+          }
+          findMany: {
+            args: Prisma.service_mediaFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$service_mediaPayload>[]
+          }
+          create: {
+            args: Prisma.service_mediaCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$service_mediaPayload>
+          }
+          createMany: {
+            args: Prisma.service_mediaCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.service_mediaCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$service_mediaPayload>[]
+          }
+          delete: {
+            args: Prisma.service_mediaDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$service_mediaPayload>
+          }
+          update: {
+            args: Prisma.service_mediaUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$service_mediaPayload>
+          }
+          deleteMany: {
+            args: Prisma.service_mediaDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.service_mediaUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.service_mediaUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$service_mediaPayload>[]
+          }
+          upsert: {
+            args: Prisma.service_mediaUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$service_mediaPayload>
+          }
+          aggregate: {
+            args: Prisma.Service_mediaAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateService_media>
+          }
+          groupBy: {
+            args: Prisma.service_mediaGroupByArgs<ExtArgs>
+            result: $Utils.Optional<Service_mediaGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.service_mediaCountArgs<ExtArgs>
+            result: $Utils.Optional<Service_mediaCountAggregateOutputType> | number
+          }
+        }
+      }
       session_enrollments: {
         payload: Prisma.$session_enrollmentsPayload<ExtArgs>
         fields: Prisma.session_enrollmentsFieldRefs
@@ -5648,6 +6198,11 @@ export namespace Prisma {
     stargazing_spots?: stargazing_spotsOmit
     stargazing_spot_reviews?: stargazing_spot_reviewsOmit
     sessions?: sessionsOmit
+    services?: servicesOmit
+    service_bookings?: service_bookingsOmit
+    service_reviews?: service_reviewsOmit
+    service_availability?: service_availabilityOmit
+    service_media?: service_mediaOmit
     session_enrollments?: session_enrollmentsOmit
     polls?: pollsOmit
     poll_choices?: poll_choicesOmit
@@ -6106,6 +6661,9 @@ export namespace Prisma {
     created_stargazing_spots: number
     created_sessions: number
     session_enrollments: number
+    created_services: number
+    service_bookings: number
+    service_reviews: number
     subscriptions: number
     created_polls: number
     poll_votes: number
@@ -6148,6 +6706,9 @@ export namespace Prisma {
     created_stargazing_spots?: boolean | UsersCountOutputTypeCountCreated_stargazing_spotsArgs
     created_sessions?: boolean | UsersCountOutputTypeCountCreated_sessionsArgs
     session_enrollments?: boolean | UsersCountOutputTypeCountSession_enrollmentsArgs
+    created_services?: boolean | UsersCountOutputTypeCountCreated_servicesArgs
+    service_bookings?: boolean | UsersCountOutputTypeCountService_bookingsArgs
+    service_reviews?: boolean | UsersCountOutputTypeCountService_reviewsArgs
     subscriptions?: boolean | UsersCountOutputTypeCountSubscriptionsArgs
     created_polls?: boolean | UsersCountOutputTypeCountCreated_pollsArgs
     poll_votes?: boolean | UsersCountOutputTypeCountPoll_votesArgs
@@ -6408,6 +6969,27 @@ export namespace Prisma {
    */
   export type UsersCountOutputTypeCountSession_enrollmentsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: session_enrollmentsWhereInput
+  }
+
+  /**
+   * UsersCountOutputType without action
+   */
+  export type UsersCountOutputTypeCountCreated_servicesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: servicesWhereInput
+  }
+
+  /**
+   * UsersCountOutputType without action
+   */
+  export type UsersCountOutputTypeCountService_bookingsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: service_bookingsWhereInput
+  }
+
+  /**
+   * UsersCountOutputType without action
+   */
+  export type UsersCountOutputTypeCountService_reviewsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: service_reviewsWhereInput
   }
 
   /**
@@ -6751,6 +7333,64 @@ export namespace Prisma {
    */
   export type SessionsCountOutputTypeCountEnrollmentsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: session_enrollmentsWhereInput
+  }
+
+
+  /**
+   * Count Type ServicesCountOutputType
+   */
+
+  export type ServicesCountOutputType = {
+    bookings: number
+    reviews: number
+    availability: number
+    media: number
+  }
+
+  export type ServicesCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    bookings?: boolean | ServicesCountOutputTypeCountBookingsArgs
+    reviews?: boolean | ServicesCountOutputTypeCountReviewsArgs
+    availability?: boolean | ServicesCountOutputTypeCountAvailabilityArgs
+    media?: boolean | ServicesCountOutputTypeCountMediaArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * ServicesCountOutputType without action
+   */
+  export type ServicesCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ServicesCountOutputType
+     */
+    select?: ServicesCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * ServicesCountOutputType without action
+   */
+  export type ServicesCountOutputTypeCountBookingsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: service_bookingsWhereInput
+  }
+
+  /**
+   * ServicesCountOutputType without action
+   */
+  export type ServicesCountOutputTypeCountReviewsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: service_reviewsWhereInput
+  }
+
+  /**
+   * ServicesCountOutputType without action
+   */
+  export type ServicesCountOutputTypeCountAvailabilityArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: service_availabilityWhereInput
+  }
+
+  /**
+   * ServicesCountOutputType without action
+   */
+  export type ServicesCountOutputTypeCountMediaArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: service_mediaWhereInput
   }
 
 
@@ -26347,6 +26987,9 @@ export namespace Prisma {
     created_stargazing_spots?: boolean | users$created_stargazing_spotsArgs<ExtArgs>
     created_sessions?: boolean | users$created_sessionsArgs<ExtArgs>
     session_enrollments?: boolean | users$session_enrollmentsArgs<ExtArgs>
+    created_services?: boolean | users$created_servicesArgs<ExtArgs>
+    service_bookings?: boolean | users$service_bookingsArgs<ExtArgs>
+    service_reviews?: boolean | users$service_reviewsArgs<ExtArgs>
     subscriptions?: boolean | users$subscriptionsArgs<ExtArgs>
     user_settings?: boolean | users$user_settingsArgs<ExtArgs>
     created_polls?: boolean | users$created_pollsArgs<ExtArgs>
@@ -26461,6 +27104,9 @@ export namespace Prisma {
     created_stargazing_spots?: boolean | users$created_stargazing_spotsArgs<ExtArgs>
     created_sessions?: boolean | users$created_sessionsArgs<ExtArgs>
     session_enrollments?: boolean | users$session_enrollmentsArgs<ExtArgs>
+    created_services?: boolean | users$created_servicesArgs<ExtArgs>
+    service_bookings?: boolean | users$service_bookingsArgs<ExtArgs>
+    service_reviews?: boolean | users$service_reviewsArgs<ExtArgs>
     subscriptions?: boolean | users$subscriptionsArgs<ExtArgs>
     user_settings?: boolean | users$user_settingsArgs<ExtArgs>
     created_polls?: boolean | users$created_pollsArgs<ExtArgs>
@@ -26509,6 +27155,9 @@ export namespace Prisma {
       created_stargazing_spots: Prisma.$stargazing_spotsPayload<ExtArgs>[]
       created_sessions: Prisma.$sessionsPayload<ExtArgs>[]
       session_enrollments: Prisma.$session_enrollmentsPayload<ExtArgs>[]
+      created_services: Prisma.$servicesPayload<ExtArgs>[]
+      service_bookings: Prisma.$service_bookingsPayload<ExtArgs>[]
+      service_reviews: Prisma.$service_reviewsPayload<ExtArgs>[]
       subscriptions: Prisma.$subscriptionsPayload<ExtArgs>[]
       user_settings: Prisma.$user_settingsPayload<ExtArgs> | null
       created_polls: Prisma.$pollsPayload<ExtArgs>[]
@@ -26965,6 +27614,9 @@ export namespace Prisma {
     created_stargazing_spots<T extends users$created_stargazing_spotsArgs<ExtArgs> = {}>(args?: Subset<T, users$created_stargazing_spotsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$stargazing_spotsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     created_sessions<T extends users$created_sessionsArgs<ExtArgs> = {}>(args?: Subset<T, users$created_sessionsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$sessionsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     session_enrollments<T extends users$session_enrollmentsArgs<ExtArgs> = {}>(args?: Subset<T, users$session_enrollmentsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$session_enrollmentsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    created_services<T extends users$created_servicesArgs<ExtArgs> = {}>(args?: Subset<T, users$created_servicesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$servicesPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    service_bookings<T extends users$service_bookingsArgs<ExtArgs> = {}>(args?: Subset<T, users$service_bookingsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$service_bookingsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    service_reviews<T extends users$service_reviewsArgs<ExtArgs> = {}>(args?: Subset<T, users$service_reviewsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$service_reviewsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     subscriptions<T extends users$subscriptionsArgs<ExtArgs> = {}>(args?: Subset<T, users$subscriptionsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$subscriptionsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     user_settings<T extends users$user_settingsArgs<ExtArgs> = {}>(args?: Subset<T, users$user_settingsArgs<ExtArgs>>): Prisma__user_settingsClient<$Result.GetResult<Prisma.$user_settingsPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     created_polls<T extends users$created_pollsArgs<ExtArgs> = {}>(args?: Subset<T, users$created_pollsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$pollsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
@@ -28244,6 +28896,78 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: Session_enrollmentsScalarFieldEnum | Session_enrollmentsScalarFieldEnum[]
+  }
+
+  /**
+   * users.created_services
+   */
+  export type users$created_servicesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the services
+     */
+    select?: servicesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the services
+     */
+    omit?: servicesOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: servicesInclude<ExtArgs> | null
+    where?: servicesWhereInput
+    orderBy?: servicesOrderByWithRelationInput | servicesOrderByWithRelationInput[]
+    cursor?: servicesWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: ServicesScalarFieldEnum | ServicesScalarFieldEnum[]
+  }
+
+  /**
+   * users.service_bookings
+   */
+  export type users$service_bookingsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the service_bookings
+     */
+    select?: service_bookingsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the service_bookings
+     */
+    omit?: service_bookingsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: service_bookingsInclude<ExtArgs> | null
+    where?: service_bookingsWhereInput
+    orderBy?: service_bookingsOrderByWithRelationInput | service_bookingsOrderByWithRelationInput[]
+    cursor?: service_bookingsWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: Service_bookingsScalarFieldEnum | Service_bookingsScalarFieldEnum[]
+  }
+
+  /**
+   * users.service_reviews
+   */
+  export type users$service_reviewsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the service_reviews
+     */
+    select?: service_reviewsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the service_reviews
+     */
+    omit?: service_reviewsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: service_reviewsInclude<ExtArgs> | null
+    where?: service_reviewsWhereInput
+    orderBy?: service_reviewsOrderByWithRelationInput | service_reviewsOrderByWithRelationInput[]
+    cursor?: service_reviewsWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: Service_reviewsScalarFieldEnum | Service_reviewsScalarFieldEnum[]
   }
 
   /**
@@ -64352,6 +65076,6375 @@ export namespace Prisma {
 
 
   /**
+   * Model services
+   */
+
+  export type AggregateServices = {
+    _count: ServicesCountAggregateOutputType | null
+    _avg: ServicesAvgAggregateOutputType | null
+    _sum: ServicesSumAggregateOutputType | null
+    _min: ServicesMinAggregateOutputType | null
+    _max: ServicesMaxAggregateOutputType | null
+  }
+
+  export type ServicesAvgAggregateOutputType = {
+    id: number | null
+    price: Decimal | null
+    max_participants: number | null
+    booking_deadline: number | null
+    views_count: number | null
+    bookings_count: number | null
+    rating: number | null
+    review_count: number | null
+    created_by: number | null
+  }
+
+  export type ServicesSumAggregateOutputType = {
+    id: number | null
+    price: Decimal | null
+    max_participants: number | null
+    booking_deadline: number | null
+    views_count: number | null
+    bookings_count: number | null
+    rating: number | null
+    review_count: number | null
+    created_by: number | null
+  }
+
+  export type ServicesMinAggregateOutputType = {
+    id: number | null
+    title: string | null
+    description: string | null
+    category: $Enums.service_category | null
+    price: Decimal | null
+    duration: string | null
+    max_participants: number | null
+    location: string | null
+    difficulty: $Enums.service_difficulty | null
+    next_available: Date | null
+    image_url: string | null
+    featured: boolean | null
+    requirements: string | null
+    cancellation_policy: string | null
+    meeting_point: string | null
+    what_to_expect: string | null
+    weather_policy: $Enums.weather_policy_type | null
+    booking_deadline: number | null
+    certification: string | null
+    experience: string | null
+    group_discount: boolean | null
+    private_booking: boolean | null
+    instant_booking: boolean | null
+    status: $Enums.service_status | null
+    views_count: number | null
+    bookings_count: number | null
+    rating: number | null
+    review_count: number | null
+    created_by: number | null
+    is_active: boolean | null
+    created_at: Date | null
+    updated_at: Date | null
+  }
+
+  export type ServicesMaxAggregateOutputType = {
+    id: number | null
+    title: string | null
+    description: string | null
+    category: $Enums.service_category | null
+    price: Decimal | null
+    duration: string | null
+    max_participants: number | null
+    location: string | null
+    difficulty: $Enums.service_difficulty | null
+    next_available: Date | null
+    image_url: string | null
+    featured: boolean | null
+    requirements: string | null
+    cancellation_policy: string | null
+    meeting_point: string | null
+    what_to_expect: string | null
+    weather_policy: $Enums.weather_policy_type | null
+    booking_deadline: number | null
+    certification: string | null
+    experience: string | null
+    group_discount: boolean | null
+    private_booking: boolean | null
+    instant_booking: boolean | null
+    status: $Enums.service_status | null
+    views_count: number | null
+    bookings_count: number | null
+    rating: number | null
+    review_count: number | null
+    created_by: number | null
+    is_active: boolean | null
+    created_at: Date | null
+    updated_at: Date | null
+  }
+
+  export type ServicesCountAggregateOutputType = {
+    id: number
+    title: number
+    description: number
+    category: number
+    price: number
+    duration: number
+    max_participants: number
+    location: number
+    difficulty: number
+    equipment: number
+    next_available: number
+    image_url: number
+    featured: number
+    tags: number
+    requirements: number
+    cancellation_policy: number
+    meeting_point: number
+    what_to_expect: number
+    weather_policy: number
+    booking_deadline: number
+    languages: number
+    certification: number
+    experience: number
+    group_discount: number
+    private_booking: number
+    instant_booking: number
+    status: number
+    views_count: number
+    bookings_count: number
+    rating: number
+    review_count: number
+    created_by: number
+    is_active: number
+    created_at: number
+    updated_at: number
+    _all: number
+  }
+
+
+  export type ServicesAvgAggregateInputType = {
+    id?: true
+    price?: true
+    max_participants?: true
+    booking_deadline?: true
+    views_count?: true
+    bookings_count?: true
+    rating?: true
+    review_count?: true
+    created_by?: true
+  }
+
+  export type ServicesSumAggregateInputType = {
+    id?: true
+    price?: true
+    max_participants?: true
+    booking_deadline?: true
+    views_count?: true
+    bookings_count?: true
+    rating?: true
+    review_count?: true
+    created_by?: true
+  }
+
+  export type ServicesMinAggregateInputType = {
+    id?: true
+    title?: true
+    description?: true
+    category?: true
+    price?: true
+    duration?: true
+    max_participants?: true
+    location?: true
+    difficulty?: true
+    next_available?: true
+    image_url?: true
+    featured?: true
+    requirements?: true
+    cancellation_policy?: true
+    meeting_point?: true
+    what_to_expect?: true
+    weather_policy?: true
+    booking_deadline?: true
+    certification?: true
+    experience?: true
+    group_discount?: true
+    private_booking?: true
+    instant_booking?: true
+    status?: true
+    views_count?: true
+    bookings_count?: true
+    rating?: true
+    review_count?: true
+    created_by?: true
+    is_active?: true
+    created_at?: true
+    updated_at?: true
+  }
+
+  export type ServicesMaxAggregateInputType = {
+    id?: true
+    title?: true
+    description?: true
+    category?: true
+    price?: true
+    duration?: true
+    max_participants?: true
+    location?: true
+    difficulty?: true
+    next_available?: true
+    image_url?: true
+    featured?: true
+    requirements?: true
+    cancellation_policy?: true
+    meeting_point?: true
+    what_to_expect?: true
+    weather_policy?: true
+    booking_deadline?: true
+    certification?: true
+    experience?: true
+    group_discount?: true
+    private_booking?: true
+    instant_booking?: true
+    status?: true
+    views_count?: true
+    bookings_count?: true
+    rating?: true
+    review_count?: true
+    created_by?: true
+    is_active?: true
+    created_at?: true
+    updated_at?: true
+  }
+
+  export type ServicesCountAggregateInputType = {
+    id?: true
+    title?: true
+    description?: true
+    category?: true
+    price?: true
+    duration?: true
+    max_participants?: true
+    location?: true
+    difficulty?: true
+    equipment?: true
+    next_available?: true
+    image_url?: true
+    featured?: true
+    tags?: true
+    requirements?: true
+    cancellation_policy?: true
+    meeting_point?: true
+    what_to_expect?: true
+    weather_policy?: true
+    booking_deadline?: true
+    languages?: true
+    certification?: true
+    experience?: true
+    group_discount?: true
+    private_booking?: true
+    instant_booking?: true
+    status?: true
+    views_count?: true
+    bookings_count?: true
+    rating?: true
+    review_count?: true
+    created_by?: true
+    is_active?: true
+    created_at?: true
+    updated_at?: true
+    _all?: true
+  }
+
+  export type ServicesAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which services to aggregate.
+     */
+    where?: servicesWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of services to fetch.
+     */
+    orderBy?: servicesOrderByWithRelationInput | servicesOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: servicesWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` services from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` services.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned services
+    **/
+    _count?: true | ServicesCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: ServicesAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: ServicesSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: ServicesMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: ServicesMaxAggregateInputType
+  }
+
+  export type GetServicesAggregateType<T extends ServicesAggregateArgs> = {
+        [P in keyof T & keyof AggregateServices]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateServices[P]>
+      : GetScalarType<T[P], AggregateServices[P]>
+  }
+
+
+
+
+  export type servicesGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: servicesWhereInput
+    orderBy?: servicesOrderByWithAggregationInput | servicesOrderByWithAggregationInput[]
+    by: ServicesScalarFieldEnum[] | ServicesScalarFieldEnum
+    having?: servicesScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: ServicesCountAggregateInputType | true
+    _avg?: ServicesAvgAggregateInputType
+    _sum?: ServicesSumAggregateInputType
+    _min?: ServicesMinAggregateInputType
+    _max?: ServicesMaxAggregateInputType
+  }
+
+  export type ServicesGroupByOutputType = {
+    id: number
+    title: string
+    description: string
+    category: $Enums.service_category
+    price: Decimal
+    duration: string
+    max_participants: number
+    location: string
+    difficulty: $Enums.service_difficulty
+    equipment: JsonValue
+    next_available: Date
+    image_url: string | null
+    featured: boolean
+    tags: JsonValue
+    requirements: string | null
+    cancellation_policy: string | null
+    meeting_point: string | null
+    what_to_expect: string | null
+    weather_policy: $Enums.weather_policy_type | null
+    booking_deadline: number
+    languages: JsonValue
+    certification: string | null
+    experience: string | null
+    group_discount: boolean
+    private_booking: boolean
+    instant_booking: boolean
+    status: $Enums.service_status
+    views_count: number
+    bookings_count: number
+    rating: number
+    review_count: number
+    created_by: number
+    is_active: boolean
+    created_at: Date
+    updated_at: Date
+    _count: ServicesCountAggregateOutputType | null
+    _avg: ServicesAvgAggregateOutputType | null
+    _sum: ServicesSumAggregateOutputType | null
+    _min: ServicesMinAggregateOutputType | null
+    _max: ServicesMaxAggregateOutputType | null
+  }
+
+  type GetServicesGroupByPayload<T extends servicesGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<ServicesGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof ServicesGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], ServicesGroupByOutputType[P]>
+            : GetScalarType<T[P], ServicesGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type servicesSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    title?: boolean
+    description?: boolean
+    category?: boolean
+    price?: boolean
+    duration?: boolean
+    max_participants?: boolean
+    location?: boolean
+    difficulty?: boolean
+    equipment?: boolean
+    next_available?: boolean
+    image_url?: boolean
+    featured?: boolean
+    tags?: boolean
+    requirements?: boolean
+    cancellation_policy?: boolean
+    meeting_point?: boolean
+    what_to_expect?: boolean
+    weather_policy?: boolean
+    booking_deadline?: boolean
+    languages?: boolean
+    certification?: boolean
+    experience?: boolean
+    group_discount?: boolean
+    private_booking?: boolean
+    instant_booking?: boolean
+    status?: boolean
+    views_count?: boolean
+    bookings_count?: boolean
+    rating?: boolean
+    review_count?: boolean
+    created_by?: boolean
+    is_active?: boolean
+    created_at?: boolean
+    updated_at?: boolean
+    creator?: boolean | usersDefaultArgs<ExtArgs>
+    bookings?: boolean | services$bookingsArgs<ExtArgs>
+    reviews?: boolean | services$reviewsArgs<ExtArgs>
+    availability?: boolean | services$availabilityArgs<ExtArgs>
+    media?: boolean | services$mediaArgs<ExtArgs>
+    _count?: boolean | ServicesCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["services"]>
+
+  export type servicesSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    title?: boolean
+    description?: boolean
+    category?: boolean
+    price?: boolean
+    duration?: boolean
+    max_participants?: boolean
+    location?: boolean
+    difficulty?: boolean
+    equipment?: boolean
+    next_available?: boolean
+    image_url?: boolean
+    featured?: boolean
+    tags?: boolean
+    requirements?: boolean
+    cancellation_policy?: boolean
+    meeting_point?: boolean
+    what_to_expect?: boolean
+    weather_policy?: boolean
+    booking_deadline?: boolean
+    languages?: boolean
+    certification?: boolean
+    experience?: boolean
+    group_discount?: boolean
+    private_booking?: boolean
+    instant_booking?: boolean
+    status?: boolean
+    views_count?: boolean
+    bookings_count?: boolean
+    rating?: boolean
+    review_count?: boolean
+    created_by?: boolean
+    is_active?: boolean
+    created_at?: boolean
+    updated_at?: boolean
+    creator?: boolean | usersDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["services"]>
+
+  export type servicesSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    title?: boolean
+    description?: boolean
+    category?: boolean
+    price?: boolean
+    duration?: boolean
+    max_participants?: boolean
+    location?: boolean
+    difficulty?: boolean
+    equipment?: boolean
+    next_available?: boolean
+    image_url?: boolean
+    featured?: boolean
+    tags?: boolean
+    requirements?: boolean
+    cancellation_policy?: boolean
+    meeting_point?: boolean
+    what_to_expect?: boolean
+    weather_policy?: boolean
+    booking_deadline?: boolean
+    languages?: boolean
+    certification?: boolean
+    experience?: boolean
+    group_discount?: boolean
+    private_booking?: boolean
+    instant_booking?: boolean
+    status?: boolean
+    views_count?: boolean
+    bookings_count?: boolean
+    rating?: boolean
+    review_count?: boolean
+    created_by?: boolean
+    is_active?: boolean
+    created_at?: boolean
+    updated_at?: boolean
+    creator?: boolean | usersDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["services"]>
+
+  export type servicesSelectScalar = {
+    id?: boolean
+    title?: boolean
+    description?: boolean
+    category?: boolean
+    price?: boolean
+    duration?: boolean
+    max_participants?: boolean
+    location?: boolean
+    difficulty?: boolean
+    equipment?: boolean
+    next_available?: boolean
+    image_url?: boolean
+    featured?: boolean
+    tags?: boolean
+    requirements?: boolean
+    cancellation_policy?: boolean
+    meeting_point?: boolean
+    what_to_expect?: boolean
+    weather_policy?: boolean
+    booking_deadline?: boolean
+    languages?: boolean
+    certification?: boolean
+    experience?: boolean
+    group_discount?: boolean
+    private_booking?: boolean
+    instant_booking?: boolean
+    status?: boolean
+    views_count?: boolean
+    bookings_count?: boolean
+    rating?: boolean
+    review_count?: boolean
+    created_by?: boolean
+    is_active?: boolean
+    created_at?: boolean
+    updated_at?: boolean
+  }
+
+  export type servicesOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "title" | "description" | "category" | "price" | "duration" | "max_participants" | "location" | "difficulty" | "equipment" | "next_available" | "image_url" | "featured" | "tags" | "requirements" | "cancellation_policy" | "meeting_point" | "what_to_expect" | "weather_policy" | "booking_deadline" | "languages" | "certification" | "experience" | "group_discount" | "private_booking" | "instant_booking" | "status" | "views_count" | "bookings_count" | "rating" | "review_count" | "created_by" | "is_active" | "created_at" | "updated_at", ExtArgs["result"]["services"]>
+  export type servicesInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    creator?: boolean | usersDefaultArgs<ExtArgs>
+    bookings?: boolean | services$bookingsArgs<ExtArgs>
+    reviews?: boolean | services$reviewsArgs<ExtArgs>
+    availability?: boolean | services$availabilityArgs<ExtArgs>
+    media?: boolean | services$mediaArgs<ExtArgs>
+    _count?: boolean | ServicesCountOutputTypeDefaultArgs<ExtArgs>
+  }
+  export type servicesIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    creator?: boolean | usersDefaultArgs<ExtArgs>
+  }
+  export type servicesIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    creator?: boolean | usersDefaultArgs<ExtArgs>
+  }
+
+  export type $servicesPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "services"
+    objects: {
+      creator: Prisma.$usersPayload<ExtArgs>
+      bookings: Prisma.$service_bookingsPayload<ExtArgs>[]
+      reviews: Prisma.$service_reviewsPayload<ExtArgs>[]
+      availability: Prisma.$service_availabilityPayload<ExtArgs>[]
+      media: Prisma.$service_mediaPayload<ExtArgs>[]
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: number
+      title: string
+      description: string
+      category: $Enums.service_category
+      price: Prisma.Decimal
+      duration: string
+      max_participants: number
+      location: string
+      difficulty: $Enums.service_difficulty
+      equipment: Prisma.JsonValue
+      next_available: Date
+      image_url: string | null
+      featured: boolean
+      tags: Prisma.JsonValue
+      requirements: string | null
+      cancellation_policy: string | null
+      meeting_point: string | null
+      what_to_expect: string | null
+      weather_policy: $Enums.weather_policy_type | null
+      booking_deadline: number
+      languages: Prisma.JsonValue
+      certification: string | null
+      experience: string | null
+      group_discount: boolean
+      private_booking: boolean
+      instant_booking: boolean
+      status: $Enums.service_status
+      views_count: number
+      bookings_count: number
+      rating: number
+      review_count: number
+      created_by: number
+      is_active: boolean
+      created_at: Date
+      updated_at: Date
+    }, ExtArgs["result"]["services"]>
+    composites: {}
+  }
+
+  type servicesGetPayload<S extends boolean | null | undefined | servicesDefaultArgs> = $Result.GetResult<Prisma.$servicesPayload, S>
+
+  type servicesCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<servicesFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: ServicesCountAggregateInputType | true
+    }
+
+  export interface servicesDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['services'], meta: { name: 'services' } }
+    /**
+     * Find zero or one Services that matches the filter.
+     * @param {servicesFindUniqueArgs} args - Arguments to find a Services
+     * @example
+     * // Get one Services
+     * const services = await prisma.services.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends servicesFindUniqueArgs>(args: SelectSubset<T, servicesFindUniqueArgs<ExtArgs>>): Prisma__servicesClient<$Result.GetResult<Prisma.$servicesPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Services that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {servicesFindUniqueOrThrowArgs} args - Arguments to find a Services
+     * @example
+     * // Get one Services
+     * const services = await prisma.services.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends servicesFindUniqueOrThrowArgs>(args: SelectSubset<T, servicesFindUniqueOrThrowArgs<ExtArgs>>): Prisma__servicesClient<$Result.GetResult<Prisma.$servicesPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Services that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {servicesFindFirstArgs} args - Arguments to find a Services
+     * @example
+     * // Get one Services
+     * const services = await prisma.services.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends servicesFindFirstArgs>(args?: SelectSubset<T, servicesFindFirstArgs<ExtArgs>>): Prisma__servicesClient<$Result.GetResult<Prisma.$servicesPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Services that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {servicesFindFirstOrThrowArgs} args - Arguments to find a Services
+     * @example
+     * // Get one Services
+     * const services = await prisma.services.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends servicesFindFirstOrThrowArgs>(args?: SelectSubset<T, servicesFindFirstOrThrowArgs<ExtArgs>>): Prisma__servicesClient<$Result.GetResult<Prisma.$servicesPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Services that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {servicesFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Services
+     * const services = await prisma.services.findMany()
+     * 
+     * // Get first 10 Services
+     * const services = await prisma.services.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const servicesWithIdOnly = await prisma.services.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends servicesFindManyArgs>(args?: SelectSubset<T, servicesFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$servicesPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Services.
+     * @param {servicesCreateArgs} args - Arguments to create a Services.
+     * @example
+     * // Create one Services
+     * const Services = await prisma.services.create({
+     *   data: {
+     *     // ... data to create a Services
+     *   }
+     * })
+     * 
+     */
+    create<T extends servicesCreateArgs>(args: SelectSubset<T, servicesCreateArgs<ExtArgs>>): Prisma__servicesClient<$Result.GetResult<Prisma.$servicesPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Services.
+     * @param {servicesCreateManyArgs} args - Arguments to create many Services.
+     * @example
+     * // Create many Services
+     * const services = await prisma.services.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends servicesCreateManyArgs>(args?: SelectSubset<T, servicesCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many Services and returns the data saved in the database.
+     * @param {servicesCreateManyAndReturnArgs} args - Arguments to create many Services.
+     * @example
+     * // Create many Services
+     * const services = await prisma.services.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many Services and only return the `id`
+     * const servicesWithIdOnly = await prisma.services.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends servicesCreateManyAndReturnArgs>(args?: SelectSubset<T, servicesCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$servicesPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a Services.
+     * @param {servicesDeleteArgs} args - Arguments to delete one Services.
+     * @example
+     * // Delete one Services
+     * const Services = await prisma.services.delete({
+     *   where: {
+     *     // ... filter to delete one Services
+     *   }
+     * })
+     * 
+     */
+    delete<T extends servicesDeleteArgs>(args: SelectSubset<T, servicesDeleteArgs<ExtArgs>>): Prisma__servicesClient<$Result.GetResult<Prisma.$servicesPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Services.
+     * @param {servicesUpdateArgs} args - Arguments to update one Services.
+     * @example
+     * // Update one Services
+     * const services = await prisma.services.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends servicesUpdateArgs>(args: SelectSubset<T, servicesUpdateArgs<ExtArgs>>): Prisma__servicesClient<$Result.GetResult<Prisma.$servicesPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Services.
+     * @param {servicesDeleteManyArgs} args - Arguments to filter Services to delete.
+     * @example
+     * // Delete a few Services
+     * const { count } = await prisma.services.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends servicesDeleteManyArgs>(args?: SelectSubset<T, servicesDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Services.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {servicesUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Services
+     * const services = await prisma.services.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends servicesUpdateManyArgs>(args: SelectSubset<T, servicesUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Services and returns the data updated in the database.
+     * @param {servicesUpdateManyAndReturnArgs} args - Arguments to update many Services.
+     * @example
+     * // Update many Services
+     * const services = await prisma.services.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more Services and only return the `id`
+     * const servicesWithIdOnly = await prisma.services.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends servicesUpdateManyAndReturnArgs>(args: SelectSubset<T, servicesUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$servicesPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one Services.
+     * @param {servicesUpsertArgs} args - Arguments to update or create a Services.
+     * @example
+     * // Update or create a Services
+     * const services = await prisma.services.upsert({
+     *   create: {
+     *     // ... data to create a Services
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Services we want to update
+     *   }
+     * })
+     */
+    upsert<T extends servicesUpsertArgs>(args: SelectSubset<T, servicesUpsertArgs<ExtArgs>>): Prisma__servicesClient<$Result.GetResult<Prisma.$servicesPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of Services.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {servicesCountArgs} args - Arguments to filter Services to count.
+     * @example
+     * // Count the number of Services
+     * const count = await prisma.services.count({
+     *   where: {
+     *     // ... the filter for the Services we want to count
+     *   }
+     * })
+    **/
+    count<T extends servicesCountArgs>(
+      args?: Subset<T, servicesCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], ServicesCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Services.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ServicesAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends ServicesAggregateArgs>(args: Subset<T, ServicesAggregateArgs>): Prisma.PrismaPromise<GetServicesAggregateType<T>>
+
+    /**
+     * Group by Services.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {servicesGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends servicesGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: servicesGroupByArgs['orderBy'] }
+        : { orderBy?: servicesGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, servicesGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetServicesGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the services model
+   */
+  readonly fields: servicesFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for services.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__servicesClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    creator<T extends usersDefaultArgs<ExtArgs> = {}>(args?: Subset<T, usersDefaultArgs<ExtArgs>>): Prisma__usersClient<$Result.GetResult<Prisma.$usersPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    bookings<T extends services$bookingsArgs<ExtArgs> = {}>(args?: Subset<T, services$bookingsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$service_bookingsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    reviews<T extends services$reviewsArgs<ExtArgs> = {}>(args?: Subset<T, services$reviewsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$service_reviewsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    availability<T extends services$availabilityArgs<ExtArgs> = {}>(args?: Subset<T, services$availabilityArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$service_availabilityPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    media<T extends services$mediaArgs<ExtArgs> = {}>(args?: Subset<T, services$mediaArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$service_mediaPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the services model
+   */
+  interface servicesFieldRefs {
+    readonly id: FieldRef<"services", 'Int'>
+    readonly title: FieldRef<"services", 'String'>
+    readonly description: FieldRef<"services", 'String'>
+    readonly category: FieldRef<"services", 'service_category'>
+    readonly price: FieldRef<"services", 'Decimal'>
+    readonly duration: FieldRef<"services", 'String'>
+    readonly max_participants: FieldRef<"services", 'Int'>
+    readonly location: FieldRef<"services", 'String'>
+    readonly difficulty: FieldRef<"services", 'service_difficulty'>
+    readonly equipment: FieldRef<"services", 'Json'>
+    readonly next_available: FieldRef<"services", 'DateTime'>
+    readonly image_url: FieldRef<"services", 'String'>
+    readonly featured: FieldRef<"services", 'Boolean'>
+    readonly tags: FieldRef<"services", 'Json'>
+    readonly requirements: FieldRef<"services", 'String'>
+    readonly cancellation_policy: FieldRef<"services", 'String'>
+    readonly meeting_point: FieldRef<"services", 'String'>
+    readonly what_to_expect: FieldRef<"services", 'String'>
+    readonly weather_policy: FieldRef<"services", 'weather_policy_type'>
+    readonly booking_deadline: FieldRef<"services", 'Int'>
+    readonly languages: FieldRef<"services", 'Json'>
+    readonly certification: FieldRef<"services", 'String'>
+    readonly experience: FieldRef<"services", 'String'>
+    readonly group_discount: FieldRef<"services", 'Boolean'>
+    readonly private_booking: FieldRef<"services", 'Boolean'>
+    readonly instant_booking: FieldRef<"services", 'Boolean'>
+    readonly status: FieldRef<"services", 'service_status'>
+    readonly views_count: FieldRef<"services", 'Int'>
+    readonly bookings_count: FieldRef<"services", 'Int'>
+    readonly rating: FieldRef<"services", 'Float'>
+    readonly review_count: FieldRef<"services", 'Int'>
+    readonly created_by: FieldRef<"services", 'Int'>
+    readonly is_active: FieldRef<"services", 'Boolean'>
+    readonly created_at: FieldRef<"services", 'DateTime'>
+    readonly updated_at: FieldRef<"services", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * services findUnique
+   */
+  export type servicesFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the services
+     */
+    select?: servicesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the services
+     */
+    omit?: servicesOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: servicesInclude<ExtArgs> | null
+    /**
+     * Filter, which services to fetch.
+     */
+    where: servicesWhereUniqueInput
+  }
+
+  /**
+   * services findUniqueOrThrow
+   */
+  export type servicesFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the services
+     */
+    select?: servicesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the services
+     */
+    omit?: servicesOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: servicesInclude<ExtArgs> | null
+    /**
+     * Filter, which services to fetch.
+     */
+    where: servicesWhereUniqueInput
+  }
+
+  /**
+   * services findFirst
+   */
+  export type servicesFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the services
+     */
+    select?: servicesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the services
+     */
+    omit?: servicesOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: servicesInclude<ExtArgs> | null
+    /**
+     * Filter, which services to fetch.
+     */
+    where?: servicesWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of services to fetch.
+     */
+    orderBy?: servicesOrderByWithRelationInput | servicesOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for services.
+     */
+    cursor?: servicesWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` services from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` services.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of services.
+     */
+    distinct?: ServicesScalarFieldEnum | ServicesScalarFieldEnum[]
+  }
+
+  /**
+   * services findFirstOrThrow
+   */
+  export type servicesFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the services
+     */
+    select?: servicesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the services
+     */
+    omit?: servicesOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: servicesInclude<ExtArgs> | null
+    /**
+     * Filter, which services to fetch.
+     */
+    where?: servicesWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of services to fetch.
+     */
+    orderBy?: servicesOrderByWithRelationInput | servicesOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for services.
+     */
+    cursor?: servicesWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` services from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` services.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of services.
+     */
+    distinct?: ServicesScalarFieldEnum | ServicesScalarFieldEnum[]
+  }
+
+  /**
+   * services findMany
+   */
+  export type servicesFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the services
+     */
+    select?: servicesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the services
+     */
+    omit?: servicesOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: servicesInclude<ExtArgs> | null
+    /**
+     * Filter, which services to fetch.
+     */
+    where?: servicesWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of services to fetch.
+     */
+    orderBy?: servicesOrderByWithRelationInput | servicesOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing services.
+     */
+    cursor?: servicesWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` services from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` services.
+     */
+    skip?: number
+    distinct?: ServicesScalarFieldEnum | ServicesScalarFieldEnum[]
+  }
+
+  /**
+   * services create
+   */
+  export type servicesCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the services
+     */
+    select?: servicesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the services
+     */
+    omit?: servicesOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: servicesInclude<ExtArgs> | null
+    /**
+     * The data needed to create a services.
+     */
+    data: XOR<servicesCreateInput, servicesUncheckedCreateInput>
+  }
+
+  /**
+   * services createMany
+   */
+  export type servicesCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many services.
+     */
+    data: servicesCreateManyInput | servicesCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * services createManyAndReturn
+   */
+  export type servicesCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the services
+     */
+    select?: servicesSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the services
+     */
+    omit?: servicesOmit<ExtArgs> | null
+    /**
+     * The data used to create many services.
+     */
+    data: servicesCreateManyInput | servicesCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: servicesIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * services update
+   */
+  export type servicesUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the services
+     */
+    select?: servicesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the services
+     */
+    omit?: servicesOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: servicesInclude<ExtArgs> | null
+    /**
+     * The data needed to update a services.
+     */
+    data: XOR<servicesUpdateInput, servicesUncheckedUpdateInput>
+    /**
+     * Choose, which services to update.
+     */
+    where: servicesWhereUniqueInput
+  }
+
+  /**
+   * services updateMany
+   */
+  export type servicesUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update services.
+     */
+    data: XOR<servicesUpdateManyMutationInput, servicesUncheckedUpdateManyInput>
+    /**
+     * Filter which services to update
+     */
+    where?: servicesWhereInput
+    /**
+     * Limit how many services to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * services updateManyAndReturn
+   */
+  export type servicesUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the services
+     */
+    select?: servicesSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the services
+     */
+    omit?: servicesOmit<ExtArgs> | null
+    /**
+     * The data used to update services.
+     */
+    data: XOR<servicesUpdateManyMutationInput, servicesUncheckedUpdateManyInput>
+    /**
+     * Filter which services to update
+     */
+    where?: servicesWhereInput
+    /**
+     * Limit how many services to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: servicesIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * services upsert
+   */
+  export type servicesUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the services
+     */
+    select?: servicesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the services
+     */
+    omit?: servicesOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: servicesInclude<ExtArgs> | null
+    /**
+     * The filter to search for the services to update in case it exists.
+     */
+    where: servicesWhereUniqueInput
+    /**
+     * In case the services found by the `where` argument doesn't exist, create a new services with this data.
+     */
+    create: XOR<servicesCreateInput, servicesUncheckedCreateInput>
+    /**
+     * In case the services was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<servicesUpdateInput, servicesUncheckedUpdateInput>
+  }
+
+  /**
+   * services delete
+   */
+  export type servicesDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the services
+     */
+    select?: servicesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the services
+     */
+    omit?: servicesOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: servicesInclude<ExtArgs> | null
+    /**
+     * Filter which services to delete.
+     */
+    where: servicesWhereUniqueInput
+  }
+
+  /**
+   * services deleteMany
+   */
+  export type servicesDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which services to delete
+     */
+    where?: servicesWhereInput
+    /**
+     * Limit how many services to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * services.bookings
+   */
+  export type services$bookingsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the service_bookings
+     */
+    select?: service_bookingsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the service_bookings
+     */
+    omit?: service_bookingsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: service_bookingsInclude<ExtArgs> | null
+    where?: service_bookingsWhereInput
+    orderBy?: service_bookingsOrderByWithRelationInput | service_bookingsOrderByWithRelationInput[]
+    cursor?: service_bookingsWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: Service_bookingsScalarFieldEnum | Service_bookingsScalarFieldEnum[]
+  }
+
+  /**
+   * services.reviews
+   */
+  export type services$reviewsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the service_reviews
+     */
+    select?: service_reviewsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the service_reviews
+     */
+    omit?: service_reviewsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: service_reviewsInclude<ExtArgs> | null
+    where?: service_reviewsWhereInput
+    orderBy?: service_reviewsOrderByWithRelationInput | service_reviewsOrderByWithRelationInput[]
+    cursor?: service_reviewsWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: Service_reviewsScalarFieldEnum | Service_reviewsScalarFieldEnum[]
+  }
+
+  /**
+   * services.availability
+   */
+  export type services$availabilityArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the service_availability
+     */
+    select?: service_availabilitySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the service_availability
+     */
+    omit?: service_availabilityOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: service_availabilityInclude<ExtArgs> | null
+    where?: service_availabilityWhereInput
+    orderBy?: service_availabilityOrderByWithRelationInput | service_availabilityOrderByWithRelationInput[]
+    cursor?: service_availabilityWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: Service_availabilityScalarFieldEnum | Service_availabilityScalarFieldEnum[]
+  }
+
+  /**
+   * services.media
+   */
+  export type services$mediaArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the service_media
+     */
+    select?: service_mediaSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the service_media
+     */
+    omit?: service_mediaOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: service_mediaInclude<ExtArgs> | null
+    where?: service_mediaWhereInput
+    orderBy?: service_mediaOrderByWithRelationInput | service_mediaOrderByWithRelationInput[]
+    cursor?: service_mediaWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: Service_mediaScalarFieldEnum | Service_mediaScalarFieldEnum[]
+  }
+
+  /**
+   * services without action
+   */
+  export type servicesDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the services
+     */
+    select?: servicesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the services
+     */
+    omit?: servicesOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: servicesInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model service_bookings
+   */
+
+  export type AggregateService_bookings = {
+    _count: Service_bookingsCountAggregateOutputType | null
+    _avg: Service_bookingsAvgAggregateOutputType | null
+    _sum: Service_bookingsSumAggregateOutputType | null
+    _min: Service_bookingsMinAggregateOutputType | null
+    _max: Service_bookingsMaxAggregateOutputType | null
+  }
+
+  export type Service_bookingsAvgAggregateOutputType = {
+    id: number | null
+    service_id: number | null
+    user_id: number | null
+    participants_count: number | null
+    total_amount: Decimal | null
+  }
+
+  export type Service_bookingsSumAggregateOutputType = {
+    id: number | null
+    service_id: number | null
+    user_id: number | null
+    participants_count: number | null
+    total_amount: Decimal | null
+  }
+
+  export type Service_bookingsMinAggregateOutputType = {
+    id: number | null
+    service_id: number | null
+    user_id: number | null
+    booking_date: Date | null
+    booking_time: Date | null
+    participants_count: number | null
+    total_amount: Decimal | null
+    payment_status: $Enums.booking_payment_status | null
+    payment_method: string | null
+    transaction_id: string | null
+    booking_status: $Enums.booking_status | null
+    special_requests: string | null
+    cancellation_reason: string | null
+    cancelled_at: Date | null
+    confirmed_at: Date | null
+    completed_at: Date | null
+    created_at: Date | null
+    updated_at: Date | null
+  }
+
+  export type Service_bookingsMaxAggregateOutputType = {
+    id: number | null
+    service_id: number | null
+    user_id: number | null
+    booking_date: Date | null
+    booking_time: Date | null
+    participants_count: number | null
+    total_amount: Decimal | null
+    payment_status: $Enums.booking_payment_status | null
+    payment_method: string | null
+    transaction_id: string | null
+    booking_status: $Enums.booking_status | null
+    special_requests: string | null
+    cancellation_reason: string | null
+    cancelled_at: Date | null
+    confirmed_at: Date | null
+    completed_at: Date | null
+    created_at: Date | null
+    updated_at: Date | null
+  }
+
+  export type Service_bookingsCountAggregateOutputType = {
+    id: number
+    service_id: number
+    user_id: number
+    booking_date: number
+    booking_time: number
+    participants_count: number
+    total_amount: number
+    payment_status: number
+    payment_method: number
+    transaction_id: number
+    booking_status: number
+    special_requests: number
+    cancellation_reason: number
+    cancelled_at: number
+    confirmed_at: number
+    completed_at: number
+    created_at: number
+    updated_at: number
+    _all: number
+  }
+
+
+  export type Service_bookingsAvgAggregateInputType = {
+    id?: true
+    service_id?: true
+    user_id?: true
+    participants_count?: true
+    total_amount?: true
+  }
+
+  export type Service_bookingsSumAggregateInputType = {
+    id?: true
+    service_id?: true
+    user_id?: true
+    participants_count?: true
+    total_amount?: true
+  }
+
+  export type Service_bookingsMinAggregateInputType = {
+    id?: true
+    service_id?: true
+    user_id?: true
+    booking_date?: true
+    booking_time?: true
+    participants_count?: true
+    total_amount?: true
+    payment_status?: true
+    payment_method?: true
+    transaction_id?: true
+    booking_status?: true
+    special_requests?: true
+    cancellation_reason?: true
+    cancelled_at?: true
+    confirmed_at?: true
+    completed_at?: true
+    created_at?: true
+    updated_at?: true
+  }
+
+  export type Service_bookingsMaxAggregateInputType = {
+    id?: true
+    service_id?: true
+    user_id?: true
+    booking_date?: true
+    booking_time?: true
+    participants_count?: true
+    total_amount?: true
+    payment_status?: true
+    payment_method?: true
+    transaction_id?: true
+    booking_status?: true
+    special_requests?: true
+    cancellation_reason?: true
+    cancelled_at?: true
+    confirmed_at?: true
+    completed_at?: true
+    created_at?: true
+    updated_at?: true
+  }
+
+  export type Service_bookingsCountAggregateInputType = {
+    id?: true
+    service_id?: true
+    user_id?: true
+    booking_date?: true
+    booking_time?: true
+    participants_count?: true
+    total_amount?: true
+    payment_status?: true
+    payment_method?: true
+    transaction_id?: true
+    booking_status?: true
+    special_requests?: true
+    cancellation_reason?: true
+    cancelled_at?: true
+    confirmed_at?: true
+    completed_at?: true
+    created_at?: true
+    updated_at?: true
+    _all?: true
+  }
+
+  export type Service_bookingsAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which service_bookings to aggregate.
+     */
+    where?: service_bookingsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of service_bookings to fetch.
+     */
+    orderBy?: service_bookingsOrderByWithRelationInput | service_bookingsOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: service_bookingsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` service_bookings from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` service_bookings.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned service_bookings
+    **/
+    _count?: true | Service_bookingsCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: Service_bookingsAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: Service_bookingsSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: Service_bookingsMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: Service_bookingsMaxAggregateInputType
+  }
+
+  export type GetService_bookingsAggregateType<T extends Service_bookingsAggregateArgs> = {
+        [P in keyof T & keyof AggregateService_bookings]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateService_bookings[P]>
+      : GetScalarType<T[P], AggregateService_bookings[P]>
+  }
+
+
+
+
+  export type service_bookingsGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: service_bookingsWhereInput
+    orderBy?: service_bookingsOrderByWithAggregationInput | service_bookingsOrderByWithAggregationInput[]
+    by: Service_bookingsScalarFieldEnum[] | Service_bookingsScalarFieldEnum
+    having?: service_bookingsScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: Service_bookingsCountAggregateInputType | true
+    _avg?: Service_bookingsAvgAggregateInputType
+    _sum?: Service_bookingsSumAggregateInputType
+    _min?: Service_bookingsMinAggregateInputType
+    _max?: Service_bookingsMaxAggregateInputType
+  }
+
+  export type Service_bookingsGroupByOutputType = {
+    id: number
+    service_id: number
+    user_id: number
+    booking_date: Date
+    booking_time: Date | null
+    participants_count: number
+    total_amount: Decimal
+    payment_status: $Enums.booking_payment_status
+    payment_method: string | null
+    transaction_id: string | null
+    booking_status: $Enums.booking_status
+    special_requests: string | null
+    cancellation_reason: string | null
+    cancelled_at: Date | null
+    confirmed_at: Date | null
+    completed_at: Date | null
+    created_at: Date
+    updated_at: Date
+    _count: Service_bookingsCountAggregateOutputType | null
+    _avg: Service_bookingsAvgAggregateOutputType | null
+    _sum: Service_bookingsSumAggregateOutputType | null
+    _min: Service_bookingsMinAggregateOutputType | null
+    _max: Service_bookingsMaxAggregateOutputType | null
+  }
+
+  type GetService_bookingsGroupByPayload<T extends service_bookingsGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<Service_bookingsGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof Service_bookingsGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], Service_bookingsGroupByOutputType[P]>
+            : GetScalarType<T[P], Service_bookingsGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type service_bookingsSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    service_id?: boolean
+    user_id?: boolean
+    booking_date?: boolean
+    booking_time?: boolean
+    participants_count?: boolean
+    total_amount?: boolean
+    payment_status?: boolean
+    payment_method?: boolean
+    transaction_id?: boolean
+    booking_status?: boolean
+    special_requests?: boolean
+    cancellation_reason?: boolean
+    cancelled_at?: boolean
+    confirmed_at?: boolean
+    completed_at?: boolean
+    created_at?: boolean
+    updated_at?: boolean
+    service?: boolean | servicesDefaultArgs<ExtArgs>
+    user?: boolean | usersDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["service_bookings"]>
+
+  export type service_bookingsSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    service_id?: boolean
+    user_id?: boolean
+    booking_date?: boolean
+    booking_time?: boolean
+    participants_count?: boolean
+    total_amount?: boolean
+    payment_status?: boolean
+    payment_method?: boolean
+    transaction_id?: boolean
+    booking_status?: boolean
+    special_requests?: boolean
+    cancellation_reason?: boolean
+    cancelled_at?: boolean
+    confirmed_at?: boolean
+    completed_at?: boolean
+    created_at?: boolean
+    updated_at?: boolean
+    service?: boolean | servicesDefaultArgs<ExtArgs>
+    user?: boolean | usersDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["service_bookings"]>
+
+  export type service_bookingsSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    service_id?: boolean
+    user_id?: boolean
+    booking_date?: boolean
+    booking_time?: boolean
+    participants_count?: boolean
+    total_amount?: boolean
+    payment_status?: boolean
+    payment_method?: boolean
+    transaction_id?: boolean
+    booking_status?: boolean
+    special_requests?: boolean
+    cancellation_reason?: boolean
+    cancelled_at?: boolean
+    confirmed_at?: boolean
+    completed_at?: boolean
+    created_at?: boolean
+    updated_at?: boolean
+    service?: boolean | servicesDefaultArgs<ExtArgs>
+    user?: boolean | usersDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["service_bookings"]>
+
+  export type service_bookingsSelectScalar = {
+    id?: boolean
+    service_id?: boolean
+    user_id?: boolean
+    booking_date?: boolean
+    booking_time?: boolean
+    participants_count?: boolean
+    total_amount?: boolean
+    payment_status?: boolean
+    payment_method?: boolean
+    transaction_id?: boolean
+    booking_status?: boolean
+    special_requests?: boolean
+    cancellation_reason?: boolean
+    cancelled_at?: boolean
+    confirmed_at?: boolean
+    completed_at?: boolean
+    created_at?: boolean
+    updated_at?: boolean
+  }
+
+  export type service_bookingsOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "service_id" | "user_id" | "booking_date" | "booking_time" | "participants_count" | "total_amount" | "payment_status" | "payment_method" | "transaction_id" | "booking_status" | "special_requests" | "cancellation_reason" | "cancelled_at" | "confirmed_at" | "completed_at" | "created_at" | "updated_at", ExtArgs["result"]["service_bookings"]>
+  export type service_bookingsInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    service?: boolean | servicesDefaultArgs<ExtArgs>
+    user?: boolean | usersDefaultArgs<ExtArgs>
+  }
+  export type service_bookingsIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    service?: boolean | servicesDefaultArgs<ExtArgs>
+    user?: boolean | usersDefaultArgs<ExtArgs>
+  }
+  export type service_bookingsIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    service?: boolean | servicesDefaultArgs<ExtArgs>
+    user?: boolean | usersDefaultArgs<ExtArgs>
+  }
+
+  export type $service_bookingsPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "service_bookings"
+    objects: {
+      service: Prisma.$servicesPayload<ExtArgs>
+      user: Prisma.$usersPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: number
+      service_id: number
+      user_id: number
+      booking_date: Date
+      booking_time: Date | null
+      participants_count: number
+      total_amount: Prisma.Decimal
+      payment_status: $Enums.booking_payment_status
+      payment_method: string | null
+      transaction_id: string | null
+      booking_status: $Enums.booking_status
+      special_requests: string | null
+      cancellation_reason: string | null
+      cancelled_at: Date | null
+      confirmed_at: Date | null
+      completed_at: Date | null
+      created_at: Date
+      updated_at: Date
+    }, ExtArgs["result"]["service_bookings"]>
+    composites: {}
+  }
+
+  type service_bookingsGetPayload<S extends boolean | null | undefined | service_bookingsDefaultArgs> = $Result.GetResult<Prisma.$service_bookingsPayload, S>
+
+  type service_bookingsCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<service_bookingsFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: Service_bookingsCountAggregateInputType | true
+    }
+
+  export interface service_bookingsDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['service_bookings'], meta: { name: 'service_bookings' } }
+    /**
+     * Find zero or one Service_bookings that matches the filter.
+     * @param {service_bookingsFindUniqueArgs} args - Arguments to find a Service_bookings
+     * @example
+     * // Get one Service_bookings
+     * const service_bookings = await prisma.service_bookings.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends service_bookingsFindUniqueArgs>(args: SelectSubset<T, service_bookingsFindUniqueArgs<ExtArgs>>): Prisma__service_bookingsClient<$Result.GetResult<Prisma.$service_bookingsPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Service_bookings that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {service_bookingsFindUniqueOrThrowArgs} args - Arguments to find a Service_bookings
+     * @example
+     * // Get one Service_bookings
+     * const service_bookings = await prisma.service_bookings.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends service_bookingsFindUniqueOrThrowArgs>(args: SelectSubset<T, service_bookingsFindUniqueOrThrowArgs<ExtArgs>>): Prisma__service_bookingsClient<$Result.GetResult<Prisma.$service_bookingsPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Service_bookings that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {service_bookingsFindFirstArgs} args - Arguments to find a Service_bookings
+     * @example
+     * // Get one Service_bookings
+     * const service_bookings = await prisma.service_bookings.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends service_bookingsFindFirstArgs>(args?: SelectSubset<T, service_bookingsFindFirstArgs<ExtArgs>>): Prisma__service_bookingsClient<$Result.GetResult<Prisma.$service_bookingsPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Service_bookings that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {service_bookingsFindFirstOrThrowArgs} args - Arguments to find a Service_bookings
+     * @example
+     * // Get one Service_bookings
+     * const service_bookings = await prisma.service_bookings.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends service_bookingsFindFirstOrThrowArgs>(args?: SelectSubset<T, service_bookingsFindFirstOrThrowArgs<ExtArgs>>): Prisma__service_bookingsClient<$Result.GetResult<Prisma.$service_bookingsPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Service_bookings that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {service_bookingsFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Service_bookings
+     * const service_bookings = await prisma.service_bookings.findMany()
+     * 
+     * // Get first 10 Service_bookings
+     * const service_bookings = await prisma.service_bookings.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const service_bookingsWithIdOnly = await prisma.service_bookings.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends service_bookingsFindManyArgs>(args?: SelectSubset<T, service_bookingsFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$service_bookingsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Service_bookings.
+     * @param {service_bookingsCreateArgs} args - Arguments to create a Service_bookings.
+     * @example
+     * // Create one Service_bookings
+     * const Service_bookings = await prisma.service_bookings.create({
+     *   data: {
+     *     // ... data to create a Service_bookings
+     *   }
+     * })
+     * 
+     */
+    create<T extends service_bookingsCreateArgs>(args: SelectSubset<T, service_bookingsCreateArgs<ExtArgs>>): Prisma__service_bookingsClient<$Result.GetResult<Prisma.$service_bookingsPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Service_bookings.
+     * @param {service_bookingsCreateManyArgs} args - Arguments to create many Service_bookings.
+     * @example
+     * // Create many Service_bookings
+     * const service_bookings = await prisma.service_bookings.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends service_bookingsCreateManyArgs>(args?: SelectSubset<T, service_bookingsCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many Service_bookings and returns the data saved in the database.
+     * @param {service_bookingsCreateManyAndReturnArgs} args - Arguments to create many Service_bookings.
+     * @example
+     * // Create many Service_bookings
+     * const service_bookings = await prisma.service_bookings.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many Service_bookings and only return the `id`
+     * const service_bookingsWithIdOnly = await prisma.service_bookings.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends service_bookingsCreateManyAndReturnArgs>(args?: SelectSubset<T, service_bookingsCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$service_bookingsPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a Service_bookings.
+     * @param {service_bookingsDeleteArgs} args - Arguments to delete one Service_bookings.
+     * @example
+     * // Delete one Service_bookings
+     * const Service_bookings = await prisma.service_bookings.delete({
+     *   where: {
+     *     // ... filter to delete one Service_bookings
+     *   }
+     * })
+     * 
+     */
+    delete<T extends service_bookingsDeleteArgs>(args: SelectSubset<T, service_bookingsDeleteArgs<ExtArgs>>): Prisma__service_bookingsClient<$Result.GetResult<Prisma.$service_bookingsPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Service_bookings.
+     * @param {service_bookingsUpdateArgs} args - Arguments to update one Service_bookings.
+     * @example
+     * // Update one Service_bookings
+     * const service_bookings = await prisma.service_bookings.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends service_bookingsUpdateArgs>(args: SelectSubset<T, service_bookingsUpdateArgs<ExtArgs>>): Prisma__service_bookingsClient<$Result.GetResult<Prisma.$service_bookingsPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Service_bookings.
+     * @param {service_bookingsDeleteManyArgs} args - Arguments to filter Service_bookings to delete.
+     * @example
+     * // Delete a few Service_bookings
+     * const { count } = await prisma.service_bookings.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends service_bookingsDeleteManyArgs>(args?: SelectSubset<T, service_bookingsDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Service_bookings.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {service_bookingsUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Service_bookings
+     * const service_bookings = await prisma.service_bookings.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends service_bookingsUpdateManyArgs>(args: SelectSubset<T, service_bookingsUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Service_bookings and returns the data updated in the database.
+     * @param {service_bookingsUpdateManyAndReturnArgs} args - Arguments to update many Service_bookings.
+     * @example
+     * // Update many Service_bookings
+     * const service_bookings = await prisma.service_bookings.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more Service_bookings and only return the `id`
+     * const service_bookingsWithIdOnly = await prisma.service_bookings.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends service_bookingsUpdateManyAndReturnArgs>(args: SelectSubset<T, service_bookingsUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$service_bookingsPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one Service_bookings.
+     * @param {service_bookingsUpsertArgs} args - Arguments to update or create a Service_bookings.
+     * @example
+     * // Update or create a Service_bookings
+     * const service_bookings = await prisma.service_bookings.upsert({
+     *   create: {
+     *     // ... data to create a Service_bookings
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Service_bookings we want to update
+     *   }
+     * })
+     */
+    upsert<T extends service_bookingsUpsertArgs>(args: SelectSubset<T, service_bookingsUpsertArgs<ExtArgs>>): Prisma__service_bookingsClient<$Result.GetResult<Prisma.$service_bookingsPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of Service_bookings.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {service_bookingsCountArgs} args - Arguments to filter Service_bookings to count.
+     * @example
+     * // Count the number of Service_bookings
+     * const count = await prisma.service_bookings.count({
+     *   where: {
+     *     // ... the filter for the Service_bookings we want to count
+     *   }
+     * })
+    **/
+    count<T extends service_bookingsCountArgs>(
+      args?: Subset<T, service_bookingsCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], Service_bookingsCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Service_bookings.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {Service_bookingsAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends Service_bookingsAggregateArgs>(args: Subset<T, Service_bookingsAggregateArgs>): Prisma.PrismaPromise<GetService_bookingsAggregateType<T>>
+
+    /**
+     * Group by Service_bookings.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {service_bookingsGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends service_bookingsGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: service_bookingsGroupByArgs['orderBy'] }
+        : { orderBy?: service_bookingsGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, service_bookingsGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetService_bookingsGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the service_bookings model
+   */
+  readonly fields: service_bookingsFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for service_bookings.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__service_bookingsClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    service<T extends servicesDefaultArgs<ExtArgs> = {}>(args?: Subset<T, servicesDefaultArgs<ExtArgs>>): Prisma__servicesClient<$Result.GetResult<Prisma.$servicesPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    user<T extends usersDefaultArgs<ExtArgs> = {}>(args?: Subset<T, usersDefaultArgs<ExtArgs>>): Prisma__usersClient<$Result.GetResult<Prisma.$usersPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the service_bookings model
+   */
+  interface service_bookingsFieldRefs {
+    readonly id: FieldRef<"service_bookings", 'Int'>
+    readonly service_id: FieldRef<"service_bookings", 'Int'>
+    readonly user_id: FieldRef<"service_bookings", 'Int'>
+    readonly booking_date: FieldRef<"service_bookings", 'DateTime'>
+    readonly booking_time: FieldRef<"service_bookings", 'DateTime'>
+    readonly participants_count: FieldRef<"service_bookings", 'Int'>
+    readonly total_amount: FieldRef<"service_bookings", 'Decimal'>
+    readonly payment_status: FieldRef<"service_bookings", 'booking_payment_status'>
+    readonly payment_method: FieldRef<"service_bookings", 'String'>
+    readonly transaction_id: FieldRef<"service_bookings", 'String'>
+    readonly booking_status: FieldRef<"service_bookings", 'booking_status'>
+    readonly special_requests: FieldRef<"service_bookings", 'String'>
+    readonly cancellation_reason: FieldRef<"service_bookings", 'String'>
+    readonly cancelled_at: FieldRef<"service_bookings", 'DateTime'>
+    readonly confirmed_at: FieldRef<"service_bookings", 'DateTime'>
+    readonly completed_at: FieldRef<"service_bookings", 'DateTime'>
+    readonly created_at: FieldRef<"service_bookings", 'DateTime'>
+    readonly updated_at: FieldRef<"service_bookings", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * service_bookings findUnique
+   */
+  export type service_bookingsFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the service_bookings
+     */
+    select?: service_bookingsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the service_bookings
+     */
+    omit?: service_bookingsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: service_bookingsInclude<ExtArgs> | null
+    /**
+     * Filter, which service_bookings to fetch.
+     */
+    where: service_bookingsWhereUniqueInput
+  }
+
+  /**
+   * service_bookings findUniqueOrThrow
+   */
+  export type service_bookingsFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the service_bookings
+     */
+    select?: service_bookingsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the service_bookings
+     */
+    omit?: service_bookingsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: service_bookingsInclude<ExtArgs> | null
+    /**
+     * Filter, which service_bookings to fetch.
+     */
+    where: service_bookingsWhereUniqueInput
+  }
+
+  /**
+   * service_bookings findFirst
+   */
+  export type service_bookingsFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the service_bookings
+     */
+    select?: service_bookingsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the service_bookings
+     */
+    omit?: service_bookingsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: service_bookingsInclude<ExtArgs> | null
+    /**
+     * Filter, which service_bookings to fetch.
+     */
+    where?: service_bookingsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of service_bookings to fetch.
+     */
+    orderBy?: service_bookingsOrderByWithRelationInput | service_bookingsOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for service_bookings.
+     */
+    cursor?: service_bookingsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` service_bookings from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` service_bookings.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of service_bookings.
+     */
+    distinct?: Service_bookingsScalarFieldEnum | Service_bookingsScalarFieldEnum[]
+  }
+
+  /**
+   * service_bookings findFirstOrThrow
+   */
+  export type service_bookingsFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the service_bookings
+     */
+    select?: service_bookingsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the service_bookings
+     */
+    omit?: service_bookingsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: service_bookingsInclude<ExtArgs> | null
+    /**
+     * Filter, which service_bookings to fetch.
+     */
+    where?: service_bookingsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of service_bookings to fetch.
+     */
+    orderBy?: service_bookingsOrderByWithRelationInput | service_bookingsOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for service_bookings.
+     */
+    cursor?: service_bookingsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` service_bookings from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` service_bookings.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of service_bookings.
+     */
+    distinct?: Service_bookingsScalarFieldEnum | Service_bookingsScalarFieldEnum[]
+  }
+
+  /**
+   * service_bookings findMany
+   */
+  export type service_bookingsFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the service_bookings
+     */
+    select?: service_bookingsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the service_bookings
+     */
+    omit?: service_bookingsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: service_bookingsInclude<ExtArgs> | null
+    /**
+     * Filter, which service_bookings to fetch.
+     */
+    where?: service_bookingsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of service_bookings to fetch.
+     */
+    orderBy?: service_bookingsOrderByWithRelationInput | service_bookingsOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing service_bookings.
+     */
+    cursor?: service_bookingsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` service_bookings from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` service_bookings.
+     */
+    skip?: number
+    distinct?: Service_bookingsScalarFieldEnum | Service_bookingsScalarFieldEnum[]
+  }
+
+  /**
+   * service_bookings create
+   */
+  export type service_bookingsCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the service_bookings
+     */
+    select?: service_bookingsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the service_bookings
+     */
+    omit?: service_bookingsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: service_bookingsInclude<ExtArgs> | null
+    /**
+     * The data needed to create a service_bookings.
+     */
+    data: XOR<service_bookingsCreateInput, service_bookingsUncheckedCreateInput>
+  }
+
+  /**
+   * service_bookings createMany
+   */
+  export type service_bookingsCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many service_bookings.
+     */
+    data: service_bookingsCreateManyInput | service_bookingsCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * service_bookings createManyAndReturn
+   */
+  export type service_bookingsCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the service_bookings
+     */
+    select?: service_bookingsSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the service_bookings
+     */
+    omit?: service_bookingsOmit<ExtArgs> | null
+    /**
+     * The data used to create many service_bookings.
+     */
+    data: service_bookingsCreateManyInput | service_bookingsCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: service_bookingsIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * service_bookings update
+   */
+  export type service_bookingsUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the service_bookings
+     */
+    select?: service_bookingsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the service_bookings
+     */
+    omit?: service_bookingsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: service_bookingsInclude<ExtArgs> | null
+    /**
+     * The data needed to update a service_bookings.
+     */
+    data: XOR<service_bookingsUpdateInput, service_bookingsUncheckedUpdateInput>
+    /**
+     * Choose, which service_bookings to update.
+     */
+    where: service_bookingsWhereUniqueInput
+  }
+
+  /**
+   * service_bookings updateMany
+   */
+  export type service_bookingsUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update service_bookings.
+     */
+    data: XOR<service_bookingsUpdateManyMutationInput, service_bookingsUncheckedUpdateManyInput>
+    /**
+     * Filter which service_bookings to update
+     */
+    where?: service_bookingsWhereInput
+    /**
+     * Limit how many service_bookings to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * service_bookings updateManyAndReturn
+   */
+  export type service_bookingsUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the service_bookings
+     */
+    select?: service_bookingsSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the service_bookings
+     */
+    omit?: service_bookingsOmit<ExtArgs> | null
+    /**
+     * The data used to update service_bookings.
+     */
+    data: XOR<service_bookingsUpdateManyMutationInput, service_bookingsUncheckedUpdateManyInput>
+    /**
+     * Filter which service_bookings to update
+     */
+    where?: service_bookingsWhereInput
+    /**
+     * Limit how many service_bookings to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: service_bookingsIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * service_bookings upsert
+   */
+  export type service_bookingsUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the service_bookings
+     */
+    select?: service_bookingsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the service_bookings
+     */
+    omit?: service_bookingsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: service_bookingsInclude<ExtArgs> | null
+    /**
+     * The filter to search for the service_bookings to update in case it exists.
+     */
+    where: service_bookingsWhereUniqueInput
+    /**
+     * In case the service_bookings found by the `where` argument doesn't exist, create a new service_bookings with this data.
+     */
+    create: XOR<service_bookingsCreateInput, service_bookingsUncheckedCreateInput>
+    /**
+     * In case the service_bookings was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<service_bookingsUpdateInput, service_bookingsUncheckedUpdateInput>
+  }
+
+  /**
+   * service_bookings delete
+   */
+  export type service_bookingsDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the service_bookings
+     */
+    select?: service_bookingsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the service_bookings
+     */
+    omit?: service_bookingsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: service_bookingsInclude<ExtArgs> | null
+    /**
+     * Filter which service_bookings to delete.
+     */
+    where: service_bookingsWhereUniqueInput
+  }
+
+  /**
+   * service_bookings deleteMany
+   */
+  export type service_bookingsDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which service_bookings to delete
+     */
+    where?: service_bookingsWhereInput
+    /**
+     * Limit how many service_bookings to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * service_bookings without action
+   */
+  export type service_bookingsDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the service_bookings
+     */
+    select?: service_bookingsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the service_bookings
+     */
+    omit?: service_bookingsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: service_bookingsInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model service_reviews
+   */
+
+  export type AggregateService_reviews = {
+    _count: Service_reviewsCountAggregateOutputType | null
+    _avg: Service_reviewsAvgAggregateOutputType | null
+    _sum: Service_reviewsSumAggregateOutputType | null
+    _min: Service_reviewsMinAggregateOutputType | null
+    _max: Service_reviewsMaxAggregateOutputType | null
+  }
+
+  export type Service_reviewsAvgAggregateOutputType = {
+    id: number | null
+    service_id: number | null
+    user_id: number | null
+    rating: number | null
+  }
+
+  export type Service_reviewsSumAggregateOutputType = {
+    id: number | null
+    service_id: number | null
+    user_id: number | null
+    rating: number | null
+  }
+
+  export type Service_reviewsMinAggregateOutputType = {
+    id: number | null
+    service_id: number | null
+    user_id: number | null
+    rating: number | null
+    review: string | null
+    is_verified: boolean | null
+    created_at: Date | null
+    updated_at: Date | null
+  }
+
+  export type Service_reviewsMaxAggregateOutputType = {
+    id: number | null
+    service_id: number | null
+    user_id: number | null
+    rating: number | null
+    review: string | null
+    is_verified: boolean | null
+    created_at: Date | null
+    updated_at: Date | null
+  }
+
+  export type Service_reviewsCountAggregateOutputType = {
+    id: number
+    service_id: number
+    user_id: number
+    rating: number
+    review: number
+    images: number
+    is_verified: number
+    created_at: number
+    updated_at: number
+    _all: number
+  }
+
+
+  export type Service_reviewsAvgAggregateInputType = {
+    id?: true
+    service_id?: true
+    user_id?: true
+    rating?: true
+  }
+
+  export type Service_reviewsSumAggregateInputType = {
+    id?: true
+    service_id?: true
+    user_id?: true
+    rating?: true
+  }
+
+  export type Service_reviewsMinAggregateInputType = {
+    id?: true
+    service_id?: true
+    user_id?: true
+    rating?: true
+    review?: true
+    is_verified?: true
+    created_at?: true
+    updated_at?: true
+  }
+
+  export type Service_reviewsMaxAggregateInputType = {
+    id?: true
+    service_id?: true
+    user_id?: true
+    rating?: true
+    review?: true
+    is_verified?: true
+    created_at?: true
+    updated_at?: true
+  }
+
+  export type Service_reviewsCountAggregateInputType = {
+    id?: true
+    service_id?: true
+    user_id?: true
+    rating?: true
+    review?: true
+    images?: true
+    is_verified?: true
+    created_at?: true
+    updated_at?: true
+    _all?: true
+  }
+
+  export type Service_reviewsAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which service_reviews to aggregate.
+     */
+    where?: service_reviewsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of service_reviews to fetch.
+     */
+    orderBy?: service_reviewsOrderByWithRelationInput | service_reviewsOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: service_reviewsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` service_reviews from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` service_reviews.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned service_reviews
+    **/
+    _count?: true | Service_reviewsCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: Service_reviewsAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: Service_reviewsSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: Service_reviewsMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: Service_reviewsMaxAggregateInputType
+  }
+
+  export type GetService_reviewsAggregateType<T extends Service_reviewsAggregateArgs> = {
+        [P in keyof T & keyof AggregateService_reviews]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateService_reviews[P]>
+      : GetScalarType<T[P], AggregateService_reviews[P]>
+  }
+
+
+
+
+  export type service_reviewsGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: service_reviewsWhereInput
+    orderBy?: service_reviewsOrderByWithAggregationInput | service_reviewsOrderByWithAggregationInput[]
+    by: Service_reviewsScalarFieldEnum[] | Service_reviewsScalarFieldEnum
+    having?: service_reviewsScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: Service_reviewsCountAggregateInputType | true
+    _avg?: Service_reviewsAvgAggregateInputType
+    _sum?: Service_reviewsSumAggregateInputType
+    _min?: Service_reviewsMinAggregateInputType
+    _max?: Service_reviewsMaxAggregateInputType
+  }
+
+  export type Service_reviewsGroupByOutputType = {
+    id: number
+    service_id: number
+    user_id: number
+    rating: number
+    review: string
+    images: JsonValue | null
+    is_verified: boolean
+    created_at: Date
+    updated_at: Date
+    _count: Service_reviewsCountAggregateOutputType | null
+    _avg: Service_reviewsAvgAggregateOutputType | null
+    _sum: Service_reviewsSumAggregateOutputType | null
+    _min: Service_reviewsMinAggregateOutputType | null
+    _max: Service_reviewsMaxAggregateOutputType | null
+  }
+
+  type GetService_reviewsGroupByPayload<T extends service_reviewsGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<Service_reviewsGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof Service_reviewsGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], Service_reviewsGroupByOutputType[P]>
+            : GetScalarType<T[P], Service_reviewsGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type service_reviewsSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    service_id?: boolean
+    user_id?: boolean
+    rating?: boolean
+    review?: boolean
+    images?: boolean
+    is_verified?: boolean
+    created_at?: boolean
+    updated_at?: boolean
+    service?: boolean | servicesDefaultArgs<ExtArgs>
+    user?: boolean | usersDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["service_reviews"]>
+
+  export type service_reviewsSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    service_id?: boolean
+    user_id?: boolean
+    rating?: boolean
+    review?: boolean
+    images?: boolean
+    is_verified?: boolean
+    created_at?: boolean
+    updated_at?: boolean
+    service?: boolean | servicesDefaultArgs<ExtArgs>
+    user?: boolean | usersDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["service_reviews"]>
+
+  export type service_reviewsSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    service_id?: boolean
+    user_id?: boolean
+    rating?: boolean
+    review?: boolean
+    images?: boolean
+    is_verified?: boolean
+    created_at?: boolean
+    updated_at?: boolean
+    service?: boolean | servicesDefaultArgs<ExtArgs>
+    user?: boolean | usersDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["service_reviews"]>
+
+  export type service_reviewsSelectScalar = {
+    id?: boolean
+    service_id?: boolean
+    user_id?: boolean
+    rating?: boolean
+    review?: boolean
+    images?: boolean
+    is_verified?: boolean
+    created_at?: boolean
+    updated_at?: boolean
+  }
+
+  export type service_reviewsOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "service_id" | "user_id" | "rating" | "review" | "images" | "is_verified" | "created_at" | "updated_at", ExtArgs["result"]["service_reviews"]>
+  export type service_reviewsInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    service?: boolean | servicesDefaultArgs<ExtArgs>
+    user?: boolean | usersDefaultArgs<ExtArgs>
+  }
+  export type service_reviewsIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    service?: boolean | servicesDefaultArgs<ExtArgs>
+    user?: boolean | usersDefaultArgs<ExtArgs>
+  }
+  export type service_reviewsIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    service?: boolean | servicesDefaultArgs<ExtArgs>
+    user?: boolean | usersDefaultArgs<ExtArgs>
+  }
+
+  export type $service_reviewsPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "service_reviews"
+    objects: {
+      service: Prisma.$servicesPayload<ExtArgs>
+      user: Prisma.$usersPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: number
+      service_id: number
+      user_id: number
+      rating: number
+      review: string
+      images: Prisma.JsonValue | null
+      is_verified: boolean
+      created_at: Date
+      updated_at: Date
+    }, ExtArgs["result"]["service_reviews"]>
+    composites: {}
+  }
+
+  type service_reviewsGetPayload<S extends boolean | null | undefined | service_reviewsDefaultArgs> = $Result.GetResult<Prisma.$service_reviewsPayload, S>
+
+  type service_reviewsCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<service_reviewsFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: Service_reviewsCountAggregateInputType | true
+    }
+
+  export interface service_reviewsDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['service_reviews'], meta: { name: 'service_reviews' } }
+    /**
+     * Find zero or one Service_reviews that matches the filter.
+     * @param {service_reviewsFindUniqueArgs} args - Arguments to find a Service_reviews
+     * @example
+     * // Get one Service_reviews
+     * const service_reviews = await prisma.service_reviews.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends service_reviewsFindUniqueArgs>(args: SelectSubset<T, service_reviewsFindUniqueArgs<ExtArgs>>): Prisma__service_reviewsClient<$Result.GetResult<Prisma.$service_reviewsPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Service_reviews that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {service_reviewsFindUniqueOrThrowArgs} args - Arguments to find a Service_reviews
+     * @example
+     * // Get one Service_reviews
+     * const service_reviews = await prisma.service_reviews.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends service_reviewsFindUniqueOrThrowArgs>(args: SelectSubset<T, service_reviewsFindUniqueOrThrowArgs<ExtArgs>>): Prisma__service_reviewsClient<$Result.GetResult<Prisma.$service_reviewsPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Service_reviews that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {service_reviewsFindFirstArgs} args - Arguments to find a Service_reviews
+     * @example
+     * // Get one Service_reviews
+     * const service_reviews = await prisma.service_reviews.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends service_reviewsFindFirstArgs>(args?: SelectSubset<T, service_reviewsFindFirstArgs<ExtArgs>>): Prisma__service_reviewsClient<$Result.GetResult<Prisma.$service_reviewsPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Service_reviews that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {service_reviewsFindFirstOrThrowArgs} args - Arguments to find a Service_reviews
+     * @example
+     * // Get one Service_reviews
+     * const service_reviews = await prisma.service_reviews.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends service_reviewsFindFirstOrThrowArgs>(args?: SelectSubset<T, service_reviewsFindFirstOrThrowArgs<ExtArgs>>): Prisma__service_reviewsClient<$Result.GetResult<Prisma.$service_reviewsPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Service_reviews that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {service_reviewsFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Service_reviews
+     * const service_reviews = await prisma.service_reviews.findMany()
+     * 
+     * // Get first 10 Service_reviews
+     * const service_reviews = await prisma.service_reviews.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const service_reviewsWithIdOnly = await prisma.service_reviews.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends service_reviewsFindManyArgs>(args?: SelectSubset<T, service_reviewsFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$service_reviewsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Service_reviews.
+     * @param {service_reviewsCreateArgs} args - Arguments to create a Service_reviews.
+     * @example
+     * // Create one Service_reviews
+     * const Service_reviews = await prisma.service_reviews.create({
+     *   data: {
+     *     // ... data to create a Service_reviews
+     *   }
+     * })
+     * 
+     */
+    create<T extends service_reviewsCreateArgs>(args: SelectSubset<T, service_reviewsCreateArgs<ExtArgs>>): Prisma__service_reviewsClient<$Result.GetResult<Prisma.$service_reviewsPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Service_reviews.
+     * @param {service_reviewsCreateManyArgs} args - Arguments to create many Service_reviews.
+     * @example
+     * // Create many Service_reviews
+     * const service_reviews = await prisma.service_reviews.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends service_reviewsCreateManyArgs>(args?: SelectSubset<T, service_reviewsCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many Service_reviews and returns the data saved in the database.
+     * @param {service_reviewsCreateManyAndReturnArgs} args - Arguments to create many Service_reviews.
+     * @example
+     * // Create many Service_reviews
+     * const service_reviews = await prisma.service_reviews.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many Service_reviews and only return the `id`
+     * const service_reviewsWithIdOnly = await prisma.service_reviews.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends service_reviewsCreateManyAndReturnArgs>(args?: SelectSubset<T, service_reviewsCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$service_reviewsPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a Service_reviews.
+     * @param {service_reviewsDeleteArgs} args - Arguments to delete one Service_reviews.
+     * @example
+     * // Delete one Service_reviews
+     * const Service_reviews = await prisma.service_reviews.delete({
+     *   where: {
+     *     // ... filter to delete one Service_reviews
+     *   }
+     * })
+     * 
+     */
+    delete<T extends service_reviewsDeleteArgs>(args: SelectSubset<T, service_reviewsDeleteArgs<ExtArgs>>): Prisma__service_reviewsClient<$Result.GetResult<Prisma.$service_reviewsPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Service_reviews.
+     * @param {service_reviewsUpdateArgs} args - Arguments to update one Service_reviews.
+     * @example
+     * // Update one Service_reviews
+     * const service_reviews = await prisma.service_reviews.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends service_reviewsUpdateArgs>(args: SelectSubset<T, service_reviewsUpdateArgs<ExtArgs>>): Prisma__service_reviewsClient<$Result.GetResult<Prisma.$service_reviewsPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Service_reviews.
+     * @param {service_reviewsDeleteManyArgs} args - Arguments to filter Service_reviews to delete.
+     * @example
+     * // Delete a few Service_reviews
+     * const { count } = await prisma.service_reviews.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends service_reviewsDeleteManyArgs>(args?: SelectSubset<T, service_reviewsDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Service_reviews.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {service_reviewsUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Service_reviews
+     * const service_reviews = await prisma.service_reviews.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends service_reviewsUpdateManyArgs>(args: SelectSubset<T, service_reviewsUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Service_reviews and returns the data updated in the database.
+     * @param {service_reviewsUpdateManyAndReturnArgs} args - Arguments to update many Service_reviews.
+     * @example
+     * // Update many Service_reviews
+     * const service_reviews = await prisma.service_reviews.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more Service_reviews and only return the `id`
+     * const service_reviewsWithIdOnly = await prisma.service_reviews.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends service_reviewsUpdateManyAndReturnArgs>(args: SelectSubset<T, service_reviewsUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$service_reviewsPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one Service_reviews.
+     * @param {service_reviewsUpsertArgs} args - Arguments to update or create a Service_reviews.
+     * @example
+     * // Update or create a Service_reviews
+     * const service_reviews = await prisma.service_reviews.upsert({
+     *   create: {
+     *     // ... data to create a Service_reviews
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Service_reviews we want to update
+     *   }
+     * })
+     */
+    upsert<T extends service_reviewsUpsertArgs>(args: SelectSubset<T, service_reviewsUpsertArgs<ExtArgs>>): Prisma__service_reviewsClient<$Result.GetResult<Prisma.$service_reviewsPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of Service_reviews.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {service_reviewsCountArgs} args - Arguments to filter Service_reviews to count.
+     * @example
+     * // Count the number of Service_reviews
+     * const count = await prisma.service_reviews.count({
+     *   where: {
+     *     // ... the filter for the Service_reviews we want to count
+     *   }
+     * })
+    **/
+    count<T extends service_reviewsCountArgs>(
+      args?: Subset<T, service_reviewsCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], Service_reviewsCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Service_reviews.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {Service_reviewsAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends Service_reviewsAggregateArgs>(args: Subset<T, Service_reviewsAggregateArgs>): Prisma.PrismaPromise<GetService_reviewsAggregateType<T>>
+
+    /**
+     * Group by Service_reviews.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {service_reviewsGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends service_reviewsGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: service_reviewsGroupByArgs['orderBy'] }
+        : { orderBy?: service_reviewsGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, service_reviewsGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetService_reviewsGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the service_reviews model
+   */
+  readonly fields: service_reviewsFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for service_reviews.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__service_reviewsClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    service<T extends servicesDefaultArgs<ExtArgs> = {}>(args?: Subset<T, servicesDefaultArgs<ExtArgs>>): Prisma__servicesClient<$Result.GetResult<Prisma.$servicesPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    user<T extends usersDefaultArgs<ExtArgs> = {}>(args?: Subset<T, usersDefaultArgs<ExtArgs>>): Prisma__usersClient<$Result.GetResult<Prisma.$usersPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the service_reviews model
+   */
+  interface service_reviewsFieldRefs {
+    readonly id: FieldRef<"service_reviews", 'Int'>
+    readonly service_id: FieldRef<"service_reviews", 'Int'>
+    readonly user_id: FieldRef<"service_reviews", 'Int'>
+    readonly rating: FieldRef<"service_reviews", 'Int'>
+    readonly review: FieldRef<"service_reviews", 'String'>
+    readonly images: FieldRef<"service_reviews", 'Json'>
+    readonly is_verified: FieldRef<"service_reviews", 'Boolean'>
+    readonly created_at: FieldRef<"service_reviews", 'DateTime'>
+    readonly updated_at: FieldRef<"service_reviews", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * service_reviews findUnique
+   */
+  export type service_reviewsFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the service_reviews
+     */
+    select?: service_reviewsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the service_reviews
+     */
+    omit?: service_reviewsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: service_reviewsInclude<ExtArgs> | null
+    /**
+     * Filter, which service_reviews to fetch.
+     */
+    where: service_reviewsWhereUniqueInput
+  }
+
+  /**
+   * service_reviews findUniqueOrThrow
+   */
+  export type service_reviewsFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the service_reviews
+     */
+    select?: service_reviewsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the service_reviews
+     */
+    omit?: service_reviewsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: service_reviewsInclude<ExtArgs> | null
+    /**
+     * Filter, which service_reviews to fetch.
+     */
+    where: service_reviewsWhereUniqueInput
+  }
+
+  /**
+   * service_reviews findFirst
+   */
+  export type service_reviewsFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the service_reviews
+     */
+    select?: service_reviewsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the service_reviews
+     */
+    omit?: service_reviewsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: service_reviewsInclude<ExtArgs> | null
+    /**
+     * Filter, which service_reviews to fetch.
+     */
+    where?: service_reviewsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of service_reviews to fetch.
+     */
+    orderBy?: service_reviewsOrderByWithRelationInput | service_reviewsOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for service_reviews.
+     */
+    cursor?: service_reviewsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` service_reviews from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` service_reviews.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of service_reviews.
+     */
+    distinct?: Service_reviewsScalarFieldEnum | Service_reviewsScalarFieldEnum[]
+  }
+
+  /**
+   * service_reviews findFirstOrThrow
+   */
+  export type service_reviewsFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the service_reviews
+     */
+    select?: service_reviewsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the service_reviews
+     */
+    omit?: service_reviewsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: service_reviewsInclude<ExtArgs> | null
+    /**
+     * Filter, which service_reviews to fetch.
+     */
+    where?: service_reviewsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of service_reviews to fetch.
+     */
+    orderBy?: service_reviewsOrderByWithRelationInput | service_reviewsOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for service_reviews.
+     */
+    cursor?: service_reviewsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` service_reviews from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` service_reviews.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of service_reviews.
+     */
+    distinct?: Service_reviewsScalarFieldEnum | Service_reviewsScalarFieldEnum[]
+  }
+
+  /**
+   * service_reviews findMany
+   */
+  export type service_reviewsFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the service_reviews
+     */
+    select?: service_reviewsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the service_reviews
+     */
+    omit?: service_reviewsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: service_reviewsInclude<ExtArgs> | null
+    /**
+     * Filter, which service_reviews to fetch.
+     */
+    where?: service_reviewsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of service_reviews to fetch.
+     */
+    orderBy?: service_reviewsOrderByWithRelationInput | service_reviewsOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing service_reviews.
+     */
+    cursor?: service_reviewsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` service_reviews from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` service_reviews.
+     */
+    skip?: number
+    distinct?: Service_reviewsScalarFieldEnum | Service_reviewsScalarFieldEnum[]
+  }
+
+  /**
+   * service_reviews create
+   */
+  export type service_reviewsCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the service_reviews
+     */
+    select?: service_reviewsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the service_reviews
+     */
+    omit?: service_reviewsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: service_reviewsInclude<ExtArgs> | null
+    /**
+     * The data needed to create a service_reviews.
+     */
+    data: XOR<service_reviewsCreateInput, service_reviewsUncheckedCreateInput>
+  }
+
+  /**
+   * service_reviews createMany
+   */
+  export type service_reviewsCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many service_reviews.
+     */
+    data: service_reviewsCreateManyInput | service_reviewsCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * service_reviews createManyAndReturn
+   */
+  export type service_reviewsCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the service_reviews
+     */
+    select?: service_reviewsSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the service_reviews
+     */
+    omit?: service_reviewsOmit<ExtArgs> | null
+    /**
+     * The data used to create many service_reviews.
+     */
+    data: service_reviewsCreateManyInput | service_reviewsCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: service_reviewsIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * service_reviews update
+   */
+  export type service_reviewsUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the service_reviews
+     */
+    select?: service_reviewsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the service_reviews
+     */
+    omit?: service_reviewsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: service_reviewsInclude<ExtArgs> | null
+    /**
+     * The data needed to update a service_reviews.
+     */
+    data: XOR<service_reviewsUpdateInput, service_reviewsUncheckedUpdateInput>
+    /**
+     * Choose, which service_reviews to update.
+     */
+    where: service_reviewsWhereUniqueInput
+  }
+
+  /**
+   * service_reviews updateMany
+   */
+  export type service_reviewsUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update service_reviews.
+     */
+    data: XOR<service_reviewsUpdateManyMutationInput, service_reviewsUncheckedUpdateManyInput>
+    /**
+     * Filter which service_reviews to update
+     */
+    where?: service_reviewsWhereInput
+    /**
+     * Limit how many service_reviews to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * service_reviews updateManyAndReturn
+   */
+  export type service_reviewsUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the service_reviews
+     */
+    select?: service_reviewsSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the service_reviews
+     */
+    omit?: service_reviewsOmit<ExtArgs> | null
+    /**
+     * The data used to update service_reviews.
+     */
+    data: XOR<service_reviewsUpdateManyMutationInput, service_reviewsUncheckedUpdateManyInput>
+    /**
+     * Filter which service_reviews to update
+     */
+    where?: service_reviewsWhereInput
+    /**
+     * Limit how many service_reviews to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: service_reviewsIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * service_reviews upsert
+   */
+  export type service_reviewsUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the service_reviews
+     */
+    select?: service_reviewsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the service_reviews
+     */
+    omit?: service_reviewsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: service_reviewsInclude<ExtArgs> | null
+    /**
+     * The filter to search for the service_reviews to update in case it exists.
+     */
+    where: service_reviewsWhereUniqueInput
+    /**
+     * In case the service_reviews found by the `where` argument doesn't exist, create a new service_reviews with this data.
+     */
+    create: XOR<service_reviewsCreateInput, service_reviewsUncheckedCreateInput>
+    /**
+     * In case the service_reviews was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<service_reviewsUpdateInput, service_reviewsUncheckedUpdateInput>
+  }
+
+  /**
+   * service_reviews delete
+   */
+  export type service_reviewsDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the service_reviews
+     */
+    select?: service_reviewsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the service_reviews
+     */
+    omit?: service_reviewsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: service_reviewsInclude<ExtArgs> | null
+    /**
+     * Filter which service_reviews to delete.
+     */
+    where: service_reviewsWhereUniqueInput
+  }
+
+  /**
+   * service_reviews deleteMany
+   */
+  export type service_reviewsDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which service_reviews to delete
+     */
+    where?: service_reviewsWhereInput
+    /**
+     * Limit how many service_reviews to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * service_reviews without action
+   */
+  export type service_reviewsDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the service_reviews
+     */
+    select?: service_reviewsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the service_reviews
+     */
+    omit?: service_reviewsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: service_reviewsInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model service_availability
+   */
+
+  export type AggregateService_availability = {
+    _count: Service_availabilityCountAggregateOutputType | null
+    _avg: Service_availabilityAvgAggregateOutputType | null
+    _sum: Service_availabilitySumAggregateOutputType | null
+    _min: Service_availabilityMinAggregateOutputType | null
+    _max: Service_availabilityMaxAggregateOutputType | null
+  }
+
+  export type Service_availabilityAvgAggregateOutputType = {
+    id: number | null
+    service_id: number | null
+    slots_available: number | null
+    slots_booked: number | null
+  }
+
+  export type Service_availabilitySumAggregateOutputType = {
+    id: number | null
+    service_id: number | null
+    slots_available: number | null
+    slots_booked: number | null
+  }
+
+  export type Service_availabilityMinAggregateOutputType = {
+    id: number | null
+    service_id: number | null
+    available_date: Date | null
+    start_time: Date | null
+    end_time: Date | null
+    slots_available: number | null
+    slots_booked: number | null
+    status: $Enums.availability_status | null
+    notes: string | null
+    created_at: Date | null
+    updated_at: Date | null
+  }
+
+  export type Service_availabilityMaxAggregateOutputType = {
+    id: number | null
+    service_id: number | null
+    available_date: Date | null
+    start_time: Date | null
+    end_time: Date | null
+    slots_available: number | null
+    slots_booked: number | null
+    status: $Enums.availability_status | null
+    notes: string | null
+    created_at: Date | null
+    updated_at: Date | null
+  }
+
+  export type Service_availabilityCountAggregateOutputType = {
+    id: number
+    service_id: number
+    available_date: number
+    start_time: number
+    end_time: number
+    slots_available: number
+    slots_booked: number
+    status: number
+    notes: number
+    created_at: number
+    updated_at: number
+    _all: number
+  }
+
+
+  export type Service_availabilityAvgAggregateInputType = {
+    id?: true
+    service_id?: true
+    slots_available?: true
+    slots_booked?: true
+  }
+
+  export type Service_availabilitySumAggregateInputType = {
+    id?: true
+    service_id?: true
+    slots_available?: true
+    slots_booked?: true
+  }
+
+  export type Service_availabilityMinAggregateInputType = {
+    id?: true
+    service_id?: true
+    available_date?: true
+    start_time?: true
+    end_time?: true
+    slots_available?: true
+    slots_booked?: true
+    status?: true
+    notes?: true
+    created_at?: true
+    updated_at?: true
+  }
+
+  export type Service_availabilityMaxAggregateInputType = {
+    id?: true
+    service_id?: true
+    available_date?: true
+    start_time?: true
+    end_time?: true
+    slots_available?: true
+    slots_booked?: true
+    status?: true
+    notes?: true
+    created_at?: true
+    updated_at?: true
+  }
+
+  export type Service_availabilityCountAggregateInputType = {
+    id?: true
+    service_id?: true
+    available_date?: true
+    start_time?: true
+    end_time?: true
+    slots_available?: true
+    slots_booked?: true
+    status?: true
+    notes?: true
+    created_at?: true
+    updated_at?: true
+    _all?: true
+  }
+
+  export type Service_availabilityAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which service_availability to aggregate.
+     */
+    where?: service_availabilityWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of service_availabilities to fetch.
+     */
+    orderBy?: service_availabilityOrderByWithRelationInput | service_availabilityOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: service_availabilityWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` service_availabilities from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` service_availabilities.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned service_availabilities
+    **/
+    _count?: true | Service_availabilityCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: Service_availabilityAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: Service_availabilitySumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: Service_availabilityMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: Service_availabilityMaxAggregateInputType
+  }
+
+  export type GetService_availabilityAggregateType<T extends Service_availabilityAggregateArgs> = {
+        [P in keyof T & keyof AggregateService_availability]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateService_availability[P]>
+      : GetScalarType<T[P], AggregateService_availability[P]>
+  }
+
+
+
+
+  export type service_availabilityGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: service_availabilityWhereInput
+    orderBy?: service_availabilityOrderByWithAggregationInput | service_availabilityOrderByWithAggregationInput[]
+    by: Service_availabilityScalarFieldEnum[] | Service_availabilityScalarFieldEnum
+    having?: service_availabilityScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: Service_availabilityCountAggregateInputType | true
+    _avg?: Service_availabilityAvgAggregateInputType
+    _sum?: Service_availabilitySumAggregateInputType
+    _min?: Service_availabilityMinAggregateInputType
+    _max?: Service_availabilityMaxAggregateInputType
+  }
+
+  export type Service_availabilityGroupByOutputType = {
+    id: number
+    service_id: number
+    available_date: Date
+    start_time: Date | null
+    end_time: Date | null
+    slots_available: number
+    slots_booked: number
+    status: $Enums.availability_status
+    notes: string | null
+    created_at: Date
+    updated_at: Date
+    _count: Service_availabilityCountAggregateOutputType | null
+    _avg: Service_availabilityAvgAggregateOutputType | null
+    _sum: Service_availabilitySumAggregateOutputType | null
+    _min: Service_availabilityMinAggregateOutputType | null
+    _max: Service_availabilityMaxAggregateOutputType | null
+  }
+
+  type GetService_availabilityGroupByPayload<T extends service_availabilityGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<Service_availabilityGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof Service_availabilityGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], Service_availabilityGroupByOutputType[P]>
+            : GetScalarType<T[P], Service_availabilityGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type service_availabilitySelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    service_id?: boolean
+    available_date?: boolean
+    start_time?: boolean
+    end_time?: boolean
+    slots_available?: boolean
+    slots_booked?: boolean
+    status?: boolean
+    notes?: boolean
+    created_at?: boolean
+    updated_at?: boolean
+    service?: boolean | servicesDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["service_availability"]>
+
+  export type service_availabilitySelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    service_id?: boolean
+    available_date?: boolean
+    start_time?: boolean
+    end_time?: boolean
+    slots_available?: boolean
+    slots_booked?: boolean
+    status?: boolean
+    notes?: boolean
+    created_at?: boolean
+    updated_at?: boolean
+    service?: boolean | servicesDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["service_availability"]>
+
+  export type service_availabilitySelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    service_id?: boolean
+    available_date?: boolean
+    start_time?: boolean
+    end_time?: boolean
+    slots_available?: boolean
+    slots_booked?: boolean
+    status?: boolean
+    notes?: boolean
+    created_at?: boolean
+    updated_at?: boolean
+    service?: boolean | servicesDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["service_availability"]>
+
+  export type service_availabilitySelectScalar = {
+    id?: boolean
+    service_id?: boolean
+    available_date?: boolean
+    start_time?: boolean
+    end_time?: boolean
+    slots_available?: boolean
+    slots_booked?: boolean
+    status?: boolean
+    notes?: boolean
+    created_at?: boolean
+    updated_at?: boolean
+  }
+
+  export type service_availabilityOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "service_id" | "available_date" | "start_time" | "end_time" | "slots_available" | "slots_booked" | "status" | "notes" | "created_at" | "updated_at", ExtArgs["result"]["service_availability"]>
+  export type service_availabilityInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    service?: boolean | servicesDefaultArgs<ExtArgs>
+  }
+  export type service_availabilityIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    service?: boolean | servicesDefaultArgs<ExtArgs>
+  }
+  export type service_availabilityIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    service?: boolean | servicesDefaultArgs<ExtArgs>
+  }
+
+  export type $service_availabilityPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "service_availability"
+    objects: {
+      service: Prisma.$servicesPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: number
+      service_id: number
+      available_date: Date
+      start_time: Date | null
+      end_time: Date | null
+      slots_available: number
+      slots_booked: number
+      status: $Enums.availability_status
+      notes: string | null
+      created_at: Date
+      updated_at: Date
+    }, ExtArgs["result"]["service_availability"]>
+    composites: {}
+  }
+
+  type service_availabilityGetPayload<S extends boolean | null | undefined | service_availabilityDefaultArgs> = $Result.GetResult<Prisma.$service_availabilityPayload, S>
+
+  type service_availabilityCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<service_availabilityFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: Service_availabilityCountAggregateInputType | true
+    }
+
+  export interface service_availabilityDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['service_availability'], meta: { name: 'service_availability' } }
+    /**
+     * Find zero or one Service_availability that matches the filter.
+     * @param {service_availabilityFindUniqueArgs} args - Arguments to find a Service_availability
+     * @example
+     * // Get one Service_availability
+     * const service_availability = await prisma.service_availability.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends service_availabilityFindUniqueArgs>(args: SelectSubset<T, service_availabilityFindUniqueArgs<ExtArgs>>): Prisma__service_availabilityClient<$Result.GetResult<Prisma.$service_availabilityPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Service_availability that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {service_availabilityFindUniqueOrThrowArgs} args - Arguments to find a Service_availability
+     * @example
+     * // Get one Service_availability
+     * const service_availability = await prisma.service_availability.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends service_availabilityFindUniqueOrThrowArgs>(args: SelectSubset<T, service_availabilityFindUniqueOrThrowArgs<ExtArgs>>): Prisma__service_availabilityClient<$Result.GetResult<Prisma.$service_availabilityPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Service_availability that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {service_availabilityFindFirstArgs} args - Arguments to find a Service_availability
+     * @example
+     * // Get one Service_availability
+     * const service_availability = await prisma.service_availability.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends service_availabilityFindFirstArgs>(args?: SelectSubset<T, service_availabilityFindFirstArgs<ExtArgs>>): Prisma__service_availabilityClient<$Result.GetResult<Prisma.$service_availabilityPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Service_availability that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {service_availabilityFindFirstOrThrowArgs} args - Arguments to find a Service_availability
+     * @example
+     * // Get one Service_availability
+     * const service_availability = await prisma.service_availability.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends service_availabilityFindFirstOrThrowArgs>(args?: SelectSubset<T, service_availabilityFindFirstOrThrowArgs<ExtArgs>>): Prisma__service_availabilityClient<$Result.GetResult<Prisma.$service_availabilityPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Service_availabilities that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {service_availabilityFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Service_availabilities
+     * const service_availabilities = await prisma.service_availability.findMany()
+     * 
+     * // Get first 10 Service_availabilities
+     * const service_availabilities = await prisma.service_availability.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const service_availabilityWithIdOnly = await prisma.service_availability.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends service_availabilityFindManyArgs>(args?: SelectSubset<T, service_availabilityFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$service_availabilityPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Service_availability.
+     * @param {service_availabilityCreateArgs} args - Arguments to create a Service_availability.
+     * @example
+     * // Create one Service_availability
+     * const Service_availability = await prisma.service_availability.create({
+     *   data: {
+     *     // ... data to create a Service_availability
+     *   }
+     * })
+     * 
+     */
+    create<T extends service_availabilityCreateArgs>(args: SelectSubset<T, service_availabilityCreateArgs<ExtArgs>>): Prisma__service_availabilityClient<$Result.GetResult<Prisma.$service_availabilityPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Service_availabilities.
+     * @param {service_availabilityCreateManyArgs} args - Arguments to create many Service_availabilities.
+     * @example
+     * // Create many Service_availabilities
+     * const service_availability = await prisma.service_availability.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends service_availabilityCreateManyArgs>(args?: SelectSubset<T, service_availabilityCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many Service_availabilities and returns the data saved in the database.
+     * @param {service_availabilityCreateManyAndReturnArgs} args - Arguments to create many Service_availabilities.
+     * @example
+     * // Create many Service_availabilities
+     * const service_availability = await prisma.service_availability.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many Service_availabilities and only return the `id`
+     * const service_availabilityWithIdOnly = await prisma.service_availability.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends service_availabilityCreateManyAndReturnArgs>(args?: SelectSubset<T, service_availabilityCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$service_availabilityPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a Service_availability.
+     * @param {service_availabilityDeleteArgs} args - Arguments to delete one Service_availability.
+     * @example
+     * // Delete one Service_availability
+     * const Service_availability = await prisma.service_availability.delete({
+     *   where: {
+     *     // ... filter to delete one Service_availability
+     *   }
+     * })
+     * 
+     */
+    delete<T extends service_availabilityDeleteArgs>(args: SelectSubset<T, service_availabilityDeleteArgs<ExtArgs>>): Prisma__service_availabilityClient<$Result.GetResult<Prisma.$service_availabilityPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Service_availability.
+     * @param {service_availabilityUpdateArgs} args - Arguments to update one Service_availability.
+     * @example
+     * // Update one Service_availability
+     * const service_availability = await prisma.service_availability.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends service_availabilityUpdateArgs>(args: SelectSubset<T, service_availabilityUpdateArgs<ExtArgs>>): Prisma__service_availabilityClient<$Result.GetResult<Prisma.$service_availabilityPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Service_availabilities.
+     * @param {service_availabilityDeleteManyArgs} args - Arguments to filter Service_availabilities to delete.
+     * @example
+     * // Delete a few Service_availabilities
+     * const { count } = await prisma.service_availability.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends service_availabilityDeleteManyArgs>(args?: SelectSubset<T, service_availabilityDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Service_availabilities.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {service_availabilityUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Service_availabilities
+     * const service_availability = await prisma.service_availability.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends service_availabilityUpdateManyArgs>(args: SelectSubset<T, service_availabilityUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Service_availabilities and returns the data updated in the database.
+     * @param {service_availabilityUpdateManyAndReturnArgs} args - Arguments to update many Service_availabilities.
+     * @example
+     * // Update many Service_availabilities
+     * const service_availability = await prisma.service_availability.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more Service_availabilities and only return the `id`
+     * const service_availabilityWithIdOnly = await prisma.service_availability.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends service_availabilityUpdateManyAndReturnArgs>(args: SelectSubset<T, service_availabilityUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$service_availabilityPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one Service_availability.
+     * @param {service_availabilityUpsertArgs} args - Arguments to update or create a Service_availability.
+     * @example
+     * // Update or create a Service_availability
+     * const service_availability = await prisma.service_availability.upsert({
+     *   create: {
+     *     // ... data to create a Service_availability
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Service_availability we want to update
+     *   }
+     * })
+     */
+    upsert<T extends service_availabilityUpsertArgs>(args: SelectSubset<T, service_availabilityUpsertArgs<ExtArgs>>): Prisma__service_availabilityClient<$Result.GetResult<Prisma.$service_availabilityPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of Service_availabilities.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {service_availabilityCountArgs} args - Arguments to filter Service_availabilities to count.
+     * @example
+     * // Count the number of Service_availabilities
+     * const count = await prisma.service_availability.count({
+     *   where: {
+     *     // ... the filter for the Service_availabilities we want to count
+     *   }
+     * })
+    **/
+    count<T extends service_availabilityCountArgs>(
+      args?: Subset<T, service_availabilityCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], Service_availabilityCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Service_availability.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {Service_availabilityAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends Service_availabilityAggregateArgs>(args: Subset<T, Service_availabilityAggregateArgs>): Prisma.PrismaPromise<GetService_availabilityAggregateType<T>>
+
+    /**
+     * Group by Service_availability.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {service_availabilityGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends service_availabilityGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: service_availabilityGroupByArgs['orderBy'] }
+        : { orderBy?: service_availabilityGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, service_availabilityGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetService_availabilityGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the service_availability model
+   */
+  readonly fields: service_availabilityFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for service_availability.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__service_availabilityClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    service<T extends servicesDefaultArgs<ExtArgs> = {}>(args?: Subset<T, servicesDefaultArgs<ExtArgs>>): Prisma__servicesClient<$Result.GetResult<Prisma.$servicesPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the service_availability model
+   */
+  interface service_availabilityFieldRefs {
+    readonly id: FieldRef<"service_availability", 'Int'>
+    readonly service_id: FieldRef<"service_availability", 'Int'>
+    readonly available_date: FieldRef<"service_availability", 'DateTime'>
+    readonly start_time: FieldRef<"service_availability", 'DateTime'>
+    readonly end_time: FieldRef<"service_availability", 'DateTime'>
+    readonly slots_available: FieldRef<"service_availability", 'Int'>
+    readonly slots_booked: FieldRef<"service_availability", 'Int'>
+    readonly status: FieldRef<"service_availability", 'availability_status'>
+    readonly notes: FieldRef<"service_availability", 'String'>
+    readonly created_at: FieldRef<"service_availability", 'DateTime'>
+    readonly updated_at: FieldRef<"service_availability", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * service_availability findUnique
+   */
+  export type service_availabilityFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the service_availability
+     */
+    select?: service_availabilitySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the service_availability
+     */
+    omit?: service_availabilityOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: service_availabilityInclude<ExtArgs> | null
+    /**
+     * Filter, which service_availability to fetch.
+     */
+    where: service_availabilityWhereUniqueInput
+  }
+
+  /**
+   * service_availability findUniqueOrThrow
+   */
+  export type service_availabilityFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the service_availability
+     */
+    select?: service_availabilitySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the service_availability
+     */
+    omit?: service_availabilityOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: service_availabilityInclude<ExtArgs> | null
+    /**
+     * Filter, which service_availability to fetch.
+     */
+    where: service_availabilityWhereUniqueInput
+  }
+
+  /**
+   * service_availability findFirst
+   */
+  export type service_availabilityFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the service_availability
+     */
+    select?: service_availabilitySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the service_availability
+     */
+    omit?: service_availabilityOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: service_availabilityInclude<ExtArgs> | null
+    /**
+     * Filter, which service_availability to fetch.
+     */
+    where?: service_availabilityWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of service_availabilities to fetch.
+     */
+    orderBy?: service_availabilityOrderByWithRelationInput | service_availabilityOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for service_availabilities.
+     */
+    cursor?: service_availabilityWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` service_availabilities from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` service_availabilities.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of service_availabilities.
+     */
+    distinct?: Service_availabilityScalarFieldEnum | Service_availabilityScalarFieldEnum[]
+  }
+
+  /**
+   * service_availability findFirstOrThrow
+   */
+  export type service_availabilityFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the service_availability
+     */
+    select?: service_availabilitySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the service_availability
+     */
+    omit?: service_availabilityOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: service_availabilityInclude<ExtArgs> | null
+    /**
+     * Filter, which service_availability to fetch.
+     */
+    where?: service_availabilityWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of service_availabilities to fetch.
+     */
+    orderBy?: service_availabilityOrderByWithRelationInput | service_availabilityOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for service_availabilities.
+     */
+    cursor?: service_availabilityWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` service_availabilities from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` service_availabilities.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of service_availabilities.
+     */
+    distinct?: Service_availabilityScalarFieldEnum | Service_availabilityScalarFieldEnum[]
+  }
+
+  /**
+   * service_availability findMany
+   */
+  export type service_availabilityFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the service_availability
+     */
+    select?: service_availabilitySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the service_availability
+     */
+    omit?: service_availabilityOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: service_availabilityInclude<ExtArgs> | null
+    /**
+     * Filter, which service_availabilities to fetch.
+     */
+    where?: service_availabilityWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of service_availabilities to fetch.
+     */
+    orderBy?: service_availabilityOrderByWithRelationInput | service_availabilityOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing service_availabilities.
+     */
+    cursor?: service_availabilityWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` service_availabilities from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` service_availabilities.
+     */
+    skip?: number
+    distinct?: Service_availabilityScalarFieldEnum | Service_availabilityScalarFieldEnum[]
+  }
+
+  /**
+   * service_availability create
+   */
+  export type service_availabilityCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the service_availability
+     */
+    select?: service_availabilitySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the service_availability
+     */
+    omit?: service_availabilityOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: service_availabilityInclude<ExtArgs> | null
+    /**
+     * The data needed to create a service_availability.
+     */
+    data: XOR<service_availabilityCreateInput, service_availabilityUncheckedCreateInput>
+  }
+
+  /**
+   * service_availability createMany
+   */
+  export type service_availabilityCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many service_availabilities.
+     */
+    data: service_availabilityCreateManyInput | service_availabilityCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * service_availability createManyAndReturn
+   */
+  export type service_availabilityCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the service_availability
+     */
+    select?: service_availabilitySelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the service_availability
+     */
+    omit?: service_availabilityOmit<ExtArgs> | null
+    /**
+     * The data used to create many service_availabilities.
+     */
+    data: service_availabilityCreateManyInput | service_availabilityCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: service_availabilityIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * service_availability update
+   */
+  export type service_availabilityUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the service_availability
+     */
+    select?: service_availabilitySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the service_availability
+     */
+    omit?: service_availabilityOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: service_availabilityInclude<ExtArgs> | null
+    /**
+     * The data needed to update a service_availability.
+     */
+    data: XOR<service_availabilityUpdateInput, service_availabilityUncheckedUpdateInput>
+    /**
+     * Choose, which service_availability to update.
+     */
+    where: service_availabilityWhereUniqueInput
+  }
+
+  /**
+   * service_availability updateMany
+   */
+  export type service_availabilityUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update service_availabilities.
+     */
+    data: XOR<service_availabilityUpdateManyMutationInput, service_availabilityUncheckedUpdateManyInput>
+    /**
+     * Filter which service_availabilities to update
+     */
+    where?: service_availabilityWhereInput
+    /**
+     * Limit how many service_availabilities to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * service_availability updateManyAndReturn
+   */
+  export type service_availabilityUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the service_availability
+     */
+    select?: service_availabilitySelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the service_availability
+     */
+    omit?: service_availabilityOmit<ExtArgs> | null
+    /**
+     * The data used to update service_availabilities.
+     */
+    data: XOR<service_availabilityUpdateManyMutationInput, service_availabilityUncheckedUpdateManyInput>
+    /**
+     * Filter which service_availabilities to update
+     */
+    where?: service_availabilityWhereInput
+    /**
+     * Limit how many service_availabilities to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: service_availabilityIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * service_availability upsert
+   */
+  export type service_availabilityUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the service_availability
+     */
+    select?: service_availabilitySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the service_availability
+     */
+    omit?: service_availabilityOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: service_availabilityInclude<ExtArgs> | null
+    /**
+     * The filter to search for the service_availability to update in case it exists.
+     */
+    where: service_availabilityWhereUniqueInput
+    /**
+     * In case the service_availability found by the `where` argument doesn't exist, create a new service_availability with this data.
+     */
+    create: XOR<service_availabilityCreateInput, service_availabilityUncheckedCreateInput>
+    /**
+     * In case the service_availability was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<service_availabilityUpdateInput, service_availabilityUncheckedUpdateInput>
+  }
+
+  /**
+   * service_availability delete
+   */
+  export type service_availabilityDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the service_availability
+     */
+    select?: service_availabilitySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the service_availability
+     */
+    omit?: service_availabilityOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: service_availabilityInclude<ExtArgs> | null
+    /**
+     * Filter which service_availability to delete.
+     */
+    where: service_availabilityWhereUniqueInput
+  }
+
+  /**
+   * service_availability deleteMany
+   */
+  export type service_availabilityDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which service_availabilities to delete
+     */
+    where?: service_availabilityWhereInput
+    /**
+     * Limit how many service_availabilities to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * service_availability without action
+   */
+  export type service_availabilityDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the service_availability
+     */
+    select?: service_availabilitySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the service_availability
+     */
+    omit?: service_availabilityOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: service_availabilityInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model service_media
+   */
+
+  export type AggregateService_media = {
+    _count: Service_mediaCountAggregateOutputType | null
+    _avg: Service_mediaAvgAggregateOutputType | null
+    _sum: Service_mediaSumAggregateOutputType | null
+    _min: Service_mediaMinAggregateOutputType | null
+    _max: Service_mediaMaxAggregateOutputType | null
+  }
+
+  export type Service_mediaAvgAggregateOutputType = {
+    id: number | null
+    service_id: number | null
+    display_order: number | null
+  }
+
+  export type Service_mediaSumAggregateOutputType = {
+    id: number | null
+    service_id: number | null
+    display_order: number | null
+  }
+
+  export type Service_mediaMinAggregateOutputType = {
+    id: number | null
+    service_id: number | null
+    media_url: string | null
+    media_type: string | null
+    display_order: number | null
+    caption: string | null
+    created_at: Date | null
+  }
+
+  export type Service_mediaMaxAggregateOutputType = {
+    id: number | null
+    service_id: number | null
+    media_url: string | null
+    media_type: string | null
+    display_order: number | null
+    caption: string | null
+    created_at: Date | null
+  }
+
+  export type Service_mediaCountAggregateOutputType = {
+    id: number
+    service_id: number
+    media_url: number
+    media_type: number
+    display_order: number
+    caption: number
+    created_at: number
+    _all: number
+  }
+
+
+  export type Service_mediaAvgAggregateInputType = {
+    id?: true
+    service_id?: true
+    display_order?: true
+  }
+
+  export type Service_mediaSumAggregateInputType = {
+    id?: true
+    service_id?: true
+    display_order?: true
+  }
+
+  export type Service_mediaMinAggregateInputType = {
+    id?: true
+    service_id?: true
+    media_url?: true
+    media_type?: true
+    display_order?: true
+    caption?: true
+    created_at?: true
+  }
+
+  export type Service_mediaMaxAggregateInputType = {
+    id?: true
+    service_id?: true
+    media_url?: true
+    media_type?: true
+    display_order?: true
+    caption?: true
+    created_at?: true
+  }
+
+  export type Service_mediaCountAggregateInputType = {
+    id?: true
+    service_id?: true
+    media_url?: true
+    media_type?: true
+    display_order?: true
+    caption?: true
+    created_at?: true
+    _all?: true
+  }
+
+  export type Service_mediaAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which service_media to aggregate.
+     */
+    where?: service_mediaWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of service_medias to fetch.
+     */
+    orderBy?: service_mediaOrderByWithRelationInput | service_mediaOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: service_mediaWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` service_medias from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` service_medias.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned service_medias
+    **/
+    _count?: true | Service_mediaCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: Service_mediaAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: Service_mediaSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: Service_mediaMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: Service_mediaMaxAggregateInputType
+  }
+
+  export type GetService_mediaAggregateType<T extends Service_mediaAggregateArgs> = {
+        [P in keyof T & keyof AggregateService_media]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateService_media[P]>
+      : GetScalarType<T[P], AggregateService_media[P]>
+  }
+
+
+
+
+  export type service_mediaGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: service_mediaWhereInput
+    orderBy?: service_mediaOrderByWithAggregationInput | service_mediaOrderByWithAggregationInput[]
+    by: Service_mediaScalarFieldEnum[] | Service_mediaScalarFieldEnum
+    having?: service_mediaScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: Service_mediaCountAggregateInputType | true
+    _avg?: Service_mediaAvgAggregateInputType
+    _sum?: Service_mediaSumAggregateInputType
+    _min?: Service_mediaMinAggregateInputType
+    _max?: Service_mediaMaxAggregateInputType
+  }
+
+  export type Service_mediaGroupByOutputType = {
+    id: number
+    service_id: number
+    media_url: string
+    media_type: string
+    display_order: number
+    caption: string | null
+    created_at: Date
+    _count: Service_mediaCountAggregateOutputType | null
+    _avg: Service_mediaAvgAggregateOutputType | null
+    _sum: Service_mediaSumAggregateOutputType | null
+    _min: Service_mediaMinAggregateOutputType | null
+    _max: Service_mediaMaxAggregateOutputType | null
+  }
+
+  type GetService_mediaGroupByPayload<T extends service_mediaGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<Service_mediaGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof Service_mediaGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], Service_mediaGroupByOutputType[P]>
+            : GetScalarType<T[P], Service_mediaGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type service_mediaSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    service_id?: boolean
+    media_url?: boolean
+    media_type?: boolean
+    display_order?: boolean
+    caption?: boolean
+    created_at?: boolean
+    service?: boolean | servicesDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["service_media"]>
+
+  export type service_mediaSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    service_id?: boolean
+    media_url?: boolean
+    media_type?: boolean
+    display_order?: boolean
+    caption?: boolean
+    created_at?: boolean
+    service?: boolean | servicesDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["service_media"]>
+
+  export type service_mediaSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    service_id?: boolean
+    media_url?: boolean
+    media_type?: boolean
+    display_order?: boolean
+    caption?: boolean
+    created_at?: boolean
+    service?: boolean | servicesDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["service_media"]>
+
+  export type service_mediaSelectScalar = {
+    id?: boolean
+    service_id?: boolean
+    media_url?: boolean
+    media_type?: boolean
+    display_order?: boolean
+    caption?: boolean
+    created_at?: boolean
+  }
+
+  export type service_mediaOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "service_id" | "media_url" | "media_type" | "display_order" | "caption" | "created_at", ExtArgs["result"]["service_media"]>
+  export type service_mediaInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    service?: boolean | servicesDefaultArgs<ExtArgs>
+  }
+  export type service_mediaIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    service?: boolean | servicesDefaultArgs<ExtArgs>
+  }
+  export type service_mediaIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    service?: boolean | servicesDefaultArgs<ExtArgs>
+  }
+
+  export type $service_mediaPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "service_media"
+    objects: {
+      service: Prisma.$servicesPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: number
+      service_id: number
+      media_url: string
+      media_type: string
+      display_order: number
+      caption: string | null
+      created_at: Date
+    }, ExtArgs["result"]["service_media"]>
+    composites: {}
+  }
+
+  type service_mediaGetPayload<S extends boolean | null | undefined | service_mediaDefaultArgs> = $Result.GetResult<Prisma.$service_mediaPayload, S>
+
+  type service_mediaCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<service_mediaFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: Service_mediaCountAggregateInputType | true
+    }
+
+  export interface service_mediaDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['service_media'], meta: { name: 'service_media' } }
+    /**
+     * Find zero or one Service_media that matches the filter.
+     * @param {service_mediaFindUniqueArgs} args - Arguments to find a Service_media
+     * @example
+     * // Get one Service_media
+     * const service_media = await prisma.service_media.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends service_mediaFindUniqueArgs>(args: SelectSubset<T, service_mediaFindUniqueArgs<ExtArgs>>): Prisma__service_mediaClient<$Result.GetResult<Prisma.$service_mediaPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Service_media that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {service_mediaFindUniqueOrThrowArgs} args - Arguments to find a Service_media
+     * @example
+     * // Get one Service_media
+     * const service_media = await prisma.service_media.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends service_mediaFindUniqueOrThrowArgs>(args: SelectSubset<T, service_mediaFindUniqueOrThrowArgs<ExtArgs>>): Prisma__service_mediaClient<$Result.GetResult<Prisma.$service_mediaPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Service_media that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {service_mediaFindFirstArgs} args - Arguments to find a Service_media
+     * @example
+     * // Get one Service_media
+     * const service_media = await prisma.service_media.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends service_mediaFindFirstArgs>(args?: SelectSubset<T, service_mediaFindFirstArgs<ExtArgs>>): Prisma__service_mediaClient<$Result.GetResult<Prisma.$service_mediaPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Service_media that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {service_mediaFindFirstOrThrowArgs} args - Arguments to find a Service_media
+     * @example
+     * // Get one Service_media
+     * const service_media = await prisma.service_media.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends service_mediaFindFirstOrThrowArgs>(args?: SelectSubset<T, service_mediaFindFirstOrThrowArgs<ExtArgs>>): Prisma__service_mediaClient<$Result.GetResult<Prisma.$service_mediaPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Service_medias that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {service_mediaFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Service_medias
+     * const service_medias = await prisma.service_media.findMany()
+     * 
+     * // Get first 10 Service_medias
+     * const service_medias = await prisma.service_media.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const service_mediaWithIdOnly = await prisma.service_media.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends service_mediaFindManyArgs>(args?: SelectSubset<T, service_mediaFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$service_mediaPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Service_media.
+     * @param {service_mediaCreateArgs} args - Arguments to create a Service_media.
+     * @example
+     * // Create one Service_media
+     * const Service_media = await prisma.service_media.create({
+     *   data: {
+     *     // ... data to create a Service_media
+     *   }
+     * })
+     * 
+     */
+    create<T extends service_mediaCreateArgs>(args: SelectSubset<T, service_mediaCreateArgs<ExtArgs>>): Prisma__service_mediaClient<$Result.GetResult<Prisma.$service_mediaPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Service_medias.
+     * @param {service_mediaCreateManyArgs} args - Arguments to create many Service_medias.
+     * @example
+     * // Create many Service_medias
+     * const service_media = await prisma.service_media.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends service_mediaCreateManyArgs>(args?: SelectSubset<T, service_mediaCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many Service_medias and returns the data saved in the database.
+     * @param {service_mediaCreateManyAndReturnArgs} args - Arguments to create many Service_medias.
+     * @example
+     * // Create many Service_medias
+     * const service_media = await prisma.service_media.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many Service_medias and only return the `id`
+     * const service_mediaWithIdOnly = await prisma.service_media.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends service_mediaCreateManyAndReturnArgs>(args?: SelectSubset<T, service_mediaCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$service_mediaPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a Service_media.
+     * @param {service_mediaDeleteArgs} args - Arguments to delete one Service_media.
+     * @example
+     * // Delete one Service_media
+     * const Service_media = await prisma.service_media.delete({
+     *   where: {
+     *     // ... filter to delete one Service_media
+     *   }
+     * })
+     * 
+     */
+    delete<T extends service_mediaDeleteArgs>(args: SelectSubset<T, service_mediaDeleteArgs<ExtArgs>>): Prisma__service_mediaClient<$Result.GetResult<Prisma.$service_mediaPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Service_media.
+     * @param {service_mediaUpdateArgs} args - Arguments to update one Service_media.
+     * @example
+     * // Update one Service_media
+     * const service_media = await prisma.service_media.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends service_mediaUpdateArgs>(args: SelectSubset<T, service_mediaUpdateArgs<ExtArgs>>): Prisma__service_mediaClient<$Result.GetResult<Prisma.$service_mediaPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Service_medias.
+     * @param {service_mediaDeleteManyArgs} args - Arguments to filter Service_medias to delete.
+     * @example
+     * // Delete a few Service_medias
+     * const { count } = await prisma.service_media.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends service_mediaDeleteManyArgs>(args?: SelectSubset<T, service_mediaDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Service_medias.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {service_mediaUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Service_medias
+     * const service_media = await prisma.service_media.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends service_mediaUpdateManyArgs>(args: SelectSubset<T, service_mediaUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Service_medias and returns the data updated in the database.
+     * @param {service_mediaUpdateManyAndReturnArgs} args - Arguments to update many Service_medias.
+     * @example
+     * // Update many Service_medias
+     * const service_media = await prisma.service_media.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more Service_medias and only return the `id`
+     * const service_mediaWithIdOnly = await prisma.service_media.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends service_mediaUpdateManyAndReturnArgs>(args: SelectSubset<T, service_mediaUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$service_mediaPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one Service_media.
+     * @param {service_mediaUpsertArgs} args - Arguments to update or create a Service_media.
+     * @example
+     * // Update or create a Service_media
+     * const service_media = await prisma.service_media.upsert({
+     *   create: {
+     *     // ... data to create a Service_media
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Service_media we want to update
+     *   }
+     * })
+     */
+    upsert<T extends service_mediaUpsertArgs>(args: SelectSubset<T, service_mediaUpsertArgs<ExtArgs>>): Prisma__service_mediaClient<$Result.GetResult<Prisma.$service_mediaPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of Service_medias.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {service_mediaCountArgs} args - Arguments to filter Service_medias to count.
+     * @example
+     * // Count the number of Service_medias
+     * const count = await prisma.service_media.count({
+     *   where: {
+     *     // ... the filter for the Service_medias we want to count
+     *   }
+     * })
+    **/
+    count<T extends service_mediaCountArgs>(
+      args?: Subset<T, service_mediaCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], Service_mediaCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Service_media.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {Service_mediaAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends Service_mediaAggregateArgs>(args: Subset<T, Service_mediaAggregateArgs>): Prisma.PrismaPromise<GetService_mediaAggregateType<T>>
+
+    /**
+     * Group by Service_media.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {service_mediaGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends service_mediaGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: service_mediaGroupByArgs['orderBy'] }
+        : { orderBy?: service_mediaGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, service_mediaGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetService_mediaGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the service_media model
+   */
+  readonly fields: service_mediaFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for service_media.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__service_mediaClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    service<T extends servicesDefaultArgs<ExtArgs> = {}>(args?: Subset<T, servicesDefaultArgs<ExtArgs>>): Prisma__servicesClient<$Result.GetResult<Prisma.$servicesPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the service_media model
+   */
+  interface service_mediaFieldRefs {
+    readonly id: FieldRef<"service_media", 'Int'>
+    readonly service_id: FieldRef<"service_media", 'Int'>
+    readonly media_url: FieldRef<"service_media", 'String'>
+    readonly media_type: FieldRef<"service_media", 'String'>
+    readonly display_order: FieldRef<"service_media", 'Int'>
+    readonly caption: FieldRef<"service_media", 'String'>
+    readonly created_at: FieldRef<"service_media", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * service_media findUnique
+   */
+  export type service_mediaFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the service_media
+     */
+    select?: service_mediaSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the service_media
+     */
+    omit?: service_mediaOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: service_mediaInclude<ExtArgs> | null
+    /**
+     * Filter, which service_media to fetch.
+     */
+    where: service_mediaWhereUniqueInput
+  }
+
+  /**
+   * service_media findUniqueOrThrow
+   */
+  export type service_mediaFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the service_media
+     */
+    select?: service_mediaSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the service_media
+     */
+    omit?: service_mediaOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: service_mediaInclude<ExtArgs> | null
+    /**
+     * Filter, which service_media to fetch.
+     */
+    where: service_mediaWhereUniqueInput
+  }
+
+  /**
+   * service_media findFirst
+   */
+  export type service_mediaFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the service_media
+     */
+    select?: service_mediaSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the service_media
+     */
+    omit?: service_mediaOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: service_mediaInclude<ExtArgs> | null
+    /**
+     * Filter, which service_media to fetch.
+     */
+    where?: service_mediaWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of service_medias to fetch.
+     */
+    orderBy?: service_mediaOrderByWithRelationInput | service_mediaOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for service_medias.
+     */
+    cursor?: service_mediaWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` service_medias from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` service_medias.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of service_medias.
+     */
+    distinct?: Service_mediaScalarFieldEnum | Service_mediaScalarFieldEnum[]
+  }
+
+  /**
+   * service_media findFirstOrThrow
+   */
+  export type service_mediaFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the service_media
+     */
+    select?: service_mediaSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the service_media
+     */
+    omit?: service_mediaOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: service_mediaInclude<ExtArgs> | null
+    /**
+     * Filter, which service_media to fetch.
+     */
+    where?: service_mediaWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of service_medias to fetch.
+     */
+    orderBy?: service_mediaOrderByWithRelationInput | service_mediaOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for service_medias.
+     */
+    cursor?: service_mediaWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` service_medias from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` service_medias.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of service_medias.
+     */
+    distinct?: Service_mediaScalarFieldEnum | Service_mediaScalarFieldEnum[]
+  }
+
+  /**
+   * service_media findMany
+   */
+  export type service_mediaFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the service_media
+     */
+    select?: service_mediaSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the service_media
+     */
+    omit?: service_mediaOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: service_mediaInclude<ExtArgs> | null
+    /**
+     * Filter, which service_medias to fetch.
+     */
+    where?: service_mediaWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of service_medias to fetch.
+     */
+    orderBy?: service_mediaOrderByWithRelationInput | service_mediaOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing service_medias.
+     */
+    cursor?: service_mediaWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` service_medias from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` service_medias.
+     */
+    skip?: number
+    distinct?: Service_mediaScalarFieldEnum | Service_mediaScalarFieldEnum[]
+  }
+
+  /**
+   * service_media create
+   */
+  export type service_mediaCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the service_media
+     */
+    select?: service_mediaSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the service_media
+     */
+    omit?: service_mediaOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: service_mediaInclude<ExtArgs> | null
+    /**
+     * The data needed to create a service_media.
+     */
+    data: XOR<service_mediaCreateInput, service_mediaUncheckedCreateInput>
+  }
+
+  /**
+   * service_media createMany
+   */
+  export type service_mediaCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many service_medias.
+     */
+    data: service_mediaCreateManyInput | service_mediaCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * service_media createManyAndReturn
+   */
+  export type service_mediaCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the service_media
+     */
+    select?: service_mediaSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the service_media
+     */
+    omit?: service_mediaOmit<ExtArgs> | null
+    /**
+     * The data used to create many service_medias.
+     */
+    data: service_mediaCreateManyInput | service_mediaCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: service_mediaIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * service_media update
+   */
+  export type service_mediaUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the service_media
+     */
+    select?: service_mediaSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the service_media
+     */
+    omit?: service_mediaOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: service_mediaInclude<ExtArgs> | null
+    /**
+     * The data needed to update a service_media.
+     */
+    data: XOR<service_mediaUpdateInput, service_mediaUncheckedUpdateInput>
+    /**
+     * Choose, which service_media to update.
+     */
+    where: service_mediaWhereUniqueInput
+  }
+
+  /**
+   * service_media updateMany
+   */
+  export type service_mediaUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update service_medias.
+     */
+    data: XOR<service_mediaUpdateManyMutationInput, service_mediaUncheckedUpdateManyInput>
+    /**
+     * Filter which service_medias to update
+     */
+    where?: service_mediaWhereInput
+    /**
+     * Limit how many service_medias to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * service_media updateManyAndReturn
+   */
+  export type service_mediaUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the service_media
+     */
+    select?: service_mediaSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the service_media
+     */
+    omit?: service_mediaOmit<ExtArgs> | null
+    /**
+     * The data used to update service_medias.
+     */
+    data: XOR<service_mediaUpdateManyMutationInput, service_mediaUncheckedUpdateManyInput>
+    /**
+     * Filter which service_medias to update
+     */
+    where?: service_mediaWhereInput
+    /**
+     * Limit how many service_medias to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: service_mediaIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * service_media upsert
+   */
+  export type service_mediaUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the service_media
+     */
+    select?: service_mediaSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the service_media
+     */
+    omit?: service_mediaOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: service_mediaInclude<ExtArgs> | null
+    /**
+     * The filter to search for the service_media to update in case it exists.
+     */
+    where: service_mediaWhereUniqueInput
+    /**
+     * In case the service_media found by the `where` argument doesn't exist, create a new service_media with this data.
+     */
+    create: XOR<service_mediaCreateInput, service_mediaUncheckedCreateInput>
+    /**
+     * In case the service_media was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<service_mediaUpdateInput, service_mediaUncheckedUpdateInput>
+  }
+
+  /**
+   * service_media delete
+   */
+  export type service_mediaDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the service_media
+     */
+    select?: service_mediaSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the service_media
+     */
+    omit?: service_mediaOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: service_mediaInclude<ExtArgs> | null
+    /**
+     * Filter which service_media to delete.
+     */
+    where: service_mediaWhereUniqueInput
+  }
+
+  /**
+   * service_media deleteMany
+   */
+  export type service_mediaDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which service_medias to delete
+     */
+    where?: service_mediaWhereInput
+    /**
+     * Limit how many service_medias to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * service_media without action
+   */
+  export type service_mediaDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the service_media
+     */
+    select?: service_mediaSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the service_media
+     */
+    omit?: service_mediaOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: service_mediaInclude<ExtArgs> | null
+  }
+
+
+  /**
    * Model session_enrollments
    */
 
@@ -70924,6 +78017,116 @@ export namespace Prisma {
   export type SessionsScalarFieldEnum = (typeof SessionsScalarFieldEnum)[keyof typeof SessionsScalarFieldEnum]
 
 
+  export const ServicesScalarFieldEnum: {
+    id: 'id',
+    title: 'title',
+    description: 'description',
+    category: 'category',
+    price: 'price',
+    duration: 'duration',
+    max_participants: 'max_participants',
+    location: 'location',
+    difficulty: 'difficulty',
+    equipment: 'equipment',
+    next_available: 'next_available',
+    image_url: 'image_url',
+    featured: 'featured',
+    tags: 'tags',
+    requirements: 'requirements',
+    cancellation_policy: 'cancellation_policy',
+    meeting_point: 'meeting_point',
+    what_to_expect: 'what_to_expect',
+    weather_policy: 'weather_policy',
+    booking_deadline: 'booking_deadline',
+    languages: 'languages',
+    certification: 'certification',
+    experience: 'experience',
+    group_discount: 'group_discount',
+    private_booking: 'private_booking',
+    instant_booking: 'instant_booking',
+    status: 'status',
+    views_count: 'views_count',
+    bookings_count: 'bookings_count',
+    rating: 'rating',
+    review_count: 'review_count',
+    created_by: 'created_by',
+    is_active: 'is_active',
+    created_at: 'created_at',
+    updated_at: 'updated_at'
+  };
+
+  export type ServicesScalarFieldEnum = (typeof ServicesScalarFieldEnum)[keyof typeof ServicesScalarFieldEnum]
+
+
+  export const Service_bookingsScalarFieldEnum: {
+    id: 'id',
+    service_id: 'service_id',
+    user_id: 'user_id',
+    booking_date: 'booking_date',
+    booking_time: 'booking_time',
+    participants_count: 'participants_count',
+    total_amount: 'total_amount',
+    payment_status: 'payment_status',
+    payment_method: 'payment_method',
+    transaction_id: 'transaction_id',
+    booking_status: 'booking_status',
+    special_requests: 'special_requests',
+    cancellation_reason: 'cancellation_reason',
+    cancelled_at: 'cancelled_at',
+    confirmed_at: 'confirmed_at',
+    completed_at: 'completed_at',
+    created_at: 'created_at',
+    updated_at: 'updated_at'
+  };
+
+  export type Service_bookingsScalarFieldEnum = (typeof Service_bookingsScalarFieldEnum)[keyof typeof Service_bookingsScalarFieldEnum]
+
+
+  export const Service_reviewsScalarFieldEnum: {
+    id: 'id',
+    service_id: 'service_id',
+    user_id: 'user_id',
+    rating: 'rating',
+    review: 'review',
+    images: 'images',
+    is_verified: 'is_verified',
+    created_at: 'created_at',
+    updated_at: 'updated_at'
+  };
+
+  export type Service_reviewsScalarFieldEnum = (typeof Service_reviewsScalarFieldEnum)[keyof typeof Service_reviewsScalarFieldEnum]
+
+
+  export const Service_availabilityScalarFieldEnum: {
+    id: 'id',
+    service_id: 'service_id',
+    available_date: 'available_date',
+    start_time: 'start_time',
+    end_time: 'end_time',
+    slots_available: 'slots_available',
+    slots_booked: 'slots_booked',
+    status: 'status',
+    notes: 'notes',
+    created_at: 'created_at',
+    updated_at: 'updated_at'
+  };
+
+  export type Service_availabilityScalarFieldEnum = (typeof Service_availabilityScalarFieldEnum)[keyof typeof Service_availabilityScalarFieldEnum]
+
+
+  export const Service_mediaScalarFieldEnum: {
+    id: 'id',
+    service_id: 'service_id',
+    media_url: 'media_url',
+    media_type: 'media_type',
+    display_order: 'display_order',
+    caption: 'caption',
+    created_at: 'created_at'
+  };
+
+  export type Service_mediaScalarFieldEnum = (typeof Service_mediaScalarFieldEnum)[keyof typeof Service_mediaScalarFieldEnum]
+
+
   export const Session_enrollmentsScalarFieldEnum: {
     id: 'id',
     user_id: 'user_id',
@@ -71315,6 +78518,104 @@ export namespace Prisma {
    * Reference to a field of type 'difficulty_level[]'
    */
   export type ListEnumdifficulty_levelFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'difficulty_level[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'service_category'
+   */
+  export type Enumservice_categoryFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'service_category'>
+    
+
+
+  /**
+   * Reference to a field of type 'service_category[]'
+   */
+  export type ListEnumservice_categoryFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'service_category[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'service_difficulty'
+   */
+  export type Enumservice_difficultyFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'service_difficulty'>
+    
+
+
+  /**
+   * Reference to a field of type 'service_difficulty[]'
+   */
+  export type ListEnumservice_difficultyFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'service_difficulty[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'weather_policy_type'
+   */
+  export type Enumweather_policy_typeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'weather_policy_type'>
+    
+
+
+  /**
+   * Reference to a field of type 'weather_policy_type[]'
+   */
+  export type ListEnumweather_policy_typeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'weather_policy_type[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'service_status'
+   */
+  export type Enumservice_statusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'service_status'>
+    
+
+
+  /**
+   * Reference to a field of type 'service_status[]'
+   */
+  export type ListEnumservice_statusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'service_status[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'booking_payment_status'
+   */
+  export type Enumbooking_payment_statusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'booking_payment_status'>
+    
+
+
+  /**
+   * Reference to a field of type 'booking_payment_status[]'
+   */
+  export type ListEnumbooking_payment_statusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'booking_payment_status[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'booking_status'
+   */
+  export type Enumbooking_statusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'booking_status'>
+    
+
+
+  /**
+   * Reference to a field of type 'booking_status[]'
+   */
+  export type ListEnumbooking_statusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'booking_status[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'availability_status'
+   */
+  export type Enumavailability_statusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'availability_status'>
+    
+
+
+  /**
+   * Reference to a field of type 'availability_status[]'
+   */
+  export type ListEnumavailability_statusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'availability_status[]'>
     
 
 
@@ -72682,6 +79983,9 @@ export namespace Prisma {
     created_stargazing_spots?: Stargazing_spotsListRelationFilter
     created_sessions?: SessionsListRelationFilter
     session_enrollments?: Session_enrollmentsListRelationFilter
+    created_services?: ServicesListRelationFilter
+    service_bookings?: Service_bookingsListRelationFilter
+    service_reviews?: Service_reviewsListRelationFilter
     subscriptions?: SubscriptionsListRelationFilter
     user_settings?: XOR<User_settingsNullableScalarRelationFilter, user_settingsWhereInput> | null
     created_polls?: PollsListRelationFilter
@@ -72745,6 +80049,9 @@ export namespace Prisma {
     created_stargazing_spots?: stargazing_spotsOrderByRelationAggregateInput
     created_sessions?: sessionsOrderByRelationAggregateInput
     session_enrollments?: session_enrollmentsOrderByRelationAggregateInput
+    created_services?: servicesOrderByRelationAggregateInput
+    service_bookings?: service_bookingsOrderByRelationAggregateInput
+    service_reviews?: service_reviewsOrderByRelationAggregateInput
     subscriptions?: subscriptionsOrderByRelationAggregateInput
     user_settings?: user_settingsOrderByWithRelationInput
     created_polls?: pollsOrderByRelationAggregateInput
@@ -72811,6 +80118,9 @@ export namespace Prisma {
     created_stargazing_spots?: Stargazing_spotsListRelationFilter
     created_sessions?: SessionsListRelationFilter
     session_enrollments?: Session_enrollmentsListRelationFilter
+    created_services?: ServicesListRelationFilter
+    service_bookings?: Service_bookingsListRelationFilter
+    service_reviews?: Service_reviewsListRelationFilter
     subscriptions?: SubscriptionsListRelationFilter
     user_settings?: XOR<User_settingsNullableScalarRelationFilter, user_settingsWhereInput> | null
     created_polls?: PollsListRelationFilter
@@ -75561,6 +82871,587 @@ export namespace Prisma {
     updated_at?: DateTimeWithAggregatesFilter<"sessions"> | Date | string
   }
 
+  export type servicesWhereInput = {
+    AND?: servicesWhereInput | servicesWhereInput[]
+    OR?: servicesWhereInput[]
+    NOT?: servicesWhereInput | servicesWhereInput[]
+    id?: IntFilter<"services"> | number
+    title?: StringFilter<"services"> | string
+    description?: StringFilter<"services"> | string
+    category?: Enumservice_categoryFilter<"services"> | $Enums.service_category
+    price?: DecimalFilter<"services"> | Decimal | DecimalJsLike | number | string
+    duration?: StringFilter<"services"> | string
+    max_participants?: IntFilter<"services"> | number
+    location?: StringFilter<"services"> | string
+    difficulty?: Enumservice_difficultyFilter<"services"> | $Enums.service_difficulty
+    equipment?: JsonFilter<"services">
+    next_available?: DateTimeFilter<"services"> | Date | string
+    image_url?: StringNullableFilter<"services"> | string | null
+    featured?: BoolFilter<"services"> | boolean
+    tags?: JsonFilter<"services">
+    requirements?: StringNullableFilter<"services"> | string | null
+    cancellation_policy?: StringNullableFilter<"services"> | string | null
+    meeting_point?: StringNullableFilter<"services"> | string | null
+    what_to_expect?: StringNullableFilter<"services"> | string | null
+    weather_policy?: Enumweather_policy_typeNullableFilter<"services"> | $Enums.weather_policy_type | null
+    booking_deadline?: IntFilter<"services"> | number
+    languages?: JsonFilter<"services">
+    certification?: StringNullableFilter<"services"> | string | null
+    experience?: StringNullableFilter<"services"> | string | null
+    group_discount?: BoolFilter<"services"> | boolean
+    private_booking?: BoolFilter<"services"> | boolean
+    instant_booking?: BoolFilter<"services"> | boolean
+    status?: Enumservice_statusFilter<"services"> | $Enums.service_status
+    views_count?: IntFilter<"services"> | number
+    bookings_count?: IntFilter<"services"> | number
+    rating?: FloatFilter<"services"> | number
+    review_count?: IntFilter<"services"> | number
+    created_by?: IntFilter<"services"> | number
+    is_active?: BoolFilter<"services"> | boolean
+    created_at?: DateTimeFilter<"services"> | Date | string
+    updated_at?: DateTimeFilter<"services"> | Date | string
+    creator?: XOR<UsersScalarRelationFilter, usersWhereInput>
+    bookings?: Service_bookingsListRelationFilter
+    reviews?: Service_reviewsListRelationFilter
+    availability?: Service_availabilityListRelationFilter
+    media?: Service_mediaListRelationFilter
+  }
+
+  export type servicesOrderByWithRelationInput = {
+    id?: SortOrder
+    title?: SortOrder
+    description?: SortOrder
+    category?: SortOrder
+    price?: SortOrder
+    duration?: SortOrder
+    max_participants?: SortOrder
+    location?: SortOrder
+    difficulty?: SortOrder
+    equipment?: SortOrder
+    next_available?: SortOrder
+    image_url?: SortOrderInput | SortOrder
+    featured?: SortOrder
+    tags?: SortOrder
+    requirements?: SortOrderInput | SortOrder
+    cancellation_policy?: SortOrderInput | SortOrder
+    meeting_point?: SortOrderInput | SortOrder
+    what_to_expect?: SortOrderInput | SortOrder
+    weather_policy?: SortOrderInput | SortOrder
+    booking_deadline?: SortOrder
+    languages?: SortOrder
+    certification?: SortOrderInput | SortOrder
+    experience?: SortOrderInput | SortOrder
+    group_discount?: SortOrder
+    private_booking?: SortOrder
+    instant_booking?: SortOrder
+    status?: SortOrder
+    views_count?: SortOrder
+    bookings_count?: SortOrder
+    rating?: SortOrder
+    review_count?: SortOrder
+    created_by?: SortOrder
+    is_active?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+    creator?: usersOrderByWithRelationInput
+    bookings?: service_bookingsOrderByRelationAggregateInput
+    reviews?: service_reviewsOrderByRelationAggregateInput
+    availability?: service_availabilityOrderByRelationAggregateInput
+    media?: service_mediaOrderByRelationAggregateInput
+  }
+
+  export type servicesWhereUniqueInput = Prisma.AtLeast<{
+    id?: number
+    AND?: servicesWhereInput | servicesWhereInput[]
+    OR?: servicesWhereInput[]
+    NOT?: servicesWhereInput | servicesWhereInput[]
+    title?: StringFilter<"services"> | string
+    description?: StringFilter<"services"> | string
+    category?: Enumservice_categoryFilter<"services"> | $Enums.service_category
+    price?: DecimalFilter<"services"> | Decimal | DecimalJsLike | number | string
+    duration?: StringFilter<"services"> | string
+    max_participants?: IntFilter<"services"> | number
+    location?: StringFilter<"services"> | string
+    difficulty?: Enumservice_difficultyFilter<"services"> | $Enums.service_difficulty
+    equipment?: JsonFilter<"services">
+    next_available?: DateTimeFilter<"services"> | Date | string
+    image_url?: StringNullableFilter<"services"> | string | null
+    featured?: BoolFilter<"services"> | boolean
+    tags?: JsonFilter<"services">
+    requirements?: StringNullableFilter<"services"> | string | null
+    cancellation_policy?: StringNullableFilter<"services"> | string | null
+    meeting_point?: StringNullableFilter<"services"> | string | null
+    what_to_expect?: StringNullableFilter<"services"> | string | null
+    weather_policy?: Enumweather_policy_typeNullableFilter<"services"> | $Enums.weather_policy_type | null
+    booking_deadline?: IntFilter<"services"> | number
+    languages?: JsonFilter<"services">
+    certification?: StringNullableFilter<"services"> | string | null
+    experience?: StringNullableFilter<"services"> | string | null
+    group_discount?: BoolFilter<"services"> | boolean
+    private_booking?: BoolFilter<"services"> | boolean
+    instant_booking?: BoolFilter<"services"> | boolean
+    status?: Enumservice_statusFilter<"services"> | $Enums.service_status
+    views_count?: IntFilter<"services"> | number
+    bookings_count?: IntFilter<"services"> | number
+    rating?: FloatFilter<"services"> | number
+    review_count?: IntFilter<"services"> | number
+    created_by?: IntFilter<"services"> | number
+    is_active?: BoolFilter<"services"> | boolean
+    created_at?: DateTimeFilter<"services"> | Date | string
+    updated_at?: DateTimeFilter<"services"> | Date | string
+    creator?: XOR<UsersScalarRelationFilter, usersWhereInput>
+    bookings?: Service_bookingsListRelationFilter
+    reviews?: Service_reviewsListRelationFilter
+    availability?: Service_availabilityListRelationFilter
+    media?: Service_mediaListRelationFilter
+  }, "id">
+
+  export type servicesOrderByWithAggregationInput = {
+    id?: SortOrder
+    title?: SortOrder
+    description?: SortOrder
+    category?: SortOrder
+    price?: SortOrder
+    duration?: SortOrder
+    max_participants?: SortOrder
+    location?: SortOrder
+    difficulty?: SortOrder
+    equipment?: SortOrder
+    next_available?: SortOrder
+    image_url?: SortOrderInput | SortOrder
+    featured?: SortOrder
+    tags?: SortOrder
+    requirements?: SortOrderInput | SortOrder
+    cancellation_policy?: SortOrderInput | SortOrder
+    meeting_point?: SortOrderInput | SortOrder
+    what_to_expect?: SortOrderInput | SortOrder
+    weather_policy?: SortOrderInput | SortOrder
+    booking_deadline?: SortOrder
+    languages?: SortOrder
+    certification?: SortOrderInput | SortOrder
+    experience?: SortOrderInput | SortOrder
+    group_discount?: SortOrder
+    private_booking?: SortOrder
+    instant_booking?: SortOrder
+    status?: SortOrder
+    views_count?: SortOrder
+    bookings_count?: SortOrder
+    rating?: SortOrder
+    review_count?: SortOrder
+    created_by?: SortOrder
+    is_active?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+    _count?: servicesCountOrderByAggregateInput
+    _avg?: servicesAvgOrderByAggregateInput
+    _max?: servicesMaxOrderByAggregateInput
+    _min?: servicesMinOrderByAggregateInput
+    _sum?: servicesSumOrderByAggregateInput
+  }
+
+  export type servicesScalarWhereWithAggregatesInput = {
+    AND?: servicesScalarWhereWithAggregatesInput | servicesScalarWhereWithAggregatesInput[]
+    OR?: servicesScalarWhereWithAggregatesInput[]
+    NOT?: servicesScalarWhereWithAggregatesInput | servicesScalarWhereWithAggregatesInput[]
+    id?: IntWithAggregatesFilter<"services"> | number
+    title?: StringWithAggregatesFilter<"services"> | string
+    description?: StringWithAggregatesFilter<"services"> | string
+    category?: Enumservice_categoryWithAggregatesFilter<"services"> | $Enums.service_category
+    price?: DecimalWithAggregatesFilter<"services"> | Decimal | DecimalJsLike | number | string
+    duration?: StringWithAggregatesFilter<"services"> | string
+    max_participants?: IntWithAggregatesFilter<"services"> | number
+    location?: StringWithAggregatesFilter<"services"> | string
+    difficulty?: Enumservice_difficultyWithAggregatesFilter<"services"> | $Enums.service_difficulty
+    equipment?: JsonWithAggregatesFilter<"services">
+    next_available?: DateTimeWithAggregatesFilter<"services"> | Date | string
+    image_url?: StringNullableWithAggregatesFilter<"services"> | string | null
+    featured?: BoolWithAggregatesFilter<"services"> | boolean
+    tags?: JsonWithAggregatesFilter<"services">
+    requirements?: StringNullableWithAggregatesFilter<"services"> | string | null
+    cancellation_policy?: StringNullableWithAggregatesFilter<"services"> | string | null
+    meeting_point?: StringNullableWithAggregatesFilter<"services"> | string | null
+    what_to_expect?: StringNullableWithAggregatesFilter<"services"> | string | null
+    weather_policy?: Enumweather_policy_typeNullableWithAggregatesFilter<"services"> | $Enums.weather_policy_type | null
+    booking_deadline?: IntWithAggregatesFilter<"services"> | number
+    languages?: JsonWithAggregatesFilter<"services">
+    certification?: StringNullableWithAggregatesFilter<"services"> | string | null
+    experience?: StringNullableWithAggregatesFilter<"services"> | string | null
+    group_discount?: BoolWithAggregatesFilter<"services"> | boolean
+    private_booking?: BoolWithAggregatesFilter<"services"> | boolean
+    instant_booking?: BoolWithAggregatesFilter<"services"> | boolean
+    status?: Enumservice_statusWithAggregatesFilter<"services"> | $Enums.service_status
+    views_count?: IntWithAggregatesFilter<"services"> | number
+    bookings_count?: IntWithAggregatesFilter<"services"> | number
+    rating?: FloatWithAggregatesFilter<"services"> | number
+    review_count?: IntWithAggregatesFilter<"services"> | number
+    created_by?: IntWithAggregatesFilter<"services"> | number
+    is_active?: BoolWithAggregatesFilter<"services"> | boolean
+    created_at?: DateTimeWithAggregatesFilter<"services"> | Date | string
+    updated_at?: DateTimeWithAggregatesFilter<"services"> | Date | string
+  }
+
+  export type service_bookingsWhereInput = {
+    AND?: service_bookingsWhereInput | service_bookingsWhereInput[]
+    OR?: service_bookingsWhereInput[]
+    NOT?: service_bookingsWhereInput | service_bookingsWhereInput[]
+    id?: IntFilter<"service_bookings"> | number
+    service_id?: IntFilter<"service_bookings"> | number
+    user_id?: IntFilter<"service_bookings"> | number
+    booking_date?: DateTimeFilter<"service_bookings"> | Date | string
+    booking_time?: DateTimeNullableFilter<"service_bookings"> | Date | string | null
+    participants_count?: IntFilter<"service_bookings"> | number
+    total_amount?: DecimalFilter<"service_bookings"> | Decimal | DecimalJsLike | number | string
+    payment_status?: Enumbooking_payment_statusFilter<"service_bookings"> | $Enums.booking_payment_status
+    payment_method?: StringNullableFilter<"service_bookings"> | string | null
+    transaction_id?: StringNullableFilter<"service_bookings"> | string | null
+    booking_status?: Enumbooking_statusFilter<"service_bookings"> | $Enums.booking_status
+    special_requests?: StringNullableFilter<"service_bookings"> | string | null
+    cancellation_reason?: StringNullableFilter<"service_bookings"> | string | null
+    cancelled_at?: DateTimeNullableFilter<"service_bookings"> | Date | string | null
+    confirmed_at?: DateTimeNullableFilter<"service_bookings"> | Date | string | null
+    completed_at?: DateTimeNullableFilter<"service_bookings"> | Date | string | null
+    created_at?: DateTimeFilter<"service_bookings"> | Date | string
+    updated_at?: DateTimeFilter<"service_bookings"> | Date | string
+    service?: XOR<ServicesScalarRelationFilter, servicesWhereInput>
+    user?: XOR<UsersScalarRelationFilter, usersWhereInput>
+  }
+
+  export type service_bookingsOrderByWithRelationInput = {
+    id?: SortOrder
+    service_id?: SortOrder
+    user_id?: SortOrder
+    booking_date?: SortOrder
+    booking_time?: SortOrderInput | SortOrder
+    participants_count?: SortOrder
+    total_amount?: SortOrder
+    payment_status?: SortOrder
+    payment_method?: SortOrderInput | SortOrder
+    transaction_id?: SortOrderInput | SortOrder
+    booking_status?: SortOrder
+    special_requests?: SortOrderInput | SortOrder
+    cancellation_reason?: SortOrderInput | SortOrder
+    cancelled_at?: SortOrderInput | SortOrder
+    confirmed_at?: SortOrderInput | SortOrder
+    completed_at?: SortOrderInput | SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+    service?: servicesOrderByWithRelationInput
+    user?: usersOrderByWithRelationInput
+  }
+
+  export type service_bookingsWhereUniqueInput = Prisma.AtLeast<{
+    id?: number
+    service_id_user_id_booking_date?: service_bookingsService_idUser_idBooking_dateCompoundUniqueInput
+    AND?: service_bookingsWhereInput | service_bookingsWhereInput[]
+    OR?: service_bookingsWhereInput[]
+    NOT?: service_bookingsWhereInput | service_bookingsWhereInput[]
+    service_id?: IntFilter<"service_bookings"> | number
+    user_id?: IntFilter<"service_bookings"> | number
+    booking_date?: DateTimeFilter<"service_bookings"> | Date | string
+    booking_time?: DateTimeNullableFilter<"service_bookings"> | Date | string | null
+    participants_count?: IntFilter<"service_bookings"> | number
+    total_amount?: DecimalFilter<"service_bookings"> | Decimal | DecimalJsLike | number | string
+    payment_status?: Enumbooking_payment_statusFilter<"service_bookings"> | $Enums.booking_payment_status
+    payment_method?: StringNullableFilter<"service_bookings"> | string | null
+    transaction_id?: StringNullableFilter<"service_bookings"> | string | null
+    booking_status?: Enumbooking_statusFilter<"service_bookings"> | $Enums.booking_status
+    special_requests?: StringNullableFilter<"service_bookings"> | string | null
+    cancellation_reason?: StringNullableFilter<"service_bookings"> | string | null
+    cancelled_at?: DateTimeNullableFilter<"service_bookings"> | Date | string | null
+    confirmed_at?: DateTimeNullableFilter<"service_bookings"> | Date | string | null
+    completed_at?: DateTimeNullableFilter<"service_bookings"> | Date | string | null
+    created_at?: DateTimeFilter<"service_bookings"> | Date | string
+    updated_at?: DateTimeFilter<"service_bookings"> | Date | string
+    service?: XOR<ServicesScalarRelationFilter, servicesWhereInput>
+    user?: XOR<UsersScalarRelationFilter, usersWhereInput>
+  }, "id" | "service_id_user_id_booking_date">
+
+  export type service_bookingsOrderByWithAggregationInput = {
+    id?: SortOrder
+    service_id?: SortOrder
+    user_id?: SortOrder
+    booking_date?: SortOrder
+    booking_time?: SortOrderInput | SortOrder
+    participants_count?: SortOrder
+    total_amount?: SortOrder
+    payment_status?: SortOrder
+    payment_method?: SortOrderInput | SortOrder
+    transaction_id?: SortOrderInput | SortOrder
+    booking_status?: SortOrder
+    special_requests?: SortOrderInput | SortOrder
+    cancellation_reason?: SortOrderInput | SortOrder
+    cancelled_at?: SortOrderInput | SortOrder
+    confirmed_at?: SortOrderInput | SortOrder
+    completed_at?: SortOrderInput | SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+    _count?: service_bookingsCountOrderByAggregateInput
+    _avg?: service_bookingsAvgOrderByAggregateInput
+    _max?: service_bookingsMaxOrderByAggregateInput
+    _min?: service_bookingsMinOrderByAggregateInput
+    _sum?: service_bookingsSumOrderByAggregateInput
+  }
+
+  export type service_bookingsScalarWhereWithAggregatesInput = {
+    AND?: service_bookingsScalarWhereWithAggregatesInput | service_bookingsScalarWhereWithAggregatesInput[]
+    OR?: service_bookingsScalarWhereWithAggregatesInput[]
+    NOT?: service_bookingsScalarWhereWithAggregatesInput | service_bookingsScalarWhereWithAggregatesInput[]
+    id?: IntWithAggregatesFilter<"service_bookings"> | number
+    service_id?: IntWithAggregatesFilter<"service_bookings"> | number
+    user_id?: IntWithAggregatesFilter<"service_bookings"> | number
+    booking_date?: DateTimeWithAggregatesFilter<"service_bookings"> | Date | string
+    booking_time?: DateTimeNullableWithAggregatesFilter<"service_bookings"> | Date | string | null
+    participants_count?: IntWithAggregatesFilter<"service_bookings"> | number
+    total_amount?: DecimalWithAggregatesFilter<"service_bookings"> | Decimal | DecimalJsLike | number | string
+    payment_status?: Enumbooking_payment_statusWithAggregatesFilter<"service_bookings"> | $Enums.booking_payment_status
+    payment_method?: StringNullableWithAggregatesFilter<"service_bookings"> | string | null
+    transaction_id?: StringNullableWithAggregatesFilter<"service_bookings"> | string | null
+    booking_status?: Enumbooking_statusWithAggregatesFilter<"service_bookings"> | $Enums.booking_status
+    special_requests?: StringNullableWithAggregatesFilter<"service_bookings"> | string | null
+    cancellation_reason?: StringNullableWithAggregatesFilter<"service_bookings"> | string | null
+    cancelled_at?: DateTimeNullableWithAggregatesFilter<"service_bookings"> | Date | string | null
+    confirmed_at?: DateTimeNullableWithAggregatesFilter<"service_bookings"> | Date | string | null
+    completed_at?: DateTimeNullableWithAggregatesFilter<"service_bookings"> | Date | string | null
+    created_at?: DateTimeWithAggregatesFilter<"service_bookings"> | Date | string
+    updated_at?: DateTimeWithAggregatesFilter<"service_bookings"> | Date | string
+  }
+
+  export type service_reviewsWhereInput = {
+    AND?: service_reviewsWhereInput | service_reviewsWhereInput[]
+    OR?: service_reviewsWhereInput[]
+    NOT?: service_reviewsWhereInput | service_reviewsWhereInput[]
+    id?: IntFilter<"service_reviews"> | number
+    service_id?: IntFilter<"service_reviews"> | number
+    user_id?: IntFilter<"service_reviews"> | number
+    rating?: IntFilter<"service_reviews"> | number
+    review?: StringFilter<"service_reviews"> | string
+    images?: JsonNullableFilter<"service_reviews">
+    is_verified?: BoolFilter<"service_reviews"> | boolean
+    created_at?: DateTimeFilter<"service_reviews"> | Date | string
+    updated_at?: DateTimeFilter<"service_reviews"> | Date | string
+    service?: XOR<ServicesScalarRelationFilter, servicesWhereInput>
+    user?: XOR<UsersScalarRelationFilter, usersWhereInput>
+  }
+
+  export type service_reviewsOrderByWithRelationInput = {
+    id?: SortOrder
+    service_id?: SortOrder
+    user_id?: SortOrder
+    rating?: SortOrder
+    review?: SortOrder
+    images?: SortOrderInput | SortOrder
+    is_verified?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+    service?: servicesOrderByWithRelationInput
+    user?: usersOrderByWithRelationInput
+  }
+
+  export type service_reviewsWhereUniqueInput = Prisma.AtLeast<{
+    id?: number
+    service_id_user_id?: service_reviewsService_idUser_idCompoundUniqueInput
+    AND?: service_reviewsWhereInput | service_reviewsWhereInput[]
+    OR?: service_reviewsWhereInput[]
+    NOT?: service_reviewsWhereInput | service_reviewsWhereInput[]
+    service_id?: IntFilter<"service_reviews"> | number
+    user_id?: IntFilter<"service_reviews"> | number
+    rating?: IntFilter<"service_reviews"> | number
+    review?: StringFilter<"service_reviews"> | string
+    images?: JsonNullableFilter<"service_reviews">
+    is_verified?: BoolFilter<"service_reviews"> | boolean
+    created_at?: DateTimeFilter<"service_reviews"> | Date | string
+    updated_at?: DateTimeFilter<"service_reviews"> | Date | string
+    service?: XOR<ServicesScalarRelationFilter, servicesWhereInput>
+    user?: XOR<UsersScalarRelationFilter, usersWhereInput>
+  }, "id" | "service_id_user_id">
+
+  export type service_reviewsOrderByWithAggregationInput = {
+    id?: SortOrder
+    service_id?: SortOrder
+    user_id?: SortOrder
+    rating?: SortOrder
+    review?: SortOrder
+    images?: SortOrderInput | SortOrder
+    is_verified?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+    _count?: service_reviewsCountOrderByAggregateInput
+    _avg?: service_reviewsAvgOrderByAggregateInput
+    _max?: service_reviewsMaxOrderByAggregateInput
+    _min?: service_reviewsMinOrderByAggregateInput
+    _sum?: service_reviewsSumOrderByAggregateInput
+  }
+
+  export type service_reviewsScalarWhereWithAggregatesInput = {
+    AND?: service_reviewsScalarWhereWithAggregatesInput | service_reviewsScalarWhereWithAggregatesInput[]
+    OR?: service_reviewsScalarWhereWithAggregatesInput[]
+    NOT?: service_reviewsScalarWhereWithAggregatesInput | service_reviewsScalarWhereWithAggregatesInput[]
+    id?: IntWithAggregatesFilter<"service_reviews"> | number
+    service_id?: IntWithAggregatesFilter<"service_reviews"> | number
+    user_id?: IntWithAggregatesFilter<"service_reviews"> | number
+    rating?: IntWithAggregatesFilter<"service_reviews"> | number
+    review?: StringWithAggregatesFilter<"service_reviews"> | string
+    images?: JsonNullableWithAggregatesFilter<"service_reviews">
+    is_verified?: BoolWithAggregatesFilter<"service_reviews"> | boolean
+    created_at?: DateTimeWithAggregatesFilter<"service_reviews"> | Date | string
+    updated_at?: DateTimeWithAggregatesFilter<"service_reviews"> | Date | string
+  }
+
+  export type service_availabilityWhereInput = {
+    AND?: service_availabilityWhereInput | service_availabilityWhereInput[]
+    OR?: service_availabilityWhereInput[]
+    NOT?: service_availabilityWhereInput | service_availabilityWhereInput[]
+    id?: IntFilter<"service_availability"> | number
+    service_id?: IntFilter<"service_availability"> | number
+    available_date?: DateTimeFilter<"service_availability"> | Date | string
+    start_time?: DateTimeNullableFilter<"service_availability"> | Date | string | null
+    end_time?: DateTimeNullableFilter<"service_availability"> | Date | string | null
+    slots_available?: IntFilter<"service_availability"> | number
+    slots_booked?: IntFilter<"service_availability"> | number
+    status?: Enumavailability_statusFilter<"service_availability"> | $Enums.availability_status
+    notes?: StringNullableFilter<"service_availability"> | string | null
+    created_at?: DateTimeFilter<"service_availability"> | Date | string
+    updated_at?: DateTimeFilter<"service_availability"> | Date | string
+    service?: XOR<ServicesScalarRelationFilter, servicesWhereInput>
+  }
+
+  export type service_availabilityOrderByWithRelationInput = {
+    id?: SortOrder
+    service_id?: SortOrder
+    available_date?: SortOrder
+    start_time?: SortOrderInput | SortOrder
+    end_time?: SortOrderInput | SortOrder
+    slots_available?: SortOrder
+    slots_booked?: SortOrder
+    status?: SortOrder
+    notes?: SortOrderInput | SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+    service?: servicesOrderByWithRelationInput
+  }
+
+  export type service_availabilityWhereUniqueInput = Prisma.AtLeast<{
+    id?: number
+    service_id_available_date_start_time?: service_availabilityService_idAvailable_dateStart_timeCompoundUniqueInput
+    AND?: service_availabilityWhereInput | service_availabilityWhereInput[]
+    OR?: service_availabilityWhereInput[]
+    NOT?: service_availabilityWhereInput | service_availabilityWhereInput[]
+    service_id?: IntFilter<"service_availability"> | number
+    available_date?: DateTimeFilter<"service_availability"> | Date | string
+    start_time?: DateTimeNullableFilter<"service_availability"> | Date | string | null
+    end_time?: DateTimeNullableFilter<"service_availability"> | Date | string | null
+    slots_available?: IntFilter<"service_availability"> | number
+    slots_booked?: IntFilter<"service_availability"> | number
+    status?: Enumavailability_statusFilter<"service_availability"> | $Enums.availability_status
+    notes?: StringNullableFilter<"service_availability"> | string | null
+    created_at?: DateTimeFilter<"service_availability"> | Date | string
+    updated_at?: DateTimeFilter<"service_availability"> | Date | string
+    service?: XOR<ServicesScalarRelationFilter, servicesWhereInput>
+  }, "id" | "service_id_available_date_start_time">
+
+  export type service_availabilityOrderByWithAggregationInput = {
+    id?: SortOrder
+    service_id?: SortOrder
+    available_date?: SortOrder
+    start_time?: SortOrderInput | SortOrder
+    end_time?: SortOrderInput | SortOrder
+    slots_available?: SortOrder
+    slots_booked?: SortOrder
+    status?: SortOrder
+    notes?: SortOrderInput | SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+    _count?: service_availabilityCountOrderByAggregateInput
+    _avg?: service_availabilityAvgOrderByAggregateInput
+    _max?: service_availabilityMaxOrderByAggregateInput
+    _min?: service_availabilityMinOrderByAggregateInput
+    _sum?: service_availabilitySumOrderByAggregateInput
+  }
+
+  export type service_availabilityScalarWhereWithAggregatesInput = {
+    AND?: service_availabilityScalarWhereWithAggregatesInput | service_availabilityScalarWhereWithAggregatesInput[]
+    OR?: service_availabilityScalarWhereWithAggregatesInput[]
+    NOT?: service_availabilityScalarWhereWithAggregatesInput | service_availabilityScalarWhereWithAggregatesInput[]
+    id?: IntWithAggregatesFilter<"service_availability"> | number
+    service_id?: IntWithAggregatesFilter<"service_availability"> | number
+    available_date?: DateTimeWithAggregatesFilter<"service_availability"> | Date | string
+    start_time?: DateTimeNullableWithAggregatesFilter<"service_availability"> | Date | string | null
+    end_time?: DateTimeNullableWithAggregatesFilter<"service_availability"> | Date | string | null
+    slots_available?: IntWithAggregatesFilter<"service_availability"> | number
+    slots_booked?: IntWithAggregatesFilter<"service_availability"> | number
+    status?: Enumavailability_statusWithAggregatesFilter<"service_availability"> | $Enums.availability_status
+    notes?: StringNullableWithAggregatesFilter<"service_availability"> | string | null
+    created_at?: DateTimeWithAggregatesFilter<"service_availability"> | Date | string
+    updated_at?: DateTimeWithAggregatesFilter<"service_availability"> | Date | string
+  }
+
+  export type service_mediaWhereInput = {
+    AND?: service_mediaWhereInput | service_mediaWhereInput[]
+    OR?: service_mediaWhereInput[]
+    NOT?: service_mediaWhereInput | service_mediaWhereInput[]
+    id?: IntFilter<"service_media"> | number
+    service_id?: IntFilter<"service_media"> | number
+    media_url?: StringFilter<"service_media"> | string
+    media_type?: StringFilter<"service_media"> | string
+    display_order?: IntFilter<"service_media"> | number
+    caption?: StringNullableFilter<"service_media"> | string | null
+    created_at?: DateTimeFilter<"service_media"> | Date | string
+    service?: XOR<ServicesScalarRelationFilter, servicesWhereInput>
+  }
+
+  export type service_mediaOrderByWithRelationInput = {
+    id?: SortOrder
+    service_id?: SortOrder
+    media_url?: SortOrder
+    media_type?: SortOrder
+    display_order?: SortOrder
+    caption?: SortOrderInput | SortOrder
+    created_at?: SortOrder
+    service?: servicesOrderByWithRelationInput
+  }
+
+  export type service_mediaWhereUniqueInput = Prisma.AtLeast<{
+    id?: number
+    AND?: service_mediaWhereInput | service_mediaWhereInput[]
+    OR?: service_mediaWhereInput[]
+    NOT?: service_mediaWhereInput | service_mediaWhereInput[]
+    service_id?: IntFilter<"service_media"> | number
+    media_url?: StringFilter<"service_media"> | string
+    media_type?: StringFilter<"service_media"> | string
+    display_order?: IntFilter<"service_media"> | number
+    caption?: StringNullableFilter<"service_media"> | string | null
+    created_at?: DateTimeFilter<"service_media"> | Date | string
+    service?: XOR<ServicesScalarRelationFilter, servicesWhereInput>
+  }, "id">
+
+  export type service_mediaOrderByWithAggregationInput = {
+    id?: SortOrder
+    service_id?: SortOrder
+    media_url?: SortOrder
+    media_type?: SortOrder
+    display_order?: SortOrder
+    caption?: SortOrderInput | SortOrder
+    created_at?: SortOrder
+    _count?: service_mediaCountOrderByAggregateInput
+    _avg?: service_mediaAvgOrderByAggregateInput
+    _max?: service_mediaMaxOrderByAggregateInput
+    _min?: service_mediaMinOrderByAggregateInput
+    _sum?: service_mediaSumOrderByAggregateInput
+  }
+
+  export type service_mediaScalarWhereWithAggregatesInput = {
+    AND?: service_mediaScalarWhereWithAggregatesInput | service_mediaScalarWhereWithAggregatesInput[]
+    OR?: service_mediaScalarWhereWithAggregatesInput[]
+    NOT?: service_mediaScalarWhereWithAggregatesInput | service_mediaScalarWhereWithAggregatesInput[]
+    id?: IntWithAggregatesFilter<"service_media"> | number
+    service_id?: IntWithAggregatesFilter<"service_media"> | number
+    media_url?: StringWithAggregatesFilter<"service_media"> | string
+    media_type?: StringWithAggregatesFilter<"service_media"> | string
+    display_order?: IntWithAggregatesFilter<"service_media"> | number
+    caption?: StringNullableWithAggregatesFilter<"service_media"> | string | null
+    created_at?: DateTimeWithAggregatesFilter<"service_media"> | Date | string
+  }
+
   export type session_enrollmentsWhereInput = {
     AND?: session_enrollmentsWhereInput | session_enrollmentsWhereInput[]
     OR?: session_enrollmentsWhereInput[]
@@ -77309,6 +85200,9 @@ export namespace Prisma {
     created_stargazing_spots?: stargazing_spotsCreateNestedManyWithoutCreatorInput
     created_sessions?: sessionsCreateNestedManyWithoutCreatorInput
     session_enrollments?: session_enrollmentsCreateNestedManyWithoutUserInput
+    created_services?: servicesCreateNestedManyWithoutCreatorInput
+    service_bookings?: service_bookingsCreateNestedManyWithoutUserInput
+    service_reviews?: service_reviewsCreateNestedManyWithoutUserInput
     subscriptions?: subscriptionsCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsCreateNestedOneWithoutUsersInput
     created_polls?: pollsCreateNestedManyWithoutCreatorInput
@@ -77372,6 +85266,9 @@ export namespace Prisma {
     created_stargazing_spots?: stargazing_spotsUncheckedCreateNestedManyWithoutCreatorInput
     created_sessions?: sessionsUncheckedCreateNestedManyWithoutCreatorInput
     session_enrollments?: session_enrollmentsUncheckedCreateNestedManyWithoutUserInput
+    created_services?: servicesUncheckedCreateNestedManyWithoutCreatorInput
+    service_bookings?: service_bookingsUncheckedCreateNestedManyWithoutUserInput
+    service_reviews?: service_reviewsUncheckedCreateNestedManyWithoutUserInput
     subscriptions?: subscriptionsUncheckedCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsUncheckedCreateNestedOneWithoutUsersInput
     created_polls?: pollsUncheckedCreateNestedManyWithoutCreatorInput
@@ -77434,6 +85331,9 @@ export namespace Prisma {
     created_stargazing_spots?: stargazing_spotsUpdateManyWithoutCreatorNestedInput
     created_sessions?: sessionsUpdateManyWithoutCreatorNestedInput
     session_enrollments?: session_enrollmentsUpdateManyWithoutUserNestedInput
+    created_services?: servicesUpdateManyWithoutCreatorNestedInput
+    service_bookings?: service_bookingsUpdateManyWithoutUserNestedInput
+    service_reviews?: service_reviewsUpdateManyWithoutUserNestedInput
     subscriptions?: subscriptionsUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUpdateOneWithoutUsersNestedInput
     created_polls?: pollsUpdateManyWithoutCreatorNestedInput
@@ -77497,6 +85397,9 @@ export namespace Prisma {
     created_stargazing_spots?: stargazing_spotsUncheckedUpdateManyWithoutCreatorNestedInput
     created_sessions?: sessionsUncheckedUpdateManyWithoutCreatorNestedInput
     session_enrollments?: session_enrollmentsUncheckedUpdateManyWithoutUserNestedInput
+    created_services?: servicesUncheckedUpdateManyWithoutCreatorNestedInput
+    service_bookings?: service_bookingsUncheckedUpdateManyWithoutUserNestedInput
+    service_reviews?: service_reviewsUncheckedUpdateManyWithoutUserNestedInput
     subscriptions?: subscriptionsUncheckedUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUncheckedUpdateOneWithoutUsersNestedInput
     created_polls?: pollsUncheckedUpdateManyWithoutCreatorNestedInput
@@ -80422,6 +88325,665 @@ export namespace Prisma {
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type servicesCreateInput = {
+    title: string
+    description: string
+    category: $Enums.service_category
+    price: Decimal | DecimalJsLike | number | string
+    duration: string
+    max_participants: number
+    location: string
+    difficulty: $Enums.service_difficulty
+    equipment?: JsonNullValueInput | InputJsonValue
+    next_available: Date | string
+    image_url?: string | null
+    featured?: boolean
+    tags?: JsonNullValueInput | InputJsonValue
+    requirements?: string | null
+    cancellation_policy?: string | null
+    meeting_point?: string | null
+    what_to_expect?: string | null
+    weather_policy?: $Enums.weather_policy_type | null
+    booking_deadline?: number
+    languages?: JsonNullValueInput | InputJsonValue
+    certification?: string | null
+    experience?: string | null
+    group_discount?: boolean
+    private_booking?: boolean
+    instant_booking?: boolean
+    status?: $Enums.service_status
+    views_count?: number
+    bookings_count?: number
+    rating?: number
+    review_count?: number
+    is_active?: boolean
+    created_at?: Date | string
+    updated_at?: Date | string
+    creator: usersCreateNestedOneWithoutCreated_servicesInput
+    bookings?: service_bookingsCreateNestedManyWithoutServiceInput
+    reviews?: service_reviewsCreateNestedManyWithoutServiceInput
+    availability?: service_availabilityCreateNestedManyWithoutServiceInput
+    media?: service_mediaCreateNestedManyWithoutServiceInput
+  }
+
+  export type servicesUncheckedCreateInput = {
+    id?: number
+    title: string
+    description: string
+    category: $Enums.service_category
+    price: Decimal | DecimalJsLike | number | string
+    duration: string
+    max_participants: number
+    location: string
+    difficulty: $Enums.service_difficulty
+    equipment?: JsonNullValueInput | InputJsonValue
+    next_available: Date | string
+    image_url?: string | null
+    featured?: boolean
+    tags?: JsonNullValueInput | InputJsonValue
+    requirements?: string | null
+    cancellation_policy?: string | null
+    meeting_point?: string | null
+    what_to_expect?: string | null
+    weather_policy?: $Enums.weather_policy_type | null
+    booking_deadline?: number
+    languages?: JsonNullValueInput | InputJsonValue
+    certification?: string | null
+    experience?: string | null
+    group_discount?: boolean
+    private_booking?: boolean
+    instant_booking?: boolean
+    status?: $Enums.service_status
+    views_count?: number
+    bookings_count?: number
+    rating?: number
+    review_count?: number
+    created_by: number
+    is_active?: boolean
+    created_at?: Date | string
+    updated_at?: Date | string
+    bookings?: service_bookingsUncheckedCreateNestedManyWithoutServiceInput
+    reviews?: service_reviewsUncheckedCreateNestedManyWithoutServiceInput
+    availability?: service_availabilityUncheckedCreateNestedManyWithoutServiceInput
+    media?: service_mediaUncheckedCreateNestedManyWithoutServiceInput
+  }
+
+  export type servicesUpdateInput = {
+    title?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    category?: Enumservice_categoryFieldUpdateOperationsInput | $Enums.service_category
+    price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    duration?: StringFieldUpdateOperationsInput | string
+    max_participants?: IntFieldUpdateOperationsInput | number
+    location?: StringFieldUpdateOperationsInput | string
+    difficulty?: Enumservice_difficultyFieldUpdateOperationsInput | $Enums.service_difficulty
+    equipment?: JsonNullValueInput | InputJsonValue
+    next_available?: DateTimeFieldUpdateOperationsInput | Date | string
+    image_url?: NullableStringFieldUpdateOperationsInput | string | null
+    featured?: BoolFieldUpdateOperationsInput | boolean
+    tags?: JsonNullValueInput | InputJsonValue
+    requirements?: NullableStringFieldUpdateOperationsInput | string | null
+    cancellation_policy?: NullableStringFieldUpdateOperationsInput | string | null
+    meeting_point?: NullableStringFieldUpdateOperationsInput | string | null
+    what_to_expect?: NullableStringFieldUpdateOperationsInput | string | null
+    weather_policy?: NullableEnumweather_policy_typeFieldUpdateOperationsInput | $Enums.weather_policy_type | null
+    booking_deadline?: IntFieldUpdateOperationsInput | number
+    languages?: JsonNullValueInput | InputJsonValue
+    certification?: NullableStringFieldUpdateOperationsInput | string | null
+    experience?: NullableStringFieldUpdateOperationsInput | string | null
+    group_discount?: BoolFieldUpdateOperationsInput | boolean
+    private_booking?: BoolFieldUpdateOperationsInput | boolean
+    instant_booking?: BoolFieldUpdateOperationsInput | boolean
+    status?: Enumservice_statusFieldUpdateOperationsInput | $Enums.service_status
+    views_count?: IntFieldUpdateOperationsInput | number
+    bookings_count?: IntFieldUpdateOperationsInput | number
+    rating?: FloatFieldUpdateOperationsInput | number
+    review_count?: IntFieldUpdateOperationsInput | number
+    is_active?: BoolFieldUpdateOperationsInput | boolean
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    creator?: usersUpdateOneRequiredWithoutCreated_servicesNestedInput
+    bookings?: service_bookingsUpdateManyWithoutServiceNestedInput
+    reviews?: service_reviewsUpdateManyWithoutServiceNestedInput
+    availability?: service_availabilityUpdateManyWithoutServiceNestedInput
+    media?: service_mediaUpdateManyWithoutServiceNestedInput
+  }
+
+  export type servicesUncheckedUpdateInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    title?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    category?: Enumservice_categoryFieldUpdateOperationsInput | $Enums.service_category
+    price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    duration?: StringFieldUpdateOperationsInput | string
+    max_participants?: IntFieldUpdateOperationsInput | number
+    location?: StringFieldUpdateOperationsInput | string
+    difficulty?: Enumservice_difficultyFieldUpdateOperationsInput | $Enums.service_difficulty
+    equipment?: JsonNullValueInput | InputJsonValue
+    next_available?: DateTimeFieldUpdateOperationsInput | Date | string
+    image_url?: NullableStringFieldUpdateOperationsInput | string | null
+    featured?: BoolFieldUpdateOperationsInput | boolean
+    tags?: JsonNullValueInput | InputJsonValue
+    requirements?: NullableStringFieldUpdateOperationsInput | string | null
+    cancellation_policy?: NullableStringFieldUpdateOperationsInput | string | null
+    meeting_point?: NullableStringFieldUpdateOperationsInput | string | null
+    what_to_expect?: NullableStringFieldUpdateOperationsInput | string | null
+    weather_policy?: NullableEnumweather_policy_typeFieldUpdateOperationsInput | $Enums.weather_policy_type | null
+    booking_deadline?: IntFieldUpdateOperationsInput | number
+    languages?: JsonNullValueInput | InputJsonValue
+    certification?: NullableStringFieldUpdateOperationsInput | string | null
+    experience?: NullableStringFieldUpdateOperationsInput | string | null
+    group_discount?: BoolFieldUpdateOperationsInput | boolean
+    private_booking?: BoolFieldUpdateOperationsInput | boolean
+    instant_booking?: BoolFieldUpdateOperationsInput | boolean
+    status?: Enumservice_statusFieldUpdateOperationsInput | $Enums.service_status
+    views_count?: IntFieldUpdateOperationsInput | number
+    bookings_count?: IntFieldUpdateOperationsInput | number
+    rating?: FloatFieldUpdateOperationsInput | number
+    review_count?: IntFieldUpdateOperationsInput | number
+    created_by?: IntFieldUpdateOperationsInput | number
+    is_active?: BoolFieldUpdateOperationsInput | boolean
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    bookings?: service_bookingsUncheckedUpdateManyWithoutServiceNestedInput
+    reviews?: service_reviewsUncheckedUpdateManyWithoutServiceNestedInput
+    availability?: service_availabilityUncheckedUpdateManyWithoutServiceNestedInput
+    media?: service_mediaUncheckedUpdateManyWithoutServiceNestedInput
+  }
+
+  export type servicesCreateManyInput = {
+    id?: number
+    title: string
+    description: string
+    category: $Enums.service_category
+    price: Decimal | DecimalJsLike | number | string
+    duration: string
+    max_participants: number
+    location: string
+    difficulty: $Enums.service_difficulty
+    equipment?: JsonNullValueInput | InputJsonValue
+    next_available: Date | string
+    image_url?: string | null
+    featured?: boolean
+    tags?: JsonNullValueInput | InputJsonValue
+    requirements?: string | null
+    cancellation_policy?: string | null
+    meeting_point?: string | null
+    what_to_expect?: string | null
+    weather_policy?: $Enums.weather_policy_type | null
+    booking_deadline?: number
+    languages?: JsonNullValueInput | InputJsonValue
+    certification?: string | null
+    experience?: string | null
+    group_discount?: boolean
+    private_booking?: boolean
+    instant_booking?: boolean
+    status?: $Enums.service_status
+    views_count?: number
+    bookings_count?: number
+    rating?: number
+    review_count?: number
+    created_by: number
+    is_active?: boolean
+    created_at?: Date | string
+    updated_at?: Date | string
+  }
+
+  export type servicesUpdateManyMutationInput = {
+    title?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    category?: Enumservice_categoryFieldUpdateOperationsInput | $Enums.service_category
+    price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    duration?: StringFieldUpdateOperationsInput | string
+    max_participants?: IntFieldUpdateOperationsInput | number
+    location?: StringFieldUpdateOperationsInput | string
+    difficulty?: Enumservice_difficultyFieldUpdateOperationsInput | $Enums.service_difficulty
+    equipment?: JsonNullValueInput | InputJsonValue
+    next_available?: DateTimeFieldUpdateOperationsInput | Date | string
+    image_url?: NullableStringFieldUpdateOperationsInput | string | null
+    featured?: BoolFieldUpdateOperationsInput | boolean
+    tags?: JsonNullValueInput | InputJsonValue
+    requirements?: NullableStringFieldUpdateOperationsInput | string | null
+    cancellation_policy?: NullableStringFieldUpdateOperationsInput | string | null
+    meeting_point?: NullableStringFieldUpdateOperationsInput | string | null
+    what_to_expect?: NullableStringFieldUpdateOperationsInput | string | null
+    weather_policy?: NullableEnumweather_policy_typeFieldUpdateOperationsInput | $Enums.weather_policy_type | null
+    booking_deadline?: IntFieldUpdateOperationsInput | number
+    languages?: JsonNullValueInput | InputJsonValue
+    certification?: NullableStringFieldUpdateOperationsInput | string | null
+    experience?: NullableStringFieldUpdateOperationsInput | string | null
+    group_discount?: BoolFieldUpdateOperationsInput | boolean
+    private_booking?: BoolFieldUpdateOperationsInput | boolean
+    instant_booking?: BoolFieldUpdateOperationsInput | boolean
+    status?: Enumservice_statusFieldUpdateOperationsInput | $Enums.service_status
+    views_count?: IntFieldUpdateOperationsInput | number
+    bookings_count?: IntFieldUpdateOperationsInput | number
+    rating?: FloatFieldUpdateOperationsInput | number
+    review_count?: IntFieldUpdateOperationsInput | number
+    is_active?: BoolFieldUpdateOperationsInput | boolean
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type servicesUncheckedUpdateManyInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    title?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    category?: Enumservice_categoryFieldUpdateOperationsInput | $Enums.service_category
+    price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    duration?: StringFieldUpdateOperationsInput | string
+    max_participants?: IntFieldUpdateOperationsInput | number
+    location?: StringFieldUpdateOperationsInput | string
+    difficulty?: Enumservice_difficultyFieldUpdateOperationsInput | $Enums.service_difficulty
+    equipment?: JsonNullValueInput | InputJsonValue
+    next_available?: DateTimeFieldUpdateOperationsInput | Date | string
+    image_url?: NullableStringFieldUpdateOperationsInput | string | null
+    featured?: BoolFieldUpdateOperationsInput | boolean
+    tags?: JsonNullValueInput | InputJsonValue
+    requirements?: NullableStringFieldUpdateOperationsInput | string | null
+    cancellation_policy?: NullableStringFieldUpdateOperationsInput | string | null
+    meeting_point?: NullableStringFieldUpdateOperationsInput | string | null
+    what_to_expect?: NullableStringFieldUpdateOperationsInput | string | null
+    weather_policy?: NullableEnumweather_policy_typeFieldUpdateOperationsInput | $Enums.weather_policy_type | null
+    booking_deadline?: IntFieldUpdateOperationsInput | number
+    languages?: JsonNullValueInput | InputJsonValue
+    certification?: NullableStringFieldUpdateOperationsInput | string | null
+    experience?: NullableStringFieldUpdateOperationsInput | string | null
+    group_discount?: BoolFieldUpdateOperationsInput | boolean
+    private_booking?: BoolFieldUpdateOperationsInput | boolean
+    instant_booking?: BoolFieldUpdateOperationsInput | boolean
+    status?: Enumservice_statusFieldUpdateOperationsInput | $Enums.service_status
+    views_count?: IntFieldUpdateOperationsInput | number
+    bookings_count?: IntFieldUpdateOperationsInput | number
+    rating?: FloatFieldUpdateOperationsInput | number
+    review_count?: IntFieldUpdateOperationsInput | number
+    created_by?: IntFieldUpdateOperationsInput | number
+    is_active?: BoolFieldUpdateOperationsInput | boolean
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type service_bookingsCreateInput = {
+    booking_date: Date | string
+    booking_time?: Date | string | null
+    participants_count?: number
+    total_amount: Decimal | DecimalJsLike | number | string
+    payment_status?: $Enums.booking_payment_status
+    payment_method?: string | null
+    transaction_id?: string | null
+    booking_status?: $Enums.booking_status
+    special_requests?: string | null
+    cancellation_reason?: string | null
+    cancelled_at?: Date | string | null
+    confirmed_at?: Date | string | null
+    completed_at?: Date | string | null
+    created_at?: Date | string
+    updated_at?: Date | string
+    service: servicesCreateNestedOneWithoutBookingsInput
+    user: usersCreateNestedOneWithoutService_bookingsInput
+  }
+
+  export type service_bookingsUncheckedCreateInput = {
+    id?: number
+    service_id: number
+    user_id: number
+    booking_date: Date | string
+    booking_time?: Date | string | null
+    participants_count?: number
+    total_amount: Decimal | DecimalJsLike | number | string
+    payment_status?: $Enums.booking_payment_status
+    payment_method?: string | null
+    transaction_id?: string | null
+    booking_status?: $Enums.booking_status
+    special_requests?: string | null
+    cancellation_reason?: string | null
+    cancelled_at?: Date | string | null
+    confirmed_at?: Date | string | null
+    completed_at?: Date | string | null
+    created_at?: Date | string
+    updated_at?: Date | string
+  }
+
+  export type service_bookingsUpdateInput = {
+    booking_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    booking_time?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    participants_count?: IntFieldUpdateOperationsInput | number
+    total_amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    payment_status?: Enumbooking_payment_statusFieldUpdateOperationsInput | $Enums.booking_payment_status
+    payment_method?: NullableStringFieldUpdateOperationsInput | string | null
+    transaction_id?: NullableStringFieldUpdateOperationsInput | string | null
+    booking_status?: Enumbooking_statusFieldUpdateOperationsInput | $Enums.booking_status
+    special_requests?: NullableStringFieldUpdateOperationsInput | string | null
+    cancellation_reason?: NullableStringFieldUpdateOperationsInput | string | null
+    cancelled_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    confirmed_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    completed_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    service?: servicesUpdateOneRequiredWithoutBookingsNestedInput
+    user?: usersUpdateOneRequiredWithoutService_bookingsNestedInput
+  }
+
+  export type service_bookingsUncheckedUpdateInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    service_id?: IntFieldUpdateOperationsInput | number
+    user_id?: IntFieldUpdateOperationsInput | number
+    booking_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    booking_time?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    participants_count?: IntFieldUpdateOperationsInput | number
+    total_amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    payment_status?: Enumbooking_payment_statusFieldUpdateOperationsInput | $Enums.booking_payment_status
+    payment_method?: NullableStringFieldUpdateOperationsInput | string | null
+    transaction_id?: NullableStringFieldUpdateOperationsInput | string | null
+    booking_status?: Enumbooking_statusFieldUpdateOperationsInput | $Enums.booking_status
+    special_requests?: NullableStringFieldUpdateOperationsInput | string | null
+    cancellation_reason?: NullableStringFieldUpdateOperationsInput | string | null
+    cancelled_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    confirmed_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    completed_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type service_bookingsCreateManyInput = {
+    id?: number
+    service_id: number
+    user_id: number
+    booking_date: Date | string
+    booking_time?: Date | string | null
+    participants_count?: number
+    total_amount: Decimal | DecimalJsLike | number | string
+    payment_status?: $Enums.booking_payment_status
+    payment_method?: string | null
+    transaction_id?: string | null
+    booking_status?: $Enums.booking_status
+    special_requests?: string | null
+    cancellation_reason?: string | null
+    cancelled_at?: Date | string | null
+    confirmed_at?: Date | string | null
+    completed_at?: Date | string | null
+    created_at?: Date | string
+    updated_at?: Date | string
+  }
+
+  export type service_bookingsUpdateManyMutationInput = {
+    booking_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    booking_time?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    participants_count?: IntFieldUpdateOperationsInput | number
+    total_amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    payment_status?: Enumbooking_payment_statusFieldUpdateOperationsInput | $Enums.booking_payment_status
+    payment_method?: NullableStringFieldUpdateOperationsInput | string | null
+    transaction_id?: NullableStringFieldUpdateOperationsInput | string | null
+    booking_status?: Enumbooking_statusFieldUpdateOperationsInput | $Enums.booking_status
+    special_requests?: NullableStringFieldUpdateOperationsInput | string | null
+    cancellation_reason?: NullableStringFieldUpdateOperationsInput | string | null
+    cancelled_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    confirmed_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    completed_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type service_bookingsUncheckedUpdateManyInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    service_id?: IntFieldUpdateOperationsInput | number
+    user_id?: IntFieldUpdateOperationsInput | number
+    booking_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    booking_time?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    participants_count?: IntFieldUpdateOperationsInput | number
+    total_amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    payment_status?: Enumbooking_payment_statusFieldUpdateOperationsInput | $Enums.booking_payment_status
+    payment_method?: NullableStringFieldUpdateOperationsInput | string | null
+    transaction_id?: NullableStringFieldUpdateOperationsInput | string | null
+    booking_status?: Enumbooking_statusFieldUpdateOperationsInput | $Enums.booking_status
+    special_requests?: NullableStringFieldUpdateOperationsInput | string | null
+    cancellation_reason?: NullableStringFieldUpdateOperationsInput | string | null
+    cancelled_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    confirmed_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    completed_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type service_reviewsCreateInput = {
+    rating: number
+    review: string
+    images?: NullableJsonNullValueInput | InputJsonValue
+    is_verified?: boolean
+    created_at?: Date | string
+    updated_at?: Date | string
+    service: servicesCreateNestedOneWithoutReviewsInput
+    user: usersCreateNestedOneWithoutService_reviewsInput
+  }
+
+  export type service_reviewsUncheckedCreateInput = {
+    id?: number
+    service_id: number
+    user_id: number
+    rating: number
+    review: string
+    images?: NullableJsonNullValueInput | InputJsonValue
+    is_verified?: boolean
+    created_at?: Date | string
+    updated_at?: Date | string
+  }
+
+  export type service_reviewsUpdateInput = {
+    rating?: IntFieldUpdateOperationsInput | number
+    review?: StringFieldUpdateOperationsInput | string
+    images?: NullableJsonNullValueInput | InputJsonValue
+    is_verified?: BoolFieldUpdateOperationsInput | boolean
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    service?: servicesUpdateOneRequiredWithoutReviewsNestedInput
+    user?: usersUpdateOneRequiredWithoutService_reviewsNestedInput
+  }
+
+  export type service_reviewsUncheckedUpdateInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    service_id?: IntFieldUpdateOperationsInput | number
+    user_id?: IntFieldUpdateOperationsInput | number
+    rating?: IntFieldUpdateOperationsInput | number
+    review?: StringFieldUpdateOperationsInput | string
+    images?: NullableJsonNullValueInput | InputJsonValue
+    is_verified?: BoolFieldUpdateOperationsInput | boolean
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type service_reviewsCreateManyInput = {
+    id?: number
+    service_id: number
+    user_id: number
+    rating: number
+    review: string
+    images?: NullableJsonNullValueInput | InputJsonValue
+    is_verified?: boolean
+    created_at?: Date | string
+    updated_at?: Date | string
+  }
+
+  export type service_reviewsUpdateManyMutationInput = {
+    rating?: IntFieldUpdateOperationsInput | number
+    review?: StringFieldUpdateOperationsInput | string
+    images?: NullableJsonNullValueInput | InputJsonValue
+    is_verified?: BoolFieldUpdateOperationsInput | boolean
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type service_reviewsUncheckedUpdateManyInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    service_id?: IntFieldUpdateOperationsInput | number
+    user_id?: IntFieldUpdateOperationsInput | number
+    rating?: IntFieldUpdateOperationsInput | number
+    review?: StringFieldUpdateOperationsInput | string
+    images?: NullableJsonNullValueInput | InputJsonValue
+    is_verified?: BoolFieldUpdateOperationsInput | boolean
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type service_availabilityCreateInput = {
+    available_date: Date | string
+    start_time?: Date | string | null
+    end_time?: Date | string | null
+    slots_available: number
+    slots_booked?: number
+    status?: $Enums.availability_status
+    notes?: string | null
+    created_at?: Date | string
+    updated_at?: Date | string
+    service: servicesCreateNestedOneWithoutAvailabilityInput
+  }
+
+  export type service_availabilityUncheckedCreateInput = {
+    id?: number
+    service_id: number
+    available_date: Date | string
+    start_time?: Date | string | null
+    end_time?: Date | string | null
+    slots_available: number
+    slots_booked?: number
+    status?: $Enums.availability_status
+    notes?: string | null
+    created_at?: Date | string
+    updated_at?: Date | string
+  }
+
+  export type service_availabilityUpdateInput = {
+    available_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    start_time?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    end_time?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    slots_available?: IntFieldUpdateOperationsInput | number
+    slots_booked?: IntFieldUpdateOperationsInput | number
+    status?: Enumavailability_statusFieldUpdateOperationsInput | $Enums.availability_status
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    service?: servicesUpdateOneRequiredWithoutAvailabilityNestedInput
+  }
+
+  export type service_availabilityUncheckedUpdateInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    service_id?: IntFieldUpdateOperationsInput | number
+    available_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    start_time?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    end_time?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    slots_available?: IntFieldUpdateOperationsInput | number
+    slots_booked?: IntFieldUpdateOperationsInput | number
+    status?: Enumavailability_statusFieldUpdateOperationsInput | $Enums.availability_status
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type service_availabilityCreateManyInput = {
+    id?: number
+    service_id: number
+    available_date: Date | string
+    start_time?: Date | string | null
+    end_time?: Date | string | null
+    slots_available: number
+    slots_booked?: number
+    status?: $Enums.availability_status
+    notes?: string | null
+    created_at?: Date | string
+    updated_at?: Date | string
+  }
+
+  export type service_availabilityUpdateManyMutationInput = {
+    available_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    start_time?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    end_time?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    slots_available?: IntFieldUpdateOperationsInput | number
+    slots_booked?: IntFieldUpdateOperationsInput | number
+    status?: Enumavailability_statusFieldUpdateOperationsInput | $Enums.availability_status
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type service_availabilityUncheckedUpdateManyInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    service_id?: IntFieldUpdateOperationsInput | number
+    available_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    start_time?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    end_time?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    slots_available?: IntFieldUpdateOperationsInput | number
+    slots_booked?: IntFieldUpdateOperationsInput | number
+    status?: Enumavailability_statusFieldUpdateOperationsInput | $Enums.availability_status
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type service_mediaCreateInput = {
+    media_url: string
+    media_type: string
+    display_order?: number
+    caption?: string | null
+    created_at?: Date | string
+    service: servicesCreateNestedOneWithoutMediaInput
+  }
+
+  export type service_mediaUncheckedCreateInput = {
+    id?: number
+    service_id: number
+    media_url: string
+    media_type: string
+    display_order?: number
+    caption?: string | null
+    created_at?: Date | string
+  }
+
+  export type service_mediaUpdateInput = {
+    media_url?: StringFieldUpdateOperationsInput | string
+    media_type?: StringFieldUpdateOperationsInput | string
+    display_order?: IntFieldUpdateOperationsInput | number
+    caption?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    service?: servicesUpdateOneRequiredWithoutMediaNestedInput
+  }
+
+  export type service_mediaUncheckedUpdateInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    service_id?: IntFieldUpdateOperationsInput | number
+    media_url?: StringFieldUpdateOperationsInput | string
+    media_type?: StringFieldUpdateOperationsInput | string
+    display_order?: IntFieldUpdateOperationsInput | number
+    caption?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type service_mediaCreateManyInput = {
+    id?: number
+    service_id: number
+    media_url: string
+    media_type: string
+    display_order?: number
+    caption?: string | null
+    created_at?: Date | string
+  }
+
+  export type service_mediaUpdateManyMutationInput = {
+    media_url?: StringFieldUpdateOperationsInput | string
+    media_type?: StringFieldUpdateOperationsInput | string
+    display_order?: IntFieldUpdateOperationsInput | number
+    caption?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type service_mediaUncheckedUpdateManyInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    service_id?: IntFieldUpdateOperationsInput | number
+    media_url?: StringFieldUpdateOperationsInput | string
+    media_type?: StringFieldUpdateOperationsInput | string
+    display_order?: IntFieldUpdateOperationsInput | number
+    caption?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type session_enrollmentsCreateInput = {
     enrollment_date?: Date | string
     payment_status?: $Enums.enrollment_payment_status
@@ -82344,6 +90906,24 @@ export namespace Prisma {
     none?: session_enrollmentsWhereInput
   }
 
+  export type ServicesListRelationFilter = {
+    every?: servicesWhereInput
+    some?: servicesWhereInput
+    none?: servicesWhereInput
+  }
+
+  export type Service_bookingsListRelationFilter = {
+    every?: service_bookingsWhereInput
+    some?: service_bookingsWhereInput
+    none?: service_bookingsWhereInput
+  }
+
+  export type Service_reviewsListRelationFilter = {
+    every?: service_reviewsWhereInput
+    some?: service_reviewsWhereInput
+    none?: service_reviewsWhereInput
+  }
+
   export type SubscriptionsListRelationFilter = {
     every?: subscriptionsWhereInput
     some?: subscriptionsWhereInput
@@ -82466,6 +91046,18 @@ export namespace Prisma {
   }
 
   export type session_enrollmentsOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type servicesOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type service_bookingsOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type service_reviewsOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -84474,6 +93066,524 @@ export namespace Prisma {
     _max?: NestedEnumdifficulty_levelFilter<$PrismaModel>
   }
 
+  export type Enumservice_categoryFilter<$PrismaModel = never> = {
+    equals?: $Enums.service_category | Enumservice_categoryFieldRefInput<$PrismaModel>
+    in?: $Enums.service_category[] | ListEnumservice_categoryFieldRefInput<$PrismaModel>
+    notIn?: $Enums.service_category[] | ListEnumservice_categoryFieldRefInput<$PrismaModel>
+    not?: NestedEnumservice_categoryFilter<$PrismaModel> | $Enums.service_category
+  }
+
+  export type Enumservice_difficultyFilter<$PrismaModel = never> = {
+    equals?: $Enums.service_difficulty | Enumservice_difficultyFieldRefInput<$PrismaModel>
+    in?: $Enums.service_difficulty[] | ListEnumservice_difficultyFieldRefInput<$PrismaModel>
+    notIn?: $Enums.service_difficulty[] | ListEnumservice_difficultyFieldRefInput<$PrismaModel>
+    not?: NestedEnumservice_difficultyFilter<$PrismaModel> | $Enums.service_difficulty
+  }
+
+  export type Enumweather_policy_typeNullableFilter<$PrismaModel = never> = {
+    equals?: $Enums.weather_policy_type | Enumweather_policy_typeFieldRefInput<$PrismaModel> | null
+    in?: $Enums.weather_policy_type[] | ListEnumweather_policy_typeFieldRefInput<$PrismaModel> | null
+    notIn?: $Enums.weather_policy_type[] | ListEnumweather_policy_typeFieldRefInput<$PrismaModel> | null
+    not?: NestedEnumweather_policy_typeNullableFilter<$PrismaModel> | $Enums.weather_policy_type | null
+  }
+
+  export type Enumservice_statusFilter<$PrismaModel = never> = {
+    equals?: $Enums.service_status | Enumservice_statusFieldRefInput<$PrismaModel>
+    in?: $Enums.service_status[] | ListEnumservice_statusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.service_status[] | ListEnumservice_statusFieldRefInput<$PrismaModel>
+    not?: NestedEnumservice_statusFilter<$PrismaModel> | $Enums.service_status
+  }
+
+  export type Service_availabilityListRelationFilter = {
+    every?: service_availabilityWhereInput
+    some?: service_availabilityWhereInput
+    none?: service_availabilityWhereInput
+  }
+
+  export type Service_mediaListRelationFilter = {
+    every?: service_mediaWhereInput
+    some?: service_mediaWhereInput
+    none?: service_mediaWhereInput
+  }
+
+  export type service_availabilityOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type service_mediaOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type servicesCountOrderByAggregateInput = {
+    id?: SortOrder
+    title?: SortOrder
+    description?: SortOrder
+    category?: SortOrder
+    price?: SortOrder
+    duration?: SortOrder
+    max_participants?: SortOrder
+    location?: SortOrder
+    difficulty?: SortOrder
+    equipment?: SortOrder
+    next_available?: SortOrder
+    image_url?: SortOrder
+    featured?: SortOrder
+    tags?: SortOrder
+    requirements?: SortOrder
+    cancellation_policy?: SortOrder
+    meeting_point?: SortOrder
+    what_to_expect?: SortOrder
+    weather_policy?: SortOrder
+    booking_deadline?: SortOrder
+    languages?: SortOrder
+    certification?: SortOrder
+    experience?: SortOrder
+    group_discount?: SortOrder
+    private_booking?: SortOrder
+    instant_booking?: SortOrder
+    status?: SortOrder
+    views_count?: SortOrder
+    bookings_count?: SortOrder
+    rating?: SortOrder
+    review_count?: SortOrder
+    created_by?: SortOrder
+    is_active?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+  }
+
+  export type servicesAvgOrderByAggregateInput = {
+    id?: SortOrder
+    price?: SortOrder
+    max_participants?: SortOrder
+    booking_deadline?: SortOrder
+    views_count?: SortOrder
+    bookings_count?: SortOrder
+    rating?: SortOrder
+    review_count?: SortOrder
+    created_by?: SortOrder
+  }
+
+  export type servicesMaxOrderByAggregateInput = {
+    id?: SortOrder
+    title?: SortOrder
+    description?: SortOrder
+    category?: SortOrder
+    price?: SortOrder
+    duration?: SortOrder
+    max_participants?: SortOrder
+    location?: SortOrder
+    difficulty?: SortOrder
+    next_available?: SortOrder
+    image_url?: SortOrder
+    featured?: SortOrder
+    requirements?: SortOrder
+    cancellation_policy?: SortOrder
+    meeting_point?: SortOrder
+    what_to_expect?: SortOrder
+    weather_policy?: SortOrder
+    booking_deadline?: SortOrder
+    certification?: SortOrder
+    experience?: SortOrder
+    group_discount?: SortOrder
+    private_booking?: SortOrder
+    instant_booking?: SortOrder
+    status?: SortOrder
+    views_count?: SortOrder
+    bookings_count?: SortOrder
+    rating?: SortOrder
+    review_count?: SortOrder
+    created_by?: SortOrder
+    is_active?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+  }
+
+  export type servicesMinOrderByAggregateInput = {
+    id?: SortOrder
+    title?: SortOrder
+    description?: SortOrder
+    category?: SortOrder
+    price?: SortOrder
+    duration?: SortOrder
+    max_participants?: SortOrder
+    location?: SortOrder
+    difficulty?: SortOrder
+    next_available?: SortOrder
+    image_url?: SortOrder
+    featured?: SortOrder
+    requirements?: SortOrder
+    cancellation_policy?: SortOrder
+    meeting_point?: SortOrder
+    what_to_expect?: SortOrder
+    weather_policy?: SortOrder
+    booking_deadline?: SortOrder
+    certification?: SortOrder
+    experience?: SortOrder
+    group_discount?: SortOrder
+    private_booking?: SortOrder
+    instant_booking?: SortOrder
+    status?: SortOrder
+    views_count?: SortOrder
+    bookings_count?: SortOrder
+    rating?: SortOrder
+    review_count?: SortOrder
+    created_by?: SortOrder
+    is_active?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+  }
+
+  export type servicesSumOrderByAggregateInput = {
+    id?: SortOrder
+    price?: SortOrder
+    max_participants?: SortOrder
+    booking_deadline?: SortOrder
+    views_count?: SortOrder
+    bookings_count?: SortOrder
+    rating?: SortOrder
+    review_count?: SortOrder
+    created_by?: SortOrder
+  }
+
+  export type Enumservice_categoryWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.service_category | Enumservice_categoryFieldRefInput<$PrismaModel>
+    in?: $Enums.service_category[] | ListEnumservice_categoryFieldRefInput<$PrismaModel>
+    notIn?: $Enums.service_category[] | ListEnumservice_categoryFieldRefInput<$PrismaModel>
+    not?: NestedEnumservice_categoryWithAggregatesFilter<$PrismaModel> | $Enums.service_category
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumservice_categoryFilter<$PrismaModel>
+    _max?: NestedEnumservice_categoryFilter<$PrismaModel>
+  }
+
+  export type Enumservice_difficultyWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.service_difficulty | Enumservice_difficultyFieldRefInput<$PrismaModel>
+    in?: $Enums.service_difficulty[] | ListEnumservice_difficultyFieldRefInput<$PrismaModel>
+    notIn?: $Enums.service_difficulty[] | ListEnumservice_difficultyFieldRefInput<$PrismaModel>
+    not?: NestedEnumservice_difficultyWithAggregatesFilter<$PrismaModel> | $Enums.service_difficulty
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumservice_difficultyFilter<$PrismaModel>
+    _max?: NestedEnumservice_difficultyFilter<$PrismaModel>
+  }
+
+  export type Enumweather_policy_typeNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.weather_policy_type | Enumweather_policy_typeFieldRefInput<$PrismaModel> | null
+    in?: $Enums.weather_policy_type[] | ListEnumweather_policy_typeFieldRefInput<$PrismaModel> | null
+    notIn?: $Enums.weather_policy_type[] | ListEnumweather_policy_typeFieldRefInput<$PrismaModel> | null
+    not?: NestedEnumweather_policy_typeNullableWithAggregatesFilter<$PrismaModel> | $Enums.weather_policy_type | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedEnumweather_policy_typeNullableFilter<$PrismaModel>
+    _max?: NestedEnumweather_policy_typeNullableFilter<$PrismaModel>
+  }
+
+  export type Enumservice_statusWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.service_status | Enumservice_statusFieldRefInput<$PrismaModel>
+    in?: $Enums.service_status[] | ListEnumservice_statusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.service_status[] | ListEnumservice_statusFieldRefInput<$PrismaModel>
+    not?: NestedEnumservice_statusWithAggregatesFilter<$PrismaModel> | $Enums.service_status
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumservice_statusFilter<$PrismaModel>
+    _max?: NestedEnumservice_statusFilter<$PrismaModel>
+  }
+
+  export type Enumbooking_payment_statusFilter<$PrismaModel = never> = {
+    equals?: $Enums.booking_payment_status | Enumbooking_payment_statusFieldRefInput<$PrismaModel>
+    in?: $Enums.booking_payment_status[] | ListEnumbooking_payment_statusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.booking_payment_status[] | ListEnumbooking_payment_statusFieldRefInput<$PrismaModel>
+    not?: NestedEnumbooking_payment_statusFilter<$PrismaModel> | $Enums.booking_payment_status
+  }
+
+  export type Enumbooking_statusFilter<$PrismaModel = never> = {
+    equals?: $Enums.booking_status | Enumbooking_statusFieldRefInput<$PrismaModel>
+    in?: $Enums.booking_status[] | ListEnumbooking_statusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.booking_status[] | ListEnumbooking_statusFieldRefInput<$PrismaModel>
+    not?: NestedEnumbooking_statusFilter<$PrismaModel> | $Enums.booking_status
+  }
+
+  export type ServicesScalarRelationFilter = {
+    is?: servicesWhereInput
+    isNot?: servicesWhereInput
+  }
+
+  export type service_bookingsService_idUser_idBooking_dateCompoundUniqueInput = {
+    service_id: number
+    user_id: number
+    booking_date: Date | string
+  }
+
+  export type service_bookingsCountOrderByAggregateInput = {
+    id?: SortOrder
+    service_id?: SortOrder
+    user_id?: SortOrder
+    booking_date?: SortOrder
+    booking_time?: SortOrder
+    participants_count?: SortOrder
+    total_amount?: SortOrder
+    payment_status?: SortOrder
+    payment_method?: SortOrder
+    transaction_id?: SortOrder
+    booking_status?: SortOrder
+    special_requests?: SortOrder
+    cancellation_reason?: SortOrder
+    cancelled_at?: SortOrder
+    confirmed_at?: SortOrder
+    completed_at?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+  }
+
+  export type service_bookingsAvgOrderByAggregateInput = {
+    id?: SortOrder
+    service_id?: SortOrder
+    user_id?: SortOrder
+    participants_count?: SortOrder
+    total_amount?: SortOrder
+  }
+
+  export type service_bookingsMaxOrderByAggregateInput = {
+    id?: SortOrder
+    service_id?: SortOrder
+    user_id?: SortOrder
+    booking_date?: SortOrder
+    booking_time?: SortOrder
+    participants_count?: SortOrder
+    total_amount?: SortOrder
+    payment_status?: SortOrder
+    payment_method?: SortOrder
+    transaction_id?: SortOrder
+    booking_status?: SortOrder
+    special_requests?: SortOrder
+    cancellation_reason?: SortOrder
+    cancelled_at?: SortOrder
+    confirmed_at?: SortOrder
+    completed_at?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+  }
+
+  export type service_bookingsMinOrderByAggregateInput = {
+    id?: SortOrder
+    service_id?: SortOrder
+    user_id?: SortOrder
+    booking_date?: SortOrder
+    booking_time?: SortOrder
+    participants_count?: SortOrder
+    total_amount?: SortOrder
+    payment_status?: SortOrder
+    payment_method?: SortOrder
+    transaction_id?: SortOrder
+    booking_status?: SortOrder
+    special_requests?: SortOrder
+    cancellation_reason?: SortOrder
+    cancelled_at?: SortOrder
+    confirmed_at?: SortOrder
+    completed_at?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+  }
+
+  export type service_bookingsSumOrderByAggregateInput = {
+    id?: SortOrder
+    service_id?: SortOrder
+    user_id?: SortOrder
+    participants_count?: SortOrder
+    total_amount?: SortOrder
+  }
+
+  export type Enumbooking_payment_statusWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.booking_payment_status | Enumbooking_payment_statusFieldRefInput<$PrismaModel>
+    in?: $Enums.booking_payment_status[] | ListEnumbooking_payment_statusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.booking_payment_status[] | ListEnumbooking_payment_statusFieldRefInput<$PrismaModel>
+    not?: NestedEnumbooking_payment_statusWithAggregatesFilter<$PrismaModel> | $Enums.booking_payment_status
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumbooking_payment_statusFilter<$PrismaModel>
+    _max?: NestedEnumbooking_payment_statusFilter<$PrismaModel>
+  }
+
+  export type Enumbooking_statusWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.booking_status | Enumbooking_statusFieldRefInput<$PrismaModel>
+    in?: $Enums.booking_status[] | ListEnumbooking_statusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.booking_status[] | ListEnumbooking_statusFieldRefInput<$PrismaModel>
+    not?: NestedEnumbooking_statusWithAggregatesFilter<$PrismaModel> | $Enums.booking_status
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumbooking_statusFilter<$PrismaModel>
+    _max?: NestedEnumbooking_statusFilter<$PrismaModel>
+  }
+
+  export type service_reviewsService_idUser_idCompoundUniqueInput = {
+    service_id: number
+    user_id: number
+  }
+
+  export type service_reviewsCountOrderByAggregateInput = {
+    id?: SortOrder
+    service_id?: SortOrder
+    user_id?: SortOrder
+    rating?: SortOrder
+    review?: SortOrder
+    images?: SortOrder
+    is_verified?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+  }
+
+  export type service_reviewsAvgOrderByAggregateInput = {
+    id?: SortOrder
+    service_id?: SortOrder
+    user_id?: SortOrder
+    rating?: SortOrder
+  }
+
+  export type service_reviewsMaxOrderByAggregateInput = {
+    id?: SortOrder
+    service_id?: SortOrder
+    user_id?: SortOrder
+    rating?: SortOrder
+    review?: SortOrder
+    is_verified?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+  }
+
+  export type service_reviewsMinOrderByAggregateInput = {
+    id?: SortOrder
+    service_id?: SortOrder
+    user_id?: SortOrder
+    rating?: SortOrder
+    review?: SortOrder
+    is_verified?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+  }
+
+  export type service_reviewsSumOrderByAggregateInput = {
+    id?: SortOrder
+    service_id?: SortOrder
+    user_id?: SortOrder
+    rating?: SortOrder
+  }
+
+  export type Enumavailability_statusFilter<$PrismaModel = never> = {
+    equals?: $Enums.availability_status | Enumavailability_statusFieldRefInput<$PrismaModel>
+    in?: $Enums.availability_status[] | ListEnumavailability_statusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.availability_status[] | ListEnumavailability_statusFieldRefInput<$PrismaModel>
+    not?: NestedEnumavailability_statusFilter<$PrismaModel> | $Enums.availability_status
+  }
+
+  export type service_availabilityService_idAvailable_dateStart_timeCompoundUniqueInput = {
+    service_id: number
+    available_date: Date | string
+    start_time: Date | string
+  }
+
+  export type service_availabilityCountOrderByAggregateInput = {
+    id?: SortOrder
+    service_id?: SortOrder
+    available_date?: SortOrder
+    start_time?: SortOrder
+    end_time?: SortOrder
+    slots_available?: SortOrder
+    slots_booked?: SortOrder
+    status?: SortOrder
+    notes?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+  }
+
+  export type service_availabilityAvgOrderByAggregateInput = {
+    id?: SortOrder
+    service_id?: SortOrder
+    slots_available?: SortOrder
+    slots_booked?: SortOrder
+  }
+
+  export type service_availabilityMaxOrderByAggregateInput = {
+    id?: SortOrder
+    service_id?: SortOrder
+    available_date?: SortOrder
+    start_time?: SortOrder
+    end_time?: SortOrder
+    slots_available?: SortOrder
+    slots_booked?: SortOrder
+    status?: SortOrder
+    notes?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+  }
+
+  export type service_availabilityMinOrderByAggregateInput = {
+    id?: SortOrder
+    service_id?: SortOrder
+    available_date?: SortOrder
+    start_time?: SortOrder
+    end_time?: SortOrder
+    slots_available?: SortOrder
+    slots_booked?: SortOrder
+    status?: SortOrder
+    notes?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+  }
+
+  export type service_availabilitySumOrderByAggregateInput = {
+    id?: SortOrder
+    service_id?: SortOrder
+    slots_available?: SortOrder
+    slots_booked?: SortOrder
+  }
+
+  export type Enumavailability_statusWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.availability_status | Enumavailability_statusFieldRefInput<$PrismaModel>
+    in?: $Enums.availability_status[] | ListEnumavailability_statusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.availability_status[] | ListEnumavailability_statusFieldRefInput<$PrismaModel>
+    not?: NestedEnumavailability_statusWithAggregatesFilter<$PrismaModel> | $Enums.availability_status
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumavailability_statusFilter<$PrismaModel>
+    _max?: NestedEnumavailability_statusFilter<$PrismaModel>
+  }
+
+  export type service_mediaCountOrderByAggregateInput = {
+    id?: SortOrder
+    service_id?: SortOrder
+    media_url?: SortOrder
+    media_type?: SortOrder
+    display_order?: SortOrder
+    caption?: SortOrder
+    created_at?: SortOrder
+  }
+
+  export type service_mediaAvgOrderByAggregateInput = {
+    id?: SortOrder
+    service_id?: SortOrder
+    display_order?: SortOrder
+  }
+
+  export type service_mediaMaxOrderByAggregateInput = {
+    id?: SortOrder
+    service_id?: SortOrder
+    media_url?: SortOrder
+    media_type?: SortOrder
+    display_order?: SortOrder
+    caption?: SortOrder
+    created_at?: SortOrder
+  }
+
+  export type service_mediaMinOrderByAggregateInput = {
+    id?: SortOrder
+    service_id?: SortOrder
+    media_url?: SortOrder
+    media_type?: SortOrder
+    display_order?: SortOrder
+    caption?: SortOrder
+    created_at?: SortOrder
+  }
+
+  export type service_mediaSumOrderByAggregateInput = {
+    id?: SortOrder
+    service_id?: SortOrder
+    display_order?: SortOrder
+  }
+
   export type Enumenrollment_payment_statusFilter<$PrismaModel = never> = {
     equals?: $Enums.enrollment_payment_status | Enumenrollment_payment_statusFieldRefInput<$PrismaModel>
     in?: $Enums.enrollment_payment_status[] | ListEnumenrollment_payment_statusFieldRefInput<$PrismaModel>
@@ -86163,6 +95273,27 @@ export namespace Prisma {
     connect?: session_enrollmentsWhereUniqueInput | session_enrollmentsWhereUniqueInput[]
   }
 
+  export type servicesCreateNestedManyWithoutCreatorInput = {
+    create?: XOR<servicesCreateWithoutCreatorInput, servicesUncheckedCreateWithoutCreatorInput> | servicesCreateWithoutCreatorInput[] | servicesUncheckedCreateWithoutCreatorInput[]
+    connectOrCreate?: servicesCreateOrConnectWithoutCreatorInput | servicesCreateOrConnectWithoutCreatorInput[]
+    createMany?: servicesCreateManyCreatorInputEnvelope
+    connect?: servicesWhereUniqueInput | servicesWhereUniqueInput[]
+  }
+
+  export type service_bookingsCreateNestedManyWithoutUserInput = {
+    create?: XOR<service_bookingsCreateWithoutUserInput, service_bookingsUncheckedCreateWithoutUserInput> | service_bookingsCreateWithoutUserInput[] | service_bookingsUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: service_bookingsCreateOrConnectWithoutUserInput | service_bookingsCreateOrConnectWithoutUserInput[]
+    createMany?: service_bookingsCreateManyUserInputEnvelope
+    connect?: service_bookingsWhereUniqueInput | service_bookingsWhereUniqueInput[]
+  }
+
+  export type service_reviewsCreateNestedManyWithoutUserInput = {
+    create?: XOR<service_reviewsCreateWithoutUserInput, service_reviewsUncheckedCreateWithoutUserInput> | service_reviewsCreateWithoutUserInput[] | service_reviewsUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: service_reviewsCreateOrConnectWithoutUserInput | service_reviewsCreateOrConnectWithoutUserInput[]
+    createMany?: service_reviewsCreateManyUserInputEnvelope
+    connect?: service_reviewsWhereUniqueInput | service_reviewsWhereUniqueInput[]
+  }
+
   export type subscriptionsCreateNestedManyWithoutUsersInput = {
     create?: XOR<subscriptionsCreateWithoutUsersInput, subscriptionsUncheckedCreateWithoutUsersInput> | subscriptionsCreateWithoutUsersInput[] | subscriptionsUncheckedCreateWithoutUsersInput[]
     connectOrCreate?: subscriptionsCreateOrConnectWithoutUsersInput | subscriptionsCreateOrConnectWithoutUsersInput[]
@@ -86440,6 +95571,27 @@ export namespace Prisma {
     connectOrCreate?: session_enrollmentsCreateOrConnectWithoutUserInput | session_enrollmentsCreateOrConnectWithoutUserInput[]
     createMany?: session_enrollmentsCreateManyUserInputEnvelope
     connect?: session_enrollmentsWhereUniqueInput | session_enrollmentsWhereUniqueInput[]
+  }
+
+  export type servicesUncheckedCreateNestedManyWithoutCreatorInput = {
+    create?: XOR<servicesCreateWithoutCreatorInput, servicesUncheckedCreateWithoutCreatorInput> | servicesCreateWithoutCreatorInput[] | servicesUncheckedCreateWithoutCreatorInput[]
+    connectOrCreate?: servicesCreateOrConnectWithoutCreatorInput | servicesCreateOrConnectWithoutCreatorInput[]
+    createMany?: servicesCreateManyCreatorInputEnvelope
+    connect?: servicesWhereUniqueInput | servicesWhereUniqueInput[]
+  }
+
+  export type service_bookingsUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<service_bookingsCreateWithoutUserInput, service_bookingsUncheckedCreateWithoutUserInput> | service_bookingsCreateWithoutUserInput[] | service_bookingsUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: service_bookingsCreateOrConnectWithoutUserInput | service_bookingsCreateOrConnectWithoutUserInput[]
+    createMany?: service_bookingsCreateManyUserInputEnvelope
+    connect?: service_bookingsWhereUniqueInput | service_bookingsWhereUniqueInput[]
+  }
+
+  export type service_reviewsUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<service_reviewsCreateWithoutUserInput, service_reviewsUncheckedCreateWithoutUserInput> | service_reviewsCreateWithoutUserInput[] | service_reviewsUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: service_reviewsCreateOrConnectWithoutUserInput | service_reviewsCreateOrConnectWithoutUserInput[]
+    createMany?: service_reviewsCreateManyUserInputEnvelope
+    connect?: service_reviewsWhereUniqueInput | service_reviewsWhereUniqueInput[]
   }
 
   export type subscriptionsUncheckedCreateNestedManyWithoutUsersInput = {
@@ -86972,6 +96124,48 @@ export namespace Prisma {
     update?: session_enrollmentsUpdateWithWhereUniqueWithoutUserInput | session_enrollmentsUpdateWithWhereUniqueWithoutUserInput[]
     updateMany?: session_enrollmentsUpdateManyWithWhereWithoutUserInput | session_enrollmentsUpdateManyWithWhereWithoutUserInput[]
     deleteMany?: session_enrollmentsScalarWhereInput | session_enrollmentsScalarWhereInput[]
+  }
+
+  export type servicesUpdateManyWithoutCreatorNestedInput = {
+    create?: XOR<servicesCreateWithoutCreatorInput, servicesUncheckedCreateWithoutCreatorInput> | servicesCreateWithoutCreatorInput[] | servicesUncheckedCreateWithoutCreatorInput[]
+    connectOrCreate?: servicesCreateOrConnectWithoutCreatorInput | servicesCreateOrConnectWithoutCreatorInput[]
+    upsert?: servicesUpsertWithWhereUniqueWithoutCreatorInput | servicesUpsertWithWhereUniqueWithoutCreatorInput[]
+    createMany?: servicesCreateManyCreatorInputEnvelope
+    set?: servicesWhereUniqueInput | servicesWhereUniqueInput[]
+    disconnect?: servicesWhereUniqueInput | servicesWhereUniqueInput[]
+    delete?: servicesWhereUniqueInput | servicesWhereUniqueInput[]
+    connect?: servicesWhereUniqueInput | servicesWhereUniqueInput[]
+    update?: servicesUpdateWithWhereUniqueWithoutCreatorInput | servicesUpdateWithWhereUniqueWithoutCreatorInput[]
+    updateMany?: servicesUpdateManyWithWhereWithoutCreatorInput | servicesUpdateManyWithWhereWithoutCreatorInput[]
+    deleteMany?: servicesScalarWhereInput | servicesScalarWhereInput[]
+  }
+
+  export type service_bookingsUpdateManyWithoutUserNestedInput = {
+    create?: XOR<service_bookingsCreateWithoutUserInput, service_bookingsUncheckedCreateWithoutUserInput> | service_bookingsCreateWithoutUserInput[] | service_bookingsUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: service_bookingsCreateOrConnectWithoutUserInput | service_bookingsCreateOrConnectWithoutUserInput[]
+    upsert?: service_bookingsUpsertWithWhereUniqueWithoutUserInput | service_bookingsUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: service_bookingsCreateManyUserInputEnvelope
+    set?: service_bookingsWhereUniqueInput | service_bookingsWhereUniqueInput[]
+    disconnect?: service_bookingsWhereUniqueInput | service_bookingsWhereUniqueInput[]
+    delete?: service_bookingsWhereUniqueInput | service_bookingsWhereUniqueInput[]
+    connect?: service_bookingsWhereUniqueInput | service_bookingsWhereUniqueInput[]
+    update?: service_bookingsUpdateWithWhereUniqueWithoutUserInput | service_bookingsUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: service_bookingsUpdateManyWithWhereWithoutUserInput | service_bookingsUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: service_bookingsScalarWhereInput | service_bookingsScalarWhereInput[]
+  }
+
+  export type service_reviewsUpdateManyWithoutUserNestedInput = {
+    create?: XOR<service_reviewsCreateWithoutUserInput, service_reviewsUncheckedCreateWithoutUserInput> | service_reviewsCreateWithoutUserInput[] | service_reviewsUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: service_reviewsCreateOrConnectWithoutUserInput | service_reviewsCreateOrConnectWithoutUserInput[]
+    upsert?: service_reviewsUpsertWithWhereUniqueWithoutUserInput | service_reviewsUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: service_reviewsCreateManyUserInputEnvelope
+    set?: service_reviewsWhereUniqueInput | service_reviewsWhereUniqueInput[]
+    disconnect?: service_reviewsWhereUniqueInput | service_reviewsWhereUniqueInput[]
+    delete?: service_reviewsWhereUniqueInput | service_reviewsWhereUniqueInput[]
+    connect?: service_reviewsWhereUniqueInput | service_reviewsWhereUniqueInput[]
+    update?: service_reviewsUpdateWithWhereUniqueWithoutUserInput | service_reviewsUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: service_reviewsUpdateManyWithWhereWithoutUserInput | service_reviewsUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: service_reviewsScalarWhereInput | service_reviewsScalarWhereInput[]
   }
 
   export type subscriptionsUpdateManyWithoutUsersNestedInput = {
@@ -87528,6 +96722,48 @@ export namespace Prisma {
     update?: session_enrollmentsUpdateWithWhereUniqueWithoutUserInput | session_enrollmentsUpdateWithWhereUniqueWithoutUserInput[]
     updateMany?: session_enrollmentsUpdateManyWithWhereWithoutUserInput | session_enrollmentsUpdateManyWithWhereWithoutUserInput[]
     deleteMany?: session_enrollmentsScalarWhereInput | session_enrollmentsScalarWhereInput[]
+  }
+
+  export type servicesUncheckedUpdateManyWithoutCreatorNestedInput = {
+    create?: XOR<servicesCreateWithoutCreatorInput, servicesUncheckedCreateWithoutCreatorInput> | servicesCreateWithoutCreatorInput[] | servicesUncheckedCreateWithoutCreatorInput[]
+    connectOrCreate?: servicesCreateOrConnectWithoutCreatorInput | servicesCreateOrConnectWithoutCreatorInput[]
+    upsert?: servicesUpsertWithWhereUniqueWithoutCreatorInput | servicesUpsertWithWhereUniqueWithoutCreatorInput[]
+    createMany?: servicesCreateManyCreatorInputEnvelope
+    set?: servicesWhereUniqueInput | servicesWhereUniqueInput[]
+    disconnect?: servicesWhereUniqueInput | servicesWhereUniqueInput[]
+    delete?: servicesWhereUniqueInput | servicesWhereUniqueInput[]
+    connect?: servicesWhereUniqueInput | servicesWhereUniqueInput[]
+    update?: servicesUpdateWithWhereUniqueWithoutCreatorInput | servicesUpdateWithWhereUniqueWithoutCreatorInput[]
+    updateMany?: servicesUpdateManyWithWhereWithoutCreatorInput | servicesUpdateManyWithWhereWithoutCreatorInput[]
+    deleteMany?: servicesScalarWhereInput | servicesScalarWhereInput[]
+  }
+
+  export type service_bookingsUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<service_bookingsCreateWithoutUserInput, service_bookingsUncheckedCreateWithoutUserInput> | service_bookingsCreateWithoutUserInput[] | service_bookingsUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: service_bookingsCreateOrConnectWithoutUserInput | service_bookingsCreateOrConnectWithoutUserInput[]
+    upsert?: service_bookingsUpsertWithWhereUniqueWithoutUserInput | service_bookingsUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: service_bookingsCreateManyUserInputEnvelope
+    set?: service_bookingsWhereUniqueInput | service_bookingsWhereUniqueInput[]
+    disconnect?: service_bookingsWhereUniqueInput | service_bookingsWhereUniqueInput[]
+    delete?: service_bookingsWhereUniqueInput | service_bookingsWhereUniqueInput[]
+    connect?: service_bookingsWhereUniqueInput | service_bookingsWhereUniqueInput[]
+    update?: service_bookingsUpdateWithWhereUniqueWithoutUserInput | service_bookingsUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: service_bookingsUpdateManyWithWhereWithoutUserInput | service_bookingsUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: service_bookingsScalarWhereInput | service_bookingsScalarWhereInput[]
+  }
+
+  export type service_reviewsUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<service_reviewsCreateWithoutUserInput, service_reviewsUncheckedCreateWithoutUserInput> | service_reviewsCreateWithoutUserInput[] | service_reviewsUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: service_reviewsCreateOrConnectWithoutUserInput | service_reviewsCreateOrConnectWithoutUserInput[]
+    upsert?: service_reviewsUpsertWithWhereUniqueWithoutUserInput | service_reviewsUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: service_reviewsCreateManyUserInputEnvelope
+    set?: service_reviewsWhereUniqueInput | service_reviewsWhereUniqueInput[]
+    disconnect?: service_reviewsWhereUniqueInput | service_reviewsWhereUniqueInput[]
+    delete?: service_reviewsWhereUniqueInput | service_reviewsWhereUniqueInput[]
+    connect?: service_reviewsWhereUniqueInput | service_reviewsWhereUniqueInput[]
+    update?: service_reviewsUpdateWithWhereUniqueWithoutUserInput | service_reviewsUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: service_reviewsUpdateManyWithWhereWithoutUserInput | service_reviewsUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: service_reviewsScalarWhereInput | service_reviewsScalarWhereInput[]
   }
 
   export type subscriptionsUncheckedUpdateManyWithoutUsersNestedInput = {
@@ -88867,6 +98103,300 @@ export namespace Prisma {
     deleteMany?: session_enrollmentsScalarWhereInput | session_enrollmentsScalarWhereInput[]
   }
 
+  export type usersCreateNestedOneWithoutCreated_servicesInput = {
+    create?: XOR<usersCreateWithoutCreated_servicesInput, usersUncheckedCreateWithoutCreated_servicesInput>
+    connectOrCreate?: usersCreateOrConnectWithoutCreated_servicesInput
+    connect?: usersWhereUniqueInput
+  }
+
+  export type service_bookingsCreateNestedManyWithoutServiceInput = {
+    create?: XOR<service_bookingsCreateWithoutServiceInput, service_bookingsUncheckedCreateWithoutServiceInput> | service_bookingsCreateWithoutServiceInput[] | service_bookingsUncheckedCreateWithoutServiceInput[]
+    connectOrCreate?: service_bookingsCreateOrConnectWithoutServiceInput | service_bookingsCreateOrConnectWithoutServiceInput[]
+    createMany?: service_bookingsCreateManyServiceInputEnvelope
+    connect?: service_bookingsWhereUniqueInput | service_bookingsWhereUniqueInput[]
+  }
+
+  export type service_reviewsCreateNestedManyWithoutServiceInput = {
+    create?: XOR<service_reviewsCreateWithoutServiceInput, service_reviewsUncheckedCreateWithoutServiceInput> | service_reviewsCreateWithoutServiceInput[] | service_reviewsUncheckedCreateWithoutServiceInput[]
+    connectOrCreate?: service_reviewsCreateOrConnectWithoutServiceInput | service_reviewsCreateOrConnectWithoutServiceInput[]
+    createMany?: service_reviewsCreateManyServiceInputEnvelope
+    connect?: service_reviewsWhereUniqueInput | service_reviewsWhereUniqueInput[]
+  }
+
+  export type service_availabilityCreateNestedManyWithoutServiceInput = {
+    create?: XOR<service_availabilityCreateWithoutServiceInput, service_availabilityUncheckedCreateWithoutServiceInput> | service_availabilityCreateWithoutServiceInput[] | service_availabilityUncheckedCreateWithoutServiceInput[]
+    connectOrCreate?: service_availabilityCreateOrConnectWithoutServiceInput | service_availabilityCreateOrConnectWithoutServiceInput[]
+    createMany?: service_availabilityCreateManyServiceInputEnvelope
+    connect?: service_availabilityWhereUniqueInput | service_availabilityWhereUniqueInput[]
+  }
+
+  export type service_mediaCreateNestedManyWithoutServiceInput = {
+    create?: XOR<service_mediaCreateWithoutServiceInput, service_mediaUncheckedCreateWithoutServiceInput> | service_mediaCreateWithoutServiceInput[] | service_mediaUncheckedCreateWithoutServiceInput[]
+    connectOrCreate?: service_mediaCreateOrConnectWithoutServiceInput | service_mediaCreateOrConnectWithoutServiceInput[]
+    createMany?: service_mediaCreateManyServiceInputEnvelope
+    connect?: service_mediaWhereUniqueInput | service_mediaWhereUniqueInput[]
+  }
+
+  export type service_bookingsUncheckedCreateNestedManyWithoutServiceInput = {
+    create?: XOR<service_bookingsCreateWithoutServiceInput, service_bookingsUncheckedCreateWithoutServiceInput> | service_bookingsCreateWithoutServiceInput[] | service_bookingsUncheckedCreateWithoutServiceInput[]
+    connectOrCreate?: service_bookingsCreateOrConnectWithoutServiceInput | service_bookingsCreateOrConnectWithoutServiceInput[]
+    createMany?: service_bookingsCreateManyServiceInputEnvelope
+    connect?: service_bookingsWhereUniqueInput | service_bookingsWhereUniqueInput[]
+  }
+
+  export type service_reviewsUncheckedCreateNestedManyWithoutServiceInput = {
+    create?: XOR<service_reviewsCreateWithoutServiceInput, service_reviewsUncheckedCreateWithoutServiceInput> | service_reviewsCreateWithoutServiceInput[] | service_reviewsUncheckedCreateWithoutServiceInput[]
+    connectOrCreate?: service_reviewsCreateOrConnectWithoutServiceInput | service_reviewsCreateOrConnectWithoutServiceInput[]
+    createMany?: service_reviewsCreateManyServiceInputEnvelope
+    connect?: service_reviewsWhereUniqueInput | service_reviewsWhereUniqueInput[]
+  }
+
+  export type service_availabilityUncheckedCreateNestedManyWithoutServiceInput = {
+    create?: XOR<service_availabilityCreateWithoutServiceInput, service_availabilityUncheckedCreateWithoutServiceInput> | service_availabilityCreateWithoutServiceInput[] | service_availabilityUncheckedCreateWithoutServiceInput[]
+    connectOrCreate?: service_availabilityCreateOrConnectWithoutServiceInput | service_availabilityCreateOrConnectWithoutServiceInput[]
+    createMany?: service_availabilityCreateManyServiceInputEnvelope
+    connect?: service_availabilityWhereUniqueInput | service_availabilityWhereUniqueInput[]
+  }
+
+  export type service_mediaUncheckedCreateNestedManyWithoutServiceInput = {
+    create?: XOR<service_mediaCreateWithoutServiceInput, service_mediaUncheckedCreateWithoutServiceInput> | service_mediaCreateWithoutServiceInput[] | service_mediaUncheckedCreateWithoutServiceInput[]
+    connectOrCreate?: service_mediaCreateOrConnectWithoutServiceInput | service_mediaCreateOrConnectWithoutServiceInput[]
+    createMany?: service_mediaCreateManyServiceInputEnvelope
+    connect?: service_mediaWhereUniqueInput | service_mediaWhereUniqueInput[]
+  }
+
+  export type Enumservice_categoryFieldUpdateOperationsInput = {
+    set?: $Enums.service_category
+  }
+
+  export type Enumservice_difficultyFieldUpdateOperationsInput = {
+    set?: $Enums.service_difficulty
+  }
+
+  export type NullableEnumweather_policy_typeFieldUpdateOperationsInput = {
+    set?: $Enums.weather_policy_type | null
+  }
+
+  export type Enumservice_statusFieldUpdateOperationsInput = {
+    set?: $Enums.service_status
+  }
+
+  export type usersUpdateOneRequiredWithoutCreated_servicesNestedInput = {
+    create?: XOR<usersCreateWithoutCreated_servicesInput, usersUncheckedCreateWithoutCreated_servicesInput>
+    connectOrCreate?: usersCreateOrConnectWithoutCreated_servicesInput
+    upsert?: usersUpsertWithoutCreated_servicesInput
+    connect?: usersWhereUniqueInput
+    update?: XOR<XOR<usersUpdateToOneWithWhereWithoutCreated_servicesInput, usersUpdateWithoutCreated_servicesInput>, usersUncheckedUpdateWithoutCreated_servicesInput>
+  }
+
+  export type service_bookingsUpdateManyWithoutServiceNestedInput = {
+    create?: XOR<service_bookingsCreateWithoutServiceInput, service_bookingsUncheckedCreateWithoutServiceInput> | service_bookingsCreateWithoutServiceInput[] | service_bookingsUncheckedCreateWithoutServiceInput[]
+    connectOrCreate?: service_bookingsCreateOrConnectWithoutServiceInput | service_bookingsCreateOrConnectWithoutServiceInput[]
+    upsert?: service_bookingsUpsertWithWhereUniqueWithoutServiceInput | service_bookingsUpsertWithWhereUniqueWithoutServiceInput[]
+    createMany?: service_bookingsCreateManyServiceInputEnvelope
+    set?: service_bookingsWhereUniqueInput | service_bookingsWhereUniqueInput[]
+    disconnect?: service_bookingsWhereUniqueInput | service_bookingsWhereUniqueInput[]
+    delete?: service_bookingsWhereUniqueInput | service_bookingsWhereUniqueInput[]
+    connect?: service_bookingsWhereUniqueInput | service_bookingsWhereUniqueInput[]
+    update?: service_bookingsUpdateWithWhereUniqueWithoutServiceInput | service_bookingsUpdateWithWhereUniqueWithoutServiceInput[]
+    updateMany?: service_bookingsUpdateManyWithWhereWithoutServiceInput | service_bookingsUpdateManyWithWhereWithoutServiceInput[]
+    deleteMany?: service_bookingsScalarWhereInput | service_bookingsScalarWhereInput[]
+  }
+
+  export type service_reviewsUpdateManyWithoutServiceNestedInput = {
+    create?: XOR<service_reviewsCreateWithoutServiceInput, service_reviewsUncheckedCreateWithoutServiceInput> | service_reviewsCreateWithoutServiceInput[] | service_reviewsUncheckedCreateWithoutServiceInput[]
+    connectOrCreate?: service_reviewsCreateOrConnectWithoutServiceInput | service_reviewsCreateOrConnectWithoutServiceInput[]
+    upsert?: service_reviewsUpsertWithWhereUniqueWithoutServiceInput | service_reviewsUpsertWithWhereUniqueWithoutServiceInput[]
+    createMany?: service_reviewsCreateManyServiceInputEnvelope
+    set?: service_reviewsWhereUniqueInput | service_reviewsWhereUniqueInput[]
+    disconnect?: service_reviewsWhereUniqueInput | service_reviewsWhereUniqueInput[]
+    delete?: service_reviewsWhereUniqueInput | service_reviewsWhereUniqueInput[]
+    connect?: service_reviewsWhereUniqueInput | service_reviewsWhereUniqueInput[]
+    update?: service_reviewsUpdateWithWhereUniqueWithoutServiceInput | service_reviewsUpdateWithWhereUniqueWithoutServiceInput[]
+    updateMany?: service_reviewsUpdateManyWithWhereWithoutServiceInput | service_reviewsUpdateManyWithWhereWithoutServiceInput[]
+    deleteMany?: service_reviewsScalarWhereInput | service_reviewsScalarWhereInput[]
+  }
+
+  export type service_availabilityUpdateManyWithoutServiceNestedInput = {
+    create?: XOR<service_availabilityCreateWithoutServiceInput, service_availabilityUncheckedCreateWithoutServiceInput> | service_availabilityCreateWithoutServiceInput[] | service_availabilityUncheckedCreateWithoutServiceInput[]
+    connectOrCreate?: service_availabilityCreateOrConnectWithoutServiceInput | service_availabilityCreateOrConnectWithoutServiceInput[]
+    upsert?: service_availabilityUpsertWithWhereUniqueWithoutServiceInput | service_availabilityUpsertWithWhereUniqueWithoutServiceInput[]
+    createMany?: service_availabilityCreateManyServiceInputEnvelope
+    set?: service_availabilityWhereUniqueInput | service_availabilityWhereUniqueInput[]
+    disconnect?: service_availabilityWhereUniqueInput | service_availabilityWhereUniqueInput[]
+    delete?: service_availabilityWhereUniqueInput | service_availabilityWhereUniqueInput[]
+    connect?: service_availabilityWhereUniqueInput | service_availabilityWhereUniqueInput[]
+    update?: service_availabilityUpdateWithWhereUniqueWithoutServiceInput | service_availabilityUpdateWithWhereUniqueWithoutServiceInput[]
+    updateMany?: service_availabilityUpdateManyWithWhereWithoutServiceInput | service_availabilityUpdateManyWithWhereWithoutServiceInput[]
+    deleteMany?: service_availabilityScalarWhereInput | service_availabilityScalarWhereInput[]
+  }
+
+  export type service_mediaUpdateManyWithoutServiceNestedInput = {
+    create?: XOR<service_mediaCreateWithoutServiceInput, service_mediaUncheckedCreateWithoutServiceInput> | service_mediaCreateWithoutServiceInput[] | service_mediaUncheckedCreateWithoutServiceInput[]
+    connectOrCreate?: service_mediaCreateOrConnectWithoutServiceInput | service_mediaCreateOrConnectWithoutServiceInput[]
+    upsert?: service_mediaUpsertWithWhereUniqueWithoutServiceInput | service_mediaUpsertWithWhereUniqueWithoutServiceInput[]
+    createMany?: service_mediaCreateManyServiceInputEnvelope
+    set?: service_mediaWhereUniqueInput | service_mediaWhereUniqueInput[]
+    disconnect?: service_mediaWhereUniqueInput | service_mediaWhereUniqueInput[]
+    delete?: service_mediaWhereUniqueInput | service_mediaWhereUniqueInput[]
+    connect?: service_mediaWhereUniqueInput | service_mediaWhereUniqueInput[]
+    update?: service_mediaUpdateWithWhereUniqueWithoutServiceInput | service_mediaUpdateWithWhereUniqueWithoutServiceInput[]
+    updateMany?: service_mediaUpdateManyWithWhereWithoutServiceInput | service_mediaUpdateManyWithWhereWithoutServiceInput[]
+    deleteMany?: service_mediaScalarWhereInput | service_mediaScalarWhereInput[]
+  }
+
+  export type service_bookingsUncheckedUpdateManyWithoutServiceNestedInput = {
+    create?: XOR<service_bookingsCreateWithoutServiceInput, service_bookingsUncheckedCreateWithoutServiceInput> | service_bookingsCreateWithoutServiceInput[] | service_bookingsUncheckedCreateWithoutServiceInput[]
+    connectOrCreate?: service_bookingsCreateOrConnectWithoutServiceInput | service_bookingsCreateOrConnectWithoutServiceInput[]
+    upsert?: service_bookingsUpsertWithWhereUniqueWithoutServiceInput | service_bookingsUpsertWithWhereUniqueWithoutServiceInput[]
+    createMany?: service_bookingsCreateManyServiceInputEnvelope
+    set?: service_bookingsWhereUniqueInput | service_bookingsWhereUniqueInput[]
+    disconnect?: service_bookingsWhereUniqueInput | service_bookingsWhereUniqueInput[]
+    delete?: service_bookingsWhereUniqueInput | service_bookingsWhereUniqueInput[]
+    connect?: service_bookingsWhereUniqueInput | service_bookingsWhereUniqueInput[]
+    update?: service_bookingsUpdateWithWhereUniqueWithoutServiceInput | service_bookingsUpdateWithWhereUniqueWithoutServiceInput[]
+    updateMany?: service_bookingsUpdateManyWithWhereWithoutServiceInput | service_bookingsUpdateManyWithWhereWithoutServiceInput[]
+    deleteMany?: service_bookingsScalarWhereInput | service_bookingsScalarWhereInput[]
+  }
+
+  export type service_reviewsUncheckedUpdateManyWithoutServiceNestedInput = {
+    create?: XOR<service_reviewsCreateWithoutServiceInput, service_reviewsUncheckedCreateWithoutServiceInput> | service_reviewsCreateWithoutServiceInput[] | service_reviewsUncheckedCreateWithoutServiceInput[]
+    connectOrCreate?: service_reviewsCreateOrConnectWithoutServiceInput | service_reviewsCreateOrConnectWithoutServiceInput[]
+    upsert?: service_reviewsUpsertWithWhereUniqueWithoutServiceInput | service_reviewsUpsertWithWhereUniqueWithoutServiceInput[]
+    createMany?: service_reviewsCreateManyServiceInputEnvelope
+    set?: service_reviewsWhereUniqueInput | service_reviewsWhereUniqueInput[]
+    disconnect?: service_reviewsWhereUniqueInput | service_reviewsWhereUniqueInput[]
+    delete?: service_reviewsWhereUniqueInput | service_reviewsWhereUniqueInput[]
+    connect?: service_reviewsWhereUniqueInput | service_reviewsWhereUniqueInput[]
+    update?: service_reviewsUpdateWithWhereUniqueWithoutServiceInput | service_reviewsUpdateWithWhereUniqueWithoutServiceInput[]
+    updateMany?: service_reviewsUpdateManyWithWhereWithoutServiceInput | service_reviewsUpdateManyWithWhereWithoutServiceInput[]
+    deleteMany?: service_reviewsScalarWhereInput | service_reviewsScalarWhereInput[]
+  }
+
+  export type service_availabilityUncheckedUpdateManyWithoutServiceNestedInput = {
+    create?: XOR<service_availabilityCreateWithoutServiceInput, service_availabilityUncheckedCreateWithoutServiceInput> | service_availabilityCreateWithoutServiceInput[] | service_availabilityUncheckedCreateWithoutServiceInput[]
+    connectOrCreate?: service_availabilityCreateOrConnectWithoutServiceInput | service_availabilityCreateOrConnectWithoutServiceInput[]
+    upsert?: service_availabilityUpsertWithWhereUniqueWithoutServiceInput | service_availabilityUpsertWithWhereUniqueWithoutServiceInput[]
+    createMany?: service_availabilityCreateManyServiceInputEnvelope
+    set?: service_availabilityWhereUniqueInput | service_availabilityWhereUniqueInput[]
+    disconnect?: service_availabilityWhereUniqueInput | service_availabilityWhereUniqueInput[]
+    delete?: service_availabilityWhereUniqueInput | service_availabilityWhereUniqueInput[]
+    connect?: service_availabilityWhereUniqueInput | service_availabilityWhereUniqueInput[]
+    update?: service_availabilityUpdateWithWhereUniqueWithoutServiceInput | service_availabilityUpdateWithWhereUniqueWithoutServiceInput[]
+    updateMany?: service_availabilityUpdateManyWithWhereWithoutServiceInput | service_availabilityUpdateManyWithWhereWithoutServiceInput[]
+    deleteMany?: service_availabilityScalarWhereInput | service_availabilityScalarWhereInput[]
+  }
+
+  export type service_mediaUncheckedUpdateManyWithoutServiceNestedInput = {
+    create?: XOR<service_mediaCreateWithoutServiceInput, service_mediaUncheckedCreateWithoutServiceInput> | service_mediaCreateWithoutServiceInput[] | service_mediaUncheckedCreateWithoutServiceInput[]
+    connectOrCreate?: service_mediaCreateOrConnectWithoutServiceInput | service_mediaCreateOrConnectWithoutServiceInput[]
+    upsert?: service_mediaUpsertWithWhereUniqueWithoutServiceInput | service_mediaUpsertWithWhereUniqueWithoutServiceInput[]
+    createMany?: service_mediaCreateManyServiceInputEnvelope
+    set?: service_mediaWhereUniqueInput | service_mediaWhereUniqueInput[]
+    disconnect?: service_mediaWhereUniqueInput | service_mediaWhereUniqueInput[]
+    delete?: service_mediaWhereUniqueInput | service_mediaWhereUniqueInput[]
+    connect?: service_mediaWhereUniqueInput | service_mediaWhereUniqueInput[]
+    update?: service_mediaUpdateWithWhereUniqueWithoutServiceInput | service_mediaUpdateWithWhereUniqueWithoutServiceInput[]
+    updateMany?: service_mediaUpdateManyWithWhereWithoutServiceInput | service_mediaUpdateManyWithWhereWithoutServiceInput[]
+    deleteMany?: service_mediaScalarWhereInput | service_mediaScalarWhereInput[]
+  }
+
+  export type servicesCreateNestedOneWithoutBookingsInput = {
+    create?: XOR<servicesCreateWithoutBookingsInput, servicesUncheckedCreateWithoutBookingsInput>
+    connectOrCreate?: servicesCreateOrConnectWithoutBookingsInput
+    connect?: servicesWhereUniqueInput
+  }
+
+  export type usersCreateNestedOneWithoutService_bookingsInput = {
+    create?: XOR<usersCreateWithoutService_bookingsInput, usersUncheckedCreateWithoutService_bookingsInput>
+    connectOrCreate?: usersCreateOrConnectWithoutService_bookingsInput
+    connect?: usersWhereUniqueInput
+  }
+
+  export type Enumbooking_payment_statusFieldUpdateOperationsInput = {
+    set?: $Enums.booking_payment_status
+  }
+
+  export type Enumbooking_statusFieldUpdateOperationsInput = {
+    set?: $Enums.booking_status
+  }
+
+  export type servicesUpdateOneRequiredWithoutBookingsNestedInput = {
+    create?: XOR<servicesCreateWithoutBookingsInput, servicesUncheckedCreateWithoutBookingsInput>
+    connectOrCreate?: servicesCreateOrConnectWithoutBookingsInput
+    upsert?: servicesUpsertWithoutBookingsInput
+    connect?: servicesWhereUniqueInput
+    update?: XOR<XOR<servicesUpdateToOneWithWhereWithoutBookingsInput, servicesUpdateWithoutBookingsInput>, servicesUncheckedUpdateWithoutBookingsInput>
+  }
+
+  export type usersUpdateOneRequiredWithoutService_bookingsNestedInput = {
+    create?: XOR<usersCreateWithoutService_bookingsInput, usersUncheckedCreateWithoutService_bookingsInput>
+    connectOrCreate?: usersCreateOrConnectWithoutService_bookingsInput
+    upsert?: usersUpsertWithoutService_bookingsInput
+    connect?: usersWhereUniqueInput
+    update?: XOR<XOR<usersUpdateToOneWithWhereWithoutService_bookingsInput, usersUpdateWithoutService_bookingsInput>, usersUncheckedUpdateWithoutService_bookingsInput>
+  }
+
+  export type servicesCreateNestedOneWithoutReviewsInput = {
+    create?: XOR<servicesCreateWithoutReviewsInput, servicesUncheckedCreateWithoutReviewsInput>
+    connectOrCreate?: servicesCreateOrConnectWithoutReviewsInput
+    connect?: servicesWhereUniqueInput
+  }
+
+  export type usersCreateNestedOneWithoutService_reviewsInput = {
+    create?: XOR<usersCreateWithoutService_reviewsInput, usersUncheckedCreateWithoutService_reviewsInput>
+    connectOrCreate?: usersCreateOrConnectWithoutService_reviewsInput
+    connect?: usersWhereUniqueInput
+  }
+
+  export type servicesUpdateOneRequiredWithoutReviewsNestedInput = {
+    create?: XOR<servicesCreateWithoutReviewsInput, servicesUncheckedCreateWithoutReviewsInput>
+    connectOrCreate?: servicesCreateOrConnectWithoutReviewsInput
+    upsert?: servicesUpsertWithoutReviewsInput
+    connect?: servicesWhereUniqueInput
+    update?: XOR<XOR<servicesUpdateToOneWithWhereWithoutReviewsInput, servicesUpdateWithoutReviewsInput>, servicesUncheckedUpdateWithoutReviewsInput>
+  }
+
+  export type usersUpdateOneRequiredWithoutService_reviewsNestedInput = {
+    create?: XOR<usersCreateWithoutService_reviewsInput, usersUncheckedCreateWithoutService_reviewsInput>
+    connectOrCreate?: usersCreateOrConnectWithoutService_reviewsInput
+    upsert?: usersUpsertWithoutService_reviewsInput
+    connect?: usersWhereUniqueInput
+    update?: XOR<XOR<usersUpdateToOneWithWhereWithoutService_reviewsInput, usersUpdateWithoutService_reviewsInput>, usersUncheckedUpdateWithoutService_reviewsInput>
+  }
+
+  export type servicesCreateNestedOneWithoutAvailabilityInput = {
+    create?: XOR<servicesCreateWithoutAvailabilityInput, servicesUncheckedCreateWithoutAvailabilityInput>
+    connectOrCreate?: servicesCreateOrConnectWithoutAvailabilityInput
+    connect?: servicesWhereUniqueInput
+  }
+
+  export type Enumavailability_statusFieldUpdateOperationsInput = {
+    set?: $Enums.availability_status
+  }
+
+  export type servicesUpdateOneRequiredWithoutAvailabilityNestedInput = {
+    create?: XOR<servicesCreateWithoutAvailabilityInput, servicesUncheckedCreateWithoutAvailabilityInput>
+    connectOrCreate?: servicesCreateOrConnectWithoutAvailabilityInput
+    upsert?: servicesUpsertWithoutAvailabilityInput
+    connect?: servicesWhereUniqueInput
+    update?: XOR<XOR<servicesUpdateToOneWithWhereWithoutAvailabilityInput, servicesUpdateWithoutAvailabilityInput>, servicesUncheckedUpdateWithoutAvailabilityInput>
+  }
+
+  export type servicesCreateNestedOneWithoutMediaInput = {
+    create?: XOR<servicesCreateWithoutMediaInput, servicesUncheckedCreateWithoutMediaInput>
+    connectOrCreate?: servicesCreateOrConnectWithoutMediaInput
+    connect?: servicesWhereUniqueInput
+  }
+
+  export type servicesUpdateOneRequiredWithoutMediaNestedInput = {
+    create?: XOR<servicesCreateWithoutMediaInput, servicesUncheckedCreateWithoutMediaInput>
+    connectOrCreate?: servicesCreateOrConnectWithoutMediaInput
+    upsert?: servicesUpsertWithoutMediaInput
+    connect?: servicesWhereUniqueInput
+    update?: XOR<XOR<servicesUpdateToOneWithWhereWithoutMediaInput, servicesUpdateWithoutMediaInput>, servicesUncheckedUpdateWithoutMediaInput>
+  }
+
   export type usersCreateNestedOneWithoutSession_enrollmentsInput = {
     create?: XOR<usersCreateWithoutSession_enrollmentsInput, usersUncheckedCreateWithoutSession_enrollmentsInput>
     connectOrCreate?: usersCreateOrConnectWithoutSession_enrollmentsInput
@@ -89727,6 +99257,125 @@ export namespace Prisma {
     _max?: NestedEnumdifficulty_levelFilter<$PrismaModel>
   }
 
+  export type NestedEnumservice_categoryFilter<$PrismaModel = never> = {
+    equals?: $Enums.service_category | Enumservice_categoryFieldRefInput<$PrismaModel>
+    in?: $Enums.service_category[] | ListEnumservice_categoryFieldRefInput<$PrismaModel>
+    notIn?: $Enums.service_category[] | ListEnumservice_categoryFieldRefInput<$PrismaModel>
+    not?: NestedEnumservice_categoryFilter<$PrismaModel> | $Enums.service_category
+  }
+
+  export type NestedEnumservice_difficultyFilter<$PrismaModel = never> = {
+    equals?: $Enums.service_difficulty | Enumservice_difficultyFieldRefInput<$PrismaModel>
+    in?: $Enums.service_difficulty[] | ListEnumservice_difficultyFieldRefInput<$PrismaModel>
+    notIn?: $Enums.service_difficulty[] | ListEnumservice_difficultyFieldRefInput<$PrismaModel>
+    not?: NestedEnumservice_difficultyFilter<$PrismaModel> | $Enums.service_difficulty
+  }
+
+  export type NestedEnumweather_policy_typeNullableFilter<$PrismaModel = never> = {
+    equals?: $Enums.weather_policy_type | Enumweather_policy_typeFieldRefInput<$PrismaModel> | null
+    in?: $Enums.weather_policy_type[] | ListEnumweather_policy_typeFieldRefInput<$PrismaModel> | null
+    notIn?: $Enums.weather_policy_type[] | ListEnumweather_policy_typeFieldRefInput<$PrismaModel> | null
+    not?: NestedEnumweather_policy_typeNullableFilter<$PrismaModel> | $Enums.weather_policy_type | null
+  }
+
+  export type NestedEnumservice_statusFilter<$PrismaModel = never> = {
+    equals?: $Enums.service_status | Enumservice_statusFieldRefInput<$PrismaModel>
+    in?: $Enums.service_status[] | ListEnumservice_statusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.service_status[] | ListEnumservice_statusFieldRefInput<$PrismaModel>
+    not?: NestedEnumservice_statusFilter<$PrismaModel> | $Enums.service_status
+  }
+
+  export type NestedEnumservice_categoryWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.service_category | Enumservice_categoryFieldRefInput<$PrismaModel>
+    in?: $Enums.service_category[] | ListEnumservice_categoryFieldRefInput<$PrismaModel>
+    notIn?: $Enums.service_category[] | ListEnumservice_categoryFieldRefInput<$PrismaModel>
+    not?: NestedEnumservice_categoryWithAggregatesFilter<$PrismaModel> | $Enums.service_category
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumservice_categoryFilter<$PrismaModel>
+    _max?: NestedEnumservice_categoryFilter<$PrismaModel>
+  }
+
+  export type NestedEnumservice_difficultyWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.service_difficulty | Enumservice_difficultyFieldRefInput<$PrismaModel>
+    in?: $Enums.service_difficulty[] | ListEnumservice_difficultyFieldRefInput<$PrismaModel>
+    notIn?: $Enums.service_difficulty[] | ListEnumservice_difficultyFieldRefInput<$PrismaModel>
+    not?: NestedEnumservice_difficultyWithAggregatesFilter<$PrismaModel> | $Enums.service_difficulty
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumservice_difficultyFilter<$PrismaModel>
+    _max?: NestedEnumservice_difficultyFilter<$PrismaModel>
+  }
+
+  export type NestedEnumweather_policy_typeNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.weather_policy_type | Enumweather_policy_typeFieldRefInput<$PrismaModel> | null
+    in?: $Enums.weather_policy_type[] | ListEnumweather_policy_typeFieldRefInput<$PrismaModel> | null
+    notIn?: $Enums.weather_policy_type[] | ListEnumweather_policy_typeFieldRefInput<$PrismaModel> | null
+    not?: NestedEnumweather_policy_typeNullableWithAggregatesFilter<$PrismaModel> | $Enums.weather_policy_type | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedEnumweather_policy_typeNullableFilter<$PrismaModel>
+    _max?: NestedEnumweather_policy_typeNullableFilter<$PrismaModel>
+  }
+
+  export type NestedEnumservice_statusWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.service_status | Enumservice_statusFieldRefInput<$PrismaModel>
+    in?: $Enums.service_status[] | ListEnumservice_statusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.service_status[] | ListEnumservice_statusFieldRefInput<$PrismaModel>
+    not?: NestedEnumservice_statusWithAggregatesFilter<$PrismaModel> | $Enums.service_status
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumservice_statusFilter<$PrismaModel>
+    _max?: NestedEnumservice_statusFilter<$PrismaModel>
+  }
+
+  export type NestedEnumbooking_payment_statusFilter<$PrismaModel = never> = {
+    equals?: $Enums.booking_payment_status | Enumbooking_payment_statusFieldRefInput<$PrismaModel>
+    in?: $Enums.booking_payment_status[] | ListEnumbooking_payment_statusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.booking_payment_status[] | ListEnumbooking_payment_statusFieldRefInput<$PrismaModel>
+    not?: NestedEnumbooking_payment_statusFilter<$PrismaModel> | $Enums.booking_payment_status
+  }
+
+  export type NestedEnumbooking_statusFilter<$PrismaModel = never> = {
+    equals?: $Enums.booking_status | Enumbooking_statusFieldRefInput<$PrismaModel>
+    in?: $Enums.booking_status[] | ListEnumbooking_statusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.booking_status[] | ListEnumbooking_statusFieldRefInput<$PrismaModel>
+    not?: NestedEnumbooking_statusFilter<$PrismaModel> | $Enums.booking_status
+  }
+
+  export type NestedEnumbooking_payment_statusWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.booking_payment_status | Enumbooking_payment_statusFieldRefInput<$PrismaModel>
+    in?: $Enums.booking_payment_status[] | ListEnumbooking_payment_statusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.booking_payment_status[] | ListEnumbooking_payment_statusFieldRefInput<$PrismaModel>
+    not?: NestedEnumbooking_payment_statusWithAggregatesFilter<$PrismaModel> | $Enums.booking_payment_status
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumbooking_payment_statusFilter<$PrismaModel>
+    _max?: NestedEnumbooking_payment_statusFilter<$PrismaModel>
+  }
+
+  export type NestedEnumbooking_statusWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.booking_status | Enumbooking_statusFieldRefInput<$PrismaModel>
+    in?: $Enums.booking_status[] | ListEnumbooking_statusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.booking_status[] | ListEnumbooking_statusFieldRefInput<$PrismaModel>
+    not?: NestedEnumbooking_statusWithAggregatesFilter<$PrismaModel> | $Enums.booking_status
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumbooking_statusFilter<$PrismaModel>
+    _max?: NestedEnumbooking_statusFilter<$PrismaModel>
+  }
+
+  export type NestedEnumavailability_statusFilter<$PrismaModel = never> = {
+    equals?: $Enums.availability_status | Enumavailability_statusFieldRefInput<$PrismaModel>
+    in?: $Enums.availability_status[] | ListEnumavailability_statusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.availability_status[] | ListEnumavailability_statusFieldRefInput<$PrismaModel>
+    not?: NestedEnumavailability_statusFilter<$PrismaModel> | $Enums.availability_status
+  }
+
+  export type NestedEnumavailability_statusWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.availability_status | Enumavailability_statusFieldRefInput<$PrismaModel>
+    in?: $Enums.availability_status[] | ListEnumavailability_statusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.availability_status[] | ListEnumavailability_statusFieldRefInput<$PrismaModel>
+    not?: NestedEnumavailability_statusWithAggregatesFilter<$PrismaModel> | $Enums.availability_status
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumavailability_statusFilter<$PrismaModel>
+    _max?: NestedEnumavailability_statusFilter<$PrismaModel>
+  }
+
   export type NestedEnumenrollment_payment_statusFilter<$PrismaModel = never> = {
     equals?: $Enums.enrollment_payment_status | Enumenrollment_payment_statusFieldRefInput<$PrismaModel>
     in?: $Enums.enrollment_payment_status[] | ListEnumenrollment_payment_statusFieldRefInput<$PrismaModel>
@@ -89840,6 +99489,9 @@ export namespace Prisma {
     created_stargazing_spots?: stargazing_spotsCreateNestedManyWithoutCreatorInput
     created_sessions?: sessionsCreateNestedManyWithoutCreatorInput
     session_enrollments?: session_enrollmentsCreateNestedManyWithoutUserInput
+    created_services?: servicesCreateNestedManyWithoutCreatorInput
+    service_bookings?: service_bookingsCreateNestedManyWithoutUserInput
+    service_reviews?: service_reviewsCreateNestedManyWithoutUserInput
     user_settings?: user_settingsCreateNestedOneWithoutUsersInput
     created_polls?: pollsCreateNestedManyWithoutCreatorInput
     poll_votes?: poll_votesCreateNestedManyWithoutVoterInput
@@ -89902,6 +99554,9 @@ export namespace Prisma {
     created_stargazing_spots?: stargazing_spotsUncheckedCreateNestedManyWithoutCreatorInput
     created_sessions?: sessionsUncheckedCreateNestedManyWithoutCreatorInput
     session_enrollments?: session_enrollmentsUncheckedCreateNestedManyWithoutUserInput
+    created_services?: servicesUncheckedCreateNestedManyWithoutCreatorInput
+    service_bookings?: service_bookingsUncheckedCreateNestedManyWithoutUserInput
+    service_reviews?: service_reviewsUncheckedCreateNestedManyWithoutUserInput
     user_settings?: user_settingsUncheckedCreateNestedOneWithoutUsersInput
     created_polls?: pollsUncheckedCreateNestedManyWithoutCreatorInput
     poll_votes?: poll_votesUncheckedCreateNestedManyWithoutVoterInput
@@ -90015,6 +99670,9 @@ export namespace Prisma {
     created_stargazing_spots?: stargazing_spotsUpdateManyWithoutCreatorNestedInput
     created_sessions?: sessionsUpdateManyWithoutCreatorNestedInput
     session_enrollments?: session_enrollmentsUpdateManyWithoutUserNestedInput
+    created_services?: servicesUpdateManyWithoutCreatorNestedInput
+    service_bookings?: service_bookingsUpdateManyWithoutUserNestedInput
+    service_reviews?: service_reviewsUpdateManyWithoutUserNestedInput
     user_settings?: user_settingsUpdateOneWithoutUsersNestedInput
     created_polls?: pollsUpdateManyWithoutCreatorNestedInput
     poll_votes?: poll_votesUpdateManyWithoutVoterNestedInput
@@ -90077,6 +99735,9 @@ export namespace Prisma {
     created_stargazing_spots?: stargazing_spotsUncheckedUpdateManyWithoutCreatorNestedInput
     created_sessions?: sessionsUncheckedUpdateManyWithoutCreatorNestedInput
     session_enrollments?: session_enrollmentsUncheckedUpdateManyWithoutUserNestedInput
+    created_services?: servicesUncheckedUpdateManyWithoutCreatorNestedInput
+    service_bookings?: service_bookingsUncheckedUpdateManyWithoutUserNestedInput
+    service_reviews?: service_reviewsUncheckedUpdateManyWithoutUserNestedInput
     user_settings?: user_settingsUncheckedUpdateOneWithoutUsersNestedInput
     created_polls?: pollsUncheckedUpdateManyWithoutCreatorNestedInput
     poll_votes?: poll_votesUncheckedUpdateManyWithoutVoterNestedInput
@@ -90174,6 +99835,9 @@ export namespace Prisma {
     created_stargazing_spots?: stargazing_spotsCreateNestedManyWithoutCreatorInput
     created_sessions?: sessionsCreateNestedManyWithoutCreatorInput
     session_enrollments?: session_enrollmentsCreateNestedManyWithoutUserInput
+    created_services?: servicesCreateNestedManyWithoutCreatorInput
+    service_bookings?: service_bookingsCreateNestedManyWithoutUserInput
+    service_reviews?: service_reviewsCreateNestedManyWithoutUserInput
     subscriptions?: subscriptionsCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsCreateNestedOneWithoutUsersInput
     created_polls?: pollsCreateNestedManyWithoutCreatorInput
@@ -90236,6 +99900,9 @@ export namespace Prisma {
     created_stargazing_spots?: stargazing_spotsUncheckedCreateNestedManyWithoutCreatorInput
     created_sessions?: sessionsUncheckedCreateNestedManyWithoutCreatorInput
     session_enrollments?: session_enrollmentsUncheckedCreateNestedManyWithoutUserInput
+    created_services?: servicesUncheckedCreateNestedManyWithoutCreatorInput
+    service_bookings?: service_bookingsUncheckedCreateNestedManyWithoutUserInput
+    service_reviews?: service_reviewsUncheckedCreateNestedManyWithoutUserInput
     subscriptions?: subscriptionsUncheckedCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsUncheckedCreateNestedOneWithoutUsersInput
     created_polls?: pollsUncheckedCreateNestedManyWithoutCreatorInput
@@ -90370,6 +100037,9 @@ export namespace Prisma {
     created_stargazing_spots?: stargazing_spotsUpdateManyWithoutCreatorNestedInput
     created_sessions?: sessionsUpdateManyWithoutCreatorNestedInput
     session_enrollments?: session_enrollmentsUpdateManyWithoutUserNestedInput
+    created_services?: servicesUpdateManyWithoutCreatorNestedInput
+    service_bookings?: service_bookingsUpdateManyWithoutUserNestedInput
+    service_reviews?: service_reviewsUpdateManyWithoutUserNestedInput
     subscriptions?: subscriptionsUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUpdateOneWithoutUsersNestedInput
     created_polls?: pollsUpdateManyWithoutCreatorNestedInput
@@ -90432,6 +100102,9 @@ export namespace Prisma {
     created_stargazing_spots?: stargazing_spotsUncheckedUpdateManyWithoutCreatorNestedInput
     created_sessions?: sessionsUncheckedUpdateManyWithoutCreatorNestedInput
     session_enrollments?: session_enrollmentsUncheckedUpdateManyWithoutUserNestedInput
+    created_services?: servicesUncheckedUpdateManyWithoutCreatorNestedInput
+    service_bookings?: service_bookingsUncheckedUpdateManyWithoutUserNestedInput
+    service_reviews?: service_reviewsUncheckedUpdateManyWithoutUserNestedInput
     subscriptions?: subscriptionsUncheckedUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUncheckedUpdateOneWithoutUsersNestedInput
     created_polls?: pollsUncheckedUpdateManyWithoutCreatorNestedInput
@@ -90553,6 +100226,9 @@ export namespace Prisma {
     created_stargazing_spots?: stargazing_spotsCreateNestedManyWithoutCreatorInput
     created_sessions?: sessionsCreateNestedManyWithoutCreatorInput
     session_enrollments?: session_enrollmentsCreateNestedManyWithoutUserInput
+    created_services?: servicesCreateNestedManyWithoutCreatorInput
+    service_bookings?: service_bookingsCreateNestedManyWithoutUserInput
+    service_reviews?: service_reviewsCreateNestedManyWithoutUserInput
     subscriptions?: subscriptionsCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsCreateNestedOneWithoutUsersInput
     created_polls?: pollsCreateNestedManyWithoutCreatorInput
@@ -90615,6 +100291,9 @@ export namespace Prisma {
     created_stargazing_spots?: stargazing_spotsUncheckedCreateNestedManyWithoutCreatorInput
     created_sessions?: sessionsUncheckedCreateNestedManyWithoutCreatorInput
     session_enrollments?: session_enrollmentsUncheckedCreateNestedManyWithoutUserInput
+    created_services?: servicesUncheckedCreateNestedManyWithoutCreatorInput
+    service_bookings?: service_bookingsUncheckedCreateNestedManyWithoutUserInput
+    service_reviews?: service_reviewsUncheckedCreateNestedManyWithoutUserInput
     subscriptions?: subscriptionsUncheckedCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsUncheckedCreateNestedOneWithoutUsersInput
     created_polls?: pollsUncheckedCreateNestedManyWithoutCreatorInput
@@ -90730,6 +100409,9 @@ export namespace Prisma {
     created_stargazing_spots?: stargazing_spotsUpdateManyWithoutCreatorNestedInput
     created_sessions?: sessionsUpdateManyWithoutCreatorNestedInput
     session_enrollments?: session_enrollmentsUpdateManyWithoutUserNestedInput
+    created_services?: servicesUpdateManyWithoutCreatorNestedInput
+    service_bookings?: service_bookingsUpdateManyWithoutUserNestedInput
+    service_reviews?: service_reviewsUpdateManyWithoutUserNestedInput
     subscriptions?: subscriptionsUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUpdateOneWithoutUsersNestedInput
     created_polls?: pollsUpdateManyWithoutCreatorNestedInput
@@ -90792,6 +100474,9 @@ export namespace Prisma {
     created_stargazing_spots?: stargazing_spotsUncheckedUpdateManyWithoutCreatorNestedInput
     created_sessions?: sessionsUncheckedUpdateManyWithoutCreatorNestedInput
     session_enrollments?: session_enrollmentsUncheckedUpdateManyWithoutUserNestedInput
+    created_services?: servicesUncheckedUpdateManyWithoutCreatorNestedInput
+    service_bookings?: service_bookingsUncheckedUpdateManyWithoutUserNestedInput
+    service_reviews?: service_reviewsUncheckedUpdateManyWithoutUserNestedInput
     subscriptions?: subscriptionsUncheckedUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUncheckedUpdateOneWithoutUsersNestedInput
     created_polls?: pollsUncheckedUpdateManyWithoutCreatorNestedInput
@@ -90954,6 +100639,9 @@ export namespace Prisma {
     created_stargazing_spots?: stargazing_spotsCreateNestedManyWithoutCreatorInput
     created_sessions?: sessionsCreateNestedManyWithoutCreatorInput
     session_enrollments?: session_enrollmentsCreateNestedManyWithoutUserInput
+    created_services?: servicesCreateNestedManyWithoutCreatorInput
+    service_bookings?: service_bookingsCreateNestedManyWithoutUserInput
+    service_reviews?: service_reviewsCreateNestedManyWithoutUserInput
     subscriptions?: subscriptionsCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsCreateNestedOneWithoutUsersInput
     created_polls?: pollsCreateNestedManyWithoutCreatorInput
@@ -91016,6 +100704,9 @@ export namespace Prisma {
     created_stargazing_spots?: stargazing_spotsUncheckedCreateNestedManyWithoutCreatorInput
     created_sessions?: sessionsUncheckedCreateNestedManyWithoutCreatorInput
     session_enrollments?: session_enrollmentsUncheckedCreateNestedManyWithoutUserInput
+    created_services?: servicesUncheckedCreateNestedManyWithoutCreatorInput
+    service_bookings?: service_bookingsUncheckedCreateNestedManyWithoutUserInput
+    service_reviews?: service_reviewsUncheckedCreateNestedManyWithoutUserInput
     subscriptions?: subscriptionsUncheckedCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsUncheckedCreateNestedOneWithoutUsersInput
     created_polls?: pollsUncheckedCreateNestedManyWithoutCreatorInput
@@ -91208,6 +100899,9 @@ export namespace Prisma {
     created_stargazing_spots?: stargazing_spotsUpdateManyWithoutCreatorNestedInput
     created_sessions?: sessionsUpdateManyWithoutCreatorNestedInput
     session_enrollments?: session_enrollmentsUpdateManyWithoutUserNestedInput
+    created_services?: servicesUpdateManyWithoutCreatorNestedInput
+    service_bookings?: service_bookingsUpdateManyWithoutUserNestedInput
+    service_reviews?: service_reviewsUpdateManyWithoutUserNestedInput
     subscriptions?: subscriptionsUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUpdateOneWithoutUsersNestedInput
     created_polls?: pollsUpdateManyWithoutCreatorNestedInput
@@ -91270,6 +100964,9 @@ export namespace Prisma {
     created_stargazing_spots?: stargazing_spotsUncheckedUpdateManyWithoutCreatorNestedInput
     created_sessions?: sessionsUncheckedUpdateManyWithoutCreatorNestedInput
     session_enrollments?: session_enrollmentsUncheckedUpdateManyWithoutUserNestedInput
+    created_services?: servicesUncheckedUpdateManyWithoutCreatorNestedInput
+    service_bookings?: service_bookingsUncheckedUpdateManyWithoutUserNestedInput
+    service_reviews?: service_reviewsUncheckedUpdateManyWithoutUserNestedInput
     subscriptions?: subscriptionsUncheckedUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUncheckedUpdateOneWithoutUsersNestedInput
     created_polls?: pollsUncheckedUpdateManyWithoutCreatorNestedInput
@@ -91390,6 +101087,9 @@ export namespace Prisma {
     created_stargazing_spots?: stargazing_spotsCreateNestedManyWithoutCreatorInput
     created_sessions?: sessionsCreateNestedManyWithoutCreatorInput
     session_enrollments?: session_enrollmentsCreateNestedManyWithoutUserInput
+    created_services?: servicesCreateNestedManyWithoutCreatorInput
+    service_bookings?: service_bookingsCreateNestedManyWithoutUserInput
+    service_reviews?: service_reviewsCreateNestedManyWithoutUserInput
     subscriptions?: subscriptionsCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsCreateNestedOneWithoutUsersInput
     created_polls?: pollsCreateNestedManyWithoutCreatorInput
@@ -91452,6 +101152,9 @@ export namespace Prisma {
     created_stargazing_spots?: stargazing_spotsUncheckedCreateNestedManyWithoutCreatorInput
     created_sessions?: sessionsUncheckedCreateNestedManyWithoutCreatorInput
     session_enrollments?: session_enrollmentsUncheckedCreateNestedManyWithoutUserInput
+    created_services?: servicesUncheckedCreateNestedManyWithoutCreatorInput
+    service_bookings?: service_bookingsUncheckedCreateNestedManyWithoutUserInput
+    service_reviews?: service_reviewsUncheckedCreateNestedManyWithoutUserInput
     subscriptions?: subscriptionsUncheckedCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsUncheckedCreateNestedOneWithoutUsersInput
     created_polls?: pollsUncheckedCreateNestedManyWithoutCreatorInput
@@ -91567,6 +101270,9 @@ export namespace Prisma {
     created_stargazing_spots?: stargazing_spotsUpdateManyWithoutCreatorNestedInput
     created_sessions?: sessionsUpdateManyWithoutCreatorNestedInput
     session_enrollments?: session_enrollmentsUpdateManyWithoutUserNestedInput
+    created_services?: servicesUpdateManyWithoutCreatorNestedInput
+    service_bookings?: service_bookingsUpdateManyWithoutUserNestedInput
+    service_reviews?: service_reviewsUpdateManyWithoutUserNestedInput
     subscriptions?: subscriptionsUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUpdateOneWithoutUsersNestedInput
     created_polls?: pollsUpdateManyWithoutCreatorNestedInput
@@ -91629,6 +101335,9 @@ export namespace Prisma {
     created_stargazing_spots?: stargazing_spotsUncheckedUpdateManyWithoutCreatorNestedInput
     created_sessions?: sessionsUncheckedUpdateManyWithoutCreatorNestedInput
     session_enrollments?: session_enrollmentsUncheckedUpdateManyWithoutUserNestedInput
+    created_services?: servicesUncheckedUpdateManyWithoutCreatorNestedInput
+    service_bookings?: service_bookingsUncheckedUpdateManyWithoutUserNestedInput
+    service_reviews?: service_reviewsUncheckedUpdateManyWithoutUserNestedInput
     subscriptions?: subscriptionsUncheckedUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUncheckedUpdateOneWithoutUsersNestedInput
     created_polls?: pollsUncheckedUpdateManyWithoutCreatorNestedInput
@@ -91748,6 +101457,9 @@ export namespace Prisma {
     created_stargazing_spots?: stargazing_spotsCreateNestedManyWithoutCreatorInput
     created_sessions?: sessionsCreateNestedManyWithoutCreatorInput
     session_enrollments?: session_enrollmentsCreateNestedManyWithoutUserInput
+    created_services?: servicesCreateNestedManyWithoutCreatorInput
+    service_bookings?: service_bookingsCreateNestedManyWithoutUserInput
+    service_reviews?: service_reviewsCreateNestedManyWithoutUserInput
     subscriptions?: subscriptionsCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsCreateNestedOneWithoutUsersInput
     created_polls?: pollsCreateNestedManyWithoutCreatorInput
@@ -91810,6 +101522,9 @@ export namespace Prisma {
     created_stargazing_spots?: stargazing_spotsUncheckedCreateNestedManyWithoutCreatorInput
     created_sessions?: sessionsUncheckedCreateNestedManyWithoutCreatorInput
     session_enrollments?: session_enrollmentsUncheckedCreateNestedManyWithoutUserInput
+    created_services?: servicesUncheckedCreateNestedManyWithoutCreatorInput
+    service_bookings?: service_bookingsUncheckedCreateNestedManyWithoutUserInput
+    service_reviews?: service_reviewsUncheckedCreateNestedManyWithoutUserInput
     subscriptions?: subscriptionsUncheckedCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsUncheckedCreateNestedOneWithoutUsersInput
     created_polls?: pollsUncheckedCreateNestedManyWithoutCreatorInput
@@ -91951,6 +101666,9 @@ export namespace Prisma {
     created_stargazing_spots?: stargazing_spotsUpdateManyWithoutCreatorNestedInput
     created_sessions?: sessionsUpdateManyWithoutCreatorNestedInput
     session_enrollments?: session_enrollmentsUpdateManyWithoutUserNestedInput
+    created_services?: servicesUpdateManyWithoutCreatorNestedInput
+    service_bookings?: service_bookingsUpdateManyWithoutUserNestedInput
+    service_reviews?: service_reviewsUpdateManyWithoutUserNestedInput
     subscriptions?: subscriptionsUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUpdateOneWithoutUsersNestedInput
     created_polls?: pollsUpdateManyWithoutCreatorNestedInput
@@ -92013,6 +101731,9 @@ export namespace Prisma {
     created_stargazing_spots?: stargazing_spotsUncheckedUpdateManyWithoutCreatorNestedInput
     created_sessions?: sessionsUncheckedUpdateManyWithoutCreatorNestedInput
     session_enrollments?: session_enrollmentsUncheckedUpdateManyWithoutUserNestedInput
+    created_services?: servicesUncheckedUpdateManyWithoutCreatorNestedInput
+    service_bookings?: service_bookingsUncheckedUpdateManyWithoutUserNestedInput
+    service_reviews?: service_reviewsUncheckedUpdateManyWithoutUserNestedInput
     subscriptions?: subscriptionsUncheckedUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUncheckedUpdateOneWithoutUsersNestedInput
     created_polls?: pollsUncheckedUpdateManyWithoutCreatorNestedInput
@@ -92526,6 +102247,9 @@ export namespace Prisma {
     created_stargazing_spots?: stargazing_spotsCreateNestedManyWithoutCreatorInput
     created_sessions?: sessionsCreateNestedManyWithoutCreatorInput
     session_enrollments?: session_enrollmentsCreateNestedManyWithoutUserInput
+    created_services?: servicesCreateNestedManyWithoutCreatorInput
+    service_bookings?: service_bookingsCreateNestedManyWithoutUserInput
+    service_reviews?: service_reviewsCreateNestedManyWithoutUserInput
     subscriptions?: subscriptionsCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsCreateNestedOneWithoutUsersInput
     created_polls?: pollsCreateNestedManyWithoutCreatorInput
@@ -92588,6 +102312,9 @@ export namespace Prisma {
     created_stargazing_spots?: stargazing_spotsUncheckedCreateNestedManyWithoutCreatorInput
     created_sessions?: sessionsUncheckedCreateNestedManyWithoutCreatorInput
     session_enrollments?: session_enrollmentsUncheckedCreateNestedManyWithoutUserInput
+    created_services?: servicesUncheckedCreateNestedManyWithoutCreatorInput
+    service_bookings?: service_bookingsUncheckedCreateNestedManyWithoutUserInput
+    service_reviews?: service_reviewsUncheckedCreateNestedManyWithoutUserInput
     subscriptions?: subscriptionsUncheckedCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsUncheckedCreateNestedOneWithoutUsersInput
     created_polls?: pollsUncheckedCreateNestedManyWithoutCreatorInput
@@ -92725,6 +102452,9 @@ export namespace Prisma {
     created_stargazing_spots?: stargazing_spotsUpdateManyWithoutCreatorNestedInput
     created_sessions?: sessionsUpdateManyWithoutCreatorNestedInput
     session_enrollments?: session_enrollmentsUpdateManyWithoutUserNestedInput
+    created_services?: servicesUpdateManyWithoutCreatorNestedInput
+    service_bookings?: service_bookingsUpdateManyWithoutUserNestedInput
+    service_reviews?: service_reviewsUpdateManyWithoutUserNestedInput
     subscriptions?: subscriptionsUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUpdateOneWithoutUsersNestedInput
     created_polls?: pollsUpdateManyWithoutCreatorNestedInput
@@ -92787,6 +102517,9 @@ export namespace Prisma {
     created_stargazing_spots?: stargazing_spotsUncheckedUpdateManyWithoutCreatorNestedInput
     created_sessions?: sessionsUncheckedUpdateManyWithoutCreatorNestedInput
     session_enrollments?: session_enrollmentsUncheckedUpdateManyWithoutUserNestedInput
+    created_services?: servicesUncheckedUpdateManyWithoutCreatorNestedInput
+    service_bookings?: service_bookingsUncheckedUpdateManyWithoutUserNestedInput
+    service_reviews?: service_reviewsUncheckedUpdateManyWithoutUserNestedInput
     subscriptions?: subscriptionsUncheckedUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUncheckedUpdateOneWithoutUsersNestedInput
     created_polls?: pollsUncheckedUpdateManyWithoutCreatorNestedInput
@@ -92880,6 +102613,9 @@ export namespace Prisma {
     created_stargazing_spots?: stargazing_spotsCreateNestedManyWithoutCreatorInput
     created_sessions?: sessionsCreateNestedManyWithoutCreatorInput
     session_enrollments?: session_enrollmentsCreateNestedManyWithoutUserInput
+    created_services?: servicesCreateNestedManyWithoutCreatorInput
+    service_bookings?: service_bookingsCreateNestedManyWithoutUserInput
+    service_reviews?: service_reviewsCreateNestedManyWithoutUserInput
     subscriptions?: subscriptionsCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsCreateNestedOneWithoutUsersInput
     created_polls?: pollsCreateNestedManyWithoutCreatorInput
@@ -92942,6 +102678,9 @@ export namespace Prisma {
     created_stargazing_spots?: stargazing_spotsUncheckedCreateNestedManyWithoutCreatorInput
     created_sessions?: sessionsUncheckedCreateNestedManyWithoutCreatorInput
     session_enrollments?: session_enrollmentsUncheckedCreateNestedManyWithoutUserInput
+    created_services?: servicesUncheckedCreateNestedManyWithoutCreatorInput
+    service_bookings?: service_bookingsUncheckedCreateNestedManyWithoutUserInput
+    service_reviews?: service_reviewsUncheckedCreateNestedManyWithoutUserInput
     subscriptions?: subscriptionsUncheckedCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsUncheckedCreateNestedOneWithoutUsersInput
     created_polls?: pollsUncheckedCreateNestedManyWithoutCreatorInput
@@ -93057,6 +102796,9 @@ export namespace Prisma {
     created_stargazing_spots?: stargazing_spotsUpdateManyWithoutCreatorNestedInput
     created_sessions?: sessionsUpdateManyWithoutCreatorNestedInput
     session_enrollments?: session_enrollmentsUpdateManyWithoutUserNestedInput
+    created_services?: servicesUpdateManyWithoutCreatorNestedInput
+    service_bookings?: service_bookingsUpdateManyWithoutUserNestedInput
+    service_reviews?: service_reviewsUpdateManyWithoutUserNestedInput
     subscriptions?: subscriptionsUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUpdateOneWithoutUsersNestedInput
     created_polls?: pollsUpdateManyWithoutCreatorNestedInput
@@ -93119,6 +102861,9 @@ export namespace Prisma {
     created_stargazing_spots?: stargazing_spotsUncheckedUpdateManyWithoutCreatorNestedInput
     created_sessions?: sessionsUncheckedUpdateManyWithoutCreatorNestedInput
     session_enrollments?: session_enrollmentsUncheckedUpdateManyWithoutUserNestedInput
+    created_services?: servicesUncheckedUpdateManyWithoutCreatorNestedInput
+    service_bookings?: service_bookingsUncheckedUpdateManyWithoutUserNestedInput
+    service_reviews?: service_reviewsUncheckedUpdateManyWithoutUserNestedInput
     subscriptions?: subscriptionsUncheckedUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUncheckedUpdateOneWithoutUsersNestedInput
     created_polls?: pollsUncheckedUpdateManyWithoutCreatorNestedInput
@@ -93276,6 +103021,9 @@ export namespace Prisma {
     created_stargazing_spots?: stargazing_spotsCreateNestedManyWithoutCreatorInput
     created_sessions?: sessionsCreateNestedManyWithoutCreatorInput
     session_enrollments?: session_enrollmentsCreateNestedManyWithoutUserInput
+    created_services?: servicesCreateNestedManyWithoutCreatorInput
+    service_bookings?: service_bookingsCreateNestedManyWithoutUserInput
+    service_reviews?: service_reviewsCreateNestedManyWithoutUserInput
     subscriptions?: subscriptionsCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsCreateNestedOneWithoutUsersInput
     created_polls?: pollsCreateNestedManyWithoutCreatorInput
@@ -93338,6 +103086,9 @@ export namespace Prisma {
     created_stargazing_spots?: stargazing_spotsUncheckedCreateNestedManyWithoutCreatorInput
     created_sessions?: sessionsUncheckedCreateNestedManyWithoutCreatorInput
     session_enrollments?: session_enrollmentsUncheckedCreateNestedManyWithoutUserInput
+    created_services?: servicesUncheckedCreateNestedManyWithoutCreatorInput
+    service_bookings?: service_bookingsUncheckedCreateNestedManyWithoutUserInput
+    service_reviews?: service_reviewsUncheckedCreateNestedManyWithoutUserInput
     subscriptions?: subscriptionsUncheckedCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsUncheckedCreateNestedOneWithoutUsersInput
     created_polls?: pollsUncheckedCreateNestedManyWithoutCreatorInput
@@ -93524,6 +103275,9 @@ export namespace Prisma {
     created_stargazing_spots?: stargazing_spotsUpdateManyWithoutCreatorNestedInput
     created_sessions?: sessionsUpdateManyWithoutCreatorNestedInput
     session_enrollments?: session_enrollmentsUpdateManyWithoutUserNestedInput
+    created_services?: servicesUpdateManyWithoutCreatorNestedInput
+    service_bookings?: service_bookingsUpdateManyWithoutUserNestedInput
+    service_reviews?: service_reviewsUpdateManyWithoutUserNestedInput
     subscriptions?: subscriptionsUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUpdateOneWithoutUsersNestedInput
     created_polls?: pollsUpdateManyWithoutCreatorNestedInput
@@ -93586,6 +103340,9 @@ export namespace Prisma {
     created_stargazing_spots?: stargazing_spotsUncheckedUpdateManyWithoutCreatorNestedInput
     created_sessions?: sessionsUncheckedUpdateManyWithoutCreatorNestedInput
     session_enrollments?: session_enrollmentsUncheckedUpdateManyWithoutUserNestedInput
+    created_services?: servicesUncheckedUpdateManyWithoutCreatorNestedInput
+    service_bookings?: service_bookingsUncheckedUpdateManyWithoutUserNestedInput
+    service_reviews?: service_reviewsUncheckedUpdateManyWithoutUserNestedInput
     subscriptions?: subscriptionsUncheckedUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUncheckedUpdateOneWithoutUsersNestedInput
     created_polls?: pollsUncheckedUpdateManyWithoutCreatorNestedInput
@@ -93846,6 +103603,9 @@ export namespace Prisma {
     created_stargazing_spots?: stargazing_spotsCreateNestedManyWithoutCreatorInput
     created_sessions?: sessionsCreateNestedManyWithoutCreatorInput
     session_enrollments?: session_enrollmentsCreateNestedManyWithoutUserInput
+    created_services?: servicesCreateNestedManyWithoutCreatorInput
+    service_bookings?: service_bookingsCreateNestedManyWithoutUserInput
+    service_reviews?: service_reviewsCreateNestedManyWithoutUserInput
     subscriptions?: subscriptionsCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsCreateNestedOneWithoutUsersInput
     created_polls?: pollsCreateNestedManyWithoutCreatorInput
@@ -93908,6 +103668,9 @@ export namespace Prisma {
     created_stargazing_spots?: stargazing_spotsUncheckedCreateNestedManyWithoutCreatorInput
     created_sessions?: sessionsUncheckedCreateNestedManyWithoutCreatorInput
     session_enrollments?: session_enrollmentsUncheckedCreateNestedManyWithoutUserInput
+    created_services?: servicesUncheckedCreateNestedManyWithoutCreatorInput
+    service_bookings?: service_bookingsUncheckedCreateNestedManyWithoutUserInput
+    service_reviews?: service_reviewsUncheckedCreateNestedManyWithoutUserInput
     subscriptions?: subscriptionsUncheckedCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsUncheckedCreateNestedOneWithoutUsersInput
     created_polls?: pollsUncheckedCreateNestedManyWithoutCreatorInput
@@ -93985,6 +103748,9 @@ export namespace Prisma {
     created_stargazing_spots?: stargazing_spotsUpdateManyWithoutCreatorNestedInput
     created_sessions?: sessionsUpdateManyWithoutCreatorNestedInput
     session_enrollments?: session_enrollmentsUpdateManyWithoutUserNestedInput
+    created_services?: servicesUpdateManyWithoutCreatorNestedInput
+    service_bookings?: service_bookingsUpdateManyWithoutUserNestedInput
+    service_reviews?: service_reviewsUpdateManyWithoutUserNestedInput
     subscriptions?: subscriptionsUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUpdateOneWithoutUsersNestedInput
     created_polls?: pollsUpdateManyWithoutCreatorNestedInput
@@ -94047,6 +103813,9 @@ export namespace Prisma {
     created_stargazing_spots?: stargazing_spotsUncheckedUpdateManyWithoutCreatorNestedInput
     created_sessions?: sessionsUncheckedUpdateManyWithoutCreatorNestedInput
     session_enrollments?: session_enrollmentsUncheckedUpdateManyWithoutUserNestedInput
+    created_services?: servicesUncheckedUpdateManyWithoutCreatorNestedInput
+    service_bookings?: service_bookingsUncheckedUpdateManyWithoutUserNestedInput
+    service_reviews?: service_reviewsUncheckedUpdateManyWithoutUserNestedInput
     subscriptions?: subscriptionsUncheckedUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUncheckedUpdateOneWithoutUsersNestedInput
     created_polls?: pollsUncheckedUpdateManyWithoutCreatorNestedInput
@@ -94223,6 +103992,9 @@ export namespace Prisma {
     created_stargazing_spots?: stargazing_spotsCreateNestedManyWithoutCreatorInput
     created_sessions?: sessionsCreateNestedManyWithoutCreatorInput
     session_enrollments?: session_enrollmentsCreateNestedManyWithoutUserInput
+    created_services?: servicesCreateNestedManyWithoutCreatorInput
+    service_bookings?: service_bookingsCreateNestedManyWithoutUserInput
+    service_reviews?: service_reviewsCreateNestedManyWithoutUserInput
     subscriptions?: subscriptionsCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsCreateNestedOneWithoutUsersInput
     created_polls?: pollsCreateNestedManyWithoutCreatorInput
@@ -94285,6 +104057,9 @@ export namespace Prisma {
     created_stargazing_spots?: stargazing_spotsUncheckedCreateNestedManyWithoutCreatorInput
     created_sessions?: sessionsUncheckedCreateNestedManyWithoutCreatorInput
     session_enrollments?: session_enrollmentsUncheckedCreateNestedManyWithoutUserInput
+    created_services?: servicesUncheckedCreateNestedManyWithoutCreatorInput
+    service_bookings?: service_bookingsUncheckedCreateNestedManyWithoutUserInput
+    service_reviews?: service_reviewsUncheckedCreateNestedManyWithoutUserInput
     subscriptions?: subscriptionsUncheckedCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsUncheckedCreateNestedOneWithoutUsersInput
     created_polls?: pollsUncheckedCreateNestedManyWithoutCreatorInput
@@ -94474,6 +104249,9 @@ export namespace Prisma {
     created_stargazing_spots?: stargazing_spotsUpdateManyWithoutCreatorNestedInput
     created_sessions?: sessionsUpdateManyWithoutCreatorNestedInput
     session_enrollments?: session_enrollmentsUpdateManyWithoutUserNestedInput
+    created_services?: servicesUpdateManyWithoutCreatorNestedInput
+    service_bookings?: service_bookingsUpdateManyWithoutUserNestedInput
+    service_reviews?: service_reviewsUpdateManyWithoutUserNestedInput
     subscriptions?: subscriptionsUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUpdateOneWithoutUsersNestedInput
     created_polls?: pollsUpdateManyWithoutCreatorNestedInput
@@ -94536,6 +104314,9 @@ export namespace Prisma {
     created_stargazing_spots?: stargazing_spotsUncheckedUpdateManyWithoutCreatorNestedInput
     created_sessions?: sessionsUncheckedUpdateManyWithoutCreatorNestedInput
     session_enrollments?: session_enrollmentsUncheckedUpdateManyWithoutUserNestedInput
+    created_services?: servicesUncheckedUpdateManyWithoutCreatorNestedInput
+    service_bookings?: service_bookingsUncheckedUpdateManyWithoutUserNestedInput
+    service_reviews?: service_reviewsUncheckedUpdateManyWithoutUserNestedInput
     subscriptions?: subscriptionsUncheckedUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUncheckedUpdateOneWithoutUsersNestedInput
     created_polls?: pollsUncheckedUpdateManyWithoutCreatorNestedInput
@@ -95833,6 +105614,177 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type servicesCreateWithoutCreatorInput = {
+    title: string
+    description: string
+    category: $Enums.service_category
+    price: Decimal | DecimalJsLike | number | string
+    duration: string
+    max_participants: number
+    location: string
+    difficulty: $Enums.service_difficulty
+    equipment?: JsonNullValueInput | InputJsonValue
+    next_available: Date | string
+    image_url?: string | null
+    featured?: boolean
+    tags?: JsonNullValueInput | InputJsonValue
+    requirements?: string | null
+    cancellation_policy?: string | null
+    meeting_point?: string | null
+    what_to_expect?: string | null
+    weather_policy?: $Enums.weather_policy_type | null
+    booking_deadline?: number
+    languages?: JsonNullValueInput | InputJsonValue
+    certification?: string | null
+    experience?: string | null
+    group_discount?: boolean
+    private_booking?: boolean
+    instant_booking?: boolean
+    status?: $Enums.service_status
+    views_count?: number
+    bookings_count?: number
+    rating?: number
+    review_count?: number
+    is_active?: boolean
+    created_at?: Date | string
+    updated_at?: Date | string
+    bookings?: service_bookingsCreateNestedManyWithoutServiceInput
+    reviews?: service_reviewsCreateNestedManyWithoutServiceInput
+    availability?: service_availabilityCreateNestedManyWithoutServiceInput
+    media?: service_mediaCreateNestedManyWithoutServiceInput
+  }
+
+  export type servicesUncheckedCreateWithoutCreatorInput = {
+    id?: number
+    title: string
+    description: string
+    category: $Enums.service_category
+    price: Decimal | DecimalJsLike | number | string
+    duration: string
+    max_participants: number
+    location: string
+    difficulty: $Enums.service_difficulty
+    equipment?: JsonNullValueInput | InputJsonValue
+    next_available: Date | string
+    image_url?: string | null
+    featured?: boolean
+    tags?: JsonNullValueInput | InputJsonValue
+    requirements?: string | null
+    cancellation_policy?: string | null
+    meeting_point?: string | null
+    what_to_expect?: string | null
+    weather_policy?: $Enums.weather_policy_type | null
+    booking_deadline?: number
+    languages?: JsonNullValueInput | InputJsonValue
+    certification?: string | null
+    experience?: string | null
+    group_discount?: boolean
+    private_booking?: boolean
+    instant_booking?: boolean
+    status?: $Enums.service_status
+    views_count?: number
+    bookings_count?: number
+    rating?: number
+    review_count?: number
+    is_active?: boolean
+    created_at?: Date | string
+    updated_at?: Date | string
+    bookings?: service_bookingsUncheckedCreateNestedManyWithoutServiceInput
+    reviews?: service_reviewsUncheckedCreateNestedManyWithoutServiceInput
+    availability?: service_availabilityUncheckedCreateNestedManyWithoutServiceInput
+    media?: service_mediaUncheckedCreateNestedManyWithoutServiceInput
+  }
+
+  export type servicesCreateOrConnectWithoutCreatorInput = {
+    where: servicesWhereUniqueInput
+    create: XOR<servicesCreateWithoutCreatorInput, servicesUncheckedCreateWithoutCreatorInput>
+  }
+
+  export type servicesCreateManyCreatorInputEnvelope = {
+    data: servicesCreateManyCreatorInput | servicesCreateManyCreatorInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type service_bookingsCreateWithoutUserInput = {
+    booking_date: Date | string
+    booking_time?: Date | string | null
+    participants_count?: number
+    total_amount: Decimal | DecimalJsLike | number | string
+    payment_status?: $Enums.booking_payment_status
+    payment_method?: string | null
+    transaction_id?: string | null
+    booking_status?: $Enums.booking_status
+    special_requests?: string | null
+    cancellation_reason?: string | null
+    cancelled_at?: Date | string | null
+    confirmed_at?: Date | string | null
+    completed_at?: Date | string | null
+    created_at?: Date | string
+    updated_at?: Date | string
+    service: servicesCreateNestedOneWithoutBookingsInput
+  }
+
+  export type service_bookingsUncheckedCreateWithoutUserInput = {
+    id?: number
+    service_id: number
+    booking_date: Date | string
+    booking_time?: Date | string | null
+    participants_count?: number
+    total_amount: Decimal | DecimalJsLike | number | string
+    payment_status?: $Enums.booking_payment_status
+    payment_method?: string | null
+    transaction_id?: string | null
+    booking_status?: $Enums.booking_status
+    special_requests?: string | null
+    cancellation_reason?: string | null
+    cancelled_at?: Date | string | null
+    confirmed_at?: Date | string | null
+    completed_at?: Date | string | null
+    created_at?: Date | string
+    updated_at?: Date | string
+  }
+
+  export type service_bookingsCreateOrConnectWithoutUserInput = {
+    where: service_bookingsWhereUniqueInput
+    create: XOR<service_bookingsCreateWithoutUserInput, service_bookingsUncheckedCreateWithoutUserInput>
+  }
+
+  export type service_bookingsCreateManyUserInputEnvelope = {
+    data: service_bookingsCreateManyUserInput | service_bookingsCreateManyUserInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type service_reviewsCreateWithoutUserInput = {
+    rating: number
+    review: string
+    images?: NullableJsonNullValueInput | InputJsonValue
+    is_verified?: boolean
+    created_at?: Date | string
+    updated_at?: Date | string
+    service: servicesCreateNestedOneWithoutReviewsInput
+  }
+
+  export type service_reviewsUncheckedCreateWithoutUserInput = {
+    id?: number
+    service_id: number
+    rating: number
+    review: string
+    images?: NullableJsonNullValueInput | InputJsonValue
+    is_verified?: boolean
+    created_at?: Date | string
+    updated_at?: Date | string
+  }
+
+  export type service_reviewsCreateOrConnectWithoutUserInput = {
+    where: service_reviewsWhereUniqueInput
+    create: XOR<service_reviewsCreateWithoutUserInput, service_reviewsUncheckedCreateWithoutUserInput>
+  }
+
+  export type service_reviewsCreateManyUserInputEnvelope = {
+    data: service_reviewsCreateManyUserInput | service_reviewsCreateManyUserInput[]
+    skipDuplicates?: boolean
+  }
+
   export type subscriptionsCreateWithoutUsersInput = {
     plan_type: $Enums.subscription_plan
     status?: $Enums.subscription_status | null
@@ -96973,6 +106925,134 @@ export namespace Prisma {
     updated_at?: DateTimeFilter<"session_enrollments"> | Date | string
   }
 
+  export type servicesUpsertWithWhereUniqueWithoutCreatorInput = {
+    where: servicesWhereUniqueInput
+    update: XOR<servicesUpdateWithoutCreatorInput, servicesUncheckedUpdateWithoutCreatorInput>
+    create: XOR<servicesCreateWithoutCreatorInput, servicesUncheckedCreateWithoutCreatorInput>
+  }
+
+  export type servicesUpdateWithWhereUniqueWithoutCreatorInput = {
+    where: servicesWhereUniqueInput
+    data: XOR<servicesUpdateWithoutCreatorInput, servicesUncheckedUpdateWithoutCreatorInput>
+  }
+
+  export type servicesUpdateManyWithWhereWithoutCreatorInput = {
+    where: servicesScalarWhereInput
+    data: XOR<servicesUpdateManyMutationInput, servicesUncheckedUpdateManyWithoutCreatorInput>
+  }
+
+  export type servicesScalarWhereInput = {
+    AND?: servicesScalarWhereInput | servicesScalarWhereInput[]
+    OR?: servicesScalarWhereInput[]
+    NOT?: servicesScalarWhereInput | servicesScalarWhereInput[]
+    id?: IntFilter<"services"> | number
+    title?: StringFilter<"services"> | string
+    description?: StringFilter<"services"> | string
+    category?: Enumservice_categoryFilter<"services"> | $Enums.service_category
+    price?: DecimalFilter<"services"> | Decimal | DecimalJsLike | number | string
+    duration?: StringFilter<"services"> | string
+    max_participants?: IntFilter<"services"> | number
+    location?: StringFilter<"services"> | string
+    difficulty?: Enumservice_difficultyFilter<"services"> | $Enums.service_difficulty
+    equipment?: JsonFilter<"services">
+    next_available?: DateTimeFilter<"services"> | Date | string
+    image_url?: StringNullableFilter<"services"> | string | null
+    featured?: BoolFilter<"services"> | boolean
+    tags?: JsonFilter<"services">
+    requirements?: StringNullableFilter<"services"> | string | null
+    cancellation_policy?: StringNullableFilter<"services"> | string | null
+    meeting_point?: StringNullableFilter<"services"> | string | null
+    what_to_expect?: StringNullableFilter<"services"> | string | null
+    weather_policy?: Enumweather_policy_typeNullableFilter<"services"> | $Enums.weather_policy_type | null
+    booking_deadline?: IntFilter<"services"> | number
+    languages?: JsonFilter<"services">
+    certification?: StringNullableFilter<"services"> | string | null
+    experience?: StringNullableFilter<"services"> | string | null
+    group_discount?: BoolFilter<"services"> | boolean
+    private_booking?: BoolFilter<"services"> | boolean
+    instant_booking?: BoolFilter<"services"> | boolean
+    status?: Enumservice_statusFilter<"services"> | $Enums.service_status
+    views_count?: IntFilter<"services"> | number
+    bookings_count?: IntFilter<"services"> | number
+    rating?: FloatFilter<"services"> | number
+    review_count?: IntFilter<"services"> | number
+    created_by?: IntFilter<"services"> | number
+    is_active?: BoolFilter<"services"> | boolean
+    created_at?: DateTimeFilter<"services"> | Date | string
+    updated_at?: DateTimeFilter<"services"> | Date | string
+  }
+
+  export type service_bookingsUpsertWithWhereUniqueWithoutUserInput = {
+    where: service_bookingsWhereUniqueInput
+    update: XOR<service_bookingsUpdateWithoutUserInput, service_bookingsUncheckedUpdateWithoutUserInput>
+    create: XOR<service_bookingsCreateWithoutUserInput, service_bookingsUncheckedCreateWithoutUserInput>
+  }
+
+  export type service_bookingsUpdateWithWhereUniqueWithoutUserInput = {
+    where: service_bookingsWhereUniqueInput
+    data: XOR<service_bookingsUpdateWithoutUserInput, service_bookingsUncheckedUpdateWithoutUserInput>
+  }
+
+  export type service_bookingsUpdateManyWithWhereWithoutUserInput = {
+    where: service_bookingsScalarWhereInput
+    data: XOR<service_bookingsUpdateManyMutationInput, service_bookingsUncheckedUpdateManyWithoutUserInput>
+  }
+
+  export type service_bookingsScalarWhereInput = {
+    AND?: service_bookingsScalarWhereInput | service_bookingsScalarWhereInput[]
+    OR?: service_bookingsScalarWhereInput[]
+    NOT?: service_bookingsScalarWhereInput | service_bookingsScalarWhereInput[]
+    id?: IntFilter<"service_bookings"> | number
+    service_id?: IntFilter<"service_bookings"> | number
+    user_id?: IntFilter<"service_bookings"> | number
+    booking_date?: DateTimeFilter<"service_bookings"> | Date | string
+    booking_time?: DateTimeNullableFilter<"service_bookings"> | Date | string | null
+    participants_count?: IntFilter<"service_bookings"> | number
+    total_amount?: DecimalFilter<"service_bookings"> | Decimal | DecimalJsLike | number | string
+    payment_status?: Enumbooking_payment_statusFilter<"service_bookings"> | $Enums.booking_payment_status
+    payment_method?: StringNullableFilter<"service_bookings"> | string | null
+    transaction_id?: StringNullableFilter<"service_bookings"> | string | null
+    booking_status?: Enumbooking_statusFilter<"service_bookings"> | $Enums.booking_status
+    special_requests?: StringNullableFilter<"service_bookings"> | string | null
+    cancellation_reason?: StringNullableFilter<"service_bookings"> | string | null
+    cancelled_at?: DateTimeNullableFilter<"service_bookings"> | Date | string | null
+    confirmed_at?: DateTimeNullableFilter<"service_bookings"> | Date | string | null
+    completed_at?: DateTimeNullableFilter<"service_bookings"> | Date | string | null
+    created_at?: DateTimeFilter<"service_bookings"> | Date | string
+    updated_at?: DateTimeFilter<"service_bookings"> | Date | string
+  }
+
+  export type service_reviewsUpsertWithWhereUniqueWithoutUserInput = {
+    where: service_reviewsWhereUniqueInput
+    update: XOR<service_reviewsUpdateWithoutUserInput, service_reviewsUncheckedUpdateWithoutUserInput>
+    create: XOR<service_reviewsCreateWithoutUserInput, service_reviewsUncheckedCreateWithoutUserInput>
+  }
+
+  export type service_reviewsUpdateWithWhereUniqueWithoutUserInput = {
+    where: service_reviewsWhereUniqueInput
+    data: XOR<service_reviewsUpdateWithoutUserInput, service_reviewsUncheckedUpdateWithoutUserInput>
+  }
+
+  export type service_reviewsUpdateManyWithWhereWithoutUserInput = {
+    where: service_reviewsScalarWhereInput
+    data: XOR<service_reviewsUpdateManyMutationInput, service_reviewsUncheckedUpdateManyWithoutUserInput>
+  }
+
+  export type service_reviewsScalarWhereInput = {
+    AND?: service_reviewsScalarWhereInput | service_reviewsScalarWhereInput[]
+    OR?: service_reviewsScalarWhereInput[]
+    NOT?: service_reviewsScalarWhereInput | service_reviewsScalarWhereInput[]
+    id?: IntFilter<"service_reviews"> | number
+    service_id?: IntFilter<"service_reviews"> | number
+    user_id?: IntFilter<"service_reviews"> | number
+    rating?: IntFilter<"service_reviews"> | number
+    review?: StringFilter<"service_reviews"> | string
+    images?: JsonNullableFilter<"service_reviews">
+    is_verified?: BoolFilter<"service_reviews"> | boolean
+    created_at?: DateTimeFilter<"service_reviews"> | Date | string
+    updated_at?: DateTimeFilter<"service_reviews"> | Date | string
+  }
+
   export type subscriptionsUpsertWithWhereUniqueWithoutUsersInput = {
     where: subscriptionsWhereUniqueInput
     update: XOR<subscriptionsUpdateWithoutUsersInput, subscriptionsUncheckedUpdateWithoutUsersInput>
@@ -97240,6 +107320,9 @@ export namespace Prisma {
     created_stargazing_spots?: stargazing_spotsCreateNestedManyWithoutCreatorInput
     created_sessions?: sessionsCreateNestedManyWithoutCreatorInput
     session_enrollments?: session_enrollmentsCreateNestedManyWithoutUserInput
+    created_services?: servicesCreateNestedManyWithoutCreatorInput
+    service_bookings?: service_bookingsCreateNestedManyWithoutUserInput
+    service_reviews?: service_reviewsCreateNestedManyWithoutUserInput
     subscriptions?: subscriptionsCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsCreateNestedOneWithoutUsersInput
     created_polls?: pollsCreateNestedManyWithoutCreatorInput
@@ -97302,6 +107385,9 @@ export namespace Prisma {
     created_stargazing_spots?: stargazing_spotsUncheckedCreateNestedManyWithoutCreatorInput
     created_sessions?: sessionsUncheckedCreateNestedManyWithoutCreatorInput
     session_enrollments?: session_enrollmentsUncheckedCreateNestedManyWithoutUserInput
+    created_services?: servicesUncheckedCreateNestedManyWithoutCreatorInput
+    service_bookings?: service_bookingsUncheckedCreateNestedManyWithoutUserInput
+    service_reviews?: service_reviewsUncheckedCreateNestedManyWithoutUserInput
     subscriptions?: subscriptionsUncheckedCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsUncheckedCreateNestedOneWithoutUsersInput
     created_polls?: pollsUncheckedCreateNestedManyWithoutCreatorInput
@@ -97443,6 +107529,9 @@ export namespace Prisma {
     created_stargazing_spots?: stargazing_spotsUpdateManyWithoutCreatorNestedInput
     created_sessions?: sessionsUpdateManyWithoutCreatorNestedInput
     session_enrollments?: session_enrollmentsUpdateManyWithoutUserNestedInput
+    created_services?: servicesUpdateManyWithoutCreatorNestedInput
+    service_bookings?: service_bookingsUpdateManyWithoutUserNestedInput
+    service_reviews?: service_reviewsUpdateManyWithoutUserNestedInput
     subscriptions?: subscriptionsUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUpdateOneWithoutUsersNestedInput
     created_polls?: pollsUpdateManyWithoutCreatorNestedInput
@@ -97505,6 +107594,9 @@ export namespace Prisma {
     created_stargazing_spots?: stargazing_spotsUncheckedUpdateManyWithoutCreatorNestedInput
     created_sessions?: sessionsUncheckedUpdateManyWithoutCreatorNestedInput
     session_enrollments?: session_enrollmentsUncheckedUpdateManyWithoutUserNestedInput
+    created_services?: servicesUncheckedUpdateManyWithoutCreatorNestedInput
+    service_bookings?: service_bookingsUncheckedUpdateManyWithoutUserNestedInput
+    service_reviews?: service_reviewsUncheckedUpdateManyWithoutUserNestedInput
     subscriptions?: subscriptionsUncheckedUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUncheckedUpdateOneWithoutUsersNestedInput
     created_polls?: pollsUncheckedUpdateManyWithoutCreatorNestedInput
@@ -97773,6 +107865,9 @@ export namespace Prisma {
     created_stargazing_spots?: stargazing_spotsCreateNestedManyWithoutCreatorInput
     created_sessions?: sessionsCreateNestedManyWithoutCreatorInput
     session_enrollments?: session_enrollmentsCreateNestedManyWithoutUserInput
+    created_services?: servicesCreateNestedManyWithoutCreatorInput
+    service_bookings?: service_bookingsCreateNestedManyWithoutUserInput
+    service_reviews?: service_reviewsCreateNestedManyWithoutUserInput
     subscriptions?: subscriptionsCreateNestedManyWithoutUsersInput
     created_polls?: pollsCreateNestedManyWithoutCreatorInput
     poll_votes?: poll_votesCreateNestedManyWithoutVoterInput
@@ -97835,6 +107930,9 @@ export namespace Prisma {
     created_stargazing_spots?: stargazing_spotsUncheckedCreateNestedManyWithoutCreatorInput
     created_sessions?: sessionsUncheckedCreateNestedManyWithoutCreatorInput
     session_enrollments?: session_enrollmentsUncheckedCreateNestedManyWithoutUserInput
+    created_services?: servicesUncheckedCreateNestedManyWithoutCreatorInput
+    service_bookings?: service_bookingsUncheckedCreateNestedManyWithoutUserInput
+    service_reviews?: service_reviewsUncheckedCreateNestedManyWithoutUserInput
     subscriptions?: subscriptionsUncheckedCreateNestedManyWithoutUsersInput
     created_polls?: pollsUncheckedCreateNestedManyWithoutCreatorInput
     poll_votes?: poll_votesUncheckedCreateNestedManyWithoutVoterInput
@@ -97912,6 +108010,9 @@ export namespace Prisma {
     created_stargazing_spots?: stargazing_spotsUpdateManyWithoutCreatorNestedInput
     created_sessions?: sessionsUpdateManyWithoutCreatorNestedInput
     session_enrollments?: session_enrollmentsUpdateManyWithoutUserNestedInput
+    created_services?: servicesUpdateManyWithoutCreatorNestedInput
+    service_bookings?: service_bookingsUpdateManyWithoutUserNestedInput
+    service_reviews?: service_reviewsUpdateManyWithoutUserNestedInput
     subscriptions?: subscriptionsUpdateManyWithoutUsersNestedInput
     created_polls?: pollsUpdateManyWithoutCreatorNestedInput
     poll_votes?: poll_votesUpdateManyWithoutVoterNestedInput
@@ -97974,6 +108075,9 @@ export namespace Prisma {
     created_stargazing_spots?: stargazing_spotsUncheckedUpdateManyWithoutCreatorNestedInput
     created_sessions?: sessionsUncheckedUpdateManyWithoutCreatorNestedInput
     session_enrollments?: session_enrollmentsUncheckedUpdateManyWithoutUserNestedInput
+    created_services?: servicesUncheckedUpdateManyWithoutCreatorNestedInput
+    service_bookings?: service_bookingsUncheckedUpdateManyWithoutUserNestedInput
+    service_reviews?: service_reviewsUncheckedUpdateManyWithoutUserNestedInput
     subscriptions?: subscriptionsUncheckedUpdateManyWithoutUsersNestedInput
     created_polls?: pollsUncheckedUpdateManyWithoutCreatorNestedInput
     poll_votes?: poll_votesUncheckedUpdateManyWithoutVoterNestedInput
@@ -98260,6 +108364,9 @@ export namespace Prisma {
     created_stargazing_spots?: stargazing_spotsCreateNestedManyWithoutCreatorInput
     created_sessions?: sessionsCreateNestedManyWithoutCreatorInput
     session_enrollments?: session_enrollmentsCreateNestedManyWithoutUserInput
+    created_services?: servicesCreateNestedManyWithoutCreatorInput
+    service_bookings?: service_bookingsCreateNestedManyWithoutUserInput
+    service_reviews?: service_reviewsCreateNestedManyWithoutUserInput
     subscriptions?: subscriptionsCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsCreateNestedOneWithoutUsersInput
     created_polls?: pollsCreateNestedManyWithoutCreatorInput
@@ -98322,6 +108429,9 @@ export namespace Prisma {
     created_stargazing_spots?: stargazing_spotsUncheckedCreateNestedManyWithoutCreatorInput
     created_sessions?: sessionsUncheckedCreateNestedManyWithoutCreatorInput
     session_enrollments?: session_enrollmentsUncheckedCreateNestedManyWithoutUserInput
+    created_services?: servicesUncheckedCreateNestedManyWithoutCreatorInput
+    service_bookings?: service_bookingsUncheckedCreateNestedManyWithoutUserInput
+    service_reviews?: service_reviewsUncheckedCreateNestedManyWithoutUserInput
     subscriptions?: subscriptionsUncheckedCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsUncheckedCreateNestedOneWithoutUsersInput
     created_polls?: pollsUncheckedCreateNestedManyWithoutCreatorInput
@@ -98388,6 +108498,9 @@ export namespace Prisma {
     created_stargazing_spots?: stargazing_spotsCreateNestedManyWithoutCreatorInput
     created_sessions?: sessionsCreateNestedManyWithoutCreatorInput
     session_enrollments?: session_enrollmentsCreateNestedManyWithoutUserInput
+    created_services?: servicesCreateNestedManyWithoutCreatorInput
+    service_bookings?: service_bookingsCreateNestedManyWithoutUserInput
+    service_reviews?: service_reviewsCreateNestedManyWithoutUserInput
     subscriptions?: subscriptionsCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsCreateNestedOneWithoutUsersInput
     created_polls?: pollsCreateNestedManyWithoutCreatorInput
@@ -98450,6 +108563,9 @@ export namespace Prisma {
     created_stargazing_spots?: stargazing_spotsUncheckedCreateNestedManyWithoutCreatorInput
     created_sessions?: sessionsUncheckedCreateNestedManyWithoutCreatorInput
     session_enrollments?: session_enrollmentsUncheckedCreateNestedManyWithoutUserInput
+    created_services?: servicesUncheckedCreateNestedManyWithoutCreatorInput
+    service_bookings?: service_bookingsUncheckedCreateNestedManyWithoutUserInput
+    service_reviews?: service_reviewsUncheckedCreateNestedManyWithoutUserInput
     subscriptions?: subscriptionsUncheckedCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsUncheckedCreateNestedOneWithoutUsersInput
     created_polls?: pollsUncheckedCreateNestedManyWithoutCreatorInput
@@ -98527,6 +108643,9 @@ export namespace Prisma {
     created_stargazing_spots?: stargazing_spotsUpdateManyWithoutCreatorNestedInput
     created_sessions?: sessionsUpdateManyWithoutCreatorNestedInput
     session_enrollments?: session_enrollmentsUpdateManyWithoutUserNestedInput
+    created_services?: servicesUpdateManyWithoutCreatorNestedInput
+    service_bookings?: service_bookingsUpdateManyWithoutUserNestedInput
+    service_reviews?: service_reviewsUpdateManyWithoutUserNestedInput
     subscriptions?: subscriptionsUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUpdateOneWithoutUsersNestedInput
     created_polls?: pollsUpdateManyWithoutCreatorNestedInput
@@ -98589,6 +108708,9 @@ export namespace Prisma {
     created_stargazing_spots?: stargazing_spotsUncheckedUpdateManyWithoutCreatorNestedInput
     created_sessions?: sessionsUncheckedUpdateManyWithoutCreatorNestedInput
     session_enrollments?: session_enrollmentsUncheckedUpdateManyWithoutUserNestedInput
+    created_services?: servicesUncheckedUpdateManyWithoutCreatorNestedInput
+    service_bookings?: service_bookingsUncheckedUpdateManyWithoutUserNestedInput
+    service_reviews?: service_reviewsUncheckedUpdateManyWithoutUserNestedInput
     subscriptions?: subscriptionsUncheckedUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUncheckedUpdateOneWithoutUsersNestedInput
     created_polls?: pollsUncheckedUpdateManyWithoutCreatorNestedInput
@@ -98661,6 +108783,9 @@ export namespace Prisma {
     created_stargazing_spots?: stargazing_spotsUpdateManyWithoutCreatorNestedInput
     created_sessions?: sessionsUpdateManyWithoutCreatorNestedInput
     session_enrollments?: session_enrollmentsUpdateManyWithoutUserNestedInput
+    created_services?: servicesUpdateManyWithoutCreatorNestedInput
+    service_bookings?: service_bookingsUpdateManyWithoutUserNestedInput
+    service_reviews?: service_reviewsUpdateManyWithoutUserNestedInput
     subscriptions?: subscriptionsUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUpdateOneWithoutUsersNestedInput
     created_polls?: pollsUpdateManyWithoutCreatorNestedInput
@@ -98723,6 +108848,9 @@ export namespace Prisma {
     created_stargazing_spots?: stargazing_spotsUncheckedUpdateManyWithoutCreatorNestedInput
     created_sessions?: sessionsUncheckedUpdateManyWithoutCreatorNestedInput
     session_enrollments?: session_enrollmentsUncheckedUpdateManyWithoutUserNestedInput
+    created_services?: servicesUncheckedUpdateManyWithoutCreatorNestedInput
+    service_bookings?: service_bookingsUncheckedUpdateManyWithoutUserNestedInput
+    service_reviews?: service_reviewsUncheckedUpdateManyWithoutUserNestedInput
     subscriptions?: subscriptionsUncheckedUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUncheckedUpdateOneWithoutUsersNestedInput
     created_polls?: pollsUncheckedUpdateManyWithoutCreatorNestedInput
@@ -98784,6 +108912,9 @@ export namespace Prisma {
     created_stargazing_spots?: stargazing_spotsCreateNestedManyWithoutCreatorInput
     created_sessions?: sessionsCreateNestedManyWithoutCreatorInput
     session_enrollments?: session_enrollmentsCreateNestedManyWithoutUserInput
+    created_services?: servicesCreateNestedManyWithoutCreatorInput
+    service_bookings?: service_bookingsCreateNestedManyWithoutUserInput
+    service_reviews?: service_reviewsCreateNestedManyWithoutUserInput
     subscriptions?: subscriptionsCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsCreateNestedOneWithoutUsersInput
     created_polls?: pollsCreateNestedManyWithoutCreatorInput
@@ -98846,6 +108977,9 @@ export namespace Prisma {
     created_stargazing_spots?: stargazing_spotsUncheckedCreateNestedManyWithoutCreatorInput
     created_sessions?: sessionsUncheckedCreateNestedManyWithoutCreatorInput
     session_enrollments?: session_enrollmentsUncheckedCreateNestedManyWithoutUserInput
+    created_services?: servicesUncheckedCreateNestedManyWithoutCreatorInput
+    service_bookings?: service_bookingsUncheckedCreateNestedManyWithoutUserInput
+    service_reviews?: service_reviewsUncheckedCreateNestedManyWithoutUserInput
     subscriptions?: subscriptionsUncheckedCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsUncheckedCreateNestedOneWithoutUsersInput
     created_polls?: pollsUncheckedCreateNestedManyWithoutCreatorInput
@@ -98923,6 +109057,9 @@ export namespace Prisma {
     created_stargazing_spots?: stargazing_spotsUpdateManyWithoutCreatorNestedInput
     created_sessions?: sessionsUpdateManyWithoutCreatorNestedInput
     session_enrollments?: session_enrollmentsUpdateManyWithoutUserNestedInput
+    created_services?: servicesUpdateManyWithoutCreatorNestedInput
+    service_bookings?: service_bookingsUpdateManyWithoutUserNestedInput
+    service_reviews?: service_reviewsUpdateManyWithoutUserNestedInput
     subscriptions?: subscriptionsUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUpdateOneWithoutUsersNestedInput
     created_polls?: pollsUpdateManyWithoutCreatorNestedInput
@@ -98985,6 +109122,9 @@ export namespace Prisma {
     created_stargazing_spots?: stargazing_spotsUncheckedUpdateManyWithoutCreatorNestedInput
     created_sessions?: sessionsUncheckedUpdateManyWithoutCreatorNestedInput
     session_enrollments?: session_enrollmentsUncheckedUpdateManyWithoutUserNestedInput
+    created_services?: servicesUncheckedUpdateManyWithoutCreatorNestedInput
+    service_bookings?: service_bookingsUncheckedUpdateManyWithoutUserNestedInput
+    service_reviews?: service_reviewsUncheckedUpdateManyWithoutUserNestedInput
     subscriptions?: subscriptionsUncheckedUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUncheckedUpdateOneWithoutUsersNestedInput
     created_polls?: pollsUncheckedUpdateManyWithoutCreatorNestedInput
@@ -99046,6 +109186,9 @@ export namespace Prisma {
     created_stargazing_spots?: stargazing_spotsCreateNestedManyWithoutCreatorInput
     created_sessions?: sessionsCreateNestedManyWithoutCreatorInput
     session_enrollments?: session_enrollmentsCreateNestedManyWithoutUserInput
+    created_services?: servicesCreateNestedManyWithoutCreatorInput
+    service_bookings?: service_bookingsCreateNestedManyWithoutUserInput
+    service_reviews?: service_reviewsCreateNestedManyWithoutUserInput
     subscriptions?: subscriptionsCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsCreateNestedOneWithoutUsersInput
     created_polls?: pollsCreateNestedManyWithoutCreatorInput
@@ -99108,6 +109251,9 @@ export namespace Prisma {
     created_stargazing_spots?: stargazing_spotsUncheckedCreateNestedManyWithoutCreatorInput
     created_sessions?: sessionsUncheckedCreateNestedManyWithoutCreatorInput
     session_enrollments?: session_enrollmentsUncheckedCreateNestedManyWithoutUserInput
+    created_services?: servicesUncheckedCreateNestedManyWithoutCreatorInput
+    service_bookings?: service_bookingsUncheckedCreateNestedManyWithoutUserInput
+    service_reviews?: service_reviewsUncheckedCreateNestedManyWithoutUserInput
     subscriptions?: subscriptionsUncheckedCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsUncheckedCreateNestedOneWithoutUsersInput
     created_polls?: pollsUncheckedCreateNestedManyWithoutCreatorInput
@@ -99185,6 +109331,9 @@ export namespace Prisma {
     created_stargazing_spots?: stargazing_spotsUpdateManyWithoutCreatorNestedInput
     created_sessions?: sessionsUpdateManyWithoutCreatorNestedInput
     session_enrollments?: session_enrollmentsUpdateManyWithoutUserNestedInput
+    created_services?: servicesUpdateManyWithoutCreatorNestedInput
+    service_bookings?: service_bookingsUpdateManyWithoutUserNestedInput
+    service_reviews?: service_reviewsUpdateManyWithoutUserNestedInput
     subscriptions?: subscriptionsUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUpdateOneWithoutUsersNestedInput
     created_polls?: pollsUpdateManyWithoutCreatorNestedInput
@@ -99247,6 +109396,9 @@ export namespace Prisma {
     created_stargazing_spots?: stargazing_spotsUncheckedUpdateManyWithoutCreatorNestedInput
     created_sessions?: sessionsUncheckedUpdateManyWithoutCreatorNestedInput
     session_enrollments?: session_enrollmentsUncheckedUpdateManyWithoutUserNestedInput
+    created_services?: servicesUncheckedUpdateManyWithoutCreatorNestedInput
+    service_bookings?: service_bookingsUncheckedUpdateManyWithoutUserNestedInput
+    service_reviews?: service_reviewsUncheckedUpdateManyWithoutUserNestedInput
     subscriptions?: subscriptionsUncheckedUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUncheckedUpdateOneWithoutUsersNestedInput
     created_polls?: pollsUncheckedUpdateManyWithoutCreatorNestedInput
@@ -99354,6 +109506,9 @@ export namespace Prisma {
     created_stargazing_spots?: stargazing_spotsCreateNestedManyWithoutCreatorInput
     created_sessions?: sessionsCreateNestedManyWithoutCreatorInput
     session_enrollments?: session_enrollmentsCreateNestedManyWithoutUserInput
+    created_services?: servicesCreateNestedManyWithoutCreatorInput
+    service_bookings?: service_bookingsCreateNestedManyWithoutUserInput
+    service_reviews?: service_reviewsCreateNestedManyWithoutUserInput
     subscriptions?: subscriptionsCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsCreateNestedOneWithoutUsersInput
     created_polls?: pollsCreateNestedManyWithoutCreatorInput
@@ -99416,6 +109571,9 @@ export namespace Prisma {
     created_stargazing_spots?: stargazing_spotsUncheckedCreateNestedManyWithoutCreatorInput
     created_sessions?: sessionsUncheckedCreateNestedManyWithoutCreatorInput
     session_enrollments?: session_enrollmentsUncheckedCreateNestedManyWithoutUserInput
+    created_services?: servicesUncheckedCreateNestedManyWithoutCreatorInput
+    service_bookings?: service_bookingsUncheckedCreateNestedManyWithoutUserInput
+    service_reviews?: service_reviewsUncheckedCreateNestedManyWithoutUserInput
     subscriptions?: subscriptionsUncheckedCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsUncheckedCreateNestedOneWithoutUsersInput
     created_polls?: pollsUncheckedCreateNestedManyWithoutCreatorInput
@@ -99482,6 +109640,9 @@ export namespace Prisma {
     created_stargazing_spots?: stargazing_spotsCreateNestedManyWithoutCreatorInput
     created_sessions?: sessionsCreateNestedManyWithoutCreatorInput
     session_enrollments?: session_enrollmentsCreateNestedManyWithoutUserInput
+    created_services?: servicesCreateNestedManyWithoutCreatorInput
+    service_bookings?: service_bookingsCreateNestedManyWithoutUserInput
+    service_reviews?: service_reviewsCreateNestedManyWithoutUserInput
     subscriptions?: subscriptionsCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsCreateNestedOneWithoutUsersInput
     created_polls?: pollsCreateNestedManyWithoutCreatorInput
@@ -99544,6 +109705,9 @@ export namespace Prisma {
     created_stargazing_spots?: stargazing_spotsUncheckedCreateNestedManyWithoutCreatorInput
     created_sessions?: sessionsUncheckedCreateNestedManyWithoutCreatorInput
     session_enrollments?: session_enrollmentsUncheckedCreateNestedManyWithoutUserInput
+    created_services?: servicesUncheckedCreateNestedManyWithoutCreatorInput
+    service_bookings?: service_bookingsUncheckedCreateNestedManyWithoutUserInput
+    service_reviews?: service_reviewsUncheckedCreateNestedManyWithoutUserInput
     subscriptions?: subscriptionsUncheckedCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsUncheckedCreateNestedOneWithoutUsersInput
     created_polls?: pollsUncheckedCreateNestedManyWithoutCreatorInput
@@ -99673,6 +109837,9 @@ export namespace Prisma {
     created_stargazing_spots?: stargazing_spotsUpdateManyWithoutCreatorNestedInput
     created_sessions?: sessionsUpdateManyWithoutCreatorNestedInput
     session_enrollments?: session_enrollmentsUpdateManyWithoutUserNestedInput
+    created_services?: servicesUpdateManyWithoutCreatorNestedInput
+    service_bookings?: service_bookingsUpdateManyWithoutUserNestedInput
+    service_reviews?: service_reviewsUpdateManyWithoutUserNestedInput
     subscriptions?: subscriptionsUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUpdateOneWithoutUsersNestedInput
     created_polls?: pollsUpdateManyWithoutCreatorNestedInput
@@ -99735,6 +109902,9 @@ export namespace Prisma {
     created_stargazing_spots?: stargazing_spotsUncheckedUpdateManyWithoutCreatorNestedInput
     created_sessions?: sessionsUncheckedUpdateManyWithoutCreatorNestedInput
     session_enrollments?: session_enrollmentsUncheckedUpdateManyWithoutUserNestedInput
+    created_services?: servicesUncheckedUpdateManyWithoutCreatorNestedInput
+    service_bookings?: service_bookingsUncheckedUpdateManyWithoutUserNestedInput
+    service_reviews?: service_reviewsUncheckedUpdateManyWithoutUserNestedInput
     subscriptions?: subscriptionsUncheckedUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUncheckedUpdateOneWithoutUsersNestedInput
     created_polls?: pollsUncheckedUpdateManyWithoutCreatorNestedInput
@@ -99807,6 +109977,9 @@ export namespace Prisma {
     created_stargazing_spots?: stargazing_spotsUpdateManyWithoutCreatorNestedInput
     created_sessions?: sessionsUpdateManyWithoutCreatorNestedInput
     session_enrollments?: session_enrollmentsUpdateManyWithoutUserNestedInput
+    created_services?: servicesUpdateManyWithoutCreatorNestedInput
+    service_bookings?: service_bookingsUpdateManyWithoutUserNestedInput
+    service_reviews?: service_reviewsUpdateManyWithoutUserNestedInput
     subscriptions?: subscriptionsUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUpdateOneWithoutUsersNestedInput
     created_polls?: pollsUpdateManyWithoutCreatorNestedInput
@@ -99869,6 +110042,9 @@ export namespace Prisma {
     created_stargazing_spots?: stargazing_spotsUncheckedUpdateManyWithoutCreatorNestedInput
     created_sessions?: sessionsUncheckedUpdateManyWithoutCreatorNestedInput
     session_enrollments?: session_enrollmentsUncheckedUpdateManyWithoutUserNestedInput
+    created_services?: servicesUncheckedUpdateManyWithoutCreatorNestedInput
+    service_bookings?: service_bookingsUncheckedUpdateManyWithoutUserNestedInput
+    service_reviews?: service_reviewsUncheckedUpdateManyWithoutUserNestedInput
     subscriptions?: subscriptionsUncheckedUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUncheckedUpdateOneWithoutUsersNestedInput
     created_polls?: pollsUncheckedUpdateManyWithoutCreatorNestedInput
@@ -99976,6 +110152,9 @@ export namespace Prisma {
     created_stargazing_spots?: stargazing_spotsCreateNestedManyWithoutCreatorInput
     created_sessions?: sessionsCreateNestedManyWithoutCreatorInput
     session_enrollments?: session_enrollmentsCreateNestedManyWithoutUserInput
+    created_services?: servicesCreateNestedManyWithoutCreatorInput
+    service_bookings?: service_bookingsCreateNestedManyWithoutUserInput
+    service_reviews?: service_reviewsCreateNestedManyWithoutUserInput
     subscriptions?: subscriptionsCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsCreateNestedOneWithoutUsersInput
     created_polls?: pollsCreateNestedManyWithoutCreatorInput
@@ -100038,6 +110217,9 @@ export namespace Prisma {
     created_stargazing_spots?: stargazing_spotsUncheckedCreateNestedManyWithoutCreatorInput
     created_sessions?: sessionsUncheckedCreateNestedManyWithoutCreatorInput
     session_enrollments?: session_enrollmentsUncheckedCreateNestedManyWithoutUserInput
+    created_services?: servicesUncheckedCreateNestedManyWithoutCreatorInput
+    service_bookings?: service_bookingsUncheckedCreateNestedManyWithoutUserInput
+    service_reviews?: service_reviewsUncheckedCreateNestedManyWithoutUserInput
     subscriptions?: subscriptionsUncheckedCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsUncheckedCreateNestedOneWithoutUsersInput
     created_polls?: pollsUncheckedCreateNestedManyWithoutCreatorInput
@@ -100167,6 +110349,9 @@ export namespace Prisma {
     created_stargazing_spots?: stargazing_spotsUpdateManyWithoutCreatorNestedInput
     created_sessions?: sessionsUpdateManyWithoutCreatorNestedInput
     session_enrollments?: session_enrollmentsUpdateManyWithoutUserNestedInput
+    created_services?: servicesUpdateManyWithoutCreatorNestedInput
+    service_bookings?: service_bookingsUpdateManyWithoutUserNestedInput
+    service_reviews?: service_reviewsUpdateManyWithoutUserNestedInput
     subscriptions?: subscriptionsUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUpdateOneWithoutUsersNestedInput
     created_polls?: pollsUpdateManyWithoutCreatorNestedInput
@@ -100229,6 +110414,9 @@ export namespace Prisma {
     created_stargazing_spots?: stargazing_spotsUncheckedUpdateManyWithoutCreatorNestedInput
     created_sessions?: sessionsUncheckedUpdateManyWithoutCreatorNestedInput
     session_enrollments?: session_enrollmentsUncheckedUpdateManyWithoutUserNestedInput
+    created_services?: servicesUncheckedUpdateManyWithoutCreatorNestedInput
+    service_bookings?: service_bookingsUncheckedUpdateManyWithoutUserNestedInput
+    service_reviews?: service_reviewsUncheckedUpdateManyWithoutUserNestedInput
     subscriptions?: subscriptionsUncheckedUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUncheckedUpdateOneWithoutUsersNestedInput
     created_polls?: pollsUncheckedUpdateManyWithoutCreatorNestedInput
@@ -100290,6 +110478,9 @@ export namespace Prisma {
     created_stargazing_spots?: stargazing_spotsCreateNestedManyWithoutCreatorInput
     created_sessions?: sessionsCreateNestedManyWithoutCreatorInput
     session_enrollments?: session_enrollmentsCreateNestedManyWithoutUserInput
+    created_services?: servicesCreateNestedManyWithoutCreatorInput
+    service_bookings?: service_bookingsCreateNestedManyWithoutUserInput
+    service_reviews?: service_reviewsCreateNestedManyWithoutUserInput
     subscriptions?: subscriptionsCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsCreateNestedOneWithoutUsersInput
     created_polls?: pollsCreateNestedManyWithoutCreatorInput
@@ -100352,6 +110543,9 @@ export namespace Prisma {
     created_stargazing_spots?: stargazing_spotsUncheckedCreateNestedManyWithoutCreatorInput
     created_sessions?: sessionsUncheckedCreateNestedManyWithoutCreatorInput
     session_enrollments?: session_enrollmentsUncheckedCreateNestedManyWithoutUserInput
+    created_services?: servicesUncheckedCreateNestedManyWithoutCreatorInput
+    service_bookings?: service_bookingsUncheckedCreateNestedManyWithoutUserInput
+    service_reviews?: service_reviewsUncheckedCreateNestedManyWithoutUserInput
     subscriptions?: subscriptionsUncheckedCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsUncheckedCreateNestedOneWithoutUsersInput
     created_polls?: pollsUncheckedCreateNestedManyWithoutCreatorInput
@@ -100429,6 +110623,9 @@ export namespace Prisma {
     created_stargazing_spots?: stargazing_spotsUpdateManyWithoutCreatorNestedInput
     created_sessions?: sessionsUpdateManyWithoutCreatorNestedInput
     session_enrollments?: session_enrollmentsUpdateManyWithoutUserNestedInput
+    created_services?: servicesUpdateManyWithoutCreatorNestedInput
+    service_bookings?: service_bookingsUpdateManyWithoutUserNestedInput
+    service_reviews?: service_reviewsUpdateManyWithoutUserNestedInput
     subscriptions?: subscriptionsUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUpdateOneWithoutUsersNestedInput
     created_polls?: pollsUpdateManyWithoutCreatorNestedInput
@@ -100491,6 +110688,9 @@ export namespace Prisma {
     created_stargazing_spots?: stargazing_spotsUncheckedUpdateManyWithoutCreatorNestedInput
     created_sessions?: sessionsUncheckedUpdateManyWithoutCreatorNestedInput
     session_enrollments?: session_enrollmentsUncheckedUpdateManyWithoutUserNestedInput
+    created_services?: servicesUncheckedUpdateManyWithoutCreatorNestedInput
+    service_bookings?: service_bookingsUncheckedUpdateManyWithoutUserNestedInput
+    service_reviews?: service_reviewsUncheckedUpdateManyWithoutUserNestedInput
     subscriptions?: subscriptionsUncheckedUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUncheckedUpdateOneWithoutUsersNestedInput
     created_polls?: pollsUncheckedUpdateManyWithoutCreatorNestedInput
@@ -100552,6 +110752,9 @@ export namespace Prisma {
     created_stargazing_spots?: stargazing_spotsCreateNestedManyWithoutCreatorInput
     created_sessions?: sessionsCreateNestedManyWithoutCreatorInput
     session_enrollments?: session_enrollmentsCreateNestedManyWithoutUserInput
+    created_services?: servicesCreateNestedManyWithoutCreatorInput
+    service_bookings?: service_bookingsCreateNestedManyWithoutUserInput
+    service_reviews?: service_reviewsCreateNestedManyWithoutUserInput
     subscriptions?: subscriptionsCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsCreateNestedOneWithoutUsersInput
     created_polls?: pollsCreateNestedManyWithoutCreatorInput
@@ -100614,6 +110817,9 @@ export namespace Prisma {
     created_stargazing_spots?: stargazing_spotsUncheckedCreateNestedManyWithoutCreatorInput
     created_sessions?: sessionsUncheckedCreateNestedManyWithoutCreatorInput
     session_enrollments?: session_enrollmentsUncheckedCreateNestedManyWithoutUserInput
+    created_services?: servicesUncheckedCreateNestedManyWithoutCreatorInput
+    service_bookings?: service_bookingsUncheckedCreateNestedManyWithoutUserInput
+    service_reviews?: service_reviewsUncheckedCreateNestedManyWithoutUserInput
     subscriptions?: subscriptionsUncheckedCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsUncheckedCreateNestedOneWithoutUsersInput
     created_polls?: pollsUncheckedCreateNestedManyWithoutCreatorInput
@@ -100691,6 +110897,9 @@ export namespace Prisma {
     created_stargazing_spots?: stargazing_spotsUpdateManyWithoutCreatorNestedInput
     created_sessions?: sessionsUpdateManyWithoutCreatorNestedInput
     session_enrollments?: session_enrollmentsUpdateManyWithoutUserNestedInput
+    created_services?: servicesUpdateManyWithoutCreatorNestedInput
+    service_bookings?: service_bookingsUpdateManyWithoutUserNestedInput
+    service_reviews?: service_reviewsUpdateManyWithoutUserNestedInput
     subscriptions?: subscriptionsUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUpdateOneWithoutUsersNestedInput
     created_polls?: pollsUpdateManyWithoutCreatorNestedInput
@@ -100753,6 +110962,9 @@ export namespace Prisma {
     created_stargazing_spots?: stargazing_spotsUncheckedUpdateManyWithoutCreatorNestedInput
     created_sessions?: sessionsUncheckedUpdateManyWithoutCreatorNestedInput
     session_enrollments?: session_enrollmentsUncheckedUpdateManyWithoutUserNestedInput
+    created_services?: servicesUncheckedUpdateManyWithoutCreatorNestedInput
+    service_bookings?: service_bookingsUncheckedUpdateManyWithoutUserNestedInput
+    service_reviews?: service_reviewsUncheckedUpdateManyWithoutUserNestedInput
     subscriptions?: subscriptionsUncheckedUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUncheckedUpdateOneWithoutUsersNestedInput
     created_polls?: pollsUncheckedUpdateManyWithoutCreatorNestedInput
@@ -100852,6 +111064,9 @@ export namespace Prisma {
     created_stargazing_spots?: stargazing_spotsCreateNestedManyWithoutCreatorInput
     created_sessions?: sessionsCreateNestedManyWithoutCreatorInput
     session_enrollments?: session_enrollmentsCreateNestedManyWithoutUserInput
+    created_services?: servicesCreateNestedManyWithoutCreatorInput
+    service_bookings?: service_bookingsCreateNestedManyWithoutUserInput
+    service_reviews?: service_reviewsCreateNestedManyWithoutUserInput
     subscriptions?: subscriptionsCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsCreateNestedOneWithoutUsersInput
     created_polls?: pollsCreateNestedManyWithoutCreatorInput
@@ -100914,6 +111129,9 @@ export namespace Prisma {
     created_stargazing_spots?: stargazing_spotsUncheckedCreateNestedManyWithoutCreatorInput
     created_sessions?: sessionsUncheckedCreateNestedManyWithoutCreatorInput
     session_enrollments?: session_enrollmentsUncheckedCreateNestedManyWithoutUserInput
+    created_services?: servicesUncheckedCreateNestedManyWithoutCreatorInput
+    service_bookings?: service_bookingsUncheckedCreateNestedManyWithoutUserInput
+    service_reviews?: service_reviewsUncheckedCreateNestedManyWithoutUserInput
     subscriptions?: subscriptionsUncheckedCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsUncheckedCreateNestedOneWithoutUsersInput
     created_polls?: pollsUncheckedCreateNestedManyWithoutCreatorInput
@@ -101035,6 +111253,9 @@ export namespace Prisma {
     created_stargazing_spots?: stargazing_spotsUpdateManyWithoutCreatorNestedInput
     created_sessions?: sessionsUpdateManyWithoutCreatorNestedInput
     session_enrollments?: session_enrollmentsUpdateManyWithoutUserNestedInput
+    created_services?: servicesUpdateManyWithoutCreatorNestedInput
+    service_bookings?: service_bookingsUpdateManyWithoutUserNestedInput
+    service_reviews?: service_reviewsUpdateManyWithoutUserNestedInput
     subscriptions?: subscriptionsUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUpdateOneWithoutUsersNestedInput
     created_polls?: pollsUpdateManyWithoutCreatorNestedInput
@@ -101097,6 +111318,9 @@ export namespace Prisma {
     created_stargazing_spots?: stargazing_spotsUncheckedUpdateManyWithoutCreatorNestedInput
     created_sessions?: sessionsUncheckedUpdateManyWithoutCreatorNestedInput
     session_enrollments?: session_enrollmentsUncheckedUpdateManyWithoutUserNestedInput
+    created_services?: servicesUncheckedUpdateManyWithoutCreatorNestedInput
+    service_bookings?: service_bookingsUncheckedUpdateManyWithoutUserNestedInput
+    service_reviews?: service_reviewsUncheckedUpdateManyWithoutUserNestedInput
     subscriptions?: subscriptionsUncheckedUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUncheckedUpdateOneWithoutUsersNestedInput
     created_polls?: pollsUncheckedUpdateManyWithoutCreatorNestedInput
@@ -101288,6 +111512,9 @@ export namespace Prisma {
     created_stargazing_spots?: stargazing_spotsCreateNestedManyWithoutCreatorInput
     created_sessions?: sessionsCreateNestedManyWithoutCreatorInput
     session_enrollments?: session_enrollmentsCreateNestedManyWithoutUserInput
+    created_services?: servicesCreateNestedManyWithoutCreatorInput
+    service_bookings?: service_bookingsCreateNestedManyWithoutUserInput
+    service_reviews?: service_reviewsCreateNestedManyWithoutUserInput
     subscriptions?: subscriptionsCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsCreateNestedOneWithoutUsersInput
     created_polls?: pollsCreateNestedManyWithoutCreatorInput
@@ -101350,6 +111577,9 @@ export namespace Prisma {
     created_stargazing_spots?: stargazing_spotsUncheckedCreateNestedManyWithoutCreatorInput
     created_sessions?: sessionsUncheckedCreateNestedManyWithoutCreatorInput
     session_enrollments?: session_enrollmentsUncheckedCreateNestedManyWithoutUserInput
+    created_services?: servicesUncheckedCreateNestedManyWithoutCreatorInput
+    service_bookings?: service_bookingsUncheckedCreateNestedManyWithoutUserInput
+    service_reviews?: service_reviewsUncheckedCreateNestedManyWithoutUserInput
     subscriptions?: subscriptionsUncheckedCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsUncheckedCreateNestedOneWithoutUsersInput
     created_polls?: pollsUncheckedCreateNestedManyWithoutCreatorInput
@@ -101471,6 +111701,9 @@ export namespace Prisma {
     created_stargazing_spots?: stargazing_spotsUpdateManyWithoutCreatorNestedInput
     created_sessions?: sessionsUpdateManyWithoutCreatorNestedInput
     session_enrollments?: session_enrollmentsUpdateManyWithoutUserNestedInput
+    created_services?: servicesUpdateManyWithoutCreatorNestedInput
+    service_bookings?: service_bookingsUpdateManyWithoutUserNestedInput
+    service_reviews?: service_reviewsUpdateManyWithoutUserNestedInput
     subscriptions?: subscriptionsUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUpdateOneWithoutUsersNestedInput
     created_polls?: pollsUpdateManyWithoutCreatorNestedInput
@@ -101533,6 +111766,9 @@ export namespace Prisma {
     created_stargazing_spots?: stargazing_spotsUncheckedUpdateManyWithoutCreatorNestedInput
     created_sessions?: sessionsUncheckedUpdateManyWithoutCreatorNestedInput
     session_enrollments?: session_enrollmentsUncheckedUpdateManyWithoutUserNestedInput
+    created_services?: servicesUncheckedUpdateManyWithoutCreatorNestedInput
+    service_bookings?: service_bookingsUncheckedUpdateManyWithoutUserNestedInput
+    service_reviews?: service_reviewsUncheckedUpdateManyWithoutUserNestedInput
     subscriptions?: subscriptionsUncheckedUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUncheckedUpdateOneWithoutUsersNestedInput
     created_polls?: pollsUncheckedUpdateManyWithoutCreatorNestedInput
@@ -101594,6 +111830,9 @@ export namespace Prisma {
     created_stargazing_spots?: stargazing_spotsCreateNestedManyWithoutCreatorInput
     created_sessions?: sessionsCreateNestedManyWithoutCreatorInput
     session_enrollments?: session_enrollmentsCreateNestedManyWithoutUserInput
+    created_services?: servicesCreateNestedManyWithoutCreatorInput
+    service_bookings?: service_bookingsCreateNestedManyWithoutUserInput
+    service_reviews?: service_reviewsCreateNestedManyWithoutUserInput
     subscriptions?: subscriptionsCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsCreateNestedOneWithoutUsersInput
     created_polls?: pollsCreateNestedManyWithoutCreatorInput
@@ -101656,6 +111895,9 @@ export namespace Prisma {
     created_stargazing_spots?: stargazing_spotsUncheckedCreateNestedManyWithoutCreatorInput
     created_sessions?: sessionsUncheckedCreateNestedManyWithoutCreatorInput
     session_enrollments?: session_enrollmentsUncheckedCreateNestedManyWithoutUserInput
+    created_services?: servicesUncheckedCreateNestedManyWithoutCreatorInput
+    service_bookings?: service_bookingsUncheckedCreateNestedManyWithoutUserInput
+    service_reviews?: service_reviewsUncheckedCreateNestedManyWithoutUserInput
     subscriptions?: subscriptionsUncheckedCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsUncheckedCreateNestedOneWithoutUsersInput
     created_polls?: pollsUncheckedCreateNestedManyWithoutCreatorInput
@@ -101785,6 +112027,9 @@ export namespace Prisma {
     created_stargazing_spots?: stargazing_spotsUpdateManyWithoutCreatorNestedInput
     created_sessions?: sessionsUpdateManyWithoutCreatorNestedInput
     session_enrollments?: session_enrollmentsUpdateManyWithoutUserNestedInput
+    created_services?: servicesUpdateManyWithoutCreatorNestedInput
+    service_bookings?: service_bookingsUpdateManyWithoutUserNestedInput
+    service_reviews?: service_reviewsUpdateManyWithoutUserNestedInput
     subscriptions?: subscriptionsUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUpdateOneWithoutUsersNestedInput
     created_polls?: pollsUpdateManyWithoutCreatorNestedInput
@@ -101847,6 +112092,9 @@ export namespace Prisma {
     created_stargazing_spots?: stargazing_spotsUncheckedUpdateManyWithoutCreatorNestedInput
     created_sessions?: sessionsUncheckedUpdateManyWithoutCreatorNestedInput
     session_enrollments?: session_enrollmentsUncheckedUpdateManyWithoutUserNestedInput
+    created_services?: servicesUncheckedUpdateManyWithoutCreatorNestedInput
+    service_bookings?: service_bookingsUncheckedUpdateManyWithoutUserNestedInput
+    service_reviews?: service_reviewsUncheckedUpdateManyWithoutUserNestedInput
     subscriptions?: subscriptionsUncheckedUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUncheckedUpdateOneWithoutUsersNestedInput
     created_polls?: pollsUncheckedUpdateManyWithoutCreatorNestedInput
@@ -101974,6 +112222,9 @@ export namespace Prisma {
     created_stargazing_spots?: stargazing_spotsCreateNestedManyWithoutCreatorInput
     created_sessions?: sessionsCreateNestedManyWithoutCreatorInput
     session_enrollments?: session_enrollmentsCreateNestedManyWithoutUserInput
+    created_services?: servicesCreateNestedManyWithoutCreatorInput
+    service_bookings?: service_bookingsCreateNestedManyWithoutUserInput
+    service_reviews?: service_reviewsCreateNestedManyWithoutUserInput
     subscriptions?: subscriptionsCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsCreateNestedOneWithoutUsersInput
     created_polls?: pollsCreateNestedManyWithoutCreatorInput
@@ -102036,6 +112287,9 @@ export namespace Prisma {
     created_stargazing_spots?: stargazing_spotsUncheckedCreateNestedManyWithoutCreatorInput
     created_sessions?: sessionsUncheckedCreateNestedManyWithoutCreatorInput
     session_enrollments?: session_enrollmentsUncheckedCreateNestedManyWithoutUserInput
+    created_services?: servicesUncheckedCreateNestedManyWithoutCreatorInput
+    service_bookings?: service_bookingsUncheckedCreateNestedManyWithoutUserInput
+    service_reviews?: service_reviewsUncheckedCreateNestedManyWithoutUserInput
     subscriptions?: subscriptionsUncheckedCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsUncheckedCreateNestedOneWithoutUsersInput
     created_polls?: pollsUncheckedCreateNestedManyWithoutCreatorInput
@@ -102153,6 +112407,9 @@ export namespace Prisma {
     created_stargazing_spots?: stargazing_spotsUpdateManyWithoutCreatorNestedInput
     created_sessions?: sessionsUpdateManyWithoutCreatorNestedInput
     session_enrollments?: session_enrollmentsUpdateManyWithoutUserNestedInput
+    created_services?: servicesUpdateManyWithoutCreatorNestedInput
+    service_bookings?: service_bookingsUpdateManyWithoutUserNestedInput
+    service_reviews?: service_reviewsUpdateManyWithoutUserNestedInput
     subscriptions?: subscriptionsUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUpdateOneWithoutUsersNestedInput
     created_polls?: pollsUpdateManyWithoutCreatorNestedInput
@@ -102215,6 +112472,9 @@ export namespace Prisma {
     created_stargazing_spots?: stargazing_spotsUncheckedUpdateManyWithoutCreatorNestedInput
     created_sessions?: sessionsUncheckedUpdateManyWithoutCreatorNestedInput
     session_enrollments?: session_enrollmentsUncheckedUpdateManyWithoutUserNestedInput
+    created_services?: servicesUncheckedUpdateManyWithoutCreatorNestedInput
+    service_bookings?: service_bookingsUncheckedUpdateManyWithoutUserNestedInput
+    service_reviews?: service_reviewsUncheckedUpdateManyWithoutUserNestedInput
     subscriptions?: subscriptionsUncheckedUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUncheckedUpdateOneWithoutUsersNestedInput
     created_polls?: pollsUncheckedUpdateManyWithoutCreatorNestedInput
@@ -102367,6 +112627,9 @@ export namespace Prisma {
     created_stargazing_spots?: stargazing_spotsCreateNestedManyWithoutCreatorInput
     created_sessions?: sessionsCreateNestedManyWithoutCreatorInput
     session_enrollments?: session_enrollmentsCreateNestedManyWithoutUserInput
+    created_services?: servicesCreateNestedManyWithoutCreatorInput
+    service_bookings?: service_bookingsCreateNestedManyWithoutUserInput
+    service_reviews?: service_reviewsCreateNestedManyWithoutUserInput
     subscriptions?: subscriptionsCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsCreateNestedOneWithoutUsersInput
     created_polls?: pollsCreateNestedManyWithoutCreatorInput
@@ -102429,6 +112692,9 @@ export namespace Prisma {
     created_stargazing_spots?: stargazing_spotsUncheckedCreateNestedManyWithoutCreatorInput
     created_sessions?: sessionsUncheckedCreateNestedManyWithoutCreatorInput
     session_enrollments?: session_enrollmentsUncheckedCreateNestedManyWithoutUserInput
+    created_services?: servicesUncheckedCreateNestedManyWithoutCreatorInput
+    service_bookings?: service_bookingsUncheckedCreateNestedManyWithoutUserInput
+    service_reviews?: service_reviewsUncheckedCreateNestedManyWithoutUserInput
     subscriptions?: subscriptionsUncheckedCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsUncheckedCreateNestedOneWithoutUsersInput
     created_polls?: pollsUncheckedCreateNestedManyWithoutCreatorInput
@@ -102594,6 +112860,9 @@ export namespace Prisma {
     created_stargazing_spots?: stargazing_spotsUpdateManyWithoutCreatorNestedInput
     created_sessions?: sessionsUpdateManyWithoutCreatorNestedInput
     session_enrollments?: session_enrollmentsUpdateManyWithoutUserNestedInput
+    created_services?: servicesUpdateManyWithoutCreatorNestedInput
+    service_bookings?: service_bookingsUpdateManyWithoutUserNestedInput
+    service_reviews?: service_reviewsUpdateManyWithoutUserNestedInput
     subscriptions?: subscriptionsUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUpdateOneWithoutUsersNestedInput
     created_polls?: pollsUpdateManyWithoutCreatorNestedInput
@@ -102656,6 +112925,9 @@ export namespace Prisma {
     created_stargazing_spots?: stargazing_spotsUncheckedUpdateManyWithoutCreatorNestedInput
     created_sessions?: sessionsUncheckedUpdateManyWithoutCreatorNestedInput
     session_enrollments?: session_enrollmentsUncheckedUpdateManyWithoutUserNestedInput
+    created_services?: servicesUncheckedUpdateManyWithoutCreatorNestedInput
+    service_bookings?: service_bookingsUncheckedUpdateManyWithoutUserNestedInput
+    service_reviews?: service_reviewsUncheckedUpdateManyWithoutUserNestedInput
     subscriptions?: subscriptionsUncheckedUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUncheckedUpdateOneWithoutUsersNestedInput
     created_polls?: pollsUncheckedUpdateManyWithoutCreatorNestedInput
@@ -102771,6 +113043,9 @@ export namespace Prisma {
     created_stargazing_spots?: stargazing_spotsCreateNestedManyWithoutCreatorInput
     created_sessions?: sessionsCreateNestedManyWithoutCreatorInput
     session_enrollments?: session_enrollmentsCreateNestedManyWithoutUserInput
+    created_services?: servicesCreateNestedManyWithoutCreatorInput
+    service_bookings?: service_bookingsCreateNestedManyWithoutUserInput
+    service_reviews?: service_reviewsCreateNestedManyWithoutUserInput
     subscriptions?: subscriptionsCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsCreateNestedOneWithoutUsersInput
     created_polls?: pollsCreateNestedManyWithoutCreatorInput
@@ -102833,6 +113108,9 @@ export namespace Prisma {
     created_stargazing_spots?: stargazing_spotsUncheckedCreateNestedManyWithoutCreatorInput
     created_sessions?: sessionsUncheckedCreateNestedManyWithoutCreatorInput
     session_enrollments?: session_enrollmentsUncheckedCreateNestedManyWithoutUserInput
+    created_services?: servicesUncheckedCreateNestedManyWithoutCreatorInput
+    service_bookings?: service_bookingsUncheckedCreateNestedManyWithoutUserInput
+    service_reviews?: service_reviewsUncheckedCreateNestedManyWithoutUserInput
     subscriptions?: subscriptionsUncheckedCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsUncheckedCreateNestedOneWithoutUsersInput
     created_polls?: pollsUncheckedCreateNestedManyWithoutCreatorInput
@@ -102942,6 +113220,9 @@ export namespace Prisma {
     created_stargazing_spots?: stargazing_spotsUpdateManyWithoutCreatorNestedInput
     created_sessions?: sessionsUpdateManyWithoutCreatorNestedInput
     session_enrollments?: session_enrollmentsUpdateManyWithoutUserNestedInput
+    created_services?: servicesUpdateManyWithoutCreatorNestedInput
+    service_bookings?: service_bookingsUpdateManyWithoutUserNestedInput
+    service_reviews?: service_reviewsUpdateManyWithoutUserNestedInput
     subscriptions?: subscriptionsUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUpdateOneWithoutUsersNestedInput
     created_polls?: pollsUpdateManyWithoutCreatorNestedInput
@@ -103004,6 +113285,9 @@ export namespace Prisma {
     created_stargazing_spots?: stargazing_spotsUncheckedUpdateManyWithoutCreatorNestedInput
     created_sessions?: sessionsUncheckedUpdateManyWithoutCreatorNestedInput
     session_enrollments?: session_enrollmentsUncheckedUpdateManyWithoutUserNestedInput
+    created_services?: servicesUncheckedUpdateManyWithoutCreatorNestedInput
+    service_bookings?: service_bookingsUncheckedUpdateManyWithoutUserNestedInput
+    service_reviews?: service_reviewsUncheckedUpdateManyWithoutUserNestedInput
     subscriptions?: subscriptionsUncheckedUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUncheckedUpdateOneWithoutUsersNestedInput
     created_polls?: pollsUncheckedUpdateManyWithoutCreatorNestedInput
@@ -103183,6 +113467,9 @@ export namespace Prisma {
     created_stargazing_spots?: stargazing_spotsCreateNestedManyWithoutCreatorInput
     created_sessions?: sessionsCreateNestedManyWithoutCreatorInput
     session_enrollments?: session_enrollmentsCreateNestedManyWithoutUserInput
+    created_services?: servicesCreateNestedManyWithoutCreatorInput
+    service_bookings?: service_bookingsCreateNestedManyWithoutUserInput
+    service_reviews?: service_reviewsCreateNestedManyWithoutUserInput
     subscriptions?: subscriptionsCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsCreateNestedOneWithoutUsersInput
     created_polls?: pollsCreateNestedManyWithoutCreatorInput
@@ -103245,6 +113532,9 @@ export namespace Prisma {
     created_stargazing_spots?: stargazing_spotsUncheckedCreateNestedManyWithoutCreatorInput
     created_sessions?: sessionsUncheckedCreateNestedManyWithoutCreatorInput
     session_enrollments?: session_enrollmentsUncheckedCreateNestedManyWithoutUserInput
+    created_services?: servicesUncheckedCreateNestedManyWithoutCreatorInput
+    service_bookings?: service_bookingsUncheckedCreateNestedManyWithoutUserInput
+    service_reviews?: service_reviewsUncheckedCreateNestedManyWithoutUserInput
     subscriptions?: subscriptionsUncheckedCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsUncheckedCreateNestedOneWithoutUsersInput
     created_polls?: pollsUncheckedCreateNestedManyWithoutCreatorInput
@@ -103430,6 +113720,9 @@ export namespace Prisma {
     created_stargazing_spots?: stargazing_spotsUpdateManyWithoutCreatorNestedInput
     created_sessions?: sessionsUpdateManyWithoutCreatorNestedInput
     session_enrollments?: session_enrollmentsUpdateManyWithoutUserNestedInput
+    created_services?: servicesUpdateManyWithoutCreatorNestedInput
+    service_bookings?: service_bookingsUpdateManyWithoutUserNestedInput
+    service_reviews?: service_reviewsUpdateManyWithoutUserNestedInput
     subscriptions?: subscriptionsUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUpdateOneWithoutUsersNestedInput
     created_polls?: pollsUpdateManyWithoutCreatorNestedInput
@@ -103492,6 +113785,9 @@ export namespace Prisma {
     created_stargazing_spots?: stargazing_spotsUncheckedUpdateManyWithoutCreatorNestedInput
     created_sessions?: sessionsUncheckedUpdateManyWithoutCreatorNestedInput
     session_enrollments?: session_enrollmentsUncheckedUpdateManyWithoutUserNestedInput
+    created_services?: servicesUncheckedUpdateManyWithoutCreatorNestedInput
+    service_bookings?: service_bookingsUncheckedUpdateManyWithoutUserNestedInput
+    service_reviews?: service_reviewsUncheckedUpdateManyWithoutUserNestedInput
     subscriptions?: subscriptionsUncheckedUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUncheckedUpdateOneWithoutUsersNestedInput
     created_polls?: pollsUncheckedUpdateManyWithoutCreatorNestedInput
@@ -103589,6 +113885,9 @@ export namespace Prisma {
     created_stargazing_spots?: stargazing_spotsCreateNestedManyWithoutCreatorInput
     created_sessions?: sessionsCreateNestedManyWithoutCreatorInput
     session_enrollments?: session_enrollmentsCreateNestedManyWithoutUserInput
+    created_services?: servicesCreateNestedManyWithoutCreatorInput
+    service_bookings?: service_bookingsCreateNestedManyWithoutUserInput
+    service_reviews?: service_reviewsCreateNestedManyWithoutUserInput
     subscriptions?: subscriptionsCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsCreateNestedOneWithoutUsersInput
     created_polls?: pollsCreateNestedManyWithoutCreatorInput
@@ -103651,6 +113950,9 @@ export namespace Prisma {
     created_stargazing_spots?: stargazing_spotsUncheckedCreateNestedManyWithoutCreatorInput
     created_sessions?: sessionsUncheckedCreateNestedManyWithoutCreatorInput
     session_enrollments?: session_enrollmentsUncheckedCreateNestedManyWithoutUserInput
+    created_services?: servicesUncheckedCreateNestedManyWithoutCreatorInput
+    service_bookings?: service_bookingsUncheckedCreateNestedManyWithoutUserInput
+    service_reviews?: service_reviewsUncheckedCreateNestedManyWithoutUserInput
     subscriptions?: subscriptionsUncheckedCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsUncheckedCreateNestedOneWithoutUsersInput
     created_polls?: pollsUncheckedCreateNestedManyWithoutCreatorInput
@@ -103770,6 +114072,9 @@ export namespace Prisma {
     created_stargazing_spots?: stargazing_spotsUpdateManyWithoutCreatorNestedInput
     created_sessions?: sessionsUpdateManyWithoutCreatorNestedInput
     session_enrollments?: session_enrollmentsUpdateManyWithoutUserNestedInput
+    created_services?: servicesUpdateManyWithoutCreatorNestedInput
+    service_bookings?: service_bookingsUpdateManyWithoutUserNestedInput
+    service_reviews?: service_reviewsUpdateManyWithoutUserNestedInput
     subscriptions?: subscriptionsUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUpdateOneWithoutUsersNestedInput
     created_polls?: pollsUpdateManyWithoutCreatorNestedInput
@@ -103832,6 +114137,9 @@ export namespace Prisma {
     created_stargazing_spots?: stargazing_spotsUncheckedUpdateManyWithoutCreatorNestedInput
     created_sessions?: sessionsUncheckedUpdateManyWithoutCreatorNestedInput
     session_enrollments?: session_enrollmentsUncheckedUpdateManyWithoutUserNestedInput
+    created_services?: servicesUncheckedUpdateManyWithoutCreatorNestedInput
+    service_bookings?: service_bookingsUncheckedUpdateManyWithoutUserNestedInput
+    service_reviews?: service_reviewsUncheckedUpdateManyWithoutUserNestedInput
     subscriptions?: subscriptionsUncheckedUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUncheckedUpdateOneWithoutUsersNestedInput
     created_polls?: pollsUncheckedUpdateManyWithoutCreatorNestedInput
@@ -103921,6 +114229,9 @@ export namespace Prisma {
     created_stargazing_spots?: stargazing_spotsCreateNestedManyWithoutCreatorInput
     created_sessions?: sessionsCreateNestedManyWithoutCreatorInput
     session_enrollments?: session_enrollmentsCreateNestedManyWithoutUserInput
+    created_services?: servicesCreateNestedManyWithoutCreatorInput
+    service_bookings?: service_bookingsCreateNestedManyWithoutUserInput
+    service_reviews?: service_reviewsCreateNestedManyWithoutUserInput
     subscriptions?: subscriptionsCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsCreateNestedOneWithoutUsersInput
     created_polls?: pollsCreateNestedManyWithoutCreatorInput
@@ -103983,6 +114294,9 @@ export namespace Prisma {
     created_stargazing_spots?: stargazing_spotsUncheckedCreateNestedManyWithoutCreatorInput
     created_sessions?: sessionsUncheckedCreateNestedManyWithoutCreatorInput
     session_enrollments?: session_enrollmentsUncheckedCreateNestedManyWithoutUserInput
+    created_services?: servicesUncheckedCreateNestedManyWithoutCreatorInput
+    service_bookings?: service_bookingsUncheckedCreateNestedManyWithoutUserInput
+    service_reviews?: service_reviewsUncheckedCreateNestedManyWithoutUserInput
     subscriptions?: subscriptionsUncheckedCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsUncheckedCreateNestedOneWithoutUsersInput
     created_polls?: pollsUncheckedCreateNestedManyWithoutCreatorInput
@@ -104094,6 +114408,9 @@ export namespace Prisma {
     created_stargazing_spots?: stargazing_spotsUpdateManyWithoutCreatorNestedInput
     created_sessions?: sessionsUpdateManyWithoutCreatorNestedInput
     session_enrollments?: session_enrollmentsUpdateManyWithoutUserNestedInput
+    created_services?: servicesUpdateManyWithoutCreatorNestedInput
+    service_bookings?: service_bookingsUpdateManyWithoutUserNestedInput
+    service_reviews?: service_reviewsUpdateManyWithoutUserNestedInput
     subscriptions?: subscriptionsUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUpdateOneWithoutUsersNestedInput
     created_polls?: pollsUpdateManyWithoutCreatorNestedInput
@@ -104156,6 +114473,9 @@ export namespace Prisma {
     created_stargazing_spots?: stargazing_spotsUncheckedUpdateManyWithoutCreatorNestedInput
     created_sessions?: sessionsUncheckedUpdateManyWithoutCreatorNestedInput
     session_enrollments?: session_enrollmentsUncheckedUpdateManyWithoutUserNestedInput
+    created_services?: servicesUncheckedUpdateManyWithoutCreatorNestedInput
+    service_bookings?: service_bookingsUncheckedUpdateManyWithoutUserNestedInput
+    service_reviews?: service_reviewsUncheckedUpdateManyWithoutUserNestedInput
     subscriptions?: subscriptionsUncheckedUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUncheckedUpdateOneWithoutUsersNestedInput
     created_polls?: pollsUncheckedUpdateManyWithoutCreatorNestedInput
@@ -104217,6 +114537,9 @@ export namespace Prisma {
     created_stargazing_spots?: stargazing_spotsCreateNestedManyWithoutCreatorInput
     created_sessions?: sessionsCreateNestedManyWithoutCreatorInput
     session_enrollments?: session_enrollmentsCreateNestedManyWithoutUserInput
+    created_services?: servicesCreateNestedManyWithoutCreatorInput
+    service_bookings?: service_bookingsCreateNestedManyWithoutUserInput
+    service_reviews?: service_reviewsCreateNestedManyWithoutUserInput
     subscriptions?: subscriptionsCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsCreateNestedOneWithoutUsersInput
     created_polls?: pollsCreateNestedManyWithoutCreatorInput
@@ -104279,6 +114602,9 @@ export namespace Prisma {
     created_stargazing_spots?: stargazing_spotsUncheckedCreateNestedManyWithoutCreatorInput
     created_sessions?: sessionsUncheckedCreateNestedManyWithoutCreatorInput
     session_enrollments?: session_enrollmentsUncheckedCreateNestedManyWithoutUserInput
+    created_services?: servicesUncheckedCreateNestedManyWithoutCreatorInput
+    service_bookings?: service_bookingsUncheckedCreateNestedManyWithoutUserInput
+    service_reviews?: service_reviewsUncheckedCreateNestedManyWithoutUserInput
     subscriptions?: subscriptionsUncheckedCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsUncheckedCreateNestedOneWithoutUsersInput
     created_polls?: pollsUncheckedCreateNestedManyWithoutCreatorInput
@@ -104385,6 +114711,9 @@ export namespace Prisma {
     created_stargazing_spots?: stargazing_spotsUpdateManyWithoutCreatorNestedInput
     created_sessions?: sessionsUpdateManyWithoutCreatorNestedInput
     session_enrollments?: session_enrollmentsUpdateManyWithoutUserNestedInput
+    created_services?: servicesUpdateManyWithoutCreatorNestedInput
+    service_bookings?: service_bookingsUpdateManyWithoutUserNestedInput
+    service_reviews?: service_reviewsUpdateManyWithoutUserNestedInput
     subscriptions?: subscriptionsUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUpdateOneWithoutUsersNestedInput
     created_polls?: pollsUpdateManyWithoutCreatorNestedInput
@@ -104447,6 +114776,9 @@ export namespace Prisma {
     created_stargazing_spots?: stargazing_spotsUncheckedUpdateManyWithoutCreatorNestedInput
     created_sessions?: sessionsUncheckedUpdateManyWithoutCreatorNestedInput
     session_enrollments?: session_enrollmentsUncheckedUpdateManyWithoutUserNestedInput
+    created_services?: servicesUncheckedUpdateManyWithoutCreatorNestedInput
+    service_bookings?: service_bookingsUncheckedUpdateManyWithoutUserNestedInput
+    service_reviews?: service_reviewsUncheckedUpdateManyWithoutUserNestedInput
     subscriptions?: subscriptionsUncheckedUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUncheckedUpdateOneWithoutUsersNestedInput
     created_polls?: pollsUncheckedUpdateManyWithoutCreatorNestedInput
@@ -104562,6 +114894,9 @@ export namespace Prisma {
     created_stargazing_spots?: stargazing_spotsCreateNestedManyWithoutCreatorInput
     created_sessions?: sessionsCreateNestedManyWithoutCreatorInput
     session_enrollments?: session_enrollmentsCreateNestedManyWithoutUserInput
+    created_services?: servicesCreateNestedManyWithoutCreatorInput
+    service_bookings?: service_bookingsCreateNestedManyWithoutUserInput
+    service_reviews?: service_reviewsCreateNestedManyWithoutUserInput
     subscriptions?: subscriptionsCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsCreateNestedOneWithoutUsersInput
     created_polls?: pollsCreateNestedManyWithoutCreatorInput
@@ -104624,6 +114959,9 @@ export namespace Prisma {
     created_stargazing_spots?: stargazing_spotsUncheckedCreateNestedManyWithoutCreatorInput
     created_sessions?: sessionsUncheckedCreateNestedManyWithoutCreatorInput
     session_enrollments?: session_enrollmentsUncheckedCreateNestedManyWithoutUserInput
+    created_services?: servicesUncheckedCreateNestedManyWithoutCreatorInput
+    service_bookings?: service_bookingsUncheckedCreateNestedManyWithoutUserInput
+    service_reviews?: service_reviewsUncheckedCreateNestedManyWithoutUserInput
     subscriptions?: subscriptionsUncheckedCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsUncheckedCreateNestedOneWithoutUsersInput
     created_polls?: pollsUncheckedCreateNestedManyWithoutCreatorInput
@@ -104745,6 +115083,9 @@ export namespace Prisma {
     created_stargazing_spots?: stargazing_spotsUpdateManyWithoutCreatorNestedInput
     created_sessions?: sessionsUpdateManyWithoutCreatorNestedInput
     session_enrollments?: session_enrollmentsUpdateManyWithoutUserNestedInput
+    created_services?: servicesUpdateManyWithoutCreatorNestedInput
+    service_bookings?: service_bookingsUpdateManyWithoutUserNestedInput
+    service_reviews?: service_reviewsUpdateManyWithoutUserNestedInput
     subscriptions?: subscriptionsUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUpdateOneWithoutUsersNestedInput
     created_polls?: pollsUpdateManyWithoutCreatorNestedInput
@@ -104807,6 +115148,9 @@ export namespace Prisma {
     created_stargazing_spots?: stargazing_spotsUncheckedUpdateManyWithoutCreatorNestedInput
     created_sessions?: sessionsUncheckedUpdateManyWithoutCreatorNestedInput
     session_enrollments?: session_enrollmentsUncheckedUpdateManyWithoutUserNestedInput
+    created_services?: servicesUncheckedUpdateManyWithoutCreatorNestedInput
+    service_bookings?: service_bookingsUncheckedUpdateManyWithoutUserNestedInput
+    service_reviews?: service_reviewsUncheckedUpdateManyWithoutUserNestedInput
     subscriptions?: subscriptionsUncheckedUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUncheckedUpdateOneWithoutUsersNestedInput
     created_polls?: pollsUncheckedUpdateManyWithoutCreatorNestedInput
@@ -104895,6 +115239,9 @@ export namespace Prisma {
     stargazing_spot_reviews?: stargazing_spot_reviewsCreateNestedManyWithoutUserInput
     created_sessions?: sessionsCreateNestedManyWithoutCreatorInput
     session_enrollments?: session_enrollmentsCreateNestedManyWithoutUserInput
+    created_services?: servicesCreateNestedManyWithoutCreatorInput
+    service_bookings?: service_bookingsCreateNestedManyWithoutUserInput
+    service_reviews?: service_reviewsCreateNestedManyWithoutUserInput
     subscriptions?: subscriptionsCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsCreateNestedOneWithoutUsersInput
     created_polls?: pollsCreateNestedManyWithoutCreatorInput
@@ -104957,6 +115304,9 @@ export namespace Prisma {
     stargazing_spot_reviews?: stargazing_spot_reviewsUncheckedCreateNestedManyWithoutUserInput
     created_sessions?: sessionsUncheckedCreateNestedManyWithoutCreatorInput
     session_enrollments?: session_enrollmentsUncheckedCreateNestedManyWithoutUserInput
+    created_services?: servicesUncheckedCreateNestedManyWithoutCreatorInput
+    service_bookings?: service_bookingsUncheckedCreateNestedManyWithoutUserInput
+    service_reviews?: service_reviewsUncheckedCreateNestedManyWithoutUserInput
     subscriptions?: subscriptionsUncheckedCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsUncheckedCreateNestedOneWithoutUsersInput
     created_polls?: pollsUncheckedCreateNestedManyWithoutCreatorInput
@@ -105050,6 +115400,9 @@ export namespace Prisma {
     stargazing_spot_reviews?: stargazing_spot_reviewsUpdateManyWithoutUserNestedInput
     created_sessions?: sessionsUpdateManyWithoutCreatorNestedInput
     session_enrollments?: session_enrollmentsUpdateManyWithoutUserNestedInput
+    created_services?: servicesUpdateManyWithoutCreatorNestedInput
+    service_bookings?: service_bookingsUpdateManyWithoutUserNestedInput
+    service_reviews?: service_reviewsUpdateManyWithoutUserNestedInput
     subscriptions?: subscriptionsUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUpdateOneWithoutUsersNestedInput
     created_polls?: pollsUpdateManyWithoutCreatorNestedInput
@@ -105112,6 +115465,9 @@ export namespace Prisma {
     stargazing_spot_reviews?: stargazing_spot_reviewsUncheckedUpdateManyWithoutUserNestedInput
     created_sessions?: sessionsUncheckedUpdateManyWithoutCreatorNestedInput
     session_enrollments?: session_enrollmentsUncheckedUpdateManyWithoutUserNestedInput
+    created_services?: servicesUncheckedUpdateManyWithoutCreatorNestedInput
+    service_bookings?: service_bookingsUncheckedUpdateManyWithoutUserNestedInput
+    service_reviews?: service_reviewsUncheckedUpdateManyWithoutUserNestedInput
     subscriptions?: subscriptionsUncheckedUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUncheckedUpdateOneWithoutUsersNestedInput
     created_polls?: pollsUncheckedUpdateManyWithoutCreatorNestedInput
@@ -105207,6 +115563,9 @@ export namespace Prisma {
     created_stargazing_spots?: stargazing_spotsCreateNestedManyWithoutCreatorInput
     created_sessions?: sessionsCreateNestedManyWithoutCreatorInput
     session_enrollments?: session_enrollmentsCreateNestedManyWithoutUserInput
+    created_services?: servicesCreateNestedManyWithoutCreatorInput
+    service_bookings?: service_bookingsCreateNestedManyWithoutUserInput
+    service_reviews?: service_reviewsCreateNestedManyWithoutUserInput
     subscriptions?: subscriptionsCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsCreateNestedOneWithoutUsersInput
     created_polls?: pollsCreateNestedManyWithoutCreatorInput
@@ -105269,6 +115628,9 @@ export namespace Prisma {
     created_stargazing_spots?: stargazing_spotsUncheckedCreateNestedManyWithoutCreatorInput
     created_sessions?: sessionsUncheckedCreateNestedManyWithoutCreatorInput
     session_enrollments?: session_enrollmentsUncheckedCreateNestedManyWithoutUserInput
+    created_services?: servicesUncheckedCreateNestedManyWithoutCreatorInput
+    service_bookings?: service_bookingsUncheckedCreateNestedManyWithoutUserInput
+    service_reviews?: service_reviewsUncheckedCreateNestedManyWithoutUserInput
     subscriptions?: subscriptionsUncheckedCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsUncheckedCreateNestedOneWithoutUsersInput
     created_polls?: pollsUncheckedCreateNestedManyWithoutCreatorInput
@@ -105386,6 +115748,9 @@ export namespace Prisma {
     created_stargazing_spots?: stargazing_spotsUpdateManyWithoutCreatorNestedInput
     created_sessions?: sessionsUpdateManyWithoutCreatorNestedInput
     session_enrollments?: session_enrollmentsUpdateManyWithoutUserNestedInput
+    created_services?: servicesUpdateManyWithoutCreatorNestedInput
+    service_bookings?: service_bookingsUpdateManyWithoutUserNestedInput
+    service_reviews?: service_reviewsUpdateManyWithoutUserNestedInput
     subscriptions?: subscriptionsUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUpdateOneWithoutUsersNestedInput
     created_polls?: pollsUpdateManyWithoutCreatorNestedInput
@@ -105448,6 +115813,9 @@ export namespace Prisma {
     created_stargazing_spots?: stargazing_spotsUncheckedUpdateManyWithoutCreatorNestedInput
     created_sessions?: sessionsUncheckedUpdateManyWithoutCreatorNestedInput
     session_enrollments?: session_enrollmentsUncheckedUpdateManyWithoutUserNestedInput
+    created_services?: servicesUncheckedUpdateManyWithoutCreatorNestedInput
+    service_bookings?: service_bookingsUncheckedUpdateManyWithoutUserNestedInput
+    service_reviews?: service_reviewsUncheckedUpdateManyWithoutUserNestedInput
     subscriptions?: subscriptionsUncheckedUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUncheckedUpdateOneWithoutUsersNestedInput
     created_polls?: pollsUncheckedUpdateManyWithoutCreatorNestedInput
@@ -105509,6 +115877,9 @@ export namespace Prisma {
     stargazing_spot_reviews?: stargazing_spot_reviewsCreateNestedManyWithoutUserInput
     created_stargazing_spots?: stargazing_spotsCreateNestedManyWithoutCreatorInput
     session_enrollments?: session_enrollmentsCreateNestedManyWithoutUserInput
+    created_services?: servicesCreateNestedManyWithoutCreatorInput
+    service_bookings?: service_bookingsCreateNestedManyWithoutUserInput
+    service_reviews?: service_reviewsCreateNestedManyWithoutUserInput
     subscriptions?: subscriptionsCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsCreateNestedOneWithoutUsersInput
     created_polls?: pollsCreateNestedManyWithoutCreatorInput
@@ -105571,6 +115942,9 @@ export namespace Prisma {
     stargazing_spot_reviews?: stargazing_spot_reviewsUncheckedCreateNestedManyWithoutUserInput
     created_stargazing_spots?: stargazing_spotsUncheckedCreateNestedManyWithoutCreatorInput
     session_enrollments?: session_enrollmentsUncheckedCreateNestedManyWithoutUserInput
+    created_services?: servicesUncheckedCreateNestedManyWithoutCreatorInput
+    service_bookings?: service_bookingsUncheckedCreateNestedManyWithoutUserInput
+    service_reviews?: service_reviewsUncheckedCreateNestedManyWithoutUserInput
     subscriptions?: subscriptionsUncheckedCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsUncheckedCreateNestedOneWithoutUsersInput
     created_polls?: pollsUncheckedCreateNestedManyWithoutCreatorInput
@@ -105691,6 +116065,9 @@ export namespace Prisma {
     stargazing_spot_reviews?: stargazing_spot_reviewsUpdateManyWithoutUserNestedInput
     created_stargazing_spots?: stargazing_spotsUpdateManyWithoutCreatorNestedInput
     session_enrollments?: session_enrollmentsUpdateManyWithoutUserNestedInput
+    created_services?: servicesUpdateManyWithoutCreatorNestedInput
+    service_bookings?: service_bookingsUpdateManyWithoutUserNestedInput
+    service_reviews?: service_reviewsUpdateManyWithoutUserNestedInput
     subscriptions?: subscriptionsUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUpdateOneWithoutUsersNestedInput
     created_polls?: pollsUpdateManyWithoutCreatorNestedInput
@@ -105753,6 +116130,9 @@ export namespace Prisma {
     stargazing_spot_reviews?: stargazing_spot_reviewsUncheckedUpdateManyWithoutUserNestedInput
     created_stargazing_spots?: stargazing_spotsUncheckedUpdateManyWithoutCreatorNestedInput
     session_enrollments?: session_enrollmentsUncheckedUpdateManyWithoutUserNestedInput
+    created_services?: servicesUncheckedUpdateManyWithoutCreatorNestedInput
+    service_bookings?: service_bookingsUncheckedUpdateManyWithoutUserNestedInput
+    service_reviews?: service_reviewsUncheckedUpdateManyWithoutUserNestedInput
     subscriptions?: subscriptionsUncheckedUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUncheckedUpdateOneWithoutUsersNestedInput
     created_polls?: pollsUncheckedUpdateManyWithoutCreatorNestedInput
@@ -105774,6 +116154,1776 @@ export namespace Prisma {
   export type session_enrollmentsUpdateManyWithWhereWithoutSessionInput = {
     where: session_enrollmentsScalarWhereInput
     data: XOR<session_enrollmentsUpdateManyMutationInput, session_enrollmentsUncheckedUpdateManyWithoutSessionInput>
+  }
+
+  export type usersCreateWithoutCreated_servicesInput = {
+    firebase_uid: string
+    email: string
+    role?: $Enums.user_role | null
+    first_name?: string | null
+    last_name?: string | null
+    is_active?: boolean | null
+    last_login?: Date | string | null
+    created_at?: Date | string | null
+    updated_at?: Date | string | null
+    display_name?: string | null
+    profile_data?: NullableJsonNullValueInput | InputJsonValue
+    role_specific_data?: NullableJsonNullValueInput | InputJsonValue
+    subscription_plan?: $Enums.subscription_plan | null
+    subscription_status?: $Enums.subscription_status | null
+    subscription_start_date?: Date | string | null
+    subscription_end_date?: Date | string | null
+    auto_renew?: boolean | null
+    chatbot_questions_used?: number | null
+    chatbot_questions_reset_date?: Date | string | null
+    QuizParticipants?: QuizParticipantsCreateNestedManyWithoutUsersInput
+    Quizzes?: QuizzesCreateNestedManyWithoutUsersInput
+    created_astronomy_events?: astronomy_eventsCreateNestedManyWithoutCreatorInput
+    blog_comments?: blog_commentsCreateNestedManyWithoutUsersInput
+    blog_likes?: blog_likesCreateNestedManyWithoutUsersInput
+    blog_views?: blog_viewsCreateNestedManyWithoutUsersInput
+    blogs?: blogsCreateNestedManyWithoutUsersInput
+    chat_messages?: chat_messagesCreateNestedManyWithoutUserInput
+    chatbot_sessions?: chatbot_sessionsCreateNestedManyWithoutUsersInput
+    chatbot_usage?: chatbot_usageCreateNestedManyWithoutUsersInput
+    event_reminders?: event_remindersCreateNestedManyWithoutUserInput
+    created_groups?: group_chatsCreateNestedManyWithoutCreatorInput
+    group_memberships?: group_membersCreateNestedManyWithoutUserInput
+    guide_application?: guide_applicationCreateNestedManyWithoutUsersInput
+    influencer_application?: influencer_applicationCreateNestedManyWithoutUsersInput
+    media_uploads?: media_uploadsCreateNestedManyWithoutUserInput
+    mentor_application?: mentor_applicationCreateNestedManyWithoutUsersInput
+    message_reactions?: message_reactionsCreateNestedManyWithoutUserInput
+    night_camp_registrations?: night_camp_registrationsCreateNestedManyWithoutUsersInput
+    night_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousers?: night_camp_volunteering_applicationsCreateNestedManyWithoutUsers_night_camp_volunteering_applications_reviewed_byTousersInput
+    night_camp_volunteering_applications_night_camp_volunteering_applications_user_idTousers?: night_camp_volunteering_applicationsCreateNestedManyWithoutUsers_night_camp_volunteering_applications_user_idTousersInput
+    payments?: paymentsCreateNestedManyWithoutUsersInput
+    role_upgrade_requests_role_upgrade_requests_reviewer_idTousers?: role_upgrade_requestsCreateNestedManyWithoutUsers_role_upgrade_requests_reviewer_idTousersInput
+    role_upgrade_requests_role_upgrade_requests_user_idTousers?: role_upgrade_requestsCreateNestedManyWithoutUsers_role_upgrade_requests_user_idTousersInput
+    discussion_comment_likes?: space_discussion_comment_likesCreateNestedManyWithoutUserInput
+    discussion_comments?: space_discussion_commentsCreateNestedManyWithoutUserInput
+    discussion_likes?: space_discussion_likesCreateNestedManyWithoutUserInput
+    authored_discussions?: space_discussionsCreateNestedManyWithoutAuthorInput
+    space_news_published?: space_newsCreateNestedManyWithoutPublisherInput
+    space_news_comments?: space_news_commentsCreateNestedManyWithoutUserInput
+    space_news_likes?: space_news_likesCreateNestedManyWithoutUserInput
+    stargazing_spot_reviews?: stargazing_spot_reviewsCreateNestedManyWithoutUserInput
+    created_stargazing_spots?: stargazing_spotsCreateNestedManyWithoutCreatorInput
+    created_sessions?: sessionsCreateNestedManyWithoutCreatorInput
+    session_enrollments?: session_enrollmentsCreateNestedManyWithoutUserInput
+    service_bookings?: service_bookingsCreateNestedManyWithoutUserInput
+    service_reviews?: service_reviewsCreateNestedManyWithoutUserInput
+    subscriptions?: subscriptionsCreateNestedManyWithoutUsersInput
+    user_settings?: user_settingsCreateNestedOneWithoutUsersInput
+    created_polls?: pollsCreateNestedManyWithoutCreatorInput
+    poll_votes?: poll_votesCreateNestedManyWithoutVoterInput
+    poll_comments?: poll_commentsCreateNestedManyWithoutCommenterInput
+  }
+
+  export type usersUncheckedCreateWithoutCreated_servicesInput = {
+    id?: number
+    firebase_uid: string
+    email: string
+    role?: $Enums.user_role | null
+    first_name?: string | null
+    last_name?: string | null
+    is_active?: boolean | null
+    last_login?: Date | string | null
+    created_at?: Date | string | null
+    updated_at?: Date | string | null
+    display_name?: string | null
+    profile_data?: NullableJsonNullValueInput | InputJsonValue
+    role_specific_data?: NullableJsonNullValueInput | InputJsonValue
+    subscription_plan?: $Enums.subscription_plan | null
+    subscription_status?: $Enums.subscription_status | null
+    subscription_start_date?: Date | string | null
+    subscription_end_date?: Date | string | null
+    auto_renew?: boolean | null
+    chatbot_questions_used?: number | null
+    chatbot_questions_reset_date?: Date | string | null
+    QuizParticipants?: QuizParticipantsUncheckedCreateNestedManyWithoutUsersInput
+    Quizzes?: QuizzesUncheckedCreateNestedManyWithoutUsersInput
+    created_astronomy_events?: astronomy_eventsUncheckedCreateNestedManyWithoutCreatorInput
+    blog_comments?: blog_commentsUncheckedCreateNestedManyWithoutUsersInput
+    blog_likes?: blog_likesUncheckedCreateNestedManyWithoutUsersInput
+    blog_views?: blog_viewsUncheckedCreateNestedManyWithoutUsersInput
+    blogs?: blogsUncheckedCreateNestedManyWithoutUsersInput
+    chat_messages?: chat_messagesUncheckedCreateNestedManyWithoutUserInput
+    chatbot_sessions?: chatbot_sessionsUncheckedCreateNestedManyWithoutUsersInput
+    chatbot_usage?: chatbot_usageUncheckedCreateNestedManyWithoutUsersInput
+    event_reminders?: event_remindersUncheckedCreateNestedManyWithoutUserInput
+    created_groups?: group_chatsUncheckedCreateNestedManyWithoutCreatorInput
+    group_memberships?: group_membersUncheckedCreateNestedManyWithoutUserInput
+    guide_application?: guide_applicationUncheckedCreateNestedManyWithoutUsersInput
+    influencer_application?: influencer_applicationUncheckedCreateNestedManyWithoutUsersInput
+    media_uploads?: media_uploadsUncheckedCreateNestedManyWithoutUserInput
+    mentor_application?: mentor_applicationUncheckedCreateNestedManyWithoutUsersInput
+    message_reactions?: message_reactionsUncheckedCreateNestedManyWithoutUserInput
+    night_camp_registrations?: night_camp_registrationsUncheckedCreateNestedManyWithoutUsersInput
+    night_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousers?: night_camp_volunteering_applicationsUncheckedCreateNestedManyWithoutUsers_night_camp_volunteering_applications_reviewed_byTousersInput
+    night_camp_volunteering_applications_night_camp_volunteering_applications_user_idTousers?: night_camp_volunteering_applicationsUncheckedCreateNestedManyWithoutUsers_night_camp_volunteering_applications_user_idTousersInput
+    payments?: paymentsUncheckedCreateNestedManyWithoutUsersInput
+    role_upgrade_requests_role_upgrade_requests_reviewer_idTousers?: role_upgrade_requestsUncheckedCreateNestedManyWithoutUsers_role_upgrade_requests_reviewer_idTousersInput
+    role_upgrade_requests_role_upgrade_requests_user_idTousers?: role_upgrade_requestsUncheckedCreateNestedManyWithoutUsers_role_upgrade_requests_user_idTousersInput
+    discussion_comment_likes?: space_discussion_comment_likesUncheckedCreateNestedManyWithoutUserInput
+    discussion_comments?: space_discussion_commentsUncheckedCreateNestedManyWithoutUserInput
+    discussion_likes?: space_discussion_likesUncheckedCreateNestedManyWithoutUserInput
+    authored_discussions?: space_discussionsUncheckedCreateNestedManyWithoutAuthorInput
+    space_news_published?: space_newsUncheckedCreateNestedManyWithoutPublisherInput
+    space_news_comments?: space_news_commentsUncheckedCreateNestedManyWithoutUserInput
+    space_news_likes?: space_news_likesUncheckedCreateNestedManyWithoutUserInput
+    stargazing_spot_reviews?: stargazing_spot_reviewsUncheckedCreateNestedManyWithoutUserInput
+    created_stargazing_spots?: stargazing_spotsUncheckedCreateNestedManyWithoutCreatorInput
+    created_sessions?: sessionsUncheckedCreateNestedManyWithoutCreatorInput
+    session_enrollments?: session_enrollmentsUncheckedCreateNestedManyWithoutUserInput
+    service_bookings?: service_bookingsUncheckedCreateNestedManyWithoutUserInput
+    service_reviews?: service_reviewsUncheckedCreateNestedManyWithoutUserInput
+    subscriptions?: subscriptionsUncheckedCreateNestedManyWithoutUsersInput
+    user_settings?: user_settingsUncheckedCreateNestedOneWithoutUsersInput
+    created_polls?: pollsUncheckedCreateNestedManyWithoutCreatorInput
+    poll_votes?: poll_votesUncheckedCreateNestedManyWithoutVoterInput
+    poll_comments?: poll_commentsUncheckedCreateNestedManyWithoutCommenterInput
+  }
+
+  export type usersCreateOrConnectWithoutCreated_servicesInput = {
+    where: usersWhereUniqueInput
+    create: XOR<usersCreateWithoutCreated_servicesInput, usersUncheckedCreateWithoutCreated_servicesInput>
+  }
+
+  export type service_bookingsCreateWithoutServiceInput = {
+    booking_date: Date | string
+    booking_time?: Date | string | null
+    participants_count?: number
+    total_amount: Decimal | DecimalJsLike | number | string
+    payment_status?: $Enums.booking_payment_status
+    payment_method?: string | null
+    transaction_id?: string | null
+    booking_status?: $Enums.booking_status
+    special_requests?: string | null
+    cancellation_reason?: string | null
+    cancelled_at?: Date | string | null
+    confirmed_at?: Date | string | null
+    completed_at?: Date | string | null
+    created_at?: Date | string
+    updated_at?: Date | string
+    user: usersCreateNestedOneWithoutService_bookingsInput
+  }
+
+  export type service_bookingsUncheckedCreateWithoutServiceInput = {
+    id?: number
+    user_id: number
+    booking_date: Date | string
+    booking_time?: Date | string | null
+    participants_count?: number
+    total_amount: Decimal | DecimalJsLike | number | string
+    payment_status?: $Enums.booking_payment_status
+    payment_method?: string | null
+    transaction_id?: string | null
+    booking_status?: $Enums.booking_status
+    special_requests?: string | null
+    cancellation_reason?: string | null
+    cancelled_at?: Date | string | null
+    confirmed_at?: Date | string | null
+    completed_at?: Date | string | null
+    created_at?: Date | string
+    updated_at?: Date | string
+  }
+
+  export type service_bookingsCreateOrConnectWithoutServiceInput = {
+    where: service_bookingsWhereUniqueInput
+    create: XOR<service_bookingsCreateWithoutServiceInput, service_bookingsUncheckedCreateWithoutServiceInput>
+  }
+
+  export type service_bookingsCreateManyServiceInputEnvelope = {
+    data: service_bookingsCreateManyServiceInput | service_bookingsCreateManyServiceInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type service_reviewsCreateWithoutServiceInput = {
+    rating: number
+    review: string
+    images?: NullableJsonNullValueInput | InputJsonValue
+    is_verified?: boolean
+    created_at?: Date | string
+    updated_at?: Date | string
+    user: usersCreateNestedOneWithoutService_reviewsInput
+  }
+
+  export type service_reviewsUncheckedCreateWithoutServiceInput = {
+    id?: number
+    user_id: number
+    rating: number
+    review: string
+    images?: NullableJsonNullValueInput | InputJsonValue
+    is_verified?: boolean
+    created_at?: Date | string
+    updated_at?: Date | string
+  }
+
+  export type service_reviewsCreateOrConnectWithoutServiceInput = {
+    where: service_reviewsWhereUniqueInput
+    create: XOR<service_reviewsCreateWithoutServiceInput, service_reviewsUncheckedCreateWithoutServiceInput>
+  }
+
+  export type service_reviewsCreateManyServiceInputEnvelope = {
+    data: service_reviewsCreateManyServiceInput | service_reviewsCreateManyServiceInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type service_availabilityCreateWithoutServiceInput = {
+    available_date: Date | string
+    start_time?: Date | string | null
+    end_time?: Date | string | null
+    slots_available: number
+    slots_booked?: number
+    status?: $Enums.availability_status
+    notes?: string | null
+    created_at?: Date | string
+    updated_at?: Date | string
+  }
+
+  export type service_availabilityUncheckedCreateWithoutServiceInput = {
+    id?: number
+    available_date: Date | string
+    start_time?: Date | string | null
+    end_time?: Date | string | null
+    slots_available: number
+    slots_booked?: number
+    status?: $Enums.availability_status
+    notes?: string | null
+    created_at?: Date | string
+    updated_at?: Date | string
+  }
+
+  export type service_availabilityCreateOrConnectWithoutServiceInput = {
+    where: service_availabilityWhereUniqueInput
+    create: XOR<service_availabilityCreateWithoutServiceInput, service_availabilityUncheckedCreateWithoutServiceInput>
+  }
+
+  export type service_availabilityCreateManyServiceInputEnvelope = {
+    data: service_availabilityCreateManyServiceInput | service_availabilityCreateManyServiceInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type service_mediaCreateWithoutServiceInput = {
+    media_url: string
+    media_type: string
+    display_order?: number
+    caption?: string | null
+    created_at?: Date | string
+  }
+
+  export type service_mediaUncheckedCreateWithoutServiceInput = {
+    id?: number
+    media_url: string
+    media_type: string
+    display_order?: number
+    caption?: string | null
+    created_at?: Date | string
+  }
+
+  export type service_mediaCreateOrConnectWithoutServiceInput = {
+    where: service_mediaWhereUniqueInput
+    create: XOR<service_mediaCreateWithoutServiceInput, service_mediaUncheckedCreateWithoutServiceInput>
+  }
+
+  export type service_mediaCreateManyServiceInputEnvelope = {
+    data: service_mediaCreateManyServiceInput | service_mediaCreateManyServiceInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type usersUpsertWithoutCreated_servicesInput = {
+    update: XOR<usersUpdateWithoutCreated_servicesInput, usersUncheckedUpdateWithoutCreated_servicesInput>
+    create: XOR<usersCreateWithoutCreated_servicesInput, usersUncheckedCreateWithoutCreated_servicesInput>
+    where?: usersWhereInput
+  }
+
+  export type usersUpdateToOneWithWhereWithoutCreated_servicesInput = {
+    where?: usersWhereInput
+    data: XOR<usersUpdateWithoutCreated_servicesInput, usersUncheckedUpdateWithoutCreated_servicesInput>
+  }
+
+  export type usersUpdateWithoutCreated_servicesInput = {
+    firebase_uid?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    role?: NullableEnumuser_roleFieldUpdateOperationsInput | $Enums.user_role | null
+    first_name?: NullableStringFieldUpdateOperationsInput | string | null
+    last_name?: NullableStringFieldUpdateOperationsInput | string | null
+    is_active?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    last_login?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    display_name?: NullableStringFieldUpdateOperationsInput | string | null
+    profile_data?: NullableJsonNullValueInput | InputJsonValue
+    role_specific_data?: NullableJsonNullValueInput | InputJsonValue
+    subscription_plan?: NullableEnumsubscription_planFieldUpdateOperationsInput | $Enums.subscription_plan | null
+    subscription_status?: NullableEnumsubscription_statusFieldUpdateOperationsInput | $Enums.subscription_status | null
+    subscription_start_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    subscription_end_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    auto_renew?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    chatbot_questions_used?: NullableIntFieldUpdateOperationsInput | number | null
+    chatbot_questions_reset_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    QuizParticipants?: QuizParticipantsUpdateManyWithoutUsersNestedInput
+    Quizzes?: QuizzesUpdateManyWithoutUsersNestedInput
+    created_astronomy_events?: astronomy_eventsUpdateManyWithoutCreatorNestedInput
+    blog_comments?: blog_commentsUpdateManyWithoutUsersNestedInput
+    blog_likes?: blog_likesUpdateManyWithoutUsersNestedInput
+    blog_views?: blog_viewsUpdateManyWithoutUsersNestedInput
+    blogs?: blogsUpdateManyWithoutUsersNestedInput
+    chat_messages?: chat_messagesUpdateManyWithoutUserNestedInput
+    chatbot_sessions?: chatbot_sessionsUpdateManyWithoutUsersNestedInput
+    chatbot_usage?: chatbot_usageUpdateManyWithoutUsersNestedInput
+    event_reminders?: event_remindersUpdateManyWithoutUserNestedInput
+    created_groups?: group_chatsUpdateManyWithoutCreatorNestedInput
+    group_memberships?: group_membersUpdateManyWithoutUserNestedInput
+    guide_application?: guide_applicationUpdateManyWithoutUsersNestedInput
+    influencer_application?: influencer_applicationUpdateManyWithoutUsersNestedInput
+    media_uploads?: media_uploadsUpdateManyWithoutUserNestedInput
+    mentor_application?: mentor_applicationUpdateManyWithoutUsersNestedInput
+    message_reactions?: message_reactionsUpdateManyWithoutUserNestedInput
+    night_camp_registrations?: night_camp_registrationsUpdateManyWithoutUsersNestedInput
+    night_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousers?: night_camp_volunteering_applicationsUpdateManyWithoutUsers_night_camp_volunteering_applications_reviewed_byTousersNestedInput
+    night_camp_volunteering_applications_night_camp_volunteering_applications_user_idTousers?: night_camp_volunteering_applicationsUpdateManyWithoutUsers_night_camp_volunteering_applications_user_idTousersNestedInput
+    payments?: paymentsUpdateManyWithoutUsersNestedInput
+    role_upgrade_requests_role_upgrade_requests_reviewer_idTousers?: role_upgrade_requestsUpdateManyWithoutUsers_role_upgrade_requests_reviewer_idTousersNestedInput
+    role_upgrade_requests_role_upgrade_requests_user_idTousers?: role_upgrade_requestsUpdateManyWithoutUsers_role_upgrade_requests_user_idTousersNestedInput
+    discussion_comment_likes?: space_discussion_comment_likesUpdateManyWithoutUserNestedInput
+    discussion_comments?: space_discussion_commentsUpdateManyWithoutUserNestedInput
+    discussion_likes?: space_discussion_likesUpdateManyWithoutUserNestedInput
+    authored_discussions?: space_discussionsUpdateManyWithoutAuthorNestedInput
+    space_news_published?: space_newsUpdateManyWithoutPublisherNestedInput
+    space_news_comments?: space_news_commentsUpdateManyWithoutUserNestedInput
+    space_news_likes?: space_news_likesUpdateManyWithoutUserNestedInput
+    stargazing_spot_reviews?: stargazing_spot_reviewsUpdateManyWithoutUserNestedInput
+    created_stargazing_spots?: stargazing_spotsUpdateManyWithoutCreatorNestedInput
+    created_sessions?: sessionsUpdateManyWithoutCreatorNestedInput
+    session_enrollments?: session_enrollmentsUpdateManyWithoutUserNestedInput
+    service_bookings?: service_bookingsUpdateManyWithoutUserNestedInput
+    service_reviews?: service_reviewsUpdateManyWithoutUserNestedInput
+    subscriptions?: subscriptionsUpdateManyWithoutUsersNestedInput
+    user_settings?: user_settingsUpdateOneWithoutUsersNestedInput
+    created_polls?: pollsUpdateManyWithoutCreatorNestedInput
+    poll_votes?: poll_votesUpdateManyWithoutVoterNestedInput
+    poll_comments?: poll_commentsUpdateManyWithoutCommenterNestedInput
+  }
+
+  export type usersUncheckedUpdateWithoutCreated_servicesInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    firebase_uid?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    role?: NullableEnumuser_roleFieldUpdateOperationsInput | $Enums.user_role | null
+    first_name?: NullableStringFieldUpdateOperationsInput | string | null
+    last_name?: NullableStringFieldUpdateOperationsInput | string | null
+    is_active?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    last_login?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    display_name?: NullableStringFieldUpdateOperationsInput | string | null
+    profile_data?: NullableJsonNullValueInput | InputJsonValue
+    role_specific_data?: NullableJsonNullValueInput | InputJsonValue
+    subscription_plan?: NullableEnumsubscription_planFieldUpdateOperationsInput | $Enums.subscription_plan | null
+    subscription_status?: NullableEnumsubscription_statusFieldUpdateOperationsInput | $Enums.subscription_status | null
+    subscription_start_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    subscription_end_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    auto_renew?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    chatbot_questions_used?: NullableIntFieldUpdateOperationsInput | number | null
+    chatbot_questions_reset_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    QuizParticipants?: QuizParticipantsUncheckedUpdateManyWithoutUsersNestedInput
+    Quizzes?: QuizzesUncheckedUpdateManyWithoutUsersNestedInput
+    created_astronomy_events?: astronomy_eventsUncheckedUpdateManyWithoutCreatorNestedInput
+    blog_comments?: blog_commentsUncheckedUpdateManyWithoutUsersNestedInput
+    blog_likes?: blog_likesUncheckedUpdateManyWithoutUsersNestedInput
+    blog_views?: blog_viewsUncheckedUpdateManyWithoutUsersNestedInput
+    blogs?: blogsUncheckedUpdateManyWithoutUsersNestedInput
+    chat_messages?: chat_messagesUncheckedUpdateManyWithoutUserNestedInput
+    chatbot_sessions?: chatbot_sessionsUncheckedUpdateManyWithoutUsersNestedInput
+    chatbot_usage?: chatbot_usageUncheckedUpdateManyWithoutUsersNestedInput
+    event_reminders?: event_remindersUncheckedUpdateManyWithoutUserNestedInput
+    created_groups?: group_chatsUncheckedUpdateManyWithoutCreatorNestedInput
+    group_memberships?: group_membersUncheckedUpdateManyWithoutUserNestedInput
+    guide_application?: guide_applicationUncheckedUpdateManyWithoutUsersNestedInput
+    influencer_application?: influencer_applicationUncheckedUpdateManyWithoutUsersNestedInput
+    media_uploads?: media_uploadsUncheckedUpdateManyWithoutUserNestedInput
+    mentor_application?: mentor_applicationUncheckedUpdateManyWithoutUsersNestedInput
+    message_reactions?: message_reactionsUncheckedUpdateManyWithoutUserNestedInput
+    night_camp_registrations?: night_camp_registrationsUncheckedUpdateManyWithoutUsersNestedInput
+    night_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousers?: night_camp_volunteering_applicationsUncheckedUpdateManyWithoutUsers_night_camp_volunteering_applications_reviewed_byTousersNestedInput
+    night_camp_volunteering_applications_night_camp_volunteering_applications_user_idTousers?: night_camp_volunteering_applicationsUncheckedUpdateManyWithoutUsers_night_camp_volunteering_applications_user_idTousersNestedInput
+    payments?: paymentsUncheckedUpdateManyWithoutUsersNestedInput
+    role_upgrade_requests_role_upgrade_requests_reviewer_idTousers?: role_upgrade_requestsUncheckedUpdateManyWithoutUsers_role_upgrade_requests_reviewer_idTousersNestedInput
+    role_upgrade_requests_role_upgrade_requests_user_idTousers?: role_upgrade_requestsUncheckedUpdateManyWithoutUsers_role_upgrade_requests_user_idTousersNestedInput
+    discussion_comment_likes?: space_discussion_comment_likesUncheckedUpdateManyWithoutUserNestedInput
+    discussion_comments?: space_discussion_commentsUncheckedUpdateManyWithoutUserNestedInput
+    discussion_likes?: space_discussion_likesUncheckedUpdateManyWithoutUserNestedInput
+    authored_discussions?: space_discussionsUncheckedUpdateManyWithoutAuthorNestedInput
+    space_news_published?: space_newsUncheckedUpdateManyWithoutPublisherNestedInput
+    space_news_comments?: space_news_commentsUncheckedUpdateManyWithoutUserNestedInput
+    space_news_likes?: space_news_likesUncheckedUpdateManyWithoutUserNestedInput
+    stargazing_spot_reviews?: stargazing_spot_reviewsUncheckedUpdateManyWithoutUserNestedInput
+    created_stargazing_spots?: stargazing_spotsUncheckedUpdateManyWithoutCreatorNestedInput
+    created_sessions?: sessionsUncheckedUpdateManyWithoutCreatorNestedInput
+    session_enrollments?: session_enrollmentsUncheckedUpdateManyWithoutUserNestedInput
+    service_bookings?: service_bookingsUncheckedUpdateManyWithoutUserNestedInput
+    service_reviews?: service_reviewsUncheckedUpdateManyWithoutUserNestedInput
+    subscriptions?: subscriptionsUncheckedUpdateManyWithoutUsersNestedInput
+    user_settings?: user_settingsUncheckedUpdateOneWithoutUsersNestedInput
+    created_polls?: pollsUncheckedUpdateManyWithoutCreatorNestedInput
+    poll_votes?: poll_votesUncheckedUpdateManyWithoutVoterNestedInput
+    poll_comments?: poll_commentsUncheckedUpdateManyWithoutCommenterNestedInput
+  }
+
+  export type service_bookingsUpsertWithWhereUniqueWithoutServiceInput = {
+    where: service_bookingsWhereUniqueInput
+    update: XOR<service_bookingsUpdateWithoutServiceInput, service_bookingsUncheckedUpdateWithoutServiceInput>
+    create: XOR<service_bookingsCreateWithoutServiceInput, service_bookingsUncheckedCreateWithoutServiceInput>
+  }
+
+  export type service_bookingsUpdateWithWhereUniqueWithoutServiceInput = {
+    where: service_bookingsWhereUniqueInput
+    data: XOR<service_bookingsUpdateWithoutServiceInput, service_bookingsUncheckedUpdateWithoutServiceInput>
+  }
+
+  export type service_bookingsUpdateManyWithWhereWithoutServiceInput = {
+    where: service_bookingsScalarWhereInput
+    data: XOR<service_bookingsUpdateManyMutationInput, service_bookingsUncheckedUpdateManyWithoutServiceInput>
+  }
+
+  export type service_reviewsUpsertWithWhereUniqueWithoutServiceInput = {
+    where: service_reviewsWhereUniqueInput
+    update: XOR<service_reviewsUpdateWithoutServiceInput, service_reviewsUncheckedUpdateWithoutServiceInput>
+    create: XOR<service_reviewsCreateWithoutServiceInput, service_reviewsUncheckedCreateWithoutServiceInput>
+  }
+
+  export type service_reviewsUpdateWithWhereUniqueWithoutServiceInput = {
+    where: service_reviewsWhereUniqueInput
+    data: XOR<service_reviewsUpdateWithoutServiceInput, service_reviewsUncheckedUpdateWithoutServiceInput>
+  }
+
+  export type service_reviewsUpdateManyWithWhereWithoutServiceInput = {
+    where: service_reviewsScalarWhereInput
+    data: XOR<service_reviewsUpdateManyMutationInput, service_reviewsUncheckedUpdateManyWithoutServiceInput>
+  }
+
+  export type service_availabilityUpsertWithWhereUniqueWithoutServiceInput = {
+    where: service_availabilityWhereUniqueInput
+    update: XOR<service_availabilityUpdateWithoutServiceInput, service_availabilityUncheckedUpdateWithoutServiceInput>
+    create: XOR<service_availabilityCreateWithoutServiceInput, service_availabilityUncheckedCreateWithoutServiceInput>
+  }
+
+  export type service_availabilityUpdateWithWhereUniqueWithoutServiceInput = {
+    where: service_availabilityWhereUniqueInput
+    data: XOR<service_availabilityUpdateWithoutServiceInput, service_availabilityUncheckedUpdateWithoutServiceInput>
+  }
+
+  export type service_availabilityUpdateManyWithWhereWithoutServiceInput = {
+    where: service_availabilityScalarWhereInput
+    data: XOR<service_availabilityUpdateManyMutationInput, service_availabilityUncheckedUpdateManyWithoutServiceInput>
+  }
+
+  export type service_availabilityScalarWhereInput = {
+    AND?: service_availabilityScalarWhereInput | service_availabilityScalarWhereInput[]
+    OR?: service_availabilityScalarWhereInput[]
+    NOT?: service_availabilityScalarWhereInput | service_availabilityScalarWhereInput[]
+    id?: IntFilter<"service_availability"> | number
+    service_id?: IntFilter<"service_availability"> | number
+    available_date?: DateTimeFilter<"service_availability"> | Date | string
+    start_time?: DateTimeNullableFilter<"service_availability"> | Date | string | null
+    end_time?: DateTimeNullableFilter<"service_availability"> | Date | string | null
+    slots_available?: IntFilter<"service_availability"> | number
+    slots_booked?: IntFilter<"service_availability"> | number
+    status?: Enumavailability_statusFilter<"service_availability"> | $Enums.availability_status
+    notes?: StringNullableFilter<"service_availability"> | string | null
+    created_at?: DateTimeFilter<"service_availability"> | Date | string
+    updated_at?: DateTimeFilter<"service_availability"> | Date | string
+  }
+
+  export type service_mediaUpsertWithWhereUniqueWithoutServiceInput = {
+    where: service_mediaWhereUniqueInput
+    update: XOR<service_mediaUpdateWithoutServiceInput, service_mediaUncheckedUpdateWithoutServiceInput>
+    create: XOR<service_mediaCreateWithoutServiceInput, service_mediaUncheckedCreateWithoutServiceInput>
+  }
+
+  export type service_mediaUpdateWithWhereUniqueWithoutServiceInput = {
+    where: service_mediaWhereUniqueInput
+    data: XOR<service_mediaUpdateWithoutServiceInput, service_mediaUncheckedUpdateWithoutServiceInput>
+  }
+
+  export type service_mediaUpdateManyWithWhereWithoutServiceInput = {
+    where: service_mediaScalarWhereInput
+    data: XOR<service_mediaUpdateManyMutationInput, service_mediaUncheckedUpdateManyWithoutServiceInput>
+  }
+
+  export type service_mediaScalarWhereInput = {
+    AND?: service_mediaScalarWhereInput | service_mediaScalarWhereInput[]
+    OR?: service_mediaScalarWhereInput[]
+    NOT?: service_mediaScalarWhereInput | service_mediaScalarWhereInput[]
+    id?: IntFilter<"service_media"> | number
+    service_id?: IntFilter<"service_media"> | number
+    media_url?: StringFilter<"service_media"> | string
+    media_type?: StringFilter<"service_media"> | string
+    display_order?: IntFilter<"service_media"> | number
+    caption?: StringNullableFilter<"service_media"> | string | null
+    created_at?: DateTimeFilter<"service_media"> | Date | string
+  }
+
+  export type servicesCreateWithoutBookingsInput = {
+    title: string
+    description: string
+    category: $Enums.service_category
+    price: Decimal | DecimalJsLike | number | string
+    duration: string
+    max_participants: number
+    location: string
+    difficulty: $Enums.service_difficulty
+    equipment?: JsonNullValueInput | InputJsonValue
+    next_available: Date | string
+    image_url?: string | null
+    featured?: boolean
+    tags?: JsonNullValueInput | InputJsonValue
+    requirements?: string | null
+    cancellation_policy?: string | null
+    meeting_point?: string | null
+    what_to_expect?: string | null
+    weather_policy?: $Enums.weather_policy_type | null
+    booking_deadline?: number
+    languages?: JsonNullValueInput | InputJsonValue
+    certification?: string | null
+    experience?: string | null
+    group_discount?: boolean
+    private_booking?: boolean
+    instant_booking?: boolean
+    status?: $Enums.service_status
+    views_count?: number
+    bookings_count?: number
+    rating?: number
+    review_count?: number
+    is_active?: boolean
+    created_at?: Date | string
+    updated_at?: Date | string
+    creator: usersCreateNestedOneWithoutCreated_servicesInput
+    reviews?: service_reviewsCreateNestedManyWithoutServiceInput
+    availability?: service_availabilityCreateNestedManyWithoutServiceInput
+    media?: service_mediaCreateNestedManyWithoutServiceInput
+  }
+
+  export type servicesUncheckedCreateWithoutBookingsInput = {
+    id?: number
+    title: string
+    description: string
+    category: $Enums.service_category
+    price: Decimal | DecimalJsLike | number | string
+    duration: string
+    max_participants: number
+    location: string
+    difficulty: $Enums.service_difficulty
+    equipment?: JsonNullValueInput | InputJsonValue
+    next_available: Date | string
+    image_url?: string | null
+    featured?: boolean
+    tags?: JsonNullValueInput | InputJsonValue
+    requirements?: string | null
+    cancellation_policy?: string | null
+    meeting_point?: string | null
+    what_to_expect?: string | null
+    weather_policy?: $Enums.weather_policy_type | null
+    booking_deadline?: number
+    languages?: JsonNullValueInput | InputJsonValue
+    certification?: string | null
+    experience?: string | null
+    group_discount?: boolean
+    private_booking?: boolean
+    instant_booking?: boolean
+    status?: $Enums.service_status
+    views_count?: number
+    bookings_count?: number
+    rating?: number
+    review_count?: number
+    created_by: number
+    is_active?: boolean
+    created_at?: Date | string
+    updated_at?: Date | string
+    reviews?: service_reviewsUncheckedCreateNestedManyWithoutServiceInput
+    availability?: service_availabilityUncheckedCreateNestedManyWithoutServiceInput
+    media?: service_mediaUncheckedCreateNestedManyWithoutServiceInput
+  }
+
+  export type servicesCreateOrConnectWithoutBookingsInput = {
+    where: servicesWhereUniqueInput
+    create: XOR<servicesCreateWithoutBookingsInput, servicesUncheckedCreateWithoutBookingsInput>
+  }
+
+  export type usersCreateWithoutService_bookingsInput = {
+    firebase_uid: string
+    email: string
+    role?: $Enums.user_role | null
+    first_name?: string | null
+    last_name?: string | null
+    is_active?: boolean | null
+    last_login?: Date | string | null
+    created_at?: Date | string | null
+    updated_at?: Date | string | null
+    display_name?: string | null
+    profile_data?: NullableJsonNullValueInput | InputJsonValue
+    role_specific_data?: NullableJsonNullValueInput | InputJsonValue
+    subscription_plan?: $Enums.subscription_plan | null
+    subscription_status?: $Enums.subscription_status | null
+    subscription_start_date?: Date | string | null
+    subscription_end_date?: Date | string | null
+    auto_renew?: boolean | null
+    chatbot_questions_used?: number | null
+    chatbot_questions_reset_date?: Date | string | null
+    QuizParticipants?: QuizParticipantsCreateNestedManyWithoutUsersInput
+    Quizzes?: QuizzesCreateNestedManyWithoutUsersInput
+    created_astronomy_events?: astronomy_eventsCreateNestedManyWithoutCreatorInput
+    blog_comments?: blog_commentsCreateNestedManyWithoutUsersInput
+    blog_likes?: blog_likesCreateNestedManyWithoutUsersInput
+    blog_views?: blog_viewsCreateNestedManyWithoutUsersInput
+    blogs?: blogsCreateNestedManyWithoutUsersInput
+    chat_messages?: chat_messagesCreateNestedManyWithoutUserInput
+    chatbot_sessions?: chatbot_sessionsCreateNestedManyWithoutUsersInput
+    chatbot_usage?: chatbot_usageCreateNestedManyWithoutUsersInput
+    event_reminders?: event_remindersCreateNestedManyWithoutUserInput
+    created_groups?: group_chatsCreateNestedManyWithoutCreatorInput
+    group_memberships?: group_membersCreateNestedManyWithoutUserInput
+    guide_application?: guide_applicationCreateNestedManyWithoutUsersInput
+    influencer_application?: influencer_applicationCreateNestedManyWithoutUsersInput
+    media_uploads?: media_uploadsCreateNestedManyWithoutUserInput
+    mentor_application?: mentor_applicationCreateNestedManyWithoutUsersInput
+    message_reactions?: message_reactionsCreateNestedManyWithoutUserInput
+    night_camp_registrations?: night_camp_registrationsCreateNestedManyWithoutUsersInput
+    night_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousers?: night_camp_volunteering_applicationsCreateNestedManyWithoutUsers_night_camp_volunteering_applications_reviewed_byTousersInput
+    night_camp_volunteering_applications_night_camp_volunteering_applications_user_idTousers?: night_camp_volunteering_applicationsCreateNestedManyWithoutUsers_night_camp_volunteering_applications_user_idTousersInput
+    payments?: paymentsCreateNestedManyWithoutUsersInput
+    role_upgrade_requests_role_upgrade_requests_reviewer_idTousers?: role_upgrade_requestsCreateNestedManyWithoutUsers_role_upgrade_requests_reviewer_idTousersInput
+    role_upgrade_requests_role_upgrade_requests_user_idTousers?: role_upgrade_requestsCreateNestedManyWithoutUsers_role_upgrade_requests_user_idTousersInput
+    discussion_comment_likes?: space_discussion_comment_likesCreateNestedManyWithoutUserInput
+    discussion_comments?: space_discussion_commentsCreateNestedManyWithoutUserInput
+    discussion_likes?: space_discussion_likesCreateNestedManyWithoutUserInput
+    authored_discussions?: space_discussionsCreateNestedManyWithoutAuthorInput
+    space_news_published?: space_newsCreateNestedManyWithoutPublisherInput
+    space_news_comments?: space_news_commentsCreateNestedManyWithoutUserInput
+    space_news_likes?: space_news_likesCreateNestedManyWithoutUserInput
+    stargazing_spot_reviews?: stargazing_spot_reviewsCreateNestedManyWithoutUserInput
+    created_stargazing_spots?: stargazing_spotsCreateNestedManyWithoutCreatorInput
+    created_sessions?: sessionsCreateNestedManyWithoutCreatorInput
+    session_enrollments?: session_enrollmentsCreateNestedManyWithoutUserInput
+    created_services?: servicesCreateNestedManyWithoutCreatorInput
+    service_reviews?: service_reviewsCreateNestedManyWithoutUserInput
+    subscriptions?: subscriptionsCreateNestedManyWithoutUsersInput
+    user_settings?: user_settingsCreateNestedOneWithoutUsersInput
+    created_polls?: pollsCreateNestedManyWithoutCreatorInput
+    poll_votes?: poll_votesCreateNestedManyWithoutVoterInput
+    poll_comments?: poll_commentsCreateNestedManyWithoutCommenterInput
+  }
+
+  export type usersUncheckedCreateWithoutService_bookingsInput = {
+    id?: number
+    firebase_uid: string
+    email: string
+    role?: $Enums.user_role | null
+    first_name?: string | null
+    last_name?: string | null
+    is_active?: boolean | null
+    last_login?: Date | string | null
+    created_at?: Date | string | null
+    updated_at?: Date | string | null
+    display_name?: string | null
+    profile_data?: NullableJsonNullValueInput | InputJsonValue
+    role_specific_data?: NullableJsonNullValueInput | InputJsonValue
+    subscription_plan?: $Enums.subscription_plan | null
+    subscription_status?: $Enums.subscription_status | null
+    subscription_start_date?: Date | string | null
+    subscription_end_date?: Date | string | null
+    auto_renew?: boolean | null
+    chatbot_questions_used?: number | null
+    chatbot_questions_reset_date?: Date | string | null
+    QuizParticipants?: QuizParticipantsUncheckedCreateNestedManyWithoutUsersInput
+    Quizzes?: QuizzesUncheckedCreateNestedManyWithoutUsersInput
+    created_astronomy_events?: astronomy_eventsUncheckedCreateNestedManyWithoutCreatorInput
+    blog_comments?: blog_commentsUncheckedCreateNestedManyWithoutUsersInput
+    blog_likes?: blog_likesUncheckedCreateNestedManyWithoutUsersInput
+    blog_views?: blog_viewsUncheckedCreateNestedManyWithoutUsersInput
+    blogs?: blogsUncheckedCreateNestedManyWithoutUsersInput
+    chat_messages?: chat_messagesUncheckedCreateNestedManyWithoutUserInput
+    chatbot_sessions?: chatbot_sessionsUncheckedCreateNestedManyWithoutUsersInput
+    chatbot_usage?: chatbot_usageUncheckedCreateNestedManyWithoutUsersInput
+    event_reminders?: event_remindersUncheckedCreateNestedManyWithoutUserInput
+    created_groups?: group_chatsUncheckedCreateNestedManyWithoutCreatorInput
+    group_memberships?: group_membersUncheckedCreateNestedManyWithoutUserInput
+    guide_application?: guide_applicationUncheckedCreateNestedManyWithoutUsersInput
+    influencer_application?: influencer_applicationUncheckedCreateNestedManyWithoutUsersInput
+    media_uploads?: media_uploadsUncheckedCreateNestedManyWithoutUserInput
+    mentor_application?: mentor_applicationUncheckedCreateNestedManyWithoutUsersInput
+    message_reactions?: message_reactionsUncheckedCreateNestedManyWithoutUserInput
+    night_camp_registrations?: night_camp_registrationsUncheckedCreateNestedManyWithoutUsersInput
+    night_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousers?: night_camp_volunteering_applicationsUncheckedCreateNestedManyWithoutUsers_night_camp_volunteering_applications_reviewed_byTousersInput
+    night_camp_volunteering_applications_night_camp_volunteering_applications_user_idTousers?: night_camp_volunteering_applicationsUncheckedCreateNestedManyWithoutUsers_night_camp_volunteering_applications_user_idTousersInput
+    payments?: paymentsUncheckedCreateNestedManyWithoutUsersInput
+    role_upgrade_requests_role_upgrade_requests_reviewer_idTousers?: role_upgrade_requestsUncheckedCreateNestedManyWithoutUsers_role_upgrade_requests_reviewer_idTousersInput
+    role_upgrade_requests_role_upgrade_requests_user_idTousers?: role_upgrade_requestsUncheckedCreateNestedManyWithoutUsers_role_upgrade_requests_user_idTousersInput
+    discussion_comment_likes?: space_discussion_comment_likesUncheckedCreateNestedManyWithoutUserInput
+    discussion_comments?: space_discussion_commentsUncheckedCreateNestedManyWithoutUserInput
+    discussion_likes?: space_discussion_likesUncheckedCreateNestedManyWithoutUserInput
+    authored_discussions?: space_discussionsUncheckedCreateNestedManyWithoutAuthorInput
+    space_news_published?: space_newsUncheckedCreateNestedManyWithoutPublisherInput
+    space_news_comments?: space_news_commentsUncheckedCreateNestedManyWithoutUserInput
+    space_news_likes?: space_news_likesUncheckedCreateNestedManyWithoutUserInput
+    stargazing_spot_reviews?: stargazing_spot_reviewsUncheckedCreateNestedManyWithoutUserInput
+    created_stargazing_spots?: stargazing_spotsUncheckedCreateNestedManyWithoutCreatorInput
+    created_sessions?: sessionsUncheckedCreateNestedManyWithoutCreatorInput
+    session_enrollments?: session_enrollmentsUncheckedCreateNestedManyWithoutUserInput
+    created_services?: servicesUncheckedCreateNestedManyWithoutCreatorInput
+    service_reviews?: service_reviewsUncheckedCreateNestedManyWithoutUserInput
+    subscriptions?: subscriptionsUncheckedCreateNestedManyWithoutUsersInput
+    user_settings?: user_settingsUncheckedCreateNestedOneWithoutUsersInput
+    created_polls?: pollsUncheckedCreateNestedManyWithoutCreatorInput
+    poll_votes?: poll_votesUncheckedCreateNestedManyWithoutVoterInput
+    poll_comments?: poll_commentsUncheckedCreateNestedManyWithoutCommenterInput
+  }
+
+  export type usersCreateOrConnectWithoutService_bookingsInput = {
+    where: usersWhereUniqueInput
+    create: XOR<usersCreateWithoutService_bookingsInput, usersUncheckedCreateWithoutService_bookingsInput>
+  }
+
+  export type servicesUpsertWithoutBookingsInput = {
+    update: XOR<servicesUpdateWithoutBookingsInput, servicesUncheckedUpdateWithoutBookingsInput>
+    create: XOR<servicesCreateWithoutBookingsInput, servicesUncheckedCreateWithoutBookingsInput>
+    where?: servicesWhereInput
+  }
+
+  export type servicesUpdateToOneWithWhereWithoutBookingsInput = {
+    where?: servicesWhereInput
+    data: XOR<servicesUpdateWithoutBookingsInput, servicesUncheckedUpdateWithoutBookingsInput>
+  }
+
+  export type servicesUpdateWithoutBookingsInput = {
+    title?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    category?: Enumservice_categoryFieldUpdateOperationsInput | $Enums.service_category
+    price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    duration?: StringFieldUpdateOperationsInput | string
+    max_participants?: IntFieldUpdateOperationsInput | number
+    location?: StringFieldUpdateOperationsInput | string
+    difficulty?: Enumservice_difficultyFieldUpdateOperationsInput | $Enums.service_difficulty
+    equipment?: JsonNullValueInput | InputJsonValue
+    next_available?: DateTimeFieldUpdateOperationsInput | Date | string
+    image_url?: NullableStringFieldUpdateOperationsInput | string | null
+    featured?: BoolFieldUpdateOperationsInput | boolean
+    tags?: JsonNullValueInput | InputJsonValue
+    requirements?: NullableStringFieldUpdateOperationsInput | string | null
+    cancellation_policy?: NullableStringFieldUpdateOperationsInput | string | null
+    meeting_point?: NullableStringFieldUpdateOperationsInput | string | null
+    what_to_expect?: NullableStringFieldUpdateOperationsInput | string | null
+    weather_policy?: NullableEnumweather_policy_typeFieldUpdateOperationsInput | $Enums.weather_policy_type | null
+    booking_deadline?: IntFieldUpdateOperationsInput | number
+    languages?: JsonNullValueInput | InputJsonValue
+    certification?: NullableStringFieldUpdateOperationsInput | string | null
+    experience?: NullableStringFieldUpdateOperationsInput | string | null
+    group_discount?: BoolFieldUpdateOperationsInput | boolean
+    private_booking?: BoolFieldUpdateOperationsInput | boolean
+    instant_booking?: BoolFieldUpdateOperationsInput | boolean
+    status?: Enumservice_statusFieldUpdateOperationsInput | $Enums.service_status
+    views_count?: IntFieldUpdateOperationsInput | number
+    bookings_count?: IntFieldUpdateOperationsInput | number
+    rating?: FloatFieldUpdateOperationsInput | number
+    review_count?: IntFieldUpdateOperationsInput | number
+    is_active?: BoolFieldUpdateOperationsInput | boolean
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    creator?: usersUpdateOneRequiredWithoutCreated_servicesNestedInput
+    reviews?: service_reviewsUpdateManyWithoutServiceNestedInput
+    availability?: service_availabilityUpdateManyWithoutServiceNestedInput
+    media?: service_mediaUpdateManyWithoutServiceNestedInput
+  }
+
+  export type servicesUncheckedUpdateWithoutBookingsInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    title?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    category?: Enumservice_categoryFieldUpdateOperationsInput | $Enums.service_category
+    price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    duration?: StringFieldUpdateOperationsInput | string
+    max_participants?: IntFieldUpdateOperationsInput | number
+    location?: StringFieldUpdateOperationsInput | string
+    difficulty?: Enumservice_difficultyFieldUpdateOperationsInput | $Enums.service_difficulty
+    equipment?: JsonNullValueInput | InputJsonValue
+    next_available?: DateTimeFieldUpdateOperationsInput | Date | string
+    image_url?: NullableStringFieldUpdateOperationsInput | string | null
+    featured?: BoolFieldUpdateOperationsInput | boolean
+    tags?: JsonNullValueInput | InputJsonValue
+    requirements?: NullableStringFieldUpdateOperationsInput | string | null
+    cancellation_policy?: NullableStringFieldUpdateOperationsInput | string | null
+    meeting_point?: NullableStringFieldUpdateOperationsInput | string | null
+    what_to_expect?: NullableStringFieldUpdateOperationsInput | string | null
+    weather_policy?: NullableEnumweather_policy_typeFieldUpdateOperationsInput | $Enums.weather_policy_type | null
+    booking_deadline?: IntFieldUpdateOperationsInput | number
+    languages?: JsonNullValueInput | InputJsonValue
+    certification?: NullableStringFieldUpdateOperationsInput | string | null
+    experience?: NullableStringFieldUpdateOperationsInput | string | null
+    group_discount?: BoolFieldUpdateOperationsInput | boolean
+    private_booking?: BoolFieldUpdateOperationsInput | boolean
+    instant_booking?: BoolFieldUpdateOperationsInput | boolean
+    status?: Enumservice_statusFieldUpdateOperationsInput | $Enums.service_status
+    views_count?: IntFieldUpdateOperationsInput | number
+    bookings_count?: IntFieldUpdateOperationsInput | number
+    rating?: FloatFieldUpdateOperationsInput | number
+    review_count?: IntFieldUpdateOperationsInput | number
+    created_by?: IntFieldUpdateOperationsInput | number
+    is_active?: BoolFieldUpdateOperationsInput | boolean
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    reviews?: service_reviewsUncheckedUpdateManyWithoutServiceNestedInput
+    availability?: service_availabilityUncheckedUpdateManyWithoutServiceNestedInput
+    media?: service_mediaUncheckedUpdateManyWithoutServiceNestedInput
+  }
+
+  export type usersUpsertWithoutService_bookingsInput = {
+    update: XOR<usersUpdateWithoutService_bookingsInput, usersUncheckedUpdateWithoutService_bookingsInput>
+    create: XOR<usersCreateWithoutService_bookingsInput, usersUncheckedCreateWithoutService_bookingsInput>
+    where?: usersWhereInput
+  }
+
+  export type usersUpdateToOneWithWhereWithoutService_bookingsInput = {
+    where?: usersWhereInput
+    data: XOR<usersUpdateWithoutService_bookingsInput, usersUncheckedUpdateWithoutService_bookingsInput>
+  }
+
+  export type usersUpdateWithoutService_bookingsInput = {
+    firebase_uid?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    role?: NullableEnumuser_roleFieldUpdateOperationsInput | $Enums.user_role | null
+    first_name?: NullableStringFieldUpdateOperationsInput | string | null
+    last_name?: NullableStringFieldUpdateOperationsInput | string | null
+    is_active?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    last_login?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    display_name?: NullableStringFieldUpdateOperationsInput | string | null
+    profile_data?: NullableJsonNullValueInput | InputJsonValue
+    role_specific_data?: NullableJsonNullValueInput | InputJsonValue
+    subscription_plan?: NullableEnumsubscription_planFieldUpdateOperationsInput | $Enums.subscription_plan | null
+    subscription_status?: NullableEnumsubscription_statusFieldUpdateOperationsInput | $Enums.subscription_status | null
+    subscription_start_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    subscription_end_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    auto_renew?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    chatbot_questions_used?: NullableIntFieldUpdateOperationsInput | number | null
+    chatbot_questions_reset_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    QuizParticipants?: QuizParticipantsUpdateManyWithoutUsersNestedInput
+    Quizzes?: QuizzesUpdateManyWithoutUsersNestedInput
+    created_astronomy_events?: astronomy_eventsUpdateManyWithoutCreatorNestedInput
+    blog_comments?: blog_commentsUpdateManyWithoutUsersNestedInput
+    blog_likes?: blog_likesUpdateManyWithoutUsersNestedInput
+    blog_views?: blog_viewsUpdateManyWithoutUsersNestedInput
+    blogs?: blogsUpdateManyWithoutUsersNestedInput
+    chat_messages?: chat_messagesUpdateManyWithoutUserNestedInput
+    chatbot_sessions?: chatbot_sessionsUpdateManyWithoutUsersNestedInput
+    chatbot_usage?: chatbot_usageUpdateManyWithoutUsersNestedInput
+    event_reminders?: event_remindersUpdateManyWithoutUserNestedInput
+    created_groups?: group_chatsUpdateManyWithoutCreatorNestedInput
+    group_memberships?: group_membersUpdateManyWithoutUserNestedInput
+    guide_application?: guide_applicationUpdateManyWithoutUsersNestedInput
+    influencer_application?: influencer_applicationUpdateManyWithoutUsersNestedInput
+    media_uploads?: media_uploadsUpdateManyWithoutUserNestedInput
+    mentor_application?: mentor_applicationUpdateManyWithoutUsersNestedInput
+    message_reactions?: message_reactionsUpdateManyWithoutUserNestedInput
+    night_camp_registrations?: night_camp_registrationsUpdateManyWithoutUsersNestedInput
+    night_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousers?: night_camp_volunteering_applicationsUpdateManyWithoutUsers_night_camp_volunteering_applications_reviewed_byTousersNestedInput
+    night_camp_volunteering_applications_night_camp_volunteering_applications_user_idTousers?: night_camp_volunteering_applicationsUpdateManyWithoutUsers_night_camp_volunteering_applications_user_idTousersNestedInput
+    payments?: paymentsUpdateManyWithoutUsersNestedInput
+    role_upgrade_requests_role_upgrade_requests_reviewer_idTousers?: role_upgrade_requestsUpdateManyWithoutUsers_role_upgrade_requests_reviewer_idTousersNestedInput
+    role_upgrade_requests_role_upgrade_requests_user_idTousers?: role_upgrade_requestsUpdateManyWithoutUsers_role_upgrade_requests_user_idTousersNestedInput
+    discussion_comment_likes?: space_discussion_comment_likesUpdateManyWithoutUserNestedInput
+    discussion_comments?: space_discussion_commentsUpdateManyWithoutUserNestedInput
+    discussion_likes?: space_discussion_likesUpdateManyWithoutUserNestedInput
+    authored_discussions?: space_discussionsUpdateManyWithoutAuthorNestedInput
+    space_news_published?: space_newsUpdateManyWithoutPublisherNestedInput
+    space_news_comments?: space_news_commentsUpdateManyWithoutUserNestedInput
+    space_news_likes?: space_news_likesUpdateManyWithoutUserNestedInput
+    stargazing_spot_reviews?: stargazing_spot_reviewsUpdateManyWithoutUserNestedInput
+    created_stargazing_spots?: stargazing_spotsUpdateManyWithoutCreatorNestedInput
+    created_sessions?: sessionsUpdateManyWithoutCreatorNestedInput
+    session_enrollments?: session_enrollmentsUpdateManyWithoutUserNestedInput
+    created_services?: servicesUpdateManyWithoutCreatorNestedInput
+    service_reviews?: service_reviewsUpdateManyWithoutUserNestedInput
+    subscriptions?: subscriptionsUpdateManyWithoutUsersNestedInput
+    user_settings?: user_settingsUpdateOneWithoutUsersNestedInput
+    created_polls?: pollsUpdateManyWithoutCreatorNestedInput
+    poll_votes?: poll_votesUpdateManyWithoutVoterNestedInput
+    poll_comments?: poll_commentsUpdateManyWithoutCommenterNestedInput
+  }
+
+  export type usersUncheckedUpdateWithoutService_bookingsInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    firebase_uid?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    role?: NullableEnumuser_roleFieldUpdateOperationsInput | $Enums.user_role | null
+    first_name?: NullableStringFieldUpdateOperationsInput | string | null
+    last_name?: NullableStringFieldUpdateOperationsInput | string | null
+    is_active?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    last_login?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    display_name?: NullableStringFieldUpdateOperationsInput | string | null
+    profile_data?: NullableJsonNullValueInput | InputJsonValue
+    role_specific_data?: NullableJsonNullValueInput | InputJsonValue
+    subscription_plan?: NullableEnumsubscription_planFieldUpdateOperationsInput | $Enums.subscription_plan | null
+    subscription_status?: NullableEnumsubscription_statusFieldUpdateOperationsInput | $Enums.subscription_status | null
+    subscription_start_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    subscription_end_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    auto_renew?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    chatbot_questions_used?: NullableIntFieldUpdateOperationsInput | number | null
+    chatbot_questions_reset_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    QuizParticipants?: QuizParticipantsUncheckedUpdateManyWithoutUsersNestedInput
+    Quizzes?: QuizzesUncheckedUpdateManyWithoutUsersNestedInput
+    created_astronomy_events?: astronomy_eventsUncheckedUpdateManyWithoutCreatorNestedInput
+    blog_comments?: blog_commentsUncheckedUpdateManyWithoutUsersNestedInput
+    blog_likes?: blog_likesUncheckedUpdateManyWithoutUsersNestedInput
+    blog_views?: blog_viewsUncheckedUpdateManyWithoutUsersNestedInput
+    blogs?: blogsUncheckedUpdateManyWithoutUsersNestedInput
+    chat_messages?: chat_messagesUncheckedUpdateManyWithoutUserNestedInput
+    chatbot_sessions?: chatbot_sessionsUncheckedUpdateManyWithoutUsersNestedInput
+    chatbot_usage?: chatbot_usageUncheckedUpdateManyWithoutUsersNestedInput
+    event_reminders?: event_remindersUncheckedUpdateManyWithoutUserNestedInput
+    created_groups?: group_chatsUncheckedUpdateManyWithoutCreatorNestedInput
+    group_memberships?: group_membersUncheckedUpdateManyWithoutUserNestedInput
+    guide_application?: guide_applicationUncheckedUpdateManyWithoutUsersNestedInput
+    influencer_application?: influencer_applicationUncheckedUpdateManyWithoutUsersNestedInput
+    media_uploads?: media_uploadsUncheckedUpdateManyWithoutUserNestedInput
+    mentor_application?: mentor_applicationUncheckedUpdateManyWithoutUsersNestedInput
+    message_reactions?: message_reactionsUncheckedUpdateManyWithoutUserNestedInput
+    night_camp_registrations?: night_camp_registrationsUncheckedUpdateManyWithoutUsersNestedInput
+    night_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousers?: night_camp_volunteering_applicationsUncheckedUpdateManyWithoutUsers_night_camp_volunteering_applications_reviewed_byTousersNestedInput
+    night_camp_volunteering_applications_night_camp_volunteering_applications_user_idTousers?: night_camp_volunteering_applicationsUncheckedUpdateManyWithoutUsers_night_camp_volunteering_applications_user_idTousersNestedInput
+    payments?: paymentsUncheckedUpdateManyWithoutUsersNestedInput
+    role_upgrade_requests_role_upgrade_requests_reviewer_idTousers?: role_upgrade_requestsUncheckedUpdateManyWithoutUsers_role_upgrade_requests_reviewer_idTousersNestedInput
+    role_upgrade_requests_role_upgrade_requests_user_idTousers?: role_upgrade_requestsUncheckedUpdateManyWithoutUsers_role_upgrade_requests_user_idTousersNestedInput
+    discussion_comment_likes?: space_discussion_comment_likesUncheckedUpdateManyWithoutUserNestedInput
+    discussion_comments?: space_discussion_commentsUncheckedUpdateManyWithoutUserNestedInput
+    discussion_likes?: space_discussion_likesUncheckedUpdateManyWithoutUserNestedInput
+    authored_discussions?: space_discussionsUncheckedUpdateManyWithoutAuthorNestedInput
+    space_news_published?: space_newsUncheckedUpdateManyWithoutPublisherNestedInput
+    space_news_comments?: space_news_commentsUncheckedUpdateManyWithoutUserNestedInput
+    space_news_likes?: space_news_likesUncheckedUpdateManyWithoutUserNestedInput
+    stargazing_spot_reviews?: stargazing_spot_reviewsUncheckedUpdateManyWithoutUserNestedInput
+    created_stargazing_spots?: stargazing_spotsUncheckedUpdateManyWithoutCreatorNestedInput
+    created_sessions?: sessionsUncheckedUpdateManyWithoutCreatorNestedInput
+    session_enrollments?: session_enrollmentsUncheckedUpdateManyWithoutUserNestedInput
+    created_services?: servicesUncheckedUpdateManyWithoutCreatorNestedInput
+    service_reviews?: service_reviewsUncheckedUpdateManyWithoutUserNestedInput
+    subscriptions?: subscriptionsUncheckedUpdateManyWithoutUsersNestedInput
+    user_settings?: user_settingsUncheckedUpdateOneWithoutUsersNestedInput
+    created_polls?: pollsUncheckedUpdateManyWithoutCreatorNestedInput
+    poll_votes?: poll_votesUncheckedUpdateManyWithoutVoterNestedInput
+    poll_comments?: poll_commentsUncheckedUpdateManyWithoutCommenterNestedInput
+  }
+
+  export type servicesCreateWithoutReviewsInput = {
+    title: string
+    description: string
+    category: $Enums.service_category
+    price: Decimal | DecimalJsLike | number | string
+    duration: string
+    max_participants: number
+    location: string
+    difficulty: $Enums.service_difficulty
+    equipment?: JsonNullValueInput | InputJsonValue
+    next_available: Date | string
+    image_url?: string | null
+    featured?: boolean
+    tags?: JsonNullValueInput | InputJsonValue
+    requirements?: string | null
+    cancellation_policy?: string | null
+    meeting_point?: string | null
+    what_to_expect?: string | null
+    weather_policy?: $Enums.weather_policy_type | null
+    booking_deadline?: number
+    languages?: JsonNullValueInput | InputJsonValue
+    certification?: string | null
+    experience?: string | null
+    group_discount?: boolean
+    private_booking?: boolean
+    instant_booking?: boolean
+    status?: $Enums.service_status
+    views_count?: number
+    bookings_count?: number
+    rating?: number
+    review_count?: number
+    is_active?: boolean
+    created_at?: Date | string
+    updated_at?: Date | string
+    creator: usersCreateNestedOneWithoutCreated_servicesInput
+    bookings?: service_bookingsCreateNestedManyWithoutServiceInput
+    availability?: service_availabilityCreateNestedManyWithoutServiceInput
+    media?: service_mediaCreateNestedManyWithoutServiceInput
+  }
+
+  export type servicesUncheckedCreateWithoutReviewsInput = {
+    id?: number
+    title: string
+    description: string
+    category: $Enums.service_category
+    price: Decimal | DecimalJsLike | number | string
+    duration: string
+    max_participants: number
+    location: string
+    difficulty: $Enums.service_difficulty
+    equipment?: JsonNullValueInput | InputJsonValue
+    next_available: Date | string
+    image_url?: string | null
+    featured?: boolean
+    tags?: JsonNullValueInput | InputJsonValue
+    requirements?: string | null
+    cancellation_policy?: string | null
+    meeting_point?: string | null
+    what_to_expect?: string | null
+    weather_policy?: $Enums.weather_policy_type | null
+    booking_deadline?: number
+    languages?: JsonNullValueInput | InputJsonValue
+    certification?: string | null
+    experience?: string | null
+    group_discount?: boolean
+    private_booking?: boolean
+    instant_booking?: boolean
+    status?: $Enums.service_status
+    views_count?: number
+    bookings_count?: number
+    rating?: number
+    review_count?: number
+    created_by: number
+    is_active?: boolean
+    created_at?: Date | string
+    updated_at?: Date | string
+    bookings?: service_bookingsUncheckedCreateNestedManyWithoutServiceInput
+    availability?: service_availabilityUncheckedCreateNestedManyWithoutServiceInput
+    media?: service_mediaUncheckedCreateNestedManyWithoutServiceInput
+  }
+
+  export type servicesCreateOrConnectWithoutReviewsInput = {
+    where: servicesWhereUniqueInput
+    create: XOR<servicesCreateWithoutReviewsInput, servicesUncheckedCreateWithoutReviewsInput>
+  }
+
+  export type usersCreateWithoutService_reviewsInput = {
+    firebase_uid: string
+    email: string
+    role?: $Enums.user_role | null
+    first_name?: string | null
+    last_name?: string | null
+    is_active?: boolean | null
+    last_login?: Date | string | null
+    created_at?: Date | string | null
+    updated_at?: Date | string | null
+    display_name?: string | null
+    profile_data?: NullableJsonNullValueInput | InputJsonValue
+    role_specific_data?: NullableJsonNullValueInput | InputJsonValue
+    subscription_plan?: $Enums.subscription_plan | null
+    subscription_status?: $Enums.subscription_status | null
+    subscription_start_date?: Date | string | null
+    subscription_end_date?: Date | string | null
+    auto_renew?: boolean | null
+    chatbot_questions_used?: number | null
+    chatbot_questions_reset_date?: Date | string | null
+    QuizParticipants?: QuizParticipantsCreateNestedManyWithoutUsersInput
+    Quizzes?: QuizzesCreateNestedManyWithoutUsersInput
+    created_astronomy_events?: astronomy_eventsCreateNestedManyWithoutCreatorInput
+    blog_comments?: blog_commentsCreateNestedManyWithoutUsersInput
+    blog_likes?: blog_likesCreateNestedManyWithoutUsersInput
+    blog_views?: blog_viewsCreateNestedManyWithoutUsersInput
+    blogs?: blogsCreateNestedManyWithoutUsersInput
+    chat_messages?: chat_messagesCreateNestedManyWithoutUserInput
+    chatbot_sessions?: chatbot_sessionsCreateNestedManyWithoutUsersInput
+    chatbot_usage?: chatbot_usageCreateNestedManyWithoutUsersInput
+    event_reminders?: event_remindersCreateNestedManyWithoutUserInput
+    created_groups?: group_chatsCreateNestedManyWithoutCreatorInput
+    group_memberships?: group_membersCreateNestedManyWithoutUserInput
+    guide_application?: guide_applicationCreateNestedManyWithoutUsersInput
+    influencer_application?: influencer_applicationCreateNestedManyWithoutUsersInput
+    media_uploads?: media_uploadsCreateNestedManyWithoutUserInput
+    mentor_application?: mentor_applicationCreateNestedManyWithoutUsersInput
+    message_reactions?: message_reactionsCreateNestedManyWithoutUserInput
+    night_camp_registrations?: night_camp_registrationsCreateNestedManyWithoutUsersInput
+    night_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousers?: night_camp_volunteering_applicationsCreateNestedManyWithoutUsers_night_camp_volunteering_applications_reviewed_byTousersInput
+    night_camp_volunteering_applications_night_camp_volunteering_applications_user_idTousers?: night_camp_volunteering_applicationsCreateNestedManyWithoutUsers_night_camp_volunteering_applications_user_idTousersInput
+    payments?: paymentsCreateNestedManyWithoutUsersInput
+    role_upgrade_requests_role_upgrade_requests_reviewer_idTousers?: role_upgrade_requestsCreateNestedManyWithoutUsers_role_upgrade_requests_reviewer_idTousersInput
+    role_upgrade_requests_role_upgrade_requests_user_idTousers?: role_upgrade_requestsCreateNestedManyWithoutUsers_role_upgrade_requests_user_idTousersInput
+    discussion_comment_likes?: space_discussion_comment_likesCreateNestedManyWithoutUserInput
+    discussion_comments?: space_discussion_commentsCreateNestedManyWithoutUserInput
+    discussion_likes?: space_discussion_likesCreateNestedManyWithoutUserInput
+    authored_discussions?: space_discussionsCreateNestedManyWithoutAuthorInput
+    space_news_published?: space_newsCreateNestedManyWithoutPublisherInput
+    space_news_comments?: space_news_commentsCreateNestedManyWithoutUserInput
+    space_news_likes?: space_news_likesCreateNestedManyWithoutUserInput
+    stargazing_spot_reviews?: stargazing_spot_reviewsCreateNestedManyWithoutUserInput
+    created_stargazing_spots?: stargazing_spotsCreateNestedManyWithoutCreatorInput
+    created_sessions?: sessionsCreateNestedManyWithoutCreatorInput
+    session_enrollments?: session_enrollmentsCreateNestedManyWithoutUserInput
+    created_services?: servicesCreateNestedManyWithoutCreatorInput
+    service_bookings?: service_bookingsCreateNestedManyWithoutUserInput
+    subscriptions?: subscriptionsCreateNestedManyWithoutUsersInput
+    user_settings?: user_settingsCreateNestedOneWithoutUsersInput
+    created_polls?: pollsCreateNestedManyWithoutCreatorInput
+    poll_votes?: poll_votesCreateNestedManyWithoutVoterInput
+    poll_comments?: poll_commentsCreateNestedManyWithoutCommenterInput
+  }
+
+  export type usersUncheckedCreateWithoutService_reviewsInput = {
+    id?: number
+    firebase_uid: string
+    email: string
+    role?: $Enums.user_role | null
+    first_name?: string | null
+    last_name?: string | null
+    is_active?: boolean | null
+    last_login?: Date | string | null
+    created_at?: Date | string | null
+    updated_at?: Date | string | null
+    display_name?: string | null
+    profile_data?: NullableJsonNullValueInput | InputJsonValue
+    role_specific_data?: NullableJsonNullValueInput | InputJsonValue
+    subscription_plan?: $Enums.subscription_plan | null
+    subscription_status?: $Enums.subscription_status | null
+    subscription_start_date?: Date | string | null
+    subscription_end_date?: Date | string | null
+    auto_renew?: boolean | null
+    chatbot_questions_used?: number | null
+    chatbot_questions_reset_date?: Date | string | null
+    QuizParticipants?: QuizParticipantsUncheckedCreateNestedManyWithoutUsersInput
+    Quizzes?: QuizzesUncheckedCreateNestedManyWithoutUsersInput
+    created_astronomy_events?: astronomy_eventsUncheckedCreateNestedManyWithoutCreatorInput
+    blog_comments?: blog_commentsUncheckedCreateNestedManyWithoutUsersInput
+    blog_likes?: blog_likesUncheckedCreateNestedManyWithoutUsersInput
+    blog_views?: blog_viewsUncheckedCreateNestedManyWithoutUsersInput
+    blogs?: blogsUncheckedCreateNestedManyWithoutUsersInput
+    chat_messages?: chat_messagesUncheckedCreateNestedManyWithoutUserInput
+    chatbot_sessions?: chatbot_sessionsUncheckedCreateNestedManyWithoutUsersInput
+    chatbot_usage?: chatbot_usageUncheckedCreateNestedManyWithoutUsersInput
+    event_reminders?: event_remindersUncheckedCreateNestedManyWithoutUserInput
+    created_groups?: group_chatsUncheckedCreateNestedManyWithoutCreatorInput
+    group_memberships?: group_membersUncheckedCreateNestedManyWithoutUserInput
+    guide_application?: guide_applicationUncheckedCreateNestedManyWithoutUsersInput
+    influencer_application?: influencer_applicationUncheckedCreateNestedManyWithoutUsersInput
+    media_uploads?: media_uploadsUncheckedCreateNestedManyWithoutUserInput
+    mentor_application?: mentor_applicationUncheckedCreateNestedManyWithoutUsersInput
+    message_reactions?: message_reactionsUncheckedCreateNestedManyWithoutUserInput
+    night_camp_registrations?: night_camp_registrationsUncheckedCreateNestedManyWithoutUsersInput
+    night_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousers?: night_camp_volunteering_applicationsUncheckedCreateNestedManyWithoutUsers_night_camp_volunteering_applications_reviewed_byTousersInput
+    night_camp_volunteering_applications_night_camp_volunteering_applications_user_idTousers?: night_camp_volunteering_applicationsUncheckedCreateNestedManyWithoutUsers_night_camp_volunteering_applications_user_idTousersInput
+    payments?: paymentsUncheckedCreateNestedManyWithoutUsersInput
+    role_upgrade_requests_role_upgrade_requests_reviewer_idTousers?: role_upgrade_requestsUncheckedCreateNestedManyWithoutUsers_role_upgrade_requests_reviewer_idTousersInput
+    role_upgrade_requests_role_upgrade_requests_user_idTousers?: role_upgrade_requestsUncheckedCreateNestedManyWithoutUsers_role_upgrade_requests_user_idTousersInput
+    discussion_comment_likes?: space_discussion_comment_likesUncheckedCreateNestedManyWithoutUserInput
+    discussion_comments?: space_discussion_commentsUncheckedCreateNestedManyWithoutUserInput
+    discussion_likes?: space_discussion_likesUncheckedCreateNestedManyWithoutUserInput
+    authored_discussions?: space_discussionsUncheckedCreateNestedManyWithoutAuthorInput
+    space_news_published?: space_newsUncheckedCreateNestedManyWithoutPublisherInput
+    space_news_comments?: space_news_commentsUncheckedCreateNestedManyWithoutUserInput
+    space_news_likes?: space_news_likesUncheckedCreateNestedManyWithoutUserInput
+    stargazing_spot_reviews?: stargazing_spot_reviewsUncheckedCreateNestedManyWithoutUserInput
+    created_stargazing_spots?: stargazing_spotsUncheckedCreateNestedManyWithoutCreatorInput
+    created_sessions?: sessionsUncheckedCreateNestedManyWithoutCreatorInput
+    session_enrollments?: session_enrollmentsUncheckedCreateNestedManyWithoutUserInput
+    created_services?: servicesUncheckedCreateNestedManyWithoutCreatorInput
+    service_bookings?: service_bookingsUncheckedCreateNestedManyWithoutUserInput
+    subscriptions?: subscriptionsUncheckedCreateNestedManyWithoutUsersInput
+    user_settings?: user_settingsUncheckedCreateNestedOneWithoutUsersInput
+    created_polls?: pollsUncheckedCreateNestedManyWithoutCreatorInput
+    poll_votes?: poll_votesUncheckedCreateNestedManyWithoutVoterInput
+    poll_comments?: poll_commentsUncheckedCreateNestedManyWithoutCommenterInput
+  }
+
+  export type usersCreateOrConnectWithoutService_reviewsInput = {
+    where: usersWhereUniqueInput
+    create: XOR<usersCreateWithoutService_reviewsInput, usersUncheckedCreateWithoutService_reviewsInput>
+  }
+
+  export type servicesUpsertWithoutReviewsInput = {
+    update: XOR<servicesUpdateWithoutReviewsInput, servicesUncheckedUpdateWithoutReviewsInput>
+    create: XOR<servicesCreateWithoutReviewsInput, servicesUncheckedCreateWithoutReviewsInput>
+    where?: servicesWhereInput
+  }
+
+  export type servicesUpdateToOneWithWhereWithoutReviewsInput = {
+    where?: servicesWhereInput
+    data: XOR<servicesUpdateWithoutReviewsInput, servicesUncheckedUpdateWithoutReviewsInput>
+  }
+
+  export type servicesUpdateWithoutReviewsInput = {
+    title?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    category?: Enumservice_categoryFieldUpdateOperationsInput | $Enums.service_category
+    price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    duration?: StringFieldUpdateOperationsInput | string
+    max_participants?: IntFieldUpdateOperationsInput | number
+    location?: StringFieldUpdateOperationsInput | string
+    difficulty?: Enumservice_difficultyFieldUpdateOperationsInput | $Enums.service_difficulty
+    equipment?: JsonNullValueInput | InputJsonValue
+    next_available?: DateTimeFieldUpdateOperationsInput | Date | string
+    image_url?: NullableStringFieldUpdateOperationsInput | string | null
+    featured?: BoolFieldUpdateOperationsInput | boolean
+    tags?: JsonNullValueInput | InputJsonValue
+    requirements?: NullableStringFieldUpdateOperationsInput | string | null
+    cancellation_policy?: NullableStringFieldUpdateOperationsInput | string | null
+    meeting_point?: NullableStringFieldUpdateOperationsInput | string | null
+    what_to_expect?: NullableStringFieldUpdateOperationsInput | string | null
+    weather_policy?: NullableEnumweather_policy_typeFieldUpdateOperationsInput | $Enums.weather_policy_type | null
+    booking_deadline?: IntFieldUpdateOperationsInput | number
+    languages?: JsonNullValueInput | InputJsonValue
+    certification?: NullableStringFieldUpdateOperationsInput | string | null
+    experience?: NullableStringFieldUpdateOperationsInput | string | null
+    group_discount?: BoolFieldUpdateOperationsInput | boolean
+    private_booking?: BoolFieldUpdateOperationsInput | boolean
+    instant_booking?: BoolFieldUpdateOperationsInput | boolean
+    status?: Enumservice_statusFieldUpdateOperationsInput | $Enums.service_status
+    views_count?: IntFieldUpdateOperationsInput | number
+    bookings_count?: IntFieldUpdateOperationsInput | number
+    rating?: FloatFieldUpdateOperationsInput | number
+    review_count?: IntFieldUpdateOperationsInput | number
+    is_active?: BoolFieldUpdateOperationsInput | boolean
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    creator?: usersUpdateOneRequiredWithoutCreated_servicesNestedInput
+    bookings?: service_bookingsUpdateManyWithoutServiceNestedInput
+    availability?: service_availabilityUpdateManyWithoutServiceNestedInput
+    media?: service_mediaUpdateManyWithoutServiceNestedInput
+  }
+
+  export type servicesUncheckedUpdateWithoutReviewsInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    title?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    category?: Enumservice_categoryFieldUpdateOperationsInput | $Enums.service_category
+    price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    duration?: StringFieldUpdateOperationsInput | string
+    max_participants?: IntFieldUpdateOperationsInput | number
+    location?: StringFieldUpdateOperationsInput | string
+    difficulty?: Enumservice_difficultyFieldUpdateOperationsInput | $Enums.service_difficulty
+    equipment?: JsonNullValueInput | InputJsonValue
+    next_available?: DateTimeFieldUpdateOperationsInput | Date | string
+    image_url?: NullableStringFieldUpdateOperationsInput | string | null
+    featured?: BoolFieldUpdateOperationsInput | boolean
+    tags?: JsonNullValueInput | InputJsonValue
+    requirements?: NullableStringFieldUpdateOperationsInput | string | null
+    cancellation_policy?: NullableStringFieldUpdateOperationsInput | string | null
+    meeting_point?: NullableStringFieldUpdateOperationsInput | string | null
+    what_to_expect?: NullableStringFieldUpdateOperationsInput | string | null
+    weather_policy?: NullableEnumweather_policy_typeFieldUpdateOperationsInput | $Enums.weather_policy_type | null
+    booking_deadline?: IntFieldUpdateOperationsInput | number
+    languages?: JsonNullValueInput | InputJsonValue
+    certification?: NullableStringFieldUpdateOperationsInput | string | null
+    experience?: NullableStringFieldUpdateOperationsInput | string | null
+    group_discount?: BoolFieldUpdateOperationsInput | boolean
+    private_booking?: BoolFieldUpdateOperationsInput | boolean
+    instant_booking?: BoolFieldUpdateOperationsInput | boolean
+    status?: Enumservice_statusFieldUpdateOperationsInput | $Enums.service_status
+    views_count?: IntFieldUpdateOperationsInput | number
+    bookings_count?: IntFieldUpdateOperationsInput | number
+    rating?: FloatFieldUpdateOperationsInput | number
+    review_count?: IntFieldUpdateOperationsInput | number
+    created_by?: IntFieldUpdateOperationsInput | number
+    is_active?: BoolFieldUpdateOperationsInput | boolean
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    bookings?: service_bookingsUncheckedUpdateManyWithoutServiceNestedInput
+    availability?: service_availabilityUncheckedUpdateManyWithoutServiceNestedInput
+    media?: service_mediaUncheckedUpdateManyWithoutServiceNestedInput
+  }
+
+  export type usersUpsertWithoutService_reviewsInput = {
+    update: XOR<usersUpdateWithoutService_reviewsInput, usersUncheckedUpdateWithoutService_reviewsInput>
+    create: XOR<usersCreateWithoutService_reviewsInput, usersUncheckedCreateWithoutService_reviewsInput>
+    where?: usersWhereInput
+  }
+
+  export type usersUpdateToOneWithWhereWithoutService_reviewsInput = {
+    where?: usersWhereInput
+    data: XOR<usersUpdateWithoutService_reviewsInput, usersUncheckedUpdateWithoutService_reviewsInput>
+  }
+
+  export type usersUpdateWithoutService_reviewsInput = {
+    firebase_uid?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    role?: NullableEnumuser_roleFieldUpdateOperationsInput | $Enums.user_role | null
+    first_name?: NullableStringFieldUpdateOperationsInput | string | null
+    last_name?: NullableStringFieldUpdateOperationsInput | string | null
+    is_active?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    last_login?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    display_name?: NullableStringFieldUpdateOperationsInput | string | null
+    profile_data?: NullableJsonNullValueInput | InputJsonValue
+    role_specific_data?: NullableJsonNullValueInput | InputJsonValue
+    subscription_plan?: NullableEnumsubscription_planFieldUpdateOperationsInput | $Enums.subscription_plan | null
+    subscription_status?: NullableEnumsubscription_statusFieldUpdateOperationsInput | $Enums.subscription_status | null
+    subscription_start_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    subscription_end_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    auto_renew?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    chatbot_questions_used?: NullableIntFieldUpdateOperationsInput | number | null
+    chatbot_questions_reset_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    QuizParticipants?: QuizParticipantsUpdateManyWithoutUsersNestedInput
+    Quizzes?: QuizzesUpdateManyWithoutUsersNestedInput
+    created_astronomy_events?: astronomy_eventsUpdateManyWithoutCreatorNestedInput
+    blog_comments?: blog_commentsUpdateManyWithoutUsersNestedInput
+    blog_likes?: blog_likesUpdateManyWithoutUsersNestedInput
+    blog_views?: blog_viewsUpdateManyWithoutUsersNestedInput
+    blogs?: blogsUpdateManyWithoutUsersNestedInput
+    chat_messages?: chat_messagesUpdateManyWithoutUserNestedInput
+    chatbot_sessions?: chatbot_sessionsUpdateManyWithoutUsersNestedInput
+    chatbot_usage?: chatbot_usageUpdateManyWithoutUsersNestedInput
+    event_reminders?: event_remindersUpdateManyWithoutUserNestedInput
+    created_groups?: group_chatsUpdateManyWithoutCreatorNestedInput
+    group_memberships?: group_membersUpdateManyWithoutUserNestedInput
+    guide_application?: guide_applicationUpdateManyWithoutUsersNestedInput
+    influencer_application?: influencer_applicationUpdateManyWithoutUsersNestedInput
+    media_uploads?: media_uploadsUpdateManyWithoutUserNestedInput
+    mentor_application?: mentor_applicationUpdateManyWithoutUsersNestedInput
+    message_reactions?: message_reactionsUpdateManyWithoutUserNestedInput
+    night_camp_registrations?: night_camp_registrationsUpdateManyWithoutUsersNestedInput
+    night_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousers?: night_camp_volunteering_applicationsUpdateManyWithoutUsers_night_camp_volunteering_applications_reviewed_byTousersNestedInput
+    night_camp_volunteering_applications_night_camp_volunteering_applications_user_idTousers?: night_camp_volunteering_applicationsUpdateManyWithoutUsers_night_camp_volunteering_applications_user_idTousersNestedInput
+    payments?: paymentsUpdateManyWithoutUsersNestedInput
+    role_upgrade_requests_role_upgrade_requests_reviewer_idTousers?: role_upgrade_requestsUpdateManyWithoutUsers_role_upgrade_requests_reviewer_idTousersNestedInput
+    role_upgrade_requests_role_upgrade_requests_user_idTousers?: role_upgrade_requestsUpdateManyWithoutUsers_role_upgrade_requests_user_idTousersNestedInput
+    discussion_comment_likes?: space_discussion_comment_likesUpdateManyWithoutUserNestedInput
+    discussion_comments?: space_discussion_commentsUpdateManyWithoutUserNestedInput
+    discussion_likes?: space_discussion_likesUpdateManyWithoutUserNestedInput
+    authored_discussions?: space_discussionsUpdateManyWithoutAuthorNestedInput
+    space_news_published?: space_newsUpdateManyWithoutPublisherNestedInput
+    space_news_comments?: space_news_commentsUpdateManyWithoutUserNestedInput
+    space_news_likes?: space_news_likesUpdateManyWithoutUserNestedInput
+    stargazing_spot_reviews?: stargazing_spot_reviewsUpdateManyWithoutUserNestedInput
+    created_stargazing_spots?: stargazing_spotsUpdateManyWithoutCreatorNestedInput
+    created_sessions?: sessionsUpdateManyWithoutCreatorNestedInput
+    session_enrollments?: session_enrollmentsUpdateManyWithoutUserNestedInput
+    created_services?: servicesUpdateManyWithoutCreatorNestedInput
+    service_bookings?: service_bookingsUpdateManyWithoutUserNestedInput
+    subscriptions?: subscriptionsUpdateManyWithoutUsersNestedInput
+    user_settings?: user_settingsUpdateOneWithoutUsersNestedInput
+    created_polls?: pollsUpdateManyWithoutCreatorNestedInput
+    poll_votes?: poll_votesUpdateManyWithoutVoterNestedInput
+    poll_comments?: poll_commentsUpdateManyWithoutCommenterNestedInput
+  }
+
+  export type usersUncheckedUpdateWithoutService_reviewsInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    firebase_uid?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    role?: NullableEnumuser_roleFieldUpdateOperationsInput | $Enums.user_role | null
+    first_name?: NullableStringFieldUpdateOperationsInput | string | null
+    last_name?: NullableStringFieldUpdateOperationsInput | string | null
+    is_active?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    last_login?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    display_name?: NullableStringFieldUpdateOperationsInput | string | null
+    profile_data?: NullableJsonNullValueInput | InputJsonValue
+    role_specific_data?: NullableJsonNullValueInput | InputJsonValue
+    subscription_plan?: NullableEnumsubscription_planFieldUpdateOperationsInput | $Enums.subscription_plan | null
+    subscription_status?: NullableEnumsubscription_statusFieldUpdateOperationsInput | $Enums.subscription_status | null
+    subscription_start_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    subscription_end_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    auto_renew?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    chatbot_questions_used?: NullableIntFieldUpdateOperationsInput | number | null
+    chatbot_questions_reset_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    QuizParticipants?: QuizParticipantsUncheckedUpdateManyWithoutUsersNestedInput
+    Quizzes?: QuizzesUncheckedUpdateManyWithoutUsersNestedInput
+    created_astronomy_events?: astronomy_eventsUncheckedUpdateManyWithoutCreatorNestedInput
+    blog_comments?: blog_commentsUncheckedUpdateManyWithoutUsersNestedInput
+    blog_likes?: blog_likesUncheckedUpdateManyWithoutUsersNestedInput
+    blog_views?: blog_viewsUncheckedUpdateManyWithoutUsersNestedInput
+    blogs?: blogsUncheckedUpdateManyWithoutUsersNestedInput
+    chat_messages?: chat_messagesUncheckedUpdateManyWithoutUserNestedInput
+    chatbot_sessions?: chatbot_sessionsUncheckedUpdateManyWithoutUsersNestedInput
+    chatbot_usage?: chatbot_usageUncheckedUpdateManyWithoutUsersNestedInput
+    event_reminders?: event_remindersUncheckedUpdateManyWithoutUserNestedInput
+    created_groups?: group_chatsUncheckedUpdateManyWithoutCreatorNestedInput
+    group_memberships?: group_membersUncheckedUpdateManyWithoutUserNestedInput
+    guide_application?: guide_applicationUncheckedUpdateManyWithoutUsersNestedInput
+    influencer_application?: influencer_applicationUncheckedUpdateManyWithoutUsersNestedInput
+    media_uploads?: media_uploadsUncheckedUpdateManyWithoutUserNestedInput
+    mentor_application?: mentor_applicationUncheckedUpdateManyWithoutUsersNestedInput
+    message_reactions?: message_reactionsUncheckedUpdateManyWithoutUserNestedInput
+    night_camp_registrations?: night_camp_registrationsUncheckedUpdateManyWithoutUsersNestedInput
+    night_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousers?: night_camp_volunteering_applicationsUncheckedUpdateManyWithoutUsers_night_camp_volunteering_applications_reviewed_byTousersNestedInput
+    night_camp_volunteering_applications_night_camp_volunteering_applications_user_idTousers?: night_camp_volunteering_applicationsUncheckedUpdateManyWithoutUsers_night_camp_volunteering_applications_user_idTousersNestedInput
+    payments?: paymentsUncheckedUpdateManyWithoutUsersNestedInput
+    role_upgrade_requests_role_upgrade_requests_reviewer_idTousers?: role_upgrade_requestsUncheckedUpdateManyWithoutUsers_role_upgrade_requests_reviewer_idTousersNestedInput
+    role_upgrade_requests_role_upgrade_requests_user_idTousers?: role_upgrade_requestsUncheckedUpdateManyWithoutUsers_role_upgrade_requests_user_idTousersNestedInput
+    discussion_comment_likes?: space_discussion_comment_likesUncheckedUpdateManyWithoutUserNestedInput
+    discussion_comments?: space_discussion_commentsUncheckedUpdateManyWithoutUserNestedInput
+    discussion_likes?: space_discussion_likesUncheckedUpdateManyWithoutUserNestedInput
+    authored_discussions?: space_discussionsUncheckedUpdateManyWithoutAuthorNestedInput
+    space_news_published?: space_newsUncheckedUpdateManyWithoutPublisherNestedInput
+    space_news_comments?: space_news_commentsUncheckedUpdateManyWithoutUserNestedInput
+    space_news_likes?: space_news_likesUncheckedUpdateManyWithoutUserNestedInput
+    stargazing_spot_reviews?: stargazing_spot_reviewsUncheckedUpdateManyWithoutUserNestedInput
+    created_stargazing_spots?: stargazing_spotsUncheckedUpdateManyWithoutCreatorNestedInput
+    created_sessions?: sessionsUncheckedUpdateManyWithoutCreatorNestedInput
+    session_enrollments?: session_enrollmentsUncheckedUpdateManyWithoutUserNestedInput
+    created_services?: servicesUncheckedUpdateManyWithoutCreatorNestedInput
+    service_bookings?: service_bookingsUncheckedUpdateManyWithoutUserNestedInput
+    subscriptions?: subscriptionsUncheckedUpdateManyWithoutUsersNestedInput
+    user_settings?: user_settingsUncheckedUpdateOneWithoutUsersNestedInput
+    created_polls?: pollsUncheckedUpdateManyWithoutCreatorNestedInput
+    poll_votes?: poll_votesUncheckedUpdateManyWithoutVoterNestedInput
+    poll_comments?: poll_commentsUncheckedUpdateManyWithoutCommenterNestedInput
+  }
+
+  export type servicesCreateWithoutAvailabilityInput = {
+    title: string
+    description: string
+    category: $Enums.service_category
+    price: Decimal | DecimalJsLike | number | string
+    duration: string
+    max_participants: number
+    location: string
+    difficulty: $Enums.service_difficulty
+    equipment?: JsonNullValueInput | InputJsonValue
+    next_available: Date | string
+    image_url?: string | null
+    featured?: boolean
+    tags?: JsonNullValueInput | InputJsonValue
+    requirements?: string | null
+    cancellation_policy?: string | null
+    meeting_point?: string | null
+    what_to_expect?: string | null
+    weather_policy?: $Enums.weather_policy_type | null
+    booking_deadline?: number
+    languages?: JsonNullValueInput | InputJsonValue
+    certification?: string | null
+    experience?: string | null
+    group_discount?: boolean
+    private_booking?: boolean
+    instant_booking?: boolean
+    status?: $Enums.service_status
+    views_count?: number
+    bookings_count?: number
+    rating?: number
+    review_count?: number
+    is_active?: boolean
+    created_at?: Date | string
+    updated_at?: Date | string
+    creator: usersCreateNestedOneWithoutCreated_servicesInput
+    bookings?: service_bookingsCreateNestedManyWithoutServiceInput
+    reviews?: service_reviewsCreateNestedManyWithoutServiceInput
+    media?: service_mediaCreateNestedManyWithoutServiceInput
+  }
+
+  export type servicesUncheckedCreateWithoutAvailabilityInput = {
+    id?: number
+    title: string
+    description: string
+    category: $Enums.service_category
+    price: Decimal | DecimalJsLike | number | string
+    duration: string
+    max_participants: number
+    location: string
+    difficulty: $Enums.service_difficulty
+    equipment?: JsonNullValueInput | InputJsonValue
+    next_available: Date | string
+    image_url?: string | null
+    featured?: boolean
+    tags?: JsonNullValueInput | InputJsonValue
+    requirements?: string | null
+    cancellation_policy?: string | null
+    meeting_point?: string | null
+    what_to_expect?: string | null
+    weather_policy?: $Enums.weather_policy_type | null
+    booking_deadline?: number
+    languages?: JsonNullValueInput | InputJsonValue
+    certification?: string | null
+    experience?: string | null
+    group_discount?: boolean
+    private_booking?: boolean
+    instant_booking?: boolean
+    status?: $Enums.service_status
+    views_count?: number
+    bookings_count?: number
+    rating?: number
+    review_count?: number
+    created_by: number
+    is_active?: boolean
+    created_at?: Date | string
+    updated_at?: Date | string
+    bookings?: service_bookingsUncheckedCreateNestedManyWithoutServiceInput
+    reviews?: service_reviewsUncheckedCreateNestedManyWithoutServiceInput
+    media?: service_mediaUncheckedCreateNestedManyWithoutServiceInput
+  }
+
+  export type servicesCreateOrConnectWithoutAvailabilityInput = {
+    where: servicesWhereUniqueInput
+    create: XOR<servicesCreateWithoutAvailabilityInput, servicesUncheckedCreateWithoutAvailabilityInput>
+  }
+
+  export type servicesUpsertWithoutAvailabilityInput = {
+    update: XOR<servicesUpdateWithoutAvailabilityInput, servicesUncheckedUpdateWithoutAvailabilityInput>
+    create: XOR<servicesCreateWithoutAvailabilityInput, servicesUncheckedCreateWithoutAvailabilityInput>
+    where?: servicesWhereInput
+  }
+
+  export type servicesUpdateToOneWithWhereWithoutAvailabilityInput = {
+    where?: servicesWhereInput
+    data: XOR<servicesUpdateWithoutAvailabilityInput, servicesUncheckedUpdateWithoutAvailabilityInput>
+  }
+
+  export type servicesUpdateWithoutAvailabilityInput = {
+    title?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    category?: Enumservice_categoryFieldUpdateOperationsInput | $Enums.service_category
+    price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    duration?: StringFieldUpdateOperationsInput | string
+    max_participants?: IntFieldUpdateOperationsInput | number
+    location?: StringFieldUpdateOperationsInput | string
+    difficulty?: Enumservice_difficultyFieldUpdateOperationsInput | $Enums.service_difficulty
+    equipment?: JsonNullValueInput | InputJsonValue
+    next_available?: DateTimeFieldUpdateOperationsInput | Date | string
+    image_url?: NullableStringFieldUpdateOperationsInput | string | null
+    featured?: BoolFieldUpdateOperationsInput | boolean
+    tags?: JsonNullValueInput | InputJsonValue
+    requirements?: NullableStringFieldUpdateOperationsInput | string | null
+    cancellation_policy?: NullableStringFieldUpdateOperationsInput | string | null
+    meeting_point?: NullableStringFieldUpdateOperationsInput | string | null
+    what_to_expect?: NullableStringFieldUpdateOperationsInput | string | null
+    weather_policy?: NullableEnumweather_policy_typeFieldUpdateOperationsInput | $Enums.weather_policy_type | null
+    booking_deadline?: IntFieldUpdateOperationsInput | number
+    languages?: JsonNullValueInput | InputJsonValue
+    certification?: NullableStringFieldUpdateOperationsInput | string | null
+    experience?: NullableStringFieldUpdateOperationsInput | string | null
+    group_discount?: BoolFieldUpdateOperationsInput | boolean
+    private_booking?: BoolFieldUpdateOperationsInput | boolean
+    instant_booking?: BoolFieldUpdateOperationsInput | boolean
+    status?: Enumservice_statusFieldUpdateOperationsInput | $Enums.service_status
+    views_count?: IntFieldUpdateOperationsInput | number
+    bookings_count?: IntFieldUpdateOperationsInput | number
+    rating?: FloatFieldUpdateOperationsInput | number
+    review_count?: IntFieldUpdateOperationsInput | number
+    is_active?: BoolFieldUpdateOperationsInput | boolean
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    creator?: usersUpdateOneRequiredWithoutCreated_servicesNestedInput
+    bookings?: service_bookingsUpdateManyWithoutServiceNestedInput
+    reviews?: service_reviewsUpdateManyWithoutServiceNestedInput
+    media?: service_mediaUpdateManyWithoutServiceNestedInput
+  }
+
+  export type servicesUncheckedUpdateWithoutAvailabilityInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    title?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    category?: Enumservice_categoryFieldUpdateOperationsInput | $Enums.service_category
+    price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    duration?: StringFieldUpdateOperationsInput | string
+    max_participants?: IntFieldUpdateOperationsInput | number
+    location?: StringFieldUpdateOperationsInput | string
+    difficulty?: Enumservice_difficultyFieldUpdateOperationsInput | $Enums.service_difficulty
+    equipment?: JsonNullValueInput | InputJsonValue
+    next_available?: DateTimeFieldUpdateOperationsInput | Date | string
+    image_url?: NullableStringFieldUpdateOperationsInput | string | null
+    featured?: BoolFieldUpdateOperationsInput | boolean
+    tags?: JsonNullValueInput | InputJsonValue
+    requirements?: NullableStringFieldUpdateOperationsInput | string | null
+    cancellation_policy?: NullableStringFieldUpdateOperationsInput | string | null
+    meeting_point?: NullableStringFieldUpdateOperationsInput | string | null
+    what_to_expect?: NullableStringFieldUpdateOperationsInput | string | null
+    weather_policy?: NullableEnumweather_policy_typeFieldUpdateOperationsInput | $Enums.weather_policy_type | null
+    booking_deadline?: IntFieldUpdateOperationsInput | number
+    languages?: JsonNullValueInput | InputJsonValue
+    certification?: NullableStringFieldUpdateOperationsInput | string | null
+    experience?: NullableStringFieldUpdateOperationsInput | string | null
+    group_discount?: BoolFieldUpdateOperationsInput | boolean
+    private_booking?: BoolFieldUpdateOperationsInput | boolean
+    instant_booking?: BoolFieldUpdateOperationsInput | boolean
+    status?: Enumservice_statusFieldUpdateOperationsInput | $Enums.service_status
+    views_count?: IntFieldUpdateOperationsInput | number
+    bookings_count?: IntFieldUpdateOperationsInput | number
+    rating?: FloatFieldUpdateOperationsInput | number
+    review_count?: IntFieldUpdateOperationsInput | number
+    created_by?: IntFieldUpdateOperationsInput | number
+    is_active?: BoolFieldUpdateOperationsInput | boolean
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    bookings?: service_bookingsUncheckedUpdateManyWithoutServiceNestedInput
+    reviews?: service_reviewsUncheckedUpdateManyWithoutServiceNestedInput
+    media?: service_mediaUncheckedUpdateManyWithoutServiceNestedInput
+  }
+
+  export type servicesCreateWithoutMediaInput = {
+    title: string
+    description: string
+    category: $Enums.service_category
+    price: Decimal | DecimalJsLike | number | string
+    duration: string
+    max_participants: number
+    location: string
+    difficulty: $Enums.service_difficulty
+    equipment?: JsonNullValueInput | InputJsonValue
+    next_available: Date | string
+    image_url?: string | null
+    featured?: boolean
+    tags?: JsonNullValueInput | InputJsonValue
+    requirements?: string | null
+    cancellation_policy?: string | null
+    meeting_point?: string | null
+    what_to_expect?: string | null
+    weather_policy?: $Enums.weather_policy_type | null
+    booking_deadline?: number
+    languages?: JsonNullValueInput | InputJsonValue
+    certification?: string | null
+    experience?: string | null
+    group_discount?: boolean
+    private_booking?: boolean
+    instant_booking?: boolean
+    status?: $Enums.service_status
+    views_count?: number
+    bookings_count?: number
+    rating?: number
+    review_count?: number
+    is_active?: boolean
+    created_at?: Date | string
+    updated_at?: Date | string
+    creator: usersCreateNestedOneWithoutCreated_servicesInput
+    bookings?: service_bookingsCreateNestedManyWithoutServiceInput
+    reviews?: service_reviewsCreateNestedManyWithoutServiceInput
+    availability?: service_availabilityCreateNestedManyWithoutServiceInput
+  }
+
+  export type servicesUncheckedCreateWithoutMediaInput = {
+    id?: number
+    title: string
+    description: string
+    category: $Enums.service_category
+    price: Decimal | DecimalJsLike | number | string
+    duration: string
+    max_participants: number
+    location: string
+    difficulty: $Enums.service_difficulty
+    equipment?: JsonNullValueInput | InputJsonValue
+    next_available: Date | string
+    image_url?: string | null
+    featured?: boolean
+    tags?: JsonNullValueInput | InputJsonValue
+    requirements?: string | null
+    cancellation_policy?: string | null
+    meeting_point?: string | null
+    what_to_expect?: string | null
+    weather_policy?: $Enums.weather_policy_type | null
+    booking_deadline?: number
+    languages?: JsonNullValueInput | InputJsonValue
+    certification?: string | null
+    experience?: string | null
+    group_discount?: boolean
+    private_booking?: boolean
+    instant_booking?: boolean
+    status?: $Enums.service_status
+    views_count?: number
+    bookings_count?: number
+    rating?: number
+    review_count?: number
+    created_by: number
+    is_active?: boolean
+    created_at?: Date | string
+    updated_at?: Date | string
+    bookings?: service_bookingsUncheckedCreateNestedManyWithoutServiceInput
+    reviews?: service_reviewsUncheckedCreateNestedManyWithoutServiceInput
+    availability?: service_availabilityUncheckedCreateNestedManyWithoutServiceInput
+  }
+
+  export type servicesCreateOrConnectWithoutMediaInput = {
+    where: servicesWhereUniqueInput
+    create: XOR<servicesCreateWithoutMediaInput, servicesUncheckedCreateWithoutMediaInput>
+  }
+
+  export type servicesUpsertWithoutMediaInput = {
+    update: XOR<servicesUpdateWithoutMediaInput, servicesUncheckedUpdateWithoutMediaInput>
+    create: XOR<servicesCreateWithoutMediaInput, servicesUncheckedCreateWithoutMediaInput>
+    where?: servicesWhereInput
+  }
+
+  export type servicesUpdateToOneWithWhereWithoutMediaInput = {
+    where?: servicesWhereInput
+    data: XOR<servicesUpdateWithoutMediaInput, servicesUncheckedUpdateWithoutMediaInput>
+  }
+
+  export type servicesUpdateWithoutMediaInput = {
+    title?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    category?: Enumservice_categoryFieldUpdateOperationsInput | $Enums.service_category
+    price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    duration?: StringFieldUpdateOperationsInput | string
+    max_participants?: IntFieldUpdateOperationsInput | number
+    location?: StringFieldUpdateOperationsInput | string
+    difficulty?: Enumservice_difficultyFieldUpdateOperationsInput | $Enums.service_difficulty
+    equipment?: JsonNullValueInput | InputJsonValue
+    next_available?: DateTimeFieldUpdateOperationsInput | Date | string
+    image_url?: NullableStringFieldUpdateOperationsInput | string | null
+    featured?: BoolFieldUpdateOperationsInput | boolean
+    tags?: JsonNullValueInput | InputJsonValue
+    requirements?: NullableStringFieldUpdateOperationsInput | string | null
+    cancellation_policy?: NullableStringFieldUpdateOperationsInput | string | null
+    meeting_point?: NullableStringFieldUpdateOperationsInput | string | null
+    what_to_expect?: NullableStringFieldUpdateOperationsInput | string | null
+    weather_policy?: NullableEnumweather_policy_typeFieldUpdateOperationsInput | $Enums.weather_policy_type | null
+    booking_deadline?: IntFieldUpdateOperationsInput | number
+    languages?: JsonNullValueInput | InputJsonValue
+    certification?: NullableStringFieldUpdateOperationsInput | string | null
+    experience?: NullableStringFieldUpdateOperationsInput | string | null
+    group_discount?: BoolFieldUpdateOperationsInput | boolean
+    private_booking?: BoolFieldUpdateOperationsInput | boolean
+    instant_booking?: BoolFieldUpdateOperationsInput | boolean
+    status?: Enumservice_statusFieldUpdateOperationsInput | $Enums.service_status
+    views_count?: IntFieldUpdateOperationsInput | number
+    bookings_count?: IntFieldUpdateOperationsInput | number
+    rating?: FloatFieldUpdateOperationsInput | number
+    review_count?: IntFieldUpdateOperationsInput | number
+    is_active?: BoolFieldUpdateOperationsInput | boolean
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    creator?: usersUpdateOneRequiredWithoutCreated_servicesNestedInput
+    bookings?: service_bookingsUpdateManyWithoutServiceNestedInput
+    reviews?: service_reviewsUpdateManyWithoutServiceNestedInput
+    availability?: service_availabilityUpdateManyWithoutServiceNestedInput
+  }
+
+  export type servicesUncheckedUpdateWithoutMediaInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    title?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    category?: Enumservice_categoryFieldUpdateOperationsInput | $Enums.service_category
+    price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    duration?: StringFieldUpdateOperationsInput | string
+    max_participants?: IntFieldUpdateOperationsInput | number
+    location?: StringFieldUpdateOperationsInput | string
+    difficulty?: Enumservice_difficultyFieldUpdateOperationsInput | $Enums.service_difficulty
+    equipment?: JsonNullValueInput | InputJsonValue
+    next_available?: DateTimeFieldUpdateOperationsInput | Date | string
+    image_url?: NullableStringFieldUpdateOperationsInput | string | null
+    featured?: BoolFieldUpdateOperationsInput | boolean
+    tags?: JsonNullValueInput | InputJsonValue
+    requirements?: NullableStringFieldUpdateOperationsInput | string | null
+    cancellation_policy?: NullableStringFieldUpdateOperationsInput | string | null
+    meeting_point?: NullableStringFieldUpdateOperationsInput | string | null
+    what_to_expect?: NullableStringFieldUpdateOperationsInput | string | null
+    weather_policy?: NullableEnumweather_policy_typeFieldUpdateOperationsInput | $Enums.weather_policy_type | null
+    booking_deadline?: IntFieldUpdateOperationsInput | number
+    languages?: JsonNullValueInput | InputJsonValue
+    certification?: NullableStringFieldUpdateOperationsInput | string | null
+    experience?: NullableStringFieldUpdateOperationsInput | string | null
+    group_discount?: BoolFieldUpdateOperationsInput | boolean
+    private_booking?: BoolFieldUpdateOperationsInput | boolean
+    instant_booking?: BoolFieldUpdateOperationsInput | boolean
+    status?: Enumservice_statusFieldUpdateOperationsInput | $Enums.service_status
+    views_count?: IntFieldUpdateOperationsInput | number
+    bookings_count?: IntFieldUpdateOperationsInput | number
+    rating?: FloatFieldUpdateOperationsInput | number
+    review_count?: IntFieldUpdateOperationsInput | number
+    created_by?: IntFieldUpdateOperationsInput | number
+    is_active?: BoolFieldUpdateOperationsInput | boolean
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    bookings?: service_bookingsUncheckedUpdateManyWithoutServiceNestedInput
+    reviews?: service_reviewsUncheckedUpdateManyWithoutServiceNestedInput
+    availability?: service_availabilityUncheckedUpdateManyWithoutServiceNestedInput
   }
 
   export type usersCreateWithoutSession_enrollmentsInput = {
@@ -105830,6 +117980,9 @@ export namespace Prisma {
     stargazing_spot_reviews?: stargazing_spot_reviewsCreateNestedManyWithoutUserInput
     created_stargazing_spots?: stargazing_spotsCreateNestedManyWithoutCreatorInput
     created_sessions?: sessionsCreateNestedManyWithoutCreatorInput
+    created_services?: servicesCreateNestedManyWithoutCreatorInput
+    service_bookings?: service_bookingsCreateNestedManyWithoutUserInput
+    service_reviews?: service_reviewsCreateNestedManyWithoutUserInput
     subscriptions?: subscriptionsCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsCreateNestedOneWithoutUsersInput
     created_polls?: pollsCreateNestedManyWithoutCreatorInput
@@ -105892,6 +118045,9 @@ export namespace Prisma {
     stargazing_spot_reviews?: stargazing_spot_reviewsUncheckedCreateNestedManyWithoutUserInput
     created_stargazing_spots?: stargazing_spotsUncheckedCreateNestedManyWithoutCreatorInput
     created_sessions?: sessionsUncheckedCreateNestedManyWithoutCreatorInput
+    created_services?: servicesUncheckedCreateNestedManyWithoutCreatorInput
+    service_bookings?: service_bookingsUncheckedCreateNestedManyWithoutUserInput
+    service_reviews?: service_reviewsUncheckedCreateNestedManyWithoutUserInput
     subscriptions?: subscriptionsUncheckedCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsUncheckedCreateNestedOneWithoutUsersInput
     created_polls?: pollsUncheckedCreateNestedManyWithoutCreatorInput
@@ -106019,6 +118175,9 @@ export namespace Prisma {
     stargazing_spot_reviews?: stargazing_spot_reviewsUpdateManyWithoutUserNestedInput
     created_stargazing_spots?: stargazing_spotsUpdateManyWithoutCreatorNestedInput
     created_sessions?: sessionsUpdateManyWithoutCreatorNestedInput
+    created_services?: servicesUpdateManyWithoutCreatorNestedInput
+    service_bookings?: service_bookingsUpdateManyWithoutUserNestedInput
+    service_reviews?: service_reviewsUpdateManyWithoutUserNestedInput
     subscriptions?: subscriptionsUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUpdateOneWithoutUsersNestedInput
     created_polls?: pollsUpdateManyWithoutCreatorNestedInput
@@ -106081,6 +118240,9 @@ export namespace Prisma {
     stargazing_spot_reviews?: stargazing_spot_reviewsUncheckedUpdateManyWithoutUserNestedInput
     created_stargazing_spots?: stargazing_spotsUncheckedUpdateManyWithoutCreatorNestedInput
     created_sessions?: sessionsUncheckedUpdateManyWithoutCreatorNestedInput
+    created_services?: servicesUncheckedUpdateManyWithoutCreatorNestedInput
+    service_bookings?: service_bookingsUncheckedUpdateManyWithoutUserNestedInput
+    service_reviews?: service_reviewsUncheckedUpdateManyWithoutUserNestedInput
     subscriptions?: subscriptionsUncheckedUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUncheckedUpdateOneWithoutUsersNestedInput
     created_polls?: pollsUncheckedUpdateManyWithoutCreatorNestedInput
@@ -106199,6 +118361,9 @@ export namespace Prisma {
     created_stargazing_spots?: stargazing_spotsCreateNestedManyWithoutCreatorInput
     created_sessions?: sessionsCreateNestedManyWithoutCreatorInput
     session_enrollments?: session_enrollmentsCreateNestedManyWithoutUserInput
+    created_services?: servicesCreateNestedManyWithoutCreatorInput
+    service_bookings?: service_bookingsCreateNestedManyWithoutUserInput
+    service_reviews?: service_reviewsCreateNestedManyWithoutUserInput
     subscriptions?: subscriptionsCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsCreateNestedOneWithoutUsersInput
     poll_votes?: poll_votesCreateNestedManyWithoutVoterInput
@@ -106261,6 +118426,9 @@ export namespace Prisma {
     created_stargazing_spots?: stargazing_spotsUncheckedCreateNestedManyWithoutCreatorInput
     created_sessions?: sessionsUncheckedCreateNestedManyWithoutCreatorInput
     session_enrollments?: session_enrollmentsUncheckedCreateNestedManyWithoutUserInput
+    created_services?: servicesUncheckedCreateNestedManyWithoutCreatorInput
+    service_bookings?: service_bookingsUncheckedCreateNestedManyWithoutUserInput
+    service_reviews?: service_reviewsUncheckedCreateNestedManyWithoutUserInput
     subscriptions?: subscriptionsUncheckedCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsUncheckedCreateNestedOneWithoutUsersInput
     poll_votes?: poll_votesUncheckedCreateNestedManyWithoutVoterInput
@@ -106388,6 +118556,9 @@ export namespace Prisma {
     created_stargazing_spots?: stargazing_spotsUpdateManyWithoutCreatorNestedInput
     created_sessions?: sessionsUpdateManyWithoutCreatorNestedInput
     session_enrollments?: session_enrollmentsUpdateManyWithoutUserNestedInput
+    created_services?: servicesUpdateManyWithoutCreatorNestedInput
+    service_bookings?: service_bookingsUpdateManyWithoutUserNestedInput
+    service_reviews?: service_reviewsUpdateManyWithoutUserNestedInput
     subscriptions?: subscriptionsUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUpdateOneWithoutUsersNestedInput
     poll_votes?: poll_votesUpdateManyWithoutVoterNestedInput
@@ -106450,6 +118621,9 @@ export namespace Prisma {
     created_stargazing_spots?: stargazing_spotsUncheckedUpdateManyWithoutCreatorNestedInput
     created_sessions?: sessionsUncheckedUpdateManyWithoutCreatorNestedInput
     session_enrollments?: session_enrollmentsUncheckedUpdateManyWithoutUserNestedInput
+    created_services?: servicesUncheckedUpdateManyWithoutCreatorNestedInput
+    service_bookings?: service_bookingsUncheckedUpdateManyWithoutUserNestedInput
+    service_reviews?: service_reviewsUncheckedUpdateManyWithoutUserNestedInput
     subscriptions?: subscriptionsUncheckedUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUncheckedUpdateOneWithoutUsersNestedInput
     poll_votes?: poll_votesUncheckedUpdateManyWithoutVoterNestedInput
@@ -106671,6 +118845,9 @@ export namespace Prisma {
     created_stargazing_spots?: stargazing_spotsCreateNestedManyWithoutCreatorInput
     created_sessions?: sessionsCreateNestedManyWithoutCreatorInput
     session_enrollments?: session_enrollmentsCreateNestedManyWithoutUserInput
+    created_services?: servicesCreateNestedManyWithoutCreatorInput
+    service_bookings?: service_bookingsCreateNestedManyWithoutUserInput
+    service_reviews?: service_reviewsCreateNestedManyWithoutUserInput
     subscriptions?: subscriptionsCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsCreateNestedOneWithoutUsersInput
     created_polls?: pollsCreateNestedManyWithoutCreatorInput
@@ -106733,6 +118910,9 @@ export namespace Prisma {
     created_stargazing_spots?: stargazing_spotsUncheckedCreateNestedManyWithoutCreatorInput
     created_sessions?: sessionsUncheckedCreateNestedManyWithoutCreatorInput
     session_enrollments?: session_enrollmentsUncheckedCreateNestedManyWithoutUserInput
+    created_services?: servicesUncheckedCreateNestedManyWithoutCreatorInput
+    service_bookings?: service_bookingsUncheckedCreateNestedManyWithoutUserInput
+    service_reviews?: service_reviewsUncheckedCreateNestedManyWithoutUserInput
     subscriptions?: subscriptionsUncheckedCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsUncheckedCreateNestedOneWithoutUsersInput
     created_polls?: pollsUncheckedCreateNestedManyWithoutCreatorInput
@@ -106836,6 +119016,9 @@ export namespace Prisma {
     created_stargazing_spots?: stargazing_spotsUpdateManyWithoutCreatorNestedInput
     created_sessions?: sessionsUpdateManyWithoutCreatorNestedInput
     session_enrollments?: session_enrollmentsUpdateManyWithoutUserNestedInput
+    created_services?: servicesUpdateManyWithoutCreatorNestedInput
+    service_bookings?: service_bookingsUpdateManyWithoutUserNestedInput
+    service_reviews?: service_reviewsUpdateManyWithoutUserNestedInput
     subscriptions?: subscriptionsUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUpdateOneWithoutUsersNestedInput
     created_polls?: pollsUpdateManyWithoutCreatorNestedInput
@@ -106898,6 +119081,9 @@ export namespace Prisma {
     created_stargazing_spots?: stargazing_spotsUncheckedUpdateManyWithoutCreatorNestedInput
     created_sessions?: sessionsUncheckedUpdateManyWithoutCreatorNestedInput
     session_enrollments?: session_enrollmentsUncheckedUpdateManyWithoutUserNestedInput
+    created_services?: servicesUncheckedUpdateManyWithoutCreatorNestedInput
+    service_bookings?: service_bookingsUncheckedUpdateManyWithoutUserNestedInput
+    service_reviews?: service_reviewsUncheckedUpdateManyWithoutUserNestedInput
     subscriptions?: subscriptionsUncheckedUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUncheckedUpdateOneWithoutUsersNestedInput
     created_polls?: pollsUncheckedUpdateManyWithoutCreatorNestedInput
@@ -106985,6 +119171,9 @@ export namespace Prisma {
     created_stargazing_spots?: stargazing_spotsCreateNestedManyWithoutCreatorInput
     created_sessions?: sessionsCreateNestedManyWithoutCreatorInput
     session_enrollments?: session_enrollmentsCreateNestedManyWithoutUserInput
+    created_services?: servicesCreateNestedManyWithoutCreatorInput
+    service_bookings?: service_bookingsCreateNestedManyWithoutUserInput
+    service_reviews?: service_reviewsCreateNestedManyWithoutUserInput
     subscriptions?: subscriptionsCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsCreateNestedOneWithoutUsersInput
     created_polls?: pollsCreateNestedManyWithoutCreatorInput
@@ -107047,6 +119236,9 @@ export namespace Prisma {
     created_stargazing_spots?: stargazing_spotsUncheckedCreateNestedManyWithoutCreatorInput
     created_sessions?: sessionsUncheckedCreateNestedManyWithoutCreatorInput
     session_enrollments?: session_enrollmentsUncheckedCreateNestedManyWithoutUserInput
+    created_services?: servicesUncheckedCreateNestedManyWithoutCreatorInput
+    service_bookings?: service_bookingsUncheckedCreateNestedManyWithoutUserInput
+    service_reviews?: service_reviewsUncheckedCreateNestedManyWithoutUserInput
     subscriptions?: subscriptionsUncheckedCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsUncheckedCreateNestedOneWithoutUsersInput
     created_polls?: pollsUncheckedCreateNestedManyWithoutCreatorInput
@@ -107156,6 +119348,9 @@ export namespace Prisma {
     created_stargazing_spots?: stargazing_spotsUpdateManyWithoutCreatorNestedInput
     created_sessions?: sessionsUpdateManyWithoutCreatorNestedInput
     session_enrollments?: session_enrollmentsUpdateManyWithoutUserNestedInput
+    created_services?: servicesUpdateManyWithoutCreatorNestedInput
+    service_bookings?: service_bookingsUpdateManyWithoutUserNestedInput
+    service_reviews?: service_reviewsUpdateManyWithoutUserNestedInput
     subscriptions?: subscriptionsUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUpdateOneWithoutUsersNestedInput
     created_polls?: pollsUpdateManyWithoutCreatorNestedInput
@@ -107218,6 +119413,9 @@ export namespace Prisma {
     created_stargazing_spots?: stargazing_spotsUncheckedUpdateManyWithoutCreatorNestedInput
     created_sessions?: sessionsUncheckedUpdateManyWithoutCreatorNestedInput
     session_enrollments?: session_enrollmentsUncheckedUpdateManyWithoutUserNestedInput
+    created_services?: servicesUncheckedUpdateManyWithoutCreatorNestedInput
+    service_bookings?: service_bookingsUncheckedUpdateManyWithoutUserNestedInput
+    service_reviews?: service_reviewsUncheckedUpdateManyWithoutUserNestedInput
     subscriptions?: subscriptionsUncheckedUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUncheckedUpdateOneWithoutUsersNestedInput
     created_polls?: pollsUncheckedUpdateManyWithoutCreatorNestedInput
@@ -108354,6 +120552,74 @@ export namespace Prisma {
     progress?: number | null
     last_accessed_at?: Date | string | null
     notes?: string | null
+    created_at?: Date | string
+    updated_at?: Date | string
+  }
+
+  export type servicesCreateManyCreatorInput = {
+    id?: number
+    title: string
+    description: string
+    category: $Enums.service_category
+    price: Decimal | DecimalJsLike | number | string
+    duration: string
+    max_participants: number
+    location: string
+    difficulty: $Enums.service_difficulty
+    equipment?: JsonNullValueInput | InputJsonValue
+    next_available: Date | string
+    image_url?: string | null
+    featured?: boolean
+    tags?: JsonNullValueInput | InputJsonValue
+    requirements?: string | null
+    cancellation_policy?: string | null
+    meeting_point?: string | null
+    what_to_expect?: string | null
+    weather_policy?: $Enums.weather_policy_type | null
+    booking_deadline?: number
+    languages?: JsonNullValueInput | InputJsonValue
+    certification?: string | null
+    experience?: string | null
+    group_discount?: boolean
+    private_booking?: boolean
+    instant_booking?: boolean
+    status?: $Enums.service_status
+    views_count?: number
+    bookings_count?: number
+    rating?: number
+    review_count?: number
+    is_active?: boolean
+    created_at?: Date | string
+    updated_at?: Date | string
+  }
+
+  export type service_bookingsCreateManyUserInput = {
+    id?: number
+    service_id: number
+    booking_date: Date | string
+    booking_time?: Date | string | null
+    participants_count?: number
+    total_amount: Decimal | DecimalJsLike | number | string
+    payment_status?: $Enums.booking_payment_status
+    payment_method?: string | null
+    transaction_id?: string | null
+    booking_status?: $Enums.booking_status
+    special_requests?: string | null
+    cancellation_reason?: string | null
+    cancelled_at?: Date | string | null
+    confirmed_at?: Date | string | null
+    completed_at?: Date | string | null
+    created_at?: Date | string
+    updated_at?: Date | string
+  }
+
+  export type service_reviewsCreateManyUserInput = {
+    id?: number
+    service_id: number
+    rating: number
+    review: string
+    images?: NullableJsonNullValueInput | InputJsonValue
+    is_verified?: boolean
     created_at?: Date | string
     updated_at?: Date | string
   }
@@ -109799,6 +122065,215 @@ export namespace Prisma {
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type servicesUpdateWithoutCreatorInput = {
+    title?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    category?: Enumservice_categoryFieldUpdateOperationsInput | $Enums.service_category
+    price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    duration?: StringFieldUpdateOperationsInput | string
+    max_participants?: IntFieldUpdateOperationsInput | number
+    location?: StringFieldUpdateOperationsInput | string
+    difficulty?: Enumservice_difficultyFieldUpdateOperationsInput | $Enums.service_difficulty
+    equipment?: JsonNullValueInput | InputJsonValue
+    next_available?: DateTimeFieldUpdateOperationsInput | Date | string
+    image_url?: NullableStringFieldUpdateOperationsInput | string | null
+    featured?: BoolFieldUpdateOperationsInput | boolean
+    tags?: JsonNullValueInput | InputJsonValue
+    requirements?: NullableStringFieldUpdateOperationsInput | string | null
+    cancellation_policy?: NullableStringFieldUpdateOperationsInput | string | null
+    meeting_point?: NullableStringFieldUpdateOperationsInput | string | null
+    what_to_expect?: NullableStringFieldUpdateOperationsInput | string | null
+    weather_policy?: NullableEnumweather_policy_typeFieldUpdateOperationsInput | $Enums.weather_policy_type | null
+    booking_deadline?: IntFieldUpdateOperationsInput | number
+    languages?: JsonNullValueInput | InputJsonValue
+    certification?: NullableStringFieldUpdateOperationsInput | string | null
+    experience?: NullableStringFieldUpdateOperationsInput | string | null
+    group_discount?: BoolFieldUpdateOperationsInput | boolean
+    private_booking?: BoolFieldUpdateOperationsInput | boolean
+    instant_booking?: BoolFieldUpdateOperationsInput | boolean
+    status?: Enumservice_statusFieldUpdateOperationsInput | $Enums.service_status
+    views_count?: IntFieldUpdateOperationsInput | number
+    bookings_count?: IntFieldUpdateOperationsInput | number
+    rating?: FloatFieldUpdateOperationsInput | number
+    review_count?: IntFieldUpdateOperationsInput | number
+    is_active?: BoolFieldUpdateOperationsInput | boolean
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    bookings?: service_bookingsUpdateManyWithoutServiceNestedInput
+    reviews?: service_reviewsUpdateManyWithoutServiceNestedInput
+    availability?: service_availabilityUpdateManyWithoutServiceNestedInput
+    media?: service_mediaUpdateManyWithoutServiceNestedInput
+  }
+
+  export type servicesUncheckedUpdateWithoutCreatorInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    title?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    category?: Enumservice_categoryFieldUpdateOperationsInput | $Enums.service_category
+    price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    duration?: StringFieldUpdateOperationsInput | string
+    max_participants?: IntFieldUpdateOperationsInput | number
+    location?: StringFieldUpdateOperationsInput | string
+    difficulty?: Enumservice_difficultyFieldUpdateOperationsInput | $Enums.service_difficulty
+    equipment?: JsonNullValueInput | InputJsonValue
+    next_available?: DateTimeFieldUpdateOperationsInput | Date | string
+    image_url?: NullableStringFieldUpdateOperationsInput | string | null
+    featured?: BoolFieldUpdateOperationsInput | boolean
+    tags?: JsonNullValueInput | InputJsonValue
+    requirements?: NullableStringFieldUpdateOperationsInput | string | null
+    cancellation_policy?: NullableStringFieldUpdateOperationsInput | string | null
+    meeting_point?: NullableStringFieldUpdateOperationsInput | string | null
+    what_to_expect?: NullableStringFieldUpdateOperationsInput | string | null
+    weather_policy?: NullableEnumweather_policy_typeFieldUpdateOperationsInput | $Enums.weather_policy_type | null
+    booking_deadline?: IntFieldUpdateOperationsInput | number
+    languages?: JsonNullValueInput | InputJsonValue
+    certification?: NullableStringFieldUpdateOperationsInput | string | null
+    experience?: NullableStringFieldUpdateOperationsInput | string | null
+    group_discount?: BoolFieldUpdateOperationsInput | boolean
+    private_booking?: BoolFieldUpdateOperationsInput | boolean
+    instant_booking?: BoolFieldUpdateOperationsInput | boolean
+    status?: Enumservice_statusFieldUpdateOperationsInput | $Enums.service_status
+    views_count?: IntFieldUpdateOperationsInput | number
+    bookings_count?: IntFieldUpdateOperationsInput | number
+    rating?: FloatFieldUpdateOperationsInput | number
+    review_count?: IntFieldUpdateOperationsInput | number
+    is_active?: BoolFieldUpdateOperationsInput | boolean
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    bookings?: service_bookingsUncheckedUpdateManyWithoutServiceNestedInput
+    reviews?: service_reviewsUncheckedUpdateManyWithoutServiceNestedInput
+    availability?: service_availabilityUncheckedUpdateManyWithoutServiceNestedInput
+    media?: service_mediaUncheckedUpdateManyWithoutServiceNestedInput
+  }
+
+  export type servicesUncheckedUpdateManyWithoutCreatorInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    title?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    category?: Enumservice_categoryFieldUpdateOperationsInput | $Enums.service_category
+    price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    duration?: StringFieldUpdateOperationsInput | string
+    max_participants?: IntFieldUpdateOperationsInput | number
+    location?: StringFieldUpdateOperationsInput | string
+    difficulty?: Enumservice_difficultyFieldUpdateOperationsInput | $Enums.service_difficulty
+    equipment?: JsonNullValueInput | InputJsonValue
+    next_available?: DateTimeFieldUpdateOperationsInput | Date | string
+    image_url?: NullableStringFieldUpdateOperationsInput | string | null
+    featured?: BoolFieldUpdateOperationsInput | boolean
+    tags?: JsonNullValueInput | InputJsonValue
+    requirements?: NullableStringFieldUpdateOperationsInput | string | null
+    cancellation_policy?: NullableStringFieldUpdateOperationsInput | string | null
+    meeting_point?: NullableStringFieldUpdateOperationsInput | string | null
+    what_to_expect?: NullableStringFieldUpdateOperationsInput | string | null
+    weather_policy?: NullableEnumweather_policy_typeFieldUpdateOperationsInput | $Enums.weather_policy_type | null
+    booking_deadline?: IntFieldUpdateOperationsInput | number
+    languages?: JsonNullValueInput | InputJsonValue
+    certification?: NullableStringFieldUpdateOperationsInput | string | null
+    experience?: NullableStringFieldUpdateOperationsInput | string | null
+    group_discount?: BoolFieldUpdateOperationsInput | boolean
+    private_booking?: BoolFieldUpdateOperationsInput | boolean
+    instant_booking?: BoolFieldUpdateOperationsInput | boolean
+    status?: Enumservice_statusFieldUpdateOperationsInput | $Enums.service_status
+    views_count?: IntFieldUpdateOperationsInput | number
+    bookings_count?: IntFieldUpdateOperationsInput | number
+    rating?: FloatFieldUpdateOperationsInput | number
+    review_count?: IntFieldUpdateOperationsInput | number
+    is_active?: BoolFieldUpdateOperationsInput | boolean
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type service_bookingsUpdateWithoutUserInput = {
+    booking_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    booking_time?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    participants_count?: IntFieldUpdateOperationsInput | number
+    total_amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    payment_status?: Enumbooking_payment_statusFieldUpdateOperationsInput | $Enums.booking_payment_status
+    payment_method?: NullableStringFieldUpdateOperationsInput | string | null
+    transaction_id?: NullableStringFieldUpdateOperationsInput | string | null
+    booking_status?: Enumbooking_statusFieldUpdateOperationsInput | $Enums.booking_status
+    special_requests?: NullableStringFieldUpdateOperationsInput | string | null
+    cancellation_reason?: NullableStringFieldUpdateOperationsInput | string | null
+    cancelled_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    confirmed_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    completed_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    service?: servicesUpdateOneRequiredWithoutBookingsNestedInput
+  }
+
+  export type service_bookingsUncheckedUpdateWithoutUserInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    service_id?: IntFieldUpdateOperationsInput | number
+    booking_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    booking_time?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    participants_count?: IntFieldUpdateOperationsInput | number
+    total_amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    payment_status?: Enumbooking_payment_statusFieldUpdateOperationsInput | $Enums.booking_payment_status
+    payment_method?: NullableStringFieldUpdateOperationsInput | string | null
+    transaction_id?: NullableStringFieldUpdateOperationsInput | string | null
+    booking_status?: Enumbooking_statusFieldUpdateOperationsInput | $Enums.booking_status
+    special_requests?: NullableStringFieldUpdateOperationsInput | string | null
+    cancellation_reason?: NullableStringFieldUpdateOperationsInput | string | null
+    cancelled_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    confirmed_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    completed_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type service_bookingsUncheckedUpdateManyWithoutUserInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    service_id?: IntFieldUpdateOperationsInput | number
+    booking_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    booking_time?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    participants_count?: IntFieldUpdateOperationsInput | number
+    total_amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    payment_status?: Enumbooking_payment_statusFieldUpdateOperationsInput | $Enums.booking_payment_status
+    payment_method?: NullableStringFieldUpdateOperationsInput | string | null
+    transaction_id?: NullableStringFieldUpdateOperationsInput | string | null
+    booking_status?: Enumbooking_statusFieldUpdateOperationsInput | $Enums.booking_status
+    special_requests?: NullableStringFieldUpdateOperationsInput | string | null
+    cancellation_reason?: NullableStringFieldUpdateOperationsInput | string | null
+    cancelled_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    confirmed_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    completed_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type service_reviewsUpdateWithoutUserInput = {
+    rating?: IntFieldUpdateOperationsInput | number
+    review?: StringFieldUpdateOperationsInput | string
+    images?: NullableJsonNullValueInput | InputJsonValue
+    is_verified?: BoolFieldUpdateOperationsInput | boolean
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    service?: servicesUpdateOneRequiredWithoutReviewsNestedInput
+  }
+
+  export type service_reviewsUncheckedUpdateWithoutUserInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    service_id?: IntFieldUpdateOperationsInput | number
+    rating?: IntFieldUpdateOperationsInput | number
+    review?: StringFieldUpdateOperationsInput | string
+    images?: NullableJsonNullValueInput | InputJsonValue
+    is_verified?: BoolFieldUpdateOperationsInput | boolean
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type service_reviewsUncheckedUpdateManyWithoutUserInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    service_id?: IntFieldUpdateOperationsInput | number
+    rating?: IntFieldUpdateOperationsInput | number
+    review?: StringFieldUpdateOperationsInput | string
+    images?: NullableJsonNullValueInput | InputJsonValue
+    is_verified?: BoolFieldUpdateOperationsInput | boolean
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type subscriptionsUpdateWithoutUsersInput = {
     plan_type?: Enumsubscription_planFieldUpdateOperationsInput | $Enums.subscription_plan
     status?: NullableEnumsubscription_statusFieldUpdateOperationsInput | $Enums.subscription_status | null
@@ -110382,6 +122857,214 @@ export namespace Prisma {
     notes?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type service_bookingsCreateManyServiceInput = {
+    id?: number
+    user_id: number
+    booking_date: Date | string
+    booking_time?: Date | string | null
+    participants_count?: number
+    total_amount: Decimal | DecimalJsLike | number | string
+    payment_status?: $Enums.booking_payment_status
+    payment_method?: string | null
+    transaction_id?: string | null
+    booking_status?: $Enums.booking_status
+    special_requests?: string | null
+    cancellation_reason?: string | null
+    cancelled_at?: Date | string | null
+    confirmed_at?: Date | string | null
+    completed_at?: Date | string | null
+    created_at?: Date | string
+    updated_at?: Date | string
+  }
+
+  export type service_reviewsCreateManyServiceInput = {
+    id?: number
+    user_id: number
+    rating: number
+    review: string
+    images?: NullableJsonNullValueInput | InputJsonValue
+    is_verified?: boolean
+    created_at?: Date | string
+    updated_at?: Date | string
+  }
+
+  export type service_availabilityCreateManyServiceInput = {
+    id?: number
+    available_date: Date | string
+    start_time?: Date | string | null
+    end_time?: Date | string | null
+    slots_available: number
+    slots_booked?: number
+    status?: $Enums.availability_status
+    notes?: string | null
+    created_at?: Date | string
+    updated_at?: Date | string
+  }
+
+  export type service_mediaCreateManyServiceInput = {
+    id?: number
+    media_url: string
+    media_type: string
+    display_order?: number
+    caption?: string | null
+    created_at?: Date | string
+  }
+
+  export type service_bookingsUpdateWithoutServiceInput = {
+    booking_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    booking_time?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    participants_count?: IntFieldUpdateOperationsInput | number
+    total_amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    payment_status?: Enumbooking_payment_statusFieldUpdateOperationsInput | $Enums.booking_payment_status
+    payment_method?: NullableStringFieldUpdateOperationsInput | string | null
+    transaction_id?: NullableStringFieldUpdateOperationsInput | string | null
+    booking_status?: Enumbooking_statusFieldUpdateOperationsInput | $Enums.booking_status
+    special_requests?: NullableStringFieldUpdateOperationsInput | string | null
+    cancellation_reason?: NullableStringFieldUpdateOperationsInput | string | null
+    cancelled_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    confirmed_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    completed_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: usersUpdateOneRequiredWithoutService_bookingsNestedInput
+  }
+
+  export type service_bookingsUncheckedUpdateWithoutServiceInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    user_id?: IntFieldUpdateOperationsInput | number
+    booking_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    booking_time?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    participants_count?: IntFieldUpdateOperationsInput | number
+    total_amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    payment_status?: Enumbooking_payment_statusFieldUpdateOperationsInput | $Enums.booking_payment_status
+    payment_method?: NullableStringFieldUpdateOperationsInput | string | null
+    transaction_id?: NullableStringFieldUpdateOperationsInput | string | null
+    booking_status?: Enumbooking_statusFieldUpdateOperationsInput | $Enums.booking_status
+    special_requests?: NullableStringFieldUpdateOperationsInput | string | null
+    cancellation_reason?: NullableStringFieldUpdateOperationsInput | string | null
+    cancelled_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    confirmed_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    completed_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type service_bookingsUncheckedUpdateManyWithoutServiceInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    user_id?: IntFieldUpdateOperationsInput | number
+    booking_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    booking_time?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    participants_count?: IntFieldUpdateOperationsInput | number
+    total_amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    payment_status?: Enumbooking_payment_statusFieldUpdateOperationsInput | $Enums.booking_payment_status
+    payment_method?: NullableStringFieldUpdateOperationsInput | string | null
+    transaction_id?: NullableStringFieldUpdateOperationsInput | string | null
+    booking_status?: Enumbooking_statusFieldUpdateOperationsInput | $Enums.booking_status
+    special_requests?: NullableStringFieldUpdateOperationsInput | string | null
+    cancellation_reason?: NullableStringFieldUpdateOperationsInput | string | null
+    cancelled_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    confirmed_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    completed_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type service_reviewsUpdateWithoutServiceInput = {
+    rating?: IntFieldUpdateOperationsInput | number
+    review?: StringFieldUpdateOperationsInput | string
+    images?: NullableJsonNullValueInput | InputJsonValue
+    is_verified?: BoolFieldUpdateOperationsInput | boolean
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: usersUpdateOneRequiredWithoutService_reviewsNestedInput
+  }
+
+  export type service_reviewsUncheckedUpdateWithoutServiceInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    user_id?: IntFieldUpdateOperationsInput | number
+    rating?: IntFieldUpdateOperationsInput | number
+    review?: StringFieldUpdateOperationsInput | string
+    images?: NullableJsonNullValueInput | InputJsonValue
+    is_verified?: BoolFieldUpdateOperationsInput | boolean
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type service_reviewsUncheckedUpdateManyWithoutServiceInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    user_id?: IntFieldUpdateOperationsInput | number
+    rating?: IntFieldUpdateOperationsInput | number
+    review?: StringFieldUpdateOperationsInput | string
+    images?: NullableJsonNullValueInput | InputJsonValue
+    is_verified?: BoolFieldUpdateOperationsInput | boolean
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type service_availabilityUpdateWithoutServiceInput = {
+    available_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    start_time?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    end_time?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    slots_available?: IntFieldUpdateOperationsInput | number
+    slots_booked?: IntFieldUpdateOperationsInput | number
+    status?: Enumavailability_statusFieldUpdateOperationsInput | $Enums.availability_status
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type service_availabilityUncheckedUpdateWithoutServiceInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    available_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    start_time?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    end_time?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    slots_available?: IntFieldUpdateOperationsInput | number
+    slots_booked?: IntFieldUpdateOperationsInput | number
+    status?: Enumavailability_statusFieldUpdateOperationsInput | $Enums.availability_status
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type service_availabilityUncheckedUpdateManyWithoutServiceInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    available_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    start_time?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    end_time?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    slots_available?: IntFieldUpdateOperationsInput | number
+    slots_booked?: IntFieldUpdateOperationsInput | number
+    status?: Enumavailability_statusFieldUpdateOperationsInput | $Enums.availability_status
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type service_mediaUpdateWithoutServiceInput = {
+    media_url?: StringFieldUpdateOperationsInput | string
+    media_type?: StringFieldUpdateOperationsInput | string
+    display_order?: IntFieldUpdateOperationsInput | number
+    caption?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type service_mediaUncheckedUpdateWithoutServiceInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    media_url?: StringFieldUpdateOperationsInput | string
+    media_type?: StringFieldUpdateOperationsInput | string
+    display_order?: IntFieldUpdateOperationsInput | number
+    caption?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type service_mediaUncheckedUpdateManyWithoutServiceInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    media_url?: StringFieldUpdateOperationsInput | string
+    media_type?: StringFieldUpdateOperationsInput | string
+    display_order?: IntFieldUpdateOperationsInput | number
+    caption?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type poll_choicesCreateManyPollInput = {

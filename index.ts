@@ -15,6 +15,7 @@ import spaceDiscussionRoutes from './routes/spaceDiscussion.routes';
 import astronomyEventsRoutes from './routes/astronomyEvents.routes';
 import stargazingSpotRoutes from './routes/stargazingSpot.routes';
 import sessionsRoutes from './routes/sessions.routes';
+import servicesRoutes from './routes/services.routes';
 import pollRoutes from './routes/poll.routes';
 
 // index.ts
@@ -113,6 +114,9 @@ app.use("/api/stargazing-spots", stargazingSpotRoutes);
 
 // Sessions API
 app.use('/api/sessions', sessionsRoutes);
+
+// Services API
+app.use('/api/services', servicesRoutes);
 
 // Poll API
 app.use('/api/polls', pollRoutes);
