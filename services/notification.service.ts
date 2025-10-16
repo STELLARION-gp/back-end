@@ -19,6 +19,11 @@ export class NotificationService {
     data: CreateNotificationDTO
   ): Promise<Notification> {
     try {
+      // If this is a system-generated notification, enforce the limit
+      if (data.isSystemGenerated) {
+        await this.enforceSystemNotificationLimit(data.userId);
+      }
+
       const notificationRef = db.collection(NOTIFICATIONS_COLLECTION).doc();
 
       const notification: Notification = {
@@ -31,6 +36,7 @@ export class NotificationService {
         color: data.color,
         link: data.link,
         read: false,
+        isSystemGenerated: data.isSystemGenerated || false,
         metadata: data.metadata,
         createdAt: new Date(),
         expiresAt: data.expiresAt,
@@ -45,6 +51,7 @@ export class NotificationService {
         type: notification.type,
         priority: notification.priority,
         read: notification.read,
+        isSystemGenerated: notification.isSystemGenerated,
         createdAt: admin.firestore.FieldValue.serverTimestamp(),
       };
 
@@ -66,6 +73,46 @@ export class NotificationService {
     } catch (error) {
       console.error("Error creating notification:", error);
       throw new Error("Failed to create notification");
+    }
+  }
+
+  /**
+   * Enforce limit of 5 system-generated notifications per user
+   * Deletes oldest system notifications if limit is exceeded
+   */
+  private static async enforceSystemNotificationLimit(
+    userId: string
+  ): Promise<void> {
+    try {
+      const MAX_SYSTEM_NOTIFICATIONS = 5;
+
+      // Get all system-generated notifications for this user
+      const snapshot = await db
+        .collection(NOTIFICATIONS_COLLECTION)
+        .where("userId", "==", userId)
+        .where("isSystemGenerated", "==", true)
+        .orderBy("createdAt", "desc")
+        .get();
+
+      // If we have 5 or more, delete the oldest ones
+      if (snapshot.size >= MAX_SYSTEM_NOTIFICATIONS) {
+        const batch = db.batch();
+        const notificationsToDelete = snapshot.docs.slice(
+          MAX_SYSTEM_NOTIFICATIONS - 1
+        );
+
+        notificationsToDelete.forEach((doc) => {
+          batch.delete(doc.ref);
+        });
+
+        await batch.commit();
+        console.log(
+          `🗑️  Deleted ${notificationsToDelete.length} old system notifications for user ${userId}`
+        );
+      }
+    } catch (error) {
+      console.error("Error enforcing system notification limit:", error);
+      // Don't throw - we still want to create the new notification
     }
   }
 

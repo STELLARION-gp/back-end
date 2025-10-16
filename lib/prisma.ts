@@ -14,10 +14,10 @@ if (process.env.NODE_ENV !== 'production') globalForPrisma.prisma = prisma;
 export async function gracefulShutdown() {
     try {
         await prisma.$disconnect();
-        // eslint-disable-next-line no-console
+         
         console.log('🛑 Prisma disconnected gracefully');
     } catch (e) {
-        // eslint-disable-next-line no-console
+         
         console.error('Prisma disconnect error', e);
     }
 }

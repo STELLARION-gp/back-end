@@ -9,6 +9,15 @@ import {
   NotificationPriority,
 } from "../types/notification.types";
 
+// Interface for authenticated request
+interface AuthenticatedRequest extends Request {
+  user?: {
+    uid: string;
+    email?: string;
+    user_id?: number;
+  };
+}
+
 export class NotificationController {
   /**
    * Create a new notification
@@ -97,7 +106,8 @@ export class NotificationController {
   static async getUserNotifications(req: Request, res: Response) {
     try {
       // Get userId from authenticated user (assuming req.user is set by auth middleware)
-      const userId = (req as any).user?.uid || (req.query.userId as string);
+      const authReq = req as AuthenticatedRequest;
+      const userId = authReq.user?.uid || (req.query.userId as string);
 
       if (!userId) {
         return res.status(401).json({
@@ -141,10 +151,13 @@ export class NotificationController {
   /**
    * Get a single notification by ID
    * GET /api/notifications/:id
+   * Automatically marks the notification as read when viewed
    */
   static async getNotificationById(req: Request, res: Response) {
     try {
       const { id } = req.params;
+      const authReq = req as AuthenticatedRequest;
+      const userId = authReq.user?.uid;
 
       const notification = await NotificationService.getNotificationById(id);
 
@@ -153,6 +166,23 @@ export class NotificationController {
           success: false,
           message: "Notification not found",
         });
+      }
+
+      // Verify the notification belongs to the requesting user
+      if (notification.userId !== userId) {
+        return res.status(403).json({
+          success: false,
+          message: "Access denied",
+        });
+      }
+
+      // Automatically mark as read when viewed (industry standard)
+      if (!notification.read) {
+        await NotificationService.markAsRead(id);
+        notification.read = true;
+        console.log(
+          `✅ Notification ${id} auto-marked as read for user ${userId}`
+        );
       }
 
       return res.status(200).json({
@@ -254,7 +284,8 @@ export class NotificationController {
    */
   static async markAllAsRead(req: Request, res: Response) {
     try {
-      const userId = (req as any).user?.uid || req.body.userId;
+      const authReq = req as AuthenticatedRequest;
+      const userId = authReq.user?.uid || req.body.userId;
 
       if (!userId) {
         return res.status(401).json({
@@ -309,7 +340,8 @@ export class NotificationController {
    */
   static async deleteAllNotifications(req: Request, res: Response) {
     try {
-      const userId = (req as any).user?.uid || (req.query.userId as string);
+      const authReq = req as AuthenticatedRequest;
+      const userId = authReq.user?.uid || (req.query.userId as string);
 
       if (!userId) {
         return res.status(401).json({
@@ -340,7 +372,8 @@ export class NotificationController {
    */
   static async getUnreadCount(req: Request, res: Response) {
     try {
-      const userId = (req as any).user?.uid || (req.query.userId as string);
+      const authReq = req as AuthenticatedRequest;
+      const userId = authReq.user?.uid || (req.query.userId as string);
 
       if (!userId) {
         return res.status(401).json({
