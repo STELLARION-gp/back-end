@@ -1025,3 +1025,168 @@ export const deleteSession = async (req: Request, res: Response): Promise<void> 
     });
   }
 };
+
+/**
+ * Get analytics for user's sessions
+ * @route GET /api/sessions/analytics
+ * @access Private (Authenticated users)
+ */
+export const getMySessionsAnalytics = async (req: Request, res: Response): Promise<void> => {
+  try {
+    const userId = (req as any).user?.userId;
+
+    if (!userId) {
+      res.status(401).json({
+        success: false,
+        message: "User not authenticated"
+      });
+      return;
+    }
+
+    // Get all sessions created by user
+    const sessions = await prisma.sessions.findMany({
+      where: { created_by: userId }
+    });
+
+    // Get enrollment counts per session
+    const sessionEnrollmentCounts = await Promise.all(
+      sessions.map(async (session) => {
+        const count = await prisma.session_enrollments.count({
+          where: {
+            session_id: session.id,
+            access_granted: true,
+            payment_status: {
+              in: ['completed', 'free_access']
+            }
+          }
+        });
+        return { sessionId: session.id, count };
+      })
+    );
+
+    // Get enrollment details for all user's sessions
+    const enrollments = await prisma.session_enrollments.findMany({
+      where: {
+        session: {
+          created_by: userId
+        },
+        access_granted: true,
+        payment_status: {
+          in: ['completed', 'free_access']
+        }
+      },
+      include: {
+        session: {
+          select: {
+            id: true,
+            session_type: true,
+            difficulty_level: true
+          }
+        }
+      }
+    });
+
+    // Calculate analytics
+    const liveSessions = sessions.filter(s => s.session_type === 'live');
+    const recordedSessions = sessions.filter(s => s.session_type === 'recorded');
+
+    // Total revenue from paid enrollments
+    const totalRevenue = enrollments.reduce((sum, enrollment) => {
+      return sum + (enrollment.payment_amount ? parseFloat(enrollment.payment_amount.toString()) : 0);
+    }, 0);
+
+    // Total students (unique enrollments)
+    const totalStudents = enrollments.length;
+
+    // Students per session type
+    const liveStudents = enrollments.filter(e => e.session.session_type === 'live').length;
+    const recordedStudents = enrollments.filter(e => e.session.session_type === 'recorded').length;
+
+    // Average duration
+    const avgLiveDuration = liveSessions.length > 0
+      ? Math.round(liveSessions.reduce((sum, s) => sum + (s.duration || 0), 0) / liveSessions.length)
+      : 0;
+
+    const avgRecordedDuration = recordedSessions.length > 0
+      ? Math.round(recordedSessions.reduce((sum, s) => sum + (s.duration || 0), 0) / recordedSessions.length)
+      : 0;
+
+    // Revenue per session type
+    const liveRevenue = enrollments
+      .filter(e => e.session.session_type === 'live')
+      .reduce((sum, e) => sum + (e.payment_amount ? parseFloat(e.payment_amount.toString()) : 0), 0);
+
+    const recordedRevenue = enrollments
+      .filter(e => e.session.session_type === 'recorded')
+      .reduce((sum, e) => sum + (e.payment_amount ? parseFloat(e.payment_amount.toString()) : 0), 0);
+
+    // Completion rate (for enrolled sessions)
+    const completedEnrollments = enrollments.filter(e => e.completed).length;
+    const completionRate = totalStudents > 0 ? Math.round((completedEnrollments / totalStudents) * 100) : 0;
+
+    // Distribution by difficulty
+    const difficultyDistribution = {
+      live: {
+        beginner: enrollments.filter(e => e.session.session_type === 'live' && e.session.difficulty_level === 'beginner').length,
+        intermediate: enrollments.filter(e => e.session.session_type === 'live' && e.session.difficulty_level === 'intermediate').length,
+        advanced: enrollments.filter(e => e.session.session_type === 'live' && e.session.difficulty_level === 'advanced').length,
+      },
+      recorded: {
+        beginner: enrollments.filter(e => e.session.session_type === 'recorded' && e.session.difficulty_level === 'beginner').length,
+        intermediate: enrollments.filter(e => e.session.session_type === 'recorded' && e.session.difficulty_level === 'intermediate').length,
+        advanced: enrollments.filter(e => e.session.session_type === 'recorded' && e.session.difficulty_level === 'advanced').length,
+      }
+    };
+
+    // Response
+    res.status(200).json({
+      success: true,
+      data: {
+        overview: {
+          totalRevenue,
+          totalSessions: sessions.length,
+          totalStudents,
+          completionRate,
+          liveSessions: liveSessions.length,
+          recordedSessions: recordedSessions.length,
+        },
+        liveSessionsAnalytics: {
+          count: liveSessions.length,
+          totalStudents: liveStudents,
+          totalRevenue: liveRevenue,
+          averageDuration: avgLiveDuration,
+          difficultyDistribution: difficultyDistribution.live,
+        },
+        recordedSessionsAnalytics: {
+          count: recordedSessions.length,
+          totalStudents: recordedStudents,
+          totalRevenue: recordedRevenue,
+          averageDuration: avgRecordedDuration,
+          difficultyDistribution: difficultyDistribution.recorded,
+        },
+        sessions: sessions.map(session => {
+          const enrollmentData = sessionEnrollmentCounts.find(e => e.sessionId === session.id);
+          return {
+            id: session.id,
+            title: session.title,
+            session_type: session.session_type,
+            payment_type: session.payment_type,
+            price: session.price,
+            duration: session.duration,
+            difficulty_level: session.difficulty_level,
+            is_enabled: session.is_enabled,
+            studentCount: enrollmentData?.count || 0,
+          };
+        })
+      },
+      message: "Analytics retrieved successfully"
+    });
+  } catch (error: any) {
+    console.error("Get analytics error:", error);
+    res.status(500).json({
+      success: false,
+      message: "Failed to retrieve analytics",
+      error: process.env.NODE_ENV === 'development' ? error.message : undefined
+    });
+  }
+};
