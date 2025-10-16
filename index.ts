@@ -16,6 +16,7 @@ import astronomyEventsRoutes from './routes/astronomyEvents.routes';
 import stargazingSpotRoutes from './routes/stargazingSpot.routes';
 import sessionsRoutes from './routes/sessions.routes';
 import pollRoutes from './routes/poll.routes';
+import recommendedContentRoutes from './routes/recommendedContent.routes';
 
 // index.ts
 import express from "express";
@@ -116,6 +117,8 @@ app.use('/api/sessions', sessionsRoutes);
 
 // Poll API
 app.use('/api/polls', pollRoutes);
+// Mentor Recommended Contents
+app.use('/api/mentors/recommended-contents', recommendedContentRoutes);
 
 // Universal Upload API
 app.use("/api/upload", uploadRoutes);
