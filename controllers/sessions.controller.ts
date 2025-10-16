@@ -14,6 +14,18 @@ import {
 const prisma = new PrismaClient();
 
 /**
+ * Helper function to format TIME field from Prisma (Date object) to HH:MM:SS string
+ */
+const formatTimeField = (time: Date | null | undefined): string | null => {
+  if (!time) return null;
+  const date = new Date(time);
+  const hours = date.getHours().toString().padStart(2, '0');
+  const minutes = date.getMinutes().toString().padStart(2, '0');
+  const seconds = date.getSeconds().toString().padStart(2, '0');
+  return `${hours}:${minutes}:${seconds}`;
+};
+
+/**
  * Create a new session
  * @route POST /api/sessions
  * @access Private (Authenticated users)
@@ -115,9 +127,15 @@ export const createSession = async (req: Request, res: Response): Promise<void> 
       }
     });
 
+    // Format session_time before sending
+    const formattedSession = {
+      ...newSession,
+      session_time: formatTimeField(newSession.session_time)
+    };
+
     res.status(201).json({
       success: true,
-      data: newSession,
+      data: formattedSession,
       message: "Session created successfully"
     });
   } catch (error: any) {
@@ -261,9 +279,15 @@ export const editSession = async (req: Request, res: Response): Promise<void> =>
       }
     });
 
+    // Format session_time before sending
+    const formattedSession = {
+      ...updatedSession,
+      session_time: formatTimeField(updatedSession.session_time)
+    };
+
     res.status(200).json({
       success: true,
-      data: updatedSession,
+      data: formattedSession,
       message: "Session updated successfully"
     });
   } catch (error: any) {
@@ -348,9 +372,15 @@ export const toggleSessionStatus = async (req: Request, res: Response): Promise<
       }
     });
 
+    // Format session_time before sending
+    const formattedSession = {
+      ...updatedSession,
+      session_time: formatTimeField(updatedSession.session_time)
+    };
+
     res.status(200).json({
       success: true,
-      data: updatedSession,
+      data: formattedSession,
       message: `Session ${newStatus ? 'enabled' : 'disabled'} successfully`
     });
   } catch (error: any) {
@@ -443,9 +473,15 @@ export const getMySessions = async (req: Request, res: Response): Promise<void> 
       }
     });
 
+    // Format session_time fields for all sessions
+    const formattedSessions = sessions.map(session => ({
+      ...session,
+      session_time: formatTimeField(session.session_time)
+    }));
+
     res.status(200).json({
       success: true,
-      data: sessions,
+      data: formattedSessions,
       pagination: {
         total: totalCount,
         page: pageNumber,
@@ -553,6 +589,7 @@ export const getEnrolledSessions = async (req: Request, res: Response): Promise<
     // Extract sessions from enrollments
     const sessions = enrollments.map(enrollment => ({
       ...enrollment.session,
+      session_time: formatTimeField(enrollment.session.session_time),
       enrollment_info: {
         enrollment_id: enrollment.id,
         enrollment_date: enrollment.enrollment_date,
@@ -677,7 +714,7 @@ export const getMySessionDetailsByEnrollment = async (req: Request, res: Respons
         price: enrollment.session.price,
         duration: enrollment.session.duration,
         session_date: enrollment.session.session_date,
-        session_time: enrollment.session.session_time,
+        session_time: formatTimeField(enrollment.session.session_time),
         max_participants: enrollment.session.max_participants,
         difficulty_level: enrollment.session.difficulty_level,
         session_link: enrollment.session.session_link,
@@ -853,9 +890,15 @@ export const getSessionById = async (req: Request, res: Response): Promise<void>
       return;
     }
 
+    // Format session_time before sending
+    const formattedSession = {
+      ...session,
+      session_time: formatTimeField(session.session_time)
+    };
+
     res.status(200).json({
       success: true,
-      data: session,
+      data: formattedSession,
       message: "Session retrieved successfully"
     });
   } catch (error: any) {
@@ -934,9 +977,15 @@ export const getAllSessions = async (req: Request, res: Response): Promise<void>
       }
     });
 
+    // Format session_time fields for all sessions
+    const formattedSessions = sessions.map(session => ({
+      ...session,
+      session_time: formatTimeField(session.session_time)
+    }));
+
     res.status(200).json({
       success: true,
-      data: sessions,
+      data: formattedSessions,
       pagination: {
         total: totalCount,
         page: pageNumber,
