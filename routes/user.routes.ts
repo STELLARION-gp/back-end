@@ -9,15 +9,15 @@ import {
   activateUser
 } from "../controllers/user.controller";
 
-import { verifyToken } from "../middleware/verifyToken";
+import { verifyToken, verifyTokenOnly } from "../middleware/verifyToken";
 import { requireAdmin, requireManager, requireUser } from "../middleware/roleAuth";
 
 const router = express.Router();
 
-// Public routes (with Firebase auth but no role restriction)
-router.post("/register", verifyToken, createUserIfNotExists);
+// Public routes (with Firebase auth but no database check - for new user registration)
+router.post("/register", verifyTokenOnly, createUserIfNotExists);
 
-// User routes (requires authentication)
+// User routes (requires authentication and database record)
 router.get("/profile", verifyToken, getUserProfile);
 
 // Manager routes (requires manager or admin role)

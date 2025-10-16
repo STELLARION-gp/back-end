@@ -5,6 +5,72 @@ import { PrismaClient } from "../prisma/generated/client";
 
 const prisma = new PrismaClient();
 
+/**
+ * Middleware to verify Firebase token ONLY (no database check)
+ * Use this for routes that create new users (like /register)
+ */
+export const verifyTokenOnly = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+): Promise<void> => {
+  try {
+    console.log("🔐 [AUTH] Verifying Firebase token (token-only mode)...");
+
+    const authHeader = req.headers.authorization;
+
+    if (!authHeader || !authHeader.startsWith("Bearer ")) {
+      console.log("❌ [AUTH] No valid authorization header found");
+      res.status(401).json({
+        success: false,
+        message: "No authorization token provided",
+      });
+      return;
+    }
+
+    const token = authHeader.split(" ")[1];
+    console.log("🔑 [AUTH] Token found, length:", token?.length);
+
+    if (!token) {
+      console.log("❌ [AUTH] Token is empty");
+      res.status(401).json({
+        success: false,
+        message: "Invalid authorization token format",
+      });
+      return;
+    }
+
+    try {
+      const decodedToken = await admin.auth().verifyIdToken(token);
+      console.log("✅ [AUTH] Token verified successfully");
+      console.log("👤 [AUTH] User:", decodedToken.email, "UID:", decodedToken.uid);
+
+      // Attach Firebase user info to request (no database check)
+      (req as any).user = decodedToken;
+
+      console.log("✅ [AUTH] Firebase user info attached to request");
+      next();
+    } catch (tokenError) {
+      console.error("❌ [AUTH] Invalid token:", tokenError);
+      res.status(401).json({
+        success: false,
+        message: "Invalid or expired token",
+      });
+      return;
+    }
+  } catch (error) {
+    console.error("❌ [AUTH] Unexpected error:", error);
+    res.status(500).json({
+      success: false,
+      message: "Authentication failed",
+    });
+  }
+};
+
+/**
+ * Middleware to verify Firebase token AND check database
+ * Use this for routes that require existing users
+ */
 export const verifyToken = async (
   req: Request,
   res: Response,
