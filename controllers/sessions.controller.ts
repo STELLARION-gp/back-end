@@ -14,6 +14,18 @@ import {
 const prisma = new PrismaClient();
 
 /**
+ * Helper function to format TIME field from Prisma (Date object) to HH:MM:SS string
+ */
+const formatTimeField = (time: Date | null | undefined): string | null => {
+  if (!time) return null;
+  const date = new Date(time);
+  const hours = date.getHours().toString().padStart(2, '0');
+  const minutes = date.getMinutes().toString().padStart(2, '0');
+  const seconds = date.getSeconds().toString().padStart(2, '0');
+  return `${hours}:${minutes}:${seconds}`;
+};
+
+/**
  * Create a new session
  * @route POST /api/sessions
  * @access Private (Authenticated users)
@@ -115,9 +127,15 @@ export const createSession = async (req: Request, res: Response): Promise<void> 
       }
     });
 
+    // Format session_time before sending
+    const formattedSession = {
+      ...newSession,
+      session_time: formatTimeField(newSession.session_time)
+    };
+
     res.status(201).json({
       success: true,
-      data: newSession,
+      data: formattedSession,
       message: "Session created successfully"
     });
   } catch (error: any) {
@@ -261,9 +279,15 @@ export const editSession = async (req: Request, res: Response): Promise<void> =>
       }
     });
 
+    // Format session_time before sending
+    const formattedSession = {
+      ...updatedSession,
+      session_time: formatTimeField(updatedSession.session_time)
+    };
+
     res.status(200).json({
       success: true,
-      data: updatedSession,
+      data: formattedSession,
       message: "Session updated successfully"
     });
   } catch (error: any) {
@@ -348,9 +372,15 @@ export const toggleSessionStatus = async (req: Request, res: Response): Promise<
       }
     });
 
+    // Format session_time before sending
+    const formattedSession = {
+      ...updatedSession,
+      session_time: formatTimeField(updatedSession.session_time)
+    };
+
     res.status(200).json({
       success: true,
-      data: updatedSession,
+      data: formattedSession,
       message: `Session ${newStatus ? 'enabled' : 'disabled'} successfully`
     });
   } catch (error: any) {
@@ -443,9 +473,15 @@ export const getMySessions = async (req: Request, res: Response): Promise<void> 
       }
     });
 
+    // Format session_time fields for all sessions
+    const formattedSessions = sessions.map(session => ({
+      ...session,
+      session_time: formatTimeField(session.session_time)
+    }));
+
     res.status(200).json({
       success: true,
-      data: sessions,
+      data: formattedSessions,
       pagination: {
         total: totalCount,
         page: pageNumber,
@@ -553,6 +589,7 @@ export const getEnrolledSessions = async (req: Request, res: Response): Promise<
     // Extract sessions from enrollments
     const sessions = enrollments.map(enrollment => ({
       ...enrollment.session,
+      session_time: formatTimeField(enrollment.session.session_time),
       enrollment_info: {
         enrollment_id: enrollment.id,
         enrollment_date: enrollment.enrollment_date,
@@ -677,7 +714,7 @@ export const getMySessionDetailsByEnrollment = async (req: Request, res: Respons
         price: enrollment.session.price,
         duration: enrollment.session.duration,
         session_date: enrollment.session.session_date,
-        session_time: enrollment.session.session_time,
+        session_time: formatTimeField(enrollment.session.session_time),
         max_participants: enrollment.session.max_participants,
         difficulty_level: enrollment.session.difficulty_level,
         session_link: enrollment.session.session_link,
@@ -853,9 +890,15 @@ export const getSessionById = async (req: Request, res: Response): Promise<void>
       return;
     }
 
+    // Format session_time before sending
+    const formattedSession = {
+      ...session,
+      session_time: formatTimeField(session.session_time)
+    };
+
     res.status(200).json({
       success: true,
-      data: session,
+      data: formattedSession,
       message: "Session retrieved successfully"
     });
   } catch (error: any) {
@@ -934,9 +977,15 @@ export const getAllSessions = async (req: Request, res: Response): Promise<void>
       }
     });
 
+    // Format session_time fields for all sessions
+    const formattedSessions = sessions.map(session => ({
+      ...session,
+      session_time: formatTimeField(session.session_time)
+    }));
+
     res.status(200).json({
       success: true,
-      data: sessions,
+      data: formattedSessions,
       pagination: {
         total: totalCount,
         page: pageNumber,
@@ -1021,6 +1070,171 @@ export const deleteSession = async (req: Request, res: Response): Promise<void> 
     res.status(500).json({
       success: false,
       message: "Failed to delete session",
+      error: process.env.NODE_ENV === 'development' ? error.message : undefined
+    });
+  }
+};
+
+/**
+ * Get analytics for user's sessions
+ * @route GET /api/sessions/analytics
+ * @access Private (Authenticated users)
+ */
+export const getMySessionsAnalytics = async (req: Request, res: Response): Promise<void> => {
+  try {
+    const userId = (req as any).user?.userId;
+
+    if (!userId) {
+      res.status(401).json({
+        success: false,
+        message: "User not authenticated"
+      });
+      return;
+    }
+
+    // Get all sessions created by user
+    const sessions = await prisma.sessions.findMany({
+      where: { created_by: userId }
+    });
+
+    // Get enrollment counts per session
+    const sessionEnrollmentCounts = await Promise.all(
+      sessions.map(async (session) => {
+        const count = await prisma.session_enrollments.count({
+          where: {
+            session_id: session.id,
+            access_granted: true,
+            payment_status: {
+              in: ['completed', 'free_access']
+            }
+          }
+        });
+        return { sessionId: session.id, count };
+      })
+    );
+
+    // Get enrollment details for all user's sessions
+    const enrollments = await prisma.session_enrollments.findMany({
+      where: {
+        session: {
+          created_by: userId
+        },
+        access_granted: true,
+        payment_status: {
+          in: ['completed', 'free_access']
+        }
+      },
+      include: {
+        session: {
+          select: {
+            id: true,
+            session_type: true,
+            difficulty_level: true
+          }
+        }
+      }
+    });
+
+    // Calculate analytics
+    const liveSessions = sessions.filter(s => s.session_type === 'live');
+    const recordedSessions = sessions.filter(s => s.session_type === 'recorded');
+
+    // Total revenue from paid enrollments
+    const totalRevenue = enrollments.reduce((sum, enrollment) => {
+      return sum + (enrollment.payment_amount ? parseFloat(enrollment.payment_amount.toString()) : 0);
+    }, 0);
+
+    // Total students (unique enrollments)
+    const totalStudents = enrollments.length;
+
+    // Students per session type
+    const liveStudents = enrollments.filter(e => e.session.session_type === 'live').length;
+    const recordedStudents = enrollments.filter(e => e.session.session_type === 'recorded').length;
+
+    // Average duration
+    const avgLiveDuration = liveSessions.length > 0
+      ? Math.round(liveSessions.reduce((sum, s) => sum + (s.duration || 0), 0) / liveSessions.length)
+      : 0;
+
+    const avgRecordedDuration = recordedSessions.length > 0
+      ? Math.round(recordedSessions.reduce((sum, s) => sum + (s.duration || 0), 0) / recordedSessions.length)
+      : 0;
+
+    // Revenue per session type
+    const liveRevenue = enrollments
+      .filter(e => e.session.session_type === 'live')
+      .reduce((sum, e) => sum + (e.payment_amount ? parseFloat(e.payment_amount.toString()) : 0), 0);
+
+    const recordedRevenue = enrollments
+      .filter(e => e.session.session_type === 'recorded')
+      .reduce((sum, e) => sum + (e.payment_amount ? parseFloat(e.payment_amount.toString()) : 0), 0);
+
+    // Completion rate (for enrolled sessions)
+    const completedEnrollments = enrollments.filter(e => e.completed).length;
+    const completionRate = totalStudents > 0 ? Math.round((completedEnrollments / totalStudents) * 100) : 0;
+
+    // Distribution by difficulty
+    const difficultyDistribution = {
+      live: {
+        beginner: enrollments.filter(e => e.session.session_type === 'live' && e.session.difficulty_level === 'beginner').length,
+        intermediate: enrollments.filter(e => e.session.session_type === 'live' && e.session.difficulty_level === 'intermediate').length,
+        advanced: enrollments.filter(e => e.session.session_type === 'live' && e.session.difficulty_level === 'advanced').length,
+      },
+      recorded: {
+        beginner: enrollments.filter(e => e.session.session_type === 'recorded' && e.session.difficulty_level === 'beginner').length,
+        intermediate: enrollments.filter(e => e.session.session_type === 'recorded' && e.session.difficulty_level === 'intermediate').length,
+        advanced: enrollments.filter(e => e.session.session_type === 'recorded' && e.session.difficulty_level === 'advanced').length,
+      }
+    };
+
+    // Response
+    res.status(200).json({
+      success: true,
+      data: {
+        overview: {
+          totalRevenue,
+          totalSessions: sessions.length,
+          totalStudents,
+          completionRate,
+          liveSessions: liveSessions.length,
+          recordedSessions: recordedSessions.length,
+        },
+        liveSessionsAnalytics: {
+          count: liveSessions.length,
+          totalStudents: liveStudents,
+          totalRevenue: liveRevenue,
+          averageDuration: avgLiveDuration,
+          difficultyDistribution: difficultyDistribution.live,
+        },
+        recordedSessionsAnalytics: {
+          count: recordedSessions.length,
+          totalStudents: recordedStudents,
+          totalRevenue: recordedRevenue,
+          averageDuration: avgRecordedDuration,
+          difficultyDistribution: difficultyDistribution.recorded,
+        },
+        sessions: sessions.map(session => {
+          const enrollmentData = sessionEnrollmentCounts.find(e => e.sessionId === session.id);
+          return {
+            id: session.id,
+            title: session.title,
+            session_type: session.session_type,
+            payment_type: session.payment_type,
+            price: session.price,
+            duration: session.duration,
+            difficulty_level: session.difficulty_level,
+            is_enabled: session.is_enabled,
+            studentCount: enrollmentData?.count || 0,
+          };
+        })
+      },
+      message: "Analytics retrieved successfully"
+    });
+  } catch (error: any) {
+    console.error("Get analytics error:", error);
+    res.status(500).json({
+      success: false,
+      message: "Failed to retrieve analytics",
       error: process.env.NODE_ENV === 'development' ? error.message : undefined
     });
   }

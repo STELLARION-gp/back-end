@@ -10,7 +10,8 @@ import {
     getMyEnrollmentForSession,
     getSessionById,
     getAllSessions,
-    deleteSession
+    deleteSession,
+    getMySessionsAnalytics
 } from '../controllers/sessions.controller';
 import { verifyToken } from '../middleware/verifyToken';
 
@@ -23,6 +24,7 @@ router.get('/:id', getSessionById);            // Get a single session by ID
 // Protected routes (authentication required)
 router.post('/', verifyToken, createSession);                                // Create a new session
 router.get('/user/my-sessions', verifyToken, getMySessions);                 // Get all sessions created by the authenticated user
+router.get('/user/analytics', verifyToken, getMySessionsAnalytics);          // Get analytics for user's sessions
 router.get('/user/enrolled', verifyToken, getEnrolledSessions);              // Get all enrolled sessions for the user
 router.get('/enrolled/:enrollmentId', verifyToken, getMySessionDetailsByEnrollment);  // Get session details by enrollment ID
 router.get('/:sessionId/my-enrollment', verifyToken, getMyEnrollmentForSession);      // Check enrollment status for a session
