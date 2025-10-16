@@ -26,6 +26,7 @@ import userRoutes from "./routes/user.routes";
 import authRoutes from "./routes/auth.routes";
 import chatbotRoutes from "./routes/chatbot.routes";
 import profileRoutes from "./routes/profile.routes";
+import diagnosticRoutes from "./routes/diagnostic.routes";
 import { errorHandler, notFound } from "./middleware/errorHandler";
 import { gracefulShutdown } from "./lib/prisma";
 import { SocketServer } from "./socket/socketServer";
@@ -125,6 +126,9 @@ app.use("/api/events", eventRoutes);
 
 // Notifications API
 //app.use("/api/notifications", notificationRoutes);
+
+// Diagnostic API (for debugging - add auth later)
+app.use("/api/diagnostic", diagnosticRoutes);
 
 // Error handling middleware
 app.use(notFound);
