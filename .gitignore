@@ -10,6 +10,9 @@ yarn-error.log*
 .env.development.local
 .env.test.local
 .env.production.local
+.env.bak
+.env.backup
+*.env.bak
 
 # Build outputs
 dist/
@@ -25,7 +28,7 @@ build/
 *.tsbuildinfo
 
 # Firebase service account key (sensitive)
-#serviceAccountKey.json
+serviceAccountKey.json
 
 # IDE/Editor files
 .vscode/
@@ -74,6 +77,5 @@ jspm_packages/
 
 package-lock.json
 yarn.lock
-serviceAccountKey.json
 /generated/prisma
 .env.example
