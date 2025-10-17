@@ -27,6 +27,12 @@ router.get('/:id', bookingController.getBookingById);
 // Cancel a booking
 router.patch('/:id/cancel', bookingController.cancelBooking);
 
+// Confirm a booking (guide accepts)
+router.patch('/:id/confirm', bookingController.confirmBooking);
+
+// Reject a booking (guide rejects)
+router.patch('/:id/reject', bookingController.rejectBooking);
+
 // ============================================================================
 // REVIEW ROUTES
 // ============================================================================

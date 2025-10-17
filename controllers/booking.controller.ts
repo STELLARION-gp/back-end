@@ -1,6 +1,7 @@
 // controllers/booking.controller.ts
 import { Request, Response } from 'express';
 import { PrismaClient } from '../prisma/generated/client';
+import { NotificationService } from '../services/notification.service';
 
 const prisma = new PrismaClient();
 
@@ -134,6 +135,37 @@ export const createBooking = async (req: Request, res: Response) => {
       },
     });
 
+    // Send notification to guide
+    try {
+      const guide = await prisma.users.findUnique({
+        where: { id: service.created_by },
+        select: { firebase_uid: true, first_name: true, last_name: true },
+      });
+
+      if (guide && guide.firebase_uid) {
+        await NotificationService.createNotification({
+          userId: guide.firebase_uid,
+          title: '🎉 New Booking Received!',
+          message: `${user.first_name || 'A learner'} booked "${service.title}" for ${participants} participant${participants > 1 ? 's' : ''}`,
+          type: 'booking' as any,
+          priority: 'high' as any,
+          link: `/dashboard/bookings/${booking.id}`,
+          metadata: {
+            bookingId: booking.id,
+            serviceId: service.id,
+            serviceName: service.title,
+            participants: participants,
+            totalAmount: total_price,
+            learnerName: `${user.first_name} ${user.last_name}`,
+            bookingDate: availability.available_date.toISOString(),
+          },
+        });
+      }
+    } catch (notifError) {
+      console.error('Error sending notification:', notifError);
+      // Don't fail the booking if notification fails
+    }
+
     res.status(201).json(booking);
   } catch (error) {
     console.error('Error creating booking:', error);
@@ -165,7 +197,7 @@ export const getMyBookings = async (req: Request, res: Response) => {
     const take = parseInt(limit as string);
 
     const where: any = { user_id: user.id };
-    if (status) where.status = status;
+    if (status) where.booking_status = status;
 
     const [bookings, total] = await Promise.all([
       prisma.service_bookings.findMany({
@@ -236,7 +268,7 @@ export const getGuideBookings = async (req: Request, res: Response) => {
     const serviceIds = services.map(s => s.id);
 
     const where: any = { service_id: { in: serviceIds } };
-    if (status) where.status = status;
+    if (status) where.booking_status = status;
 
     const [bookings, total] = await Promise.all([
       prisma.service_bookings.findMany({
@@ -401,6 +433,241 @@ export const cancelBooking = async (req: Request, res: Response) => {
     console.error('Error cancelling booking:', error);
     res.status(500).json({ 
       message: 'Failed to cancel booking', 
+      error: (error as Error).message 
+    });
+  }
+};
+
+/**
+ * Confirm a booking (Guide accepts)
+ * PATCH /api/bookings/:id/confirm
+ */
+export const confirmBooking = async (req: Request, res: Response) => {
+  try {
+    const userId = (req as any).user.uid;
+    const { id } = req.params;
+
+    const user = await prisma.users.findUnique({
+      where: { firebase_uid: userId },
+    });
+
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+
+    const booking = await prisma.service_bookings.findUnique({
+      where: { id: parseInt(id) },
+      include: {
+        service: {
+          include: {
+            creator: true,
+          },
+        },
+        user: {
+          select: {
+            id: true,
+            first_name: true,
+            last_name: true,
+            email: true,
+            display_name: true,
+            firebase_uid: true,
+          },
+        },
+      },
+    });
+
+    if (!booking) {
+      return res.status(404).json({ message: 'Booking not found' });
+    }
+
+    // Verify user is the service creator (guide)
+    if (booking.service.created_by !== user.id) {
+      return res.status(403).json({ message: 'Not authorized to confirm this booking' });
+    }
+
+    if (booking.booking_status === 'confirmed') {
+      return res.status(400).json({ message: 'Booking already confirmed' });
+    }
+
+    if (booking.booking_status === 'cancelled') {
+      return res.status(400).json({ message: 'Cannot confirm a cancelled booking' });
+    }
+
+    // Update booking status
+    const updatedBooking = await prisma.service_bookings.update({
+      where: { id: parseInt(id) },
+      data: {
+        booking_status: 'confirmed',
+        confirmed_at: new Date(),
+      },
+      include: {
+        service: true,
+        user: {
+          select: {
+            id: true,
+            first_name: true,
+            last_name: true,
+            email: true,
+            display_name: true,
+          },
+        },
+      },
+    });
+
+    // Send notification to learner
+    try {
+      if (booking.user?.firebase_uid) {
+        await NotificationService.createNotification({
+          userId: booking.user.firebase_uid,
+          title: '✅ Booking Confirmed!',
+          message: `Your booking for "${booking.service.title}" has been confirmed by the guide`,
+          type: 'booking' as any,
+          priority: 'high' as any,
+          link: `/my-bookings/${booking.id}`,
+          metadata: {
+            bookingId: booking.id,
+            serviceId: booking.service.id,
+            serviceName: booking.service.title,
+            status: 'confirmed',
+            bookingDate: booking.booking_date.toISOString(),
+          },
+        });
+      }
+    } catch (notifError) {
+      console.error('Error sending confirmation notification:', notifError);
+      // Don't fail the confirmation if notification fails
+    }
+
+    res.json(updatedBooking);
+  } catch (error) {
+    console.error('Error confirming booking:', error);
+    res.status(500).json({ 
+      message: 'Failed to confirm booking', 
+      error: (error as Error).message 
+    });
+  }
+};
+
+/**
+ * Reject a booking (Guide rejects)
+ * PATCH /api/bookings/:id/reject
+ */
+export const rejectBooking = async (req: Request, res: Response) => {
+  try {
+    const userId = (req as any).user.uid;
+    const { id } = req.params;
+    const { reason } = req.body;
+
+    const user = await prisma.users.findUnique({
+      where: { firebase_uid: userId },
+    });
+
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+
+    const booking = await prisma.service_bookings.findUnique({
+      where: { id: parseInt(id) },
+      include: {
+        service: {
+          include: {
+            creator: true,
+          },
+        },
+        user: {
+          select: {
+            id: true,
+            first_name: true,
+            last_name: true,
+            email: true,
+            display_name: true,
+            firebase_uid: true,
+          },
+        },
+      },
+    });
+
+    if (!booking) {
+      return res.status(404).json({ message: 'Booking not found' });
+    }
+
+    // Verify user is the service creator (guide)
+    if (booking.service.created_by !== user.id) {
+      return res.status(403).json({ message: 'Not authorized to reject this booking' });
+    }
+
+    if (booking.booking_status === 'cancelled') {
+      return res.status(400).json({ message: 'Booking already cancelled' });
+    }
+
+    if (booking.booking_status === 'completed') {
+      return res.status(400).json({ message: 'Cannot reject a completed booking' });
+    }
+
+    // Update booking status
+    const updatedBooking = await prisma.service_bookings.update({
+      where: { id: parseInt(id) },
+      data: {
+        booking_status: 'cancelled',
+        cancelled_at: new Date(),
+      },
+      include: {
+        service: true,
+        user: {
+          select: {
+            id: true,
+            first_name: true,
+            last_name: true,
+            email: true,
+            display_name: true,
+          },
+        },
+      },
+    });
+
+    // Return slots to availability if tracked
+    // Update service bookings count
+    await prisma.services.update({
+      where: { id: booking.service_id },
+      data: {
+        bookings_count: Math.max(0, booking.service.bookings_count - 1),
+      },
+    });
+
+    // Send notification to learner
+    try {
+      if (booking.user?.firebase_uid) {
+        const rejectionMessage = reason 
+          ? `Your booking for "${booking.service.title}" was rejected. Reason: ${reason}`
+          : `Your booking for "${booking.service.title}" was rejected by the guide`;
+
+        await NotificationService.createNotification({
+          userId: booking.user.firebase_uid,
+          title: '❌ Booking Rejected',
+          message: rejectionMessage,
+          type: 'booking' as any,
+          priority: 'high' as any,
+          link: `/my-bookings/${booking.id}`,
+          metadata: {
+            bookingId: booking.id,
+            serviceId: booking.service.id,
+            serviceName: booking.service.title,
+            status: 'rejected',
+            reason: reason || 'No reason provided',
+            bookingDate: booking.booking_date.toISOString(),
+          },
+        });
+      }
+    } catch (notifError) {
+      console.error('Error sending rejection notification:', notifError);
+      // Don't fail the rejection if notification fails
+    }
+
+    res.json(updatedBooking);
+  } catch (error) {
+    console.error('Error rejecting booking:', error);
+    res.status(500).json({ 
+      message: 'Failed to reject booking', 
       error: (error as Error).message 
     });
   }

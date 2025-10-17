@@ -5,6 +5,8 @@ import {
   getPaymentStatus,
   getUserPaymentHistory,
   generateTestHash,
+  getBookingPaymentStats,
+  getBookingPaymentTransactions,
 } from "../controllers/payment.controller";
 import { verifyToken } from "../middleware/verifyToken";
 
@@ -24,5 +26,9 @@ router.use(verifyToken);
 router.post("/create-order", createPaymentOrder);
 router.get("/status/:payment_id", getPaymentStatus);
 router.get("/user/:user_id/history", getUserPaymentHistory);
+
+// Booking payment statistics for guides
+router.get("/booking-stats", getBookingPaymentStats);
+router.get("/booking-transactions", getBookingPaymentTransactions);
 
 export default router;

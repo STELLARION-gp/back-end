@@ -17,6 +17,7 @@ export enum NotificationType {
   PAYMENT = "payment",
   EVENT = "event",
   MESSAGE = "message",
+  BOOKING = "booking",
 }
 
 export interface NotificationMetadata {
@@ -99,6 +100,7 @@ export function getNotificationColor(
     [NotificationType.SOCIAL]: "#EC4899",
     [NotificationType.PAYMENT]: "#10B981",
     [NotificationType.EVENT]: "#06B6D4",
+    [NotificationType.BOOKING]: "#F59E0B",
     [NotificationType.MESSAGE]: "#6366F1",
   };
 

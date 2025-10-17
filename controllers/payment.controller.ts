@@ -606,3 +606,228 @@ export const generateTestHash = async (req: Request, res: Response) => {
     });
   }
 };
+
+// ============================================================================
+// BOOKING PAYMENT STATISTICS FOR GUIDES
+// ============================================================================
+
+/**
+ * Get booking payment statistics for a guide
+ * GET /api/payments/booking-stats
+ */
+export const getBookingPaymentStats = async (req: Request, res: Response) => {
+  try {
+    const userId = (req as any).user.uid;
+    const { days = 30 } = req.query;
+
+    const user = await prisma.users.findUnique({
+      where: { firebase_uid: userId },
+    });
+
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+
+    // Get all services created by this user
+    const services = await prisma.services.findMany({
+      where: { created_by: user.id },
+      select: { id: true },
+    });
+
+    const serviceIds = services.map(s => s.id);
+
+    // Calculate date range
+    const dateFrom = new Date();
+    dateFrom.setDate(dateFrom.getDate() - parseInt(days as string));
+
+    // Get bookings within date range
+    const bookings = await prisma.service_bookings.findMany({
+      where: {
+        service_id: { in: serviceIds },
+        created_at: { gte: dateFrom },
+      },
+    });
+
+    // Calculate statistics
+    const totalRevenue = bookings
+      .filter(b => b.payment_status === 'completed')
+      .reduce((sum, b) => sum + parseFloat(b.total_amount.toString()), 0);
+
+    const totalTransactions = bookings.length;
+
+    const completedBookings = bookings.filter(b => b.payment_status === 'completed');
+    const successRate = totalTransactions > 0 
+      ? (completedBookings.length / totalTransactions) * 100 
+      : 0;
+
+    const pendingAmount = bookings
+      .filter(b => b.payment_status === 'pending')
+      .reduce((sum, b) => sum + parseFloat(b.total_amount.toString()), 0);
+
+    const refundedAmount = bookings
+      .filter(b => b.payment_status === 'refunded')
+      .reduce((sum, b) => sum + parseFloat(b.total_amount.toString()), 0);
+
+    // Calculate monthly growth
+    const previousDateFrom = new Date(dateFrom);
+    previousDateFrom.setDate(previousDateFrom.getDate() - parseInt(days as string));
+
+    const previousBookings = await prisma.service_bookings.findMany({
+      where: {
+        service_id: { in: serviceIds },
+        created_at: {
+          gte: previousDateFrom,
+          lt: dateFrom,
+        },
+        payment_status: 'completed',
+      },
+    });
+
+    const previousRevenue = previousBookings.reduce(
+      (sum, b) => sum + parseFloat(b.total_amount.toString()), 
+      0
+    );
+
+    const monthlyGrowth = previousRevenue > 0 
+      ? ((totalRevenue - previousRevenue) / previousRevenue) * 100 
+      : totalRevenue > 0 ? 100 : 0;
+
+    res.json({
+      totalRevenue,
+      totalTransactions,
+      successRate: parseFloat(successRate.toFixed(1)),
+      pendingAmount,
+      refundedAmount,
+      monthlyGrowth: parseFloat(monthlyGrowth.toFixed(1)),
+    });
+  } catch (error) {
+    console.error('Error fetching booking payment stats:', error);
+    res.status(500).json({ 
+      message: 'Failed to fetch payment statistics', 
+      error: (error as Error).message 
+    });
+  }
+};
+
+/**
+ * Get booking payment transactions for a guide
+ * GET /api/payments/booking-transactions
+ */
+export const getBookingPaymentTransactions = async (req: Request, res: Response) => {
+  try {
+    const userId = (req as any).user.uid;
+    const { 
+      status, 
+      dateRange = 30, 
+      page = 1, 
+      limit = 10,
+      sortBy = 'date',
+      sortOrder = 'desc'
+    } = req.query;
+
+    const user = await prisma.users.findUnique({
+      where: { firebase_uid: userId },
+    });
+
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+
+    // Get all services created by this user
+    const services = await prisma.services.findMany({
+      where: { created_by: user.id },
+      select: { id: true },
+    });
+
+    const serviceIds = services.map(s => s.id);
+
+    // Calculate date range
+    const dateFrom = new Date();
+    dateFrom.setDate(dateFrom.getDate() - parseInt(dateRange as string));
+
+    const skip = (parseInt(page as string) - 1) * parseInt(limit as string);
+    const take = parseInt(limit as string);
+
+    // Build where clause
+    const where: any = {
+      service_id: { in: serviceIds },
+      created_at: { gte: dateFrom },
+    };
+
+    if (status && status !== 'all') {
+      where.payment_status = status;
+    }
+
+    // Build orderBy clause
+    let orderBy: any = {};
+    switch (sortBy) {
+      case 'amount':
+        orderBy = { total_amount: sortOrder };
+        break;
+      case 'status':
+        orderBy = { payment_status: sortOrder };
+        break;
+      default:
+        orderBy = { created_at: sortOrder };
+    }
+
+    const [bookings, total] = await Promise.all([
+      prisma.service_bookings.findMany({
+        where,
+        skip,
+        take,
+        include: {
+          service: {
+            select: {
+              id: true,
+              title: true,
+            },
+          },
+          user: {
+            select: {
+              id: true,
+              first_name: true,
+              last_name: true,
+              email: true,
+              display_name: true,
+            },
+          },
+        },
+        orderBy,
+      }),
+      prisma.service_bookings.count({ where }),
+    ]);
+
+    // Transform bookings to transaction format
+    const transactions = bookings.map(booking => ({
+      id: `TXN${String(booking.id).padStart(6, '0')}`,
+      date: booking.created_at.toISOString().split('T')[0],
+      amount: parseFloat(booking.total_amount.toString()),
+      currency: 'LKR',
+      status: booking.payment_status,
+      type: 'booking',
+      description: `${booking.service?.title || 'Service'} booking`,
+      gateway: booking.payment_method || 'stripe',
+      reference: booking.transaction_id || `REF${booking.id}`,
+      customerEmail: booking.user?.email || 'unknown@example.com',
+      customerName: booking.user
+        ? `${booking.user.first_name || ''} ${booking.user.last_name || ''}`.trim() || booking.user.display_name || 'Unknown'
+        : 'Unknown Customer',
+      bookingId: booking.id,
+      serviceId: booking.service_id,
+    }));
+
+    res.json({
+      transactions,
+      total,
+      page: parseInt(page as string),
+      totalPages: Math.ceil(total / take),
+    });
+  } catch (error) {
+    console.error('Error fetching booking payment transactions:', error);
+    res.status(500).json({ 
+      message: 'Failed to fetch payment transactions', 
+      error: (error as Error).message 
+    });
+  }
+};
