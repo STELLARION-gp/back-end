@@ -375,6 +375,7 @@ export const getMentorProfileById = async (req: Request, res: Response): Promise
         const mentorProfile = {
             id: user.id,
             name: user.display_name || `${user.first_name || ''} ${user.last_name || ''}`.trim(),
+            email: user.email,
             avatarUrl: profileData.avatarUrl || '',
             bio: roleSpecificData.bio || '',
             maxMentees: roleSpecificData.maxMentees || 15,
