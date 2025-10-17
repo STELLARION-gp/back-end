@@ -1,6 +1,52 @@
 // controllers/stargazingSpot.controller.ts
 import { Request, Response } from 'express';
 import { prisma } from '../lib/prisma';
+import { v2 as cloudinary } from 'cloudinary';
+
+// Configure Cloudinary
+cloudinary.config({
+    cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+    api_key: process.env.CLOUDINARY_API_KEY,
+    api_secret: process.env.CLOUDINARY_API_SECRET,
+});
+
+// Helper function to upload images to Cloudinary
+const uploadStargazingSpotImageToCloudinary = async (
+    fileBuffer: Buffer,
+    spotId: number
+): Promise<string> => {
+    return new Promise((resolve, reject) => {
+        console.log('[stargazing-spot-image-upload] Starting upload to Cloudinary...');
+        
+        const uploadStream = cloudinary.uploader.upload_stream(
+            {
+                folder: 'stargazing_spots',
+                public_id: `spot_${spotId}_${Date.now()}`,
+                transformation: [
+                    { width: 1200, height: 800, crop: 'limit' },
+                    { quality: 'auto' },
+                    { fetch_format: 'auto' }
+                ]
+            },
+            (error, result) => {
+                if (error) {
+                    console.error('[stargazing-spot-image-upload] Cloudinary upload error:', error);
+                    reject(error);
+                } else if (result) {
+                    console.log('[stargazing-spot-image-upload] Upload successful:', result.secure_url);
+                    resolve(result.secure_url);
+                } else {
+                    reject(new Error('Upload failed - no result'));
+                }
+            }
+        );
+
+        // Use a readable stream to upload the buffer
+        const { Readable } = require('stream');
+        const bufferStream = Readable.from(fileBuffer);
+        bufferStream.pipe(uploadStream);
+    });
+};
 
 // Types for StargazingSpot
 export interface StargazingSpot {
@@ -134,6 +180,8 @@ const updateSpotRating = async (spotId: number) => {
 // Get all stargazing spots with optional filters
 export const getAllStargazingSpots = async (req: Request, res: Response) => {
     try {
+        const userId = (req as any).user?.userId;
+        
         const filters: StargazingSpotFilters = {
             location: req.query.location as string,
             rating_min: req.query.rating_min ? parseFloat(req.query.rating_min as string) : undefined,
@@ -146,6 +194,22 @@ export const getAllStargazingSpots = async (req: Request, res: Response) => {
         };
 
         const { where, orderBy, take, skip } = buildStargazingSpotQueryOptions(filters);
+
+        // Check user role for status filtering
+        let user = null;
+        if (userId) {
+            user = await prisma.users.findUnique({
+                where: { id: userId },
+                select: { role: true }
+            });
+        }
+
+        // For public users (not logged in) or non-moderators, only show approved spots
+        const isModerator = user && ['admin', 'moderator'].includes(user.role || '');
+        if (!isModerator) {
+            where.status = 'approved';
+        }
+        // For moderators/admins, show all spots (no status filter unless specifically requested)
 
         const [spots, totalCount] = await Promise.all([
             prisma.stargazing_spots.findMany({
@@ -162,7 +226,15 @@ export const getAllStargazingSpots = async (req: Request, res: Response) => {
                             last_name: true,
                         }
                     },
-                    reviews: {
+                    moderator: {
+                        select: {
+                            id: true,
+                            display_name: true,
+                            first_name: true,
+                            last_name: true,
+                        }
+                    },
+                    stargazing_spot_reviews: {
                         include: {
                             user: {
                                 select: {
@@ -184,7 +256,7 @@ export const getAllStargazingSpots = async (req: Request, res: Response) => {
         const formattedSpots = spots.map(spot => ({
             ...spot,
             facilities: spot.facilities as string[],
-            review_count: spot.reviews.length,
+            review_count: spot.stargazing_spot_reviews.length,
             average_rating: spot.rating
         }));
 
@@ -232,7 +304,7 @@ export const getStargazingSpotById = async (req: Request, res: Response) => {
                         last_name: true,
                     }
                 },
-                reviews: {
+                stargazing_spot_reviews: {
                     include: {
                         user: {
                             select: {
@@ -259,7 +331,7 @@ export const getStargazingSpotById = async (req: Request, res: Response) => {
         const formattedSpot = {
             ...spot,
             facilities: spot.facilities as string[],
-            review_count: spot.reviews.length,
+            review_count: spot.stargazing_spot_reviews.length,
             average_rating: spot.rating
         };
 
@@ -289,7 +361,10 @@ export const createStargazingSpot = async (req: Request, res: Response) => {
             return;
         }
 
-        const { name, location, image_url, best_time, description, facilities, rating }: CreateStargazingSpotRequest = req.body;
+        console.log('[stargazing-spots][create] incoming body:', req.body);
+        console.log('[stargazing-spots][create] Files received:', (req.files as any[])?.length || 0);
+
+        const { name, location, image_url, best_time, description, facilities, rating, image_urls }: CreateStargazingSpotRequest & { image_urls?: string[] } = req.body;
 
         // Validate required fields
         if (!name || !location || !description) {
@@ -313,6 +388,7 @@ export const createStargazingSpot = async (req: Request, res: Response) => {
             validatedRating = rating;
         }
 
+        // Create spot first to get ID for Cloudinary upload
         const newSpot = await prisma.stargazing_spots.create({
             data: {
                 name: name.trim(),
@@ -323,7 +399,50 @@ export const createStargazingSpot = async (req: Request, res: Response) => {
                 facilities: facilities || [],
                 created_by: userId,
                 rating: validatedRating,
-                is_active: true
+                is_active: true,
+                status: 'pending', // Always start as pending for moderation
+                image_urls: []
+            },
+            include: {
+                creator: {
+                    select: {
+                        id: true,
+                        display_name: true,
+                        first_name: true,
+                        last_name: true,
+                    }
+                }
+            }
+        });
+
+        // Handle image uploads to Cloudinary
+        let uploadedImageUrls: string[] = [];
+        
+        if (req.files && Array.isArray(req.files) && req.files.length > 0) {
+            console.log(`[stargazing-spots][create] Uploading ${req.files.length} images to Cloudinary...`);
+            
+            try {
+                const uploadPromises = req.files.map((file: Express.Multer.File) =>
+                    uploadStargazingSpotImageToCloudinary(file.buffer, newSpot.id)
+                );
+                uploadedImageUrls = await Promise.all(uploadPromises);
+                console.log('[stargazing-spots][create] All images uploaded successfully:', uploadedImageUrls);
+            } catch (uploadError) {
+                console.error('[stargazing-spots][create] Image upload error:', uploadError);
+                // Continue without images rather than failing completely
+            }
+        }
+
+        // Also include any pre-uploaded image URLs from the request body
+        if (image_urls && Array.isArray(image_urls)) {
+            uploadedImageUrls = [...uploadedImageUrls, ...image_urls];
+        }
+
+        // Update spot with uploaded image URLs
+        const updatedSpot = await prisma.stargazing_spots.update({
+            where: { id: newSpot.id },
+            data: {
+                image_urls: uploadedImageUrls
             },
             include: {
                 creator: {
@@ -338,15 +457,15 @@ export const createStargazingSpot = async (req: Request, res: Response) => {
         });
 
         const formattedSpot = {
-            ...newSpot,
-            facilities: newSpot.facilities as string[],
+            ...updatedSpot,
+            facilities: updatedSpot.facilities as string[],
             review_count: 0,
             average_rating: 0
         };
 
         res.status(201).json({
             success: true,
-            message: 'Stargazing spot created successfully',
+            message: 'Stargazing spot created successfully and submitted for moderation',
             data: formattedSpot
         });
     } catch (error) {
@@ -381,6 +500,9 @@ export const updateStargazingSpot = async (req: Request, res: Response) => {
             return;
         }
 
+        console.log('[stargazing-spots][update] incoming body:', req.body);
+        console.log('[stargazing-spots][update] Files received:', (req.files as any[])?.length || 0);
+
         // Check if spot exists and user has permission
         const existingSpot = await prisma.stargazing_spots.findFirst({
             where: { id: spotId, is_active: true }
@@ -408,7 +530,7 @@ export const updateStargazingSpot = async (req: Request, res: Response) => {
             return;
         }
 
-        const { name, location, image_url, best_time, description, facilities }: UpdateStargazingSpotRequest = req.body;
+        const { name, location, image_url, best_time, description, facilities, image_urls }: UpdateStargazingSpotRequest & { image_urls?: string[] } = req.body;
 
         const updateData: any = {};
         if (name !== undefined) updateData.name = name.trim();
@@ -417,6 +539,41 @@ export const updateStargazingSpot = async (req: Request, res: Response) => {
         if (best_time !== undefined) updateData.best_time = best_time?.trim() || null;
         if (description !== undefined) updateData.description = description.trim();
         if (facilities !== undefined) updateData.facilities = facilities;
+
+        // Handle image uploads to Cloudinary
+        let uploadedImageUrls: string[] = [];
+
+        if (req.files && Array.isArray(req.files) && req.files.length > 0) {
+            console.log(`[stargazing-spots][update] Uploading ${req.files.length} new images to Cloudinary...`);
+            
+            try {
+                const uploadPromises = req.files.map((file: Express.Multer.File) =>
+                    uploadStargazingSpotImageToCloudinary(file.buffer, spotId)
+                );
+                uploadedImageUrls = await Promise.all(uploadPromises);
+                console.log('[stargazing-spots][update] All images uploaded successfully:', uploadedImageUrls);
+            } catch (uploadError) {
+                console.error('[stargazing-spots][update] Image upload error:', uploadError);
+            }
+        }
+
+        // Merge existing image URLs with new uploads
+        let finalImageUrls = [...(existingSpot.image_urls || [])];
+        
+        // If image_urls provided in body, use those as the base (allows removal of old images)
+        if (image_urls && Array.isArray(image_urls)) {
+            finalImageUrls = [...image_urls];
+        }
+        
+        // Add newly uploaded images
+        if (uploadedImageUrls.length > 0) {
+            finalImageUrls = [...finalImageUrls, ...uploadedImageUrls];
+        }
+
+        // Update image_urls if any changes
+        if (uploadedImageUrls.length > 0 || (image_urls && Array.isArray(image_urls))) {
+            updateData.image_urls = finalImageUrls;
+        }
 
         const updatedSpot = await prisma.stargazing_spots.update({
             where: { id: spotId },
@@ -430,7 +587,7 @@ export const updateStargazingSpot = async (req: Request, res: Response) => {
                         last_name: true,
                     }
                 },
-                reviews: {
+                stargazing_spot_reviews: {
                     include: {
                         user: {
                             select: {
@@ -449,7 +606,7 @@ export const updateStargazingSpot = async (req: Request, res: Response) => {
         const formattedSpot = {
             ...updatedSpot,
             facilities: updatedSpot.facilities as string[],
-            review_count: updatedSpot.reviews.length,
+            review_count: updatedSpot.stargazing_spot_reviews.length,
             average_rating: updatedSpot.rating
         };
 
@@ -863,6 +1020,197 @@ export const deleteReview = async (req: Request, res: Response) => {
         res.status(500).json({
             success: false,
             message: 'Failed to delete review',
+            error: error instanceof Error ? error.message : 'Unknown error'
+        });
+    }
+};
+
+// Moderate a stargazing spot (approve or reject)
+export const moderateStargazingSpot = async (req: Request, res: Response) => {
+    try {
+        const userId = (req as any).user?.userId;
+        const spotId = parseInt(req.params.id);
+        const { action } = req.body; // 'approve' or 'reject'
+
+        if (!userId) {
+            res.status(401).json({
+                success: false,
+                message: 'User not authenticated'
+            });
+            return;
+        }
+
+        // Check if user has moderator or admin role
+        const user = await prisma.users.findUnique({
+            where: { id: userId },
+            select: { role: true }
+        });
+
+        if (!['admin', 'moderator'].includes(user?.role || '')) {
+            res.status(403).json({
+                success: false,
+                message: 'Only moderators and admins can moderate stargazing spots'
+            });
+            return;
+        }
+
+        if (isNaN(spotId)) {
+            res.status(400).json({
+                success: false,
+                message: 'Invalid spot ID'
+            });
+            return;
+        }
+
+        if (!action || !['approve', 'reject'].includes(action)) {
+            res.status(400).json({
+                success: false,
+                message: 'Invalid action. Must be "approve" or "reject"'
+            });
+            return;
+        }
+
+        // Check if spot exists
+        const existingSpot = await prisma.stargazing_spots.findFirst({
+            where: { id: spotId, is_active: true }
+        });
+
+        if (!existingSpot) {
+            res.status(404).json({
+                success: false,
+                message: 'Stargazing spot not found'
+            });
+            return;
+        }
+
+        // Update spot status
+        const newStatus = action === 'approve' ? 'approved' : 'rejected';
+        const updatedSpot = await prisma.stargazing_spots.update({
+            where: { id: spotId },
+            data: {
+                status: newStatus,
+                moderated_by: userId,
+                moderated_at: new Date()
+            },
+            include: {
+                creator: {
+                    select: {
+                        id: true,
+                        display_name: true,
+                        first_name: true,
+                        last_name: true,
+                    }
+                },
+                moderator: {
+                    select: {
+                        id: true,
+                        display_name: true,
+                        first_name: true,
+                        last_name: true,
+                    }
+                }
+            }
+        });
+
+        const formattedSpot = {
+            ...updatedSpot,
+            facilities: updatedSpot.facilities as string[]
+        };
+
+        res.json({
+            success: true,
+            message: `Stargazing spot ${action}d successfully`,
+            data: formattedSpot
+        });
+    } catch (error) {
+        console.error('Error moderating stargazing spot:', error);
+        res.status(500).json({
+            success: false,
+            message: 'Failed to moderate stargazing spot',
+            error: error instanceof Error ? error.message : 'Unknown error'
+        });
+    }
+};
+
+// Get spots by moderation status (for moderators)
+export const getSpotsByStatus = async (req: Request, res: Response) => {
+    try {
+        const userId = (req as any).user?.userId;
+        const status = req.params.status; // 'pending', 'approved', or 'rejected'
+
+        if (!userId) {
+            res.status(401).json({
+                success: false,
+                message: 'User not authenticated'
+            });
+            return;
+        }
+
+        // Check if user has moderator or admin role
+        const user = await prisma.users.findUnique({
+            where: { id: userId },
+            select: { role: true }
+        });
+
+        if (!['admin', 'moderator'].includes(user?.role || '')) {
+            res.status(403).json({
+                success: false,
+                message: 'Only moderators and admins can view spots by status'
+            });
+            return;
+        }
+
+        if (!['pending', 'approved', 'rejected'].includes(status)) {
+            res.status(400).json({
+                success: false,
+                message: 'Invalid status. Must be "pending", "approved", or "rejected"'
+            });
+            return;
+        }
+
+        const spots = await prisma.stargazing_spots.findMany({
+            where: {
+                status,
+                is_active: true
+            },
+            include: {
+                creator: {
+                    select: {
+                        id: true,
+                        display_name: true,
+                        first_name: true,
+                        last_name: true,
+                    }
+                },
+                moderator: {
+                    select: {
+                        id: true,
+                        display_name: true,
+                        first_name: true,
+                        last_name: true,
+                    }
+                }
+            },
+            orderBy: { created_at: 'desc' }
+        });
+
+        const formattedSpots = spots.map(spot => ({
+            ...spot,
+            facilities: spot.facilities as string[],
+            review_count: 0, // Will be populated when Prisma client regenerates
+            average_rating: spot.rating
+        }));
+
+        res.json({
+            success: true,
+            data: formattedSpots,
+            count: formattedSpots.length
+        });
+    } catch (error) {
+        console.error('Error fetching spots by status:', error);
+        res.status(500).json({
+            success: false,
+            message: 'Failed to fetch spots by status',
             error: error instanceof Error ? error.message : 'Unknown error'
         });
     }
