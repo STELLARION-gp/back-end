@@ -20,12 +20,12 @@ exports.Prisma = Prisma
 exports.$Enums = {}
 
 /**
- * Prisma Client JS version: 6.17.1
- * Query Engine version: 272a37d34178c2894197e17273bf937f25acdeac
+ * Prisma Client JS version: 6.13.0
+ * Query Engine version: 361e86d0ea4987e9f53a565309b3eed797a6bcbd
  */
 Prisma.prismaVersion = {
-  client: "6.17.1",
-  engine: "272a37d34178c2894197e17273bf937f25acdeac"
+  client: "6.13.0",
+  engine: "361e86d0ea4987e9f53a565309b3eed797a6bcbd"
 }
 
 Prisma.PrismaClientKnownRequestError = () => {
@@ -336,6 +336,15 @@ exports.Prisma.Blog_likesScalarFieldEnum = {
   blog_id: 'blog_id',
   user_id: 'user_id',
   created_at: 'created_at'
+};
+
+exports.Prisma.Blog_ratingsScalarFieldEnum = {
+  id: 'id',
+  blog_id: 'blog_id',
+  user_id: 'user_id',
+  rating: 'rating',
+  created_at: 'created_at',
+  updated_at: 'updated_at'
 };
 
 exports.Prisma.Chatbot_messagesScalarFieldEnum = {
@@ -802,6 +811,101 @@ exports.Prisma.Poll_commentsScalarFieldEnum = {
   updated_at: 'updated_at'
 };
 
+exports.Prisma.Service_availabilityScalarFieldEnum = {
+  id: 'id',
+  service_id: 'service_id',
+  available_date: 'available_date',
+  start_time: 'start_time',
+  end_time: 'end_time',
+  slots_available: 'slots_available',
+  slots_booked: 'slots_booked',
+  status: 'status',
+  notes: 'notes',
+  created_at: 'created_at',
+  updated_at: 'updated_at'
+};
+
+exports.Prisma.Service_bookingsScalarFieldEnum = {
+  id: 'id',
+  service_id: 'service_id',
+  user_id: 'user_id',
+  booking_date: 'booking_date',
+  booking_time: 'booking_time',
+  participants_count: 'participants_count',
+  total_amount: 'total_amount',
+  payment_status: 'payment_status',
+  payment_method: 'payment_method',
+  transaction_id: 'transaction_id',
+  booking_status: 'booking_status',
+  special_requests: 'special_requests',
+  cancellation_reason: 'cancellation_reason',
+  cancelled_at: 'cancelled_at',
+  confirmed_at: 'confirmed_at',
+  completed_at: 'completed_at',
+  created_at: 'created_at',
+  updated_at: 'updated_at'
+};
+
+exports.Prisma.Service_mediaScalarFieldEnum = {
+  id: 'id',
+  service_id: 'service_id',
+  media_url: 'media_url',
+  media_type: 'media_type',
+  display_order: 'display_order',
+  caption: 'caption',
+  created_at: 'created_at'
+};
+
+exports.Prisma.Service_reviewsScalarFieldEnum = {
+  id: 'id',
+  service_id: 'service_id',
+  user_id: 'user_id',
+  rating: 'rating',
+  review: 'review',
+  images: 'images',
+  is_verified: 'is_verified',
+  created_at: 'created_at',
+  updated_at: 'updated_at'
+};
+
+exports.Prisma.ServicesScalarFieldEnum = {
+  id: 'id',
+  title: 'title',
+  description: 'description',
+  category: 'category',
+  price: 'price',
+  duration: 'duration',
+  max_participants: 'max_participants',
+  location: 'location',
+  difficulty: 'difficulty',
+  equipment: 'equipment',
+  next_available: 'next_available',
+  image_url: 'image_url',
+  featured: 'featured',
+  tags: 'tags',
+  requirements: 'requirements',
+  cancellation_policy: 'cancellation_policy',
+  meeting_point: 'meeting_point',
+  what_to_expect: 'what_to_expect',
+  weather_policy: 'weather_policy',
+  booking_deadline: 'booking_deadline',
+  languages: 'languages',
+  certification: 'certification',
+  experience: 'experience',
+  group_discount: 'group_discount',
+  private_booking: 'private_booking',
+  instant_booking: 'instant_booking',
+  status: 'status',
+  views_count: 'views_count',
+  bookings_count: 'bookings_count',
+  rating: 'rating',
+  review_count: 'review_count',
+  created_by: 'created_by',
+  is_active: 'is_active',
+  created_at: 'created_at',
+  updated_at: 'updated_at'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -920,6 +1024,57 @@ exports.enrollment_payment_status = exports.$Enums.enrollment_payment_status = {
   free_access: 'free_access'
 };
 
+exports.availability_status = exports.$Enums.availability_status = {
+  available: 'available',
+  fully_booked: 'fully_booked',
+  unavailable: 'unavailable',
+  cancelled: 'cancelled'
+};
+
+exports.booking_payment_status = exports.$Enums.booking_payment_status = {
+  pending: 'pending',
+  completed: 'completed',
+  failed: 'failed',
+  refunded: 'refunded'
+};
+
+exports.booking_status = exports.$Enums.booking_status = {
+  pending: 'pending',
+  confirmed: 'confirmed',
+  cancelled: 'cancelled',
+  completed: 'completed',
+  no_show: 'no_show'
+};
+
+exports.service_category = exports.$Enums.service_category = {
+  stargazing: 'stargazing',
+  astrophotography: 'astrophotography',
+  telescope: 'telescope',
+  planetarium: 'planetarium',
+  workshop: 'workshop',
+  expedition: 'expedition'
+};
+
+exports.service_difficulty = exports.$Enums.service_difficulty = {
+  Beginner: 'Beginner',
+  Intermediate: 'Intermediate',
+  Advanced: 'Advanced'
+};
+
+exports.weather_policy_type = exports.$Enums.weather_policy_type = {
+  reschedule: 'reschedule',
+  partial_refund: 'partial_refund',
+  full_refund: 'full_refund',
+  no_refund: 'no_refund'
+};
+
+exports.service_status = exports.$Enums.service_status = {
+  draft: 'draft',
+  active: 'active',
+  paused: 'paused',
+  archived: 'archived'
+};
+
 exports.Prisma.ModelName = {
   subscriptions: 'subscriptions',
   group_chats: 'group_chats',
@@ -939,6 +1094,7 @@ exports.Prisma.ModelName = {
   blog_comments: 'blog_comments',
   users: 'users',
   blog_likes: 'blog_likes',
+  blog_ratings: 'blog_ratings',
   chatbot_messages: 'chatbot_messages',
   night_camps_equipment: 'night_camps_equipment',
   user_settings: 'user_settings',
@@ -972,7 +1128,12 @@ exports.Prisma.ModelName = {
   polls: 'polls',
   poll_choices: 'poll_choices',
   poll_votes: 'poll_votes',
-  poll_comments: 'poll_comments'
+  poll_comments: 'poll_comments',
+  service_availability: 'service_availability',
+  service_bookings: 'service_bookings',
+  service_media: 'service_media',
+  service_reviews: 'service_reviews',
+  services: 'services'
 };
 
 /**
