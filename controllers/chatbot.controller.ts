@@ -1,32 +1,20 @@
 // controllers/chatbot.controller.ts
 import { Request, Response } from "express";
-import { GoogleGenerativeAI, GenerativeModel } from "@google/generative-ai";
-import { v4 as uuidv4 } from "uuid";
 import { prisma } from "../lib/prisma";
 import { ChatbotNotificationService } from "../services/chatbotNotification.service";
+import { ChatbotService } from "../services/chatbot.service";
 
-// Initialize Gemini client (only if API key is available)
-let geminiModel: GenerativeModel | null = null;
+// Initialize Gemini API key
 const GEMINI_API_KEY = process.env.GEMINI_API_KEY;
 
-try {
-  if (GEMINI_API_KEY) {
-    const genAI = new GoogleGenerativeAI(GEMINI_API_KEY);
-    // Note: SDK is kept for backward compatibility, but we use direct API calls
-    // because SDK uses v1beta which doesn't support our available models
-    geminiModel = genAI.getGenerativeModel({
-      model: "gemini-1.5-flash-latest",
-    });
-    console.log(
-      "✅ [CHATBOT] Gemini API initialized - using gemini-2.5-flash via direct v1 API calls"
-    );
-  } else {
-    console.warn(
-      "⚠️ [CHATBOT] GEMINI_API_KEY not found in environment variables"
-    );
-  }
-} catch (error) {
-  console.warn("❌ [CHATBOT] Gemini client initialization failed:", error);
+if (GEMINI_API_KEY) {
+  console.log(
+    "✅ [CHATBOT] Gemini API initialized - using gemini-2.5-flash via direct v1 API calls"
+  );
+} else {
+  console.warn(
+    "⚠️ [CHATBOT] GEMINI_API_KEY not found in environment variables"
+  );
 }
 
 // Function to call Gemini REST API directly (bypasses SDK v1beta limitation)
@@ -48,7 +36,9 @@ async function callGeminiDirectly(
     ],
     generationConfig: {
       temperature: 0.7,
-      maxOutputTokens: 700,
+      maxOutputTokens: 1024, // Increased from 700 to avoid truncation
+      topK: 40,
+      topP: 0.95,
     },
   };
 
@@ -67,11 +57,54 @@ async function callGeminiDirectly(
 
   const data = await response.json();
 
+  // Log the full response for debugging
+  console.log(
+    "[CHATBOT] Gemini API full response:",
+    JSON.stringify(data, null, 2)
+  );
+
+  // Check for different possible response structures
   if (data.candidates && data.candidates[0]?.content?.parts?.[0]?.text) {
     return data.candidates[0].content.parts[0].text;
   }
 
-  throw new Error("Invalid response structure from Gemini API");
+  // Handle MAX_TOKENS case - response was cut off, but might still have partial content
+  if (data.candidates && data.candidates[0]?.finishReason === "MAX_TOKENS") {
+    console.warn(
+      "[CHATBOT] Response hit MAX_TOKENS limit, checking for partial content"
+    );
+
+    // Sometimes the content is in a different structure when MAX_TOKENS
+    if (data.candidates[0].content?.parts?.[0]?.text) {
+      return data.candidates[0].content.parts[0].text;
+    }
+
+    // If still no text, return a helpful message
+    throw new Error("Response too long. Please ask a more specific question.");
+  }
+
+  // Check if there's an error in the response
+  if (data.error) {
+    throw new Error(
+      `Gemini API error: ${data.error.message || JSON.stringify(data.error)}`
+    );
+  }
+
+  // Check for safety blocking
+  if (data.candidates && data.candidates[0]?.finishReason === "SAFETY") {
+    throw new Error(
+      "Response blocked due to safety concerns. Please rephrase your question."
+    );
+  }
+
+  // Log what we got and throw detailed error
+  console.error(
+    "[CHATBOT] Unexpected Gemini response structure:",
+    JSON.stringify(data, null, 2)
+  );
+  throw new Error(
+    `Unable to generate response. Please try again with a different question.`
+  );
 }
 
 // System prompt for STELLARION space exploration assistant
@@ -165,6 +198,68 @@ export const chatCompletion = async (
       return;
     }
 
+    // Get or create session for the user
+    const firebaseUid = req.user?.uid || userId || "anonymous";
+    const userIdNumber = req.user?.user_id;
+
+    // Security: Ensure we have a valid firebase UID
+    if (!firebaseUid || firebaseUid === "anonymous") {
+      res.status(401).json({
+        success: false,
+        error: "Authentication required",
+        details: "Valid Firebase UID is required for chatbot access",
+      } as ChatResponse);
+      return;
+    }
+
+    // Log for debugging user isolation
+    console.log(
+      `[CHATBOT] User ${firebaseUid} (ID: ${userIdNumber}) accessing chatbot`
+    );
+
+    let session;
+    if (conversationId) {
+      // Use existing session if conversationId is provided
+      session = await ChatbotService.getSessionById(
+        conversationId,
+        firebaseUid
+      );
+      if (!session) {
+        res.status(404).json({
+          success: false,
+          error: "Session not found",
+          details:
+            "The specified conversation session does not exist or does not belong to you",
+        } as ChatResponse);
+        return;
+      }
+      console.log(
+        `[CHATBOT] Using existing session ${conversationId} for user ${firebaseUid}`
+      );
+    } else {
+      // Get or create active session
+      session = await ChatbotService.getOrCreateActiveSession(
+        firebaseUid,
+        userIdNumber
+      );
+      console.log(
+        `[CHATBOT] ${
+          session.createdAt === session.updatedAt
+            ? "Created new"
+            : "Using existing"
+        } session ${session.id} for user ${firebaseUid}`
+      );
+    }
+
+    // Store user message in the session
+    await ChatbotService.addMessage({
+      sessionId: session.id,
+      content: message,
+      isBot: false,
+      firebaseUid: firebaseUid,
+      intent: "user_query",
+    });
+
     let aiResponse: string;
 
     // Try to use Gemini API directly (bypassing SDK v1beta limitation)
@@ -173,17 +268,20 @@ export const chatCompletion = async (
         console.log("[CHATBOT] Calling Gemini API v1 directly...");
         aiResponse = await callGeminiDirectly(message, SYSTEM_PROMPT);
         console.log("[CHATBOT] Gemini API success!");
-      } catch (geminiError: any) {
+      } catch (geminiError: unknown) {
         console.warn(
           "[CHATBOT] Gemini API failed, using fallback:",
-          geminiError.message
+          geminiError instanceof Error
+            ? geminiError.message
+            : String(geminiError)
         );
 
         // If rate limit or quota exceeded, use fallback
+        const errorMessage =
+          geminiError instanceof Error ? geminiError.message : "";
         if (
-          geminiError.status === 429 ||
-          geminiError.message?.includes("quota") ||
-          geminiError.message?.includes("RATE_LIMIT")
+          errorMessage?.includes("quota") ||
+          errorMessage?.includes("RATE_LIMIT")
         ) {
           aiResponse = getFallbackResponse(message);
         } else {
@@ -204,12 +302,22 @@ export const chatCompletion = async (
       return;
     }
 
-    // Generate conversation ID if not provided
-    const responseConversationId = conversationId || uuidv4();
+    // Store bot response in the session
+    await ChatbotService.addMessage({
+      sessionId: session.id,
+      content: aiResponse,
+      isBot: true,
+      firebaseUid: firebaseUid,
+      intent: "bot_response",
+    });
 
     // Increment chatbot usage for users with limited plans
     if (req.user?.user_id) {
       try {
+        console.log(
+          `[CHATBOT] Incrementing usage for user ${firebaseUid} (ID: ${req.user.user_id})`
+        );
+
         const updatedUser = await prisma.users.update({
           where: { id: req.user.user_id },
           data: {
@@ -224,51 +332,70 @@ export const chatCompletion = async (
           },
         });
 
+        console.log(
+          `[CHATBOT] User ${firebaseUid} usage updated: ${updatedUser.chatbot_questions_used} (plan: ${updatedUser.subscription_plan})`
+        );
+
         // Send notifications based on usage
         const usageAfter = updatedUser.chatbot_questions_used || 0;
-        const firebaseUid = updatedUser.firebase_uid;
+        const firebaseUidForNotif = updatedUser.firebase_uid;
 
         // Only send notifications to starseeker users (with 3 prompt limit)
         if (updatedUser.subscription_plan === "starseeker") {
           // If they just used their 2nd prompt (1 remaining), warn them
           if (usageAfter === 2) {
-            ChatbotNotificationService.sendLastPromptWarning(firebaseUid);
+            console.log(
+              `[CHATBOT] Sending last prompt warning to user ${firebaseUid}`
+            );
+            ChatbotNotificationService.sendLastPromptWarning(
+              firebaseUidForNotif
+            );
           }
           // If they just used their 3rd prompt (limit reached), notify them
           else if (usageAfter === 3) {
+            console.log(
+              `[CHATBOT] Sending limit reached notification to user ${firebaseUid}`
+            );
             ChatbotNotificationService.sendLimitReachedNotification(
-              firebaseUid
+              firebaseUidForNotif
             );
           }
         }
       } catch (dbError) {
-        console.error("Failed to increment chatbot usage:", dbError);
+        console.error(
+          `[CHATBOT] Failed to increment chatbot usage for user ${firebaseUid}:`,
+          dbError
+        );
         // Don't fail the request for this
       }
     }
+
+    // Get session message count
+    const messageCount = await ChatbotService.getSessionMessageCount(
+      session.id
+    );
 
     // Log the interaction (optional - for monitoring/analytics)
     console.log(
       `[CHATBOT] ${new Date().toISOString()} - User: ${
         req.user?.user_id || userId || "anonymous"
-      } - Conversation: ${responseConversationId}`
+      } - Session: ${session.id} - Messages: ${messageCount}`
     );
 
     // Return successful response
     res.json({
       success: true,
       response: aiResponse,
-      conversationId: responseConversationId,
+      conversationId: session.id,
       timestamp: new Date().toISOString(),
     } as ChatResponse);
-  } catch (error: any) {
+  } catch (error: unknown) {
     console.error("[CHATBOT ERROR]", error);
 
+    const errorMessage = error instanceof Error ? error.message : String(error);
+
     // Handle specific Gemini errors
-    if (
-      error.status === 401 ||
-      (error.message && error.message.includes("authentication"))
-    ) {
+    if (errorMessage.includes("authentication")) {
       res.status(500).json({
         success: false,
         error: "AI service authentication failed",
@@ -277,23 +404,11 @@ export const chatCompletion = async (
       return;
     }
 
-    if (
-      error.status === 429 ||
-      (error.message && error.message.includes("quota"))
-    ) {
+    if (errorMessage.includes("quota") || errorMessage.includes("RATE_LIMIT")) {
       res.status(429).json({
         success: false,
         error: "Rate limit exceeded",
         details: "Too many requests to AI service. Please try again later.",
-      } as ChatResponse);
-      return;
-    }
-
-    if (error.status === 400) {
-      res.status(400).json({
-        success: false,
-        error: "Invalid request to AI service",
-        details: error.message || "Request was malformed",
       } as ChatResponse);
       return;
     }
@@ -304,7 +419,7 @@ export const chatCompletion = async (
       error: "Failed to process message",
       details:
         process.env.NODE_ENV === "development"
-          ? error.message
+          ? errorMessage
           : "Internal server error",
     } as ChatResponse);
   }
@@ -325,7 +440,7 @@ export const healthCheck = async (
       timestamp: new Date().toISOString(),
       configured: isConfigured,
     });
-  } catch (error: any) {
+  } catch (error: unknown) {
     console.error("[CHATBOT HEALTH CHECK ERROR]", error);
 
     res.status(503).json({
@@ -335,7 +450,9 @@ export const healthCheck = async (
       configured: !!process.env.GEMINI_API_KEY,
       error:
         process.env.NODE_ENV === "development"
-          ? error.message
+          ? error instanceof Error
+            ? error.message
+            : String(error)
           : "Service unavailable",
     });
   }

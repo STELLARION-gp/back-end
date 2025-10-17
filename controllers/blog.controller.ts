@@ -1332,9 +1332,9 @@ const _recordBlogView = async (blogId: number, userId?: number, req?: Request): 
     } catch (error) { console.error('Error recording blog view:', error); }
 };
 // Rebind original names if referenced elsewhere
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
+ 
 const getUserIdFromFirebaseUid = _getUserIdFromFirebaseUid;
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
+ 
 const recordBlogView = _recordBlogView;
 
 // Helper functions

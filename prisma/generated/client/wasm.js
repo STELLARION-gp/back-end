@@ -120,60 +120,84 @@ exports.Prisma.TransactionIsolationLevel = makeStrictEnum({
   Serializable: 'Serializable'
 });
 
-exports.Prisma.SubscriptionsScalarFieldEnum = {
+exports.Prisma.QuizParticipantsScalarFieldEnum = {
   id: 'id',
+  quiz_id: 'quiz_id',
   user_id: 'user_id',
-  plan_type: 'plan_type',
-  status: 'status',
-  start_date: 'start_date',
-  end_date: 'end_date',
-  auto_renew: 'auto_renew',
-  created_at: 'created_at',
-  updated_at: 'updated_at',
-  cancelled_at: 'cancelled_at',
-  cancellation_reason: 'cancellation_reason'
+  correct_question_count: 'correct_question_count',
+  score: 'score'
 };
 
-exports.Prisma.Group_chatsScalarFieldEnum = {
+exports.Prisma.QuizQuestionScalarFieldEnum = {
+  id: 'id',
+  quiz_id: 'quiz_id',
+  question: 'question',
+  answers: 'answers',
+  correct_answer: 'correct_answer',
+  question_explanation: 'question_explanation'
+};
+
+exports.Prisma.QuizzesScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  category: 'category',
+  description: 'description',
+  time: 'time',
+  question_count: 'question_count',
+  participants_count: 'participants_count',
+  time_limit: 'time_limit',
+  user_id: 'user_id',
+  created_at: 'created_at',
+  modified_at: 'modified_at',
+  status: 'status',
+  level: 'level'
+};
+
+exports.Prisma.Astronomy_eventsScalarFieldEnum = {
   id: 'id',
   name: 'name',
   description: 'description',
-  type: 'type',
-  created_by: 'created_by',
-  avatar_url: 'avatar_url',
+  visibility: 'visibility',
+  best_time: 'best_time',
+  image_url: 'image_url',
+  event_date: 'event_date',
+  end_date: 'end_date',
+  duration: 'duration',
+  event_type: 'event_type',
   is_active: 'is_active',
-  max_members: 'max_members',
+  created_by: 'created_by',
   created_at: 'created_at',
   updated_at: 'updated_at'
 };
 
-exports.Prisma.Group_membersScalarFieldEnum = {
+exports.Prisma.Blog_categoriesScalarFieldEnum = {
   id: 'id',
-  group_id: 'group_id',
-  user_id: 'user_id',
-  role: 'role',
-  joined_at: 'joined_at',
-  is_muted: 'is_muted'
+  name: 'name',
+  description: 'description',
+  created_at: 'created_at'
 };
 
-exports.Prisma.Chat_messagesScalarFieldEnum = {
+exports.Prisma.Blog_category_relationsScalarFieldEnum = {
   id: 'id',
-  group_id: 'group_id',
+  blog_id: 'blog_id',
+  category_id: 'category_id'
+};
+
+exports.Prisma.Blog_commentsScalarFieldEnum = {
+  id: 'id',
+  blog_id: 'blog_id',
   user_id: 'user_id',
-  message_text: 'message_text',
-  message_type: 'message_type',
-  reply_to: 'reply_to',
+  parent_comment_id: 'parent_comment_id',
+  content: 'content',
   is_edited: 'is_edited',
-  is_deleted: 'is_deleted',
   created_at: 'created_at',
   updated_at: 'updated_at'
 };
 
-exports.Prisma.Message_reactionsScalarFieldEnum = {
+exports.Prisma.Blog_likesScalarFieldEnum = {
   id: 'id',
-  message_id: 'message_id',
+  blog_id: 'blog_id',
   user_id: 'user_id',
-  reaction: 'reaction',
   created_at: 'created_at'
 };
 
@@ -184,58 +208,6 @@ exports.Prisma.Blog_viewsScalarFieldEnum = {
   ip_address: 'ip_address',
   user_agent: 'user_agent',
   viewed_at: 'viewed_at'
-};
-
-exports.Prisma.Night_campsScalarFieldEnum = {
-  id: 'id',
-  name: 'name',
-  organized_by: 'organized_by',
-  sponsored_by: 'sponsored_by',
-  description: 'description',
-  date: 'date',
-  time: 'time',
-  location: 'location',
-  number_of_participants: 'number_of_participants',
-  image_urls: 'image_urls',
-  emergency_contact: 'emergency_contact',
-  status: 'status',
-  created_at: 'created_at',
-  updated_at: 'updated_at'
-};
-
-exports.Prisma.Night_camps_activitiesScalarFieldEnum = {
-  id: 'id',
-  night_camp_id: 'night_camp_id',
-  activity: 'activity',
-  created_at: 'created_at'
-};
-
-exports.Prisma.Chatbot_sessionsScalarFieldEnum = {
-  id: 'id',
-  user_id: 'user_id',
-  firebase_uid: 'firebase_uid',
-  title: 'title',
-  is_active: 'is_active',
-  message_count: 'message_count',
-  created_at: 'created_at',
-  updated_at: 'updated_at'
-};
-
-exports.Prisma.PaymentsScalarFieldEnum = {
-  id: 'id',
-  user_id: 'user_id',
-  subscription_id: 'subscription_id',
-  amount: 'amount',
-  currency: 'currency',
-  payment_status: 'payment_status',
-  payment_method: 'payment_method',
-  payment_gateway: 'payment_gateway',
-  gateway_transaction_id: 'gateway_transaction_id',
-  gateway_order_id: 'gateway_order_id',
-  payment_date: 'payment_date',
-  metadata: 'metadata',
-  created_at: 'created_at',
-  updated_at: 'updated_at'
 };
 
 exports.Prisma.BlogsScalarFieldEnum = {
@@ -262,79 +234,26 @@ exports.Prisma.BlogsScalarFieldEnum = {
   metadata: 'metadata'
 };
 
-exports.Prisma.Blog_category_relationsScalarFieldEnum = {
+exports.Prisma.Chat_messagesScalarFieldEnum = {
   id: 'id',
-  blog_id: 'blog_id',
-  category_id: 'category_id'
-};
-
-exports.Prisma.Subscription_plansScalarFieldEnum = {
-  id: 'id',
-  plan_type: 'plan_type',
-  name: 'name',
-  description: 'description',
-  price_lkr: 'price_lkr',
-  price_usd: 'price_usd',
-  features: 'features',
-  chatbot_questions_limit: 'chatbot_questions_limit',
-  is_active: 'is_active',
-  created_at: 'created_at',
-  updated_at: 'updated_at'
-};
-
-exports.Prisma.Blog_categoriesScalarFieldEnum = {
-  id: 'id',
-  name: 'name',
-  description: 'description',
-  created_at: 'created_at'
-};
-
-exports.Prisma.Chatbot_usageScalarFieldEnum = {
-  id: 'id',
+  group_id: 'group_id',
   user_id: 'user_id',
-  question_count: 'question_count',
-  usage_date: 'usage_date',
-  created_at: 'created_at'
-};
-
-exports.Prisma.Blog_commentsScalarFieldEnum = {
-  id: 'id',
-  blog_id: 'blog_id',
-  user_id: 'user_id',
-  parent_comment_id: 'parent_comment_id',
-  content: 'content',
+  message_text: 'message_text',
+  message_type: 'message_type',
+  reply_to: 'reply_to',
   is_edited: 'is_edited',
+  is_deleted: 'is_deleted',
   created_at: 'created_at',
   updated_at: 'updated_at'
 };
 
-exports.Prisma.UsersScalarFieldEnum = {
+exports.Prisma.Chatbot_feedbackScalarFieldEnum = {
   id: 'id',
+  message_id: 'message_id',
+  session_id: 'session_id',
   firebase_uid: 'firebase_uid',
-  email: 'email',
-  role: 'role',
-  first_name: 'first_name',
-  last_name: 'last_name',
-  is_active: 'is_active',
-  last_login: 'last_login',
-  created_at: 'created_at',
-  updated_at: 'updated_at',
-  display_name: 'display_name',
-  profile_data: 'profile_data',
-  role_specific_data: 'role_specific_data',
-  subscription_plan: 'subscription_plan',
-  subscription_status: 'subscription_status',
-  subscription_start_date: 'subscription_start_date',
-  subscription_end_date: 'subscription_end_date',
-  auto_renew: 'auto_renew',
-  chatbot_questions_used: 'chatbot_questions_used',
-  chatbot_questions_reset_date: 'chatbot_questions_reset_date'
-};
-
-exports.Prisma.Blog_likesScalarFieldEnum = {
-  id: 'id',
-  blog_id: 'blog_id',
-  user_id: 'user_id',
+  rating: 'rating',
+  feedback_text: 'feedback_text',
   created_at: 'created_at'
 };
 
@@ -359,59 +278,77 @@ exports.Prisma.Chatbot_messagesScalarFieldEnum = {
   created_at: 'created_at'
 };
 
-exports.Prisma.Night_camps_equipmentScalarFieldEnum = {
-  id: 'id',
-  night_camp_id: 'night_camp_id',
-  category: 'category',
-  equipment_name: 'equipment_name',
-  created_at: 'created_at'
-};
-
-exports.Prisma.User_settingsScalarFieldEnum = {
+exports.Prisma.Chatbot_sessionsScalarFieldEnum = {
   id: 'id',
   user_id: 'user_id',
-  language: 'language',
-  email_notifications: 'email_notifications',
-  push_notifications: 'push_notifications',
-  profile_visibility: 'profile_visibility',
-  allow_direct_messages: 'allow_direct_messages',
-  show_online_status: 'show_online_status',
-  theme: 'theme',
-  timezone: 'timezone',
+  firebase_uid: 'firebase_uid',
+  title: 'title',
+  is_active: 'is_active',
+  message_count: 'message_count',
   created_at: 'created_at',
   updated_at: 'updated_at'
 };
 
-exports.Prisma.Chatbot_feedbackScalarFieldEnum = {
-  id: 'id',
-  message_id: 'message_id',
-  session_id: 'session_id',
-  firebase_uid: 'firebase_uid',
-  rating: 'rating',
-  feedback_text: 'feedback_text',
-  created_at: 'created_at'
-};
-
-exports.Prisma.Night_camp_volunteeringScalarFieldEnum = {
-  id: 'id',
-  night_camp_id: 'night_camp_id',
-  volunteering_role: 'volunteering_role',
-  number_of_applicants: 'number_of_applicants',
-  created_at: 'created_at'
-};
-
-exports.Prisma.Role_upgrade_requestsScalarFieldEnum = {
+exports.Prisma.Chatbot_usageScalarFieldEnum = {
   id: 'id',
   user_id: 'user_id',
-  current_user_role: 'current_user_role',
-  requested_user_role: 'requested_user_role',
-  reason: 'reason',
-  supporting_evidence: 'supporting_evidence',
+  question_count: 'question_count',
+  usage_date: 'usage_date',
+  created_at: 'created_at'
+};
+
+exports.Prisma.Event_remindersScalarFieldEnum = {
+  id: 'id',
+  user_id: 'user_id',
+  event_id: 'event_id',
+  reminder_time: 'reminder_time',
+  is_sent: 'is_sent',
+  notification_type: 'notification_type',
+  created_at: 'created_at',
+  updated_at: 'updated_at'
+};
+
+exports.Prisma.EventsScalarFieldEnum = {
+  id: 'id',
+  event_name: 'event_name',
+  society_name: 'society_name',
+  description: 'description',
+  visibility: 'visibility',
+  date: 'date',
+  time: 'time',
+  location: 'location',
+  event_category: 'event_category',
+  needed_volunteers_count: 'needed_volunteers_count',
+  organized_by: 'organized_by',
+  image_urls: 'image_urls',
+  max_participants: 'max_participants',
+  event_status: 'event_status',
+  created_at: 'created_at',
   status: 'status',
-  reviewer_id: 'reviewer_id',
-  reviewer_notes: 'reviewer_notes',
-  submitted_at: 'submitted_at',
-  reviewed_at: 'reviewed_at'
+  created_by: 'created_by',
+  moderated_by: 'moderated_by'
+};
+
+exports.Prisma.Group_chatsScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  description: 'description',
+  type: 'type',
+  created_by: 'created_by',
+  avatar_url: 'avatar_url',
+  is_active: 'is_active',
+  max_members: 'max_members',
+  created_at: 'created_at',
+  updated_at: 'updated_at'
+};
+
+exports.Prisma.Group_membersScalarFieldEnum = {
+  id: 'id',
+  group_id: 'group_id',
+  user_id: 'user_id',
+  role: 'role',
+  joined_at: 'joined_at',
+  is_muted: 'is_muted'
 };
 
 exports.Prisma.Guide_applicationScalarFieldEnum = {
@@ -456,62 +393,6 @@ exports.Prisma.Guide_applicationScalarFieldEnum = {
   updated_at: 'updated_at'
 };
 
-exports.Prisma.Mentor_applicationScalarFieldEnum = {
-  application_id: 'application_id',
-  user_id: 'user_id',
-  first_name: 'first_name',
-  last_name: 'last_name',
-  email: 'email',
-  phone_number: 'phone_number',
-  date_of_birth: 'date_of_birth',
-  country: 'country',
-  profile_bio: 'profile_bio',
-  educational_background: 'educational_background',
-  area_of_expertise: 'area_of_expertise',
-  linkedin_profile: 'linkedin_profile',
-  intro_video_url: 'intro_video_url',
-  max_mentees: 'max_mentees',
-  availability_schedule: 'availability_schedule',
-  motivation_statement: 'motivation_statement',
-  portfolio_attachments: 'portfolio_attachments',
-  application_status: 'application_status',
-  approve_application_status: 'approve_application_status',
-  deletion_status: 'deletion_status',
-  submitted_at: 'submitted_at',
-  updated_at: 'updated_at'
-};
-
-exports.Prisma.Night_camp_volunteering_applicationsScalarFieldEnum = {
-  id: 'id',
-  night_camp_id: 'night_camp_id',
-  user_id: 'user_id',
-  volunteering_role: 'volunteering_role',
-  motivation: 'motivation',
-  experience: 'experience',
-  availability: 'availability',
-  emergency_contact_name: 'emergency_contact_name',
-  emergency_contact_phone: 'emergency_contact_phone',
-  emergency_contact_relationship: 'emergency_contact_relationship',
-  status: 'status',
-  application_date: 'application_date',
-  reviewed_by: 'reviewed_by',
-  reviewed_at: 'reviewed_at',
-  review_notes: 'review_notes',
-  created_at: 'created_at',
-  updated_at: 'updated_at'
-};
-
-exports.Prisma.Night_camp_registrationsScalarFieldEnum = {
-  id: 'id',
-  camp_id: 'camp_id',
-  user_id: 'user_id',
-  status: 'status',
-  registered_date: 'registered_date',
-  registered_time: 'registered_time',
-  created_at: 'created_at',
-  updated_at: 'updated_at'
-};
-
 exports.Prisma.Influencer_applicationScalarFieldEnum = {
   application_id: 'application_id',
   user_id: 'user_id',
@@ -545,235 +426,150 @@ exports.Prisma.Media_uploadsScalarFieldEnum = {
   created_at: 'created_at'
 };
 
-exports.Prisma.Tour_mediaScalarFieldEnum = {
-  tour_id: 'tour_id',
-  tour_name: 'tour_name',
-  description: 'description',
-  location: 'location',
-  tags: 'tags',
-  media_ids: 'media_ids',
+exports.Prisma.Mentor_applicationScalarFieldEnum = {
+  application_id: 'application_id',
+  user_id: 'user_id',
+  first_name: 'first_name',
+  last_name: 'last_name',
+  email: 'email',
+  phone_number: 'phone_number',
+  date_of_birth: 'date_of_birth',
+  country: 'country',
+  profile_bio: 'profile_bio',
+  educational_background: 'educational_background',
+  area_of_expertise: 'area_of_expertise',
+  linkedin_profile: 'linkedin_profile',
+  intro_video_url: 'intro_video_url',
+  max_mentees: 'max_mentees',
+  availability_schedule: 'availability_schedule',
+  motivation_statement: 'motivation_statement',
+  portfolio_attachments: 'portfolio_attachments',
+  application_status: 'application_status',
+  approve_application_status: 'approve_application_status',
+  deletion_status: 'deletion_status',
+  submitted_at: 'submitted_at',
+  updated_at: 'updated_at'
+};
+
+exports.Prisma.Message_reactionsScalarFieldEnum = {
+  id: 'id',
+  message_id: 'message_id',
+  user_id: 'user_id',
+  reaction: 'reaction',
+  created_at: 'created_at'
+};
+
+exports.Prisma.Night_camp_registrationsScalarFieldEnum = {
+  id: 'id',
+  camp_id: 'camp_id',
+  user_id: 'user_id',
+  status: 'status',
+  registered_date: 'registered_date',
+  registered_time: 'registered_time',
   created_at: 'created_at',
   updated_at: 'updated_at'
 };
 
-exports.Prisma.EventsScalarFieldEnum = {
+exports.Prisma.Night_camp_volunteeringScalarFieldEnum = {
   id: 'id',
-  event_name: 'event_name',
-  society_name: 'society_name',
+  night_camp_id: 'night_camp_id',
+  volunteering_role: 'volunteering_role',
+  number_of_applicants: 'number_of_applicants',
+  created_at: 'created_at'
+};
+
+exports.Prisma.Night_camp_volunteering_applicationsScalarFieldEnum = {
+  id: 'id',
+  night_camp_id: 'night_camp_id',
+  user_id: 'user_id',
+  volunteering_role: 'volunteering_role',
+  motivation: 'motivation',
+  experience: 'experience',
+  availability: 'availability',
+  emergency_contact_name: 'emergency_contact_name',
+  emergency_contact_phone: 'emergency_contact_phone',
+  emergency_contact_relationship: 'emergency_contact_relationship',
+  status: 'status',
+  application_date: 'application_date',
+  reviewed_by: 'reviewed_by',
+  reviewed_at: 'reviewed_at',
+  review_notes: 'review_notes',
+  created_at: 'created_at',
+  updated_at: 'updated_at'
+};
+
+exports.Prisma.Night_campsScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  organized_by: 'organized_by',
+  sponsored_by: 'sponsored_by',
   description: 'description',
-  visibility: 'visibility',
   date: 'date',
   time: 'time',
   location: 'location',
-  event_category: 'event_category',
-  needed_volunteers_count: 'needed_volunteers_count',
-  organized_by: 'organized_by',
+  number_of_participants: 'number_of_participants',
   image_urls: 'image_urls',
-  max_participants: 'max_participants',
-  event_status: 'event_status',
-  created_at: 'created_at',
+  emergency_contact: 'emergency_contact',
   status: 'status',
-  created_by: 'created_by',
-  moderated_by: 'moderated_by'
-};
-
-exports.Prisma.QuizParticipantsScalarFieldEnum = {
-  id: 'id',
-  quiz_id: 'quiz_id',
-  user_id: 'user_id',
-  correct_question_count: 'correct_question_count',
-  score: 'score'
-};
-
-exports.Prisma.QuizQuestionScalarFieldEnum = {
-  id: 'id',
-  quiz_id: 'quiz_id',
-  question: 'question',
-  answers: 'answers',
-  correct_answer: 'correct_answer',
-  question_explanation: 'question_explanation'
-};
-
-exports.Prisma.QuizzesScalarFieldEnum = {
-  id: 'id',
-  name: 'name',
-  category: 'category',
-  description: 'description',
-  time: 'time',
-  question_count: 'question_count',
-  participants_count: 'participants_count',
-  time_limit: 'time_limit',
-  user_id: 'user_id',
   created_at: 'created_at',
-  modified_at: 'modified_at',
-  status: 'status',
-  level: 'level'
+  updated_at: 'updated_at'
 };
 
-exports.Prisma.Space_newsScalarFieldEnum = {
+exports.Prisma.Night_camps_activitiesScalarFieldEnum = {
   id: 'id',
-  image_urls: 'image_urls',
-  publish_date: 'publish_date',
-  title: 'title',
-  number_of_likes: 'number_of_likes',
-  number_of_comments: 'number_of_comments',
-  content: 'content',
-  published_by: 'published_by',
-  category: 'category',
-  created_at: 'created_at',
-  last_read_time: 'last_read_time'
-};
-
-exports.Prisma.Space_news_likesScalarFieldEnum = {
-  id: 'id',
-  space_news_id: 'space_news_id',
-  user_id: 'user_id',
+  night_camp_id: 'night_camp_id',
+  activity: 'activity',
   created_at: 'created_at'
 };
 
-exports.Prisma.Space_news_commentsScalarFieldEnum = {
+exports.Prisma.Night_camps_equipmentScalarFieldEnum = {
   id: 'id',
-  space_news_id: 'space_news_id',
-  user_id: 'user_id',
-  parent_comment_id: 'parent_comment_id',
-  content: 'content',
-  is_edited: 'is_edited',
-  created_at: 'created_at',
-  updated_at: 'updated_at'
-};
-
-exports.Prisma.Space_discussionsScalarFieldEnum = {
-  id: 'id',
-  title: 'title',
-  content: 'content',
-  author_id: 'author_id',
+  night_camp_id: 'night_camp_id',
   category: 'category',
-  is_sticky: 'is_sticky',
-  is_closed: 'is_closed',
-  views_count: 'views_count',
-  replies_count: 'replies_count',
-  last_activity: 'last_activity',
-  created_at: 'created_at',
-  updated_at: 'updated_at'
-};
-
-exports.Prisma.Space_discussion_commentsScalarFieldEnum = {
-  id: 'id',
-  discussion_id: 'discussion_id',
-  user_id: 'user_id',
-  parent_id: 'parent_id',
-  content: 'content',
-  is_edited: 'is_edited',
-  created_at: 'created_at',
-  updated_at: 'updated_at'
-};
-
-exports.Prisma.Space_discussion_likesScalarFieldEnum = {
-  id: 'id',
-  discussion_id: 'discussion_id',
-  user_id: 'user_id',
+  equipment_name: 'equipment_name',
   created_at: 'created_at'
 };
 
-exports.Prisma.Space_discussion_comment_likesScalarFieldEnum = {
-  id: 'id',
-  comment_id: 'comment_id',
-  user_id: 'user_id',
-  created_at: 'created_at'
-};
-
-exports.Prisma.Astronomy_eventsScalarFieldEnum = {
-  id: 'id',
-  name: 'name',
-  description: 'description',
-  visibility: 'visibility',
-  best_time: 'best_time',
-  image_url: 'image_url',
-  event_date: 'event_date',
-  end_date: 'end_date',
-  duration: 'duration',
-  event_type: 'event_type',
-  is_active: 'is_active',
-  created_by: 'created_by',
-  created_at: 'created_at',
-  updated_at: 'updated_at'
-};
-
-exports.Prisma.Event_remindersScalarFieldEnum = {
+exports.Prisma.PaymentsScalarFieldEnum = {
   id: 'id',
   user_id: 'user_id',
-  event_id: 'event_id',
-  reminder_time: 'reminder_time',
-  is_sent: 'is_sent',
-  notification_type: 'notification_type',
-  created_at: 'created_at',
-  updated_at: 'updated_at'
-};
-
-exports.Prisma.Stargazing_spotsScalarFieldEnum = {
-  id: 'id',
-  name: 'name',
-  location: 'location',
-  image_url: 'image_url',
-  rating: 'rating',
-  best_time: 'best_time',
-  description: 'description',
-  facilities: 'facilities',
-  created_by: 'created_by',
-  is_active: 'is_active',
-  created_at: 'created_at',
-  updated_at: 'updated_at'
-};
-
-exports.Prisma.Stargazing_spot_reviewsScalarFieldEnum = {
-  id: 'id',
-  stargazing_spot_id: 'stargazing_spot_id',
-  user_id: 'user_id',
-  rating: 'rating',
-  review_text: 'review_text',
-  created_at: 'created_at',
-  updated_at: 'updated_at'
-};
-
-exports.Prisma.SessionsScalarFieldEnum = {
-  id: 'id',
-  title: 'title',
-  session_type: 'session_type',
-  payment_type: 'payment_type',
-  price: 'price',
-  duration: 'duration',
-  session_date: 'session_date',
-  session_time: 'session_time',
-  max_participants: 'max_participants',
-  difficulty_level: 'difficulty_level',
-  session_link: 'session_link',
-  description: 'description',
-  materials: 'materials',
-  session_notes: 'session_notes',
-  created_by: 'created_by',
-  created_date: 'created_date',
-  created_time: 'created_time',
-  is_enabled: 'is_enabled',
-  created_at: 'created_at',
-  updated_at: 'updated_at'
-};
-
-exports.Prisma.Session_enrollmentsScalarFieldEnum = {
-  id: 'id',
-  user_id: 'user_id',
-  session_id: 'session_id',
-  enrollment_date: 'enrollment_date',
+  subscription_id: 'subscription_id',
+  amount: 'amount',
+  currency: 'currency',
   payment_status: 'payment_status',
-  payment_amount: 'payment_amount',
   payment_method: 'payment_method',
-  transaction_id: 'transaction_id',
-  access_granted: 'access_granted',
-  completed: 'completed',
-  progress: 'progress',
-  last_accessed_at: 'last_accessed_at',
-  notes: 'notes',
+  payment_gateway: 'payment_gateway',
+  gateway_transaction_id: 'gateway_transaction_id',
+  gateway_order_id: 'gateway_order_id',
+  payment_date: 'payment_date',
+  metadata: 'metadata',
   created_at: 'created_at',
   updated_at: 'updated_at'
+};
+
+exports.Prisma.Poll_choicesScalarFieldEnum = {
+  id: 'id',
+  poll_id: 'poll_id',
+  choice: 'choice',
+  vote_count: 'vote_count',
+  created_at: 'created_at'
+};
+
+exports.Prisma.Poll_commentsScalarFieldEnum = {
+  id: 'id',
+  poll_id: 'poll_id',
+  user_id: 'user_id',
+  comment: 'comment',
+  created_at: 'created_at',
+  updated_at: 'updated_at'
+};
+
+exports.Prisma.Poll_votesScalarFieldEnum = {
+  id: 'id',
+  poll_id: 'poll_id',
+  choice_id: 'choice_id',
+  user_id: 'user_id',
+  voted_at: 'voted_at'
 };
 
 exports.Prisma.PollsScalarFieldEnum = {
@@ -786,29 +582,18 @@ exports.Prisma.PollsScalarFieldEnum = {
   is_active: 'is_active'
 };
 
-exports.Prisma.Poll_choicesScalarFieldEnum = {
+exports.Prisma.Role_upgrade_requestsScalarFieldEnum = {
   id: 'id',
-  poll_id: 'poll_id',
-  choice: 'choice',
-  vote_count: 'vote_count',
-  created_at: 'created_at'
-};
-
-exports.Prisma.Poll_votesScalarFieldEnum = {
-  id: 'id',
-  poll_id: 'poll_id',
-  choice_id: 'choice_id',
   user_id: 'user_id',
-  voted_at: 'voted_at'
-};
-
-exports.Prisma.Poll_commentsScalarFieldEnum = {
-  id: 'id',
-  poll_id: 'poll_id',
-  user_id: 'user_id',
-  comment: 'comment',
-  created_at: 'created_at',
-  updated_at: 'updated_at'
+  current_user_role: 'current_user_role',
+  requested_user_role: 'requested_user_role',
+  reason: 'reason',
+  supporting_evidence: 'supporting_evidence',
+  status: 'status',
+  reviewer_id: 'reviewer_id',
+  reviewer_notes: 'reviewer_notes',
+  submitted_at: 'submitted_at',
+  reviewed_at: 'reviewed_at'
 };
 
 exports.Prisma.Service_availabilityScalarFieldEnum = {
@@ -906,6 +691,315 @@ exports.Prisma.ServicesScalarFieldEnum = {
   updated_at: 'updated_at'
 };
 
+exports.Prisma.Session_enrollmentsScalarFieldEnum = {
+  id: 'id',
+  user_id: 'user_id',
+  session_id: 'session_id',
+  enrollment_date: 'enrollment_date',
+  payment_status: 'payment_status',
+  payment_amount: 'payment_amount',
+  payment_method: 'payment_method',
+  transaction_id: 'transaction_id',
+  access_granted: 'access_granted',
+  completed: 'completed',
+  progress: 'progress',
+  last_accessed_at: 'last_accessed_at',
+  notes: 'notes',
+  created_at: 'created_at',
+  updated_at: 'updated_at'
+};
+
+exports.Prisma.SessionsScalarFieldEnum = {
+  id: 'id',
+  title: 'title',
+  session_type: 'session_type',
+  payment_type: 'payment_type',
+  price: 'price',
+  duration: 'duration',
+  session_date: 'session_date',
+  session_time: 'session_time',
+  max_participants: 'max_participants',
+  difficulty_level: 'difficulty_level',
+  session_link: 'session_link',
+  description: 'description',
+  materials: 'materials',
+  session_notes: 'session_notes',
+  created_by: 'created_by',
+  created_date: 'created_date',
+  created_time: 'created_time',
+  is_enabled: 'is_enabled',
+  created_at: 'created_at',
+  updated_at: 'updated_at'
+};
+
+exports.Prisma.Space_discussion_comment_likesScalarFieldEnum = {
+  id: 'id',
+  comment_id: 'comment_id',
+  user_id: 'user_id',
+  created_at: 'created_at'
+};
+
+exports.Prisma.Space_discussion_commentsScalarFieldEnum = {
+  id: 'id',
+  discussion_id: 'discussion_id',
+  user_id: 'user_id',
+  parent_id: 'parent_id',
+  content: 'content',
+  is_edited: 'is_edited',
+  created_at: 'created_at',
+  updated_at: 'updated_at'
+};
+
+<<<<<<< HEAD
+exports.Prisma.Service_availabilityScalarFieldEnum = {
+  id: 'id',
+  service_id: 'service_id',
+  available_date: 'available_date',
+  start_time: 'start_time',
+  end_time: 'end_time',
+  slots_available: 'slots_available',
+  slots_booked: 'slots_booked',
+  status: 'status',
+  notes: 'notes',
+  created_at: 'created_at',
+  updated_at: 'updated_at'
+};
+
+exports.Prisma.Service_bookingsScalarFieldEnum = {
+  id: 'id',
+  service_id: 'service_id',
+  user_id: 'user_id',
+  booking_date: 'booking_date',
+  booking_time: 'booking_time',
+  participants_count: 'participants_count',
+  total_amount: 'total_amount',
+  payment_status: 'payment_status',
+  payment_method: 'payment_method',
+  transaction_id: 'transaction_id',
+  booking_status: 'booking_status',
+  special_requests: 'special_requests',
+  cancellation_reason: 'cancellation_reason',
+  cancelled_at: 'cancelled_at',
+  confirmed_at: 'confirmed_at',
+  completed_at: 'completed_at',
+  created_at: 'created_at',
+  updated_at: 'updated_at'
+};
+
+exports.Prisma.Service_mediaScalarFieldEnum = {
+  id: 'id',
+  service_id: 'service_id',
+  media_url: 'media_url',
+  media_type: 'media_type',
+  display_order: 'display_order',
+  caption: 'caption',
+  created_at: 'created_at'
+};
+
+exports.Prisma.Service_reviewsScalarFieldEnum = {
+  id: 'id',
+  service_id: 'service_id',
+  user_id: 'user_id',
+  rating: 'rating',
+  review: 'review',
+  images: 'images',
+  is_verified: 'is_verified',
+=======
+exports.Prisma.Space_discussion_likesScalarFieldEnum = {
+  id: 'id',
+  discussion_id: 'discussion_id',
+  user_id: 'user_id',
+  created_at: 'created_at'
+};
+
+exports.Prisma.Space_discussionsScalarFieldEnum = {
+  id: 'id',
+  title: 'title',
+  content: 'content',
+  author_id: 'author_id',
+  category: 'category',
+  is_sticky: 'is_sticky',
+  is_closed: 'is_closed',
+  views_count: 'views_count',
+  replies_count: 'replies_count',
+  last_activity: 'last_activity',
+>>>>>>> a7d87c269fe401a3156343b89898134744e92212
+  created_at: 'created_at',
+  updated_at: 'updated_at'
+};
+
+<<<<<<< HEAD
+exports.Prisma.ServicesScalarFieldEnum = {
+  id: 'id',
+  title: 'title',
+  description: 'description',
+  category: 'category',
+  price: 'price',
+  duration: 'duration',
+  max_participants: 'max_participants',
+  location: 'location',
+  difficulty: 'difficulty',
+  equipment: 'equipment',
+  next_available: 'next_available',
+  image_url: 'image_url',
+  featured: 'featured',
+  tags: 'tags',
+  requirements: 'requirements',
+  cancellation_policy: 'cancellation_policy',
+  meeting_point: 'meeting_point',
+  what_to_expect: 'what_to_expect',
+  weather_policy: 'weather_policy',
+  booking_deadline: 'booking_deadline',
+  languages: 'languages',
+  certification: 'certification',
+  experience: 'experience',
+  group_discount: 'group_discount',
+  private_booking: 'private_booking',
+  instant_booking: 'instant_booking',
+  status: 'status',
+  views_count: 'views_count',
+  bookings_count: 'bookings_count',
+  rating: 'rating',
+  review_count: 'review_count',
+=======
+exports.Prisma.Space_newsScalarFieldEnum = {
+  id: 'id',
+  image_urls: 'image_urls',
+  publish_date: 'publish_date',
+  title: 'title',
+  number_of_likes: 'number_of_likes',
+  number_of_comments: 'number_of_comments',
+  content: 'content',
+  published_by: 'published_by',
+  category: 'category',
+  created_at: 'created_at',
+  last_read_time: 'last_read_time'
+};
+
+exports.Prisma.Space_news_commentsScalarFieldEnum = {
+  id: 'id',
+  space_news_id: 'space_news_id',
+  user_id: 'user_id',
+  parent_comment_id: 'parent_comment_id',
+  content: 'content',
+  is_edited: 'is_edited',
+  created_at: 'created_at',
+  updated_at: 'updated_at'
+};
+
+exports.Prisma.Space_news_likesScalarFieldEnum = {
+  id: 'id',
+  space_news_id: 'space_news_id',
+  user_id: 'user_id',
+  created_at: 'created_at'
+};
+
+exports.Prisma.Stargazing_spot_reviewsScalarFieldEnum = {
+  id: 'id',
+  stargazing_spot_id: 'stargazing_spot_id',
+  user_id: 'user_id',
+  rating: 'rating',
+  review_text: 'review_text',
+  created_at: 'created_at',
+  updated_at: 'updated_at'
+};
+
+exports.Prisma.Stargazing_spotsScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  location: 'location',
+  image_url: 'image_url',
+  rating: 'rating',
+  best_time: 'best_time',
+  description: 'description',
+  facilities: 'facilities',
+>>>>>>> a7d87c269fe401a3156343b89898134744e92212
+  created_by: 'created_by',
+  is_active: 'is_active',
+  created_at: 'created_at',
+  updated_at: 'updated_at'
+};
+
+<<<<<<< HEAD
+=======
+exports.Prisma.Subscription_plansScalarFieldEnum = {
+  id: 'id',
+  plan_type: 'plan_type',
+  name: 'name',
+  description: 'description',
+  price_lkr: 'price_lkr',
+  price_usd: 'price_usd',
+  features: 'features',
+  chatbot_questions_limit: 'chatbot_questions_limit',
+  is_active: 'is_active',
+  created_at: 'created_at',
+  updated_at: 'updated_at'
+};
+
+exports.Prisma.SubscriptionsScalarFieldEnum = {
+  id: 'id',
+  user_id: 'user_id',
+  plan_type: 'plan_type',
+  status: 'status',
+  start_date: 'start_date',
+  end_date: 'end_date',
+  auto_renew: 'auto_renew',
+  created_at: 'created_at',
+  updated_at: 'updated_at',
+  cancelled_at: 'cancelled_at',
+  cancellation_reason: 'cancellation_reason'
+};
+
+exports.Prisma.Tour_mediaScalarFieldEnum = {
+  tour_id: 'tour_id',
+  tour_name: 'tour_name',
+  description: 'description',
+  location: 'location',
+  tags: 'tags',
+  media_ids: 'media_ids',
+  created_at: 'created_at',
+  updated_at: 'updated_at'
+};
+
+exports.Prisma.User_settingsScalarFieldEnum = {
+  id: 'id',
+  user_id: 'user_id',
+  language: 'language',
+  email_notifications: 'email_notifications',
+  push_notifications: 'push_notifications',
+  profile_visibility: 'profile_visibility',
+  allow_direct_messages: 'allow_direct_messages',
+  show_online_status: 'show_online_status',
+  theme: 'theme',
+  timezone: 'timezone',
+  created_at: 'created_at',
+  updated_at: 'updated_at'
+};
+
+exports.Prisma.UsersScalarFieldEnum = {
+  id: 'id',
+  firebase_uid: 'firebase_uid',
+  email: 'email',
+  role: 'role',
+  first_name: 'first_name',
+  last_name: 'last_name',
+  is_active: 'is_active',
+  last_login: 'last_login',
+  created_at: 'created_at',
+  updated_at: 'updated_at',
+  display_name: 'display_name',
+  profile_data: 'profile_data',
+  role_specific_data: 'role_specific_data',
+  subscription_plan: 'subscription_plan',
+  subscription_status: 'subscription_status',
+  subscription_start_date: 'subscription_start_date',
+  subscription_end_date: 'subscription_end_date',
+  auto_renew: 'auto_renew',
+  chatbot_questions_used: 'chatbot_questions_used',
+  chatbot_questions_reset_date: 'chatbot_questions_reset_date'
+};
+
+>>>>>>> a7d87c269fe401a3156343b89898134744e92212
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -935,6 +1029,138 @@ exports.Prisma.JsonNullValueFilter = {
   JsonNull: Prisma.JsonNull,
   AnyNull: Prisma.AnyNull
 };
+<<<<<<< HEAD
+=======
+exports.QuizStatus = exports.$Enums.QuizStatus = {
+  open: 'open',
+  closed: 'closed'
+};
+
+exports.application_status = exports.$Enums.application_status = {
+  pending: 'pending',
+  approved: 'approved',
+  rejected: 'rejected'
+};
+
+exports.approve_application_status = exports.$Enums.approve_application_status = {
+  pending: 'pending',
+  accepted: 'accepted',
+  rejected: 'rejected'
+};
+
+exports.availability_status = exports.$Enums.availability_status = {
+  available: 'available',
+  fully_booked: 'fully_booked',
+  unavailable: 'unavailable',
+  cancelled: 'cancelled'
+};
+
+exports.blog_status = exports.$Enums.blog_status = {
+  draft: 'draft',
+  published: 'published',
+  archived: 'archived'
+};
+
+exports.booking_payment_status = exports.$Enums.booking_payment_status = {
+  pending: 'pending',
+  completed: 'completed',
+  failed: 'failed',
+  refunded: 'refunded'
+};
+
+exports.booking_status = exports.$Enums.booking_status = {
+  pending: 'pending',
+  confirmed: 'confirmed',
+  cancelled: 'cancelled',
+  completed: 'completed',
+  no_show: 'no_show'
+};
+
+exports.difficulty_level = exports.$Enums.difficulty_level = {
+  beginner: 'beginner',
+  intermediate: 'intermediate',
+  advanced: 'advanced'
+};
+
+exports.enrollment_payment_status = exports.$Enums.enrollment_payment_status = {
+  pending: 'pending',
+  completed: 'completed',
+  failed: 'failed',
+  refunded: 'refunded',
+  free_access: 'free_access'
+};
+
+exports.equipment_category = exports.$Enums.equipment_category = {
+  provided: 'provided',
+  required: 'required',
+  optional: 'optional'
+};
+
+exports.payment_method = exports.$Enums.payment_method = {
+  Bank: 'Bank',
+  e_wallet: 'e_wallet',
+  PayPal: 'PayPal',
+  Other: 'Other'
+};
+
+exports.payment_status = exports.$Enums.payment_status = {
+  pending: 'pending',
+  completed: 'completed',
+  failed: 'failed',
+  refunded: 'refunded'
+};
+
+exports.payment_type = exports.$Enums.payment_type = {
+  paid: 'paid',
+  free: 'free'
+};
+
+exports.poll_choice_type = exports.$Enums.poll_choice_type = {
+  yes: 'yes',
+  maybe: 'maybe',
+  no: 'no'
+};
+
+exports.quiz_difficulty_level = exports.$Enums.quiz_difficulty_level = {
+  Beginner: 'Beginner',
+  Intermediate: 'Intermediate',
+  Hard: 'Hard'
+};
+
+exports.service_category = exports.$Enums.service_category = {
+  stargazing: 'stargazing',
+  astrophotography: 'astrophotography',
+  telescope: 'telescope',
+  planetarium: 'planetarium',
+  workshop: 'workshop',
+  expedition: 'expedition'
+};
+
+exports.service_difficulty = exports.$Enums.service_difficulty = {
+  Beginner: 'Beginner',
+  Intermediate: 'Intermediate',
+  Advanced: 'Advanced'
+};
+
+exports.service_status = exports.$Enums.service_status = {
+  draft: 'draft',
+  active: 'active',
+  paused: 'paused',
+  archived: 'archived'
+};
+
+exports.session_format = exports.$Enums.session_format = {
+  Live: 'Live',
+  Recorded: 'Recorded',
+  Hybrid: 'Hybrid'
+};
+
+exports.session_type = exports.$Enums.session_type = {
+  live: 'live',
+  recorded: 'recorded'
+};
+
+>>>>>>> a7d87c269fe401a3156343b89898134744e92212
 exports.subscription_plan = exports.$Enums.subscription_plan = {
   starseeker: 'starseeker',
   galaxy_explorer: 'galaxy_explorer',
@@ -965,6 +1191,7 @@ exports.user_role = exports.$Enums.user_role = {
   influencer: 'influencer'
 };
 
+<<<<<<< HEAD
 exports.equipment_category = exports.$Enums.equipment_category = {
   provided: 'provided',
   required: 'required',
@@ -1022,6 +1249,13 @@ exports.enrollment_payment_status = exports.$Enums.enrollment_payment_status = {
   failed: 'failed',
   refunded: 'refunded',
   free_access: 'free_access'
+=======
+exports.weather_policy_type = exports.$Enums.weather_policy_type = {
+  reschedule: 'reschedule',
+  partial_refund: 'partial_refund',
+  full_refund: 'full_refund',
+  no_refund: 'no_refund'
+>>>>>>> a7d87c269fe401a3156343b89898134744e92212
 };
 
 exports.availability_status = exports.$Enums.availability_status = {
@@ -1076,6 +1310,7 @@ exports.service_status = exports.$Enums.service_status = {
 };
 
 exports.Prisma.ModelName = {
+<<<<<<< HEAD
   subscriptions: 'subscriptions',
   group_chats: 'group_chats',
   group_members: 'group_members',
@@ -1109,20 +1344,60 @@ exports.Prisma.ModelName = {
   media_uploads: 'media_uploads',
   tour_media: 'tour_media',
   events: 'events',
+=======
+>>>>>>> a7d87c269fe401a3156343b89898134744e92212
   QuizParticipants: 'QuizParticipants',
   QuizQuestion: 'QuizQuestion',
   Quizzes: 'Quizzes',
-  space_news: 'space_news',
-  space_news_likes: 'space_news_likes',
-  space_news_comments: 'space_news_comments',
-  space_discussions: 'space_discussions',
+  astronomy_events: 'astronomy_events',
+  blog_categories: 'blog_categories',
+  blog_category_relations: 'blog_category_relations',
+  blog_comments: 'blog_comments',
+  blog_likes: 'blog_likes',
+  blog_views: 'blog_views',
+  blogs: 'blogs',
+  chat_messages: 'chat_messages',
+  chatbot_feedback: 'chatbot_feedback',
+  chatbot_messages: 'chatbot_messages',
+  chatbot_sessions: 'chatbot_sessions',
+  chatbot_usage: 'chatbot_usage',
+  event_reminders: 'event_reminders',
+  events: 'events',
+  group_chats: 'group_chats',
+  group_members: 'group_members',
+  guide_application: 'guide_application',
+  influencer_application: 'influencer_application',
+  media_uploads: 'media_uploads',
+  mentor_application: 'mentor_application',
+  message_reactions: 'message_reactions',
+  night_camp_registrations: 'night_camp_registrations',
+  night_camp_volunteering: 'night_camp_volunteering',
+  night_camp_volunteering_applications: 'night_camp_volunteering_applications',
+  night_camps: 'night_camps',
+  night_camps_activities: 'night_camps_activities',
+  night_camps_equipment: 'night_camps_equipment',
+  payments: 'payments',
+  poll_choices: 'poll_choices',
+  poll_comments: 'poll_comments',
+  poll_votes: 'poll_votes',
+  polls: 'polls',
+  role_upgrade_requests: 'role_upgrade_requests',
+  service_availability: 'service_availability',
+  service_bookings: 'service_bookings',
+  service_media: 'service_media',
+  service_reviews: 'service_reviews',
+  services: 'services',
+  session_enrollments: 'session_enrollments',
+  sessions: 'sessions',
+  space_discussion_comment_likes: 'space_discussion_comment_likes',
   space_discussion_comments: 'space_discussion_comments',
   space_discussion_likes: 'space_discussion_likes',
-  space_discussion_comment_likes: 'space_discussion_comment_likes',
-  astronomy_events: 'astronomy_events',
-  event_reminders: 'event_reminders',
-  stargazing_spots: 'stargazing_spots',
+  space_discussions: 'space_discussions',
+  space_news: 'space_news',
+  space_news_comments: 'space_news_comments',
+  space_news_likes: 'space_news_likes',
   stargazing_spot_reviews: 'stargazing_spot_reviews',
+<<<<<<< HEAD
   sessions: 'sessions',
   session_enrollments: 'session_enrollments',
   polls: 'polls',
@@ -1134,11 +1409,20 @@ exports.Prisma.ModelName = {
   service_media: 'service_media',
   service_reviews: 'service_reviews',
   services: 'services'
+=======
+  stargazing_spots: 'stargazing_spots',
+  subscription_plans: 'subscription_plans',
+  subscriptions: 'subscriptions',
+  tour_media: 'tour_media',
+  user_settings: 'user_settings',
+  users: 'users'
+>>>>>>> a7d87c269fe401a3156343b89898134744e92212
 };
 
 /**
  * This is a stub Prisma Client that will error at runtime if called.
  */
+<<<<<<< HEAD
 class PrismaClient {
   constructor() {
     return new Proxy(this, {
@@ -1160,6 +1444,75 @@ If this is unexpected, please open an issue: https://pris.ly/prisma-prisma-bug-r
         throw new Error(message)
       }
     })
+=======
+const config = {
+  "generator": {
+    "name": "client",
+    "provider": {
+      "fromEnvVar": null,
+      "value": "prisma-client-js"
+    },
+    "output": {
+      "value": "/Users/nimnapathum/Documents/GitHub/STELLARION/back-end/prisma/generated/client",
+      "fromEnvVar": null
+    },
+    "config": {
+      "engineType": "library"
+    },
+    "binaryTargets": [
+      {
+        "fromEnvVar": null,
+        "value": "darwin-arm64",
+        "native": true
+      },
+      {
+        "fromEnvVar": null,
+        "value": "darwin-arm64"
+      },
+      {
+        "fromEnvVar": null,
+        "value": "windows"
+      }
+    ],
+    "previewFeatures": [],
+    "sourceFilePath": "/Users/nimnapathum/Documents/GitHub/STELLARION/back-end/prisma/schema.prisma",
+    "isCustomOutput": true
+  },
+  "relativeEnvPaths": {
+    "rootEnvPath": null,
+    "schemaEnvPath": "../../../.env"
+  },
+  "relativePath": "../..",
+  "clientVersion": "6.17.1",
+  "engineVersion": "272a37d34178c2894197e17273bf937f25acdeac",
+  "datasourceNames": [
+    "db"
+  ],
+  "activeProvider": "postgresql",
+  "postinstall": false,
+  "inlineDatasources": {
+    "db": {
+      "url": {
+        "fromEnvVar": "DATABASE_URL",
+        "value": null
+      }
+    }
+  },
+  "inlineSchema": "generator client {\n  provider      = \"prisma-client-js\"\n  output        = \"./generated/client\"\n  binaryTargets = [\"native\", \"darwin-arm64\", \"windows\"]\n}\n\ndatasource db {\n  provider = \"postgresql\"\n  url      = env(\"DATABASE_URL\")\n}\n\nmodel QuizParticipants {\n  id                     Int     @id @default(autoincrement())\n  quiz_id                Int\n  user_id                Int\n  correct_question_count Int     @default(0)\n  score                  Int     @default(0)\n  Quizzes                Quizzes @relation(fields: [quiz_id], references: [id], onDelete: Cascade)\n  users                  users   @relation(fields: [user_id], references: [id], onDelete: Cascade)\n}\n\nmodel QuizQuestion {\n  id                   Int      @id @default(autoincrement())\n  quiz_id              Int\n  question             String\n  answers              String[]\n  correct_answer       String\n  question_explanation String?\n  Quizzes              Quizzes  @relation(fields: [quiz_id], references: [id], onDelete: Cascade)\n}\n\nmodel Quizzes {\n  id                 Int                   @id @default(autoincrement())\n  name               String\n  category           String\n  description        String\n  time               DateTime?\n  question_count     Int                   @default(0)\n  participants_count Int                   @default(0)\n  time_limit         Int\n  user_id            Int\n  created_at         DateTime              @default(now())\n  modified_at        DateTime\n  status             QuizStatus            @default(open)\n  level              quiz_difficulty_level\n  QuizParticipants   QuizParticipants[]\n  QuizQuestion       QuizQuestion[]\n  users              users                 @relation(fields: [user_id], references: [id], onDelete: Cascade, onUpdate: NoAction)\n\n  @@index([user_id], map: \"idx_quizzes_user_id\")\n}\n\nmodel astronomy_events {\n  id              Int               @id @default(autoincrement())\n  name            String            @db.VarChar(255)\n  description     String\n  visibility      String            @db.VarChar(100)\n  best_time       String            @db.VarChar(100)\n  image_url       String?           @db.VarChar(500)\n  event_date      DateTime          @db.Timestamp(6)\n  end_date        DateTime?         @db.Timestamp(6)\n  duration        String            @db.VarChar(100)\n  event_type      String            @db.VarChar(100)\n  is_active       Boolean           @default(true)\n  created_by      Int\n  created_at      DateTime          @default(now()) @db.Timestamp(6)\n  updated_at      DateTime          @default(now()) @db.Timestamp(6)\n  users           users             @relation(fields: [created_by], references: [id], onDelete: Cascade)\n  event_reminders event_reminders[]\n\n  @@index([is_active], map: \"idx_astronomy_events_active\")\n  @@index([created_by], map: \"idx_astronomy_events_created_by\")\n  @@index([event_date], map: \"idx_astronomy_events_date\")\n  @@index([event_type], map: \"idx_astronomy_events_type\")\n}\n\nmodel blog_categories {\n  id                      Int                       @id @default(autoincrement())\n  name                    String                    @unique @db.VarChar(100)\n  description             String?\n  created_at              DateTime?                 @default(now()) @db.Timestamp(6)\n  blog_category_relations blog_category_relations[]\n}\n\nmodel blog_category_relations {\n  id              Int              @id @default(autoincrement())\n  blog_id         Int?\n  category_id     Int?\n  blogs           blogs?           @relation(fields: [blog_id], references: [id], onDelete: Cascade, onUpdate: NoAction)\n  blog_categories blog_categories? @relation(fields: [category_id], references: [id], onDelete: Cascade, onUpdate: NoAction)\n\n  @@unique([blog_id, category_id])\n}\n\nmodel blog_comments {\n  id                  Int             @id @default(autoincrement())\n  blog_id             Int?\n  user_id             Int?\n  parent_comment_id   Int?\n  content             String\n  is_edited           Boolean?        @default(false)\n  created_at          DateTime?       @default(now()) @db.Timestamp(6)\n  updated_at          DateTime?       @default(now()) @db.Timestamp(6)\n  blogs               blogs?          @relation(fields: [blog_id], references: [id], onDelete: Cascade, onUpdate: NoAction)\n  blog_comments       blog_comments?  @relation(\"blog_commentsToblog_comments\", fields: [parent_comment_id], references: [id], onDelete: Cascade, onUpdate: NoAction)\n  other_blog_comments blog_comments[] @relation(\"blog_commentsToblog_comments\")\n  users               users?          @relation(fields: [user_id], references: [id], onDelete: Cascade, onUpdate: NoAction)\n\n  @@index([blog_id], map: \"idx_blog_comments_blog_id\")\n  @@index([user_id], map: \"idx_blog_comments_user_id\")\n}\n\nmodel blog_likes {\n  id         Int       @id @default(autoincrement())\n  blog_id    Int?\n  user_id    Int?\n  created_at DateTime? @default(now()) @db.Timestamp(6)\n  blogs      blogs?    @relation(fields: [blog_id], references: [id], onDelete: Cascade, onUpdate: NoAction)\n  users      users?    @relation(fields: [user_id], references: [id], onDelete: Cascade, onUpdate: NoAction)\n\n  @@unique([blog_id, user_id])\n  @@index([blog_id], map: \"idx_blog_likes_blog_id\")\n  @@index([user_id], map: \"idx_blog_likes_user_id\")\n}\n\nmodel blog_views {\n  id         Int       @id @default(autoincrement())\n  blog_id    Int?\n  user_id    Int?\n  ip_address String?   @db.Inet\n  user_agent String?\n  viewed_at  DateTime? @default(now()) @db.Timestamp(6)\n  blogs      blogs?    @relation(fields: [blog_id], references: [id], onDelete: Cascade, onUpdate: NoAction)\n  users      users?    @relation(fields: [user_id], references: [id], onUpdate: NoAction)\n\n  @@index([blog_id], map: \"idx_blog_views_blog_id\")\n}\n\nmodel blogs {\n  id                      Int                       @id @default(autoincrement())\n  title                   String                    @db.VarChar(255)\n  content                 String\n  excerpt                 String?\n  featured_image          String?\n  author_id               Int?\n  author_name             String?                   @db.VarChar(255)\n  status                  String?                   @default(\"draft\") @db.VarChar(20)\n  is_featured             Boolean?                  @default(false)\n  views_count             Int?                      @default(0)\n  likes_count             Int?                      @default(0)\n  comments_count          Int?                      @default(0)\n  created_at              DateTime?                 @default(now()) @db.Timestamp(6)\n  updated_at              DateTime?                 @default(now()) @db.Timestamp(6)\n  image_url               String?                   @db.VarChar(500)\n  published_at            DateTime?                 @db.Timestamp(6)\n  view_count              Int?                      @default(0)\n  like_count              Int?                      @default(0)\n  comment_count           Int?                      @default(0)\n  tags                    Json?                     @default(\"[]\")\n  metadata                Json?                     @default(\"{}\")\n  blog_category_relations blog_category_relations[]\n  blog_comments           blog_comments[]\n  blog_likes              blog_likes[]\n  blog_views              blog_views[]\n  users                   users?                    @relation(fields: [author_id], references: [id], onDelete: Cascade, onUpdate: NoAction)\n\n  @@index([author_id], map: \"idx_blogs_author_id\")\n  @@index([created_at], map: \"idx_blogs_created_at\")\n  @@index([published_at], map: \"idx_blogs_published_at\")\n  @@index([status], map: \"idx_blogs_status\")\n}\n\nmodel chat_messages {\n  id                  Int                 @id @default(autoincrement())\n  group_id            Int\n  user_id             Int?\n  message_text        String\n  message_type        String              @default(\"text\") @db.VarChar(20)\n  reply_to            Int?\n  is_edited           Boolean             @default(false)\n  is_deleted          Boolean             @default(false)\n  created_at          DateTime            @default(now()) @db.Timestamp(6)\n  updated_at          DateTime            @default(now()) @db.Timestamp(6)\n  group_chats         group_chats         @relation(fields: [group_id], references: [id], onDelete: Cascade)\n  chat_messages       chat_messages?      @relation(\"chat_messagesTochat_messages\", fields: [reply_to], references: [id])\n  other_chat_messages chat_messages[]     @relation(\"chat_messagesTochat_messages\")\n  users               users?              @relation(fields: [user_id], references: [id])\n  message_reactions   message_reactions[]\n\n  @@index([group_id, created_at], map: \"idx_chat_messages_group_created\")\n  @@index([reply_to], map: \"idx_chat_messages_reply_to\")\n  @@index([user_id], map: \"idx_chat_messages_user_id\")\n}\n\nmodel chatbot_feedback {\n  id               String            @id @default(dbgenerated(\"gen_random_uuid()\")) @db.Uuid\n  message_id       String?           @db.Uuid\n  session_id       String?           @db.Uuid\n  firebase_uid     String            @db.VarChar(255)\n  rating           Int?\n  feedback_text    String?\n  created_at       DateTime?         @default(now()) @db.Timestamp(6)\n  chatbot_messages chatbot_messages? @relation(fields: [message_id], references: [id], onDelete: Cascade, onUpdate: NoAction)\n  chatbot_sessions chatbot_sessions? @relation(fields: [session_id], references: [id], onDelete: Cascade, onUpdate: NoAction)\n\n  @@index([message_id], map: \"idx_chatbot_feedback_message_id\")\n}\n\nmodel chatbot_messages {\n  id               String             @id @default(dbgenerated(\"gen_random_uuid()\")) @db.Uuid\n  session_id       String?            @db.Uuid\n  content          String\n  is_bot           Boolean            @default(false)\n  firebase_uid     String?            @db.VarChar(255)\n  confidence       Decimal?           @db.Decimal(3, 2)\n  intent           String?            @db.VarChar(100)\n  entities         Json?\n  created_at       DateTime?          @default(now()) @db.Timestamp(6)\n  chatbot_feedback chatbot_feedback[]\n  chatbot_sessions chatbot_sessions?  @relation(fields: [session_id], references: [id], onDelete: Cascade, onUpdate: NoAction)\n\n  @@index([firebase_uid], map: \"idx_chatbot_messages_firebase_uid\")\n  @@index([session_id], map: \"idx_chatbot_messages_session_id\")\n  @@index([created_at], map: \"idx_chatbot_messages_timestamp\")\n}\n\nmodel chatbot_sessions {\n  id               String             @id @default(dbgenerated(\"gen_random_uuid()\")) @db.Uuid\n  user_id          Int?\n  firebase_uid     String             @db.VarChar(255)\n  title            String?            @default(\"New Chat\") @db.VarChar(255)\n  is_active        Boolean?           @default(true)\n  message_count    Int?               @default(0)\n  created_at       DateTime?          @default(now()) @db.Timestamp(6)\n  updated_at       DateTime?          @default(now()) @db.Timestamp(6)\n  chatbot_feedback chatbot_feedback[]\n  chatbot_messages chatbot_messages[]\n  users            users?             @relation(fields: [user_id], references: [id], onDelete: Cascade, onUpdate: NoAction)\n\n  @@index([is_active], map: \"idx_chatbot_sessions_active\")\n  @@index([firebase_uid], map: \"idx_chatbot_sessions_firebase_uid\")\n}\n\nmodel chatbot_usage {\n  id             Int       @id @default(autoincrement())\n  user_id        Int?\n  question_count Int?      @default(1)\n  usage_date     DateTime? @default(dbgenerated(\"CURRENT_DATE\")) @db.Date\n  created_at     DateTime? @default(now()) @db.Timestamp(6)\n  users          users?    @relation(fields: [user_id], references: [id], onDelete: Cascade, onUpdate: NoAction)\n\n  @@unique([user_id, usage_date])\n  @@index([user_id, usage_date], map: \"idx_chatbot_usage_user_date\")\n}\n\nmodel event_reminders {\n  id                Int              @id @default(autoincrement())\n  user_id           Int\n  event_id          Int\n  reminder_time     DateTime         @db.Timestamp(6)\n  is_sent           Boolean          @default(false)\n  notification_type String           @default(\"email\") @db.VarChar(50)\n  created_at        DateTime         @default(now()) @db.Timestamp(6)\n  updated_at        DateTime         @default(now()) @db.Timestamp(6)\n  astronomy_events  astronomy_events @relation(fields: [event_id], references: [id], onDelete: Cascade)\n  users             users            @relation(fields: [user_id], references: [id], onDelete: Cascade)\n\n  @@unique([user_id, event_id], map: \"unique_user_event_reminder\")\n  @@index([is_sent], map: \"idx_event_reminders_sent\")\n  @@index([reminder_time], map: \"idx_event_reminders_time\")\n}\n\nmodel events {\n  id                      Int       @id @default(autoincrement())\n  event_name              String    @db.VarChar(255)\n  society_name            String    @db.VarChar(255)\n  description             String\n  visibility              String    @db.VarChar(50)\n  date                    DateTime  @db.Date\n  time                    String    @db.VarChar(100)\n  location                String    @db.VarChar(255)\n  event_category          String    @db.VarChar(100)\n  needed_volunteers_count Int?\n  organized_by            String    @db.VarChar(255)\n  image_urls              String[]\n  max_participants        Int?\n  event_status            String    @db.VarChar(50)\n  created_at              DateTime? @default(now()) @db.Timestamp(6)\n  status                  String?   @default(\"pending\") @db.VarChar(50)\n  created_by              Int?\n  moderated_by            Int?\n\n  @@index([created_by], map: \"idx_events_created_by\")\n  @@index([date], map: \"idx_events_date\")\n  @@index([moderated_by], map: \"idx_events_moderated_by\")\n  @@index([status], map: \"idx_events_moderation_status\")\n  @@index([event_status], map: \"idx_events_status\")\n  @@index([visibility], map: \"idx_events_visibility\")\n}\n\nmodel group_chats {\n  id            Int             @id @default(autoincrement())\n  name          String          @db.VarChar(255)\n  description   String?\n  type          String          @default(\"public\") @db.VarChar(20)\n  created_by    Int\n  avatar_url    String?         @db.VarChar(500)\n  is_active     Boolean         @default(true)\n  max_members   Int             @default(1000)\n  created_at    DateTime        @default(now()) @db.Timestamp(6)\n  updated_at    DateTime        @default(now()) @db.Timestamp(6)\n  chat_messages chat_messages[]\n  users         users           @relation(fields: [created_by], references: [id], onDelete: Cascade)\n  group_members group_members[]\n\n  @@index([created_at], map: \"idx_group_chats_created_at\")\n  @@index([created_by], map: \"idx_group_chats_created_by\")\n  @@index([type, is_active], map: \"idx_group_chats_type_active\")\n}\n\nmodel group_members {\n  id          Int         @id @default(autoincrement())\n  group_id    Int\n  user_id     Int\n  role        String      @default(\"member\") @db.VarChar(20)\n  joined_at   DateTime    @default(now()) @db.Timestamp(6)\n  is_muted    Boolean     @default(false)\n  group_chats group_chats @relation(fields: [group_id], references: [id], onDelete: Cascade)\n  users       users       @relation(fields: [user_id], references: [id], onDelete: Cascade)\n\n  @@unique([group_id, user_id])\n  @@index([group_id], map: \"idx_group_members_group_id\")\n  @@index([user_id], map: \"idx_group_members_user_id\")\n}\n\nmodel guide_application {\n  application_id             Int                         @id @default(autoincrement())\n  user_id                    Int\n  first_name                 String                      @db.VarChar(100)\n  last_name                  String                      @db.VarChar(100)\n  email                      String                      @db.VarChar(255)\n  phone                      String                      @db.VarChar(20)\n  date_of_birth              DateTime?                   @db.Date\n  address                    String?\n  city                       String?                     @db.VarChar(100)\n  current_occupation         String?                     @db.VarChar(255)\n  education_level            String?                     @db.VarChar(255)\n  astronomy_education        String?\n  guide_experience           String?\n  total_experience           Int                         @default(0)\n  certifications             Json?                       @default(\"[]\")\n  astronomy_skills           Json?                       @default(\"[]\")\n  languages                  Json?                       @default(\"[]\")\n  first_aid                  Boolean?                    @default(false)\n  driving_license            Boolean?                    @default(false)\n  camp_types                 Json?                       @default(\"[]\")\n  group_sizes                Json?                       @default(\"[]\")\n  equipment_familiarity      Json?                       @default(\"[]\")\n  outdoor_experience         String?\n  available_dates            Json?                       @default(\"[]\")\n  preferred_locations        Json?                       @default(\"[]\")\n  accommodation_needs        String?\n  transportation_needs       String?\n  motivation                 String?\n  special_skills             String?\n  emergency_contact          Json                        @default(\"{}\")\n  documents                  Json?                       @default(\"{}\")\n  selected_camps             Json?                       @default(\"[]\")\n  application_status         application_status?         @default(pending)\n  approve_application_status approve_application_status? @default(pending)\n  terms_accepted             Boolean?                    @default(false)\n  background_check_consent   Boolean?                    @default(false)\n  deletion_status            Boolean?                    @default(false)\n  submitted_at               DateTime?                   @default(now()) @db.Timestamp(6)\n  updated_at                 DateTime?                   @default(now()) @db.Timestamp(6)\n  users                      users                       @relation(fields: [user_id], references: [id], onDelete: Cascade, onUpdate: NoAction)\n\n  @@index([approve_application_status], map: \"idx_guide_app_approve_status\")\n  @@index([application_status], map: \"idx_guide_app_status\")\n  @@index([submitted_at], map: \"idx_guide_app_submitted_at\")\n  @@index([user_id], map: \"idx_guide_app_user_id\")\n}\n\nmodel influencer_application {\n  application_id             Int                         @id @default(autoincrement())\n  user_id                    Int?\n  first_name                 String?                     @db.VarChar(100)\n  last_name                  String?                     @db.VarChar(100)\n  email                      String?                     @db.VarChar(255)\n  phone_number               String?                     @db.VarChar(50)\n  country                    String?                     @db.VarChar(100)\n  bio                        String?\n  specialization_tags        Json?\n  social_links               Json?\n  intro_video_url            String?                     @db.VarChar(255)\n  sample_content_links       Json?\n  preferred_session_format   session_format?\n  willing_to_host_sessions   Boolean?\n  tools_used                 Json?\n  application_status         application_status?         @default(pending)\n  approve_application_status approve_application_status? @default(pending)\n  deletion_status            Boolean?                    @default(false)\n  submitted_at               DateTime?                   @default(now()) @db.Timestamp(6)\n  updated_at                 DateTime?                   @default(now()) @db.Timestamp(6)\n  users                      users?                      @relation(fields: [user_id], references: [id], onDelete: Cascade, onUpdate: NoAction)\n\n  @@index([deletion_status], map: \"idx_influencer_application_deletion_status\")\n  @@index([application_status], map: \"idx_influencer_application_status\")\n  @@index([user_id], map: \"idx_influencer_application_user_id\")\n}\n\nmodel media_uploads {\n  id         Int       @id @default(autoincrement())\n  user_id    Int\n  file_name  String    @db.VarChar(255)\n  file_path  String    @db.VarChar(500)\n  file_type  String    @db.VarChar(100)\n  file_size  Int\n  created_at DateTime? @default(now()) @db.Timestamp(6)\n  users      users     @relation(fields: [user_id], references: [id], onDelete: Cascade, onUpdate: NoAction)\n\n  @@index([user_id], map: \"idx_media_uploads_user_id\")\n}\n\nmodel mentor_application {\n  application_id             Int                         @id @default(autoincrement())\n  user_id                    Int?\n  first_name                 String?                     @db.VarChar(100)\n  last_name                  String?                     @db.VarChar(100)\n  email                      String?                     @db.VarChar(255)\n  phone_number               String?                     @db.VarChar(50)\n  date_of_birth              DateTime?                   @db.Date\n  country                    String?                     @db.VarChar(100)\n  profile_bio                String?\n  educational_background     String?\n  area_of_expertise          Json?\n  linkedin_profile           String?                     @db.VarChar(255)\n  intro_video_url            String?                     @db.VarChar(255)\n  max_mentees                Int?\n  availability_schedule      Json?\n  motivation_statement       String?\n  portfolio_attachments      Json?\n  application_status         application_status?         @default(pending)\n  approve_application_status approve_application_status? @default(pending)\n  deletion_status            Boolean?                    @default(false)\n  submitted_at               DateTime?                   @default(now()) @db.Timestamp(6)\n  updated_at                 DateTime?                   @default(now()) @db.Timestamp(6)\n  users                      users?                      @relation(fields: [user_id], references: [id], onDelete: Cascade, onUpdate: NoAction)\n\n  @@index([deletion_status], map: \"idx_mentor_application_deletion_status\")\n  @@index([application_status], map: \"idx_mentor_application_status\")\n  @@index([user_id], map: \"idx_mentor_application_user_id\")\n}\n\nmodel message_reactions {\n  id            Int           @id @default(autoincrement())\n  message_id    Int\n  user_id       Int\n  reaction      String        @db.VarChar(50)\n  created_at    DateTime      @default(now()) @db.Timestamp(6)\n  chat_messages chat_messages @relation(fields: [message_id], references: [id], onDelete: Cascade)\n  users         users         @relation(fields: [user_id], references: [id], onDelete: Cascade)\n\n  @@unique([message_id, user_id, reaction])\n  @@index([message_id], map: \"idx_message_reactions_message_id\")\n  @@index([user_id], map: \"idx_message_reactions_user_id\")\n}\n\nmodel night_camp_registrations {\n  id              Int          @id @default(autoincrement())\n  camp_id         Int?\n  user_id         Int?\n  status          String?      @default(\"confirmed\") @db.VarChar(50)\n  registered_date DateTime?    @default(dbgenerated(\"CURRENT_DATE\")) @db.Date\n  registered_time DateTime?    @default(dbgenerated(\"CURRENT_TIME\")) @db.Time(6)\n  created_at      DateTime?    @default(now()) @db.Timestamp(6)\n  updated_at      DateTime?    @default(now()) @db.Timestamp(6)\n  night_camps     night_camps? @relation(fields: [camp_id], references: [id], onDelete: Cascade, onUpdate: NoAction)\n  users           users?       @relation(fields: [user_id], references: [id], onDelete: Cascade, onUpdate: NoAction)\n\n  @@unique([camp_id, user_id])\n  @@index([camp_id], map: \"idx_night_camp_registrations_camp_id\")\n  @@index([registered_date], map: \"idx_night_camp_registrations_date\")\n  @@index([status], map: \"idx_night_camp_registrations_status\")\n  @@index([user_id], map: \"idx_night_camp_registrations_user_id\")\n}\n\nmodel night_camp_volunteering {\n  id                   Int          @id @default(autoincrement())\n  night_camp_id        Int?\n  volunteering_role    String       @db.VarChar(255)\n  number_of_applicants Int?         @default(0)\n  created_at           DateTime?    @default(now()) @db.Timestamp(6)\n  night_camps          night_camps? @relation(fields: [night_camp_id], references: [id], onDelete: Cascade, onUpdate: NoAction)\n\n  @@index([night_camp_id], map: \"idx_night_camp_volunteering_camp_id\")\n}\n\nmodel night_camp_volunteering_applications {\n  id                                                            Int          @id @default(autoincrement())\n  night_camp_id                                                 Int?\n  user_id                                                       Int?\n  volunteering_role                                             String       @db.VarChar(255)\n  motivation                                                    String?\n  experience                                                    String?\n  availability                                                  String?\n  emergency_contact_name                                        String?      @db.VarChar(255)\n  emergency_contact_phone                                       String?      @db.VarChar(50)\n  emergency_contact_relationship                                String?      @db.VarChar(100)\n  status                                                        String?      @default(\"pending\") @db.VarChar(50)\n  application_date                                              DateTime?    @default(now()) @db.Timestamp(6)\n  reviewed_by                                                   Int?\n  reviewed_at                                                   DateTime?    @db.Timestamp(6)\n  review_notes                                                  String?\n  created_at                                                    DateTime?    @default(now()) @db.Timestamp(6)\n  updated_at                                                    DateTime?    @default(now()) @db.Timestamp(6)\n  night_camps                                                   night_camps? @relation(fields: [night_camp_id], references: [id], onDelete: Cascade, onUpdate: NoAction)\n  users_night_camp_volunteering_applications_reviewed_byTousers users?       @relation(\"night_camp_volunteering_applications_reviewed_byTousers\", fields: [reviewed_by], references: [id], onDelete: NoAction, onUpdate: NoAction)\n  users_night_camp_volunteering_applications_user_idTousers     users?       @relation(\"night_camp_volunteering_applications_user_idTousers\", fields: [user_id], references: [id], onDelete: Cascade, onUpdate: NoAction)\n\n  @@unique([night_camp_id, user_id, volunteering_role], map: \"night_camp_volunteering_appli_night_camp_id_user_id_volunte_key\")\n  @@index([night_camp_id], map: \"idx_night_camp_volunteering_applications_camp_id\")\n  @@index([status], map: \"idx_night_camp_volunteering_applications_status\")\n  @@index([user_id], map: \"idx_night_camp_volunteering_applications_user_id\")\n}\n\nmodel night_camps {\n  id                                   Int                                    @id @default(autoincrement())\n  name                                 String                                 @db.VarChar(255)\n  organized_by                         String?                                @db.VarChar(255)\n  sponsored_by                         String?                                @db.VarChar(255)\n  description                          String?\n  date                                 DateTime                               @db.Date\n  time                                 DateTime?                              @db.Time(6)\n  location                             String                                 @db.VarChar(500)\n  number_of_participants               Int?                                   @default(0)\n  image_urls                           Json?                                  @default(\"[]\")\n  emergency_contact                    String?                                @db.VarChar(255)\n  status                               String?                                @default(\"pending\") @db.VarChar(50)\n  created_at                           DateTime?                              @default(now()) @db.Timestamp(6)\n  updated_at                           DateTime?                              @default(now()) @db.Timestamp(6)\n  night_camp_registrations             night_camp_registrations[]\n  night_camp_volunteering              night_camp_volunteering[]\n  night_camp_volunteering_applications night_camp_volunteering_applications[]\n  night_camps_activities               night_camps_activities[]\n  night_camps_equipment                night_camps_equipment[]\n\n  @@index([created_at], map: \"idx_night_camps_created_at\")\n  @@index([date], map: \"idx_night_camps_date\")\n  @@index([location], map: \"idx_night_camps_location\")\n}\n\nmodel night_camps_activities {\n  id            Int          @id @default(autoincrement())\n  night_camp_id Int?\n  activity      String       @db.VarChar(255)\n  created_at    DateTime?    @default(now()) @db.Timestamp(6)\n  night_camps   night_camps? @relation(fields: [night_camp_id], references: [id], onDelete: Cascade, onUpdate: NoAction)\n\n  @@index([night_camp_id], map: \"idx_night_camps_activities_camp_id\")\n}\n\nmodel night_camps_equipment {\n  id             Int                @id @default(autoincrement())\n  night_camp_id  Int?\n  category       equipment_category\n  equipment_name String             @db.VarChar(255)\n  created_at     DateTime?          @default(now()) @db.Timestamp(6)\n  night_camps    night_camps?       @relation(fields: [night_camp_id], references: [id], onDelete: Cascade, onUpdate: NoAction)\n\n  @@index([night_camp_id], map: \"idx_night_camps_equipment_camp_id\")\n  @@index([category], map: \"idx_night_camps_equipment_category\")\n}\n\nmodel payments {\n  id                     Int             @id @default(autoincrement())\n  user_id                Int?\n  subscription_id        Int?\n  amount                 Decimal         @db.Decimal(10, 2)\n  currency               String?         @default(\"LKR\") @db.VarChar(3)\n  payment_status         payment_status? @default(pending)\n  payment_method         String?         @db.VarChar(50)\n  payment_gateway        String?         @default(\"payhere\") @db.VarChar(50)\n  gateway_transaction_id String?         @db.VarChar(255)\n  gateway_order_id       String?         @db.VarChar(255)\n  payment_date           DateTime?       @db.Timestamp(6)\n  metadata               Json?           @default(\"{}\")\n  created_at             DateTime?       @default(now()) @db.Timestamp(6)\n  updated_at             DateTime?       @default(now()) @db.Timestamp(6)\n  subscriptions          subscriptions?  @relation(fields: [subscription_id], references: [id], onDelete: Cascade, onUpdate: NoAction)\n  users                  users?          @relation(fields: [user_id], references: [id], onDelete: Cascade, onUpdate: NoAction)\n\n  @@index([payment_status], map: \"idx_payments_status\")\n  @@index([subscription_id], map: \"idx_payments_subscription_id\")\n  @@index([user_id], map: \"idx_payments_user_id\")\n}\n\nmodel poll_choices {\n  id         Int          @id @default(autoincrement())\n  poll_id    Int\n  choice     String       @db.VarChar(255)\n  vote_count Int          @default(0)\n  created_at DateTime     @default(now()) @db.Timestamp(6)\n  polls      polls        @relation(fields: [poll_id], references: [id], onDelete: Cascade)\n  poll_votes poll_votes[]\n\n  @@unique([poll_id, choice], map: \"unique_poll_choice\")\n  @@index([poll_id], map: \"idx_poll_choices_poll_id\")\n}\n\nmodel poll_comments {\n  id         Int      @id @default(autoincrement())\n  poll_id    Int\n  user_id    Int\n  comment    String\n  created_at DateTime @default(now()) @db.Timestamp(6)\n  updated_at DateTime @default(now()) @db.Timestamp(6)\n  polls      polls    @relation(fields: [poll_id], references: [id], onDelete: Cascade)\n  users      users    @relation(fields: [user_id], references: [id], onDelete: Cascade)\n\n  @@index([created_at], map: \"idx_poll_comments_created_at\")\n  @@index([poll_id], map: \"idx_poll_comments_poll_id\")\n  @@index([user_id], map: \"idx_poll_comments_user_id\")\n}\n\nmodel poll_votes {\n  id           Int          @id @default(autoincrement())\n  poll_id      Int\n  choice_id    Int\n  user_id      Int\n  voted_at     DateTime     @default(now()) @db.Timestamp(6)\n  poll_choices poll_choices @relation(fields: [choice_id], references: [id], onDelete: Cascade)\n  users        users        @relation(fields: [user_id], references: [id], onDelete: Cascade)\n\n  @@unique([poll_id, user_id], map: \"unique_user_vote_per_poll\")\n  @@index([choice_id], map: \"idx_poll_votes_choice_id\")\n  @@index([poll_id], map: \"idx_poll_votes_poll_id\")\n  @@index([user_id], map: \"idx_poll_votes_user_id\")\n}\n\nmodel polls {\n  id            Int             @id @default(autoincrement())\n  title         String          @db.VarChar(255)\n  description   String?\n  created_by    Int\n  created_at    DateTime        @default(now()) @db.Timestamp(6)\n  updated_at    DateTime        @default(now()) @db.Timestamp(6)\n  is_active     Boolean         @default(true)\n  poll_choices  poll_choices[]\n  poll_comments poll_comments[]\n  users         users           @relation(fields: [created_by], references: [id], onDelete: Cascade)\n\n  @@index([created_at], map: \"idx_polls_created_at\")\n  @@index([created_by], map: \"idx_polls_created_by\")\n  @@index([is_active], map: \"idx_polls_is_active\")\n}\n\nmodel role_upgrade_requests {\n  id                                             Int       @id @default(autoincrement())\n  user_id                                        Int?\n  current_user_role                              String    @db.VarChar(20)\n  requested_user_role                            String    @db.VarChar(20)\n  reason                                         String?\n  supporting_evidence                            Json?     @default(\"[]\")\n  status                                         String?   @default(\"pending\") @db.VarChar(20)\n  reviewer_id                                    Int?\n  reviewer_notes                                 String?\n  submitted_at                                   DateTime? @default(now()) @db.Timestamp(6)\n  reviewed_at                                    DateTime? @db.Timestamp(6)\n  users_role_upgrade_requests_reviewer_idTousers users?    @relation(\"role_upgrade_requests_reviewer_idTousers\", fields: [reviewer_id], references: [id], onDelete: NoAction, onUpdate: NoAction)\n  users_role_upgrade_requests_user_idTousers     users?    @relation(\"role_upgrade_requests_user_idTousers\", fields: [user_id], references: [id], onDelete: Cascade, onUpdate: NoAction)\n\n  @@index([status], map: \"idx_role_upgrade_requests_status\")\n  @@index([user_id], map: \"idx_role_upgrade_requests_user_id\")\n}\n\nmodel service_availability {\n  id              Int                 @id @default(autoincrement())\n  service_id      Int\n  available_date  DateTime            @db.Date\n  start_time      DateTime?           @db.Time(6)\n  end_time        DateTime?           @db.Time(6)\n  slots_available Int\n  slots_booked    Int                 @default(0)\n  status          availability_status @default(available)\n  notes           String?\n  created_at      DateTime            @default(now()) @db.Timestamp(6)\n  updated_at      DateTime            @default(now()) @db.Timestamp(6)\n  services        services            @relation(fields: [service_id], references: [id], onDelete: Cascade)\n\n  @@unique([service_id, available_date, start_time], map: \"unique_service_availability_slot\")\n  @@index([available_date], map: \"idx_service_availability_date\")\n  @@index([service_id], map: \"idx_service_availability_service_id\")\n  @@index([status], map: \"idx_service_availability_status\")\n}\n\nmodel service_bookings {\n  id                  Int                    @id @default(autoincrement())\n  service_id          Int\n  user_id             Int\n  booking_date        DateTime               @db.Date\n  booking_time        DateTime?              @db.Time(6)\n  participants_count  Int                    @default(1)\n  total_amount        Decimal                @db.Decimal(10, 2)\n  payment_status      booking_payment_status @default(pending)\n  payment_method      String?                @db.VarChar(50)\n  transaction_id      String?                @db.VarChar(255)\n  booking_status      booking_status         @default(pending)\n  special_requests    String?\n  cancellation_reason String?\n  cancelled_at        DateTime?              @db.Timestamp(6)\n  confirmed_at        DateTime?              @db.Timestamp(6)\n  completed_at        DateTime?              @db.Timestamp(6)\n  created_at          DateTime               @default(now()) @db.Timestamp(6)\n  updated_at          DateTime               @default(now()) @db.Timestamp(6)\n  services            services               @relation(fields: [service_id], references: [id], onDelete: Cascade)\n  users               users                  @relation(fields: [user_id], references: [id], onDelete: Cascade)\n\n  @@unique([service_id, user_id, booking_date], map: \"unique_service_user_booking\")\n  @@index([booking_date], map: \"idx_service_bookings_date\")\n  @@index([payment_status], map: \"idx_service_bookings_payment_status\")\n  @@index([service_id], map: \"idx_service_bookings_service_id\")\n  @@index([booking_status], map: \"idx_service_bookings_status\")\n  @@index([user_id], map: \"idx_service_bookings_user_id\")\n}\n\nmodel service_media {\n  id            Int      @id @default(autoincrement())\n  service_id    Int\n  media_url     String   @db.VarChar(500)\n  media_type    String   @db.VarChar(50)\n  display_order Int      @default(0)\n  caption       String?  @db.VarChar(255)\n  created_at    DateTime @default(now()) @db.Timestamp(6)\n  services      services @relation(fields: [service_id], references: [id], onDelete: Cascade)\n\n  @@index([display_order], map: \"idx_service_media_order\")\n  @@index([service_id], map: \"idx_service_media_service_id\")\n}\n\nmodel service_reviews {\n  id          Int      @id @default(autoincrement())\n  service_id  Int\n  user_id     Int\n  rating      Int      @db.SmallInt\n  review      String\n  images      Json?    @default(\"[]\")\n  is_verified Boolean  @default(false)\n  created_at  DateTime @default(now()) @db.Timestamp(6)\n  updated_at  DateTime @default(now()) @db.Timestamp(6)\n  services    services @relation(fields: [service_id], references: [id], onDelete: Cascade)\n  users       users    @relation(fields: [user_id], references: [id], onDelete: Cascade)\n\n  @@unique([service_id, user_id], map: \"unique_service_user_review\")\n  @@index([rating], map: \"idx_service_reviews_rating\")\n  @@index([service_id], map: \"idx_service_reviews_service_id\")\n  @@index([user_id], map: \"idx_service_reviews_user_id\")\n}\n\nmodel services {\n  id                   Int                    @id @default(autoincrement())\n  title                String                 @db.VarChar(255)\n  description          String\n  category             service_category\n  price                Decimal                @db.Decimal(10, 2)\n  duration             String                 @db.VarChar(100)\n  max_participants     Int\n  location             String                 @db.VarChar(500)\n  difficulty           service_difficulty\n  equipment            Json                   @default(\"[]\")\n  next_available       DateTime               @db.Date\n  image_url            String?                @db.VarChar(500)\n  featured             Boolean                @default(false)\n  tags                 Json                   @default(\"[]\")\n  requirements         String?\n  cancellation_policy  String?\n  meeting_point        String?                @db.VarChar(500)\n  what_to_expect       String?\n  weather_policy       weather_policy_type?\n  booking_deadline     Int                    @default(24)\n  languages            Json                   @default(\"[]\")\n  certification        String?                @db.VarChar(500)\n  experience           String?\n  group_discount       Boolean                @default(false)\n  private_booking      Boolean                @default(false)\n  instant_booking      Boolean                @default(true)\n  status               service_status         @default(active)\n  views_count          Int                    @default(0)\n  bookings_count       Int                    @default(0)\n  rating               Float                  @default(0)\n  review_count         Int                    @default(0)\n  created_by           Int\n  is_active            Boolean                @default(true)\n  created_at           DateTime               @default(now()) @db.Timestamp(6)\n  updated_at           DateTime               @default(now()) @db.Timestamp(6)\n  service_availability service_availability[]\n  service_bookings     service_bookings[]\n  service_media        service_media[]\n  service_reviews      service_reviews[]\n  users                users                  @relation(fields: [created_by], references: [id], onDelete: Cascade)\n\n  @@index([is_active], map: \"idx_services_active\")\n  @@index([category], map: \"idx_services_category\")\n  @@index([created_by], map: \"idx_services_created_by\")\n  @@index([difficulty], map: \"idx_services_difficulty\")\n  @@index([featured], map: \"idx_services_featured\")\n  @@index([next_available], map: \"idx_services_next_available\")\n  @@index([rating], map: \"idx_services_rating\")\n  @@index([status], map: \"idx_services_status\")\n}\n\nmodel session_enrollments {\n  id               Int                       @id @default(autoincrement())\n  user_id          Int\n  session_id       Int\n  enrollment_date  DateTime                  @default(now()) @db.Timestamp(6)\n  payment_status   enrollment_payment_status @default(pending)\n  payment_amount   Decimal?                  @db.Decimal(10, 2)\n  payment_method   String?                   @db.VarChar(50)\n  transaction_id   String?                   @db.VarChar(255)\n  access_granted   Boolean                   @default(false)\n  completed        Boolean                   @default(false)\n  progress         Int?                      @default(0)\n  last_accessed_at DateTime?                 @db.Timestamp(6)\n  notes            String?\n  created_at       DateTime                  @default(now()) @db.Timestamp(6)\n  updated_at       DateTime                  @default(now()) @db.Timestamp(6)\n  sessions         sessions                  @relation(fields: [session_id], references: [id], onDelete: Cascade)\n  users            users                     @relation(fields: [user_id], references: [id], onDelete: Cascade)\n\n  @@unique([user_id, session_id], map: \"unique_user_session_enrollment\")\n  @@index([access_granted], map: \"idx_session_enrollments_access\")\n  @@index([enrollment_date], map: \"idx_session_enrollments_date\")\n  @@index([payment_status], map: \"idx_session_enrollments_payment_status\")\n  @@index([session_id], map: \"idx_session_enrollments_session_id\")\n  @@index([user_id], map: \"idx_session_enrollments_user_id\")\n}\n\nmodel sessions {\n  id                  Int                   @id @default(autoincrement())\n  title               String                @db.VarChar(255)\n  session_type        session_type\n  payment_type        payment_type\n  price               Decimal?              @db.Decimal(10, 2)\n  duration            Int\n  session_date        DateTime              @db.Date\n  session_time        DateTime              @db.Time(6)\n  max_participants    Int?\n  difficulty_level    difficulty_level\n  session_link        String?               @db.VarChar(500)\n  description         String\n  materials           Json?                 @default(\"[]\")\n  session_notes       String?\n  created_by          Int\n  created_date        DateTime              @default(now()) @db.Date\n  created_time        DateTime              @default(now()) @db.Time(6)\n  is_enabled          Boolean               @default(true)\n  created_at          DateTime              @default(now()) @db.Timestamp(6)\n  updated_at          DateTime              @default(now()) @db.Timestamp(6)\n  session_enrollments session_enrollments[]\n  users               users                 @relation(fields: [created_by], references: [id], onDelete: Cascade)\n\n  @@index([created_by], map: \"idx_sessions_created_by\")\n  @@index([session_date], map: \"idx_sessions_date\")\n  @@index([difficulty_level], map: \"idx_sessions_difficulty\")\n  @@index([is_enabled], map: \"idx_sessions_enabled\")\n  @@index([payment_type], map: \"idx_sessions_payment_type\")\n  @@index([session_type], map: \"idx_sessions_type\")\n}\n\nmodel space_discussion_comment_likes {\n  id                        Int                       @id @default(autoincrement())\n  comment_id                Int\n  user_id                   Int\n  created_at                DateTime                  @default(now()) @db.Timestamp(6)\n  space_discussion_comments space_discussion_comments @relation(fields: [comment_id], references: [id], onDelete: Cascade)\n  users                     users                     @relation(fields: [user_id], references: [id], onDelete: Cascade)\n\n  @@unique([comment_id, user_id])\n  @@index([comment_id], map: \"idx_space_discussion_comment_likes_comment_id\")\n  @@index([user_id], map: \"idx_space_discussion_comment_likes_user_id\")\n}\n\nmodel space_discussion_comments {\n  id                              Int                              @id @default(autoincrement())\n  discussion_id                   Int\n  user_id                         Int\n  parent_id                       Int?\n  content                         String\n  is_edited                       Boolean                          @default(false)\n  created_at                      DateTime                         @default(now()) @db.Timestamp(6)\n  updated_at                      DateTime                         @default(now()) @db.Timestamp(6)\n  space_discussion_comment_likes  space_discussion_comment_likes[]\n  space_discussions               space_discussions                @relation(fields: [discussion_id], references: [id], onDelete: Cascade)\n  space_discussion_comments       space_discussion_comments?       @relation(\"space_discussion_commentsTospace_discussion_comments\", fields: [parent_id], references: [id], onDelete: Cascade)\n  other_space_discussion_comments space_discussion_comments[]      @relation(\"space_discussion_commentsTospace_discussion_comments\")\n  users                           users                            @relation(fields: [user_id], references: [id], onDelete: Cascade)\n\n  @@index([created_at], map: \"idx_space_discussion_comments_created_at\")\n  @@index([discussion_id], map: \"idx_space_discussion_comments_discussion_id\")\n  @@index([parent_id], map: \"idx_space_discussion_comments_parent_id\")\n  @@index([user_id], map: \"idx_space_discussion_comments_user_id\")\n}\n\nmodel space_discussion_likes {\n  id                Int               @id @default(autoincrement())\n  discussion_id     Int\n  user_id           Int\n  created_at        DateTime          @default(now()) @db.Timestamp(6)\n  space_discussions space_discussions @relation(fields: [discussion_id], references: [id], onDelete: Cascade)\n  users             users             @relation(fields: [user_id], references: [id], onDelete: Cascade)\n\n  @@unique([discussion_id, user_id])\n  @@index([discussion_id], map: \"idx_space_discussion_likes_discussion_id\")\n  @@index([user_id], map: \"idx_space_discussion_likes_user_id\")\n}\n\nmodel space_discussions {\n  id                        Int                         @id @default(autoincrement())\n  title                     String                      @db.VarChar(255)\n  content                   String\n  author_id                 Int\n  category                  String                      @db.VarChar(100)\n  is_sticky                 Boolean                     @default(false)\n  is_closed                 Boolean                     @default(false)\n  views_count               Int                         @default(0)\n  replies_count             Int                         @default(0)\n  last_activity             DateTime                    @default(now()) @db.Timestamp(6)\n  created_at                DateTime                    @default(now()) @db.Timestamp(6)\n  updated_at                DateTime                    @default(now()) @db.Timestamp(6)\n  space_discussion_comments space_discussion_comments[]\n  space_discussion_likes    space_discussion_likes[]\n  users                     users                       @relation(fields: [author_id], references: [id], onDelete: Cascade)\n\n  @@index([author_id], map: \"idx_space_discussions_author_id\")\n  @@index([category], map: \"idx_space_discussions_category\")\n  @@index([created_at], map: \"idx_space_discussions_created_at\")\n  @@index([last_activity], map: \"idx_space_discussions_last_activity\")\n  @@index([is_sticky], map: \"idx_space_discussions_sticky\")\n}\n\nmodel space_news {\n  id                  Int                   @id @default(autoincrement())\n  image_urls          Json?                 @default(\"[]\")\n  publish_date        DateTime              @db.Timestamp(6)\n  title               String                @db.VarChar(255)\n  number_of_likes     Int                   @default(0)\n  number_of_comments  Int                   @default(0)\n  content             String\n  published_by        Int\n  category            String                @db.VarChar(100)\n  created_at          DateTime              @default(now()) @db.Timestamp(6)\n  last_read_time      DateTime?             @db.Timestamp(6)\n  users               users                 @relation(fields: [published_by], references: [id], onDelete: Cascade)\n  space_news_comments space_news_comments[]\n  space_news_likes    space_news_likes[]\n\n  @@index([category], map: \"idx_space_news_category\")\n  @@index([created_at], map: \"idx_space_news_created_at\")\n  @@index([publish_date], map: \"idx_space_news_publish_date\")\n  @@index([published_by], map: \"idx_space_news_published_by\")\n}\n\nmodel space_news_comments {\n  id                        Int                   @id @default(autoincrement())\n  space_news_id             Int\n  user_id                   Int\n  parent_comment_id         Int?\n  content                   String\n  is_edited                 Boolean               @default(false)\n  created_at                DateTime              @default(now()) @db.Timestamp(6)\n  updated_at                DateTime              @default(now()) @db.Timestamp(6)\n  space_news_comments       space_news_comments?  @relation(\"space_news_commentsTospace_news_comments\", fields: [parent_comment_id], references: [id], onDelete: Cascade)\n  other_space_news_comments space_news_comments[] @relation(\"space_news_commentsTospace_news_comments\")\n  space_news                space_news            @relation(fields: [space_news_id], references: [id], onDelete: Cascade)\n  users                     users                 @relation(fields: [user_id], references: [id], onDelete: Cascade)\n\n  @@index([space_news_id], map: \"idx_space_news_comments_news_id\")\n  @@index([parent_comment_id], map: \"idx_space_news_comments_parent_id\")\n  @@index([user_id], map: \"idx_space_news_comments_user_id\")\n}\n\nmodel space_news_likes {\n  id            Int        @id @default(autoincrement())\n  space_news_id Int\n  user_id       Int\n  created_at    DateTime   @default(now()) @db.Timestamp(6)\n  space_news    space_news @relation(fields: [space_news_id], references: [id], onDelete: Cascade)\n  users         users      @relation(fields: [user_id], references: [id], onDelete: Cascade)\n\n  @@unique([space_news_id, user_id])\n  @@index([space_news_id], map: \"idx_space_news_likes_news_id\")\n  @@index([user_id], map: \"idx_space_news_likes_user_id\")\n}\n\nmodel stargazing_spot_reviews {\n  id                 Int              @id @default(autoincrement())\n  stargazing_spot_id Int\n  user_id            Int\n  rating             Int              @db.SmallInt\n  review_text        String\n  created_at         DateTime         @default(now()) @db.Timestamp(6)\n  updated_at         DateTime         @default(now()) @db.Timestamp(6)\n  stargazing_spots   stargazing_spots @relation(fields: [stargazing_spot_id], references: [id], onDelete: Cascade)\n  users              users            @relation(fields: [user_id], references: [id], onDelete: Cascade)\n\n  @@unique([stargazing_spot_id, user_id], map: \"unique_user_review_per_spot\")\n  @@index([rating], map: \"idx_stargazing_reviews_rating\")\n  @@index([stargazing_spot_id], map: \"idx_stargazing_reviews_spot_id\")\n  @@index([user_id], map: \"idx_stargazing_reviews_user_id\")\n}\n\nmodel stargazing_spots {\n  id                      Int                       @id @default(autoincrement())\n  name                    String                    @db.VarChar(255)\n  location                String                    @db.VarChar(255)\n  image_url               String?                   @db.VarChar(500)\n  rating                  Float                     @default(0)\n  best_time               String?                   @db.VarChar(100)\n  description             String\n  facilities              Json                      @default(\"[]\")\n  created_by              Int\n  is_active               Boolean                   @default(true)\n  created_at              DateTime                  @default(now()) @db.Timestamp(6)\n  updated_at              DateTime                  @default(now()) @db.Timestamp(6)\n  stargazing_spot_reviews stargazing_spot_reviews[]\n  users                   users                     @relation(fields: [created_by], references: [id], onDelete: Cascade)\n\n  @@index([is_active], map: \"idx_stargazing_spots_active\")\n  @@index([created_by], map: \"idx_stargazing_spots_created_by\")\n  @@index([location], map: \"idx_stargazing_spots_location\")\n  @@index([rating], map: \"idx_stargazing_spots_rating\")\n}\n\nmodel subscription_plans {\n  id                      Int               @id @default(autoincrement())\n  plan_type               subscription_plan @unique\n  name                    String            @db.VarChar(100)\n  description             String?\n  price_lkr               Decimal           @db.Decimal(10, 2)\n  price_usd               Decimal?          @db.Decimal(10, 2)\n  features                Json\n  chatbot_questions_limit Int?\n  is_active               Boolean?          @default(true)\n  created_at              DateTime?         @default(now()) @db.Timestamp(6)\n  updated_at              DateTime?         @default(now()) @db.Timestamp(6)\n}\n\nmodel subscriptions {\n  id                  Int                  @id @default(autoincrement())\n  user_id             Int?\n  plan_type           subscription_plan\n  status              subscription_status? @default(pending)\n  start_date          DateTime             @db.Timestamp(6)\n  end_date            DateTime?            @db.Timestamp(6)\n  auto_renew          Boolean?             @default(false)\n  created_at          DateTime?            @default(now()) @db.Timestamp(6)\n  updated_at          DateTime?            @default(now()) @db.Timestamp(6)\n  cancelled_at        DateTime?            @db.Timestamp(6)\n  cancellation_reason String?\n  payments            payments[]\n  users               users?               @relation(fields: [user_id], references: [id], onDelete: Cascade, onUpdate: NoAction)\n\n  @@index([status], map: \"idx_subscriptions_status\")\n  @@index([user_id], map: \"idx_subscriptions_user_id\")\n}\n\nmodel tour_media {\n  tour_id     Int       @id @default(autoincrement())\n  tour_name   String    @db.VarChar(255)\n  description String?\n  location    String?   @db.VarChar(255)\n  tags        String?   @db.VarChar(255)\n  media_ids   Int[]     @default([])\n  created_at  DateTime? @default(now()) @db.Timestamp(6)\n  updated_at  DateTime? @default(now()) @db.Timestamp(6)\n\n  @@index([created_at])\n}\n\nmodel user_settings {\n  id                    Int       @id @default(autoincrement())\n  user_id               Int?      @unique\n  language              String?   @default(\"en\") @db.VarChar(10)\n  email_notifications   Boolean?  @default(true)\n  push_notifications    Boolean?  @default(true)\n  profile_visibility    String?   @default(\"public\") @db.VarChar(20)\n  allow_direct_messages Boolean?  @default(true)\n  show_online_status    Boolean?  @default(true)\n  theme                 String?   @default(\"dark\") @db.VarChar(10)\n  timezone              String?   @default(\"UTC\") @db.VarChar(50)\n  created_at            DateTime? @default(now()) @db.Timestamp(6)\n  updated_at            DateTime? @default(now()) @db.Timestamp(6)\n  users                 users?    @relation(fields: [user_id], references: [id], onDelete: Cascade, onUpdate: NoAction)\n\n  @@index([user_id], map: \"idx_user_settings_user_id\")\n}\n\nmodel users {\n  id                                                                                           Int                                    @id @default(autoincrement())\n  firebase_uid                                                                                 String                                 @unique @db.VarChar(255)\n  email                                                                                        String                                 @unique @db.VarChar(255)\n  role                                                                                         user_role?                             @default(learner)\n  first_name                                                                                   String?                                @db.VarChar(100)\n  last_name                                                                                    String?                                @db.VarChar(100)\n  is_active                                                                                    Boolean?                               @default(true)\n  last_login                                                                                   DateTime?                              @db.Timestamp(6)\n  created_at                                                                                   DateTime?                              @default(now()) @db.Timestamp(6)\n  updated_at                                                                                   DateTime?                              @default(now()) @db.Timestamp(6)\n  display_name                                                                                 String?                                @db.VarChar(100)\n  profile_data                                                                                 Json?                                  @default(\"{}\")\n  role_specific_data                                                                           Json?                                  @default(\"{}\")\n  subscription_plan                                                                            subscription_plan?                     @default(starseeker)\n  subscription_status                                                                          subscription_status?                   @default(active)\n  subscription_start_date                                                                      DateTime?                              @default(now()) @db.Timestamp(6)\n  subscription_end_date                                                                        DateTime?                              @db.Timestamp(6)\n  auto_renew                                                                                   Boolean?                               @default(false)\n  chatbot_questions_used                                                                       Int?                                   @default(0)\n  chatbot_questions_reset_date                                                                 DateTime?                              @default(dbgenerated(\"CURRENT_DATE\")) @db.Date\n  QuizParticipants                                                                             QuizParticipants[]\n  Quizzes                                                                                      Quizzes[]\n  astronomy_events                                                                             astronomy_events[]\n  blog_comments                                                                                blog_comments[]\n  blog_likes                                                                                   blog_likes[]\n  blog_views                                                                                   blog_views[]\n  blogs                                                                                        blogs[]\n  chat_messages                                                                                chat_messages[]\n  chatbot_sessions                                                                             chatbot_sessions[]\n  chatbot_usage                                                                                chatbot_usage[]\n  event_reminders                                                                              event_reminders[]\n  group_chats                                                                                  group_chats[]\n  group_members                                                                                group_members[]\n  guide_application                                                                            guide_application[]\n  influencer_application                                                                       influencer_application[]\n  media_uploads                                                                                media_uploads[]\n  mentor_application                                                                           mentor_application[]\n  message_reactions                                                                            message_reactions[]\n  night_camp_registrations                                                                     night_camp_registrations[]\n  night_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousers night_camp_volunteering_applications[] @relation(\"night_camp_volunteering_applications_reviewed_byTousers\")\n  night_camp_volunteering_applications_night_camp_volunteering_applications_user_idTousers     night_camp_volunteering_applications[] @relation(\"night_camp_volunteering_applications_user_idTousers\")\n  payments                                                                                     payments[]\n  poll_comments                                                                                poll_comments[]\n  poll_votes                                                                                   poll_votes[]\n  polls                                                                                        polls[]\n  role_upgrade_requests_role_upgrade_requests_reviewer_idTousers                               role_upgrade_requests[]                @relation(\"role_upgrade_requests_reviewer_idTousers\")\n  role_upgrade_requests_role_upgrade_requests_user_idTousers                                   role_upgrade_requests[]                @relation(\"role_upgrade_requests_user_idTousers\")\n  service_bookings                                                                             service_bookings[]\n  service_reviews                                                                              service_reviews[]\n  services                                                                                     services[]\n  session_enrollments                                                                          session_enrollments[]\n  sessions                                                                                     sessions[]\n  space_discussion_comment_likes                                                               space_discussion_comment_likes[]\n  space_discussion_comments                                                                    space_discussion_comments[]\n  space_discussion_likes                                                                       space_discussion_likes[]\n  space_discussions                                                                            space_discussions[]\n  space_news                                                                                   space_news[]\n  space_news_comments                                                                          space_news_comments[]\n  space_news_likes                                                                             space_news_likes[]\n  stargazing_spot_reviews                                                                      stargazing_spot_reviews[]\n  stargazing_spots                                                                             stargazing_spots[]\n  subscriptions                                                                                subscriptions[]\n  user_settings                                                                                user_settings?\n\n  @@index([is_active], map: \"idx_users_active\")\n  @@index([email], map: \"idx_users_email\")\n  @@index([firebase_uid], map: \"idx_users_firebase_uid\")\n  @@index([role], map: \"idx_users_role\")\n  @@index([subscription_plan], map: \"idx_users_subscription_plan\")\n  @@index([subscription_status], map: \"idx_users_subscription_status\")\n}\n\nenum QuizStatus {\n  open\n  closed\n}\n\nenum application_status {\n  pending\n  approved\n  rejected\n}\n\nenum approve_application_status {\n  pending\n  accepted\n  rejected\n}\n\nenum availability_status {\n  available\n  fully_booked\n  unavailable\n  cancelled\n}\n\nenum blog_status {\n  draft\n  published\n  archived\n}\n\nenum booking_payment_status {\n  pending\n  completed\n  failed\n  refunded\n}\n\nenum booking_status {\n  pending\n  confirmed\n  cancelled\n  completed\n  no_show\n}\n\nenum difficulty_level {\n  beginner\n  intermediate\n  advanced\n}\n\nenum enrollment_payment_status {\n  pending\n  completed\n  failed\n  refunded\n  free_access\n}\n\nenum equipment_category {\n  provided\n  required\n  optional\n}\n\nenum payment_method {\n  Bank\n  e_wallet @map(\"e-wallet\")\n  PayPal\n  Other\n}\n\nenum payment_status {\n  pending\n  completed\n  failed\n  refunded\n}\n\nenum payment_type {\n  paid\n  free\n}\n\nenum poll_choice_type {\n  yes\n  maybe\n  no\n}\n\nenum quiz_difficulty_level {\n  Beginner\n  Intermediate\n  Hard\n}\n\nenum service_category {\n  stargazing\n  astrophotography\n  telescope\n  planetarium\n  workshop\n  expedition\n}\n\nenum service_difficulty {\n  Beginner\n  Intermediate\n  Advanced\n}\n\nenum service_status {\n  draft\n  active\n  paused\n  archived\n}\n\nenum session_format {\n  Live\n  Recorded\n  Hybrid\n}\n\nenum session_type {\n  live\n  recorded\n}\n\nenum subscription_plan {\n  starseeker\n  galaxy_explorer\n  cosmic_voyager\n}\n\nenum subscription_status {\n  active\n  cancelled\n  expired\n  pending\n}\n\nenum user_role {\n  admin\n  moderator\n  learner\n  guide\n  enthusiast\n  mentor\n  influencer\n}\n\nenum weather_policy_type {\n  reschedule\n  partial_refund\n  full_refund\n  no_refund\n}\n",
+  "inlineSchemaHash": "605ad208beb6e1ad63b10ac74f7aad24587f0288549d37fff5dde6aebafad7c6",
+  "copyEngine": true
+}
+config.dirname = '/'
+
+config.runtimeDataModel = JSON.parse("{\"models\":{\"QuizParticipants\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"quiz_id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"user_id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"correct_question_count\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"score\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"Quizzes\",\"kind\":\"object\",\"type\":\"Quizzes\",\"relationName\":\"QuizParticipantsToQuizzes\"},{\"name\":\"users\",\"kind\":\"object\",\"type\":\"users\",\"relationName\":\"QuizParticipantsTousers\"}],\"dbName\":null},\"QuizQuestion\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"quiz_id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"question\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"answers\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"correct_answer\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"question_explanation\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"Quizzes\",\"kind\":\"object\",\"type\":\"Quizzes\",\"relationName\":\"QuizQuestionToQuizzes\"}],\"dbName\":null},\"Quizzes\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"name\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"category\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"description\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"time\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"question_count\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"participants_count\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"time_limit\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"user_id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"created_at\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"modified_at\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"status\",\"kind\":\"enum\",\"type\":\"QuizStatus\"},{\"name\":\"level\",\"kind\":\"enum\",\"type\":\"quiz_difficulty_level\"},{\"name\":\"QuizParticipants\",\"kind\":\"object\",\"type\":\"QuizParticipants\",\"relationName\":\"QuizParticipantsToQuizzes\"},{\"name\":\"QuizQuestion\",\"kind\":\"object\",\"type\":\"QuizQuestion\",\"relationName\":\"QuizQuestionToQuizzes\"},{\"name\":\"users\",\"kind\":\"object\",\"type\":\"users\",\"relationName\":\"QuizzesTousers\"}],\"dbName\":null},\"astronomy_events\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"name\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"description\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"visibility\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"best_time\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"image_url\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"event_date\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"end_date\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"duration\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"event_type\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"is_active\",\"kind\":\"scalar\",\"type\":\"Boolean\"},{\"name\":\"created_by\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"created_at\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"updated_at\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"users\",\"kind\":\"object\",\"type\":\"users\",\"relationName\":\"astronomy_eventsTousers\"},{\"name\":\"event_reminders\",\"kind\":\"object\",\"type\":\"event_reminders\",\"relationName\":\"astronomy_eventsToevent_reminders\"}],\"dbName\":null},\"blog_categories\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"name\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"description\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"created_at\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"blog_category_relations\",\"kind\":\"object\",\"type\":\"blog_category_relations\",\"relationName\":\"blog_categoriesToblog_category_relations\"}],\"dbName\":null},\"blog_category_relations\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"blog_id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"category_id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"blogs\",\"kind\":\"object\",\"type\":\"blogs\",\"relationName\":\"blog_category_relationsToblogs\"},{\"name\":\"blog_categories\",\"kind\":\"object\",\"type\":\"blog_categories\",\"relationName\":\"blog_categoriesToblog_category_relations\"}],\"dbName\":null},\"blog_comments\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"blog_id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"user_id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"parent_comment_id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"content\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"is_edited\",\"kind\":\"scalar\",\"type\":\"Boolean\"},{\"name\":\"created_at\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"updated_at\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"blogs\",\"kind\":\"object\",\"type\":\"blogs\",\"relationName\":\"blog_commentsToblogs\"},{\"name\":\"blog_comments\",\"kind\":\"object\",\"type\":\"blog_comments\",\"relationName\":\"blog_commentsToblog_comments\"},{\"name\":\"other_blog_comments\",\"kind\":\"object\",\"type\":\"blog_comments\",\"relationName\":\"blog_commentsToblog_comments\"},{\"name\":\"users\",\"kind\":\"object\",\"type\":\"users\",\"relationName\":\"blog_commentsTousers\"}],\"dbName\":null},\"blog_likes\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"blog_id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"user_id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"created_at\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"blogs\",\"kind\":\"object\",\"type\":\"blogs\",\"relationName\":\"blog_likesToblogs\"},{\"name\":\"users\",\"kind\":\"object\",\"type\":\"users\",\"relationName\":\"blog_likesTousers\"}],\"dbName\":null},\"blog_views\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"blog_id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"user_id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"ip_address\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"user_agent\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"viewed_at\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"blogs\",\"kind\":\"object\",\"type\":\"blogs\",\"relationName\":\"blog_viewsToblogs\"},{\"name\":\"users\",\"kind\":\"object\",\"type\":\"users\",\"relationName\":\"blog_viewsTousers\"}],\"dbName\":null},\"blogs\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"title\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"content\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"excerpt\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"featured_image\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"author_id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"author_name\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"status\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"is_featured\",\"kind\":\"scalar\",\"type\":\"Boolean\"},{\"name\":\"views_count\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"likes_count\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"comments_count\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"created_at\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"updated_at\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"image_url\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"published_at\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"view_count\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"like_count\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"comment_count\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"tags\",\"kind\":\"scalar\",\"type\":\"Json\"},{\"name\":\"metadata\",\"kind\":\"scalar\",\"type\":\"Json\"},{\"name\":\"blog_category_relations\",\"kind\":\"object\",\"type\":\"blog_category_relations\",\"relationName\":\"blog_category_relationsToblogs\"},{\"name\":\"blog_comments\",\"kind\":\"object\",\"type\":\"blog_comments\",\"relationName\":\"blog_commentsToblogs\"},{\"name\":\"blog_likes\",\"kind\":\"object\",\"type\":\"blog_likes\",\"relationName\":\"blog_likesToblogs\"},{\"name\":\"blog_views\",\"kind\":\"object\",\"type\":\"blog_views\",\"relationName\":\"blog_viewsToblogs\"},{\"name\":\"users\",\"kind\":\"object\",\"type\":\"users\",\"relationName\":\"blogsTousers\"}],\"dbName\":null},\"chat_messages\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"group_id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"user_id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"message_text\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"message_type\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"reply_to\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"is_edited\",\"kind\":\"scalar\",\"type\":\"Boolean\"},{\"name\":\"is_deleted\",\"kind\":\"scalar\",\"type\":\"Boolean\"},{\"name\":\"created_at\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"updated_at\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"group_chats\",\"kind\":\"object\",\"type\":\"group_chats\",\"relationName\":\"chat_messagesTogroup_chats\"},{\"name\":\"chat_messages\",\"kind\":\"object\",\"type\":\"chat_messages\",\"relationName\":\"chat_messagesTochat_messages\"},{\"name\":\"other_chat_messages\",\"kind\":\"object\",\"type\":\"chat_messages\",\"relationName\":\"chat_messagesTochat_messages\"},{\"name\":\"users\",\"kind\":\"object\",\"type\":\"users\",\"relationName\":\"chat_messagesTousers\"},{\"name\":\"message_reactions\",\"kind\":\"object\",\"type\":\"message_reactions\",\"relationName\":\"chat_messagesTomessage_reactions\"}],\"dbName\":null},\"chatbot_feedback\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"message_id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"session_id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"firebase_uid\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"rating\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"feedback_text\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"created_at\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"chatbot_messages\",\"kind\":\"object\",\"type\":\"chatbot_messages\",\"relationName\":\"chatbot_feedbackTochatbot_messages\"},{\"name\":\"chatbot_sessions\",\"kind\":\"object\",\"type\":\"chatbot_sessions\",\"relationName\":\"chatbot_feedbackTochatbot_sessions\"}],\"dbName\":null},\"chatbot_messages\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"session_id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"content\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"is_bot\",\"kind\":\"scalar\",\"type\":\"Boolean\"},{\"name\":\"firebase_uid\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"confidence\",\"kind\":\"scalar\",\"type\":\"Decimal\"},{\"name\":\"intent\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"entities\",\"kind\":\"scalar\",\"type\":\"Json\"},{\"name\":\"created_at\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"chatbot_feedback\",\"kind\":\"object\",\"type\":\"chatbot_feedback\",\"relationName\":\"chatbot_feedbackTochatbot_messages\"},{\"name\":\"chatbot_sessions\",\"kind\":\"object\",\"type\":\"chatbot_sessions\",\"relationName\":\"chatbot_messagesTochatbot_sessions\"}],\"dbName\":null},\"chatbot_sessions\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"user_id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"firebase_uid\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"title\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"is_active\",\"kind\":\"scalar\",\"type\":\"Boolean\"},{\"name\":\"message_count\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"created_at\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"updated_at\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"chatbot_feedback\",\"kind\":\"object\",\"type\":\"chatbot_feedback\",\"relationName\":\"chatbot_feedbackTochatbot_sessions\"},{\"name\":\"chatbot_messages\",\"kind\":\"object\",\"type\":\"chatbot_messages\",\"relationName\":\"chatbot_messagesTochatbot_sessions\"},{\"name\":\"users\",\"kind\":\"object\",\"type\":\"users\",\"relationName\":\"chatbot_sessionsTousers\"}],\"dbName\":null},\"chatbot_usage\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"user_id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"question_count\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"usage_date\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"created_at\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"users\",\"kind\":\"object\",\"type\":\"users\",\"relationName\":\"chatbot_usageTousers\"}],\"dbName\":null},\"event_reminders\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"user_id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"event_id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"reminder_time\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"is_sent\",\"kind\":\"scalar\",\"type\":\"Boolean\"},{\"name\":\"notification_type\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"created_at\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"updated_at\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"astronomy_events\",\"kind\":\"object\",\"type\":\"astronomy_events\",\"relationName\":\"astronomy_eventsToevent_reminders\"},{\"name\":\"users\",\"kind\":\"object\",\"type\":\"users\",\"relationName\":\"event_remindersTousers\"}],\"dbName\":null},\"events\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"event_name\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"society_name\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"description\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"visibility\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"date\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"time\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"location\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"event_category\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"needed_volunteers_count\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"organized_by\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"image_urls\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"max_participants\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"event_status\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"created_at\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"status\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"created_by\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"moderated_by\",\"kind\":\"scalar\",\"type\":\"Int\"}],\"dbName\":null},\"group_chats\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"name\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"description\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"type\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"created_by\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"avatar_url\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"is_active\",\"kind\":\"scalar\",\"type\":\"Boolean\"},{\"name\":\"max_members\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"created_at\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"updated_at\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"chat_messages\",\"kind\":\"object\",\"type\":\"chat_messages\",\"relationName\":\"chat_messagesTogroup_chats\"},{\"name\":\"users\",\"kind\":\"object\",\"type\":\"users\",\"relationName\":\"group_chatsTousers\"},{\"name\":\"group_members\",\"kind\":\"object\",\"type\":\"group_members\",\"relationName\":\"group_chatsTogroup_members\"}],\"dbName\":null},\"group_members\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"group_id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"user_id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"role\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"joined_at\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"is_muted\",\"kind\":\"scalar\",\"type\":\"Boolean\"},{\"name\":\"group_chats\",\"kind\":\"object\",\"type\":\"group_chats\",\"relationName\":\"group_chatsTogroup_members\"},{\"name\":\"users\",\"kind\":\"object\",\"type\":\"users\",\"relationName\":\"group_membersTousers\"}],\"dbName\":null},\"guide_application\":{\"fields\":[{\"name\":\"application_id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"user_id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"first_name\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"last_name\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"email\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"phone\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"date_of_birth\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"address\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"city\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"current_occupation\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"education_level\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"astronomy_education\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"guide_experience\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"total_experience\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"certifications\",\"kind\":\"scalar\",\"type\":\"Json\"},{\"name\":\"astronomy_skills\",\"kind\":\"scalar\",\"type\":\"Json\"},{\"name\":\"languages\",\"kind\":\"scalar\",\"type\":\"Json\"},{\"name\":\"first_aid\",\"kind\":\"scalar\",\"type\":\"Boolean\"},{\"name\":\"driving_license\",\"kind\":\"scalar\",\"type\":\"Boolean\"},{\"name\":\"camp_types\",\"kind\":\"scalar\",\"type\":\"Json\"},{\"name\":\"group_sizes\",\"kind\":\"scalar\",\"type\":\"Json\"},{\"name\":\"equipment_familiarity\",\"kind\":\"scalar\",\"type\":\"Json\"},{\"name\":\"outdoor_experience\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"available_dates\",\"kind\":\"scalar\",\"type\":\"Json\"},{\"name\":\"preferred_locations\",\"kind\":\"scalar\",\"type\":\"Json\"},{\"name\":\"accommodation_needs\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"transportation_needs\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"motivation\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"special_skills\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"emergency_contact\",\"kind\":\"scalar\",\"type\":\"Json\"},{\"name\":\"documents\",\"kind\":\"scalar\",\"type\":\"Json\"},{\"name\":\"selected_camps\",\"kind\":\"scalar\",\"type\":\"Json\"},{\"name\":\"application_status\",\"kind\":\"enum\",\"type\":\"application_status\"},{\"name\":\"approve_application_status\",\"kind\":\"enum\",\"type\":\"approve_application_status\"},{\"name\":\"terms_accepted\",\"kind\":\"scalar\",\"type\":\"Boolean\"},{\"name\":\"background_check_consent\",\"kind\":\"scalar\",\"type\":\"Boolean\"},{\"name\":\"deletion_status\",\"kind\":\"scalar\",\"type\":\"Boolean\"},{\"name\":\"submitted_at\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"updated_at\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"users\",\"kind\":\"object\",\"type\":\"users\",\"relationName\":\"guide_applicationTousers\"}],\"dbName\":null},\"influencer_application\":{\"fields\":[{\"name\":\"application_id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"user_id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"first_name\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"last_name\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"email\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"phone_number\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"country\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"bio\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"specialization_tags\",\"kind\":\"scalar\",\"type\":\"Json\"},{\"name\":\"social_links\",\"kind\":\"scalar\",\"type\":\"Json\"},{\"name\":\"intro_video_url\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"sample_content_links\",\"kind\":\"scalar\",\"type\":\"Json\"},{\"name\":\"preferred_session_format\",\"kind\":\"enum\",\"type\":\"session_format\"},{\"name\":\"willing_to_host_sessions\",\"kind\":\"scalar\",\"type\":\"Boolean\"},{\"name\":\"tools_used\",\"kind\":\"scalar\",\"type\":\"Json\"},{\"name\":\"application_status\",\"kind\":\"enum\",\"type\":\"application_status\"},{\"name\":\"approve_application_status\",\"kind\":\"enum\",\"type\":\"approve_application_status\"},{\"name\":\"deletion_status\",\"kind\":\"scalar\",\"type\":\"Boolean\"},{\"name\":\"submitted_at\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"updated_at\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"users\",\"kind\":\"object\",\"type\":\"users\",\"relationName\":\"influencer_applicationTousers\"}],\"dbName\":null},\"media_uploads\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"user_id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"file_name\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"file_path\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"file_type\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"file_size\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"created_at\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"users\",\"kind\":\"object\",\"type\":\"users\",\"relationName\":\"media_uploadsTousers\"}],\"dbName\":null},\"mentor_application\":{\"fields\":[{\"name\":\"application_id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"user_id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"first_name\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"last_name\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"email\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"phone_number\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"date_of_birth\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"country\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"profile_bio\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"educational_background\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"area_of_expertise\",\"kind\":\"scalar\",\"type\":\"Json\"},{\"name\":\"linkedin_profile\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"intro_video_url\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"max_mentees\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"availability_schedule\",\"kind\":\"scalar\",\"type\":\"Json\"},{\"name\":\"motivation_statement\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"portfolio_attachments\",\"kind\":\"scalar\",\"type\":\"Json\"},{\"name\":\"application_status\",\"kind\":\"enum\",\"type\":\"application_status\"},{\"name\":\"approve_application_status\",\"kind\":\"enum\",\"type\":\"approve_application_status\"},{\"name\":\"deletion_status\",\"kind\":\"scalar\",\"type\":\"Boolean\"},{\"name\":\"submitted_at\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"updated_at\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"users\",\"kind\":\"object\",\"type\":\"users\",\"relationName\":\"mentor_applicationTousers\"}],\"dbName\":null},\"message_reactions\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"message_id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"user_id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"reaction\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"created_at\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"chat_messages\",\"kind\":\"object\",\"type\":\"chat_messages\",\"relationName\":\"chat_messagesTomessage_reactions\"},{\"name\":\"users\",\"kind\":\"object\",\"type\":\"users\",\"relationName\":\"message_reactionsTousers\"}],\"dbName\":null},\"night_camp_registrations\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"camp_id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"user_id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"status\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"registered_date\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"registered_time\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"created_at\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"updated_at\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"night_camps\",\"kind\":\"object\",\"type\":\"night_camps\",\"relationName\":\"night_camp_registrationsTonight_camps\"},{\"name\":\"users\",\"kind\":\"object\",\"type\":\"users\",\"relationName\":\"night_camp_registrationsTousers\"}],\"dbName\":null},\"night_camp_volunteering\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"night_camp_id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"volunteering_role\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"number_of_applicants\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"created_at\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"night_camps\",\"kind\":\"object\",\"type\":\"night_camps\",\"relationName\":\"night_camp_volunteeringTonight_camps\"}],\"dbName\":null},\"night_camp_volunteering_applications\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"night_camp_id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"user_id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"volunteering_role\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"motivation\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"experience\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"availability\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"emergency_contact_name\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"emergency_contact_phone\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"emergency_contact_relationship\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"status\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"application_date\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"reviewed_by\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"reviewed_at\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"review_notes\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"created_at\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"updated_at\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"night_camps\",\"kind\":\"object\",\"type\":\"night_camps\",\"relationName\":\"night_camp_volunteering_applicationsTonight_camps\"},{\"name\":\"users_night_camp_volunteering_applications_reviewed_byTousers\",\"kind\":\"object\",\"type\":\"users\",\"relationName\":\"night_camp_volunteering_applications_reviewed_byTousers\"},{\"name\":\"users_night_camp_volunteering_applications_user_idTousers\",\"kind\":\"object\",\"type\":\"users\",\"relationName\":\"night_camp_volunteering_applications_user_idTousers\"}],\"dbName\":null},\"night_camps\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"name\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"organized_by\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"sponsored_by\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"description\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"date\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"time\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"location\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"number_of_participants\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"image_urls\",\"kind\":\"scalar\",\"type\":\"Json\"},{\"name\":\"emergency_contact\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"status\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"created_at\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"updated_at\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"night_camp_registrations\",\"kind\":\"object\",\"type\":\"night_camp_registrations\",\"relationName\":\"night_camp_registrationsTonight_camps\"},{\"name\":\"night_camp_volunteering\",\"kind\":\"object\",\"type\":\"night_camp_volunteering\",\"relationName\":\"night_camp_volunteeringTonight_camps\"},{\"name\":\"night_camp_volunteering_applications\",\"kind\":\"object\",\"type\":\"night_camp_volunteering_applications\",\"relationName\":\"night_camp_volunteering_applicationsTonight_camps\"},{\"name\":\"night_camps_activities\",\"kind\":\"object\",\"type\":\"night_camps_activities\",\"relationName\":\"night_campsTonight_camps_activities\"},{\"name\":\"night_camps_equipment\",\"kind\":\"object\",\"type\":\"night_camps_equipment\",\"relationName\":\"night_campsTonight_camps_equipment\"}],\"dbName\":null},\"night_camps_activities\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"night_camp_id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"activity\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"created_at\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"night_camps\",\"kind\":\"object\",\"type\":\"night_camps\",\"relationName\":\"night_campsTonight_camps_activities\"}],\"dbName\":null},\"night_camps_equipment\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"night_camp_id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"category\",\"kind\":\"enum\",\"type\":\"equipment_category\"},{\"name\":\"equipment_name\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"created_at\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"night_camps\",\"kind\":\"object\",\"type\":\"night_camps\",\"relationName\":\"night_campsTonight_camps_equipment\"}],\"dbName\":null},\"payments\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"user_id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"subscription_id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"amount\",\"kind\":\"scalar\",\"type\":\"Decimal\"},{\"name\":\"currency\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"payment_status\",\"kind\":\"enum\",\"type\":\"payment_status\"},{\"name\":\"payment_method\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"payment_gateway\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"gateway_transaction_id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"gateway_order_id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"payment_date\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"metadata\",\"kind\":\"scalar\",\"type\":\"Json\"},{\"name\":\"created_at\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"updated_at\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"subscriptions\",\"kind\":\"object\",\"type\":\"subscriptions\",\"relationName\":\"paymentsTosubscriptions\"},{\"name\":\"users\",\"kind\":\"object\",\"type\":\"users\",\"relationName\":\"paymentsTousers\"}],\"dbName\":null},\"poll_choices\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"poll_id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"choice\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"vote_count\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"created_at\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"polls\",\"kind\":\"object\",\"type\":\"polls\",\"relationName\":\"poll_choicesTopolls\"},{\"name\":\"poll_votes\",\"kind\":\"object\",\"type\":\"poll_votes\",\"relationName\":\"poll_choicesTopoll_votes\"}],\"dbName\":null},\"poll_comments\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"poll_id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"user_id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"comment\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"created_at\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"updated_at\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"polls\",\"kind\":\"object\",\"type\":\"polls\",\"relationName\":\"poll_commentsTopolls\"},{\"name\":\"users\",\"kind\":\"object\",\"type\":\"users\",\"relationName\":\"poll_commentsTousers\"}],\"dbName\":null},\"poll_votes\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"poll_id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"choice_id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"user_id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"voted_at\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"poll_choices\",\"kind\":\"object\",\"type\":\"poll_choices\",\"relationName\":\"poll_choicesTopoll_votes\"},{\"name\":\"users\",\"kind\":\"object\",\"type\":\"users\",\"relationName\":\"poll_votesTousers\"}],\"dbName\":null},\"polls\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"title\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"description\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"created_by\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"created_at\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"updated_at\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"is_active\",\"kind\":\"scalar\",\"type\":\"Boolean\"},{\"name\":\"poll_choices\",\"kind\":\"object\",\"type\":\"poll_choices\",\"relationName\":\"poll_choicesTopolls\"},{\"name\":\"poll_comments\",\"kind\":\"object\",\"type\":\"poll_comments\",\"relationName\":\"poll_commentsTopolls\"},{\"name\":\"users\",\"kind\":\"object\",\"type\":\"users\",\"relationName\":\"pollsTousers\"}],\"dbName\":null},\"role_upgrade_requests\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"user_id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"current_user_role\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"requested_user_role\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"reason\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"supporting_evidence\",\"kind\":\"scalar\",\"type\":\"Json\"},{\"name\":\"status\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"reviewer_id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"reviewer_notes\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"submitted_at\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"reviewed_at\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"users_role_upgrade_requests_reviewer_idTousers\",\"kind\":\"object\",\"type\":\"users\",\"relationName\":\"role_upgrade_requests_reviewer_idTousers\"},{\"name\":\"users_role_upgrade_requests_user_idTousers\",\"kind\":\"object\",\"type\":\"users\",\"relationName\":\"role_upgrade_requests_user_idTousers\"}],\"dbName\":null},\"service_availability\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"service_id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"available_date\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"start_time\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"end_time\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"slots_available\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"slots_booked\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"status\",\"kind\":\"enum\",\"type\":\"availability_status\"},{\"name\":\"notes\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"created_at\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"updated_at\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"services\",\"kind\":\"object\",\"type\":\"services\",\"relationName\":\"service_availabilityToservices\"}],\"dbName\":null},\"service_bookings\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"service_id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"user_id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"booking_date\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"booking_time\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"participants_count\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"total_amount\",\"kind\":\"scalar\",\"type\":\"Decimal\"},{\"name\":\"payment_status\",\"kind\":\"enum\",\"type\":\"booking_payment_status\"},{\"name\":\"payment_method\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"transaction_id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"booking_status\",\"kind\":\"enum\",\"type\":\"booking_status\"},{\"name\":\"special_requests\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"cancellation_reason\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"cancelled_at\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"confirmed_at\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"completed_at\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"created_at\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"updated_at\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"services\",\"kind\":\"object\",\"type\":\"services\",\"relationName\":\"service_bookingsToservices\"},{\"name\":\"users\",\"kind\":\"object\",\"type\":\"users\",\"relationName\":\"service_bookingsTousers\"}],\"dbName\":null},\"service_media\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"service_id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"media_url\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"media_type\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"display_order\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"caption\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"created_at\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"services\",\"kind\":\"object\",\"type\":\"services\",\"relationName\":\"service_mediaToservices\"}],\"dbName\":null},\"service_reviews\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"service_id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"user_id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"rating\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"review\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"images\",\"kind\":\"scalar\",\"type\":\"Json\"},{\"name\":\"is_verified\",\"kind\":\"scalar\",\"type\":\"Boolean\"},{\"name\":\"created_at\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"updated_at\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"services\",\"kind\":\"object\",\"type\":\"services\",\"relationName\":\"service_reviewsToservices\"},{\"name\":\"users\",\"kind\":\"object\",\"type\":\"users\",\"relationName\":\"service_reviewsTousers\"}],\"dbName\":null},\"services\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"title\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"description\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"category\",\"kind\":\"enum\",\"type\":\"service_category\"},{\"name\":\"price\",\"kind\":\"scalar\",\"type\":\"Decimal\"},{\"name\":\"duration\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"max_participants\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"location\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"difficulty\",\"kind\":\"enum\",\"type\":\"service_difficulty\"},{\"name\":\"equipment\",\"kind\":\"scalar\",\"type\":\"Json\"},{\"name\":\"next_available\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"image_url\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"featured\",\"kind\":\"scalar\",\"type\":\"Boolean\"},{\"name\":\"tags\",\"kind\":\"scalar\",\"type\":\"Json\"},{\"name\":\"requirements\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"cancellation_policy\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"meeting_point\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"what_to_expect\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"weather_policy\",\"kind\":\"enum\",\"type\":\"weather_policy_type\"},{\"name\":\"booking_deadline\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"languages\",\"kind\":\"scalar\",\"type\":\"Json\"},{\"name\":\"certification\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"experience\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"group_discount\",\"kind\":\"scalar\",\"type\":\"Boolean\"},{\"name\":\"private_booking\",\"kind\":\"scalar\",\"type\":\"Boolean\"},{\"name\":\"instant_booking\",\"kind\":\"scalar\",\"type\":\"Boolean\"},{\"name\":\"status\",\"kind\":\"enum\",\"type\":\"service_status\"},{\"name\":\"views_count\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"bookings_count\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"rating\",\"kind\":\"scalar\",\"type\":\"Float\"},{\"name\":\"review_count\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"created_by\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"is_active\",\"kind\":\"scalar\",\"type\":\"Boolean\"},{\"name\":\"created_at\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"updated_at\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"service_availability\",\"kind\":\"object\",\"type\":\"service_availability\",\"relationName\":\"service_availabilityToservices\"},{\"name\":\"service_bookings\",\"kind\":\"object\",\"type\":\"service_bookings\",\"relationName\":\"service_bookingsToservices\"},{\"name\":\"service_media\",\"kind\":\"object\",\"type\":\"service_media\",\"relationName\":\"service_mediaToservices\"},{\"name\":\"service_reviews\",\"kind\":\"object\",\"type\":\"service_reviews\",\"relationName\":\"service_reviewsToservices\"},{\"name\":\"users\",\"kind\":\"object\",\"type\":\"users\",\"relationName\":\"servicesTousers\"}],\"dbName\":null},\"session_enrollments\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"user_id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"session_id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"enrollment_date\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"payment_status\",\"kind\":\"enum\",\"type\":\"enrollment_payment_status\"},{\"name\":\"payment_amount\",\"kind\":\"scalar\",\"type\":\"Decimal\"},{\"name\":\"payment_method\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"transaction_id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"access_granted\",\"kind\":\"scalar\",\"type\":\"Boolean\"},{\"name\":\"completed\",\"kind\":\"scalar\",\"type\":\"Boolean\"},{\"name\":\"progress\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"last_accessed_at\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"notes\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"created_at\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"updated_at\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"sessions\",\"kind\":\"object\",\"type\":\"sessions\",\"relationName\":\"session_enrollmentsTosessions\"},{\"name\":\"users\",\"kind\":\"object\",\"type\":\"users\",\"relationName\":\"session_enrollmentsTousers\"}],\"dbName\":null},\"sessions\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"title\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"session_type\",\"kind\":\"enum\",\"type\":\"session_type\"},{\"name\":\"payment_type\",\"kind\":\"enum\",\"type\":\"payment_type\"},{\"name\":\"price\",\"kind\":\"scalar\",\"type\":\"Decimal\"},{\"name\":\"duration\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"session_date\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"session_time\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"max_participants\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"difficulty_level\",\"kind\":\"enum\",\"type\":\"difficulty_level\"},{\"name\":\"session_link\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"description\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"materials\",\"kind\":\"scalar\",\"type\":\"Json\"},{\"name\":\"session_notes\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"created_by\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"created_date\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"created_time\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"is_enabled\",\"kind\":\"scalar\",\"type\":\"Boolean\"},{\"name\":\"created_at\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"updated_at\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"session_enrollments\",\"kind\":\"object\",\"type\":\"session_enrollments\",\"relationName\":\"session_enrollmentsTosessions\"},{\"name\":\"users\",\"kind\":\"object\",\"type\":\"users\",\"relationName\":\"sessionsTousers\"}],\"dbName\":null},\"space_discussion_comment_likes\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"comment_id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"user_id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"created_at\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"space_discussion_comments\",\"kind\":\"object\",\"type\":\"space_discussion_comments\",\"relationName\":\"space_discussion_comment_likesTospace_discussion_comments\"},{\"name\":\"users\",\"kind\":\"object\",\"type\":\"users\",\"relationName\":\"space_discussion_comment_likesTousers\"}],\"dbName\":null},\"space_discussion_comments\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"discussion_id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"user_id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"parent_id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"content\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"is_edited\",\"kind\":\"scalar\",\"type\":\"Boolean\"},{\"name\":\"created_at\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"updated_at\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"space_discussion_comment_likes\",\"kind\":\"object\",\"type\":\"space_discussion_comment_likes\",\"relationName\":\"space_discussion_comment_likesTospace_discussion_comments\"},{\"name\":\"space_discussions\",\"kind\":\"object\",\"type\":\"space_discussions\",\"relationName\":\"space_discussion_commentsTospace_discussions\"},{\"name\":\"space_discussion_comments\",\"kind\":\"object\",\"type\":\"space_discussion_comments\",\"relationName\":\"space_discussion_commentsTospace_discussion_comments\"},{\"name\":\"other_space_discussion_comments\",\"kind\":\"object\",\"type\":\"space_discussion_comments\",\"relationName\":\"space_discussion_commentsTospace_discussion_comments\"},{\"name\":\"users\",\"kind\":\"object\",\"type\":\"users\",\"relationName\":\"space_discussion_commentsTousers\"}],\"dbName\":null},\"space_discussion_likes\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"discussion_id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"user_id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"created_at\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"space_discussions\",\"kind\":\"object\",\"type\":\"space_discussions\",\"relationName\":\"space_discussion_likesTospace_discussions\"},{\"name\":\"users\",\"kind\":\"object\",\"type\":\"users\",\"relationName\":\"space_discussion_likesTousers\"}],\"dbName\":null},\"space_discussions\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"title\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"content\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"author_id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"category\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"is_sticky\",\"kind\":\"scalar\",\"type\":\"Boolean\"},{\"name\":\"is_closed\",\"kind\":\"scalar\",\"type\":\"Boolean\"},{\"name\":\"views_count\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"replies_count\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"last_activity\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"created_at\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"updated_at\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"space_discussion_comments\",\"kind\":\"object\",\"type\":\"space_discussion_comments\",\"relationName\":\"space_discussion_commentsTospace_discussions\"},{\"name\":\"space_discussion_likes\",\"kind\":\"object\",\"type\":\"space_discussion_likes\",\"relationName\":\"space_discussion_likesTospace_discussions\"},{\"name\":\"users\",\"kind\":\"object\",\"type\":\"users\",\"relationName\":\"space_discussionsTousers\"}],\"dbName\":null},\"space_news\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"image_urls\",\"kind\":\"scalar\",\"type\":\"Json\"},{\"name\":\"publish_date\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"title\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"number_of_likes\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"number_of_comments\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"content\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"published_by\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"category\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"created_at\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"last_read_time\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"users\",\"kind\":\"object\",\"type\":\"users\",\"relationName\":\"space_newsTousers\"},{\"name\":\"space_news_comments\",\"kind\":\"object\",\"type\":\"space_news_comments\",\"relationName\":\"space_newsTospace_news_comments\"},{\"name\":\"space_news_likes\",\"kind\":\"object\",\"type\":\"space_news_likes\",\"relationName\":\"space_newsTospace_news_likes\"}],\"dbName\":null},\"space_news_comments\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"space_news_id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"user_id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"parent_comment_id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"content\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"is_edited\",\"kind\":\"scalar\",\"type\":\"Boolean\"},{\"name\":\"created_at\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"updated_at\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"space_news_comments\",\"kind\":\"object\",\"type\":\"space_news_comments\",\"relationName\":\"space_news_commentsTospace_news_comments\"},{\"name\":\"other_space_news_comments\",\"kind\":\"object\",\"type\":\"space_news_comments\",\"relationName\":\"space_news_commentsTospace_news_comments\"},{\"name\":\"space_news\",\"kind\":\"object\",\"type\":\"space_news\",\"relationName\":\"space_newsTospace_news_comments\"},{\"name\":\"users\",\"kind\":\"object\",\"type\":\"users\",\"relationName\":\"space_news_commentsTousers\"}],\"dbName\":null},\"space_news_likes\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"space_news_id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"user_id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"created_at\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"space_news\",\"kind\":\"object\",\"type\":\"space_news\",\"relationName\":\"space_newsTospace_news_likes\"},{\"name\":\"users\",\"kind\":\"object\",\"type\":\"users\",\"relationName\":\"space_news_likesTousers\"}],\"dbName\":null},\"stargazing_spot_reviews\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"stargazing_spot_id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"user_id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"rating\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"review_text\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"created_at\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"updated_at\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"stargazing_spots\",\"kind\":\"object\",\"type\":\"stargazing_spots\",\"relationName\":\"stargazing_spot_reviewsTostargazing_spots\"},{\"name\":\"users\",\"kind\":\"object\",\"type\":\"users\",\"relationName\":\"stargazing_spot_reviewsTousers\"}],\"dbName\":null},\"stargazing_spots\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"name\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"location\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"image_url\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"rating\",\"kind\":\"scalar\",\"type\":\"Float\"},{\"name\":\"best_time\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"description\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"facilities\",\"kind\":\"scalar\",\"type\":\"Json\"},{\"name\":\"created_by\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"is_active\",\"kind\":\"scalar\",\"type\":\"Boolean\"},{\"name\":\"created_at\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"updated_at\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"stargazing_spot_reviews\",\"kind\":\"object\",\"type\":\"stargazing_spot_reviews\",\"relationName\":\"stargazing_spot_reviewsTostargazing_spots\"},{\"name\":\"users\",\"kind\":\"object\",\"type\":\"users\",\"relationName\":\"stargazing_spotsTousers\"}],\"dbName\":null},\"subscription_plans\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"plan_type\",\"kind\":\"enum\",\"type\":\"subscription_plan\"},{\"name\":\"name\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"description\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"price_lkr\",\"kind\":\"scalar\",\"type\":\"Decimal\"},{\"name\":\"price_usd\",\"kind\":\"scalar\",\"type\":\"Decimal\"},{\"name\":\"features\",\"kind\":\"scalar\",\"type\":\"Json\"},{\"name\":\"chatbot_questions_limit\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"is_active\",\"kind\":\"scalar\",\"type\":\"Boolean\"},{\"name\":\"created_at\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"updated_at\",\"kind\":\"scalar\",\"type\":\"DateTime\"}],\"dbName\":null},\"subscriptions\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"user_id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"plan_type\",\"kind\":\"enum\",\"type\":\"subscription_plan\"},{\"name\":\"status\",\"kind\":\"enum\",\"type\":\"subscription_status\"},{\"name\":\"start_date\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"end_date\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"auto_renew\",\"kind\":\"scalar\",\"type\":\"Boolean\"},{\"name\":\"created_at\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"updated_at\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"cancelled_at\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"cancellation_reason\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"payments\",\"kind\":\"object\",\"type\":\"payments\",\"relationName\":\"paymentsTosubscriptions\"},{\"name\":\"users\",\"kind\":\"object\",\"type\":\"users\",\"relationName\":\"subscriptionsTousers\"}],\"dbName\":null},\"tour_media\":{\"fields\":[{\"name\":\"tour_id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"tour_name\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"description\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"location\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"tags\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"media_ids\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"created_at\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"updated_at\",\"kind\":\"scalar\",\"type\":\"DateTime\"}],\"dbName\":null},\"user_settings\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"user_id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"language\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"email_notifications\",\"kind\":\"scalar\",\"type\":\"Boolean\"},{\"name\":\"push_notifications\",\"kind\":\"scalar\",\"type\":\"Boolean\"},{\"name\":\"profile_visibility\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"allow_direct_messages\",\"kind\":\"scalar\",\"type\":\"Boolean\"},{\"name\":\"show_online_status\",\"kind\":\"scalar\",\"type\":\"Boolean\"},{\"name\":\"theme\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"timezone\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"created_at\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"updated_at\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"users\",\"kind\":\"object\",\"type\":\"users\",\"relationName\":\"user_settingsTousers\"}],\"dbName\":null},\"users\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"firebase_uid\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"email\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"role\",\"kind\":\"enum\",\"type\":\"user_role\"},{\"name\":\"first_name\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"last_name\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"is_active\",\"kind\":\"scalar\",\"type\":\"Boolean\"},{\"name\":\"last_login\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"created_at\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"updated_at\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"display_name\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"profile_data\",\"kind\":\"scalar\",\"type\":\"Json\"},{\"name\":\"role_specific_data\",\"kind\":\"scalar\",\"type\":\"Json\"},{\"name\":\"subscription_plan\",\"kind\":\"enum\",\"type\":\"subscription_plan\"},{\"name\":\"subscription_status\",\"kind\":\"enum\",\"type\":\"subscription_status\"},{\"name\":\"subscription_start_date\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"subscription_end_date\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"auto_renew\",\"kind\":\"scalar\",\"type\":\"Boolean\"},{\"name\":\"chatbot_questions_used\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"chatbot_questions_reset_date\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"QuizParticipants\",\"kind\":\"object\",\"type\":\"QuizParticipants\",\"relationName\":\"QuizParticipantsTousers\"},{\"name\":\"Quizzes\",\"kind\":\"object\",\"type\":\"Quizzes\",\"relationName\":\"QuizzesTousers\"},{\"name\":\"astronomy_events\",\"kind\":\"object\",\"type\":\"astronomy_events\",\"relationName\":\"astronomy_eventsTousers\"},{\"name\":\"blog_comments\",\"kind\":\"object\",\"type\":\"blog_comments\",\"relationName\":\"blog_commentsTousers\"},{\"name\":\"blog_likes\",\"kind\":\"object\",\"type\":\"blog_likes\",\"relationName\":\"blog_likesTousers\"},{\"name\":\"blog_views\",\"kind\":\"object\",\"type\":\"blog_views\",\"relationName\":\"blog_viewsTousers\"},{\"name\":\"blogs\",\"kind\":\"object\",\"type\":\"blogs\",\"relationName\":\"blogsTousers\"},{\"name\":\"chat_messages\",\"kind\":\"object\",\"type\":\"chat_messages\",\"relationName\":\"chat_messagesTousers\"},{\"name\":\"chatbot_sessions\",\"kind\":\"object\",\"type\":\"chatbot_sessions\",\"relationName\":\"chatbot_sessionsTousers\"},{\"name\":\"chatbot_usage\",\"kind\":\"object\",\"type\":\"chatbot_usage\",\"relationName\":\"chatbot_usageTousers\"},{\"name\":\"event_reminders\",\"kind\":\"object\",\"type\":\"event_reminders\",\"relationName\":\"event_remindersTousers\"},{\"name\":\"group_chats\",\"kind\":\"object\",\"type\":\"group_chats\",\"relationName\":\"group_chatsTousers\"},{\"name\":\"group_members\",\"kind\":\"object\",\"type\":\"group_members\",\"relationName\":\"group_membersTousers\"},{\"name\":\"guide_application\",\"kind\":\"object\",\"type\":\"guide_application\",\"relationName\":\"guide_applicationTousers\"},{\"name\":\"influencer_application\",\"kind\":\"object\",\"type\":\"influencer_application\",\"relationName\":\"influencer_applicationTousers\"},{\"name\":\"media_uploads\",\"kind\":\"object\",\"type\":\"media_uploads\",\"relationName\":\"media_uploadsTousers\"},{\"name\":\"mentor_application\",\"kind\":\"object\",\"type\":\"mentor_application\",\"relationName\":\"mentor_applicationTousers\"},{\"name\":\"message_reactions\",\"kind\":\"object\",\"type\":\"message_reactions\",\"relationName\":\"message_reactionsTousers\"},{\"name\":\"night_camp_registrations\",\"kind\":\"object\",\"type\":\"night_camp_registrations\",\"relationName\":\"night_camp_registrationsTousers\"},{\"name\":\"night_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousers\",\"kind\":\"object\",\"type\":\"night_camp_volunteering_applications\",\"relationName\":\"night_camp_volunteering_applications_reviewed_byTousers\"},{\"name\":\"night_camp_volunteering_applications_night_camp_volunteering_applications_user_idTousers\",\"kind\":\"object\",\"type\":\"night_camp_volunteering_applications\",\"relationName\":\"night_camp_volunteering_applications_user_idTousers\"},{\"name\":\"payments\",\"kind\":\"object\",\"type\":\"payments\",\"relationName\":\"paymentsTousers\"},{\"name\":\"poll_comments\",\"kind\":\"object\",\"type\":\"poll_comments\",\"relationName\":\"poll_commentsTousers\"},{\"name\":\"poll_votes\",\"kind\":\"object\",\"type\":\"poll_votes\",\"relationName\":\"poll_votesTousers\"},{\"name\":\"polls\",\"kind\":\"object\",\"type\":\"polls\",\"relationName\":\"pollsTousers\"},{\"name\":\"role_upgrade_requests_role_upgrade_requests_reviewer_idTousers\",\"kind\":\"object\",\"type\":\"role_upgrade_requests\",\"relationName\":\"role_upgrade_requests_reviewer_idTousers\"},{\"name\":\"role_upgrade_requests_role_upgrade_requests_user_idTousers\",\"kind\":\"object\",\"type\":\"role_upgrade_requests\",\"relationName\":\"role_upgrade_requests_user_idTousers\"},{\"name\":\"service_bookings\",\"kind\":\"object\",\"type\":\"service_bookings\",\"relationName\":\"service_bookingsTousers\"},{\"name\":\"service_reviews\",\"kind\":\"object\",\"type\":\"service_reviews\",\"relationName\":\"service_reviewsTousers\"},{\"name\":\"services\",\"kind\":\"object\",\"type\":\"services\",\"relationName\":\"servicesTousers\"},{\"name\":\"session_enrollments\",\"kind\":\"object\",\"type\":\"session_enrollments\",\"relationName\":\"session_enrollmentsTousers\"},{\"name\":\"sessions\",\"kind\":\"object\",\"type\":\"sessions\",\"relationName\":\"sessionsTousers\"},{\"name\":\"space_discussion_comment_likes\",\"kind\":\"object\",\"type\":\"space_discussion_comment_likes\",\"relationName\":\"space_discussion_comment_likesTousers\"},{\"name\":\"space_discussion_comments\",\"kind\":\"object\",\"type\":\"space_discussion_comments\",\"relationName\":\"space_discussion_commentsTousers\"},{\"name\":\"space_discussion_likes\",\"kind\":\"object\",\"type\":\"space_discussion_likes\",\"relationName\":\"space_discussion_likesTousers\"},{\"name\":\"space_discussions\",\"kind\":\"object\",\"type\":\"space_discussions\",\"relationName\":\"space_discussionsTousers\"},{\"name\":\"space_news\",\"kind\":\"object\",\"type\":\"space_news\",\"relationName\":\"space_newsTousers\"},{\"name\":\"space_news_comments\",\"kind\":\"object\",\"type\":\"space_news_comments\",\"relationName\":\"space_news_commentsTousers\"},{\"name\":\"space_news_likes\",\"kind\":\"object\",\"type\":\"space_news_likes\",\"relationName\":\"space_news_likesTousers\"},{\"name\":\"stargazing_spot_reviews\",\"kind\":\"object\",\"type\":\"stargazing_spot_reviews\",\"relationName\":\"stargazing_spot_reviewsTousers\"},{\"name\":\"stargazing_spots\",\"kind\":\"object\",\"type\":\"stargazing_spots\",\"relationName\":\"stargazing_spotsTousers\"},{\"name\":\"subscriptions\",\"kind\":\"object\",\"type\":\"subscriptions\",\"relationName\":\"subscriptionsTousers\"},{\"name\":\"user_settings\",\"kind\":\"object\",\"type\":\"user_settings\",\"relationName\":\"user_settingsTousers\"}],\"dbName\":null}},\"enums\":{},\"types\":{}}")
+defineDmmfProperty(exports.Prisma, config.runtimeDataModel)
+config.engineWasm = {
+  getRuntime: async () => require('./query_engine_bg.js'),
+  getQueryEngineWasmModule: async () => {
+    const loader = (await import('#wasm-engine-loader')).default
+    const engine = (await loader).default
+    return engine
+>>>>>>> a7d87c269fe401a3156343b89898134744e92212
   }
 }
 

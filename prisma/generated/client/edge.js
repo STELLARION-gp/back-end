@@ -92,60 +92,84 @@ exports.Prisma.TransactionIsolationLevel = makeStrictEnum({
   Serializable: 'Serializable'
 });
 
-exports.Prisma.SubscriptionsScalarFieldEnum = {
+exports.Prisma.QuizParticipantsScalarFieldEnum = {
   id: 'id',
+  quiz_id: 'quiz_id',
   user_id: 'user_id',
-  plan_type: 'plan_type',
-  status: 'status',
-  start_date: 'start_date',
-  end_date: 'end_date',
-  auto_renew: 'auto_renew',
-  created_at: 'created_at',
-  updated_at: 'updated_at',
-  cancelled_at: 'cancelled_at',
-  cancellation_reason: 'cancellation_reason'
+  correct_question_count: 'correct_question_count',
+  score: 'score'
 };
 
-exports.Prisma.Group_chatsScalarFieldEnum = {
+exports.Prisma.QuizQuestionScalarFieldEnum = {
+  id: 'id',
+  quiz_id: 'quiz_id',
+  question: 'question',
+  answers: 'answers',
+  correct_answer: 'correct_answer',
+  question_explanation: 'question_explanation'
+};
+
+exports.Prisma.QuizzesScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  category: 'category',
+  description: 'description',
+  time: 'time',
+  question_count: 'question_count',
+  participants_count: 'participants_count',
+  time_limit: 'time_limit',
+  user_id: 'user_id',
+  created_at: 'created_at',
+  modified_at: 'modified_at',
+  status: 'status',
+  level: 'level'
+};
+
+exports.Prisma.Astronomy_eventsScalarFieldEnum = {
   id: 'id',
   name: 'name',
   description: 'description',
-  type: 'type',
-  created_by: 'created_by',
-  avatar_url: 'avatar_url',
+  visibility: 'visibility',
+  best_time: 'best_time',
+  image_url: 'image_url',
+  event_date: 'event_date',
+  end_date: 'end_date',
+  duration: 'duration',
+  event_type: 'event_type',
   is_active: 'is_active',
-  max_members: 'max_members',
+  created_by: 'created_by',
   created_at: 'created_at',
   updated_at: 'updated_at'
 };
 
-exports.Prisma.Group_membersScalarFieldEnum = {
+exports.Prisma.Blog_categoriesScalarFieldEnum = {
   id: 'id',
-  group_id: 'group_id',
-  user_id: 'user_id',
-  role: 'role',
-  joined_at: 'joined_at',
-  is_muted: 'is_muted'
+  name: 'name',
+  description: 'description',
+  created_at: 'created_at'
 };
 
-exports.Prisma.Chat_messagesScalarFieldEnum = {
+exports.Prisma.Blog_category_relationsScalarFieldEnum = {
   id: 'id',
-  group_id: 'group_id',
+  blog_id: 'blog_id',
+  category_id: 'category_id'
+};
+
+exports.Prisma.Blog_commentsScalarFieldEnum = {
+  id: 'id',
+  blog_id: 'blog_id',
   user_id: 'user_id',
-  message_text: 'message_text',
-  message_type: 'message_type',
-  reply_to: 'reply_to',
+  parent_comment_id: 'parent_comment_id',
+  content: 'content',
   is_edited: 'is_edited',
-  is_deleted: 'is_deleted',
   created_at: 'created_at',
   updated_at: 'updated_at'
 };
 
-exports.Prisma.Message_reactionsScalarFieldEnum = {
+exports.Prisma.Blog_likesScalarFieldEnum = {
   id: 'id',
-  message_id: 'message_id',
+  blog_id: 'blog_id',
   user_id: 'user_id',
-  reaction: 'reaction',
   created_at: 'created_at'
 };
 
@@ -156,58 +180,6 @@ exports.Prisma.Blog_viewsScalarFieldEnum = {
   ip_address: 'ip_address',
   user_agent: 'user_agent',
   viewed_at: 'viewed_at'
-};
-
-exports.Prisma.Night_campsScalarFieldEnum = {
-  id: 'id',
-  name: 'name',
-  organized_by: 'organized_by',
-  sponsored_by: 'sponsored_by',
-  description: 'description',
-  date: 'date',
-  time: 'time',
-  location: 'location',
-  number_of_participants: 'number_of_participants',
-  image_urls: 'image_urls',
-  emergency_contact: 'emergency_contact',
-  status: 'status',
-  created_at: 'created_at',
-  updated_at: 'updated_at'
-};
-
-exports.Prisma.Night_camps_activitiesScalarFieldEnum = {
-  id: 'id',
-  night_camp_id: 'night_camp_id',
-  activity: 'activity',
-  created_at: 'created_at'
-};
-
-exports.Prisma.Chatbot_sessionsScalarFieldEnum = {
-  id: 'id',
-  user_id: 'user_id',
-  firebase_uid: 'firebase_uid',
-  title: 'title',
-  is_active: 'is_active',
-  message_count: 'message_count',
-  created_at: 'created_at',
-  updated_at: 'updated_at'
-};
-
-exports.Prisma.PaymentsScalarFieldEnum = {
-  id: 'id',
-  user_id: 'user_id',
-  subscription_id: 'subscription_id',
-  amount: 'amount',
-  currency: 'currency',
-  payment_status: 'payment_status',
-  payment_method: 'payment_method',
-  payment_gateway: 'payment_gateway',
-  gateway_transaction_id: 'gateway_transaction_id',
-  gateway_order_id: 'gateway_order_id',
-  payment_date: 'payment_date',
-  metadata: 'metadata',
-  created_at: 'created_at',
-  updated_at: 'updated_at'
 };
 
 exports.Prisma.BlogsScalarFieldEnum = {
@@ -234,79 +206,26 @@ exports.Prisma.BlogsScalarFieldEnum = {
   metadata: 'metadata'
 };
 
-exports.Prisma.Blog_category_relationsScalarFieldEnum = {
+exports.Prisma.Chat_messagesScalarFieldEnum = {
   id: 'id',
-  blog_id: 'blog_id',
-  category_id: 'category_id'
-};
-
-exports.Prisma.Subscription_plansScalarFieldEnum = {
-  id: 'id',
-  plan_type: 'plan_type',
-  name: 'name',
-  description: 'description',
-  price_lkr: 'price_lkr',
-  price_usd: 'price_usd',
-  features: 'features',
-  chatbot_questions_limit: 'chatbot_questions_limit',
-  is_active: 'is_active',
-  created_at: 'created_at',
-  updated_at: 'updated_at'
-};
-
-exports.Prisma.Blog_categoriesScalarFieldEnum = {
-  id: 'id',
-  name: 'name',
-  description: 'description',
-  created_at: 'created_at'
-};
-
-exports.Prisma.Chatbot_usageScalarFieldEnum = {
-  id: 'id',
+  group_id: 'group_id',
   user_id: 'user_id',
-  question_count: 'question_count',
-  usage_date: 'usage_date',
-  created_at: 'created_at'
-};
-
-exports.Prisma.Blog_commentsScalarFieldEnum = {
-  id: 'id',
-  blog_id: 'blog_id',
-  user_id: 'user_id',
-  parent_comment_id: 'parent_comment_id',
-  content: 'content',
+  message_text: 'message_text',
+  message_type: 'message_type',
+  reply_to: 'reply_to',
   is_edited: 'is_edited',
+  is_deleted: 'is_deleted',
   created_at: 'created_at',
   updated_at: 'updated_at'
 };
 
-exports.Prisma.UsersScalarFieldEnum = {
+exports.Prisma.Chatbot_feedbackScalarFieldEnum = {
   id: 'id',
+  message_id: 'message_id',
+  session_id: 'session_id',
   firebase_uid: 'firebase_uid',
-  email: 'email',
-  role: 'role',
-  first_name: 'first_name',
-  last_name: 'last_name',
-  is_active: 'is_active',
-  last_login: 'last_login',
-  created_at: 'created_at',
-  updated_at: 'updated_at',
-  display_name: 'display_name',
-  profile_data: 'profile_data',
-  role_specific_data: 'role_specific_data',
-  subscription_plan: 'subscription_plan',
-  subscription_status: 'subscription_status',
-  subscription_start_date: 'subscription_start_date',
-  subscription_end_date: 'subscription_end_date',
-  auto_renew: 'auto_renew',
-  chatbot_questions_used: 'chatbot_questions_used',
-  chatbot_questions_reset_date: 'chatbot_questions_reset_date'
-};
-
-exports.Prisma.Blog_likesScalarFieldEnum = {
-  id: 'id',
-  blog_id: 'blog_id',
-  user_id: 'user_id',
+  rating: 'rating',
+  feedback_text: 'feedback_text',
   created_at: 'created_at'
 };
 
@@ -331,59 +250,77 @@ exports.Prisma.Chatbot_messagesScalarFieldEnum = {
   created_at: 'created_at'
 };
 
-exports.Prisma.Night_camps_equipmentScalarFieldEnum = {
-  id: 'id',
-  night_camp_id: 'night_camp_id',
-  category: 'category',
-  equipment_name: 'equipment_name',
-  created_at: 'created_at'
-};
-
-exports.Prisma.User_settingsScalarFieldEnum = {
+exports.Prisma.Chatbot_sessionsScalarFieldEnum = {
   id: 'id',
   user_id: 'user_id',
-  language: 'language',
-  email_notifications: 'email_notifications',
-  push_notifications: 'push_notifications',
-  profile_visibility: 'profile_visibility',
-  allow_direct_messages: 'allow_direct_messages',
-  show_online_status: 'show_online_status',
-  theme: 'theme',
-  timezone: 'timezone',
+  firebase_uid: 'firebase_uid',
+  title: 'title',
+  is_active: 'is_active',
+  message_count: 'message_count',
   created_at: 'created_at',
   updated_at: 'updated_at'
 };
 
-exports.Prisma.Chatbot_feedbackScalarFieldEnum = {
-  id: 'id',
-  message_id: 'message_id',
-  session_id: 'session_id',
-  firebase_uid: 'firebase_uid',
-  rating: 'rating',
-  feedback_text: 'feedback_text',
-  created_at: 'created_at'
-};
-
-exports.Prisma.Night_camp_volunteeringScalarFieldEnum = {
-  id: 'id',
-  night_camp_id: 'night_camp_id',
-  volunteering_role: 'volunteering_role',
-  number_of_applicants: 'number_of_applicants',
-  created_at: 'created_at'
-};
-
-exports.Prisma.Role_upgrade_requestsScalarFieldEnum = {
+exports.Prisma.Chatbot_usageScalarFieldEnum = {
   id: 'id',
   user_id: 'user_id',
-  current_user_role: 'current_user_role',
-  requested_user_role: 'requested_user_role',
-  reason: 'reason',
-  supporting_evidence: 'supporting_evidence',
+  question_count: 'question_count',
+  usage_date: 'usage_date',
+  created_at: 'created_at'
+};
+
+exports.Prisma.Event_remindersScalarFieldEnum = {
+  id: 'id',
+  user_id: 'user_id',
+  event_id: 'event_id',
+  reminder_time: 'reminder_time',
+  is_sent: 'is_sent',
+  notification_type: 'notification_type',
+  created_at: 'created_at',
+  updated_at: 'updated_at'
+};
+
+exports.Prisma.EventsScalarFieldEnum = {
+  id: 'id',
+  event_name: 'event_name',
+  society_name: 'society_name',
+  description: 'description',
+  visibility: 'visibility',
+  date: 'date',
+  time: 'time',
+  location: 'location',
+  event_category: 'event_category',
+  needed_volunteers_count: 'needed_volunteers_count',
+  organized_by: 'organized_by',
+  image_urls: 'image_urls',
+  max_participants: 'max_participants',
+  event_status: 'event_status',
+  created_at: 'created_at',
   status: 'status',
-  reviewer_id: 'reviewer_id',
-  reviewer_notes: 'reviewer_notes',
-  submitted_at: 'submitted_at',
-  reviewed_at: 'reviewed_at'
+  created_by: 'created_by',
+  moderated_by: 'moderated_by'
+};
+
+exports.Prisma.Group_chatsScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  description: 'description',
+  type: 'type',
+  created_by: 'created_by',
+  avatar_url: 'avatar_url',
+  is_active: 'is_active',
+  max_members: 'max_members',
+  created_at: 'created_at',
+  updated_at: 'updated_at'
+};
+
+exports.Prisma.Group_membersScalarFieldEnum = {
+  id: 'id',
+  group_id: 'group_id',
+  user_id: 'user_id',
+  role: 'role',
+  joined_at: 'joined_at',
+  is_muted: 'is_muted'
 };
 
 exports.Prisma.Guide_applicationScalarFieldEnum = {
@@ -428,62 +365,6 @@ exports.Prisma.Guide_applicationScalarFieldEnum = {
   updated_at: 'updated_at'
 };
 
-exports.Prisma.Mentor_applicationScalarFieldEnum = {
-  application_id: 'application_id',
-  user_id: 'user_id',
-  first_name: 'first_name',
-  last_name: 'last_name',
-  email: 'email',
-  phone_number: 'phone_number',
-  date_of_birth: 'date_of_birth',
-  country: 'country',
-  profile_bio: 'profile_bio',
-  educational_background: 'educational_background',
-  area_of_expertise: 'area_of_expertise',
-  linkedin_profile: 'linkedin_profile',
-  intro_video_url: 'intro_video_url',
-  max_mentees: 'max_mentees',
-  availability_schedule: 'availability_schedule',
-  motivation_statement: 'motivation_statement',
-  portfolio_attachments: 'portfolio_attachments',
-  application_status: 'application_status',
-  approve_application_status: 'approve_application_status',
-  deletion_status: 'deletion_status',
-  submitted_at: 'submitted_at',
-  updated_at: 'updated_at'
-};
-
-exports.Prisma.Night_camp_volunteering_applicationsScalarFieldEnum = {
-  id: 'id',
-  night_camp_id: 'night_camp_id',
-  user_id: 'user_id',
-  volunteering_role: 'volunteering_role',
-  motivation: 'motivation',
-  experience: 'experience',
-  availability: 'availability',
-  emergency_contact_name: 'emergency_contact_name',
-  emergency_contact_phone: 'emergency_contact_phone',
-  emergency_contact_relationship: 'emergency_contact_relationship',
-  status: 'status',
-  application_date: 'application_date',
-  reviewed_by: 'reviewed_by',
-  reviewed_at: 'reviewed_at',
-  review_notes: 'review_notes',
-  created_at: 'created_at',
-  updated_at: 'updated_at'
-};
-
-exports.Prisma.Night_camp_registrationsScalarFieldEnum = {
-  id: 'id',
-  camp_id: 'camp_id',
-  user_id: 'user_id',
-  status: 'status',
-  registered_date: 'registered_date',
-  registered_time: 'registered_time',
-  created_at: 'created_at',
-  updated_at: 'updated_at'
-};
-
 exports.Prisma.Influencer_applicationScalarFieldEnum = {
   application_id: 'application_id',
   user_id: 'user_id',
@@ -517,192 +398,285 @@ exports.Prisma.Media_uploadsScalarFieldEnum = {
   created_at: 'created_at'
 };
 
-exports.Prisma.Tour_mediaScalarFieldEnum = {
-  tour_id: 'tour_id',
-  tour_name: 'tour_name',
-  description: 'description',
-  location: 'location',
-  tags: 'tags',
-  media_ids: 'media_ids',
+exports.Prisma.Mentor_applicationScalarFieldEnum = {
+  application_id: 'application_id',
+  user_id: 'user_id',
+  first_name: 'first_name',
+  last_name: 'last_name',
+  email: 'email',
+  phone_number: 'phone_number',
+  date_of_birth: 'date_of_birth',
+  country: 'country',
+  profile_bio: 'profile_bio',
+  educational_background: 'educational_background',
+  area_of_expertise: 'area_of_expertise',
+  linkedin_profile: 'linkedin_profile',
+  intro_video_url: 'intro_video_url',
+  max_mentees: 'max_mentees',
+  availability_schedule: 'availability_schedule',
+  motivation_statement: 'motivation_statement',
+  portfolio_attachments: 'portfolio_attachments',
+  application_status: 'application_status',
+  approve_application_status: 'approve_application_status',
+  deletion_status: 'deletion_status',
+  submitted_at: 'submitted_at',
+  updated_at: 'updated_at'
+};
+
+exports.Prisma.Message_reactionsScalarFieldEnum = {
+  id: 'id',
+  message_id: 'message_id',
+  user_id: 'user_id',
+  reaction: 'reaction',
+  created_at: 'created_at'
+};
+
+exports.Prisma.Night_camp_registrationsScalarFieldEnum = {
+  id: 'id',
+  camp_id: 'camp_id',
+  user_id: 'user_id',
+  status: 'status',
+  registered_date: 'registered_date',
+  registered_time: 'registered_time',
   created_at: 'created_at',
   updated_at: 'updated_at'
 };
 
-exports.Prisma.EventsScalarFieldEnum = {
+exports.Prisma.Night_camp_volunteeringScalarFieldEnum = {
   id: 'id',
-  event_name: 'event_name',
-  society_name: 'society_name',
+  night_camp_id: 'night_camp_id',
+  volunteering_role: 'volunteering_role',
+  number_of_applicants: 'number_of_applicants',
+  created_at: 'created_at'
+};
+
+exports.Prisma.Night_camp_volunteering_applicationsScalarFieldEnum = {
+  id: 'id',
+  night_camp_id: 'night_camp_id',
+  user_id: 'user_id',
+  volunteering_role: 'volunteering_role',
+  motivation: 'motivation',
+  experience: 'experience',
+  availability: 'availability',
+  emergency_contact_name: 'emergency_contact_name',
+  emergency_contact_phone: 'emergency_contact_phone',
+  emergency_contact_relationship: 'emergency_contact_relationship',
+  status: 'status',
+  application_date: 'application_date',
+  reviewed_by: 'reviewed_by',
+  reviewed_at: 'reviewed_at',
+  review_notes: 'review_notes',
+  created_at: 'created_at',
+  updated_at: 'updated_at'
+};
+
+exports.Prisma.Night_campsScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  organized_by: 'organized_by',
+  sponsored_by: 'sponsored_by',
   description: 'description',
-  visibility: 'visibility',
   date: 'date',
   time: 'time',
   location: 'location',
-  event_category: 'event_category',
-  needed_volunteers_count: 'needed_volunteers_count',
-  organized_by: 'organized_by',
+  number_of_participants: 'number_of_participants',
   image_urls: 'image_urls',
-  max_participants: 'max_participants',
-  event_status: 'event_status',
-  created_at: 'created_at',
+  emergency_contact: 'emergency_contact',
   status: 'status',
-  created_by: 'created_by',
-  moderated_by: 'moderated_by'
+  created_at: 'created_at',
+  updated_at: 'updated_at'
 };
 
-exports.Prisma.QuizParticipantsScalarFieldEnum = {
+exports.Prisma.Night_camps_activitiesScalarFieldEnum = {
   id: 'id',
-  quiz_id: 'quiz_id',
-  user_id: 'user_id',
-  correct_question_count: 'correct_question_count',
-  score: 'score'
+  night_camp_id: 'night_camp_id',
+  activity: 'activity',
+  created_at: 'created_at'
 };
 
-exports.Prisma.QuizQuestionScalarFieldEnum = {
+exports.Prisma.Night_camps_equipmentScalarFieldEnum = {
   id: 'id',
-  quiz_id: 'quiz_id',
-  question: 'question',
-  answers: 'answers',
-  correct_answer: 'correct_answer',
-  question_explanation: 'question_explanation'
-};
-
-exports.Prisma.QuizzesScalarFieldEnum = {
-  id: 'id',
-  name: 'name',
+  night_camp_id: 'night_camp_id',
   category: 'category',
+  equipment_name: 'equipment_name',
+  created_at: 'created_at'
+};
+
+exports.Prisma.PaymentsScalarFieldEnum = {
+  id: 'id',
+  user_id: 'user_id',
+  subscription_id: 'subscription_id',
+  amount: 'amount',
+  currency: 'currency',
+  payment_status: 'payment_status',
+  payment_method: 'payment_method',
+  payment_gateway: 'payment_gateway',
+  gateway_transaction_id: 'gateway_transaction_id',
+  gateway_order_id: 'gateway_order_id',
+  payment_date: 'payment_date',
+  metadata: 'metadata',
+  created_at: 'created_at',
+  updated_at: 'updated_at'
+};
+
+exports.Prisma.Poll_choicesScalarFieldEnum = {
+  id: 'id',
+  poll_id: 'poll_id',
+  choice: 'choice',
+  vote_count: 'vote_count',
+  created_at: 'created_at'
+};
+
+exports.Prisma.Poll_commentsScalarFieldEnum = {
+  id: 'id',
+  poll_id: 'poll_id',
+  user_id: 'user_id',
+  comment: 'comment',
+  created_at: 'created_at',
+  updated_at: 'updated_at'
+};
+
+exports.Prisma.Poll_votesScalarFieldEnum = {
+  id: 'id',
+  poll_id: 'poll_id',
+  choice_id: 'choice_id',
+  user_id: 'user_id',
+  voted_at: 'voted_at'
+};
+
+exports.Prisma.PollsScalarFieldEnum = {
+  id: 'id',
+  title: 'title',
   description: 'description',
-  time: 'time',
-  question_count: 'question_count',
+  created_by: 'created_by',
+  created_at: 'created_at',
+  updated_at: 'updated_at',
+  is_active: 'is_active'
+};
+
+exports.Prisma.Role_upgrade_requestsScalarFieldEnum = {
+  id: 'id',
+  user_id: 'user_id',
+  current_user_role: 'current_user_role',
+  requested_user_role: 'requested_user_role',
+  reason: 'reason',
+  supporting_evidence: 'supporting_evidence',
+  status: 'status',
+  reviewer_id: 'reviewer_id',
+  reviewer_notes: 'reviewer_notes',
+  submitted_at: 'submitted_at',
+  reviewed_at: 'reviewed_at'
+};
+
+exports.Prisma.Service_availabilityScalarFieldEnum = {
+  id: 'id',
+  service_id: 'service_id',
+  available_date: 'available_date',
+  start_time: 'start_time',
+  end_time: 'end_time',
+  slots_available: 'slots_available',
+  slots_booked: 'slots_booked',
+  status: 'status',
+  notes: 'notes',
+  created_at: 'created_at',
+  updated_at: 'updated_at'
+};
+
+exports.Prisma.Service_bookingsScalarFieldEnum = {
+  id: 'id',
+  service_id: 'service_id',
+  user_id: 'user_id',
+  booking_date: 'booking_date',
+  booking_time: 'booking_time',
   participants_count: 'participants_count',
-  time_limit: 'time_limit',
-  user_id: 'user_id',
-  created_at: 'created_at',
-  modified_at: 'modified_at',
-  status: 'status',
-  level: 'level'
-};
-
-exports.Prisma.Space_newsScalarFieldEnum = {
-  id: 'id',
-  image_urls: 'image_urls',
-  publish_date: 'publish_date',
-  title: 'title',
-  number_of_likes: 'number_of_likes',
-  number_of_comments: 'number_of_comments',
-  content: 'content',
-  published_by: 'published_by',
-  category: 'category',
-  created_at: 'created_at',
-  last_read_time: 'last_read_time'
-};
-
-exports.Prisma.Space_news_likesScalarFieldEnum = {
-  id: 'id',
-  space_news_id: 'space_news_id',
-  user_id: 'user_id',
-  created_at: 'created_at'
-};
-
-exports.Prisma.Space_news_commentsScalarFieldEnum = {
-  id: 'id',
-  space_news_id: 'space_news_id',
-  user_id: 'user_id',
-  parent_comment_id: 'parent_comment_id',
-  content: 'content',
-  is_edited: 'is_edited',
+  total_amount: 'total_amount',
+  payment_status: 'payment_status',
+  payment_method: 'payment_method',
+  transaction_id: 'transaction_id',
+  booking_status: 'booking_status',
+  special_requests: 'special_requests',
+  cancellation_reason: 'cancellation_reason',
+  cancelled_at: 'cancelled_at',
+  confirmed_at: 'confirmed_at',
+  completed_at: 'completed_at',
   created_at: 'created_at',
   updated_at: 'updated_at'
 };
 
-exports.Prisma.Space_discussionsScalarFieldEnum = {
+exports.Prisma.Service_mediaScalarFieldEnum = {
+  id: 'id',
+  service_id: 'service_id',
+  media_url: 'media_url',
+  media_type: 'media_type',
+  display_order: 'display_order',
+  caption: 'caption',
+  created_at: 'created_at'
+};
+
+exports.Prisma.Service_reviewsScalarFieldEnum = {
+  id: 'id',
+  service_id: 'service_id',
+  user_id: 'user_id',
+  rating: 'rating',
+  review: 'review',
+  images: 'images',
+  is_verified: 'is_verified',
+  created_at: 'created_at',
+  updated_at: 'updated_at'
+};
+
+exports.Prisma.ServicesScalarFieldEnum = {
   id: 'id',
   title: 'title',
-  content: 'content',
-  author_id: 'author_id',
-  category: 'category',
-  is_sticky: 'is_sticky',
-  is_closed: 'is_closed',
-  views_count: 'views_count',
-  replies_count: 'replies_count',
-  last_activity: 'last_activity',
-  created_at: 'created_at',
-  updated_at: 'updated_at'
-};
-
-exports.Prisma.Space_discussion_commentsScalarFieldEnum = {
-  id: 'id',
-  discussion_id: 'discussion_id',
-  user_id: 'user_id',
-  parent_id: 'parent_id',
-  content: 'content',
-  is_edited: 'is_edited',
-  created_at: 'created_at',
-  updated_at: 'updated_at'
-};
-
-exports.Prisma.Space_discussion_likesScalarFieldEnum = {
-  id: 'id',
-  discussion_id: 'discussion_id',
-  user_id: 'user_id',
-  created_at: 'created_at'
-};
-
-exports.Prisma.Space_discussion_comment_likesScalarFieldEnum = {
-  id: 'id',
-  comment_id: 'comment_id',
-  user_id: 'user_id',
-  created_at: 'created_at'
-};
-
-exports.Prisma.Astronomy_eventsScalarFieldEnum = {
-  id: 'id',
-  name: 'name',
   description: 'description',
-  visibility: 'visibility',
-  best_time: 'best_time',
-  image_url: 'image_url',
-  event_date: 'event_date',
-  end_date: 'end_date',
+  category: 'category',
+  price: 'price',
   duration: 'duration',
-  event_type: 'event_type',
-  is_active: 'is_active',
-  created_by: 'created_by',
-  created_at: 'created_at',
-  updated_at: 'updated_at'
-};
-
-exports.Prisma.Event_remindersScalarFieldEnum = {
-  id: 'id',
-  user_id: 'user_id',
-  event_id: 'event_id',
-  reminder_time: 'reminder_time',
-  is_sent: 'is_sent',
-  notification_type: 'notification_type',
-  created_at: 'created_at',
-  updated_at: 'updated_at'
-};
-
-exports.Prisma.Stargazing_spotsScalarFieldEnum = {
-  id: 'id',
-  name: 'name',
+  max_participants: 'max_participants',
   location: 'location',
+  difficulty: 'difficulty',
+  equipment: 'equipment',
+  next_available: 'next_available',
   image_url: 'image_url',
+  featured: 'featured',
+  tags: 'tags',
+  requirements: 'requirements',
+  cancellation_policy: 'cancellation_policy',
+  meeting_point: 'meeting_point',
+  what_to_expect: 'what_to_expect',
+  weather_policy: 'weather_policy',
+  booking_deadline: 'booking_deadline',
+  languages: 'languages',
+  certification: 'certification',
+  experience: 'experience',
+  group_discount: 'group_discount',
+  private_booking: 'private_booking',
+  instant_booking: 'instant_booking',
+  status: 'status',
+  views_count: 'views_count',
+  bookings_count: 'bookings_count',
   rating: 'rating',
-  best_time: 'best_time',
-  description: 'description',
-  facilities: 'facilities',
+  review_count: 'review_count',
   created_by: 'created_by',
   is_active: 'is_active',
   created_at: 'created_at',
   updated_at: 'updated_at'
 };
 
-exports.Prisma.Stargazing_spot_reviewsScalarFieldEnum = {
+exports.Prisma.Session_enrollmentsScalarFieldEnum = {
   id: 'id',
-  stargazing_spot_id: 'stargazing_spot_id',
   user_id: 'user_id',
-  rating: 'rating',
-  review_text: 'review_text',
+  session_id: 'session_id',
+  enrollment_date: 'enrollment_date',
+  payment_status: 'payment_status',
+  payment_amount: 'payment_amount',
+  payment_method: 'payment_method',
+  transaction_id: 'transaction_id',
+  access_granted: 'access_granted',
+  completed: 'completed',
+  progress: 'progress',
+  last_accessed_at: 'last_accessed_at',
+  notes: 'notes',
   created_at: 'created_at',
   updated_at: 'updated_at'
 };
@@ -730,55 +704,20 @@ exports.Prisma.SessionsScalarFieldEnum = {
   updated_at: 'updated_at'
 };
 
-exports.Prisma.Session_enrollmentsScalarFieldEnum = {
+exports.Prisma.Space_discussion_comment_likesScalarFieldEnum = {
   id: 'id',
+  comment_id: 'comment_id',
   user_id: 'user_id',
-  session_id: 'session_id',
-  enrollment_date: 'enrollment_date',
-  payment_status: 'payment_status',
-  payment_amount: 'payment_amount',
-  payment_method: 'payment_method',
-  transaction_id: 'transaction_id',
-  access_granted: 'access_granted',
-  completed: 'completed',
-  progress: 'progress',
-  last_accessed_at: 'last_accessed_at',
-  notes: 'notes',
-  created_at: 'created_at',
-  updated_at: 'updated_at'
-};
-
-exports.Prisma.PollsScalarFieldEnum = {
-  id: 'id',
-  title: 'title',
-  description: 'description',
-  created_by: 'created_by',
-  created_at: 'created_at',
-  updated_at: 'updated_at',
-  is_active: 'is_active'
-};
-
-exports.Prisma.Poll_choicesScalarFieldEnum = {
-  id: 'id',
-  poll_id: 'poll_id',
-  choice: 'choice',
-  vote_count: 'vote_count',
   created_at: 'created_at'
 };
 
-exports.Prisma.Poll_votesScalarFieldEnum = {
+exports.Prisma.Space_discussion_commentsScalarFieldEnum = {
   id: 'id',
-  poll_id: 'poll_id',
-  choice_id: 'choice_id',
+  discussion_id: 'discussion_id',
   user_id: 'user_id',
-  voted_at: 'voted_at'
-};
-
-exports.Prisma.Poll_commentsScalarFieldEnum = {
-  id: 'id',
-  poll_id: 'poll_id',
-  user_id: 'user_id',
-  comment: 'comment',
+  parent_id: 'parent_id',
+  content: 'content',
+  is_edited: 'is_edited',
   created_at: 'created_at',
   updated_at: 'updated_at'
 };
@@ -907,6 +846,11 @@ exports.Prisma.JsonNullValueFilter = {
   JsonNull: Prisma.JsonNull,
   AnyNull: Prisma.AnyNull
 };
+exports.QuizStatus = exports.$Enums.QuizStatus = {
+  open: 'open',
+  closed: 'closed'
+};
+
 exports.application_status = exports.$Enums.application_status = {
   pending: 'pending',
   approved: 'approved',
@@ -919,10 +863,46 @@ exports.approve_application_status = exports.$Enums.approve_application_status =
   rejected: 'rejected'
 };
 
+exports.availability_status = exports.$Enums.availability_status = {
+  available: 'available',
+  fully_booked: 'fully_booked',
+  unavailable: 'unavailable',
+  cancelled: 'cancelled'
+};
+
 exports.blog_status = exports.$Enums.blog_status = {
   draft: 'draft',
   published: 'published',
   archived: 'archived'
+};
+
+exports.booking_payment_status = exports.$Enums.booking_payment_status = {
+  pending: 'pending',
+  completed: 'completed',
+  failed: 'failed',
+  refunded: 'refunded'
+};
+
+exports.booking_status = exports.$Enums.booking_status = {
+  pending: 'pending',
+  confirmed: 'confirmed',
+  cancelled: 'cancelled',
+  completed: 'completed',
+  no_show: 'no_show'
+};
+
+exports.difficulty_level = exports.$Enums.difficulty_level = {
+  beginner: 'beginner',
+  intermediate: 'intermediate',
+  advanced: 'advanced'
+};
+
+exports.enrollment_payment_status = exports.$Enums.enrollment_payment_status = {
+  pending: 'pending',
+  completed: 'completed',
+  failed: 'failed',
+  refunded: 'refunded',
+  free_access: 'free_access'
 };
 
 exports.equipment_category = exports.$Enums.equipment_category = {
@@ -945,10 +925,54 @@ exports.payment_status = exports.$Enums.payment_status = {
   refunded: 'refunded'
 };
 
+exports.payment_type = exports.$Enums.payment_type = {
+  paid: 'paid',
+  free: 'free'
+};
+
+exports.poll_choice_type = exports.$Enums.poll_choice_type = {
+  yes: 'yes',
+  maybe: 'maybe',
+  no: 'no'
+};
+
+exports.quiz_difficulty_level = exports.$Enums.quiz_difficulty_level = {
+  Beginner: 'Beginner',
+  Intermediate: 'Intermediate',
+  Hard: 'Hard'
+};
+
+exports.service_category = exports.$Enums.service_category = {
+  stargazing: 'stargazing',
+  astrophotography: 'astrophotography',
+  telescope: 'telescope',
+  planetarium: 'planetarium',
+  workshop: 'workshop',
+  expedition: 'expedition'
+};
+
+exports.service_difficulty = exports.$Enums.service_difficulty = {
+  Beginner: 'Beginner',
+  Intermediate: 'Intermediate',
+  Advanced: 'Advanced'
+};
+
+exports.service_status = exports.$Enums.service_status = {
+  draft: 'draft',
+  active: 'active',
+  paused: 'paused',
+  archived: 'archived'
+};
+
 exports.session_format = exports.$Enums.session_format = {
   Live: 'Live',
   Recorded: 'Recorded',
   Hybrid: 'Hybrid'
+};
+
+exports.session_type = exports.$Enums.session_type = {
+  live: 'live',
+  recorded: 'recorded'
 };
 
 exports.subscription_plan = exports.$Enums.subscription_plan = {
@@ -974,45 +998,11 @@ exports.user_role = exports.$Enums.user_role = {
   influencer: 'influencer'
 };
 
-exports.QuizStatus = exports.$Enums.QuizStatus = {
-  open: 'open',
-  closed: 'closed'
-};
-
-exports.quiz_difficulty_level = exports.$Enums.quiz_difficulty_level = {
-  Beginner: 'Beginner',
-  Intermediate: 'Intermediate',
-  Hard: 'Hard'
-};
-
-exports.session_type = exports.$Enums.session_type = {
-  live: 'live',
-  recorded: 'recorded'
-};
-
-exports.payment_type = exports.$Enums.payment_type = {
-  paid: 'paid',
-  free: 'free'
-};
-
-exports.difficulty_level = exports.$Enums.difficulty_level = {
-  beginner: 'beginner',
-  intermediate: 'intermediate',
-  advanced: 'advanced'
-};
-
-exports.poll_choice_type = exports.$Enums.poll_choice_type = {
-  yes: 'yes',
-  maybe: 'maybe',
-  no: 'no'
-};
-
-exports.enrollment_payment_status = exports.$Enums.enrollment_payment_status = {
-  pending: 'pending',
-  completed: 'completed',
-  failed: 'failed',
-  refunded: 'refunded',
-  free_access: 'free_access'
+exports.weather_policy_type = exports.$Enums.weather_policy_type = {
+  reschedule: 'reschedule',
+  partial_refund: 'partial_refund',
+  full_refund: 'full_refund',
+  no_refund: 'no_refund'
 };
 
 exports.availability_status = exports.$Enums.availability_status = {
@@ -1103,16 +1093,53 @@ exports.Prisma.ModelName = {
   QuizParticipants: 'QuizParticipants',
   QuizQuestion: 'QuizQuestion',
   Quizzes: 'Quizzes',
-  space_news: 'space_news',
-  space_news_likes: 'space_news_likes',
-  space_news_comments: 'space_news_comments',
-  space_discussions: 'space_discussions',
+  astronomy_events: 'astronomy_events',
+  blog_categories: 'blog_categories',
+  blog_category_relations: 'blog_category_relations',
+  blog_comments: 'blog_comments',
+  blog_likes: 'blog_likes',
+  blog_views: 'blog_views',
+  blogs: 'blogs',
+  chat_messages: 'chat_messages',
+  chatbot_feedback: 'chatbot_feedback',
+  chatbot_messages: 'chatbot_messages',
+  chatbot_sessions: 'chatbot_sessions',
+  chatbot_usage: 'chatbot_usage',
+  event_reminders: 'event_reminders',
+  events: 'events',
+  group_chats: 'group_chats',
+  group_members: 'group_members',
+  guide_application: 'guide_application',
+  influencer_application: 'influencer_application',
+  media_uploads: 'media_uploads',
+  mentor_application: 'mentor_application',
+  message_reactions: 'message_reactions',
+  night_camp_registrations: 'night_camp_registrations',
+  night_camp_volunteering: 'night_camp_volunteering',
+  night_camp_volunteering_applications: 'night_camp_volunteering_applications',
+  night_camps: 'night_camps',
+  night_camps_activities: 'night_camps_activities',
+  night_camps_equipment: 'night_camps_equipment',
+  payments: 'payments',
+  poll_choices: 'poll_choices',
+  poll_comments: 'poll_comments',
+  poll_votes: 'poll_votes',
+  polls: 'polls',
+  role_upgrade_requests: 'role_upgrade_requests',
+  service_availability: 'service_availability',
+  service_bookings: 'service_bookings',
+  service_media: 'service_media',
+  service_reviews: 'service_reviews',
+  services: 'services',
+  session_enrollments: 'session_enrollments',
+  sessions: 'sessions',
+  space_discussion_comment_likes: 'space_discussion_comment_likes',
   space_discussion_comments: 'space_discussion_comments',
   space_discussion_likes: 'space_discussion_likes',
-  space_discussion_comment_likes: 'space_discussion_comment_likes',
-  astronomy_events: 'astronomy_events',
-  event_reminders: 'event_reminders',
-  stargazing_spots: 'stargazing_spots',
+  space_discussions: 'space_discussions',
+  space_news: 'space_news',
+  space_news_comments: 'space_news_comments',
+  space_news_likes: 'space_news_likes',
   stargazing_spot_reviews: 'stargazing_spot_reviews',
   sessions: 'sessions',
   session_enrollments: 'session_enrollments',
@@ -1146,7 +1173,7 @@ const config = {
     "binaryTargets": [
       {
         "fromEnvVar": null,
-        "value": "windows",
+        "value": "darwin-arm64",
         "native": true
       },
       {
