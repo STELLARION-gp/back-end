@@ -5,12 +5,12 @@ import { PrismaClient } from '../prisma/generated/client';
 const prisma = new PrismaClient();
 
 // Helper response functions
-const ok = (res: Response, message: string, data?: any) => {
-  return res.status(200).json({ success: true, message, data });
+const ok = (res: Response, message: string, data?: any): void => {
+  res.status(200).json({ success: true, message, data });
 };
 
-const fail = (res: Response, status: number, message: string, error?: any) => {
-  return res.status(status).json({ success: false, message, error });
+const fail = (res: Response, status: number, message: string, error?: any): void => {
+  res.status(status).json({ success: false, message, error });
 };
 
 /**
@@ -21,7 +21,8 @@ export const createBooking = async (req: Request, res: Response): Promise<void> 
   try {
     const userId = (req as any).user?.userId;
     if (!userId) {
-      return fail(res, 401, 'Unauthorized');
+      fail(res, 401, 'Unauthorized');
+      return;
     }
 
     const {
@@ -36,7 +37,8 @@ export const createBooking = async (req: Request, res: Response): Promise<void> 
 
     // Validate required fields
     if (!service_id || !booking_date || !total_price || participants === undefined) {
-      return fail(res, 400, 'Missing required fields');
+      fail(res, 400, 'Missing required fields');
+      return;
     }
 
     // Check if service exists
@@ -45,7 +47,8 @@ export const createBooking = async (req: Request, res: Response): Promise<void> 
     });
 
     if (!service) {
-      return fail(res, 404, 'Service not found');
+      fail(res, 404, 'Service not found');
+      return;
     }
 
     // Create booking
@@ -102,7 +105,8 @@ export const getMyBookings = async (req: Request, res: Response): Promise<void> 
   try {
     const userId = (req as any).user?.userId;
     if (!userId) {
-      return fail(res, 401, 'Unauthorized');
+      fail(res, 401, 'Unauthorized');
+      return;
     }
 
     const {
@@ -179,7 +183,8 @@ export const getGuideBookings = async (req: Request, res: Response): Promise<voi
   try {
     const userId = (req as any).user?.userId;
     if (!userId) {
-      return fail(res, 401, 'Unauthorized');
+      fail(res, 401, 'Unauthorized');
+      return;
     }
 
     const {
@@ -258,7 +263,8 @@ export const getBookingById = async (req: Request, res: Response): Promise<void>
   try {
     const userId = (req as any).user?.userId;
     if (!userId) {
-      return fail(res, 401, 'Unauthorized');
+      fail(res, 401, 'Unauthorized');
+      return;
     }
 
     const { id } = req.params;
@@ -292,12 +298,14 @@ export const getBookingById = async (req: Request, res: Response): Promise<void>
     });
 
     if (!booking) {
-      return fail(res, 404, 'Booking not found');
+      fail(res, 404, 'Booking not found');
+      return;
     }
 
     // Check authorization - must be the booking user or the service creator
     if (booking.user_id !== userId && booking.services.created_by !== userId) {
-      return fail(res, 403, 'You are not authorized to view this booking');
+      fail(res, 403, 'You are not authorized to view this booking');
+      return;
     }
 
     ok(res, 'Booking retrieved successfully', booking);
@@ -315,7 +323,8 @@ export const cancelBooking = async (req: Request, res: Response): Promise<void> 
   try {
     const userId = (req as any).user?.userId;
     if (!userId) {
-      return fail(res, 401, 'Unauthorized');
+      fail(res, 401, 'Unauthorized');
+      return;
     }
 
     const { id } = req.params;
@@ -326,17 +335,20 @@ export const cancelBooking = async (req: Request, res: Response): Promise<void> 
     });
 
     if (!booking) {
-      return fail(res, 404, 'Booking not found');
+      fail(res, 404, 'Booking not found');
+      return;
     }
 
     // Only the user who made the booking can cancel it
     if (booking.user_id !== userId) {
-      return fail(res, 403, 'You are not authorized to cancel this booking');
+      fail(res, 403, 'You are not authorized to cancel this booking');
+      return;
     }
 
     // Cannot cancel if already completed or cancelled
     if (booking.booking_status === 'completed' || booking.booking_status === 'cancelled') {
-      return fail(res, 400, `Cannot cancel a ${booking.booking_status} booking`);
+      fail(res, 400, `Cannot cancel a ${booking.booking_status} booking`);
+      return;
     }
 
     const updatedBooking = await prisma.service_bookings.update({
@@ -387,7 +399,8 @@ export const confirmBooking = async (req: Request, res: Response): Promise<void>
   try {
     const userId = (req as any).user?.userId;
     if (!userId) {
-      return fail(res, 401, 'Unauthorized');
+      fail(res, 401, 'Unauthorized');
+      return;
     }
 
     const { id } = req.params;
@@ -400,17 +413,20 @@ export const confirmBooking = async (req: Request, res: Response): Promise<void>
     });
 
     if (!booking) {
-      return fail(res, 404, 'Booking not found');
+      fail(res, 404, 'Booking not found');
+      return;
     }
 
     // Only the service creator can confirm
     if (booking.services.created_by !== userId) {
-      return fail(res, 403, 'You are not authorized to confirm this booking');
+      fail(res, 403, 'You are not authorized to confirm this booking');
+      return;
     }
 
     // Can only confirm pending bookings
     if (booking.booking_status !== 'pending') {
-      return fail(res, 400, `Cannot confirm a ${booking.booking_status} booking`);
+      fail(res, 400, `Cannot confirm a ${booking.booking_status} booking`);
+      return;
     }
 
     const updatedBooking = await prisma.service_bookings.update({
@@ -460,7 +476,8 @@ export const rejectBooking = async (req: Request, res: Response): Promise<void> 
   try {
     const userId = (req as any).user?.userId;
     if (!userId) {
-      return fail(res, 401, 'Unauthorized');
+      fail(res, 401, 'Unauthorized');
+      return;
     }
 
     const { id } = req.params;
@@ -474,17 +491,20 @@ export const rejectBooking = async (req: Request, res: Response): Promise<void> 
     });
 
     if (!booking) {
-      return fail(res, 404, 'Booking not found');
+      fail(res, 404, 'Booking not found');
+      return;
     }
 
     // Only the service creator can reject
     if (booking.services.created_by !== userId) {
-      return fail(res, 403, 'You are not authorized to reject this booking');
+      fail(res, 403, 'You are not authorized to reject this booking');
+      return;
     }
 
     // Can only reject pending bookings
     if (booking.booking_status !== 'pending') {
-      return fail(res, 400, `Cannot reject a ${booking.booking_status} booking`);
+      fail(res, 400, `Cannot reject a ${booking.booking_status} booking`);
+      return;
     }
 
     const updatedBooking = await prisma.service_bookings.update({
@@ -535,14 +555,16 @@ export const createReview = async (req: Request, res: Response): Promise<void> =
   try {
     const userId = (req as any).user?.userId;
     if (!userId) {
-      return fail(res, 401, 'Unauthorized');
+      fail(res, 401, 'Unauthorized');
+      return;
     }
 
     const { id } = req.params;
     const { rating, comment } = req.body;
 
     if (!rating || rating < 1 || rating > 5) {
-      return fail(res, 400, 'Rating must be between 1 and 5');
+      fail(res, 400, 'Rating must be between 1 and 5');
+      return;
     }
 
     // Check if booking exists and belongs to user
@@ -551,16 +573,19 @@ export const createReview = async (req: Request, res: Response): Promise<void> =
     });
 
     if (!booking) {
-      return fail(res, 404, 'Booking not found');
+      fail(res, 404, 'Booking not found');
+      return;
     }
 
     if (booking.user_id !== userId) {
-      return fail(res, 403, 'You can only review your own bookings');
+      fail(res, 403, 'You can only review your own bookings');
+      return;
     }
 
     // Booking must be completed to leave a review
     if (booking.booking_status !== 'completed') {
-      return fail(res, 400, 'You can only review completed bookings');
+      fail(res, 400, 'You can only review completed bookings');
+      return;
     }
 
     // Check if review already exists
@@ -574,7 +599,8 @@ export const createReview = async (req: Request, res: Response): Promise<void> =
     });
 
     if (existingReview) {
-      return fail(res, 400, 'You have already reviewed this service');
+      fail(res, 400, 'You have already reviewed this service');
+      return;
     }
 
     // Create review

@@ -97,7 +97,7 @@ export const createPoll = async (req: Request, res: Response): Promise<void> => 
         description: description?.trim() || null,
         created_by: userId,
         is_active: true,
-        choices: {
+        poll_choices: {
           create: pollChoices
         }
       },
@@ -111,10 +111,10 @@ export const createPoll = async (req: Request, res: Response): Promise<void> => 
             display_name: true,
           }
         },
-        choices: true,
+        poll_choices: true,
         _count: {
           select: {
-            comments: true
+            poll_comments: true
           }
         }
       }
@@ -172,7 +172,7 @@ export const voteOnPoll = async (req: Request, res: Response): Promise<void> => 
     const poll = await prisma.polls.findUnique({
       where: { id: pollId },
       include: {
-        choices: true
+        poll_choices: true
       }
     });
 
@@ -193,13 +193,13 @@ export const voteOnPoll = async (req: Request, res: Response): Promise<void> => 
     }
 
     // Validate that the choice exists in this poll
-    const selectedChoice = poll.choices.find(c => c.choice === choice.trim());
+    const selectedChoice = poll.poll_choices.find(c => c.choice === choice.trim());
 
     if (!selectedChoice) {
       res.status(400).json({
         success: false,
         message: "Invalid choice for this poll",
-        available_choices: poll.choices.map(c => c.choice)
+        available_choices: poll.poll_choices.map(c => c.choice)
       });
       return;
     }
@@ -211,19 +211,19 @@ export const voteOnPoll = async (req: Request, res: Response): Promise<void> => 
         user_id: userId
       },
       include: {
-        choice: true
+        poll_choices: true
       }
     });
 
     // If user already voted, update their vote (change vote)
     if (existingVote) {
       // Check if voting for the same choice
-      if (existingVote.choice.choice === choice.trim()) {
+      if (existingVote.poll_choices.choice === choice.trim()) {
         res.status(200).json({
           success: true,
           message: "You have already voted for this option",
           data: {
-            previous_vote: existingVote.choice.choice,
+            previous_vote: existingVote.poll_choices.choice,
             voted_at: existingVote.voted_at
           }
         });
@@ -260,7 +260,7 @@ export const voteOnPoll = async (req: Request, res: Response): Promise<void> => 
             voted_at: new Date()
           },
           include: {
-            choice: true,
+            poll_choices: true,
             voter: {
               select: {
                 id: true,
@@ -279,7 +279,7 @@ export const voteOnPoll = async (req: Request, res: Response): Promise<void> => 
         success: true,
         data: result,
         message: "Vote changed successfully",
-        previous_vote: existingVote.choice.choice
+        previous_vote: existingVote.poll_choices.choice
       });
       return;
     }
@@ -294,7 +294,7 @@ export const voteOnPoll = async (req: Request, res: Response): Promise<void> => 
           user_id: userId
         },
         include: {
-          choice: true,
+          poll_choices: true,
           voter: {
             select: {
               id: true,
@@ -369,11 +369,11 @@ export const getPollResults = async (req: Request, res: Response): Promise<void>
             display_name: true
           }
         },
-        choices: {
+        poll_choices: {
           include: {
             _count: {
               select: {
-                votes: true
+                poll_votes: true
               }
             }
           },
@@ -383,7 +383,7 @@ export const getPollResults = async (req: Request, res: Response): Promise<void>
         },
         _count: {
           select: {
-            comments: true
+            poll_comments: true
           }
         }
       }
@@ -398,7 +398,7 @@ export const getPollResults = async (req: Request, res: Response): Promise<void>
     }
 
     // Calculate total votes
-    const totalVotes = poll.choices.reduce((sum, choice) => sum + choice.vote_count, 0);
+    const totalVotes = poll.poll_choices.reduce((sum, choice) => sum + choice.vote_count, 0);
 
     // Check if current user has voted (if authenticated)
     let userVote = null;
@@ -409,14 +409,14 @@ export const getPollResults = async (req: Request, res: Response): Promise<void>
           user_id: userId
         },
         include: {
-          choice: true
+          poll_choices: true
         }
       });
-      userVote = vote ? vote.choice.choice : null;
+      userVote = vote ? vote.poll_choices.choice : null;
     }
 
     // Format results with percentages
-    const results = poll.choices.map(choice => ({
+    const results = poll.poll_choices.map(choice => ({
       choice: choice.choice,
       vote_count: choice.vote_count,
       percentage: totalVotes > 0 ? Math.round((choice.vote_count / totalVotes) * 100 * 10) / 10 : 0
@@ -433,7 +433,7 @@ export const getPollResults = async (req: Request, res: Response): Promise<void>
           created_at: poll.created_at,
           updated_at: poll.updated_at,
           creator: poll.creator,
-          comment_count: poll._count.comments
+          comment_count: poll._count.poll_comments
         },
         results,
         total_votes: totalVotes,
@@ -662,14 +662,14 @@ export const getAllPolls = async (req: Request, res: Response): Promise<void> =>
             display_name: true
           }
         },
-        choices: {
+        poll_choices: {
           orderBy: {
             choice: 'asc'
           }
         },
         _count: {
           select: {
-            comments: true
+            poll_comments: true
           }
         }
       }
@@ -686,19 +686,19 @@ export const getAllPolls = async (req: Request, res: Response): Promise<void> =>
           }
         },
         include: {
-          choice: true
+          poll_choices: true
         }
       });
 
       userVotes = votes.reduce((acc, vote) => {
-        acc[vote.poll_id] = vote.choice.choice;
+        acc[vote.poll_id] = vote.poll_choices.choice;
         return acc;
       }, {} as Record<number, string>);
     }
 
     // Format response with voting statistics
     const formattedPolls = polls.map(poll => {
-      const totalVotes = poll.choices.reduce((sum, choice) => sum + choice.vote_count, 0);
+      const totalVotes = poll.poll_choices.reduce((sum, choice) => sum + choice.vote_count, 0);
       
       return {
         id: poll.id,
@@ -708,13 +708,13 @@ export const getAllPolls = async (req: Request, res: Response): Promise<void> =>
         created_at: poll.created_at,
         updated_at: poll.updated_at,
         creator: poll.creator,
-        choices: poll.choices.map(choice => ({
+        choices: poll.poll_choices.map(choice => ({
           choice: choice.choice,
           vote_count: choice.vote_count,
           percentage: totalVotes > 0 ? Math.round((choice.vote_count / totalVotes) * 100 * 10) / 10 : 0
         })),
         total_votes: totalVotes,
-        comment_count: poll._count.comments,
+        comment_count: poll._count.poll_comments,
         user_vote: userVotes[poll.id] || null
       };
     });
@@ -764,14 +764,14 @@ export const getPollById = async (req: Request, res: Response): Promise<void> =>
             display_name: true
           }
         },
-        choices: {
+        poll_choices: {
           orderBy: {
             choice: 'asc'
           }
         },
         _count: {
           select: {
-            comments: true
+            poll_comments: true
           }
         }
       }
@@ -786,7 +786,7 @@ export const getPollById = async (req: Request, res: Response): Promise<void> =>
     }
 
     // Calculate total votes
-    const totalVotes = poll.choices.reduce((sum, choice) => sum + choice.vote_count, 0);
+    const totalVotes = poll.poll_choices.reduce((sum, choice) => sum + choice.vote_count, 0);
 
     // Check if current user has voted (if authenticated)
     let userVote = null;
@@ -797,10 +797,10 @@ export const getPollById = async (req: Request, res: Response): Promise<void> =>
           user_id: userId
         },
         include: {
-          choice: true
+          poll_choices: true
         }
       });
-      userVote = vote ? vote.choice.choice : null;
+      userVote = vote ? vote.poll_choices.choice : null;
     }
 
     // Format response
@@ -812,13 +812,13 @@ export const getPollById = async (req: Request, res: Response): Promise<void> =>
       created_at: poll.created_at,
       updated_at: poll.updated_at,
       creator: poll.creator,
-      choices: poll.choices.map(choice => ({
+      choices: poll.poll_choices.map(choice => ({
         choice: choice.choice,
         vote_count: choice.vote_count,
         percentage: totalVotes > 0 ? Math.round((choice.vote_count / totalVotes) * 100 * 10) / 10 : 0
       })),
       total_votes: totalVotes,
-      comment_count: poll._count.comments,
+      comment_count: poll._count.poll_comments,
       user_vote: userVote
     };
 
@@ -901,10 +901,10 @@ export const updatePoll = async (req: Request, res: Response): Promise<void> => 
             display_name: true
           }
         },
-        choices: true,
+        poll_choices: true,
         _count: {
           select: {
-            comments: true
+            poll_comments: true
           }
         }
       }

@@ -729,6 +729,11 @@ exports.Prisma.SessionsScalarFieldEnum = {
   materials: 'materials',
   session_notes: 'session_notes',
   created_by: 'created_by',
+  status: 'status',
+  moderated_by: 'moderated_by',
+  approved_at: 'approved_at',
+  rejected_at: 'rejected_at',
+  rejection_reason: 'rejection_reason',
   created_date: 'created_date',
   created_time: 'created_time',
   is_enabled: 'is_enabled',
@@ -830,7 +835,11 @@ exports.Prisma.Stargazing_spotsScalarFieldEnum = {
   created_by: 'created_by',
   is_active: 'is_active',
   created_at: 'created_at',
-  updated_at: 'updated_at'
+  updated_at: 'updated_at',
+  image_urls: 'image_urls',
+  status: 'status',
+  moderated_by: 'moderated_by',
+  moderated_at: 'moderated_at'
 };
 
 exports.Prisma.Subscription_plansScalarFieldEnum = {
@@ -1066,6 +1075,12 @@ exports.difficulty_level = exports.$Enums.difficulty_level = {
   beginner: 'beginner',
   intermediate: 'intermediate',
   advanced: 'advanced'
+};
+
+exports.session_status = exports.$Enums.session_status = {
+  pending: 'pending',
+  approved: 'approved',
+  rejected: 'rejected'
 };
 
 exports.Prisma.ModelName = {

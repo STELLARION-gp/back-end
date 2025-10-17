@@ -494,6 +494,15 @@ export const session_type: {
 export type session_type = (typeof session_type)[keyof typeof session_type]
 
 
+export const session_status: {
+  pending: 'pending',
+  approved: 'approved',
+  rejected: 'rejected'
+};
+
+export type session_status = (typeof session_status)[keyof typeof session_status]
+
+
 export const subscription_plan: {
   starseeker: 'starseeker',
   galaxy_explorer: 'galaxy_explorer',
@@ -616,6 +625,10 @@ export const session_format: typeof $Enums.session_format
 export type session_type = $Enums.session_type
 
 export const session_type: typeof $Enums.session_type
+
+export type session_status = $Enums.session_status
+
+export const session_status: typeof $Enums.session_status
 
 export type subscription_plan = $Enums.subscription_plan
 
@@ -6553,6 +6566,7 @@ export namespace Prisma {
     services: number
     session_enrollments: number
     created_sessions: number
+    moderated_sessions: number
     discussion_comment_likes: number
     discussion_comments: number
     discussion_likes: number
@@ -6562,6 +6576,7 @@ export namespace Prisma {
     space_news_likes: number
     stargazing_spot_reviews: number
     created_stargazing_spots: number
+    stargazing_spots_stargazing_spots_moderated_byTousers: number
     subscriptions: number
   }
 
@@ -6598,6 +6613,7 @@ export namespace Prisma {
     services?: boolean | UsersCountOutputTypeCountServicesArgs
     session_enrollments?: boolean | UsersCountOutputTypeCountSession_enrollmentsArgs
     created_sessions?: boolean | UsersCountOutputTypeCountCreated_sessionsArgs
+    moderated_sessions?: boolean | UsersCountOutputTypeCountModerated_sessionsArgs
     discussion_comment_likes?: boolean | UsersCountOutputTypeCountDiscussion_comment_likesArgs
     discussion_comments?: boolean | UsersCountOutputTypeCountDiscussion_commentsArgs
     discussion_likes?: boolean | UsersCountOutputTypeCountDiscussion_likesArgs
@@ -6607,6 +6623,7 @@ export namespace Prisma {
     space_news_likes?: boolean | UsersCountOutputTypeCountSpace_news_likesArgs
     stargazing_spot_reviews?: boolean | UsersCountOutputTypeCountStargazing_spot_reviewsArgs
     created_stargazing_spots?: boolean | UsersCountOutputTypeCountCreated_stargazing_spotsArgs
+    stargazing_spots_stargazing_spots_moderated_byTousers?: boolean | UsersCountOutputTypeCountStargazing_spots_stargazing_spots_moderated_byTousersArgs
     subscriptions?: boolean | UsersCountOutputTypeCountSubscriptionsArgs
   }
 
@@ -6848,6 +6865,13 @@ export namespace Prisma {
   /**
    * UsersCountOutputType without action
    */
+  export type UsersCountOutputTypeCountModerated_sessionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: sessionsWhereInput
+  }
+
+  /**
+   * UsersCountOutputType without action
+   */
   export type UsersCountOutputTypeCountDiscussion_comment_likesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: space_discussion_comment_likesWhereInput
   }
@@ -6905,6 +6929,13 @@ export namespace Prisma {
    * UsersCountOutputType without action
    */
   export type UsersCountOutputTypeCountCreated_stargazing_spotsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: stargazing_spotsWhereInput
+  }
+
+  /**
+   * UsersCountOutputType without action
+   */
+  export type UsersCountOutputTypeCountStargazing_spots_stargazing_spots_moderated_byTousersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: stargazing_spotsWhereInput
   }
 
@@ -21034,6 +21065,7 @@ export namespace Prisma {
     services?: boolean | users$servicesArgs<ExtArgs>
     session_enrollments?: boolean | users$session_enrollmentsArgs<ExtArgs>
     created_sessions?: boolean | users$created_sessionsArgs<ExtArgs>
+    moderated_sessions?: boolean | users$moderated_sessionsArgs<ExtArgs>
     discussion_comment_likes?: boolean | users$discussion_comment_likesArgs<ExtArgs>
     discussion_comments?: boolean | users$discussion_commentsArgs<ExtArgs>
     discussion_likes?: boolean | users$discussion_likesArgs<ExtArgs>
@@ -21043,6 +21075,7 @@ export namespace Prisma {
     space_news_likes?: boolean | users$space_news_likesArgs<ExtArgs>
     stargazing_spot_reviews?: boolean | users$stargazing_spot_reviewsArgs<ExtArgs>
     created_stargazing_spots?: boolean | users$created_stargazing_spotsArgs<ExtArgs>
+    stargazing_spots_stargazing_spots_moderated_byTousers?: boolean | users$stargazing_spots_stargazing_spots_moderated_byTousersArgs<ExtArgs>
     subscriptions?: boolean | users$subscriptionsArgs<ExtArgs>
     user_settings?: boolean | users$user_settingsArgs<ExtArgs>
     _count?: boolean | UsersCountOutputTypeDefaultArgs<ExtArgs>
@@ -21151,6 +21184,7 @@ export namespace Prisma {
     services?: boolean | users$servicesArgs<ExtArgs>
     session_enrollments?: boolean | users$session_enrollmentsArgs<ExtArgs>
     created_sessions?: boolean | users$created_sessionsArgs<ExtArgs>
+    moderated_sessions?: boolean | users$moderated_sessionsArgs<ExtArgs>
     discussion_comment_likes?: boolean | users$discussion_comment_likesArgs<ExtArgs>
     discussion_comments?: boolean | users$discussion_commentsArgs<ExtArgs>
     discussion_likes?: boolean | users$discussion_likesArgs<ExtArgs>
@@ -21160,6 +21194,7 @@ export namespace Prisma {
     space_news_likes?: boolean | users$space_news_likesArgs<ExtArgs>
     stargazing_spot_reviews?: boolean | users$stargazing_spot_reviewsArgs<ExtArgs>
     created_stargazing_spots?: boolean | users$created_stargazing_spotsArgs<ExtArgs>
+    stargazing_spots_stargazing_spots_moderated_byTousers?: boolean | users$stargazing_spots_stargazing_spots_moderated_byTousersArgs<ExtArgs>
     subscriptions?: boolean | users$subscriptionsArgs<ExtArgs>
     user_settings?: boolean | users$user_settingsArgs<ExtArgs>
     _count?: boolean | UsersCountOutputTypeDefaultArgs<ExtArgs>
@@ -21202,6 +21237,7 @@ export namespace Prisma {
       services: Prisma.$servicesPayload<ExtArgs>[]
       session_enrollments: Prisma.$session_enrollmentsPayload<ExtArgs>[]
       created_sessions: Prisma.$sessionsPayload<ExtArgs>[]
+      moderated_sessions: Prisma.$sessionsPayload<ExtArgs>[]
       discussion_comment_likes: Prisma.$space_discussion_comment_likesPayload<ExtArgs>[]
       discussion_comments: Prisma.$space_discussion_commentsPayload<ExtArgs>[]
       discussion_likes: Prisma.$space_discussion_likesPayload<ExtArgs>[]
@@ -21211,6 +21247,7 @@ export namespace Prisma {
       space_news_likes: Prisma.$space_news_likesPayload<ExtArgs>[]
       stargazing_spot_reviews: Prisma.$stargazing_spot_reviewsPayload<ExtArgs>[]
       created_stargazing_spots: Prisma.$stargazing_spotsPayload<ExtArgs>[]
+      stargazing_spots_stargazing_spots_moderated_byTousers: Prisma.$stargazing_spotsPayload<ExtArgs>[]
       subscriptions: Prisma.$subscriptionsPayload<ExtArgs>[]
       user_settings: Prisma.$user_settingsPayload<ExtArgs> | null
     }
@@ -21661,6 +21698,7 @@ export namespace Prisma {
     services<T extends users$servicesArgs<ExtArgs> = {}>(args?: Subset<T, users$servicesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$servicesPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     session_enrollments<T extends users$session_enrollmentsArgs<ExtArgs> = {}>(args?: Subset<T, users$session_enrollmentsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$session_enrollmentsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     created_sessions<T extends users$created_sessionsArgs<ExtArgs> = {}>(args?: Subset<T, users$created_sessionsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$sessionsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    moderated_sessions<T extends users$moderated_sessionsArgs<ExtArgs> = {}>(args?: Subset<T, users$moderated_sessionsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$sessionsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     discussion_comment_likes<T extends users$discussion_comment_likesArgs<ExtArgs> = {}>(args?: Subset<T, users$discussion_comment_likesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$space_discussion_comment_likesPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     discussion_comments<T extends users$discussion_commentsArgs<ExtArgs> = {}>(args?: Subset<T, users$discussion_commentsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$space_discussion_commentsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     discussion_likes<T extends users$discussion_likesArgs<ExtArgs> = {}>(args?: Subset<T, users$discussion_likesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$space_discussion_likesPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
@@ -21670,6 +21708,7 @@ export namespace Prisma {
     space_news_likes<T extends users$space_news_likesArgs<ExtArgs> = {}>(args?: Subset<T, users$space_news_likesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$space_news_likesPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     stargazing_spot_reviews<T extends users$stargazing_spot_reviewsArgs<ExtArgs> = {}>(args?: Subset<T, users$stargazing_spot_reviewsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$stargazing_spot_reviewsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     created_stargazing_spots<T extends users$created_stargazing_spotsArgs<ExtArgs> = {}>(args?: Subset<T, users$created_stargazing_spotsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$stargazing_spotsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    stargazing_spots_stargazing_spots_moderated_byTousers<T extends users$stargazing_spots_stargazing_spots_moderated_byTousersArgs<ExtArgs> = {}>(args?: Subset<T, users$stargazing_spots_stargazing_spots_moderated_byTousersArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$stargazing_spotsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     subscriptions<T extends users$subscriptionsArgs<ExtArgs> = {}>(args?: Subset<T, users$subscriptionsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$subscriptionsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     user_settings<T extends users$user_settingsArgs<ExtArgs> = {}>(args?: Subset<T, users$user_settingsArgs<ExtArgs>>): Prisma__user_settingsClient<$Result.GetResult<Prisma.$user_settingsPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     /**
@@ -22877,6 +22916,30 @@ export namespace Prisma {
   }
 
   /**
+   * users.moderated_sessions
+   */
+  export type users$moderated_sessionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the sessions
+     */
+    select?: sessionsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the sessions
+     */
+    omit?: sessionsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: sessionsInclude<ExtArgs> | null
+    where?: sessionsWhereInput
+    orderBy?: sessionsOrderByWithRelationInput | sessionsOrderByWithRelationInput[]
+    cursor?: sessionsWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: SessionsScalarFieldEnum | SessionsScalarFieldEnum[]
+  }
+
+  /**
    * users.discussion_comment_likes
    */
   export type users$discussion_comment_likesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -23072,6 +23135,30 @@ export namespace Prisma {
    * users.created_stargazing_spots
    */
   export type users$created_stargazing_spotsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the stargazing_spots
+     */
+    select?: stargazing_spotsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the stargazing_spots
+     */
+    omit?: stargazing_spotsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: stargazing_spotsInclude<ExtArgs> | null
+    where?: stargazing_spotsWhereInput
+    orderBy?: stargazing_spotsOrderByWithRelationInput | stargazing_spotsOrderByWithRelationInput[]
+    cursor?: stargazing_spotsWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: Stargazing_spotsScalarFieldEnum | Stargazing_spotsScalarFieldEnum[]
+  }
+
+  /**
+   * users.stargazing_spots_stargazing_spots_moderated_byTousers
+   */
+  export type users$stargazing_spots_stargazing_spots_moderated_byTousersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
      * Select specific fields to fetch from the stargazing_spots
      */
@@ -59575,6 +59662,7 @@ export namespace Prisma {
     duration: number | null
     max_participants: number | null
     created_by: number | null
+    moderated_by: number | null
   }
 
   export type SessionsSumAggregateOutputType = {
@@ -59583,6 +59671,7 @@ export namespace Prisma {
     duration: number | null
     max_participants: number | null
     created_by: number | null
+    moderated_by: number | null
   }
 
   export type SessionsMinAggregateOutputType = {
@@ -59600,6 +59689,11 @@ export namespace Prisma {
     description: string | null
     session_notes: string | null
     created_by: number | null
+    status: $Enums.session_status | null
+    moderated_by: number | null
+    approved_at: Date | null
+    rejected_at: Date | null
+    rejection_reason: string | null
     created_date: Date | null
     created_time: Date | null
     is_enabled: boolean | null
@@ -59622,6 +59716,11 @@ export namespace Prisma {
     description: string | null
     session_notes: string | null
     created_by: number | null
+    status: $Enums.session_status | null
+    moderated_by: number | null
+    approved_at: Date | null
+    rejected_at: Date | null
+    rejection_reason: string | null
     created_date: Date | null
     created_time: Date | null
     is_enabled: boolean | null
@@ -59645,6 +59744,11 @@ export namespace Prisma {
     materials: number
     session_notes: number
     created_by: number
+    status: number
+    moderated_by: number
+    approved_at: number
+    rejected_at: number
+    rejection_reason: number
     created_date: number
     created_time: number
     is_enabled: number
@@ -59660,6 +59764,7 @@ export namespace Prisma {
     duration?: true
     max_participants?: true
     created_by?: true
+    moderated_by?: true
   }
 
   export type SessionsSumAggregateInputType = {
@@ -59668,6 +59773,7 @@ export namespace Prisma {
     duration?: true
     max_participants?: true
     created_by?: true
+    moderated_by?: true
   }
 
   export type SessionsMinAggregateInputType = {
@@ -59685,6 +59791,11 @@ export namespace Prisma {
     description?: true
     session_notes?: true
     created_by?: true
+    status?: true
+    moderated_by?: true
+    approved_at?: true
+    rejected_at?: true
+    rejection_reason?: true
     created_date?: true
     created_time?: true
     is_enabled?: true
@@ -59707,6 +59818,11 @@ export namespace Prisma {
     description?: true
     session_notes?: true
     created_by?: true
+    status?: true
+    moderated_by?: true
+    approved_at?: true
+    rejected_at?: true
+    rejection_reason?: true
     created_date?: true
     created_time?: true
     is_enabled?: true
@@ -59730,6 +59846,11 @@ export namespace Prisma {
     materials?: true
     session_notes?: true
     created_by?: true
+    status?: true
+    moderated_by?: true
+    approved_at?: true
+    rejected_at?: true
+    rejection_reason?: true
     created_date?: true
     created_time?: true
     is_enabled?: true
@@ -59840,6 +59961,11 @@ export namespace Prisma {
     materials: JsonValue | null
     session_notes: string | null
     created_by: number
+    status: $Enums.session_status
+    moderated_by: number | null
+    approved_at: Date | null
+    rejected_at: Date | null
+    rejection_reason: string | null
     created_date: Date
     created_time: Date
     is_enabled: boolean
@@ -59882,6 +60008,11 @@ export namespace Prisma {
     materials?: boolean
     session_notes?: boolean
     created_by?: boolean
+    status?: boolean
+    moderated_by?: boolean
+    approved_at?: boolean
+    rejected_at?: boolean
+    rejection_reason?: boolean
     created_date?: boolean
     created_time?: boolean
     is_enabled?: boolean
@@ -59889,6 +60020,7 @@ export namespace Prisma {
     updated_at?: boolean
     session_enrollments?: boolean | sessions$session_enrollmentsArgs<ExtArgs>
     creator?: boolean | usersDefaultArgs<ExtArgs>
+    moderator?: boolean | sessions$moderatorArgs<ExtArgs>
     _count?: boolean | SessionsCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["sessions"]>
 
@@ -59908,12 +60040,18 @@ export namespace Prisma {
     materials?: boolean
     session_notes?: boolean
     created_by?: boolean
+    status?: boolean
+    moderated_by?: boolean
+    approved_at?: boolean
+    rejected_at?: boolean
+    rejection_reason?: boolean
     created_date?: boolean
     created_time?: boolean
     is_enabled?: boolean
     created_at?: boolean
     updated_at?: boolean
     creator?: boolean | usersDefaultArgs<ExtArgs>
+    moderator?: boolean | sessions$moderatorArgs<ExtArgs>
   }, ExtArgs["result"]["sessions"]>
 
   export type sessionsSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -59932,12 +60070,18 @@ export namespace Prisma {
     materials?: boolean
     session_notes?: boolean
     created_by?: boolean
+    status?: boolean
+    moderated_by?: boolean
+    approved_at?: boolean
+    rejected_at?: boolean
+    rejection_reason?: boolean
     created_date?: boolean
     created_time?: boolean
     is_enabled?: boolean
     created_at?: boolean
     updated_at?: boolean
     creator?: boolean | usersDefaultArgs<ExtArgs>
+    moderator?: boolean | sessions$moderatorArgs<ExtArgs>
   }, ExtArgs["result"]["sessions"]>
 
   export type sessionsSelectScalar = {
@@ -59956,6 +60100,11 @@ export namespace Prisma {
     materials?: boolean
     session_notes?: boolean
     created_by?: boolean
+    status?: boolean
+    moderated_by?: boolean
+    approved_at?: boolean
+    rejected_at?: boolean
+    rejection_reason?: boolean
     created_date?: boolean
     created_time?: boolean
     is_enabled?: boolean
@@ -59963,17 +60112,20 @@ export namespace Prisma {
     updated_at?: boolean
   }
 
-  export type sessionsOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "title" | "session_type" | "payment_type" | "price" | "duration" | "session_date" | "session_time" | "max_participants" | "difficulty_level" | "session_link" | "description" | "materials" | "session_notes" | "created_by" | "created_date" | "created_time" | "is_enabled" | "created_at" | "updated_at", ExtArgs["result"]["sessions"]>
+  export type sessionsOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "title" | "session_type" | "payment_type" | "price" | "duration" | "session_date" | "session_time" | "max_participants" | "difficulty_level" | "session_link" | "description" | "materials" | "session_notes" | "created_by" | "status" | "moderated_by" | "approved_at" | "rejected_at" | "rejection_reason" | "created_date" | "created_time" | "is_enabled" | "created_at" | "updated_at", ExtArgs["result"]["sessions"]>
   export type sessionsInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     session_enrollments?: boolean | sessions$session_enrollmentsArgs<ExtArgs>
     creator?: boolean | usersDefaultArgs<ExtArgs>
+    moderator?: boolean | sessions$moderatorArgs<ExtArgs>
     _count?: boolean | SessionsCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type sessionsIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     creator?: boolean | usersDefaultArgs<ExtArgs>
+    moderator?: boolean | sessions$moderatorArgs<ExtArgs>
   }
   export type sessionsIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     creator?: boolean | usersDefaultArgs<ExtArgs>
+    moderator?: boolean | sessions$moderatorArgs<ExtArgs>
   }
 
   export type $sessionsPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -59981,6 +60133,7 @@ export namespace Prisma {
     objects: {
       session_enrollments: Prisma.$session_enrollmentsPayload<ExtArgs>[]
       creator: Prisma.$usersPayload<ExtArgs>
+      moderator: Prisma.$usersPayload<ExtArgs> | null
     }
     scalars: $Extensions.GetPayloadResult<{
       id: number
@@ -59998,6 +60151,11 @@ export namespace Prisma {
       materials: Prisma.JsonValue | null
       session_notes: string | null
       created_by: number
+      status: $Enums.session_status
+      moderated_by: number | null
+      approved_at: Date | null
+      rejected_at: Date | null
+      rejection_reason: string | null
       created_date: Date
       created_time: Date
       is_enabled: boolean
@@ -60399,6 +60557,7 @@ export namespace Prisma {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     session_enrollments<T extends sessions$session_enrollmentsArgs<ExtArgs> = {}>(args?: Subset<T, sessions$session_enrollmentsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$session_enrollmentsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     creator<T extends usersDefaultArgs<ExtArgs> = {}>(args?: Subset<T, usersDefaultArgs<ExtArgs>>): Prisma__usersClient<$Result.GetResult<Prisma.$usersPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    moderator<T extends sessions$moderatorArgs<ExtArgs> = {}>(args?: Subset<T, sessions$moderatorArgs<ExtArgs>>): Prisma__usersClient<$Result.GetResult<Prisma.$usersPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -60443,6 +60602,11 @@ export namespace Prisma {
     readonly materials: FieldRef<"sessions", 'Json'>
     readonly session_notes: FieldRef<"sessions", 'String'>
     readonly created_by: FieldRef<"sessions", 'Int'>
+    readonly status: FieldRef<"sessions", 'session_status'>
+    readonly moderated_by: FieldRef<"sessions", 'Int'>
+    readonly approved_at: FieldRef<"sessions", 'DateTime'>
+    readonly rejected_at: FieldRef<"sessions", 'DateTime'>
+    readonly rejection_reason: FieldRef<"sessions", 'String'>
     readonly created_date: FieldRef<"sessions", 'DateTime'>
     readonly created_time: FieldRef<"sessions", 'DateTime'>
     readonly is_enabled: FieldRef<"sessions", 'Boolean'>
@@ -60865,6 +61029,25 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: Session_enrollmentsScalarFieldEnum | Session_enrollmentsScalarFieldEnum[]
+  }
+
+  /**
+   * sessions.moderator
+   */
+  export type sessions$moderatorArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the users
+     */
+    select?: usersSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the users
+     */
+    omit?: usersOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: usersInclude<ExtArgs> | null
+    where?: usersWhereInput
   }
 
   /**
@@ -70258,12 +70441,14 @@ export namespace Prisma {
     id: number | null
     rating: number | null
     created_by: number | null
+    moderated_by: number | null
   }
 
   export type Stargazing_spotsSumAggregateOutputType = {
     id: number | null
     rating: number | null
     created_by: number | null
+    moderated_by: number | null
   }
 
   export type Stargazing_spotsMinAggregateOutputType = {
@@ -70278,6 +70463,9 @@ export namespace Prisma {
     is_active: boolean | null
     created_at: Date | null
     updated_at: Date | null
+    status: string | null
+    moderated_by: number | null
+    moderated_at: Date | null
   }
 
   export type Stargazing_spotsMaxAggregateOutputType = {
@@ -70292,6 +70480,9 @@ export namespace Prisma {
     is_active: boolean | null
     created_at: Date | null
     updated_at: Date | null
+    status: string | null
+    moderated_by: number | null
+    moderated_at: Date | null
   }
 
   export type Stargazing_spotsCountAggregateOutputType = {
@@ -70307,6 +70498,10 @@ export namespace Prisma {
     is_active: number
     created_at: number
     updated_at: number
+    image_urls: number
+    status: number
+    moderated_by: number
+    moderated_at: number
     _all: number
   }
 
@@ -70315,12 +70510,14 @@ export namespace Prisma {
     id?: true
     rating?: true
     created_by?: true
+    moderated_by?: true
   }
 
   export type Stargazing_spotsSumAggregateInputType = {
     id?: true
     rating?: true
     created_by?: true
+    moderated_by?: true
   }
 
   export type Stargazing_spotsMinAggregateInputType = {
@@ -70335,6 +70532,9 @@ export namespace Prisma {
     is_active?: true
     created_at?: true
     updated_at?: true
+    status?: true
+    moderated_by?: true
+    moderated_at?: true
   }
 
   export type Stargazing_spotsMaxAggregateInputType = {
@@ -70349,6 +70549,9 @@ export namespace Prisma {
     is_active?: true
     created_at?: true
     updated_at?: true
+    status?: true
+    moderated_by?: true
+    moderated_at?: true
   }
 
   export type Stargazing_spotsCountAggregateInputType = {
@@ -70364,6 +70567,10 @@ export namespace Prisma {
     is_active?: true
     created_at?: true
     updated_at?: true
+    image_urls?: true
+    status?: true
+    moderated_by?: true
+    moderated_at?: true
     _all?: true
   }
 
@@ -70466,6 +70673,10 @@ export namespace Prisma {
     is_active: boolean
     created_at: Date
     updated_at: Date
+    image_urls: string[]
+    status: string | null
+    moderated_by: number | null
+    moderated_at: Date | null
     _count: Stargazing_spotsCountAggregateOutputType | null
     _avg: Stargazing_spotsAvgAggregateOutputType | null
     _sum: Stargazing_spotsSumAggregateOutputType | null
@@ -70500,8 +70711,13 @@ export namespace Prisma {
     is_active?: boolean
     created_at?: boolean
     updated_at?: boolean
+    image_urls?: boolean
+    status?: boolean
+    moderated_by?: boolean
+    moderated_at?: boolean
     stargazing_spot_reviews?: boolean | stargazing_spots$stargazing_spot_reviewsArgs<ExtArgs>
     creator?: boolean | usersDefaultArgs<ExtArgs>
+    users_stargazing_spots_moderated_byTousers?: boolean | stargazing_spots$users_stargazing_spots_moderated_byTousersArgs<ExtArgs>
     _count?: boolean | Stargazing_spotsCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["stargazing_spots"]>
 
@@ -70518,7 +70734,12 @@ export namespace Prisma {
     is_active?: boolean
     created_at?: boolean
     updated_at?: boolean
+    image_urls?: boolean
+    status?: boolean
+    moderated_by?: boolean
+    moderated_at?: boolean
     creator?: boolean | usersDefaultArgs<ExtArgs>
+    users_stargazing_spots_moderated_byTousers?: boolean | stargazing_spots$users_stargazing_spots_moderated_byTousersArgs<ExtArgs>
   }, ExtArgs["result"]["stargazing_spots"]>
 
   export type stargazing_spotsSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -70534,7 +70755,12 @@ export namespace Prisma {
     is_active?: boolean
     created_at?: boolean
     updated_at?: boolean
+    image_urls?: boolean
+    status?: boolean
+    moderated_by?: boolean
+    moderated_at?: boolean
     creator?: boolean | usersDefaultArgs<ExtArgs>
+    users_stargazing_spots_moderated_byTousers?: boolean | stargazing_spots$users_stargazing_spots_moderated_byTousersArgs<ExtArgs>
   }, ExtArgs["result"]["stargazing_spots"]>
 
   export type stargazing_spotsSelectScalar = {
@@ -70550,19 +70776,26 @@ export namespace Prisma {
     is_active?: boolean
     created_at?: boolean
     updated_at?: boolean
+    image_urls?: boolean
+    status?: boolean
+    moderated_by?: boolean
+    moderated_at?: boolean
   }
 
-  export type stargazing_spotsOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "location" | "image_url" | "rating" | "best_time" | "description" | "facilities" | "created_by" | "is_active" | "created_at" | "updated_at", ExtArgs["result"]["stargazing_spots"]>
+  export type stargazing_spotsOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "location" | "image_url" | "rating" | "best_time" | "description" | "facilities" | "created_by" | "is_active" | "created_at" | "updated_at" | "image_urls" | "status" | "moderated_by" | "moderated_at", ExtArgs["result"]["stargazing_spots"]>
   export type stargazing_spotsInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     stargazing_spot_reviews?: boolean | stargazing_spots$stargazing_spot_reviewsArgs<ExtArgs>
     creator?: boolean | usersDefaultArgs<ExtArgs>
+    users_stargazing_spots_moderated_byTousers?: boolean | stargazing_spots$users_stargazing_spots_moderated_byTousersArgs<ExtArgs>
     _count?: boolean | Stargazing_spotsCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type stargazing_spotsIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     creator?: boolean | usersDefaultArgs<ExtArgs>
+    users_stargazing_spots_moderated_byTousers?: boolean | stargazing_spots$users_stargazing_spots_moderated_byTousersArgs<ExtArgs>
   }
   export type stargazing_spotsIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     creator?: boolean | usersDefaultArgs<ExtArgs>
+    users_stargazing_spots_moderated_byTousers?: boolean | stargazing_spots$users_stargazing_spots_moderated_byTousersArgs<ExtArgs>
   }
 
   export type $stargazing_spotsPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -70570,6 +70803,7 @@ export namespace Prisma {
     objects: {
       stargazing_spot_reviews: Prisma.$stargazing_spot_reviewsPayload<ExtArgs>[]
       creator: Prisma.$usersPayload<ExtArgs>
+      users_stargazing_spots_moderated_byTousers: Prisma.$usersPayload<ExtArgs> | null
     }
     scalars: $Extensions.GetPayloadResult<{
       id: number
@@ -70584,6 +70818,10 @@ export namespace Prisma {
       is_active: boolean
       created_at: Date
       updated_at: Date
+      image_urls: string[]
+      status: string | null
+      moderated_by: number | null
+      moderated_at: Date | null
     }, ExtArgs["result"]["stargazing_spots"]>
     composites: {}
   }
@@ -70980,6 +71218,7 @@ export namespace Prisma {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     stargazing_spot_reviews<T extends stargazing_spots$stargazing_spot_reviewsArgs<ExtArgs> = {}>(args?: Subset<T, stargazing_spots$stargazing_spot_reviewsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$stargazing_spot_reviewsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     creator<T extends usersDefaultArgs<ExtArgs> = {}>(args?: Subset<T, usersDefaultArgs<ExtArgs>>): Prisma__usersClient<$Result.GetResult<Prisma.$usersPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    users_stargazing_spots_moderated_byTousers<T extends stargazing_spots$users_stargazing_spots_moderated_byTousersArgs<ExtArgs> = {}>(args?: Subset<T, stargazing_spots$users_stargazing_spots_moderated_byTousersArgs<ExtArgs>>): Prisma__usersClient<$Result.GetResult<Prisma.$usersPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -71021,6 +71260,10 @@ export namespace Prisma {
     readonly is_active: FieldRef<"stargazing_spots", 'Boolean'>
     readonly created_at: FieldRef<"stargazing_spots", 'DateTime'>
     readonly updated_at: FieldRef<"stargazing_spots", 'DateTime'>
+    readonly image_urls: FieldRef<"stargazing_spots", 'String[]'>
+    readonly status: FieldRef<"stargazing_spots", 'String'>
+    readonly moderated_by: FieldRef<"stargazing_spots", 'Int'>
+    readonly moderated_at: FieldRef<"stargazing_spots", 'DateTime'>
   }
     
 
@@ -71438,6 +71681,25 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: Stargazing_spot_reviewsScalarFieldEnum | Stargazing_spot_reviewsScalarFieldEnum[]
+  }
+
+  /**
+   * stargazing_spots.users_stargazing_spots_moderated_byTousers
+   */
+  export type stargazing_spots$users_stargazing_spots_moderated_byTousersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the users
+     */
+    select?: usersSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the users
+     */
+    omit?: usersOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: usersInclude<ExtArgs> | null
+    where?: usersWhereInput
   }
 
   /**
@@ -77984,6 +78246,11 @@ export namespace Prisma {
     materials: 'materials',
     session_notes: 'session_notes',
     created_by: 'created_by',
+    status: 'status',
+    moderated_by: 'moderated_by',
+    approved_at: 'approved_at',
+    rejected_at: 'rejected_at',
+    rejection_reason: 'rejection_reason',
     created_date: 'created_date',
     created_time: 'created_time',
     is_enabled: 'is_enabled',
@@ -78112,7 +78379,11 @@ export namespace Prisma {
     created_by: 'created_by',
     is_active: 'is_active',
     created_at: 'created_at',
-    updated_at: 'updated_at'
+    updated_at: 'updated_at',
+    image_urls: 'image_urls',
+    status: 'status',
+    moderated_by: 'moderated_by',
+    moderated_at: 'moderated_at'
   };
 
   export type Stargazing_spotsScalarFieldEnum = (typeof Stargazing_spotsScalarFieldEnum)[keyof typeof Stargazing_spotsScalarFieldEnum]
@@ -78632,6 +78903,20 @@ export namespace Prisma {
    * Reference to a field of type 'difficulty_level[]'
    */
   export type ListEnumdifficulty_levelFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'difficulty_level[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'session_status'
+   */
+  export type Enumsession_statusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'session_status'>
+    
+
+
+  /**
+   * Reference to a field of type 'session_status[]'
+   */
+  export type ListEnumsession_statusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'session_status[]'>
     
   /**
    * Deep Input Types
@@ -79572,6 +79857,7 @@ export namespace Prisma {
     services?: ServicesListRelationFilter
     session_enrollments?: Session_enrollmentsListRelationFilter
     created_sessions?: SessionsListRelationFilter
+    moderated_sessions?: SessionsListRelationFilter
     discussion_comment_likes?: Space_discussion_comment_likesListRelationFilter
     discussion_comments?: Space_discussion_commentsListRelationFilter
     discussion_likes?: Space_discussion_likesListRelationFilter
@@ -79581,6 +79867,7 @@ export namespace Prisma {
     space_news_likes?: Space_news_likesListRelationFilter
     stargazing_spot_reviews?: Stargazing_spot_reviewsListRelationFilter
     created_stargazing_spots?: Stargazing_spotsListRelationFilter
+    stargazing_spots_stargazing_spots_moderated_byTousers?: Stargazing_spotsListRelationFilter
     subscriptions?: SubscriptionsListRelationFilter
     user_settings?: XOR<User_settingsNullableScalarRelationFilter, user_settingsWhereInput> | null
   }
@@ -79638,6 +79925,7 @@ export namespace Prisma {
     services?: servicesOrderByRelationAggregateInput
     session_enrollments?: session_enrollmentsOrderByRelationAggregateInput
     created_sessions?: sessionsOrderByRelationAggregateInput
+    moderated_sessions?: sessionsOrderByRelationAggregateInput
     discussion_comment_likes?: space_discussion_comment_likesOrderByRelationAggregateInput
     discussion_comments?: space_discussion_commentsOrderByRelationAggregateInput
     discussion_likes?: space_discussion_likesOrderByRelationAggregateInput
@@ -79647,6 +79935,7 @@ export namespace Prisma {
     space_news_likes?: space_news_likesOrderByRelationAggregateInput
     stargazing_spot_reviews?: stargazing_spot_reviewsOrderByRelationAggregateInput
     created_stargazing_spots?: stargazing_spotsOrderByRelationAggregateInput
+    stargazing_spots_stargazing_spots_moderated_byTousers?: stargazing_spotsOrderByRelationAggregateInput
     subscriptions?: subscriptionsOrderByRelationAggregateInput
     user_settings?: user_settingsOrderByWithRelationInput
   }
@@ -79707,6 +79996,7 @@ export namespace Prisma {
     services?: ServicesListRelationFilter
     session_enrollments?: Session_enrollmentsListRelationFilter
     created_sessions?: SessionsListRelationFilter
+    moderated_sessions?: SessionsListRelationFilter
     discussion_comment_likes?: Space_discussion_comment_likesListRelationFilter
     discussion_comments?: Space_discussion_commentsListRelationFilter
     discussion_likes?: Space_discussion_likesListRelationFilter
@@ -79716,6 +80006,7 @@ export namespace Prisma {
     space_news_likes?: Space_news_likesListRelationFilter
     stargazing_spot_reviews?: Stargazing_spot_reviewsListRelationFilter
     created_stargazing_spots?: Stargazing_spotsListRelationFilter
+    stargazing_spots_stargazing_spots_moderated_byTousers?: Stargazing_spotsListRelationFilter
     subscriptions?: SubscriptionsListRelationFilter
     user_settings?: XOR<User_settingsNullableScalarRelationFilter, user_settingsWhereInput> | null
   }, "id" | "firebase_uid" | "email">
@@ -82614,6 +82905,11 @@ export namespace Prisma {
     materials?: JsonNullableFilter<"sessions">
     session_notes?: StringNullableFilter<"sessions"> | string | null
     created_by?: IntFilter<"sessions"> | number
+    status?: Enumsession_statusFilter<"sessions"> | $Enums.session_status
+    moderated_by?: IntNullableFilter<"sessions"> | number | null
+    approved_at?: DateTimeNullableFilter<"sessions"> | Date | string | null
+    rejected_at?: DateTimeNullableFilter<"sessions"> | Date | string | null
+    rejection_reason?: StringNullableFilter<"sessions"> | string | null
     created_date?: DateTimeFilter<"sessions"> | Date | string
     created_time?: DateTimeFilter<"sessions"> | Date | string
     is_enabled?: BoolFilter<"sessions"> | boolean
@@ -82621,6 +82917,7 @@ export namespace Prisma {
     updated_at?: DateTimeFilter<"sessions"> | Date | string
     session_enrollments?: Session_enrollmentsListRelationFilter
     creator?: XOR<UsersScalarRelationFilter, usersWhereInput>
+    moderator?: XOR<UsersNullableScalarRelationFilter, usersWhereInput> | null
   }
 
   export type sessionsOrderByWithRelationInput = {
@@ -82639,6 +82936,11 @@ export namespace Prisma {
     materials?: SortOrderInput | SortOrder
     session_notes?: SortOrderInput | SortOrder
     created_by?: SortOrder
+    status?: SortOrder
+    moderated_by?: SortOrderInput | SortOrder
+    approved_at?: SortOrderInput | SortOrder
+    rejected_at?: SortOrderInput | SortOrder
+    rejection_reason?: SortOrderInput | SortOrder
     created_date?: SortOrder
     created_time?: SortOrder
     is_enabled?: SortOrder
@@ -82646,6 +82948,7 @@ export namespace Prisma {
     updated_at?: SortOrder
     session_enrollments?: session_enrollmentsOrderByRelationAggregateInput
     creator?: usersOrderByWithRelationInput
+    moderator?: usersOrderByWithRelationInput
   }
 
   export type sessionsWhereUniqueInput = Prisma.AtLeast<{
@@ -82667,6 +82970,11 @@ export namespace Prisma {
     materials?: JsonNullableFilter<"sessions">
     session_notes?: StringNullableFilter<"sessions"> | string | null
     created_by?: IntFilter<"sessions"> | number
+    status?: Enumsession_statusFilter<"sessions"> | $Enums.session_status
+    moderated_by?: IntNullableFilter<"sessions"> | number | null
+    approved_at?: DateTimeNullableFilter<"sessions"> | Date | string | null
+    rejected_at?: DateTimeNullableFilter<"sessions"> | Date | string | null
+    rejection_reason?: StringNullableFilter<"sessions"> | string | null
     created_date?: DateTimeFilter<"sessions"> | Date | string
     created_time?: DateTimeFilter<"sessions"> | Date | string
     is_enabled?: BoolFilter<"sessions"> | boolean
@@ -82674,6 +82982,7 @@ export namespace Prisma {
     updated_at?: DateTimeFilter<"sessions"> | Date | string
     session_enrollments?: Session_enrollmentsListRelationFilter
     creator?: XOR<UsersScalarRelationFilter, usersWhereInput>
+    moderator?: XOR<UsersNullableScalarRelationFilter, usersWhereInput> | null
   }, "id">
 
   export type sessionsOrderByWithAggregationInput = {
@@ -82692,6 +83001,11 @@ export namespace Prisma {
     materials?: SortOrderInput | SortOrder
     session_notes?: SortOrderInput | SortOrder
     created_by?: SortOrder
+    status?: SortOrder
+    moderated_by?: SortOrderInput | SortOrder
+    approved_at?: SortOrderInput | SortOrder
+    rejected_at?: SortOrderInput | SortOrder
+    rejection_reason?: SortOrderInput | SortOrder
     created_date?: SortOrder
     created_time?: SortOrder
     is_enabled?: SortOrder
@@ -82723,6 +83037,11 @@ export namespace Prisma {
     materials?: JsonNullableWithAggregatesFilter<"sessions">
     session_notes?: StringNullableWithAggregatesFilter<"sessions"> | string | null
     created_by?: IntWithAggregatesFilter<"sessions"> | number
+    status?: Enumsession_statusWithAggregatesFilter<"sessions"> | $Enums.session_status
+    moderated_by?: IntNullableWithAggregatesFilter<"sessions"> | number | null
+    approved_at?: DateTimeNullableWithAggregatesFilter<"sessions"> | Date | string | null
+    rejected_at?: DateTimeNullableWithAggregatesFilter<"sessions"> | Date | string | null
+    rejection_reason?: StringNullableWithAggregatesFilter<"sessions"> | string | null
     created_date?: DateTimeWithAggregatesFilter<"sessions"> | Date | string
     created_time?: DateTimeWithAggregatesFilter<"sessions"> | Date | string
     is_enabled?: BoolWithAggregatesFilter<"sessions"> | boolean
@@ -83341,8 +83660,13 @@ export namespace Prisma {
     is_active?: BoolFilter<"stargazing_spots"> | boolean
     created_at?: DateTimeFilter<"stargazing_spots"> | Date | string
     updated_at?: DateTimeFilter<"stargazing_spots"> | Date | string
+    image_urls?: StringNullableListFilter<"stargazing_spots">
+    status?: StringNullableFilter<"stargazing_spots"> | string | null
+    moderated_by?: IntNullableFilter<"stargazing_spots"> | number | null
+    moderated_at?: DateTimeNullableFilter<"stargazing_spots"> | Date | string | null
     stargazing_spot_reviews?: Stargazing_spot_reviewsListRelationFilter
     creator?: XOR<UsersScalarRelationFilter, usersWhereInput>
+    users_stargazing_spots_moderated_byTousers?: XOR<UsersNullableScalarRelationFilter, usersWhereInput> | null
   }
 
   export type stargazing_spotsOrderByWithRelationInput = {
@@ -83358,8 +83682,13 @@ export namespace Prisma {
     is_active?: SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
+    image_urls?: SortOrder
+    status?: SortOrderInput | SortOrder
+    moderated_by?: SortOrderInput | SortOrder
+    moderated_at?: SortOrderInput | SortOrder
     stargazing_spot_reviews?: stargazing_spot_reviewsOrderByRelationAggregateInput
     creator?: usersOrderByWithRelationInput
+    users_stargazing_spots_moderated_byTousers?: usersOrderByWithRelationInput
   }
 
   export type stargazing_spotsWhereUniqueInput = Prisma.AtLeast<{
@@ -83378,8 +83707,13 @@ export namespace Prisma {
     is_active?: BoolFilter<"stargazing_spots"> | boolean
     created_at?: DateTimeFilter<"stargazing_spots"> | Date | string
     updated_at?: DateTimeFilter<"stargazing_spots"> | Date | string
+    image_urls?: StringNullableListFilter<"stargazing_spots">
+    status?: StringNullableFilter<"stargazing_spots"> | string | null
+    moderated_by?: IntNullableFilter<"stargazing_spots"> | number | null
+    moderated_at?: DateTimeNullableFilter<"stargazing_spots"> | Date | string | null
     stargazing_spot_reviews?: Stargazing_spot_reviewsListRelationFilter
     creator?: XOR<UsersScalarRelationFilter, usersWhereInput>
+    users_stargazing_spots_moderated_byTousers?: XOR<UsersNullableScalarRelationFilter, usersWhereInput> | null
   }, "id">
 
   export type stargazing_spotsOrderByWithAggregationInput = {
@@ -83395,6 +83729,10 @@ export namespace Prisma {
     is_active?: SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
+    image_urls?: SortOrder
+    status?: SortOrderInput | SortOrder
+    moderated_by?: SortOrderInput | SortOrder
+    moderated_at?: SortOrderInput | SortOrder
     _count?: stargazing_spotsCountOrderByAggregateInput
     _avg?: stargazing_spotsAvgOrderByAggregateInput
     _max?: stargazing_spotsMaxOrderByAggregateInput
@@ -83418,6 +83756,10 @@ export namespace Prisma {
     is_active?: BoolWithAggregatesFilter<"stargazing_spots"> | boolean
     created_at?: DateTimeWithAggregatesFilter<"stargazing_spots"> | Date | string
     updated_at?: DateTimeWithAggregatesFilter<"stargazing_spots"> | Date | string
+    image_urls?: StringNullableListFilter<"stargazing_spots">
+    status?: StringNullableWithAggregatesFilter<"stargazing_spots"> | string | null
+    moderated_by?: IntNullableWithAggregatesFilter<"stargazing_spots"> | number | null
+    moderated_at?: DateTimeNullableWithAggregatesFilter<"stargazing_spots"> | Date | string | null
   }
 
   export type subscription_plansWhereInput = {
@@ -84760,6 +85102,7 @@ export namespace Prisma {
     services?: servicesCreateNestedManyWithoutUsersInput
     session_enrollments?: session_enrollmentsCreateNestedManyWithoutUserInput
     created_sessions?: sessionsCreateNestedManyWithoutCreatorInput
+    moderated_sessions?: sessionsCreateNestedManyWithoutModeratorInput
     discussion_comment_likes?: space_discussion_comment_likesCreateNestedManyWithoutUserInput
     discussion_comments?: space_discussion_commentsCreateNestedManyWithoutUserInput
     discussion_likes?: space_discussion_likesCreateNestedManyWithoutUserInput
@@ -84769,6 +85112,7 @@ export namespace Prisma {
     space_news_likes?: space_news_likesCreateNestedManyWithoutUserInput
     stargazing_spot_reviews?: stargazing_spot_reviewsCreateNestedManyWithoutUserInput
     created_stargazing_spots?: stargazing_spotsCreateNestedManyWithoutCreatorInput
+    stargazing_spots_stargazing_spots_moderated_byTousers?: stargazing_spotsCreateNestedManyWithoutUsers_stargazing_spots_moderated_byTousersInput
     subscriptions?: subscriptionsCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsCreateNestedOneWithoutUsersInput
   }
@@ -84826,6 +85170,7 @@ export namespace Prisma {
     services?: servicesUncheckedCreateNestedManyWithoutUsersInput
     session_enrollments?: session_enrollmentsUncheckedCreateNestedManyWithoutUserInput
     created_sessions?: sessionsUncheckedCreateNestedManyWithoutCreatorInput
+    moderated_sessions?: sessionsUncheckedCreateNestedManyWithoutModeratorInput
     discussion_comment_likes?: space_discussion_comment_likesUncheckedCreateNestedManyWithoutUserInput
     discussion_comments?: space_discussion_commentsUncheckedCreateNestedManyWithoutUserInput
     discussion_likes?: space_discussion_likesUncheckedCreateNestedManyWithoutUserInput
@@ -84835,6 +85180,7 @@ export namespace Prisma {
     space_news_likes?: space_news_likesUncheckedCreateNestedManyWithoutUserInput
     stargazing_spot_reviews?: stargazing_spot_reviewsUncheckedCreateNestedManyWithoutUserInput
     created_stargazing_spots?: stargazing_spotsUncheckedCreateNestedManyWithoutCreatorInput
+    stargazing_spots_stargazing_spots_moderated_byTousers?: stargazing_spotsUncheckedCreateNestedManyWithoutUsers_stargazing_spots_moderated_byTousersInput
     subscriptions?: subscriptionsUncheckedCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsUncheckedCreateNestedOneWithoutUsersInput
   }
@@ -84891,6 +85237,7 @@ export namespace Prisma {
     services?: servicesUpdateManyWithoutUsersNestedInput
     session_enrollments?: session_enrollmentsUpdateManyWithoutUserNestedInput
     created_sessions?: sessionsUpdateManyWithoutCreatorNestedInput
+    moderated_sessions?: sessionsUpdateManyWithoutModeratorNestedInput
     discussion_comment_likes?: space_discussion_comment_likesUpdateManyWithoutUserNestedInput
     discussion_comments?: space_discussion_commentsUpdateManyWithoutUserNestedInput
     discussion_likes?: space_discussion_likesUpdateManyWithoutUserNestedInput
@@ -84900,6 +85247,7 @@ export namespace Prisma {
     space_news_likes?: space_news_likesUpdateManyWithoutUserNestedInput
     stargazing_spot_reviews?: stargazing_spot_reviewsUpdateManyWithoutUserNestedInput
     created_stargazing_spots?: stargazing_spotsUpdateManyWithoutCreatorNestedInput
+    stargazing_spots_stargazing_spots_moderated_byTousers?: stargazing_spotsUpdateManyWithoutUsers_stargazing_spots_moderated_byTousersNestedInput
     subscriptions?: subscriptionsUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUpdateOneWithoutUsersNestedInput
   }
@@ -84957,6 +85305,7 @@ export namespace Prisma {
     services?: servicesUncheckedUpdateManyWithoutUsersNestedInput
     session_enrollments?: session_enrollmentsUncheckedUpdateManyWithoutUserNestedInput
     created_sessions?: sessionsUncheckedUpdateManyWithoutCreatorNestedInput
+    moderated_sessions?: sessionsUncheckedUpdateManyWithoutModeratorNestedInput
     discussion_comment_likes?: space_discussion_comment_likesUncheckedUpdateManyWithoutUserNestedInput
     discussion_comments?: space_discussion_commentsUncheckedUpdateManyWithoutUserNestedInput
     discussion_likes?: space_discussion_likesUncheckedUpdateManyWithoutUserNestedInput
@@ -84966,6 +85315,7 @@ export namespace Prisma {
     space_news_likes?: space_news_likesUncheckedUpdateManyWithoutUserNestedInput
     stargazing_spot_reviews?: stargazing_spot_reviewsUncheckedUpdateManyWithoutUserNestedInput
     created_stargazing_spots?: stargazing_spotsUncheckedUpdateManyWithoutCreatorNestedInput
+    stargazing_spots_stargazing_spots_moderated_byTousers?: stargazing_spotsUncheckedUpdateManyWithoutUsers_stargazing_spots_moderated_byTousersNestedInput
     subscriptions?: subscriptionsUncheckedUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUncheckedUpdateOneWithoutUsersNestedInput
   }
@@ -88096,6 +88446,10 @@ export namespace Prisma {
     description: string
     materials?: NullableJsonNullValueInput | InputJsonValue
     session_notes?: string | null
+    status?: $Enums.session_status
+    approved_at?: Date | string | null
+    rejected_at?: Date | string | null
+    rejection_reason?: string | null
     created_date?: Date | string
     created_time?: Date | string
     is_enabled?: boolean
@@ -88103,6 +88457,7 @@ export namespace Prisma {
     updated_at?: Date | string
     session_enrollments?: session_enrollmentsCreateNestedManyWithoutSessionsInput
     creator: usersCreateNestedOneWithoutCreated_sessionsInput
+    moderator?: usersCreateNestedOneWithoutModerated_sessionsInput
   }
 
   export type sessionsUncheckedCreateInput = {
@@ -88121,6 +88476,11 @@ export namespace Prisma {
     materials?: NullableJsonNullValueInput | InputJsonValue
     session_notes?: string | null
     created_by: number
+    status?: $Enums.session_status
+    moderated_by?: number | null
+    approved_at?: Date | string | null
+    rejected_at?: Date | string | null
+    rejection_reason?: string | null
     created_date?: Date | string
     created_time?: Date | string
     is_enabled?: boolean
@@ -88143,6 +88503,10 @@ export namespace Prisma {
     description?: StringFieldUpdateOperationsInput | string
     materials?: NullableJsonNullValueInput | InputJsonValue
     session_notes?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: Enumsession_statusFieldUpdateOperationsInput | $Enums.session_status
+    approved_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    rejected_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    rejection_reason?: NullableStringFieldUpdateOperationsInput | string | null
     created_date?: DateTimeFieldUpdateOperationsInput | Date | string
     created_time?: DateTimeFieldUpdateOperationsInput | Date | string
     is_enabled?: BoolFieldUpdateOperationsInput | boolean
@@ -88150,6 +88514,7 @@ export namespace Prisma {
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     session_enrollments?: session_enrollmentsUpdateManyWithoutSessionsNestedInput
     creator?: usersUpdateOneRequiredWithoutCreated_sessionsNestedInput
+    moderator?: usersUpdateOneWithoutModerated_sessionsNestedInput
   }
 
   export type sessionsUncheckedUpdateInput = {
@@ -88168,6 +88533,11 @@ export namespace Prisma {
     materials?: NullableJsonNullValueInput | InputJsonValue
     session_notes?: NullableStringFieldUpdateOperationsInput | string | null
     created_by?: IntFieldUpdateOperationsInput | number
+    status?: Enumsession_statusFieldUpdateOperationsInput | $Enums.session_status
+    moderated_by?: NullableIntFieldUpdateOperationsInput | number | null
+    approved_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    rejected_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    rejection_reason?: NullableStringFieldUpdateOperationsInput | string | null
     created_date?: DateTimeFieldUpdateOperationsInput | Date | string
     created_time?: DateTimeFieldUpdateOperationsInput | Date | string
     is_enabled?: BoolFieldUpdateOperationsInput | boolean
@@ -88192,6 +88562,11 @@ export namespace Prisma {
     materials?: NullableJsonNullValueInput | InputJsonValue
     session_notes?: string | null
     created_by: number
+    status?: $Enums.session_status
+    moderated_by?: number | null
+    approved_at?: Date | string | null
+    rejected_at?: Date | string | null
+    rejection_reason?: string | null
     created_date?: Date | string
     created_time?: Date | string
     is_enabled?: boolean
@@ -88213,6 +88588,10 @@ export namespace Prisma {
     description?: StringFieldUpdateOperationsInput | string
     materials?: NullableJsonNullValueInput | InputJsonValue
     session_notes?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: Enumsession_statusFieldUpdateOperationsInput | $Enums.session_status
+    approved_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    rejected_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    rejection_reason?: NullableStringFieldUpdateOperationsInput | string | null
     created_date?: DateTimeFieldUpdateOperationsInput | Date | string
     created_time?: DateTimeFieldUpdateOperationsInput | Date | string
     is_enabled?: BoolFieldUpdateOperationsInput | boolean
@@ -88236,6 +88615,11 @@ export namespace Prisma {
     materials?: NullableJsonNullValueInput | InputJsonValue
     session_notes?: NullableStringFieldUpdateOperationsInput | string | null
     created_by?: IntFieldUpdateOperationsInput | number
+    status?: Enumsession_statusFieldUpdateOperationsInput | $Enums.session_status
+    moderated_by?: NullableIntFieldUpdateOperationsInput | number | null
+    approved_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    rejected_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    rejection_reason?: NullableStringFieldUpdateOperationsInput | string | null
     created_date?: DateTimeFieldUpdateOperationsInput | Date | string
     created_time?: DateTimeFieldUpdateOperationsInput | Date | string
     is_enabled?: BoolFieldUpdateOperationsInput | boolean
@@ -88816,8 +89200,12 @@ export namespace Prisma {
     is_active?: boolean
     created_at?: Date | string
     updated_at?: Date | string
+    image_urls?: stargazing_spotsCreateimage_urlsInput | string[]
+    status?: string | null
+    moderated_at?: Date | string | null
     stargazing_spot_reviews?: stargazing_spot_reviewsCreateNestedManyWithoutStargazing_spotsInput
     creator: usersCreateNestedOneWithoutCreated_stargazing_spotsInput
+    users_stargazing_spots_moderated_byTousers?: usersCreateNestedOneWithoutStargazing_spots_stargazing_spots_moderated_byTousersInput
   }
 
   export type stargazing_spotsUncheckedCreateInput = {
@@ -88833,6 +89221,10 @@ export namespace Prisma {
     is_active?: boolean
     created_at?: Date | string
     updated_at?: Date | string
+    image_urls?: stargazing_spotsCreateimage_urlsInput | string[]
+    status?: string | null
+    moderated_by?: number | null
+    moderated_at?: Date | string | null
     stargazing_spot_reviews?: stargazing_spot_reviewsUncheckedCreateNestedManyWithoutStargazing_spotsInput
   }
 
@@ -88847,8 +89239,12 @@ export namespace Prisma {
     is_active?: BoolFieldUpdateOperationsInput | boolean
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    image_urls?: stargazing_spotsUpdateimage_urlsInput | string[]
+    status?: NullableStringFieldUpdateOperationsInput | string | null
+    moderated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     stargazing_spot_reviews?: stargazing_spot_reviewsUpdateManyWithoutStargazing_spotsNestedInput
     creator?: usersUpdateOneRequiredWithoutCreated_stargazing_spotsNestedInput
+    users_stargazing_spots_moderated_byTousers?: usersUpdateOneWithoutStargazing_spots_stargazing_spots_moderated_byTousersNestedInput
   }
 
   export type stargazing_spotsUncheckedUpdateInput = {
@@ -88864,6 +89260,10 @@ export namespace Prisma {
     is_active?: BoolFieldUpdateOperationsInput | boolean
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    image_urls?: stargazing_spotsUpdateimage_urlsInput | string[]
+    status?: NullableStringFieldUpdateOperationsInput | string | null
+    moderated_by?: NullableIntFieldUpdateOperationsInput | number | null
+    moderated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     stargazing_spot_reviews?: stargazing_spot_reviewsUncheckedUpdateManyWithoutStargazing_spotsNestedInput
   }
 
@@ -88880,6 +89280,10 @@ export namespace Prisma {
     is_active?: boolean
     created_at?: Date | string
     updated_at?: Date | string
+    image_urls?: stargazing_spotsCreateimage_urlsInput | string[]
+    status?: string | null
+    moderated_by?: number | null
+    moderated_at?: Date | string | null
   }
 
   export type stargazing_spotsUpdateManyMutationInput = {
@@ -88893,6 +89297,9 @@ export namespace Prisma {
     is_active?: BoolFieldUpdateOperationsInput | boolean
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    image_urls?: stargazing_spotsUpdateimage_urlsInput | string[]
+    status?: NullableStringFieldUpdateOperationsInput | string | null
+    moderated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type stargazing_spotsUncheckedUpdateManyInput = {
@@ -88908,6 +89315,10 @@ export namespace Prisma {
     is_active?: BoolFieldUpdateOperationsInput | boolean
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    image_urls?: stargazing_spotsUpdateimage_urlsInput | string[]
+    status?: NullableStringFieldUpdateOperationsInput | string | null
+    moderated_by?: NullableIntFieldUpdateOperationsInput | number | null
+    moderated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type subscription_plansCreateInput = {
@@ -93028,6 +93439,13 @@ export namespace Prisma {
     not?: NestedEnumdifficulty_levelFilter<$PrismaModel> | $Enums.difficulty_level
   }
 
+  export type Enumsession_statusFilter<$PrismaModel = never> = {
+    equals?: $Enums.session_status | Enumsession_statusFieldRefInput<$PrismaModel>
+    in?: $Enums.session_status[] | ListEnumsession_statusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.session_status[] | ListEnumsession_statusFieldRefInput<$PrismaModel>
+    not?: NestedEnumsession_statusFilter<$PrismaModel> | $Enums.session_status
+  }
+
   export type sessionsCountOrderByAggregateInput = {
     id?: SortOrder
     title?: SortOrder
@@ -93044,6 +93462,11 @@ export namespace Prisma {
     materials?: SortOrder
     session_notes?: SortOrder
     created_by?: SortOrder
+    status?: SortOrder
+    moderated_by?: SortOrder
+    approved_at?: SortOrder
+    rejected_at?: SortOrder
+    rejection_reason?: SortOrder
     created_date?: SortOrder
     created_time?: SortOrder
     is_enabled?: SortOrder
@@ -93057,6 +93480,7 @@ export namespace Prisma {
     duration?: SortOrder
     max_participants?: SortOrder
     created_by?: SortOrder
+    moderated_by?: SortOrder
   }
 
   export type sessionsMaxOrderByAggregateInput = {
@@ -93074,6 +93498,11 @@ export namespace Prisma {
     description?: SortOrder
     session_notes?: SortOrder
     created_by?: SortOrder
+    status?: SortOrder
+    moderated_by?: SortOrder
+    approved_at?: SortOrder
+    rejected_at?: SortOrder
+    rejection_reason?: SortOrder
     created_date?: SortOrder
     created_time?: SortOrder
     is_enabled?: SortOrder
@@ -93096,6 +93525,11 @@ export namespace Prisma {
     description?: SortOrder
     session_notes?: SortOrder
     created_by?: SortOrder
+    status?: SortOrder
+    moderated_by?: SortOrder
+    approved_at?: SortOrder
+    rejected_at?: SortOrder
+    rejection_reason?: SortOrder
     created_date?: SortOrder
     created_time?: SortOrder
     is_enabled?: SortOrder
@@ -93109,6 +93543,7 @@ export namespace Prisma {
     duration?: SortOrder
     max_participants?: SortOrder
     created_by?: SortOrder
+    moderated_by?: SortOrder
   }
 
   export type Enumsession_typeWithAggregatesFilter<$PrismaModel = never> = {
@@ -93139,6 +93574,16 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedEnumdifficulty_levelFilter<$PrismaModel>
     _max?: NestedEnumdifficulty_levelFilter<$PrismaModel>
+  }
+
+  export type Enumsession_statusWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.session_status | Enumsession_statusFieldRefInput<$PrismaModel>
+    in?: $Enums.session_status[] | ListEnumsession_statusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.session_status[] | ListEnumsession_statusFieldRefInput<$PrismaModel>
+    not?: NestedEnumsession_statusWithAggregatesFilter<$PrismaModel> | $Enums.session_status
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumsession_statusFilter<$PrismaModel>
+    _max?: NestedEnumsession_statusFilter<$PrismaModel>
   }
 
   export type Space_discussion_commentsScalarRelationFilter = {
@@ -93554,12 +93999,17 @@ export namespace Prisma {
     is_active?: SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
+    image_urls?: SortOrder
+    status?: SortOrder
+    moderated_by?: SortOrder
+    moderated_at?: SortOrder
   }
 
   export type stargazing_spotsAvgOrderByAggregateInput = {
     id?: SortOrder
     rating?: SortOrder
     created_by?: SortOrder
+    moderated_by?: SortOrder
   }
 
   export type stargazing_spotsMaxOrderByAggregateInput = {
@@ -93574,6 +94024,9 @@ export namespace Prisma {
     is_active?: SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
+    status?: SortOrder
+    moderated_by?: SortOrder
+    moderated_at?: SortOrder
   }
 
   export type stargazing_spotsMinOrderByAggregateInput = {
@@ -93588,12 +94041,16 @@ export namespace Prisma {
     is_active?: SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
+    status?: SortOrder
+    moderated_by?: SortOrder
+    moderated_at?: SortOrder
   }
 
   export type stargazing_spotsSumOrderByAggregateInput = {
     id?: SortOrder
     rating?: SortOrder
     created_by?: SortOrder
+    moderated_by?: SortOrder
   }
 
   export type Enumsubscription_planFilter<$PrismaModel = never> = {
@@ -94885,6 +95342,13 @@ export namespace Prisma {
     connect?: sessionsWhereUniqueInput | sessionsWhereUniqueInput[]
   }
 
+  export type sessionsCreateNestedManyWithoutModeratorInput = {
+    create?: XOR<sessionsCreateWithoutModeratorInput, sessionsUncheckedCreateWithoutModeratorInput> | sessionsCreateWithoutModeratorInput[] | sessionsUncheckedCreateWithoutModeratorInput[]
+    connectOrCreate?: sessionsCreateOrConnectWithoutModeratorInput | sessionsCreateOrConnectWithoutModeratorInput[]
+    createMany?: sessionsCreateManyModeratorInputEnvelope
+    connect?: sessionsWhereUniqueInput | sessionsWhereUniqueInput[]
+  }
+
   export type space_discussion_comment_likesCreateNestedManyWithoutUserInput = {
     create?: XOR<space_discussion_comment_likesCreateWithoutUserInput, space_discussion_comment_likesUncheckedCreateWithoutUserInput> | space_discussion_comment_likesCreateWithoutUserInput[] | space_discussion_comment_likesUncheckedCreateWithoutUserInput[]
     connectOrCreate?: space_discussion_comment_likesCreateOrConnectWithoutUserInput | space_discussion_comment_likesCreateOrConnectWithoutUserInput[]
@@ -94945,6 +95409,13 @@ export namespace Prisma {
     create?: XOR<stargazing_spotsCreateWithoutCreatorInput, stargazing_spotsUncheckedCreateWithoutCreatorInput> | stargazing_spotsCreateWithoutCreatorInput[] | stargazing_spotsUncheckedCreateWithoutCreatorInput[]
     connectOrCreate?: stargazing_spotsCreateOrConnectWithoutCreatorInput | stargazing_spotsCreateOrConnectWithoutCreatorInput[]
     createMany?: stargazing_spotsCreateManyCreatorInputEnvelope
+    connect?: stargazing_spotsWhereUniqueInput | stargazing_spotsWhereUniqueInput[]
+  }
+
+  export type stargazing_spotsCreateNestedManyWithoutUsers_stargazing_spots_moderated_byTousersInput = {
+    create?: XOR<stargazing_spotsCreateWithoutUsers_stargazing_spots_moderated_byTousersInput, stargazing_spotsUncheckedCreateWithoutUsers_stargazing_spots_moderated_byTousersInput> | stargazing_spotsCreateWithoutUsers_stargazing_spots_moderated_byTousersInput[] | stargazing_spotsUncheckedCreateWithoutUsers_stargazing_spots_moderated_byTousersInput[]
+    connectOrCreate?: stargazing_spotsCreateOrConnectWithoutUsers_stargazing_spots_moderated_byTousersInput | stargazing_spotsCreateOrConnectWithoutUsers_stargazing_spots_moderated_byTousersInput[]
+    createMany?: stargazing_spotsCreateManyUsers_stargazing_spots_moderated_byTousersInputEnvelope
     connect?: stargazing_spotsWhereUniqueInput | stargazing_spotsWhereUniqueInput[]
   }
 
@@ -95185,6 +95656,13 @@ export namespace Prisma {
     connect?: sessionsWhereUniqueInput | sessionsWhereUniqueInput[]
   }
 
+  export type sessionsUncheckedCreateNestedManyWithoutModeratorInput = {
+    create?: XOR<sessionsCreateWithoutModeratorInput, sessionsUncheckedCreateWithoutModeratorInput> | sessionsCreateWithoutModeratorInput[] | sessionsUncheckedCreateWithoutModeratorInput[]
+    connectOrCreate?: sessionsCreateOrConnectWithoutModeratorInput | sessionsCreateOrConnectWithoutModeratorInput[]
+    createMany?: sessionsCreateManyModeratorInputEnvelope
+    connect?: sessionsWhereUniqueInput | sessionsWhereUniqueInput[]
+  }
+
   export type space_discussion_comment_likesUncheckedCreateNestedManyWithoutUserInput = {
     create?: XOR<space_discussion_comment_likesCreateWithoutUserInput, space_discussion_comment_likesUncheckedCreateWithoutUserInput> | space_discussion_comment_likesCreateWithoutUserInput[] | space_discussion_comment_likesUncheckedCreateWithoutUserInput[]
     connectOrCreate?: space_discussion_comment_likesCreateOrConnectWithoutUserInput | space_discussion_comment_likesCreateOrConnectWithoutUserInput[]
@@ -95245,6 +95723,13 @@ export namespace Prisma {
     create?: XOR<stargazing_spotsCreateWithoutCreatorInput, stargazing_spotsUncheckedCreateWithoutCreatorInput> | stargazing_spotsCreateWithoutCreatorInput[] | stargazing_spotsUncheckedCreateWithoutCreatorInput[]
     connectOrCreate?: stargazing_spotsCreateOrConnectWithoutCreatorInput | stargazing_spotsCreateOrConnectWithoutCreatorInput[]
     createMany?: stargazing_spotsCreateManyCreatorInputEnvelope
+    connect?: stargazing_spotsWhereUniqueInput | stargazing_spotsWhereUniqueInput[]
+  }
+
+  export type stargazing_spotsUncheckedCreateNestedManyWithoutUsers_stargazing_spots_moderated_byTousersInput = {
+    create?: XOR<stargazing_spotsCreateWithoutUsers_stargazing_spots_moderated_byTousersInput, stargazing_spotsUncheckedCreateWithoutUsers_stargazing_spots_moderated_byTousersInput> | stargazing_spotsCreateWithoutUsers_stargazing_spots_moderated_byTousersInput[] | stargazing_spotsUncheckedCreateWithoutUsers_stargazing_spots_moderated_byTousersInput[]
+    connectOrCreate?: stargazing_spotsCreateOrConnectWithoutUsers_stargazing_spots_moderated_byTousersInput | stargazing_spotsCreateOrConnectWithoutUsers_stargazing_spots_moderated_byTousersInput[]
+    createMany?: stargazing_spotsCreateManyUsers_stargazing_spots_moderated_byTousersInputEnvelope
     connect?: stargazing_spotsWhereUniqueInput | stargazing_spotsWhereUniqueInput[]
   }
 
@@ -95721,6 +96206,20 @@ export namespace Prisma {
     deleteMany?: sessionsScalarWhereInput | sessionsScalarWhereInput[]
   }
 
+  export type sessionsUpdateManyWithoutModeratorNestedInput = {
+    create?: XOR<sessionsCreateWithoutModeratorInput, sessionsUncheckedCreateWithoutModeratorInput> | sessionsCreateWithoutModeratorInput[] | sessionsUncheckedCreateWithoutModeratorInput[]
+    connectOrCreate?: sessionsCreateOrConnectWithoutModeratorInput | sessionsCreateOrConnectWithoutModeratorInput[]
+    upsert?: sessionsUpsertWithWhereUniqueWithoutModeratorInput | sessionsUpsertWithWhereUniqueWithoutModeratorInput[]
+    createMany?: sessionsCreateManyModeratorInputEnvelope
+    set?: sessionsWhereUniqueInput | sessionsWhereUniqueInput[]
+    disconnect?: sessionsWhereUniqueInput | sessionsWhereUniqueInput[]
+    delete?: sessionsWhereUniqueInput | sessionsWhereUniqueInput[]
+    connect?: sessionsWhereUniqueInput | sessionsWhereUniqueInput[]
+    update?: sessionsUpdateWithWhereUniqueWithoutModeratorInput | sessionsUpdateWithWhereUniqueWithoutModeratorInput[]
+    updateMany?: sessionsUpdateManyWithWhereWithoutModeratorInput | sessionsUpdateManyWithWhereWithoutModeratorInput[]
+    deleteMany?: sessionsScalarWhereInput | sessionsScalarWhereInput[]
+  }
+
   export type space_discussion_comment_likesUpdateManyWithoutUserNestedInput = {
     create?: XOR<space_discussion_comment_likesCreateWithoutUserInput, space_discussion_comment_likesUncheckedCreateWithoutUserInput> | space_discussion_comment_likesCreateWithoutUserInput[] | space_discussion_comment_likesUncheckedCreateWithoutUserInput[]
     connectOrCreate?: space_discussion_comment_likesCreateOrConnectWithoutUserInput | space_discussion_comment_likesCreateOrConnectWithoutUserInput[]
@@ -95844,6 +96343,20 @@ export namespace Prisma {
     connect?: stargazing_spotsWhereUniqueInput | stargazing_spotsWhereUniqueInput[]
     update?: stargazing_spotsUpdateWithWhereUniqueWithoutCreatorInput | stargazing_spotsUpdateWithWhereUniqueWithoutCreatorInput[]
     updateMany?: stargazing_spotsUpdateManyWithWhereWithoutCreatorInput | stargazing_spotsUpdateManyWithWhereWithoutCreatorInput[]
+    deleteMany?: stargazing_spotsScalarWhereInput | stargazing_spotsScalarWhereInput[]
+  }
+
+  export type stargazing_spotsUpdateManyWithoutUsers_stargazing_spots_moderated_byTousersNestedInput = {
+    create?: XOR<stargazing_spotsCreateWithoutUsers_stargazing_spots_moderated_byTousersInput, stargazing_spotsUncheckedCreateWithoutUsers_stargazing_spots_moderated_byTousersInput> | stargazing_spotsCreateWithoutUsers_stargazing_spots_moderated_byTousersInput[] | stargazing_spotsUncheckedCreateWithoutUsers_stargazing_spots_moderated_byTousersInput[]
+    connectOrCreate?: stargazing_spotsCreateOrConnectWithoutUsers_stargazing_spots_moderated_byTousersInput | stargazing_spotsCreateOrConnectWithoutUsers_stargazing_spots_moderated_byTousersInput[]
+    upsert?: stargazing_spotsUpsertWithWhereUniqueWithoutUsers_stargazing_spots_moderated_byTousersInput | stargazing_spotsUpsertWithWhereUniqueWithoutUsers_stargazing_spots_moderated_byTousersInput[]
+    createMany?: stargazing_spotsCreateManyUsers_stargazing_spots_moderated_byTousersInputEnvelope
+    set?: stargazing_spotsWhereUniqueInput | stargazing_spotsWhereUniqueInput[]
+    disconnect?: stargazing_spotsWhereUniqueInput | stargazing_spotsWhereUniqueInput[]
+    delete?: stargazing_spotsWhereUniqueInput | stargazing_spotsWhereUniqueInput[]
+    connect?: stargazing_spotsWhereUniqueInput | stargazing_spotsWhereUniqueInput[]
+    update?: stargazing_spotsUpdateWithWhereUniqueWithoutUsers_stargazing_spots_moderated_byTousersInput | stargazing_spotsUpdateWithWhereUniqueWithoutUsers_stargazing_spots_moderated_byTousersInput[]
+    updateMany?: stargazing_spotsUpdateManyWithWhereWithoutUsers_stargazing_spots_moderated_byTousersInput | stargazing_spotsUpdateManyWithWhereWithoutUsers_stargazing_spots_moderated_byTousersInput[]
     deleteMany?: stargazing_spotsScalarWhereInput | stargazing_spotsScalarWhereInput[]
   }
 
@@ -96319,6 +96832,20 @@ export namespace Prisma {
     deleteMany?: sessionsScalarWhereInput | sessionsScalarWhereInput[]
   }
 
+  export type sessionsUncheckedUpdateManyWithoutModeratorNestedInput = {
+    create?: XOR<sessionsCreateWithoutModeratorInput, sessionsUncheckedCreateWithoutModeratorInput> | sessionsCreateWithoutModeratorInput[] | sessionsUncheckedCreateWithoutModeratorInput[]
+    connectOrCreate?: sessionsCreateOrConnectWithoutModeratorInput | sessionsCreateOrConnectWithoutModeratorInput[]
+    upsert?: sessionsUpsertWithWhereUniqueWithoutModeratorInput | sessionsUpsertWithWhereUniqueWithoutModeratorInput[]
+    createMany?: sessionsCreateManyModeratorInputEnvelope
+    set?: sessionsWhereUniqueInput | sessionsWhereUniqueInput[]
+    disconnect?: sessionsWhereUniqueInput | sessionsWhereUniqueInput[]
+    delete?: sessionsWhereUniqueInput | sessionsWhereUniqueInput[]
+    connect?: sessionsWhereUniqueInput | sessionsWhereUniqueInput[]
+    update?: sessionsUpdateWithWhereUniqueWithoutModeratorInput | sessionsUpdateWithWhereUniqueWithoutModeratorInput[]
+    updateMany?: sessionsUpdateManyWithWhereWithoutModeratorInput | sessionsUpdateManyWithWhereWithoutModeratorInput[]
+    deleteMany?: sessionsScalarWhereInput | sessionsScalarWhereInput[]
+  }
+
   export type space_discussion_comment_likesUncheckedUpdateManyWithoutUserNestedInput = {
     create?: XOR<space_discussion_comment_likesCreateWithoutUserInput, space_discussion_comment_likesUncheckedCreateWithoutUserInput> | space_discussion_comment_likesCreateWithoutUserInput[] | space_discussion_comment_likesUncheckedCreateWithoutUserInput[]
     connectOrCreate?: space_discussion_comment_likesCreateOrConnectWithoutUserInput | space_discussion_comment_likesCreateOrConnectWithoutUserInput[]
@@ -96442,6 +96969,20 @@ export namespace Prisma {
     connect?: stargazing_spotsWhereUniqueInput | stargazing_spotsWhereUniqueInput[]
     update?: stargazing_spotsUpdateWithWhereUniqueWithoutCreatorInput | stargazing_spotsUpdateWithWhereUniqueWithoutCreatorInput[]
     updateMany?: stargazing_spotsUpdateManyWithWhereWithoutCreatorInput | stargazing_spotsUpdateManyWithWhereWithoutCreatorInput[]
+    deleteMany?: stargazing_spotsScalarWhereInput | stargazing_spotsScalarWhereInput[]
+  }
+
+  export type stargazing_spotsUncheckedUpdateManyWithoutUsers_stargazing_spots_moderated_byTousersNestedInput = {
+    create?: XOR<stargazing_spotsCreateWithoutUsers_stargazing_spots_moderated_byTousersInput, stargazing_spotsUncheckedCreateWithoutUsers_stargazing_spots_moderated_byTousersInput> | stargazing_spotsCreateWithoutUsers_stargazing_spots_moderated_byTousersInput[] | stargazing_spotsUncheckedCreateWithoutUsers_stargazing_spots_moderated_byTousersInput[]
+    connectOrCreate?: stargazing_spotsCreateOrConnectWithoutUsers_stargazing_spots_moderated_byTousersInput | stargazing_spotsCreateOrConnectWithoutUsers_stargazing_spots_moderated_byTousersInput[]
+    upsert?: stargazing_spotsUpsertWithWhereUniqueWithoutUsers_stargazing_spots_moderated_byTousersInput | stargazing_spotsUpsertWithWhereUniqueWithoutUsers_stargazing_spots_moderated_byTousersInput[]
+    createMany?: stargazing_spotsCreateManyUsers_stargazing_spots_moderated_byTousersInputEnvelope
+    set?: stargazing_spotsWhereUniqueInput | stargazing_spotsWhereUniqueInput[]
+    disconnect?: stargazing_spotsWhereUniqueInput | stargazing_spotsWhereUniqueInput[]
+    delete?: stargazing_spotsWhereUniqueInput | stargazing_spotsWhereUniqueInput[]
+    connect?: stargazing_spotsWhereUniqueInput | stargazing_spotsWhereUniqueInput[]
+    update?: stargazing_spotsUpdateWithWhereUniqueWithoutUsers_stargazing_spots_moderated_byTousersInput | stargazing_spotsUpdateWithWhereUniqueWithoutUsers_stargazing_spots_moderated_byTousersInput[]
+    updateMany?: stargazing_spotsUpdateManyWithWhereWithoutUsers_stargazing_spots_moderated_byTousersInput | stargazing_spotsUpdateManyWithWhereWithoutUsers_stargazing_spots_moderated_byTousersInput[]
     deleteMany?: stargazing_spotsScalarWhereInput | stargazing_spotsScalarWhereInput[]
   }
 
@@ -97889,6 +98430,12 @@ export namespace Prisma {
     connect?: usersWhereUniqueInput
   }
 
+  export type usersCreateNestedOneWithoutModerated_sessionsInput = {
+    create?: XOR<usersCreateWithoutModerated_sessionsInput, usersUncheckedCreateWithoutModerated_sessionsInput>
+    connectOrCreate?: usersCreateOrConnectWithoutModerated_sessionsInput
+    connect?: usersWhereUniqueInput
+  }
+
   export type session_enrollmentsUncheckedCreateNestedManyWithoutSessionsInput = {
     create?: XOR<session_enrollmentsCreateWithoutSessionsInput, session_enrollmentsUncheckedCreateWithoutSessionsInput> | session_enrollmentsCreateWithoutSessionsInput[] | session_enrollmentsUncheckedCreateWithoutSessionsInput[]
     connectOrCreate?: session_enrollmentsCreateOrConnectWithoutSessionsInput | session_enrollmentsCreateOrConnectWithoutSessionsInput[]
@@ -97906,6 +98453,10 @@ export namespace Prisma {
 
   export type Enumdifficulty_levelFieldUpdateOperationsInput = {
     set?: $Enums.difficulty_level
+  }
+
+  export type Enumsession_statusFieldUpdateOperationsInput = {
+    set?: $Enums.session_status
   }
 
   export type session_enrollmentsUpdateManyWithoutSessionsNestedInput = {
@@ -97928,6 +98479,16 @@ export namespace Prisma {
     upsert?: usersUpsertWithoutCreated_sessionsInput
     connect?: usersWhereUniqueInput
     update?: XOR<XOR<usersUpdateToOneWithWhereWithoutCreated_sessionsInput, usersUpdateWithoutCreated_sessionsInput>, usersUncheckedUpdateWithoutCreated_sessionsInput>
+  }
+
+  export type usersUpdateOneWithoutModerated_sessionsNestedInput = {
+    create?: XOR<usersCreateWithoutModerated_sessionsInput, usersUncheckedCreateWithoutModerated_sessionsInput>
+    connectOrCreate?: usersCreateOrConnectWithoutModerated_sessionsInput
+    upsert?: usersUpsertWithoutModerated_sessionsInput
+    disconnect?: usersWhereInput | boolean
+    delete?: usersWhereInput | boolean
+    connect?: usersWhereUniqueInput
+    update?: XOR<XOR<usersUpdateToOneWithWhereWithoutModerated_sessionsInput, usersUpdateWithoutModerated_sessionsInput>, usersUncheckedUpdateWithoutModerated_sessionsInput>
   }
 
   export type session_enrollmentsUncheckedUpdateManyWithoutSessionsNestedInput = {
@@ -98466,6 +99027,10 @@ export namespace Prisma {
     update?: XOR<XOR<usersUpdateToOneWithWhereWithoutStargazing_spot_reviewsInput, usersUpdateWithoutStargazing_spot_reviewsInput>, usersUncheckedUpdateWithoutStargazing_spot_reviewsInput>
   }
 
+  export type stargazing_spotsCreateimage_urlsInput = {
+    set: string[]
+  }
+
   export type stargazing_spot_reviewsCreateNestedManyWithoutStargazing_spotsInput = {
     create?: XOR<stargazing_spot_reviewsCreateWithoutStargazing_spotsInput, stargazing_spot_reviewsUncheckedCreateWithoutStargazing_spotsInput> | stargazing_spot_reviewsCreateWithoutStargazing_spotsInput[] | stargazing_spot_reviewsUncheckedCreateWithoutStargazing_spotsInput[]
     connectOrCreate?: stargazing_spot_reviewsCreateOrConnectWithoutStargazing_spotsInput | stargazing_spot_reviewsCreateOrConnectWithoutStargazing_spotsInput[]
@@ -98479,11 +99044,22 @@ export namespace Prisma {
     connect?: usersWhereUniqueInput
   }
 
+  export type usersCreateNestedOneWithoutStargazing_spots_stargazing_spots_moderated_byTousersInput = {
+    create?: XOR<usersCreateWithoutStargazing_spots_stargazing_spots_moderated_byTousersInput, usersUncheckedCreateWithoutStargazing_spots_stargazing_spots_moderated_byTousersInput>
+    connectOrCreate?: usersCreateOrConnectWithoutStargazing_spots_stargazing_spots_moderated_byTousersInput
+    connect?: usersWhereUniqueInput
+  }
+
   export type stargazing_spot_reviewsUncheckedCreateNestedManyWithoutStargazing_spotsInput = {
     create?: XOR<stargazing_spot_reviewsCreateWithoutStargazing_spotsInput, stargazing_spot_reviewsUncheckedCreateWithoutStargazing_spotsInput> | stargazing_spot_reviewsCreateWithoutStargazing_spotsInput[] | stargazing_spot_reviewsUncheckedCreateWithoutStargazing_spotsInput[]
     connectOrCreate?: stargazing_spot_reviewsCreateOrConnectWithoutStargazing_spotsInput | stargazing_spot_reviewsCreateOrConnectWithoutStargazing_spotsInput[]
     createMany?: stargazing_spot_reviewsCreateManyStargazing_spotsInputEnvelope
     connect?: stargazing_spot_reviewsWhereUniqueInput | stargazing_spot_reviewsWhereUniqueInput[]
+  }
+
+  export type stargazing_spotsUpdateimage_urlsInput = {
+    set?: string[]
+    push?: string | string[]
   }
 
   export type stargazing_spot_reviewsUpdateManyWithoutStargazing_spotsNestedInput = {
@@ -98506,6 +99082,16 @@ export namespace Prisma {
     upsert?: usersUpsertWithoutCreated_stargazing_spotsInput
     connect?: usersWhereUniqueInput
     update?: XOR<XOR<usersUpdateToOneWithWhereWithoutCreated_stargazing_spotsInput, usersUpdateWithoutCreated_stargazing_spotsInput>, usersUncheckedUpdateWithoutCreated_stargazing_spotsInput>
+  }
+
+  export type usersUpdateOneWithoutStargazing_spots_stargazing_spots_moderated_byTousersNestedInput = {
+    create?: XOR<usersCreateWithoutStargazing_spots_stargazing_spots_moderated_byTousersInput, usersUncheckedCreateWithoutStargazing_spots_stargazing_spots_moderated_byTousersInput>
+    connectOrCreate?: usersCreateOrConnectWithoutStargazing_spots_stargazing_spots_moderated_byTousersInput
+    upsert?: usersUpsertWithoutStargazing_spots_stargazing_spots_moderated_byTousersInput
+    disconnect?: usersWhereInput | boolean
+    delete?: usersWhereInput | boolean
+    connect?: usersWhereUniqueInput
+    update?: XOR<XOR<usersUpdateToOneWithWhereWithoutStargazing_spots_stargazing_spots_moderated_byTousersInput, usersUpdateWithoutStargazing_spots_stargazing_spots_moderated_byTousersInput>, usersUncheckedUpdateWithoutStargazing_spots_stargazing_spots_moderated_byTousersInput>
   }
 
   export type stargazing_spot_reviewsUncheckedUpdateManyWithoutStargazing_spotsNestedInput = {
@@ -99348,6 +99934,13 @@ export namespace Prisma {
     not?: NestedEnumdifficulty_levelFilter<$PrismaModel> | $Enums.difficulty_level
   }
 
+  export type NestedEnumsession_statusFilter<$PrismaModel = never> = {
+    equals?: $Enums.session_status | Enumsession_statusFieldRefInput<$PrismaModel>
+    in?: $Enums.session_status[] | ListEnumsession_statusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.session_status[] | ListEnumsession_statusFieldRefInput<$PrismaModel>
+    not?: NestedEnumsession_statusFilter<$PrismaModel> | $Enums.session_status
+  }
+
   export type NestedEnumsession_typeWithAggregatesFilter<$PrismaModel = never> = {
     equals?: $Enums.session_type | Enumsession_typeFieldRefInput<$PrismaModel>
     in?: $Enums.session_type[] | ListEnumsession_typeFieldRefInput<$PrismaModel>
@@ -99376,6 +99969,16 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedEnumdifficulty_levelFilter<$PrismaModel>
     _max?: NestedEnumdifficulty_levelFilter<$PrismaModel>
+  }
+
+  export type NestedEnumsession_statusWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.session_status | Enumsession_statusFieldRefInput<$PrismaModel>
+    in?: $Enums.session_status[] | ListEnumsession_statusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.session_status[] | ListEnumsession_statusFieldRefInput<$PrismaModel>
+    not?: NestedEnumsession_statusWithAggregatesFilter<$PrismaModel> | $Enums.session_status
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumsession_statusFilter<$PrismaModel>
+    _max?: NestedEnumsession_statusFilter<$PrismaModel>
   }
 
   export type NestedEnumsubscription_planFilter<$PrismaModel = never> = {
@@ -99484,6 +100087,7 @@ export namespace Prisma {
     services?: servicesCreateNestedManyWithoutUsersInput
     session_enrollments?: session_enrollmentsCreateNestedManyWithoutUserInput
     created_sessions?: sessionsCreateNestedManyWithoutCreatorInput
+    moderated_sessions?: sessionsCreateNestedManyWithoutModeratorInput
     discussion_comment_likes?: space_discussion_comment_likesCreateNestedManyWithoutUserInput
     discussion_comments?: space_discussion_commentsCreateNestedManyWithoutUserInput
     discussion_likes?: space_discussion_likesCreateNestedManyWithoutUserInput
@@ -99493,6 +100097,7 @@ export namespace Prisma {
     space_news_likes?: space_news_likesCreateNestedManyWithoutUserInput
     stargazing_spot_reviews?: stargazing_spot_reviewsCreateNestedManyWithoutUserInput
     created_stargazing_spots?: stargazing_spotsCreateNestedManyWithoutCreatorInput
+    stargazing_spots_stargazing_spots_moderated_byTousers?: stargazing_spotsCreateNestedManyWithoutUsers_stargazing_spots_moderated_byTousersInput
     subscriptions?: subscriptionsCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsCreateNestedOneWithoutUsersInput
   }
@@ -99549,6 +100154,7 @@ export namespace Prisma {
     services?: servicesUncheckedCreateNestedManyWithoutUsersInput
     session_enrollments?: session_enrollmentsUncheckedCreateNestedManyWithoutUserInput
     created_sessions?: sessionsUncheckedCreateNestedManyWithoutCreatorInput
+    moderated_sessions?: sessionsUncheckedCreateNestedManyWithoutModeratorInput
     discussion_comment_likes?: space_discussion_comment_likesUncheckedCreateNestedManyWithoutUserInput
     discussion_comments?: space_discussion_commentsUncheckedCreateNestedManyWithoutUserInput
     discussion_likes?: space_discussion_likesUncheckedCreateNestedManyWithoutUserInput
@@ -99558,6 +100164,7 @@ export namespace Prisma {
     space_news_likes?: space_news_likesUncheckedCreateNestedManyWithoutUserInput
     stargazing_spot_reviews?: stargazing_spot_reviewsUncheckedCreateNestedManyWithoutUserInput
     created_stargazing_spots?: stargazing_spotsUncheckedCreateNestedManyWithoutCreatorInput
+    stargazing_spots_stargazing_spots_moderated_byTousers?: stargazing_spotsUncheckedCreateNestedManyWithoutUsers_stargazing_spots_moderated_byTousersInput
     subscriptions?: subscriptionsUncheckedCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsUncheckedCreateNestedOneWithoutUsersInput
   }
@@ -99673,6 +100280,7 @@ export namespace Prisma {
     services?: servicesUpdateManyWithoutUsersNestedInput
     session_enrollments?: session_enrollmentsUpdateManyWithoutUserNestedInput
     created_sessions?: sessionsUpdateManyWithoutCreatorNestedInput
+    moderated_sessions?: sessionsUpdateManyWithoutModeratorNestedInput
     discussion_comment_likes?: space_discussion_comment_likesUpdateManyWithoutUserNestedInput
     discussion_comments?: space_discussion_commentsUpdateManyWithoutUserNestedInput
     discussion_likes?: space_discussion_likesUpdateManyWithoutUserNestedInput
@@ -99682,6 +100290,7 @@ export namespace Prisma {
     space_news_likes?: space_news_likesUpdateManyWithoutUserNestedInput
     stargazing_spot_reviews?: stargazing_spot_reviewsUpdateManyWithoutUserNestedInput
     created_stargazing_spots?: stargazing_spotsUpdateManyWithoutCreatorNestedInput
+    stargazing_spots_stargazing_spots_moderated_byTousers?: stargazing_spotsUpdateManyWithoutUsers_stargazing_spots_moderated_byTousersNestedInput
     subscriptions?: subscriptionsUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUpdateOneWithoutUsersNestedInput
   }
@@ -99738,6 +100347,7 @@ export namespace Prisma {
     services?: servicesUncheckedUpdateManyWithoutUsersNestedInput
     session_enrollments?: session_enrollmentsUncheckedUpdateManyWithoutUserNestedInput
     created_sessions?: sessionsUncheckedUpdateManyWithoutCreatorNestedInput
+    moderated_sessions?: sessionsUncheckedUpdateManyWithoutModeratorNestedInput
     discussion_comment_likes?: space_discussion_comment_likesUncheckedUpdateManyWithoutUserNestedInput
     discussion_comments?: space_discussion_commentsUncheckedUpdateManyWithoutUserNestedInput
     discussion_likes?: space_discussion_likesUncheckedUpdateManyWithoutUserNestedInput
@@ -99747,6 +100357,7 @@ export namespace Prisma {
     space_news_likes?: space_news_likesUncheckedUpdateManyWithoutUserNestedInput
     stargazing_spot_reviews?: stargazing_spot_reviewsUncheckedUpdateManyWithoutUserNestedInput
     created_stargazing_spots?: stargazing_spotsUncheckedUpdateManyWithoutCreatorNestedInput
+    stargazing_spots_stargazing_spots_moderated_byTousers?: stargazing_spotsUncheckedUpdateManyWithoutUsers_stargazing_spots_moderated_byTousersNestedInput
     subscriptions?: subscriptionsUncheckedUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUncheckedUpdateOneWithoutUsersNestedInput
   }
@@ -99932,6 +100543,7 @@ export namespace Prisma {
     services?: servicesCreateNestedManyWithoutUsersInput
     session_enrollments?: session_enrollmentsCreateNestedManyWithoutUserInput
     created_sessions?: sessionsCreateNestedManyWithoutCreatorInput
+    moderated_sessions?: sessionsCreateNestedManyWithoutModeratorInput
     discussion_comment_likes?: space_discussion_comment_likesCreateNestedManyWithoutUserInput
     discussion_comments?: space_discussion_commentsCreateNestedManyWithoutUserInput
     discussion_likes?: space_discussion_likesCreateNestedManyWithoutUserInput
@@ -99941,6 +100553,7 @@ export namespace Prisma {
     space_news_likes?: space_news_likesCreateNestedManyWithoutUserInput
     stargazing_spot_reviews?: stargazing_spot_reviewsCreateNestedManyWithoutUserInput
     created_stargazing_spots?: stargazing_spotsCreateNestedManyWithoutCreatorInput
+    stargazing_spots_stargazing_spots_moderated_byTousers?: stargazing_spotsCreateNestedManyWithoutUsers_stargazing_spots_moderated_byTousersInput
     subscriptions?: subscriptionsCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsCreateNestedOneWithoutUsersInput
   }
@@ -99997,6 +100610,7 @@ export namespace Prisma {
     services?: servicesUncheckedCreateNestedManyWithoutUsersInput
     session_enrollments?: session_enrollmentsUncheckedCreateNestedManyWithoutUserInput
     created_sessions?: sessionsUncheckedCreateNestedManyWithoutCreatorInput
+    moderated_sessions?: sessionsUncheckedCreateNestedManyWithoutModeratorInput
     discussion_comment_likes?: space_discussion_comment_likesUncheckedCreateNestedManyWithoutUserInput
     discussion_comments?: space_discussion_commentsUncheckedCreateNestedManyWithoutUserInput
     discussion_likes?: space_discussion_likesUncheckedCreateNestedManyWithoutUserInput
@@ -100006,6 +100620,7 @@ export namespace Prisma {
     space_news_likes?: space_news_likesUncheckedCreateNestedManyWithoutUserInput
     stargazing_spot_reviews?: stargazing_spot_reviewsUncheckedCreateNestedManyWithoutUserInput
     created_stargazing_spots?: stargazing_spotsUncheckedCreateNestedManyWithoutCreatorInput
+    stargazing_spots_stargazing_spots_moderated_byTousers?: stargazing_spotsUncheckedCreateNestedManyWithoutUsers_stargazing_spots_moderated_byTousersInput
     subscriptions?: subscriptionsUncheckedCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsUncheckedCreateNestedOneWithoutUsersInput
   }
@@ -100132,6 +100747,7 @@ export namespace Prisma {
     services?: servicesUpdateManyWithoutUsersNestedInput
     session_enrollments?: session_enrollmentsUpdateManyWithoutUserNestedInput
     created_sessions?: sessionsUpdateManyWithoutCreatorNestedInput
+    moderated_sessions?: sessionsUpdateManyWithoutModeratorNestedInput
     discussion_comment_likes?: space_discussion_comment_likesUpdateManyWithoutUserNestedInput
     discussion_comments?: space_discussion_commentsUpdateManyWithoutUserNestedInput
     discussion_likes?: space_discussion_likesUpdateManyWithoutUserNestedInput
@@ -100141,6 +100757,7 @@ export namespace Prisma {
     space_news_likes?: space_news_likesUpdateManyWithoutUserNestedInput
     stargazing_spot_reviews?: stargazing_spot_reviewsUpdateManyWithoutUserNestedInput
     created_stargazing_spots?: stargazing_spotsUpdateManyWithoutCreatorNestedInput
+    stargazing_spots_stargazing_spots_moderated_byTousers?: stargazing_spotsUpdateManyWithoutUsers_stargazing_spots_moderated_byTousersNestedInput
     subscriptions?: subscriptionsUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUpdateOneWithoutUsersNestedInput
   }
@@ -100197,6 +100814,7 @@ export namespace Prisma {
     services?: servicesUncheckedUpdateManyWithoutUsersNestedInput
     session_enrollments?: session_enrollmentsUncheckedUpdateManyWithoutUserNestedInput
     created_sessions?: sessionsUncheckedUpdateManyWithoutCreatorNestedInput
+    moderated_sessions?: sessionsUncheckedUpdateManyWithoutModeratorNestedInput
     discussion_comment_likes?: space_discussion_comment_likesUncheckedUpdateManyWithoutUserNestedInput
     discussion_comments?: space_discussion_commentsUncheckedUpdateManyWithoutUserNestedInput
     discussion_likes?: space_discussion_likesUncheckedUpdateManyWithoutUserNestedInput
@@ -100206,6 +100824,7 @@ export namespace Prisma {
     space_news_likes?: space_news_likesUncheckedUpdateManyWithoutUserNestedInput
     stargazing_spot_reviews?: stargazing_spot_reviewsUncheckedUpdateManyWithoutUserNestedInput
     created_stargazing_spots?: stargazing_spotsUncheckedUpdateManyWithoutCreatorNestedInput
+    stargazing_spots_stargazing_spots_moderated_byTousers?: stargazing_spotsUncheckedUpdateManyWithoutUsers_stargazing_spots_moderated_byTousersNestedInput
     subscriptions?: subscriptionsUncheckedUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUncheckedUpdateOneWithoutUsersNestedInput
   }
@@ -100261,6 +100880,7 @@ export namespace Prisma {
     services?: servicesCreateNestedManyWithoutUsersInput
     session_enrollments?: session_enrollmentsCreateNestedManyWithoutUserInput
     created_sessions?: sessionsCreateNestedManyWithoutCreatorInput
+    moderated_sessions?: sessionsCreateNestedManyWithoutModeratorInput
     discussion_comment_likes?: space_discussion_comment_likesCreateNestedManyWithoutUserInput
     discussion_comments?: space_discussion_commentsCreateNestedManyWithoutUserInput
     discussion_likes?: space_discussion_likesCreateNestedManyWithoutUserInput
@@ -100270,6 +100890,7 @@ export namespace Prisma {
     space_news_likes?: space_news_likesCreateNestedManyWithoutUserInput
     stargazing_spot_reviews?: stargazing_spot_reviewsCreateNestedManyWithoutUserInput
     created_stargazing_spots?: stargazing_spotsCreateNestedManyWithoutCreatorInput
+    stargazing_spots_stargazing_spots_moderated_byTousers?: stargazing_spotsCreateNestedManyWithoutUsers_stargazing_spots_moderated_byTousersInput
     subscriptions?: subscriptionsCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsCreateNestedOneWithoutUsersInput
   }
@@ -100326,6 +100947,7 @@ export namespace Prisma {
     services?: servicesUncheckedCreateNestedManyWithoutUsersInput
     session_enrollments?: session_enrollmentsUncheckedCreateNestedManyWithoutUserInput
     created_sessions?: sessionsUncheckedCreateNestedManyWithoutCreatorInput
+    moderated_sessions?: sessionsUncheckedCreateNestedManyWithoutModeratorInput
     discussion_comment_likes?: space_discussion_comment_likesUncheckedCreateNestedManyWithoutUserInput
     discussion_comments?: space_discussion_commentsUncheckedCreateNestedManyWithoutUserInput
     discussion_likes?: space_discussion_likesUncheckedCreateNestedManyWithoutUserInput
@@ -100335,6 +100957,7 @@ export namespace Prisma {
     space_news_likes?: space_news_likesUncheckedCreateNestedManyWithoutUserInput
     stargazing_spot_reviews?: stargazing_spot_reviewsUncheckedCreateNestedManyWithoutUserInput
     created_stargazing_spots?: stargazing_spotsUncheckedCreateNestedManyWithoutCreatorInput
+    stargazing_spots_stargazing_spots_moderated_byTousers?: stargazing_spotsUncheckedCreateNestedManyWithoutUsers_stargazing_spots_moderated_byTousersInput
     subscriptions?: subscriptionsUncheckedCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsUncheckedCreateNestedOneWithoutUsersInput
   }
@@ -100435,6 +101058,7 @@ export namespace Prisma {
     services?: servicesUpdateManyWithoutUsersNestedInput
     session_enrollments?: session_enrollmentsUpdateManyWithoutUserNestedInput
     created_sessions?: sessionsUpdateManyWithoutCreatorNestedInput
+    moderated_sessions?: sessionsUpdateManyWithoutModeratorNestedInput
     discussion_comment_likes?: space_discussion_comment_likesUpdateManyWithoutUserNestedInput
     discussion_comments?: space_discussion_commentsUpdateManyWithoutUserNestedInput
     discussion_likes?: space_discussion_likesUpdateManyWithoutUserNestedInput
@@ -100444,6 +101068,7 @@ export namespace Prisma {
     space_news_likes?: space_news_likesUpdateManyWithoutUserNestedInput
     stargazing_spot_reviews?: stargazing_spot_reviewsUpdateManyWithoutUserNestedInput
     created_stargazing_spots?: stargazing_spotsUpdateManyWithoutCreatorNestedInput
+    stargazing_spots_stargazing_spots_moderated_byTousers?: stargazing_spotsUpdateManyWithoutUsers_stargazing_spots_moderated_byTousersNestedInput
     subscriptions?: subscriptionsUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUpdateOneWithoutUsersNestedInput
   }
@@ -100500,6 +101125,7 @@ export namespace Prisma {
     services?: servicesUncheckedUpdateManyWithoutUsersNestedInput
     session_enrollments?: session_enrollmentsUncheckedUpdateManyWithoutUserNestedInput
     created_sessions?: sessionsUncheckedUpdateManyWithoutCreatorNestedInput
+    moderated_sessions?: sessionsUncheckedUpdateManyWithoutModeratorNestedInput
     discussion_comment_likes?: space_discussion_comment_likesUncheckedUpdateManyWithoutUserNestedInput
     discussion_comments?: space_discussion_commentsUncheckedUpdateManyWithoutUserNestedInput
     discussion_likes?: space_discussion_likesUncheckedUpdateManyWithoutUserNestedInput
@@ -100509,6 +101135,7 @@ export namespace Prisma {
     space_news_likes?: space_news_likesUncheckedUpdateManyWithoutUserNestedInput
     stargazing_spot_reviews?: stargazing_spot_reviewsUncheckedUpdateManyWithoutUserNestedInput
     created_stargazing_spots?: stargazing_spotsUncheckedUpdateManyWithoutCreatorNestedInput
+    stargazing_spots_stargazing_spots_moderated_byTousers?: stargazing_spotsUncheckedUpdateManyWithoutUsers_stargazing_spots_moderated_byTousersNestedInput
     subscriptions?: subscriptionsUncheckedUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUncheckedUpdateOneWithoutUsersNestedInput
   }
@@ -100917,6 +101544,7 @@ export namespace Prisma {
     services?: servicesCreateNestedManyWithoutUsersInput
     session_enrollments?: session_enrollmentsCreateNestedManyWithoutUserInput
     created_sessions?: sessionsCreateNestedManyWithoutCreatorInput
+    moderated_sessions?: sessionsCreateNestedManyWithoutModeratorInput
     discussion_comment_likes?: space_discussion_comment_likesCreateNestedManyWithoutUserInput
     discussion_comments?: space_discussion_commentsCreateNestedManyWithoutUserInput
     discussion_likes?: space_discussion_likesCreateNestedManyWithoutUserInput
@@ -100926,6 +101554,7 @@ export namespace Prisma {
     space_news_likes?: space_news_likesCreateNestedManyWithoutUserInput
     stargazing_spot_reviews?: stargazing_spot_reviewsCreateNestedManyWithoutUserInput
     created_stargazing_spots?: stargazing_spotsCreateNestedManyWithoutCreatorInput
+    stargazing_spots_stargazing_spots_moderated_byTousers?: stargazing_spotsCreateNestedManyWithoutUsers_stargazing_spots_moderated_byTousersInput
     subscriptions?: subscriptionsCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsCreateNestedOneWithoutUsersInput
   }
@@ -100982,6 +101611,7 @@ export namespace Prisma {
     services?: servicesUncheckedCreateNestedManyWithoutUsersInput
     session_enrollments?: session_enrollmentsUncheckedCreateNestedManyWithoutUserInput
     created_sessions?: sessionsUncheckedCreateNestedManyWithoutCreatorInput
+    moderated_sessions?: sessionsUncheckedCreateNestedManyWithoutModeratorInput
     discussion_comment_likes?: space_discussion_comment_likesUncheckedCreateNestedManyWithoutUserInput
     discussion_comments?: space_discussion_commentsUncheckedCreateNestedManyWithoutUserInput
     discussion_likes?: space_discussion_likesUncheckedCreateNestedManyWithoutUserInput
@@ -100991,6 +101621,7 @@ export namespace Prisma {
     space_news_likes?: space_news_likesUncheckedCreateNestedManyWithoutUserInput
     stargazing_spot_reviews?: stargazing_spot_reviewsUncheckedCreateNestedManyWithoutUserInput
     created_stargazing_spots?: stargazing_spotsUncheckedCreateNestedManyWithoutCreatorInput
+    stargazing_spots_stargazing_spots_moderated_byTousers?: stargazing_spotsUncheckedCreateNestedManyWithoutUsers_stargazing_spots_moderated_byTousersInput
     subscriptions?: subscriptionsUncheckedCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsUncheckedCreateNestedOneWithoutUsersInput
   }
@@ -101188,6 +101819,7 @@ export namespace Prisma {
     services?: servicesUpdateManyWithoutUsersNestedInput
     session_enrollments?: session_enrollmentsUpdateManyWithoutUserNestedInput
     created_sessions?: sessionsUpdateManyWithoutCreatorNestedInput
+    moderated_sessions?: sessionsUpdateManyWithoutModeratorNestedInput
     discussion_comment_likes?: space_discussion_comment_likesUpdateManyWithoutUserNestedInput
     discussion_comments?: space_discussion_commentsUpdateManyWithoutUserNestedInput
     discussion_likes?: space_discussion_likesUpdateManyWithoutUserNestedInput
@@ -101197,6 +101829,7 @@ export namespace Prisma {
     space_news_likes?: space_news_likesUpdateManyWithoutUserNestedInput
     stargazing_spot_reviews?: stargazing_spot_reviewsUpdateManyWithoutUserNestedInput
     created_stargazing_spots?: stargazing_spotsUpdateManyWithoutCreatorNestedInput
+    stargazing_spots_stargazing_spots_moderated_byTousers?: stargazing_spotsUpdateManyWithoutUsers_stargazing_spots_moderated_byTousersNestedInput
     subscriptions?: subscriptionsUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUpdateOneWithoutUsersNestedInput
   }
@@ -101253,6 +101886,7 @@ export namespace Prisma {
     services?: servicesUncheckedUpdateManyWithoutUsersNestedInput
     session_enrollments?: session_enrollmentsUncheckedUpdateManyWithoutUserNestedInput
     created_sessions?: sessionsUncheckedUpdateManyWithoutCreatorNestedInput
+    moderated_sessions?: sessionsUncheckedUpdateManyWithoutModeratorNestedInput
     discussion_comment_likes?: space_discussion_comment_likesUncheckedUpdateManyWithoutUserNestedInput
     discussion_comments?: space_discussion_commentsUncheckedUpdateManyWithoutUserNestedInput
     discussion_likes?: space_discussion_likesUncheckedUpdateManyWithoutUserNestedInput
@@ -101262,6 +101896,7 @@ export namespace Prisma {
     space_news_likes?: space_news_likesUncheckedUpdateManyWithoutUserNestedInput
     stargazing_spot_reviews?: stargazing_spot_reviewsUncheckedUpdateManyWithoutUserNestedInput
     created_stargazing_spots?: stargazing_spotsUncheckedUpdateManyWithoutCreatorNestedInput
+    stargazing_spots_stargazing_spots_moderated_byTousers?: stargazing_spotsUncheckedUpdateManyWithoutUsers_stargazing_spots_moderated_byTousersNestedInput
     subscriptions?: subscriptionsUncheckedUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUncheckedUpdateOneWithoutUsersNestedInput
   }
@@ -101375,6 +102010,7 @@ export namespace Prisma {
     services?: servicesCreateNestedManyWithoutUsersInput
     session_enrollments?: session_enrollmentsCreateNestedManyWithoutUserInput
     created_sessions?: sessionsCreateNestedManyWithoutCreatorInput
+    moderated_sessions?: sessionsCreateNestedManyWithoutModeratorInput
     discussion_comment_likes?: space_discussion_comment_likesCreateNestedManyWithoutUserInput
     discussion_comments?: space_discussion_commentsCreateNestedManyWithoutUserInput
     discussion_likes?: space_discussion_likesCreateNestedManyWithoutUserInput
@@ -101384,6 +102020,7 @@ export namespace Prisma {
     space_news_likes?: space_news_likesCreateNestedManyWithoutUserInput
     stargazing_spot_reviews?: stargazing_spot_reviewsCreateNestedManyWithoutUserInput
     created_stargazing_spots?: stargazing_spotsCreateNestedManyWithoutCreatorInput
+    stargazing_spots_stargazing_spots_moderated_byTousers?: stargazing_spotsCreateNestedManyWithoutUsers_stargazing_spots_moderated_byTousersInput
     subscriptions?: subscriptionsCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsCreateNestedOneWithoutUsersInput
   }
@@ -101440,6 +102077,7 @@ export namespace Prisma {
     services?: servicesUncheckedCreateNestedManyWithoutUsersInput
     session_enrollments?: session_enrollmentsUncheckedCreateNestedManyWithoutUserInput
     created_sessions?: sessionsUncheckedCreateNestedManyWithoutCreatorInput
+    moderated_sessions?: sessionsUncheckedCreateNestedManyWithoutModeratorInput
     discussion_comment_likes?: space_discussion_comment_likesUncheckedCreateNestedManyWithoutUserInput
     discussion_comments?: space_discussion_commentsUncheckedCreateNestedManyWithoutUserInput
     discussion_likes?: space_discussion_likesUncheckedCreateNestedManyWithoutUserInput
@@ -101449,6 +102087,7 @@ export namespace Prisma {
     space_news_likes?: space_news_likesUncheckedCreateNestedManyWithoutUserInput
     stargazing_spot_reviews?: stargazing_spot_reviewsUncheckedCreateNestedManyWithoutUserInput
     created_stargazing_spots?: stargazing_spotsUncheckedCreateNestedManyWithoutCreatorInput
+    stargazing_spots_stargazing_spots_moderated_byTousers?: stargazing_spotsUncheckedCreateNestedManyWithoutUsers_stargazing_spots_moderated_byTousersInput
     subscriptions?: subscriptionsUncheckedCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsUncheckedCreateNestedOneWithoutUsersInput
   }
@@ -101584,6 +102223,7 @@ export namespace Prisma {
     services?: servicesUpdateManyWithoutUsersNestedInput
     session_enrollments?: session_enrollmentsUpdateManyWithoutUserNestedInput
     created_sessions?: sessionsUpdateManyWithoutCreatorNestedInput
+    moderated_sessions?: sessionsUpdateManyWithoutModeratorNestedInput
     discussion_comment_likes?: space_discussion_comment_likesUpdateManyWithoutUserNestedInput
     discussion_comments?: space_discussion_commentsUpdateManyWithoutUserNestedInput
     discussion_likes?: space_discussion_likesUpdateManyWithoutUserNestedInput
@@ -101593,6 +102233,7 @@ export namespace Prisma {
     space_news_likes?: space_news_likesUpdateManyWithoutUserNestedInput
     stargazing_spot_reviews?: stargazing_spot_reviewsUpdateManyWithoutUserNestedInput
     created_stargazing_spots?: stargazing_spotsUpdateManyWithoutCreatorNestedInput
+    stargazing_spots_stargazing_spots_moderated_byTousers?: stargazing_spotsUpdateManyWithoutUsers_stargazing_spots_moderated_byTousersNestedInput
     subscriptions?: subscriptionsUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUpdateOneWithoutUsersNestedInput
   }
@@ -101649,6 +102290,7 @@ export namespace Prisma {
     services?: servicesUncheckedUpdateManyWithoutUsersNestedInput
     session_enrollments?: session_enrollmentsUncheckedUpdateManyWithoutUserNestedInput
     created_sessions?: sessionsUncheckedUpdateManyWithoutCreatorNestedInput
+    moderated_sessions?: sessionsUncheckedUpdateManyWithoutModeratorNestedInput
     discussion_comment_likes?: space_discussion_comment_likesUncheckedUpdateManyWithoutUserNestedInput
     discussion_comments?: space_discussion_commentsUncheckedUpdateManyWithoutUserNestedInput
     discussion_likes?: space_discussion_likesUncheckedUpdateManyWithoutUserNestedInput
@@ -101658,6 +102300,7 @@ export namespace Prisma {
     space_news_likes?: space_news_likesUncheckedUpdateManyWithoutUserNestedInput
     stargazing_spot_reviews?: stargazing_spot_reviewsUncheckedUpdateManyWithoutUserNestedInput
     created_stargazing_spots?: stargazing_spotsUncheckedUpdateManyWithoutCreatorNestedInput
+    stargazing_spots_stargazing_spots_moderated_byTousers?: stargazing_spotsUncheckedUpdateManyWithoutUsers_stargazing_spots_moderated_byTousersNestedInput
     subscriptions?: subscriptionsUncheckedUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUncheckedUpdateOneWithoutUsersNestedInput
   }
@@ -101771,6 +102414,7 @@ export namespace Prisma {
     services?: servicesCreateNestedManyWithoutUsersInput
     session_enrollments?: session_enrollmentsCreateNestedManyWithoutUserInput
     created_sessions?: sessionsCreateNestedManyWithoutCreatorInput
+    moderated_sessions?: sessionsCreateNestedManyWithoutModeratorInput
     discussion_comment_likes?: space_discussion_comment_likesCreateNestedManyWithoutUserInput
     discussion_comments?: space_discussion_commentsCreateNestedManyWithoutUserInput
     discussion_likes?: space_discussion_likesCreateNestedManyWithoutUserInput
@@ -101780,6 +102424,7 @@ export namespace Prisma {
     space_news_likes?: space_news_likesCreateNestedManyWithoutUserInput
     stargazing_spot_reviews?: stargazing_spot_reviewsCreateNestedManyWithoutUserInput
     created_stargazing_spots?: stargazing_spotsCreateNestedManyWithoutCreatorInput
+    stargazing_spots_stargazing_spots_moderated_byTousers?: stargazing_spotsCreateNestedManyWithoutUsers_stargazing_spots_moderated_byTousersInput
     subscriptions?: subscriptionsCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsCreateNestedOneWithoutUsersInput
   }
@@ -101836,6 +102481,7 @@ export namespace Prisma {
     services?: servicesUncheckedCreateNestedManyWithoutUsersInput
     session_enrollments?: session_enrollmentsUncheckedCreateNestedManyWithoutUserInput
     created_sessions?: sessionsUncheckedCreateNestedManyWithoutCreatorInput
+    moderated_sessions?: sessionsUncheckedCreateNestedManyWithoutModeratorInput
     discussion_comment_likes?: space_discussion_comment_likesUncheckedCreateNestedManyWithoutUserInput
     discussion_comments?: space_discussion_commentsUncheckedCreateNestedManyWithoutUserInput
     discussion_likes?: space_discussion_likesUncheckedCreateNestedManyWithoutUserInput
@@ -101845,6 +102491,7 @@ export namespace Prisma {
     space_news_likes?: space_news_likesUncheckedCreateNestedManyWithoutUserInput
     stargazing_spot_reviews?: stargazing_spot_reviewsUncheckedCreateNestedManyWithoutUserInput
     created_stargazing_spots?: stargazing_spotsUncheckedCreateNestedManyWithoutCreatorInput
+    stargazing_spots_stargazing_spots_moderated_byTousers?: stargazing_spotsUncheckedCreateNestedManyWithoutUsers_stargazing_spots_moderated_byTousersInput
     subscriptions?: subscriptionsUncheckedCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsUncheckedCreateNestedOneWithoutUsersInput
   }
@@ -101980,6 +102627,7 @@ export namespace Prisma {
     services?: servicesUpdateManyWithoutUsersNestedInput
     session_enrollments?: session_enrollmentsUpdateManyWithoutUserNestedInput
     created_sessions?: sessionsUpdateManyWithoutCreatorNestedInput
+    moderated_sessions?: sessionsUpdateManyWithoutModeratorNestedInput
     discussion_comment_likes?: space_discussion_comment_likesUpdateManyWithoutUserNestedInput
     discussion_comments?: space_discussion_commentsUpdateManyWithoutUserNestedInput
     discussion_likes?: space_discussion_likesUpdateManyWithoutUserNestedInput
@@ -101989,6 +102637,7 @@ export namespace Prisma {
     space_news_likes?: space_news_likesUpdateManyWithoutUserNestedInput
     stargazing_spot_reviews?: stargazing_spot_reviewsUpdateManyWithoutUserNestedInput
     created_stargazing_spots?: stargazing_spotsUpdateManyWithoutCreatorNestedInput
+    stargazing_spots_stargazing_spots_moderated_byTousers?: stargazing_spotsUpdateManyWithoutUsers_stargazing_spots_moderated_byTousersNestedInput
     subscriptions?: subscriptionsUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUpdateOneWithoutUsersNestedInput
   }
@@ -102045,6 +102694,7 @@ export namespace Prisma {
     services?: servicesUncheckedUpdateManyWithoutUsersNestedInput
     session_enrollments?: session_enrollmentsUncheckedUpdateManyWithoutUserNestedInput
     created_sessions?: sessionsUncheckedUpdateManyWithoutCreatorNestedInput
+    moderated_sessions?: sessionsUncheckedUpdateManyWithoutModeratorNestedInput
     discussion_comment_likes?: space_discussion_comment_likesUncheckedUpdateManyWithoutUserNestedInput
     discussion_comments?: space_discussion_commentsUncheckedUpdateManyWithoutUserNestedInput
     discussion_likes?: space_discussion_likesUncheckedUpdateManyWithoutUserNestedInput
@@ -102054,6 +102704,7 @@ export namespace Prisma {
     space_news_likes?: space_news_likesUncheckedUpdateManyWithoutUserNestedInput
     stargazing_spot_reviews?: stargazing_spot_reviewsUncheckedUpdateManyWithoutUserNestedInput
     created_stargazing_spots?: stargazing_spotsUncheckedUpdateManyWithoutCreatorNestedInput
+    stargazing_spots_stargazing_spots_moderated_byTousers?: stargazing_spotsUncheckedUpdateManyWithoutUsers_stargazing_spots_moderated_byTousersNestedInput
     subscriptions?: subscriptionsUncheckedUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUncheckedUpdateOneWithoutUsersNestedInput
   }
@@ -102205,6 +102856,7 @@ export namespace Prisma {
     services?: servicesCreateNestedManyWithoutUsersInput
     session_enrollments?: session_enrollmentsCreateNestedManyWithoutUserInput
     created_sessions?: sessionsCreateNestedManyWithoutCreatorInput
+    moderated_sessions?: sessionsCreateNestedManyWithoutModeratorInput
     discussion_comment_likes?: space_discussion_comment_likesCreateNestedManyWithoutUserInput
     discussion_comments?: space_discussion_commentsCreateNestedManyWithoutUserInput
     discussion_likes?: space_discussion_likesCreateNestedManyWithoutUserInput
@@ -102214,6 +102866,7 @@ export namespace Prisma {
     space_news_likes?: space_news_likesCreateNestedManyWithoutUserInput
     stargazing_spot_reviews?: stargazing_spot_reviewsCreateNestedManyWithoutUserInput
     created_stargazing_spots?: stargazing_spotsCreateNestedManyWithoutCreatorInput
+    stargazing_spots_stargazing_spots_moderated_byTousers?: stargazing_spotsCreateNestedManyWithoutUsers_stargazing_spots_moderated_byTousersInput
     subscriptions?: subscriptionsCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsCreateNestedOneWithoutUsersInput
   }
@@ -102270,6 +102923,7 @@ export namespace Prisma {
     services?: servicesUncheckedCreateNestedManyWithoutUsersInput
     session_enrollments?: session_enrollmentsUncheckedCreateNestedManyWithoutUserInput
     created_sessions?: sessionsUncheckedCreateNestedManyWithoutCreatorInput
+    moderated_sessions?: sessionsUncheckedCreateNestedManyWithoutModeratorInput
     discussion_comment_likes?: space_discussion_comment_likesUncheckedCreateNestedManyWithoutUserInput
     discussion_comments?: space_discussion_commentsUncheckedCreateNestedManyWithoutUserInput
     discussion_likes?: space_discussion_likesUncheckedCreateNestedManyWithoutUserInput
@@ -102279,6 +102933,7 @@ export namespace Prisma {
     space_news_likes?: space_news_likesUncheckedCreateNestedManyWithoutUserInput
     stargazing_spot_reviews?: stargazing_spot_reviewsUncheckedCreateNestedManyWithoutUserInput
     created_stargazing_spots?: stargazing_spotsUncheckedCreateNestedManyWithoutCreatorInput
+    stargazing_spots_stargazing_spots_moderated_byTousers?: stargazing_spotsUncheckedCreateNestedManyWithoutUsers_stargazing_spots_moderated_byTousersInput
     subscriptions?: subscriptionsUncheckedCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsUncheckedCreateNestedOneWithoutUsersInput
   }
@@ -102436,6 +103091,7 @@ export namespace Prisma {
     services?: servicesUpdateManyWithoutUsersNestedInput
     session_enrollments?: session_enrollmentsUpdateManyWithoutUserNestedInput
     created_sessions?: sessionsUpdateManyWithoutCreatorNestedInput
+    moderated_sessions?: sessionsUpdateManyWithoutModeratorNestedInput
     discussion_comment_likes?: space_discussion_comment_likesUpdateManyWithoutUserNestedInput
     discussion_comments?: space_discussion_commentsUpdateManyWithoutUserNestedInput
     discussion_likes?: space_discussion_likesUpdateManyWithoutUserNestedInput
@@ -102445,6 +103101,7 @@ export namespace Prisma {
     space_news_likes?: space_news_likesUpdateManyWithoutUserNestedInput
     stargazing_spot_reviews?: stargazing_spot_reviewsUpdateManyWithoutUserNestedInput
     created_stargazing_spots?: stargazing_spotsUpdateManyWithoutCreatorNestedInput
+    stargazing_spots_stargazing_spots_moderated_byTousers?: stargazing_spotsUpdateManyWithoutUsers_stargazing_spots_moderated_byTousersNestedInput
     subscriptions?: subscriptionsUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUpdateOneWithoutUsersNestedInput
   }
@@ -102501,6 +103158,7 @@ export namespace Prisma {
     services?: servicesUncheckedUpdateManyWithoutUsersNestedInput
     session_enrollments?: session_enrollmentsUncheckedUpdateManyWithoutUserNestedInput
     created_sessions?: sessionsUncheckedUpdateManyWithoutCreatorNestedInput
+    moderated_sessions?: sessionsUncheckedUpdateManyWithoutModeratorNestedInput
     discussion_comment_likes?: space_discussion_comment_likesUncheckedUpdateManyWithoutUserNestedInput
     discussion_comments?: space_discussion_commentsUncheckedUpdateManyWithoutUserNestedInput
     discussion_likes?: space_discussion_likesUncheckedUpdateManyWithoutUserNestedInput
@@ -102510,6 +103168,7 @@ export namespace Prisma {
     space_news_likes?: space_news_likesUncheckedUpdateManyWithoutUserNestedInput
     stargazing_spot_reviews?: stargazing_spot_reviewsUncheckedUpdateManyWithoutUserNestedInput
     created_stargazing_spots?: stargazing_spotsUncheckedUpdateManyWithoutCreatorNestedInput
+    stargazing_spots_stargazing_spots_moderated_byTousers?: stargazing_spotsUncheckedUpdateManyWithoutUsers_stargazing_spots_moderated_byTousersNestedInput
     subscriptions?: subscriptionsUncheckedUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUncheckedUpdateOneWithoutUsersNestedInput
   }
@@ -102666,6 +103325,7 @@ export namespace Prisma {
     services?: servicesCreateNestedManyWithoutUsersInput
     session_enrollments?: session_enrollmentsCreateNestedManyWithoutUserInput
     created_sessions?: sessionsCreateNestedManyWithoutCreatorInput
+    moderated_sessions?: sessionsCreateNestedManyWithoutModeratorInput
     discussion_comment_likes?: space_discussion_comment_likesCreateNestedManyWithoutUserInput
     discussion_comments?: space_discussion_commentsCreateNestedManyWithoutUserInput
     discussion_likes?: space_discussion_likesCreateNestedManyWithoutUserInput
@@ -102675,6 +103335,7 @@ export namespace Prisma {
     space_news_likes?: space_news_likesCreateNestedManyWithoutUserInput
     stargazing_spot_reviews?: stargazing_spot_reviewsCreateNestedManyWithoutUserInput
     created_stargazing_spots?: stargazing_spotsCreateNestedManyWithoutCreatorInput
+    stargazing_spots_stargazing_spots_moderated_byTousers?: stargazing_spotsCreateNestedManyWithoutUsers_stargazing_spots_moderated_byTousersInput
     subscriptions?: subscriptionsCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsCreateNestedOneWithoutUsersInput
   }
@@ -102731,6 +103392,7 @@ export namespace Prisma {
     services?: servicesUncheckedCreateNestedManyWithoutUsersInput
     session_enrollments?: session_enrollmentsUncheckedCreateNestedManyWithoutUserInput
     created_sessions?: sessionsUncheckedCreateNestedManyWithoutCreatorInput
+    moderated_sessions?: sessionsUncheckedCreateNestedManyWithoutModeratorInput
     discussion_comment_likes?: space_discussion_comment_likesUncheckedCreateNestedManyWithoutUserInput
     discussion_comments?: space_discussion_commentsUncheckedCreateNestedManyWithoutUserInput
     discussion_likes?: space_discussion_likesUncheckedCreateNestedManyWithoutUserInput
@@ -102740,6 +103402,7 @@ export namespace Prisma {
     space_news_likes?: space_news_likesUncheckedCreateNestedManyWithoutUserInput
     stargazing_spot_reviews?: stargazing_spot_reviewsUncheckedCreateNestedManyWithoutUserInput
     created_stargazing_spots?: stargazing_spotsUncheckedCreateNestedManyWithoutCreatorInput
+    stargazing_spots_stargazing_spots_moderated_byTousers?: stargazing_spotsUncheckedCreateNestedManyWithoutUsers_stargazing_spots_moderated_byTousersInput
     subscriptions?: subscriptionsUncheckedCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsUncheckedCreateNestedOneWithoutUsersInput
   }
@@ -102942,6 +103605,7 @@ export namespace Prisma {
     services?: servicesUpdateManyWithoutUsersNestedInput
     session_enrollments?: session_enrollmentsUpdateManyWithoutUserNestedInput
     created_sessions?: sessionsUpdateManyWithoutCreatorNestedInput
+    moderated_sessions?: sessionsUpdateManyWithoutModeratorNestedInput
     discussion_comment_likes?: space_discussion_comment_likesUpdateManyWithoutUserNestedInput
     discussion_comments?: space_discussion_commentsUpdateManyWithoutUserNestedInput
     discussion_likes?: space_discussion_likesUpdateManyWithoutUserNestedInput
@@ -102951,6 +103615,7 @@ export namespace Prisma {
     space_news_likes?: space_news_likesUpdateManyWithoutUserNestedInput
     stargazing_spot_reviews?: stargazing_spot_reviewsUpdateManyWithoutUserNestedInput
     created_stargazing_spots?: stargazing_spotsUpdateManyWithoutCreatorNestedInput
+    stargazing_spots_stargazing_spots_moderated_byTousers?: stargazing_spotsUpdateManyWithoutUsers_stargazing_spots_moderated_byTousersNestedInput
     subscriptions?: subscriptionsUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUpdateOneWithoutUsersNestedInput
   }
@@ -103007,6 +103672,7 @@ export namespace Prisma {
     services?: servicesUncheckedUpdateManyWithoutUsersNestedInput
     session_enrollments?: session_enrollmentsUncheckedUpdateManyWithoutUserNestedInput
     created_sessions?: sessionsUncheckedUpdateManyWithoutCreatorNestedInput
+    moderated_sessions?: sessionsUncheckedUpdateManyWithoutModeratorNestedInput
     discussion_comment_likes?: space_discussion_comment_likesUncheckedUpdateManyWithoutUserNestedInput
     discussion_comments?: space_discussion_commentsUncheckedUpdateManyWithoutUserNestedInput
     discussion_likes?: space_discussion_likesUncheckedUpdateManyWithoutUserNestedInput
@@ -103016,6 +103682,7 @@ export namespace Prisma {
     space_news_likes?: space_news_likesUncheckedUpdateManyWithoutUserNestedInput
     stargazing_spot_reviews?: stargazing_spot_reviewsUncheckedUpdateManyWithoutUserNestedInput
     created_stargazing_spots?: stargazing_spotsUncheckedUpdateManyWithoutCreatorNestedInput
+    stargazing_spots_stargazing_spots_moderated_byTousers?: stargazing_spotsUncheckedUpdateManyWithoutUsers_stargazing_spots_moderated_byTousersNestedInput
     subscriptions?: subscriptionsUncheckedUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUncheckedUpdateOneWithoutUsersNestedInput
   }
@@ -104273,12 +104940,17 @@ export namespace Prisma {
     description: string
     materials?: NullableJsonNullValueInput | InputJsonValue
     session_notes?: string | null
+    status?: $Enums.session_status
+    approved_at?: Date | string | null
+    rejected_at?: Date | string | null
+    rejection_reason?: string | null
     created_date?: Date | string
     created_time?: Date | string
     is_enabled?: boolean
     created_at?: Date | string
     updated_at?: Date | string
     session_enrollments?: session_enrollmentsCreateNestedManyWithoutSessionsInput
+    moderator?: usersCreateNestedOneWithoutModerated_sessionsInput
   }
 
   export type sessionsUncheckedCreateWithoutCreatorInput = {
@@ -104296,6 +104968,11 @@ export namespace Prisma {
     description: string
     materials?: NullableJsonNullValueInput | InputJsonValue
     session_notes?: string | null
+    status?: $Enums.session_status
+    moderated_by?: number | null
+    approved_at?: Date | string | null
+    rejected_at?: Date | string | null
+    rejection_reason?: string | null
     created_date?: Date | string
     created_time?: Date | string
     is_enabled?: boolean
@@ -104311,6 +104988,71 @@ export namespace Prisma {
 
   export type sessionsCreateManyCreatorInputEnvelope = {
     data: sessionsCreateManyCreatorInput | sessionsCreateManyCreatorInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type sessionsCreateWithoutModeratorInput = {
+    title: string
+    session_type: $Enums.session_type
+    payment_type: $Enums.payment_type
+    price?: Decimal | DecimalJsLike | number | string | null
+    duration: number
+    session_date: Date | string
+    session_time: Date | string
+    max_participants?: number | null
+    difficulty_level: $Enums.difficulty_level
+    session_link?: string | null
+    description: string
+    materials?: NullableJsonNullValueInput | InputJsonValue
+    session_notes?: string | null
+    status?: $Enums.session_status
+    approved_at?: Date | string | null
+    rejected_at?: Date | string | null
+    rejection_reason?: string | null
+    created_date?: Date | string
+    created_time?: Date | string
+    is_enabled?: boolean
+    created_at?: Date | string
+    updated_at?: Date | string
+    session_enrollments?: session_enrollmentsCreateNestedManyWithoutSessionsInput
+    creator: usersCreateNestedOneWithoutCreated_sessionsInput
+  }
+
+  export type sessionsUncheckedCreateWithoutModeratorInput = {
+    id?: number
+    title: string
+    session_type: $Enums.session_type
+    payment_type: $Enums.payment_type
+    price?: Decimal | DecimalJsLike | number | string | null
+    duration: number
+    session_date: Date | string
+    session_time: Date | string
+    max_participants?: number | null
+    difficulty_level: $Enums.difficulty_level
+    session_link?: string | null
+    description: string
+    materials?: NullableJsonNullValueInput | InputJsonValue
+    session_notes?: string | null
+    created_by: number
+    status?: $Enums.session_status
+    approved_at?: Date | string | null
+    rejected_at?: Date | string | null
+    rejection_reason?: string | null
+    created_date?: Date | string
+    created_time?: Date | string
+    is_enabled?: boolean
+    created_at?: Date | string
+    updated_at?: Date | string
+    session_enrollments?: session_enrollmentsUncheckedCreateNestedManyWithoutSessionsInput
+  }
+
+  export type sessionsCreateOrConnectWithoutModeratorInput = {
+    where: sessionsWhereUniqueInput
+    create: XOR<sessionsCreateWithoutModeratorInput, sessionsUncheckedCreateWithoutModeratorInput>
+  }
+
+  export type sessionsCreateManyModeratorInputEnvelope = {
+    data: sessionsCreateManyModeratorInput | sessionsCreateManyModeratorInput[]
     skipDuplicates?: boolean
   }
 
@@ -104559,7 +105301,11 @@ export namespace Prisma {
     is_active?: boolean
     created_at?: Date | string
     updated_at?: Date | string
+    image_urls?: stargazing_spotsCreateimage_urlsInput | string[]
+    status?: string | null
+    moderated_at?: Date | string | null
     stargazing_spot_reviews?: stargazing_spot_reviewsCreateNestedManyWithoutStargazing_spotsInput
+    users_stargazing_spots_moderated_byTousers?: usersCreateNestedOneWithoutStargazing_spots_stargazing_spots_moderated_byTousersInput
   }
 
   export type stargazing_spotsUncheckedCreateWithoutCreatorInput = {
@@ -104574,6 +105320,10 @@ export namespace Prisma {
     is_active?: boolean
     created_at?: Date | string
     updated_at?: Date | string
+    image_urls?: stargazing_spotsCreateimage_urlsInput | string[]
+    status?: string | null
+    moderated_by?: number | null
+    moderated_at?: Date | string | null
     stargazing_spot_reviews?: stargazing_spot_reviewsUncheckedCreateNestedManyWithoutStargazing_spotsInput
   }
 
@@ -104584,6 +105334,53 @@ export namespace Prisma {
 
   export type stargazing_spotsCreateManyCreatorInputEnvelope = {
     data: stargazing_spotsCreateManyCreatorInput | stargazing_spotsCreateManyCreatorInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type stargazing_spotsCreateWithoutUsers_stargazing_spots_moderated_byTousersInput = {
+    name: string
+    location: string
+    image_url?: string | null
+    rating?: number
+    best_time?: string | null
+    description: string
+    facilities?: JsonNullValueInput | InputJsonValue
+    is_active?: boolean
+    created_at?: Date | string
+    updated_at?: Date | string
+    image_urls?: stargazing_spotsCreateimage_urlsInput | string[]
+    status?: string | null
+    moderated_at?: Date | string | null
+    stargazing_spot_reviews?: stargazing_spot_reviewsCreateNestedManyWithoutStargazing_spotsInput
+    creator: usersCreateNestedOneWithoutCreated_stargazing_spotsInput
+  }
+
+  export type stargazing_spotsUncheckedCreateWithoutUsers_stargazing_spots_moderated_byTousersInput = {
+    id?: number
+    name: string
+    location: string
+    image_url?: string | null
+    rating?: number
+    best_time?: string | null
+    description: string
+    facilities?: JsonNullValueInput | InputJsonValue
+    created_by: number
+    is_active?: boolean
+    created_at?: Date | string
+    updated_at?: Date | string
+    image_urls?: stargazing_spotsCreateimage_urlsInput | string[]
+    status?: string | null
+    moderated_at?: Date | string | null
+    stargazing_spot_reviews?: stargazing_spot_reviewsUncheckedCreateNestedManyWithoutStargazing_spotsInput
+  }
+
+  export type stargazing_spotsCreateOrConnectWithoutUsers_stargazing_spots_moderated_byTousersInput = {
+    where: stargazing_spotsWhereUniqueInput
+    create: XOR<stargazing_spotsCreateWithoutUsers_stargazing_spots_moderated_byTousersInput, stargazing_spotsUncheckedCreateWithoutUsers_stargazing_spots_moderated_byTousersInput>
+  }
+
+  export type stargazing_spotsCreateManyUsers_stargazing_spots_moderated_byTousersInputEnvelope = {
+    data: stargazing_spotsCreateManyUsers_stargazing_spots_moderated_byTousersInput | stargazing_spotsCreateManyUsers_stargazing_spots_moderated_byTousersInput[]
     skipDuplicates?: boolean
   }
 
@@ -105629,11 +106426,32 @@ export namespace Prisma {
     materials?: JsonNullableFilter<"sessions">
     session_notes?: StringNullableFilter<"sessions"> | string | null
     created_by?: IntFilter<"sessions"> | number
+    status?: Enumsession_statusFilter<"sessions"> | $Enums.session_status
+    moderated_by?: IntNullableFilter<"sessions"> | number | null
+    approved_at?: DateTimeNullableFilter<"sessions"> | Date | string | null
+    rejected_at?: DateTimeNullableFilter<"sessions"> | Date | string | null
+    rejection_reason?: StringNullableFilter<"sessions"> | string | null
     created_date?: DateTimeFilter<"sessions"> | Date | string
     created_time?: DateTimeFilter<"sessions"> | Date | string
     is_enabled?: BoolFilter<"sessions"> | boolean
     created_at?: DateTimeFilter<"sessions"> | Date | string
     updated_at?: DateTimeFilter<"sessions"> | Date | string
+  }
+
+  export type sessionsUpsertWithWhereUniqueWithoutModeratorInput = {
+    where: sessionsWhereUniqueInput
+    update: XOR<sessionsUpdateWithoutModeratorInput, sessionsUncheckedUpdateWithoutModeratorInput>
+    create: XOR<sessionsCreateWithoutModeratorInput, sessionsUncheckedCreateWithoutModeratorInput>
+  }
+
+  export type sessionsUpdateWithWhereUniqueWithoutModeratorInput = {
+    where: sessionsWhereUniqueInput
+    data: XOR<sessionsUpdateWithoutModeratorInput, sessionsUncheckedUpdateWithoutModeratorInput>
+  }
+
+  export type sessionsUpdateManyWithWhereWithoutModeratorInput = {
+    where: sessionsScalarWhereInput
+    data: XOR<sessionsUpdateManyMutationInput, sessionsUncheckedUpdateManyWithoutModeratorInput>
   }
 
   export type space_discussion_comment_likesUpsertWithWhereUniqueWithoutUserInput = {
@@ -105902,6 +106720,26 @@ export namespace Prisma {
     is_active?: BoolFilter<"stargazing_spots"> | boolean
     created_at?: DateTimeFilter<"stargazing_spots"> | Date | string
     updated_at?: DateTimeFilter<"stargazing_spots"> | Date | string
+    image_urls?: StringNullableListFilter<"stargazing_spots">
+    status?: StringNullableFilter<"stargazing_spots"> | string | null
+    moderated_by?: IntNullableFilter<"stargazing_spots"> | number | null
+    moderated_at?: DateTimeNullableFilter<"stargazing_spots"> | Date | string | null
+  }
+
+  export type stargazing_spotsUpsertWithWhereUniqueWithoutUsers_stargazing_spots_moderated_byTousersInput = {
+    where: stargazing_spotsWhereUniqueInput
+    update: XOR<stargazing_spotsUpdateWithoutUsers_stargazing_spots_moderated_byTousersInput, stargazing_spotsUncheckedUpdateWithoutUsers_stargazing_spots_moderated_byTousersInput>
+    create: XOR<stargazing_spotsCreateWithoutUsers_stargazing_spots_moderated_byTousersInput, stargazing_spotsUncheckedCreateWithoutUsers_stargazing_spots_moderated_byTousersInput>
+  }
+
+  export type stargazing_spotsUpdateWithWhereUniqueWithoutUsers_stargazing_spots_moderated_byTousersInput = {
+    where: stargazing_spotsWhereUniqueInput
+    data: XOR<stargazing_spotsUpdateWithoutUsers_stargazing_spots_moderated_byTousersInput, stargazing_spotsUncheckedUpdateWithoutUsers_stargazing_spots_moderated_byTousersInput>
+  }
+
+  export type stargazing_spotsUpdateManyWithWhereWithoutUsers_stargazing_spots_moderated_byTousersInput = {
+    where: stargazing_spotsScalarWhereInput
+    data: XOR<stargazing_spotsUpdateManyMutationInput, stargazing_spotsUncheckedUpdateManyWithoutUsers_stargazing_spots_moderated_byTousersInput>
   }
 
   export type subscriptionsUpsertWithWhereUniqueWithoutUsersInput = {
@@ -106209,6 +107047,7 @@ export namespace Prisma {
     services?: servicesCreateNestedManyWithoutUsersInput
     session_enrollments?: session_enrollmentsCreateNestedManyWithoutUserInput
     created_sessions?: sessionsCreateNestedManyWithoutCreatorInput
+    moderated_sessions?: sessionsCreateNestedManyWithoutModeratorInput
     discussion_comment_likes?: space_discussion_comment_likesCreateNestedManyWithoutUserInput
     discussion_comments?: space_discussion_commentsCreateNestedManyWithoutUserInput
     discussion_likes?: space_discussion_likesCreateNestedManyWithoutUserInput
@@ -106218,6 +107057,7 @@ export namespace Prisma {
     space_news_likes?: space_news_likesCreateNestedManyWithoutUserInput
     stargazing_spot_reviews?: stargazing_spot_reviewsCreateNestedManyWithoutUserInput
     created_stargazing_spots?: stargazing_spotsCreateNestedManyWithoutCreatorInput
+    stargazing_spots_stargazing_spots_moderated_byTousers?: stargazing_spotsCreateNestedManyWithoutUsers_stargazing_spots_moderated_byTousersInput
     subscriptions?: subscriptionsCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsCreateNestedOneWithoutUsersInput
   }
@@ -106274,6 +107114,7 @@ export namespace Prisma {
     services?: servicesUncheckedCreateNestedManyWithoutUsersInput
     session_enrollments?: session_enrollmentsUncheckedCreateNestedManyWithoutUserInput
     created_sessions?: sessionsUncheckedCreateNestedManyWithoutCreatorInput
+    moderated_sessions?: sessionsUncheckedCreateNestedManyWithoutModeratorInput
     discussion_comment_likes?: space_discussion_comment_likesUncheckedCreateNestedManyWithoutUserInput
     discussion_comments?: space_discussion_commentsUncheckedCreateNestedManyWithoutUserInput
     discussion_likes?: space_discussion_likesUncheckedCreateNestedManyWithoutUserInput
@@ -106283,6 +107124,7 @@ export namespace Prisma {
     space_news_likes?: space_news_likesUncheckedCreateNestedManyWithoutUserInput
     stargazing_spot_reviews?: stargazing_spot_reviewsUncheckedCreateNestedManyWithoutUserInput
     created_stargazing_spots?: stargazing_spotsUncheckedCreateNestedManyWithoutCreatorInput
+    stargazing_spots_stargazing_spots_moderated_byTousers?: stargazing_spotsUncheckedCreateNestedManyWithoutUsers_stargazing_spots_moderated_byTousersInput
     subscriptions?: subscriptionsUncheckedCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsUncheckedCreateNestedOneWithoutUsersInput
   }
@@ -106401,6 +107243,7 @@ export namespace Prisma {
     services?: servicesUpdateManyWithoutUsersNestedInput
     session_enrollments?: session_enrollmentsUpdateManyWithoutUserNestedInput
     created_sessions?: sessionsUpdateManyWithoutCreatorNestedInput
+    moderated_sessions?: sessionsUpdateManyWithoutModeratorNestedInput
     discussion_comment_likes?: space_discussion_comment_likesUpdateManyWithoutUserNestedInput
     discussion_comments?: space_discussion_commentsUpdateManyWithoutUserNestedInput
     discussion_likes?: space_discussion_likesUpdateManyWithoutUserNestedInput
@@ -106410,6 +107253,7 @@ export namespace Prisma {
     space_news_likes?: space_news_likesUpdateManyWithoutUserNestedInput
     stargazing_spot_reviews?: stargazing_spot_reviewsUpdateManyWithoutUserNestedInput
     created_stargazing_spots?: stargazing_spotsUpdateManyWithoutCreatorNestedInput
+    stargazing_spots_stargazing_spots_moderated_byTousers?: stargazing_spotsUpdateManyWithoutUsers_stargazing_spots_moderated_byTousersNestedInput
     subscriptions?: subscriptionsUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUpdateOneWithoutUsersNestedInput
   }
@@ -106466,6 +107310,7 @@ export namespace Prisma {
     services?: servicesUncheckedUpdateManyWithoutUsersNestedInput
     session_enrollments?: session_enrollmentsUncheckedUpdateManyWithoutUserNestedInput
     created_sessions?: sessionsUncheckedUpdateManyWithoutCreatorNestedInput
+    moderated_sessions?: sessionsUncheckedUpdateManyWithoutModeratorNestedInput
     discussion_comment_likes?: space_discussion_comment_likesUncheckedUpdateManyWithoutUserNestedInput
     discussion_comments?: space_discussion_commentsUncheckedUpdateManyWithoutUserNestedInput
     discussion_likes?: space_discussion_likesUncheckedUpdateManyWithoutUserNestedInput
@@ -106475,6 +107320,7 @@ export namespace Prisma {
     space_news_likes?: space_news_likesUncheckedUpdateManyWithoutUserNestedInput
     stargazing_spot_reviews?: stargazing_spot_reviewsUncheckedUpdateManyWithoutUserNestedInput
     created_stargazing_spots?: stargazing_spotsUncheckedUpdateManyWithoutCreatorNestedInput
+    stargazing_spots_stargazing_spots_moderated_byTousers?: stargazing_spotsUncheckedUpdateManyWithoutUsers_stargazing_spots_moderated_byTousersNestedInput
     subscriptions?: subscriptionsUncheckedUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUncheckedUpdateOneWithoutUsersNestedInput
   }
@@ -106530,6 +107376,7 @@ export namespace Prisma {
     services?: servicesCreateNestedManyWithoutUsersInput
     session_enrollments?: session_enrollmentsCreateNestedManyWithoutUserInput
     created_sessions?: sessionsCreateNestedManyWithoutCreatorInput
+    moderated_sessions?: sessionsCreateNestedManyWithoutModeratorInput
     discussion_comment_likes?: space_discussion_comment_likesCreateNestedManyWithoutUserInput
     discussion_comments?: space_discussion_commentsCreateNestedManyWithoutUserInput
     discussion_likes?: space_discussion_likesCreateNestedManyWithoutUserInput
@@ -106539,6 +107386,7 @@ export namespace Prisma {
     space_news_likes?: space_news_likesCreateNestedManyWithoutUserInput
     stargazing_spot_reviews?: stargazing_spot_reviewsCreateNestedManyWithoutUserInput
     created_stargazing_spots?: stargazing_spotsCreateNestedManyWithoutCreatorInput
+    stargazing_spots_stargazing_spots_moderated_byTousers?: stargazing_spotsCreateNestedManyWithoutUsers_stargazing_spots_moderated_byTousersInput
     subscriptions?: subscriptionsCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsCreateNestedOneWithoutUsersInput
   }
@@ -106595,6 +107443,7 @@ export namespace Prisma {
     services?: servicesUncheckedCreateNestedManyWithoutUsersInput
     session_enrollments?: session_enrollmentsUncheckedCreateNestedManyWithoutUserInput
     created_sessions?: sessionsUncheckedCreateNestedManyWithoutCreatorInput
+    moderated_sessions?: sessionsUncheckedCreateNestedManyWithoutModeratorInput
     discussion_comment_likes?: space_discussion_comment_likesUncheckedCreateNestedManyWithoutUserInput
     discussion_comments?: space_discussion_commentsUncheckedCreateNestedManyWithoutUserInput
     discussion_likes?: space_discussion_likesUncheckedCreateNestedManyWithoutUserInput
@@ -106604,6 +107453,7 @@ export namespace Prisma {
     space_news_likes?: space_news_likesUncheckedCreateNestedManyWithoutUserInput
     stargazing_spot_reviews?: stargazing_spot_reviewsUncheckedCreateNestedManyWithoutUserInput
     created_stargazing_spots?: stargazing_spotsUncheckedCreateNestedManyWithoutCreatorInput
+    stargazing_spots_stargazing_spots_moderated_byTousers?: stargazing_spotsUncheckedCreateNestedManyWithoutUsers_stargazing_spots_moderated_byTousersInput
     subscriptions?: subscriptionsUncheckedCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsUncheckedCreateNestedOneWithoutUsersInput
   }
@@ -106675,6 +107525,7 @@ export namespace Prisma {
     services?: servicesUpdateManyWithoutUsersNestedInput
     session_enrollments?: session_enrollmentsUpdateManyWithoutUserNestedInput
     created_sessions?: sessionsUpdateManyWithoutCreatorNestedInput
+    moderated_sessions?: sessionsUpdateManyWithoutModeratorNestedInput
     discussion_comment_likes?: space_discussion_comment_likesUpdateManyWithoutUserNestedInput
     discussion_comments?: space_discussion_commentsUpdateManyWithoutUserNestedInput
     discussion_likes?: space_discussion_likesUpdateManyWithoutUserNestedInput
@@ -106684,6 +107535,7 @@ export namespace Prisma {
     space_news_likes?: space_news_likesUpdateManyWithoutUserNestedInput
     stargazing_spot_reviews?: stargazing_spot_reviewsUpdateManyWithoutUserNestedInput
     created_stargazing_spots?: stargazing_spotsUpdateManyWithoutCreatorNestedInput
+    stargazing_spots_stargazing_spots_moderated_byTousers?: stargazing_spotsUpdateManyWithoutUsers_stargazing_spots_moderated_byTousersNestedInput
     subscriptions?: subscriptionsUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUpdateOneWithoutUsersNestedInput
   }
@@ -106740,6 +107592,7 @@ export namespace Prisma {
     services?: servicesUncheckedUpdateManyWithoutUsersNestedInput
     session_enrollments?: session_enrollmentsUncheckedUpdateManyWithoutUserNestedInput
     created_sessions?: sessionsUncheckedUpdateManyWithoutCreatorNestedInput
+    moderated_sessions?: sessionsUncheckedUpdateManyWithoutModeratorNestedInput
     discussion_comment_likes?: space_discussion_comment_likesUncheckedUpdateManyWithoutUserNestedInput
     discussion_comments?: space_discussion_commentsUncheckedUpdateManyWithoutUserNestedInput
     discussion_likes?: space_discussion_likesUncheckedUpdateManyWithoutUserNestedInput
@@ -106749,6 +107602,7 @@ export namespace Prisma {
     space_news_likes?: space_news_likesUncheckedUpdateManyWithoutUserNestedInput
     stargazing_spot_reviews?: stargazing_spot_reviewsUncheckedUpdateManyWithoutUserNestedInput
     created_stargazing_spots?: stargazing_spotsUncheckedUpdateManyWithoutCreatorNestedInput
+    stargazing_spots_stargazing_spots_moderated_byTousers?: stargazing_spotsUncheckedUpdateManyWithoutUsers_stargazing_spots_moderated_byTousersNestedInput
     subscriptions?: subscriptionsUncheckedUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUncheckedUpdateOneWithoutUsersNestedInput
   }
@@ -106842,6 +107696,7 @@ export namespace Prisma {
     services?: servicesCreateNestedManyWithoutUsersInput
     session_enrollments?: session_enrollmentsCreateNestedManyWithoutUserInput
     created_sessions?: sessionsCreateNestedManyWithoutCreatorInput
+    moderated_sessions?: sessionsCreateNestedManyWithoutModeratorInput
     discussion_comment_likes?: space_discussion_comment_likesCreateNestedManyWithoutUserInput
     discussion_comments?: space_discussion_commentsCreateNestedManyWithoutUserInput
     discussion_likes?: space_discussion_likesCreateNestedManyWithoutUserInput
@@ -106851,6 +107706,7 @@ export namespace Prisma {
     space_news_likes?: space_news_likesCreateNestedManyWithoutUserInput
     stargazing_spot_reviews?: stargazing_spot_reviewsCreateNestedManyWithoutUserInput
     created_stargazing_spots?: stargazing_spotsCreateNestedManyWithoutCreatorInput
+    stargazing_spots_stargazing_spots_moderated_byTousers?: stargazing_spotsCreateNestedManyWithoutUsers_stargazing_spots_moderated_byTousersInput
     subscriptions?: subscriptionsCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsCreateNestedOneWithoutUsersInput
   }
@@ -106907,6 +107763,7 @@ export namespace Prisma {
     services?: servicesUncheckedCreateNestedManyWithoutUsersInput
     session_enrollments?: session_enrollmentsUncheckedCreateNestedManyWithoutUserInput
     created_sessions?: sessionsUncheckedCreateNestedManyWithoutCreatorInput
+    moderated_sessions?: sessionsUncheckedCreateNestedManyWithoutModeratorInput
     discussion_comment_likes?: space_discussion_comment_likesUncheckedCreateNestedManyWithoutUserInput
     discussion_comments?: space_discussion_commentsUncheckedCreateNestedManyWithoutUserInput
     discussion_likes?: space_discussion_likesUncheckedCreateNestedManyWithoutUserInput
@@ -106916,6 +107773,7 @@ export namespace Prisma {
     space_news_likes?: space_news_likesUncheckedCreateNestedManyWithoutUserInput
     stargazing_spot_reviews?: stargazing_spot_reviewsUncheckedCreateNestedManyWithoutUserInput
     created_stargazing_spots?: stargazing_spotsUncheckedCreateNestedManyWithoutCreatorInput
+    stargazing_spots_stargazing_spots_moderated_byTousers?: stargazing_spotsUncheckedCreateNestedManyWithoutUsers_stargazing_spots_moderated_byTousersInput
     subscriptions?: subscriptionsUncheckedCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsUncheckedCreateNestedOneWithoutUsersInput
   }
@@ -107031,6 +107889,7 @@ export namespace Prisma {
     services?: servicesUpdateManyWithoutUsersNestedInput
     session_enrollments?: session_enrollmentsUpdateManyWithoutUserNestedInput
     created_sessions?: sessionsUpdateManyWithoutCreatorNestedInput
+    moderated_sessions?: sessionsUpdateManyWithoutModeratorNestedInput
     discussion_comment_likes?: space_discussion_comment_likesUpdateManyWithoutUserNestedInput
     discussion_comments?: space_discussion_commentsUpdateManyWithoutUserNestedInput
     discussion_likes?: space_discussion_likesUpdateManyWithoutUserNestedInput
@@ -107040,6 +107899,7 @@ export namespace Prisma {
     space_news_likes?: space_news_likesUpdateManyWithoutUserNestedInput
     stargazing_spot_reviews?: stargazing_spot_reviewsUpdateManyWithoutUserNestedInput
     created_stargazing_spots?: stargazing_spotsUpdateManyWithoutCreatorNestedInput
+    stargazing_spots_stargazing_spots_moderated_byTousers?: stargazing_spotsUpdateManyWithoutUsers_stargazing_spots_moderated_byTousersNestedInput
     subscriptions?: subscriptionsUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUpdateOneWithoutUsersNestedInput
   }
@@ -107096,6 +107956,7 @@ export namespace Prisma {
     services?: servicesUncheckedUpdateManyWithoutUsersNestedInput
     session_enrollments?: session_enrollmentsUncheckedUpdateManyWithoutUserNestedInput
     created_sessions?: sessionsUncheckedUpdateManyWithoutCreatorNestedInput
+    moderated_sessions?: sessionsUncheckedUpdateManyWithoutModeratorNestedInput
     discussion_comment_likes?: space_discussion_comment_likesUncheckedUpdateManyWithoutUserNestedInput
     discussion_comments?: space_discussion_commentsUncheckedUpdateManyWithoutUserNestedInput
     discussion_likes?: space_discussion_likesUncheckedUpdateManyWithoutUserNestedInput
@@ -107105,6 +107966,7 @@ export namespace Prisma {
     space_news_likes?: space_news_likesUncheckedUpdateManyWithoutUserNestedInput
     stargazing_spot_reviews?: stargazing_spot_reviewsUncheckedUpdateManyWithoutUserNestedInput
     created_stargazing_spots?: stargazing_spotsUncheckedUpdateManyWithoutCreatorNestedInput
+    stargazing_spots_stargazing_spots_moderated_byTousers?: stargazing_spotsUncheckedUpdateManyWithoutUsers_stargazing_spots_moderated_byTousersNestedInput
     subscriptions?: subscriptionsUncheckedUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUncheckedUpdateOneWithoutUsersNestedInput
   }
@@ -107197,6 +108059,7 @@ export namespace Prisma {
     services?: servicesCreateNestedManyWithoutUsersInput
     session_enrollments?: session_enrollmentsCreateNestedManyWithoutUserInput
     created_sessions?: sessionsCreateNestedManyWithoutCreatorInput
+    moderated_sessions?: sessionsCreateNestedManyWithoutModeratorInput
     discussion_comment_likes?: space_discussion_comment_likesCreateNestedManyWithoutUserInput
     discussion_comments?: space_discussion_commentsCreateNestedManyWithoutUserInput
     discussion_likes?: space_discussion_likesCreateNestedManyWithoutUserInput
@@ -107206,6 +108069,7 @@ export namespace Prisma {
     space_news_likes?: space_news_likesCreateNestedManyWithoutUserInput
     stargazing_spot_reviews?: stargazing_spot_reviewsCreateNestedManyWithoutUserInput
     created_stargazing_spots?: stargazing_spotsCreateNestedManyWithoutCreatorInput
+    stargazing_spots_stargazing_spots_moderated_byTousers?: stargazing_spotsCreateNestedManyWithoutUsers_stargazing_spots_moderated_byTousersInput
     subscriptions?: subscriptionsCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsCreateNestedOneWithoutUsersInput
   }
@@ -107262,6 +108126,7 @@ export namespace Prisma {
     services?: servicesUncheckedCreateNestedManyWithoutUsersInput
     session_enrollments?: session_enrollmentsUncheckedCreateNestedManyWithoutUserInput
     created_sessions?: sessionsUncheckedCreateNestedManyWithoutCreatorInput
+    moderated_sessions?: sessionsUncheckedCreateNestedManyWithoutModeratorInput
     discussion_comment_likes?: space_discussion_comment_likesUncheckedCreateNestedManyWithoutUserInput
     discussion_comments?: space_discussion_commentsUncheckedCreateNestedManyWithoutUserInput
     discussion_likes?: space_discussion_likesUncheckedCreateNestedManyWithoutUserInput
@@ -107271,6 +108136,7 @@ export namespace Prisma {
     space_news_likes?: space_news_likesUncheckedCreateNestedManyWithoutUserInput
     stargazing_spot_reviews?: stargazing_spot_reviewsUncheckedCreateNestedManyWithoutUserInput
     created_stargazing_spots?: stargazing_spotsUncheckedCreateNestedManyWithoutCreatorInput
+    stargazing_spots_stargazing_spots_moderated_byTousers?: stargazing_spotsUncheckedCreateNestedManyWithoutUsers_stargazing_spots_moderated_byTousersInput
     subscriptions?: subscriptionsUncheckedCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsUncheckedCreateNestedOneWithoutUsersInput
   }
@@ -107383,6 +108249,7 @@ export namespace Prisma {
     services?: servicesUpdateManyWithoutUsersNestedInput
     session_enrollments?: session_enrollmentsUpdateManyWithoutUserNestedInput
     created_sessions?: sessionsUpdateManyWithoutCreatorNestedInput
+    moderated_sessions?: sessionsUpdateManyWithoutModeratorNestedInput
     discussion_comment_likes?: space_discussion_comment_likesUpdateManyWithoutUserNestedInput
     discussion_comments?: space_discussion_commentsUpdateManyWithoutUserNestedInput
     discussion_likes?: space_discussion_likesUpdateManyWithoutUserNestedInput
@@ -107392,6 +108259,7 @@ export namespace Prisma {
     space_news_likes?: space_news_likesUpdateManyWithoutUserNestedInput
     stargazing_spot_reviews?: stargazing_spot_reviewsUpdateManyWithoutUserNestedInput
     created_stargazing_spots?: stargazing_spotsUpdateManyWithoutCreatorNestedInput
+    stargazing_spots_stargazing_spots_moderated_byTousers?: stargazing_spotsUpdateManyWithoutUsers_stargazing_spots_moderated_byTousersNestedInput
     subscriptions?: subscriptionsUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUpdateOneWithoutUsersNestedInput
   }
@@ -107448,6 +108316,7 @@ export namespace Prisma {
     services?: servicesUncheckedUpdateManyWithoutUsersNestedInput
     session_enrollments?: session_enrollmentsUncheckedUpdateManyWithoutUserNestedInput
     created_sessions?: sessionsUncheckedUpdateManyWithoutCreatorNestedInput
+    moderated_sessions?: sessionsUncheckedUpdateManyWithoutModeratorNestedInput
     discussion_comment_likes?: space_discussion_comment_likesUncheckedUpdateManyWithoutUserNestedInput
     discussion_comments?: space_discussion_commentsUncheckedUpdateManyWithoutUserNestedInput
     discussion_likes?: space_discussion_likesUncheckedUpdateManyWithoutUserNestedInput
@@ -107457,6 +108326,7 @@ export namespace Prisma {
     space_news_likes?: space_news_likesUncheckedUpdateManyWithoutUserNestedInput
     stargazing_spot_reviews?: stargazing_spot_reviewsUncheckedUpdateManyWithoutUserNestedInput
     created_stargazing_spots?: stargazing_spotsUncheckedUpdateManyWithoutCreatorNestedInput
+    stargazing_spots_stargazing_spots_moderated_byTousers?: stargazing_spotsUncheckedUpdateManyWithoutUsers_stargazing_spots_moderated_byTousersNestedInput
     subscriptions?: subscriptionsUncheckedUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUncheckedUpdateOneWithoutUsersNestedInput
   }
@@ -107560,6 +108430,7 @@ export namespace Prisma {
     services?: servicesCreateNestedManyWithoutUsersInput
     session_enrollments?: session_enrollmentsCreateNestedManyWithoutUserInput
     created_sessions?: sessionsCreateNestedManyWithoutCreatorInput
+    moderated_sessions?: sessionsCreateNestedManyWithoutModeratorInput
     discussion_comment_likes?: space_discussion_comment_likesCreateNestedManyWithoutUserInput
     discussion_comments?: space_discussion_commentsCreateNestedManyWithoutUserInput
     discussion_likes?: space_discussion_likesCreateNestedManyWithoutUserInput
@@ -107569,6 +108440,7 @@ export namespace Prisma {
     space_news_likes?: space_news_likesCreateNestedManyWithoutUserInput
     stargazing_spot_reviews?: stargazing_spot_reviewsCreateNestedManyWithoutUserInput
     created_stargazing_spots?: stargazing_spotsCreateNestedManyWithoutCreatorInput
+    stargazing_spots_stargazing_spots_moderated_byTousers?: stargazing_spotsCreateNestedManyWithoutUsers_stargazing_spots_moderated_byTousersInput
     subscriptions?: subscriptionsCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsCreateNestedOneWithoutUsersInput
   }
@@ -107625,6 +108497,7 @@ export namespace Prisma {
     services?: servicesUncheckedCreateNestedManyWithoutUsersInput
     session_enrollments?: session_enrollmentsUncheckedCreateNestedManyWithoutUserInput
     created_sessions?: sessionsUncheckedCreateNestedManyWithoutCreatorInput
+    moderated_sessions?: sessionsUncheckedCreateNestedManyWithoutModeratorInput
     discussion_comment_likes?: space_discussion_comment_likesUncheckedCreateNestedManyWithoutUserInput
     discussion_comments?: space_discussion_commentsUncheckedCreateNestedManyWithoutUserInput
     discussion_likes?: space_discussion_likesUncheckedCreateNestedManyWithoutUserInput
@@ -107634,6 +108507,7 @@ export namespace Prisma {
     space_news_likes?: space_news_likesUncheckedCreateNestedManyWithoutUserInput
     stargazing_spot_reviews?: stargazing_spot_reviewsUncheckedCreateNestedManyWithoutUserInput
     created_stargazing_spots?: stargazing_spotsUncheckedCreateNestedManyWithoutCreatorInput
+    stargazing_spots_stargazing_spots_moderated_byTousers?: stargazing_spotsUncheckedCreateNestedManyWithoutUsers_stargazing_spots_moderated_byTousersInput
     subscriptions?: subscriptionsUncheckedCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsUncheckedCreateNestedOneWithoutUsersInput
   }
@@ -107743,6 +108617,7 @@ export namespace Prisma {
     services?: servicesUpdateManyWithoutUsersNestedInput
     session_enrollments?: session_enrollmentsUpdateManyWithoutUserNestedInput
     created_sessions?: sessionsUpdateManyWithoutCreatorNestedInput
+    moderated_sessions?: sessionsUpdateManyWithoutModeratorNestedInput
     discussion_comment_likes?: space_discussion_comment_likesUpdateManyWithoutUserNestedInput
     discussion_comments?: space_discussion_commentsUpdateManyWithoutUserNestedInput
     discussion_likes?: space_discussion_likesUpdateManyWithoutUserNestedInput
@@ -107752,6 +108627,7 @@ export namespace Prisma {
     space_news_likes?: space_news_likesUpdateManyWithoutUserNestedInput
     stargazing_spot_reviews?: stargazing_spot_reviewsUpdateManyWithoutUserNestedInput
     created_stargazing_spots?: stargazing_spotsUpdateManyWithoutCreatorNestedInput
+    stargazing_spots_stargazing_spots_moderated_byTousers?: stargazing_spotsUpdateManyWithoutUsers_stargazing_spots_moderated_byTousersNestedInput
     subscriptions?: subscriptionsUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUpdateOneWithoutUsersNestedInput
   }
@@ -107808,6 +108684,7 @@ export namespace Prisma {
     services?: servicesUncheckedUpdateManyWithoutUsersNestedInput
     session_enrollments?: session_enrollmentsUncheckedUpdateManyWithoutUserNestedInput
     created_sessions?: sessionsUncheckedUpdateManyWithoutCreatorNestedInput
+    moderated_sessions?: sessionsUncheckedUpdateManyWithoutModeratorNestedInput
     discussion_comment_likes?: space_discussion_comment_likesUncheckedUpdateManyWithoutUserNestedInput
     discussion_comments?: space_discussion_commentsUncheckedUpdateManyWithoutUserNestedInput
     discussion_likes?: space_discussion_likesUncheckedUpdateManyWithoutUserNestedInput
@@ -107817,6 +108694,7 @@ export namespace Prisma {
     space_news_likes?: space_news_likesUncheckedUpdateManyWithoutUserNestedInput
     stargazing_spot_reviews?: stargazing_spot_reviewsUncheckedUpdateManyWithoutUserNestedInput
     created_stargazing_spots?: stargazing_spotsUncheckedUpdateManyWithoutCreatorNestedInput
+    stargazing_spots_stargazing_spots_moderated_byTousers?: stargazing_spotsUncheckedUpdateManyWithoutUsers_stargazing_spots_moderated_byTousersNestedInput
     subscriptions?: subscriptionsUncheckedUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUncheckedUpdateOneWithoutUsersNestedInput
   }
@@ -107872,6 +108750,7 @@ export namespace Prisma {
     services?: servicesCreateNestedManyWithoutUsersInput
     session_enrollments?: session_enrollmentsCreateNestedManyWithoutUserInput
     created_sessions?: sessionsCreateNestedManyWithoutCreatorInput
+    moderated_sessions?: sessionsCreateNestedManyWithoutModeratorInput
     discussion_comment_likes?: space_discussion_comment_likesCreateNestedManyWithoutUserInput
     discussion_comments?: space_discussion_commentsCreateNestedManyWithoutUserInput
     discussion_likes?: space_discussion_likesCreateNestedManyWithoutUserInput
@@ -107881,6 +108760,7 @@ export namespace Prisma {
     space_news_likes?: space_news_likesCreateNestedManyWithoutUserInput
     stargazing_spot_reviews?: stargazing_spot_reviewsCreateNestedManyWithoutUserInput
     created_stargazing_spots?: stargazing_spotsCreateNestedManyWithoutCreatorInput
+    stargazing_spots_stargazing_spots_moderated_byTousers?: stargazing_spotsCreateNestedManyWithoutUsers_stargazing_spots_moderated_byTousersInput
     subscriptions?: subscriptionsCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsCreateNestedOneWithoutUsersInput
   }
@@ -107937,6 +108817,7 @@ export namespace Prisma {
     services?: servicesUncheckedCreateNestedManyWithoutUsersInput
     session_enrollments?: session_enrollmentsUncheckedCreateNestedManyWithoutUserInput
     created_sessions?: sessionsUncheckedCreateNestedManyWithoutCreatorInput
+    moderated_sessions?: sessionsUncheckedCreateNestedManyWithoutModeratorInput
     discussion_comment_likes?: space_discussion_comment_likesUncheckedCreateNestedManyWithoutUserInput
     discussion_comments?: space_discussion_commentsUncheckedCreateNestedManyWithoutUserInput
     discussion_likes?: space_discussion_likesUncheckedCreateNestedManyWithoutUserInput
@@ -107946,6 +108827,7 @@ export namespace Prisma {
     space_news_likes?: space_news_likesUncheckedCreateNestedManyWithoutUserInput
     stargazing_spot_reviews?: stargazing_spot_reviewsUncheckedCreateNestedManyWithoutUserInput
     created_stargazing_spots?: stargazing_spotsUncheckedCreateNestedManyWithoutCreatorInput
+    stargazing_spots_stargazing_spots_moderated_byTousers?: stargazing_spotsUncheckedCreateNestedManyWithoutUsers_stargazing_spots_moderated_byTousersInput
     subscriptions?: subscriptionsUncheckedCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsUncheckedCreateNestedOneWithoutUsersInput
   }
@@ -108017,6 +108899,7 @@ export namespace Prisma {
     services?: servicesUpdateManyWithoutUsersNestedInput
     session_enrollments?: session_enrollmentsUpdateManyWithoutUserNestedInput
     created_sessions?: sessionsUpdateManyWithoutCreatorNestedInput
+    moderated_sessions?: sessionsUpdateManyWithoutModeratorNestedInput
     discussion_comment_likes?: space_discussion_comment_likesUpdateManyWithoutUserNestedInput
     discussion_comments?: space_discussion_commentsUpdateManyWithoutUserNestedInput
     discussion_likes?: space_discussion_likesUpdateManyWithoutUserNestedInput
@@ -108026,6 +108909,7 @@ export namespace Prisma {
     space_news_likes?: space_news_likesUpdateManyWithoutUserNestedInput
     stargazing_spot_reviews?: stargazing_spot_reviewsUpdateManyWithoutUserNestedInput
     created_stargazing_spots?: stargazing_spotsUpdateManyWithoutCreatorNestedInput
+    stargazing_spots_stargazing_spots_moderated_byTousers?: stargazing_spotsUpdateManyWithoutUsers_stargazing_spots_moderated_byTousersNestedInput
     subscriptions?: subscriptionsUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUpdateOneWithoutUsersNestedInput
   }
@@ -108082,6 +108966,7 @@ export namespace Prisma {
     services?: servicesUncheckedUpdateManyWithoutUsersNestedInput
     session_enrollments?: session_enrollmentsUncheckedUpdateManyWithoutUserNestedInput
     created_sessions?: sessionsUncheckedUpdateManyWithoutCreatorNestedInput
+    moderated_sessions?: sessionsUncheckedUpdateManyWithoutModeratorNestedInput
     discussion_comment_likes?: space_discussion_comment_likesUncheckedUpdateManyWithoutUserNestedInput
     discussion_comments?: space_discussion_commentsUncheckedUpdateManyWithoutUserNestedInput
     discussion_likes?: space_discussion_likesUncheckedUpdateManyWithoutUserNestedInput
@@ -108091,6 +108976,7 @@ export namespace Prisma {
     space_news_likes?: space_news_likesUncheckedUpdateManyWithoutUserNestedInput
     stargazing_spot_reviews?: stargazing_spot_reviewsUncheckedUpdateManyWithoutUserNestedInput
     created_stargazing_spots?: stargazing_spotsUncheckedUpdateManyWithoutCreatorNestedInput
+    stargazing_spots_stargazing_spots_moderated_byTousers?: stargazing_spotsUncheckedUpdateManyWithoutUsers_stargazing_spots_moderated_byTousersNestedInput
     subscriptions?: subscriptionsUncheckedUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUncheckedUpdateOneWithoutUsersNestedInput
   }
@@ -108146,6 +109032,7 @@ export namespace Prisma {
     services?: servicesCreateNestedManyWithoutUsersInput
     session_enrollments?: session_enrollmentsCreateNestedManyWithoutUserInput
     created_sessions?: sessionsCreateNestedManyWithoutCreatorInput
+    moderated_sessions?: sessionsCreateNestedManyWithoutModeratorInput
     discussion_comment_likes?: space_discussion_comment_likesCreateNestedManyWithoutUserInput
     discussion_comments?: space_discussion_commentsCreateNestedManyWithoutUserInput
     discussion_likes?: space_discussion_likesCreateNestedManyWithoutUserInput
@@ -108155,6 +109042,7 @@ export namespace Prisma {
     space_news_likes?: space_news_likesCreateNestedManyWithoutUserInput
     stargazing_spot_reviews?: stargazing_spot_reviewsCreateNestedManyWithoutUserInput
     created_stargazing_spots?: stargazing_spotsCreateNestedManyWithoutCreatorInput
+    stargazing_spots_stargazing_spots_moderated_byTousers?: stargazing_spotsCreateNestedManyWithoutUsers_stargazing_spots_moderated_byTousersInput
     subscriptions?: subscriptionsCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsCreateNestedOneWithoutUsersInput
   }
@@ -108211,6 +109099,7 @@ export namespace Prisma {
     services?: servicesUncheckedCreateNestedManyWithoutUsersInput
     session_enrollments?: session_enrollmentsUncheckedCreateNestedManyWithoutUserInput
     created_sessions?: sessionsUncheckedCreateNestedManyWithoutCreatorInput
+    moderated_sessions?: sessionsUncheckedCreateNestedManyWithoutModeratorInput
     discussion_comment_likes?: space_discussion_comment_likesUncheckedCreateNestedManyWithoutUserInput
     discussion_comments?: space_discussion_commentsUncheckedCreateNestedManyWithoutUserInput
     discussion_likes?: space_discussion_likesUncheckedCreateNestedManyWithoutUserInput
@@ -108220,6 +109109,7 @@ export namespace Prisma {
     space_news_likes?: space_news_likesUncheckedCreateNestedManyWithoutUserInput
     stargazing_spot_reviews?: stargazing_spot_reviewsUncheckedCreateNestedManyWithoutUserInput
     created_stargazing_spots?: stargazing_spotsUncheckedCreateNestedManyWithoutCreatorInput
+    stargazing_spots_stargazing_spots_moderated_byTousers?: stargazing_spotsUncheckedCreateNestedManyWithoutUsers_stargazing_spots_moderated_byTousersInput
     subscriptions?: subscriptionsUncheckedCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsUncheckedCreateNestedOneWithoutUsersInput
   }
@@ -108291,6 +109181,7 @@ export namespace Prisma {
     services?: servicesUpdateManyWithoutUsersNestedInput
     session_enrollments?: session_enrollmentsUpdateManyWithoutUserNestedInput
     created_sessions?: sessionsUpdateManyWithoutCreatorNestedInput
+    moderated_sessions?: sessionsUpdateManyWithoutModeratorNestedInput
     discussion_comment_likes?: space_discussion_comment_likesUpdateManyWithoutUserNestedInput
     discussion_comments?: space_discussion_commentsUpdateManyWithoutUserNestedInput
     discussion_likes?: space_discussion_likesUpdateManyWithoutUserNestedInput
@@ -108300,6 +109191,7 @@ export namespace Prisma {
     space_news_likes?: space_news_likesUpdateManyWithoutUserNestedInput
     stargazing_spot_reviews?: stargazing_spot_reviewsUpdateManyWithoutUserNestedInput
     created_stargazing_spots?: stargazing_spotsUpdateManyWithoutCreatorNestedInput
+    stargazing_spots_stargazing_spots_moderated_byTousers?: stargazing_spotsUpdateManyWithoutUsers_stargazing_spots_moderated_byTousersNestedInput
     subscriptions?: subscriptionsUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUpdateOneWithoutUsersNestedInput
   }
@@ -108356,6 +109248,7 @@ export namespace Prisma {
     services?: servicesUncheckedUpdateManyWithoutUsersNestedInput
     session_enrollments?: session_enrollmentsUncheckedUpdateManyWithoutUserNestedInput
     created_sessions?: sessionsUncheckedUpdateManyWithoutCreatorNestedInput
+    moderated_sessions?: sessionsUncheckedUpdateManyWithoutModeratorNestedInput
     discussion_comment_likes?: space_discussion_comment_likesUncheckedUpdateManyWithoutUserNestedInput
     discussion_comments?: space_discussion_commentsUncheckedUpdateManyWithoutUserNestedInput
     discussion_likes?: space_discussion_likesUncheckedUpdateManyWithoutUserNestedInput
@@ -108365,6 +109258,7 @@ export namespace Prisma {
     space_news_likes?: space_news_likesUncheckedUpdateManyWithoutUserNestedInput
     stargazing_spot_reviews?: stargazing_spot_reviewsUncheckedUpdateManyWithoutUserNestedInput
     created_stargazing_spots?: stargazing_spotsUncheckedUpdateManyWithoutCreatorNestedInput
+    stargazing_spots_stargazing_spots_moderated_byTousers?: stargazing_spotsUncheckedUpdateManyWithoutUsers_stargazing_spots_moderated_byTousersNestedInput
     subscriptions?: subscriptionsUncheckedUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUncheckedUpdateOneWithoutUsersNestedInput
   }
@@ -108420,6 +109314,7 @@ export namespace Prisma {
     services?: servicesCreateNestedManyWithoutUsersInput
     session_enrollments?: session_enrollmentsCreateNestedManyWithoutUserInput
     created_sessions?: sessionsCreateNestedManyWithoutCreatorInput
+    moderated_sessions?: sessionsCreateNestedManyWithoutModeratorInput
     discussion_comment_likes?: space_discussion_comment_likesCreateNestedManyWithoutUserInput
     discussion_comments?: space_discussion_commentsCreateNestedManyWithoutUserInput
     discussion_likes?: space_discussion_likesCreateNestedManyWithoutUserInput
@@ -108429,6 +109324,7 @@ export namespace Prisma {
     space_news_likes?: space_news_likesCreateNestedManyWithoutUserInput
     stargazing_spot_reviews?: stargazing_spot_reviewsCreateNestedManyWithoutUserInput
     created_stargazing_spots?: stargazing_spotsCreateNestedManyWithoutCreatorInput
+    stargazing_spots_stargazing_spots_moderated_byTousers?: stargazing_spotsCreateNestedManyWithoutUsers_stargazing_spots_moderated_byTousersInput
     subscriptions?: subscriptionsCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsCreateNestedOneWithoutUsersInput
   }
@@ -108485,6 +109381,7 @@ export namespace Prisma {
     services?: servicesUncheckedCreateNestedManyWithoutUsersInput
     session_enrollments?: session_enrollmentsUncheckedCreateNestedManyWithoutUserInput
     created_sessions?: sessionsUncheckedCreateNestedManyWithoutCreatorInput
+    moderated_sessions?: sessionsUncheckedCreateNestedManyWithoutModeratorInput
     discussion_comment_likes?: space_discussion_comment_likesUncheckedCreateNestedManyWithoutUserInput
     discussion_comments?: space_discussion_commentsUncheckedCreateNestedManyWithoutUserInput
     discussion_likes?: space_discussion_likesUncheckedCreateNestedManyWithoutUserInput
@@ -108494,6 +109391,7 @@ export namespace Prisma {
     space_news_likes?: space_news_likesUncheckedCreateNestedManyWithoutUserInput
     stargazing_spot_reviews?: stargazing_spot_reviewsUncheckedCreateNestedManyWithoutUserInput
     created_stargazing_spots?: stargazing_spotsUncheckedCreateNestedManyWithoutCreatorInput
+    stargazing_spots_stargazing_spots_moderated_byTousers?: stargazing_spotsUncheckedCreateNestedManyWithoutUsers_stargazing_spots_moderated_byTousersInput
     subscriptions?: subscriptionsUncheckedCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsUncheckedCreateNestedOneWithoutUsersInput
   }
@@ -108565,6 +109463,7 @@ export namespace Prisma {
     services?: servicesUpdateManyWithoutUsersNestedInput
     session_enrollments?: session_enrollmentsUpdateManyWithoutUserNestedInput
     created_sessions?: sessionsUpdateManyWithoutCreatorNestedInput
+    moderated_sessions?: sessionsUpdateManyWithoutModeratorNestedInput
     discussion_comment_likes?: space_discussion_comment_likesUpdateManyWithoutUserNestedInput
     discussion_comments?: space_discussion_commentsUpdateManyWithoutUserNestedInput
     discussion_likes?: space_discussion_likesUpdateManyWithoutUserNestedInput
@@ -108574,6 +109473,7 @@ export namespace Prisma {
     space_news_likes?: space_news_likesUpdateManyWithoutUserNestedInput
     stargazing_spot_reviews?: stargazing_spot_reviewsUpdateManyWithoutUserNestedInput
     created_stargazing_spots?: stargazing_spotsUpdateManyWithoutCreatorNestedInput
+    stargazing_spots_stargazing_spots_moderated_byTousers?: stargazing_spotsUpdateManyWithoutUsers_stargazing_spots_moderated_byTousersNestedInput
     subscriptions?: subscriptionsUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUpdateOneWithoutUsersNestedInput
   }
@@ -108630,6 +109530,7 @@ export namespace Prisma {
     services?: servicesUncheckedUpdateManyWithoutUsersNestedInput
     session_enrollments?: session_enrollmentsUncheckedUpdateManyWithoutUserNestedInput
     created_sessions?: sessionsUncheckedUpdateManyWithoutCreatorNestedInput
+    moderated_sessions?: sessionsUncheckedUpdateManyWithoutModeratorNestedInput
     discussion_comment_likes?: space_discussion_comment_likesUncheckedUpdateManyWithoutUserNestedInput
     discussion_comments?: space_discussion_commentsUncheckedUpdateManyWithoutUserNestedInput
     discussion_likes?: space_discussion_likesUncheckedUpdateManyWithoutUserNestedInput
@@ -108639,6 +109540,7 @@ export namespace Prisma {
     space_news_likes?: space_news_likesUncheckedUpdateManyWithoutUserNestedInput
     stargazing_spot_reviews?: stargazing_spot_reviewsUncheckedUpdateManyWithoutUserNestedInput
     created_stargazing_spots?: stargazing_spotsUncheckedUpdateManyWithoutCreatorNestedInput
+    stargazing_spots_stargazing_spots_moderated_byTousers?: stargazing_spotsUncheckedUpdateManyWithoutUsers_stargazing_spots_moderated_byTousersNestedInput
     subscriptions?: subscriptionsUncheckedUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUncheckedUpdateOneWithoutUsersNestedInput
   }
@@ -108694,6 +109596,7 @@ export namespace Prisma {
     services?: servicesCreateNestedManyWithoutUsersInput
     session_enrollments?: session_enrollmentsCreateNestedManyWithoutUserInput
     created_sessions?: sessionsCreateNestedManyWithoutCreatorInput
+    moderated_sessions?: sessionsCreateNestedManyWithoutModeratorInput
     discussion_comment_likes?: space_discussion_comment_likesCreateNestedManyWithoutUserInput
     discussion_comments?: space_discussion_commentsCreateNestedManyWithoutUserInput
     discussion_likes?: space_discussion_likesCreateNestedManyWithoutUserInput
@@ -108703,6 +109606,7 @@ export namespace Prisma {
     space_news_likes?: space_news_likesCreateNestedManyWithoutUserInput
     stargazing_spot_reviews?: stargazing_spot_reviewsCreateNestedManyWithoutUserInput
     created_stargazing_spots?: stargazing_spotsCreateNestedManyWithoutCreatorInput
+    stargazing_spots_stargazing_spots_moderated_byTousers?: stargazing_spotsCreateNestedManyWithoutUsers_stargazing_spots_moderated_byTousersInput
     subscriptions?: subscriptionsCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsCreateNestedOneWithoutUsersInput
   }
@@ -108759,6 +109663,7 @@ export namespace Prisma {
     services?: servicesUncheckedCreateNestedManyWithoutUsersInput
     session_enrollments?: session_enrollmentsUncheckedCreateNestedManyWithoutUserInput
     created_sessions?: sessionsUncheckedCreateNestedManyWithoutCreatorInput
+    moderated_sessions?: sessionsUncheckedCreateNestedManyWithoutModeratorInput
     discussion_comment_likes?: space_discussion_comment_likesUncheckedCreateNestedManyWithoutUserInput
     discussion_comments?: space_discussion_commentsUncheckedCreateNestedManyWithoutUserInput
     discussion_likes?: space_discussion_likesUncheckedCreateNestedManyWithoutUserInput
@@ -108768,6 +109673,7 @@ export namespace Prisma {
     space_news_likes?: space_news_likesUncheckedCreateNestedManyWithoutUserInput
     stargazing_spot_reviews?: stargazing_spot_reviewsUncheckedCreateNestedManyWithoutUserInput
     created_stargazing_spots?: stargazing_spotsUncheckedCreateNestedManyWithoutCreatorInput
+    stargazing_spots_stargazing_spots_moderated_byTousers?: stargazing_spotsUncheckedCreateNestedManyWithoutUsers_stargazing_spots_moderated_byTousersInput
     subscriptions?: subscriptionsUncheckedCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsUncheckedCreateNestedOneWithoutUsersInput
   }
@@ -108839,6 +109745,7 @@ export namespace Prisma {
     services?: servicesUpdateManyWithoutUsersNestedInput
     session_enrollments?: session_enrollmentsUpdateManyWithoutUserNestedInput
     created_sessions?: sessionsUpdateManyWithoutCreatorNestedInput
+    moderated_sessions?: sessionsUpdateManyWithoutModeratorNestedInput
     discussion_comment_likes?: space_discussion_comment_likesUpdateManyWithoutUserNestedInput
     discussion_comments?: space_discussion_commentsUpdateManyWithoutUserNestedInput
     discussion_likes?: space_discussion_likesUpdateManyWithoutUserNestedInput
@@ -108848,6 +109755,7 @@ export namespace Prisma {
     space_news_likes?: space_news_likesUpdateManyWithoutUserNestedInput
     stargazing_spot_reviews?: stargazing_spot_reviewsUpdateManyWithoutUserNestedInput
     created_stargazing_spots?: stargazing_spotsUpdateManyWithoutCreatorNestedInput
+    stargazing_spots_stargazing_spots_moderated_byTousers?: stargazing_spotsUpdateManyWithoutUsers_stargazing_spots_moderated_byTousersNestedInput
     subscriptions?: subscriptionsUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUpdateOneWithoutUsersNestedInput
   }
@@ -108904,6 +109812,7 @@ export namespace Prisma {
     services?: servicesUncheckedUpdateManyWithoutUsersNestedInput
     session_enrollments?: session_enrollmentsUncheckedUpdateManyWithoutUserNestedInput
     created_sessions?: sessionsUncheckedUpdateManyWithoutCreatorNestedInput
+    moderated_sessions?: sessionsUncheckedUpdateManyWithoutModeratorNestedInput
     discussion_comment_likes?: space_discussion_comment_likesUncheckedUpdateManyWithoutUserNestedInput
     discussion_comments?: space_discussion_commentsUncheckedUpdateManyWithoutUserNestedInput
     discussion_likes?: space_discussion_likesUncheckedUpdateManyWithoutUserNestedInput
@@ -108913,6 +109822,7 @@ export namespace Prisma {
     space_news_likes?: space_news_likesUncheckedUpdateManyWithoutUserNestedInput
     stargazing_spot_reviews?: stargazing_spot_reviewsUncheckedUpdateManyWithoutUserNestedInput
     created_stargazing_spots?: stargazing_spotsUncheckedUpdateManyWithoutCreatorNestedInput
+    stargazing_spots_stargazing_spots_moderated_byTousers?: stargazing_spotsUncheckedUpdateManyWithoutUsers_stargazing_spots_moderated_byTousersNestedInput
     subscriptions?: subscriptionsUncheckedUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUncheckedUpdateOneWithoutUsersNestedInput
   }
@@ -109000,6 +109910,7 @@ export namespace Prisma {
     services?: servicesCreateNestedManyWithoutUsersInput
     session_enrollments?: session_enrollmentsCreateNestedManyWithoutUserInput
     created_sessions?: sessionsCreateNestedManyWithoutCreatorInput
+    moderated_sessions?: sessionsCreateNestedManyWithoutModeratorInput
     discussion_comment_likes?: space_discussion_comment_likesCreateNestedManyWithoutUserInput
     discussion_comments?: space_discussion_commentsCreateNestedManyWithoutUserInput
     discussion_likes?: space_discussion_likesCreateNestedManyWithoutUserInput
@@ -109009,6 +109920,7 @@ export namespace Prisma {
     space_news_likes?: space_news_likesCreateNestedManyWithoutUserInput
     stargazing_spot_reviews?: stargazing_spot_reviewsCreateNestedManyWithoutUserInput
     created_stargazing_spots?: stargazing_spotsCreateNestedManyWithoutCreatorInput
+    stargazing_spots_stargazing_spots_moderated_byTousers?: stargazing_spotsCreateNestedManyWithoutUsers_stargazing_spots_moderated_byTousersInput
     subscriptions?: subscriptionsCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsCreateNestedOneWithoutUsersInput
   }
@@ -109065,6 +109977,7 @@ export namespace Prisma {
     services?: servicesUncheckedCreateNestedManyWithoutUsersInput
     session_enrollments?: session_enrollmentsUncheckedCreateNestedManyWithoutUserInput
     created_sessions?: sessionsUncheckedCreateNestedManyWithoutCreatorInput
+    moderated_sessions?: sessionsUncheckedCreateNestedManyWithoutModeratorInput
     discussion_comment_likes?: space_discussion_comment_likesUncheckedCreateNestedManyWithoutUserInput
     discussion_comments?: space_discussion_commentsUncheckedCreateNestedManyWithoutUserInput
     discussion_likes?: space_discussion_likesUncheckedCreateNestedManyWithoutUserInput
@@ -109074,6 +109987,7 @@ export namespace Prisma {
     space_news_likes?: space_news_likesUncheckedCreateNestedManyWithoutUserInput
     stargazing_spot_reviews?: stargazing_spot_reviewsUncheckedCreateNestedManyWithoutUserInput
     created_stargazing_spots?: stargazing_spotsUncheckedCreateNestedManyWithoutCreatorInput
+    stargazing_spots_stargazing_spots_moderated_byTousers?: stargazing_spotsUncheckedCreateNestedManyWithoutUsers_stargazing_spots_moderated_byTousersInput
     subscriptions?: subscriptionsUncheckedCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsUncheckedCreateNestedOneWithoutUsersInput
   }
@@ -109183,6 +110097,7 @@ export namespace Prisma {
     services?: servicesUpdateManyWithoutUsersNestedInput
     session_enrollments?: session_enrollmentsUpdateManyWithoutUserNestedInput
     created_sessions?: sessionsUpdateManyWithoutCreatorNestedInput
+    moderated_sessions?: sessionsUpdateManyWithoutModeratorNestedInput
     discussion_comment_likes?: space_discussion_comment_likesUpdateManyWithoutUserNestedInput
     discussion_comments?: space_discussion_commentsUpdateManyWithoutUserNestedInput
     discussion_likes?: space_discussion_likesUpdateManyWithoutUserNestedInput
@@ -109192,6 +110107,7 @@ export namespace Prisma {
     space_news_likes?: space_news_likesUpdateManyWithoutUserNestedInput
     stargazing_spot_reviews?: stargazing_spot_reviewsUpdateManyWithoutUserNestedInput
     created_stargazing_spots?: stargazing_spotsUpdateManyWithoutCreatorNestedInput
+    stargazing_spots_stargazing_spots_moderated_byTousers?: stargazing_spotsUpdateManyWithoutUsers_stargazing_spots_moderated_byTousersNestedInput
     subscriptions?: subscriptionsUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUpdateOneWithoutUsersNestedInput
   }
@@ -109248,6 +110164,7 @@ export namespace Prisma {
     services?: servicesUncheckedUpdateManyWithoutUsersNestedInput
     session_enrollments?: session_enrollmentsUncheckedUpdateManyWithoutUserNestedInput
     created_sessions?: sessionsUncheckedUpdateManyWithoutCreatorNestedInput
+    moderated_sessions?: sessionsUncheckedUpdateManyWithoutModeratorNestedInput
     discussion_comment_likes?: space_discussion_comment_likesUncheckedUpdateManyWithoutUserNestedInput
     discussion_comments?: space_discussion_commentsUncheckedUpdateManyWithoutUserNestedInput
     discussion_likes?: space_discussion_likesUncheckedUpdateManyWithoutUserNestedInput
@@ -109257,6 +110174,7 @@ export namespace Prisma {
     space_news_likes?: space_news_likesUncheckedUpdateManyWithoutUserNestedInput
     stargazing_spot_reviews?: stargazing_spot_reviewsUncheckedUpdateManyWithoutUserNestedInput
     created_stargazing_spots?: stargazing_spotsUncheckedUpdateManyWithoutCreatorNestedInput
+    stargazing_spots_stargazing_spots_moderated_byTousers?: stargazing_spotsUncheckedUpdateManyWithoutUsers_stargazing_spots_moderated_byTousersNestedInput
     subscriptions?: subscriptionsUncheckedUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUncheckedUpdateOneWithoutUsersNestedInput
   }
@@ -109358,6 +110276,7 @@ export namespace Prisma {
     services?: servicesCreateNestedManyWithoutUsersInput
     session_enrollments?: session_enrollmentsCreateNestedManyWithoutUserInput
     created_sessions?: sessionsCreateNestedManyWithoutCreatorInput
+    moderated_sessions?: sessionsCreateNestedManyWithoutModeratorInput
     discussion_comment_likes?: space_discussion_comment_likesCreateNestedManyWithoutUserInput
     discussion_comments?: space_discussion_commentsCreateNestedManyWithoutUserInput
     discussion_likes?: space_discussion_likesCreateNestedManyWithoutUserInput
@@ -109367,6 +110286,7 @@ export namespace Prisma {
     space_news_likes?: space_news_likesCreateNestedManyWithoutUserInput
     stargazing_spot_reviews?: stargazing_spot_reviewsCreateNestedManyWithoutUserInput
     created_stargazing_spots?: stargazing_spotsCreateNestedManyWithoutCreatorInput
+    stargazing_spots_stargazing_spots_moderated_byTousers?: stargazing_spotsCreateNestedManyWithoutUsers_stargazing_spots_moderated_byTousersInput
     subscriptions?: subscriptionsCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsCreateNestedOneWithoutUsersInput
   }
@@ -109423,6 +110343,7 @@ export namespace Prisma {
     services?: servicesUncheckedCreateNestedManyWithoutUsersInput
     session_enrollments?: session_enrollmentsUncheckedCreateNestedManyWithoutUserInput
     created_sessions?: sessionsUncheckedCreateNestedManyWithoutCreatorInput
+    moderated_sessions?: sessionsUncheckedCreateNestedManyWithoutModeratorInput
     discussion_comment_likes?: space_discussion_comment_likesUncheckedCreateNestedManyWithoutUserInput
     discussion_comments?: space_discussion_commentsUncheckedCreateNestedManyWithoutUserInput
     discussion_likes?: space_discussion_likesUncheckedCreateNestedManyWithoutUserInput
@@ -109432,6 +110353,7 @@ export namespace Prisma {
     space_news_likes?: space_news_likesUncheckedCreateNestedManyWithoutUserInput
     stargazing_spot_reviews?: stargazing_spot_reviewsUncheckedCreateNestedManyWithoutUserInput
     created_stargazing_spots?: stargazing_spotsUncheckedCreateNestedManyWithoutCreatorInput
+    stargazing_spots_stargazing_spots_moderated_byTousers?: stargazing_spotsUncheckedCreateNestedManyWithoutUsers_stargazing_spots_moderated_byTousersInput
     subscriptions?: subscriptionsUncheckedCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsUncheckedCreateNestedOneWithoutUsersInput
   }
@@ -109555,6 +110477,7 @@ export namespace Prisma {
     services?: servicesUpdateManyWithoutUsersNestedInput
     session_enrollments?: session_enrollmentsUpdateManyWithoutUserNestedInput
     created_sessions?: sessionsUpdateManyWithoutCreatorNestedInput
+    moderated_sessions?: sessionsUpdateManyWithoutModeratorNestedInput
     discussion_comment_likes?: space_discussion_comment_likesUpdateManyWithoutUserNestedInput
     discussion_comments?: space_discussion_commentsUpdateManyWithoutUserNestedInput
     discussion_likes?: space_discussion_likesUpdateManyWithoutUserNestedInput
@@ -109564,6 +110487,7 @@ export namespace Prisma {
     space_news_likes?: space_news_likesUpdateManyWithoutUserNestedInput
     stargazing_spot_reviews?: stargazing_spot_reviewsUpdateManyWithoutUserNestedInput
     created_stargazing_spots?: stargazing_spotsUpdateManyWithoutCreatorNestedInput
+    stargazing_spots_stargazing_spots_moderated_byTousers?: stargazing_spotsUpdateManyWithoutUsers_stargazing_spots_moderated_byTousersNestedInput
     subscriptions?: subscriptionsUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUpdateOneWithoutUsersNestedInput
   }
@@ -109620,6 +110544,7 @@ export namespace Prisma {
     services?: servicesUncheckedUpdateManyWithoutUsersNestedInput
     session_enrollments?: session_enrollmentsUncheckedUpdateManyWithoutUserNestedInput
     created_sessions?: sessionsUncheckedUpdateManyWithoutCreatorNestedInput
+    moderated_sessions?: sessionsUncheckedUpdateManyWithoutModeratorNestedInput
     discussion_comment_likes?: space_discussion_comment_likesUncheckedUpdateManyWithoutUserNestedInput
     discussion_comments?: space_discussion_commentsUncheckedUpdateManyWithoutUserNestedInput
     discussion_likes?: space_discussion_likesUncheckedUpdateManyWithoutUserNestedInput
@@ -109629,6 +110554,7 @@ export namespace Prisma {
     space_news_likes?: space_news_likesUncheckedUpdateManyWithoutUserNestedInput
     stargazing_spot_reviews?: stargazing_spot_reviewsUncheckedUpdateManyWithoutUserNestedInput
     created_stargazing_spots?: stargazing_spotsUncheckedUpdateManyWithoutCreatorNestedInput
+    stargazing_spots_stargazing_spots_moderated_byTousers?: stargazing_spotsUncheckedUpdateManyWithoutUsers_stargazing_spots_moderated_byTousersNestedInput
     subscriptions?: subscriptionsUncheckedUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUncheckedUpdateOneWithoutUsersNestedInput
   }
@@ -109828,6 +110754,7 @@ export namespace Prisma {
     services?: servicesCreateNestedManyWithoutUsersInput
     session_enrollments?: session_enrollmentsCreateNestedManyWithoutUserInput
     created_sessions?: sessionsCreateNestedManyWithoutCreatorInput
+    moderated_sessions?: sessionsCreateNestedManyWithoutModeratorInput
     discussion_comment_likes?: space_discussion_comment_likesCreateNestedManyWithoutUserInput
     discussion_comments?: space_discussion_commentsCreateNestedManyWithoutUserInput
     discussion_likes?: space_discussion_likesCreateNestedManyWithoutUserInput
@@ -109837,6 +110764,7 @@ export namespace Prisma {
     space_news_likes?: space_news_likesCreateNestedManyWithoutUserInput
     stargazing_spot_reviews?: stargazing_spot_reviewsCreateNestedManyWithoutUserInput
     created_stargazing_spots?: stargazing_spotsCreateNestedManyWithoutCreatorInput
+    stargazing_spots_stargazing_spots_moderated_byTousers?: stargazing_spotsCreateNestedManyWithoutUsers_stargazing_spots_moderated_byTousersInput
     subscriptions?: subscriptionsCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsCreateNestedOneWithoutUsersInput
   }
@@ -109893,6 +110821,7 @@ export namespace Prisma {
     services?: servicesUncheckedCreateNestedManyWithoutUsersInput
     session_enrollments?: session_enrollmentsUncheckedCreateNestedManyWithoutUserInput
     created_sessions?: sessionsUncheckedCreateNestedManyWithoutCreatorInput
+    moderated_sessions?: sessionsUncheckedCreateNestedManyWithoutModeratorInput
     discussion_comment_likes?: space_discussion_comment_likesUncheckedCreateNestedManyWithoutUserInput
     discussion_comments?: space_discussion_commentsUncheckedCreateNestedManyWithoutUserInput
     discussion_likes?: space_discussion_likesUncheckedCreateNestedManyWithoutUserInput
@@ -109902,6 +110831,7 @@ export namespace Prisma {
     space_news_likes?: space_news_likesUncheckedCreateNestedManyWithoutUserInput
     stargazing_spot_reviews?: stargazing_spot_reviewsUncheckedCreateNestedManyWithoutUserInput
     created_stargazing_spots?: stargazing_spotsUncheckedCreateNestedManyWithoutCreatorInput
+    stargazing_spots_stargazing_spots_moderated_byTousers?: stargazing_spotsUncheckedCreateNestedManyWithoutUsers_stargazing_spots_moderated_byTousersInput
     subscriptions?: subscriptionsUncheckedCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsUncheckedCreateNestedOneWithoutUsersInput
   }
@@ -109962,6 +110892,7 @@ export namespace Prisma {
     services?: servicesCreateNestedManyWithoutUsersInput
     session_enrollments?: session_enrollmentsCreateNestedManyWithoutUserInput
     created_sessions?: sessionsCreateNestedManyWithoutCreatorInput
+    moderated_sessions?: sessionsCreateNestedManyWithoutModeratorInput
     discussion_comment_likes?: space_discussion_comment_likesCreateNestedManyWithoutUserInput
     discussion_comments?: space_discussion_commentsCreateNestedManyWithoutUserInput
     discussion_likes?: space_discussion_likesCreateNestedManyWithoutUserInput
@@ -109971,6 +110902,7 @@ export namespace Prisma {
     space_news_likes?: space_news_likesCreateNestedManyWithoutUserInput
     stargazing_spot_reviews?: stargazing_spot_reviewsCreateNestedManyWithoutUserInput
     created_stargazing_spots?: stargazing_spotsCreateNestedManyWithoutCreatorInput
+    stargazing_spots_stargazing_spots_moderated_byTousers?: stargazing_spotsCreateNestedManyWithoutUsers_stargazing_spots_moderated_byTousersInput
     subscriptions?: subscriptionsCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsCreateNestedOneWithoutUsersInput
   }
@@ -110027,6 +110959,7 @@ export namespace Prisma {
     services?: servicesUncheckedCreateNestedManyWithoutUsersInput
     session_enrollments?: session_enrollmentsUncheckedCreateNestedManyWithoutUserInput
     created_sessions?: sessionsUncheckedCreateNestedManyWithoutCreatorInput
+    moderated_sessions?: sessionsUncheckedCreateNestedManyWithoutModeratorInput
     discussion_comment_likes?: space_discussion_comment_likesUncheckedCreateNestedManyWithoutUserInput
     discussion_comments?: space_discussion_commentsUncheckedCreateNestedManyWithoutUserInput
     discussion_likes?: space_discussion_likesUncheckedCreateNestedManyWithoutUserInput
@@ -110036,6 +110969,7 @@ export namespace Prisma {
     space_news_likes?: space_news_likesUncheckedCreateNestedManyWithoutUserInput
     stargazing_spot_reviews?: stargazing_spot_reviewsUncheckedCreateNestedManyWithoutUserInput
     created_stargazing_spots?: stargazing_spotsUncheckedCreateNestedManyWithoutCreatorInput
+    stargazing_spots_stargazing_spots_moderated_byTousers?: stargazing_spotsUncheckedCreateNestedManyWithoutUsers_stargazing_spots_moderated_byTousersInput
     subscriptions?: subscriptionsUncheckedCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsUncheckedCreateNestedOneWithoutUsersInput
   }
@@ -110159,6 +111093,7 @@ export namespace Prisma {
     services?: servicesUpdateManyWithoutUsersNestedInput
     session_enrollments?: session_enrollmentsUpdateManyWithoutUserNestedInput
     created_sessions?: sessionsUpdateManyWithoutCreatorNestedInput
+    moderated_sessions?: sessionsUpdateManyWithoutModeratorNestedInput
     discussion_comment_likes?: space_discussion_comment_likesUpdateManyWithoutUserNestedInput
     discussion_comments?: space_discussion_commentsUpdateManyWithoutUserNestedInput
     discussion_likes?: space_discussion_likesUpdateManyWithoutUserNestedInput
@@ -110168,6 +111103,7 @@ export namespace Prisma {
     space_news_likes?: space_news_likesUpdateManyWithoutUserNestedInput
     stargazing_spot_reviews?: stargazing_spot_reviewsUpdateManyWithoutUserNestedInput
     created_stargazing_spots?: stargazing_spotsUpdateManyWithoutCreatorNestedInput
+    stargazing_spots_stargazing_spots_moderated_byTousers?: stargazing_spotsUpdateManyWithoutUsers_stargazing_spots_moderated_byTousersNestedInput
     subscriptions?: subscriptionsUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUpdateOneWithoutUsersNestedInput
   }
@@ -110224,6 +111160,7 @@ export namespace Prisma {
     services?: servicesUncheckedUpdateManyWithoutUsersNestedInput
     session_enrollments?: session_enrollmentsUncheckedUpdateManyWithoutUserNestedInput
     created_sessions?: sessionsUncheckedUpdateManyWithoutCreatorNestedInput
+    moderated_sessions?: sessionsUncheckedUpdateManyWithoutModeratorNestedInput
     discussion_comment_likes?: space_discussion_comment_likesUncheckedUpdateManyWithoutUserNestedInput
     discussion_comments?: space_discussion_commentsUncheckedUpdateManyWithoutUserNestedInput
     discussion_likes?: space_discussion_likesUncheckedUpdateManyWithoutUserNestedInput
@@ -110233,6 +111170,7 @@ export namespace Prisma {
     space_news_likes?: space_news_likesUncheckedUpdateManyWithoutUserNestedInput
     stargazing_spot_reviews?: stargazing_spot_reviewsUncheckedUpdateManyWithoutUserNestedInput
     created_stargazing_spots?: stargazing_spotsUncheckedUpdateManyWithoutCreatorNestedInput
+    stargazing_spots_stargazing_spots_moderated_byTousers?: stargazing_spotsUncheckedUpdateManyWithoutUsers_stargazing_spots_moderated_byTousersNestedInput
     subscriptions?: subscriptionsUncheckedUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUncheckedUpdateOneWithoutUsersNestedInput
   }
@@ -110299,6 +111237,7 @@ export namespace Prisma {
     services?: servicesUpdateManyWithoutUsersNestedInput
     session_enrollments?: session_enrollmentsUpdateManyWithoutUserNestedInput
     created_sessions?: sessionsUpdateManyWithoutCreatorNestedInput
+    moderated_sessions?: sessionsUpdateManyWithoutModeratorNestedInput
     discussion_comment_likes?: space_discussion_comment_likesUpdateManyWithoutUserNestedInput
     discussion_comments?: space_discussion_commentsUpdateManyWithoutUserNestedInput
     discussion_likes?: space_discussion_likesUpdateManyWithoutUserNestedInput
@@ -110308,6 +111247,7 @@ export namespace Prisma {
     space_news_likes?: space_news_likesUpdateManyWithoutUserNestedInput
     stargazing_spot_reviews?: stargazing_spot_reviewsUpdateManyWithoutUserNestedInput
     created_stargazing_spots?: stargazing_spotsUpdateManyWithoutCreatorNestedInput
+    stargazing_spots_stargazing_spots_moderated_byTousers?: stargazing_spotsUpdateManyWithoutUsers_stargazing_spots_moderated_byTousersNestedInput
     subscriptions?: subscriptionsUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUpdateOneWithoutUsersNestedInput
   }
@@ -110364,6 +111304,7 @@ export namespace Prisma {
     services?: servicesUncheckedUpdateManyWithoutUsersNestedInput
     session_enrollments?: session_enrollmentsUncheckedUpdateManyWithoutUserNestedInput
     created_sessions?: sessionsUncheckedUpdateManyWithoutCreatorNestedInput
+    moderated_sessions?: sessionsUncheckedUpdateManyWithoutModeratorNestedInput
     discussion_comment_likes?: space_discussion_comment_likesUncheckedUpdateManyWithoutUserNestedInput
     discussion_comments?: space_discussion_commentsUncheckedUpdateManyWithoutUserNestedInput
     discussion_likes?: space_discussion_likesUncheckedUpdateManyWithoutUserNestedInput
@@ -110373,6 +111314,7 @@ export namespace Prisma {
     space_news_likes?: space_news_likesUncheckedUpdateManyWithoutUserNestedInput
     stargazing_spot_reviews?: stargazing_spot_reviewsUncheckedUpdateManyWithoutUserNestedInput
     created_stargazing_spots?: stargazing_spotsUncheckedUpdateManyWithoutCreatorNestedInput
+    stargazing_spots_stargazing_spots_moderated_byTousers?: stargazing_spotsUncheckedUpdateManyWithoutUsers_stargazing_spots_moderated_byTousersNestedInput
     subscriptions?: subscriptionsUncheckedUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUncheckedUpdateOneWithoutUsersNestedInput
   }
@@ -110911,6 +111853,7 @@ export namespace Prisma {
     services?: servicesCreateNestedManyWithoutUsersInput
     session_enrollments?: session_enrollmentsCreateNestedManyWithoutUserInput
     created_sessions?: sessionsCreateNestedManyWithoutCreatorInput
+    moderated_sessions?: sessionsCreateNestedManyWithoutModeratorInput
     discussion_comment_likes?: space_discussion_comment_likesCreateNestedManyWithoutUserInput
     discussion_comments?: space_discussion_commentsCreateNestedManyWithoutUserInput
     discussion_likes?: space_discussion_likesCreateNestedManyWithoutUserInput
@@ -110920,6 +111863,7 @@ export namespace Prisma {
     space_news_likes?: space_news_likesCreateNestedManyWithoutUserInput
     stargazing_spot_reviews?: stargazing_spot_reviewsCreateNestedManyWithoutUserInput
     created_stargazing_spots?: stargazing_spotsCreateNestedManyWithoutCreatorInput
+    stargazing_spots_stargazing_spots_moderated_byTousers?: stargazing_spotsCreateNestedManyWithoutUsers_stargazing_spots_moderated_byTousersInput
     subscriptions?: subscriptionsCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsCreateNestedOneWithoutUsersInput
   }
@@ -110976,6 +111920,7 @@ export namespace Prisma {
     services?: servicesUncheckedCreateNestedManyWithoutUsersInput
     session_enrollments?: session_enrollmentsUncheckedCreateNestedManyWithoutUserInput
     created_sessions?: sessionsUncheckedCreateNestedManyWithoutCreatorInput
+    moderated_sessions?: sessionsUncheckedCreateNestedManyWithoutModeratorInput
     discussion_comment_likes?: space_discussion_comment_likesUncheckedCreateNestedManyWithoutUserInput
     discussion_comments?: space_discussion_commentsUncheckedCreateNestedManyWithoutUserInput
     discussion_likes?: space_discussion_likesUncheckedCreateNestedManyWithoutUserInput
@@ -110985,6 +111930,7 @@ export namespace Prisma {
     space_news_likes?: space_news_likesUncheckedCreateNestedManyWithoutUserInput
     stargazing_spot_reviews?: stargazing_spot_reviewsUncheckedCreateNestedManyWithoutUserInput
     created_stargazing_spots?: stargazing_spotsUncheckedCreateNestedManyWithoutCreatorInput
+    stargazing_spots_stargazing_spots_moderated_byTousers?: stargazing_spotsUncheckedCreateNestedManyWithoutUsers_stargazing_spots_moderated_byTousersInput
     subscriptions?: subscriptionsUncheckedCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsUncheckedCreateNestedOneWithoutUsersInput
   }
@@ -111094,6 +112040,7 @@ export namespace Prisma {
     services?: servicesUpdateManyWithoutUsersNestedInput
     session_enrollments?: session_enrollmentsUpdateManyWithoutUserNestedInput
     created_sessions?: sessionsUpdateManyWithoutCreatorNestedInput
+    moderated_sessions?: sessionsUpdateManyWithoutModeratorNestedInput
     discussion_comment_likes?: space_discussion_comment_likesUpdateManyWithoutUserNestedInput
     discussion_comments?: space_discussion_commentsUpdateManyWithoutUserNestedInput
     discussion_likes?: space_discussion_likesUpdateManyWithoutUserNestedInput
@@ -111103,6 +112050,7 @@ export namespace Prisma {
     space_news_likes?: space_news_likesUpdateManyWithoutUserNestedInput
     stargazing_spot_reviews?: stargazing_spot_reviewsUpdateManyWithoutUserNestedInput
     created_stargazing_spots?: stargazing_spotsUpdateManyWithoutCreatorNestedInput
+    stargazing_spots_stargazing_spots_moderated_byTousers?: stargazing_spotsUpdateManyWithoutUsers_stargazing_spots_moderated_byTousersNestedInput
     subscriptions?: subscriptionsUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUpdateOneWithoutUsersNestedInput
   }
@@ -111159,6 +112107,7 @@ export namespace Prisma {
     services?: servicesUncheckedUpdateManyWithoutUsersNestedInput
     session_enrollments?: session_enrollmentsUncheckedUpdateManyWithoutUserNestedInput
     created_sessions?: sessionsUncheckedUpdateManyWithoutCreatorNestedInput
+    moderated_sessions?: sessionsUncheckedUpdateManyWithoutModeratorNestedInput
     discussion_comment_likes?: space_discussion_comment_likesUncheckedUpdateManyWithoutUserNestedInput
     discussion_comments?: space_discussion_commentsUncheckedUpdateManyWithoutUserNestedInput
     discussion_likes?: space_discussion_likesUncheckedUpdateManyWithoutUserNestedInput
@@ -111168,6 +112117,7 @@ export namespace Prisma {
     space_news_likes?: space_news_likesUncheckedUpdateManyWithoutUserNestedInput
     stargazing_spot_reviews?: stargazing_spot_reviewsUncheckedUpdateManyWithoutUserNestedInput
     created_stargazing_spots?: stargazing_spotsUncheckedUpdateManyWithoutCreatorNestedInput
+    stargazing_spots_stargazing_spots_moderated_byTousers?: stargazing_spotsUncheckedUpdateManyWithoutUsers_stargazing_spots_moderated_byTousersNestedInput
     subscriptions?: subscriptionsUncheckedUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUncheckedUpdateOneWithoutUsersNestedInput
   }
@@ -111346,6 +112296,7 @@ export namespace Prisma {
     services?: servicesCreateNestedManyWithoutUsersInput
     session_enrollments?: session_enrollmentsCreateNestedManyWithoutUserInput
     created_sessions?: sessionsCreateNestedManyWithoutCreatorInput
+    moderated_sessions?: sessionsCreateNestedManyWithoutModeratorInput
     discussion_comment_likes?: space_discussion_comment_likesCreateNestedManyWithoutUserInput
     discussion_comments?: space_discussion_commentsCreateNestedManyWithoutUserInput
     discussion_likes?: space_discussion_likesCreateNestedManyWithoutUserInput
@@ -111355,6 +112306,7 @@ export namespace Prisma {
     space_news_likes?: space_news_likesCreateNestedManyWithoutUserInput
     stargazing_spot_reviews?: stargazing_spot_reviewsCreateNestedManyWithoutUserInput
     created_stargazing_spots?: stargazing_spotsCreateNestedManyWithoutCreatorInput
+    stargazing_spots_stargazing_spots_moderated_byTousers?: stargazing_spotsCreateNestedManyWithoutUsers_stargazing_spots_moderated_byTousersInput
     subscriptions?: subscriptionsCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsCreateNestedOneWithoutUsersInput
   }
@@ -111411,6 +112363,7 @@ export namespace Prisma {
     services?: servicesUncheckedCreateNestedManyWithoutUsersInput
     session_enrollments?: session_enrollmentsUncheckedCreateNestedManyWithoutUserInput
     created_sessions?: sessionsUncheckedCreateNestedManyWithoutCreatorInput
+    moderated_sessions?: sessionsUncheckedCreateNestedManyWithoutModeratorInput
     discussion_comment_likes?: space_discussion_comment_likesUncheckedCreateNestedManyWithoutUserInput
     discussion_comments?: space_discussion_commentsUncheckedCreateNestedManyWithoutUserInput
     discussion_likes?: space_discussion_likesUncheckedCreateNestedManyWithoutUserInput
@@ -111420,6 +112373,7 @@ export namespace Prisma {
     space_news_likes?: space_news_likesUncheckedCreateNestedManyWithoutUserInput
     stargazing_spot_reviews?: stargazing_spot_reviewsUncheckedCreateNestedManyWithoutUserInput
     created_stargazing_spots?: stargazing_spotsUncheckedCreateNestedManyWithoutCreatorInput
+    stargazing_spots_stargazing_spots_moderated_byTousers?: stargazing_spotsUncheckedCreateNestedManyWithoutUsers_stargazing_spots_moderated_byTousersInput
     subscriptions?: subscriptionsUncheckedCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsUncheckedCreateNestedOneWithoutUsersInput
   }
@@ -111523,6 +112477,7 @@ export namespace Prisma {
     services?: servicesUpdateManyWithoutUsersNestedInput
     session_enrollments?: session_enrollmentsUpdateManyWithoutUserNestedInput
     created_sessions?: sessionsUpdateManyWithoutCreatorNestedInput
+    moderated_sessions?: sessionsUpdateManyWithoutModeratorNestedInput
     discussion_comment_likes?: space_discussion_comment_likesUpdateManyWithoutUserNestedInput
     discussion_comments?: space_discussion_commentsUpdateManyWithoutUserNestedInput
     discussion_likes?: space_discussion_likesUpdateManyWithoutUserNestedInput
@@ -111532,6 +112487,7 @@ export namespace Prisma {
     space_news_likes?: space_news_likesUpdateManyWithoutUserNestedInput
     stargazing_spot_reviews?: stargazing_spot_reviewsUpdateManyWithoutUserNestedInput
     created_stargazing_spots?: stargazing_spotsUpdateManyWithoutCreatorNestedInput
+    stargazing_spots_stargazing_spots_moderated_byTousers?: stargazing_spotsUpdateManyWithoutUsers_stargazing_spots_moderated_byTousersNestedInput
     subscriptions?: subscriptionsUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUpdateOneWithoutUsersNestedInput
   }
@@ -111588,6 +112544,7 @@ export namespace Prisma {
     services?: servicesUncheckedUpdateManyWithoutUsersNestedInput
     session_enrollments?: session_enrollmentsUncheckedUpdateManyWithoutUserNestedInput
     created_sessions?: sessionsUncheckedUpdateManyWithoutCreatorNestedInput
+    moderated_sessions?: sessionsUncheckedUpdateManyWithoutModeratorNestedInput
     discussion_comment_likes?: space_discussion_comment_likesUncheckedUpdateManyWithoutUserNestedInput
     discussion_comments?: space_discussion_commentsUncheckedUpdateManyWithoutUserNestedInput
     discussion_likes?: space_discussion_likesUncheckedUpdateManyWithoutUserNestedInput
@@ -111597,6 +112554,7 @@ export namespace Prisma {
     space_news_likes?: space_news_likesUncheckedUpdateManyWithoutUserNestedInput
     stargazing_spot_reviews?: stargazing_spot_reviewsUncheckedUpdateManyWithoutUserNestedInput
     created_stargazing_spots?: stargazing_spotsUncheckedUpdateManyWithoutCreatorNestedInput
+    stargazing_spots_stargazing_spots_moderated_byTousers?: stargazing_spotsUncheckedUpdateManyWithoutUsers_stargazing_spots_moderated_byTousersNestedInput
     subscriptions?: subscriptionsUncheckedUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUncheckedUpdateOneWithoutUsersNestedInput
   }
@@ -111672,6 +112630,7 @@ export namespace Prisma {
     services?: servicesCreateNestedManyWithoutUsersInput
     session_enrollments?: session_enrollmentsCreateNestedManyWithoutUserInput
     created_sessions?: sessionsCreateNestedManyWithoutCreatorInput
+    moderated_sessions?: sessionsCreateNestedManyWithoutModeratorInput
     discussion_comment_likes?: space_discussion_comment_likesCreateNestedManyWithoutUserInput
     discussion_comments?: space_discussion_commentsCreateNestedManyWithoutUserInput
     discussion_likes?: space_discussion_likesCreateNestedManyWithoutUserInput
@@ -111681,6 +112640,7 @@ export namespace Prisma {
     space_news_likes?: space_news_likesCreateNestedManyWithoutUserInput
     stargazing_spot_reviews?: stargazing_spot_reviewsCreateNestedManyWithoutUserInput
     created_stargazing_spots?: stargazing_spotsCreateNestedManyWithoutCreatorInput
+    stargazing_spots_stargazing_spots_moderated_byTousers?: stargazing_spotsCreateNestedManyWithoutUsers_stargazing_spots_moderated_byTousersInput
     subscriptions?: subscriptionsCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsCreateNestedOneWithoutUsersInput
   }
@@ -111737,6 +112697,7 @@ export namespace Prisma {
     services?: servicesUncheckedCreateNestedManyWithoutUsersInput
     session_enrollments?: session_enrollmentsUncheckedCreateNestedManyWithoutUserInput
     created_sessions?: sessionsUncheckedCreateNestedManyWithoutCreatorInput
+    moderated_sessions?: sessionsUncheckedCreateNestedManyWithoutModeratorInput
     discussion_comment_likes?: space_discussion_comment_likesUncheckedCreateNestedManyWithoutUserInput
     discussion_comments?: space_discussion_commentsUncheckedCreateNestedManyWithoutUserInput
     discussion_likes?: space_discussion_likesUncheckedCreateNestedManyWithoutUserInput
@@ -111746,6 +112707,7 @@ export namespace Prisma {
     space_news_likes?: space_news_likesUncheckedCreateNestedManyWithoutUserInput
     stargazing_spot_reviews?: stargazing_spot_reviewsUncheckedCreateNestedManyWithoutUserInput
     created_stargazing_spots?: stargazing_spotsUncheckedCreateNestedManyWithoutCreatorInput
+    stargazing_spots_stargazing_spots_moderated_byTousers?: stargazing_spotsUncheckedCreateNestedManyWithoutUsers_stargazing_spots_moderated_byTousersInput
     subscriptions?: subscriptionsUncheckedCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsUncheckedCreateNestedOneWithoutUsersInput
   }
@@ -111843,6 +112805,7 @@ export namespace Prisma {
     services?: servicesUpdateManyWithoutUsersNestedInput
     session_enrollments?: session_enrollmentsUpdateManyWithoutUserNestedInput
     created_sessions?: sessionsUpdateManyWithoutCreatorNestedInput
+    moderated_sessions?: sessionsUpdateManyWithoutModeratorNestedInput
     discussion_comment_likes?: space_discussion_comment_likesUpdateManyWithoutUserNestedInput
     discussion_comments?: space_discussion_commentsUpdateManyWithoutUserNestedInput
     discussion_likes?: space_discussion_likesUpdateManyWithoutUserNestedInput
@@ -111852,6 +112815,7 @@ export namespace Prisma {
     space_news_likes?: space_news_likesUpdateManyWithoutUserNestedInput
     stargazing_spot_reviews?: stargazing_spot_reviewsUpdateManyWithoutUserNestedInput
     created_stargazing_spots?: stargazing_spotsUpdateManyWithoutCreatorNestedInput
+    stargazing_spots_stargazing_spots_moderated_byTousers?: stargazing_spotsUpdateManyWithoutUsers_stargazing_spots_moderated_byTousersNestedInput
     subscriptions?: subscriptionsUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUpdateOneWithoutUsersNestedInput
   }
@@ -111908,6 +112872,7 @@ export namespace Prisma {
     services?: servicesUncheckedUpdateManyWithoutUsersNestedInput
     session_enrollments?: session_enrollmentsUncheckedUpdateManyWithoutUserNestedInput
     created_sessions?: sessionsUncheckedUpdateManyWithoutCreatorNestedInput
+    moderated_sessions?: sessionsUncheckedUpdateManyWithoutModeratorNestedInput
     discussion_comment_likes?: space_discussion_comment_likesUncheckedUpdateManyWithoutUserNestedInput
     discussion_comments?: space_discussion_commentsUncheckedUpdateManyWithoutUserNestedInput
     discussion_likes?: space_discussion_likesUncheckedUpdateManyWithoutUserNestedInput
@@ -111917,6 +112882,7 @@ export namespace Prisma {
     space_news_likes?: space_news_likesUncheckedUpdateManyWithoutUserNestedInput
     stargazing_spot_reviews?: stargazing_spot_reviewsUncheckedUpdateManyWithoutUserNestedInput
     created_stargazing_spots?: stargazing_spotsUncheckedUpdateManyWithoutCreatorNestedInput
+    stargazing_spots_stargazing_spots_moderated_byTousers?: stargazing_spotsUncheckedUpdateManyWithoutUsers_stargazing_spots_moderated_byTousersNestedInput
     subscriptions?: subscriptionsUncheckedUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUncheckedUpdateOneWithoutUsersNestedInput
   }
@@ -112022,6 +112988,7 @@ export namespace Prisma {
     services?: servicesCreateNestedManyWithoutUsersInput
     session_enrollments?: session_enrollmentsCreateNestedManyWithoutUserInput
     created_sessions?: sessionsCreateNestedManyWithoutCreatorInput
+    moderated_sessions?: sessionsCreateNestedManyWithoutModeratorInput
     discussion_comment_likes?: space_discussion_comment_likesCreateNestedManyWithoutUserInput
     discussion_comments?: space_discussion_commentsCreateNestedManyWithoutUserInput
     discussion_likes?: space_discussion_likesCreateNestedManyWithoutUserInput
@@ -112031,6 +112998,7 @@ export namespace Prisma {
     space_news_likes?: space_news_likesCreateNestedManyWithoutUserInput
     stargazing_spot_reviews?: stargazing_spot_reviewsCreateNestedManyWithoutUserInput
     created_stargazing_spots?: stargazing_spotsCreateNestedManyWithoutCreatorInput
+    stargazing_spots_stargazing_spots_moderated_byTousers?: stargazing_spotsCreateNestedManyWithoutUsers_stargazing_spots_moderated_byTousersInput
     subscriptions?: subscriptionsCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsCreateNestedOneWithoutUsersInput
   }
@@ -112087,6 +113055,7 @@ export namespace Prisma {
     services?: servicesUncheckedCreateNestedManyWithoutUsersInput
     session_enrollments?: session_enrollmentsUncheckedCreateNestedManyWithoutUserInput
     created_sessions?: sessionsUncheckedCreateNestedManyWithoutCreatorInput
+    moderated_sessions?: sessionsUncheckedCreateNestedManyWithoutModeratorInput
     discussion_comment_likes?: space_discussion_comment_likesUncheckedCreateNestedManyWithoutUserInput
     discussion_comments?: space_discussion_commentsUncheckedCreateNestedManyWithoutUserInput
     discussion_likes?: space_discussion_likesUncheckedCreateNestedManyWithoutUserInput
@@ -112096,6 +113065,7 @@ export namespace Prisma {
     space_news_likes?: space_news_likesUncheckedCreateNestedManyWithoutUserInput
     stargazing_spot_reviews?: stargazing_spot_reviewsUncheckedCreateNestedManyWithoutUserInput
     created_stargazing_spots?: stargazing_spotsUncheckedCreateNestedManyWithoutCreatorInput
+    stargazing_spots_stargazing_spots_moderated_byTousers?: stargazing_spotsUncheckedCreateNestedManyWithoutUsers_stargazing_spots_moderated_byTousersInput
     subscriptions?: subscriptionsUncheckedCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsUncheckedCreateNestedOneWithoutUsersInput
   }
@@ -112210,6 +113180,7 @@ export namespace Prisma {
     services?: servicesUpdateManyWithoutUsersNestedInput
     session_enrollments?: session_enrollmentsUpdateManyWithoutUserNestedInput
     created_sessions?: sessionsUpdateManyWithoutCreatorNestedInput
+    moderated_sessions?: sessionsUpdateManyWithoutModeratorNestedInput
     discussion_comment_likes?: space_discussion_comment_likesUpdateManyWithoutUserNestedInput
     discussion_comments?: space_discussion_commentsUpdateManyWithoutUserNestedInput
     discussion_likes?: space_discussion_likesUpdateManyWithoutUserNestedInput
@@ -112219,6 +113190,7 @@ export namespace Prisma {
     space_news_likes?: space_news_likesUpdateManyWithoutUserNestedInput
     stargazing_spot_reviews?: stargazing_spot_reviewsUpdateManyWithoutUserNestedInput
     created_stargazing_spots?: stargazing_spotsUpdateManyWithoutCreatorNestedInput
+    stargazing_spots_stargazing_spots_moderated_byTousers?: stargazing_spotsUpdateManyWithoutUsers_stargazing_spots_moderated_byTousersNestedInput
     subscriptions?: subscriptionsUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUpdateOneWithoutUsersNestedInput
   }
@@ -112275,6 +113247,7 @@ export namespace Prisma {
     services?: servicesUncheckedUpdateManyWithoutUsersNestedInput
     session_enrollments?: session_enrollmentsUncheckedUpdateManyWithoutUserNestedInput
     created_sessions?: sessionsUncheckedUpdateManyWithoutCreatorNestedInput
+    moderated_sessions?: sessionsUncheckedUpdateManyWithoutModeratorNestedInput
     discussion_comment_likes?: space_discussion_comment_likesUncheckedUpdateManyWithoutUserNestedInput
     discussion_comments?: space_discussion_commentsUncheckedUpdateManyWithoutUserNestedInput
     discussion_likes?: space_discussion_likesUncheckedUpdateManyWithoutUserNestedInput
@@ -112284,6 +113257,7 @@ export namespace Prisma {
     space_news_likes?: space_news_likesUncheckedUpdateManyWithoutUserNestedInput
     stargazing_spot_reviews?: stargazing_spot_reviewsUncheckedUpdateManyWithoutUserNestedInput
     created_stargazing_spots?: stargazing_spotsUncheckedUpdateManyWithoutCreatorNestedInput
+    stargazing_spots_stargazing_spots_moderated_byTousers?: stargazing_spotsUncheckedUpdateManyWithoutUsers_stargazing_spots_moderated_byTousersNestedInput
     subscriptions?: subscriptionsUncheckedUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUncheckedUpdateOneWithoutUsersNestedInput
   }
@@ -112339,6 +113313,7 @@ export namespace Prisma {
     services?: servicesCreateNestedManyWithoutUsersInput
     session_enrollments?: session_enrollmentsCreateNestedManyWithoutUserInput
     created_sessions?: sessionsCreateNestedManyWithoutCreatorInput
+    moderated_sessions?: sessionsCreateNestedManyWithoutModeratorInput
     discussion_comment_likes?: space_discussion_comment_likesCreateNestedManyWithoutUserInput
     discussion_comments?: space_discussion_commentsCreateNestedManyWithoutUserInput
     discussion_likes?: space_discussion_likesCreateNestedManyWithoutUserInput
@@ -112348,6 +113323,7 @@ export namespace Prisma {
     space_news_likes?: space_news_likesCreateNestedManyWithoutUserInput
     stargazing_spot_reviews?: stargazing_spot_reviewsCreateNestedManyWithoutUserInput
     created_stargazing_spots?: stargazing_spotsCreateNestedManyWithoutCreatorInput
+    stargazing_spots_stargazing_spots_moderated_byTousers?: stargazing_spotsCreateNestedManyWithoutUsers_stargazing_spots_moderated_byTousersInput
     subscriptions?: subscriptionsCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsCreateNestedOneWithoutUsersInput
   }
@@ -112404,6 +113380,7 @@ export namespace Prisma {
     services?: servicesUncheckedCreateNestedManyWithoutUsersInput
     session_enrollments?: session_enrollmentsUncheckedCreateNestedManyWithoutUserInput
     created_sessions?: sessionsUncheckedCreateNestedManyWithoutCreatorInput
+    moderated_sessions?: sessionsUncheckedCreateNestedManyWithoutModeratorInput
     discussion_comment_likes?: space_discussion_comment_likesUncheckedCreateNestedManyWithoutUserInput
     discussion_comments?: space_discussion_commentsUncheckedCreateNestedManyWithoutUserInput
     discussion_likes?: space_discussion_likesUncheckedCreateNestedManyWithoutUserInput
@@ -112413,6 +113390,7 @@ export namespace Prisma {
     space_news_likes?: space_news_likesUncheckedCreateNestedManyWithoutUserInput
     stargazing_spot_reviews?: stargazing_spot_reviewsUncheckedCreateNestedManyWithoutUserInput
     created_stargazing_spots?: stargazing_spotsUncheckedCreateNestedManyWithoutCreatorInput
+    stargazing_spots_stargazing_spots_moderated_byTousers?: stargazing_spotsUncheckedCreateNestedManyWithoutUsers_stargazing_spots_moderated_byTousersInput
     subscriptions?: subscriptionsUncheckedCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsUncheckedCreateNestedOneWithoutUsersInput
   }
@@ -112473,6 +113451,7 @@ export namespace Prisma {
     services?: servicesCreateNestedManyWithoutUsersInput
     session_enrollments?: session_enrollmentsCreateNestedManyWithoutUserInput
     created_sessions?: sessionsCreateNestedManyWithoutCreatorInput
+    moderated_sessions?: sessionsCreateNestedManyWithoutModeratorInput
     discussion_comment_likes?: space_discussion_comment_likesCreateNestedManyWithoutUserInput
     discussion_comments?: space_discussion_commentsCreateNestedManyWithoutUserInput
     discussion_likes?: space_discussion_likesCreateNestedManyWithoutUserInput
@@ -112482,6 +113461,7 @@ export namespace Prisma {
     space_news_likes?: space_news_likesCreateNestedManyWithoutUserInput
     stargazing_spot_reviews?: stargazing_spot_reviewsCreateNestedManyWithoutUserInput
     created_stargazing_spots?: stargazing_spotsCreateNestedManyWithoutCreatorInput
+    stargazing_spots_stargazing_spots_moderated_byTousers?: stargazing_spotsCreateNestedManyWithoutUsers_stargazing_spots_moderated_byTousersInput
     subscriptions?: subscriptionsCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsCreateNestedOneWithoutUsersInput
   }
@@ -112538,6 +113518,7 @@ export namespace Prisma {
     services?: servicesUncheckedCreateNestedManyWithoutUsersInput
     session_enrollments?: session_enrollmentsUncheckedCreateNestedManyWithoutUserInput
     created_sessions?: sessionsUncheckedCreateNestedManyWithoutCreatorInput
+    moderated_sessions?: sessionsUncheckedCreateNestedManyWithoutModeratorInput
     discussion_comment_likes?: space_discussion_comment_likesUncheckedCreateNestedManyWithoutUserInput
     discussion_comments?: space_discussion_commentsUncheckedCreateNestedManyWithoutUserInput
     discussion_likes?: space_discussion_likesUncheckedCreateNestedManyWithoutUserInput
@@ -112547,6 +113528,7 @@ export namespace Prisma {
     space_news_likes?: space_news_likesUncheckedCreateNestedManyWithoutUserInput
     stargazing_spot_reviews?: stargazing_spot_reviewsUncheckedCreateNestedManyWithoutUserInput
     created_stargazing_spots?: stargazing_spotsUncheckedCreateNestedManyWithoutCreatorInput
+    stargazing_spots_stargazing_spots_moderated_byTousers?: stargazing_spotsUncheckedCreateNestedManyWithoutUsers_stargazing_spots_moderated_byTousersInput
     subscriptions?: subscriptionsUncheckedCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsUncheckedCreateNestedOneWithoutUsersInput
   }
@@ -112618,6 +113600,7 @@ export namespace Prisma {
     services?: servicesUpdateManyWithoutUsersNestedInput
     session_enrollments?: session_enrollmentsUpdateManyWithoutUserNestedInput
     created_sessions?: sessionsUpdateManyWithoutCreatorNestedInput
+    moderated_sessions?: sessionsUpdateManyWithoutModeratorNestedInput
     discussion_comment_likes?: space_discussion_comment_likesUpdateManyWithoutUserNestedInput
     discussion_comments?: space_discussion_commentsUpdateManyWithoutUserNestedInput
     discussion_likes?: space_discussion_likesUpdateManyWithoutUserNestedInput
@@ -112627,6 +113610,7 @@ export namespace Prisma {
     space_news_likes?: space_news_likesUpdateManyWithoutUserNestedInput
     stargazing_spot_reviews?: stargazing_spot_reviewsUpdateManyWithoutUserNestedInput
     created_stargazing_spots?: stargazing_spotsUpdateManyWithoutCreatorNestedInput
+    stargazing_spots_stargazing_spots_moderated_byTousers?: stargazing_spotsUpdateManyWithoutUsers_stargazing_spots_moderated_byTousersNestedInput
     subscriptions?: subscriptionsUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUpdateOneWithoutUsersNestedInput
   }
@@ -112683,6 +113667,7 @@ export namespace Prisma {
     services?: servicesUncheckedUpdateManyWithoutUsersNestedInput
     session_enrollments?: session_enrollmentsUncheckedUpdateManyWithoutUserNestedInput
     created_sessions?: sessionsUncheckedUpdateManyWithoutCreatorNestedInput
+    moderated_sessions?: sessionsUncheckedUpdateManyWithoutModeratorNestedInput
     discussion_comment_likes?: space_discussion_comment_likesUncheckedUpdateManyWithoutUserNestedInput
     discussion_comments?: space_discussion_commentsUncheckedUpdateManyWithoutUserNestedInput
     discussion_likes?: space_discussion_likesUncheckedUpdateManyWithoutUserNestedInput
@@ -112692,6 +113677,7 @@ export namespace Prisma {
     space_news_likes?: space_news_likesUncheckedUpdateManyWithoutUserNestedInput
     stargazing_spot_reviews?: stargazing_spot_reviewsUncheckedUpdateManyWithoutUserNestedInput
     created_stargazing_spots?: stargazing_spotsUncheckedUpdateManyWithoutCreatorNestedInput
+    stargazing_spots_stargazing_spots_moderated_byTousers?: stargazing_spotsUncheckedUpdateManyWithoutUsers_stargazing_spots_moderated_byTousersNestedInput
     subscriptions?: subscriptionsUncheckedUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUncheckedUpdateOneWithoutUsersNestedInput
   }
@@ -112758,6 +113744,7 @@ export namespace Prisma {
     services?: servicesUpdateManyWithoutUsersNestedInput
     session_enrollments?: session_enrollmentsUpdateManyWithoutUserNestedInput
     created_sessions?: sessionsUpdateManyWithoutCreatorNestedInput
+    moderated_sessions?: sessionsUpdateManyWithoutModeratorNestedInput
     discussion_comment_likes?: space_discussion_comment_likesUpdateManyWithoutUserNestedInput
     discussion_comments?: space_discussion_commentsUpdateManyWithoutUserNestedInput
     discussion_likes?: space_discussion_likesUpdateManyWithoutUserNestedInput
@@ -112767,6 +113754,7 @@ export namespace Prisma {
     space_news_likes?: space_news_likesUpdateManyWithoutUserNestedInput
     stargazing_spot_reviews?: stargazing_spot_reviewsUpdateManyWithoutUserNestedInput
     created_stargazing_spots?: stargazing_spotsUpdateManyWithoutCreatorNestedInput
+    stargazing_spots_stargazing_spots_moderated_byTousers?: stargazing_spotsUpdateManyWithoutUsers_stargazing_spots_moderated_byTousersNestedInput
     subscriptions?: subscriptionsUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUpdateOneWithoutUsersNestedInput
   }
@@ -112823,6 +113811,7 @@ export namespace Prisma {
     services?: servicesUncheckedUpdateManyWithoutUsersNestedInput
     session_enrollments?: session_enrollmentsUncheckedUpdateManyWithoutUserNestedInput
     created_sessions?: sessionsUncheckedUpdateManyWithoutCreatorNestedInput
+    moderated_sessions?: sessionsUncheckedUpdateManyWithoutModeratorNestedInput
     discussion_comment_likes?: space_discussion_comment_likesUncheckedUpdateManyWithoutUserNestedInput
     discussion_comments?: space_discussion_commentsUncheckedUpdateManyWithoutUserNestedInput
     discussion_likes?: space_discussion_likesUncheckedUpdateManyWithoutUserNestedInput
@@ -112832,6 +113821,7 @@ export namespace Prisma {
     space_news_likes?: space_news_likesUncheckedUpdateManyWithoutUserNestedInput
     stargazing_spot_reviews?: stargazing_spot_reviewsUncheckedUpdateManyWithoutUserNestedInput
     created_stargazing_spots?: stargazing_spotsUncheckedUpdateManyWithoutCreatorNestedInput
+    stargazing_spots_stargazing_spots_moderated_byTousers?: stargazing_spotsUncheckedUpdateManyWithoutUsers_stargazing_spots_moderated_byTousersNestedInput
     subscriptions?: subscriptionsUncheckedUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUncheckedUpdateOneWithoutUsersNestedInput
   }
@@ -113151,6 +114141,7 @@ export namespace Prisma {
     services?: servicesCreateNestedManyWithoutUsersInput
     session_enrollments?: session_enrollmentsCreateNestedManyWithoutUserInput
     created_sessions?: sessionsCreateNestedManyWithoutCreatorInput
+    moderated_sessions?: sessionsCreateNestedManyWithoutModeratorInput
     discussion_comment_likes?: space_discussion_comment_likesCreateNestedManyWithoutUserInput
     discussion_comments?: space_discussion_commentsCreateNestedManyWithoutUserInput
     discussion_likes?: space_discussion_likesCreateNestedManyWithoutUserInput
@@ -113160,6 +114151,7 @@ export namespace Prisma {
     space_news_likes?: space_news_likesCreateNestedManyWithoutUserInput
     stargazing_spot_reviews?: stargazing_spot_reviewsCreateNestedManyWithoutUserInput
     created_stargazing_spots?: stargazing_spotsCreateNestedManyWithoutCreatorInput
+    stargazing_spots_stargazing_spots_moderated_byTousers?: stargazing_spotsCreateNestedManyWithoutUsers_stargazing_spots_moderated_byTousersInput
     subscriptions?: subscriptionsCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsCreateNestedOneWithoutUsersInput
   }
@@ -113216,6 +114208,7 @@ export namespace Prisma {
     services?: servicesUncheckedCreateNestedManyWithoutUsersInput
     session_enrollments?: session_enrollmentsUncheckedCreateNestedManyWithoutUserInput
     created_sessions?: sessionsUncheckedCreateNestedManyWithoutCreatorInput
+    moderated_sessions?: sessionsUncheckedCreateNestedManyWithoutModeratorInput
     discussion_comment_likes?: space_discussion_comment_likesUncheckedCreateNestedManyWithoutUserInput
     discussion_comments?: space_discussion_commentsUncheckedCreateNestedManyWithoutUserInput
     discussion_likes?: space_discussion_likesUncheckedCreateNestedManyWithoutUserInput
@@ -113225,6 +114218,7 @@ export namespace Prisma {
     space_news_likes?: space_news_likesUncheckedCreateNestedManyWithoutUserInput
     stargazing_spot_reviews?: stargazing_spot_reviewsUncheckedCreateNestedManyWithoutUserInput
     created_stargazing_spots?: stargazing_spotsUncheckedCreateNestedManyWithoutCreatorInput
+    stargazing_spots_stargazing_spots_moderated_byTousers?: stargazing_spotsUncheckedCreateNestedManyWithoutUsers_stargazing_spots_moderated_byTousersInput
     subscriptions?: subscriptionsUncheckedCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsUncheckedCreateNestedOneWithoutUsersInput
   }
@@ -113388,6 +114382,7 @@ export namespace Prisma {
     services?: servicesUpdateManyWithoutUsersNestedInput
     session_enrollments?: session_enrollmentsUpdateManyWithoutUserNestedInput
     created_sessions?: sessionsUpdateManyWithoutCreatorNestedInput
+    moderated_sessions?: sessionsUpdateManyWithoutModeratorNestedInput
     discussion_comment_likes?: space_discussion_comment_likesUpdateManyWithoutUserNestedInput
     discussion_comments?: space_discussion_commentsUpdateManyWithoutUserNestedInput
     discussion_likes?: space_discussion_likesUpdateManyWithoutUserNestedInput
@@ -113397,6 +114392,7 @@ export namespace Prisma {
     space_news_likes?: space_news_likesUpdateManyWithoutUserNestedInput
     stargazing_spot_reviews?: stargazing_spot_reviewsUpdateManyWithoutUserNestedInput
     created_stargazing_spots?: stargazing_spotsUpdateManyWithoutCreatorNestedInput
+    stargazing_spots_stargazing_spots_moderated_byTousers?: stargazing_spotsUpdateManyWithoutUsers_stargazing_spots_moderated_byTousersNestedInput
     subscriptions?: subscriptionsUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUpdateOneWithoutUsersNestedInput
   }
@@ -113453,6 +114449,7 @@ export namespace Prisma {
     services?: servicesUncheckedUpdateManyWithoutUsersNestedInput
     session_enrollments?: session_enrollmentsUncheckedUpdateManyWithoutUserNestedInput
     created_sessions?: sessionsUncheckedUpdateManyWithoutCreatorNestedInput
+    moderated_sessions?: sessionsUncheckedUpdateManyWithoutModeratorNestedInput
     discussion_comment_likes?: space_discussion_comment_likesUncheckedUpdateManyWithoutUserNestedInput
     discussion_comments?: space_discussion_commentsUncheckedUpdateManyWithoutUserNestedInput
     discussion_likes?: space_discussion_likesUncheckedUpdateManyWithoutUserNestedInput
@@ -113462,6 +114459,7 @@ export namespace Prisma {
     space_news_likes?: space_news_likesUncheckedUpdateManyWithoutUserNestedInput
     stargazing_spot_reviews?: stargazing_spot_reviewsUncheckedUpdateManyWithoutUserNestedInput
     created_stargazing_spots?: stargazing_spotsUncheckedUpdateManyWithoutCreatorNestedInput
+    stargazing_spots_stargazing_spots_moderated_byTousers?: stargazing_spotsUncheckedUpdateManyWithoutUsers_stargazing_spots_moderated_byTousersNestedInput
     subscriptions?: subscriptionsUncheckedUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUncheckedUpdateOneWithoutUsersNestedInput
   }
@@ -113781,6 +114779,7 @@ export namespace Prisma {
     services?: servicesCreateNestedManyWithoutUsersInput
     session_enrollments?: session_enrollmentsCreateNestedManyWithoutUserInput
     created_sessions?: sessionsCreateNestedManyWithoutCreatorInput
+    moderated_sessions?: sessionsCreateNestedManyWithoutModeratorInput
     discussion_comment_likes?: space_discussion_comment_likesCreateNestedManyWithoutUserInput
     discussion_comments?: space_discussion_commentsCreateNestedManyWithoutUserInput
     discussion_likes?: space_discussion_likesCreateNestedManyWithoutUserInput
@@ -113790,6 +114789,7 @@ export namespace Prisma {
     space_news_likes?: space_news_likesCreateNestedManyWithoutUserInput
     stargazing_spot_reviews?: stargazing_spot_reviewsCreateNestedManyWithoutUserInput
     created_stargazing_spots?: stargazing_spotsCreateNestedManyWithoutCreatorInput
+    stargazing_spots_stargazing_spots_moderated_byTousers?: stargazing_spotsCreateNestedManyWithoutUsers_stargazing_spots_moderated_byTousersInput
     subscriptions?: subscriptionsCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsCreateNestedOneWithoutUsersInput
   }
@@ -113846,6 +114846,7 @@ export namespace Prisma {
     services?: servicesUncheckedCreateNestedManyWithoutUsersInput
     session_enrollments?: session_enrollmentsUncheckedCreateNestedManyWithoutUserInput
     created_sessions?: sessionsUncheckedCreateNestedManyWithoutCreatorInput
+    moderated_sessions?: sessionsUncheckedCreateNestedManyWithoutModeratorInput
     discussion_comment_likes?: space_discussion_comment_likesUncheckedCreateNestedManyWithoutUserInput
     discussion_comments?: space_discussion_commentsUncheckedCreateNestedManyWithoutUserInput
     discussion_likes?: space_discussion_likesUncheckedCreateNestedManyWithoutUserInput
@@ -113855,6 +114856,7 @@ export namespace Prisma {
     space_news_likes?: space_news_likesUncheckedCreateNestedManyWithoutUserInput
     stargazing_spot_reviews?: stargazing_spot_reviewsUncheckedCreateNestedManyWithoutUserInput
     created_stargazing_spots?: stargazing_spotsUncheckedCreateNestedManyWithoutCreatorInput
+    stargazing_spots_stargazing_spots_moderated_byTousers?: stargazing_spotsUncheckedCreateNestedManyWithoutUsers_stargazing_spots_moderated_byTousersInput
     subscriptions?: subscriptionsUncheckedCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsUncheckedCreateNestedOneWithoutUsersInput
   }
@@ -114018,6 +115020,7 @@ export namespace Prisma {
     services?: servicesUpdateManyWithoutUsersNestedInput
     session_enrollments?: session_enrollmentsUpdateManyWithoutUserNestedInput
     created_sessions?: sessionsUpdateManyWithoutCreatorNestedInput
+    moderated_sessions?: sessionsUpdateManyWithoutModeratorNestedInput
     discussion_comment_likes?: space_discussion_comment_likesUpdateManyWithoutUserNestedInput
     discussion_comments?: space_discussion_commentsUpdateManyWithoutUserNestedInput
     discussion_likes?: space_discussion_likesUpdateManyWithoutUserNestedInput
@@ -114027,6 +115030,7 @@ export namespace Prisma {
     space_news_likes?: space_news_likesUpdateManyWithoutUserNestedInput
     stargazing_spot_reviews?: stargazing_spot_reviewsUpdateManyWithoutUserNestedInput
     created_stargazing_spots?: stargazing_spotsUpdateManyWithoutCreatorNestedInput
+    stargazing_spots_stargazing_spots_moderated_byTousers?: stargazing_spotsUpdateManyWithoutUsers_stargazing_spots_moderated_byTousersNestedInput
     subscriptions?: subscriptionsUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUpdateOneWithoutUsersNestedInput
   }
@@ -114083,6 +115087,7 @@ export namespace Prisma {
     services?: servicesUncheckedUpdateManyWithoutUsersNestedInput
     session_enrollments?: session_enrollmentsUncheckedUpdateManyWithoutUserNestedInput
     created_sessions?: sessionsUncheckedUpdateManyWithoutCreatorNestedInput
+    moderated_sessions?: sessionsUncheckedUpdateManyWithoutModeratorNestedInput
     discussion_comment_likes?: space_discussion_comment_likesUncheckedUpdateManyWithoutUserNestedInput
     discussion_comments?: space_discussion_commentsUncheckedUpdateManyWithoutUserNestedInput
     discussion_likes?: space_discussion_likesUncheckedUpdateManyWithoutUserNestedInput
@@ -114092,6 +115097,7 @@ export namespace Prisma {
     space_news_likes?: space_news_likesUncheckedUpdateManyWithoutUserNestedInput
     stargazing_spot_reviews?: stargazing_spot_reviewsUncheckedUpdateManyWithoutUserNestedInput
     created_stargazing_spots?: stargazing_spotsUncheckedUpdateManyWithoutCreatorNestedInput
+    stargazing_spots_stargazing_spots_moderated_byTousers?: stargazing_spotsUncheckedUpdateManyWithoutUsers_stargazing_spots_moderated_byTousersNestedInput
     subscriptions?: subscriptionsUncheckedUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUncheckedUpdateOneWithoutUsersNestedInput
   }
@@ -114289,6 +115295,7 @@ export namespace Prisma {
     service_reviews?: service_reviewsCreateNestedManyWithoutUsersInput
     session_enrollments?: session_enrollmentsCreateNestedManyWithoutUserInput
     created_sessions?: sessionsCreateNestedManyWithoutCreatorInput
+    moderated_sessions?: sessionsCreateNestedManyWithoutModeratorInput
     discussion_comment_likes?: space_discussion_comment_likesCreateNestedManyWithoutUserInput
     discussion_comments?: space_discussion_commentsCreateNestedManyWithoutUserInput
     discussion_likes?: space_discussion_likesCreateNestedManyWithoutUserInput
@@ -114298,6 +115305,7 @@ export namespace Prisma {
     space_news_likes?: space_news_likesCreateNestedManyWithoutUserInput
     stargazing_spot_reviews?: stargazing_spot_reviewsCreateNestedManyWithoutUserInput
     created_stargazing_spots?: stargazing_spotsCreateNestedManyWithoutCreatorInput
+    stargazing_spots_stargazing_spots_moderated_byTousers?: stargazing_spotsCreateNestedManyWithoutUsers_stargazing_spots_moderated_byTousersInput
     subscriptions?: subscriptionsCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsCreateNestedOneWithoutUsersInput
   }
@@ -114354,6 +115362,7 @@ export namespace Prisma {
     service_reviews?: service_reviewsUncheckedCreateNestedManyWithoutUsersInput
     session_enrollments?: session_enrollmentsUncheckedCreateNestedManyWithoutUserInput
     created_sessions?: sessionsUncheckedCreateNestedManyWithoutCreatorInput
+    moderated_sessions?: sessionsUncheckedCreateNestedManyWithoutModeratorInput
     discussion_comment_likes?: space_discussion_comment_likesUncheckedCreateNestedManyWithoutUserInput
     discussion_comments?: space_discussion_commentsUncheckedCreateNestedManyWithoutUserInput
     discussion_likes?: space_discussion_likesUncheckedCreateNestedManyWithoutUserInput
@@ -114363,6 +115372,7 @@ export namespace Prisma {
     space_news_likes?: space_news_likesUncheckedCreateNestedManyWithoutUserInput
     stargazing_spot_reviews?: stargazing_spot_reviewsUncheckedCreateNestedManyWithoutUserInput
     created_stargazing_spots?: stargazing_spotsUncheckedCreateNestedManyWithoutCreatorInput
+    stargazing_spots_stargazing_spots_moderated_byTousers?: stargazing_spotsUncheckedCreateNestedManyWithoutUsers_stargazing_spots_moderated_byTousersInput
     subscriptions?: subscriptionsUncheckedCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsUncheckedCreateNestedOneWithoutUsersInput
   }
@@ -114528,6 +115538,7 @@ export namespace Prisma {
     service_reviews?: service_reviewsUpdateManyWithoutUsersNestedInput
     session_enrollments?: session_enrollmentsUpdateManyWithoutUserNestedInput
     created_sessions?: sessionsUpdateManyWithoutCreatorNestedInput
+    moderated_sessions?: sessionsUpdateManyWithoutModeratorNestedInput
     discussion_comment_likes?: space_discussion_comment_likesUpdateManyWithoutUserNestedInput
     discussion_comments?: space_discussion_commentsUpdateManyWithoutUserNestedInput
     discussion_likes?: space_discussion_likesUpdateManyWithoutUserNestedInput
@@ -114537,6 +115548,7 @@ export namespace Prisma {
     space_news_likes?: space_news_likesUpdateManyWithoutUserNestedInput
     stargazing_spot_reviews?: stargazing_spot_reviewsUpdateManyWithoutUserNestedInput
     created_stargazing_spots?: stargazing_spotsUpdateManyWithoutCreatorNestedInput
+    stargazing_spots_stargazing_spots_moderated_byTousers?: stargazing_spotsUpdateManyWithoutUsers_stargazing_spots_moderated_byTousersNestedInput
     subscriptions?: subscriptionsUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUpdateOneWithoutUsersNestedInput
   }
@@ -114593,6 +115605,7 @@ export namespace Prisma {
     service_reviews?: service_reviewsUncheckedUpdateManyWithoutUsersNestedInput
     session_enrollments?: session_enrollmentsUncheckedUpdateManyWithoutUserNestedInput
     created_sessions?: sessionsUncheckedUpdateManyWithoutCreatorNestedInput
+    moderated_sessions?: sessionsUncheckedUpdateManyWithoutModeratorNestedInput
     discussion_comment_likes?: space_discussion_comment_likesUncheckedUpdateManyWithoutUserNestedInput
     discussion_comments?: space_discussion_commentsUncheckedUpdateManyWithoutUserNestedInput
     discussion_likes?: space_discussion_likesUncheckedUpdateManyWithoutUserNestedInput
@@ -114602,6 +115615,7 @@ export namespace Prisma {
     space_news_likes?: space_news_likesUncheckedUpdateManyWithoutUserNestedInput
     stargazing_spot_reviews?: stargazing_spot_reviewsUncheckedUpdateManyWithoutUserNestedInput
     created_stargazing_spots?: stargazing_spotsUncheckedUpdateManyWithoutCreatorNestedInput
+    stargazing_spots_stargazing_spots_moderated_byTousers?: stargazing_spotsUncheckedUpdateManyWithoutUsers_stargazing_spots_moderated_byTousersNestedInput
     subscriptions?: subscriptionsUncheckedUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUncheckedUpdateOneWithoutUsersNestedInput
   }
@@ -114620,12 +115634,17 @@ export namespace Prisma {
     description: string
     materials?: NullableJsonNullValueInput | InputJsonValue
     session_notes?: string | null
+    status?: $Enums.session_status
+    approved_at?: Date | string | null
+    rejected_at?: Date | string | null
+    rejection_reason?: string | null
     created_date?: Date | string
     created_time?: Date | string
     is_enabled?: boolean
     created_at?: Date | string
     updated_at?: Date | string
     creator: usersCreateNestedOneWithoutCreated_sessionsInput
+    moderator?: usersCreateNestedOneWithoutModerated_sessionsInput
   }
 
   export type sessionsUncheckedCreateWithoutSession_enrollmentsInput = {
@@ -114644,6 +115663,11 @@ export namespace Prisma {
     materials?: NullableJsonNullValueInput | InputJsonValue
     session_notes?: string | null
     created_by: number
+    status?: $Enums.session_status
+    moderated_by?: number | null
+    approved_at?: Date | string | null
+    rejected_at?: Date | string | null
+    rejection_reason?: string | null
     created_date?: Date | string
     created_time?: Date | string
     is_enabled?: boolean
@@ -114707,6 +115731,7 @@ export namespace Prisma {
     service_reviews?: service_reviewsCreateNestedManyWithoutUsersInput
     services?: servicesCreateNestedManyWithoutUsersInput
     created_sessions?: sessionsCreateNestedManyWithoutCreatorInput
+    moderated_sessions?: sessionsCreateNestedManyWithoutModeratorInput
     discussion_comment_likes?: space_discussion_comment_likesCreateNestedManyWithoutUserInput
     discussion_comments?: space_discussion_commentsCreateNestedManyWithoutUserInput
     discussion_likes?: space_discussion_likesCreateNestedManyWithoutUserInput
@@ -114716,6 +115741,7 @@ export namespace Prisma {
     space_news_likes?: space_news_likesCreateNestedManyWithoutUserInput
     stargazing_spot_reviews?: stargazing_spot_reviewsCreateNestedManyWithoutUserInput
     created_stargazing_spots?: stargazing_spotsCreateNestedManyWithoutCreatorInput
+    stargazing_spots_stargazing_spots_moderated_byTousers?: stargazing_spotsCreateNestedManyWithoutUsers_stargazing_spots_moderated_byTousersInput
     subscriptions?: subscriptionsCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsCreateNestedOneWithoutUsersInput
   }
@@ -114772,6 +115798,7 @@ export namespace Prisma {
     service_reviews?: service_reviewsUncheckedCreateNestedManyWithoutUsersInput
     services?: servicesUncheckedCreateNestedManyWithoutUsersInput
     created_sessions?: sessionsUncheckedCreateNestedManyWithoutCreatorInput
+    moderated_sessions?: sessionsUncheckedCreateNestedManyWithoutModeratorInput
     discussion_comment_likes?: space_discussion_comment_likesUncheckedCreateNestedManyWithoutUserInput
     discussion_comments?: space_discussion_commentsUncheckedCreateNestedManyWithoutUserInput
     discussion_likes?: space_discussion_likesUncheckedCreateNestedManyWithoutUserInput
@@ -114781,6 +115808,7 @@ export namespace Prisma {
     space_news_likes?: space_news_likesUncheckedCreateNestedManyWithoutUserInput
     stargazing_spot_reviews?: stargazing_spot_reviewsUncheckedCreateNestedManyWithoutUserInput
     created_stargazing_spots?: stargazing_spotsUncheckedCreateNestedManyWithoutCreatorInput
+    stargazing_spots_stargazing_spots_moderated_byTousers?: stargazing_spotsUncheckedCreateNestedManyWithoutUsers_stargazing_spots_moderated_byTousersInput
     subscriptions?: subscriptionsUncheckedCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsUncheckedCreateNestedOneWithoutUsersInput
   }
@@ -114815,12 +115843,17 @@ export namespace Prisma {
     description?: StringFieldUpdateOperationsInput | string
     materials?: NullableJsonNullValueInput | InputJsonValue
     session_notes?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: Enumsession_statusFieldUpdateOperationsInput | $Enums.session_status
+    approved_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    rejected_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    rejection_reason?: NullableStringFieldUpdateOperationsInput | string | null
     created_date?: DateTimeFieldUpdateOperationsInput | Date | string
     created_time?: DateTimeFieldUpdateOperationsInput | Date | string
     is_enabled?: BoolFieldUpdateOperationsInput | boolean
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     creator?: usersUpdateOneRequiredWithoutCreated_sessionsNestedInput
+    moderator?: usersUpdateOneWithoutModerated_sessionsNestedInput
   }
 
   export type sessionsUncheckedUpdateWithoutSession_enrollmentsInput = {
@@ -114839,6 +115872,11 @@ export namespace Prisma {
     materials?: NullableJsonNullValueInput | InputJsonValue
     session_notes?: NullableStringFieldUpdateOperationsInput | string | null
     created_by?: IntFieldUpdateOperationsInput | number
+    status?: Enumsession_statusFieldUpdateOperationsInput | $Enums.session_status
+    moderated_by?: NullableIntFieldUpdateOperationsInput | number | null
+    approved_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    rejected_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    rejection_reason?: NullableStringFieldUpdateOperationsInput | string | null
     created_date?: DateTimeFieldUpdateOperationsInput | Date | string
     created_time?: DateTimeFieldUpdateOperationsInput | Date | string
     is_enabled?: BoolFieldUpdateOperationsInput | boolean
@@ -114908,6 +115946,7 @@ export namespace Prisma {
     service_reviews?: service_reviewsUpdateManyWithoutUsersNestedInput
     services?: servicesUpdateManyWithoutUsersNestedInput
     created_sessions?: sessionsUpdateManyWithoutCreatorNestedInput
+    moderated_sessions?: sessionsUpdateManyWithoutModeratorNestedInput
     discussion_comment_likes?: space_discussion_comment_likesUpdateManyWithoutUserNestedInput
     discussion_comments?: space_discussion_commentsUpdateManyWithoutUserNestedInput
     discussion_likes?: space_discussion_likesUpdateManyWithoutUserNestedInput
@@ -114917,6 +115956,7 @@ export namespace Prisma {
     space_news_likes?: space_news_likesUpdateManyWithoutUserNestedInput
     stargazing_spot_reviews?: stargazing_spot_reviewsUpdateManyWithoutUserNestedInput
     created_stargazing_spots?: stargazing_spotsUpdateManyWithoutCreatorNestedInput
+    stargazing_spots_stargazing_spots_moderated_byTousers?: stargazing_spotsUpdateManyWithoutUsers_stargazing_spots_moderated_byTousersNestedInput
     subscriptions?: subscriptionsUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUpdateOneWithoutUsersNestedInput
   }
@@ -114973,6 +116013,7 @@ export namespace Prisma {
     service_reviews?: service_reviewsUncheckedUpdateManyWithoutUsersNestedInput
     services?: servicesUncheckedUpdateManyWithoutUsersNestedInput
     created_sessions?: sessionsUncheckedUpdateManyWithoutCreatorNestedInput
+    moderated_sessions?: sessionsUncheckedUpdateManyWithoutModeratorNestedInput
     discussion_comment_likes?: space_discussion_comment_likesUncheckedUpdateManyWithoutUserNestedInput
     discussion_comments?: space_discussion_commentsUncheckedUpdateManyWithoutUserNestedInput
     discussion_likes?: space_discussion_likesUncheckedUpdateManyWithoutUserNestedInput
@@ -114982,6 +116023,7 @@ export namespace Prisma {
     space_news_likes?: space_news_likesUncheckedUpdateManyWithoutUserNestedInput
     stargazing_spot_reviews?: stargazing_spot_reviewsUncheckedUpdateManyWithoutUserNestedInput
     created_stargazing_spots?: stargazing_spotsUncheckedUpdateManyWithoutCreatorNestedInput
+    stargazing_spots_stargazing_spots_moderated_byTousers?: stargazing_spotsUncheckedUpdateManyWithoutUsers_stargazing_spots_moderated_byTousersNestedInput
     subscriptions?: subscriptionsUncheckedUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUncheckedUpdateOneWithoutUsersNestedInput
   }
@@ -115080,6 +116122,7 @@ export namespace Prisma {
     service_reviews?: service_reviewsCreateNestedManyWithoutUsersInput
     services?: servicesCreateNestedManyWithoutUsersInput
     session_enrollments?: session_enrollmentsCreateNestedManyWithoutUserInput
+    moderated_sessions?: sessionsCreateNestedManyWithoutModeratorInput
     discussion_comment_likes?: space_discussion_comment_likesCreateNestedManyWithoutUserInput
     discussion_comments?: space_discussion_commentsCreateNestedManyWithoutUserInput
     discussion_likes?: space_discussion_likesCreateNestedManyWithoutUserInput
@@ -115089,6 +116132,7 @@ export namespace Prisma {
     space_news_likes?: space_news_likesCreateNestedManyWithoutUserInput
     stargazing_spot_reviews?: stargazing_spot_reviewsCreateNestedManyWithoutUserInput
     created_stargazing_spots?: stargazing_spotsCreateNestedManyWithoutCreatorInput
+    stargazing_spots_stargazing_spots_moderated_byTousers?: stargazing_spotsCreateNestedManyWithoutUsers_stargazing_spots_moderated_byTousersInput
     subscriptions?: subscriptionsCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsCreateNestedOneWithoutUsersInput
   }
@@ -115145,6 +116189,7 @@ export namespace Prisma {
     service_reviews?: service_reviewsUncheckedCreateNestedManyWithoutUsersInput
     services?: servicesUncheckedCreateNestedManyWithoutUsersInput
     session_enrollments?: session_enrollmentsUncheckedCreateNestedManyWithoutUserInput
+    moderated_sessions?: sessionsUncheckedCreateNestedManyWithoutModeratorInput
     discussion_comment_likes?: space_discussion_comment_likesUncheckedCreateNestedManyWithoutUserInput
     discussion_comments?: space_discussion_commentsUncheckedCreateNestedManyWithoutUserInput
     discussion_likes?: space_discussion_likesUncheckedCreateNestedManyWithoutUserInput
@@ -115154,6 +116199,7 @@ export namespace Prisma {
     space_news_likes?: space_news_likesUncheckedCreateNestedManyWithoutUserInput
     stargazing_spot_reviews?: stargazing_spot_reviewsUncheckedCreateNestedManyWithoutUserInput
     created_stargazing_spots?: stargazing_spotsUncheckedCreateNestedManyWithoutCreatorInput
+    stargazing_spots_stargazing_spots_moderated_byTousers?: stargazing_spotsUncheckedCreateNestedManyWithoutUsers_stargazing_spots_moderated_byTousersInput
     subscriptions?: subscriptionsUncheckedCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsUncheckedCreateNestedOneWithoutUsersInput
   }
@@ -115161,6 +116207,144 @@ export namespace Prisma {
   export type usersCreateOrConnectWithoutCreated_sessionsInput = {
     where: usersWhereUniqueInput
     create: XOR<usersCreateWithoutCreated_sessionsInput, usersUncheckedCreateWithoutCreated_sessionsInput>
+  }
+
+  export type usersCreateWithoutModerated_sessionsInput = {
+    firebase_uid: string
+    email: string
+    role?: $Enums.user_role | null
+    first_name?: string | null
+    last_name?: string | null
+    is_active?: boolean | null
+    last_login?: Date | string | null
+    created_at?: Date | string | null
+    updated_at?: Date | string | null
+    display_name?: string | null
+    profile_data?: NullableJsonNullValueInput | InputJsonValue
+    role_specific_data?: NullableJsonNullValueInput | InputJsonValue
+    subscription_plan?: $Enums.subscription_plan | null
+    subscription_status?: $Enums.subscription_status | null
+    subscription_start_date?: Date | string | null
+    subscription_end_date?: Date | string | null
+    auto_renew?: boolean | null
+    chatbot_questions_used?: number | null
+    chatbot_questions_reset_date?: Date | string | null
+    QuizParticipants?: QuizParticipantsCreateNestedManyWithoutUsersInput
+    Quizzes?: QuizzesCreateNestedManyWithoutUsersInput
+    created_astronomy_events?: astronomy_eventsCreateNestedManyWithoutCreatorInput
+    blog_comments?: blog_commentsCreateNestedManyWithoutUsersInput
+    blog_likes?: blog_likesCreateNestedManyWithoutUsersInput
+    blog_views?: blog_viewsCreateNestedManyWithoutUsersInput
+    blogs?: blogsCreateNestedManyWithoutUsersInput
+    chat_messages?: chat_messagesCreateNestedManyWithoutUserInput
+    chatbot_sessions?: chatbot_sessionsCreateNestedManyWithoutUsersInput
+    chatbot_usage?: chatbot_usageCreateNestedManyWithoutUsersInput
+    event_reminders?: event_remindersCreateNestedManyWithoutUserInput
+    created_groups?: group_chatsCreateNestedManyWithoutCreatorInput
+    group_memberships?: group_membersCreateNestedManyWithoutUserInput
+    guide_application?: guide_applicationCreateNestedManyWithoutUsersInput
+    influencer_application?: influencer_applicationCreateNestedManyWithoutUsersInput
+    media_uploads?: media_uploadsCreateNestedManyWithoutUsersInput
+    mentor_application?: mentor_applicationCreateNestedManyWithoutUsersInput
+    message_reactions?: message_reactionsCreateNestedManyWithoutUserInput
+    night_camp_registrations?: night_camp_registrationsCreateNestedManyWithoutUsersInput
+    night_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousers?: night_camp_volunteering_applicationsCreateNestedManyWithoutUsers_night_camp_volunteering_applications_reviewed_byTousersInput
+    night_camp_volunteering_applications_night_camp_volunteering_applications_user_idTousers?: night_camp_volunteering_applicationsCreateNestedManyWithoutUsers_night_camp_volunteering_applications_user_idTousersInput
+    payments?: paymentsCreateNestedManyWithoutUsersInput
+    poll_comments?: poll_commentsCreateNestedManyWithoutCommenterInput
+    poll_votes?: poll_votesCreateNestedManyWithoutVoterInput
+    created_polls?: pollsCreateNestedManyWithoutCreatorInput
+    role_upgrade_requests_role_upgrade_requests_reviewer_idTousers?: role_upgrade_requestsCreateNestedManyWithoutUsers_role_upgrade_requests_reviewer_idTousersInput
+    role_upgrade_requests_role_upgrade_requests_user_idTousers?: role_upgrade_requestsCreateNestedManyWithoutUsers_role_upgrade_requests_user_idTousersInput
+    service_bookings?: service_bookingsCreateNestedManyWithoutUsersInput
+    service_reviews?: service_reviewsCreateNestedManyWithoutUsersInput
+    services?: servicesCreateNestedManyWithoutUsersInput
+    session_enrollments?: session_enrollmentsCreateNestedManyWithoutUserInput
+    created_sessions?: sessionsCreateNestedManyWithoutCreatorInput
+    discussion_comment_likes?: space_discussion_comment_likesCreateNestedManyWithoutUserInput
+    discussion_comments?: space_discussion_commentsCreateNestedManyWithoutUserInput
+    discussion_likes?: space_discussion_likesCreateNestedManyWithoutUserInput
+    authored_discussions?: space_discussionsCreateNestedManyWithoutAuthorInput
+    space_news_published?: space_newsCreateNestedManyWithoutPublisherInput
+    space_news_comments?: space_news_commentsCreateNestedManyWithoutUserInput
+    space_news_likes?: space_news_likesCreateNestedManyWithoutUserInput
+    stargazing_spot_reviews?: stargazing_spot_reviewsCreateNestedManyWithoutUserInput
+    created_stargazing_spots?: stargazing_spotsCreateNestedManyWithoutCreatorInput
+    stargazing_spots_stargazing_spots_moderated_byTousers?: stargazing_spotsCreateNestedManyWithoutUsers_stargazing_spots_moderated_byTousersInput
+    subscriptions?: subscriptionsCreateNestedManyWithoutUsersInput
+    user_settings?: user_settingsCreateNestedOneWithoutUsersInput
+  }
+
+  export type usersUncheckedCreateWithoutModerated_sessionsInput = {
+    id?: number
+    firebase_uid: string
+    email: string
+    role?: $Enums.user_role | null
+    first_name?: string | null
+    last_name?: string | null
+    is_active?: boolean | null
+    last_login?: Date | string | null
+    created_at?: Date | string | null
+    updated_at?: Date | string | null
+    display_name?: string | null
+    profile_data?: NullableJsonNullValueInput | InputJsonValue
+    role_specific_data?: NullableJsonNullValueInput | InputJsonValue
+    subscription_plan?: $Enums.subscription_plan | null
+    subscription_status?: $Enums.subscription_status | null
+    subscription_start_date?: Date | string | null
+    subscription_end_date?: Date | string | null
+    auto_renew?: boolean | null
+    chatbot_questions_used?: number | null
+    chatbot_questions_reset_date?: Date | string | null
+    QuizParticipants?: QuizParticipantsUncheckedCreateNestedManyWithoutUsersInput
+    Quizzes?: QuizzesUncheckedCreateNestedManyWithoutUsersInput
+    created_astronomy_events?: astronomy_eventsUncheckedCreateNestedManyWithoutCreatorInput
+    blog_comments?: blog_commentsUncheckedCreateNestedManyWithoutUsersInput
+    blog_likes?: blog_likesUncheckedCreateNestedManyWithoutUsersInput
+    blog_views?: blog_viewsUncheckedCreateNestedManyWithoutUsersInput
+    blogs?: blogsUncheckedCreateNestedManyWithoutUsersInput
+    chat_messages?: chat_messagesUncheckedCreateNestedManyWithoutUserInput
+    chatbot_sessions?: chatbot_sessionsUncheckedCreateNestedManyWithoutUsersInput
+    chatbot_usage?: chatbot_usageUncheckedCreateNestedManyWithoutUsersInput
+    event_reminders?: event_remindersUncheckedCreateNestedManyWithoutUserInput
+    created_groups?: group_chatsUncheckedCreateNestedManyWithoutCreatorInput
+    group_memberships?: group_membersUncheckedCreateNestedManyWithoutUserInput
+    guide_application?: guide_applicationUncheckedCreateNestedManyWithoutUsersInput
+    influencer_application?: influencer_applicationUncheckedCreateNestedManyWithoutUsersInput
+    media_uploads?: media_uploadsUncheckedCreateNestedManyWithoutUsersInput
+    mentor_application?: mentor_applicationUncheckedCreateNestedManyWithoutUsersInput
+    message_reactions?: message_reactionsUncheckedCreateNestedManyWithoutUserInput
+    night_camp_registrations?: night_camp_registrationsUncheckedCreateNestedManyWithoutUsersInput
+    night_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousers?: night_camp_volunteering_applicationsUncheckedCreateNestedManyWithoutUsers_night_camp_volunteering_applications_reviewed_byTousersInput
+    night_camp_volunteering_applications_night_camp_volunteering_applications_user_idTousers?: night_camp_volunteering_applicationsUncheckedCreateNestedManyWithoutUsers_night_camp_volunteering_applications_user_idTousersInput
+    payments?: paymentsUncheckedCreateNestedManyWithoutUsersInput
+    poll_comments?: poll_commentsUncheckedCreateNestedManyWithoutCommenterInput
+    poll_votes?: poll_votesUncheckedCreateNestedManyWithoutVoterInput
+    created_polls?: pollsUncheckedCreateNestedManyWithoutCreatorInput
+    role_upgrade_requests_role_upgrade_requests_reviewer_idTousers?: role_upgrade_requestsUncheckedCreateNestedManyWithoutUsers_role_upgrade_requests_reviewer_idTousersInput
+    role_upgrade_requests_role_upgrade_requests_user_idTousers?: role_upgrade_requestsUncheckedCreateNestedManyWithoutUsers_role_upgrade_requests_user_idTousersInput
+    service_bookings?: service_bookingsUncheckedCreateNestedManyWithoutUsersInput
+    service_reviews?: service_reviewsUncheckedCreateNestedManyWithoutUsersInput
+    services?: servicesUncheckedCreateNestedManyWithoutUsersInput
+    session_enrollments?: session_enrollmentsUncheckedCreateNestedManyWithoutUserInput
+    created_sessions?: sessionsUncheckedCreateNestedManyWithoutCreatorInput
+    discussion_comment_likes?: space_discussion_comment_likesUncheckedCreateNestedManyWithoutUserInput
+    discussion_comments?: space_discussion_commentsUncheckedCreateNestedManyWithoutUserInput
+    discussion_likes?: space_discussion_likesUncheckedCreateNestedManyWithoutUserInput
+    authored_discussions?: space_discussionsUncheckedCreateNestedManyWithoutAuthorInput
+    space_news_published?: space_newsUncheckedCreateNestedManyWithoutPublisherInput
+    space_news_comments?: space_news_commentsUncheckedCreateNestedManyWithoutUserInput
+    space_news_likes?: space_news_likesUncheckedCreateNestedManyWithoutUserInput
+    stargazing_spot_reviews?: stargazing_spot_reviewsUncheckedCreateNestedManyWithoutUserInput
+    created_stargazing_spots?: stargazing_spotsUncheckedCreateNestedManyWithoutCreatorInput
+    stargazing_spots_stargazing_spots_moderated_byTousers?: stargazing_spotsUncheckedCreateNestedManyWithoutUsers_stargazing_spots_moderated_byTousersInput
+    subscriptions?: subscriptionsUncheckedCreateNestedManyWithoutUsersInput
+    user_settings?: user_settingsUncheckedCreateNestedOneWithoutUsersInput
+  }
+
+  export type usersCreateOrConnectWithoutModerated_sessionsInput = {
+    where: usersWhereUniqueInput
+    create: XOR<usersCreateWithoutModerated_sessionsInput, usersUncheckedCreateWithoutModerated_sessionsInput>
   }
 
   export type session_enrollmentsUpsertWithWhereUniqueWithoutSessionsInput = {
@@ -115241,6 +116425,7 @@ export namespace Prisma {
     service_reviews?: service_reviewsUpdateManyWithoutUsersNestedInput
     services?: servicesUpdateManyWithoutUsersNestedInput
     session_enrollments?: session_enrollmentsUpdateManyWithoutUserNestedInput
+    moderated_sessions?: sessionsUpdateManyWithoutModeratorNestedInput
     discussion_comment_likes?: space_discussion_comment_likesUpdateManyWithoutUserNestedInput
     discussion_comments?: space_discussion_commentsUpdateManyWithoutUserNestedInput
     discussion_likes?: space_discussion_likesUpdateManyWithoutUserNestedInput
@@ -115250,6 +116435,7 @@ export namespace Prisma {
     space_news_likes?: space_news_likesUpdateManyWithoutUserNestedInput
     stargazing_spot_reviews?: stargazing_spot_reviewsUpdateManyWithoutUserNestedInput
     created_stargazing_spots?: stargazing_spotsUpdateManyWithoutCreatorNestedInput
+    stargazing_spots_stargazing_spots_moderated_byTousers?: stargazing_spotsUpdateManyWithoutUsers_stargazing_spots_moderated_byTousersNestedInput
     subscriptions?: subscriptionsUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUpdateOneWithoutUsersNestedInput
   }
@@ -115306,6 +116492,7 @@ export namespace Prisma {
     service_reviews?: service_reviewsUncheckedUpdateManyWithoutUsersNestedInput
     services?: servicesUncheckedUpdateManyWithoutUsersNestedInput
     session_enrollments?: session_enrollmentsUncheckedUpdateManyWithoutUserNestedInput
+    moderated_sessions?: sessionsUncheckedUpdateManyWithoutModeratorNestedInput
     discussion_comment_likes?: space_discussion_comment_likesUncheckedUpdateManyWithoutUserNestedInput
     discussion_comments?: space_discussion_commentsUncheckedUpdateManyWithoutUserNestedInput
     discussion_likes?: space_discussion_likesUncheckedUpdateManyWithoutUserNestedInput
@@ -115315,6 +116502,151 @@ export namespace Prisma {
     space_news_likes?: space_news_likesUncheckedUpdateManyWithoutUserNestedInput
     stargazing_spot_reviews?: stargazing_spot_reviewsUncheckedUpdateManyWithoutUserNestedInput
     created_stargazing_spots?: stargazing_spotsUncheckedUpdateManyWithoutCreatorNestedInput
+    stargazing_spots_stargazing_spots_moderated_byTousers?: stargazing_spotsUncheckedUpdateManyWithoutUsers_stargazing_spots_moderated_byTousersNestedInput
+    subscriptions?: subscriptionsUncheckedUpdateManyWithoutUsersNestedInput
+    user_settings?: user_settingsUncheckedUpdateOneWithoutUsersNestedInput
+  }
+
+  export type usersUpsertWithoutModerated_sessionsInput = {
+    update: XOR<usersUpdateWithoutModerated_sessionsInput, usersUncheckedUpdateWithoutModerated_sessionsInput>
+    create: XOR<usersCreateWithoutModerated_sessionsInput, usersUncheckedCreateWithoutModerated_sessionsInput>
+    where?: usersWhereInput
+  }
+
+  export type usersUpdateToOneWithWhereWithoutModerated_sessionsInput = {
+    where?: usersWhereInput
+    data: XOR<usersUpdateWithoutModerated_sessionsInput, usersUncheckedUpdateWithoutModerated_sessionsInput>
+  }
+
+  export type usersUpdateWithoutModerated_sessionsInput = {
+    firebase_uid?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    role?: NullableEnumuser_roleFieldUpdateOperationsInput | $Enums.user_role | null
+    first_name?: NullableStringFieldUpdateOperationsInput | string | null
+    last_name?: NullableStringFieldUpdateOperationsInput | string | null
+    is_active?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    last_login?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    display_name?: NullableStringFieldUpdateOperationsInput | string | null
+    profile_data?: NullableJsonNullValueInput | InputJsonValue
+    role_specific_data?: NullableJsonNullValueInput | InputJsonValue
+    subscription_plan?: NullableEnumsubscription_planFieldUpdateOperationsInput | $Enums.subscription_plan | null
+    subscription_status?: NullableEnumsubscription_statusFieldUpdateOperationsInput | $Enums.subscription_status | null
+    subscription_start_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    subscription_end_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    auto_renew?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    chatbot_questions_used?: NullableIntFieldUpdateOperationsInput | number | null
+    chatbot_questions_reset_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    QuizParticipants?: QuizParticipantsUpdateManyWithoutUsersNestedInput
+    Quizzes?: QuizzesUpdateManyWithoutUsersNestedInput
+    created_astronomy_events?: astronomy_eventsUpdateManyWithoutCreatorNestedInput
+    blog_comments?: blog_commentsUpdateManyWithoutUsersNestedInput
+    blog_likes?: blog_likesUpdateManyWithoutUsersNestedInput
+    blog_views?: blog_viewsUpdateManyWithoutUsersNestedInput
+    blogs?: blogsUpdateManyWithoutUsersNestedInput
+    chat_messages?: chat_messagesUpdateManyWithoutUserNestedInput
+    chatbot_sessions?: chatbot_sessionsUpdateManyWithoutUsersNestedInput
+    chatbot_usage?: chatbot_usageUpdateManyWithoutUsersNestedInput
+    event_reminders?: event_remindersUpdateManyWithoutUserNestedInput
+    created_groups?: group_chatsUpdateManyWithoutCreatorNestedInput
+    group_memberships?: group_membersUpdateManyWithoutUserNestedInput
+    guide_application?: guide_applicationUpdateManyWithoutUsersNestedInput
+    influencer_application?: influencer_applicationUpdateManyWithoutUsersNestedInput
+    media_uploads?: media_uploadsUpdateManyWithoutUsersNestedInput
+    mentor_application?: mentor_applicationUpdateManyWithoutUsersNestedInput
+    message_reactions?: message_reactionsUpdateManyWithoutUserNestedInput
+    night_camp_registrations?: night_camp_registrationsUpdateManyWithoutUsersNestedInput
+    night_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousers?: night_camp_volunteering_applicationsUpdateManyWithoutUsers_night_camp_volunteering_applications_reviewed_byTousersNestedInput
+    night_camp_volunteering_applications_night_camp_volunteering_applications_user_idTousers?: night_camp_volunteering_applicationsUpdateManyWithoutUsers_night_camp_volunteering_applications_user_idTousersNestedInput
+    payments?: paymentsUpdateManyWithoutUsersNestedInput
+    poll_comments?: poll_commentsUpdateManyWithoutCommenterNestedInput
+    poll_votes?: poll_votesUpdateManyWithoutVoterNestedInput
+    created_polls?: pollsUpdateManyWithoutCreatorNestedInput
+    role_upgrade_requests_role_upgrade_requests_reviewer_idTousers?: role_upgrade_requestsUpdateManyWithoutUsers_role_upgrade_requests_reviewer_idTousersNestedInput
+    role_upgrade_requests_role_upgrade_requests_user_idTousers?: role_upgrade_requestsUpdateManyWithoutUsers_role_upgrade_requests_user_idTousersNestedInput
+    service_bookings?: service_bookingsUpdateManyWithoutUsersNestedInput
+    service_reviews?: service_reviewsUpdateManyWithoutUsersNestedInput
+    services?: servicesUpdateManyWithoutUsersNestedInput
+    session_enrollments?: session_enrollmentsUpdateManyWithoutUserNestedInput
+    created_sessions?: sessionsUpdateManyWithoutCreatorNestedInput
+    discussion_comment_likes?: space_discussion_comment_likesUpdateManyWithoutUserNestedInput
+    discussion_comments?: space_discussion_commentsUpdateManyWithoutUserNestedInput
+    discussion_likes?: space_discussion_likesUpdateManyWithoutUserNestedInput
+    authored_discussions?: space_discussionsUpdateManyWithoutAuthorNestedInput
+    space_news_published?: space_newsUpdateManyWithoutPublisherNestedInput
+    space_news_comments?: space_news_commentsUpdateManyWithoutUserNestedInput
+    space_news_likes?: space_news_likesUpdateManyWithoutUserNestedInput
+    stargazing_spot_reviews?: stargazing_spot_reviewsUpdateManyWithoutUserNestedInput
+    created_stargazing_spots?: stargazing_spotsUpdateManyWithoutCreatorNestedInput
+    stargazing_spots_stargazing_spots_moderated_byTousers?: stargazing_spotsUpdateManyWithoutUsers_stargazing_spots_moderated_byTousersNestedInput
+    subscriptions?: subscriptionsUpdateManyWithoutUsersNestedInput
+    user_settings?: user_settingsUpdateOneWithoutUsersNestedInput
+  }
+
+  export type usersUncheckedUpdateWithoutModerated_sessionsInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    firebase_uid?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    role?: NullableEnumuser_roleFieldUpdateOperationsInput | $Enums.user_role | null
+    first_name?: NullableStringFieldUpdateOperationsInput | string | null
+    last_name?: NullableStringFieldUpdateOperationsInput | string | null
+    is_active?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    last_login?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    display_name?: NullableStringFieldUpdateOperationsInput | string | null
+    profile_data?: NullableJsonNullValueInput | InputJsonValue
+    role_specific_data?: NullableJsonNullValueInput | InputJsonValue
+    subscription_plan?: NullableEnumsubscription_planFieldUpdateOperationsInput | $Enums.subscription_plan | null
+    subscription_status?: NullableEnumsubscription_statusFieldUpdateOperationsInput | $Enums.subscription_status | null
+    subscription_start_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    subscription_end_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    auto_renew?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    chatbot_questions_used?: NullableIntFieldUpdateOperationsInput | number | null
+    chatbot_questions_reset_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    QuizParticipants?: QuizParticipantsUncheckedUpdateManyWithoutUsersNestedInput
+    Quizzes?: QuizzesUncheckedUpdateManyWithoutUsersNestedInput
+    created_astronomy_events?: astronomy_eventsUncheckedUpdateManyWithoutCreatorNestedInput
+    blog_comments?: blog_commentsUncheckedUpdateManyWithoutUsersNestedInput
+    blog_likes?: blog_likesUncheckedUpdateManyWithoutUsersNestedInput
+    blog_views?: blog_viewsUncheckedUpdateManyWithoutUsersNestedInput
+    blogs?: blogsUncheckedUpdateManyWithoutUsersNestedInput
+    chat_messages?: chat_messagesUncheckedUpdateManyWithoutUserNestedInput
+    chatbot_sessions?: chatbot_sessionsUncheckedUpdateManyWithoutUsersNestedInput
+    chatbot_usage?: chatbot_usageUncheckedUpdateManyWithoutUsersNestedInput
+    event_reminders?: event_remindersUncheckedUpdateManyWithoutUserNestedInput
+    created_groups?: group_chatsUncheckedUpdateManyWithoutCreatorNestedInput
+    group_memberships?: group_membersUncheckedUpdateManyWithoutUserNestedInput
+    guide_application?: guide_applicationUncheckedUpdateManyWithoutUsersNestedInput
+    influencer_application?: influencer_applicationUncheckedUpdateManyWithoutUsersNestedInput
+    media_uploads?: media_uploadsUncheckedUpdateManyWithoutUsersNestedInput
+    mentor_application?: mentor_applicationUncheckedUpdateManyWithoutUsersNestedInput
+    message_reactions?: message_reactionsUncheckedUpdateManyWithoutUserNestedInput
+    night_camp_registrations?: night_camp_registrationsUncheckedUpdateManyWithoutUsersNestedInput
+    night_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousers?: night_camp_volunteering_applicationsUncheckedUpdateManyWithoutUsers_night_camp_volunteering_applications_reviewed_byTousersNestedInput
+    night_camp_volunteering_applications_night_camp_volunteering_applications_user_idTousers?: night_camp_volunteering_applicationsUncheckedUpdateManyWithoutUsers_night_camp_volunteering_applications_user_idTousersNestedInput
+    payments?: paymentsUncheckedUpdateManyWithoutUsersNestedInput
+    poll_comments?: poll_commentsUncheckedUpdateManyWithoutCommenterNestedInput
+    poll_votes?: poll_votesUncheckedUpdateManyWithoutVoterNestedInput
+    created_polls?: pollsUncheckedUpdateManyWithoutCreatorNestedInput
+    role_upgrade_requests_role_upgrade_requests_reviewer_idTousers?: role_upgrade_requestsUncheckedUpdateManyWithoutUsers_role_upgrade_requests_reviewer_idTousersNestedInput
+    role_upgrade_requests_role_upgrade_requests_user_idTousers?: role_upgrade_requestsUncheckedUpdateManyWithoutUsers_role_upgrade_requests_user_idTousersNestedInput
+    service_bookings?: service_bookingsUncheckedUpdateManyWithoutUsersNestedInput
+    service_reviews?: service_reviewsUncheckedUpdateManyWithoutUsersNestedInput
+    services?: servicesUncheckedUpdateManyWithoutUsersNestedInput
+    session_enrollments?: session_enrollmentsUncheckedUpdateManyWithoutUserNestedInput
+    created_sessions?: sessionsUncheckedUpdateManyWithoutCreatorNestedInput
+    discussion_comment_likes?: space_discussion_comment_likesUncheckedUpdateManyWithoutUserNestedInput
+    discussion_comments?: space_discussion_commentsUncheckedUpdateManyWithoutUserNestedInput
+    discussion_likes?: space_discussion_likesUncheckedUpdateManyWithoutUserNestedInput
+    authored_discussions?: space_discussionsUncheckedUpdateManyWithoutAuthorNestedInput
+    space_news_published?: space_newsUncheckedUpdateManyWithoutPublisherNestedInput
+    space_news_comments?: space_news_commentsUncheckedUpdateManyWithoutUserNestedInput
+    space_news_likes?: space_news_likesUncheckedUpdateManyWithoutUserNestedInput
+    stargazing_spot_reviews?: stargazing_spot_reviewsUncheckedUpdateManyWithoutUserNestedInput
+    created_stargazing_spots?: stargazing_spotsUncheckedUpdateManyWithoutCreatorNestedInput
+    stargazing_spots_stargazing_spots_moderated_byTousers?: stargazing_spotsUncheckedUpdateManyWithoutUsers_stargazing_spots_moderated_byTousersNestedInput
     subscriptions?: subscriptionsUncheckedUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUncheckedUpdateOneWithoutUsersNestedInput
   }
@@ -115399,6 +116731,7 @@ export namespace Prisma {
     services?: servicesCreateNestedManyWithoutUsersInput
     session_enrollments?: session_enrollmentsCreateNestedManyWithoutUserInput
     created_sessions?: sessionsCreateNestedManyWithoutCreatorInput
+    moderated_sessions?: sessionsCreateNestedManyWithoutModeratorInput
     discussion_comments?: space_discussion_commentsCreateNestedManyWithoutUserInput
     discussion_likes?: space_discussion_likesCreateNestedManyWithoutUserInput
     authored_discussions?: space_discussionsCreateNestedManyWithoutAuthorInput
@@ -115407,6 +116740,7 @@ export namespace Prisma {
     space_news_likes?: space_news_likesCreateNestedManyWithoutUserInput
     stargazing_spot_reviews?: stargazing_spot_reviewsCreateNestedManyWithoutUserInput
     created_stargazing_spots?: stargazing_spotsCreateNestedManyWithoutCreatorInput
+    stargazing_spots_stargazing_spots_moderated_byTousers?: stargazing_spotsCreateNestedManyWithoutUsers_stargazing_spots_moderated_byTousersInput
     subscriptions?: subscriptionsCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsCreateNestedOneWithoutUsersInput
   }
@@ -115464,6 +116798,7 @@ export namespace Prisma {
     services?: servicesUncheckedCreateNestedManyWithoutUsersInput
     session_enrollments?: session_enrollmentsUncheckedCreateNestedManyWithoutUserInput
     created_sessions?: sessionsUncheckedCreateNestedManyWithoutCreatorInput
+    moderated_sessions?: sessionsUncheckedCreateNestedManyWithoutModeratorInput
     discussion_comments?: space_discussion_commentsUncheckedCreateNestedManyWithoutUserInput
     discussion_likes?: space_discussion_likesUncheckedCreateNestedManyWithoutUserInput
     authored_discussions?: space_discussionsUncheckedCreateNestedManyWithoutAuthorInput
@@ -115472,6 +116807,7 @@ export namespace Prisma {
     space_news_likes?: space_news_likesUncheckedCreateNestedManyWithoutUserInput
     stargazing_spot_reviews?: stargazing_spot_reviewsUncheckedCreateNestedManyWithoutUserInput
     created_stargazing_spots?: stargazing_spotsUncheckedCreateNestedManyWithoutCreatorInput
+    stargazing_spots_stargazing_spots_moderated_byTousers?: stargazing_spotsUncheckedCreateNestedManyWithoutUsers_stargazing_spots_moderated_byTousersInput
     subscriptions?: subscriptionsUncheckedCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsUncheckedCreateNestedOneWithoutUsersInput
   }
@@ -115578,6 +116914,7 @@ export namespace Prisma {
     services?: servicesUpdateManyWithoutUsersNestedInput
     session_enrollments?: session_enrollmentsUpdateManyWithoutUserNestedInput
     created_sessions?: sessionsUpdateManyWithoutCreatorNestedInput
+    moderated_sessions?: sessionsUpdateManyWithoutModeratorNestedInput
     discussion_comments?: space_discussion_commentsUpdateManyWithoutUserNestedInput
     discussion_likes?: space_discussion_likesUpdateManyWithoutUserNestedInput
     authored_discussions?: space_discussionsUpdateManyWithoutAuthorNestedInput
@@ -115586,6 +116923,7 @@ export namespace Prisma {
     space_news_likes?: space_news_likesUpdateManyWithoutUserNestedInput
     stargazing_spot_reviews?: stargazing_spot_reviewsUpdateManyWithoutUserNestedInput
     created_stargazing_spots?: stargazing_spotsUpdateManyWithoutCreatorNestedInput
+    stargazing_spots_stargazing_spots_moderated_byTousers?: stargazing_spotsUpdateManyWithoutUsers_stargazing_spots_moderated_byTousersNestedInput
     subscriptions?: subscriptionsUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUpdateOneWithoutUsersNestedInput
   }
@@ -115643,6 +116981,7 @@ export namespace Prisma {
     services?: servicesUncheckedUpdateManyWithoutUsersNestedInput
     session_enrollments?: session_enrollmentsUncheckedUpdateManyWithoutUserNestedInput
     created_sessions?: sessionsUncheckedUpdateManyWithoutCreatorNestedInput
+    moderated_sessions?: sessionsUncheckedUpdateManyWithoutModeratorNestedInput
     discussion_comments?: space_discussion_commentsUncheckedUpdateManyWithoutUserNestedInput
     discussion_likes?: space_discussion_likesUncheckedUpdateManyWithoutUserNestedInput
     authored_discussions?: space_discussionsUncheckedUpdateManyWithoutAuthorNestedInput
@@ -115651,6 +116990,7 @@ export namespace Prisma {
     space_news_likes?: space_news_likesUncheckedUpdateManyWithoutUserNestedInput
     stargazing_spot_reviews?: stargazing_spot_reviewsUncheckedUpdateManyWithoutUserNestedInput
     created_stargazing_spots?: stargazing_spotsUncheckedUpdateManyWithoutCreatorNestedInput
+    stargazing_spots_stargazing_spots_moderated_byTousers?: stargazing_spotsUncheckedUpdateManyWithoutUsers_stargazing_spots_moderated_byTousersNestedInput
     subscriptions?: subscriptionsUncheckedUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUncheckedUpdateOneWithoutUsersNestedInput
   }
@@ -115825,6 +117165,7 @@ export namespace Prisma {
     services?: servicesCreateNestedManyWithoutUsersInput
     session_enrollments?: session_enrollmentsCreateNestedManyWithoutUserInput
     created_sessions?: sessionsCreateNestedManyWithoutCreatorInput
+    moderated_sessions?: sessionsCreateNestedManyWithoutModeratorInput
     discussion_comment_likes?: space_discussion_comment_likesCreateNestedManyWithoutUserInput
     discussion_likes?: space_discussion_likesCreateNestedManyWithoutUserInput
     authored_discussions?: space_discussionsCreateNestedManyWithoutAuthorInput
@@ -115833,6 +117174,7 @@ export namespace Prisma {
     space_news_likes?: space_news_likesCreateNestedManyWithoutUserInput
     stargazing_spot_reviews?: stargazing_spot_reviewsCreateNestedManyWithoutUserInput
     created_stargazing_spots?: stargazing_spotsCreateNestedManyWithoutCreatorInput
+    stargazing_spots_stargazing_spots_moderated_byTousers?: stargazing_spotsCreateNestedManyWithoutUsers_stargazing_spots_moderated_byTousersInput
     subscriptions?: subscriptionsCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsCreateNestedOneWithoutUsersInput
   }
@@ -115890,6 +117232,7 @@ export namespace Prisma {
     services?: servicesUncheckedCreateNestedManyWithoutUsersInput
     session_enrollments?: session_enrollmentsUncheckedCreateNestedManyWithoutUserInput
     created_sessions?: sessionsUncheckedCreateNestedManyWithoutCreatorInput
+    moderated_sessions?: sessionsUncheckedCreateNestedManyWithoutModeratorInput
     discussion_comment_likes?: space_discussion_comment_likesUncheckedCreateNestedManyWithoutUserInput
     discussion_likes?: space_discussion_likesUncheckedCreateNestedManyWithoutUserInput
     authored_discussions?: space_discussionsUncheckedCreateNestedManyWithoutAuthorInput
@@ -115898,6 +117241,7 @@ export namespace Prisma {
     space_news_likes?: space_news_likesUncheckedCreateNestedManyWithoutUserInput
     stargazing_spot_reviews?: stargazing_spot_reviewsUncheckedCreateNestedManyWithoutUserInput
     created_stargazing_spots?: stargazing_spotsUncheckedCreateNestedManyWithoutCreatorInput
+    stargazing_spots_stargazing_spots_moderated_byTousers?: stargazing_spotsUncheckedCreateNestedManyWithoutUsers_stargazing_spots_moderated_byTousersInput
     subscriptions?: subscriptionsUncheckedCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsUncheckedCreateNestedOneWithoutUsersInput
   }
@@ -116078,6 +117422,7 @@ export namespace Prisma {
     services?: servicesUpdateManyWithoutUsersNestedInput
     session_enrollments?: session_enrollmentsUpdateManyWithoutUserNestedInput
     created_sessions?: sessionsUpdateManyWithoutCreatorNestedInput
+    moderated_sessions?: sessionsUpdateManyWithoutModeratorNestedInput
     discussion_comment_likes?: space_discussion_comment_likesUpdateManyWithoutUserNestedInput
     discussion_likes?: space_discussion_likesUpdateManyWithoutUserNestedInput
     authored_discussions?: space_discussionsUpdateManyWithoutAuthorNestedInput
@@ -116086,6 +117431,7 @@ export namespace Prisma {
     space_news_likes?: space_news_likesUpdateManyWithoutUserNestedInput
     stargazing_spot_reviews?: stargazing_spot_reviewsUpdateManyWithoutUserNestedInput
     created_stargazing_spots?: stargazing_spotsUpdateManyWithoutCreatorNestedInput
+    stargazing_spots_stargazing_spots_moderated_byTousers?: stargazing_spotsUpdateManyWithoutUsers_stargazing_spots_moderated_byTousersNestedInput
     subscriptions?: subscriptionsUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUpdateOneWithoutUsersNestedInput
   }
@@ -116143,6 +117489,7 @@ export namespace Prisma {
     services?: servicesUncheckedUpdateManyWithoutUsersNestedInput
     session_enrollments?: session_enrollmentsUncheckedUpdateManyWithoutUserNestedInput
     created_sessions?: sessionsUncheckedUpdateManyWithoutCreatorNestedInput
+    moderated_sessions?: sessionsUncheckedUpdateManyWithoutModeratorNestedInput
     discussion_comment_likes?: space_discussion_comment_likesUncheckedUpdateManyWithoutUserNestedInput
     discussion_likes?: space_discussion_likesUncheckedUpdateManyWithoutUserNestedInput
     authored_discussions?: space_discussionsUncheckedUpdateManyWithoutAuthorNestedInput
@@ -116151,6 +117498,7 @@ export namespace Prisma {
     space_news_likes?: space_news_likesUncheckedUpdateManyWithoutUserNestedInput
     stargazing_spot_reviews?: stargazing_spot_reviewsUncheckedUpdateManyWithoutUserNestedInput
     created_stargazing_spots?: stargazing_spotsUncheckedUpdateManyWithoutCreatorNestedInput
+    stargazing_spots_stargazing_spots_moderated_byTousers?: stargazing_spotsUncheckedUpdateManyWithoutUsers_stargazing_spots_moderated_byTousersNestedInput
     subscriptions?: subscriptionsUncheckedUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUncheckedUpdateOneWithoutUsersNestedInput
   }
@@ -116243,6 +117591,7 @@ export namespace Prisma {
     services?: servicesCreateNestedManyWithoutUsersInput
     session_enrollments?: session_enrollmentsCreateNestedManyWithoutUserInput
     created_sessions?: sessionsCreateNestedManyWithoutCreatorInput
+    moderated_sessions?: sessionsCreateNestedManyWithoutModeratorInput
     discussion_comment_likes?: space_discussion_comment_likesCreateNestedManyWithoutUserInput
     discussion_comments?: space_discussion_commentsCreateNestedManyWithoutUserInput
     authored_discussions?: space_discussionsCreateNestedManyWithoutAuthorInput
@@ -116251,6 +117600,7 @@ export namespace Prisma {
     space_news_likes?: space_news_likesCreateNestedManyWithoutUserInput
     stargazing_spot_reviews?: stargazing_spot_reviewsCreateNestedManyWithoutUserInput
     created_stargazing_spots?: stargazing_spotsCreateNestedManyWithoutCreatorInput
+    stargazing_spots_stargazing_spots_moderated_byTousers?: stargazing_spotsCreateNestedManyWithoutUsers_stargazing_spots_moderated_byTousersInput
     subscriptions?: subscriptionsCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsCreateNestedOneWithoutUsersInput
   }
@@ -116308,6 +117658,7 @@ export namespace Prisma {
     services?: servicesUncheckedCreateNestedManyWithoutUsersInput
     session_enrollments?: session_enrollmentsUncheckedCreateNestedManyWithoutUserInput
     created_sessions?: sessionsUncheckedCreateNestedManyWithoutCreatorInput
+    moderated_sessions?: sessionsUncheckedCreateNestedManyWithoutModeratorInput
     discussion_comment_likes?: space_discussion_comment_likesUncheckedCreateNestedManyWithoutUserInput
     discussion_comments?: space_discussion_commentsUncheckedCreateNestedManyWithoutUserInput
     authored_discussions?: space_discussionsUncheckedCreateNestedManyWithoutAuthorInput
@@ -116316,6 +117667,7 @@ export namespace Prisma {
     space_news_likes?: space_news_likesUncheckedCreateNestedManyWithoutUserInput
     stargazing_spot_reviews?: stargazing_spot_reviewsUncheckedCreateNestedManyWithoutUserInput
     created_stargazing_spots?: stargazing_spotsUncheckedCreateNestedManyWithoutCreatorInput
+    stargazing_spots_stargazing_spots_moderated_byTousers?: stargazing_spotsUncheckedCreateNestedManyWithoutUsers_stargazing_spots_moderated_byTousersInput
     subscriptions?: subscriptionsUncheckedCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsUncheckedCreateNestedOneWithoutUsersInput
   }
@@ -116430,6 +117782,7 @@ export namespace Prisma {
     services?: servicesUpdateManyWithoutUsersNestedInput
     session_enrollments?: session_enrollmentsUpdateManyWithoutUserNestedInput
     created_sessions?: sessionsUpdateManyWithoutCreatorNestedInput
+    moderated_sessions?: sessionsUpdateManyWithoutModeratorNestedInput
     discussion_comment_likes?: space_discussion_comment_likesUpdateManyWithoutUserNestedInput
     discussion_comments?: space_discussion_commentsUpdateManyWithoutUserNestedInput
     authored_discussions?: space_discussionsUpdateManyWithoutAuthorNestedInput
@@ -116438,6 +117791,7 @@ export namespace Prisma {
     space_news_likes?: space_news_likesUpdateManyWithoutUserNestedInput
     stargazing_spot_reviews?: stargazing_spot_reviewsUpdateManyWithoutUserNestedInput
     created_stargazing_spots?: stargazing_spotsUpdateManyWithoutCreatorNestedInput
+    stargazing_spots_stargazing_spots_moderated_byTousers?: stargazing_spotsUpdateManyWithoutUsers_stargazing_spots_moderated_byTousersNestedInput
     subscriptions?: subscriptionsUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUpdateOneWithoutUsersNestedInput
   }
@@ -116495,6 +117849,7 @@ export namespace Prisma {
     services?: servicesUncheckedUpdateManyWithoutUsersNestedInput
     session_enrollments?: session_enrollmentsUncheckedUpdateManyWithoutUserNestedInput
     created_sessions?: sessionsUncheckedUpdateManyWithoutCreatorNestedInput
+    moderated_sessions?: sessionsUncheckedUpdateManyWithoutModeratorNestedInput
     discussion_comment_likes?: space_discussion_comment_likesUncheckedUpdateManyWithoutUserNestedInput
     discussion_comments?: space_discussion_commentsUncheckedUpdateManyWithoutUserNestedInput
     authored_discussions?: space_discussionsUncheckedUpdateManyWithoutAuthorNestedInput
@@ -116503,6 +117858,7 @@ export namespace Prisma {
     space_news_likes?: space_news_likesUncheckedUpdateManyWithoutUserNestedInput
     stargazing_spot_reviews?: stargazing_spot_reviewsUncheckedUpdateManyWithoutUserNestedInput
     created_stargazing_spots?: stargazing_spotsUncheckedUpdateManyWithoutCreatorNestedInput
+    stargazing_spots_stargazing_spots_moderated_byTousers?: stargazing_spotsUncheckedUpdateManyWithoutUsers_stargazing_spots_moderated_byTousersNestedInput
     subscriptions?: subscriptionsUncheckedUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUncheckedUpdateOneWithoutUsersNestedInput
   }
@@ -116613,6 +117969,7 @@ export namespace Prisma {
     services?: servicesCreateNestedManyWithoutUsersInput
     session_enrollments?: session_enrollmentsCreateNestedManyWithoutUserInput
     created_sessions?: sessionsCreateNestedManyWithoutCreatorInput
+    moderated_sessions?: sessionsCreateNestedManyWithoutModeratorInput
     discussion_comment_likes?: space_discussion_comment_likesCreateNestedManyWithoutUserInput
     discussion_comments?: space_discussion_commentsCreateNestedManyWithoutUserInput
     discussion_likes?: space_discussion_likesCreateNestedManyWithoutUserInput
@@ -116621,6 +117978,7 @@ export namespace Prisma {
     space_news_likes?: space_news_likesCreateNestedManyWithoutUserInput
     stargazing_spot_reviews?: stargazing_spot_reviewsCreateNestedManyWithoutUserInput
     created_stargazing_spots?: stargazing_spotsCreateNestedManyWithoutCreatorInput
+    stargazing_spots_stargazing_spots_moderated_byTousers?: stargazing_spotsCreateNestedManyWithoutUsers_stargazing_spots_moderated_byTousersInput
     subscriptions?: subscriptionsCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsCreateNestedOneWithoutUsersInput
   }
@@ -116678,6 +118036,7 @@ export namespace Prisma {
     services?: servicesUncheckedCreateNestedManyWithoutUsersInput
     session_enrollments?: session_enrollmentsUncheckedCreateNestedManyWithoutUserInput
     created_sessions?: sessionsUncheckedCreateNestedManyWithoutCreatorInput
+    moderated_sessions?: sessionsUncheckedCreateNestedManyWithoutModeratorInput
     discussion_comment_likes?: space_discussion_comment_likesUncheckedCreateNestedManyWithoutUserInput
     discussion_comments?: space_discussion_commentsUncheckedCreateNestedManyWithoutUserInput
     discussion_likes?: space_discussion_likesUncheckedCreateNestedManyWithoutUserInput
@@ -116686,6 +118045,7 @@ export namespace Prisma {
     space_news_likes?: space_news_likesUncheckedCreateNestedManyWithoutUserInput
     stargazing_spot_reviews?: stargazing_spot_reviewsUncheckedCreateNestedManyWithoutUserInput
     created_stargazing_spots?: stargazing_spotsUncheckedCreateNestedManyWithoutCreatorInput
+    stargazing_spots_stargazing_spots_moderated_byTousers?: stargazing_spotsUncheckedCreateNestedManyWithoutUsers_stargazing_spots_moderated_byTousersInput
     subscriptions?: subscriptionsUncheckedCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsUncheckedCreateNestedOneWithoutUsersInput
   }
@@ -116790,6 +118150,7 @@ export namespace Prisma {
     services?: servicesUpdateManyWithoutUsersNestedInput
     session_enrollments?: session_enrollmentsUpdateManyWithoutUserNestedInput
     created_sessions?: sessionsUpdateManyWithoutCreatorNestedInput
+    moderated_sessions?: sessionsUpdateManyWithoutModeratorNestedInput
     discussion_comment_likes?: space_discussion_comment_likesUpdateManyWithoutUserNestedInput
     discussion_comments?: space_discussion_commentsUpdateManyWithoutUserNestedInput
     discussion_likes?: space_discussion_likesUpdateManyWithoutUserNestedInput
@@ -116798,6 +118159,7 @@ export namespace Prisma {
     space_news_likes?: space_news_likesUpdateManyWithoutUserNestedInput
     stargazing_spot_reviews?: stargazing_spot_reviewsUpdateManyWithoutUserNestedInput
     created_stargazing_spots?: stargazing_spotsUpdateManyWithoutCreatorNestedInput
+    stargazing_spots_stargazing_spots_moderated_byTousers?: stargazing_spotsUpdateManyWithoutUsers_stargazing_spots_moderated_byTousersNestedInput
     subscriptions?: subscriptionsUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUpdateOneWithoutUsersNestedInput
   }
@@ -116855,6 +118217,7 @@ export namespace Prisma {
     services?: servicesUncheckedUpdateManyWithoutUsersNestedInput
     session_enrollments?: session_enrollmentsUncheckedUpdateManyWithoutUserNestedInput
     created_sessions?: sessionsUncheckedUpdateManyWithoutCreatorNestedInput
+    moderated_sessions?: sessionsUncheckedUpdateManyWithoutModeratorNestedInput
     discussion_comment_likes?: space_discussion_comment_likesUncheckedUpdateManyWithoutUserNestedInput
     discussion_comments?: space_discussion_commentsUncheckedUpdateManyWithoutUserNestedInput
     discussion_likes?: space_discussion_likesUncheckedUpdateManyWithoutUserNestedInput
@@ -116863,6 +118226,7 @@ export namespace Prisma {
     space_news_likes?: space_news_likesUncheckedUpdateManyWithoutUserNestedInput
     stargazing_spot_reviews?: stargazing_spot_reviewsUncheckedUpdateManyWithoutUserNestedInput
     created_stargazing_spots?: stargazing_spotsUncheckedUpdateManyWithoutCreatorNestedInput
+    stargazing_spots_stargazing_spots_moderated_byTousers?: stargazing_spotsUncheckedUpdateManyWithoutUsers_stargazing_spots_moderated_byTousersNestedInput
     subscriptions?: subscriptionsUncheckedUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUncheckedUpdateOneWithoutUsersNestedInput
   }
@@ -116919,6 +118283,7 @@ export namespace Prisma {
     services?: servicesCreateNestedManyWithoutUsersInput
     session_enrollments?: session_enrollmentsCreateNestedManyWithoutUserInput
     created_sessions?: sessionsCreateNestedManyWithoutCreatorInput
+    moderated_sessions?: sessionsCreateNestedManyWithoutModeratorInput
     discussion_comment_likes?: space_discussion_comment_likesCreateNestedManyWithoutUserInput
     discussion_comments?: space_discussion_commentsCreateNestedManyWithoutUserInput
     discussion_likes?: space_discussion_likesCreateNestedManyWithoutUserInput
@@ -116927,6 +118292,7 @@ export namespace Prisma {
     space_news_likes?: space_news_likesCreateNestedManyWithoutUserInput
     stargazing_spot_reviews?: stargazing_spot_reviewsCreateNestedManyWithoutUserInput
     created_stargazing_spots?: stargazing_spotsCreateNestedManyWithoutCreatorInput
+    stargazing_spots_stargazing_spots_moderated_byTousers?: stargazing_spotsCreateNestedManyWithoutUsers_stargazing_spots_moderated_byTousersInput
     subscriptions?: subscriptionsCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsCreateNestedOneWithoutUsersInput
   }
@@ -116984,6 +118350,7 @@ export namespace Prisma {
     services?: servicesUncheckedCreateNestedManyWithoutUsersInput
     session_enrollments?: session_enrollmentsUncheckedCreateNestedManyWithoutUserInput
     created_sessions?: sessionsUncheckedCreateNestedManyWithoutCreatorInput
+    moderated_sessions?: sessionsUncheckedCreateNestedManyWithoutModeratorInput
     discussion_comment_likes?: space_discussion_comment_likesUncheckedCreateNestedManyWithoutUserInput
     discussion_comments?: space_discussion_commentsUncheckedCreateNestedManyWithoutUserInput
     discussion_likes?: space_discussion_likesUncheckedCreateNestedManyWithoutUserInput
@@ -116992,6 +118359,7 @@ export namespace Prisma {
     space_news_likes?: space_news_likesUncheckedCreateNestedManyWithoutUserInput
     stargazing_spot_reviews?: stargazing_spot_reviewsUncheckedCreateNestedManyWithoutUserInput
     created_stargazing_spots?: stargazing_spotsUncheckedCreateNestedManyWithoutCreatorInput
+    stargazing_spots_stargazing_spots_moderated_byTousers?: stargazing_spotsUncheckedCreateNestedManyWithoutUsers_stargazing_spots_moderated_byTousersInput
     subscriptions?: subscriptionsUncheckedCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsUncheckedCreateNestedOneWithoutUsersInput
   }
@@ -117116,6 +118484,7 @@ export namespace Prisma {
     services?: servicesUpdateManyWithoutUsersNestedInput
     session_enrollments?: session_enrollmentsUpdateManyWithoutUserNestedInput
     created_sessions?: sessionsUpdateManyWithoutCreatorNestedInput
+    moderated_sessions?: sessionsUpdateManyWithoutModeratorNestedInput
     discussion_comment_likes?: space_discussion_comment_likesUpdateManyWithoutUserNestedInput
     discussion_comments?: space_discussion_commentsUpdateManyWithoutUserNestedInput
     discussion_likes?: space_discussion_likesUpdateManyWithoutUserNestedInput
@@ -117124,6 +118493,7 @@ export namespace Prisma {
     space_news_likes?: space_news_likesUpdateManyWithoutUserNestedInput
     stargazing_spot_reviews?: stargazing_spot_reviewsUpdateManyWithoutUserNestedInput
     created_stargazing_spots?: stargazing_spotsUpdateManyWithoutCreatorNestedInput
+    stargazing_spots_stargazing_spots_moderated_byTousers?: stargazing_spotsUpdateManyWithoutUsers_stargazing_spots_moderated_byTousersNestedInput
     subscriptions?: subscriptionsUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUpdateOneWithoutUsersNestedInput
   }
@@ -117181,6 +118551,7 @@ export namespace Prisma {
     services?: servicesUncheckedUpdateManyWithoutUsersNestedInput
     session_enrollments?: session_enrollmentsUncheckedUpdateManyWithoutUserNestedInput
     created_sessions?: sessionsUncheckedUpdateManyWithoutCreatorNestedInput
+    moderated_sessions?: sessionsUncheckedUpdateManyWithoutModeratorNestedInput
     discussion_comment_likes?: space_discussion_comment_likesUncheckedUpdateManyWithoutUserNestedInput
     discussion_comments?: space_discussion_commentsUncheckedUpdateManyWithoutUserNestedInput
     discussion_likes?: space_discussion_likesUncheckedUpdateManyWithoutUserNestedInput
@@ -117189,6 +118560,7 @@ export namespace Prisma {
     space_news_likes?: space_news_likesUncheckedUpdateManyWithoutUserNestedInput
     stargazing_spot_reviews?: stargazing_spot_reviewsUncheckedUpdateManyWithoutUserNestedInput
     created_stargazing_spots?: stargazing_spotsUncheckedUpdateManyWithoutCreatorNestedInput
+    stargazing_spots_stargazing_spots_moderated_byTousers?: stargazing_spotsUncheckedUpdateManyWithoutUsers_stargazing_spots_moderated_byTousersNestedInput
     subscriptions?: subscriptionsUncheckedUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUncheckedUpdateOneWithoutUsersNestedInput
   }
@@ -117368,6 +118740,7 @@ export namespace Prisma {
     services?: servicesCreateNestedManyWithoutUsersInput
     session_enrollments?: session_enrollmentsCreateNestedManyWithoutUserInput
     created_sessions?: sessionsCreateNestedManyWithoutCreatorInput
+    moderated_sessions?: sessionsCreateNestedManyWithoutModeratorInput
     discussion_comment_likes?: space_discussion_comment_likesCreateNestedManyWithoutUserInput
     discussion_comments?: space_discussion_commentsCreateNestedManyWithoutUserInput
     discussion_likes?: space_discussion_likesCreateNestedManyWithoutUserInput
@@ -117376,6 +118749,7 @@ export namespace Prisma {
     space_news_likes?: space_news_likesCreateNestedManyWithoutUserInput
     stargazing_spot_reviews?: stargazing_spot_reviewsCreateNestedManyWithoutUserInput
     created_stargazing_spots?: stargazing_spotsCreateNestedManyWithoutCreatorInput
+    stargazing_spots_stargazing_spots_moderated_byTousers?: stargazing_spotsCreateNestedManyWithoutUsers_stargazing_spots_moderated_byTousersInput
     subscriptions?: subscriptionsCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsCreateNestedOneWithoutUsersInput
   }
@@ -117433,6 +118807,7 @@ export namespace Prisma {
     services?: servicesUncheckedCreateNestedManyWithoutUsersInput
     session_enrollments?: session_enrollmentsUncheckedCreateNestedManyWithoutUserInput
     created_sessions?: sessionsUncheckedCreateNestedManyWithoutCreatorInput
+    moderated_sessions?: sessionsUncheckedCreateNestedManyWithoutModeratorInput
     discussion_comment_likes?: space_discussion_comment_likesUncheckedCreateNestedManyWithoutUserInput
     discussion_comments?: space_discussion_commentsUncheckedCreateNestedManyWithoutUserInput
     discussion_likes?: space_discussion_likesUncheckedCreateNestedManyWithoutUserInput
@@ -117441,6 +118816,7 @@ export namespace Prisma {
     space_news_likes?: space_news_likesUncheckedCreateNestedManyWithoutUserInput
     stargazing_spot_reviews?: stargazing_spot_reviewsUncheckedCreateNestedManyWithoutUserInput
     created_stargazing_spots?: stargazing_spotsUncheckedCreateNestedManyWithoutCreatorInput
+    stargazing_spots_stargazing_spots_moderated_byTousers?: stargazing_spotsUncheckedCreateNestedManyWithoutUsers_stargazing_spots_moderated_byTousersInput
     subscriptions?: subscriptionsUncheckedCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsUncheckedCreateNestedOneWithoutUsersInput
   }
@@ -117601,6 +118977,7 @@ export namespace Prisma {
     services?: servicesUpdateManyWithoutUsersNestedInput
     session_enrollments?: session_enrollmentsUpdateManyWithoutUserNestedInput
     created_sessions?: sessionsUpdateManyWithoutCreatorNestedInput
+    moderated_sessions?: sessionsUpdateManyWithoutModeratorNestedInput
     discussion_comment_likes?: space_discussion_comment_likesUpdateManyWithoutUserNestedInput
     discussion_comments?: space_discussion_commentsUpdateManyWithoutUserNestedInput
     discussion_likes?: space_discussion_likesUpdateManyWithoutUserNestedInput
@@ -117609,6 +118986,7 @@ export namespace Prisma {
     space_news_likes?: space_news_likesUpdateManyWithoutUserNestedInput
     stargazing_spot_reviews?: stargazing_spot_reviewsUpdateManyWithoutUserNestedInput
     created_stargazing_spots?: stargazing_spotsUpdateManyWithoutCreatorNestedInput
+    stargazing_spots_stargazing_spots_moderated_byTousers?: stargazing_spotsUpdateManyWithoutUsers_stargazing_spots_moderated_byTousersNestedInput
     subscriptions?: subscriptionsUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUpdateOneWithoutUsersNestedInput
   }
@@ -117666,6 +119044,7 @@ export namespace Prisma {
     services?: servicesUncheckedUpdateManyWithoutUsersNestedInput
     session_enrollments?: session_enrollmentsUncheckedUpdateManyWithoutUserNestedInput
     created_sessions?: sessionsUncheckedUpdateManyWithoutCreatorNestedInput
+    moderated_sessions?: sessionsUncheckedUpdateManyWithoutModeratorNestedInput
     discussion_comment_likes?: space_discussion_comment_likesUncheckedUpdateManyWithoutUserNestedInput
     discussion_comments?: space_discussion_commentsUncheckedUpdateManyWithoutUserNestedInput
     discussion_likes?: space_discussion_likesUncheckedUpdateManyWithoutUserNestedInput
@@ -117674,6 +119053,7 @@ export namespace Prisma {
     space_news_likes?: space_news_likesUncheckedUpdateManyWithoutUserNestedInput
     stargazing_spot_reviews?: stargazing_spot_reviewsUncheckedUpdateManyWithoutUserNestedInput
     created_stargazing_spots?: stargazing_spotsUncheckedUpdateManyWithoutCreatorNestedInput
+    stargazing_spots_stargazing_spots_moderated_byTousers?: stargazing_spotsUncheckedUpdateManyWithoutUsers_stargazing_spots_moderated_byTousersNestedInput
     subscriptions?: subscriptionsUncheckedUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUncheckedUpdateOneWithoutUsersNestedInput
   }
@@ -117764,6 +119144,7 @@ export namespace Prisma {
     services?: servicesCreateNestedManyWithoutUsersInput
     session_enrollments?: session_enrollmentsCreateNestedManyWithoutUserInput
     created_sessions?: sessionsCreateNestedManyWithoutCreatorInput
+    moderated_sessions?: sessionsCreateNestedManyWithoutModeratorInput
     discussion_comment_likes?: space_discussion_comment_likesCreateNestedManyWithoutUserInput
     discussion_comments?: space_discussion_commentsCreateNestedManyWithoutUserInput
     discussion_likes?: space_discussion_likesCreateNestedManyWithoutUserInput
@@ -117772,6 +119153,7 @@ export namespace Prisma {
     space_news_comments?: space_news_commentsCreateNestedManyWithoutUserInput
     stargazing_spot_reviews?: stargazing_spot_reviewsCreateNestedManyWithoutUserInput
     created_stargazing_spots?: stargazing_spotsCreateNestedManyWithoutCreatorInput
+    stargazing_spots_stargazing_spots_moderated_byTousers?: stargazing_spotsCreateNestedManyWithoutUsers_stargazing_spots_moderated_byTousersInput
     subscriptions?: subscriptionsCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsCreateNestedOneWithoutUsersInput
   }
@@ -117829,6 +119211,7 @@ export namespace Prisma {
     services?: servicesUncheckedCreateNestedManyWithoutUsersInput
     session_enrollments?: session_enrollmentsUncheckedCreateNestedManyWithoutUserInput
     created_sessions?: sessionsUncheckedCreateNestedManyWithoutCreatorInput
+    moderated_sessions?: sessionsUncheckedCreateNestedManyWithoutModeratorInput
     discussion_comment_likes?: space_discussion_comment_likesUncheckedCreateNestedManyWithoutUserInput
     discussion_comments?: space_discussion_commentsUncheckedCreateNestedManyWithoutUserInput
     discussion_likes?: space_discussion_likesUncheckedCreateNestedManyWithoutUserInput
@@ -117837,6 +119220,7 @@ export namespace Prisma {
     space_news_comments?: space_news_commentsUncheckedCreateNestedManyWithoutUserInput
     stargazing_spot_reviews?: stargazing_spot_reviewsUncheckedCreateNestedManyWithoutUserInput
     created_stargazing_spots?: stargazing_spotsUncheckedCreateNestedManyWithoutCreatorInput
+    stargazing_spots_stargazing_spots_moderated_byTousers?: stargazing_spotsUncheckedCreateNestedManyWithoutUsers_stargazing_spots_moderated_byTousersInput
     subscriptions?: subscriptionsUncheckedCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsUncheckedCreateNestedOneWithoutUsersInput
   }
@@ -117949,6 +119333,7 @@ export namespace Prisma {
     services?: servicesUpdateManyWithoutUsersNestedInput
     session_enrollments?: session_enrollmentsUpdateManyWithoutUserNestedInput
     created_sessions?: sessionsUpdateManyWithoutCreatorNestedInput
+    moderated_sessions?: sessionsUpdateManyWithoutModeratorNestedInput
     discussion_comment_likes?: space_discussion_comment_likesUpdateManyWithoutUserNestedInput
     discussion_comments?: space_discussion_commentsUpdateManyWithoutUserNestedInput
     discussion_likes?: space_discussion_likesUpdateManyWithoutUserNestedInput
@@ -117957,6 +119342,7 @@ export namespace Prisma {
     space_news_comments?: space_news_commentsUpdateManyWithoutUserNestedInput
     stargazing_spot_reviews?: stargazing_spot_reviewsUpdateManyWithoutUserNestedInput
     created_stargazing_spots?: stargazing_spotsUpdateManyWithoutCreatorNestedInput
+    stargazing_spots_stargazing_spots_moderated_byTousers?: stargazing_spotsUpdateManyWithoutUsers_stargazing_spots_moderated_byTousersNestedInput
     subscriptions?: subscriptionsUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUpdateOneWithoutUsersNestedInput
   }
@@ -118014,6 +119400,7 @@ export namespace Prisma {
     services?: servicesUncheckedUpdateManyWithoutUsersNestedInput
     session_enrollments?: session_enrollmentsUncheckedUpdateManyWithoutUserNestedInput
     created_sessions?: sessionsUncheckedUpdateManyWithoutCreatorNestedInput
+    moderated_sessions?: sessionsUncheckedUpdateManyWithoutModeratorNestedInput
     discussion_comment_likes?: space_discussion_comment_likesUncheckedUpdateManyWithoutUserNestedInput
     discussion_comments?: space_discussion_commentsUncheckedUpdateManyWithoutUserNestedInput
     discussion_likes?: space_discussion_likesUncheckedUpdateManyWithoutUserNestedInput
@@ -118022,6 +119409,7 @@ export namespace Prisma {
     space_news_comments?: space_news_commentsUncheckedUpdateManyWithoutUserNestedInput
     stargazing_spot_reviews?: stargazing_spot_reviewsUncheckedUpdateManyWithoutUserNestedInput
     created_stargazing_spots?: stargazing_spotsUncheckedUpdateManyWithoutCreatorNestedInput
+    stargazing_spots_stargazing_spots_moderated_byTousers?: stargazing_spotsUncheckedUpdateManyWithoutUsers_stargazing_spots_moderated_byTousersNestedInput
     subscriptions?: subscriptionsUncheckedUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUncheckedUpdateOneWithoutUsersNestedInput
   }
@@ -118037,7 +119425,11 @@ export namespace Prisma {
     is_active?: boolean
     created_at?: Date | string
     updated_at?: Date | string
+    image_urls?: stargazing_spotsCreateimage_urlsInput | string[]
+    status?: string | null
+    moderated_at?: Date | string | null
     creator: usersCreateNestedOneWithoutCreated_stargazing_spotsInput
+    users_stargazing_spots_moderated_byTousers?: usersCreateNestedOneWithoutStargazing_spots_stargazing_spots_moderated_byTousersInput
   }
 
   export type stargazing_spotsUncheckedCreateWithoutStargazing_spot_reviewsInput = {
@@ -118053,6 +119445,10 @@ export namespace Prisma {
     is_active?: boolean
     created_at?: Date | string
     updated_at?: Date | string
+    image_urls?: stargazing_spotsCreateimage_urlsInput | string[]
+    status?: string | null
+    moderated_by?: number | null
+    moderated_at?: Date | string | null
   }
 
   export type stargazing_spotsCreateOrConnectWithoutStargazing_spot_reviewsInput = {
@@ -118112,6 +119508,7 @@ export namespace Prisma {
     services?: servicesCreateNestedManyWithoutUsersInput
     session_enrollments?: session_enrollmentsCreateNestedManyWithoutUserInput
     created_sessions?: sessionsCreateNestedManyWithoutCreatorInput
+    moderated_sessions?: sessionsCreateNestedManyWithoutModeratorInput
     discussion_comment_likes?: space_discussion_comment_likesCreateNestedManyWithoutUserInput
     discussion_comments?: space_discussion_commentsCreateNestedManyWithoutUserInput
     discussion_likes?: space_discussion_likesCreateNestedManyWithoutUserInput
@@ -118120,6 +119517,7 @@ export namespace Prisma {
     space_news_comments?: space_news_commentsCreateNestedManyWithoutUserInput
     space_news_likes?: space_news_likesCreateNestedManyWithoutUserInput
     created_stargazing_spots?: stargazing_spotsCreateNestedManyWithoutCreatorInput
+    stargazing_spots_stargazing_spots_moderated_byTousers?: stargazing_spotsCreateNestedManyWithoutUsers_stargazing_spots_moderated_byTousersInput
     subscriptions?: subscriptionsCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsCreateNestedOneWithoutUsersInput
   }
@@ -118177,6 +119575,7 @@ export namespace Prisma {
     services?: servicesUncheckedCreateNestedManyWithoutUsersInput
     session_enrollments?: session_enrollmentsUncheckedCreateNestedManyWithoutUserInput
     created_sessions?: sessionsUncheckedCreateNestedManyWithoutCreatorInput
+    moderated_sessions?: sessionsUncheckedCreateNestedManyWithoutModeratorInput
     discussion_comment_likes?: space_discussion_comment_likesUncheckedCreateNestedManyWithoutUserInput
     discussion_comments?: space_discussion_commentsUncheckedCreateNestedManyWithoutUserInput
     discussion_likes?: space_discussion_likesUncheckedCreateNestedManyWithoutUserInput
@@ -118185,6 +119584,7 @@ export namespace Prisma {
     space_news_comments?: space_news_commentsUncheckedCreateNestedManyWithoutUserInput
     space_news_likes?: space_news_likesUncheckedCreateNestedManyWithoutUserInput
     created_stargazing_spots?: stargazing_spotsUncheckedCreateNestedManyWithoutCreatorInput
+    stargazing_spots_stargazing_spots_moderated_byTousers?: stargazing_spotsUncheckedCreateNestedManyWithoutUsers_stargazing_spots_moderated_byTousersInput
     subscriptions?: subscriptionsUncheckedCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsUncheckedCreateNestedOneWithoutUsersInput
   }
@@ -118216,7 +119616,11 @@ export namespace Prisma {
     is_active?: BoolFieldUpdateOperationsInput | boolean
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    image_urls?: stargazing_spotsUpdateimage_urlsInput | string[]
+    status?: NullableStringFieldUpdateOperationsInput | string | null
+    moderated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     creator?: usersUpdateOneRequiredWithoutCreated_stargazing_spotsNestedInput
+    users_stargazing_spots_moderated_byTousers?: usersUpdateOneWithoutStargazing_spots_stargazing_spots_moderated_byTousersNestedInput
   }
 
   export type stargazing_spotsUncheckedUpdateWithoutStargazing_spot_reviewsInput = {
@@ -118232,6 +119636,10 @@ export namespace Prisma {
     is_active?: BoolFieldUpdateOperationsInput | boolean
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    image_urls?: stargazing_spotsUpdateimage_urlsInput | string[]
+    status?: NullableStringFieldUpdateOperationsInput | string | null
+    moderated_by?: NullableIntFieldUpdateOperationsInput | number | null
+    moderated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type usersUpsertWithoutStargazing_spot_reviewsInput = {
@@ -118297,6 +119705,7 @@ export namespace Prisma {
     services?: servicesUpdateManyWithoutUsersNestedInput
     session_enrollments?: session_enrollmentsUpdateManyWithoutUserNestedInput
     created_sessions?: sessionsUpdateManyWithoutCreatorNestedInput
+    moderated_sessions?: sessionsUpdateManyWithoutModeratorNestedInput
     discussion_comment_likes?: space_discussion_comment_likesUpdateManyWithoutUserNestedInput
     discussion_comments?: space_discussion_commentsUpdateManyWithoutUserNestedInput
     discussion_likes?: space_discussion_likesUpdateManyWithoutUserNestedInput
@@ -118305,6 +119714,7 @@ export namespace Prisma {
     space_news_comments?: space_news_commentsUpdateManyWithoutUserNestedInput
     space_news_likes?: space_news_likesUpdateManyWithoutUserNestedInput
     created_stargazing_spots?: stargazing_spotsUpdateManyWithoutCreatorNestedInput
+    stargazing_spots_stargazing_spots_moderated_byTousers?: stargazing_spotsUpdateManyWithoutUsers_stargazing_spots_moderated_byTousersNestedInput
     subscriptions?: subscriptionsUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUpdateOneWithoutUsersNestedInput
   }
@@ -118362,6 +119772,7 @@ export namespace Prisma {
     services?: servicesUncheckedUpdateManyWithoutUsersNestedInput
     session_enrollments?: session_enrollmentsUncheckedUpdateManyWithoutUserNestedInput
     created_sessions?: sessionsUncheckedUpdateManyWithoutCreatorNestedInput
+    moderated_sessions?: sessionsUncheckedUpdateManyWithoutModeratorNestedInput
     discussion_comment_likes?: space_discussion_comment_likesUncheckedUpdateManyWithoutUserNestedInput
     discussion_comments?: space_discussion_commentsUncheckedUpdateManyWithoutUserNestedInput
     discussion_likes?: space_discussion_likesUncheckedUpdateManyWithoutUserNestedInput
@@ -118370,6 +119781,7 @@ export namespace Prisma {
     space_news_comments?: space_news_commentsUncheckedUpdateManyWithoutUserNestedInput
     space_news_likes?: space_news_likesUncheckedUpdateManyWithoutUserNestedInput
     created_stargazing_spots?: stargazing_spotsUncheckedUpdateManyWithoutCreatorNestedInput
+    stargazing_spots_stargazing_spots_moderated_byTousers?: stargazing_spotsUncheckedUpdateManyWithoutUsers_stargazing_spots_moderated_byTousersNestedInput
     subscriptions?: subscriptionsUncheckedUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUncheckedUpdateOneWithoutUsersNestedInput
   }
@@ -118453,6 +119865,7 @@ export namespace Prisma {
     services?: servicesCreateNestedManyWithoutUsersInput
     session_enrollments?: session_enrollmentsCreateNestedManyWithoutUserInput
     created_sessions?: sessionsCreateNestedManyWithoutCreatorInput
+    moderated_sessions?: sessionsCreateNestedManyWithoutModeratorInput
     discussion_comment_likes?: space_discussion_comment_likesCreateNestedManyWithoutUserInput
     discussion_comments?: space_discussion_commentsCreateNestedManyWithoutUserInput
     discussion_likes?: space_discussion_likesCreateNestedManyWithoutUserInput
@@ -118461,6 +119874,7 @@ export namespace Prisma {
     space_news_comments?: space_news_commentsCreateNestedManyWithoutUserInput
     space_news_likes?: space_news_likesCreateNestedManyWithoutUserInput
     stargazing_spot_reviews?: stargazing_spot_reviewsCreateNestedManyWithoutUserInput
+    stargazing_spots_stargazing_spots_moderated_byTousers?: stargazing_spotsCreateNestedManyWithoutUsers_stargazing_spots_moderated_byTousersInput
     subscriptions?: subscriptionsCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsCreateNestedOneWithoutUsersInput
   }
@@ -118518,6 +119932,7 @@ export namespace Prisma {
     services?: servicesUncheckedCreateNestedManyWithoutUsersInput
     session_enrollments?: session_enrollmentsUncheckedCreateNestedManyWithoutUserInput
     created_sessions?: sessionsUncheckedCreateNestedManyWithoutCreatorInput
+    moderated_sessions?: sessionsUncheckedCreateNestedManyWithoutModeratorInput
     discussion_comment_likes?: space_discussion_comment_likesUncheckedCreateNestedManyWithoutUserInput
     discussion_comments?: space_discussion_commentsUncheckedCreateNestedManyWithoutUserInput
     discussion_likes?: space_discussion_likesUncheckedCreateNestedManyWithoutUserInput
@@ -118526,6 +119941,7 @@ export namespace Prisma {
     space_news_comments?: space_news_commentsUncheckedCreateNestedManyWithoutUserInput
     space_news_likes?: space_news_likesUncheckedCreateNestedManyWithoutUserInput
     stargazing_spot_reviews?: stargazing_spot_reviewsUncheckedCreateNestedManyWithoutUserInput
+    stargazing_spots_stargazing_spots_moderated_byTousers?: stargazing_spotsUncheckedCreateNestedManyWithoutUsers_stargazing_spots_moderated_byTousersInput
     subscriptions?: subscriptionsUncheckedCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsUncheckedCreateNestedOneWithoutUsersInput
   }
@@ -118533,6 +119949,144 @@ export namespace Prisma {
   export type usersCreateOrConnectWithoutCreated_stargazing_spotsInput = {
     where: usersWhereUniqueInput
     create: XOR<usersCreateWithoutCreated_stargazing_spotsInput, usersUncheckedCreateWithoutCreated_stargazing_spotsInput>
+  }
+
+  export type usersCreateWithoutStargazing_spots_stargazing_spots_moderated_byTousersInput = {
+    firebase_uid: string
+    email: string
+    role?: $Enums.user_role | null
+    first_name?: string | null
+    last_name?: string | null
+    is_active?: boolean | null
+    last_login?: Date | string | null
+    created_at?: Date | string | null
+    updated_at?: Date | string | null
+    display_name?: string | null
+    profile_data?: NullableJsonNullValueInput | InputJsonValue
+    role_specific_data?: NullableJsonNullValueInput | InputJsonValue
+    subscription_plan?: $Enums.subscription_plan | null
+    subscription_status?: $Enums.subscription_status | null
+    subscription_start_date?: Date | string | null
+    subscription_end_date?: Date | string | null
+    auto_renew?: boolean | null
+    chatbot_questions_used?: number | null
+    chatbot_questions_reset_date?: Date | string | null
+    QuizParticipants?: QuizParticipantsCreateNestedManyWithoutUsersInput
+    Quizzes?: QuizzesCreateNestedManyWithoutUsersInput
+    created_astronomy_events?: astronomy_eventsCreateNestedManyWithoutCreatorInput
+    blog_comments?: blog_commentsCreateNestedManyWithoutUsersInput
+    blog_likes?: blog_likesCreateNestedManyWithoutUsersInput
+    blog_views?: blog_viewsCreateNestedManyWithoutUsersInput
+    blogs?: blogsCreateNestedManyWithoutUsersInput
+    chat_messages?: chat_messagesCreateNestedManyWithoutUserInput
+    chatbot_sessions?: chatbot_sessionsCreateNestedManyWithoutUsersInput
+    chatbot_usage?: chatbot_usageCreateNestedManyWithoutUsersInput
+    event_reminders?: event_remindersCreateNestedManyWithoutUserInput
+    created_groups?: group_chatsCreateNestedManyWithoutCreatorInput
+    group_memberships?: group_membersCreateNestedManyWithoutUserInput
+    guide_application?: guide_applicationCreateNestedManyWithoutUsersInput
+    influencer_application?: influencer_applicationCreateNestedManyWithoutUsersInput
+    media_uploads?: media_uploadsCreateNestedManyWithoutUsersInput
+    mentor_application?: mentor_applicationCreateNestedManyWithoutUsersInput
+    message_reactions?: message_reactionsCreateNestedManyWithoutUserInput
+    night_camp_registrations?: night_camp_registrationsCreateNestedManyWithoutUsersInput
+    night_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousers?: night_camp_volunteering_applicationsCreateNestedManyWithoutUsers_night_camp_volunteering_applications_reviewed_byTousersInput
+    night_camp_volunteering_applications_night_camp_volunteering_applications_user_idTousers?: night_camp_volunteering_applicationsCreateNestedManyWithoutUsers_night_camp_volunteering_applications_user_idTousersInput
+    payments?: paymentsCreateNestedManyWithoutUsersInput
+    poll_comments?: poll_commentsCreateNestedManyWithoutCommenterInput
+    poll_votes?: poll_votesCreateNestedManyWithoutVoterInput
+    created_polls?: pollsCreateNestedManyWithoutCreatorInput
+    role_upgrade_requests_role_upgrade_requests_reviewer_idTousers?: role_upgrade_requestsCreateNestedManyWithoutUsers_role_upgrade_requests_reviewer_idTousersInput
+    role_upgrade_requests_role_upgrade_requests_user_idTousers?: role_upgrade_requestsCreateNestedManyWithoutUsers_role_upgrade_requests_user_idTousersInput
+    service_bookings?: service_bookingsCreateNestedManyWithoutUsersInput
+    service_reviews?: service_reviewsCreateNestedManyWithoutUsersInput
+    services?: servicesCreateNestedManyWithoutUsersInput
+    session_enrollments?: session_enrollmentsCreateNestedManyWithoutUserInput
+    created_sessions?: sessionsCreateNestedManyWithoutCreatorInput
+    moderated_sessions?: sessionsCreateNestedManyWithoutModeratorInput
+    discussion_comment_likes?: space_discussion_comment_likesCreateNestedManyWithoutUserInput
+    discussion_comments?: space_discussion_commentsCreateNestedManyWithoutUserInput
+    discussion_likes?: space_discussion_likesCreateNestedManyWithoutUserInput
+    authored_discussions?: space_discussionsCreateNestedManyWithoutAuthorInput
+    space_news_published?: space_newsCreateNestedManyWithoutPublisherInput
+    space_news_comments?: space_news_commentsCreateNestedManyWithoutUserInput
+    space_news_likes?: space_news_likesCreateNestedManyWithoutUserInput
+    stargazing_spot_reviews?: stargazing_spot_reviewsCreateNestedManyWithoutUserInput
+    created_stargazing_spots?: stargazing_spotsCreateNestedManyWithoutCreatorInput
+    subscriptions?: subscriptionsCreateNestedManyWithoutUsersInput
+    user_settings?: user_settingsCreateNestedOneWithoutUsersInput
+  }
+
+  export type usersUncheckedCreateWithoutStargazing_spots_stargazing_spots_moderated_byTousersInput = {
+    id?: number
+    firebase_uid: string
+    email: string
+    role?: $Enums.user_role | null
+    first_name?: string | null
+    last_name?: string | null
+    is_active?: boolean | null
+    last_login?: Date | string | null
+    created_at?: Date | string | null
+    updated_at?: Date | string | null
+    display_name?: string | null
+    profile_data?: NullableJsonNullValueInput | InputJsonValue
+    role_specific_data?: NullableJsonNullValueInput | InputJsonValue
+    subscription_plan?: $Enums.subscription_plan | null
+    subscription_status?: $Enums.subscription_status | null
+    subscription_start_date?: Date | string | null
+    subscription_end_date?: Date | string | null
+    auto_renew?: boolean | null
+    chatbot_questions_used?: number | null
+    chatbot_questions_reset_date?: Date | string | null
+    QuizParticipants?: QuizParticipantsUncheckedCreateNestedManyWithoutUsersInput
+    Quizzes?: QuizzesUncheckedCreateNestedManyWithoutUsersInput
+    created_astronomy_events?: astronomy_eventsUncheckedCreateNestedManyWithoutCreatorInput
+    blog_comments?: blog_commentsUncheckedCreateNestedManyWithoutUsersInput
+    blog_likes?: blog_likesUncheckedCreateNestedManyWithoutUsersInput
+    blog_views?: blog_viewsUncheckedCreateNestedManyWithoutUsersInput
+    blogs?: blogsUncheckedCreateNestedManyWithoutUsersInput
+    chat_messages?: chat_messagesUncheckedCreateNestedManyWithoutUserInput
+    chatbot_sessions?: chatbot_sessionsUncheckedCreateNestedManyWithoutUsersInput
+    chatbot_usage?: chatbot_usageUncheckedCreateNestedManyWithoutUsersInput
+    event_reminders?: event_remindersUncheckedCreateNestedManyWithoutUserInput
+    created_groups?: group_chatsUncheckedCreateNestedManyWithoutCreatorInput
+    group_memberships?: group_membersUncheckedCreateNestedManyWithoutUserInput
+    guide_application?: guide_applicationUncheckedCreateNestedManyWithoutUsersInput
+    influencer_application?: influencer_applicationUncheckedCreateNestedManyWithoutUsersInput
+    media_uploads?: media_uploadsUncheckedCreateNestedManyWithoutUsersInput
+    mentor_application?: mentor_applicationUncheckedCreateNestedManyWithoutUsersInput
+    message_reactions?: message_reactionsUncheckedCreateNestedManyWithoutUserInput
+    night_camp_registrations?: night_camp_registrationsUncheckedCreateNestedManyWithoutUsersInput
+    night_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousers?: night_camp_volunteering_applicationsUncheckedCreateNestedManyWithoutUsers_night_camp_volunteering_applications_reviewed_byTousersInput
+    night_camp_volunteering_applications_night_camp_volunteering_applications_user_idTousers?: night_camp_volunteering_applicationsUncheckedCreateNestedManyWithoutUsers_night_camp_volunteering_applications_user_idTousersInput
+    payments?: paymentsUncheckedCreateNestedManyWithoutUsersInput
+    poll_comments?: poll_commentsUncheckedCreateNestedManyWithoutCommenterInput
+    poll_votes?: poll_votesUncheckedCreateNestedManyWithoutVoterInput
+    created_polls?: pollsUncheckedCreateNestedManyWithoutCreatorInput
+    role_upgrade_requests_role_upgrade_requests_reviewer_idTousers?: role_upgrade_requestsUncheckedCreateNestedManyWithoutUsers_role_upgrade_requests_reviewer_idTousersInput
+    role_upgrade_requests_role_upgrade_requests_user_idTousers?: role_upgrade_requestsUncheckedCreateNestedManyWithoutUsers_role_upgrade_requests_user_idTousersInput
+    service_bookings?: service_bookingsUncheckedCreateNestedManyWithoutUsersInput
+    service_reviews?: service_reviewsUncheckedCreateNestedManyWithoutUsersInput
+    services?: servicesUncheckedCreateNestedManyWithoutUsersInput
+    session_enrollments?: session_enrollmentsUncheckedCreateNestedManyWithoutUserInput
+    created_sessions?: sessionsUncheckedCreateNestedManyWithoutCreatorInput
+    moderated_sessions?: sessionsUncheckedCreateNestedManyWithoutModeratorInput
+    discussion_comment_likes?: space_discussion_comment_likesUncheckedCreateNestedManyWithoutUserInput
+    discussion_comments?: space_discussion_commentsUncheckedCreateNestedManyWithoutUserInput
+    discussion_likes?: space_discussion_likesUncheckedCreateNestedManyWithoutUserInput
+    authored_discussions?: space_discussionsUncheckedCreateNestedManyWithoutAuthorInput
+    space_news_published?: space_newsUncheckedCreateNestedManyWithoutPublisherInput
+    space_news_comments?: space_news_commentsUncheckedCreateNestedManyWithoutUserInput
+    space_news_likes?: space_news_likesUncheckedCreateNestedManyWithoutUserInput
+    stargazing_spot_reviews?: stargazing_spot_reviewsUncheckedCreateNestedManyWithoutUserInput
+    created_stargazing_spots?: stargazing_spotsUncheckedCreateNestedManyWithoutCreatorInput
+    subscriptions?: subscriptionsUncheckedCreateNestedManyWithoutUsersInput
+    user_settings?: user_settingsUncheckedCreateNestedOneWithoutUsersInput
+  }
+
+  export type usersCreateOrConnectWithoutStargazing_spots_stargazing_spots_moderated_byTousersInput = {
+    where: usersWhereUniqueInput
+    create: XOR<usersCreateWithoutStargazing_spots_stargazing_spots_moderated_byTousersInput, usersUncheckedCreateWithoutStargazing_spots_stargazing_spots_moderated_byTousersInput>
   }
 
   export type stargazing_spot_reviewsUpsertWithWhereUniqueWithoutStargazing_spotsInput = {
@@ -118614,6 +120168,7 @@ export namespace Prisma {
     services?: servicesUpdateManyWithoutUsersNestedInput
     session_enrollments?: session_enrollmentsUpdateManyWithoutUserNestedInput
     created_sessions?: sessionsUpdateManyWithoutCreatorNestedInput
+    moderated_sessions?: sessionsUpdateManyWithoutModeratorNestedInput
     discussion_comment_likes?: space_discussion_comment_likesUpdateManyWithoutUserNestedInput
     discussion_comments?: space_discussion_commentsUpdateManyWithoutUserNestedInput
     discussion_likes?: space_discussion_likesUpdateManyWithoutUserNestedInput
@@ -118622,6 +120177,7 @@ export namespace Prisma {
     space_news_comments?: space_news_commentsUpdateManyWithoutUserNestedInput
     space_news_likes?: space_news_likesUpdateManyWithoutUserNestedInput
     stargazing_spot_reviews?: stargazing_spot_reviewsUpdateManyWithoutUserNestedInput
+    stargazing_spots_stargazing_spots_moderated_byTousers?: stargazing_spotsUpdateManyWithoutUsers_stargazing_spots_moderated_byTousersNestedInput
     subscriptions?: subscriptionsUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUpdateOneWithoutUsersNestedInput
   }
@@ -118679,6 +120235,7 @@ export namespace Prisma {
     services?: servicesUncheckedUpdateManyWithoutUsersNestedInput
     session_enrollments?: session_enrollmentsUncheckedUpdateManyWithoutUserNestedInput
     created_sessions?: sessionsUncheckedUpdateManyWithoutCreatorNestedInput
+    moderated_sessions?: sessionsUncheckedUpdateManyWithoutModeratorNestedInput
     discussion_comment_likes?: space_discussion_comment_likesUncheckedUpdateManyWithoutUserNestedInput
     discussion_comments?: space_discussion_commentsUncheckedUpdateManyWithoutUserNestedInput
     discussion_likes?: space_discussion_likesUncheckedUpdateManyWithoutUserNestedInput
@@ -118687,6 +120244,151 @@ export namespace Prisma {
     space_news_comments?: space_news_commentsUncheckedUpdateManyWithoutUserNestedInput
     space_news_likes?: space_news_likesUncheckedUpdateManyWithoutUserNestedInput
     stargazing_spot_reviews?: stargazing_spot_reviewsUncheckedUpdateManyWithoutUserNestedInput
+    stargazing_spots_stargazing_spots_moderated_byTousers?: stargazing_spotsUncheckedUpdateManyWithoutUsers_stargazing_spots_moderated_byTousersNestedInput
+    subscriptions?: subscriptionsUncheckedUpdateManyWithoutUsersNestedInput
+    user_settings?: user_settingsUncheckedUpdateOneWithoutUsersNestedInput
+  }
+
+  export type usersUpsertWithoutStargazing_spots_stargazing_spots_moderated_byTousersInput = {
+    update: XOR<usersUpdateWithoutStargazing_spots_stargazing_spots_moderated_byTousersInput, usersUncheckedUpdateWithoutStargazing_spots_stargazing_spots_moderated_byTousersInput>
+    create: XOR<usersCreateWithoutStargazing_spots_stargazing_spots_moderated_byTousersInput, usersUncheckedCreateWithoutStargazing_spots_stargazing_spots_moderated_byTousersInput>
+    where?: usersWhereInput
+  }
+
+  export type usersUpdateToOneWithWhereWithoutStargazing_spots_stargazing_spots_moderated_byTousersInput = {
+    where?: usersWhereInput
+    data: XOR<usersUpdateWithoutStargazing_spots_stargazing_spots_moderated_byTousersInput, usersUncheckedUpdateWithoutStargazing_spots_stargazing_spots_moderated_byTousersInput>
+  }
+
+  export type usersUpdateWithoutStargazing_spots_stargazing_spots_moderated_byTousersInput = {
+    firebase_uid?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    role?: NullableEnumuser_roleFieldUpdateOperationsInput | $Enums.user_role | null
+    first_name?: NullableStringFieldUpdateOperationsInput | string | null
+    last_name?: NullableStringFieldUpdateOperationsInput | string | null
+    is_active?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    last_login?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    display_name?: NullableStringFieldUpdateOperationsInput | string | null
+    profile_data?: NullableJsonNullValueInput | InputJsonValue
+    role_specific_data?: NullableJsonNullValueInput | InputJsonValue
+    subscription_plan?: NullableEnumsubscription_planFieldUpdateOperationsInput | $Enums.subscription_plan | null
+    subscription_status?: NullableEnumsubscription_statusFieldUpdateOperationsInput | $Enums.subscription_status | null
+    subscription_start_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    subscription_end_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    auto_renew?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    chatbot_questions_used?: NullableIntFieldUpdateOperationsInput | number | null
+    chatbot_questions_reset_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    QuizParticipants?: QuizParticipantsUpdateManyWithoutUsersNestedInput
+    Quizzes?: QuizzesUpdateManyWithoutUsersNestedInput
+    created_astronomy_events?: astronomy_eventsUpdateManyWithoutCreatorNestedInput
+    blog_comments?: blog_commentsUpdateManyWithoutUsersNestedInput
+    blog_likes?: blog_likesUpdateManyWithoutUsersNestedInput
+    blog_views?: blog_viewsUpdateManyWithoutUsersNestedInput
+    blogs?: blogsUpdateManyWithoutUsersNestedInput
+    chat_messages?: chat_messagesUpdateManyWithoutUserNestedInput
+    chatbot_sessions?: chatbot_sessionsUpdateManyWithoutUsersNestedInput
+    chatbot_usage?: chatbot_usageUpdateManyWithoutUsersNestedInput
+    event_reminders?: event_remindersUpdateManyWithoutUserNestedInput
+    created_groups?: group_chatsUpdateManyWithoutCreatorNestedInput
+    group_memberships?: group_membersUpdateManyWithoutUserNestedInput
+    guide_application?: guide_applicationUpdateManyWithoutUsersNestedInput
+    influencer_application?: influencer_applicationUpdateManyWithoutUsersNestedInput
+    media_uploads?: media_uploadsUpdateManyWithoutUsersNestedInput
+    mentor_application?: mentor_applicationUpdateManyWithoutUsersNestedInput
+    message_reactions?: message_reactionsUpdateManyWithoutUserNestedInput
+    night_camp_registrations?: night_camp_registrationsUpdateManyWithoutUsersNestedInput
+    night_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousers?: night_camp_volunteering_applicationsUpdateManyWithoutUsers_night_camp_volunteering_applications_reviewed_byTousersNestedInput
+    night_camp_volunteering_applications_night_camp_volunteering_applications_user_idTousers?: night_camp_volunteering_applicationsUpdateManyWithoutUsers_night_camp_volunteering_applications_user_idTousersNestedInput
+    payments?: paymentsUpdateManyWithoutUsersNestedInput
+    poll_comments?: poll_commentsUpdateManyWithoutCommenterNestedInput
+    poll_votes?: poll_votesUpdateManyWithoutVoterNestedInput
+    created_polls?: pollsUpdateManyWithoutCreatorNestedInput
+    role_upgrade_requests_role_upgrade_requests_reviewer_idTousers?: role_upgrade_requestsUpdateManyWithoutUsers_role_upgrade_requests_reviewer_idTousersNestedInput
+    role_upgrade_requests_role_upgrade_requests_user_idTousers?: role_upgrade_requestsUpdateManyWithoutUsers_role_upgrade_requests_user_idTousersNestedInput
+    service_bookings?: service_bookingsUpdateManyWithoutUsersNestedInput
+    service_reviews?: service_reviewsUpdateManyWithoutUsersNestedInput
+    services?: servicesUpdateManyWithoutUsersNestedInput
+    session_enrollments?: session_enrollmentsUpdateManyWithoutUserNestedInput
+    created_sessions?: sessionsUpdateManyWithoutCreatorNestedInput
+    moderated_sessions?: sessionsUpdateManyWithoutModeratorNestedInput
+    discussion_comment_likes?: space_discussion_comment_likesUpdateManyWithoutUserNestedInput
+    discussion_comments?: space_discussion_commentsUpdateManyWithoutUserNestedInput
+    discussion_likes?: space_discussion_likesUpdateManyWithoutUserNestedInput
+    authored_discussions?: space_discussionsUpdateManyWithoutAuthorNestedInput
+    space_news_published?: space_newsUpdateManyWithoutPublisherNestedInput
+    space_news_comments?: space_news_commentsUpdateManyWithoutUserNestedInput
+    space_news_likes?: space_news_likesUpdateManyWithoutUserNestedInput
+    stargazing_spot_reviews?: stargazing_spot_reviewsUpdateManyWithoutUserNestedInput
+    created_stargazing_spots?: stargazing_spotsUpdateManyWithoutCreatorNestedInput
+    subscriptions?: subscriptionsUpdateManyWithoutUsersNestedInput
+    user_settings?: user_settingsUpdateOneWithoutUsersNestedInput
+  }
+
+  export type usersUncheckedUpdateWithoutStargazing_spots_stargazing_spots_moderated_byTousersInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    firebase_uid?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    role?: NullableEnumuser_roleFieldUpdateOperationsInput | $Enums.user_role | null
+    first_name?: NullableStringFieldUpdateOperationsInput | string | null
+    last_name?: NullableStringFieldUpdateOperationsInput | string | null
+    is_active?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    last_login?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    display_name?: NullableStringFieldUpdateOperationsInput | string | null
+    profile_data?: NullableJsonNullValueInput | InputJsonValue
+    role_specific_data?: NullableJsonNullValueInput | InputJsonValue
+    subscription_plan?: NullableEnumsubscription_planFieldUpdateOperationsInput | $Enums.subscription_plan | null
+    subscription_status?: NullableEnumsubscription_statusFieldUpdateOperationsInput | $Enums.subscription_status | null
+    subscription_start_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    subscription_end_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    auto_renew?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    chatbot_questions_used?: NullableIntFieldUpdateOperationsInput | number | null
+    chatbot_questions_reset_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    QuizParticipants?: QuizParticipantsUncheckedUpdateManyWithoutUsersNestedInput
+    Quizzes?: QuizzesUncheckedUpdateManyWithoutUsersNestedInput
+    created_astronomy_events?: astronomy_eventsUncheckedUpdateManyWithoutCreatorNestedInput
+    blog_comments?: blog_commentsUncheckedUpdateManyWithoutUsersNestedInput
+    blog_likes?: blog_likesUncheckedUpdateManyWithoutUsersNestedInput
+    blog_views?: blog_viewsUncheckedUpdateManyWithoutUsersNestedInput
+    blogs?: blogsUncheckedUpdateManyWithoutUsersNestedInput
+    chat_messages?: chat_messagesUncheckedUpdateManyWithoutUserNestedInput
+    chatbot_sessions?: chatbot_sessionsUncheckedUpdateManyWithoutUsersNestedInput
+    chatbot_usage?: chatbot_usageUncheckedUpdateManyWithoutUsersNestedInput
+    event_reminders?: event_remindersUncheckedUpdateManyWithoutUserNestedInput
+    created_groups?: group_chatsUncheckedUpdateManyWithoutCreatorNestedInput
+    group_memberships?: group_membersUncheckedUpdateManyWithoutUserNestedInput
+    guide_application?: guide_applicationUncheckedUpdateManyWithoutUsersNestedInput
+    influencer_application?: influencer_applicationUncheckedUpdateManyWithoutUsersNestedInput
+    media_uploads?: media_uploadsUncheckedUpdateManyWithoutUsersNestedInput
+    mentor_application?: mentor_applicationUncheckedUpdateManyWithoutUsersNestedInput
+    message_reactions?: message_reactionsUncheckedUpdateManyWithoutUserNestedInput
+    night_camp_registrations?: night_camp_registrationsUncheckedUpdateManyWithoutUsersNestedInput
+    night_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousers?: night_camp_volunteering_applicationsUncheckedUpdateManyWithoutUsers_night_camp_volunteering_applications_reviewed_byTousersNestedInput
+    night_camp_volunteering_applications_night_camp_volunteering_applications_user_idTousers?: night_camp_volunteering_applicationsUncheckedUpdateManyWithoutUsers_night_camp_volunteering_applications_user_idTousersNestedInput
+    payments?: paymentsUncheckedUpdateManyWithoutUsersNestedInput
+    poll_comments?: poll_commentsUncheckedUpdateManyWithoutCommenterNestedInput
+    poll_votes?: poll_votesUncheckedUpdateManyWithoutVoterNestedInput
+    created_polls?: pollsUncheckedUpdateManyWithoutCreatorNestedInput
+    role_upgrade_requests_role_upgrade_requests_reviewer_idTousers?: role_upgrade_requestsUncheckedUpdateManyWithoutUsers_role_upgrade_requests_reviewer_idTousersNestedInput
+    role_upgrade_requests_role_upgrade_requests_user_idTousers?: role_upgrade_requestsUncheckedUpdateManyWithoutUsers_role_upgrade_requests_user_idTousersNestedInput
+    service_bookings?: service_bookingsUncheckedUpdateManyWithoutUsersNestedInput
+    service_reviews?: service_reviewsUncheckedUpdateManyWithoutUsersNestedInput
+    services?: servicesUncheckedUpdateManyWithoutUsersNestedInput
+    session_enrollments?: session_enrollmentsUncheckedUpdateManyWithoutUserNestedInput
+    created_sessions?: sessionsUncheckedUpdateManyWithoutCreatorNestedInput
+    moderated_sessions?: sessionsUncheckedUpdateManyWithoutModeratorNestedInput
+    discussion_comment_likes?: space_discussion_comment_likesUncheckedUpdateManyWithoutUserNestedInput
+    discussion_comments?: space_discussion_commentsUncheckedUpdateManyWithoutUserNestedInput
+    discussion_likes?: space_discussion_likesUncheckedUpdateManyWithoutUserNestedInput
+    authored_discussions?: space_discussionsUncheckedUpdateManyWithoutAuthorNestedInput
+    space_news_published?: space_newsUncheckedUpdateManyWithoutPublisherNestedInput
+    space_news_comments?: space_news_commentsUncheckedUpdateManyWithoutUserNestedInput
+    space_news_likes?: space_news_likesUncheckedUpdateManyWithoutUserNestedInput
+    stargazing_spot_reviews?: stargazing_spot_reviewsUncheckedUpdateManyWithoutUserNestedInput
+    created_stargazing_spots?: stargazing_spotsUncheckedUpdateManyWithoutCreatorNestedInput
     subscriptions?: subscriptionsUncheckedUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUncheckedUpdateOneWithoutUsersNestedInput
   }
@@ -118784,6 +120486,7 @@ export namespace Prisma {
     services?: servicesCreateNestedManyWithoutUsersInput
     session_enrollments?: session_enrollmentsCreateNestedManyWithoutUserInput
     created_sessions?: sessionsCreateNestedManyWithoutCreatorInput
+    moderated_sessions?: sessionsCreateNestedManyWithoutModeratorInput
     discussion_comment_likes?: space_discussion_comment_likesCreateNestedManyWithoutUserInput
     discussion_comments?: space_discussion_commentsCreateNestedManyWithoutUserInput
     discussion_likes?: space_discussion_likesCreateNestedManyWithoutUserInput
@@ -118793,6 +120496,7 @@ export namespace Prisma {
     space_news_likes?: space_news_likesCreateNestedManyWithoutUserInput
     stargazing_spot_reviews?: stargazing_spot_reviewsCreateNestedManyWithoutUserInput
     created_stargazing_spots?: stargazing_spotsCreateNestedManyWithoutCreatorInput
+    stargazing_spots_stargazing_spots_moderated_byTousers?: stargazing_spotsCreateNestedManyWithoutUsers_stargazing_spots_moderated_byTousersInput
     user_settings?: user_settingsCreateNestedOneWithoutUsersInput
   }
 
@@ -118849,6 +120553,7 @@ export namespace Prisma {
     services?: servicesUncheckedCreateNestedManyWithoutUsersInput
     session_enrollments?: session_enrollmentsUncheckedCreateNestedManyWithoutUserInput
     created_sessions?: sessionsUncheckedCreateNestedManyWithoutCreatorInput
+    moderated_sessions?: sessionsUncheckedCreateNestedManyWithoutModeratorInput
     discussion_comment_likes?: space_discussion_comment_likesUncheckedCreateNestedManyWithoutUserInput
     discussion_comments?: space_discussion_commentsUncheckedCreateNestedManyWithoutUserInput
     discussion_likes?: space_discussion_likesUncheckedCreateNestedManyWithoutUserInput
@@ -118858,6 +120563,7 @@ export namespace Prisma {
     space_news_likes?: space_news_likesUncheckedCreateNestedManyWithoutUserInput
     stargazing_spot_reviews?: stargazing_spot_reviewsUncheckedCreateNestedManyWithoutUserInput
     created_stargazing_spots?: stargazing_spotsUncheckedCreateNestedManyWithoutCreatorInput
+    stargazing_spots_stargazing_spots_moderated_byTousers?: stargazing_spotsUncheckedCreateNestedManyWithoutUsers_stargazing_spots_moderated_byTousersInput
     user_settings?: user_settingsUncheckedCreateNestedOneWithoutUsersInput
   }
 
@@ -118945,6 +120651,7 @@ export namespace Prisma {
     services?: servicesUpdateManyWithoutUsersNestedInput
     session_enrollments?: session_enrollmentsUpdateManyWithoutUserNestedInput
     created_sessions?: sessionsUpdateManyWithoutCreatorNestedInput
+    moderated_sessions?: sessionsUpdateManyWithoutModeratorNestedInput
     discussion_comment_likes?: space_discussion_comment_likesUpdateManyWithoutUserNestedInput
     discussion_comments?: space_discussion_commentsUpdateManyWithoutUserNestedInput
     discussion_likes?: space_discussion_likesUpdateManyWithoutUserNestedInput
@@ -118954,6 +120661,7 @@ export namespace Prisma {
     space_news_likes?: space_news_likesUpdateManyWithoutUserNestedInput
     stargazing_spot_reviews?: stargazing_spot_reviewsUpdateManyWithoutUserNestedInput
     created_stargazing_spots?: stargazing_spotsUpdateManyWithoutCreatorNestedInput
+    stargazing_spots_stargazing_spots_moderated_byTousers?: stargazing_spotsUpdateManyWithoutUsers_stargazing_spots_moderated_byTousersNestedInput
     user_settings?: user_settingsUpdateOneWithoutUsersNestedInput
   }
 
@@ -119010,6 +120718,7 @@ export namespace Prisma {
     services?: servicesUncheckedUpdateManyWithoutUsersNestedInput
     session_enrollments?: session_enrollmentsUncheckedUpdateManyWithoutUserNestedInput
     created_sessions?: sessionsUncheckedUpdateManyWithoutCreatorNestedInput
+    moderated_sessions?: sessionsUncheckedUpdateManyWithoutModeratorNestedInput
     discussion_comment_likes?: space_discussion_comment_likesUncheckedUpdateManyWithoutUserNestedInput
     discussion_comments?: space_discussion_commentsUncheckedUpdateManyWithoutUserNestedInput
     discussion_likes?: space_discussion_likesUncheckedUpdateManyWithoutUserNestedInput
@@ -119019,6 +120728,7 @@ export namespace Prisma {
     space_news_likes?: space_news_likesUncheckedUpdateManyWithoutUserNestedInput
     stargazing_spot_reviews?: stargazing_spot_reviewsUncheckedUpdateManyWithoutUserNestedInput
     created_stargazing_spots?: stargazing_spotsUncheckedUpdateManyWithoutCreatorNestedInput
+    stargazing_spots_stargazing_spots_moderated_byTousers?: stargazing_spotsUncheckedUpdateManyWithoutUsers_stargazing_spots_moderated_byTousersNestedInput
     user_settings?: user_settingsUncheckedUpdateOneWithoutUsersNestedInput
   }
 
@@ -119074,6 +120784,7 @@ export namespace Prisma {
     services?: servicesCreateNestedManyWithoutUsersInput
     session_enrollments?: session_enrollmentsCreateNestedManyWithoutUserInput
     created_sessions?: sessionsCreateNestedManyWithoutCreatorInput
+    moderated_sessions?: sessionsCreateNestedManyWithoutModeratorInput
     discussion_comment_likes?: space_discussion_comment_likesCreateNestedManyWithoutUserInput
     discussion_comments?: space_discussion_commentsCreateNestedManyWithoutUserInput
     discussion_likes?: space_discussion_likesCreateNestedManyWithoutUserInput
@@ -119083,6 +120794,7 @@ export namespace Prisma {
     space_news_likes?: space_news_likesCreateNestedManyWithoutUserInput
     stargazing_spot_reviews?: stargazing_spot_reviewsCreateNestedManyWithoutUserInput
     created_stargazing_spots?: stargazing_spotsCreateNestedManyWithoutCreatorInput
+    stargazing_spots_stargazing_spots_moderated_byTousers?: stargazing_spotsCreateNestedManyWithoutUsers_stargazing_spots_moderated_byTousersInput
     subscriptions?: subscriptionsCreateNestedManyWithoutUsersInput
   }
 
@@ -119139,6 +120851,7 @@ export namespace Prisma {
     services?: servicesUncheckedCreateNestedManyWithoutUsersInput
     session_enrollments?: session_enrollmentsUncheckedCreateNestedManyWithoutUserInput
     created_sessions?: sessionsUncheckedCreateNestedManyWithoutCreatorInput
+    moderated_sessions?: sessionsUncheckedCreateNestedManyWithoutModeratorInput
     discussion_comment_likes?: space_discussion_comment_likesUncheckedCreateNestedManyWithoutUserInput
     discussion_comments?: space_discussion_commentsUncheckedCreateNestedManyWithoutUserInput
     discussion_likes?: space_discussion_likesUncheckedCreateNestedManyWithoutUserInput
@@ -119148,6 +120861,7 @@ export namespace Prisma {
     space_news_likes?: space_news_likesUncheckedCreateNestedManyWithoutUserInput
     stargazing_spot_reviews?: stargazing_spot_reviewsUncheckedCreateNestedManyWithoutUserInput
     created_stargazing_spots?: stargazing_spotsUncheckedCreateNestedManyWithoutCreatorInput
+    stargazing_spots_stargazing_spots_moderated_byTousers?: stargazing_spotsUncheckedCreateNestedManyWithoutUsers_stargazing_spots_moderated_byTousersInput
     subscriptions?: subscriptionsUncheckedCreateNestedManyWithoutUsersInput
   }
 
@@ -119219,6 +120933,7 @@ export namespace Prisma {
     services?: servicesUpdateManyWithoutUsersNestedInput
     session_enrollments?: session_enrollmentsUpdateManyWithoutUserNestedInput
     created_sessions?: sessionsUpdateManyWithoutCreatorNestedInput
+    moderated_sessions?: sessionsUpdateManyWithoutModeratorNestedInput
     discussion_comment_likes?: space_discussion_comment_likesUpdateManyWithoutUserNestedInput
     discussion_comments?: space_discussion_commentsUpdateManyWithoutUserNestedInput
     discussion_likes?: space_discussion_likesUpdateManyWithoutUserNestedInput
@@ -119228,6 +120943,7 @@ export namespace Prisma {
     space_news_likes?: space_news_likesUpdateManyWithoutUserNestedInput
     stargazing_spot_reviews?: stargazing_spot_reviewsUpdateManyWithoutUserNestedInput
     created_stargazing_spots?: stargazing_spotsUpdateManyWithoutCreatorNestedInput
+    stargazing_spots_stargazing_spots_moderated_byTousers?: stargazing_spotsUpdateManyWithoutUsers_stargazing_spots_moderated_byTousersNestedInput
     subscriptions?: subscriptionsUpdateManyWithoutUsersNestedInput
   }
 
@@ -119284,6 +121000,7 @@ export namespace Prisma {
     services?: servicesUncheckedUpdateManyWithoutUsersNestedInput
     session_enrollments?: session_enrollmentsUncheckedUpdateManyWithoutUserNestedInput
     created_sessions?: sessionsUncheckedUpdateManyWithoutCreatorNestedInput
+    moderated_sessions?: sessionsUncheckedUpdateManyWithoutModeratorNestedInput
     discussion_comment_likes?: space_discussion_comment_likesUncheckedUpdateManyWithoutUserNestedInput
     discussion_comments?: space_discussion_commentsUncheckedUpdateManyWithoutUserNestedInput
     discussion_likes?: space_discussion_likesUncheckedUpdateManyWithoutUserNestedInput
@@ -119293,6 +121010,7 @@ export namespace Prisma {
     space_news_likes?: space_news_likesUncheckedUpdateManyWithoutUserNestedInput
     stargazing_spot_reviews?: stargazing_spot_reviewsUncheckedUpdateManyWithoutUserNestedInput
     created_stargazing_spots?: stargazing_spotsUncheckedUpdateManyWithoutCreatorNestedInput
+    stargazing_spots_stargazing_spots_moderated_byTousers?: stargazing_spotsUncheckedUpdateManyWithoutUsers_stargazing_spots_moderated_byTousersNestedInput
     subscriptions?: subscriptionsUncheckedUpdateManyWithoutUsersNestedInput
   }
 
@@ -120234,6 +121952,38 @@ export namespace Prisma {
     description: string
     materials?: NullableJsonNullValueInput | InputJsonValue
     session_notes?: string | null
+    status?: $Enums.session_status
+    moderated_by?: number | null
+    approved_at?: Date | string | null
+    rejected_at?: Date | string | null
+    rejection_reason?: string | null
+    created_date?: Date | string
+    created_time?: Date | string
+    is_enabled?: boolean
+    created_at?: Date | string
+    updated_at?: Date | string
+  }
+
+  export type sessionsCreateManyModeratorInput = {
+    id?: number
+    title: string
+    session_type: $Enums.session_type
+    payment_type: $Enums.payment_type
+    price?: Decimal | DecimalJsLike | number | string | null
+    duration: number
+    session_date: Date | string
+    session_time: Date | string
+    max_participants?: number | null
+    difficulty_level: $Enums.difficulty_level
+    session_link?: string | null
+    description: string
+    materials?: NullableJsonNullValueInput | InputJsonValue
+    session_notes?: string | null
+    created_by: number
+    status?: $Enums.session_status
+    approved_at?: Date | string | null
+    rejected_at?: Date | string | null
+    rejection_reason?: string | null
     created_date?: Date | string
     created_time?: Date | string
     is_enabled?: boolean
@@ -120327,6 +122077,28 @@ export namespace Prisma {
     is_active?: boolean
     created_at?: Date | string
     updated_at?: Date | string
+    image_urls?: stargazing_spotsCreateimage_urlsInput | string[]
+    status?: string | null
+    moderated_by?: number | null
+    moderated_at?: Date | string | null
+  }
+
+  export type stargazing_spotsCreateManyUsers_stargazing_spots_moderated_byTousersInput = {
+    id?: number
+    name: string
+    location: string
+    image_url?: string | null
+    rating?: number
+    best_time?: string | null
+    description: string
+    facilities?: JsonNullValueInput | InputJsonValue
+    created_by: number
+    is_active?: boolean
+    created_at?: Date | string
+    updated_at?: Date | string
+    image_urls?: stargazing_spotsCreateimage_urlsInput | string[]
+    status?: string | null
+    moderated_at?: Date | string | null
   }
 
   export type subscriptionsCreateManyUsersInput = {
@@ -121704,12 +123476,17 @@ export namespace Prisma {
     description?: StringFieldUpdateOperationsInput | string
     materials?: NullableJsonNullValueInput | InputJsonValue
     session_notes?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: Enumsession_statusFieldUpdateOperationsInput | $Enums.session_status
+    approved_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    rejected_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    rejection_reason?: NullableStringFieldUpdateOperationsInput | string | null
     created_date?: DateTimeFieldUpdateOperationsInput | Date | string
     created_time?: DateTimeFieldUpdateOperationsInput | Date | string
     is_enabled?: BoolFieldUpdateOperationsInput | boolean
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     session_enrollments?: session_enrollmentsUpdateManyWithoutSessionsNestedInput
+    moderator?: usersUpdateOneWithoutModerated_sessionsNestedInput
   }
 
   export type sessionsUncheckedUpdateWithoutCreatorInput = {
@@ -121727,6 +123504,11 @@ export namespace Prisma {
     description?: StringFieldUpdateOperationsInput | string
     materials?: NullableJsonNullValueInput | InputJsonValue
     session_notes?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: Enumsession_statusFieldUpdateOperationsInput | $Enums.session_status
+    moderated_by?: NullableIntFieldUpdateOperationsInput | number | null
+    approved_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    rejected_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    rejection_reason?: NullableStringFieldUpdateOperationsInput | string | null
     created_date?: DateTimeFieldUpdateOperationsInput | Date | string
     created_time?: DateTimeFieldUpdateOperationsInput | Date | string
     is_enabled?: BoolFieldUpdateOperationsInput | boolean
@@ -121750,6 +123532,93 @@ export namespace Prisma {
     description?: StringFieldUpdateOperationsInput | string
     materials?: NullableJsonNullValueInput | InputJsonValue
     session_notes?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: Enumsession_statusFieldUpdateOperationsInput | $Enums.session_status
+    moderated_by?: NullableIntFieldUpdateOperationsInput | number | null
+    approved_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    rejected_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    rejection_reason?: NullableStringFieldUpdateOperationsInput | string | null
+    created_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    created_time?: DateTimeFieldUpdateOperationsInput | Date | string
+    is_enabled?: BoolFieldUpdateOperationsInput | boolean
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type sessionsUpdateWithoutModeratorInput = {
+    title?: StringFieldUpdateOperationsInput | string
+    session_type?: Enumsession_typeFieldUpdateOperationsInput | $Enums.session_type
+    payment_type?: Enumpayment_typeFieldUpdateOperationsInput | $Enums.payment_type
+    price?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    duration?: IntFieldUpdateOperationsInput | number
+    session_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    session_time?: DateTimeFieldUpdateOperationsInput | Date | string
+    max_participants?: NullableIntFieldUpdateOperationsInput | number | null
+    difficulty_level?: Enumdifficulty_levelFieldUpdateOperationsInput | $Enums.difficulty_level
+    session_link?: NullableStringFieldUpdateOperationsInput | string | null
+    description?: StringFieldUpdateOperationsInput | string
+    materials?: NullableJsonNullValueInput | InputJsonValue
+    session_notes?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: Enumsession_statusFieldUpdateOperationsInput | $Enums.session_status
+    approved_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    rejected_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    rejection_reason?: NullableStringFieldUpdateOperationsInput | string | null
+    created_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    created_time?: DateTimeFieldUpdateOperationsInput | Date | string
+    is_enabled?: BoolFieldUpdateOperationsInput | boolean
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    session_enrollments?: session_enrollmentsUpdateManyWithoutSessionsNestedInput
+    creator?: usersUpdateOneRequiredWithoutCreated_sessionsNestedInput
+  }
+
+  export type sessionsUncheckedUpdateWithoutModeratorInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    title?: StringFieldUpdateOperationsInput | string
+    session_type?: Enumsession_typeFieldUpdateOperationsInput | $Enums.session_type
+    payment_type?: Enumpayment_typeFieldUpdateOperationsInput | $Enums.payment_type
+    price?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    duration?: IntFieldUpdateOperationsInput | number
+    session_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    session_time?: DateTimeFieldUpdateOperationsInput | Date | string
+    max_participants?: NullableIntFieldUpdateOperationsInput | number | null
+    difficulty_level?: Enumdifficulty_levelFieldUpdateOperationsInput | $Enums.difficulty_level
+    session_link?: NullableStringFieldUpdateOperationsInput | string | null
+    description?: StringFieldUpdateOperationsInput | string
+    materials?: NullableJsonNullValueInput | InputJsonValue
+    session_notes?: NullableStringFieldUpdateOperationsInput | string | null
+    created_by?: IntFieldUpdateOperationsInput | number
+    status?: Enumsession_statusFieldUpdateOperationsInput | $Enums.session_status
+    approved_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    rejected_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    rejection_reason?: NullableStringFieldUpdateOperationsInput | string | null
+    created_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    created_time?: DateTimeFieldUpdateOperationsInput | Date | string
+    is_enabled?: BoolFieldUpdateOperationsInput | boolean
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    session_enrollments?: session_enrollmentsUncheckedUpdateManyWithoutSessionsNestedInput
+  }
+
+  export type sessionsUncheckedUpdateManyWithoutModeratorInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    title?: StringFieldUpdateOperationsInput | string
+    session_type?: Enumsession_typeFieldUpdateOperationsInput | $Enums.session_type
+    payment_type?: Enumpayment_typeFieldUpdateOperationsInput | $Enums.payment_type
+    price?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    duration?: IntFieldUpdateOperationsInput | number
+    session_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    session_time?: DateTimeFieldUpdateOperationsInput | Date | string
+    max_participants?: NullableIntFieldUpdateOperationsInput | number | null
+    difficulty_level?: Enumdifficulty_levelFieldUpdateOperationsInput | $Enums.difficulty_level
+    session_link?: NullableStringFieldUpdateOperationsInput | string | null
+    description?: StringFieldUpdateOperationsInput | string
+    materials?: NullableJsonNullValueInput | InputJsonValue
+    session_notes?: NullableStringFieldUpdateOperationsInput | string | null
+    created_by?: IntFieldUpdateOperationsInput | number
+    status?: Enumsession_statusFieldUpdateOperationsInput | $Enums.session_status
+    approved_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    rejected_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    rejection_reason?: NullableStringFieldUpdateOperationsInput | string | null
     created_date?: DateTimeFieldUpdateOperationsInput | Date | string
     created_time?: DateTimeFieldUpdateOperationsInput | Date | string
     is_enabled?: BoolFieldUpdateOperationsInput | boolean
@@ -121996,7 +123865,11 @@ export namespace Prisma {
     is_active?: BoolFieldUpdateOperationsInput | boolean
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    image_urls?: stargazing_spotsUpdateimage_urlsInput | string[]
+    status?: NullableStringFieldUpdateOperationsInput | string | null
+    moderated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     stargazing_spot_reviews?: stargazing_spot_reviewsUpdateManyWithoutStargazing_spotsNestedInput
+    users_stargazing_spots_moderated_byTousers?: usersUpdateOneWithoutStargazing_spots_stargazing_spots_moderated_byTousersNestedInput
   }
 
   export type stargazing_spotsUncheckedUpdateWithoutCreatorInput = {
@@ -122011,6 +123884,10 @@ export namespace Prisma {
     is_active?: BoolFieldUpdateOperationsInput | boolean
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    image_urls?: stargazing_spotsUpdateimage_urlsInput | string[]
+    status?: NullableStringFieldUpdateOperationsInput | string | null
+    moderated_by?: NullableIntFieldUpdateOperationsInput | number | null
+    moderated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     stargazing_spot_reviews?: stargazing_spot_reviewsUncheckedUpdateManyWithoutStargazing_spotsNestedInput
   }
 
@@ -122026,6 +123903,65 @@ export namespace Prisma {
     is_active?: BoolFieldUpdateOperationsInput | boolean
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    image_urls?: stargazing_spotsUpdateimage_urlsInput | string[]
+    status?: NullableStringFieldUpdateOperationsInput | string | null
+    moderated_by?: NullableIntFieldUpdateOperationsInput | number | null
+    moderated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
+  export type stargazing_spotsUpdateWithoutUsers_stargazing_spots_moderated_byTousersInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    location?: StringFieldUpdateOperationsInput | string
+    image_url?: NullableStringFieldUpdateOperationsInput | string | null
+    rating?: FloatFieldUpdateOperationsInput | number
+    best_time?: NullableStringFieldUpdateOperationsInput | string | null
+    description?: StringFieldUpdateOperationsInput | string
+    facilities?: JsonNullValueInput | InputJsonValue
+    is_active?: BoolFieldUpdateOperationsInput | boolean
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    image_urls?: stargazing_spotsUpdateimage_urlsInput | string[]
+    status?: NullableStringFieldUpdateOperationsInput | string | null
+    moderated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    stargazing_spot_reviews?: stargazing_spot_reviewsUpdateManyWithoutStargazing_spotsNestedInput
+    creator?: usersUpdateOneRequiredWithoutCreated_stargazing_spotsNestedInput
+  }
+
+  export type stargazing_spotsUncheckedUpdateWithoutUsers_stargazing_spots_moderated_byTousersInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    name?: StringFieldUpdateOperationsInput | string
+    location?: StringFieldUpdateOperationsInput | string
+    image_url?: NullableStringFieldUpdateOperationsInput | string | null
+    rating?: FloatFieldUpdateOperationsInput | number
+    best_time?: NullableStringFieldUpdateOperationsInput | string | null
+    description?: StringFieldUpdateOperationsInput | string
+    facilities?: JsonNullValueInput | InputJsonValue
+    created_by?: IntFieldUpdateOperationsInput | number
+    is_active?: BoolFieldUpdateOperationsInput | boolean
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    image_urls?: stargazing_spotsUpdateimage_urlsInput | string[]
+    status?: NullableStringFieldUpdateOperationsInput | string | null
+    moderated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    stargazing_spot_reviews?: stargazing_spot_reviewsUncheckedUpdateManyWithoutStargazing_spotsNestedInput
+  }
+
+  export type stargazing_spotsUncheckedUpdateManyWithoutUsers_stargazing_spots_moderated_byTousersInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    name?: StringFieldUpdateOperationsInput | string
+    location?: StringFieldUpdateOperationsInput | string
+    image_url?: NullableStringFieldUpdateOperationsInput | string | null
+    rating?: FloatFieldUpdateOperationsInput | number
+    best_time?: NullableStringFieldUpdateOperationsInput | string | null
+    description?: StringFieldUpdateOperationsInput | string
+    facilities?: JsonNullValueInput | InputJsonValue
+    created_by?: IntFieldUpdateOperationsInput | number
+    is_active?: BoolFieldUpdateOperationsInput | boolean
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    image_urls?: stargazing_spotsUpdateimage_urlsInput | string[]
+    status?: NullableStringFieldUpdateOperationsInput | string | null
+    moderated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type subscriptionsUpdateWithoutUsersInput = {

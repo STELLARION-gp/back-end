@@ -245,6 +245,7 @@ model users {
   services                                                                                     services[]
   session_enrollments                                                                          session_enrollments[]                  @relation("UserSessionEnrollments")
   created_sessions                                                                             sessions[]                             @relation("SessionCreator")
+  moderated_sessions                                                                           sessions[]                             @relation("SessionModerator")
   discussion_comment_likes                                                                     space_discussion_comment_likes[]       @relation("DiscussionCommentLikes")
   discussion_comments                                                                          space_discussion_comments[]            @relation("DiscussionComments")
   discussion_likes                                                                             space_discussion_likes[]               @relation("DiscussionLikes")
@@ -254,6 +255,7 @@ model users {
   space_news_likes                                                                             space_news_likes[]                     @relation("SpaceNewsLikes")
   stargazing_spot_reviews                                                                      stargazing_spot_reviews[]              @relation("StargazingSpotReviews")
   created_stargazing_spots                                                                     stargazing_spots[]                     @relation("StargazingSpotCreator")
+  stargazing_spots_stargazing_spots_moderated_byTousers                                        stargazing_spots[]                     @relation("stargazing_spots_moderated_byTousers")
   subscriptions                                                                                subscriptions[]
   user_settings                                                                                user_settings?
 
@@ -911,6 +913,11 @@ model sessions {
   materials           Json?                 @default("[]")
   session_notes       String?
   created_by          Int
+  status              session_status        @default(pending)
+  moderated_by        Int?
+  approved_at         DateTime?             @db.Timestamp(6)
+  rejected_at         DateTime?             @db.Timestamp(6)
+  rejection_reason    String?
   created_date        DateTime              @default(now()) @db.Date
   created_time        DateTime              @default(now()) @db.Time(6)
   is_enabled          Boolean               @default(true)
@@ -918,6 +925,7 @@ model sessions {
   updated_at          DateTime              @default(now()) @db.Timestamp(6)
   session_enrollments session_enrollments[]
   creator             users                 @relation("SessionCreator", fields: [created_by], references: [id], onDelete: Cascade)
+  moderator           users?                @relation("SessionModerator", fields: [moderated_by], references: [id], onDelete: SetNull)
 
   @@index([created_by], map: "idx_sessions_created_by")
   @@index([session_date], map: "idx_sessions_date")
@@ -925,6 +933,8 @@ model sessions {
   @@index([is_enabled], map: "idx_sessions_enabled")
   @@index([payment_type], map: "idx_sessions_payment_type")
   @@index([session_type], map: "idx_sessions_type")
+  @@index([status], map: "idx_sessions_status")
+  @@index([moderated_by], map: "idx_sessions_moderated_by")
 }
 
 model space_discussion_comment_likes {
@@ -1070,25 +1080,32 @@ model stargazing_spot_reviews {
 }
 
 model stargazing_spots {
-  id                      Int                       @id @default(autoincrement())
-  name                    String                    @db.VarChar(255)
-  location                String                    @db.VarChar(255)
-  image_url               String?                   @db.VarChar(500)
-  rating                  Float                     @default(0)
-  best_time               String?                   @db.VarChar(100)
-  description             String
-  facilities              Json                      @default("[]")
-  created_by              Int
-  is_active               Boolean                   @default(true)
-  created_at              DateTime                  @default(now()) @db.Timestamp(6)
-  updated_at              DateTime                  @default(now()) @db.Timestamp(6)
-  stargazing_spot_reviews stargazing_spot_reviews[]
-  creator                 users                     @relation("StargazingSpotCreator", fields: [created_by], references: [id], onDelete: Cascade)
+  id                                         Int                       @id @default(autoincrement())
+  name                                       String                    @db.VarChar(255)
+  location                                   String                    @db.VarChar(255)
+  image_url                                  String?                   @db.VarChar(500)
+  rating                                     Float                     @default(0)
+  best_time                                  String?                   @db.VarChar(100)
+  description                                String
+  facilities                                 Json                      @default("[]")
+  created_by                                 Int
+  is_active                                  Boolean                   @default(true)
+  created_at                                 DateTime                  @default(now()) @db.Timestamp(6)
+  updated_at                                 DateTime                  @default(now()) @db.Timestamp(6)
+  image_urls                                 String[]                  @default([])
+  status                                     String?                   @default("pending") @db.VarChar(50)
+  moderated_by                               Int?
+  moderated_at                               DateTime?                 @db.Timestamp(6)
+  stargazing_spot_reviews                    stargazing_spot_reviews[]
+  creator                                    users                     @relation("StargazingSpotCreator", fields: [created_by], references: [id], onDelete: Cascade)
+  users_stargazing_spots_moderated_byTousers users?                    @relation("stargazing_spots_moderated_byTousers", fields: [moderated_by], references: [id], onDelete: NoAction, onUpdate: NoAction)
 
   @@index([is_active], map: "idx_stargazing_spots_active")
   @@index([created_by], map: "idx_stargazing_spots_created_by")
   @@index([location], map: "idx_stargazing_spots_location")
   @@index([rating], map: "idx_stargazing_spots_rating")
+  @@index([moderated_by], map: "idx_stargazing_spots_moderated_by")
+  @@index([status], map: "idx_stargazing_spots_status")
 }
 
 model subscription_plans {
@@ -1298,6 +1315,12 @@ enum session_format {
 enum session_type {
   live
   recorded
+}
+
+enum session_status {
+  pending
+  approved
+  rejected
 }
 
 enum subscription_plan {
