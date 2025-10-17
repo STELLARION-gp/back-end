@@ -20,12 +20,12 @@ exports.Prisma = Prisma
 exports.$Enums = {}
 
 /**
- * Prisma Client JS version: 6.17.1
- * Query Engine version: 272a37d34178c2894197e17273bf937f25acdeac
+ * Prisma Client JS version: 6.13.0
+ * Query Engine version: 361e86d0ea4987e9f53a565309b3eed797a6bcbd
  */
 Prisma.prismaVersion = {
-  client: "6.17.1",
-  engine: "272a37d34178c2894197e17273bf937f25acdeac"
+  client: "6.13.0",
+  engine: "361e86d0ea4987e9f53a565309b3eed797a6bcbd"
 }
 
 Prisma.PrismaClientKnownRequestError = () => {
@@ -255,6 +255,15 @@ exports.Prisma.Chatbot_feedbackScalarFieldEnum = {
   rating: 'rating',
   feedback_text: 'feedback_text',
   created_at: 'created_at'
+};
+
+exports.Prisma.Blog_ratingsScalarFieldEnum = {
+  id: 'id',
+  blog_id: 'blog_id',
+  user_id: 'user_id',
+  rating: 'rating',
+  created_at: 'created_at',
+  updated_at: 'updated_at'
 };
 
 exports.Prisma.Chatbot_messagesScalarFieldEnum = {
@@ -741,6 +750,61 @@ exports.Prisma.Space_discussion_commentsScalarFieldEnum = {
   updated_at: 'updated_at'
 };
 
+<<<<<<< HEAD
+exports.Prisma.Service_availabilityScalarFieldEnum = {
+  id: 'id',
+  service_id: 'service_id',
+  available_date: 'available_date',
+  start_time: 'start_time',
+  end_time: 'end_time',
+  slots_available: 'slots_available',
+  slots_booked: 'slots_booked',
+  status: 'status',
+  notes: 'notes',
+  created_at: 'created_at',
+  updated_at: 'updated_at'
+};
+
+exports.Prisma.Service_bookingsScalarFieldEnum = {
+  id: 'id',
+  service_id: 'service_id',
+  user_id: 'user_id',
+  booking_date: 'booking_date',
+  booking_time: 'booking_time',
+  participants_count: 'participants_count',
+  total_amount: 'total_amount',
+  payment_status: 'payment_status',
+  payment_method: 'payment_method',
+  transaction_id: 'transaction_id',
+  booking_status: 'booking_status',
+  special_requests: 'special_requests',
+  cancellation_reason: 'cancellation_reason',
+  cancelled_at: 'cancelled_at',
+  confirmed_at: 'confirmed_at',
+  completed_at: 'completed_at',
+  created_at: 'created_at',
+  updated_at: 'updated_at'
+};
+
+exports.Prisma.Service_mediaScalarFieldEnum = {
+  id: 'id',
+  service_id: 'service_id',
+  media_url: 'media_url',
+  media_type: 'media_type',
+  display_order: 'display_order',
+  caption: 'caption',
+  created_at: 'created_at'
+};
+
+exports.Prisma.Service_reviewsScalarFieldEnum = {
+  id: 'id',
+  service_id: 'service_id',
+  user_id: 'user_id',
+  rating: 'rating',
+  review: 'review',
+  images: 'images',
+  is_verified: 'is_verified',
+=======
 exports.Prisma.Space_discussion_likesScalarFieldEnum = {
   id: 'id',
   discussion_id: 'discussion_id',
@@ -759,10 +823,45 @@ exports.Prisma.Space_discussionsScalarFieldEnum = {
   views_count: 'views_count',
   replies_count: 'replies_count',
   last_activity: 'last_activity',
+>>>>>>> a7d87c269fe401a3156343b89898134744e92212
   created_at: 'created_at',
   updated_at: 'updated_at'
 };
 
+<<<<<<< HEAD
+exports.Prisma.ServicesScalarFieldEnum = {
+  id: 'id',
+  title: 'title',
+  description: 'description',
+  category: 'category',
+  price: 'price',
+  duration: 'duration',
+  max_participants: 'max_participants',
+  location: 'location',
+  difficulty: 'difficulty',
+  equipment: 'equipment',
+  next_available: 'next_available',
+  image_url: 'image_url',
+  featured: 'featured',
+  tags: 'tags',
+  requirements: 'requirements',
+  cancellation_policy: 'cancellation_policy',
+  meeting_point: 'meeting_point',
+  what_to_expect: 'what_to_expect',
+  weather_policy: 'weather_policy',
+  booking_deadline: 'booking_deadline',
+  languages: 'languages',
+  certification: 'certification',
+  experience: 'experience',
+  group_discount: 'group_discount',
+  private_booking: 'private_booking',
+  instant_booking: 'instant_booking',
+  status: 'status',
+  views_count: 'views_count',
+  bookings_count: 'bookings_count',
+  rating: 'rating',
+  review_count: 'review_count',
+=======
 exports.Prisma.Space_newsScalarFieldEnum = {
   id: 'id',
   image_urls: 'image_urls',
@@ -814,12 +913,15 @@ exports.Prisma.Stargazing_spotsScalarFieldEnum = {
   best_time: 'best_time',
   description: 'description',
   facilities: 'facilities',
+>>>>>>> a7d87c269fe401a3156343b89898134744e92212
   created_by: 'created_by',
   is_active: 'is_active',
   created_at: 'created_at',
   updated_at: 'updated_at'
 };
 
+<<<<<<< HEAD
+=======
 exports.Prisma.Subscription_plansScalarFieldEnum = {
   id: 'id',
   plan_type: 'plan_type',
@@ -897,6 +999,7 @@ exports.Prisma.UsersScalarFieldEnum = {
   chatbot_questions_reset_date: 'chatbot_questions_reset_date'
 };
 
+>>>>>>> a7d87c269fe401a3156343b89898134744e92212
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -1066,7 +1169,94 @@ exports.user_role = exports.$Enums.user_role = {
   influencer: 'influencer'
 };
 
+exports.availability_status = exports.$Enums.availability_status = {
+  available: 'available',
+  fully_booked: 'fully_booked',
+  unavailable: 'unavailable',
+  cancelled: 'cancelled'
+};
+
+exports.booking_payment_status = exports.$Enums.booking_payment_status = {
+  pending: 'pending',
+  completed: 'completed',
+  failed: 'failed',
+  refunded: 'refunded'
+};
+
+exports.booking_status = exports.$Enums.booking_status = {
+  pending: 'pending',
+  confirmed: 'confirmed',
+  cancelled: 'cancelled',
+  completed: 'completed',
+  no_show: 'no_show'
+};
+
+exports.service_category = exports.$Enums.service_category = {
+  stargazing: 'stargazing',
+  astrophotography: 'astrophotography',
+  telescope: 'telescope',
+  planetarium: 'planetarium',
+  workshop: 'workshop',
+  expedition: 'expedition'
+};
+
+exports.service_difficulty = exports.$Enums.service_difficulty = {
+  Beginner: 'Beginner',
+  Intermediate: 'Intermediate',
+  Advanced: 'Advanced'
+};
+
+exports.weather_policy_type = exports.$Enums.weather_policy_type = {
+  reschedule: 'reschedule',
+  partial_refund: 'partial_refund',
+  full_refund: 'full_refund',
+  no_refund: 'no_refund'
+};
+
+exports.service_status = exports.$Enums.service_status = {
+  draft: 'draft',
+  active: 'active',
+  paused: 'paused',
+  archived: 'archived'
+};
+
 exports.Prisma.ModelName = {
+<<<<<<< HEAD
+  subscriptions: 'subscriptions',
+  group_chats: 'group_chats',
+  group_members: 'group_members',
+  chat_messages: 'chat_messages',
+  message_reactions: 'message_reactions',
+  blog_views: 'blog_views',
+  night_camps: 'night_camps',
+  night_camps_activities: 'night_camps_activities',
+  chatbot_sessions: 'chatbot_sessions',
+  payments: 'payments',
+  blogs: 'blogs',
+  blog_category_relations: 'blog_category_relations',
+  subscription_plans: 'subscription_plans',
+  blog_categories: 'blog_categories',
+  chatbot_usage: 'chatbot_usage',
+  blog_comments: 'blog_comments',
+  users: 'users',
+  blog_likes: 'blog_likes',
+  blog_ratings: 'blog_ratings',
+  chatbot_messages: 'chatbot_messages',
+  night_camps_equipment: 'night_camps_equipment',
+  user_settings: 'user_settings',
+  chatbot_feedback: 'chatbot_feedback',
+  night_camp_volunteering: 'night_camp_volunteering',
+  role_upgrade_requests: 'role_upgrade_requests',
+  guide_application: 'guide_application',
+  mentor_application: 'mentor_application',
+  night_camp_volunteering_applications: 'night_camp_volunteering_applications',
+  night_camp_registrations: 'night_camp_registrations',
+  influencer_application: 'influencer_application',
+  media_uploads: 'media_uploads',
+  tour_media: 'tour_media',
+  events: 'events',
+=======
+>>>>>>> a7d87c269fe401a3156343b89898134744e92212
   QuizParticipants: 'QuizParticipants',
   QuizQuestion: 'QuizQuestion',
   Quizzes: 'Quizzes',
@@ -1118,12 +1308,26 @@ exports.Prisma.ModelName = {
   space_news_comments: 'space_news_comments',
   space_news_likes: 'space_news_likes',
   stargazing_spot_reviews: 'stargazing_spot_reviews',
+<<<<<<< HEAD
+  sessions: 'sessions',
+  session_enrollments: 'session_enrollments',
+  polls: 'polls',
+  poll_choices: 'poll_choices',
+  poll_votes: 'poll_votes',
+  poll_comments: 'poll_comments',
+  service_availability: 'service_availability',
+  service_bookings: 'service_bookings',
+  service_media: 'service_media',
+  service_reviews: 'service_reviews',
+  services: 'services'
+=======
   stargazing_spots: 'stargazing_spots',
   subscription_plans: 'subscription_plans',
   subscriptions: 'subscriptions',
   tour_media: 'tour_media',
   user_settings: 'user_settings',
   users: 'users'
+>>>>>>> a7d87c269fe401a3156343b89898134744e92212
 };
 
 /**

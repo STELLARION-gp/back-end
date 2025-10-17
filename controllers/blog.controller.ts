@@ -927,6 +927,76 @@ export const toggleBlogLike = async (req: Request, res: Response): Promise<void>
     }
 };
 
+// Rate a blog (1-5). Creates or updates a user's rating and recomputes average.
+export const rateBlog = async (req: Request, res: Response): Promise<void> => {
+    try {
+        const { id } = req.params;
+        const blogId = parseInt(id);
+        const { rating } = req.body;
+        console.log('[rateBlog] Incoming rating request for blogId:', blogId, 'body:', req.body);
+
+        if (!rating || typeof rating !== 'number' || rating < 1 || rating > 5) {
+            res.status(400).json({ success: false, message: 'Rating must be a number between 1 and 5' });
+            return;
+        }
+
+        const firebaseUser = (req as any).user;
+        console.log('[rateBlog] Firebase user on request:', !!firebaseUser, firebaseUser ? { uid: firebaseUser.uid } : null);
+        if (!firebaseUser) {
+            res.status(401).json({ success: false, message: 'Authentication required' });
+            return;
+        }
+
+        const userId = await getUserIdFromFirebaseUid(firebaseUser.uid);
+        console.log('[rateBlog] Resolved DB userId from firebase uid:', userId);
+
+        // Ensure blog exists
+        const blog = await prisma.blogs.findUnique({ where: { id: blogId } });
+        if (!blog) {
+            res.status(404).json({ success: false, message: 'Blog not found' });
+            return;
+        }
+
+        // Upsert rating (create or update existing)
+        const existing = await prisma.blog_ratings.findUnique({
+            where: { blog_id_user_id: { blog_id: blogId, user_id: userId } }
+        });
+
+        if (existing) {
+            await prisma.blog_ratings.update({
+                where: { id: existing.id },
+                data: { rating }
+            });
+        } else {
+            await prisma.blog_ratings.create({
+                data: { blog_id: blogId, user_id: userId, rating }
+            });
+        }
+
+        // Recompute average rating for the blog
+        const agg = await prisma.blog_ratings.aggregate({
+            where: { blog_id: blogId },
+            _avg: { rating: true },
+            _count: { rating: true }
+        });
+
+        const avgRating = agg._avg?.rating ? Number(Number(agg._avg.rating).toFixed(2)) : 0;
+        const ratingCount = agg._count?.rating || 0;
+
+        // Optionally store average rating in blogs metadata or a dedicated field. Use metadata.rating
+        const metadata = (blog.metadata as any) || {};
+        metadata.rating = avgRating;
+        metadata.rating_count = ratingCount;
+
+        await prisma.blogs.update({ where: { id: blogId }, data: { metadata: metadata as any } });
+
+        res.json({ success: true, message: 'Rating submitted', data: { average: avgRating, count: ratingCount } });
+    } catch (error: any) {
+        console.error('Rate blog error:', error);
+        res.status(500).json({ success: false, message: 'Failed to submit rating', error: error.message });
+    }
+};
+
 // Get blog comments
 export const getBlogComments = async (req: Request, res: Response): Promise<void> => {
     try {

@@ -9,6 +9,7 @@ import {
     deleteBlog,
     moderateBlog,
     toggleBlogLike,
+    rateBlog,
     getBlogComments,
     addBlogComment,
     updateBlogComment,
@@ -43,6 +44,7 @@ router.put('/:id', verifyToken, upload.single('image'), updateBlog);
 router.delete('/:id', verifyToken, deleteBlog);
 router.put('/:id/moderate', verifyToken, moderateBlog); // Dedicated moderation endpoint
 router.post('/:id/like', verifyToken, toggleBlogLike);
+router.post('/:id/rate', verifyToken, rateBlog);
 router.post('/:id/comments', verifyToken, addBlogComment);
 router.put('/:id/comments/:commentId', verifyToken, updateBlogComment);
 router.delete('/:id/comments/:commentId', verifyToken, deleteBlogComment);
