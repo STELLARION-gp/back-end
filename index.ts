@@ -18,6 +18,7 @@ import sessionsRoutes from './routes/sessions.routes';
 import servicesRoutes from './routes/services.routes';
 import bookingRoutes from './routes/booking.routes';
 import pollRoutes from './routes/poll.routes';
+import recommendedContentRoutes from './routes/recommendedContent.routes';
 import notificationRoutes from './routes/notification.routes';
 
 // index.ts
@@ -29,6 +30,7 @@ import userRoutes from "./routes/user.routes";
 import authRoutes from "./routes/auth.routes";
 import chatbotRoutes from "./routes/chatbot.routes";
 import profileRoutes from "./routes/profile.routes";
+import diagnosticRoutes from "./routes/diagnostic.routes";
 import { errorHandler, notFound } from "./middleware/errorHandler";
 import { gracefulShutdown } from "./lib/prisma";
 import { SocketServer } from "./socket/socketServer";
@@ -117,14 +119,10 @@ app.use("/api/stargazing-spots", stargazingSpotRoutes);
 // Sessions API
 app.use('/api/sessions', sessionsRoutes);
 
-// Services API
-app.use('/api/services', servicesRoutes);
-
-// Bookings API
-app.use('/api/bookings', bookingRoutes);
-
 // Poll API
 app.use('/api/polls', pollRoutes);
+// Mentor Recommended Contents
+app.use('/api/mentors/recommended-contents', recommendedContentRoutes);
 
 // Universal Upload API
 app.use("/api/upload", uploadRoutes);
@@ -133,7 +131,7 @@ app.use("/api/tours", tourMediaRoutes);
 app.use("/api/events", eventRoutes);
 
 // Notifications API
-app.use("/api/notifications", notificationRoutes);
+//app.use("/api/notifications", notificationRoutes);
 
 // Error handling middleware
 app.use(notFound);
@@ -145,29 +143,74 @@ server.listen(PORT, async () => {
   console.log(`📊 Health check available at http://localhost:${PORT}/health`);
   console.log(`🔌 Socket.IO server initialized`);
 
-  // Check Firebase authentication before starting schedulers
+  // Validate required environment variables
+  if (!process.env.FIREBASE_API_KEY) {
+    console.warn(`\n⚠️  WARNING: FIREBASE_API_KEY is not set!`);
+    console.warn(
+      `⚠️  Authentication features (sign-in, password reset, email verification) will not work properly.`
+    );
+    console.warn(`📖 Please add FIREBASE_API_KEY to your .env file\n`);
+  }
+
+  // Test Firebase Admin SDK connectivity first
+  console.log("\n🔍 Testing Firebase Admin SDK...");
   try {
     const admin = (await import("./firebaseAdmin")).default;
-    await admin.firestore().collection("notifications").limit(1).get();
-    console.log(`✅ Firebase connected successfully`);
 
-    // Start hourly chatbot notification scheduler
-    ChatbotNotificationService.startHourlyScheduler();
-    console.log(`⏰ Hourly chatbot reminder scheduler started`);
+    // Test basic auth connectivity
+    try {
+      await admin.auth().listUsers(1);
+      console.log(`✅ Firebase Admin SDK initialized successfully`);
+    } catch (authError: any) {
+      if (
+        authError.message?.includes("Invalid JWT Signature") ||
+        authError.message?.includes("invalid_grant")
+      ) {
+        console.error(`\n❌ CRITICAL: Invalid Service Account Key!`);
+        console.error(`⚠️  Your serviceAccountKey.json is INVALID or REVOKED`);
+        console.error(
+          `📖 See URGENT_FIX_REQUIRED.md for immediate action needed\n`
+        );
+        console.error(
+          `💡 Fix: Generate a new service account key from Firebase Console`
+        );
+        console.error(
+          `    Settings → Service Accounts → Generate New Private Key\n`
+        );
+        // Don't exit, let server run for other endpoints
+      } else {
+        throw authError;
+      }
+    }
 
-    // Start midnight reset scheduler for chatbot limits
-    ChatbotNotificationService.startMidnightResetScheduler();
-    console.log(`🌙 Midnight chatbot reset scheduler started`);
-  } catch (firebaseError: any) {
-    console.error(`\n❌ Firebase Authentication Error`);
-    console.error(`⚠️  Notification system is disabled`);
-    console.error(`📖 See FIREBASE_SETUP.md for setup instructions\n`);
-    if (firebaseError.message?.includes("UNAUTHENTICATED")) {
+    // Check Firebase Firestore connection before starting schedulers
+    try {
+      await admin.firestore().collection("notifications").limit(1).get();
+      console.log(`✅ Firebase Firestore connected successfully`);
+
+      // Start hourly chatbot notification scheduler
+      ChatbotNotificationService.startHourlyScheduler();
+      console.log(`⏰ Hourly chatbot reminder scheduler started`);
+
+      // Start midnight reset scheduler for chatbot limits
+      ChatbotNotificationService.startMidnightResetScheduler();
+      console.log(`🌙 Midnight chatbot reset scheduler started`);
+    } catch (firestoreError: any) {
+      console.error(`\n⚠️  Firebase Firestore Error (Notifications disabled)`);
       console.error(
-        `💡 Quick fix: Update your serviceAccountKey.json from Firebase Console`
+        `📖 To enable: Go to Firebase Console → Firestore Database → Create Database`
+      );
+      console.error(
+        `💡 Note: Authentication still works! Only notifications are affected.\n`
       );
     }
-    // Server continues to run, but notifications won't work
+  } catch (firebaseError: any) {
+    console.error(`\n❌ Firebase Initialization Error`);
+    console.error(`⚠️  Some features may not work properly`);
+    console.error(`� See FIREBASE_SETUP.md for setup instructions\n`);
+    if (firebaseError.message?.includes("Cannot find module")) {
+      console.error(`💡 Missing serviceAccountKey.json file`);
+    }
   }
 });
 

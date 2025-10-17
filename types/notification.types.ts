@@ -39,6 +39,7 @@ export interface Notification {
   color?: string; // Custom color override (hex or named color)
   link?: string; // URL to navigate when clicked
   read: boolean;
+  isSystemGenerated?: boolean; // Flag for auto-generated system notifications
   metadata?: NotificationMetadata;
   createdAt: Date;
   updatedAt?: Date;
@@ -53,6 +54,7 @@ export interface CreateNotificationDTO {
   priority: NotificationPriority;
   color?: string;
   link?: string;
+  isSystemGenerated?: boolean; // Flag for auto-generated system notifications
   metadata?: NotificationMetadata;
   expiresAt?: Date;
 }

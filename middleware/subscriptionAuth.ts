@@ -128,6 +128,11 @@ export const checkChatbotAccess = async (
     }
 
     const user_id = req.user.user_id;
+    const firebase_uid = req.user.uid;
+
+    console.log(
+      `[CHATBOT_ACCESS] Checking access for user ${firebase_uid} (ID: ${user_id})`
+    );
 
     // Get user's subscription and chatbot usage
     const user = await prisma.users.findUnique({
@@ -136,16 +141,22 @@ export const checkChatbotAccess = async (
         subscription_plan: true,
         chatbot_questions_used: true,
         chatbot_questions_reset_date: true,
+        firebase_uid: true,
       },
     });
 
     if (!user) {
+      console.error(`[CHATBOT_ACCESS] User ${user_id} not found in database`);
       res.status(404).json({
         success: false,
         message: "User not found",
       });
       return;
     }
+
+    console.log(
+      `[CHATBOT_ACCESS] User ${firebase_uid}: Plan=${user.subscription_plan}, Used=${user.chatbot_questions_used}, ResetDate=${user.chatbot_questions_reset_date}`
+    );
 
     // Get subscription plan details
     const subscriptionPlan = await prisma.subscription_plans.findUnique({
@@ -154,11 +165,19 @@ export const checkChatbotAccess = async (
     });
 
     const today = new Date().toISOString().split("T")[0];
+    const resetDate = user.chatbot_questions_reset_date
+      ?.toISOString()
+      .split("T")[0];
+
+    console.log(
+      `[CHATBOT_ACCESS] Today: ${today}, User reset date: ${resetDate}`
+    );
 
     // Reset questions if new day
-    if (
-      user.chatbot_questions_reset_date?.toISOString().split("T")[0] !== today
-    ) {
+    if (resetDate !== today) {
+      console.log(
+        `[CHATBOT_ACCESS] Resetting counter for user ${firebase_uid} (new day)`
+      );
       await prisma.users.update({
         where: { id: user_id },
         data: {
@@ -186,8 +205,17 @@ export const checkChatbotAccess = async (
     const questionsLimit = subscriptionPlan?.chatbot_questions_limit ?? 3;
     const questionsUsed = user.chatbot_questions_used || 0;
 
+    console.log(
+      `[CHATBOT_ACCESS] User ${firebase_uid}: ${questionsUsed}/${
+        questionsLimit === -1 ? "unlimited" : questionsLimit
+      } questions used`
+    );
+
     // Check if user has reached their limit
     if (questionsLimit !== -1 && questionsUsed >= questionsLimit) {
+      console.warn(
+        `[CHATBOT_ACCESS] User ${firebase_uid} has reached limit: ${questionsUsed}/${questionsLimit}`
+      );
       res.status(403).json({
         success: false,
         message: "Daily chatbot question limit reached",
@@ -198,6 +226,8 @@ export const checkChatbotAccess = async (
       });
       return;
     }
+
+    console.log(`[CHATBOT_ACCESS] Access granted for user ${firebase_uid}`);
 
     // Add usage info to request for use in the controller
     (req as any).chatbotUsage = {

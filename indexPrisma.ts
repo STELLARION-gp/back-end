@@ -22,45 +22,46 @@ import { PrismaClient } from "./prisma/generated/client";
 dotenv.config();
 const app = express();
 
+// Get CORS origins from environment variable
+const corsOrigins = process.env.CORS_ORIGINS
+  ? process.env.CORS_ORIGINS.split(",").map((origin) => origin.trim())
+  : ["http://localhost:5173"]; // Fallback default
+
 // Middleware
-app.use(cors({
-    origin: [
-        'http://localhost:3000',
-        'http://localhost:5173',
-        'http://localhost:5174',
-        'http://127.0.0.1:5173',
-        'http://127.0.0.1:5174'
-    ],
-    credentials: true
-}));
+app.use(
+  cors({
+    origin: corsOrigins,
+    credentials: true,
+  })
+);
 app.use(express.json());
 
 // Serve static files for testing
-app.use('/public', express.static('public'));
+app.use("/public", express.static("public"));
 
 // Health check endpoint
-app.get('/health', (req, res) => {
-    res.json({
-        status: 'healthy',
-        timestamp: new Date().toISOString(),
-        version: '1.0.0',
-        database: 'prisma'
-    });
+app.get("/health", (req, res) => {
+  res.json({
+    status: "healthy",
+    timestamp: new Date().toISOString(),
+    version: "1.0.0",
+    database: "prisma",
+  });
 });
 
 // API Routes
-app.use('/api/auth', authRoutes);
-app.use('/api/users', userRoutes);
-app.use('/api/chatbot', chatbotRoutes);
-app.use('/api/users', profileRoutes); // Profile routes are under /api/users
-app.use('/api/subscriptions', subscriptionRoutes);
-app.use('/api/payments', paymentRoutes);
-app.use('/api/blogs', blogRoutes);
-app.use('/api/night-camps', nightcampRoutes);
-app.use('/api/nasa-opportunities', nasaOpportunitiesRoutes);
-app.use('/api/applications/mentor', mentorApplicationRoutes);
-app.use('/api/applications/influencer', influencerApplicationRoutes);
-app.use('/api/applications/guide', guideApplicationRoutes);
+app.use("/api/auth", authRoutes);
+app.use("/api/users", userRoutes);
+app.use("/api/chatbot", chatbotRoutes);
+app.use("/api/users", profileRoutes); // Profile routes are under /api/users
+app.use("/api/subscriptions", subscriptionRoutes);
+app.use("/api/payments", paymentRoutes);
+app.use("/api/blogs", blogRoutes);
+app.use("/api/night-camps", nightcampRoutes);
+app.use("/api/nasa-opportunities", nasaOpportunitiesRoutes);
+app.use("/api/applications/mentor", mentorApplicationRoutes);
+app.use("/api/applications/influencer", influencerApplicationRoutes);
+app.use("/api/applications/guide", guideApplicationRoutes);
 
 // Error handling middleware
 app.use(notFound);
@@ -69,7 +70,7 @@ app.use(errorHandler);
 const PORT = process.env.PORT || 3000;
 
 app.listen(PORT, () => {
-    console.log(`🚀 Server running on port ${PORT} (PRISMA MODE)`);
-    console.log(`✨ Health check: http://localhost:${PORT}/health`);
-    console.log(`📝 API documentation: http://localhost:${PORT}/api-docs`);
+  console.log(`🚀 Server running on port ${PORT} (PRISMA MODE)`);
+  console.log(`✨ Health check: http://localhost:${PORT}/health`);
+  console.log(`📝 API documentation: http://localhost:${PORT}/api-docs`);
 });
