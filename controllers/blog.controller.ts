@@ -933,6 +933,7 @@ export const rateBlog = async (req: Request, res: Response): Promise<void> => {
         const { id } = req.params;
         const blogId = parseInt(id);
         const { rating } = req.body;
+        console.log('[rateBlog] Incoming rating request for blogId:', blogId, 'body:', req.body);
 
         if (!rating || typeof rating !== 'number' || rating < 1 || rating > 5) {
             res.status(400).json({ success: false, message: 'Rating must be a number between 1 and 5' });
@@ -940,12 +941,14 @@ export const rateBlog = async (req: Request, res: Response): Promise<void> => {
         }
 
         const firebaseUser = (req as any).user;
+        console.log('[rateBlog] Firebase user on request:', !!firebaseUser, firebaseUser ? { uid: firebaseUser.uid } : null);
         if (!firebaseUser) {
             res.status(401).json({ success: false, message: 'Authentication required' });
             return;
         }
 
         const userId = await getUserIdFromFirebaseUid(firebaseUser.uid);
+        console.log('[rateBlog] Resolved DB userId from firebase uid:', userId);
 
         // Ensure blog exists
         const blog = await prisma.blogs.findUnique({ where: { id: blogId } });
