@@ -539,7 +539,7 @@ export const getEnrolledSessions = async (req: Request, res: Response): Promise<
     };
 
     if (payment_status) {
-      where.payment_status = payment_status;
+      where.enrollment_payment_status = payment_status;
     }
 
     // Build session filter if session_type is provided
@@ -564,13 +564,13 @@ export const getEnrolledSessions = async (req: Request, res: Response): Promise<
     const enrollments = await prisma.session_enrollments.findMany({
       where: {
         ...where,
-        session: sessionWhere.session_type ? sessionWhere : undefined
+        sessions: sessionWhere.session_type ? sessionWhere : undefined
       },
       skip,
       take: limitNumber,
       orderBy,
       include: {
-        session: {
+        sessions: {
           include: {
             creator: {
               select: {
@@ -588,8 +588,8 @@ export const getEnrolledSessions = async (req: Request, res: Response): Promise<
 
     // Extract sessions from enrollments
     const sessions = enrollments.map(enrollment => ({
-      ...enrollment.session,
-      session_time: formatTimeField(enrollment.session.session_time),
+      ...enrollment.sessions,
+      session_time: formatTimeField(enrollment.sessions.session_time),
       enrollment_info: {
         enrollment_id: enrollment.id,
         enrollment_date: enrollment.enrollment_date,
@@ -644,7 +644,7 @@ export const getMySessionDetailsByEnrollment = async (req: Request, res: Respons
     const enrollment = await prisma.session_enrollments.findUnique({
       where: { id: parseInt(enrollmentId) },
       include: {
-        session: {
+        sessions: {
           include: {
             creator: {
               select: {
@@ -706,32 +706,32 @@ export const getMySessionDetailsByEnrollment = async (req: Request, res: Respons
     const sessionDetails = {
       // Session Information
       session: {
-        id: enrollment.session.id,
-        title: enrollment.session.title,
-        description: enrollment.session.description,
-        session_type: enrollment.session.session_type,
-        payment_type: enrollment.session.payment_type,
-        price: enrollment.session.price,
-        duration: enrollment.session.duration,
-        session_date: enrollment.session.session_date,
-        session_time: formatTimeField(enrollment.session.session_time),
-        max_participants: enrollment.session.max_participants,
-        difficulty_level: enrollment.session.difficulty_level,
-        session_link: enrollment.session.session_link,
-        materials: enrollment.session.materials,
-        session_notes: enrollment.session.session_notes,
-        is_enabled: enrollment.session.is_enabled,
-        created_at: enrollment.session.created_at,
-        updated_at: enrollment.session.updated_at,
+        id: enrollment.sessions.id,
+        title: enrollment.sessions.title,
+        description: enrollment.sessions.description,
+        session_type: enrollment.sessions.session_type,
+        payment_type: enrollment.sessions.payment_type,
+        price: enrollment.sessions.price,
+        duration: enrollment.sessions.duration,
+        session_date: enrollment.sessions.session_date,
+        session_time: formatTimeField(enrollment.sessions.session_time),
+        max_participants: enrollment.sessions.max_participants,
+        difficulty_level: enrollment.sessions.difficulty_level,
+        session_link: enrollment.sessions.session_link,
+        materials: enrollment.sessions.materials,
+        session_notes: enrollment.sessions.session_notes,
+        is_enabled: enrollment.sessions.is_enabled,
+        created_at: enrollment.sessions.created_at,
+        updated_at: enrollment.sessions.updated_at,
       },
       
       // Creator/Instructor Information
       instructor: {
-        id: enrollment.session.creator.id,
-        name: enrollment.session.creator.display_name || 
-              `${enrollment.session.creator.first_name || ''} ${enrollment.session.creator.last_name || ''}`.trim(),
-        email: enrollment.session.creator.email,
-        profile: enrollment.session.creator.profile_data,
+        id: enrollment.sessions.creator.id,
+        name: enrollment.sessions.creator.display_name || 
+              `${enrollment.sessions.creator.first_name || ''} ${enrollment.sessions.creator.last_name || ''}`.trim(),
+        email: enrollment.sessions.creator.email,
+        profile: enrollment.sessions.creator.profile_data,
       },
 
       // Enrollment Information
@@ -1116,7 +1116,7 @@ export const getMySessionsAnalytics = async (req: Request, res: Response): Promi
     // Get enrollment details for all user's sessions
     const enrollments = await prisma.session_enrollments.findMany({
       where: {
-        session: {
+        sessions: {
           created_by: userId
         },
         access_granted: true,
@@ -1125,7 +1125,7 @@ export const getMySessionsAnalytics = async (req: Request, res: Response): Promi
         }
       },
       include: {
-        session: {
+        sessions: {
           select: {
             id: true,
             session_type: true,
@@ -1148,8 +1148,8 @@ export const getMySessionsAnalytics = async (req: Request, res: Response): Promi
     const totalStudents = enrollments.length;
 
     // Students per session type
-    const liveStudents = enrollments.filter(e => e.session.session_type === 'live').length;
-    const recordedStudents = enrollments.filter(e => e.session.session_type === 'recorded').length;
+    const liveStudents = enrollments.filter(e => e.sessions.session_type === 'live').length;
+    const recordedStudents = enrollments.filter(e => e.sessions.session_type === 'recorded').length;
 
     // Average duration
     const avgLiveDuration = liveSessions.length > 0
@@ -1162,11 +1162,11 @@ export const getMySessionsAnalytics = async (req: Request, res: Response): Promi
 
     // Revenue per session type
     const liveRevenue = enrollments
-      .filter(e => e.session.session_type === 'live')
+      .filter(e => e.sessions.session_type === 'live')
       .reduce((sum, e) => sum + (e.payment_amount ? parseFloat(e.payment_amount.toString()) : 0), 0);
 
     const recordedRevenue = enrollments
-      .filter(e => e.session.session_type === 'recorded')
+      .filter(e => e.sessions.session_type === 'recorded')
       .reduce((sum, e) => sum + (e.payment_amount ? parseFloat(e.payment_amount.toString()) : 0), 0);
 
     // Completion rate (for enrolled sessions)
@@ -1176,14 +1176,14 @@ export const getMySessionsAnalytics = async (req: Request, res: Response): Promi
     // Distribution by difficulty
     const difficultyDistribution = {
       live: {
-        beginner: enrollments.filter(e => e.session.session_type === 'live' && e.session.difficulty_level === 'beginner').length,
-        intermediate: enrollments.filter(e => e.session.session_type === 'live' && e.session.difficulty_level === 'intermediate').length,
-        advanced: enrollments.filter(e => e.session.session_type === 'live' && e.session.difficulty_level === 'advanced').length,
+        beginner: enrollments.filter(e => e.sessions.session_type === 'live' && e.sessions.difficulty_level === 'beginner').length,
+        intermediate: enrollments.filter(e => e.sessions.session_type === 'live' && e.sessions.difficulty_level === 'intermediate').length,
+        advanced: enrollments.filter(e => e.sessions.session_type === 'live' && e.sessions.difficulty_level === 'advanced').length,
       },
       recorded: {
-        beginner: enrollments.filter(e => e.session.session_type === 'recorded' && e.session.difficulty_level === 'beginner').length,
-        intermediate: enrollments.filter(e => e.session.session_type === 'recorded' && e.session.difficulty_level === 'intermediate').length,
-        advanced: enrollments.filter(e => e.session.session_type === 'recorded' && e.session.difficulty_level === 'advanced').length,
+        beginner: enrollments.filter(e => e.sessions.session_type === 'recorded' && e.sessions.difficulty_level === 'beginner').length,
+        intermediate: enrollments.filter(e => e.sessions.session_type === 'recorded' && e.sessions.difficulty_level === 'intermediate').length,
+        advanced: enrollments.filter(e => e.sessions.session_type === 'recorded' && e.sessions.difficulty_level === 'advanced').length,
       }
     };
 

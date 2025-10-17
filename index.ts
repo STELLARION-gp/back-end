@@ -19,6 +19,7 @@ import pollRoutes from './routes/poll.routes';
 import recommendedContentRoutes from './routes/recommendedContent.routes';
 import quizRoutes from './routes/quiz.routes';
 import servicesRoutes from './routes/services.routes';
+import bookingRoutes from './routes/booking.routes';
 
 // index.ts
 import express from "express";
@@ -126,6 +127,9 @@ app.use('/api/quizzes', quizRoutes);
 
 // Services API
 app.use('/api/services', servicesRoutes);
+
+// Bookings API
+app.use('/api/bookings', bookingRoutes);
 
 // Mentor Recommended Contents
 app.use('/api/mentors/recommended-contents', recommendedContentRoutes);

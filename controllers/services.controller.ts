@@ -1,6 +1,7 @@
 import { Request, Response } from 'express';
 import { prisma } from '../lib/prisma';
 import { ok, fail } from '../utils/responses';
+import { PrismaClient } from '../prisma/generated/client';
 
 // ============================================================================
 // SERVICE CRUD OPERATIONS
@@ -1454,7 +1455,7 @@ export const getServiceStats = async (req: Request, res: Response) => {
       prisma.service_bookings.aggregate({
         where: { 
           service_id: Number(id),
-          payment_status: 'paid',
+          payment_status: 'completed',
         },
         _sum: { total_amount: true },
       }),
@@ -1528,7 +1529,7 @@ export const getGuideServiceStats = async (req: Request, res: Response) => {
       prisma.service_bookings.aggregate({
         where: {
           services: { created_by: userId },
-          payment_status: 'paid',
+          payment_status: 'completed',
         },
         _sum: { total_amount: true },
       }),
