@@ -23,6 +23,27 @@ const storage = multer.diskStorage({
 const upload = multer({ storage, limits: { fileSize: 25 * 1024 * 1024 } }); // 25MB limit
 
 const router = Router();
+/**
+ * @openapi
+ * /api/upload:
+ *   post:
+ *     tags: [Upload]
+ *     summary: Upload a file
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         multipart/form-data:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               file:
+ *                 type: string
+ *                 format: binary
+ *             required: [file]
+ *     responses:
+ *       201:
+ *         description: Uploaded
+ */
 router.post('/', upload.single('file'), handleUpload);
 
 export default router;

@@ -33,6 +33,10 @@ import { gracefulShutdown } from "./lib/prisma";
 import { SocketServer } from "./socket/socketServer";
 import spaceNewsRoutes from "./routes/spaceNews.routes";
 import { ChatbotNotificationService } from "./services/chatbotNotification.service";
+import swaggerUi from 'swagger-ui-express';
+import { swaggerSpec } from './docs/swagger';
+
+// Using swaggerSpec from ./docs/swagger
 
 // prisma client
 import { PrismaClient } from "@prisma/client";
@@ -66,6 +70,22 @@ app.use(express.json());
 app.use("/public", express.static("public"));
 
 // Health check endpoint
+/**
+ * @openapi
+ * /health:
+ *   get:
+ *     tags:
+ *       - System
+ *     summary: Health check
+ *     description: Returns service health information.
+ *     responses:
+ *       200:
+ *         description: OK
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Health'
+ */
 app.get("/health", (req, res) => {
   res.json({
     status: "healthy",
@@ -132,6 +152,15 @@ app.use("/api/events", eventRoutes);
 
 // Diagnostic API (for debugging - add auth later)
 app.use("/api/diagnostic", diagnosticRoutes);
+
+// Swagger documentation
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec, {
+  explorer: true,
+}));
+// Expose the raw OpenAPI JSON for tooling/debugging
+app.get('/api-docs.json', (_req, res) => {
+  res.json(swaggerSpec);
+});
 
 // Error handling middleware
 app.use(notFound);

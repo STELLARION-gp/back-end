@@ -4,6 +4,17 @@ import { prisma } from "../lib/prisma";
 const router = Router();
 
 // GET all users' chatbot usage (ADMIN ONLY - Add auth later)
+/**
+ * @openapi
+ * /api/diagnostic/chatbot-usage:
+ *   get:
+ *     tags: [Diagnostic]
+ *     summary: Inspect top chatbot usage
+ *     security: []
+ *     responses:
+ *       200:
+ *         description: Usage summary
+ */
 router.get("/chatbot-usage", async (req: Request, res: Response) => {
   try {
     const users = await prisma.users.findMany({
@@ -67,6 +78,22 @@ router.get("/chatbot-usage", async (req: Request, res: Response) => {
 });
 
 // POST reset specific user's chatbot usage
+/**
+ * @openapi
+ * /api/diagnostic/reset-user/{identifier}:
+ *   post:
+ *     tags: [Diagnostic]
+ *     summary: Reset chatbot usage for a user
+ *     security: []
+ *     parameters:
+ *       - in: path
+ *         name: identifier
+ *         required: true
+ *         schema: { type: string }
+ *     responses:
+ *       200:
+ *         description: Reset
+ */
 router.post("/reset-user/:identifier", async (req: Request, res: Response) => {
   try {
     const { identifier } = req.params;
@@ -114,6 +141,17 @@ router.post("/reset-user/:identifier", async (req: Request, res: Response) => {
 });
 
 // POST reset all users' chatbot usage
+/**
+ * @openapi
+ * /api/diagnostic/reset-all:
+ *   post:
+ *     tags: [Diagnostic]
+ *     summary: Reset chatbot usage for all users
+ *     security: []
+ *     responses:
+ *       200:
+ *         description: Reset count
+ */
 router.post("/reset-all", async (req: Request, res: Response) => {
   try {
     const today = new Date();
@@ -140,6 +178,17 @@ router.post("/reset-all", async (req: Request, res: Response) => {
 });
 
 // GET subscription plans info
+/**
+ * @openapi
+ * /api/diagnostic/subscription-plans:
+ *   get:
+ *     tags: [Diagnostic]
+ *     summary: List subscription plans (diagnostic)
+ *     security: []
+ *     responses:
+ *       200:
+ *         description: Plans
+ */
 router.get("/subscription-plans", async (req: Request, res: Response) => {
   try {
     const plans = await prisma.subscription_plans.findMany({
