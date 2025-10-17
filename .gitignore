@@ -78,4 +78,9 @@ jspm_packages/
 package-lock.json
 yarn.lock
 /generated/prisma
+
+# Prisma generated client (should not be committed)
+prisma/generated/
+**/prisma/generated/
+
 .env.example
