@@ -10,10 +10,10 @@ export const getMentorProfile = async (req: Request, res: Response): Promise<voi
         // Get user ID from req.user (set by verifyToken middleware)
         const userId = (req as any).user?.userId || (req as any).user?.user_id;
 
-        console.log('🔐 Auth Debug:');
-        console.log('  - req.user:', (req as any).user);
-        console.log('  - userId extracted:', userId);
-        console.log('  - userId type:', typeof userId);
+        // console.log('🔐 Auth Debug:');
+        // console.log('  - req.user:', (req as any).user);
+        // console.log('  - userId extracted:', userId);
+        // console.log('  - userId type:', typeof userId);
 
         if (!userId) {
             res.status(401).json({ 
@@ -53,15 +53,15 @@ export const getMentorProfile = async (req: Request, res: Response): Promise<voi
         const roleSpecificData = user.role_specific_data as any || {};
         const profileData = user.profile_data as any || {};
 
-        console.log('📊 Raw database data:');
-        console.log('  - user object:', user);
-        console.log('  - role_specific_data type:', typeof user.role_specific_data);
-        console.log('  - role_specific_data:', JSON.stringify(roleSpecificData, null, 2));
-        console.log('  - profile_data:', JSON.stringify(profileData, null, 2));
-        console.log('  - specialties in roleSpecificData:', roleSpecificData.specialties);
-        console.log('  - qualifications in roleSpecificData:', roleSpecificData.qualifications);
-        console.log('  - specialties in profileData:', profileData.specialties);
-        console.log('  - qualifications in profileData:', profileData.qualifications);
+        // console.log('📊 Raw database data:');
+        // console.log('  - user object:', user);
+        // console.log('  - role_specific_data type:', typeof user.role_specific_data);
+        // console.log('  - role_specific_data:', JSON.stringify(roleSpecificData, null, 2));
+        // console.log('  - profile_data:', JSON.stringify(profileData, null, 2));
+        // console.log('  - specialties in roleSpecificData:', roleSpecificData.specialties);
+        // console.log('  - qualifications in roleSpecificData:', roleSpecificData.qualifications);
+        // console.log('  - specialties in profileData:', profileData.specialties);
+        // console.log('  - qualifications in profileData:', profileData.qualifications);
 
         // Merge data from both profile_data and role_specific_data
         // Priority: role_specific_data (newer) > profile_data (legacy)
@@ -83,8 +83,8 @@ export const getMentorProfile = async (req: Request, res: Response): Promise<voi
                 : (Array.isArray(profileData.services) ? profileData.services : []),
         };
 
-        console.log('🔀 Merged data:', JSON.stringify(mergedData, null, 2));
-        console.log('🔀 Merged data:', JSON.stringify(mergedData, null, 2));
+        // console.log('🔀 Merged data:', JSON.stringify(mergedData, null, 2));
+        // console.log('🔀 Merged data:', JSON.stringify(mergedData, null, 2));
         
         const mentorProfile = {
             id: user.id,
@@ -100,7 +100,7 @@ export const getMentorProfile = async (req: Request, res: Response): Promise<voi
             services: mergedData.services,
         };
 
-        console.log('✅ Sending mentor profile:', JSON.stringify(mentorProfile, null, 2));
+        // console.log('✅ Sending mentor profile:', JSON.stringify(mentorProfile, null, 2));
 
         res.json({ 
             success: true, 
