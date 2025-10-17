@@ -18,6 +18,7 @@ import sessionsRoutes from './routes/sessions.routes';
 import pollRoutes from './routes/poll.routes';
 import recommendedContentRoutes from './routes/recommendedContent.routes';
 import quizRoutes from './routes/quiz.routes';
+import servicesRoutes from './routes/services.routes';
 
 // index.ts
 import express from "express";
@@ -122,6 +123,9 @@ app.use('/api/polls', pollRoutes);
 
 // Quiz API
 app.use('/api/quizzes', quizRoutes);
+
+// Services API
+app.use('/api/services', servicesRoutes);
 
 // Mentor Recommended Contents
 app.use('/api/mentors/recommended-contents', recommendedContentRoutes);
