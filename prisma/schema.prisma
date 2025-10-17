@@ -158,7 +158,6 @@ model blogs {
   comment_count           Int?                      @default(0)
   tags                    Json?                     @default("[]")
   metadata                Json?                     @default("{}")
-  blog_ratings            blog_ratings[]
   blog_category_relations blog_category_relations[]
   blog_comments           blog_comments[]
   blog_likes              blog_likes[]
@@ -219,7 +218,6 @@ model users {
   created_astronomy_events                                                                     astronomy_events[]                     @relation("AstronomyEventCreator")
   blog_comments                                                                                blog_comments[]
   blog_likes                                                                                   blog_likes[]
-  blog_ratings                                                                                 blog_ratings[]
   blog_views                                                                                   blog_views[]
   blogs                                                                                        blogs[]
   chat_messages                                                                                chat_messages[]                        @relation("ChatMessageUser")
@@ -258,23 +256,13 @@ model users {
   created_stargazing_spots                                                                     stargazing_spots[]                     @relation("StargazingSpotCreator")
   subscriptions                                                                                subscriptions[]
   user_settings                                                                                user_settings?
-  chatbot_feedback                                                                             chatbot_feedback[]
 
-}
-
-model blog_ratings {
-  id         Int       @id @default(autoincrement())
-  blog_id    Int?
-  user_id    Int?
-  rating     Int
-  created_at DateTime? @default(now()) @db.Timestamp(6)
-  updated_at DateTime? @updatedAt @db.Timestamp(6)
-  blogs      blogs?    @relation(fields: [blog_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
-  users      users?    @relation(fields: [user_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
-
-  @@unique([blog_id, user_id])
-  @@index([blog_id], map: "idx_blog_ratings_blog_id")
-  @@index([user_id], map: "idx_blog_ratings_user_id")
+  @@index([is_active], map: "idx_users_active")
+  @@index([email], map: "idx_users_email")
+  @@index([firebase_uid], map: "idx_users_firebase_uid")
+  @@index([role], map: "idx_users_role")
+  @@index([subscription_plan], map: "idx_users_subscription_plan")
+  @@index([subscription_status], map: "idx_users_subscription_status")
 }
 
 model chatbot_messages {
@@ -1167,22 +1155,18 @@ model user_settings {
   @@index([user_id], map: "idx_user_settings_user_id")
 }
 
-
 model chatbot_feedback {
-  id         Int               @id @default(autoincrement())
-  message_id String            @db.Uuid
-  session_id String            @db.Uuid
-  user_id    Int
-  rating     Int               @db.SmallInt
-  feedback   String?
-  created_at DateTime          @default(now()) @db.Timestamp(6)
-  message    chatbot_messages  @relation(fields: [message_id], references: [id], onDelete: Cascade)
-  session    chatbot_sessions  @relation(fields: [session_id], references: [id], onDelete: Cascade)
-  user       users             @relation(fields: [user_id], references: [id], onDelete: Cascade)
+  id            String            @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  message_id    String?           @db.Uuid
+  session_id    String?           @db.Uuid
+  firebase_uid  String            @db.VarChar(255)
+  rating        Int?
+  feedback_text String?
+  created_at    DateTime?         @default(now()) @db.Timestamp(6)
+  message       chatbot_messages? @relation(fields: [message_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  session       chatbot_sessions? @relation(fields: [session_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
 
   @@index([message_id], map: "idx_chatbot_feedback_message_id")
-  @@index([session_id], map: "idx_chatbot_feedback_session_id")
-  @@index([user_id], map: "idx_chatbot_feedback_user_id")
 }
 
 enum weather_policy_type {
