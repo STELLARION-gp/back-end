@@ -1,4 +1,5 @@
 import mentorApplicationRoutes from "./routes/mentorApplication.routes";
+import mentorProfileRoutes from "./routes/mentorProfile.routes";
 import influencerApplicationRoutes from "./routes/influencerApplication.routes";
 import guideApplicationRoutes from "./routes/guideApplication.routes";
 import subscriptionRoutes from "./routes/subscription.routes";
@@ -82,6 +83,7 @@ app.use("/api/user", profileRoutes);
 
 // Application APIs
 app.use("/api/mentor-applications", mentorApplicationRoutes);
+app.use("/api/mentor", mentorProfileRoutes);
 app.use("/api/influencer-applications", influencerApplicationRoutes);
 app.use("/api/guide-applications", guideApplicationRoutes);
 
