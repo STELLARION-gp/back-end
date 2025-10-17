@@ -103,6 +103,14 @@ export const adminResources: ResourceWithOptions[] = [
         name: "📝 Content Management",
         icon: "Heart",
       },
+      actions: {
+        new: { isVisible: false, isAccessible: false },
+        edit: { isVisible: false, isAccessible: false },
+        delete: { isVisible: false, isAccessible: false },
+        bulkDelete: { isVisible: false, isAccessible: false },
+        list: { isVisible: true, isAccessible: true },
+        show: { isVisible: true, isAccessible: true },
+      },
     },
   },
   {
@@ -116,6 +124,14 @@ export const adminResources: ResourceWithOptions[] = [
         name: "📝 Content Management",
         icon: "Star",
       },
+      actions: {
+        new: { isVisible: false, isAccessible: false },
+        edit: { isVisible: false, isAccessible: false },
+        delete: { isVisible: false, isAccessible: false },
+        bulkDelete: { isVisible: false, isAccessible: false },
+        list: { isVisible: true, isAccessible: true },
+        show: { isVisible: true, isAccessible: true },
+      },
     },
   },
   {
@@ -128,6 +144,14 @@ export const adminResources: ResourceWithOptions[] = [
       navigation: {
         name: "📝 Content Management",
         icon: "Eye",
+      },
+      actions: {
+        new: { isVisible: false, isAccessible: false },
+        edit: { isVisible: false, isAccessible: false },
+        delete: { isVisible: false, isAccessible: false },
+        bulkDelete: { isVisible: false, isAccessible: false },
+        list: { isVisible: true, isAccessible: true },
+        show: { isVisible: true, isAccessible: true },
       },
     },
   },
@@ -191,6 +215,14 @@ export const adminResources: ResourceWithOptions[] = [
         name: "🎓 Education & Quizzes",
         icon: "Users",
       },
+      actions: {
+        new: { isVisible: false, isAccessible: false },
+        edit: { isVisible: false, isAccessible: false },
+        delete: { isVisible: false, isAccessible: false },
+        bulkDelete: { isVisible: false, isAccessible: false },
+        list: { isVisible: true, isAccessible: true },
+        show: { isVisible: true, isAccessible: true },
+      },
     },
   },
   {
@@ -216,6 +248,14 @@ export const adminResources: ResourceWithOptions[] = [
       navigation: {
         name: "🎓 Education & Quizzes",
         icon: "BookOpen",
+      },
+      actions: {
+        new: { isVisible: false, isAccessible: false },
+        edit: { isVisible: false, isAccessible: false },
+        delete: { isVisible: false, isAccessible: false },
+        bulkDelete: { isVisible: false, isAccessible: false },
+        list: { isVisible: true, isAccessible: true },
+        show: { isVisible: true, isAccessible: true },
       },
     },
   },
@@ -266,6 +306,14 @@ export const adminResources: ResourceWithOptions[] = [
         name: "🌌 Space & Events",
         icon: "ThumbsUp",
       },
+      actions: {
+        new: { isVisible: false, isAccessible: false },
+        edit: { isVisible: false, isAccessible: false },
+        delete: { isVisible: false, isAccessible: false },
+        bulkDelete: { isVisible: false, isAccessible: false },
+        list: { isVisible: true, isAccessible: true },
+        show: { isVisible: true, isAccessible: true },
+      },
     },
   },
   {
@@ -292,10 +340,19 @@ export const adminResources: ResourceWithOptions[] = [
         name: "🌌 Space & Events",
         icon: "Bell",
       },
+      actions: {
+        new: { isVisible: false, isAccessible: false },
+        edit: { isVisible: false, isAccessible: false },
+        delete: { isVisible: false, isAccessible: false },
+        bulkDelete: { isVisible: false, isAccessible: false },
+        list: { isVisible: true, isAccessible: true },
+        show: { isVisible: true, isAccessible: true },
+      },
     },
   },
 
   // ==================== 🤖 AI & CHATBOT ====================
+  // Read-only - system-generated analytics data
   {
     resource: {
       model: getModelByName("chatbot_usage", PrismaModule),
@@ -306,6 +363,14 @@ export const adminResources: ResourceWithOptions[] = [
       navigation: {
         name: "🤖 AI & Chatbot",
         icon: "Activity",
+      },
+      actions: {
+        new: { isVisible: false, isAccessible: false },
+        edit: { isVisible: false, isAccessible: false },
+        delete: { isVisible: false, isAccessible: false },
+        bulkDelete: { isVisible: false, isAccessible: false },
+        list: { isVisible: true, isAccessible: true },
+        show: { isVisible: true, isAccessible: true },
       },
     },
   },
@@ -320,10 +385,19 @@ export const adminResources: ResourceWithOptions[] = [
         name: "🤖 AI & Chatbot",
         icon: "ThumbsUp",
       },
+      actions: {
+        new: { isVisible: false, isAccessible: false },
+        edit: { isVisible: false, isAccessible: false },
+        delete: { isVisible: false, isAccessible: false },
+        bulkDelete: { isVisible: false, isAccessible: false },
+        list: { isVisible: true, isAccessible: true },
+        show: { isVisible: true, isAccessible: true },
+      },
     },
   },
 
   // ==================== 📋 APPLICATIONS & REQUESTS ====================
+  // Read-only - user-submitted applications for review
   {
     resource: {
       model: getModelByName("mentor_application", PrismaModule),
@@ -334,6 +408,14 @@ export const adminResources: ResourceWithOptions[] = [
       navigation: {
         name: "📋 Applications & Requests",
         icon: "FileText",
+      },
+      actions: {
+        new: { isVisible: false, isAccessible: false },
+        edit: { isVisible: false, isAccessible: false },
+        delete: { isVisible: false, isAccessible: false },
+        bulkDelete: { isVisible: false, isAccessible: false },
+        list: { isVisible: true, isAccessible: true },
+        show: { isVisible: true, isAccessible: true },
       },
     },
   },
@@ -348,6 +430,14 @@ export const adminResources: ResourceWithOptions[] = [
         name: "📋 Applications & Requests",
         icon: "FileText",
       },
+      actions: {
+        new: { isVisible: false, isAccessible: false },
+        edit: { isVisible: false, isAccessible: false },
+        delete: { isVisible: false, isAccessible: false },
+        bulkDelete: { isVisible: false, isAccessible: false },
+        list: { isVisible: true, isAccessible: true },
+        show: { isVisible: true, isAccessible: true },
+      },
     },
   },
   {
@@ -361,10 +451,19 @@ export const adminResources: ResourceWithOptions[] = [
         name: "📋 Applications & Requests",
         icon: "FileText",
       },
+      actions: {
+        new: { isVisible: false, isAccessible: false },
+        edit: { isVisible: false, isAccessible: false },
+        delete: { isVisible: false, isAccessible: false },
+        bulkDelete: { isVisible: false, isAccessible: false },
+        list: { isVisible: true, isAccessible: true },
+        show: { isVisible: true, isAccessible: true },
+      },
     },
   },
 
   // ==================== 💳 PAYMENTS & SUBSCRIPTIONS ====================
+  // Read-only resources - admins can only view payment records
   {
     resource: {
       model: getModelByName("subscriptions", PrismaModule),
@@ -375,6 +474,14 @@ export const adminResources: ResourceWithOptions[] = [
       navigation: {
         name: "💳 Payments & Subscriptions",
         icon: "CreditCard",
+      },
+      actions: {
+        new: { isVisible: false, isAccessible: false },
+        edit: { isVisible: false, isAccessible: false },
+        delete: { isVisible: false, isAccessible: false },
+        bulkDelete: { isVisible: false, isAccessible: false },
+        list: { isVisible: true, isAccessible: true },
+        show: { isVisible: true, isAccessible: true },
       },
     },
   },
@@ -389,6 +496,14 @@ export const adminResources: ResourceWithOptions[] = [
         name: "💳 Payments & Subscriptions",
         icon: "Package",
       },
+      actions: {
+        new: { isVisible: false, isAccessible: false },
+        edit: { isVisible: false, isAccessible: false },
+        delete: { isVisible: false, isAccessible: false },
+        bulkDelete: { isVisible: false, isAccessible: false },
+        list: { isVisible: true, isAccessible: true },
+        show: { isVisible: true, isAccessible: true },
+      },
     },
   },
   {
@@ -401,6 +516,14 @@ export const adminResources: ResourceWithOptions[] = [
       navigation: {
         name: "💳 Payments & Subscriptions",
         icon: "DollarSign",
+      },
+      actions: {
+        new: { isVisible: false, isAccessible: false },
+        edit: { isVisible: false, isAccessible: false },
+        delete: { isVisible: false, isAccessible: false },
+        bulkDelete: { isVisible: false, isAccessible: false },
+        list: { isVisible: true, isAccessible: true },
+        show: { isVisible: true, isAccessible: true },
       },
     },
   },
@@ -430,6 +553,14 @@ export const adminResources: ResourceWithOptions[] = [
         name: "🏕️ Night Camps",
         icon: "UserCheck",
       },
+      actions: {
+        new: { isVisible: false, isAccessible: false },
+        edit: { isVisible: false, isAccessible: false },
+        delete: { isVisible: false, isAccessible: false },
+        bulkDelete: { isVisible: false, isAccessible: false },
+        list: { isVisible: true, isAccessible: true },
+        show: { isVisible: true, isAccessible: true },
+      },
     },
   },
   {
@@ -458,6 +589,14 @@ export const adminResources: ResourceWithOptions[] = [
       navigation: {
         name: "🏕️ Night Camps",
         icon: "UserPlus",
+      },
+      actions: {
+        new: { isVisible: false, isAccessible: false },
+        edit: { isVisible: false, isAccessible: false },
+        delete: { isVisible: false, isAccessible: false },
+        bulkDelete: { isVisible: false, isAccessible: false },
+        list: { isVisible: true, isAccessible: true },
+        show: { isVisible: true, isAccessible: true },
       },
     },
   },
@@ -513,6 +652,14 @@ export const adminResources: ResourceWithOptions[] = [
         name: "🌟 Stargazing & Tours",
         icon: "Star",
       },
+      actions: {
+        new: { isVisible: false, isAccessible: false },
+        edit: { isVisible: false, isAccessible: false },
+        delete: { isVisible: false, isAccessible: false },
+        bulkDelete: { isVisible: false, isAccessible: false },
+        list: { isVisible: true, isAccessible: true },
+        show: { isVisible: true, isAccessible: true },
+      },
     },
   },
   {
@@ -539,6 +686,14 @@ export const adminResources: ResourceWithOptions[] = [
         name: "🌟 Stargazing & Tours",
         icon: "Calendar",
       },
+      actions: {
+        new: { isVisible: false, isAccessible: false },
+        edit: { isVisible: false, isAccessible: false },
+        delete: { isVisible: false, isAccessible: false },
+        bulkDelete: { isVisible: false, isAccessible: false },
+        list: { isVisible: true, isAccessible: true },
+        show: { isVisible: true, isAccessible: true },
+      },
     },
   },
   {
@@ -564,6 +719,14 @@ export const adminResources: ResourceWithOptions[] = [
       navigation: {
         name: "🌟 Stargazing & Tours",
         icon: "MessageSquare",
+      },
+      actions: {
+        new: { isVisible: false, isAccessible: false },
+        edit: { isVisible: false, isAccessible: false },
+        delete: { isVisible: false, isAccessible: false },
+        bulkDelete: { isVisible: false, isAccessible: false },
+        list: { isVisible: true, isAccessible: true },
+        show: { isVisible: true, isAccessible: true },
       },
     },
   },
@@ -610,58 +773,6 @@ export const adminResources: ResourceWithOptions[] = [
   },
   {
     resource: {
-      model: getModelByName("space_discussion_comments", PrismaModule),
-      client: prisma,
-      clientModule: PrismaModule,
-    },
-    options: {
-      navigation: {
-        name: "💬 Community & Discussions",
-        icon: "MessageSquare",
-      },
-    },
-  },
-  {
-    resource: {
-      model: getModelByName("space_discussion_likes", PrismaModule),
-      client: prisma,
-      clientModule: PrismaModule,
-    },
-    options: {
-      navigation: {
-        name: "💬 Community & Discussions",
-        icon: "Heart",
-      },
-    },
-  },
-  {
-    resource: {
-      model: getModelByName("space_discussion_comment_likes", PrismaModule),
-      client: prisma,
-      clientModule: PrismaModule,
-    },
-    options: {
-      navigation: {
-        name: "💬 Community & Discussions",
-        icon: "ThumbsUp",
-      },
-    },
-  },
-  {
-    resource: {
-      model: getModelByName("group_chats", PrismaModule),
-      client: prisma,
-      clientModule: PrismaModule,
-    },
-    options: {
-      navigation: {
-        name: "💬 Community & Discussions",
-        icon: "Users",
-      },
-    },
-  },
-  {
-    resource: {
       model: getModelByName("group_members", PrismaModule),
       client: prisma,
       clientModule: PrismaModule,
@@ -671,31 +782,13 @@ export const adminResources: ResourceWithOptions[] = [
         name: "💬 Community & Discussions",
         icon: "UserPlus",
       },
-    },
-  },
-  {
-    resource: {
-      model: getModelByName("chat_messages", PrismaModule),
-      client: prisma,
-      clientModule: PrismaModule,
-    },
-    options: {
-      navigation: {
-        name: "💬 Community & Discussions",
-        icon: "Send",
-      },
-    },
-  },
-  {
-    resource: {
-      model: getModelByName("message_reactions", PrismaModule),
-      client: prisma,
-      clientModule: PrismaModule,
-    },
-    options: {
-      navigation: {
-        name: "💬 Community & Discussions",
-        icon: "Smile",
+      actions: {
+        new: { isVisible: false, isAccessible: false },
+        edit: { isVisible: false, isAccessible: false },
+        delete: { isVisible: false, isAccessible: false },
+        bulkDelete: { isVisible: false, isAccessible: false },
+        list: { isVisible: true, isAccessible: true },
+        show: { isVisible: true, isAccessible: true },
       },
     },
   },
@@ -738,6 +831,14 @@ export const adminResources: ResourceWithOptions[] = [
         name: "🗳️ Polls & Voting",
         icon: "Check",
       },
+      actions: {
+        new: { isVisible: false, isAccessible: false },
+        edit: { isVisible: false, isAccessible: false },
+        delete: { isVisible: false, isAccessible: false },
+        bulkDelete: { isVisible: false, isAccessible: false },
+        list: { isVisible: true, isAccessible: true },
+        show: { isVisible: true, isAccessible: true },
+      },
     },
   },
   {
@@ -750,6 +851,14 @@ export const adminResources: ResourceWithOptions[] = [
       navigation: {
         name: "🗳️ Polls & Voting",
         icon: "MessageSquare",
+      },
+      actions: {
+        new: { isVisible: false, isAccessible: false },
+        edit: { isVisible: false, isAccessible: false },
+        delete: { isVisible: false, isAccessible: false },
+        bulkDelete: { isVisible: false, isAccessible: false },
+        list: { isVisible: true, isAccessible: true },
+        show: { isVisible: true, isAccessible: true },
       },
     },
   },
