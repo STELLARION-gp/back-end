@@ -587,7 +587,7 @@ export interface SessionErrorResponse {
 
 // Quiz types
 export type QuizDifficultyLevel = 'Beginner' | 'Intermediate' | 'Hard';
-export type QuizStatus = 'open' | 'closed';
+export type QuizStatus = 'pending' | 'approved' | 'rejected' | 'closed';
 
 export interface CreateQuizRequest {
     title: string; // Maps to 'name' in database

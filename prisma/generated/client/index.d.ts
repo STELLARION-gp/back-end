@@ -74,11 +74,6 @@ export type chat_messages = $Result.DefaultSelection<Prisma.$chat_messagesPayloa
  */
 export type users = $Result.DefaultSelection<Prisma.$usersPayload>
 /**
- * Model blog_ratings
- * 
- */
-export type blog_ratings = $Result.DefaultSelection<Prisma.$blog_ratingsPayload>
-/**
  * Model chatbot_messages
  * 
  */
@@ -532,7 +527,9 @@ export type user_role = (typeof user_role)[keyof typeof user_role]
 
 
 export const QuizStatus: {
-  open: 'open',
+  pending: 'pending',
+  approved: 'approved',
+  rejected: 'rejected',
   closed: 'closed'
 };
 
@@ -873,16 +870,6 @@ export class PrismaClient<
     * ```
     */
   get users(): Prisma.usersDelegate<ExtArgs, ClientOptions>;
-
-  /**
-   * `prisma.blog_ratings`: Exposes CRUD operations for the **blog_ratings** model.
-    * Example usage:
-    * ```ts
-    * // Fetch zero or more Blog_ratings
-    * const blog_ratings = await prisma.blog_ratings.findMany()
-    * ```
-    */
-  get blog_ratings(): Prisma.blog_ratingsDelegate<ExtArgs, ClientOptions>;
 
   /**
    * `prisma.chatbot_messages`: Exposes CRUD operations for the **chatbot_messages** model.
@@ -1785,7 +1772,6 @@ export namespace Prisma {
     blogs: 'blogs',
     chat_messages: 'chat_messages',
     users: 'users',
-    blog_ratings: 'blog_ratings',
     chatbot_messages: 'chatbot_messages',
     chatbot_sessions: 'chatbot_sessions',
     chatbot_usage: 'chatbot_usage',
@@ -1849,7 +1835,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "quizParticipants" | "quizQuestion" | "quizzes" | "astronomy_events" | "blog_categories" | "blog_category_relations" | "blog_comments" | "blog_likes" | "blog_views" | "blogs" | "chat_messages" | "users" | "blog_ratings" | "chatbot_messages" | "chatbot_sessions" | "chatbot_usage" | "event_reminders" | "events" | "group_chats" | "group_members" | "guide_application" | "influencer_application" | "media_uploads" | "mentor_application" | "message_reactions" | "night_camp_registrations" | "night_camp_volunteering" | "night_camp_volunteering_applications" | "night_camps" | "night_camps_activities" | "night_camps_equipment" | "payments" | "poll_choices" | "poll_comments" | "poll_votes" | "polls" | "role_upgrade_requests" | "service_availability" | "service_bookings" | "service_media" | "service_reviews" | "services" | "session_enrollments" | "sessions" | "space_discussion_comment_likes" | "space_discussion_comments" | "space_discussion_likes" | "space_discussions" | "space_news" | "space_news_comments" | "space_news_likes" | "stargazing_spot_reviews" | "stargazing_spots" | "subscription_plans" | "subscriptions" | "tour_media" | "user_settings" | "chatbot_feedback"
+      modelProps: "quizParticipants" | "quizQuestion" | "quizzes" | "astronomy_events" | "blog_categories" | "blog_category_relations" | "blog_comments" | "blog_likes" | "blog_views" | "blogs" | "chat_messages" | "users" | "chatbot_messages" | "chatbot_sessions" | "chatbot_usage" | "event_reminders" | "events" | "group_chats" | "group_members" | "guide_application" | "influencer_application" | "media_uploads" | "mentor_application" | "message_reactions" | "night_camp_registrations" | "night_camp_volunteering" | "night_camp_volunteering_applications" | "night_camps" | "night_camps_activities" | "night_camps_equipment" | "payments" | "poll_choices" | "poll_comments" | "poll_votes" | "polls" | "role_upgrade_requests" | "service_availability" | "service_bookings" | "service_media" | "service_reviews" | "services" | "session_enrollments" | "sessions" | "space_discussion_comment_likes" | "space_discussion_comments" | "space_discussion_likes" | "space_discussions" | "space_news" | "space_news_comments" | "space_news_likes" | "stargazing_spot_reviews" | "stargazing_spots" | "subscription_plans" | "subscriptions" | "tour_media" | "user_settings" | "chatbot_feedback"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -2738,80 +2724,6 @@ export namespace Prisma {
           count: {
             args: Prisma.usersCountArgs<ExtArgs>
             result: $Utils.Optional<UsersCountAggregateOutputType> | number
-          }
-        }
-      }
-      blog_ratings: {
-        payload: Prisma.$blog_ratingsPayload<ExtArgs>
-        fields: Prisma.blog_ratingsFieldRefs
-        operations: {
-          findUnique: {
-            args: Prisma.blog_ratingsFindUniqueArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$blog_ratingsPayload> | null
-          }
-          findUniqueOrThrow: {
-            args: Prisma.blog_ratingsFindUniqueOrThrowArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$blog_ratingsPayload>
-          }
-          findFirst: {
-            args: Prisma.blog_ratingsFindFirstArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$blog_ratingsPayload> | null
-          }
-          findFirstOrThrow: {
-            args: Prisma.blog_ratingsFindFirstOrThrowArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$blog_ratingsPayload>
-          }
-          findMany: {
-            args: Prisma.blog_ratingsFindManyArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$blog_ratingsPayload>[]
-          }
-          create: {
-            args: Prisma.blog_ratingsCreateArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$blog_ratingsPayload>
-          }
-          createMany: {
-            args: Prisma.blog_ratingsCreateManyArgs<ExtArgs>
-            result: BatchPayload
-          }
-          createManyAndReturn: {
-            args: Prisma.blog_ratingsCreateManyAndReturnArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$blog_ratingsPayload>[]
-          }
-          delete: {
-            args: Prisma.blog_ratingsDeleteArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$blog_ratingsPayload>
-          }
-          update: {
-            args: Prisma.blog_ratingsUpdateArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$blog_ratingsPayload>
-          }
-          deleteMany: {
-            args: Prisma.blog_ratingsDeleteManyArgs<ExtArgs>
-            result: BatchPayload
-          }
-          updateMany: {
-            args: Prisma.blog_ratingsUpdateManyArgs<ExtArgs>
-            result: BatchPayload
-          }
-          updateManyAndReturn: {
-            args: Prisma.blog_ratingsUpdateManyAndReturnArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$blog_ratingsPayload>[]
-          }
-          upsert: {
-            args: Prisma.blog_ratingsUpsertArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$blog_ratingsPayload>
-          }
-          aggregate: {
-            args: Prisma.Blog_ratingsAggregateArgs<ExtArgs>
-            result: $Utils.Optional<AggregateBlog_ratings>
-          }
-          groupBy: {
-            args: Prisma.blog_ratingsGroupByArgs<ExtArgs>
-            result: $Utils.Optional<Blog_ratingsGroupByOutputType>[]
-          }
-          count: {
-            args: Prisma.blog_ratingsCountArgs<ExtArgs>
-            result: $Utils.Optional<Blog_ratingsCountAggregateOutputType> | number
           }
         }
       }
@@ -6253,7 +6165,6 @@ export namespace Prisma {
     blogs?: blogsOmit
     chat_messages?: chat_messagesOmit
     users?: usersOmit
-    blog_ratings?: blog_ratingsOmit
     chatbot_messages?: chatbot_messagesOmit
     chatbot_sessions?: chatbot_sessionsOmit
     chatbot_usage?: chatbot_usageOmit
@@ -6512,7 +6423,6 @@ export namespace Prisma {
    */
 
   export type BlogsCountOutputType = {
-    blog_ratings: number
     blog_category_relations: number
     blog_comments: number
     blog_likes: number
@@ -6520,7 +6430,6 @@ export namespace Prisma {
   }
 
   export type BlogsCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    blog_ratings?: boolean | BlogsCountOutputTypeCountBlog_ratingsArgs
     blog_category_relations?: boolean | BlogsCountOutputTypeCountBlog_category_relationsArgs
     blog_comments?: boolean | BlogsCountOutputTypeCountBlog_commentsArgs
     blog_likes?: boolean | BlogsCountOutputTypeCountBlog_likesArgs
@@ -6536,13 +6445,6 @@ export namespace Prisma {
      * Select specific fields to fetch from the BlogsCountOutputType
      */
     select?: BlogsCountOutputTypeSelect<ExtArgs> | null
-  }
-
-  /**
-   * BlogsCountOutputType without action
-   */
-  export type BlogsCountOutputTypeCountBlog_ratingsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: blog_ratingsWhereInput
   }
 
   /**
@@ -6624,7 +6526,6 @@ export namespace Prisma {
     created_astronomy_events: number
     blog_comments: number
     blog_likes: number
-    blog_ratings: number
     blog_views: number
     blogs: number
     chat_messages: number
@@ -6662,7 +6563,6 @@ export namespace Prisma {
     stargazing_spot_reviews: number
     created_stargazing_spots: number
     subscriptions: number
-    chatbot_feedback: number
   }
 
   export type UsersCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -6671,7 +6571,6 @@ export namespace Prisma {
     created_astronomy_events?: boolean | UsersCountOutputTypeCountCreated_astronomy_eventsArgs
     blog_comments?: boolean | UsersCountOutputTypeCountBlog_commentsArgs
     blog_likes?: boolean | UsersCountOutputTypeCountBlog_likesArgs
-    blog_ratings?: boolean | UsersCountOutputTypeCountBlog_ratingsArgs
     blog_views?: boolean | UsersCountOutputTypeCountBlog_viewsArgs
     blogs?: boolean | UsersCountOutputTypeCountBlogsArgs
     chat_messages?: boolean | UsersCountOutputTypeCountChat_messagesArgs
@@ -6709,7 +6608,6 @@ export namespace Prisma {
     stargazing_spot_reviews?: boolean | UsersCountOutputTypeCountStargazing_spot_reviewsArgs
     created_stargazing_spots?: boolean | UsersCountOutputTypeCountCreated_stargazing_spotsArgs
     subscriptions?: boolean | UsersCountOutputTypeCountSubscriptionsArgs
-    chatbot_feedback?: boolean | UsersCountOutputTypeCountChatbot_feedbackArgs
   }
 
   // Custom InputTypes
@@ -6756,13 +6654,6 @@ export namespace Prisma {
    */
   export type UsersCountOutputTypeCountBlog_likesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: blog_likesWhereInput
-  }
-
-  /**
-   * UsersCountOutputType without action
-   */
-  export type UsersCountOutputTypeCountBlog_ratingsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: blog_ratingsWhereInput
   }
 
   /**
@@ -7022,13 +6913,6 @@ export namespace Prisma {
    */
   export type UsersCountOutputTypeCountSubscriptionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: subscriptionsWhereInput
-  }
-
-  /**
-   * UsersCountOutputType without action
-   */
-  export type UsersCountOutputTypeCountChatbot_feedbackArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: chatbot_feedbackWhereInput
   }
 
 
@@ -18416,7 +18300,6 @@ export namespace Prisma {
     comment_count?: boolean
     tags?: boolean
     metadata?: boolean
-    blog_ratings?: boolean | blogs$blog_ratingsArgs<ExtArgs>
     blog_category_relations?: boolean | blogs$blog_category_relationsArgs<ExtArgs>
     blog_comments?: boolean | blogs$blog_commentsArgs<ExtArgs>
     blog_likes?: boolean | blogs$blog_likesArgs<ExtArgs>
@@ -18501,7 +18384,6 @@ export namespace Prisma {
 
   export type blogsOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "title" | "content" | "excerpt" | "featured_image" | "author_id" | "author_name" | "status" | "is_featured" | "views_count" | "likes_count" | "comments_count" | "created_at" | "updated_at" | "image_url" | "published_at" | "view_count" | "like_count" | "comment_count" | "tags" | "metadata", ExtArgs["result"]["blogs"]>
   export type blogsInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    blog_ratings?: boolean | blogs$blog_ratingsArgs<ExtArgs>
     blog_category_relations?: boolean | blogs$blog_category_relationsArgs<ExtArgs>
     blog_comments?: boolean | blogs$blog_commentsArgs<ExtArgs>
     blog_likes?: boolean | blogs$blog_likesArgs<ExtArgs>
@@ -18519,7 +18401,6 @@ export namespace Prisma {
   export type $blogsPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "blogs"
     objects: {
-      blog_ratings: Prisma.$blog_ratingsPayload<ExtArgs>[]
       blog_category_relations: Prisma.$blog_category_relationsPayload<ExtArgs>[]
       blog_comments: Prisma.$blog_commentsPayload<ExtArgs>[]
       blog_likes: Prisma.$blog_likesPayload<ExtArgs>[]
@@ -18942,7 +18823,6 @@ export namespace Prisma {
    */
   export interface Prisma__blogsClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
-    blog_ratings<T extends blogs$blog_ratingsArgs<ExtArgs> = {}>(args?: Subset<T, blogs$blog_ratingsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$blog_ratingsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     blog_category_relations<T extends blogs$blog_category_relationsArgs<ExtArgs> = {}>(args?: Subset<T, blogs$blog_category_relationsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$blog_category_relationsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     blog_comments<T extends blogs$blog_commentsArgs<ExtArgs> = {}>(args?: Subset<T, blogs$blog_commentsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$blog_commentsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     blog_likes<T extends blogs$blog_likesArgs<ExtArgs> = {}>(args?: Subset<T, blogs$blog_likesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$blog_likesPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
@@ -19391,30 +19271,6 @@ export namespace Prisma {
      * Limit how many blogs to delete.
      */
     limit?: number
-  }
-
-  /**
-   * blogs.blog_ratings
-   */
-  export type blogs$blog_ratingsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the blog_ratings
-     */
-    select?: blog_ratingsSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the blog_ratings
-     */
-    omit?: blog_ratingsOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: blog_ratingsInclude<ExtArgs> | null
-    where?: blog_ratingsWhereInput
-    orderBy?: blog_ratingsOrderByWithRelationInput | blog_ratingsOrderByWithRelationInput[]
-    cursor?: blog_ratingsWhereUniqueInput
-    take?: number
-    skip?: number
-    distinct?: Blog_ratingsScalarFieldEnum | Blog_ratingsScalarFieldEnum[]
   }
 
   /**
@@ -21151,7 +21007,6 @@ export namespace Prisma {
     created_astronomy_events?: boolean | users$created_astronomy_eventsArgs<ExtArgs>
     blog_comments?: boolean | users$blog_commentsArgs<ExtArgs>
     blog_likes?: boolean | users$blog_likesArgs<ExtArgs>
-    blog_ratings?: boolean | users$blog_ratingsArgs<ExtArgs>
     blog_views?: boolean | users$blog_viewsArgs<ExtArgs>
     blogs?: boolean | users$blogsArgs<ExtArgs>
     chat_messages?: boolean | users$chat_messagesArgs<ExtArgs>
@@ -21190,7 +21045,6 @@ export namespace Prisma {
     created_stargazing_spots?: boolean | users$created_stargazing_spotsArgs<ExtArgs>
     subscriptions?: boolean | users$subscriptionsArgs<ExtArgs>
     user_settings?: boolean | users$user_settingsArgs<ExtArgs>
-    chatbot_feedback?: boolean | users$chatbot_feedbackArgs<ExtArgs>
     _count?: boolean | UsersCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["users"]>
 
@@ -21270,7 +21124,6 @@ export namespace Prisma {
     created_astronomy_events?: boolean | users$created_astronomy_eventsArgs<ExtArgs>
     blog_comments?: boolean | users$blog_commentsArgs<ExtArgs>
     blog_likes?: boolean | users$blog_likesArgs<ExtArgs>
-    blog_ratings?: boolean | users$blog_ratingsArgs<ExtArgs>
     blog_views?: boolean | users$blog_viewsArgs<ExtArgs>
     blogs?: boolean | users$blogsArgs<ExtArgs>
     chat_messages?: boolean | users$chat_messagesArgs<ExtArgs>
@@ -21309,7 +21162,6 @@ export namespace Prisma {
     created_stargazing_spots?: boolean | users$created_stargazing_spotsArgs<ExtArgs>
     subscriptions?: boolean | users$subscriptionsArgs<ExtArgs>
     user_settings?: boolean | users$user_settingsArgs<ExtArgs>
-    chatbot_feedback?: boolean | users$chatbot_feedbackArgs<ExtArgs>
     _count?: boolean | UsersCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type usersIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
@@ -21323,7 +21175,6 @@ export namespace Prisma {
       created_astronomy_events: Prisma.$astronomy_eventsPayload<ExtArgs>[]
       blog_comments: Prisma.$blog_commentsPayload<ExtArgs>[]
       blog_likes: Prisma.$blog_likesPayload<ExtArgs>[]
-      blog_ratings: Prisma.$blog_ratingsPayload<ExtArgs>[]
       blog_views: Prisma.$blog_viewsPayload<ExtArgs>[]
       blogs: Prisma.$blogsPayload<ExtArgs>[]
       chat_messages: Prisma.$chat_messagesPayload<ExtArgs>[]
@@ -21362,7 +21213,6 @@ export namespace Prisma {
       created_stargazing_spots: Prisma.$stargazing_spotsPayload<ExtArgs>[]
       subscriptions: Prisma.$subscriptionsPayload<ExtArgs>[]
       user_settings: Prisma.$user_settingsPayload<ExtArgs> | null
-      chatbot_feedback: Prisma.$chatbot_feedbackPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: number
@@ -21784,7 +21634,6 @@ export namespace Prisma {
     created_astronomy_events<T extends users$created_astronomy_eventsArgs<ExtArgs> = {}>(args?: Subset<T, users$created_astronomy_eventsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$astronomy_eventsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     blog_comments<T extends users$blog_commentsArgs<ExtArgs> = {}>(args?: Subset<T, users$blog_commentsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$blog_commentsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     blog_likes<T extends users$blog_likesArgs<ExtArgs> = {}>(args?: Subset<T, users$blog_likesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$blog_likesPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-    blog_ratings<T extends users$blog_ratingsArgs<ExtArgs> = {}>(args?: Subset<T, users$blog_ratingsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$blog_ratingsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     blog_views<T extends users$blog_viewsArgs<ExtArgs> = {}>(args?: Subset<T, users$blog_viewsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$blog_viewsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     blogs<T extends users$blogsArgs<ExtArgs> = {}>(args?: Subset<T, users$blogsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$blogsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     chat_messages<T extends users$chat_messagesArgs<ExtArgs> = {}>(args?: Subset<T, users$chat_messagesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$chat_messagesPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
@@ -21823,7 +21672,6 @@ export namespace Prisma {
     created_stargazing_spots<T extends users$created_stargazing_spotsArgs<ExtArgs> = {}>(args?: Subset<T, users$created_stargazing_spotsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$stargazing_spotsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     subscriptions<T extends users$subscriptionsArgs<ExtArgs> = {}>(args?: Subset<T, users$subscriptionsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$subscriptionsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     user_settings<T extends users$user_settingsArgs<ExtArgs> = {}>(args?: Subset<T, users$user_settingsArgs<ExtArgs>>): Prisma__user_settingsClient<$Result.GetResult<Prisma.$user_settingsPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
-    chatbot_feedback<T extends users$chatbot_feedbackArgs<ExtArgs> = {}>(args?: Subset<T, users$chatbot_feedbackArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$chatbot_feedbackPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -22378,30 +22226,6 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: Blog_likesScalarFieldEnum | Blog_likesScalarFieldEnum[]
-  }
-
-  /**
-   * users.blog_ratings
-   */
-  export type users$blog_ratingsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the blog_ratings
-     */
-    select?: blog_ratingsSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the blog_ratings
-     */
-    omit?: blog_ratingsOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: blog_ratingsInclude<ExtArgs> | null
-    where?: blog_ratingsWhereInput
-    orderBy?: blog_ratingsOrderByWithRelationInput | blog_ratingsOrderByWithRelationInput[]
-    cursor?: blog_ratingsWhereUniqueInput
-    take?: number
-    skip?: number
-    distinct?: Blog_ratingsScalarFieldEnum | Blog_ratingsScalarFieldEnum[]
   }
 
   /**
@@ -23312,30 +23136,6 @@ export namespace Prisma {
   }
 
   /**
-   * users.chatbot_feedback
-   */
-  export type users$chatbot_feedbackArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the chatbot_feedback
-     */
-    select?: chatbot_feedbackSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the chatbot_feedback
-     */
-    omit?: chatbot_feedbackOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: chatbot_feedbackInclude<ExtArgs> | null
-    where?: chatbot_feedbackWhereInput
-    orderBy?: chatbot_feedbackOrderByWithRelationInput | chatbot_feedbackOrderByWithRelationInput[]
-    cursor?: chatbot_feedbackWhereUniqueInput
-    take?: number
-    skip?: number
-    distinct?: Chatbot_feedbackScalarFieldEnum | Chatbot_feedbackScalarFieldEnum[]
-  }
-
-  /**
    * users without action
    */
   export type usersDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -23351,1169 +23151,6 @@ export namespace Prisma {
      * Choose, which related nodes to fetch as well
      */
     include?: usersInclude<ExtArgs> | null
-  }
-
-
-  /**
-   * Model blog_ratings
-   */
-
-  export type AggregateBlog_ratings = {
-    _count: Blog_ratingsCountAggregateOutputType | null
-    _avg: Blog_ratingsAvgAggregateOutputType | null
-    _sum: Blog_ratingsSumAggregateOutputType | null
-    _min: Blog_ratingsMinAggregateOutputType | null
-    _max: Blog_ratingsMaxAggregateOutputType | null
-  }
-
-  export type Blog_ratingsAvgAggregateOutputType = {
-    id: number | null
-    blog_id: number | null
-    user_id: number | null
-    rating: number | null
-  }
-
-  export type Blog_ratingsSumAggregateOutputType = {
-    id: number | null
-    blog_id: number | null
-    user_id: number | null
-    rating: number | null
-  }
-
-  export type Blog_ratingsMinAggregateOutputType = {
-    id: number | null
-    blog_id: number | null
-    user_id: number | null
-    rating: number | null
-    created_at: Date | null
-    updated_at: Date | null
-  }
-
-  export type Blog_ratingsMaxAggregateOutputType = {
-    id: number | null
-    blog_id: number | null
-    user_id: number | null
-    rating: number | null
-    created_at: Date | null
-    updated_at: Date | null
-  }
-
-  export type Blog_ratingsCountAggregateOutputType = {
-    id: number
-    blog_id: number
-    user_id: number
-    rating: number
-    created_at: number
-    updated_at: number
-    _all: number
-  }
-
-
-  export type Blog_ratingsAvgAggregateInputType = {
-    id?: true
-    blog_id?: true
-    user_id?: true
-    rating?: true
-  }
-
-  export type Blog_ratingsSumAggregateInputType = {
-    id?: true
-    blog_id?: true
-    user_id?: true
-    rating?: true
-  }
-
-  export type Blog_ratingsMinAggregateInputType = {
-    id?: true
-    blog_id?: true
-    user_id?: true
-    rating?: true
-    created_at?: true
-    updated_at?: true
-  }
-
-  export type Blog_ratingsMaxAggregateInputType = {
-    id?: true
-    blog_id?: true
-    user_id?: true
-    rating?: true
-    created_at?: true
-    updated_at?: true
-  }
-
-  export type Blog_ratingsCountAggregateInputType = {
-    id?: true
-    blog_id?: true
-    user_id?: true
-    rating?: true
-    created_at?: true
-    updated_at?: true
-    _all?: true
-  }
-
-  export type Blog_ratingsAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Filter which blog_ratings to aggregate.
-     */
-    where?: blog_ratingsWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of blog_ratings to fetch.
-     */
-    orderBy?: blog_ratingsOrderByWithRelationInput | blog_ratingsOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the start position
-     */
-    cursor?: blog_ratingsWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` blog_ratings from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` blog_ratings.
-     */
-    skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Count returned blog_ratings
-    **/
-    _count?: true | Blog_ratingsCountAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to average
-    **/
-    _avg?: Blog_ratingsAvgAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to sum
-    **/
-    _sum?: Blog_ratingsSumAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to find the minimum value
-    **/
-    _min?: Blog_ratingsMinAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to find the maximum value
-    **/
-    _max?: Blog_ratingsMaxAggregateInputType
-  }
-
-  export type GetBlog_ratingsAggregateType<T extends Blog_ratingsAggregateArgs> = {
-        [P in keyof T & keyof AggregateBlog_ratings]: P extends '_count' | 'count'
-      ? T[P] extends true
-        ? number
-        : GetScalarType<T[P], AggregateBlog_ratings[P]>
-      : GetScalarType<T[P], AggregateBlog_ratings[P]>
-  }
-
-
-
-
-  export type blog_ratingsGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: blog_ratingsWhereInput
-    orderBy?: blog_ratingsOrderByWithAggregationInput | blog_ratingsOrderByWithAggregationInput[]
-    by: Blog_ratingsScalarFieldEnum[] | Blog_ratingsScalarFieldEnum
-    having?: blog_ratingsScalarWhereWithAggregatesInput
-    take?: number
-    skip?: number
-    _count?: Blog_ratingsCountAggregateInputType | true
-    _avg?: Blog_ratingsAvgAggregateInputType
-    _sum?: Blog_ratingsSumAggregateInputType
-    _min?: Blog_ratingsMinAggregateInputType
-    _max?: Blog_ratingsMaxAggregateInputType
-  }
-
-  export type Blog_ratingsGroupByOutputType = {
-    id: number
-    blog_id: number | null
-    user_id: number | null
-    rating: number
-    created_at: Date | null
-    updated_at: Date | null
-    _count: Blog_ratingsCountAggregateOutputType | null
-    _avg: Blog_ratingsAvgAggregateOutputType | null
-    _sum: Blog_ratingsSumAggregateOutputType | null
-    _min: Blog_ratingsMinAggregateOutputType | null
-    _max: Blog_ratingsMaxAggregateOutputType | null
-  }
-
-  type GetBlog_ratingsGroupByPayload<T extends blog_ratingsGroupByArgs> = Prisma.PrismaPromise<
-    Array<
-      PickEnumerable<Blog_ratingsGroupByOutputType, T['by']> &
-        {
-          [P in ((keyof T) & (keyof Blog_ratingsGroupByOutputType))]: P extends '_count'
-            ? T[P] extends boolean
-              ? number
-              : GetScalarType<T[P], Blog_ratingsGroupByOutputType[P]>
-            : GetScalarType<T[P], Blog_ratingsGroupByOutputType[P]>
-        }
-      >
-    >
-
-
-  export type blog_ratingsSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
-    id?: boolean
-    blog_id?: boolean
-    user_id?: boolean
-    rating?: boolean
-    created_at?: boolean
-    updated_at?: boolean
-    blogs?: boolean | blog_ratings$blogsArgs<ExtArgs>
-    users?: boolean | blog_ratings$usersArgs<ExtArgs>
-  }, ExtArgs["result"]["blog_ratings"]>
-
-  export type blog_ratingsSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
-    id?: boolean
-    blog_id?: boolean
-    user_id?: boolean
-    rating?: boolean
-    created_at?: boolean
-    updated_at?: boolean
-    blogs?: boolean | blog_ratings$blogsArgs<ExtArgs>
-    users?: boolean | blog_ratings$usersArgs<ExtArgs>
-  }, ExtArgs["result"]["blog_ratings"]>
-
-  export type blog_ratingsSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
-    id?: boolean
-    blog_id?: boolean
-    user_id?: boolean
-    rating?: boolean
-    created_at?: boolean
-    updated_at?: boolean
-    blogs?: boolean | blog_ratings$blogsArgs<ExtArgs>
-    users?: boolean | blog_ratings$usersArgs<ExtArgs>
-  }, ExtArgs["result"]["blog_ratings"]>
-
-  export type blog_ratingsSelectScalar = {
-    id?: boolean
-    blog_id?: boolean
-    user_id?: boolean
-    rating?: boolean
-    created_at?: boolean
-    updated_at?: boolean
-  }
-
-  export type blog_ratingsOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "blog_id" | "user_id" | "rating" | "created_at" | "updated_at", ExtArgs["result"]["blog_ratings"]>
-  export type blog_ratingsInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    blogs?: boolean | blog_ratings$blogsArgs<ExtArgs>
-    users?: boolean | blog_ratings$usersArgs<ExtArgs>
-  }
-  export type blog_ratingsIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    blogs?: boolean | blog_ratings$blogsArgs<ExtArgs>
-    users?: boolean | blog_ratings$usersArgs<ExtArgs>
-  }
-  export type blog_ratingsIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    blogs?: boolean | blog_ratings$blogsArgs<ExtArgs>
-    users?: boolean | blog_ratings$usersArgs<ExtArgs>
-  }
-
-  export type $blog_ratingsPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    name: "blog_ratings"
-    objects: {
-      blogs: Prisma.$blogsPayload<ExtArgs> | null
-      users: Prisma.$usersPayload<ExtArgs> | null
-    }
-    scalars: $Extensions.GetPayloadResult<{
-      id: number
-      blog_id: number | null
-      user_id: number | null
-      rating: number
-      created_at: Date | null
-      updated_at: Date | null
-    }, ExtArgs["result"]["blog_ratings"]>
-    composites: {}
-  }
-
-  type blog_ratingsGetPayload<S extends boolean | null | undefined | blog_ratingsDefaultArgs> = $Result.GetResult<Prisma.$blog_ratingsPayload, S>
-
-  type blog_ratingsCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
-    Omit<blog_ratingsFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
-      select?: Blog_ratingsCountAggregateInputType | true
-    }
-
-  export interface blog_ratingsDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
-    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['blog_ratings'], meta: { name: 'blog_ratings' } }
-    /**
-     * Find zero or one Blog_ratings that matches the filter.
-     * @param {blog_ratingsFindUniqueArgs} args - Arguments to find a Blog_ratings
-     * @example
-     * // Get one Blog_ratings
-     * const blog_ratings = await prisma.blog_ratings.findUnique({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findUnique<T extends blog_ratingsFindUniqueArgs>(args: SelectSubset<T, blog_ratingsFindUniqueArgs<ExtArgs>>): Prisma__blog_ratingsClient<$Result.GetResult<Prisma.$blog_ratingsPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Find one Blog_ratings that matches the filter or throw an error with `error.code='P2025'`
-     * if no matches were found.
-     * @param {blog_ratingsFindUniqueOrThrowArgs} args - Arguments to find a Blog_ratings
-     * @example
-     * // Get one Blog_ratings
-     * const blog_ratings = await prisma.blog_ratings.findUniqueOrThrow({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findUniqueOrThrow<T extends blog_ratingsFindUniqueOrThrowArgs>(args: SelectSubset<T, blog_ratingsFindUniqueOrThrowArgs<ExtArgs>>): Prisma__blog_ratingsClient<$Result.GetResult<Prisma.$blog_ratingsPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Find the first Blog_ratings that matches the filter.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {blog_ratingsFindFirstArgs} args - Arguments to find a Blog_ratings
-     * @example
-     * // Get one Blog_ratings
-     * const blog_ratings = await prisma.blog_ratings.findFirst({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findFirst<T extends blog_ratingsFindFirstArgs>(args?: SelectSubset<T, blog_ratingsFindFirstArgs<ExtArgs>>): Prisma__blog_ratingsClient<$Result.GetResult<Prisma.$blog_ratingsPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Find the first Blog_ratings that matches the filter or
-     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {blog_ratingsFindFirstOrThrowArgs} args - Arguments to find a Blog_ratings
-     * @example
-     * // Get one Blog_ratings
-     * const blog_ratings = await prisma.blog_ratings.findFirstOrThrow({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findFirstOrThrow<T extends blog_ratingsFindFirstOrThrowArgs>(args?: SelectSubset<T, blog_ratingsFindFirstOrThrowArgs<ExtArgs>>): Prisma__blog_ratingsClient<$Result.GetResult<Prisma.$blog_ratingsPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Find zero or more Blog_ratings that matches the filter.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {blog_ratingsFindManyArgs} args - Arguments to filter and select certain fields only.
-     * @example
-     * // Get all Blog_ratings
-     * const blog_ratings = await prisma.blog_ratings.findMany()
-     * 
-     * // Get first 10 Blog_ratings
-     * const blog_ratings = await prisma.blog_ratings.findMany({ take: 10 })
-     * 
-     * // Only select the `id`
-     * const blog_ratingsWithIdOnly = await prisma.blog_ratings.findMany({ select: { id: true } })
-     * 
-     */
-    findMany<T extends blog_ratingsFindManyArgs>(args?: SelectSubset<T, blog_ratingsFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$blog_ratingsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
-
-    /**
-     * Create a Blog_ratings.
-     * @param {blog_ratingsCreateArgs} args - Arguments to create a Blog_ratings.
-     * @example
-     * // Create one Blog_ratings
-     * const Blog_ratings = await prisma.blog_ratings.create({
-     *   data: {
-     *     // ... data to create a Blog_ratings
-     *   }
-     * })
-     * 
-     */
-    create<T extends blog_ratingsCreateArgs>(args: SelectSubset<T, blog_ratingsCreateArgs<ExtArgs>>): Prisma__blog_ratingsClient<$Result.GetResult<Prisma.$blog_ratingsPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Create many Blog_ratings.
-     * @param {blog_ratingsCreateManyArgs} args - Arguments to create many Blog_ratings.
-     * @example
-     * // Create many Blog_ratings
-     * const blog_ratings = await prisma.blog_ratings.createMany({
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     *     
-     */
-    createMany<T extends blog_ratingsCreateManyArgs>(args?: SelectSubset<T, blog_ratingsCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
-
-    /**
-     * Create many Blog_ratings and returns the data saved in the database.
-     * @param {blog_ratingsCreateManyAndReturnArgs} args - Arguments to create many Blog_ratings.
-     * @example
-     * // Create many Blog_ratings
-     * const blog_ratings = await prisma.blog_ratings.createManyAndReturn({
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     * 
-     * // Create many Blog_ratings and only return the `id`
-     * const blog_ratingsWithIdOnly = await prisma.blog_ratings.createManyAndReturn({
-     *   select: { id: true },
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * 
-     */
-    createManyAndReturn<T extends blog_ratingsCreateManyAndReturnArgs>(args?: SelectSubset<T, blog_ratingsCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$blog_ratingsPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
-
-    /**
-     * Delete a Blog_ratings.
-     * @param {blog_ratingsDeleteArgs} args - Arguments to delete one Blog_ratings.
-     * @example
-     * // Delete one Blog_ratings
-     * const Blog_ratings = await prisma.blog_ratings.delete({
-     *   where: {
-     *     // ... filter to delete one Blog_ratings
-     *   }
-     * })
-     * 
-     */
-    delete<T extends blog_ratingsDeleteArgs>(args: SelectSubset<T, blog_ratingsDeleteArgs<ExtArgs>>): Prisma__blog_ratingsClient<$Result.GetResult<Prisma.$blog_ratingsPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Update one Blog_ratings.
-     * @param {blog_ratingsUpdateArgs} args - Arguments to update one Blog_ratings.
-     * @example
-     * // Update one Blog_ratings
-     * const blog_ratings = await prisma.blog_ratings.update({
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: {
-     *     // ... provide data here
-     *   }
-     * })
-     * 
-     */
-    update<T extends blog_ratingsUpdateArgs>(args: SelectSubset<T, blog_ratingsUpdateArgs<ExtArgs>>): Prisma__blog_ratingsClient<$Result.GetResult<Prisma.$blog_ratingsPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Delete zero or more Blog_ratings.
-     * @param {blog_ratingsDeleteManyArgs} args - Arguments to filter Blog_ratings to delete.
-     * @example
-     * // Delete a few Blog_ratings
-     * const { count } = await prisma.blog_ratings.deleteMany({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     * 
-     */
-    deleteMany<T extends blog_ratingsDeleteManyArgs>(args?: SelectSubset<T, blog_ratingsDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
-
-    /**
-     * Update zero or more Blog_ratings.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {blog_ratingsUpdateManyArgs} args - Arguments to update one or more rows.
-     * @example
-     * // Update many Blog_ratings
-     * const blog_ratings = await prisma.blog_ratings.updateMany({
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: {
-     *     // ... provide data here
-     *   }
-     * })
-     * 
-     */
-    updateMany<T extends blog_ratingsUpdateManyArgs>(args: SelectSubset<T, blog_ratingsUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
-
-    /**
-     * Update zero or more Blog_ratings and returns the data updated in the database.
-     * @param {blog_ratingsUpdateManyAndReturnArgs} args - Arguments to update many Blog_ratings.
-     * @example
-     * // Update many Blog_ratings
-     * const blog_ratings = await prisma.blog_ratings.updateManyAndReturn({
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     * 
-     * // Update zero or more Blog_ratings and only return the `id`
-     * const blog_ratingsWithIdOnly = await prisma.blog_ratings.updateManyAndReturn({
-     *   select: { id: true },
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * 
-     */
-    updateManyAndReturn<T extends blog_ratingsUpdateManyAndReturnArgs>(args: SelectSubset<T, blog_ratingsUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$blog_ratingsPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
-
-    /**
-     * Create or update one Blog_ratings.
-     * @param {blog_ratingsUpsertArgs} args - Arguments to update or create a Blog_ratings.
-     * @example
-     * // Update or create a Blog_ratings
-     * const blog_ratings = await prisma.blog_ratings.upsert({
-     *   create: {
-     *     // ... data to create a Blog_ratings
-     *   },
-     *   update: {
-     *     // ... in case it already exists, update
-     *   },
-     *   where: {
-     *     // ... the filter for the Blog_ratings we want to update
-     *   }
-     * })
-     */
-    upsert<T extends blog_ratingsUpsertArgs>(args: SelectSubset<T, blog_ratingsUpsertArgs<ExtArgs>>): Prisma__blog_ratingsClient<$Result.GetResult<Prisma.$blog_ratingsPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-
-    /**
-     * Count the number of Blog_ratings.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {blog_ratingsCountArgs} args - Arguments to filter Blog_ratings to count.
-     * @example
-     * // Count the number of Blog_ratings
-     * const count = await prisma.blog_ratings.count({
-     *   where: {
-     *     // ... the filter for the Blog_ratings we want to count
-     *   }
-     * })
-    **/
-    count<T extends blog_ratingsCountArgs>(
-      args?: Subset<T, blog_ratingsCountArgs>,
-    ): Prisma.PrismaPromise<
-      T extends $Utils.Record<'select', any>
-        ? T['select'] extends true
-          ? number
-          : GetScalarType<T['select'], Blog_ratingsCountAggregateOutputType>
-        : number
-    >
-
-    /**
-     * Allows you to perform aggregations operations on a Blog_ratings.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {Blog_ratingsAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
-     * @example
-     * // Ordered by age ascending
-     * // Where email contains prisma.io
-     * // Limited to the 10 users
-     * const aggregations = await prisma.user.aggregate({
-     *   _avg: {
-     *     age: true,
-     *   },
-     *   where: {
-     *     email: {
-     *       contains: "prisma.io",
-     *     },
-     *   },
-     *   orderBy: {
-     *     age: "asc",
-     *   },
-     *   take: 10,
-     * })
-    **/
-    aggregate<T extends Blog_ratingsAggregateArgs>(args: Subset<T, Blog_ratingsAggregateArgs>): Prisma.PrismaPromise<GetBlog_ratingsAggregateType<T>>
-
-    /**
-     * Group by Blog_ratings.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {blog_ratingsGroupByArgs} args - Group by arguments.
-     * @example
-     * // Group by city, order by createdAt, get count
-     * const result = await prisma.user.groupBy({
-     *   by: ['city', 'createdAt'],
-     *   orderBy: {
-     *     createdAt: true
-     *   },
-     *   _count: {
-     *     _all: true
-     *   },
-     * })
-     * 
-    **/
-    groupBy<
-      T extends blog_ratingsGroupByArgs,
-      HasSelectOrTake extends Or<
-        Extends<'skip', Keys<T>>,
-        Extends<'take', Keys<T>>
-      >,
-      OrderByArg extends True extends HasSelectOrTake
-        ? { orderBy: blog_ratingsGroupByArgs['orderBy'] }
-        : { orderBy?: blog_ratingsGroupByArgs['orderBy'] },
-      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
-      ByFields extends MaybeTupleToUnion<T['by']>,
-      ByValid extends Has<ByFields, OrderFields>,
-      HavingFields extends GetHavingFields<T['having']>,
-      HavingValid extends Has<ByFields, HavingFields>,
-      ByEmpty extends T['by'] extends never[] ? True : False,
-      InputErrors extends ByEmpty extends True
-      ? `Error: "by" must not be empty.`
-      : HavingValid extends False
-      ? {
-          [P in HavingFields]: P extends ByFields
-            ? never
-            : P extends string
-            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
-            : [
-                Error,
-                'Field ',
-                P,
-                ` in "having" needs to be provided in "by"`,
-              ]
-        }[HavingFields]
-      : 'take' extends Keys<T>
-      ? 'orderBy' extends Keys<T>
-        ? ByValid extends True
-          ? {}
-          : {
-              [P in OrderFields]: P extends ByFields
-                ? never
-                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
-            }[OrderFields]
-        : 'Error: If you provide "take", you also need to provide "orderBy"'
-      : 'skip' extends Keys<T>
-      ? 'orderBy' extends Keys<T>
-        ? ByValid extends True
-          ? {}
-          : {
-              [P in OrderFields]: P extends ByFields
-                ? never
-                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
-            }[OrderFields]
-        : 'Error: If you provide "skip", you also need to provide "orderBy"'
-      : ByValid extends True
-      ? {}
-      : {
-          [P in OrderFields]: P extends ByFields
-            ? never
-            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
-        }[OrderFields]
-    >(args: SubsetIntersection<T, blog_ratingsGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetBlog_ratingsGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
-  /**
-   * Fields of the blog_ratings model
-   */
-  readonly fields: blog_ratingsFieldRefs;
-  }
-
-  /**
-   * The delegate class that acts as a "Promise-like" for blog_ratings.
-   * Why is this prefixed with `Prisma__`?
-   * Because we want to prevent naming conflicts as mentioned in
-   * https://github.com/prisma/prisma-client-js/issues/707
-   */
-  export interface Prisma__blog_ratingsClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
-    readonly [Symbol.toStringTag]: "PrismaPromise"
-    blogs<T extends blog_ratings$blogsArgs<ExtArgs> = {}>(args?: Subset<T, blog_ratings$blogsArgs<ExtArgs>>): Prisma__blogsClient<$Result.GetResult<Prisma.$blogsPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
-    users<T extends blog_ratings$usersArgs<ExtArgs> = {}>(args?: Subset<T, blog_ratings$usersArgs<ExtArgs>>): Prisma__usersClient<$Result.GetResult<Prisma.$usersPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
-    /**
-     * Attaches callbacks for the resolution and/or rejection of the Promise.
-     * @param onfulfilled The callback to execute when the Promise is resolved.
-     * @param onrejected The callback to execute when the Promise is rejected.
-     * @returns A Promise for the completion of which ever callback is executed.
-     */
-    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
-    /**
-     * Attaches a callback for only the rejection of the Promise.
-     * @param onrejected The callback to execute when the Promise is rejected.
-     * @returns A Promise for the completion of the callback.
-     */
-    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
-    /**
-     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
-     * resolved value cannot be modified from the callback.
-     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
-     * @returns A Promise for the completion of the callback.
-     */
-    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
-  }
-
-
-
-
-  /**
-   * Fields of the blog_ratings model
-   */
-  interface blog_ratingsFieldRefs {
-    readonly id: FieldRef<"blog_ratings", 'Int'>
-    readonly blog_id: FieldRef<"blog_ratings", 'Int'>
-    readonly user_id: FieldRef<"blog_ratings", 'Int'>
-    readonly rating: FieldRef<"blog_ratings", 'Int'>
-    readonly created_at: FieldRef<"blog_ratings", 'DateTime'>
-    readonly updated_at: FieldRef<"blog_ratings", 'DateTime'>
-  }
-    
-
-  // Custom InputTypes
-  /**
-   * blog_ratings findUnique
-   */
-  export type blog_ratingsFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the blog_ratings
-     */
-    select?: blog_ratingsSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the blog_ratings
-     */
-    omit?: blog_ratingsOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: blog_ratingsInclude<ExtArgs> | null
-    /**
-     * Filter, which blog_ratings to fetch.
-     */
-    where: blog_ratingsWhereUniqueInput
-  }
-
-  /**
-   * blog_ratings findUniqueOrThrow
-   */
-  export type blog_ratingsFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the blog_ratings
-     */
-    select?: blog_ratingsSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the blog_ratings
-     */
-    omit?: blog_ratingsOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: blog_ratingsInclude<ExtArgs> | null
-    /**
-     * Filter, which blog_ratings to fetch.
-     */
-    where: blog_ratingsWhereUniqueInput
-  }
-
-  /**
-   * blog_ratings findFirst
-   */
-  export type blog_ratingsFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the blog_ratings
-     */
-    select?: blog_ratingsSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the blog_ratings
-     */
-    omit?: blog_ratingsOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: blog_ratingsInclude<ExtArgs> | null
-    /**
-     * Filter, which blog_ratings to fetch.
-     */
-    where?: blog_ratingsWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of blog_ratings to fetch.
-     */
-    orderBy?: blog_ratingsOrderByWithRelationInput | blog_ratingsOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the position for searching for blog_ratings.
-     */
-    cursor?: blog_ratingsWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` blog_ratings from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` blog_ratings.
-     */
-    skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of blog_ratings.
-     */
-    distinct?: Blog_ratingsScalarFieldEnum | Blog_ratingsScalarFieldEnum[]
-  }
-
-  /**
-   * blog_ratings findFirstOrThrow
-   */
-  export type blog_ratingsFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the blog_ratings
-     */
-    select?: blog_ratingsSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the blog_ratings
-     */
-    omit?: blog_ratingsOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: blog_ratingsInclude<ExtArgs> | null
-    /**
-     * Filter, which blog_ratings to fetch.
-     */
-    where?: blog_ratingsWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of blog_ratings to fetch.
-     */
-    orderBy?: blog_ratingsOrderByWithRelationInput | blog_ratingsOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the position for searching for blog_ratings.
-     */
-    cursor?: blog_ratingsWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` blog_ratings from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` blog_ratings.
-     */
-    skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of blog_ratings.
-     */
-    distinct?: Blog_ratingsScalarFieldEnum | Blog_ratingsScalarFieldEnum[]
-  }
-
-  /**
-   * blog_ratings findMany
-   */
-  export type blog_ratingsFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the blog_ratings
-     */
-    select?: blog_ratingsSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the blog_ratings
-     */
-    omit?: blog_ratingsOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: blog_ratingsInclude<ExtArgs> | null
-    /**
-     * Filter, which blog_ratings to fetch.
-     */
-    where?: blog_ratingsWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of blog_ratings to fetch.
-     */
-    orderBy?: blog_ratingsOrderByWithRelationInput | blog_ratingsOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the position for listing blog_ratings.
-     */
-    cursor?: blog_ratingsWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` blog_ratings from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` blog_ratings.
-     */
-    skip?: number
-    distinct?: Blog_ratingsScalarFieldEnum | Blog_ratingsScalarFieldEnum[]
-  }
-
-  /**
-   * blog_ratings create
-   */
-  export type blog_ratingsCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the blog_ratings
-     */
-    select?: blog_ratingsSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the blog_ratings
-     */
-    omit?: blog_ratingsOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: blog_ratingsInclude<ExtArgs> | null
-    /**
-     * The data needed to create a blog_ratings.
-     */
-    data: XOR<blog_ratingsCreateInput, blog_ratingsUncheckedCreateInput>
-  }
-
-  /**
-   * blog_ratings createMany
-   */
-  export type blog_ratingsCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * The data used to create many blog_ratings.
-     */
-    data: blog_ratingsCreateManyInput | blog_ratingsCreateManyInput[]
-    skipDuplicates?: boolean
-  }
-
-  /**
-   * blog_ratings createManyAndReturn
-   */
-  export type blog_ratingsCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the blog_ratings
-     */
-    select?: blog_ratingsSelectCreateManyAndReturn<ExtArgs> | null
-    /**
-     * Omit specific fields from the blog_ratings
-     */
-    omit?: blog_ratingsOmit<ExtArgs> | null
-    /**
-     * The data used to create many blog_ratings.
-     */
-    data: blog_ratingsCreateManyInput | blog_ratingsCreateManyInput[]
-    skipDuplicates?: boolean
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: blog_ratingsIncludeCreateManyAndReturn<ExtArgs> | null
-  }
-
-  /**
-   * blog_ratings update
-   */
-  export type blog_ratingsUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the blog_ratings
-     */
-    select?: blog_ratingsSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the blog_ratings
-     */
-    omit?: blog_ratingsOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: blog_ratingsInclude<ExtArgs> | null
-    /**
-     * The data needed to update a blog_ratings.
-     */
-    data: XOR<blog_ratingsUpdateInput, blog_ratingsUncheckedUpdateInput>
-    /**
-     * Choose, which blog_ratings to update.
-     */
-    where: blog_ratingsWhereUniqueInput
-  }
-
-  /**
-   * blog_ratings updateMany
-   */
-  export type blog_ratingsUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * The data used to update blog_ratings.
-     */
-    data: XOR<blog_ratingsUpdateManyMutationInput, blog_ratingsUncheckedUpdateManyInput>
-    /**
-     * Filter which blog_ratings to update
-     */
-    where?: blog_ratingsWhereInput
-    /**
-     * Limit how many blog_ratings to update.
-     */
-    limit?: number
-  }
-
-  /**
-   * blog_ratings updateManyAndReturn
-   */
-  export type blog_ratingsUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the blog_ratings
-     */
-    select?: blog_ratingsSelectUpdateManyAndReturn<ExtArgs> | null
-    /**
-     * Omit specific fields from the blog_ratings
-     */
-    omit?: blog_ratingsOmit<ExtArgs> | null
-    /**
-     * The data used to update blog_ratings.
-     */
-    data: XOR<blog_ratingsUpdateManyMutationInput, blog_ratingsUncheckedUpdateManyInput>
-    /**
-     * Filter which blog_ratings to update
-     */
-    where?: blog_ratingsWhereInput
-    /**
-     * Limit how many blog_ratings to update.
-     */
-    limit?: number
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: blog_ratingsIncludeUpdateManyAndReturn<ExtArgs> | null
-  }
-
-  /**
-   * blog_ratings upsert
-   */
-  export type blog_ratingsUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the blog_ratings
-     */
-    select?: blog_ratingsSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the blog_ratings
-     */
-    omit?: blog_ratingsOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: blog_ratingsInclude<ExtArgs> | null
-    /**
-     * The filter to search for the blog_ratings to update in case it exists.
-     */
-    where: blog_ratingsWhereUniqueInput
-    /**
-     * In case the blog_ratings found by the `where` argument doesn't exist, create a new blog_ratings with this data.
-     */
-    create: XOR<blog_ratingsCreateInput, blog_ratingsUncheckedCreateInput>
-    /**
-     * In case the blog_ratings was found with the provided `where` argument, update it with this data.
-     */
-    update: XOR<blog_ratingsUpdateInput, blog_ratingsUncheckedUpdateInput>
-  }
-
-  /**
-   * blog_ratings delete
-   */
-  export type blog_ratingsDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the blog_ratings
-     */
-    select?: blog_ratingsSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the blog_ratings
-     */
-    omit?: blog_ratingsOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: blog_ratingsInclude<ExtArgs> | null
-    /**
-     * Filter which blog_ratings to delete.
-     */
-    where: blog_ratingsWhereUniqueInput
-  }
-
-  /**
-   * blog_ratings deleteMany
-   */
-  export type blog_ratingsDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Filter which blog_ratings to delete
-     */
-    where?: blog_ratingsWhereInput
-    /**
-     * Limit how many blog_ratings to delete.
-     */
-    limit?: number
-  }
-
-  /**
-   * blog_ratings.blogs
-   */
-  export type blog_ratings$blogsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the blogs
-     */
-    select?: blogsSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the blogs
-     */
-    omit?: blogsOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: blogsInclude<ExtArgs> | null
-    where?: blogsWhereInput
-  }
-
-  /**
-   * blog_ratings.users
-   */
-  export type blog_ratings$usersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the users
-     */
-    select?: usersSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the users
-     */
-    omit?: usersOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: usersInclude<ExtArgs> | null
-    where?: usersWhereInput
-  }
-
-  /**
-   * blog_ratings without action
-   */
-  export type blog_ratingsDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the blog_ratings
-     */
-    select?: blog_ratingsSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the blog_ratings
-     */
-    omit?: blog_ratingsOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: blog_ratingsInclude<ExtArgs> | null
   }
 
 
@@ -77447,34 +76084,30 @@ export namespace Prisma {
   }
 
   export type Chatbot_feedbackAvgAggregateOutputType = {
-    id: number | null
-    user_id: number | null
     rating: number | null
   }
 
   export type Chatbot_feedbackSumAggregateOutputType = {
-    id: number | null
-    user_id: number | null
     rating: number | null
   }
 
   export type Chatbot_feedbackMinAggregateOutputType = {
-    id: number | null
+    id: string | null
     message_id: string | null
     session_id: string | null
-    user_id: number | null
+    firebase_uid: string | null
     rating: number | null
-    feedback: string | null
+    feedback_text: string | null
     created_at: Date | null
   }
 
   export type Chatbot_feedbackMaxAggregateOutputType = {
-    id: number | null
+    id: string | null
     message_id: string | null
     session_id: string | null
-    user_id: number | null
+    firebase_uid: string | null
     rating: number | null
-    feedback: string | null
+    feedback_text: string | null
     created_at: Date | null
   }
 
@@ -77482,23 +76115,19 @@ export namespace Prisma {
     id: number
     message_id: number
     session_id: number
-    user_id: number
+    firebase_uid: number
     rating: number
-    feedback: number
+    feedback_text: number
     created_at: number
     _all: number
   }
 
 
   export type Chatbot_feedbackAvgAggregateInputType = {
-    id?: true
-    user_id?: true
     rating?: true
   }
 
   export type Chatbot_feedbackSumAggregateInputType = {
-    id?: true
-    user_id?: true
     rating?: true
   }
 
@@ -77506,9 +76135,9 @@ export namespace Prisma {
     id?: true
     message_id?: true
     session_id?: true
-    user_id?: true
+    firebase_uid?: true
     rating?: true
-    feedback?: true
+    feedback_text?: true
     created_at?: true
   }
 
@@ -77516,9 +76145,9 @@ export namespace Prisma {
     id?: true
     message_id?: true
     session_id?: true
-    user_id?: true
+    firebase_uid?: true
     rating?: true
-    feedback?: true
+    feedback_text?: true
     created_at?: true
   }
 
@@ -77526,9 +76155,9 @@ export namespace Prisma {
     id?: true
     message_id?: true
     session_id?: true
-    user_id?: true
+    firebase_uid?: true
     rating?: true
-    feedback?: true
+    feedback_text?: true
     created_at?: true
     _all?: true
   }
@@ -77620,13 +76249,13 @@ export namespace Prisma {
   }
 
   export type Chatbot_feedbackGroupByOutputType = {
-    id: number
-    message_id: string
-    session_id: string
-    user_id: number
-    rating: number
-    feedback: string | null
-    created_at: Date
+    id: string
+    message_id: string | null
+    session_id: string | null
+    firebase_uid: string
+    rating: number | null
+    feedback_text: string | null
+    created_at: Date | null
     _count: Chatbot_feedbackCountAggregateOutputType | null
     _avg: Chatbot_feedbackAvgAggregateOutputType | null
     _sum: Chatbot_feedbackSumAggregateOutputType | null
@@ -77652,83 +76281,76 @@ export namespace Prisma {
     id?: boolean
     message_id?: boolean
     session_id?: boolean
-    user_id?: boolean
+    firebase_uid?: boolean
     rating?: boolean
-    feedback?: boolean
+    feedback_text?: boolean
     created_at?: boolean
-    message?: boolean | chatbot_messagesDefaultArgs<ExtArgs>
-    session?: boolean | chatbot_sessionsDefaultArgs<ExtArgs>
-    user?: boolean | usersDefaultArgs<ExtArgs>
+    message?: boolean | chatbot_feedback$messageArgs<ExtArgs>
+    session?: boolean | chatbot_feedback$sessionArgs<ExtArgs>
   }, ExtArgs["result"]["chatbot_feedback"]>
 
   export type chatbot_feedbackSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     message_id?: boolean
     session_id?: boolean
-    user_id?: boolean
+    firebase_uid?: boolean
     rating?: boolean
-    feedback?: boolean
+    feedback_text?: boolean
     created_at?: boolean
-    message?: boolean | chatbot_messagesDefaultArgs<ExtArgs>
-    session?: boolean | chatbot_sessionsDefaultArgs<ExtArgs>
-    user?: boolean | usersDefaultArgs<ExtArgs>
+    message?: boolean | chatbot_feedback$messageArgs<ExtArgs>
+    session?: boolean | chatbot_feedback$sessionArgs<ExtArgs>
   }, ExtArgs["result"]["chatbot_feedback"]>
 
   export type chatbot_feedbackSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     message_id?: boolean
     session_id?: boolean
-    user_id?: boolean
+    firebase_uid?: boolean
     rating?: boolean
-    feedback?: boolean
+    feedback_text?: boolean
     created_at?: boolean
-    message?: boolean | chatbot_messagesDefaultArgs<ExtArgs>
-    session?: boolean | chatbot_sessionsDefaultArgs<ExtArgs>
-    user?: boolean | usersDefaultArgs<ExtArgs>
+    message?: boolean | chatbot_feedback$messageArgs<ExtArgs>
+    session?: boolean | chatbot_feedback$sessionArgs<ExtArgs>
   }, ExtArgs["result"]["chatbot_feedback"]>
 
   export type chatbot_feedbackSelectScalar = {
     id?: boolean
     message_id?: boolean
     session_id?: boolean
-    user_id?: boolean
+    firebase_uid?: boolean
     rating?: boolean
-    feedback?: boolean
+    feedback_text?: boolean
     created_at?: boolean
   }
 
-  export type chatbot_feedbackOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "message_id" | "session_id" | "user_id" | "rating" | "feedback" | "created_at", ExtArgs["result"]["chatbot_feedback"]>
+  export type chatbot_feedbackOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "message_id" | "session_id" | "firebase_uid" | "rating" | "feedback_text" | "created_at", ExtArgs["result"]["chatbot_feedback"]>
   export type chatbot_feedbackInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    message?: boolean | chatbot_messagesDefaultArgs<ExtArgs>
-    session?: boolean | chatbot_sessionsDefaultArgs<ExtArgs>
-    user?: boolean | usersDefaultArgs<ExtArgs>
+    message?: boolean | chatbot_feedback$messageArgs<ExtArgs>
+    session?: boolean | chatbot_feedback$sessionArgs<ExtArgs>
   }
   export type chatbot_feedbackIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    message?: boolean | chatbot_messagesDefaultArgs<ExtArgs>
-    session?: boolean | chatbot_sessionsDefaultArgs<ExtArgs>
-    user?: boolean | usersDefaultArgs<ExtArgs>
+    message?: boolean | chatbot_feedback$messageArgs<ExtArgs>
+    session?: boolean | chatbot_feedback$sessionArgs<ExtArgs>
   }
   export type chatbot_feedbackIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    message?: boolean | chatbot_messagesDefaultArgs<ExtArgs>
-    session?: boolean | chatbot_sessionsDefaultArgs<ExtArgs>
-    user?: boolean | usersDefaultArgs<ExtArgs>
+    message?: boolean | chatbot_feedback$messageArgs<ExtArgs>
+    session?: boolean | chatbot_feedback$sessionArgs<ExtArgs>
   }
 
   export type $chatbot_feedbackPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "chatbot_feedback"
     objects: {
-      message: Prisma.$chatbot_messagesPayload<ExtArgs>
-      session: Prisma.$chatbot_sessionsPayload<ExtArgs>
-      user: Prisma.$usersPayload<ExtArgs>
+      message: Prisma.$chatbot_messagesPayload<ExtArgs> | null
+      session: Prisma.$chatbot_sessionsPayload<ExtArgs> | null
     }
     scalars: $Extensions.GetPayloadResult<{
-      id: number
-      message_id: string
-      session_id: string
-      user_id: number
-      rating: number
-      feedback: string | null
-      created_at: Date
+      id: string
+      message_id: string | null
+      session_id: string | null
+      firebase_uid: string
+      rating: number | null
+      feedback_text: string | null
+      created_at: Date | null
     }, ExtArgs["result"]["chatbot_feedback"]>
     composites: {}
   }
@@ -78123,9 +76745,8 @@ export namespace Prisma {
    */
   export interface Prisma__chatbot_feedbackClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
-    message<T extends chatbot_messagesDefaultArgs<ExtArgs> = {}>(args?: Subset<T, chatbot_messagesDefaultArgs<ExtArgs>>): Prisma__chatbot_messagesClient<$Result.GetResult<Prisma.$chatbot_messagesPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-    session<T extends chatbot_sessionsDefaultArgs<ExtArgs> = {}>(args?: Subset<T, chatbot_sessionsDefaultArgs<ExtArgs>>): Prisma__chatbot_sessionsClient<$Result.GetResult<Prisma.$chatbot_sessionsPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-    user<T extends usersDefaultArgs<ExtArgs> = {}>(args?: Subset<T, usersDefaultArgs<ExtArgs>>): Prisma__usersClient<$Result.GetResult<Prisma.$usersPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    message<T extends chatbot_feedback$messageArgs<ExtArgs> = {}>(args?: Subset<T, chatbot_feedback$messageArgs<ExtArgs>>): Prisma__chatbot_messagesClient<$Result.GetResult<Prisma.$chatbot_messagesPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    session<T extends chatbot_feedback$sessionArgs<ExtArgs> = {}>(args?: Subset<T, chatbot_feedback$sessionArgs<ExtArgs>>): Prisma__chatbot_sessionsClient<$Result.GetResult<Prisma.$chatbot_sessionsPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -78155,12 +76776,12 @@ export namespace Prisma {
    * Fields of the chatbot_feedback model
    */
   interface chatbot_feedbackFieldRefs {
-    readonly id: FieldRef<"chatbot_feedback", 'Int'>
+    readonly id: FieldRef<"chatbot_feedback", 'String'>
     readonly message_id: FieldRef<"chatbot_feedback", 'String'>
     readonly session_id: FieldRef<"chatbot_feedback", 'String'>
-    readonly user_id: FieldRef<"chatbot_feedback", 'Int'>
+    readonly firebase_uid: FieldRef<"chatbot_feedback", 'String'>
     readonly rating: FieldRef<"chatbot_feedback", 'Int'>
-    readonly feedback: FieldRef<"chatbot_feedback", 'String'>
+    readonly feedback_text: FieldRef<"chatbot_feedback", 'String'>
     readonly created_at: FieldRef<"chatbot_feedback", 'DateTime'>
   }
     
@@ -78558,6 +77179,44 @@ export namespace Prisma {
   }
 
   /**
+   * chatbot_feedback.message
+   */
+  export type chatbot_feedback$messageArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the chatbot_messages
+     */
+    select?: chatbot_messagesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the chatbot_messages
+     */
+    omit?: chatbot_messagesOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: chatbot_messagesInclude<ExtArgs> | null
+    where?: chatbot_messagesWhereInput
+  }
+
+  /**
+   * chatbot_feedback.session
+   */
+  export type chatbot_feedback$sessionArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the chatbot_sessions
+     */
+    select?: chatbot_sessionsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the chatbot_sessions
+     */
+    omit?: chatbot_sessionsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: chatbot_sessionsInclude<ExtArgs> | null
+    where?: chatbot_sessionsWhereInput
+  }
+
+  /**
    * chatbot_feedback without action
    */
   export type chatbot_feedbackDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -78774,18 +77433,6 @@ export namespace Prisma {
   };
 
   export type UsersScalarFieldEnum = (typeof UsersScalarFieldEnum)[keyof typeof UsersScalarFieldEnum]
-
-
-  export const Blog_ratingsScalarFieldEnum: {
-    id: 'id',
-    blog_id: 'blog_id',
-    user_id: 'user_id',
-    rating: 'rating',
-    created_at: 'created_at',
-    updated_at: 'updated_at'
-  };
-
-  export type Blog_ratingsScalarFieldEnum = (typeof Blog_ratingsScalarFieldEnum)[keyof typeof Blog_ratingsScalarFieldEnum]
 
 
   export const Chatbot_messagesScalarFieldEnum: {
@@ -79541,9 +78188,9 @@ export namespace Prisma {
     id: 'id',
     message_id: 'message_id',
     session_id: 'session_id',
-    user_id: 'user_id',
+    firebase_uid: 'firebase_uid',
     rating: 'rating',
-    feedback: 'feedback',
+    feedback_text: 'feedback_text',
     created_at: 'created_at'
   };
 
@@ -80651,7 +79298,6 @@ export namespace Prisma {
     comment_count?: IntNullableFilter<"blogs"> | number | null
     tags?: JsonNullableFilter<"blogs">
     metadata?: JsonNullableFilter<"blogs">
-    blog_ratings?: Blog_ratingsListRelationFilter
     blog_category_relations?: Blog_category_relationsListRelationFilter
     blog_comments?: Blog_commentsListRelationFilter
     blog_likes?: Blog_likesListRelationFilter
@@ -80681,7 +79327,6 @@ export namespace Prisma {
     comment_count?: SortOrderInput | SortOrder
     tags?: SortOrderInput | SortOrder
     metadata?: SortOrderInput | SortOrder
-    blog_ratings?: blog_ratingsOrderByRelationAggregateInput
     blog_category_relations?: blog_category_relationsOrderByRelationAggregateInput
     blog_comments?: blog_commentsOrderByRelationAggregateInput
     blog_likes?: blog_likesOrderByRelationAggregateInput
@@ -80714,7 +79359,6 @@ export namespace Prisma {
     comment_count?: IntNullableFilter<"blogs"> | number | null
     tags?: JsonNullableFilter<"blogs">
     metadata?: JsonNullableFilter<"blogs">
-    blog_ratings?: Blog_ratingsListRelationFilter
     blog_category_relations?: Blog_category_relationsListRelationFilter
     blog_comments?: Blog_commentsListRelationFilter
     blog_likes?: Blog_likesListRelationFilter
@@ -80901,7 +79545,6 @@ export namespace Prisma {
     created_astronomy_events?: Astronomy_eventsListRelationFilter
     blog_comments?: Blog_commentsListRelationFilter
     blog_likes?: Blog_likesListRelationFilter
-    blog_ratings?: Blog_ratingsListRelationFilter
     blog_views?: Blog_viewsListRelationFilter
     blogs?: BlogsListRelationFilter
     chat_messages?: Chat_messagesListRelationFilter
@@ -80940,7 +79583,6 @@ export namespace Prisma {
     created_stargazing_spots?: Stargazing_spotsListRelationFilter
     subscriptions?: SubscriptionsListRelationFilter
     user_settings?: XOR<User_settingsNullableScalarRelationFilter, user_settingsWhereInput> | null
-    chatbot_feedback?: Chatbot_feedbackListRelationFilter
   }
 
   export type usersOrderByWithRelationInput = {
@@ -80969,7 +79611,6 @@ export namespace Prisma {
     created_astronomy_events?: astronomy_eventsOrderByRelationAggregateInput
     blog_comments?: blog_commentsOrderByRelationAggregateInput
     blog_likes?: blog_likesOrderByRelationAggregateInput
-    blog_ratings?: blog_ratingsOrderByRelationAggregateInput
     blog_views?: blog_viewsOrderByRelationAggregateInput
     blogs?: blogsOrderByRelationAggregateInput
     chat_messages?: chat_messagesOrderByRelationAggregateInput
@@ -81008,7 +79649,6 @@ export namespace Prisma {
     created_stargazing_spots?: stargazing_spotsOrderByRelationAggregateInput
     subscriptions?: subscriptionsOrderByRelationAggregateInput
     user_settings?: user_settingsOrderByWithRelationInput
-    chatbot_feedback?: chatbot_feedbackOrderByRelationAggregateInput
   }
 
   export type usersWhereUniqueInput = Prisma.AtLeast<{
@@ -81040,7 +79680,6 @@ export namespace Prisma {
     created_astronomy_events?: Astronomy_eventsListRelationFilter
     blog_comments?: Blog_commentsListRelationFilter
     blog_likes?: Blog_likesListRelationFilter
-    blog_ratings?: Blog_ratingsListRelationFilter
     blog_views?: Blog_viewsListRelationFilter
     blogs?: BlogsListRelationFilter
     chat_messages?: Chat_messagesListRelationFilter
@@ -81079,7 +79718,6 @@ export namespace Prisma {
     created_stargazing_spots?: Stargazing_spotsListRelationFilter
     subscriptions?: SubscriptionsListRelationFilter
     user_settings?: XOR<User_settingsNullableScalarRelationFilter, user_settingsWhereInput> | null
-    chatbot_feedback?: Chatbot_feedbackListRelationFilter
   }, "id" | "firebase_uid" | "email">
 
   export type usersOrderByWithAggregationInput = {
@@ -81134,72 +79772,6 @@ export namespace Prisma {
     auto_renew?: BoolNullableWithAggregatesFilter<"users"> | boolean | null
     chatbot_questions_used?: IntNullableWithAggregatesFilter<"users"> | number | null
     chatbot_questions_reset_date?: DateTimeNullableWithAggregatesFilter<"users"> | Date | string | null
-  }
-
-  export type blog_ratingsWhereInput = {
-    AND?: blog_ratingsWhereInput | blog_ratingsWhereInput[]
-    OR?: blog_ratingsWhereInput[]
-    NOT?: blog_ratingsWhereInput | blog_ratingsWhereInput[]
-    id?: IntFilter<"blog_ratings"> | number
-    blog_id?: IntNullableFilter<"blog_ratings"> | number | null
-    user_id?: IntNullableFilter<"blog_ratings"> | number | null
-    rating?: IntFilter<"blog_ratings"> | number
-    created_at?: DateTimeNullableFilter<"blog_ratings"> | Date | string | null
-    updated_at?: DateTimeNullableFilter<"blog_ratings"> | Date | string | null
-    blogs?: XOR<BlogsNullableScalarRelationFilter, blogsWhereInput> | null
-    users?: XOR<UsersNullableScalarRelationFilter, usersWhereInput> | null
-  }
-
-  export type blog_ratingsOrderByWithRelationInput = {
-    id?: SortOrder
-    blog_id?: SortOrderInput | SortOrder
-    user_id?: SortOrderInput | SortOrder
-    rating?: SortOrder
-    created_at?: SortOrderInput | SortOrder
-    updated_at?: SortOrderInput | SortOrder
-    blogs?: blogsOrderByWithRelationInput
-    users?: usersOrderByWithRelationInput
-  }
-
-  export type blog_ratingsWhereUniqueInput = Prisma.AtLeast<{
-    id?: number
-    blog_id_user_id?: blog_ratingsBlog_idUser_idCompoundUniqueInput
-    AND?: blog_ratingsWhereInput | blog_ratingsWhereInput[]
-    OR?: blog_ratingsWhereInput[]
-    NOT?: blog_ratingsWhereInput | blog_ratingsWhereInput[]
-    blog_id?: IntNullableFilter<"blog_ratings"> | number | null
-    user_id?: IntNullableFilter<"blog_ratings"> | number | null
-    rating?: IntFilter<"blog_ratings"> | number
-    created_at?: DateTimeNullableFilter<"blog_ratings"> | Date | string | null
-    updated_at?: DateTimeNullableFilter<"blog_ratings"> | Date | string | null
-    blogs?: XOR<BlogsNullableScalarRelationFilter, blogsWhereInput> | null
-    users?: XOR<UsersNullableScalarRelationFilter, usersWhereInput> | null
-  }, "id" | "blog_id_user_id">
-
-  export type blog_ratingsOrderByWithAggregationInput = {
-    id?: SortOrder
-    blog_id?: SortOrderInput | SortOrder
-    user_id?: SortOrderInput | SortOrder
-    rating?: SortOrder
-    created_at?: SortOrderInput | SortOrder
-    updated_at?: SortOrderInput | SortOrder
-    _count?: blog_ratingsCountOrderByAggregateInput
-    _avg?: blog_ratingsAvgOrderByAggregateInput
-    _max?: blog_ratingsMaxOrderByAggregateInput
-    _min?: blog_ratingsMinOrderByAggregateInput
-    _sum?: blog_ratingsSumOrderByAggregateInput
-  }
-
-  export type blog_ratingsScalarWhereWithAggregatesInput = {
-    AND?: blog_ratingsScalarWhereWithAggregatesInput | blog_ratingsScalarWhereWithAggregatesInput[]
-    OR?: blog_ratingsScalarWhereWithAggregatesInput[]
-    NOT?: blog_ratingsScalarWhereWithAggregatesInput | blog_ratingsScalarWhereWithAggregatesInput[]
-    id?: IntWithAggregatesFilter<"blog_ratings"> | number
-    blog_id?: IntNullableWithAggregatesFilter<"blog_ratings"> | number | null
-    user_id?: IntNullableWithAggregatesFilter<"blog_ratings"> | number | null
-    rating?: IntWithAggregatesFilter<"blog_ratings"> | number
-    created_at?: DateTimeNullableWithAggregatesFilter<"blog_ratings"> | Date | string | null
-    updated_at?: DateTimeNullableWithAggregatesFilter<"blog_ratings"> | Date | string | null
   }
 
   export type chatbot_messagesWhereInput = {
@@ -85187,55 +83759,52 @@ export namespace Prisma {
     AND?: chatbot_feedbackWhereInput | chatbot_feedbackWhereInput[]
     OR?: chatbot_feedbackWhereInput[]
     NOT?: chatbot_feedbackWhereInput | chatbot_feedbackWhereInput[]
-    id?: IntFilter<"chatbot_feedback"> | number
-    message_id?: UuidFilter<"chatbot_feedback"> | string
-    session_id?: UuidFilter<"chatbot_feedback"> | string
-    user_id?: IntFilter<"chatbot_feedback"> | number
-    rating?: IntFilter<"chatbot_feedback"> | number
-    feedback?: StringNullableFilter<"chatbot_feedback"> | string | null
-    created_at?: DateTimeFilter<"chatbot_feedback"> | Date | string
-    message?: XOR<Chatbot_messagesScalarRelationFilter, chatbot_messagesWhereInput>
-    session?: XOR<Chatbot_sessionsScalarRelationFilter, chatbot_sessionsWhereInput>
-    user?: XOR<UsersScalarRelationFilter, usersWhereInput>
+    id?: UuidFilter<"chatbot_feedback"> | string
+    message_id?: UuidNullableFilter<"chatbot_feedback"> | string | null
+    session_id?: UuidNullableFilter<"chatbot_feedback"> | string | null
+    firebase_uid?: StringFilter<"chatbot_feedback"> | string
+    rating?: IntNullableFilter<"chatbot_feedback"> | number | null
+    feedback_text?: StringNullableFilter<"chatbot_feedback"> | string | null
+    created_at?: DateTimeNullableFilter<"chatbot_feedback"> | Date | string | null
+    message?: XOR<Chatbot_messagesNullableScalarRelationFilter, chatbot_messagesWhereInput> | null
+    session?: XOR<Chatbot_sessionsNullableScalarRelationFilter, chatbot_sessionsWhereInput> | null
   }
 
   export type chatbot_feedbackOrderByWithRelationInput = {
     id?: SortOrder
-    message_id?: SortOrder
-    session_id?: SortOrder
-    user_id?: SortOrder
-    rating?: SortOrder
-    feedback?: SortOrderInput | SortOrder
-    created_at?: SortOrder
+    message_id?: SortOrderInput | SortOrder
+    session_id?: SortOrderInput | SortOrder
+    firebase_uid?: SortOrder
+    rating?: SortOrderInput | SortOrder
+    feedback_text?: SortOrderInput | SortOrder
+    created_at?: SortOrderInput | SortOrder
     message?: chatbot_messagesOrderByWithRelationInput
     session?: chatbot_sessionsOrderByWithRelationInput
-    user?: usersOrderByWithRelationInput
   }
 
   export type chatbot_feedbackWhereUniqueInput = Prisma.AtLeast<{
-    id?: number
+    id?: string
     AND?: chatbot_feedbackWhereInput | chatbot_feedbackWhereInput[]
     OR?: chatbot_feedbackWhereInput[]
     NOT?: chatbot_feedbackWhereInput | chatbot_feedbackWhereInput[]
-    message_id?: UuidFilter<"chatbot_feedback"> | string
-    session_id?: UuidFilter<"chatbot_feedback"> | string
-    user_id?: IntFilter<"chatbot_feedback"> | number
-    rating?: IntFilter<"chatbot_feedback"> | number
-    feedback?: StringNullableFilter<"chatbot_feedback"> | string | null
-    created_at?: DateTimeFilter<"chatbot_feedback"> | Date | string
-    message?: XOR<Chatbot_messagesScalarRelationFilter, chatbot_messagesWhereInput>
-    session?: XOR<Chatbot_sessionsScalarRelationFilter, chatbot_sessionsWhereInput>
-    user?: XOR<UsersScalarRelationFilter, usersWhereInput>
+    message_id?: UuidNullableFilter<"chatbot_feedback"> | string | null
+    session_id?: UuidNullableFilter<"chatbot_feedback"> | string | null
+    firebase_uid?: StringFilter<"chatbot_feedback"> | string
+    rating?: IntNullableFilter<"chatbot_feedback"> | number | null
+    feedback_text?: StringNullableFilter<"chatbot_feedback"> | string | null
+    created_at?: DateTimeNullableFilter<"chatbot_feedback"> | Date | string | null
+    message?: XOR<Chatbot_messagesNullableScalarRelationFilter, chatbot_messagesWhereInput> | null
+    session?: XOR<Chatbot_sessionsNullableScalarRelationFilter, chatbot_sessionsWhereInput> | null
   }, "id">
 
   export type chatbot_feedbackOrderByWithAggregationInput = {
     id?: SortOrder
-    message_id?: SortOrder
-    session_id?: SortOrder
-    user_id?: SortOrder
-    rating?: SortOrder
-    feedback?: SortOrderInput | SortOrder
-    created_at?: SortOrder
+    message_id?: SortOrderInput | SortOrder
+    session_id?: SortOrderInput | SortOrder
+    firebase_uid?: SortOrder
+    rating?: SortOrderInput | SortOrder
+    feedback_text?: SortOrderInput | SortOrder
+    created_at?: SortOrderInput | SortOrder
     _count?: chatbot_feedbackCountOrderByAggregateInput
     _avg?: chatbot_feedbackAvgOrderByAggregateInput
     _max?: chatbot_feedbackMaxOrderByAggregateInput
@@ -85247,13 +83816,13 @@ export namespace Prisma {
     AND?: chatbot_feedbackScalarWhereWithAggregatesInput | chatbot_feedbackScalarWhereWithAggregatesInput[]
     OR?: chatbot_feedbackScalarWhereWithAggregatesInput[]
     NOT?: chatbot_feedbackScalarWhereWithAggregatesInput | chatbot_feedbackScalarWhereWithAggregatesInput[]
-    id?: IntWithAggregatesFilter<"chatbot_feedback"> | number
-    message_id?: UuidWithAggregatesFilter<"chatbot_feedback"> | string
-    session_id?: UuidWithAggregatesFilter<"chatbot_feedback"> | string
-    user_id?: IntWithAggregatesFilter<"chatbot_feedback"> | number
-    rating?: IntWithAggregatesFilter<"chatbot_feedback"> | number
-    feedback?: StringNullableWithAggregatesFilter<"chatbot_feedback"> | string | null
-    created_at?: DateTimeWithAggregatesFilter<"chatbot_feedback"> | Date | string
+    id?: UuidWithAggregatesFilter<"chatbot_feedback"> | string
+    message_id?: UuidNullableWithAggregatesFilter<"chatbot_feedback"> | string | null
+    session_id?: UuidNullableWithAggregatesFilter<"chatbot_feedback"> | string | null
+    firebase_uid?: StringWithAggregatesFilter<"chatbot_feedback"> | string
+    rating?: IntNullableWithAggregatesFilter<"chatbot_feedback"> | number | null
+    feedback_text?: StringNullableWithAggregatesFilter<"chatbot_feedback"> | string | null
+    created_at?: DateTimeNullableWithAggregatesFilter<"chatbot_feedback"> | Date | string | null
   }
 
   export type QuizParticipantsCreateInput = {
@@ -85886,7 +84455,6 @@ export namespace Prisma {
     comment_count?: number | null
     tags?: NullableJsonNullValueInput | InputJsonValue
     metadata?: NullableJsonNullValueInput | InputJsonValue
-    blog_ratings?: blog_ratingsCreateNestedManyWithoutBlogsInput
     blog_category_relations?: blog_category_relationsCreateNestedManyWithoutBlogsInput
     blog_comments?: blog_commentsCreateNestedManyWithoutBlogsInput
     blog_likes?: blog_likesCreateNestedManyWithoutBlogsInput
@@ -85916,7 +84484,6 @@ export namespace Prisma {
     comment_count?: number | null
     tags?: NullableJsonNullValueInput | InputJsonValue
     metadata?: NullableJsonNullValueInput | InputJsonValue
-    blog_ratings?: blog_ratingsUncheckedCreateNestedManyWithoutBlogsInput
     blog_category_relations?: blog_category_relationsUncheckedCreateNestedManyWithoutBlogsInput
     blog_comments?: blog_commentsUncheckedCreateNestedManyWithoutBlogsInput
     blog_likes?: blog_likesUncheckedCreateNestedManyWithoutBlogsInput
@@ -85943,7 +84510,6 @@ export namespace Prisma {
     comment_count?: NullableIntFieldUpdateOperationsInput | number | null
     tags?: NullableJsonNullValueInput | InputJsonValue
     metadata?: NullableJsonNullValueInput | InputJsonValue
-    blog_ratings?: blog_ratingsUpdateManyWithoutBlogsNestedInput
     blog_category_relations?: blog_category_relationsUpdateManyWithoutBlogsNestedInput
     blog_comments?: blog_commentsUpdateManyWithoutBlogsNestedInput
     blog_likes?: blog_likesUpdateManyWithoutBlogsNestedInput
@@ -85973,7 +84539,6 @@ export namespace Prisma {
     comment_count?: NullableIntFieldUpdateOperationsInput | number | null
     tags?: NullableJsonNullValueInput | InputJsonValue
     metadata?: NullableJsonNullValueInput | InputJsonValue
-    blog_ratings?: blog_ratingsUncheckedUpdateManyWithoutBlogsNestedInput
     blog_category_relations?: blog_category_relationsUncheckedUpdateManyWithoutBlogsNestedInput
     blog_comments?: blog_commentsUncheckedUpdateManyWithoutBlogsNestedInput
     blog_likes?: blog_likesUncheckedUpdateManyWithoutBlogsNestedInput
@@ -86168,7 +84733,6 @@ export namespace Prisma {
     created_astronomy_events?: astronomy_eventsCreateNestedManyWithoutCreatorInput
     blog_comments?: blog_commentsCreateNestedManyWithoutUsersInput
     blog_likes?: blog_likesCreateNestedManyWithoutUsersInput
-    blog_ratings?: blog_ratingsCreateNestedManyWithoutUsersInput
     blog_views?: blog_viewsCreateNestedManyWithoutUsersInput
     blogs?: blogsCreateNestedManyWithoutUsersInput
     chat_messages?: chat_messagesCreateNestedManyWithoutUserInput
@@ -86207,7 +84771,6 @@ export namespace Prisma {
     created_stargazing_spots?: stargazing_spotsCreateNestedManyWithoutCreatorInput
     subscriptions?: subscriptionsCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsCreateNestedOneWithoutUsersInput
-    chatbot_feedback?: chatbot_feedbackCreateNestedManyWithoutUserInput
   }
 
   export type usersUncheckedCreateInput = {
@@ -86236,7 +84799,6 @@ export namespace Prisma {
     created_astronomy_events?: astronomy_eventsUncheckedCreateNestedManyWithoutCreatorInput
     blog_comments?: blog_commentsUncheckedCreateNestedManyWithoutUsersInput
     blog_likes?: blog_likesUncheckedCreateNestedManyWithoutUsersInput
-    blog_ratings?: blog_ratingsUncheckedCreateNestedManyWithoutUsersInput
     blog_views?: blog_viewsUncheckedCreateNestedManyWithoutUsersInput
     blogs?: blogsUncheckedCreateNestedManyWithoutUsersInput
     chat_messages?: chat_messagesUncheckedCreateNestedManyWithoutUserInput
@@ -86275,7 +84837,6 @@ export namespace Prisma {
     created_stargazing_spots?: stargazing_spotsUncheckedCreateNestedManyWithoutCreatorInput
     subscriptions?: subscriptionsUncheckedCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsUncheckedCreateNestedOneWithoutUsersInput
-    chatbot_feedback?: chatbot_feedbackUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type usersUpdateInput = {
@@ -86303,7 +84864,6 @@ export namespace Prisma {
     created_astronomy_events?: astronomy_eventsUpdateManyWithoutCreatorNestedInput
     blog_comments?: blog_commentsUpdateManyWithoutUsersNestedInput
     blog_likes?: blog_likesUpdateManyWithoutUsersNestedInput
-    blog_ratings?: blog_ratingsUpdateManyWithoutUsersNestedInput
     blog_views?: blog_viewsUpdateManyWithoutUsersNestedInput
     blogs?: blogsUpdateManyWithoutUsersNestedInput
     chat_messages?: chat_messagesUpdateManyWithoutUserNestedInput
@@ -86342,7 +84902,6 @@ export namespace Prisma {
     created_stargazing_spots?: stargazing_spotsUpdateManyWithoutCreatorNestedInput
     subscriptions?: subscriptionsUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUpdateOneWithoutUsersNestedInput
-    chatbot_feedback?: chatbot_feedbackUpdateManyWithoutUserNestedInput
   }
 
   export type usersUncheckedUpdateInput = {
@@ -86371,7 +84930,6 @@ export namespace Prisma {
     created_astronomy_events?: astronomy_eventsUncheckedUpdateManyWithoutCreatorNestedInput
     blog_comments?: blog_commentsUncheckedUpdateManyWithoutUsersNestedInput
     blog_likes?: blog_likesUncheckedUpdateManyWithoutUsersNestedInput
-    blog_ratings?: blog_ratingsUncheckedUpdateManyWithoutUsersNestedInput
     blog_views?: blog_viewsUncheckedUpdateManyWithoutUsersNestedInput
     blogs?: blogsUncheckedUpdateManyWithoutUsersNestedInput
     chat_messages?: chat_messagesUncheckedUpdateManyWithoutUserNestedInput
@@ -86410,7 +84968,6 @@ export namespace Prisma {
     created_stargazing_spots?: stargazing_spotsUncheckedUpdateManyWithoutCreatorNestedInput
     subscriptions?: subscriptionsUncheckedUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUncheckedUpdateOneWithoutUsersNestedInput
-    chatbot_feedback?: chatbot_feedbackUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type usersCreateManyInput = {
@@ -86479,64 +85036,6 @@ export namespace Prisma {
     auto_renew?: NullableBoolFieldUpdateOperationsInput | boolean | null
     chatbot_questions_used?: NullableIntFieldUpdateOperationsInput | number | null
     chatbot_questions_reset_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  }
-
-  export type blog_ratingsCreateInput = {
-    rating: number
-    created_at?: Date | string | null
-    updated_at?: Date | string | null
-    blogs?: blogsCreateNestedOneWithoutBlog_ratingsInput
-    users?: usersCreateNestedOneWithoutBlog_ratingsInput
-  }
-
-  export type blog_ratingsUncheckedCreateInput = {
-    id?: number
-    blog_id?: number | null
-    user_id?: number | null
-    rating: number
-    created_at?: Date | string | null
-    updated_at?: Date | string | null
-  }
-
-  export type blog_ratingsUpdateInput = {
-    rating?: IntFieldUpdateOperationsInput | number
-    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    blogs?: blogsUpdateOneWithoutBlog_ratingsNestedInput
-    users?: usersUpdateOneWithoutBlog_ratingsNestedInput
-  }
-
-  export type blog_ratingsUncheckedUpdateInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    blog_id?: NullableIntFieldUpdateOperationsInput | number | null
-    user_id?: NullableIntFieldUpdateOperationsInput | number | null
-    rating?: IntFieldUpdateOperationsInput | number
-    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  }
-
-  export type blog_ratingsCreateManyInput = {
-    id?: number
-    blog_id?: number | null
-    user_id?: number | null
-    rating: number
-    created_at?: Date | string | null
-    updated_at?: Date | string | null
-  }
-
-  export type blog_ratingsUpdateManyMutationInput = {
-    rating?: IntFieldUpdateOperationsInput | number
-    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  }
-
-  export type blog_ratingsUncheckedUpdateManyInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    blog_id?: NullableIntFieldUpdateOperationsInput | number | null
-    user_id?: NullableIntFieldUpdateOperationsInput | number | null
-    rating?: IntFieldUpdateOperationsInput | number
-    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type chatbot_messagesCreateInput = {
@@ -90780,67 +89279,71 @@ export namespace Prisma {
   }
 
   export type chatbot_feedbackCreateInput = {
-    rating: number
-    feedback?: string | null
-    created_at?: Date | string
-    message: chatbot_messagesCreateNestedOneWithoutChatbot_feedbackInput
-    session: chatbot_sessionsCreateNestedOneWithoutChatbot_feedbackInput
-    user: usersCreateNestedOneWithoutChatbot_feedbackInput
+    id?: string
+    firebase_uid: string
+    rating?: number | null
+    feedback_text?: string | null
+    created_at?: Date | string | null
+    message?: chatbot_messagesCreateNestedOneWithoutChatbot_feedbackInput
+    session?: chatbot_sessionsCreateNestedOneWithoutChatbot_feedbackInput
   }
 
   export type chatbot_feedbackUncheckedCreateInput = {
-    id?: number
-    message_id: string
-    session_id: string
-    user_id: number
-    rating: number
-    feedback?: string | null
-    created_at?: Date | string
+    id?: string
+    message_id?: string | null
+    session_id?: string | null
+    firebase_uid: string
+    rating?: number | null
+    feedback_text?: string | null
+    created_at?: Date | string | null
   }
 
   export type chatbot_feedbackUpdateInput = {
-    rating?: IntFieldUpdateOperationsInput | number
-    feedback?: NullableStringFieldUpdateOperationsInput | string | null
-    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    message?: chatbot_messagesUpdateOneRequiredWithoutChatbot_feedbackNestedInput
-    session?: chatbot_sessionsUpdateOneRequiredWithoutChatbot_feedbackNestedInput
-    user?: usersUpdateOneRequiredWithoutChatbot_feedbackNestedInput
+    id?: StringFieldUpdateOperationsInput | string
+    firebase_uid?: StringFieldUpdateOperationsInput | string
+    rating?: NullableIntFieldUpdateOperationsInput | number | null
+    feedback_text?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    message?: chatbot_messagesUpdateOneWithoutChatbot_feedbackNestedInput
+    session?: chatbot_sessionsUpdateOneWithoutChatbot_feedbackNestedInput
   }
 
   export type chatbot_feedbackUncheckedUpdateInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    message_id?: StringFieldUpdateOperationsInput | string
-    session_id?: StringFieldUpdateOperationsInput | string
-    user_id?: IntFieldUpdateOperationsInput | number
-    rating?: IntFieldUpdateOperationsInput | number
-    feedback?: NullableStringFieldUpdateOperationsInput | string | null
-    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    id?: StringFieldUpdateOperationsInput | string
+    message_id?: NullableStringFieldUpdateOperationsInput | string | null
+    session_id?: NullableStringFieldUpdateOperationsInput | string | null
+    firebase_uid?: StringFieldUpdateOperationsInput | string
+    rating?: NullableIntFieldUpdateOperationsInput | number | null
+    feedback_text?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type chatbot_feedbackCreateManyInput = {
-    id?: number
-    message_id: string
-    session_id: string
-    user_id: number
-    rating: number
-    feedback?: string | null
-    created_at?: Date | string
+    id?: string
+    message_id?: string | null
+    session_id?: string | null
+    firebase_uid: string
+    rating?: number | null
+    feedback_text?: string | null
+    created_at?: Date | string | null
   }
 
   export type chatbot_feedbackUpdateManyMutationInput = {
-    rating?: IntFieldUpdateOperationsInput | number
-    feedback?: NullableStringFieldUpdateOperationsInput | string | null
-    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    id?: StringFieldUpdateOperationsInput | string
+    firebase_uid?: StringFieldUpdateOperationsInput | string
+    rating?: NullableIntFieldUpdateOperationsInput | number | null
+    feedback_text?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type chatbot_feedbackUncheckedUpdateManyInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    message_id?: StringFieldUpdateOperationsInput | string
-    session_id?: StringFieldUpdateOperationsInput | string
-    user_id?: IntFieldUpdateOperationsInput | number
-    rating?: IntFieldUpdateOperationsInput | number
-    feedback?: NullableStringFieldUpdateOperationsInput | string | null
-    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    id?: StringFieldUpdateOperationsInput | string
+    message_id?: NullableStringFieldUpdateOperationsInput | string | null
+    session_id?: NullableStringFieldUpdateOperationsInput | string | null
+    firebase_uid?: StringFieldUpdateOperationsInput | string
+    rating?: NullableIntFieldUpdateOperationsInput | number | null
+    feedback_text?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type IntFilter<$PrismaModel = never> = {
@@ -91577,12 +90080,6 @@ export namespace Prisma {
     not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
   }
 
-  export type Blog_ratingsListRelationFilter = {
-    every?: blog_ratingsWhereInput
-    some?: blog_ratingsWhereInput
-    none?: blog_ratingsWhereInput
-  }
-
   export type Blog_likesListRelationFilter = {
     every?: blog_likesWhereInput
     some?: blog_likesWhereInput
@@ -91593,10 +90090,6 @@ export namespace Prisma {
     every?: blog_viewsWhereInput
     some?: blog_viewsWhereInput
     none?: blog_viewsWhereInput
-  }
-
-  export type blog_ratingsOrderByRelationAggregateInput = {
-    _count?: SortOrder
   }
 
   export type blog_likesOrderByRelationAggregateInput = {
@@ -92030,12 +90523,6 @@ export namespace Prisma {
     isNot?: user_settingsWhereInput | null
   }
 
-  export type Chatbot_feedbackListRelationFilter = {
-    every?: chatbot_feedbackWhereInput
-    some?: chatbot_feedbackWhereInput
-    none?: chatbot_feedbackWhereInput
-  }
-
   export type QuizzesOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
@@ -92168,10 +90655,6 @@ export namespace Prisma {
     _count?: SortOrder
   }
 
-  export type chatbot_feedbackOrderByRelationAggregateInput = {
-    _count?: SortOrder
-  }
-
   export type usersCountOrderByAggregateInput = {
     id?: SortOrder
     firebase_uid?: SortOrder
@@ -92277,52 +90760,6 @@ export namespace Prisma {
     _max?: NestedEnumsubscription_statusNullableFilter<$PrismaModel>
   }
 
-  export type blog_ratingsBlog_idUser_idCompoundUniqueInput = {
-    blog_id: number
-    user_id: number
-  }
-
-  export type blog_ratingsCountOrderByAggregateInput = {
-    id?: SortOrder
-    blog_id?: SortOrder
-    user_id?: SortOrder
-    rating?: SortOrder
-    created_at?: SortOrder
-    updated_at?: SortOrder
-  }
-
-  export type blog_ratingsAvgOrderByAggregateInput = {
-    id?: SortOrder
-    blog_id?: SortOrder
-    user_id?: SortOrder
-    rating?: SortOrder
-  }
-
-  export type blog_ratingsMaxOrderByAggregateInput = {
-    id?: SortOrder
-    blog_id?: SortOrder
-    user_id?: SortOrder
-    rating?: SortOrder
-    created_at?: SortOrder
-    updated_at?: SortOrder
-  }
-
-  export type blog_ratingsMinOrderByAggregateInput = {
-    id?: SortOrder
-    blog_id?: SortOrder
-    user_id?: SortOrder
-    rating?: SortOrder
-    created_at?: SortOrder
-    updated_at?: SortOrder
-  }
-
-  export type blog_ratingsSumOrderByAggregateInput = {
-    id?: SortOrder
-    blog_id?: SortOrder
-    user_id?: SortOrder
-    rating?: SortOrder
-  }
-
   export type UuidFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel>
     in?: string[] | ListStringFieldRefInput<$PrismaModel>
@@ -92358,9 +90795,19 @@ export namespace Prisma {
     not?: NestedDecimalNullableFilter<$PrismaModel> | Decimal | DecimalJsLike | number | string | null
   }
 
+  export type Chatbot_feedbackListRelationFilter = {
+    every?: chatbot_feedbackWhereInput
+    some?: chatbot_feedbackWhereInput
+    none?: chatbot_feedbackWhereInput
+  }
+
   export type Chatbot_sessionsNullableScalarRelationFilter = {
     is?: chatbot_sessionsWhereInput | null
     isNot?: chatbot_sessionsWhereInput | null
+  }
+
+  export type chatbot_feedbackOrderByRelationAggregateInput = {
+    _count?: SortOrder
   }
 
   export type chatbot_messagesCountOrderByAggregateInput = {
@@ -95376,29 +93823,22 @@ export namespace Prisma {
     user_id?: SortOrder
   }
 
-  export type Chatbot_messagesScalarRelationFilter = {
-    is?: chatbot_messagesWhereInput
-    isNot?: chatbot_messagesWhereInput
-  }
-
-  export type Chatbot_sessionsScalarRelationFilter = {
-    is?: chatbot_sessionsWhereInput
-    isNot?: chatbot_sessionsWhereInput
+  export type Chatbot_messagesNullableScalarRelationFilter = {
+    is?: chatbot_messagesWhereInput | null
+    isNot?: chatbot_messagesWhereInput | null
   }
 
   export type chatbot_feedbackCountOrderByAggregateInput = {
     id?: SortOrder
     message_id?: SortOrder
     session_id?: SortOrder
-    user_id?: SortOrder
+    firebase_uid?: SortOrder
     rating?: SortOrder
-    feedback?: SortOrder
+    feedback_text?: SortOrder
     created_at?: SortOrder
   }
 
   export type chatbot_feedbackAvgOrderByAggregateInput = {
-    id?: SortOrder
-    user_id?: SortOrder
     rating?: SortOrder
   }
 
@@ -95406,9 +93846,9 @@ export namespace Prisma {
     id?: SortOrder
     message_id?: SortOrder
     session_id?: SortOrder
-    user_id?: SortOrder
+    firebase_uid?: SortOrder
     rating?: SortOrder
-    feedback?: SortOrder
+    feedback_text?: SortOrder
     created_at?: SortOrder
   }
 
@@ -95416,15 +93856,13 @@ export namespace Prisma {
     id?: SortOrder
     message_id?: SortOrder
     session_id?: SortOrder
-    user_id?: SortOrder
+    firebase_uid?: SortOrder
     rating?: SortOrder
-    feedback?: SortOrder
+    feedback_text?: SortOrder
     created_at?: SortOrder
   }
 
   export type chatbot_feedbackSumOrderByAggregateInput = {
-    id?: SortOrder
-    user_id?: SortOrder
     rating?: SortOrder
   }
 
@@ -95909,13 +94347,6 @@ export namespace Prisma {
     update?: XOR<XOR<usersUpdateToOneWithWhereWithoutBlog_viewsInput, usersUpdateWithoutBlog_viewsInput>, usersUncheckedUpdateWithoutBlog_viewsInput>
   }
 
-  export type blog_ratingsCreateNestedManyWithoutBlogsInput = {
-    create?: XOR<blog_ratingsCreateWithoutBlogsInput, blog_ratingsUncheckedCreateWithoutBlogsInput> | blog_ratingsCreateWithoutBlogsInput[] | blog_ratingsUncheckedCreateWithoutBlogsInput[]
-    connectOrCreate?: blog_ratingsCreateOrConnectWithoutBlogsInput | blog_ratingsCreateOrConnectWithoutBlogsInput[]
-    createMany?: blog_ratingsCreateManyBlogsInputEnvelope
-    connect?: blog_ratingsWhereUniqueInput | blog_ratingsWhereUniqueInput[]
-  }
-
   export type blog_category_relationsCreateNestedManyWithoutBlogsInput = {
     create?: XOR<blog_category_relationsCreateWithoutBlogsInput, blog_category_relationsUncheckedCreateWithoutBlogsInput> | blog_category_relationsCreateWithoutBlogsInput[] | blog_category_relationsUncheckedCreateWithoutBlogsInput[]
     connectOrCreate?: blog_category_relationsCreateOrConnectWithoutBlogsInput | blog_category_relationsCreateOrConnectWithoutBlogsInput[]
@@ -95950,13 +94381,6 @@ export namespace Prisma {
     connect?: usersWhereUniqueInput
   }
 
-  export type blog_ratingsUncheckedCreateNestedManyWithoutBlogsInput = {
-    create?: XOR<blog_ratingsCreateWithoutBlogsInput, blog_ratingsUncheckedCreateWithoutBlogsInput> | blog_ratingsCreateWithoutBlogsInput[] | blog_ratingsUncheckedCreateWithoutBlogsInput[]
-    connectOrCreate?: blog_ratingsCreateOrConnectWithoutBlogsInput | blog_ratingsCreateOrConnectWithoutBlogsInput[]
-    createMany?: blog_ratingsCreateManyBlogsInputEnvelope
-    connect?: blog_ratingsWhereUniqueInput | blog_ratingsWhereUniqueInput[]
-  }
-
   export type blog_category_relationsUncheckedCreateNestedManyWithoutBlogsInput = {
     create?: XOR<blog_category_relationsCreateWithoutBlogsInput, blog_category_relationsUncheckedCreateWithoutBlogsInput> | blog_category_relationsCreateWithoutBlogsInput[] | blog_category_relationsUncheckedCreateWithoutBlogsInput[]
     connectOrCreate?: blog_category_relationsCreateOrConnectWithoutBlogsInput | blog_category_relationsCreateOrConnectWithoutBlogsInput[]
@@ -95983,20 +94407,6 @@ export namespace Prisma {
     connectOrCreate?: blog_viewsCreateOrConnectWithoutBlogsInput | blog_viewsCreateOrConnectWithoutBlogsInput[]
     createMany?: blog_viewsCreateManyBlogsInputEnvelope
     connect?: blog_viewsWhereUniqueInput | blog_viewsWhereUniqueInput[]
-  }
-
-  export type blog_ratingsUpdateManyWithoutBlogsNestedInput = {
-    create?: XOR<blog_ratingsCreateWithoutBlogsInput, blog_ratingsUncheckedCreateWithoutBlogsInput> | blog_ratingsCreateWithoutBlogsInput[] | blog_ratingsUncheckedCreateWithoutBlogsInput[]
-    connectOrCreate?: blog_ratingsCreateOrConnectWithoutBlogsInput | blog_ratingsCreateOrConnectWithoutBlogsInput[]
-    upsert?: blog_ratingsUpsertWithWhereUniqueWithoutBlogsInput | blog_ratingsUpsertWithWhereUniqueWithoutBlogsInput[]
-    createMany?: blog_ratingsCreateManyBlogsInputEnvelope
-    set?: blog_ratingsWhereUniqueInput | blog_ratingsWhereUniqueInput[]
-    disconnect?: blog_ratingsWhereUniqueInput | blog_ratingsWhereUniqueInput[]
-    delete?: blog_ratingsWhereUniqueInput | blog_ratingsWhereUniqueInput[]
-    connect?: blog_ratingsWhereUniqueInput | blog_ratingsWhereUniqueInput[]
-    update?: blog_ratingsUpdateWithWhereUniqueWithoutBlogsInput | blog_ratingsUpdateWithWhereUniqueWithoutBlogsInput[]
-    updateMany?: blog_ratingsUpdateManyWithWhereWithoutBlogsInput | blog_ratingsUpdateManyWithWhereWithoutBlogsInput[]
-    deleteMany?: blog_ratingsScalarWhereInput | blog_ratingsScalarWhereInput[]
   }
 
   export type blog_category_relationsUpdateManyWithoutBlogsNestedInput = {
@@ -96063,20 +94473,6 @@ export namespace Prisma {
     delete?: usersWhereInput | boolean
     connect?: usersWhereUniqueInput
     update?: XOR<XOR<usersUpdateToOneWithWhereWithoutBlogsInput, usersUpdateWithoutBlogsInput>, usersUncheckedUpdateWithoutBlogsInput>
-  }
-
-  export type blog_ratingsUncheckedUpdateManyWithoutBlogsNestedInput = {
-    create?: XOR<blog_ratingsCreateWithoutBlogsInput, blog_ratingsUncheckedCreateWithoutBlogsInput> | blog_ratingsCreateWithoutBlogsInput[] | blog_ratingsUncheckedCreateWithoutBlogsInput[]
-    connectOrCreate?: blog_ratingsCreateOrConnectWithoutBlogsInput | blog_ratingsCreateOrConnectWithoutBlogsInput[]
-    upsert?: blog_ratingsUpsertWithWhereUniqueWithoutBlogsInput | blog_ratingsUpsertWithWhereUniqueWithoutBlogsInput[]
-    createMany?: blog_ratingsCreateManyBlogsInputEnvelope
-    set?: blog_ratingsWhereUniqueInput | blog_ratingsWhereUniqueInput[]
-    disconnect?: blog_ratingsWhereUniqueInput | blog_ratingsWhereUniqueInput[]
-    delete?: blog_ratingsWhereUniqueInput | blog_ratingsWhereUniqueInput[]
-    connect?: blog_ratingsWhereUniqueInput | blog_ratingsWhereUniqueInput[]
-    update?: blog_ratingsUpdateWithWhereUniqueWithoutBlogsInput | blog_ratingsUpdateWithWhereUniqueWithoutBlogsInput[]
-    updateMany?: blog_ratingsUpdateManyWithWhereWithoutBlogsInput | blog_ratingsUpdateManyWithWhereWithoutBlogsInput[]
-    deleteMany?: blog_ratingsScalarWhereInput | blog_ratingsScalarWhereInput[]
   }
 
   export type blog_category_relationsUncheckedUpdateManyWithoutBlogsNestedInput = {
@@ -96298,13 +94694,6 @@ export namespace Prisma {
     connectOrCreate?: blog_likesCreateOrConnectWithoutUsersInput | blog_likesCreateOrConnectWithoutUsersInput[]
     createMany?: blog_likesCreateManyUsersInputEnvelope
     connect?: blog_likesWhereUniqueInput | blog_likesWhereUniqueInput[]
-  }
-
-  export type blog_ratingsCreateNestedManyWithoutUsersInput = {
-    create?: XOR<blog_ratingsCreateWithoutUsersInput, blog_ratingsUncheckedCreateWithoutUsersInput> | blog_ratingsCreateWithoutUsersInput[] | blog_ratingsUncheckedCreateWithoutUsersInput[]
-    connectOrCreate?: blog_ratingsCreateOrConnectWithoutUsersInput | blog_ratingsCreateOrConnectWithoutUsersInput[]
-    createMany?: blog_ratingsCreateManyUsersInputEnvelope
-    connect?: blog_ratingsWhereUniqueInput | blog_ratingsWhereUniqueInput[]
   }
 
   export type blog_viewsCreateNestedManyWithoutUsersInput = {
@@ -96572,13 +94961,6 @@ export namespace Prisma {
     connect?: user_settingsWhereUniqueInput
   }
 
-  export type chatbot_feedbackCreateNestedManyWithoutUserInput = {
-    create?: XOR<chatbot_feedbackCreateWithoutUserInput, chatbot_feedbackUncheckedCreateWithoutUserInput> | chatbot_feedbackCreateWithoutUserInput[] | chatbot_feedbackUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: chatbot_feedbackCreateOrConnectWithoutUserInput | chatbot_feedbackCreateOrConnectWithoutUserInput[]
-    createMany?: chatbot_feedbackCreateManyUserInputEnvelope
-    connect?: chatbot_feedbackWhereUniqueInput | chatbot_feedbackWhereUniqueInput[]
-  }
-
   export type QuizParticipantsUncheckedCreateNestedManyWithoutUsersInput = {
     create?: XOR<QuizParticipantsCreateWithoutUsersInput, QuizParticipantsUncheckedCreateWithoutUsersInput> | QuizParticipantsCreateWithoutUsersInput[] | QuizParticipantsUncheckedCreateWithoutUsersInput[]
     connectOrCreate?: QuizParticipantsCreateOrConnectWithoutUsersInput | QuizParticipantsCreateOrConnectWithoutUsersInput[]
@@ -96612,13 +94994,6 @@ export namespace Prisma {
     connectOrCreate?: blog_likesCreateOrConnectWithoutUsersInput | blog_likesCreateOrConnectWithoutUsersInput[]
     createMany?: blog_likesCreateManyUsersInputEnvelope
     connect?: blog_likesWhereUniqueInput | blog_likesWhereUniqueInput[]
-  }
-
-  export type blog_ratingsUncheckedCreateNestedManyWithoutUsersInput = {
-    create?: XOR<blog_ratingsCreateWithoutUsersInput, blog_ratingsUncheckedCreateWithoutUsersInput> | blog_ratingsCreateWithoutUsersInput[] | blog_ratingsUncheckedCreateWithoutUsersInput[]
-    connectOrCreate?: blog_ratingsCreateOrConnectWithoutUsersInput | blog_ratingsCreateOrConnectWithoutUsersInput[]
-    createMany?: blog_ratingsCreateManyUsersInputEnvelope
-    connect?: blog_ratingsWhereUniqueInput | blog_ratingsWhereUniqueInput[]
   }
 
   export type blog_viewsUncheckedCreateNestedManyWithoutUsersInput = {
@@ -96886,13 +95261,6 @@ export namespace Prisma {
     connect?: user_settingsWhereUniqueInput
   }
 
-  export type chatbot_feedbackUncheckedCreateNestedManyWithoutUserInput = {
-    create?: XOR<chatbot_feedbackCreateWithoutUserInput, chatbot_feedbackUncheckedCreateWithoutUserInput> | chatbot_feedbackCreateWithoutUserInput[] | chatbot_feedbackUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: chatbot_feedbackCreateOrConnectWithoutUserInput | chatbot_feedbackCreateOrConnectWithoutUserInput[]
-    createMany?: chatbot_feedbackCreateManyUserInputEnvelope
-    connect?: chatbot_feedbackWhereUniqueInput | chatbot_feedbackWhereUniqueInput[]
-  }
-
   export type NullableEnumuser_roleFieldUpdateOperationsInput = {
     set?: $Enums.user_role | null
   }
@@ -96973,20 +95341,6 @@ export namespace Prisma {
     update?: blog_likesUpdateWithWhereUniqueWithoutUsersInput | blog_likesUpdateWithWhereUniqueWithoutUsersInput[]
     updateMany?: blog_likesUpdateManyWithWhereWithoutUsersInput | blog_likesUpdateManyWithWhereWithoutUsersInput[]
     deleteMany?: blog_likesScalarWhereInput | blog_likesScalarWhereInput[]
-  }
-
-  export type blog_ratingsUpdateManyWithoutUsersNestedInput = {
-    create?: XOR<blog_ratingsCreateWithoutUsersInput, blog_ratingsUncheckedCreateWithoutUsersInput> | blog_ratingsCreateWithoutUsersInput[] | blog_ratingsUncheckedCreateWithoutUsersInput[]
-    connectOrCreate?: blog_ratingsCreateOrConnectWithoutUsersInput | blog_ratingsCreateOrConnectWithoutUsersInput[]
-    upsert?: blog_ratingsUpsertWithWhereUniqueWithoutUsersInput | blog_ratingsUpsertWithWhereUniqueWithoutUsersInput[]
-    createMany?: blog_ratingsCreateManyUsersInputEnvelope
-    set?: blog_ratingsWhereUniqueInput | blog_ratingsWhereUniqueInput[]
-    disconnect?: blog_ratingsWhereUniqueInput | blog_ratingsWhereUniqueInput[]
-    delete?: blog_ratingsWhereUniqueInput | blog_ratingsWhereUniqueInput[]
-    connect?: blog_ratingsWhereUniqueInput | blog_ratingsWhereUniqueInput[]
-    update?: blog_ratingsUpdateWithWhereUniqueWithoutUsersInput | blog_ratingsUpdateWithWhereUniqueWithoutUsersInput[]
-    updateMany?: blog_ratingsUpdateManyWithWhereWithoutUsersInput | blog_ratingsUpdateManyWithWhereWithoutUsersInput[]
-    deleteMany?: blog_ratingsScalarWhereInput | blog_ratingsScalarWhereInput[]
   }
 
   export type blog_viewsUpdateManyWithoutUsersNestedInput = {
@@ -97517,20 +95871,6 @@ export namespace Prisma {
     update?: XOR<XOR<user_settingsUpdateToOneWithWhereWithoutUsersInput, user_settingsUpdateWithoutUsersInput>, user_settingsUncheckedUpdateWithoutUsersInput>
   }
 
-  export type chatbot_feedbackUpdateManyWithoutUserNestedInput = {
-    create?: XOR<chatbot_feedbackCreateWithoutUserInput, chatbot_feedbackUncheckedCreateWithoutUserInput> | chatbot_feedbackCreateWithoutUserInput[] | chatbot_feedbackUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: chatbot_feedbackCreateOrConnectWithoutUserInput | chatbot_feedbackCreateOrConnectWithoutUserInput[]
-    upsert?: chatbot_feedbackUpsertWithWhereUniqueWithoutUserInput | chatbot_feedbackUpsertWithWhereUniqueWithoutUserInput[]
-    createMany?: chatbot_feedbackCreateManyUserInputEnvelope
-    set?: chatbot_feedbackWhereUniqueInput | chatbot_feedbackWhereUniqueInput[]
-    disconnect?: chatbot_feedbackWhereUniqueInput | chatbot_feedbackWhereUniqueInput[]
-    delete?: chatbot_feedbackWhereUniqueInput | chatbot_feedbackWhereUniqueInput[]
-    connect?: chatbot_feedbackWhereUniqueInput | chatbot_feedbackWhereUniqueInput[]
-    update?: chatbot_feedbackUpdateWithWhereUniqueWithoutUserInput | chatbot_feedbackUpdateWithWhereUniqueWithoutUserInput[]
-    updateMany?: chatbot_feedbackUpdateManyWithWhereWithoutUserInput | chatbot_feedbackUpdateManyWithWhereWithoutUserInput[]
-    deleteMany?: chatbot_feedbackScalarWhereInput | chatbot_feedbackScalarWhereInput[]
-  }
-
   export type QuizParticipantsUncheckedUpdateManyWithoutUsersNestedInput = {
     create?: XOR<QuizParticipantsCreateWithoutUsersInput, QuizParticipantsUncheckedCreateWithoutUsersInput> | QuizParticipantsCreateWithoutUsersInput[] | QuizParticipantsUncheckedCreateWithoutUsersInput[]
     connectOrCreate?: QuizParticipantsCreateOrConnectWithoutUsersInput | QuizParticipantsCreateOrConnectWithoutUsersInput[]
@@ -97599,20 +95939,6 @@ export namespace Prisma {
     update?: blog_likesUpdateWithWhereUniqueWithoutUsersInput | blog_likesUpdateWithWhereUniqueWithoutUsersInput[]
     updateMany?: blog_likesUpdateManyWithWhereWithoutUsersInput | blog_likesUpdateManyWithWhereWithoutUsersInput[]
     deleteMany?: blog_likesScalarWhereInput | blog_likesScalarWhereInput[]
-  }
-
-  export type blog_ratingsUncheckedUpdateManyWithoutUsersNestedInput = {
-    create?: XOR<blog_ratingsCreateWithoutUsersInput, blog_ratingsUncheckedCreateWithoutUsersInput> | blog_ratingsCreateWithoutUsersInput[] | blog_ratingsUncheckedCreateWithoutUsersInput[]
-    connectOrCreate?: blog_ratingsCreateOrConnectWithoutUsersInput | blog_ratingsCreateOrConnectWithoutUsersInput[]
-    upsert?: blog_ratingsUpsertWithWhereUniqueWithoutUsersInput | blog_ratingsUpsertWithWhereUniqueWithoutUsersInput[]
-    createMany?: blog_ratingsCreateManyUsersInputEnvelope
-    set?: blog_ratingsWhereUniqueInput | blog_ratingsWhereUniqueInput[]
-    disconnect?: blog_ratingsWhereUniqueInput | blog_ratingsWhereUniqueInput[]
-    delete?: blog_ratingsWhereUniqueInput | blog_ratingsWhereUniqueInput[]
-    connect?: blog_ratingsWhereUniqueInput | blog_ratingsWhereUniqueInput[]
-    update?: blog_ratingsUpdateWithWhereUniqueWithoutUsersInput | blog_ratingsUpdateWithWhereUniqueWithoutUsersInput[]
-    updateMany?: blog_ratingsUpdateManyWithWhereWithoutUsersInput | blog_ratingsUpdateManyWithWhereWithoutUsersInput[]
-    deleteMany?: blog_ratingsScalarWhereInput | blog_ratingsScalarWhereInput[]
   }
 
   export type blog_viewsUncheckedUpdateManyWithoutUsersNestedInput = {
@@ -98141,52 +96467,6 @@ export namespace Prisma {
     delete?: user_settingsWhereInput | boolean
     connect?: user_settingsWhereUniqueInput
     update?: XOR<XOR<user_settingsUpdateToOneWithWhereWithoutUsersInput, user_settingsUpdateWithoutUsersInput>, user_settingsUncheckedUpdateWithoutUsersInput>
-  }
-
-  export type chatbot_feedbackUncheckedUpdateManyWithoutUserNestedInput = {
-    create?: XOR<chatbot_feedbackCreateWithoutUserInput, chatbot_feedbackUncheckedCreateWithoutUserInput> | chatbot_feedbackCreateWithoutUserInput[] | chatbot_feedbackUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: chatbot_feedbackCreateOrConnectWithoutUserInput | chatbot_feedbackCreateOrConnectWithoutUserInput[]
-    upsert?: chatbot_feedbackUpsertWithWhereUniqueWithoutUserInput | chatbot_feedbackUpsertWithWhereUniqueWithoutUserInput[]
-    createMany?: chatbot_feedbackCreateManyUserInputEnvelope
-    set?: chatbot_feedbackWhereUniqueInput | chatbot_feedbackWhereUniqueInput[]
-    disconnect?: chatbot_feedbackWhereUniqueInput | chatbot_feedbackWhereUniqueInput[]
-    delete?: chatbot_feedbackWhereUniqueInput | chatbot_feedbackWhereUniqueInput[]
-    connect?: chatbot_feedbackWhereUniqueInput | chatbot_feedbackWhereUniqueInput[]
-    update?: chatbot_feedbackUpdateWithWhereUniqueWithoutUserInput | chatbot_feedbackUpdateWithWhereUniqueWithoutUserInput[]
-    updateMany?: chatbot_feedbackUpdateManyWithWhereWithoutUserInput | chatbot_feedbackUpdateManyWithWhereWithoutUserInput[]
-    deleteMany?: chatbot_feedbackScalarWhereInput | chatbot_feedbackScalarWhereInput[]
-  }
-
-  export type blogsCreateNestedOneWithoutBlog_ratingsInput = {
-    create?: XOR<blogsCreateWithoutBlog_ratingsInput, blogsUncheckedCreateWithoutBlog_ratingsInput>
-    connectOrCreate?: blogsCreateOrConnectWithoutBlog_ratingsInput
-    connect?: blogsWhereUniqueInput
-  }
-
-  export type usersCreateNestedOneWithoutBlog_ratingsInput = {
-    create?: XOR<usersCreateWithoutBlog_ratingsInput, usersUncheckedCreateWithoutBlog_ratingsInput>
-    connectOrCreate?: usersCreateOrConnectWithoutBlog_ratingsInput
-    connect?: usersWhereUniqueInput
-  }
-
-  export type blogsUpdateOneWithoutBlog_ratingsNestedInput = {
-    create?: XOR<blogsCreateWithoutBlog_ratingsInput, blogsUncheckedCreateWithoutBlog_ratingsInput>
-    connectOrCreate?: blogsCreateOrConnectWithoutBlog_ratingsInput
-    upsert?: blogsUpsertWithoutBlog_ratingsInput
-    disconnect?: blogsWhereInput | boolean
-    delete?: blogsWhereInput | boolean
-    connect?: blogsWhereUniqueInput
-    update?: XOR<XOR<blogsUpdateToOneWithWhereWithoutBlog_ratingsInput, blogsUpdateWithoutBlog_ratingsInput>, blogsUncheckedUpdateWithoutBlog_ratingsInput>
-  }
-
-  export type usersUpdateOneWithoutBlog_ratingsNestedInput = {
-    create?: XOR<usersCreateWithoutBlog_ratingsInput, usersUncheckedCreateWithoutBlog_ratingsInput>
-    connectOrCreate?: usersCreateOrConnectWithoutBlog_ratingsInput
-    upsert?: usersUpsertWithoutBlog_ratingsInput
-    disconnect?: usersWhereInput | boolean
-    delete?: usersWhereInput | boolean
-    connect?: usersWhereUniqueInput
-    update?: XOR<XOR<usersUpdateToOneWithWhereWithoutBlog_ratingsInput, usersUpdateWithoutBlog_ratingsInput>, usersUncheckedUpdateWithoutBlog_ratingsInput>
   }
 
   export type chatbot_feedbackCreateNestedManyWithoutMessageInput = {
@@ -100341,34 +98621,24 @@ export namespace Prisma {
     connect?: chatbot_sessionsWhereUniqueInput
   }
 
-  export type usersCreateNestedOneWithoutChatbot_feedbackInput = {
-    create?: XOR<usersCreateWithoutChatbot_feedbackInput, usersUncheckedCreateWithoutChatbot_feedbackInput>
-    connectOrCreate?: usersCreateOrConnectWithoutChatbot_feedbackInput
-    connect?: usersWhereUniqueInput
-  }
-
-  export type chatbot_messagesUpdateOneRequiredWithoutChatbot_feedbackNestedInput = {
+  export type chatbot_messagesUpdateOneWithoutChatbot_feedbackNestedInput = {
     create?: XOR<chatbot_messagesCreateWithoutChatbot_feedbackInput, chatbot_messagesUncheckedCreateWithoutChatbot_feedbackInput>
     connectOrCreate?: chatbot_messagesCreateOrConnectWithoutChatbot_feedbackInput
     upsert?: chatbot_messagesUpsertWithoutChatbot_feedbackInput
+    disconnect?: chatbot_messagesWhereInput | boolean
+    delete?: chatbot_messagesWhereInput | boolean
     connect?: chatbot_messagesWhereUniqueInput
     update?: XOR<XOR<chatbot_messagesUpdateToOneWithWhereWithoutChatbot_feedbackInput, chatbot_messagesUpdateWithoutChatbot_feedbackInput>, chatbot_messagesUncheckedUpdateWithoutChatbot_feedbackInput>
   }
 
-  export type chatbot_sessionsUpdateOneRequiredWithoutChatbot_feedbackNestedInput = {
+  export type chatbot_sessionsUpdateOneWithoutChatbot_feedbackNestedInput = {
     create?: XOR<chatbot_sessionsCreateWithoutChatbot_feedbackInput, chatbot_sessionsUncheckedCreateWithoutChatbot_feedbackInput>
     connectOrCreate?: chatbot_sessionsCreateOrConnectWithoutChatbot_feedbackInput
     upsert?: chatbot_sessionsUpsertWithoutChatbot_feedbackInput
+    disconnect?: chatbot_sessionsWhereInput | boolean
+    delete?: chatbot_sessionsWhereInput | boolean
     connect?: chatbot_sessionsWhereUniqueInput
     update?: XOR<XOR<chatbot_sessionsUpdateToOneWithWhereWithoutChatbot_feedbackInput, chatbot_sessionsUpdateWithoutChatbot_feedbackInput>, chatbot_sessionsUncheckedUpdateWithoutChatbot_feedbackInput>
-  }
-
-  export type usersUpdateOneRequiredWithoutChatbot_feedbackNestedInput = {
-    create?: XOR<usersCreateWithoutChatbot_feedbackInput, usersUncheckedCreateWithoutChatbot_feedbackInput>
-    connectOrCreate?: usersCreateOrConnectWithoutChatbot_feedbackInput
-    upsert?: usersUpsertWithoutChatbot_feedbackInput
-    connect?: usersWhereUniqueInput
-    update?: XOR<XOR<usersUpdateToOneWithWhereWithoutChatbot_feedbackInput, usersUpdateWithoutChatbot_feedbackInput>, usersUncheckedUpdateWithoutChatbot_feedbackInput>
   }
 
   export type NestedIntFilter<$PrismaModel = never> = {
@@ -101187,7 +99457,6 @@ export namespace Prisma {
     created_astronomy_events?: astronomy_eventsCreateNestedManyWithoutCreatorInput
     blog_comments?: blog_commentsCreateNestedManyWithoutUsersInput
     blog_likes?: blog_likesCreateNestedManyWithoutUsersInput
-    blog_ratings?: blog_ratingsCreateNestedManyWithoutUsersInput
     blog_views?: blog_viewsCreateNestedManyWithoutUsersInput
     blogs?: blogsCreateNestedManyWithoutUsersInput
     chat_messages?: chat_messagesCreateNestedManyWithoutUserInput
@@ -101226,7 +99495,6 @@ export namespace Prisma {
     created_stargazing_spots?: stargazing_spotsCreateNestedManyWithoutCreatorInput
     subscriptions?: subscriptionsCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsCreateNestedOneWithoutUsersInput
-    chatbot_feedback?: chatbot_feedbackCreateNestedManyWithoutUserInput
   }
 
   export type usersUncheckedCreateWithoutQuizParticipantsInput = {
@@ -101254,7 +99522,6 @@ export namespace Prisma {
     created_astronomy_events?: astronomy_eventsUncheckedCreateNestedManyWithoutCreatorInput
     blog_comments?: blog_commentsUncheckedCreateNestedManyWithoutUsersInput
     blog_likes?: blog_likesUncheckedCreateNestedManyWithoutUsersInput
-    blog_ratings?: blog_ratingsUncheckedCreateNestedManyWithoutUsersInput
     blog_views?: blog_viewsUncheckedCreateNestedManyWithoutUsersInput
     blogs?: blogsUncheckedCreateNestedManyWithoutUsersInput
     chat_messages?: chat_messagesUncheckedCreateNestedManyWithoutUserInput
@@ -101293,7 +99560,6 @@ export namespace Prisma {
     created_stargazing_spots?: stargazing_spotsUncheckedCreateNestedManyWithoutCreatorInput
     subscriptions?: subscriptionsUncheckedCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsUncheckedCreateNestedOneWithoutUsersInput
-    chatbot_feedback?: chatbot_feedbackUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type usersCreateOrConnectWithoutQuizParticipantsInput = {
@@ -101380,7 +99646,6 @@ export namespace Prisma {
     created_astronomy_events?: astronomy_eventsUpdateManyWithoutCreatorNestedInput
     blog_comments?: blog_commentsUpdateManyWithoutUsersNestedInput
     blog_likes?: blog_likesUpdateManyWithoutUsersNestedInput
-    blog_ratings?: blog_ratingsUpdateManyWithoutUsersNestedInput
     blog_views?: blog_viewsUpdateManyWithoutUsersNestedInput
     blogs?: blogsUpdateManyWithoutUsersNestedInput
     chat_messages?: chat_messagesUpdateManyWithoutUserNestedInput
@@ -101419,7 +99684,6 @@ export namespace Prisma {
     created_stargazing_spots?: stargazing_spotsUpdateManyWithoutCreatorNestedInput
     subscriptions?: subscriptionsUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUpdateOneWithoutUsersNestedInput
-    chatbot_feedback?: chatbot_feedbackUpdateManyWithoutUserNestedInput
   }
 
   export type usersUncheckedUpdateWithoutQuizParticipantsInput = {
@@ -101447,7 +99711,6 @@ export namespace Prisma {
     created_astronomy_events?: astronomy_eventsUncheckedUpdateManyWithoutCreatorNestedInput
     blog_comments?: blog_commentsUncheckedUpdateManyWithoutUsersNestedInput
     blog_likes?: blog_likesUncheckedUpdateManyWithoutUsersNestedInput
-    blog_ratings?: blog_ratingsUncheckedUpdateManyWithoutUsersNestedInput
     blog_views?: blog_viewsUncheckedUpdateManyWithoutUsersNestedInput
     blogs?: blogsUncheckedUpdateManyWithoutUsersNestedInput
     chat_messages?: chat_messagesUncheckedUpdateManyWithoutUserNestedInput
@@ -101486,7 +99749,6 @@ export namespace Prisma {
     created_stargazing_spots?: stargazing_spotsUncheckedUpdateManyWithoutCreatorNestedInput
     subscriptions?: subscriptionsUncheckedUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUncheckedUpdateOneWithoutUsersNestedInput
-    chatbot_feedback?: chatbot_feedbackUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type QuizzesCreateWithoutQuizQuestionInput = {
@@ -101643,7 +99905,6 @@ export namespace Prisma {
     created_astronomy_events?: astronomy_eventsCreateNestedManyWithoutCreatorInput
     blog_comments?: blog_commentsCreateNestedManyWithoutUsersInput
     blog_likes?: blog_likesCreateNestedManyWithoutUsersInput
-    blog_ratings?: blog_ratingsCreateNestedManyWithoutUsersInput
     blog_views?: blog_viewsCreateNestedManyWithoutUsersInput
     blogs?: blogsCreateNestedManyWithoutUsersInput
     chat_messages?: chat_messagesCreateNestedManyWithoutUserInput
@@ -101682,7 +99943,6 @@ export namespace Prisma {
     created_stargazing_spots?: stargazing_spotsCreateNestedManyWithoutCreatorInput
     subscriptions?: subscriptionsCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsCreateNestedOneWithoutUsersInput
-    chatbot_feedback?: chatbot_feedbackCreateNestedManyWithoutUserInput
   }
 
   export type usersUncheckedCreateWithoutQuizzesInput = {
@@ -101710,7 +99970,6 @@ export namespace Prisma {
     created_astronomy_events?: astronomy_eventsUncheckedCreateNestedManyWithoutCreatorInput
     blog_comments?: blog_commentsUncheckedCreateNestedManyWithoutUsersInput
     blog_likes?: blog_likesUncheckedCreateNestedManyWithoutUsersInput
-    blog_ratings?: blog_ratingsUncheckedCreateNestedManyWithoutUsersInput
     blog_views?: blog_viewsUncheckedCreateNestedManyWithoutUsersInput
     blogs?: blogsUncheckedCreateNestedManyWithoutUsersInput
     chat_messages?: chat_messagesUncheckedCreateNestedManyWithoutUserInput
@@ -101749,7 +100008,6 @@ export namespace Prisma {
     created_stargazing_spots?: stargazing_spotsUncheckedCreateNestedManyWithoutCreatorInput
     subscriptions?: subscriptionsUncheckedCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsUncheckedCreateNestedOneWithoutUsersInput
-    chatbot_feedback?: chatbot_feedbackUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type usersCreateOrConnectWithoutQuizzesInput = {
@@ -101847,7 +100105,6 @@ export namespace Prisma {
     created_astronomy_events?: astronomy_eventsUpdateManyWithoutCreatorNestedInput
     blog_comments?: blog_commentsUpdateManyWithoutUsersNestedInput
     blog_likes?: blog_likesUpdateManyWithoutUsersNestedInput
-    blog_ratings?: blog_ratingsUpdateManyWithoutUsersNestedInput
     blog_views?: blog_viewsUpdateManyWithoutUsersNestedInput
     blogs?: blogsUpdateManyWithoutUsersNestedInput
     chat_messages?: chat_messagesUpdateManyWithoutUserNestedInput
@@ -101886,7 +100143,6 @@ export namespace Prisma {
     created_stargazing_spots?: stargazing_spotsUpdateManyWithoutCreatorNestedInput
     subscriptions?: subscriptionsUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUpdateOneWithoutUsersNestedInput
-    chatbot_feedback?: chatbot_feedbackUpdateManyWithoutUserNestedInput
   }
 
   export type usersUncheckedUpdateWithoutQuizzesInput = {
@@ -101914,7 +100170,6 @@ export namespace Prisma {
     created_astronomy_events?: astronomy_eventsUncheckedUpdateManyWithoutCreatorNestedInput
     blog_comments?: blog_commentsUncheckedUpdateManyWithoutUsersNestedInput
     blog_likes?: blog_likesUncheckedUpdateManyWithoutUsersNestedInput
-    blog_ratings?: blog_ratingsUncheckedUpdateManyWithoutUsersNestedInput
     blog_views?: blog_viewsUncheckedUpdateManyWithoutUsersNestedInput
     blogs?: blogsUncheckedUpdateManyWithoutUsersNestedInput
     chat_messages?: chat_messagesUncheckedUpdateManyWithoutUserNestedInput
@@ -101953,7 +100208,6 @@ export namespace Prisma {
     created_stargazing_spots?: stargazing_spotsUncheckedUpdateManyWithoutCreatorNestedInput
     subscriptions?: subscriptionsUncheckedUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUncheckedUpdateOneWithoutUsersNestedInput
-    chatbot_feedback?: chatbot_feedbackUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type usersCreateWithoutCreated_astronomy_eventsInput = {
@@ -101980,7 +100234,6 @@ export namespace Prisma {
     Quizzes?: QuizzesCreateNestedManyWithoutUsersInput
     blog_comments?: blog_commentsCreateNestedManyWithoutUsersInput
     blog_likes?: blog_likesCreateNestedManyWithoutUsersInput
-    blog_ratings?: blog_ratingsCreateNestedManyWithoutUsersInput
     blog_views?: blog_viewsCreateNestedManyWithoutUsersInput
     blogs?: blogsCreateNestedManyWithoutUsersInput
     chat_messages?: chat_messagesCreateNestedManyWithoutUserInput
@@ -102019,7 +100272,6 @@ export namespace Prisma {
     created_stargazing_spots?: stargazing_spotsCreateNestedManyWithoutCreatorInput
     subscriptions?: subscriptionsCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsCreateNestedOneWithoutUsersInput
-    chatbot_feedback?: chatbot_feedbackCreateNestedManyWithoutUserInput
   }
 
   export type usersUncheckedCreateWithoutCreated_astronomy_eventsInput = {
@@ -102047,7 +100299,6 @@ export namespace Prisma {
     Quizzes?: QuizzesUncheckedCreateNestedManyWithoutUsersInput
     blog_comments?: blog_commentsUncheckedCreateNestedManyWithoutUsersInput
     blog_likes?: blog_likesUncheckedCreateNestedManyWithoutUsersInput
-    blog_ratings?: blog_ratingsUncheckedCreateNestedManyWithoutUsersInput
     blog_views?: blog_viewsUncheckedCreateNestedManyWithoutUsersInput
     blogs?: blogsUncheckedCreateNestedManyWithoutUsersInput
     chat_messages?: chat_messagesUncheckedCreateNestedManyWithoutUserInput
@@ -102086,7 +100337,6 @@ export namespace Prisma {
     created_stargazing_spots?: stargazing_spotsUncheckedCreateNestedManyWithoutCreatorInput
     subscriptions?: subscriptionsUncheckedCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsUncheckedCreateNestedOneWithoutUsersInput
-    chatbot_feedback?: chatbot_feedbackUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type usersCreateOrConnectWithoutCreated_astronomy_eventsInput = {
@@ -102158,7 +100408,6 @@ export namespace Prisma {
     Quizzes?: QuizzesUpdateManyWithoutUsersNestedInput
     blog_comments?: blog_commentsUpdateManyWithoutUsersNestedInput
     blog_likes?: blog_likesUpdateManyWithoutUsersNestedInput
-    blog_ratings?: blog_ratingsUpdateManyWithoutUsersNestedInput
     blog_views?: blog_viewsUpdateManyWithoutUsersNestedInput
     blogs?: blogsUpdateManyWithoutUsersNestedInput
     chat_messages?: chat_messagesUpdateManyWithoutUserNestedInput
@@ -102197,7 +100446,6 @@ export namespace Prisma {
     created_stargazing_spots?: stargazing_spotsUpdateManyWithoutCreatorNestedInput
     subscriptions?: subscriptionsUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUpdateOneWithoutUsersNestedInput
-    chatbot_feedback?: chatbot_feedbackUpdateManyWithoutUserNestedInput
   }
 
   export type usersUncheckedUpdateWithoutCreated_astronomy_eventsInput = {
@@ -102225,7 +100473,6 @@ export namespace Prisma {
     Quizzes?: QuizzesUncheckedUpdateManyWithoutUsersNestedInput
     blog_comments?: blog_commentsUncheckedUpdateManyWithoutUsersNestedInput
     blog_likes?: blog_likesUncheckedUpdateManyWithoutUsersNestedInput
-    blog_ratings?: blog_ratingsUncheckedUpdateManyWithoutUsersNestedInput
     blog_views?: blog_viewsUncheckedUpdateManyWithoutUsersNestedInput
     blogs?: blogsUncheckedUpdateManyWithoutUsersNestedInput
     chat_messages?: chat_messagesUncheckedUpdateManyWithoutUserNestedInput
@@ -102264,7 +100511,6 @@ export namespace Prisma {
     created_stargazing_spots?: stargazing_spotsUncheckedUpdateManyWithoutCreatorNestedInput
     subscriptions?: subscriptionsUncheckedUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUncheckedUpdateOneWithoutUsersNestedInput
-    chatbot_feedback?: chatbot_feedbackUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type event_remindersUpsertWithWhereUniqueWithoutAstronomy_eventsInput = {
@@ -102361,7 +100607,6 @@ export namespace Prisma {
     comment_count?: number | null
     tags?: NullableJsonNullValueInput | InputJsonValue
     metadata?: NullableJsonNullValueInput | InputJsonValue
-    blog_ratings?: blog_ratingsCreateNestedManyWithoutBlogsInput
     blog_comments?: blog_commentsCreateNestedManyWithoutBlogsInput
     blog_likes?: blog_likesCreateNestedManyWithoutBlogsInput
     blog_views?: blog_viewsCreateNestedManyWithoutBlogsInput
@@ -102390,7 +100635,6 @@ export namespace Prisma {
     comment_count?: number | null
     tags?: NullableJsonNullValueInput | InputJsonValue
     metadata?: NullableJsonNullValueInput | InputJsonValue
-    blog_ratings?: blog_ratingsUncheckedCreateNestedManyWithoutBlogsInput
     blog_comments?: blog_commentsUncheckedCreateNestedManyWithoutBlogsInput
     blog_likes?: blog_likesUncheckedCreateNestedManyWithoutBlogsInput
     blog_views?: blog_viewsUncheckedCreateNestedManyWithoutBlogsInput
@@ -102450,7 +100694,6 @@ export namespace Prisma {
     comment_count?: NullableIntFieldUpdateOperationsInput | number | null
     tags?: NullableJsonNullValueInput | InputJsonValue
     metadata?: NullableJsonNullValueInput | InputJsonValue
-    blog_ratings?: blog_ratingsUpdateManyWithoutBlogsNestedInput
     blog_comments?: blog_commentsUpdateManyWithoutBlogsNestedInput
     blog_likes?: blog_likesUpdateManyWithoutBlogsNestedInput
     blog_views?: blog_viewsUpdateManyWithoutBlogsNestedInput
@@ -102479,7 +100722,6 @@ export namespace Prisma {
     comment_count?: NullableIntFieldUpdateOperationsInput | number | null
     tags?: NullableJsonNullValueInput | InputJsonValue
     metadata?: NullableJsonNullValueInput | InputJsonValue
-    blog_ratings?: blog_ratingsUncheckedUpdateManyWithoutBlogsNestedInput
     blog_comments?: blog_commentsUncheckedUpdateManyWithoutBlogsNestedInput
     blog_likes?: blog_likesUncheckedUpdateManyWithoutBlogsNestedInput
     blog_views?: blog_viewsUncheckedUpdateManyWithoutBlogsNestedInput
@@ -102529,7 +100771,6 @@ export namespace Prisma {
     comment_count?: number | null
     tags?: NullableJsonNullValueInput | InputJsonValue
     metadata?: NullableJsonNullValueInput | InputJsonValue
-    blog_ratings?: blog_ratingsCreateNestedManyWithoutBlogsInput
     blog_category_relations?: blog_category_relationsCreateNestedManyWithoutBlogsInput
     blog_likes?: blog_likesCreateNestedManyWithoutBlogsInput
     blog_views?: blog_viewsCreateNestedManyWithoutBlogsInput
@@ -102558,7 +100799,6 @@ export namespace Prisma {
     comment_count?: number | null
     tags?: NullableJsonNullValueInput | InputJsonValue
     metadata?: NullableJsonNullValueInput | InputJsonValue
-    blog_ratings?: blog_ratingsUncheckedCreateNestedManyWithoutBlogsInput
     blog_category_relations?: blog_category_relationsUncheckedCreateNestedManyWithoutBlogsInput
     blog_likes?: blog_likesUncheckedCreateNestedManyWithoutBlogsInput
     blog_views?: blog_viewsUncheckedCreateNestedManyWithoutBlogsInput
@@ -102650,7 +100890,6 @@ export namespace Prisma {
     Quizzes?: QuizzesCreateNestedManyWithoutUsersInput
     created_astronomy_events?: astronomy_eventsCreateNestedManyWithoutCreatorInput
     blog_likes?: blog_likesCreateNestedManyWithoutUsersInput
-    blog_ratings?: blog_ratingsCreateNestedManyWithoutUsersInput
     blog_views?: blog_viewsCreateNestedManyWithoutUsersInput
     blogs?: blogsCreateNestedManyWithoutUsersInput
     chat_messages?: chat_messagesCreateNestedManyWithoutUserInput
@@ -102689,7 +100928,6 @@ export namespace Prisma {
     created_stargazing_spots?: stargazing_spotsCreateNestedManyWithoutCreatorInput
     subscriptions?: subscriptionsCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsCreateNestedOneWithoutUsersInput
-    chatbot_feedback?: chatbot_feedbackCreateNestedManyWithoutUserInput
   }
 
   export type usersUncheckedCreateWithoutBlog_commentsInput = {
@@ -102717,7 +100955,6 @@ export namespace Prisma {
     Quizzes?: QuizzesUncheckedCreateNestedManyWithoutUsersInput
     created_astronomy_events?: astronomy_eventsUncheckedCreateNestedManyWithoutCreatorInput
     blog_likes?: blog_likesUncheckedCreateNestedManyWithoutUsersInput
-    blog_ratings?: blog_ratingsUncheckedCreateNestedManyWithoutUsersInput
     blog_views?: blog_viewsUncheckedCreateNestedManyWithoutUsersInput
     blogs?: blogsUncheckedCreateNestedManyWithoutUsersInput
     chat_messages?: chat_messagesUncheckedCreateNestedManyWithoutUserInput
@@ -102756,7 +100993,6 @@ export namespace Prisma {
     created_stargazing_spots?: stargazing_spotsUncheckedCreateNestedManyWithoutCreatorInput
     subscriptions?: subscriptionsUncheckedCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsUncheckedCreateNestedOneWithoutUsersInput
-    chatbot_feedback?: chatbot_feedbackUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type usersCreateOrConnectWithoutBlog_commentsInput = {
@@ -102795,7 +101031,6 @@ export namespace Prisma {
     comment_count?: NullableIntFieldUpdateOperationsInput | number | null
     tags?: NullableJsonNullValueInput | InputJsonValue
     metadata?: NullableJsonNullValueInput | InputJsonValue
-    blog_ratings?: blog_ratingsUpdateManyWithoutBlogsNestedInput
     blog_category_relations?: blog_category_relationsUpdateManyWithoutBlogsNestedInput
     blog_likes?: blog_likesUpdateManyWithoutBlogsNestedInput
     blog_views?: blog_viewsUpdateManyWithoutBlogsNestedInput
@@ -102824,7 +101059,6 @@ export namespace Prisma {
     comment_count?: NullableIntFieldUpdateOperationsInput | number | null
     tags?: NullableJsonNullValueInput | InputJsonValue
     metadata?: NullableJsonNullValueInput | InputJsonValue
-    blog_ratings?: blog_ratingsUncheckedUpdateManyWithoutBlogsNestedInput
     blog_category_relations?: blog_category_relationsUncheckedUpdateManyWithoutBlogsNestedInput
     blog_likes?: blog_likesUncheckedUpdateManyWithoutBlogsNestedInput
     blog_views?: blog_viewsUncheckedUpdateManyWithoutBlogsNestedInput
@@ -102927,7 +101161,6 @@ export namespace Prisma {
     Quizzes?: QuizzesUpdateManyWithoutUsersNestedInput
     created_astronomy_events?: astronomy_eventsUpdateManyWithoutCreatorNestedInput
     blog_likes?: blog_likesUpdateManyWithoutUsersNestedInput
-    blog_ratings?: blog_ratingsUpdateManyWithoutUsersNestedInput
     blog_views?: blog_viewsUpdateManyWithoutUsersNestedInput
     blogs?: blogsUpdateManyWithoutUsersNestedInput
     chat_messages?: chat_messagesUpdateManyWithoutUserNestedInput
@@ -102966,7 +101199,6 @@ export namespace Prisma {
     created_stargazing_spots?: stargazing_spotsUpdateManyWithoutCreatorNestedInput
     subscriptions?: subscriptionsUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUpdateOneWithoutUsersNestedInput
-    chatbot_feedback?: chatbot_feedbackUpdateManyWithoutUserNestedInput
   }
 
   export type usersUncheckedUpdateWithoutBlog_commentsInput = {
@@ -102994,7 +101226,6 @@ export namespace Prisma {
     Quizzes?: QuizzesUncheckedUpdateManyWithoutUsersNestedInput
     created_astronomy_events?: astronomy_eventsUncheckedUpdateManyWithoutCreatorNestedInput
     blog_likes?: blog_likesUncheckedUpdateManyWithoutUsersNestedInput
-    blog_ratings?: blog_ratingsUncheckedUpdateManyWithoutUsersNestedInput
     blog_views?: blog_viewsUncheckedUpdateManyWithoutUsersNestedInput
     blogs?: blogsUncheckedUpdateManyWithoutUsersNestedInput
     chat_messages?: chat_messagesUncheckedUpdateManyWithoutUserNestedInput
@@ -103033,7 +101264,6 @@ export namespace Prisma {
     created_stargazing_spots?: stargazing_spotsUncheckedUpdateManyWithoutCreatorNestedInput
     subscriptions?: subscriptionsUncheckedUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUncheckedUpdateOneWithoutUsersNestedInput
-    chatbot_feedback?: chatbot_feedbackUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type blogsCreateWithoutBlog_likesInput = {
@@ -103056,7 +101286,6 @@ export namespace Prisma {
     comment_count?: number | null
     tags?: NullableJsonNullValueInput | InputJsonValue
     metadata?: NullableJsonNullValueInput | InputJsonValue
-    blog_ratings?: blog_ratingsCreateNestedManyWithoutBlogsInput
     blog_category_relations?: blog_category_relationsCreateNestedManyWithoutBlogsInput
     blog_comments?: blog_commentsCreateNestedManyWithoutBlogsInput
     blog_views?: blog_viewsCreateNestedManyWithoutBlogsInput
@@ -103085,7 +101314,6 @@ export namespace Prisma {
     comment_count?: number | null
     tags?: NullableJsonNullValueInput | InputJsonValue
     metadata?: NullableJsonNullValueInput | InputJsonValue
-    blog_ratings?: blog_ratingsUncheckedCreateNestedManyWithoutBlogsInput
     blog_category_relations?: blog_category_relationsUncheckedCreateNestedManyWithoutBlogsInput
     blog_comments?: blog_commentsUncheckedCreateNestedManyWithoutBlogsInput
     blog_views?: blog_viewsUncheckedCreateNestedManyWithoutBlogsInput
@@ -103120,7 +101348,6 @@ export namespace Prisma {
     Quizzes?: QuizzesCreateNestedManyWithoutUsersInput
     created_astronomy_events?: astronomy_eventsCreateNestedManyWithoutCreatorInput
     blog_comments?: blog_commentsCreateNestedManyWithoutUsersInput
-    blog_ratings?: blog_ratingsCreateNestedManyWithoutUsersInput
     blog_views?: blog_viewsCreateNestedManyWithoutUsersInput
     blogs?: blogsCreateNestedManyWithoutUsersInput
     chat_messages?: chat_messagesCreateNestedManyWithoutUserInput
@@ -103159,7 +101386,6 @@ export namespace Prisma {
     created_stargazing_spots?: stargazing_spotsCreateNestedManyWithoutCreatorInput
     subscriptions?: subscriptionsCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsCreateNestedOneWithoutUsersInput
-    chatbot_feedback?: chatbot_feedbackCreateNestedManyWithoutUserInput
   }
 
   export type usersUncheckedCreateWithoutBlog_likesInput = {
@@ -103187,7 +101413,6 @@ export namespace Prisma {
     Quizzes?: QuizzesUncheckedCreateNestedManyWithoutUsersInput
     created_astronomy_events?: astronomy_eventsUncheckedCreateNestedManyWithoutCreatorInput
     blog_comments?: blog_commentsUncheckedCreateNestedManyWithoutUsersInput
-    blog_ratings?: blog_ratingsUncheckedCreateNestedManyWithoutUsersInput
     blog_views?: blog_viewsUncheckedCreateNestedManyWithoutUsersInput
     blogs?: blogsUncheckedCreateNestedManyWithoutUsersInput
     chat_messages?: chat_messagesUncheckedCreateNestedManyWithoutUserInput
@@ -103226,7 +101451,6 @@ export namespace Prisma {
     created_stargazing_spots?: stargazing_spotsUncheckedCreateNestedManyWithoutCreatorInput
     subscriptions?: subscriptionsUncheckedCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsUncheckedCreateNestedOneWithoutUsersInput
-    chatbot_feedback?: chatbot_feedbackUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type usersCreateOrConnectWithoutBlog_likesInput = {
@@ -103265,7 +101489,6 @@ export namespace Prisma {
     comment_count?: NullableIntFieldUpdateOperationsInput | number | null
     tags?: NullableJsonNullValueInput | InputJsonValue
     metadata?: NullableJsonNullValueInput | InputJsonValue
-    blog_ratings?: blog_ratingsUpdateManyWithoutBlogsNestedInput
     blog_category_relations?: blog_category_relationsUpdateManyWithoutBlogsNestedInput
     blog_comments?: blog_commentsUpdateManyWithoutBlogsNestedInput
     blog_views?: blog_viewsUpdateManyWithoutBlogsNestedInput
@@ -103294,7 +101517,6 @@ export namespace Prisma {
     comment_count?: NullableIntFieldUpdateOperationsInput | number | null
     tags?: NullableJsonNullValueInput | InputJsonValue
     metadata?: NullableJsonNullValueInput | InputJsonValue
-    blog_ratings?: blog_ratingsUncheckedUpdateManyWithoutBlogsNestedInput
     blog_category_relations?: blog_category_relationsUncheckedUpdateManyWithoutBlogsNestedInput
     blog_comments?: blog_commentsUncheckedUpdateManyWithoutBlogsNestedInput
     blog_views?: blog_viewsUncheckedUpdateManyWithoutBlogsNestedInput
@@ -103335,7 +101557,6 @@ export namespace Prisma {
     Quizzes?: QuizzesUpdateManyWithoutUsersNestedInput
     created_astronomy_events?: astronomy_eventsUpdateManyWithoutCreatorNestedInput
     blog_comments?: blog_commentsUpdateManyWithoutUsersNestedInput
-    blog_ratings?: blog_ratingsUpdateManyWithoutUsersNestedInput
     blog_views?: blog_viewsUpdateManyWithoutUsersNestedInput
     blogs?: blogsUpdateManyWithoutUsersNestedInput
     chat_messages?: chat_messagesUpdateManyWithoutUserNestedInput
@@ -103374,7 +101595,6 @@ export namespace Prisma {
     created_stargazing_spots?: stargazing_spotsUpdateManyWithoutCreatorNestedInput
     subscriptions?: subscriptionsUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUpdateOneWithoutUsersNestedInput
-    chatbot_feedback?: chatbot_feedbackUpdateManyWithoutUserNestedInput
   }
 
   export type usersUncheckedUpdateWithoutBlog_likesInput = {
@@ -103402,7 +101622,6 @@ export namespace Prisma {
     Quizzes?: QuizzesUncheckedUpdateManyWithoutUsersNestedInput
     created_astronomy_events?: astronomy_eventsUncheckedUpdateManyWithoutCreatorNestedInput
     blog_comments?: blog_commentsUncheckedUpdateManyWithoutUsersNestedInput
-    blog_ratings?: blog_ratingsUncheckedUpdateManyWithoutUsersNestedInput
     blog_views?: blog_viewsUncheckedUpdateManyWithoutUsersNestedInput
     blogs?: blogsUncheckedUpdateManyWithoutUsersNestedInput
     chat_messages?: chat_messagesUncheckedUpdateManyWithoutUserNestedInput
@@ -103441,7 +101660,6 @@ export namespace Prisma {
     created_stargazing_spots?: stargazing_spotsUncheckedUpdateManyWithoutCreatorNestedInput
     subscriptions?: subscriptionsUncheckedUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUncheckedUpdateOneWithoutUsersNestedInput
-    chatbot_feedback?: chatbot_feedbackUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type blogsCreateWithoutBlog_viewsInput = {
@@ -103464,7 +101682,6 @@ export namespace Prisma {
     comment_count?: number | null
     tags?: NullableJsonNullValueInput | InputJsonValue
     metadata?: NullableJsonNullValueInput | InputJsonValue
-    blog_ratings?: blog_ratingsCreateNestedManyWithoutBlogsInput
     blog_category_relations?: blog_category_relationsCreateNestedManyWithoutBlogsInput
     blog_comments?: blog_commentsCreateNestedManyWithoutBlogsInput
     blog_likes?: blog_likesCreateNestedManyWithoutBlogsInput
@@ -103493,7 +101710,6 @@ export namespace Prisma {
     comment_count?: number | null
     tags?: NullableJsonNullValueInput | InputJsonValue
     metadata?: NullableJsonNullValueInput | InputJsonValue
-    blog_ratings?: blog_ratingsUncheckedCreateNestedManyWithoutBlogsInput
     blog_category_relations?: blog_category_relationsUncheckedCreateNestedManyWithoutBlogsInput
     blog_comments?: blog_commentsUncheckedCreateNestedManyWithoutBlogsInput
     blog_likes?: blog_likesUncheckedCreateNestedManyWithoutBlogsInput
@@ -103529,7 +101745,6 @@ export namespace Prisma {
     created_astronomy_events?: astronomy_eventsCreateNestedManyWithoutCreatorInput
     blog_comments?: blog_commentsCreateNestedManyWithoutUsersInput
     blog_likes?: blog_likesCreateNestedManyWithoutUsersInput
-    blog_ratings?: blog_ratingsCreateNestedManyWithoutUsersInput
     blogs?: blogsCreateNestedManyWithoutUsersInput
     chat_messages?: chat_messagesCreateNestedManyWithoutUserInput
     chatbot_sessions?: chatbot_sessionsCreateNestedManyWithoutUsersInput
@@ -103567,7 +101782,6 @@ export namespace Prisma {
     created_stargazing_spots?: stargazing_spotsCreateNestedManyWithoutCreatorInput
     subscriptions?: subscriptionsCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsCreateNestedOneWithoutUsersInput
-    chatbot_feedback?: chatbot_feedbackCreateNestedManyWithoutUserInput
   }
 
   export type usersUncheckedCreateWithoutBlog_viewsInput = {
@@ -103596,7 +101810,6 @@ export namespace Prisma {
     created_astronomy_events?: astronomy_eventsUncheckedCreateNestedManyWithoutCreatorInput
     blog_comments?: blog_commentsUncheckedCreateNestedManyWithoutUsersInput
     blog_likes?: blog_likesUncheckedCreateNestedManyWithoutUsersInput
-    blog_ratings?: blog_ratingsUncheckedCreateNestedManyWithoutUsersInput
     blogs?: blogsUncheckedCreateNestedManyWithoutUsersInput
     chat_messages?: chat_messagesUncheckedCreateNestedManyWithoutUserInput
     chatbot_sessions?: chatbot_sessionsUncheckedCreateNestedManyWithoutUsersInput
@@ -103634,7 +101847,6 @@ export namespace Prisma {
     created_stargazing_spots?: stargazing_spotsUncheckedCreateNestedManyWithoutCreatorInput
     subscriptions?: subscriptionsUncheckedCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsUncheckedCreateNestedOneWithoutUsersInput
-    chatbot_feedback?: chatbot_feedbackUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type usersCreateOrConnectWithoutBlog_viewsInput = {
@@ -103673,7 +101885,6 @@ export namespace Prisma {
     comment_count?: NullableIntFieldUpdateOperationsInput | number | null
     tags?: NullableJsonNullValueInput | InputJsonValue
     metadata?: NullableJsonNullValueInput | InputJsonValue
-    blog_ratings?: blog_ratingsUpdateManyWithoutBlogsNestedInput
     blog_category_relations?: blog_category_relationsUpdateManyWithoutBlogsNestedInput
     blog_comments?: blog_commentsUpdateManyWithoutBlogsNestedInput
     blog_likes?: blog_likesUpdateManyWithoutBlogsNestedInput
@@ -103702,7 +101913,6 @@ export namespace Prisma {
     comment_count?: NullableIntFieldUpdateOperationsInput | number | null
     tags?: NullableJsonNullValueInput | InputJsonValue
     metadata?: NullableJsonNullValueInput | InputJsonValue
-    blog_ratings?: blog_ratingsUncheckedUpdateManyWithoutBlogsNestedInput
     blog_category_relations?: blog_category_relationsUncheckedUpdateManyWithoutBlogsNestedInput
     blog_comments?: blog_commentsUncheckedUpdateManyWithoutBlogsNestedInput
     blog_likes?: blog_likesUncheckedUpdateManyWithoutBlogsNestedInput
@@ -103744,7 +101954,6 @@ export namespace Prisma {
     created_astronomy_events?: astronomy_eventsUpdateManyWithoutCreatorNestedInput
     blog_comments?: blog_commentsUpdateManyWithoutUsersNestedInput
     blog_likes?: blog_likesUpdateManyWithoutUsersNestedInput
-    blog_ratings?: blog_ratingsUpdateManyWithoutUsersNestedInput
     blogs?: blogsUpdateManyWithoutUsersNestedInput
     chat_messages?: chat_messagesUpdateManyWithoutUserNestedInput
     chatbot_sessions?: chatbot_sessionsUpdateManyWithoutUsersNestedInput
@@ -103782,7 +101991,6 @@ export namespace Prisma {
     created_stargazing_spots?: stargazing_spotsUpdateManyWithoutCreatorNestedInput
     subscriptions?: subscriptionsUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUpdateOneWithoutUsersNestedInput
-    chatbot_feedback?: chatbot_feedbackUpdateManyWithoutUserNestedInput
   }
 
   export type usersUncheckedUpdateWithoutBlog_viewsInput = {
@@ -103811,7 +102019,6 @@ export namespace Prisma {
     created_astronomy_events?: astronomy_eventsUncheckedUpdateManyWithoutCreatorNestedInput
     blog_comments?: blog_commentsUncheckedUpdateManyWithoutUsersNestedInput
     blog_likes?: blog_likesUncheckedUpdateManyWithoutUsersNestedInput
-    blog_ratings?: blog_ratingsUncheckedUpdateManyWithoutUsersNestedInput
     blogs?: blogsUncheckedUpdateManyWithoutUsersNestedInput
     chat_messages?: chat_messagesUncheckedUpdateManyWithoutUserNestedInput
     chatbot_sessions?: chatbot_sessionsUncheckedUpdateManyWithoutUsersNestedInput
@@ -103849,32 +102056,6 @@ export namespace Prisma {
     created_stargazing_spots?: stargazing_spotsUncheckedUpdateManyWithoutCreatorNestedInput
     subscriptions?: subscriptionsUncheckedUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUncheckedUpdateOneWithoutUsersNestedInput
-    chatbot_feedback?: chatbot_feedbackUncheckedUpdateManyWithoutUserNestedInput
-  }
-
-  export type blog_ratingsCreateWithoutBlogsInput = {
-    rating: number
-    created_at?: Date | string | null
-    updated_at?: Date | string | null
-    users?: usersCreateNestedOneWithoutBlog_ratingsInput
-  }
-
-  export type blog_ratingsUncheckedCreateWithoutBlogsInput = {
-    id?: number
-    user_id?: number | null
-    rating: number
-    created_at?: Date | string | null
-    updated_at?: Date | string | null
-  }
-
-  export type blog_ratingsCreateOrConnectWithoutBlogsInput = {
-    where: blog_ratingsWhereUniqueInput
-    create: XOR<blog_ratingsCreateWithoutBlogsInput, blog_ratingsUncheckedCreateWithoutBlogsInput>
-  }
-
-  export type blog_ratingsCreateManyBlogsInputEnvelope = {
-    data: blog_ratingsCreateManyBlogsInput | blog_ratingsCreateManyBlogsInput[]
-    skipDuplicates?: boolean
   }
 
   export type blog_category_relationsCreateWithoutBlogsInput = {
@@ -103998,7 +102179,6 @@ export namespace Prisma {
     created_astronomy_events?: astronomy_eventsCreateNestedManyWithoutCreatorInput
     blog_comments?: blog_commentsCreateNestedManyWithoutUsersInput
     blog_likes?: blog_likesCreateNestedManyWithoutUsersInput
-    blog_ratings?: blog_ratingsCreateNestedManyWithoutUsersInput
     blog_views?: blog_viewsCreateNestedManyWithoutUsersInput
     chat_messages?: chat_messagesCreateNestedManyWithoutUserInput
     chatbot_sessions?: chatbot_sessionsCreateNestedManyWithoutUsersInput
@@ -104036,7 +102216,6 @@ export namespace Prisma {
     created_stargazing_spots?: stargazing_spotsCreateNestedManyWithoutCreatorInput
     subscriptions?: subscriptionsCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsCreateNestedOneWithoutUsersInput
-    chatbot_feedback?: chatbot_feedbackCreateNestedManyWithoutUserInput
   }
 
   export type usersUncheckedCreateWithoutBlogsInput = {
@@ -104065,7 +102244,6 @@ export namespace Prisma {
     created_astronomy_events?: astronomy_eventsUncheckedCreateNestedManyWithoutCreatorInput
     blog_comments?: blog_commentsUncheckedCreateNestedManyWithoutUsersInput
     blog_likes?: blog_likesUncheckedCreateNestedManyWithoutUsersInput
-    blog_ratings?: blog_ratingsUncheckedCreateNestedManyWithoutUsersInput
     blog_views?: blog_viewsUncheckedCreateNestedManyWithoutUsersInput
     chat_messages?: chat_messagesUncheckedCreateNestedManyWithoutUserInput
     chatbot_sessions?: chatbot_sessionsUncheckedCreateNestedManyWithoutUsersInput
@@ -104103,40 +102281,11 @@ export namespace Prisma {
     created_stargazing_spots?: stargazing_spotsUncheckedCreateNestedManyWithoutCreatorInput
     subscriptions?: subscriptionsUncheckedCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsUncheckedCreateNestedOneWithoutUsersInput
-    chatbot_feedback?: chatbot_feedbackUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type usersCreateOrConnectWithoutBlogsInput = {
     where: usersWhereUniqueInput
     create: XOR<usersCreateWithoutBlogsInput, usersUncheckedCreateWithoutBlogsInput>
-  }
-
-  export type blog_ratingsUpsertWithWhereUniqueWithoutBlogsInput = {
-    where: blog_ratingsWhereUniqueInput
-    update: XOR<blog_ratingsUpdateWithoutBlogsInput, blog_ratingsUncheckedUpdateWithoutBlogsInput>
-    create: XOR<blog_ratingsCreateWithoutBlogsInput, blog_ratingsUncheckedCreateWithoutBlogsInput>
-  }
-
-  export type blog_ratingsUpdateWithWhereUniqueWithoutBlogsInput = {
-    where: blog_ratingsWhereUniqueInput
-    data: XOR<blog_ratingsUpdateWithoutBlogsInput, blog_ratingsUncheckedUpdateWithoutBlogsInput>
-  }
-
-  export type blog_ratingsUpdateManyWithWhereWithoutBlogsInput = {
-    where: blog_ratingsScalarWhereInput
-    data: XOR<blog_ratingsUpdateManyMutationInput, blog_ratingsUncheckedUpdateManyWithoutBlogsInput>
-  }
-
-  export type blog_ratingsScalarWhereInput = {
-    AND?: blog_ratingsScalarWhereInput | blog_ratingsScalarWhereInput[]
-    OR?: blog_ratingsScalarWhereInput[]
-    NOT?: blog_ratingsScalarWhereInput | blog_ratingsScalarWhereInput[]
-    id?: IntFilter<"blog_ratings"> | number
-    blog_id?: IntNullableFilter<"blog_ratings"> | number | null
-    user_id?: IntNullableFilter<"blog_ratings"> | number | null
-    rating?: IntFilter<"blog_ratings"> | number
-    created_at?: DateTimeNullableFilter<"blog_ratings"> | Date | string | null
-    updated_at?: DateTimeNullableFilter<"blog_ratings"> | Date | string | null
   }
 
   export type blog_category_relationsUpsertWithWhereUniqueWithoutBlogsInput = {
@@ -104261,7 +102410,6 @@ export namespace Prisma {
     created_astronomy_events?: astronomy_eventsUpdateManyWithoutCreatorNestedInput
     blog_comments?: blog_commentsUpdateManyWithoutUsersNestedInput
     blog_likes?: blog_likesUpdateManyWithoutUsersNestedInput
-    blog_ratings?: blog_ratingsUpdateManyWithoutUsersNestedInput
     blog_views?: blog_viewsUpdateManyWithoutUsersNestedInput
     chat_messages?: chat_messagesUpdateManyWithoutUserNestedInput
     chatbot_sessions?: chatbot_sessionsUpdateManyWithoutUsersNestedInput
@@ -104299,7 +102447,6 @@ export namespace Prisma {
     created_stargazing_spots?: stargazing_spotsUpdateManyWithoutCreatorNestedInput
     subscriptions?: subscriptionsUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUpdateOneWithoutUsersNestedInput
-    chatbot_feedback?: chatbot_feedbackUpdateManyWithoutUserNestedInput
   }
 
   export type usersUncheckedUpdateWithoutBlogsInput = {
@@ -104328,7 +102475,6 @@ export namespace Prisma {
     created_astronomy_events?: astronomy_eventsUncheckedUpdateManyWithoutCreatorNestedInput
     blog_comments?: blog_commentsUncheckedUpdateManyWithoutUsersNestedInput
     blog_likes?: blog_likesUncheckedUpdateManyWithoutUsersNestedInput
-    blog_ratings?: blog_ratingsUncheckedUpdateManyWithoutUsersNestedInput
     blog_views?: blog_viewsUncheckedUpdateManyWithoutUsersNestedInput
     chat_messages?: chat_messagesUncheckedUpdateManyWithoutUserNestedInput
     chatbot_sessions?: chatbot_sessionsUncheckedUpdateManyWithoutUsersNestedInput
@@ -104366,7 +102512,6 @@ export namespace Prisma {
     created_stargazing_spots?: stargazing_spotsUncheckedUpdateManyWithoutCreatorNestedInput
     subscriptions?: subscriptionsUncheckedUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUncheckedUpdateOneWithoutUsersNestedInput
-    chatbot_feedback?: chatbot_feedbackUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type group_chatsCreateWithoutChat_messagesInput = {
@@ -104495,7 +102640,6 @@ export namespace Prisma {
     created_astronomy_events?: astronomy_eventsCreateNestedManyWithoutCreatorInput
     blog_comments?: blog_commentsCreateNestedManyWithoutUsersInput
     blog_likes?: blog_likesCreateNestedManyWithoutUsersInput
-    blog_ratings?: blog_ratingsCreateNestedManyWithoutUsersInput
     blog_views?: blog_viewsCreateNestedManyWithoutUsersInput
     blogs?: blogsCreateNestedManyWithoutUsersInput
     chatbot_sessions?: chatbot_sessionsCreateNestedManyWithoutUsersInput
@@ -104533,7 +102677,6 @@ export namespace Prisma {
     created_stargazing_spots?: stargazing_spotsCreateNestedManyWithoutCreatorInput
     subscriptions?: subscriptionsCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsCreateNestedOneWithoutUsersInput
-    chatbot_feedback?: chatbot_feedbackCreateNestedManyWithoutUserInput
   }
 
   export type usersUncheckedCreateWithoutChat_messagesInput = {
@@ -104562,7 +102705,6 @@ export namespace Prisma {
     created_astronomy_events?: astronomy_eventsUncheckedCreateNestedManyWithoutCreatorInput
     blog_comments?: blog_commentsUncheckedCreateNestedManyWithoutUsersInput
     blog_likes?: blog_likesUncheckedCreateNestedManyWithoutUsersInput
-    blog_ratings?: blog_ratingsUncheckedCreateNestedManyWithoutUsersInput
     blog_views?: blog_viewsUncheckedCreateNestedManyWithoutUsersInput
     blogs?: blogsUncheckedCreateNestedManyWithoutUsersInput
     chatbot_sessions?: chatbot_sessionsUncheckedCreateNestedManyWithoutUsersInput
@@ -104600,7 +102742,6 @@ export namespace Prisma {
     created_stargazing_spots?: stargazing_spotsUncheckedCreateNestedManyWithoutCreatorInput
     subscriptions?: subscriptionsUncheckedCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsUncheckedCreateNestedOneWithoutUsersInput
-    chatbot_feedback?: chatbot_feedbackUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type usersCreateOrConnectWithoutChat_messagesInput = {
@@ -104775,7 +102916,6 @@ export namespace Prisma {
     created_astronomy_events?: astronomy_eventsUpdateManyWithoutCreatorNestedInput
     blog_comments?: blog_commentsUpdateManyWithoutUsersNestedInput
     blog_likes?: blog_likesUpdateManyWithoutUsersNestedInput
-    blog_ratings?: blog_ratingsUpdateManyWithoutUsersNestedInput
     blog_views?: blog_viewsUpdateManyWithoutUsersNestedInput
     blogs?: blogsUpdateManyWithoutUsersNestedInput
     chatbot_sessions?: chatbot_sessionsUpdateManyWithoutUsersNestedInput
@@ -104813,7 +102953,6 @@ export namespace Prisma {
     created_stargazing_spots?: stargazing_spotsUpdateManyWithoutCreatorNestedInput
     subscriptions?: subscriptionsUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUpdateOneWithoutUsersNestedInput
-    chatbot_feedback?: chatbot_feedbackUpdateManyWithoutUserNestedInput
   }
 
   export type usersUncheckedUpdateWithoutChat_messagesInput = {
@@ -104842,7 +102981,6 @@ export namespace Prisma {
     created_astronomy_events?: astronomy_eventsUncheckedUpdateManyWithoutCreatorNestedInput
     blog_comments?: blog_commentsUncheckedUpdateManyWithoutUsersNestedInput
     blog_likes?: blog_likesUncheckedUpdateManyWithoutUsersNestedInput
-    blog_ratings?: blog_ratingsUncheckedUpdateManyWithoutUsersNestedInput
     blog_views?: blog_viewsUncheckedUpdateManyWithoutUsersNestedInput
     blogs?: blogsUncheckedUpdateManyWithoutUsersNestedInput
     chatbot_sessions?: chatbot_sessionsUncheckedUpdateManyWithoutUsersNestedInput
@@ -104880,7 +103018,6 @@ export namespace Prisma {
     created_stargazing_spots?: stargazing_spotsUncheckedUpdateManyWithoutCreatorNestedInput
     subscriptions?: subscriptionsUncheckedUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUncheckedUpdateOneWithoutUsersNestedInput
-    chatbot_feedback?: chatbot_feedbackUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type message_reactionsUpsertWithWhereUniqueWithoutChat_messagesInput = {
@@ -105071,31 +103208,6 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
-  export type blog_ratingsCreateWithoutUsersInput = {
-    rating: number
-    created_at?: Date | string | null
-    updated_at?: Date | string | null
-    blogs?: blogsCreateNestedOneWithoutBlog_ratingsInput
-  }
-
-  export type blog_ratingsUncheckedCreateWithoutUsersInput = {
-    id?: number
-    blog_id?: number | null
-    rating: number
-    created_at?: Date | string | null
-    updated_at?: Date | string | null
-  }
-
-  export type blog_ratingsCreateOrConnectWithoutUsersInput = {
-    where: blog_ratingsWhereUniqueInput
-    create: XOR<blog_ratingsCreateWithoutUsersInput, blog_ratingsUncheckedCreateWithoutUsersInput>
-  }
-
-  export type blog_ratingsCreateManyUsersInputEnvelope = {
-    data: blog_ratingsCreateManyUsersInput | blog_ratingsCreateManyUsersInput[]
-    skipDuplicates?: boolean
-  }
-
   export type blog_viewsCreateWithoutUsersInput = {
     ip_address?: string | null
     user_agent?: string | null
@@ -105141,7 +103253,6 @@ export namespace Prisma {
     comment_count?: number | null
     tags?: NullableJsonNullValueInput | InputJsonValue
     metadata?: NullableJsonNullValueInput | InputJsonValue
-    blog_ratings?: blog_ratingsCreateNestedManyWithoutBlogsInput
     blog_category_relations?: blog_category_relationsCreateNestedManyWithoutBlogsInput
     blog_comments?: blog_commentsCreateNestedManyWithoutBlogsInput
     blog_likes?: blog_likesCreateNestedManyWithoutBlogsInput
@@ -105169,7 +103280,6 @@ export namespace Prisma {
     comment_count?: number | null
     tags?: NullableJsonNullValueInput | InputJsonValue
     metadata?: NullableJsonNullValueInput | InputJsonValue
-    blog_ratings?: blog_ratingsUncheckedCreateNestedManyWithoutBlogsInput
     blog_category_relations?: blog_category_relationsUncheckedCreateNestedManyWithoutBlogsInput
     blog_comments?: blog_commentsUncheckedCreateNestedManyWithoutBlogsInput
     blog_likes?: blog_likesUncheckedCreateNestedManyWithoutBlogsInput
@@ -106546,33 +104656,6 @@ export namespace Prisma {
     create: XOR<user_settingsCreateWithoutUsersInput, user_settingsUncheckedCreateWithoutUsersInput>
   }
 
-  export type chatbot_feedbackCreateWithoutUserInput = {
-    rating: number
-    feedback?: string | null
-    created_at?: Date | string
-    message: chatbot_messagesCreateNestedOneWithoutChatbot_feedbackInput
-    session: chatbot_sessionsCreateNestedOneWithoutChatbot_feedbackInput
-  }
-
-  export type chatbot_feedbackUncheckedCreateWithoutUserInput = {
-    id?: number
-    message_id: string
-    session_id: string
-    rating: number
-    feedback?: string | null
-    created_at?: Date | string
-  }
-
-  export type chatbot_feedbackCreateOrConnectWithoutUserInput = {
-    where: chatbot_feedbackWhereUniqueInput
-    create: XOR<chatbot_feedbackCreateWithoutUserInput, chatbot_feedbackUncheckedCreateWithoutUserInput>
-  }
-
-  export type chatbot_feedbackCreateManyUserInputEnvelope = {
-    data: chatbot_feedbackCreateManyUserInput | chatbot_feedbackCreateManyUserInput[]
-    skipDuplicates?: boolean
-  }
-
   export type QuizParticipantsUpsertWithWhereUniqueWithoutUsersInput = {
     where: QuizParticipantsWhereUniqueInput
     update: XOR<QuizParticipantsUpdateWithoutUsersInput, QuizParticipantsUncheckedUpdateWithoutUsersInput>
@@ -106690,22 +104773,6 @@ export namespace Prisma {
   export type blog_likesUpdateManyWithWhereWithoutUsersInput = {
     where: blog_likesScalarWhereInput
     data: XOR<blog_likesUpdateManyMutationInput, blog_likesUncheckedUpdateManyWithoutUsersInput>
-  }
-
-  export type blog_ratingsUpsertWithWhereUniqueWithoutUsersInput = {
-    where: blog_ratingsWhereUniqueInput
-    update: XOR<blog_ratingsUpdateWithoutUsersInput, blog_ratingsUncheckedUpdateWithoutUsersInput>
-    create: XOR<blog_ratingsCreateWithoutUsersInput, blog_ratingsUncheckedCreateWithoutUsersInput>
-  }
-
-  export type blog_ratingsUpdateWithWhereUniqueWithoutUsersInput = {
-    where: blog_ratingsWhereUniqueInput
-    data: XOR<blog_ratingsUpdateWithoutUsersInput, blog_ratingsUncheckedUpdateWithoutUsersInput>
-  }
-
-  export type blog_ratingsUpdateManyWithWhereWithoutUsersInput = {
-    where: blog_ratingsScalarWhereInput
-    data: XOR<blog_ratingsUpdateManyMutationInput, blog_ratingsUncheckedUpdateManyWithoutUsersInput>
   }
 
   export type blog_viewsUpsertWithWhereUniqueWithoutUsersInput = {
@@ -107908,458 +105975,22 @@ export namespace Prisma {
     updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
-  export type chatbot_feedbackUpsertWithWhereUniqueWithoutUserInput = {
-    where: chatbot_feedbackWhereUniqueInput
-    update: XOR<chatbot_feedbackUpdateWithoutUserInput, chatbot_feedbackUncheckedUpdateWithoutUserInput>
-    create: XOR<chatbot_feedbackCreateWithoutUserInput, chatbot_feedbackUncheckedCreateWithoutUserInput>
-  }
-
-  export type chatbot_feedbackUpdateWithWhereUniqueWithoutUserInput = {
-    where: chatbot_feedbackWhereUniqueInput
-    data: XOR<chatbot_feedbackUpdateWithoutUserInput, chatbot_feedbackUncheckedUpdateWithoutUserInput>
-  }
-
-  export type chatbot_feedbackUpdateManyWithWhereWithoutUserInput = {
-    where: chatbot_feedbackScalarWhereInput
-    data: XOR<chatbot_feedbackUpdateManyMutationInput, chatbot_feedbackUncheckedUpdateManyWithoutUserInput>
-  }
-
-  export type chatbot_feedbackScalarWhereInput = {
-    AND?: chatbot_feedbackScalarWhereInput | chatbot_feedbackScalarWhereInput[]
-    OR?: chatbot_feedbackScalarWhereInput[]
-    NOT?: chatbot_feedbackScalarWhereInput | chatbot_feedbackScalarWhereInput[]
-    id?: IntFilter<"chatbot_feedback"> | number
-    message_id?: UuidFilter<"chatbot_feedback"> | string
-    session_id?: UuidFilter<"chatbot_feedback"> | string
-    user_id?: IntFilter<"chatbot_feedback"> | number
-    rating?: IntFilter<"chatbot_feedback"> | number
-    feedback?: StringNullableFilter<"chatbot_feedback"> | string | null
-    created_at?: DateTimeFilter<"chatbot_feedback"> | Date | string
-  }
-
-  export type blogsCreateWithoutBlog_ratingsInput = {
-    title: string
-    content: string
-    excerpt?: string | null
-    featured_image?: string | null
-    author_name?: string | null
-    status?: string | null
-    is_featured?: boolean | null
-    views_count?: number | null
-    likes_count?: number | null
-    comments_count?: number | null
-    created_at?: Date | string | null
-    updated_at?: Date | string | null
-    image_url?: string | null
-    published_at?: Date | string | null
-    view_count?: number | null
-    like_count?: number | null
-    comment_count?: number | null
-    tags?: NullableJsonNullValueInput | InputJsonValue
-    metadata?: NullableJsonNullValueInput | InputJsonValue
-    blog_category_relations?: blog_category_relationsCreateNestedManyWithoutBlogsInput
-    blog_comments?: blog_commentsCreateNestedManyWithoutBlogsInput
-    blog_likes?: blog_likesCreateNestedManyWithoutBlogsInput
-    blog_views?: blog_viewsCreateNestedManyWithoutBlogsInput
-    users?: usersCreateNestedOneWithoutBlogsInput
-  }
-
-  export type blogsUncheckedCreateWithoutBlog_ratingsInput = {
-    id?: number
-    title: string
-    content: string
-    excerpt?: string | null
-    featured_image?: string | null
-    author_id?: number | null
-    author_name?: string | null
-    status?: string | null
-    is_featured?: boolean | null
-    views_count?: number | null
-    likes_count?: number | null
-    comments_count?: number | null
-    created_at?: Date | string | null
-    updated_at?: Date | string | null
-    image_url?: string | null
-    published_at?: Date | string | null
-    view_count?: number | null
-    like_count?: number | null
-    comment_count?: number | null
-    tags?: NullableJsonNullValueInput | InputJsonValue
-    metadata?: NullableJsonNullValueInput | InputJsonValue
-    blog_category_relations?: blog_category_relationsUncheckedCreateNestedManyWithoutBlogsInput
-    blog_comments?: blog_commentsUncheckedCreateNestedManyWithoutBlogsInput
-    blog_likes?: blog_likesUncheckedCreateNestedManyWithoutBlogsInput
-    blog_views?: blog_viewsUncheckedCreateNestedManyWithoutBlogsInput
-  }
-
-  export type blogsCreateOrConnectWithoutBlog_ratingsInput = {
-    where: blogsWhereUniqueInput
-    create: XOR<blogsCreateWithoutBlog_ratingsInput, blogsUncheckedCreateWithoutBlog_ratingsInput>
-  }
-
-  export type usersCreateWithoutBlog_ratingsInput = {
-    firebase_uid: string
-    email: string
-    role?: $Enums.user_role | null
-    first_name?: string | null
-    last_name?: string | null
-    is_active?: boolean | null
-    last_login?: Date | string | null
-    created_at?: Date | string | null
-    updated_at?: Date | string | null
-    display_name?: string | null
-    profile_data?: NullableJsonNullValueInput | InputJsonValue
-    role_specific_data?: NullableJsonNullValueInput | InputJsonValue
-    subscription_plan?: $Enums.subscription_plan | null
-    subscription_status?: $Enums.subscription_status | null
-    subscription_start_date?: Date | string | null
-    subscription_end_date?: Date | string | null
-    auto_renew?: boolean | null
-    chatbot_questions_used?: number | null
-    chatbot_questions_reset_date?: Date | string | null
-    QuizParticipants?: QuizParticipantsCreateNestedManyWithoutUsersInput
-    Quizzes?: QuizzesCreateNestedManyWithoutUsersInput
-    created_astronomy_events?: astronomy_eventsCreateNestedManyWithoutCreatorInput
-    blog_comments?: blog_commentsCreateNestedManyWithoutUsersInput
-    blog_likes?: blog_likesCreateNestedManyWithoutUsersInput
-    blog_views?: blog_viewsCreateNestedManyWithoutUsersInput
-    blogs?: blogsCreateNestedManyWithoutUsersInput
-    chat_messages?: chat_messagesCreateNestedManyWithoutUserInput
-    chatbot_sessions?: chatbot_sessionsCreateNestedManyWithoutUsersInput
-    chatbot_usage?: chatbot_usageCreateNestedManyWithoutUsersInput
-    event_reminders?: event_remindersCreateNestedManyWithoutUserInput
-    created_groups?: group_chatsCreateNestedManyWithoutCreatorInput
-    group_memberships?: group_membersCreateNestedManyWithoutUserInput
-    guide_application?: guide_applicationCreateNestedManyWithoutUsersInput
-    influencer_application?: influencer_applicationCreateNestedManyWithoutUsersInput
-    media_uploads?: media_uploadsCreateNestedManyWithoutUsersInput
-    mentor_application?: mentor_applicationCreateNestedManyWithoutUsersInput
-    message_reactions?: message_reactionsCreateNestedManyWithoutUserInput
-    night_camp_registrations?: night_camp_registrationsCreateNestedManyWithoutUsersInput
-    night_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousers?: night_camp_volunteering_applicationsCreateNestedManyWithoutUsers_night_camp_volunteering_applications_reviewed_byTousersInput
-    night_camp_volunteering_applications_night_camp_volunteering_applications_user_idTousers?: night_camp_volunteering_applicationsCreateNestedManyWithoutUsers_night_camp_volunteering_applications_user_idTousersInput
-    payments?: paymentsCreateNestedManyWithoutUsersInput
-    poll_comments?: poll_commentsCreateNestedManyWithoutCommenterInput
-    poll_votes?: poll_votesCreateNestedManyWithoutVoterInput
-    created_polls?: pollsCreateNestedManyWithoutCreatorInput
-    role_upgrade_requests_role_upgrade_requests_reviewer_idTousers?: role_upgrade_requestsCreateNestedManyWithoutUsers_role_upgrade_requests_reviewer_idTousersInput
-    role_upgrade_requests_role_upgrade_requests_user_idTousers?: role_upgrade_requestsCreateNestedManyWithoutUsers_role_upgrade_requests_user_idTousersInput
-    service_bookings?: service_bookingsCreateNestedManyWithoutUsersInput
-    service_reviews?: service_reviewsCreateNestedManyWithoutUsersInput
-    services?: servicesCreateNestedManyWithoutUsersInput
-    session_enrollments?: session_enrollmentsCreateNestedManyWithoutUserInput
-    created_sessions?: sessionsCreateNestedManyWithoutCreatorInput
-    discussion_comment_likes?: space_discussion_comment_likesCreateNestedManyWithoutUserInput
-    discussion_comments?: space_discussion_commentsCreateNestedManyWithoutUserInput
-    discussion_likes?: space_discussion_likesCreateNestedManyWithoutUserInput
-    authored_discussions?: space_discussionsCreateNestedManyWithoutAuthorInput
-    space_news_published?: space_newsCreateNestedManyWithoutPublisherInput
-    space_news_comments?: space_news_commentsCreateNestedManyWithoutUserInput
-    space_news_likes?: space_news_likesCreateNestedManyWithoutUserInput
-    stargazing_spot_reviews?: stargazing_spot_reviewsCreateNestedManyWithoutUserInput
-    created_stargazing_spots?: stargazing_spotsCreateNestedManyWithoutCreatorInput
-    subscriptions?: subscriptionsCreateNestedManyWithoutUsersInput
-    user_settings?: user_settingsCreateNestedOneWithoutUsersInput
-    chatbot_feedback?: chatbot_feedbackCreateNestedManyWithoutUserInput
-  }
-
-  export type usersUncheckedCreateWithoutBlog_ratingsInput = {
-    id?: number
-    firebase_uid: string
-    email: string
-    role?: $Enums.user_role | null
-    first_name?: string | null
-    last_name?: string | null
-    is_active?: boolean | null
-    last_login?: Date | string | null
-    created_at?: Date | string | null
-    updated_at?: Date | string | null
-    display_name?: string | null
-    profile_data?: NullableJsonNullValueInput | InputJsonValue
-    role_specific_data?: NullableJsonNullValueInput | InputJsonValue
-    subscription_plan?: $Enums.subscription_plan | null
-    subscription_status?: $Enums.subscription_status | null
-    subscription_start_date?: Date | string | null
-    subscription_end_date?: Date | string | null
-    auto_renew?: boolean | null
-    chatbot_questions_used?: number | null
-    chatbot_questions_reset_date?: Date | string | null
-    QuizParticipants?: QuizParticipantsUncheckedCreateNestedManyWithoutUsersInput
-    Quizzes?: QuizzesUncheckedCreateNestedManyWithoutUsersInput
-    created_astronomy_events?: astronomy_eventsUncheckedCreateNestedManyWithoutCreatorInput
-    blog_comments?: blog_commentsUncheckedCreateNestedManyWithoutUsersInput
-    blog_likes?: blog_likesUncheckedCreateNestedManyWithoutUsersInput
-    blog_views?: blog_viewsUncheckedCreateNestedManyWithoutUsersInput
-    blogs?: blogsUncheckedCreateNestedManyWithoutUsersInput
-    chat_messages?: chat_messagesUncheckedCreateNestedManyWithoutUserInput
-    chatbot_sessions?: chatbot_sessionsUncheckedCreateNestedManyWithoutUsersInput
-    chatbot_usage?: chatbot_usageUncheckedCreateNestedManyWithoutUsersInput
-    event_reminders?: event_remindersUncheckedCreateNestedManyWithoutUserInput
-    created_groups?: group_chatsUncheckedCreateNestedManyWithoutCreatorInput
-    group_memberships?: group_membersUncheckedCreateNestedManyWithoutUserInput
-    guide_application?: guide_applicationUncheckedCreateNestedManyWithoutUsersInput
-    influencer_application?: influencer_applicationUncheckedCreateNestedManyWithoutUsersInput
-    media_uploads?: media_uploadsUncheckedCreateNestedManyWithoutUsersInput
-    mentor_application?: mentor_applicationUncheckedCreateNestedManyWithoutUsersInput
-    message_reactions?: message_reactionsUncheckedCreateNestedManyWithoutUserInput
-    night_camp_registrations?: night_camp_registrationsUncheckedCreateNestedManyWithoutUsersInput
-    night_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousers?: night_camp_volunteering_applicationsUncheckedCreateNestedManyWithoutUsers_night_camp_volunteering_applications_reviewed_byTousersInput
-    night_camp_volunteering_applications_night_camp_volunteering_applications_user_idTousers?: night_camp_volunteering_applicationsUncheckedCreateNestedManyWithoutUsers_night_camp_volunteering_applications_user_idTousersInput
-    payments?: paymentsUncheckedCreateNestedManyWithoutUsersInput
-    poll_comments?: poll_commentsUncheckedCreateNestedManyWithoutCommenterInput
-    poll_votes?: poll_votesUncheckedCreateNestedManyWithoutVoterInput
-    created_polls?: pollsUncheckedCreateNestedManyWithoutCreatorInput
-    role_upgrade_requests_role_upgrade_requests_reviewer_idTousers?: role_upgrade_requestsUncheckedCreateNestedManyWithoutUsers_role_upgrade_requests_reviewer_idTousersInput
-    role_upgrade_requests_role_upgrade_requests_user_idTousers?: role_upgrade_requestsUncheckedCreateNestedManyWithoutUsers_role_upgrade_requests_user_idTousersInput
-    service_bookings?: service_bookingsUncheckedCreateNestedManyWithoutUsersInput
-    service_reviews?: service_reviewsUncheckedCreateNestedManyWithoutUsersInput
-    services?: servicesUncheckedCreateNestedManyWithoutUsersInput
-    session_enrollments?: session_enrollmentsUncheckedCreateNestedManyWithoutUserInput
-    created_sessions?: sessionsUncheckedCreateNestedManyWithoutCreatorInput
-    discussion_comment_likes?: space_discussion_comment_likesUncheckedCreateNestedManyWithoutUserInput
-    discussion_comments?: space_discussion_commentsUncheckedCreateNestedManyWithoutUserInput
-    discussion_likes?: space_discussion_likesUncheckedCreateNestedManyWithoutUserInput
-    authored_discussions?: space_discussionsUncheckedCreateNestedManyWithoutAuthorInput
-    space_news_published?: space_newsUncheckedCreateNestedManyWithoutPublisherInput
-    space_news_comments?: space_news_commentsUncheckedCreateNestedManyWithoutUserInput
-    space_news_likes?: space_news_likesUncheckedCreateNestedManyWithoutUserInput
-    stargazing_spot_reviews?: stargazing_spot_reviewsUncheckedCreateNestedManyWithoutUserInput
-    created_stargazing_spots?: stargazing_spotsUncheckedCreateNestedManyWithoutCreatorInput
-    subscriptions?: subscriptionsUncheckedCreateNestedManyWithoutUsersInput
-    user_settings?: user_settingsUncheckedCreateNestedOneWithoutUsersInput
-    chatbot_feedback?: chatbot_feedbackUncheckedCreateNestedManyWithoutUserInput
-  }
-
-  export type usersCreateOrConnectWithoutBlog_ratingsInput = {
-    where: usersWhereUniqueInput
-    create: XOR<usersCreateWithoutBlog_ratingsInput, usersUncheckedCreateWithoutBlog_ratingsInput>
-  }
-
-  export type blogsUpsertWithoutBlog_ratingsInput = {
-    update: XOR<blogsUpdateWithoutBlog_ratingsInput, blogsUncheckedUpdateWithoutBlog_ratingsInput>
-    create: XOR<blogsCreateWithoutBlog_ratingsInput, blogsUncheckedCreateWithoutBlog_ratingsInput>
-    where?: blogsWhereInput
-  }
-
-  export type blogsUpdateToOneWithWhereWithoutBlog_ratingsInput = {
-    where?: blogsWhereInput
-    data: XOR<blogsUpdateWithoutBlog_ratingsInput, blogsUncheckedUpdateWithoutBlog_ratingsInput>
-  }
-
-  export type blogsUpdateWithoutBlog_ratingsInput = {
-    title?: StringFieldUpdateOperationsInput | string
-    content?: StringFieldUpdateOperationsInput | string
-    excerpt?: NullableStringFieldUpdateOperationsInput | string | null
-    featured_image?: NullableStringFieldUpdateOperationsInput | string | null
-    author_name?: NullableStringFieldUpdateOperationsInput | string | null
-    status?: NullableStringFieldUpdateOperationsInput | string | null
-    is_featured?: NullableBoolFieldUpdateOperationsInput | boolean | null
-    views_count?: NullableIntFieldUpdateOperationsInput | number | null
-    likes_count?: NullableIntFieldUpdateOperationsInput | number | null
-    comments_count?: NullableIntFieldUpdateOperationsInput | number | null
-    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    image_url?: NullableStringFieldUpdateOperationsInput | string | null
-    published_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    view_count?: NullableIntFieldUpdateOperationsInput | number | null
-    like_count?: NullableIntFieldUpdateOperationsInput | number | null
-    comment_count?: NullableIntFieldUpdateOperationsInput | number | null
-    tags?: NullableJsonNullValueInput | InputJsonValue
-    metadata?: NullableJsonNullValueInput | InputJsonValue
-    blog_category_relations?: blog_category_relationsUpdateManyWithoutBlogsNestedInput
-    blog_comments?: blog_commentsUpdateManyWithoutBlogsNestedInput
-    blog_likes?: blog_likesUpdateManyWithoutBlogsNestedInput
-    blog_views?: blog_viewsUpdateManyWithoutBlogsNestedInput
-    users?: usersUpdateOneWithoutBlogsNestedInput
-  }
-
-  export type blogsUncheckedUpdateWithoutBlog_ratingsInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    title?: StringFieldUpdateOperationsInput | string
-    content?: StringFieldUpdateOperationsInput | string
-    excerpt?: NullableStringFieldUpdateOperationsInput | string | null
-    featured_image?: NullableStringFieldUpdateOperationsInput | string | null
-    author_id?: NullableIntFieldUpdateOperationsInput | number | null
-    author_name?: NullableStringFieldUpdateOperationsInput | string | null
-    status?: NullableStringFieldUpdateOperationsInput | string | null
-    is_featured?: NullableBoolFieldUpdateOperationsInput | boolean | null
-    views_count?: NullableIntFieldUpdateOperationsInput | number | null
-    likes_count?: NullableIntFieldUpdateOperationsInput | number | null
-    comments_count?: NullableIntFieldUpdateOperationsInput | number | null
-    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    image_url?: NullableStringFieldUpdateOperationsInput | string | null
-    published_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    view_count?: NullableIntFieldUpdateOperationsInput | number | null
-    like_count?: NullableIntFieldUpdateOperationsInput | number | null
-    comment_count?: NullableIntFieldUpdateOperationsInput | number | null
-    tags?: NullableJsonNullValueInput | InputJsonValue
-    metadata?: NullableJsonNullValueInput | InputJsonValue
-    blog_category_relations?: blog_category_relationsUncheckedUpdateManyWithoutBlogsNestedInput
-    blog_comments?: blog_commentsUncheckedUpdateManyWithoutBlogsNestedInput
-    blog_likes?: blog_likesUncheckedUpdateManyWithoutBlogsNestedInput
-    blog_views?: blog_viewsUncheckedUpdateManyWithoutBlogsNestedInput
-  }
-
-  export type usersUpsertWithoutBlog_ratingsInput = {
-    update: XOR<usersUpdateWithoutBlog_ratingsInput, usersUncheckedUpdateWithoutBlog_ratingsInput>
-    create: XOR<usersCreateWithoutBlog_ratingsInput, usersUncheckedCreateWithoutBlog_ratingsInput>
-    where?: usersWhereInput
-  }
-
-  export type usersUpdateToOneWithWhereWithoutBlog_ratingsInput = {
-    where?: usersWhereInput
-    data: XOR<usersUpdateWithoutBlog_ratingsInput, usersUncheckedUpdateWithoutBlog_ratingsInput>
-  }
-
-  export type usersUpdateWithoutBlog_ratingsInput = {
-    firebase_uid?: StringFieldUpdateOperationsInput | string
-    email?: StringFieldUpdateOperationsInput | string
-    role?: NullableEnumuser_roleFieldUpdateOperationsInput | $Enums.user_role | null
-    first_name?: NullableStringFieldUpdateOperationsInput | string | null
-    last_name?: NullableStringFieldUpdateOperationsInput | string | null
-    is_active?: NullableBoolFieldUpdateOperationsInput | boolean | null
-    last_login?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    display_name?: NullableStringFieldUpdateOperationsInput | string | null
-    profile_data?: NullableJsonNullValueInput | InputJsonValue
-    role_specific_data?: NullableJsonNullValueInput | InputJsonValue
-    subscription_plan?: NullableEnumsubscription_planFieldUpdateOperationsInput | $Enums.subscription_plan | null
-    subscription_status?: NullableEnumsubscription_statusFieldUpdateOperationsInput | $Enums.subscription_status | null
-    subscription_start_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    subscription_end_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    auto_renew?: NullableBoolFieldUpdateOperationsInput | boolean | null
-    chatbot_questions_used?: NullableIntFieldUpdateOperationsInput | number | null
-    chatbot_questions_reset_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    QuizParticipants?: QuizParticipantsUpdateManyWithoutUsersNestedInput
-    Quizzes?: QuizzesUpdateManyWithoutUsersNestedInput
-    created_astronomy_events?: astronomy_eventsUpdateManyWithoutCreatorNestedInput
-    blog_comments?: blog_commentsUpdateManyWithoutUsersNestedInput
-    blog_likes?: blog_likesUpdateManyWithoutUsersNestedInput
-    blog_views?: blog_viewsUpdateManyWithoutUsersNestedInput
-    blogs?: blogsUpdateManyWithoutUsersNestedInput
-    chat_messages?: chat_messagesUpdateManyWithoutUserNestedInput
-    chatbot_sessions?: chatbot_sessionsUpdateManyWithoutUsersNestedInput
-    chatbot_usage?: chatbot_usageUpdateManyWithoutUsersNestedInput
-    event_reminders?: event_remindersUpdateManyWithoutUserNestedInput
-    created_groups?: group_chatsUpdateManyWithoutCreatorNestedInput
-    group_memberships?: group_membersUpdateManyWithoutUserNestedInput
-    guide_application?: guide_applicationUpdateManyWithoutUsersNestedInput
-    influencer_application?: influencer_applicationUpdateManyWithoutUsersNestedInput
-    media_uploads?: media_uploadsUpdateManyWithoutUsersNestedInput
-    mentor_application?: mentor_applicationUpdateManyWithoutUsersNestedInput
-    message_reactions?: message_reactionsUpdateManyWithoutUserNestedInput
-    night_camp_registrations?: night_camp_registrationsUpdateManyWithoutUsersNestedInput
-    night_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousers?: night_camp_volunteering_applicationsUpdateManyWithoutUsers_night_camp_volunteering_applications_reviewed_byTousersNestedInput
-    night_camp_volunteering_applications_night_camp_volunteering_applications_user_idTousers?: night_camp_volunteering_applicationsUpdateManyWithoutUsers_night_camp_volunteering_applications_user_idTousersNestedInput
-    payments?: paymentsUpdateManyWithoutUsersNestedInput
-    poll_comments?: poll_commentsUpdateManyWithoutCommenterNestedInput
-    poll_votes?: poll_votesUpdateManyWithoutVoterNestedInput
-    created_polls?: pollsUpdateManyWithoutCreatorNestedInput
-    role_upgrade_requests_role_upgrade_requests_reviewer_idTousers?: role_upgrade_requestsUpdateManyWithoutUsers_role_upgrade_requests_reviewer_idTousersNestedInput
-    role_upgrade_requests_role_upgrade_requests_user_idTousers?: role_upgrade_requestsUpdateManyWithoutUsers_role_upgrade_requests_user_idTousersNestedInput
-    service_bookings?: service_bookingsUpdateManyWithoutUsersNestedInput
-    service_reviews?: service_reviewsUpdateManyWithoutUsersNestedInput
-    services?: servicesUpdateManyWithoutUsersNestedInput
-    session_enrollments?: session_enrollmentsUpdateManyWithoutUserNestedInput
-    created_sessions?: sessionsUpdateManyWithoutCreatorNestedInput
-    discussion_comment_likes?: space_discussion_comment_likesUpdateManyWithoutUserNestedInput
-    discussion_comments?: space_discussion_commentsUpdateManyWithoutUserNestedInput
-    discussion_likes?: space_discussion_likesUpdateManyWithoutUserNestedInput
-    authored_discussions?: space_discussionsUpdateManyWithoutAuthorNestedInput
-    space_news_published?: space_newsUpdateManyWithoutPublisherNestedInput
-    space_news_comments?: space_news_commentsUpdateManyWithoutUserNestedInput
-    space_news_likes?: space_news_likesUpdateManyWithoutUserNestedInput
-    stargazing_spot_reviews?: stargazing_spot_reviewsUpdateManyWithoutUserNestedInput
-    created_stargazing_spots?: stargazing_spotsUpdateManyWithoutCreatorNestedInput
-    subscriptions?: subscriptionsUpdateManyWithoutUsersNestedInput
-    user_settings?: user_settingsUpdateOneWithoutUsersNestedInput
-    chatbot_feedback?: chatbot_feedbackUpdateManyWithoutUserNestedInput
-  }
-
-  export type usersUncheckedUpdateWithoutBlog_ratingsInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    firebase_uid?: StringFieldUpdateOperationsInput | string
-    email?: StringFieldUpdateOperationsInput | string
-    role?: NullableEnumuser_roleFieldUpdateOperationsInput | $Enums.user_role | null
-    first_name?: NullableStringFieldUpdateOperationsInput | string | null
-    last_name?: NullableStringFieldUpdateOperationsInput | string | null
-    is_active?: NullableBoolFieldUpdateOperationsInput | boolean | null
-    last_login?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    display_name?: NullableStringFieldUpdateOperationsInput | string | null
-    profile_data?: NullableJsonNullValueInput | InputJsonValue
-    role_specific_data?: NullableJsonNullValueInput | InputJsonValue
-    subscription_plan?: NullableEnumsubscription_planFieldUpdateOperationsInput | $Enums.subscription_plan | null
-    subscription_status?: NullableEnumsubscription_statusFieldUpdateOperationsInput | $Enums.subscription_status | null
-    subscription_start_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    subscription_end_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    auto_renew?: NullableBoolFieldUpdateOperationsInput | boolean | null
-    chatbot_questions_used?: NullableIntFieldUpdateOperationsInput | number | null
-    chatbot_questions_reset_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    QuizParticipants?: QuizParticipantsUncheckedUpdateManyWithoutUsersNestedInput
-    Quizzes?: QuizzesUncheckedUpdateManyWithoutUsersNestedInput
-    created_astronomy_events?: astronomy_eventsUncheckedUpdateManyWithoutCreatorNestedInput
-    blog_comments?: blog_commentsUncheckedUpdateManyWithoutUsersNestedInput
-    blog_likes?: blog_likesUncheckedUpdateManyWithoutUsersNestedInput
-    blog_views?: blog_viewsUncheckedUpdateManyWithoutUsersNestedInput
-    blogs?: blogsUncheckedUpdateManyWithoutUsersNestedInput
-    chat_messages?: chat_messagesUncheckedUpdateManyWithoutUserNestedInput
-    chatbot_sessions?: chatbot_sessionsUncheckedUpdateManyWithoutUsersNestedInput
-    chatbot_usage?: chatbot_usageUncheckedUpdateManyWithoutUsersNestedInput
-    event_reminders?: event_remindersUncheckedUpdateManyWithoutUserNestedInput
-    created_groups?: group_chatsUncheckedUpdateManyWithoutCreatorNestedInput
-    group_memberships?: group_membersUncheckedUpdateManyWithoutUserNestedInput
-    guide_application?: guide_applicationUncheckedUpdateManyWithoutUsersNestedInput
-    influencer_application?: influencer_applicationUncheckedUpdateManyWithoutUsersNestedInput
-    media_uploads?: media_uploadsUncheckedUpdateManyWithoutUsersNestedInput
-    mentor_application?: mentor_applicationUncheckedUpdateManyWithoutUsersNestedInput
-    message_reactions?: message_reactionsUncheckedUpdateManyWithoutUserNestedInput
-    night_camp_registrations?: night_camp_registrationsUncheckedUpdateManyWithoutUsersNestedInput
-    night_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousers?: night_camp_volunteering_applicationsUncheckedUpdateManyWithoutUsers_night_camp_volunteering_applications_reviewed_byTousersNestedInput
-    night_camp_volunteering_applications_night_camp_volunteering_applications_user_idTousers?: night_camp_volunteering_applicationsUncheckedUpdateManyWithoutUsers_night_camp_volunteering_applications_user_idTousersNestedInput
-    payments?: paymentsUncheckedUpdateManyWithoutUsersNestedInput
-    poll_comments?: poll_commentsUncheckedUpdateManyWithoutCommenterNestedInput
-    poll_votes?: poll_votesUncheckedUpdateManyWithoutVoterNestedInput
-    created_polls?: pollsUncheckedUpdateManyWithoutCreatorNestedInput
-    role_upgrade_requests_role_upgrade_requests_reviewer_idTousers?: role_upgrade_requestsUncheckedUpdateManyWithoutUsers_role_upgrade_requests_reviewer_idTousersNestedInput
-    role_upgrade_requests_role_upgrade_requests_user_idTousers?: role_upgrade_requestsUncheckedUpdateManyWithoutUsers_role_upgrade_requests_user_idTousersNestedInput
-    service_bookings?: service_bookingsUncheckedUpdateManyWithoutUsersNestedInput
-    service_reviews?: service_reviewsUncheckedUpdateManyWithoutUsersNestedInput
-    services?: servicesUncheckedUpdateManyWithoutUsersNestedInput
-    session_enrollments?: session_enrollmentsUncheckedUpdateManyWithoutUserNestedInput
-    created_sessions?: sessionsUncheckedUpdateManyWithoutCreatorNestedInput
-    discussion_comment_likes?: space_discussion_comment_likesUncheckedUpdateManyWithoutUserNestedInput
-    discussion_comments?: space_discussion_commentsUncheckedUpdateManyWithoutUserNestedInput
-    discussion_likes?: space_discussion_likesUncheckedUpdateManyWithoutUserNestedInput
-    authored_discussions?: space_discussionsUncheckedUpdateManyWithoutAuthorNestedInput
-    space_news_published?: space_newsUncheckedUpdateManyWithoutPublisherNestedInput
-    space_news_comments?: space_news_commentsUncheckedUpdateManyWithoutUserNestedInput
-    space_news_likes?: space_news_likesUncheckedUpdateManyWithoutUserNestedInput
-    stargazing_spot_reviews?: stargazing_spot_reviewsUncheckedUpdateManyWithoutUserNestedInput
-    created_stargazing_spots?: stargazing_spotsUncheckedUpdateManyWithoutCreatorNestedInput
-    subscriptions?: subscriptionsUncheckedUpdateManyWithoutUsersNestedInput
-    user_settings?: user_settingsUncheckedUpdateOneWithoutUsersNestedInput
-    chatbot_feedback?: chatbot_feedbackUncheckedUpdateManyWithoutUserNestedInput
-  }
-
   export type chatbot_feedbackCreateWithoutMessageInput = {
-    rating: number
-    feedback?: string | null
-    created_at?: Date | string
-    session: chatbot_sessionsCreateNestedOneWithoutChatbot_feedbackInput
-    user: usersCreateNestedOneWithoutChatbot_feedbackInput
+    id?: string
+    firebase_uid: string
+    rating?: number | null
+    feedback_text?: string | null
+    created_at?: Date | string | null
+    session?: chatbot_sessionsCreateNestedOneWithoutChatbot_feedbackInput
   }
 
   export type chatbot_feedbackUncheckedCreateWithoutMessageInput = {
-    id?: number
-    session_id: string
-    user_id: number
-    rating: number
-    feedback?: string | null
-    created_at?: Date | string
+    id?: string
+    session_id?: string | null
+    firebase_uid: string
+    rating?: number | null
+    feedback_text?: string | null
+    created_at?: Date | string | null
   }
 
   export type chatbot_feedbackCreateOrConnectWithoutMessageInput = {
@@ -108417,6 +106048,19 @@ export namespace Prisma {
     data: XOR<chatbot_feedbackUpdateManyMutationInput, chatbot_feedbackUncheckedUpdateManyWithoutMessageInput>
   }
 
+  export type chatbot_feedbackScalarWhereInput = {
+    AND?: chatbot_feedbackScalarWhereInput | chatbot_feedbackScalarWhereInput[]
+    OR?: chatbot_feedbackScalarWhereInput[]
+    NOT?: chatbot_feedbackScalarWhereInput | chatbot_feedbackScalarWhereInput[]
+    id?: UuidFilter<"chatbot_feedback"> | string
+    message_id?: UuidNullableFilter<"chatbot_feedback"> | string | null
+    session_id?: UuidNullableFilter<"chatbot_feedback"> | string | null
+    firebase_uid?: StringFilter<"chatbot_feedback"> | string
+    rating?: IntNullableFilter<"chatbot_feedback"> | number | null
+    feedback_text?: StringNullableFilter<"chatbot_feedback"> | string | null
+    created_at?: DateTimeNullableFilter<"chatbot_feedback"> | Date | string | null
+  }
+
   export type chatbot_sessionsUpsertWithoutChatbot_messagesInput = {
     update: XOR<chatbot_sessionsUpdateWithoutChatbot_messagesInput, chatbot_sessionsUncheckedUpdateWithoutChatbot_messagesInput>
     create: XOR<chatbot_sessionsCreateWithoutChatbot_messagesInput, chatbot_sessionsUncheckedCreateWithoutChatbot_messagesInput>
@@ -108453,20 +106097,21 @@ export namespace Prisma {
   }
 
   export type chatbot_feedbackCreateWithoutSessionInput = {
-    rating: number
-    feedback?: string | null
-    created_at?: Date | string
-    message: chatbot_messagesCreateNestedOneWithoutChatbot_feedbackInput
-    user: usersCreateNestedOneWithoutChatbot_feedbackInput
+    id?: string
+    firebase_uid: string
+    rating?: number | null
+    feedback_text?: string | null
+    created_at?: Date | string | null
+    message?: chatbot_messagesCreateNestedOneWithoutChatbot_feedbackInput
   }
 
   export type chatbot_feedbackUncheckedCreateWithoutSessionInput = {
-    id?: number
-    message_id: string
-    user_id: number
-    rating: number
-    feedback?: string | null
-    created_at?: Date | string
+    id?: string
+    message_id?: string | null
+    firebase_uid: string
+    rating?: number | null
+    feedback_text?: string | null
+    created_at?: Date | string | null
   }
 
   export type chatbot_feedbackCreateOrConnectWithoutSessionInput = {
@@ -108538,7 +106183,6 @@ export namespace Prisma {
     created_astronomy_events?: astronomy_eventsCreateNestedManyWithoutCreatorInput
     blog_comments?: blog_commentsCreateNestedManyWithoutUsersInput
     blog_likes?: blog_likesCreateNestedManyWithoutUsersInput
-    blog_ratings?: blog_ratingsCreateNestedManyWithoutUsersInput
     blog_views?: blog_viewsCreateNestedManyWithoutUsersInput
     blogs?: blogsCreateNestedManyWithoutUsersInput
     chat_messages?: chat_messagesCreateNestedManyWithoutUserInput
@@ -108576,7 +106220,6 @@ export namespace Prisma {
     created_stargazing_spots?: stargazing_spotsCreateNestedManyWithoutCreatorInput
     subscriptions?: subscriptionsCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsCreateNestedOneWithoutUsersInput
-    chatbot_feedback?: chatbot_feedbackCreateNestedManyWithoutUserInput
   }
 
   export type usersUncheckedCreateWithoutChatbot_sessionsInput = {
@@ -108605,7 +106248,6 @@ export namespace Prisma {
     created_astronomy_events?: astronomy_eventsUncheckedCreateNestedManyWithoutCreatorInput
     blog_comments?: blog_commentsUncheckedCreateNestedManyWithoutUsersInput
     blog_likes?: blog_likesUncheckedCreateNestedManyWithoutUsersInput
-    blog_ratings?: blog_ratingsUncheckedCreateNestedManyWithoutUsersInput
     blog_views?: blog_viewsUncheckedCreateNestedManyWithoutUsersInput
     blogs?: blogsUncheckedCreateNestedManyWithoutUsersInput
     chat_messages?: chat_messagesUncheckedCreateNestedManyWithoutUserInput
@@ -108643,7 +106285,6 @@ export namespace Prisma {
     created_stargazing_spots?: stargazing_spotsUncheckedCreateNestedManyWithoutCreatorInput
     subscriptions?: subscriptionsUncheckedCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsUncheckedCreateNestedOneWithoutUsersInput
-    chatbot_feedback?: chatbot_feedbackUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type usersCreateOrConnectWithoutChatbot_sessionsInput = {
@@ -108734,7 +106375,6 @@ export namespace Prisma {
     created_astronomy_events?: astronomy_eventsUpdateManyWithoutCreatorNestedInput
     blog_comments?: blog_commentsUpdateManyWithoutUsersNestedInput
     blog_likes?: blog_likesUpdateManyWithoutUsersNestedInput
-    blog_ratings?: blog_ratingsUpdateManyWithoutUsersNestedInput
     blog_views?: blog_viewsUpdateManyWithoutUsersNestedInput
     blogs?: blogsUpdateManyWithoutUsersNestedInput
     chat_messages?: chat_messagesUpdateManyWithoutUserNestedInput
@@ -108772,7 +106412,6 @@ export namespace Prisma {
     created_stargazing_spots?: stargazing_spotsUpdateManyWithoutCreatorNestedInput
     subscriptions?: subscriptionsUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUpdateOneWithoutUsersNestedInput
-    chatbot_feedback?: chatbot_feedbackUpdateManyWithoutUserNestedInput
   }
 
   export type usersUncheckedUpdateWithoutChatbot_sessionsInput = {
@@ -108801,7 +106440,6 @@ export namespace Prisma {
     created_astronomy_events?: astronomy_eventsUncheckedUpdateManyWithoutCreatorNestedInput
     blog_comments?: blog_commentsUncheckedUpdateManyWithoutUsersNestedInput
     blog_likes?: blog_likesUncheckedUpdateManyWithoutUsersNestedInput
-    blog_ratings?: blog_ratingsUncheckedUpdateManyWithoutUsersNestedInput
     blog_views?: blog_viewsUncheckedUpdateManyWithoutUsersNestedInput
     blogs?: blogsUncheckedUpdateManyWithoutUsersNestedInput
     chat_messages?: chat_messagesUncheckedUpdateManyWithoutUserNestedInput
@@ -108839,7 +106477,6 @@ export namespace Prisma {
     created_stargazing_spots?: stargazing_spotsUncheckedUpdateManyWithoutCreatorNestedInput
     subscriptions?: subscriptionsUncheckedUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUncheckedUpdateOneWithoutUsersNestedInput
-    chatbot_feedback?: chatbot_feedbackUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type usersCreateWithoutChatbot_usageInput = {
@@ -108867,7 +106504,6 @@ export namespace Prisma {
     created_astronomy_events?: astronomy_eventsCreateNestedManyWithoutCreatorInput
     blog_comments?: blog_commentsCreateNestedManyWithoutUsersInput
     blog_likes?: blog_likesCreateNestedManyWithoutUsersInput
-    blog_ratings?: blog_ratingsCreateNestedManyWithoutUsersInput
     blog_views?: blog_viewsCreateNestedManyWithoutUsersInput
     blogs?: blogsCreateNestedManyWithoutUsersInput
     chat_messages?: chat_messagesCreateNestedManyWithoutUserInput
@@ -108905,7 +106541,6 @@ export namespace Prisma {
     created_stargazing_spots?: stargazing_spotsCreateNestedManyWithoutCreatorInput
     subscriptions?: subscriptionsCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsCreateNestedOneWithoutUsersInput
-    chatbot_feedback?: chatbot_feedbackCreateNestedManyWithoutUserInput
   }
 
   export type usersUncheckedCreateWithoutChatbot_usageInput = {
@@ -108934,7 +106569,6 @@ export namespace Prisma {
     created_astronomy_events?: astronomy_eventsUncheckedCreateNestedManyWithoutCreatorInput
     blog_comments?: blog_commentsUncheckedCreateNestedManyWithoutUsersInput
     blog_likes?: blog_likesUncheckedCreateNestedManyWithoutUsersInput
-    blog_ratings?: blog_ratingsUncheckedCreateNestedManyWithoutUsersInput
     blog_views?: blog_viewsUncheckedCreateNestedManyWithoutUsersInput
     blogs?: blogsUncheckedCreateNestedManyWithoutUsersInput
     chat_messages?: chat_messagesUncheckedCreateNestedManyWithoutUserInput
@@ -108972,7 +106606,6 @@ export namespace Prisma {
     created_stargazing_spots?: stargazing_spotsUncheckedCreateNestedManyWithoutCreatorInput
     subscriptions?: subscriptionsUncheckedCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsUncheckedCreateNestedOneWithoutUsersInput
-    chatbot_feedback?: chatbot_feedbackUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type usersCreateOrConnectWithoutChatbot_usageInput = {
@@ -109016,7 +106649,6 @@ export namespace Prisma {
     created_astronomy_events?: astronomy_eventsUpdateManyWithoutCreatorNestedInput
     blog_comments?: blog_commentsUpdateManyWithoutUsersNestedInput
     blog_likes?: blog_likesUpdateManyWithoutUsersNestedInput
-    blog_ratings?: blog_ratingsUpdateManyWithoutUsersNestedInput
     blog_views?: blog_viewsUpdateManyWithoutUsersNestedInput
     blogs?: blogsUpdateManyWithoutUsersNestedInput
     chat_messages?: chat_messagesUpdateManyWithoutUserNestedInput
@@ -109054,7 +106686,6 @@ export namespace Prisma {
     created_stargazing_spots?: stargazing_spotsUpdateManyWithoutCreatorNestedInput
     subscriptions?: subscriptionsUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUpdateOneWithoutUsersNestedInput
-    chatbot_feedback?: chatbot_feedbackUpdateManyWithoutUserNestedInput
   }
 
   export type usersUncheckedUpdateWithoutChatbot_usageInput = {
@@ -109083,7 +106714,6 @@ export namespace Prisma {
     created_astronomy_events?: astronomy_eventsUncheckedUpdateManyWithoutCreatorNestedInput
     blog_comments?: blog_commentsUncheckedUpdateManyWithoutUsersNestedInput
     blog_likes?: blog_likesUncheckedUpdateManyWithoutUsersNestedInput
-    blog_ratings?: blog_ratingsUncheckedUpdateManyWithoutUsersNestedInput
     blog_views?: blog_viewsUncheckedUpdateManyWithoutUsersNestedInput
     blogs?: blogsUncheckedUpdateManyWithoutUsersNestedInput
     chat_messages?: chat_messagesUncheckedUpdateManyWithoutUserNestedInput
@@ -109121,7 +106751,6 @@ export namespace Prisma {
     created_stargazing_spots?: stargazing_spotsUncheckedUpdateManyWithoutCreatorNestedInput
     subscriptions?: subscriptionsUncheckedUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUncheckedUpdateOneWithoutUsersNestedInput
-    chatbot_feedback?: chatbot_feedbackUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type astronomy_eventsCreateWithoutEvent_remindersInput = {
@@ -109187,7 +106816,6 @@ export namespace Prisma {
     created_astronomy_events?: astronomy_eventsCreateNestedManyWithoutCreatorInput
     blog_comments?: blog_commentsCreateNestedManyWithoutUsersInput
     blog_likes?: blog_likesCreateNestedManyWithoutUsersInput
-    blog_ratings?: blog_ratingsCreateNestedManyWithoutUsersInput
     blog_views?: blog_viewsCreateNestedManyWithoutUsersInput
     blogs?: blogsCreateNestedManyWithoutUsersInput
     chat_messages?: chat_messagesCreateNestedManyWithoutUserInput
@@ -109225,7 +106853,6 @@ export namespace Prisma {
     created_stargazing_spots?: stargazing_spotsCreateNestedManyWithoutCreatorInput
     subscriptions?: subscriptionsCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsCreateNestedOneWithoutUsersInput
-    chatbot_feedback?: chatbot_feedbackCreateNestedManyWithoutUserInput
   }
 
   export type usersUncheckedCreateWithoutEvent_remindersInput = {
@@ -109254,7 +106881,6 @@ export namespace Prisma {
     created_astronomy_events?: astronomy_eventsUncheckedCreateNestedManyWithoutCreatorInput
     blog_comments?: blog_commentsUncheckedCreateNestedManyWithoutUsersInput
     blog_likes?: blog_likesUncheckedCreateNestedManyWithoutUsersInput
-    blog_ratings?: blog_ratingsUncheckedCreateNestedManyWithoutUsersInput
     blog_views?: blog_viewsUncheckedCreateNestedManyWithoutUsersInput
     blogs?: blogsUncheckedCreateNestedManyWithoutUsersInput
     chat_messages?: chat_messagesUncheckedCreateNestedManyWithoutUserInput
@@ -109292,7 +106918,6 @@ export namespace Prisma {
     created_stargazing_spots?: stargazing_spotsUncheckedCreateNestedManyWithoutCreatorInput
     subscriptions?: subscriptionsUncheckedCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsUncheckedCreateNestedOneWithoutUsersInput
-    chatbot_feedback?: chatbot_feedbackUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type usersCreateOrConnectWithoutEvent_remindersInput = {
@@ -109380,7 +107005,6 @@ export namespace Prisma {
     created_astronomy_events?: astronomy_eventsUpdateManyWithoutCreatorNestedInput
     blog_comments?: blog_commentsUpdateManyWithoutUsersNestedInput
     blog_likes?: blog_likesUpdateManyWithoutUsersNestedInput
-    blog_ratings?: blog_ratingsUpdateManyWithoutUsersNestedInput
     blog_views?: blog_viewsUpdateManyWithoutUsersNestedInput
     blogs?: blogsUpdateManyWithoutUsersNestedInput
     chat_messages?: chat_messagesUpdateManyWithoutUserNestedInput
@@ -109418,7 +107042,6 @@ export namespace Prisma {
     created_stargazing_spots?: stargazing_spotsUpdateManyWithoutCreatorNestedInput
     subscriptions?: subscriptionsUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUpdateOneWithoutUsersNestedInput
-    chatbot_feedback?: chatbot_feedbackUpdateManyWithoutUserNestedInput
   }
 
   export type usersUncheckedUpdateWithoutEvent_remindersInput = {
@@ -109447,7 +107070,6 @@ export namespace Prisma {
     created_astronomy_events?: astronomy_eventsUncheckedUpdateManyWithoutCreatorNestedInput
     blog_comments?: blog_commentsUncheckedUpdateManyWithoutUsersNestedInput
     blog_likes?: blog_likesUncheckedUpdateManyWithoutUsersNestedInput
-    blog_ratings?: blog_ratingsUncheckedUpdateManyWithoutUsersNestedInput
     blog_views?: blog_viewsUncheckedUpdateManyWithoutUsersNestedInput
     blogs?: blogsUncheckedUpdateManyWithoutUsersNestedInput
     chat_messages?: chat_messagesUncheckedUpdateManyWithoutUserNestedInput
@@ -109485,7 +107107,6 @@ export namespace Prisma {
     created_stargazing_spots?: stargazing_spotsUncheckedUpdateManyWithoutCreatorNestedInput
     subscriptions?: subscriptionsUncheckedUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUncheckedUpdateOneWithoutUsersNestedInput
-    chatbot_feedback?: chatbot_feedbackUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type chat_messagesCreateWithoutGroup_chatsInput = {
@@ -109550,7 +107171,6 @@ export namespace Prisma {
     created_astronomy_events?: astronomy_eventsCreateNestedManyWithoutCreatorInput
     blog_comments?: blog_commentsCreateNestedManyWithoutUsersInput
     blog_likes?: blog_likesCreateNestedManyWithoutUsersInput
-    blog_ratings?: blog_ratingsCreateNestedManyWithoutUsersInput
     blog_views?: blog_viewsCreateNestedManyWithoutUsersInput
     blogs?: blogsCreateNestedManyWithoutUsersInput
     chat_messages?: chat_messagesCreateNestedManyWithoutUserInput
@@ -109588,7 +107208,6 @@ export namespace Prisma {
     created_stargazing_spots?: stargazing_spotsCreateNestedManyWithoutCreatorInput
     subscriptions?: subscriptionsCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsCreateNestedOneWithoutUsersInput
-    chatbot_feedback?: chatbot_feedbackCreateNestedManyWithoutUserInput
   }
 
   export type usersUncheckedCreateWithoutCreated_groupsInput = {
@@ -109617,7 +107236,6 @@ export namespace Prisma {
     created_astronomy_events?: astronomy_eventsUncheckedCreateNestedManyWithoutCreatorInput
     blog_comments?: blog_commentsUncheckedCreateNestedManyWithoutUsersInput
     blog_likes?: blog_likesUncheckedCreateNestedManyWithoutUsersInput
-    blog_ratings?: blog_ratingsUncheckedCreateNestedManyWithoutUsersInput
     blog_views?: blog_viewsUncheckedCreateNestedManyWithoutUsersInput
     blogs?: blogsUncheckedCreateNestedManyWithoutUsersInput
     chat_messages?: chat_messagesUncheckedCreateNestedManyWithoutUserInput
@@ -109655,7 +107273,6 @@ export namespace Prisma {
     created_stargazing_spots?: stargazing_spotsUncheckedCreateNestedManyWithoutCreatorInput
     subscriptions?: subscriptionsUncheckedCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsUncheckedCreateNestedOneWithoutUsersInput
-    chatbot_feedback?: chatbot_feedbackUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type usersCreateOrConnectWithoutCreated_groupsInput = {
@@ -109740,7 +107357,6 @@ export namespace Prisma {
     created_astronomy_events?: astronomy_eventsUpdateManyWithoutCreatorNestedInput
     blog_comments?: blog_commentsUpdateManyWithoutUsersNestedInput
     blog_likes?: blog_likesUpdateManyWithoutUsersNestedInput
-    blog_ratings?: blog_ratingsUpdateManyWithoutUsersNestedInput
     blog_views?: blog_viewsUpdateManyWithoutUsersNestedInput
     blogs?: blogsUpdateManyWithoutUsersNestedInput
     chat_messages?: chat_messagesUpdateManyWithoutUserNestedInput
@@ -109778,7 +107394,6 @@ export namespace Prisma {
     created_stargazing_spots?: stargazing_spotsUpdateManyWithoutCreatorNestedInput
     subscriptions?: subscriptionsUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUpdateOneWithoutUsersNestedInput
-    chatbot_feedback?: chatbot_feedbackUpdateManyWithoutUserNestedInput
   }
 
   export type usersUncheckedUpdateWithoutCreated_groupsInput = {
@@ -109807,7 +107422,6 @@ export namespace Prisma {
     created_astronomy_events?: astronomy_eventsUncheckedUpdateManyWithoutCreatorNestedInput
     blog_comments?: blog_commentsUncheckedUpdateManyWithoutUsersNestedInput
     blog_likes?: blog_likesUncheckedUpdateManyWithoutUsersNestedInput
-    blog_ratings?: blog_ratingsUncheckedUpdateManyWithoutUsersNestedInput
     blog_views?: blog_viewsUncheckedUpdateManyWithoutUsersNestedInput
     blogs?: blogsUncheckedUpdateManyWithoutUsersNestedInput
     chat_messages?: chat_messagesUncheckedUpdateManyWithoutUserNestedInput
@@ -109845,7 +107459,6 @@ export namespace Prisma {
     created_stargazing_spots?: stargazing_spotsUncheckedUpdateManyWithoutCreatorNestedInput
     subscriptions?: subscriptionsUncheckedUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUncheckedUpdateOneWithoutUsersNestedInput
-    chatbot_feedback?: chatbot_feedbackUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type group_membersUpsertWithWhereUniqueWithoutGroup_chatsInput = {
@@ -109921,7 +107534,6 @@ export namespace Prisma {
     created_astronomy_events?: astronomy_eventsCreateNestedManyWithoutCreatorInput
     blog_comments?: blog_commentsCreateNestedManyWithoutUsersInput
     blog_likes?: blog_likesCreateNestedManyWithoutUsersInput
-    blog_ratings?: blog_ratingsCreateNestedManyWithoutUsersInput
     blog_views?: blog_viewsCreateNestedManyWithoutUsersInput
     blogs?: blogsCreateNestedManyWithoutUsersInput
     chat_messages?: chat_messagesCreateNestedManyWithoutUserInput
@@ -109959,7 +107571,6 @@ export namespace Prisma {
     created_stargazing_spots?: stargazing_spotsCreateNestedManyWithoutCreatorInput
     subscriptions?: subscriptionsCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsCreateNestedOneWithoutUsersInput
-    chatbot_feedback?: chatbot_feedbackCreateNestedManyWithoutUserInput
   }
 
   export type usersUncheckedCreateWithoutGroup_membershipsInput = {
@@ -109988,7 +107599,6 @@ export namespace Prisma {
     created_astronomy_events?: astronomy_eventsUncheckedCreateNestedManyWithoutCreatorInput
     blog_comments?: blog_commentsUncheckedCreateNestedManyWithoutUsersInput
     blog_likes?: blog_likesUncheckedCreateNestedManyWithoutUsersInput
-    blog_ratings?: blog_ratingsUncheckedCreateNestedManyWithoutUsersInput
     blog_views?: blog_viewsUncheckedCreateNestedManyWithoutUsersInput
     blogs?: blogsUncheckedCreateNestedManyWithoutUsersInput
     chat_messages?: chat_messagesUncheckedCreateNestedManyWithoutUserInput
@@ -110026,7 +107636,6 @@ export namespace Prisma {
     created_stargazing_spots?: stargazing_spotsUncheckedCreateNestedManyWithoutCreatorInput
     subscriptions?: subscriptionsUncheckedCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsUncheckedCreateNestedOneWithoutUsersInput
-    chatbot_feedback?: chatbot_feedbackUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type usersCreateOrConnectWithoutGroup_membershipsInput = {
@@ -110108,7 +107717,6 @@ export namespace Prisma {
     created_astronomy_events?: astronomy_eventsUpdateManyWithoutCreatorNestedInput
     blog_comments?: blog_commentsUpdateManyWithoutUsersNestedInput
     blog_likes?: blog_likesUpdateManyWithoutUsersNestedInput
-    blog_ratings?: blog_ratingsUpdateManyWithoutUsersNestedInput
     blog_views?: blog_viewsUpdateManyWithoutUsersNestedInput
     blogs?: blogsUpdateManyWithoutUsersNestedInput
     chat_messages?: chat_messagesUpdateManyWithoutUserNestedInput
@@ -110146,7 +107754,6 @@ export namespace Prisma {
     created_stargazing_spots?: stargazing_spotsUpdateManyWithoutCreatorNestedInput
     subscriptions?: subscriptionsUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUpdateOneWithoutUsersNestedInput
-    chatbot_feedback?: chatbot_feedbackUpdateManyWithoutUserNestedInput
   }
 
   export type usersUncheckedUpdateWithoutGroup_membershipsInput = {
@@ -110175,7 +107782,6 @@ export namespace Prisma {
     created_astronomy_events?: astronomy_eventsUncheckedUpdateManyWithoutCreatorNestedInput
     blog_comments?: blog_commentsUncheckedUpdateManyWithoutUsersNestedInput
     blog_likes?: blog_likesUncheckedUpdateManyWithoutUsersNestedInput
-    blog_ratings?: blog_ratingsUncheckedUpdateManyWithoutUsersNestedInput
     blog_views?: blog_viewsUncheckedUpdateManyWithoutUsersNestedInput
     blogs?: blogsUncheckedUpdateManyWithoutUsersNestedInput
     chat_messages?: chat_messagesUncheckedUpdateManyWithoutUserNestedInput
@@ -110213,7 +107819,6 @@ export namespace Prisma {
     created_stargazing_spots?: stargazing_spotsUncheckedUpdateManyWithoutCreatorNestedInput
     subscriptions?: subscriptionsUncheckedUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUncheckedUpdateOneWithoutUsersNestedInput
-    chatbot_feedback?: chatbot_feedbackUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type usersCreateWithoutGuide_applicationInput = {
@@ -110241,7 +107846,6 @@ export namespace Prisma {
     created_astronomy_events?: astronomy_eventsCreateNestedManyWithoutCreatorInput
     blog_comments?: blog_commentsCreateNestedManyWithoutUsersInput
     blog_likes?: blog_likesCreateNestedManyWithoutUsersInput
-    blog_ratings?: blog_ratingsCreateNestedManyWithoutUsersInput
     blog_views?: blog_viewsCreateNestedManyWithoutUsersInput
     blogs?: blogsCreateNestedManyWithoutUsersInput
     chat_messages?: chat_messagesCreateNestedManyWithoutUserInput
@@ -110279,7 +107883,6 @@ export namespace Prisma {
     created_stargazing_spots?: stargazing_spotsCreateNestedManyWithoutCreatorInput
     subscriptions?: subscriptionsCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsCreateNestedOneWithoutUsersInput
-    chatbot_feedback?: chatbot_feedbackCreateNestedManyWithoutUserInput
   }
 
   export type usersUncheckedCreateWithoutGuide_applicationInput = {
@@ -110308,7 +107911,6 @@ export namespace Prisma {
     created_astronomy_events?: astronomy_eventsUncheckedCreateNestedManyWithoutCreatorInput
     blog_comments?: blog_commentsUncheckedCreateNestedManyWithoutUsersInput
     blog_likes?: blog_likesUncheckedCreateNestedManyWithoutUsersInput
-    blog_ratings?: blog_ratingsUncheckedCreateNestedManyWithoutUsersInput
     blog_views?: blog_viewsUncheckedCreateNestedManyWithoutUsersInput
     blogs?: blogsUncheckedCreateNestedManyWithoutUsersInput
     chat_messages?: chat_messagesUncheckedCreateNestedManyWithoutUserInput
@@ -110346,7 +107948,6 @@ export namespace Prisma {
     created_stargazing_spots?: stargazing_spotsUncheckedCreateNestedManyWithoutCreatorInput
     subscriptions?: subscriptionsUncheckedCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsUncheckedCreateNestedOneWithoutUsersInput
-    chatbot_feedback?: chatbot_feedbackUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type usersCreateOrConnectWithoutGuide_applicationInput = {
@@ -110390,7 +107991,6 @@ export namespace Prisma {
     created_astronomy_events?: astronomy_eventsUpdateManyWithoutCreatorNestedInput
     blog_comments?: blog_commentsUpdateManyWithoutUsersNestedInput
     blog_likes?: blog_likesUpdateManyWithoutUsersNestedInput
-    blog_ratings?: blog_ratingsUpdateManyWithoutUsersNestedInput
     blog_views?: blog_viewsUpdateManyWithoutUsersNestedInput
     blogs?: blogsUpdateManyWithoutUsersNestedInput
     chat_messages?: chat_messagesUpdateManyWithoutUserNestedInput
@@ -110428,7 +108028,6 @@ export namespace Prisma {
     created_stargazing_spots?: stargazing_spotsUpdateManyWithoutCreatorNestedInput
     subscriptions?: subscriptionsUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUpdateOneWithoutUsersNestedInput
-    chatbot_feedback?: chatbot_feedbackUpdateManyWithoutUserNestedInput
   }
 
   export type usersUncheckedUpdateWithoutGuide_applicationInput = {
@@ -110457,7 +108056,6 @@ export namespace Prisma {
     created_astronomy_events?: astronomy_eventsUncheckedUpdateManyWithoutCreatorNestedInput
     blog_comments?: blog_commentsUncheckedUpdateManyWithoutUsersNestedInput
     blog_likes?: blog_likesUncheckedUpdateManyWithoutUsersNestedInput
-    blog_ratings?: blog_ratingsUncheckedUpdateManyWithoutUsersNestedInput
     blog_views?: blog_viewsUncheckedUpdateManyWithoutUsersNestedInput
     blogs?: blogsUncheckedUpdateManyWithoutUsersNestedInput
     chat_messages?: chat_messagesUncheckedUpdateManyWithoutUserNestedInput
@@ -110495,7 +108093,6 @@ export namespace Prisma {
     created_stargazing_spots?: stargazing_spotsUncheckedUpdateManyWithoutCreatorNestedInput
     subscriptions?: subscriptionsUncheckedUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUncheckedUpdateOneWithoutUsersNestedInput
-    chatbot_feedback?: chatbot_feedbackUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type usersCreateWithoutInfluencer_applicationInput = {
@@ -110523,7 +108120,6 @@ export namespace Prisma {
     created_astronomy_events?: astronomy_eventsCreateNestedManyWithoutCreatorInput
     blog_comments?: blog_commentsCreateNestedManyWithoutUsersInput
     blog_likes?: blog_likesCreateNestedManyWithoutUsersInput
-    blog_ratings?: blog_ratingsCreateNestedManyWithoutUsersInput
     blog_views?: blog_viewsCreateNestedManyWithoutUsersInput
     blogs?: blogsCreateNestedManyWithoutUsersInput
     chat_messages?: chat_messagesCreateNestedManyWithoutUserInput
@@ -110561,7 +108157,6 @@ export namespace Prisma {
     created_stargazing_spots?: stargazing_spotsCreateNestedManyWithoutCreatorInput
     subscriptions?: subscriptionsCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsCreateNestedOneWithoutUsersInput
-    chatbot_feedback?: chatbot_feedbackCreateNestedManyWithoutUserInput
   }
 
   export type usersUncheckedCreateWithoutInfluencer_applicationInput = {
@@ -110590,7 +108185,6 @@ export namespace Prisma {
     created_astronomy_events?: astronomy_eventsUncheckedCreateNestedManyWithoutCreatorInput
     blog_comments?: blog_commentsUncheckedCreateNestedManyWithoutUsersInput
     blog_likes?: blog_likesUncheckedCreateNestedManyWithoutUsersInput
-    blog_ratings?: blog_ratingsUncheckedCreateNestedManyWithoutUsersInput
     blog_views?: blog_viewsUncheckedCreateNestedManyWithoutUsersInput
     blogs?: blogsUncheckedCreateNestedManyWithoutUsersInput
     chat_messages?: chat_messagesUncheckedCreateNestedManyWithoutUserInput
@@ -110628,7 +108222,6 @@ export namespace Prisma {
     created_stargazing_spots?: stargazing_spotsUncheckedCreateNestedManyWithoutCreatorInput
     subscriptions?: subscriptionsUncheckedCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsUncheckedCreateNestedOneWithoutUsersInput
-    chatbot_feedback?: chatbot_feedbackUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type usersCreateOrConnectWithoutInfluencer_applicationInput = {
@@ -110672,7 +108265,6 @@ export namespace Prisma {
     created_astronomy_events?: astronomy_eventsUpdateManyWithoutCreatorNestedInput
     blog_comments?: blog_commentsUpdateManyWithoutUsersNestedInput
     blog_likes?: blog_likesUpdateManyWithoutUsersNestedInput
-    blog_ratings?: blog_ratingsUpdateManyWithoutUsersNestedInput
     blog_views?: blog_viewsUpdateManyWithoutUsersNestedInput
     blogs?: blogsUpdateManyWithoutUsersNestedInput
     chat_messages?: chat_messagesUpdateManyWithoutUserNestedInput
@@ -110710,7 +108302,6 @@ export namespace Prisma {
     created_stargazing_spots?: stargazing_spotsUpdateManyWithoutCreatorNestedInput
     subscriptions?: subscriptionsUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUpdateOneWithoutUsersNestedInput
-    chatbot_feedback?: chatbot_feedbackUpdateManyWithoutUserNestedInput
   }
 
   export type usersUncheckedUpdateWithoutInfluencer_applicationInput = {
@@ -110739,7 +108330,6 @@ export namespace Prisma {
     created_astronomy_events?: astronomy_eventsUncheckedUpdateManyWithoutCreatorNestedInput
     blog_comments?: blog_commentsUncheckedUpdateManyWithoutUsersNestedInput
     blog_likes?: blog_likesUncheckedUpdateManyWithoutUsersNestedInput
-    blog_ratings?: blog_ratingsUncheckedUpdateManyWithoutUsersNestedInput
     blog_views?: blog_viewsUncheckedUpdateManyWithoutUsersNestedInput
     blogs?: blogsUncheckedUpdateManyWithoutUsersNestedInput
     chat_messages?: chat_messagesUncheckedUpdateManyWithoutUserNestedInput
@@ -110777,7 +108367,6 @@ export namespace Prisma {
     created_stargazing_spots?: stargazing_spotsUncheckedUpdateManyWithoutCreatorNestedInput
     subscriptions?: subscriptionsUncheckedUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUncheckedUpdateOneWithoutUsersNestedInput
-    chatbot_feedback?: chatbot_feedbackUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type usersCreateWithoutMedia_uploadsInput = {
@@ -110805,7 +108394,6 @@ export namespace Prisma {
     created_astronomy_events?: astronomy_eventsCreateNestedManyWithoutCreatorInput
     blog_comments?: blog_commentsCreateNestedManyWithoutUsersInput
     blog_likes?: blog_likesCreateNestedManyWithoutUsersInput
-    blog_ratings?: blog_ratingsCreateNestedManyWithoutUsersInput
     blog_views?: blog_viewsCreateNestedManyWithoutUsersInput
     blogs?: blogsCreateNestedManyWithoutUsersInput
     chat_messages?: chat_messagesCreateNestedManyWithoutUserInput
@@ -110843,7 +108431,6 @@ export namespace Prisma {
     created_stargazing_spots?: stargazing_spotsCreateNestedManyWithoutCreatorInput
     subscriptions?: subscriptionsCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsCreateNestedOneWithoutUsersInput
-    chatbot_feedback?: chatbot_feedbackCreateNestedManyWithoutUserInput
   }
 
   export type usersUncheckedCreateWithoutMedia_uploadsInput = {
@@ -110872,7 +108459,6 @@ export namespace Prisma {
     created_astronomy_events?: astronomy_eventsUncheckedCreateNestedManyWithoutCreatorInput
     blog_comments?: blog_commentsUncheckedCreateNestedManyWithoutUsersInput
     blog_likes?: blog_likesUncheckedCreateNestedManyWithoutUsersInput
-    blog_ratings?: blog_ratingsUncheckedCreateNestedManyWithoutUsersInput
     blog_views?: blog_viewsUncheckedCreateNestedManyWithoutUsersInput
     blogs?: blogsUncheckedCreateNestedManyWithoutUsersInput
     chat_messages?: chat_messagesUncheckedCreateNestedManyWithoutUserInput
@@ -110910,7 +108496,6 @@ export namespace Prisma {
     created_stargazing_spots?: stargazing_spotsUncheckedCreateNestedManyWithoutCreatorInput
     subscriptions?: subscriptionsUncheckedCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsUncheckedCreateNestedOneWithoutUsersInput
-    chatbot_feedback?: chatbot_feedbackUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type usersCreateOrConnectWithoutMedia_uploadsInput = {
@@ -110954,7 +108539,6 @@ export namespace Prisma {
     created_astronomy_events?: astronomy_eventsUpdateManyWithoutCreatorNestedInput
     blog_comments?: blog_commentsUpdateManyWithoutUsersNestedInput
     blog_likes?: blog_likesUpdateManyWithoutUsersNestedInput
-    blog_ratings?: blog_ratingsUpdateManyWithoutUsersNestedInput
     blog_views?: blog_viewsUpdateManyWithoutUsersNestedInput
     blogs?: blogsUpdateManyWithoutUsersNestedInput
     chat_messages?: chat_messagesUpdateManyWithoutUserNestedInput
@@ -110992,7 +108576,6 @@ export namespace Prisma {
     created_stargazing_spots?: stargazing_spotsUpdateManyWithoutCreatorNestedInput
     subscriptions?: subscriptionsUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUpdateOneWithoutUsersNestedInput
-    chatbot_feedback?: chatbot_feedbackUpdateManyWithoutUserNestedInput
   }
 
   export type usersUncheckedUpdateWithoutMedia_uploadsInput = {
@@ -111021,7 +108604,6 @@ export namespace Prisma {
     created_astronomy_events?: astronomy_eventsUncheckedUpdateManyWithoutCreatorNestedInput
     blog_comments?: blog_commentsUncheckedUpdateManyWithoutUsersNestedInput
     blog_likes?: blog_likesUncheckedUpdateManyWithoutUsersNestedInput
-    blog_ratings?: blog_ratingsUncheckedUpdateManyWithoutUsersNestedInput
     blog_views?: blog_viewsUncheckedUpdateManyWithoutUsersNestedInput
     blogs?: blogsUncheckedUpdateManyWithoutUsersNestedInput
     chat_messages?: chat_messagesUncheckedUpdateManyWithoutUserNestedInput
@@ -111059,7 +108641,6 @@ export namespace Prisma {
     created_stargazing_spots?: stargazing_spotsUncheckedUpdateManyWithoutCreatorNestedInput
     subscriptions?: subscriptionsUncheckedUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUncheckedUpdateOneWithoutUsersNestedInput
-    chatbot_feedback?: chatbot_feedbackUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type usersCreateWithoutMentor_applicationInput = {
@@ -111087,7 +108668,6 @@ export namespace Prisma {
     created_astronomy_events?: astronomy_eventsCreateNestedManyWithoutCreatorInput
     blog_comments?: blog_commentsCreateNestedManyWithoutUsersInput
     blog_likes?: blog_likesCreateNestedManyWithoutUsersInput
-    blog_ratings?: blog_ratingsCreateNestedManyWithoutUsersInput
     blog_views?: blog_viewsCreateNestedManyWithoutUsersInput
     blogs?: blogsCreateNestedManyWithoutUsersInput
     chat_messages?: chat_messagesCreateNestedManyWithoutUserInput
@@ -111125,7 +108705,6 @@ export namespace Prisma {
     created_stargazing_spots?: stargazing_spotsCreateNestedManyWithoutCreatorInput
     subscriptions?: subscriptionsCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsCreateNestedOneWithoutUsersInput
-    chatbot_feedback?: chatbot_feedbackCreateNestedManyWithoutUserInput
   }
 
   export type usersUncheckedCreateWithoutMentor_applicationInput = {
@@ -111154,7 +108733,6 @@ export namespace Prisma {
     created_astronomy_events?: astronomy_eventsUncheckedCreateNestedManyWithoutCreatorInput
     blog_comments?: blog_commentsUncheckedCreateNestedManyWithoutUsersInput
     blog_likes?: blog_likesUncheckedCreateNestedManyWithoutUsersInput
-    blog_ratings?: blog_ratingsUncheckedCreateNestedManyWithoutUsersInput
     blog_views?: blog_viewsUncheckedCreateNestedManyWithoutUsersInput
     blogs?: blogsUncheckedCreateNestedManyWithoutUsersInput
     chat_messages?: chat_messagesUncheckedCreateNestedManyWithoutUserInput
@@ -111192,7 +108770,6 @@ export namespace Prisma {
     created_stargazing_spots?: stargazing_spotsUncheckedCreateNestedManyWithoutCreatorInput
     subscriptions?: subscriptionsUncheckedCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsUncheckedCreateNestedOneWithoutUsersInput
-    chatbot_feedback?: chatbot_feedbackUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type usersCreateOrConnectWithoutMentor_applicationInput = {
@@ -111236,7 +108813,6 @@ export namespace Prisma {
     created_astronomy_events?: astronomy_eventsUpdateManyWithoutCreatorNestedInput
     blog_comments?: blog_commentsUpdateManyWithoutUsersNestedInput
     blog_likes?: blog_likesUpdateManyWithoutUsersNestedInput
-    blog_ratings?: blog_ratingsUpdateManyWithoutUsersNestedInput
     blog_views?: blog_viewsUpdateManyWithoutUsersNestedInput
     blogs?: blogsUpdateManyWithoutUsersNestedInput
     chat_messages?: chat_messagesUpdateManyWithoutUserNestedInput
@@ -111274,7 +108850,6 @@ export namespace Prisma {
     created_stargazing_spots?: stargazing_spotsUpdateManyWithoutCreatorNestedInput
     subscriptions?: subscriptionsUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUpdateOneWithoutUsersNestedInput
-    chatbot_feedback?: chatbot_feedbackUpdateManyWithoutUserNestedInput
   }
 
   export type usersUncheckedUpdateWithoutMentor_applicationInput = {
@@ -111303,7 +108878,6 @@ export namespace Prisma {
     created_astronomy_events?: astronomy_eventsUncheckedUpdateManyWithoutCreatorNestedInput
     blog_comments?: blog_commentsUncheckedUpdateManyWithoutUsersNestedInput
     blog_likes?: blog_likesUncheckedUpdateManyWithoutUsersNestedInput
-    blog_ratings?: blog_ratingsUncheckedUpdateManyWithoutUsersNestedInput
     blog_views?: blog_viewsUncheckedUpdateManyWithoutUsersNestedInput
     blogs?: blogsUncheckedUpdateManyWithoutUsersNestedInput
     chat_messages?: chat_messagesUncheckedUpdateManyWithoutUserNestedInput
@@ -111341,7 +108915,6 @@ export namespace Prisma {
     created_stargazing_spots?: stargazing_spotsUncheckedUpdateManyWithoutCreatorNestedInput
     subscriptions?: subscriptionsUncheckedUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUncheckedUpdateOneWithoutUsersNestedInput
-    chatbot_feedback?: chatbot_feedbackUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type chat_messagesCreateWithoutMessage_reactionsInput = {
@@ -111401,7 +108974,6 @@ export namespace Prisma {
     created_astronomy_events?: astronomy_eventsCreateNestedManyWithoutCreatorInput
     blog_comments?: blog_commentsCreateNestedManyWithoutUsersInput
     blog_likes?: blog_likesCreateNestedManyWithoutUsersInput
-    blog_ratings?: blog_ratingsCreateNestedManyWithoutUsersInput
     blog_views?: blog_viewsCreateNestedManyWithoutUsersInput
     blogs?: blogsCreateNestedManyWithoutUsersInput
     chat_messages?: chat_messagesCreateNestedManyWithoutUserInput
@@ -111439,7 +109011,6 @@ export namespace Prisma {
     created_stargazing_spots?: stargazing_spotsCreateNestedManyWithoutCreatorInput
     subscriptions?: subscriptionsCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsCreateNestedOneWithoutUsersInput
-    chatbot_feedback?: chatbot_feedbackCreateNestedManyWithoutUserInput
   }
 
   export type usersUncheckedCreateWithoutMessage_reactionsInput = {
@@ -111468,7 +109039,6 @@ export namespace Prisma {
     created_astronomy_events?: astronomy_eventsUncheckedCreateNestedManyWithoutCreatorInput
     blog_comments?: blog_commentsUncheckedCreateNestedManyWithoutUsersInput
     blog_likes?: blog_likesUncheckedCreateNestedManyWithoutUsersInput
-    blog_ratings?: blog_ratingsUncheckedCreateNestedManyWithoutUsersInput
     blog_views?: blog_viewsUncheckedCreateNestedManyWithoutUsersInput
     blogs?: blogsUncheckedCreateNestedManyWithoutUsersInput
     chat_messages?: chat_messagesUncheckedCreateNestedManyWithoutUserInput
@@ -111506,7 +109076,6 @@ export namespace Prisma {
     created_stargazing_spots?: stargazing_spotsUncheckedCreateNestedManyWithoutCreatorInput
     subscriptions?: subscriptionsUncheckedCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsUncheckedCreateNestedOneWithoutUsersInput
-    chatbot_feedback?: chatbot_feedbackUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type usersCreateOrConnectWithoutMessage_reactionsInput = {
@@ -111588,7 +109157,6 @@ export namespace Prisma {
     created_astronomy_events?: astronomy_eventsUpdateManyWithoutCreatorNestedInput
     blog_comments?: blog_commentsUpdateManyWithoutUsersNestedInput
     blog_likes?: blog_likesUpdateManyWithoutUsersNestedInput
-    blog_ratings?: blog_ratingsUpdateManyWithoutUsersNestedInput
     blog_views?: blog_viewsUpdateManyWithoutUsersNestedInput
     blogs?: blogsUpdateManyWithoutUsersNestedInput
     chat_messages?: chat_messagesUpdateManyWithoutUserNestedInput
@@ -111626,7 +109194,6 @@ export namespace Prisma {
     created_stargazing_spots?: stargazing_spotsUpdateManyWithoutCreatorNestedInput
     subscriptions?: subscriptionsUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUpdateOneWithoutUsersNestedInput
-    chatbot_feedback?: chatbot_feedbackUpdateManyWithoutUserNestedInput
   }
 
   export type usersUncheckedUpdateWithoutMessage_reactionsInput = {
@@ -111655,7 +109222,6 @@ export namespace Prisma {
     created_astronomy_events?: astronomy_eventsUncheckedUpdateManyWithoutCreatorNestedInput
     blog_comments?: blog_commentsUncheckedUpdateManyWithoutUsersNestedInput
     blog_likes?: blog_likesUncheckedUpdateManyWithoutUsersNestedInput
-    blog_ratings?: blog_ratingsUncheckedUpdateManyWithoutUsersNestedInput
     blog_views?: blog_viewsUncheckedUpdateManyWithoutUsersNestedInput
     blogs?: blogsUncheckedUpdateManyWithoutUsersNestedInput
     chat_messages?: chat_messagesUncheckedUpdateManyWithoutUserNestedInput
@@ -111693,7 +109259,6 @@ export namespace Prisma {
     created_stargazing_spots?: stargazing_spotsUncheckedUpdateManyWithoutCreatorNestedInput
     subscriptions?: subscriptionsUncheckedUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUncheckedUpdateOneWithoutUsersNestedInput
-    chatbot_feedback?: chatbot_feedbackUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type night_campsCreateWithoutNight_camp_registrationsInput = {
@@ -111767,7 +109332,6 @@ export namespace Prisma {
     created_astronomy_events?: astronomy_eventsCreateNestedManyWithoutCreatorInput
     blog_comments?: blog_commentsCreateNestedManyWithoutUsersInput
     blog_likes?: blog_likesCreateNestedManyWithoutUsersInput
-    blog_ratings?: blog_ratingsCreateNestedManyWithoutUsersInput
     blog_views?: blog_viewsCreateNestedManyWithoutUsersInput
     blogs?: blogsCreateNestedManyWithoutUsersInput
     chat_messages?: chat_messagesCreateNestedManyWithoutUserInput
@@ -111805,7 +109369,6 @@ export namespace Prisma {
     created_stargazing_spots?: stargazing_spotsCreateNestedManyWithoutCreatorInput
     subscriptions?: subscriptionsCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsCreateNestedOneWithoutUsersInput
-    chatbot_feedback?: chatbot_feedbackCreateNestedManyWithoutUserInput
   }
 
   export type usersUncheckedCreateWithoutNight_camp_registrationsInput = {
@@ -111834,7 +109397,6 @@ export namespace Prisma {
     created_astronomy_events?: astronomy_eventsUncheckedCreateNestedManyWithoutCreatorInput
     blog_comments?: blog_commentsUncheckedCreateNestedManyWithoutUsersInput
     blog_likes?: blog_likesUncheckedCreateNestedManyWithoutUsersInput
-    blog_ratings?: blog_ratingsUncheckedCreateNestedManyWithoutUsersInput
     blog_views?: blog_viewsUncheckedCreateNestedManyWithoutUsersInput
     blogs?: blogsUncheckedCreateNestedManyWithoutUsersInput
     chat_messages?: chat_messagesUncheckedCreateNestedManyWithoutUserInput
@@ -111872,7 +109434,6 @@ export namespace Prisma {
     created_stargazing_spots?: stargazing_spotsUncheckedCreateNestedManyWithoutCreatorInput
     subscriptions?: subscriptionsUncheckedCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsUncheckedCreateNestedOneWithoutUsersInput
-    chatbot_feedback?: chatbot_feedbackUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type usersCreateOrConnectWithoutNight_camp_registrationsInput = {
@@ -111968,7 +109529,6 @@ export namespace Prisma {
     created_astronomy_events?: astronomy_eventsUpdateManyWithoutCreatorNestedInput
     blog_comments?: blog_commentsUpdateManyWithoutUsersNestedInput
     blog_likes?: blog_likesUpdateManyWithoutUsersNestedInput
-    blog_ratings?: blog_ratingsUpdateManyWithoutUsersNestedInput
     blog_views?: blog_viewsUpdateManyWithoutUsersNestedInput
     blogs?: blogsUpdateManyWithoutUsersNestedInput
     chat_messages?: chat_messagesUpdateManyWithoutUserNestedInput
@@ -112006,7 +109566,6 @@ export namespace Prisma {
     created_stargazing_spots?: stargazing_spotsUpdateManyWithoutCreatorNestedInput
     subscriptions?: subscriptionsUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUpdateOneWithoutUsersNestedInput
-    chatbot_feedback?: chatbot_feedbackUpdateManyWithoutUserNestedInput
   }
 
   export type usersUncheckedUpdateWithoutNight_camp_registrationsInput = {
@@ -112035,7 +109594,6 @@ export namespace Prisma {
     created_astronomy_events?: astronomy_eventsUncheckedUpdateManyWithoutCreatorNestedInput
     blog_comments?: blog_commentsUncheckedUpdateManyWithoutUsersNestedInput
     blog_likes?: blog_likesUncheckedUpdateManyWithoutUsersNestedInput
-    blog_ratings?: blog_ratingsUncheckedUpdateManyWithoutUsersNestedInput
     blog_views?: blog_viewsUncheckedUpdateManyWithoutUsersNestedInput
     blogs?: blogsUncheckedUpdateManyWithoutUsersNestedInput
     chat_messages?: chat_messagesUncheckedUpdateManyWithoutUserNestedInput
@@ -112073,7 +109631,6 @@ export namespace Prisma {
     created_stargazing_spots?: stargazing_spotsUncheckedUpdateManyWithoutCreatorNestedInput
     subscriptions?: subscriptionsUncheckedUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUncheckedUpdateOneWithoutUsersNestedInput
-    chatbot_feedback?: chatbot_feedbackUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type night_campsCreateWithoutNight_camp_volunteeringInput = {
@@ -112245,7 +109802,6 @@ export namespace Prisma {
     created_astronomy_events?: astronomy_eventsCreateNestedManyWithoutCreatorInput
     blog_comments?: blog_commentsCreateNestedManyWithoutUsersInput
     blog_likes?: blog_likesCreateNestedManyWithoutUsersInput
-    blog_ratings?: blog_ratingsCreateNestedManyWithoutUsersInput
     blog_views?: blog_viewsCreateNestedManyWithoutUsersInput
     blogs?: blogsCreateNestedManyWithoutUsersInput
     chat_messages?: chat_messagesCreateNestedManyWithoutUserInput
@@ -112283,7 +109839,6 @@ export namespace Prisma {
     created_stargazing_spots?: stargazing_spotsCreateNestedManyWithoutCreatorInput
     subscriptions?: subscriptionsCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsCreateNestedOneWithoutUsersInput
-    chatbot_feedback?: chatbot_feedbackCreateNestedManyWithoutUserInput
   }
 
   export type usersUncheckedCreateWithoutNight_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousersInput = {
@@ -112312,7 +109867,6 @@ export namespace Prisma {
     created_astronomy_events?: astronomy_eventsUncheckedCreateNestedManyWithoutCreatorInput
     blog_comments?: blog_commentsUncheckedCreateNestedManyWithoutUsersInput
     blog_likes?: blog_likesUncheckedCreateNestedManyWithoutUsersInput
-    blog_ratings?: blog_ratingsUncheckedCreateNestedManyWithoutUsersInput
     blog_views?: blog_viewsUncheckedCreateNestedManyWithoutUsersInput
     blogs?: blogsUncheckedCreateNestedManyWithoutUsersInput
     chat_messages?: chat_messagesUncheckedCreateNestedManyWithoutUserInput
@@ -112350,7 +109904,6 @@ export namespace Prisma {
     created_stargazing_spots?: stargazing_spotsUncheckedCreateNestedManyWithoutCreatorInput
     subscriptions?: subscriptionsUncheckedCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsUncheckedCreateNestedOneWithoutUsersInput
-    chatbot_feedback?: chatbot_feedbackUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type usersCreateOrConnectWithoutNight_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousersInput = {
@@ -112383,7 +109936,6 @@ export namespace Prisma {
     created_astronomy_events?: astronomy_eventsCreateNestedManyWithoutCreatorInput
     blog_comments?: blog_commentsCreateNestedManyWithoutUsersInput
     blog_likes?: blog_likesCreateNestedManyWithoutUsersInput
-    blog_ratings?: blog_ratingsCreateNestedManyWithoutUsersInput
     blog_views?: blog_viewsCreateNestedManyWithoutUsersInput
     blogs?: blogsCreateNestedManyWithoutUsersInput
     chat_messages?: chat_messagesCreateNestedManyWithoutUserInput
@@ -112421,7 +109973,6 @@ export namespace Prisma {
     created_stargazing_spots?: stargazing_spotsCreateNestedManyWithoutCreatorInput
     subscriptions?: subscriptionsCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsCreateNestedOneWithoutUsersInput
-    chatbot_feedback?: chatbot_feedbackCreateNestedManyWithoutUserInput
   }
 
   export type usersUncheckedCreateWithoutNight_camp_volunteering_applications_night_camp_volunteering_applications_user_idTousersInput = {
@@ -112450,7 +110001,6 @@ export namespace Prisma {
     created_astronomy_events?: astronomy_eventsUncheckedCreateNestedManyWithoutCreatorInput
     blog_comments?: blog_commentsUncheckedCreateNestedManyWithoutUsersInput
     blog_likes?: blog_likesUncheckedCreateNestedManyWithoutUsersInput
-    blog_ratings?: blog_ratingsUncheckedCreateNestedManyWithoutUsersInput
     blog_views?: blog_viewsUncheckedCreateNestedManyWithoutUsersInput
     blogs?: blogsUncheckedCreateNestedManyWithoutUsersInput
     chat_messages?: chat_messagesUncheckedCreateNestedManyWithoutUserInput
@@ -112488,7 +110038,6 @@ export namespace Prisma {
     created_stargazing_spots?: stargazing_spotsUncheckedCreateNestedManyWithoutCreatorInput
     subscriptions?: subscriptionsUncheckedCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsUncheckedCreateNestedOneWithoutUsersInput
-    chatbot_feedback?: chatbot_feedbackUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type usersCreateOrConnectWithoutNight_camp_volunteering_applications_night_camp_volunteering_applications_user_idTousersInput = {
@@ -112584,7 +110133,6 @@ export namespace Prisma {
     created_astronomy_events?: astronomy_eventsUpdateManyWithoutCreatorNestedInput
     blog_comments?: blog_commentsUpdateManyWithoutUsersNestedInput
     blog_likes?: blog_likesUpdateManyWithoutUsersNestedInput
-    blog_ratings?: blog_ratingsUpdateManyWithoutUsersNestedInput
     blog_views?: blog_viewsUpdateManyWithoutUsersNestedInput
     blogs?: blogsUpdateManyWithoutUsersNestedInput
     chat_messages?: chat_messagesUpdateManyWithoutUserNestedInput
@@ -112622,7 +110170,6 @@ export namespace Prisma {
     created_stargazing_spots?: stargazing_spotsUpdateManyWithoutCreatorNestedInput
     subscriptions?: subscriptionsUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUpdateOneWithoutUsersNestedInput
-    chatbot_feedback?: chatbot_feedbackUpdateManyWithoutUserNestedInput
   }
 
   export type usersUncheckedUpdateWithoutNight_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousersInput = {
@@ -112651,7 +110198,6 @@ export namespace Prisma {
     created_astronomy_events?: astronomy_eventsUncheckedUpdateManyWithoutCreatorNestedInput
     blog_comments?: blog_commentsUncheckedUpdateManyWithoutUsersNestedInput
     blog_likes?: blog_likesUncheckedUpdateManyWithoutUsersNestedInput
-    blog_ratings?: blog_ratingsUncheckedUpdateManyWithoutUsersNestedInput
     blog_views?: blog_viewsUncheckedUpdateManyWithoutUsersNestedInput
     blogs?: blogsUncheckedUpdateManyWithoutUsersNestedInput
     chat_messages?: chat_messagesUncheckedUpdateManyWithoutUserNestedInput
@@ -112689,7 +110235,6 @@ export namespace Prisma {
     created_stargazing_spots?: stargazing_spotsUncheckedUpdateManyWithoutCreatorNestedInput
     subscriptions?: subscriptionsUncheckedUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUncheckedUpdateOneWithoutUsersNestedInput
-    chatbot_feedback?: chatbot_feedbackUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type usersUpsertWithoutNight_camp_volunteering_applications_night_camp_volunteering_applications_user_idTousersInput = {
@@ -112728,7 +110273,6 @@ export namespace Prisma {
     created_astronomy_events?: astronomy_eventsUpdateManyWithoutCreatorNestedInput
     blog_comments?: blog_commentsUpdateManyWithoutUsersNestedInput
     blog_likes?: blog_likesUpdateManyWithoutUsersNestedInput
-    blog_ratings?: blog_ratingsUpdateManyWithoutUsersNestedInput
     blog_views?: blog_viewsUpdateManyWithoutUsersNestedInput
     blogs?: blogsUpdateManyWithoutUsersNestedInput
     chat_messages?: chat_messagesUpdateManyWithoutUserNestedInput
@@ -112766,7 +110310,6 @@ export namespace Prisma {
     created_stargazing_spots?: stargazing_spotsUpdateManyWithoutCreatorNestedInput
     subscriptions?: subscriptionsUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUpdateOneWithoutUsersNestedInput
-    chatbot_feedback?: chatbot_feedbackUpdateManyWithoutUserNestedInput
   }
 
   export type usersUncheckedUpdateWithoutNight_camp_volunteering_applications_night_camp_volunteering_applications_user_idTousersInput = {
@@ -112795,7 +110338,6 @@ export namespace Prisma {
     created_astronomy_events?: astronomy_eventsUncheckedUpdateManyWithoutCreatorNestedInput
     blog_comments?: blog_commentsUncheckedUpdateManyWithoutUsersNestedInput
     blog_likes?: blog_likesUncheckedUpdateManyWithoutUsersNestedInput
-    blog_ratings?: blog_ratingsUncheckedUpdateManyWithoutUsersNestedInput
     blog_views?: blog_viewsUncheckedUpdateManyWithoutUsersNestedInput
     blogs?: blogsUncheckedUpdateManyWithoutUsersNestedInput
     chat_messages?: chat_messagesUncheckedUpdateManyWithoutUserNestedInput
@@ -112833,7 +110375,6 @@ export namespace Prisma {
     created_stargazing_spots?: stargazing_spotsUncheckedUpdateManyWithoutCreatorNestedInput
     subscriptions?: subscriptionsUncheckedUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUncheckedUpdateOneWithoutUsersNestedInput
-    chatbot_feedback?: chatbot_feedbackUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type night_camp_registrationsCreateWithoutNight_campsInput = {
@@ -113344,7 +110885,6 @@ export namespace Prisma {
     created_astronomy_events?: astronomy_eventsCreateNestedManyWithoutCreatorInput
     blog_comments?: blog_commentsCreateNestedManyWithoutUsersInput
     blog_likes?: blog_likesCreateNestedManyWithoutUsersInput
-    blog_ratings?: blog_ratingsCreateNestedManyWithoutUsersInput
     blog_views?: blog_viewsCreateNestedManyWithoutUsersInput
     blogs?: blogsCreateNestedManyWithoutUsersInput
     chat_messages?: chat_messagesCreateNestedManyWithoutUserInput
@@ -113382,7 +110922,6 @@ export namespace Prisma {
     created_stargazing_spots?: stargazing_spotsCreateNestedManyWithoutCreatorInput
     subscriptions?: subscriptionsCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsCreateNestedOneWithoutUsersInput
-    chatbot_feedback?: chatbot_feedbackCreateNestedManyWithoutUserInput
   }
 
   export type usersUncheckedCreateWithoutPaymentsInput = {
@@ -113411,7 +110950,6 @@ export namespace Prisma {
     created_astronomy_events?: astronomy_eventsUncheckedCreateNestedManyWithoutCreatorInput
     blog_comments?: blog_commentsUncheckedCreateNestedManyWithoutUsersInput
     blog_likes?: blog_likesUncheckedCreateNestedManyWithoutUsersInput
-    blog_ratings?: blog_ratingsUncheckedCreateNestedManyWithoutUsersInput
     blog_views?: blog_viewsUncheckedCreateNestedManyWithoutUsersInput
     blogs?: blogsUncheckedCreateNestedManyWithoutUsersInput
     chat_messages?: chat_messagesUncheckedCreateNestedManyWithoutUserInput
@@ -113449,7 +110987,6 @@ export namespace Prisma {
     created_stargazing_spots?: stargazing_spotsUncheckedCreateNestedManyWithoutCreatorInput
     subscriptions?: subscriptionsUncheckedCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsUncheckedCreateNestedOneWithoutUsersInput
-    chatbot_feedback?: chatbot_feedbackUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type usersCreateOrConnectWithoutPaymentsInput = {
@@ -113531,7 +111068,6 @@ export namespace Prisma {
     created_astronomy_events?: astronomy_eventsUpdateManyWithoutCreatorNestedInput
     blog_comments?: blog_commentsUpdateManyWithoutUsersNestedInput
     blog_likes?: blog_likesUpdateManyWithoutUsersNestedInput
-    blog_ratings?: blog_ratingsUpdateManyWithoutUsersNestedInput
     blog_views?: blog_viewsUpdateManyWithoutUsersNestedInput
     blogs?: blogsUpdateManyWithoutUsersNestedInput
     chat_messages?: chat_messagesUpdateManyWithoutUserNestedInput
@@ -113569,7 +111105,6 @@ export namespace Prisma {
     created_stargazing_spots?: stargazing_spotsUpdateManyWithoutCreatorNestedInput
     subscriptions?: subscriptionsUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUpdateOneWithoutUsersNestedInput
-    chatbot_feedback?: chatbot_feedbackUpdateManyWithoutUserNestedInput
   }
 
   export type usersUncheckedUpdateWithoutPaymentsInput = {
@@ -113598,7 +111133,6 @@ export namespace Prisma {
     created_astronomy_events?: astronomy_eventsUncheckedUpdateManyWithoutCreatorNestedInput
     blog_comments?: blog_commentsUncheckedUpdateManyWithoutUsersNestedInput
     blog_likes?: blog_likesUncheckedUpdateManyWithoutUsersNestedInput
-    blog_ratings?: blog_ratingsUncheckedUpdateManyWithoutUsersNestedInput
     blog_views?: blog_viewsUncheckedUpdateManyWithoutUsersNestedInput
     blogs?: blogsUncheckedUpdateManyWithoutUsersNestedInput
     chat_messages?: chat_messagesUncheckedUpdateManyWithoutUserNestedInput
@@ -113636,7 +111170,6 @@ export namespace Prisma {
     created_stargazing_spots?: stargazing_spotsUncheckedUpdateManyWithoutCreatorNestedInput
     subscriptions?: subscriptionsUncheckedUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUncheckedUpdateOneWithoutUsersNestedInput
-    chatbot_feedback?: chatbot_feedbackUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type pollsCreateWithoutPoll_choicesInput = {
@@ -113787,7 +111320,6 @@ export namespace Prisma {
     created_astronomy_events?: astronomy_eventsCreateNestedManyWithoutCreatorInput
     blog_comments?: blog_commentsCreateNestedManyWithoutUsersInput
     blog_likes?: blog_likesCreateNestedManyWithoutUsersInput
-    blog_ratings?: blog_ratingsCreateNestedManyWithoutUsersInput
     blog_views?: blog_viewsCreateNestedManyWithoutUsersInput
     blogs?: blogsCreateNestedManyWithoutUsersInput
     chat_messages?: chat_messagesCreateNestedManyWithoutUserInput
@@ -113825,7 +111357,6 @@ export namespace Prisma {
     created_stargazing_spots?: stargazing_spotsCreateNestedManyWithoutCreatorInput
     subscriptions?: subscriptionsCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsCreateNestedOneWithoutUsersInput
-    chatbot_feedback?: chatbot_feedbackCreateNestedManyWithoutUserInput
   }
 
   export type usersUncheckedCreateWithoutPoll_commentsInput = {
@@ -113854,7 +111385,6 @@ export namespace Prisma {
     created_astronomy_events?: astronomy_eventsUncheckedCreateNestedManyWithoutCreatorInput
     blog_comments?: blog_commentsUncheckedCreateNestedManyWithoutUsersInput
     blog_likes?: blog_likesUncheckedCreateNestedManyWithoutUsersInput
-    blog_ratings?: blog_ratingsUncheckedCreateNestedManyWithoutUsersInput
     blog_views?: blog_viewsUncheckedCreateNestedManyWithoutUsersInput
     blogs?: blogsUncheckedCreateNestedManyWithoutUsersInput
     chat_messages?: chat_messagesUncheckedCreateNestedManyWithoutUserInput
@@ -113892,7 +111422,6 @@ export namespace Prisma {
     created_stargazing_spots?: stargazing_spotsUncheckedCreateNestedManyWithoutCreatorInput
     subscriptions?: subscriptionsUncheckedCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsUncheckedCreateNestedOneWithoutUsersInput
-    chatbot_feedback?: chatbot_feedbackUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type usersCreateOrConnectWithoutPoll_commentsInput = {
@@ -113968,7 +111497,6 @@ export namespace Prisma {
     created_astronomy_events?: astronomy_eventsUpdateManyWithoutCreatorNestedInput
     blog_comments?: blog_commentsUpdateManyWithoutUsersNestedInput
     blog_likes?: blog_likesUpdateManyWithoutUsersNestedInput
-    blog_ratings?: blog_ratingsUpdateManyWithoutUsersNestedInput
     blog_views?: blog_viewsUpdateManyWithoutUsersNestedInput
     blogs?: blogsUpdateManyWithoutUsersNestedInput
     chat_messages?: chat_messagesUpdateManyWithoutUserNestedInput
@@ -114006,7 +111534,6 @@ export namespace Prisma {
     created_stargazing_spots?: stargazing_spotsUpdateManyWithoutCreatorNestedInput
     subscriptions?: subscriptionsUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUpdateOneWithoutUsersNestedInput
-    chatbot_feedback?: chatbot_feedbackUpdateManyWithoutUserNestedInput
   }
 
   export type usersUncheckedUpdateWithoutPoll_commentsInput = {
@@ -114035,7 +111562,6 @@ export namespace Prisma {
     created_astronomy_events?: astronomy_eventsUncheckedUpdateManyWithoutCreatorNestedInput
     blog_comments?: blog_commentsUncheckedUpdateManyWithoutUsersNestedInput
     blog_likes?: blog_likesUncheckedUpdateManyWithoutUsersNestedInput
-    blog_ratings?: blog_ratingsUncheckedUpdateManyWithoutUsersNestedInput
     blog_views?: blog_viewsUncheckedUpdateManyWithoutUsersNestedInput
     blogs?: blogsUncheckedUpdateManyWithoutUsersNestedInput
     chat_messages?: chat_messagesUncheckedUpdateManyWithoutUserNestedInput
@@ -114073,7 +111599,6 @@ export namespace Prisma {
     created_stargazing_spots?: stargazing_spotsUncheckedUpdateManyWithoutCreatorNestedInput
     subscriptions?: subscriptionsUncheckedUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUncheckedUpdateOneWithoutUsersNestedInput
-    chatbot_feedback?: chatbot_feedbackUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type poll_choicesCreateWithoutPoll_votesInput = {
@@ -114121,7 +111646,6 @@ export namespace Prisma {
     created_astronomy_events?: astronomy_eventsCreateNestedManyWithoutCreatorInput
     blog_comments?: blog_commentsCreateNestedManyWithoutUsersInput
     blog_likes?: blog_likesCreateNestedManyWithoutUsersInput
-    blog_ratings?: blog_ratingsCreateNestedManyWithoutUsersInput
     blog_views?: blog_viewsCreateNestedManyWithoutUsersInput
     blogs?: blogsCreateNestedManyWithoutUsersInput
     chat_messages?: chat_messagesCreateNestedManyWithoutUserInput
@@ -114159,7 +111683,6 @@ export namespace Prisma {
     created_stargazing_spots?: stargazing_spotsCreateNestedManyWithoutCreatorInput
     subscriptions?: subscriptionsCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsCreateNestedOneWithoutUsersInput
-    chatbot_feedback?: chatbot_feedbackCreateNestedManyWithoutUserInput
   }
 
   export type usersUncheckedCreateWithoutPoll_votesInput = {
@@ -114188,7 +111711,6 @@ export namespace Prisma {
     created_astronomy_events?: astronomy_eventsUncheckedCreateNestedManyWithoutCreatorInput
     blog_comments?: blog_commentsUncheckedCreateNestedManyWithoutUsersInput
     blog_likes?: blog_likesUncheckedCreateNestedManyWithoutUsersInput
-    blog_ratings?: blog_ratingsUncheckedCreateNestedManyWithoutUsersInput
     blog_views?: blog_viewsUncheckedCreateNestedManyWithoutUsersInput
     blogs?: blogsUncheckedCreateNestedManyWithoutUsersInput
     chat_messages?: chat_messagesUncheckedCreateNestedManyWithoutUserInput
@@ -114226,7 +111748,6 @@ export namespace Prisma {
     created_stargazing_spots?: stargazing_spotsUncheckedCreateNestedManyWithoutCreatorInput
     subscriptions?: subscriptionsUncheckedCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsUncheckedCreateNestedOneWithoutUsersInput
-    chatbot_feedback?: chatbot_feedbackUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type usersCreateOrConnectWithoutPoll_votesInput = {
@@ -114296,7 +111817,6 @@ export namespace Prisma {
     created_astronomy_events?: astronomy_eventsUpdateManyWithoutCreatorNestedInput
     blog_comments?: blog_commentsUpdateManyWithoutUsersNestedInput
     blog_likes?: blog_likesUpdateManyWithoutUsersNestedInput
-    blog_ratings?: blog_ratingsUpdateManyWithoutUsersNestedInput
     blog_views?: blog_viewsUpdateManyWithoutUsersNestedInput
     blogs?: blogsUpdateManyWithoutUsersNestedInput
     chat_messages?: chat_messagesUpdateManyWithoutUserNestedInput
@@ -114334,7 +111854,6 @@ export namespace Prisma {
     created_stargazing_spots?: stargazing_spotsUpdateManyWithoutCreatorNestedInput
     subscriptions?: subscriptionsUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUpdateOneWithoutUsersNestedInput
-    chatbot_feedback?: chatbot_feedbackUpdateManyWithoutUserNestedInput
   }
 
   export type usersUncheckedUpdateWithoutPoll_votesInput = {
@@ -114363,7 +111882,6 @@ export namespace Prisma {
     created_astronomy_events?: astronomy_eventsUncheckedUpdateManyWithoutCreatorNestedInput
     blog_comments?: blog_commentsUncheckedUpdateManyWithoutUsersNestedInput
     blog_likes?: blog_likesUncheckedUpdateManyWithoutUsersNestedInput
-    blog_ratings?: blog_ratingsUncheckedUpdateManyWithoutUsersNestedInput
     blog_views?: blog_viewsUncheckedUpdateManyWithoutUsersNestedInput
     blogs?: blogsUncheckedUpdateManyWithoutUsersNestedInput
     chat_messages?: chat_messagesUncheckedUpdateManyWithoutUserNestedInput
@@ -114401,7 +111919,6 @@ export namespace Prisma {
     created_stargazing_spots?: stargazing_spotsUncheckedUpdateManyWithoutCreatorNestedInput
     subscriptions?: subscriptionsUncheckedUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUncheckedUpdateOneWithoutUsersNestedInput
-    chatbot_feedback?: chatbot_feedbackUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type poll_choicesCreateWithoutPollsInput = {
@@ -114479,7 +111996,6 @@ export namespace Prisma {
     created_astronomy_events?: astronomy_eventsCreateNestedManyWithoutCreatorInput
     blog_comments?: blog_commentsCreateNestedManyWithoutUsersInput
     blog_likes?: blog_likesCreateNestedManyWithoutUsersInput
-    blog_ratings?: blog_ratingsCreateNestedManyWithoutUsersInput
     blog_views?: blog_viewsCreateNestedManyWithoutUsersInput
     blogs?: blogsCreateNestedManyWithoutUsersInput
     chat_messages?: chat_messagesCreateNestedManyWithoutUserInput
@@ -114517,7 +112033,6 @@ export namespace Prisma {
     created_stargazing_spots?: stargazing_spotsCreateNestedManyWithoutCreatorInput
     subscriptions?: subscriptionsCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsCreateNestedOneWithoutUsersInput
-    chatbot_feedback?: chatbot_feedbackCreateNestedManyWithoutUserInput
   }
 
   export type usersUncheckedCreateWithoutCreated_pollsInput = {
@@ -114546,7 +112061,6 @@ export namespace Prisma {
     created_astronomy_events?: astronomy_eventsUncheckedCreateNestedManyWithoutCreatorInput
     blog_comments?: blog_commentsUncheckedCreateNestedManyWithoutUsersInput
     blog_likes?: blog_likesUncheckedCreateNestedManyWithoutUsersInput
-    blog_ratings?: blog_ratingsUncheckedCreateNestedManyWithoutUsersInput
     blog_views?: blog_viewsUncheckedCreateNestedManyWithoutUsersInput
     blogs?: blogsUncheckedCreateNestedManyWithoutUsersInput
     chat_messages?: chat_messagesUncheckedCreateNestedManyWithoutUserInput
@@ -114584,7 +112098,6 @@ export namespace Prisma {
     created_stargazing_spots?: stargazing_spotsUncheckedCreateNestedManyWithoutCreatorInput
     subscriptions?: subscriptionsUncheckedCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsUncheckedCreateNestedOneWithoutUsersInput
-    chatbot_feedback?: chatbot_feedbackUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type usersCreateOrConnectWithoutCreated_pollsInput = {
@@ -114671,7 +112184,6 @@ export namespace Prisma {
     created_astronomy_events?: astronomy_eventsUpdateManyWithoutCreatorNestedInput
     blog_comments?: blog_commentsUpdateManyWithoutUsersNestedInput
     blog_likes?: blog_likesUpdateManyWithoutUsersNestedInput
-    blog_ratings?: blog_ratingsUpdateManyWithoutUsersNestedInput
     blog_views?: blog_viewsUpdateManyWithoutUsersNestedInput
     blogs?: blogsUpdateManyWithoutUsersNestedInput
     chat_messages?: chat_messagesUpdateManyWithoutUserNestedInput
@@ -114709,7 +112221,6 @@ export namespace Prisma {
     created_stargazing_spots?: stargazing_spotsUpdateManyWithoutCreatorNestedInput
     subscriptions?: subscriptionsUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUpdateOneWithoutUsersNestedInput
-    chatbot_feedback?: chatbot_feedbackUpdateManyWithoutUserNestedInput
   }
 
   export type usersUncheckedUpdateWithoutCreated_pollsInput = {
@@ -114738,7 +112249,6 @@ export namespace Prisma {
     created_astronomy_events?: astronomy_eventsUncheckedUpdateManyWithoutCreatorNestedInput
     blog_comments?: blog_commentsUncheckedUpdateManyWithoutUsersNestedInput
     blog_likes?: blog_likesUncheckedUpdateManyWithoutUsersNestedInput
-    blog_ratings?: blog_ratingsUncheckedUpdateManyWithoutUsersNestedInput
     blog_views?: blog_viewsUncheckedUpdateManyWithoutUsersNestedInput
     blogs?: blogsUncheckedUpdateManyWithoutUsersNestedInput
     chat_messages?: chat_messagesUncheckedUpdateManyWithoutUserNestedInput
@@ -114776,7 +112286,6 @@ export namespace Prisma {
     created_stargazing_spots?: stargazing_spotsUncheckedUpdateManyWithoutCreatorNestedInput
     subscriptions?: subscriptionsUncheckedUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUncheckedUpdateOneWithoutUsersNestedInput
-    chatbot_feedback?: chatbot_feedbackUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type usersCreateWithoutRole_upgrade_requests_role_upgrade_requests_reviewer_idTousersInput = {
@@ -114804,7 +112313,6 @@ export namespace Prisma {
     created_astronomy_events?: astronomy_eventsCreateNestedManyWithoutCreatorInput
     blog_comments?: blog_commentsCreateNestedManyWithoutUsersInput
     blog_likes?: blog_likesCreateNestedManyWithoutUsersInput
-    blog_ratings?: blog_ratingsCreateNestedManyWithoutUsersInput
     blog_views?: blog_viewsCreateNestedManyWithoutUsersInput
     blogs?: blogsCreateNestedManyWithoutUsersInput
     chat_messages?: chat_messagesCreateNestedManyWithoutUserInput
@@ -114842,7 +112350,6 @@ export namespace Prisma {
     created_stargazing_spots?: stargazing_spotsCreateNestedManyWithoutCreatorInput
     subscriptions?: subscriptionsCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsCreateNestedOneWithoutUsersInput
-    chatbot_feedback?: chatbot_feedbackCreateNestedManyWithoutUserInput
   }
 
   export type usersUncheckedCreateWithoutRole_upgrade_requests_role_upgrade_requests_reviewer_idTousersInput = {
@@ -114871,7 +112378,6 @@ export namespace Prisma {
     created_astronomy_events?: astronomy_eventsUncheckedCreateNestedManyWithoutCreatorInput
     blog_comments?: blog_commentsUncheckedCreateNestedManyWithoutUsersInput
     blog_likes?: blog_likesUncheckedCreateNestedManyWithoutUsersInput
-    blog_ratings?: blog_ratingsUncheckedCreateNestedManyWithoutUsersInput
     blog_views?: blog_viewsUncheckedCreateNestedManyWithoutUsersInput
     blogs?: blogsUncheckedCreateNestedManyWithoutUsersInput
     chat_messages?: chat_messagesUncheckedCreateNestedManyWithoutUserInput
@@ -114909,7 +112415,6 @@ export namespace Prisma {
     created_stargazing_spots?: stargazing_spotsUncheckedCreateNestedManyWithoutCreatorInput
     subscriptions?: subscriptionsUncheckedCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsUncheckedCreateNestedOneWithoutUsersInput
-    chatbot_feedback?: chatbot_feedbackUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type usersCreateOrConnectWithoutRole_upgrade_requests_role_upgrade_requests_reviewer_idTousersInput = {
@@ -114942,7 +112447,6 @@ export namespace Prisma {
     created_astronomy_events?: astronomy_eventsCreateNestedManyWithoutCreatorInput
     blog_comments?: blog_commentsCreateNestedManyWithoutUsersInput
     blog_likes?: blog_likesCreateNestedManyWithoutUsersInput
-    blog_ratings?: blog_ratingsCreateNestedManyWithoutUsersInput
     blog_views?: blog_viewsCreateNestedManyWithoutUsersInput
     blogs?: blogsCreateNestedManyWithoutUsersInput
     chat_messages?: chat_messagesCreateNestedManyWithoutUserInput
@@ -114980,7 +112484,6 @@ export namespace Prisma {
     created_stargazing_spots?: stargazing_spotsCreateNestedManyWithoutCreatorInput
     subscriptions?: subscriptionsCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsCreateNestedOneWithoutUsersInput
-    chatbot_feedback?: chatbot_feedbackCreateNestedManyWithoutUserInput
   }
 
   export type usersUncheckedCreateWithoutRole_upgrade_requests_role_upgrade_requests_user_idTousersInput = {
@@ -115009,7 +112512,6 @@ export namespace Prisma {
     created_astronomy_events?: astronomy_eventsUncheckedCreateNestedManyWithoutCreatorInput
     blog_comments?: blog_commentsUncheckedCreateNestedManyWithoutUsersInput
     blog_likes?: blog_likesUncheckedCreateNestedManyWithoutUsersInput
-    blog_ratings?: blog_ratingsUncheckedCreateNestedManyWithoutUsersInput
     blog_views?: blog_viewsUncheckedCreateNestedManyWithoutUsersInput
     blogs?: blogsUncheckedCreateNestedManyWithoutUsersInput
     chat_messages?: chat_messagesUncheckedCreateNestedManyWithoutUserInput
@@ -115047,7 +112549,6 @@ export namespace Prisma {
     created_stargazing_spots?: stargazing_spotsUncheckedCreateNestedManyWithoutCreatorInput
     subscriptions?: subscriptionsUncheckedCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsUncheckedCreateNestedOneWithoutUsersInput
-    chatbot_feedback?: chatbot_feedbackUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type usersCreateOrConnectWithoutRole_upgrade_requests_role_upgrade_requests_user_idTousersInput = {
@@ -115091,7 +112592,6 @@ export namespace Prisma {
     created_astronomy_events?: astronomy_eventsUpdateManyWithoutCreatorNestedInput
     blog_comments?: blog_commentsUpdateManyWithoutUsersNestedInput
     blog_likes?: blog_likesUpdateManyWithoutUsersNestedInput
-    blog_ratings?: blog_ratingsUpdateManyWithoutUsersNestedInput
     blog_views?: blog_viewsUpdateManyWithoutUsersNestedInput
     blogs?: blogsUpdateManyWithoutUsersNestedInput
     chat_messages?: chat_messagesUpdateManyWithoutUserNestedInput
@@ -115129,7 +112629,6 @@ export namespace Prisma {
     created_stargazing_spots?: stargazing_spotsUpdateManyWithoutCreatorNestedInput
     subscriptions?: subscriptionsUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUpdateOneWithoutUsersNestedInput
-    chatbot_feedback?: chatbot_feedbackUpdateManyWithoutUserNestedInput
   }
 
   export type usersUncheckedUpdateWithoutRole_upgrade_requests_role_upgrade_requests_reviewer_idTousersInput = {
@@ -115158,7 +112657,6 @@ export namespace Prisma {
     created_astronomy_events?: astronomy_eventsUncheckedUpdateManyWithoutCreatorNestedInput
     blog_comments?: blog_commentsUncheckedUpdateManyWithoutUsersNestedInput
     blog_likes?: blog_likesUncheckedUpdateManyWithoutUsersNestedInput
-    blog_ratings?: blog_ratingsUncheckedUpdateManyWithoutUsersNestedInput
     blog_views?: blog_viewsUncheckedUpdateManyWithoutUsersNestedInput
     blogs?: blogsUncheckedUpdateManyWithoutUsersNestedInput
     chat_messages?: chat_messagesUncheckedUpdateManyWithoutUserNestedInput
@@ -115196,7 +112694,6 @@ export namespace Prisma {
     created_stargazing_spots?: stargazing_spotsUncheckedUpdateManyWithoutCreatorNestedInput
     subscriptions?: subscriptionsUncheckedUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUncheckedUpdateOneWithoutUsersNestedInput
-    chatbot_feedback?: chatbot_feedbackUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type usersUpsertWithoutRole_upgrade_requests_role_upgrade_requests_user_idTousersInput = {
@@ -115235,7 +112732,6 @@ export namespace Prisma {
     created_astronomy_events?: astronomy_eventsUpdateManyWithoutCreatorNestedInput
     blog_comments?: blog_commentsUpdateManyWithoutUsersNestedInput
     blog_likes?: blog_likesUpdateManyWithoutUsersNestedInput
-    blog_ratings?: blog_ratingsUpdateManyWithoutUsersNestedInput
     blog_views?: blog_viewsUpdateManyWithoutUsersNestedInput
     blogs?: blogsUpdateManyWithoutUsersNestedInput
     chat_messages?: chat_messagesUpdateManyWithoutUserNestedInput
@@ -115273,7 +112769,6 @@ export namespace Prisma {
     created_stargazing_spots?: stargazing_spotsUpdateManyWithoutCreatorNestedInput
     subscriptions?: subscriptionsUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUpdateOneWithoutUsersNestedInput
-    chatbot_feedback?: chatbot_feedbackUpdateManyWithoutUserNestedInput
   }
 
   export type usersUncheckedUpdateWithoutRole_upgrade_requests_role_upgrade_requests_user_idTousersInput = {
@@ -115302,7 +112797,6 @@ export namespace Prisma {
     created_astronomy_events?: astronomy_eventsUncheckedUpdateManyWithoutCreatorNestedInput
     blog_comments?: blog_commentsUncheckedUpdateManyWithoutUsersNestedInput
     blog_likes?: blog_likesUncheckedUpdateManyWithoutUsersNestedInput
-    blog_ratings?: blog_ratingsUncheckedUpdateManyWithoutUsersNestedInput
     blog_views?: blog_viewsUncheckedUpdateManyWithoutUsersNestedInput
     blogs?: blogsUncheckedUpdateManyWithoutUsersNestedInput
     chat_messages?: chat_messagesUncheckedUpdateManyWithoutUserNestedInput
@@ -115340,7 +112834,6 @@ export namespace Prisma {
     created_stargazing_spots?: stargazing_spotsUncheckedUpdateManyWithoutCreatorNestedInput
     subscriptions?: subscriptionsUncheckedUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUncheckedUpdateOneWithoutUsersNestedInput
-    chatbot_feedback?: chatbot_feedbackUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type servicesCreateWithoutService_availabilityInput = {
@@ -115632,7 +113125,6 @@ export namespace Prisma {
     created_astronomy_events?: astronomy_eventsCreateNestedManyWithoutCreatorInput
     blog_comments?: blog_commentsCreateNestedManyWithoutUsersInput
     blog_likes?: blog_likesCreateNestedManyWithoutUsersInput
-    blog_ratings?: blog_ratingsCreateNestedManyWithoutUsersInput
     blog_views?: blog_viewsCreateNestedManyWithoutUsersInput
     blogs?: blogsCreateNestedManyWithoutUsersInput
     chat_messages?: chat_messagesCreateNestedManyWithoutUserInput
@@ -115670,7 +113162,6 @@ export namespace Prisma {
     created_stargazing_spots?: stargazing_spotsCreateNestedManyWithoutCreatorInput
     subscriptions?: subscriptionsCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsCreateNestedOneWithoutUsersInput
-    chatbot_feedback?: chatbot_feedbackCreateNestedManyWithoutUserInput
   }
 
   export type usersUncheckedCreateWithoutService_bookingsInput = {
@@ -115699,7 +113190,6 @@ export namespace Prisma {
     created_astronomy_events?: astronomy_eventsUncheckedCreateNestedManyWithoutCreatorInput
     blog_comments?: blog_commentsUncheckedCreateNestedManyWithoutUsersInput
     blog_likes?: blog_likesUncheckedCreateNestedManyWithoutUsersInput
-    blog_ratings?: blog_ratingsUncheckedCreateNestedManyWithoutUsersInput
     blog_views?: blog_viewsUncheckedCreateNestedManyWithoutUsersInput
     blogs?: blogsUncheckedCreateNestedManyWithoutUsersInput
     chat_messages?: chat_messagesUncheckedCreateNestedManyWithoutUserInput
@@ -115737,7 +113227,6 @@ export namespace Prisma {
     created_stargazing_spots?: stargazing_spotsUncheckedCreateNestedManyWithoutCreatorInput
     subscriptions?: subscriptionsUncheckedCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsUncheckedCreateNestedOneWithoutUsersInput
-    chatbot_feedback?: chatbot_feedbackUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type usersCreateOrConnectWithoutService_bookingsInput = {
@@ -115873,7 +113362,6 @@ export namespace Prisma {
     created_astronomy_events?: astronomy_eventsUpdateManyWithoutCreatorNestedInput
     blog_comments?: blog_commentsUpdateManyWithoutUsersNestedInput
     blog_likes?: blog_likesUpdateManyWithoutUsersNestedInput
-    blog_ratings?: blog_ratingsUpdateManyWithoutUsersNestedInput
     blog_views?: blog_viewsUpdateManyWithoutUsersNestedInput
     blogs?: blogsUpdateManyWithoutUsersNestedInput
     chat_messages?: chat_messagesUpdateManyWithoutUserNestedInput
@@ -115911,7 +113399,6 @@ export namespace Prisma {
     created_stargazing_spots?: stargazing_spotsUpdateManyWithoutCreatorNestedInput
     subscriptions?: subscriptionsUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUpdateOneWithoutUsersNestedInput
-    chatbot_feedback?: chatbot_feedbackUpdateManyWithoutUserNestedInput
   }
 
   export type usersUncheckedUpdateWithoutService_bookingsInput = {
@@ -115940,7 +113427,6 @@ export namespace Prisma {
     created_astronomy_events?: astronomy_eventsUncheckedUpdateManyWithoutCreatorNestedInput
     blog_comments?: blog_commentsUncheckedUpdateManyWithoutUsersNestedInput
     blog_likes?: blog_likesUncheckedUpdateManyWithoutUsersNestedInput
-    blog_ratings?: blog_ratingsUncheckedUpdateManyWithoutUsersNestedInput
     blog_views?: blog_viewsUncheckedUpdateManyWithoutUsersNestedInput
     blogs?: blogsUncheckedUpdateManyWithoutUsersNestedInput
     chat_messages?: chat_messagesUncheckedUpdateManyWithoutUserNestedInput
@@ -115978,7 +113464,6 @@ export namespace Prisma {
     created_stargazing_spots?: stargazing_spotsUncheckedUpdateManyWithoutCreatorNestedInput
     subscriptions?: subscriptionsUncheckedUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUncheckedUpdateOneWithoutUsersNestedInput
-    chatbot_feedback?: chatbot_feedbackUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type servicesCreateWithoutService_mediaInput = {
@@ -116270,7 +113755,6 @@ export namespace Prisma {
     created_astronomy_events?: astronomy_eventsCreateNestedManyWithoutCreatorInput
     blog_comments?: blog_commentsCreateNestedManyWithoutUsersInput
     blog_likes?: blog_likesCreateNestedManyWithoutUsersInput
-    blog_ratings?: blog_ratingsCreateNestedManyWithoutUsersInput
     blog_views?: blog_viewsCreateNestedManyWithoutUsersInput
     blogs?: blogsCreateNestedManyWithoutUsersInput
     chat_messages?: chat_messagesCreateNestedManyWithoutUserInput
@@ -116308,7 +113792,6 @@ export namespace Prisma {
     created_stargazing_spots?: stargazing_spotsCreateNestedManyWithoutCreatorInput
     subscriptions?: subscriptionsCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsCreateNestedOneWithoutUsersInput
-    chatbot_feedback?: chatbot_feedbackCreateNestedManyWithoutUserInput
   }
 
   export type usersUncheckedCreateWithoutService_reviewsInput = {
@@ -116337,7 +113820,6 @@ export namespace Prisma {
     created_astronomy_events?: astronomy_eventsUncheckedCreateNestedManyWithoutCreatorInput
     blog_comments?: blog_commentsUncheckedCreateNestedManyWithoutUsersInput
     blog_likes?: blog_likesUncheckedCreateNestedManyWithoutUsersInput
-    blog_ratings?: blog_ratingsUncheckedCreateNestedManyWithoutUsersInput
     blog_views?: blog_viewsUncheckedCreateNestedManyWithoutUsersInput
     blogs?: blogsUncheckedCreateNestedManyWithoutUsersInput
     chat_messages?: chat_messagesUncheckedCreateNestedManyWithoutUserInput
@@ -116375,7 +113857,6 @@ export namespace Prisma {
     created_stargazing_spots?: stargazing_spotsUncheckedCreateNestedManyWithoutCreatorInput
     subscriptions?: subscriptionsUncheckedCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsUncheckedCreateNestedOneWithoutUsersInput
-    chatbot_feedback?: chatbot_feedbackUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type usersCreateOrConnectWithoutService_reviewsInput = {
@@ -116511,7 +113992,6 @@ export namespace Prisma {
     created_astronomy_events?: astronomy_eventsUpdateManyWithoutCreatorNestedInput
     blog_comments?: blog_commentsUpdateManyWithoutUsersNestedInput
     blog_likes?: blog_likesUpdateManyWithoutUsersNestedInput
-    blog_ratings?: blog_ratingsUpdateManyWithoutUsersNestedInput
     blog_views?: blog_viewsUpdateManyWithoutUsersNestedInput
     blogs?: blogsUpdateManyWithoutUsersNestedInput
     chat_messages?: chat_messagesUpdateManyWithoutUserNestedInput
@@ -116549,7 +114029,6 @@ export namespace Prisma {
     created_stargazing_spots?: stargazing_spotsUpdateManyWithoutCreatorNestedInput
     subscriptions?: subscriptionsUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUpdateOneWithoutUsersNestedInput
-    chatbot_feedback?: chatbot_feedbackUpdateManyWithoutUserNestedInput
   }
 
   export type usersUncheckedUpdateWithoutService_reviewsInput = {
@@ -116578,7 +114057,6 @@ export namespace Prisma {
     created_astronomy_events?: astronomy_eventsUncheckedUpdateManyWithoutCreatorNestedInput
     blog_comments?: blog_commentsUncheckedUpdateManyWithoutUsersNestedInput
     blog_likes?: blog_likesUncheckedUpdateManyWithoutUsersNestedInput
-    blog_ratings?: blog_ratingsUncheckedUpdateManyWithoutUsersNestedInput
     blog_views?: blog_viewsUncheckedUpdateManyWithoutUsersNestedInput
     blogs?: blogsUncheckedUpdateManyWithoutUsersNestedInput
     chat_messages?: chat_messagesUncheckedUpdateManyWithoutUserNestedInput
@@ -116616,7 +114094,6 @@ export namespace Prisma {
     created_stargazing_spots?: stargazing_spotsUncheckedUpdateManyWithoutCreatorNestedInput
     subscriptions?: subscriptionsUncheckedUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUncheckedUpdateOneWithoutUsersNestedInput
-    chatbot_feedback?: chatbot_feedbackUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type service_availabilityCreateWithoutServicesInput = {
@@ -116786,7 +114263,6 @@ export namespace Prisma {
     created_astronomy_events?: astronomy_eventsCreateNestedManyWithoutCreatorInput
     blog_comments?: blog_commentsCreateNestedManyWithoutUsersInput
     blog_likes?: blog_likesCreateNestedManyWithoutUsersInput
-    blog_ratings?: blog_ratingsCreateNestedManyWithoutUsersInput
     blog_views?: blog_viewsCreateNestedManyWithoutUsersInput
     blogs?: blogsCreateNestedManyWithoutUsersInput
     chat_messages?: chat_messagesCreateNestedManyWithoutUserInput
@@ -116824,7 +114300,6 @@ export namespace Prisma {
     created_stargazing_spots?: stargazing_spotsCreateNestedManyWithoutCreatorInput
     subscriptions?: subscriptionsCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsCreateNestedOneWithoutUsersInput
-    chatbot_feedback?: chatbot_feedbackCreateNestedManyWithoutUserInput
   }
 
   export type usersUncheckedCreateWithoutServicesInput = {
@@ -116853,7 +114328,6 @@ export namespace Prisma {
     created_astronomy_events?: astronomy_eventsUncheckedCreateNestedManyWithoutCreatorInput
     blog_comments?: blog_commentsUncheckedCreateNestedManyWithoutUsersInput
     blog_likes?: blog_likesUncheckedCreateNestedManyWithoutUsersInput
-    blog_ratings?: blog_ratingsUncheckedCreateNestedManyWithoutUsersInput
     blog_views?: blog_viewsUncheckedCreateNestedManyWithoutUsersInput
     blogs?: blogsUncheckedCreateNestedManyWithoutUsersInput
     chat_messages?: chat_messagesUncheckedCreateNestedManyWithoutUserInput
@@ -116891,7 +114365,6 @@ export namespace Prisma {
     created_stargazing_spots?: stargazing_spotsUncheckedCreateNestedManyWithoutCreatorInput
     subscriptions?: subscriptionsUncheckedCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsUncheckedCreateNestedOneWithoutUsersInput
-    chatbot_feedback?: chatbot_feedbackUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type usersCreateOrConnectWithoutServicesInput = {
@@ -117029,7 +114502,6 @@ export namespace Prisma {
     created_astronomy_events?: astronomy_eventsUpdateManyWithoutCreatorNestedInput
     blog_comments?: blog_commentsUpdateManyWithoutUsersNestedInput
     blog_likes?: blog_likesUpdateManyWithoutUsersNestedInput
-    blog_ratings?: blog_ratingsUpdateManyWithoutUsersNestedInput
     blog_views?: blog_viewsUpdateManyWithoutUsersNestedInput
     blogs?: blogsUpdateManyWithoutUsersNestedInput
     chat_messages?: chat_messagesUpdateManyWithoutUserNestedInput
@@ -117067,7 +114539,6 @@ export namespace Prisma {
     created_stargazing_spots?: stargazing_spotsUpdateManyWithoutCreatorNestedInput
     subscriptions?: subscriptionsUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUpdateOneWithoutUsersNestedInput
-    chatbot_feedback?: chatbot_feedbackUpdateManyWithoutUserNestedInput
   }
 
   export type usersUncheckedUpdateWithoutServicesInput = {
@@ -117096,7 +114567,6 @@ export namespace Prisma {
     created_astronomy_events?: astronomy_eventsUncheckedUpdateManyWithoutCreatorNestedInput
     blog_comments?: blog_commentsUncheckedUpdateManyWithoutUsersNestedInput
     blog_likes?: blog_likesUncheckedUpdateManyWithoutUsersNestedInput
-    blog_ratings?: blog_ratingsUncheckedUpdateManyWithoutUsersNestedInput
     blog_views?: blog_viewsUncheckedUpdateManyWithoutUsersNestedInput
     blogs?: blogsUncheckedUpdateManyWithoutUsersNestedInput
     chat_messages?: chat_messagesUncheckedUpdateManyWithoutUserNestedInput
@@ -117134,7 +114604,6 @@ export namespace Prisma {
     created_stargazing_spots?: stargazing_spotsUncheckedUpdateManyWithoutCreatorNestedInput
     subscriptions?: subscriptionsUncheckedUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUncheckedUpdateOneWithoutUsersNestedInput
-    chatbot_feedback?: chatbot_feedbackUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type sessionsCreateWithoutSession_enrollmentsInput = {
@@ -117212,7 +114681,6 @@ export namespace Prisma {
     created_astronomy_events?: astronomy_eventsCreateNestedManyWithoutCreatorInput
     blog_comments?: blog_commentsCreateNestedManyWithoutUsersInput
     blog_likes?: blog_likesCreateNestedManyWithoutUsersInput
-    blog_ratings?: blog_ratingsCreateNestedManyWithoutUsersInput
     blog_views?: blog_viewsCreateNestedManyWithoutUsersInput
     blogs?: blogsCreateNestedManyWithoutUsersInput
     chat_messages?: chat_messagesCreateNestedManyWithoutUserInput
@@ -117250,7 +114718,6 @@ export namespace Prisma {
     created_stargazing_spots?: stargazing_spotsCreateNestedManyWithoutCreatorInput
     subscriptions?: subscriptionsCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsCreateNestedOneWithoutUsersInput
-    chatbot_feedback?: chatbot_feedbackCreateNestedManyWithoutUserInput
   }
 
   export type usersUncheckedCreateWithoutSession_enrollmentsInput = {
@@ -117279,7 +114746,6 @@ export namespace Prisma {
     created_astronomy_events?: astronomy_eventsUncheckedCreateNestedManyWithoutCreatorInput
     blog_comments?: blog_commentsUncheckedCreateNestedManyWithoutUsersInput
     blog_likes?: blog_likesUncheckedCreateNestedManyWithoutUsersInput
-    blog_ratings?: blog_ratingsUncheckedCreateNestedManyWithoutUsersInput
     blog_views?: blog_viewsUncheckedCreateNestedManyWithoutUsersInput
     blogs?: blogsUncheckedCreateNestedManyWithoutUsersInput
     chat_messages?: chat_messagesUncheckedCreateNestedManyWithoutUserInput
@@ -117317,7 +114783,6 @@ export namespace Prisma {
     created_stargazing_spots?: stargazing_spotsUncheckedCreateNestedManyWithoutCreatorInput
     subscriptions?: subscriptionsUncheckedCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsUncheckedCreateNestedOneWithoutUsersInput
-    chatbot_feedback?: chatbot_feedbackUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type usersCreateOrConnectWithoutSession_enrollmentsInput = {
@@ -117417,7 +114882,6 @@ export namespace Prisma {
     created_astronomy_events?: astronomy_eventsUpdateManyWithoutCreatorNestedInput
     blog_comments?: blog_commentsUpdateManyWithoutUsersNestedInput
     blog_likes?: blog_likesUpdateManyWithoutUsersNestedInput
-    blog_ratings?: blog_ratingsUpdateManyWithoutUsersNestedInput
     blog_views?: blog_viewsUpdateManyWithoutUsersNestedInput
     blogs?: blogsUpdateManyWithoutUsersNestedInput
     chat_messages?: chat_messagesUpdateManyWithoutUserNestedInput
@@ -117455,7 +114919,6 @@ export namespace Prisma {
     created_stargazing_spots?: stargazing_spotsUpdateManyWithoutCreatorNestedInput
     subscriptions?: subscriptionsUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUpdateOneWithoutUsersNestedInput
-    chatbot_feedback?: chatbot_feedbackUpdateManyWithoutUserNestedInput
   }
 
   export type usersUncheckedUpdateWithoutSession_enrollmentsInput = {
@@ -117484,7 +114947,6 @@ export namespace Prisma {
     created_astronomy_events?: astronomy_eventsUncheckedUpdateManyWithoutCreatorNestedInput
     blog_comments?: blog_commentsUncheckedUpdateManyWithoutUsersNestedInput
     blog_likes?: blog_likesUncheckedUpdateManyWithoutUsersNestedInput
-    blog_ratings?: blog_ratingsUncheckedUpdateManyWithoutUsersNestedInput
     blog_views?: blog_viewsUncheckedUpdateManyWithoutUsersNestedInput
     blogs?: blogsUncheckedUpdateManyWithoutUsersNestedInput
     chat_messages?: chat_messagesUncheckedUpdateManyWithoutUserNestedInput
@@ -117522,7 +114984,6 @@ export namespace Prisma {
     created_stargazing_spots?: stargazing_spotsUncheckedUpdateManyWithoutCreatorNestedInput
     subscriptions?: subscriptionsUncheckedUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUncheckedUpdateOneWithoutUsersNestedInput
-    chatbot_feedback?: chatbot_feedbackUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type session_enrollmentsCreateWithoutSessionsInput = {
@@ -117593,7 +115054,6 @@ export namespace Prisma {
     created_astronomy_events?: astronomy_eventsCreateNestedManyWithoutCreatorInput
     blog_comments?: blog_commentsCreateNestedManyWithoutUsersInput
     blog_likes?: blog_likesCreateNestedManyWithoutUsersInput
-    blog_ratings?: blog_ratingsCreateNestedManyWithoutUsersInput
     blog_views?: blog_viewsCreateNestedManyWithoutUsersInput
     blogs?: blogsCreateNestedManyWithoutUsersInput
     chat_messages?: chat_messagesCreateNestedManyWithoutUserInput
@@ -117631,7 +115091,6 @@ export namespace Prisma {
     created_stargazing_spots?: stargazing_spotsCreateNestedManyWithoutCreatorInput
     subscriptions?: subscriptionsCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsCreateNestedOneWithoutUsersInput
-    chatbot_feedback?: chatbot_feedbackCreateNestedManyWithoutUserInput
   }
 
   export type usersUncheckedCreateWithoutCreated_sessionsInput = {
@@ -117660,7 +115119,6 @@ export namespace Prisma {
     created_astronomy_events?: astronomy_eventsUncheckedCreateNestedManyWithoutCreatorInput
     blog_comments?: blog_commentsUncheckedCreateNestedManyWithoutUsersInput
     blog_likes?: blog_likesUncheckedCreateNestedManyWithoutUsersInput
-    blog_ratings?: blog_ratingsUncheckedCreateNestedManyWithoutUsersInput
     blog_views?: blog_viewsUncheckedCreateNestedManyWithoutUsersInput
     blogs?: blogsUncheckedCreateNestedManyWithoutUsersInput
     chat_messages?: chat_messagesUncheckedCreateNestedManyWithoutUserInput
@@ -117698,7 +115156,6 @@ export namespace Prisma {
     created_stargazing_spots?: stargazing_spotsUncheckedCreateNestedManyWithoutCreatorInput
     subscriptions?: subscriptionsUncheckedCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsUncheckedCreateNestedOneWithoutUsersInput
-    chatbot_feedback?: chatbot_feedbackUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type usersCreateOrConnectWithoutCreated_sessionsInput = {
@@ -117758,7 +115215,6 @@ export namespace Prisma {
     created_astronomy_events?: astronomy_eventsUpdateManyWithoutCreatorNestedInput
     blog_comments?: blog_commentsUpdateManyWithoutUsersNestedInput
     blog_likes?: blog_likesUpdateManyWithoutUsersNestedInput
-    blog_ratings?: blog_ratingsUpdateManyWithoutUsersNestedInput
     blog_views?: blog_viewsUpdateManyWithoutUsersNestedInput
     blogs?: blogsUpdateManyWithoutUsersNestedInput
     chat_messages?: chat_messagesUpdateManyWithoutUserNestedInput
@@ -117796,7 +115252,6 @@ export namespace Prisma {
     created_stargazing_spots?: stargazing_spotsUpdateManyWithoutCreatorNestedInput
     subscriptions?: subscriptionsUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUpdateOneWithoutUsersNestedInput
-    chatbot_feedback?: chatbot_feedbackUpdateManyWithoutUserNestedInput
   }
 
   export type usersUncheckedUpdateWithoutCreated_sessionsInput = {
@@ -117825,7 +115280,6 @@ export namespace Prisma {
     created_astronomy_events?: astronomy_eventsUncheckedUpdateManyWithoutCreatorNestedInput
     blog_comments?: blog_commentsUncheckedUpdateManyWithoutUsersNestedInput
     blog_likes?: blog_likesUncheckedUpdateManyWithoutUsersNestedInput
-    blog_ratings?: blog_ratingsUncheckedUpdateManyWithoutUsersNestedInput
     blog_views?: blog_viewsUncheckedUpdateManyWithoutUsersNestedInput
     blogs?: blogsUncheckedUpdateManyWithoutUsersNestedInput
     chat_messages?: chat_messagesUncheckedUpdateManyWithoutUserNestedInput
@@ -117863,7 +115317,6 @@ export namespace Prisma {
     created_stargazing_spots?: stargazing_spotsUncheckedUpdateManyWithoutCreatorNestedInput
     subscriptions?: subscriptionsUncheckedUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUncheckedUpdateOneWithoutUsersNestedInput
-    chatbot_feedback?: chatbot_feedbackUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type space_discussion_commentsCreateWithoutSpace_discussion_comment_likesInput = {
@@ -117919,7 +115372,6 @@ export namespace Prisma {
     created_astronomy_events?: astronomy_eventsCreateNestedManyWithoutCreatorInput
     blog_comments?: blog_commentsCreateNestedManyWithoutUsersInput
     blog_likes?: blog_likesCreateNestedManyWithoutUsersInput
-    blog_ratings?: blog_ratingsCreateNestedManyWithoutUsersInput
     blog_views?: blog_viewsCreateNestedManyWithoutUsersInput
     blogs?: blogsCreateNestedManyWithoutUsersInput
     chat_messages?: chat_messagesCreateNestedManyWithoutUserInput
@@ -117957,7 +115409,6 @@ export namespace Prisma {
     created_stargazing_spots?: stargazing_spotsCreateNestedManyWithoutCreatorInput
     subscriptions?: subscriptionsCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsCreateNestedOneWithoutUsersInput
-    chatbot_feedback?: chatbot_feedbackCreateNestedManyWithoutUserInput
   }
 
   export type usersUncheckedCreateWithoutDiscussion_comment_likesInput = {
@@ -117986,7 +115437,6 @@ export namespace Prisma {
     created_astronomy_events?: astronomy_eventsUncheckedCreateNestedManyWithoutCreatorInput
     blog_comments?: blog_commentsUncheckedCreateNestedManyWithoutUsersInput
     blog_likes?: blog_likesUncheckedCreateNestedManyWithoutUsersInput
-    blog_ratings?: blog_ratingsUncheckedCreateNestedManyWithoutUsersInput
     blog_views?: blog_viewsUncheckedCreateNestedManyWithoutUsersInput
     blogs?: blogsUncheckedCreateNestedManyWithoutUsersInput
     chat_messages?: chat_messagesUncheckedCreateNestedManyWithoutUserInput
@@ -118024,7 +115474,6 @@ export namespace Prisma {
     created_stargazing_spots?: stargazing_spotsUncheckedCreateNestedManyWithoutCreatorInput
     subscriptions?: subscriptionsUncheckedCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsUncheckedCreateNestedOneWithoutUsersInput
-    chatbot_feedback?: chatbot_feedbackUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type usersCreateOrConnectWithoutDiscussion_comment_likesInput = {
@@ -118102,7 +115551,6 @@ export namespace Prisma {
     created_astronomy_events?: astronomy_eventsUpdateManyWithoutCreatorNestedInput
     blog_comments?: blog_commentsUpdateManyWithoutUsersNestedInput
     blog_likes?: blog_likesUpdateManyWithoutUsersNestedInput
-    blog_ratings?: blog_ratingsUpdateManyWithoutUsersNestedInput
     blog_views?: blog_viewsUpdateManyWithoutUsersNestedInput
     blogs?: blogsUpdateManyWithoutUsersNestedInput
     chat_messages?: chat_messagesUpdateManyWithoutUserNestedInput
@@ -118140,7 +115588,6 @@ export namespace Prisma {
     created_stargazing_spots?: stargazing_spotsUpdateManyWithoutCreatorNestedInput
     subscriptions?: subscriptionsUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUpdateOneWithoutUsersNestedInput
-    chatbot_feedback?: chatbot_feedbackUpdateManyWithoutUserNestedInput
   }
 
   export type usersUncheckedUpdateWithoutDiscussion_comment_likesInput = {
@@ -118169,7 +115616,6 @@ export namespace Prisma {
     created_astronomy_events?: astronomy_eventsUncheckedUpdateManyWithoutCreatorNestedInput
     blog_comments?: blog_commentsUncheckedUpdateManyWithoutUsersNestedInput
     blog_likes?: blog_likesUncheckedUpdateManyWithoutUsersNestedInput
-    blog_ratings?: blog_ratingsUncheckedUpdateManyWithoutUsersNestedInput
     blog_views?: blog_viewsUncheckedUpdateManyWithoutUsersNestedInput
     blogs?: blogsUncheckedUpdateManyWithoutUsersNestedInput
     chat_messages?: chat_messagesUncheckedUpdateManyWithoutUserNestedInput
@@ -118207,7 +115653,6 @@ export namespace Prisma {
     created_stargazing_spots?: stargazing_spotsUncheckedUpdateManyWithoutCreatorNestedInput
     subscriptions?: subscriptionsUncheckedUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUncheckedUpdateOneWithoutUsersNestedInput
-    chatbot_feedback?: chatbot_feedbackUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type space_discussion_comment_likesCreateWithoutSpace_discussion_commentsInput = {
@@ -118353,7 +115798,6 @@ export namespace Prisma {
     created_astronomy_events?: astronomy_eventsCreateNestedManyWithoutCreatorInput
     blog_comments?: blog_commentsCreateNestedManyWithoutUsersInput
     blog_likes?: blog_likesCreateNestedManyWithoutUsersInput
-    blog_ratings?: blog_ratingsCreateNestedManyWithoutUsersInput
     blog_views?: blog_viewsCreateNestedManyWithoutUsersInput
     blogs?: blogsCreateNestedManyWithoutUsersInput
     chat_messages?: chat_messagesCreateNestedManyWithoutUserInput
@@ -118391,7 +115835,6 @@ export namespace Prisma {
     created_stargazing_spots?: stargazing_spotsCreateNestedManyWithoutCreatorInput
     subscriptions?: subscriptionsCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsCreateNestedOneWithoutUsersInput
-    chatbot_feedback?: chatbot_feedbackCreateNestedManyWithoutUserInput
   }
 
   export type usersUncheckedCreateWithoutDiscussion_commentsInput = {
@@ -118420,7 +115863,6 @@ export namespace Prisma {
     created_astronomy_events?: astronomy_eventsUncheckedCreateNestedManyWithoutCreatorInput
     blog_comments?: blog_commentsUncheckedCreateNestedManyWithoutUsersInput
     blog_likes?: blog_likesUncheckedCreateNestedManyWithoutUsersInput
-    blog_ratings?: blog_ratingsUncheckedCreateNestedManyWithoutUsersInput
     blog_views?: blog_viewsUncheckedCreateNestedManyWithoutUsersInput
     blogs?: blogsUncheckedCreateNestedManyWithoutUsersInput
     chat_messages?: chat_messagesUncheckedCreateNestedManyWithoutUserInput
@@ -118458,7 +115900,6 @@ export namespace Prisma {
     created_stargazing_spots?: stargazing_spotsUncheckedCreateNestedManyWithoutCreatorInput
     subscriptions?: subscriptionsUncheckedCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsUncheckedCreateNestedOneWithoutUsersInput
-    chatbot_feedback?: chatbot_feedbackUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type usersCreateOrConnectWithoutDiscussion_commentsInput = {
@@ -118610,7 +116051,6 @@ export namespace Prisma {
     created_astronomy_events?: astronomy_eventsUpdateManyWithoutCreatorNestedInput
     blog_comments?: blog_commentsUpdateManyWithoutUsersNestedInput
     blog_likes?: blog_likesUpdateManyWithoutUsersNestedInput
-    blog_ratings?: blog_ratingsUpdateManyWithoutUsersNestedInput
     blog_views?: blog_viewsUpdateManyWithoutUsersNestedInput
     blogs?: blogsUpdateManyWithoutUsersNestedInput
     chat_messages?: chat_messagesUpdateManyWithoutUserNestedInput
@@ -118648,7 +116088,6 @@ export namespace Prisma {
     created_stargazing_spots?: stargazing_spotsUpdateManyWithoutCreatorNestedInput
     subscriptions?: subscriptionsUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUpdateOneWithoutUsersNestedInput
-    chatbot_feedback?: chatbot_feedbackUpdateManyWithoutUserNestedInput
   }
 
   export type usersUncheckedUpdateWithoutDiscussion_commentsInput = {
@@ -118677,7 +116116,6 @@ export namespace Prisma {
     created_astronomy_events?: astronomy_eventsUncheckedUpdateManyWithoutCreatorNestedInput
     blog_comments?: blog_commentsUncheckedUpdateManyWithoutUsersNestedInput
     blog_likes?: blog_likesUncheckedUpdateManyWithoutUsersNestedInput
-    blog_ratings?: blog_ratingsUncheckedUpdateManyWithoutUsersNestedInput
     blog_views?: blog_viewsUncheckedUpdateManyWithoutUsersNestedInput
     blogs?: blogsUncheckedUpdateManyWithoutUsersNestedInput
     chat_messages?: chat_messagesUncheckedUpdateManyWithoutUserNestedInput
@@ -118715,7 +116153,6 @@ export namespace Prisma {
     created_stargazing_spots?: stargazing_spotsUncheckedUpdateManyWithoutCreatorNestedInput
     subscriptions?: subscriptionsUncheckedUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUncheckedUpdateOneWithoutUsersNestedInput
-    chatbot_feedback?: chatbot_feedbackUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type space_discussionsCreateWithoutSpace_discussion_likesInput = {
@@ -118779,7 +116216,6 @@ export namespace Prisma {
     created_astronomy_events?: astronomy_eventsCreateNestedManyWithoutCreatorInput
     blog_comments?: blog_commentsCreateNestedManyWithoutUsersInput
     blog_likes?: blog_likesCreateNestedManyWithoutUsersInput
-    blog_ratings?: blog_ratingsCreateNestedManyWithoutUsersInput
     blog_views?: blog_viewsCreateNestedManyWithoutUsersInput
     blogs?: blogsCreateNestedManyWithoutUsersInput
     chat_messages?: chat_messagesCreateNestedManyWithoutUserInput
@@ -118817,7 +116253,6 @@ export namespace Prisma {
     created_stargazing_spots?: stargazing_spotsCreateNestedManyWithoutCreatorInput
     subscriptions?: subscriptionsCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsCreateNestedOneWithoutUsersInput
-    chatbot_feedback?: chatbot_feedbackCreateNestedManyWithoutUserInput
   }
 
   export type usersUncheckedCreateWithoutDiscussion_likesInput = {
@@ -118846,7 +116281,6 @@ export namespace Prisma {
     created_astronomy_events?: astronomy_eventsUncheckedCreateNestedManyWithoutCreatorInput
     blog_comments?: blog_commentsUncheckedCreateNestedManyWithoutUsersInput
     blog_likes?: blog_likesUncheckedCreateNestedManyWithoutUsersInput
-    blog_ratings?: blog_ratingsUncheckedCreateNestedManyWithoutUsersInput
     blog_views?: blog_viewsUncheckedCreateNestedManyWithoutUsersInput
     blogs?: blogsUncheckedCreateNestedManyWithoutUsersInput
     chat_messages?: chat_messagesUncheckedCreateNestedManyWithoutUserInput
@@ -118884,7 +116318,6 @@ export namespace Prisma {
     created_stargazing_spots?: stargazing_spotsUncheckedCreateNestedManyWithoutCreatorInput
     subscriptions?: subscriptionsUncheckedCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsUncheckedCreateNestedOneWithoutUsersInput
-    chatbot_feedback?: chatbot_feedbackUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type usersCreateOrConnectWithoutDiscussion_likesInput = {
@@ -118970,7 +116403,6 @@ export namespace Prisma {
     created_astronomy_events?: astronomy_eventsUpdateManyWithoutCreatorNestedInput
     blog_comments?: blog_commentsUpdateManyWithoutUsersNestedInput
     blog_likes?: blog_likesUpdateManyWithoutUsersNestedInput
-    blog_ratings?: blog_ratingsUpdateManyWithoutUsersNestedInput
     blog_views?: blog_viewsUpdateManyWithoutUsersNestedInput
     blogs?: blogsUpdateManyWithoutUsersNestedInput
     chat_messages?: chat_messagesUpdateManyWithoutUserNestedInput
@@ -119008,7 +116440,6 @@ export namespace Prisma {
     created_stargazing_spots?: stargazing_spotsUpdateManyWithoutCreatorNestedInput
     subscriptions?: subscriptionsUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUpdateOneWithoutUsersNestedInput
-    chatbot_feedback?: chatbot_feedbackUpdateManyWithoutUserNestedInput
   }
 
   export type usersUncheckedUpdateWithoutDiscussion_likesInput = {
@@ -119037,7 +116468,6 @@ export namespace Prisma {
     created_astronomy_events?: astronomy_eventsUncheckedUpdateManyWithoutCreatorNestedInput
     blog_comments?: blog_commentsUncheckedUpdateManyWithoutUsersNestedInput
     blog_likes?: blog_likesUncheckedUpdateManyWithoutUsersNestedInput
-    blog_ratings?: blog_ratingsUncheckedUpdateManyWithoutUsersNestedInput
     blog_views?: blog_viewsUncheckedUpdateManyWithoutUsersNestedInput
     blogs?: blogsUncheckedUpdateManyWithoutUsersNestedInput
     chat_messages?: chat_messagesUncheckedUpdateManyWithoutUserNestedInput
@@ -119075,7 +116505,6 @@ export namespace Prisma {
     created_stargazing_spots?: stargazing_spotsUncheckedUpdateManyWithoutCreatorNestedInput
     subscriptions?: subscriptionsUncheckedUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUncheckedUpdateOneWithoutUsersNestedInput
-    chatbot_feedback?: chatbot_feedbackUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type space_discussion_commentsCreateWithoutSpace_discussionsInput = {
@@ -119157,7 +116586,6 @@ export namespace Prisma {
     created_astronomy_events?: astronomy_eventsCreateNestedManyWithoutCreatorInput
     blog_comments?: blog_commentsCreateNestedManyWithoutUsersInput
     blog_likes?: blog_likesCreateNestedManyWithoutUsersInput
-    blog_ratings?: blog_ratingsCreateNestedManyWithoutUsersInput
     blog_views?: blog_viewsCreateNestedManyWithoutUsersInput
     blogs?: blogsCreateNestedManyWithoutUsersInput
     chat_messages?: chat_messagesCreateNestedManyWithoutUserInput
@@ -119195,7 +116623,6 @@ export namespace Prisma {
     created_stargazing_spots?: stargazing_spotsCreateNestedManyWithoutCreatorInput
     subscriptions?: subscriptionsCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsCreateNestedOneWithoutUsersInput
-    chatbot_feedback?: chatbot_feedbackCreateNestedManyWithoutUserInput
   }
 
   export type usersUncheckedCreateWithoutAuthored_discussionsInput = {
@@ -119224,7 +116651,6 @@ export namespace Prisma {
     created_astronomy_events?: astronomy_eventsUncheckedCreateNestedManyWithoutCreatorInput
     blog_comments?: blog_commentsUncheckedCreateNestedManyWithoutUsersInput
     blog_likes?: blog_likesUncheckedCreateNestedManyWithoutUsersInput
-    blog_ratings?: blog_ratingsUncheckedCreateNestedManyWithoutUsersInput
     blog_views?: blog_viewsUncheckedCreateNestedManyWithoutUsersInput
     blogs?: blogsUncheckedCreateNestedManyWithoutUsersInput
     chat_messages?: chat_messagesUncheckedCreateNestedManyWithoutUserInput
@@ -119262,7 +116688,6 @@ export namespace Prisma {
     created_stargazing_spots?: stargazing_spotsUncheckedCreateNestedManyWithoutCreatorInput
     subscriptions?: subscriptionsUncheckedCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsUncheckedCreateNestedOneWithoutUsersInput
-    chatbot_feedback?: chatbot_feedbackUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type usersCreateOrConnectWithoutAuthored_discussionsInput = {
@@ -119338,7 +116763,6 @@ export namespace Prisma {
     created_astronomy_events?: astronomy_eventsUpdateManyWithoutCreatorNestedInput
     blog_comments?: blog_commentsUpdateManyWithoutUsersNestedInput
     blog_likes?: blog_likesUpdateManyWithoutUsersNestedInput
-    blog_ratings?: blog_ratingsUpdateManyWithoutUsersNestedInput
     blog_views?: blog_viewsUpdateManyWithoutUsersNestedInput
     blogs?: blogsUpdateManyWithoutUsersNestedInput
     chat_messages?: chat_messagesUpdateManyWithoutUserNestedInput
@@ -119376,7 +116800,6 @@ export namespace Prisma {
     created_stargazing_spots?: stargazing_spotsUpdateManyWithoutCreatorNestedInput
     subscriptions?: subscriptionsUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUpdateOneWithoutUsersNestedInput
-    chatbot_feedback?: chatbot_feedbackUpdateManyWithoutUserNestedInput
   }
 
   export type usersUncheckedUpdateWithoutAuthored_discussionsInput = {
@@ -119405,7 +116828,6 @@ export namespace Prisma {
     created_astronomy_events?: astronomy_eventsUncheckedUpdateManyWithoutCreatorNestedInput
     blog_comments?: blog_commentsUncheckedUpdateManyWithoutUsersNestedInput
     blog_likes?: blog_likesUncheckedUpdateManyWithoutUsersNestedInput
-    blog_ratings?: blog_ratingsUncheckedUpdateManyWithoutUsersNestedInput
     blog_views?: blog_viewsUncheckedUpdateManyWithoutUsersNestedInput
     blogs?: blogsUncheckedUpdateManyWithoutUsersNestedInput
     chat_messages?: chat_messagesUncheckedUpdateManyWithoutUserNestedInput
@@ -119443,7 +116865,6 @@ export namespace Prisma {
     created_stargazing_spots?: stargazing_spotsUncheckedUpdateManyWithoutCreatorNestedInput
     subscriptions?: subscriptionsUncheckedUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUncheckedUpdateOneWithoutUsersNestedInput
-    chatbot_feedback?: chatbot_feedbackUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type usersCreateWithoutSpace_news_publishedInput = {
@@ -119471,7 +116892,6 @@ export namespace Prisma {
     created_astronomy_events?: astronomy_eventsCreateNestedManyWithoutCreatorInput
     blog_comments?: blog_commentsCreateNestedManyWithoutUsersInput
     blog_likes?: blog_likesCreateNestedManyWithoutUsersInput
-    blog_ratings?: blog_ratingsCreateNestedManyWithoutUsersInput
     blog_views?: blog_viewsCreateNestedManyWithoutUsersInput
     blogs?: blogsCreateNestedManyWithoutUsersInput
     chat_messages?: chat_messagesCreateNestedManyWithoutUserInput
@@ -119509,7 +116929,6 @@ export namespace Prisma {
     created_stargazing_spots?: stargazing_spotsCreateNestedManyWithoutCreatorInput
     subscriptions?: subscriptionsCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsCreateNestedOneWithoutUsersInput
-    chatbot_feedback?: chatbot_feedbackCreateNestedManyWithoutUserInput
   }
 
   export type usersUncheckedCreateWithoutSpace_news_publishedInput = {
@@ -119538,7 +116957,6 @@ export namespace Prisma {
     created_astronomy_events?: astronomy_eventsUncheckedCreateNestedManyWithoutCreatorInput
     blog_comments?: blog_commentsUncheckedCreateNestedManyWithoutUsersInput
     blog_likes?: blog_likesUncheckedCreateNestedManyWithoutUsersInput
-    blog_ratings?: blog_ratingsUncheckedCreateNestedManyWithoutUsersInput
     blog_views?: blog_viewsUncheckedCreateNestedManyWithoutUsersInput
     blogs?: blogsUncheckedCreateNestedManyWithoutUsersInput
     chat_messages?: chat_messagesUncheckedCreateNestedManyWithoutUserInput
@@ -119576,7 +116994,6 @@ export namespace Prisma {
     created_stargazing_spots?: stargazing_spotsUncheckedCreateNestedManyWithoutCreatorInput
     subscriptions?: subscriptionsUncheckedCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsUncheckedCreateNestedOneWithoutUsersInput
-    chatbot_feedback?: chatbot_feedbackUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type usersCreateOrConnectWithoutSpace_news_publishedInput = {
@@ -119672,7 +117089,6 @@ export namespace Prisma {
     created_astronomy_events?: astronomy_eventsUpdateManyWithoutCreatorNestedInput
     blog_comments?: blog_commentsUpdateManyWithoutUsersNestedInput
     blog_likes?: blog_likesUpdateManyWithoutUsersNestedInput
-    blog_ratings?: blog_ratingsUpdateManyWithoutUsersNestedInput
     blog_views?: blog_viewsUpdateManyWithoutUsersNestedInput
     blogs?: blogsUpdateManyWithoutUsersNestedInput
     chat_messages?: chat_messagesUpdateManyWithoutUserNestedInput
@@ -119710,7 +117126,6 @@ export namespace Prisma {
     created_stargazing_spots?: stargazing_spotsUpdateManyWithoutCreatorNestedInput
     subscriptions?: subscriptionsUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUpdateOneWithoutUsersNestedInput
-    chatbot_feedback?: chatbot_feedbackUpdateManyWithoutUserNestedInput
   }
 
   export type usersUncheckedUpdateWithoutSpace_news_publishedInput = {
@@ -119739,7 +117154,6 @@ export namespace Prisma {
     created_astronomy_events?: astronomy_eventsUncheckedUpdateManyWithoutCreatorNestedInput
     blog_comments?: blog_commentsUncheckedUpdateManyWithoutUsersNestedInput
     blog_likes?: blog_likesUncheckedUpdateManyWithoutUsersNestedInput
-    blog_ratings?: blog_ratingsUncheckedUpdateManyWithoutUsersNestedInput
     blog_views?: blog_viewsUncheckedUpdateManyWithoutUsersNestedInput
     blogs?: blogsUncheckedUpdateManyWithoutUsersNestedInput
     chat_messages?: chat_messagesUncheckedUpdateManyWithoutUserNestedInput
@@ -119777,7 +117191,6 @@ export namespace Prisma {
     created_stargazing_spots?: stargazing_spotsUncheckedUpdateManyWithoutCreatorNestedInput
     subscriptions?: subscriptionsUncheckedUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUncheckedUpdateOneWithoutUsersNestedInput
-    chatbot_feedback?: chatbot_feedbackUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type space_news_commentsUpsertWithWhereUniqueWithoutSpace_newsInput = {
@@ -119928,7 +117341,6 @@ export namespace Prisma {
     created_astronomy_events?: astronomy_eventsCreateNestedManyWithoutCreatorInput
     blog_comments?: blog_commentsCreateNestedManyWithoutUsersInput
     blog_likes?: blog_likesCreateNestedManyWithoutUsersInput
-    blog_ratings?: blog_ratingsCreateNestedManyWithoutUsersInput
     blog_views?: blog_viewsCreateNestedManyWithoutUsersInput
     blogs?: blogsCreateNestedManyWithoutUsersInput
     chat_messages?: chat_messagesCreateNestedManyWithoutUserInput
@@ -119966,7 +117378,6 @@ export namespace Prisma {
     created_stargazing_spots?: stargazing_spotsCreateNestedManyWithoutCreatorInput
     subscriptions?: subscriptionsCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsCreateNestedOneWithoutUsersInput
-    chatbot_feedback?: chatbot_feedbackCreateNestedManyWithoutUserInput
   }
 
   export type usersUncheckedCreateWithoutSpace_news_commentsInput = {
@@ -119995,7 +117406,6 @@ export namespace Prisma {
     created_astronomy_events?: astronomy_eventsUncheckedCreateNestedManyWithoutCreatorInput
     blog_comments?: blog_commentsUncheckedCreateNestedManyWithoutUsersInput
     blog_likes?: blog_likesUncheckedCreateNestedManyWithoutUsersInput
-    blog_ratings?: blog_ratingsUncheckedCreateNestedManyWithoutUsersInput
     blog_views?: blog_viewsUncheckedCreateNestedManyWithoutUsersInput
     blogs?: blogsUncheckedCreateNestedManyWithoutUsersInput
     chat_messages?: chat_messagesUncheckedCreateNestedManyWithoutUserInput
@@ -120033,7 +117443,6 @@ export namespace Prisma {
     created_stargazing_spots?: stargazing_spotsUncheckedCreateNestedManyWithoutCreatorInput
     subscriptions?: subscriptionsUncheckedCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsUncheckedCreateNestedOneWithoutUsersInput
-    chatbot_feedback?: chatbot_feedbackUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type usersCreateOrConnectWithoutSpace_news_commentsInput = {
@@ -120165,7 +117574,6 @@ export namespace Prisma {
     created_astronomy_events?: astronomy_eventsUpdateManyWithoutCreatorNestedInput
     blog_comments?: blog_commentsUpdateManyWithoutUsersNestedInput
     blog_likes?: blog_likesUpdateManyWithoutUsersNestedInput
-    blog_ratings?: blog_ratingsUpdateManyWithoutUsersNestedInput
     blog_views?: blog_viewsUpdateManyWithoutUsersNestedInput
     blogs?: blogsUpdateManyWithoutUsersNestedInput
     chat_messages?: chat_messagesUpdateManyWithoutUserNestedInput
@@ -120203,7 +117611,6 @@ export namespace Prisma {
     created_stargazing_spots?: stargazing_spotsUpdateManyWithoutCreatorNestedInput
     subscriptions?: subscriptionsUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUpdateOneWithoutUsersNestedInput
-    chatbot_feedback?: chatbot_feedbackUpdateManyWithoutUserNestedInput
   }
 
   export type usersUncheckedUpdateWithoutSpace_news_commentsInput = {
@@ -120232,7 +117639,6 @@ export namespace Prisma {
     created_astronomy_events?: astronomy_eventsUncheckedUpdateManyWithoutCreatorNestedInput
     blog_comments?: blog_commentsUncheckedUpdateManyWithoutUsersNestedInput
     blog_likes?: blog_likesUncheckedUpdateManyWithoutUsersNestedInput
-    blog_ratings?: blog_ratingsUncheckedUpdateManyWithoutUsersNestedInput
     blog_views?: blog_viewsUncheckedUpdateManyWithoutUsersNestedInput
     blogs?: blogsUncheckedUpdateManyWithoutUsersNestedInput
     chat_messages?: chat_messagesUncheckedUpdateManyWithoutUserNestedInput
@@ -120270,7 +117676,6 @@ export namespace Prisma {
     created_stargazing_spots?: stargazing_spotsUncheckedUpdateManyWithoutCreatorNestedInput
     subscriptions?: subscriptionsUncheckedUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUncheckedUpdateOneWithoutUsersNestedInput
-    chatbot_feedback?: chatbot_feedbackUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type space_newsCreateWithoutSpace_news_likesInput = {
@@ -120332,7 +117737,6 @@ export namespace Prisma {
     created_astronomy_events?: astronomy_eventsCreateNestedManyWithoutCreatorInput
     blog_comments?: blog_commentsCreateNestedManyWithoutUsersInput
     blog_likes?: blog_likesCreateNestedManyWithoutUsersInput
-    blog_ratings?: blog_ratingsCreateNestedManyWithoutUsersInput
     blog_views?: blog_viewsCreateNestedManyWithoutUsersInput
     blogs?: blogsCreateNestedManyWithoutUsersInput
     chat_messages?: chat_messagesCreateNestedManyWithoutUserInput
@@ -120370,7 +117774,6 @@ export namespace Prisma {
     created_stargazing_spots?: stargazing_spotsCreateNestedManyWithoutCreatorInput
     subscriptions?: subscriptionsCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsCreateNestedOneWithoutUsersInput
-    chatbot_feedback?: chatbot_feedbackCreateNestedManyWithoutUserInput
   }
 
   export type usersUncheckedCreateWithoutSpace_news_likesInput = {
@@ -120399,7 +117802,6 @@ export namespace Prisma {
     created_astronomy_events?: astronomy_eventsUncheckedCreateNestedManyWithoutCreatorInput
     blog_comments?: blog_commentsUncheckedCreateNestedManyWithoutUsersInput
     blog_likes?: blog_likesUncheckedCreateNestedManyWithoutUsersInput
-    blog_ratings?: blog_ratingsUncheckedCreateNestedManyWithoutUsersInput
     blog_views?: blog_viewsUncheckedCreateNestedManyWithoutUsersInput
     blogs?: blogsUncheckedCreateNestedManyWithoutUsersInput
     chat_messages?: chat_messagesUncheckedCreateNestedManyWithoutUserInput
@@ -120437,7 +117839,6 @@ export namespace Prisma {
     created_stargazing_spots?: stargazing_spotsUncheckedCreateNestedManyWithoutCreatorInput
     subscriptions?: subscriptionsUncheckedCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsUncheckedCreateNestedOneWithoutUsersInput
-    chatbot_feedback?: chatbot_feedbackUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type usersCreateOrConnectWithoutSpace_news_likesInput = {
@@ -120521,7 +117922,6 @@ export namespace Prisma {
     created_astronomy_events?: astronomy_eventsUpdateManyWithoutCreatorNestedInput
     blog_comments?: blog_commentsUpdateManyWithoutUsersNestedInput
     blog_likes?: blog_likesUpdateManyWithoutUsersNestedInput
-    blog_ratings?: blog_ratingsUpdateManyWithoutUsersNestedInput
     blog_views?: blog_viewsUpdateManyWithoutUsersNestedInput
     blogs?: blogsUpdateManyWithoutUsersNestedInput
     chat_messages?: chat_messagesUpdateManyWithoutUserNestedInput
@@ -120559,7 +117959,6 @@ export namespace Prisma {
     created_stargazing_spots?: stargazing_spotsUpdateManyWithoutCreatorNestedInput
     subscriptions?: subscriptionsUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUpdateOneWithoutUsersNestedInput
-    chatbot_feedback?: chatbot_feedbackUpdateManyWithoutUserNestedInput
   }
 
   export type usersUncheckedUpdateWithoutSpace_news_likesInput = {
@@ -120588,7 +117987,6 @@ export namespace Prisma {
     created_astronomy_events?: astronomy_eventsUncheckedUpdateManyWithoutCreatorNestedInput
     blog_comments?: blog_commentsUncheckedUpdateManyWithoutUsersNestedInput
     blog_likes?: blog_likesUncheckedUpdateManyWithoutUsersNestedInput
-    blog_ratings?: blog_ratingsUncheckedUpdateManyWithoutUsersNestedInput
     blog_views?: blog_viewsUncheckedUpdateManyWithoutUsersNestedInput
     blogs?: blogsUncheckedUpdateManyWithoutUsersNestedInput
     chat_messages?: chat_messagesUncheckedUpdateManyWithoutUserNestedInput
@@ -120626,7 +118024,6 @@ export namespace Prisma {
     created_stargazing_spots?: stargazing_spotsUncheckedUpdateManyWithoutCreatorNestedInput
     subscriptions?: subscriptionsUncheckedUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUncheckedUpdateOneWithoutUsersNestedInput
-    chatbot_feedback?: chatbot_feedbackUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type stargazing_spotsCreateWithoutStargazing_spot_reviewsInput = {
@@ -120688,7 +118085,6 @@ export namespace Prisma {
     created_astronomy_events?: astronomy_eventsCreateNestedManyWithoutCreatorInput
     blog_comments?: blog_commentsCreateNestedManyWithoutUsersInput
     blog_likes?: blog_likesCreateNestedManyWithoutUsersInput
-    blog_ratings?: blog_ratingsCreateNestedManyWithoutUsersInput
     blog_views?: blog_viewsCreateNestedManyWithoutUsersInput
     blogs?: blogsCreateNestedManyWithoutUsersInput
     chat_messages?: chat_messagesCreateNestedManyWithoutUserInput
@@ -120726,7 +118122,6 @@ export namespace Prisma {
     created_stargazing_spots?: stargazing_spotsCreateNestedManyWithoutCreatorInput
     subscriptions?: subscriptionsCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsCreateNestedOneWithoutUsersInput
-    chatbot_feedback?: chatbot_feedbackCreateNestedManyWithoutUserInput
   }
 
   export type usersUncheckedCreateWithoutStargazing_spot_reviewsInput = {
@@ -120755,7 +118150,6 @@ export namespace Prisma {
     created_astronomy_events?: astronomy_eventsUncheckedCreateNestedManyWithoutCreatorInput
     blog_comments?: blog_commentsUncheckedCreateNestedManyWithoutUsersInput
     blog_likes?: blog_likesUncheckedCreateNestedManyWithoutUsersInput
-    blog_ratings?: blog_ratingsUncheckedCreateNestedManyWithoutUsersInput
     blog_views?: blog_viewsUncheckedCreateNestedManyWithoutUsersInput
     blogs?: blogsUncheckedCreateNestedManyWithoutUsersInput
     chat_messages?: chat_messagesUncheckedCreateNestedManyWithoutUserInput
@@ -120793,7 +118187,6 @@ export namespace Prisma {
     created_stargazing_spots?: stargazing_spotsUncheckedCreateNestedManyWithoutCreatorInput
     subscriptions?: subscriptionsUncheckedCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsUncheckedCreateNestedOneWithoutUsersInput
-    chatbot_feedback?: chatbot_feedbackUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type usersCreateOrConnectWithoutStargazing_spot_reviewsInput = {
@@ -120877,7 +118270,6 @@ export namespace Prisma {
     created_astronomy_events?: astronomy_eventsUpdateManyWithoutCreatorNestedInput
     blog_comments?: blog_commentsUpdateManyWithoutUsersNestedInput
     blog_likes?: blog_likesUpdateManyWithoutUsersNestedInput
-    blog_ratings?: blog_ratingsUpdateManyWithoutUsersNestedInput
     blog_views?: blog_viewsUpdateManyWithoutUsersNestedInput
     blogs?: blogsUpdateManyWithoutUsersNestedInput
     chat_messages?: chat_messagesUpdateManyWithoutUserNestedInput
@@ -120915,7 +118307,6 @@ export namespace Prisma {
     created_stargazing_spots?: stargazing_spotsUpdateManyWithoutCreatorNestedInput
     subscriptions?: subscriptionsUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUpdateOneWithoutUsersNestedInput
-    chatbot_feedback?: chatbot_feedbackUpdateManyWithoutUserNestedInput
   }
 
   export type usersUncheckedUpdateWithoutStargazing_spot_reviewsInput = {
@@ -120944,7 +118335,6 @@ export namespace Prisma {
     created_astronomy_events?: astronomy_eventsUncheckedUpdateManyWithoutCreatorNestedInput
     blog_comments?: blog_commentsUncheckedUpdateManyWithoutUsersNestedInput
     blog_likes?: blog_likesUncheckedUpdateManyWithoutUsersNestedInput
-    blog_ratings?: blog_ratingsUncheckedUpdateManyWithoutUsersNestedInput
     blog_views?: blog_viewsUncheckedUpdateManyWithoutUsersNestedInput
     blogs?: blogsUncheckedUpdateManyWithoutUsersNestedInput
     chat_messages?: chat_messagesUncheckedUpdateManyWithoutUserNestedInput
@@ -120982,7 +118372,6 @@ export namespace Prisma {
     created_stargazing_spots?: stargazing_spotsUncheckedUpdateManyWithoutCreatorNestedInput
     subscriptions?: subscriptionsUncheckedUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUncheckedUpdateOneWithoutUsersNestedInput
-    chatbot_feedback?: chatbot_feedbackUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type stargazing_spot_reviewsCreateWithoutStargazing_spotsInput = {
@@ -121037,7 +118426,6 @@ export namespace Prisma {
     created_astronomy_events?: astronomy_eventsCreateNestedManyWithoutCreatorInput
     blog_comments?: blog_commentsCreateNestedManyWithoutUsersInput
     blog_likes?: blog_likesCreateNestedManyWithoutUsersInput
-    blog_ratings?: blog_ratingsCreateNestedManyWithoutUsersInput
     blog_views?: blog_viewsCreateNestedManyWithoutUsersInput
     blogs?: blogsCreateNestedManyWithoutUsersInput
     chat_messages?: chat_messagesCreateNestedManyWithoutUserInput
@@ -121075,7 +118463,6 @@ export namespace Prisma {
     stargazing_spot_reviews?: stargazing_spot_reviewsCreateNestedManyWithoutUserInput
     subscriptions?: subscriptionsCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsCreateNestedOneWithoutUsersInput
-    chatbot_feedback?: chatbot_feedbackCreateNestedManyWithoutUserInput
   }
 
   export type usersUncheckedCreateWithoutCreated_stargazing_spotsInput = {
@@ -121104,7 +118491,6 @@ export namespace Prisma {
     created_astronomy_events?: astronomy_eventsUncheckedCreateNestedManyWithoutCreatorInput
     blog_comments?: blog_commentsUncheckedCreateNestedManyWithoutUsersInput
     blog_likes?: blog_likesUncheckedCreateNestedManyWithoutUsersInput
-    blog_ratings?: blog_ratingsUncheckedCreateNestedManyWithoutUsersInput
     blog_views?: blog_viewsUncheckedCreateNestedManyWithoutUsersInput
     blogs?: blogsUncheckedCreateNestedManyWithoutUsersInput
     chat_messages?: chat_messagesUncheckedCreateNestedManyWithoutUserInput
@@ -121142,7 +118528,6 @@ export namespace Prisma {
     stargazing_spot_reviews?: stargazing_spot_reviewsUncheckedCreateNestedManyWithoutUserInput
     subscriptions?: subscriptionsUncheckedCreateNestedManyWithoutUsersInput
     user_settings?: user_settingsUncheckedCreateNestedOneWithoutUsersInput
-    chatbot_feedback?: chatbot_feedbackUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type usersCreateOrConnectWithoutCreated_stargazing_spotsInput = {
@@ -121202,7 +118587,6 @@ export namespace Prisma {
     created_astronomy_events?: astronomy_eventsUpdateManyWithoutCreatorNestedInput
     blog_comments?: blog_commentsUpdateManyWithoutUsersNestedInput
     blog_likes?: blog_likesUpdateManyWithoutUsersNestedInput
-    blog_ratings?: blog_ratingsUpdateManyWithoutUsersNestedInput
     blog_views?: blog_viewsUpdateManyWithoutUsersNestedInput
     blogs?: blogsUpdateManyWithoutUsersNestedInput
     chat_messages?: chat_messagesUpdateManyWithoutUserNestedInput
@@ -121240,7 +118624,6 @@ export namespace Prisma {
     stargazing_spot_reviews?: stargazing_spot_reviewsUpdateManyWithoutUserNestedInput
     subscriptions?: subscriptionsUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUpdateOneWithoutUsersNestedInput
-    chatbot_feedback?: chatbot_feedbackUpdateManyWithoutUserNestedInput
   }
 
   export type usersUncheckedUpdateWithoutCreated_stargazing_spotsInput = {
@@ -121269,7 +118652,6 @@ export namespace Prisma {
     created_astronomy_events?: astronomy_eventsUncheckedUpdateManyWithoutCreatorNestedInput
     blog_comments?: blog_commentsUncheckedUpdateManyWithoutUsersNestedInput
     blog_likes?: blog_likesUncheckedUpdateManyWithoutUsersNestedInput
-    blog_ratings?: blog_ratingsUncheckedUpdateManyWithoutUsersNestedInput
     blog_views?: blog_viewsUncheckedUpdateManyWithoutUsersNestedInput
     blogs?: blogsUncheckedUpdateManyWithoutUsersNestedInput
     chat_messages?: chat_messagesUncheckedUpdateManyWithoutUserNestedInput
@@ -121307,7 +118689,6 @@ export namespace Prisma {
     stargazing_spot_reviews?: stargazing_spot_reviewsUncheckedUpdateManyWithoutUserNestedInput
     subscriptions?: subscriptionsUncheckedUpdateManyWithoutUsersNestedInput
     user_settings?: user_settingsUncheckedUpdateOneWithoutUsersNestedInput
-    chatbot_feedback?: chatbot_feedbackUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type paymentsCreateWithoutSubscriptionsInput = {
@@ -121376,7 +118757,6 @@ export namespace Prisma {
     created_astronomy_events?: astronomy_eventsCreateNestedManyWithoutCreatorInput
     blog_comments?: blog_commentsCreateNestedManyWithoutUsersInput
     blog_likes?: blog_likesCreateNestedManyWithoutUsersInput
-    blog_ratings?: blog_ratingsCreateNestedManyWithoutUsersInput
     blog_views?: blog_viewsCreateNestedManyWithoutUsersInput
     blogs?: blogsCreateNestedManyWithoutUsersInput
     chat_messages?: chat_messagesCreateNestedManyWithoutUserInput
@@ -121414,7 +118794,6 @@ export namespace Prisma {
     stargazing_spot_reviews?: stargazing_spot_reviewsCreateNestedManyWithoutUserInput
     created_stargazing_spots?: stargazing_spotsCreateNestedManyWithoutCreatorInput
     user_settings?: user_settingsCreateNestedOneWithoutUsersInput
-    chatbot_feedback?: chatbot_feedbackCreateNestedManyWithoutUserInput
   }
 
   export type usersUncheckedCreateWithoutSubscriptionsInput = {
@@ -121443,7 +118822,6 @@ export namespace Prisma {
     created_astronomy_events?: astronomy_eventsUncheckedCreateNestedManyWithoutCreatorInput
     blog_comments?: blog_commentsUncheckedCreateNestedManyWithoutUsersInput
     blog_likes?: blog_likesUncheckedCreateNestedManyWithoutUsersInput
-    blog_ratings?: blog_ratingsUncheckedCreateNestedManyWithoutUsersInput
     blog_views?: blog_viewsUncheckedCreateNestedManyWithoutUsersInput
     blogs?: blogsUncheckedCreateNestedManyWithoutUsersInput
     chat_messages?: chat_messagesUncheckedCreateNestedManyWithoutUserInput
@@ -121481,7 +118859,6 @@ export namespace Prisma {
     stargazing_spot_reviews?: stargazing_spot_reviewsUncheckedCreateNestedManyWithoutUserInput
     created_stargazing_spots?: stargazing_spotsUncheckedCreateNestedManyWithoutCreatorInput
     user_settings?: user_settingsUncheckedCreateNestedOneWithoutUsersInput
-    chatbot_feedback?: chatbot_feedbackUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type usersCreateOrConnectWithoutSubscriptionsInput = {
@@ -121541,7 +118918,6 @@ export namespace Prisma {
     created_astronomy_events?: astronomy_eventsUpdateManyWithoutCreatorNestedInput
     blog_comments?: blog_commentsUpdateManyWithoutUsersNestedInput
     blog_likes?: blog_likesUpdateManyWithoutUsersNestedInput
-    blog_ratings?: blog_ratingsUpdateManyWithoutUsersNestedInput
     blog_views?: blog_viewsUpdateManyWithoutUsersNestedInput
     blogs?: blogsUpdateManyWithoutUsersNestedInput
     chat_messages?: chat_messagesUpdateManyWithoutUserNestedInput
@@ -121579,7 +118955,6 @@ export namespace Prisma {
     stargazing_spot_reviews?: stargazing_spot_reviewsUpdateManyWithoutUserNestedInput
     created_stargazing_spots?: stargazing_spotsUpdateManyWithoutCreatorNestedInput
     user_settings?: user_settingsUpdateOneWithoutUsersNestedInput
-    chatbot_feedback?: chatbot_feedbackUpdateManyWithoutUserNestedInput
   }
 
   export type usersUncheckedUpdateWithoutSubscriptionsInput = {
@@ -121608,7 +118983,6 @@ export namespace Prisma {
     created_astronomy_events?: astronomy_eventsUncheckedUpdateManyWithoutCreatorNestedInput
     blog_comments?: blog_commentsUncheckedUpdateManyWithoutUsersNestedInput
     blog_likes?: blog_likesUncheckedUpdateManyWithoutUsersNestedInput
-    blog_ratings?: blog_ratingsUncheckedUpdateManyWithoutUsersNestedInput
     blog_views?: blog_viewsUncheckedUpdateManyWithoutUsersNestedInput
     blogs?: blogsUncheckedUpdateManyWithoutUsersNestedInput
     chat_messages?: chat_messagesUncheckedUpdateManyWithoutUserNestedInput
@@ -121646,7 +119020,6 @@ export namespace Prisma {
     stargazing_spot_reviews?: stargazing_spot_reviewsUncheckedUpdateManyWithoutUserNestedInput
     created_stargazing_spots?: stargazing_spotsUncheckedUpdateManyWithoutCreatorNestedInput
     user_settings?: user_settingsUncheckedUpdateOneWithoutUsersNestedInput
-    chatbot_feedback?: chatbot_feedbackUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type usersCreateWithoutUser_settingsInput = {
@@ -121674,7 +119047,6 @@ export namespace Prisma {
     created_astronomy_events?: astronomy_eventsCreateNestedManyWithoutCreatorInput
     blog_comments?: blog_commentsCreateNestedManyWithoutUsersInput
     blog_likes?: blog_likesCreateNestedManyWithoutUsersInput
-    blog_ratings?: blog_ratingsCreateNestedManyWithoutUsersInput
     blog_views?: blog_viewsCreateNestedManyWithoutUsersInput
     blogs?: blogsCreateNestedManyWithoutUsersInput
     chat_messages?: chat_messagesCreateNestedManyWithoutUserInput
@@ -121712,7 +119084,6 @@ export namespace Prisma {
     stargazing_spot_reviews?: stargazing_spot_reviewsCreateNestedManyWithoutUserInput
     created_stargazing_spots?: stargazing_spotsCreateNestedManyWithoutCreatorInput
     subscriptions?: subscriptionsCreateNestedManyWithoutUsersInput
-    chatbot_feedback?: chatbot_feedbackCreateNestedManyWithoutUserInput
   }
 
   export type usersUncheckedCreateWithoutUser_settingsInput = {
@@ -121741,7 +119112,6 @@ export namespace Prisma {
     created_astronomy_events?: astronomy_eventsUncheckedCreateNestedManyWithoutCreatorInput
     blog_comments?: blog_commentsUncheckedCreateNestedManyWithoutUsersInput
     blog_likes?: blog_likesUncheckedCreateNestedManyWithoutUsersInput
-    blog_ratings?: blog_ratingsUncheckedCreateNestedManyWithoutUsersInput
     blog_views?: blog_viewsUncheckedCreateNestedManyWithoutUsersInput
     blogs?: blogsUncheckedCreateNestedManyWithoutUsersInput
     chat_messages?: chat_messagesUncheckedCreateNestedManyWithoutUserInput
@@ -121779,7 +119149,6 @@ export namespace Prisma {
     stargazing_spot_reviews?: stargazing_spot_reviewsUncheckedCreateNestedManyWithoutUserInput
     created_stargazing_spots?: stargazing_spotsUncheckedCreateNestedManyWithoutCreatorInput
     subscriptions?: subscriptionsUncheckedCreateNestedManyWithoutUsersInput
-    chatbot_feedback?: chatbot_feedbackUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type usersCreateOrConnectWithoutUser_settingsInput = {
@@ -121823,7 +119192,6 @@ export namespace Prisma {
     created_astronomy_events?: astronomy_eventsUpdateManyWithoutCreatorNestedInput
     blog_comments?: blog_commentsUpdateManyWithoutUsersNestedInput
     blog_likes?: blog_likesUpdateManyWithoutUsersNestedInput
-    blog_ratings?: blog_ratingsUpdateManyWithoutUsersNestedInput
     blog_views?: blog_viewsUpdateManyWithoutUsersNestedInput
     blogs?: blogsUpdateManyWithoutUsersNestedInput
     chat_messages?: chat_messagesUpdateManyWithoutUserNestedInput
@@ -121861,7 +119229,6 @@ export namespace Prisma {
     stargazing_spot_reviews?: stargazing_spot_reviewsUpdateManyWithoutUserNestedInput
     created_stargazing_spots?: stargazing_spotsUpdateManyWithoutCreatorNestedInput
     subscriptions?: subscriptionsUpdateManyWithoutUsersNestedInput
-    chatbot_feedback?: chatbot_feedbackUpdateManyWithoutUserNestedInput
   }
 
   export type usersUncheckedUpdateWithoutUser_settingsInput = {
@@ -121890,7 +119257,6 @@ export namespace Prisma {
     created_astronomy_events?: astronomy_eventsUncheckedUpdateManyWithoutCreatorNestedInput
     blog_comments?: blog_commentsUncheckedUpdateManyWithoutUsersNestedInput
     blog_likes?: blog_likesUncheckedUpdateManyWithoutUsersNestedInput
-    blog_ratings?: blog_ratingsUncheckedUpdateManyWithoutUsersNestedInput
     blog_views?: blog_viewsUncheckedUpdateManyWithoutUsersNestedInput
     blogs?: blogsUncheckedUpdateManyWithoutUsersNestedInput
     chat_messages?: chat_messagesUncheckedUpdateManyWithoutUserNestedInput
@@ -121928,7 +119294,6 @@ export namespace Prisma {
     stargazing_spot_reviews?: stargazing_spot_reviewsUncheckedUpdateManyWithoutUserNestedInput
     created_stargazing_spots?: stargazing_spotsUncheckedUpdateManyWithoutCreatorNestedInput
     subscriptions?: subscriptionsUncheckedUpdateManyWithoutUsersNestedInput
-    chatbot_feedback?: chatbot_feedbackUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type chatbot_messagesCreateWithoutChatbot_feedbackInput = {
@@ -121987,144 +119352,6 @@ export namespace Prisma {
   export type chatbot_sessionsCreateOrConnectWithoutChatbot_feedbackInput = {
     where: chatbot_sessionsWhereUniqueInput
     create: XOR<chatbot_sessionsCreateWithoutChatbot_feedbackInput, chatbot_sessionsUncheckedCreateWithoutChatbot_feedbackInput>
-  }
-
-  export type usersCreateWithoutChatbot_feedbackInput = {
-    firebase_uid: string
-    email: string
-    role?: $Enums.user_role | null
-    first_name?: string | null
-    last_name?: string | null
-    is_active?: boolean | null
-    last_login?: Date | string | null
-    created_at?: Date | string | null
-    updated_at?: Date | string | null
-    display_name?: string | null
-    profile_data?: NullableJsonNullValueInput | InputJsonValue
-    role_specific_data?: NullableJsonNullValueInput | InputJsonValue
-    subscription_plan?: $Enums.subscription_plan | null
-    subscription_status?: $Enums.subscription_status | null
-    subscription_start_date?: Date | string | null
-    subscription_end_date?: Date | string | null
-    auto_renew?: boolean | null
-    chatbot_questions_used?: number | null
-    chatbot_questions_reset_date?: Date | string | null
-    QuizParticipants?: QuizParticipantsCreateNestedManyWithoutUsersInput
-    Quizzes?: QuizzesCreateNestedManyWithoutUsersInput
-    created_astronomy_events?: astronomy_eventsCreateNestedManyWithoutCreatorInput
-    blog_comments?: blog_commentsCreateNestedManyWithoutUsersInput
-    blog_likes?: blog_likesCreateNestedManyWithoutUsersInput
-    blog_ratings?: blog_ratingsCreateNestedManyWithoutUsersInput
-    blog_views?: blog_viewsCreateNestedManyWithoutUsersInput
-    blogs?: blogsCreateNestedManyWithoutUsersInput
-    chat_messages?: chat_messagesCreateNestedManyWithoutUserInput
-    chatbot_sessions?: chatbot_sessionsCreateNestedManyWithoutUsersInput
-    chatbot_usage?: chatbot_usageCreateNestedManyWithoutUsersInput
-    event_reminders?: event_remindersCreateNestedManyWithoutUserInput
-    created_groups?: group_chatsCreateNestedManyWithoutCreatorInput
-    group_memberships?: group_membersCreateNestedManyWithoutUserInput
-    guide_application?: guide_applicationCreateNestedManyWithoutUsersInput
-    influencer_application?: influencer_applicationCreateNestedManyWithoutUsersInput
-    media_uploads?: media_uploadsCreateNestedManyWithoutUsersInput
-    mentor_application?: mentor_applicationCreateNestedManyWithoutUsersInput
-    message_reactions?: message_reactionsCreateNestedManyWithoutUserInput
-    night_camp_registrations?: night_camp_registrationsCreateNestedManyWithoutUsersInput
-    night_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousers?: night_camp_volunteering_applicationsCreateNestedManyWithoutUsers_night_camp_volunteering_applications_reviewed_byTousersInput
-    night_camp_volunteering_applications_night_camp_volunteering_applications_user_idTousers?: night_camp_volunteering_applicationsCreateNestedManyWithoutUsers_night_camp_volunteering_applications_user_idTousersInput
-    payments?: paymentsCreateNestedManyWithoutUsersInput
-    poll_comments?: poll_commentsCreateNestedManyWithoutCommenterInput
-    poll_votes?: poll_votesCreateNestedManyWithoutVoterInput
-    created_polls?: pollsCreateNestedManyWithoutCreatorInput
-    role_upgrade_requests_role_upgrade_requests_reviewer_idTousers?: role_upgrade_requestsCreateNestedManyWithoutUsers_role_upgrade_requests_reviewer_idTousersInput
-    role_upgrade_requests_role_upgrade_requests_user_idTousers?: role_upgrade_requestsCreateNestedManyWithoutUsers_role_upgrade_requests_user_idTousersInput
-    service_bookings?: service_bookingsCreateNestedManyWithoutUsersInput
-    service_reviews?: service_reviewsCreateNestedManyWithoutUsersInput
-    services?: servicesCreateNestedManyWithoutUsersInput
-    session_enrollments?: session_enrollmentsCreateNestedManyWithoutUserInput
-    created_sessions?: sessionsCreateNestedManyWithoutCreatorInput
-    discussion_comment_likes?: space_discussion_comment_likesCreateNestedManyWithoutUserInput
-    discussion_comments?: space_discussion_commentsCreateNestedManyWithoutUserInput
-    discussion_likes?: space_discussion_likesCreateNestedManyWithoutUserInput
-    authored_discussions?: space_discussionsCreateNestedManyWithoutAuthorInput
-    space_news_published?: space_newsCreateNestedManyWithoutPublisherInput
-    space_news_comments?: space_news_commentsCreateNestedManyWithoutUserInput
-    space_news_likes?: space_news_likesCreateNestedManyWithoutUserInput
-    stargazing_spot_reviews?: stargazing_spot_reviewsCreateNestedManyWithoutUserInput
-    created_stargazing_spots?: stargazing_spotsCreateNestedManyWithoutCreatorInput
-    subscriptions?: subscriptionsCreateNestedManyWithoutUsersInput
-    user_settings?: user_settingsCreateNestedOneWithoutUsersInput
-  }
-
-  export type usersUncheckedCreateWithoutChatbot_feedbackInput = {
-    id?: number
-    firebase_uid: string
-    email: string
-    role?: $Enums.user_role | null
-    first_name?: string | null
-    last_name?: string | null
-    is_active?: boolean | null
-    last_login?: Date | string | null
-    created_at?: Date | string | null
-    updated_at?: Date | string | null
-    display_name?: string | null
-    profile_data?: NullableJsonNullValueInput | InputJsonValue
-    role_specific_data?: NullableJsonNullValueInput | InputJsonValue
-    subscription_plan?: $Enums.subscription_plan | null
-    subscription_status?: $Enums.subscription_status | null
-    subscription_start_date?: Date | string | null
-    subscription_end_date?: Date | string | null
-    auto_renew?: boolean | null
-    chatbot_questions_used?: number | null
-    chatbot_questions_reset_date?: Date | string | null
-    QuizParticipants?: QuizParticipantsUncheckedCreateNestedManyWithoutUsersInput
-    Quizzes?: QuizzesUncheckedCreateNestedManyWithoutUsersInput
-    created_astronomy_events?: astronomy_eventsUncheckedCreateNestedManyWithoutCreatorInput
-    blog_comments?: blog_commentsUncheckedCreateNestedManyWithoutUsersInput
-    blog_likes?: blog_likesUncheckedCreateNestedManyWithoutUsersInput
-    blog_ratings?: blog_ratingsUncheckedCreateNestedManyWithoutUsersInput
-    blog_views?: blog_viewsUncheckedCreateNestedManyWithoutUsersInput
-    blogs?: blogsUncheckedCreateNestedManyWithoutUsersInput
-    chat_messages?: chat_messagesUncheckedCreateNestedManyWithoutUserInput
-    chatbot_sessions?: chatbot_sessionsUncheckedCreateNestedManyWithoutUsersInput
-    chatbot_usage?: chatbot_usageUncheckedCreateNestedManyWithoutUsersInput
-    event_reminders?: event_remindersUncheckedCreateNestedManyWithoutUserInput
-    created_groups?: group_chatsUncheckedCreateNestedManyWithoutCreatorInput
-    group_memberships?: group_membersUncheckedCreateNestedManyWithoutUserInput
-    guide_application?: guide_applicationUncheckedCreateNestedManyWithoutUsersInput
-    influencer_application?: influencer_applicationUncheckedCreateNestedManyWithoutUsersInput
-    media_uploads?: media_uploadsUncheckedCreateNestedManyWithoutUsersInput
-    mentor_application?: mentor_applicationUncheckedCreateNestedManyWithoutUsersInput
-    message_reactions?: message_reactionsUncheckedCreateNestedManyWithoutUserInput
-    night_camp_registrations?: night_camp_registrationsUncheckedCreateNestedManyWithoutUsersInput
-    night_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousers?: night_camp_volunteering_applicationsUncheckedCreateNestedManyWithoutUsers_night_camp_volunteering_applications_reviewed_byTousersInput
-    night_camp_volunteering_applications_night_camp_volunteering_applications_user_idTousers?: night_camp_volunteering_applicationsUncheckedCreateNestedManyWithoutUsers_night_camp_volunteering_applications_user_idTousersInput
-    payments?: paymentsUncheckedCreateNestedManyWithoutUsersInput
-    poll_comments?: poll_commentsUncheckedCreateNestedManyWithoutCommenterInput
-    poll_votes?: poll_votesUncheckedCreateNestedManyWithoutVoterInput
-    created_polls?: pollsUncheckedCreateNestedManyWithoutCreatorInput
-    role_upgrade_requests_role_upgrade_requests_reviewer_idTousers?: role_upgrade_requestsUncheckedCreateNestedManyWithoutUsers_role_upgrade_requests_reviewer_idTousersInput
-    role_upgrade_requests_role_upgrade_requests_user_idTousers?: role_upgrade_requestsUncheckedCreateNestedManyWithoutUsers_role_upgrade_requests_user_idTousersInput
-    service_bookings?: service_bookingsUncheckedCreateNestedManyWithoutUsersInput
-    service_reviews?: service_reviewsUncheckedCreateNestedManyWithoutUsersInput
-    services?: servicesUncheckedCreateNestedManyWithoutUsersInput
-    session_enrollments?: session_enrollmentsUncheckedCreateNestedManyWithoutUserInput
-    created_sessions?: sessionsUncheckedCreateNestedManyWithoutCreatorInput
-    discussion_comment_likes?: space_discussion_comment_likesUncheckedCreateNestedManyWithoutUserInput
-    discussion_comments?: space_discussion_commentsUncheckedCreateNestedManyWithoutUserInput
-    discussion_likes?: space_discussion_likesUncheckedCreateNestedManyWithoutUserInput
-    authored_discussions?: space_discussionsUncheckedCreateNestedManyWithoutAuthorInput
-    space_news_published?: space_newsUncheckedCreateNestedManyWithoutPublisherInput
-    space_news_comments?: space_news_commentsUncheckedCreateNestedManyWithoutUserInput
-    space_news_likes?: space_news_likesUncheckedCreateNestedManyWithoutUserInput
-    stargazing_spot_reviews?: stargazing_spot_reviewsUncheckedCreateNestedManyWithoutUserInput
-    created_stargazing_spots?: stargazing_spotsUncheckedCreateNestedManyWithoutCreatorInput
-    subscriptions?: subscriptionsUncheckedCreateNestedManyWithoutUsersInput
-    user_settings?: user_settingsUncheckedCreateNestedOneWithoutUsersInput
-  }
-
-  export type usersCreateOrConnectWithoutChatbot_feedbackInput = {
-    where: usersWhereUniqueInput
-    create: XOR<usersCreateWithoutChatbot_feedbackInput, usersUncheckedCreateWithoutChatbot_feedbackInput>
   }
 
   export type chatbot_messagesUpsertWithoutChatbot_feedbackInput = {
@@ -122195,150 +119422,6 @@ export namespace Prisma {
     created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     chatbot_messages?: chatbot_messagesUncheckedUpdateManyWithoutChatbot_sessionsNestedInput
-  }
-
-  export type usersUpsertWithoutChatbot_feedbackInput = {
-    update: XOR<usersUpdateWithoutChatbot_feedbackInput, usersUncheckedUpdateWithoutChatbot_feedbackInput>
-    create: XOR<usersCreateWithoutChatbot_feedbackInput, usersUncheckedCreateWithoutChatbot_feedbackInput>
-    where?: usersWhereInput
-  }
-
-  export type usersUpdateToOneWithWhereWithoutChatbot_feedbackInput = {
-    where?: usersWhereInput
-    data: XOR<usersUpdateWithoutChatbot_feedbackInput, usersUncheckedUpdateWithoutChatbot_feedbackInput>
-  }
-
-  export type usersUpdateWithoutChatbot_feedbackInput = {
-    firebase_uid?: StringFieldUpdateOperationsInput | string
-    email?: StringFieldUpdateOperationsInput | string
-    role?: NullableEnumuser_roleFieldUpdateOperationsInput | $Enums.user_role | null
-    first_name?: NullableStringFieldUpdateOperationsInput | string | null
-    last_name?: NullableStringFieldUpdateOperationsInput | string | null
-    is_active?: NullableBoolFieldUpdateOperationsInput | boolean | null
-    last_login?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    display_name?: NullableStringFieldUpdateOperationsInput | string | null
-    profile_data?: NullableJsonNullValueInput | InputJsonValue
-    role_specific_data?: NullableJsonNullValueInput | InputJsonValue
-    subscription_plan?: NullableEnumsubscription_planFieldUpdateOperationsInput | $Enums.subscription_plan | null
-    subscription_status?: NullableEnumsubscription_statusFieldUpdateOperationsInput | $Enums.subscription_status | null
-    subscription_start_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    subscription_end_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    auto_renew?: NullableBoolFieldUpdateOperationsInput | boolean | null
-    chatbot_questions_used?: NullableIntFieldUpdateOperationsInput | number | null
-    chatbot_questions_reset_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    QuizParticipants?: QuizParticipantsUpdateManyWithoutUsersNestedInput
-    Quizzes?: QuizzesUpdateManyWithoutUsersNestedInput
-    created_astronomy_events?: astronomy_eventsUpdateManyWithoutCreatorNestedInput
-    blog_comments?: blog_commentsUpdateManyWithoutUsersNestedInput
-    blog_likes?: blog_likesUpdateManyWithoutUsersNestedInput
-    blog_ratings?: blog_ratingsUpdateManyWithoutUsersNestedInput
-    blog_views?: blog_viewsUpdateManyWithoutUsersNestedInput
-    blogs?: blogsUpdateManyWithoutUsersNestedInput
-    chat_messages?: chat_messagesUpdateManyWithoutUserNestedInput
-    chatbot_sessions?: chatbot_sessionsUpdateManyWithoutUsersNestedInput
-    chatbot_usage?: chatbot_usageUpdateManyWithoutUsersNestedInput
-    event_reminders?: event_remindersUpdateManyWithoutUserNestedInput
-    created_groups?: group_chatsUpdateManyWithoutCreatorNestedInput
-    group_memberships?: group_membersUpdateManyWithoutUserNestedInput
-    guide_application?: guide_applicationUpdateManyWithoutUsersNestedInput
-    influencer_application?: influencer_applicationUpdateManyWithoutUsersNestedInput
-    media_uploads?: media_uploadsUpdateManyWithoutUsersNestedInput
-    mentor_application?: mentor_applicationUpdateManyWithoutUsersNestedInput
-    message_reactions?: message_reactionsUpdateManyWithoutUserNestedInput
-    night_camp_registrations?: night_camp_registrationsUpdateManyWithoutUsersNestedInput
-    night_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousers?: night_camp_volunteering_applicationsUpdateManyWithoutUsers_night_camp_volunteering_applications_reviewed_byTousersNestedInput
-    night_camp_volunteering_applications_night_camp_volunteering_applications_user_idTousers?: night_camp_volunteering_applicationsUpdateManyWithoutUsers_night_camp_volunteering_applications_user_idTousersNestedInput
-    payments?: paymentsUpdateManyWithoutUsersNestedInput
-    poll_comments?: poll_commentsUpdateManyWithoutCommenterNestedInput
-    poll_votes?: poll_votesUpdateManyWithoutVoterNestedInput
-    created_polls?: pollsUpdateManyWithoutCreatorNestedInput
-    role_upgrade_requests_role_upgrade_requests_reviewer_idTousers?: role_upgrade_requestsUpdateManyWithoutUsers_role_upgrade_requests_reviewer_idTousersNestedInput
-    role_upgrade_requests_role_upgrade_requests_user_idTousers?: role_upgrade_requestsUpdateManyWithoutUsers_role_upgrade_requests_user_idTousersNestedInput
-    service_bookings?: service_bookingsUpdateManyWithoutUsersNestedInput
-    service_reviews?: service_reviewsUpdateManyWithoutUsersNestedInput
-    services?: servicesUpdateManyWithoutUsersNestedInput
-    session_enrollments?: session_enrollmentsUpdateManyWithoutUserNestedInput
-    created_sessions?: sessionsUpdateManyWithoutCreatorNestedInput
-    discussion_comment_likes?: space_discussion_comment_likesUpdateManyWithoutUserNestedInput
-    discussion_comments?: space_discussion_commentsUpdateManyWithoutUserNestedInput
-    discussion_likes?: space_discussion_likesUpdateManyWithoutUserNestedInput
-    authored_discussions?: space_discussionsUpdateManyWithoutAuthorNestedInput
-    space_news_published?: space_newsUpdateManyWithoutPublisherNestedInput
-    space_news_comments?: space_news_commentsUpdateManyWithoutUserNestedInput
-    space_news_likes?: space_news_likesUpdateManyWithoutUserNestedInput
-    stargazing_spot_reviews?: stargazing_spot_reviewsUpdateManyWithoutUserNestedInput
-    created_stargazing_spots?: stargazing_spotsUpdateManyWithoutCreatorNestedInput
-    subscriptions?: subscriptionsUpdateManyWithoutUsersNestedInput
-    user_settings?: user_settingsUpdateOneWithoutUsersNestedInput
-  }
-
-  export type usersUncheckedUpdateWithoutChatbot_feedbackInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    firebase_uid?: StringFieldUpdateOperationsInput | string
-    email?: StringFieldUpdateOperationsInput | string
-    role?: NullableEnumuser_roleFieldUpdateOperationsInput | $Enums.user_role | null
-    first_name?: NullableStringFieldUpdateOperationsInput | string | null
-    last_name?: NullableStringFieldUpdateOperationsInput | string | null
-    is_active?: NullableBoolFieldUpdateOperationsInput | boolean | null
-    last_login?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    display_name?: NullableStringFieldUpdateOperationsInput | string | null
-    profile_data?: NullableJsonNullValueInput | InputJsonValue
-    role_specific_data?: NullableJsonNullValueInput | InputJsonValue
-    subscription_plan?: NullableEnumsubscription_planFieldUpdateOperationsInput | $Enums.subscription_plan | null
-    subscription_status?: NullableEnumsubscription_statusFieldUpdateOperationsInput | $Enums.subscription_status | null
-    subscription_start_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    subscription_end_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    auto_renew?: NullableBoolFieldUpdateOperationsInput | boolean | null
-    chatbot_questions_used?: NullableIntFieldUpdateOperationsInput | number | null
-    chatbot_questions_reset_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    QuizParticipants?: QuizParticipantsUncheckedUpdateManyWithoutUsersNestedInput
-    Quizzes?: QuizzesUncheckedUpdateManyWithoutUsersNestedInput
-    created_astronomy_events?: astronomy_eventsUncheckedUpdateManyWithoutCreatorNestedInput
-    blog_comments?: blog_commentsUncheckedUpdateManyWithoutUsersNestedInput
-    blog_likes?: blog_likesUncheckedUpdateManyWithoutUsersNestedInput
-    blog_ratings?: blog_ratingsUncheckedUpdateManyWithoutUsersNestedInput
-    blog_views?: blog_viewsUncheckedUpdateManyWithoutUsersNestedInput
-    blogs?: blogsUncheckedUpdateManyWithoutUsersNestedInput
-    chat_messages?: chat_messagesUncheckedUpdateManyWithoutUserNestedInput
-    chatbot_sessions?: chatbot_sessionsUncheckedUpdateManyWithoutUsersNestedInput
-    chatbot_usage?: chatbot_usageUncheckedUpdateManyWithoutUsersNestedInput
-    event_reminders?: event_remindersUncheckedUpdateManyWithoutUserNestedInput
-    created_groups?: group_chatsUncheckedUpdateManyWithoutCreatorNestedInput
-    group_memberships?: group_membersUncheckedUpdateManyWithoutUserNestedInput
-    guide_application?: guide_applicationUncheckedUpdateManyWithoutUsersNestedInput
-    influencer_application?: influencer_applicationUncheckedUpdateManyWithoutUsersNestedInput
-    media_uploads?: media_uploadsUncheckedUpdateManyWithoutUsersNestedInput
-    mentor_application?: mentor_applicationUncheckedUpdateManyWithoutUsersNestedInput
-    message_reactions?: message_reactionsUncheckedUpdateManyWithoutUserNestedInput
-    night_camp_registrations?: night_camp_registrationsUncheckedUpdateManyWithoutUsersNestedInput
-    night_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousers?: night_camp_volunteering_applicationsUncheckedUpdateManyWithoutUsers_night_camp_volunteering_applications_reviewed_byTousersNestedInput
-    night_camp_volunteering_applications_night_camp_volunteering_applications_user_idTousers?: night_camp_volunteering_applicationsUncheckedUpdateManyWithoutUsers_night_camp_volunteering_applications_user_idTousersNestedInput
-    payments?: paymentsUncheckedUpdateManyWithoutUsersNestedInput
-    poll_comments?: poll_commentsUncheckedUpdateManyWithoutCommenterNestedInput
-    poll_votes?: poll_votesUncheckedUpdateManyWithoutVoterNestedInput
-    created_polls?: pollsUncheckedUpdateManyWithoutCreatorNestedInput
-    role_upgrade_requests_role_upgrade_requests_reviewer_idTousers?: role_upgrade_requestsUncheckedUpdateManyWithoutUsers_role_upgrade_requests_reviewer_idTousersNestedInput
-    role_upgrade_requests_role_upgrade_requests_user_idTousers?: role_upgrade_requestsUncheckedUpdateManyWithoutUsers_role_upgrade_requests_user_idTousersNestedInput
-    service_bookings?: service_bookingsUncheckedUpdateManyWithoutUsersNestedInput
-    service_reviews?: service_reviewsUncheckedUpdateManyWithoutUsersNestedInput
-    services?: servicesUncheckedUpdateManyWithoutUsersNestedInput
-    session_enrollments?: session_enrollmentsUncheckedUpdateManyWithoutUserNestedInput
-    created_sessions?: sessionsUncheckedUpdateManyWithoutCreatorNestedInput
-    discussion_comment_likes?: space_discussion_comment_likesUncheckedUpdateManyWithoutUserNestedInput
-    discussion_comments?: space_discussion_commentsUncheckedUpdateManyWithoutUserNestedInput
-    discussion_likes?: space_discussion_likesUncheckedUpdateManyWithoutUserNestedInput
-    authored_discussions?: space_discussionsUncheckedUpdateManyWithoutAuthorNestedInput
-    space_news_published?: space_newsUncheckedUpdateManyWithoutPublisherNestedInput
-    space_news_comments?: space_news_commentsUncheckedUpdateManyWithoutUserNestedInput
-    space_news_likes?: space_news_likesUncheckedUpdateManyWithoutUserNestedInput
-    stargazing_spot_reviews?: stargazing_spot_reviewsUncheckedUpdateManyWithoutUserNestedInput
-    created_stargazing_spots?: stargazing_spotsUncheckedUpdateManyWithoutCreatorNestedInput
-    subscriptions?: subscriptionsUncheckedUpdateManyWithoutUsersNestedInput
-    user_settings?: user_settingsUncheckedUpdateOneWithoutUsersNestedInput
   }
 
   export type QuizParticipantsCreateManyQuizzesInput = {
@@ -122498,14 +119581,6 @@ export namespace Prisma {
     updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
-  export type blog_ratingsCreateManyBlogsInput = {
-    id?: number
-    user_id?: number | null
-    rating: number
-    created_at?: Date | string | null
-    updated_at?: Date | string | null
-  }
-
   export type blog_category_relationsCreateManyBlogsInput = {
     id?: number
     category_id?: number | null
@@ -122533,29 +119608,6 @@ export namespace Prisma {
     ip_address?: string | null
     user_agent?: string | null
     viewed_at?: Date | string | null
-  }
-
-  export type blog_ratingsUpdateWithoutBlogsInput = {
-    rating?: IntFieldUpdateOperationsInput | number
-    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    users?: usersUpdateOneWithoutBlog_ratingsNestedInput
-  }
-
-  export type blog_ratingsUncheckedUpdateWithoutBlogsInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    user_id?: NullableIntFieldUpdateOperationsInput | number | null
-    rating?: IntFieldUpdateOperationsInput | number
-    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  }
-
-  export type blog_ratingsUncheckedUpdateManyWithoutBlogsInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    user_id?: NullableIntFieldUpdateOperationsInput | number | null
-    rating?: IntFieldUpdateOperationsInput | number
-    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type blog_category_relationsUpdateWithoutBlogsInput = {
@@ -122773,14 +119825,6 @@ export namespace Prisma {
     id?: number
     blog_id?: number | null
     created_at?: Date | string | null
-  }
-
-  export type blog_ratingsCreateManyUsersInput = {
-    id?: number
-    blog_id?: number | null
-    rating: number
-    created_at?: Date | string | null
-    updated_at?: Date | string | null
   }
 
   export type blog_viewsCreateManyUsersInput = {
@@ -123298,15 +120342,6 @@ export namespace Prisma {
     cancellation_reason?: string | null
   }
 
-  export type chatbot_feedbackCreateManyUserInput = {
-    id?: number
-    message_id: string
-    session_id: string
-    rating: number
-    feedback?: string | null
-    created_at?: Date | string
-  }
-
   export type QuizParticipantsUpdateWithoutUsersInput = {
     correct_question_count?: IntFieldUpdateOperationsInput | number
     score?: IntFieldUpdateOperationsInput | number
@@ -123472,29 +120507,6 @@ export namespace Prisma {
     created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
-  export type blog_ratingsUpdateWithoutUsersInput = {
-    rating?: IntFieldUpdateOperationsInput | number
-    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    blogs?: blogsUpdateOneWithoutBlog_ratingsNestedInput
-  }
-
-  export type blog_ratingsUncheckedUpdateWithoutUsersInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    blog_id?: NullableIntFieldUpdateOperationsInput | number | null
-    rating?: IntFieldUpdateOperationsInput | number
-    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  }
-
-  export type blog_ratingsUncheckedUpdateManyWithoutUsersInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    blog_id?: NullableIntFieldUpdateOperationsInput | number | null
-    rating?: IntFieldUpdateOperationsInput | number
-    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    updated_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  }
-
   export type blog_viewsUpdateWithoutUsersInput = {
     ip_address?: NullableStringFieldUpdateOperationsInput | string | null
     user_agent?: NullableStringFieldUpdateOperationsInput | string | null
@@ -123538,7 +120550,6 @@ export namespace Prisma {
     comment_count?: NullableIntFieldUpdateOperationsInput | number | null
     tags?: NullableJsonNullValueInput | InputJsonValue
     metadata?: NullableJsonNullValueInput | InputJsonValue
-    blog_ratings?: blog_ratingsUpdateManyWithoutBlogsNestedInput
     blog_category_relations?: blog_category_relationsUpdateManyWithoutBlogsNestedInput
     blog_comments?: blog_commentsUpdateManyWithoutBlogsNestedInput
     blog_likes?: blog_likesUpdateManyWithoutBlogsNestedInput
@@ -123566,7 +120577,6 @@ export namespace Prisma {
     comment_count?: NullableIntFieldUpdateOperationsInput | number | null
     tags?: NullableJsonNullValueInput | InputJsonValue
     metadata?: NullableJsonNullValueInput | InputJsonValue
-    blog_ratings?: blog_ratingsUncheckedUpdateManyWithoutBlogsNestedInput
     blog_category_relations?: blog_category_relationsUncheckedUpdateManyWithoutBlogsNestedInput
     blog_comments?: blog_commentsUncheckedUpdateManyWithoutBlogsNestedInput
     blog_likes?: blog_likesUncheckedUpdateManyWithoutBlogsNestedInput
@@ -125058,74 +122068,49 @@ export namespace Prisma {
     cancellation_reason?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
-  export type chatbot_feedbackUpdateWithoutUserInput = {
-    rating?: IntFieldUpdateOperationsInput | number
-    feedback?: NullableStringFieldUpdateOperationsInput | string | null
-    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    message?: chatbot_messagesUpdateOneRequiredWithoutChatbot_feedbackNestedInput
-    session?: chatbot_sessionsUpdateOneRequiredWithoutChatbot_feedbackNestedInput
-  }
-
-  export type chatbot_feedbackUncheckedUpdateWithoutUserInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    message_id?: StringFieldUpdateOperationsInput | string
-    session_id?: StringFieldUpdateOperationsInput | string
-    rating?: IntFieldUpdateOperationsInput | number
-    feedback?: NullableStringFieldUpdateOperationsInput | string | null
-    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type chatbot_feedbackUncheckedUpdateManyWithoutUserInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    message_id?: StringFieldUpdateOperationsInput | string
-    session_id?: StringFieldUpdateOperationsInput | string
-    rating?: IntFieldUpdateOperationsInput | number
-    feedback?: NullableStringFieldUpdateOperationsInput | string | null
-    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
   export type chatbot_feedbackCreateManyMessageInput = {
-    id?: number
-    session_id: string
-    user_id: number
-    rating: number
-    feedback?: string | null
-    created_at?: Date | string
+    id?: string
+    session_id?: string | null
+    firebase_uid: string
+    rating?: number | null
+    feedback_text?: string | null
+    created_at?: Date | string | null
   }
 
   export type chatbot_feedbackUpdateWithoutMessageInput = {
-    rating?: IntFieldUpdateOperationsInput | number
-    feedback?: NullableStringFieldUpdateOperationsInput | string | null
-    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    session?: chatbot_sessionsUpdateOneRequiredWithoutChatbot_feedbackNestedInput
-    user?: usersUpdateOneRequiredWithoutChatbot_feedbackNestedInput
+    id?: StringFieldUpdateOperationsInput | string
+    firebase_uid?: StringFieldUpdateOperationsInput | string
+    rating?: NullableIntFieldUpdateOperationsInput | number | null
+    feedback_text?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    session?: chatbot_sessionsUpdateOneWithoutChatbot_feedbackNestedInput
   }
 
   export type chatbot_feedbackUncheckedUpdateWithoutMessageInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    session_id?: StringFieldUpdateOperationsInput | string
-    user_id?: IntFieldUpdateOperationsInput | number
-    rating?: IntFieldUpdateOperationsInput | number
-    feedback?: NullableStringFieldUpdateOperationsInput | string | null
-    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    id?: StringFieldUpdateOperationsInput | string
+    session_id?: NullableStringFieldUpdateOperationsInput | string | null
+    firebase_uid?: StringFieldUpdateOperationsInput | string
+    rating?: NullableIntFieldUpdateOperationsInput | number | null
+    feedback_text?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type chatbot_feedbackUncheckedUpdateManyWithoutMessageInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    session_id?: StringFieldUpdateOperationsInput | string
-    user_id?: IntFieldUpdateOperationsInput | number
-    rating?: IntFieldUpdateOperationsInput | number
-    feedback?: NullableStringFieldUpdateOperationsInput | string | null
-    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    id?: StringFieldUpdateOperationsInput | string
+    session_id?: NullableStringFieldUpdateOperationsInput | string | null
+    firebase_uid?: StringFieldUpdateOperationsInput | string
+    rating?: NullableIntFieldUpdateOperationsInput | number | null
+    feedback_text?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type chatbot_feedbackCreateManySessionInput = {
-    id?: number
-    message_id: string
-    user_id: number
-    rating: number
-    feedback?: string | null
-    created_at?: Date | string
+    id?: string
+    message_id?: string | null
+    firebase_uid: string
+    rating?: number | null
+    feedback_text?: string | null
+    created_at?: Date | string | null
   }
 
   export type chatbot_messagesCreateManyChatbot_sessionsInput = {
@@ -125140,29 +122125,30 @@ export namespace Prisma {
   }
 
   export type chatbot_feedbackUpdateWithoutSessionInput = {
-    rating?: IntFieldUpdateOperationsInput | number
-    feedback?: NullableStringFieldUpdateOperationsInput | string | null
-    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    message?: chatbot_messagesUpdateOneRequiredWithoutChatbot_feedbackNestedInput
-    user?: usersUpdateOneRequiredWithoutChatbot_feedbackNestedInput
+    id?: StringFieldUpdateOperationsInput | string
+    firebase_uid?: StringFieldUpdateOperationsInput | string
+    rating?: NullableIntFieldUpdateOperationsInput | number | null
+    feedback_text?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    message?: chatbot_messagesUpdateOneWithoutChatbot_feedbackNestedInput
   }
 
   export type chatbot_feedbackUncheckedUpdateWithoutSessionInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    message_id?: StringFieldUpdateOperationsInput | string
-    user_id?: IntFieldUpdateOperationsInput | number
-    rating?: IntFieldUpdateOperationsInput | number
-    feedback?: NullableStringFieldUpdateOperationsInput | string | null
-    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    id?: StringFieldUpdateOperationsInput | string
+    message_id?: NullableStringFieldUpdateOperationsInput | string | null
+    firebase_uid?: StringFieldUpdateOperationsInput | string
+    rating?: NullableIntFieldUpdateOperationsInput | number | null
+    feedback_text?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type chatbot_feedbackUncheckedUpdateManyWithoutSessionInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    message_id?: StringFieldUpdateOperationsInput | string
-    user_id?: IntFieldUpdateOperationsInput | number
-    rating?: IntFieldUpdateOperationsInput | number
-    feedback?: NullableStringFieldUpdateOperationsInput | string | null
-    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    id?: StringFieldUpdateOperationsInput | string
+    message_id?: NullableStringFieldUpdateOperationsInput | string | null
+    firebase_uid?: StringFieldUpdateOperationsInput | string
+    rating?: NullableIntFieldUpdateOperationsInput | number | null
+    feedback_text?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type chatbot_messagesUpdateWithoutChatbot_sessionsInput = {

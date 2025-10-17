@@ -270,15 +270,6 @@ exports.Prisma.UsersScalarFieldEnum = {
   chatbot_questions_reset_date: 'chatbot_questions_reset_date'
 };
 
-exports.Prisma.Blog_ratingsScalarFieldEnum = {
-  id: 'id',
-  blog_id: 'blog_id',
-  user_id: 'user_id',
-  rating: 'rating',
-  created_at: 'created_at',
-  updated_at: 'updated_at'
-};
-
 exports.Prisma.Chatbot_messagesScalarFieldEnum = {
   id: 'id',
   session_id: 'session_id',
@@ -900,9 +891,9 @@ exports.Prisma.Chatbot_feedbackScalarFieldEnum = {
   id: 'id',
   message_id: 'message_id',
   session_id: 'session_id',
-  user_id: 'user_id',
+  firebase_uid: 'firebase_uid',
   rating: 'rating',
-  feedback: 'feedback',
+  feedback_text: 'feedback_text',
   created_at: 'created_at'
 };
 
@@ -936,7 +927,9 @@ exports.Prisma.JsonNullValueFilter = {
   AnyNull: Prisma.AnyNull
 };
 exports.QuizStatus = exports.$Enums.QuizStatus = {
-  open: 'open',
+  pending: 'pending',
+  approved: 'approved',
+  rejected: 'rejected',
   closed: 'closed'
 };
 
@@ -1088,7 +1081,6 @@ exports.Prisma.ModelName = {
   blogs: 'blogs',
   chat_messages: 'chat_messages',
   users: 'users',
-  blog_ratings: 'blog_ratings',
   chatbot_messages: 'chatbot_messages',
   chatbot_sessions: 'chatbot_sessions',
   chatbot_usage: 'chatbot_usage',

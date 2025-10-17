@@ -41,7 +41,7 @@ model Quizzes {
   user_id            Int
   created_at         DateTime              @default(now())
   modified_at        DateTime
-  status             QuizStatus            @default(open)
+  status             QuizStatus            @default(pending)
   level              quiz_difficulty_level
   QuizParticipants   QuizParticipants[]
   QuizQuestion       QuizQuestion[]
@@ -1324,6 +1324,8 @@ enum user_role {
 }
 
 enum QuizStatus {
-  open
+  pending
+  approved
+  rejected
   closed
 }
