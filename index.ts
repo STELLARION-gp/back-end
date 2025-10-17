@@ -6,23 +6,32 @@ import paymentRoutes from "./routes/payment.routes";
 import blogRoutes from "./routes/blog.routes";
 import nightcampRoutes from "./routes/nightcamp.routes";
 import nasaOpportunitiesRoutes from "./routes/nasaOpportunities.routes";
-import uploadRoutes from './routes/upload.routes';
-import mediaUploadRoutes from './routes/mediaUpload.routes';
-import chatRoutes from './routes/chat.routes';
-import tourMediaRoutes from './routes/tourMedia.routes';
-import eventRoutes from './routes/event.routes';
-import spaceDiscussionRoutes from './routes/spaceDiscussion.routes';
-import astronomyEventsRoutes from './routes/astronomyEvents.routes';
-import stargazingSpotRoutes from './routes/stargazingSpot.routes';
-import sessionsRoutes from './routes/sessions.routes';
-import pollRoutes from './routes/poll.routes';
-import recommendedContentRoutes from './routes/recommendedContent.routes';
+import uploadRoutes from "./routes/upload.routes";
+import mediaUploadRoutes from "./routes/mediaUpload.routes";
+import chatRoutes from "./routes/chat.routes";
+import tourMediaRoutes from "./routes/tourMedia.routes";
+import eventRoutes from "./routes/event.routes";
+import spaceDiscussionRoutes from "./routes/spaceDiscussion.routes";
+import astronomyEventsRoutes from "./routes/astronomyEvents.routes";
+import stargazingSpotRoutes from "./routes/stargazingSpot.routes";
+import sessionsRoutes from "./routes/sessions.routes";
+import pollRoutes from "./routes/poll.routes";
+import recommendedContentRoutes from "./routes/recommendedContent.routes";
+import adminApiRoutes from "./routes/admin.routes";
 
 // index.ts
 import express from "express";
 import http from "http";
 import cors from "cors";
 import dotenv from "dotenv";
+import session from "express-session";
+import AdminJS from "adminjs";
+import { Database, Resource } from "@adminjs/prisma";
+import AdminJSExpress from "@adminjs/express";
+
+// Register Prisma adapter for AdminJS FIRST - before any resource imports
+AdminJS.registerAdapter({ Database, Resource });
+
 import userRoutes from "./routes/user.routes";
 import authRoutes from "./routes/auth.routes";
 import chatbotRoutes from "./routes/chatbot.routes";
@@ -33,6 +42,9 @@ import { gracefulShutdown } from "./lib/prisma";
 import { SocketServer } from "./socket/socketServer";
 import spaceNewsRoutes from "./routes/spaceNews.routes";
 import { ChatbotNotificationService } from "./services/chatbotNotification.service";
+import { adminJsConfig } from "./config/adminjs.config";
+import { adminResources } from "./admin/resources";
+import { authenticate } from "./admin/auth";
 
 // prisma client
 import { PrismaClient } from "@prisma/client";
@@ -43,6 +55,83 @@ const server = http.createServer(app);
 
 // Initialize Socket.IO
 const socketServer = new SocketServer(server);
+
+// Session configuration for AdminJS (ready for when ES module migration is complete)
+app.use(
+  session({
+    secret:
+      process.env.ADMIN_SESSION_SECRET ||
+      "stellarion-admin-secret-change-in-production",
+    resave: false,
+    saveUninitialized: false,
+    cookie: {
+      secure: process.env.NODE_ENV === "production",
+      httpOnly: true,
+      maxAge: 24 * 60 * 60 * 1000, // 24 hours
+    },
+  })
+);
+
+/*
+ * AdminJS UI Setup - Now enabled with ES module support!
+ */
+
+try {
+  console.log("🔧 Initializing AdminJS...");
+  console.log(`📊 Loading ${adminResources.length} resources...`);
+
+  // Initialize AdminJS with all CRUD resources
+  const adminJs = new AdminJS({
+    ...adminJsConfig,
+    resources: adminResources,
+  });
+
+  console.log("✅ AdminJS instance created");
+  console.log(`✅ Resources registered: ${adminJs.resources.length}`);
+
+  // Build AdminJS router with authentication
+  const adminRouter = AdminJSExpress.buildAuthenticatedRouter(
+    adminJs,
+    {
+      authenticate,
+      cookieName: "adminjs",
+      cookiePassword:
+        process.env.ADMIN_COOKIE_PASSWORD ||
+        "admin-cookie-secret-change-in-production",
+    },
+    null,
+    {
+      resave: false,
+      saveUninitialized: false,
+      secret:
+        process.env.ADMIN_SESSION_SECRET ||
+        "stellarion-admin-secret-change-in-production",
+      cookie: {
+        secure: process.env.NODE_ENV === "production",
+        httpOnly: true,
+        maxAge: 24 * 60 * 60 * 1000,
+      },
+    }
+  );
+
+  console.log("✅ AdminJS router built");
+
+  // Mount AdminJS
+  app.use(adminJs.options.rootPath, adminRouter);
+  console.log(`✅ AdminJS mounted at ${adminJs.options.rootPath}`);
+  console.log(
+    `🎨 Access admin panel at: http://localhost:${process.env.PORT || 5000}${
+      adminJs.options.rootPath
+    }`
+  );
+} catch (error) {
+  console.error(
+    "❌ AdminJS initialization failed:",
+    error instanceof Error ? error.message : error
+  );
+  console.log("⚠️  Server will continue without AdminJS UI");
+  console.log("💡 Admin API endpoints still available at /api/admin/*");
+}
 
 // Middleware
 app.use(
@@ -79,6 +168,9 @@ app.use("/api/users", userRoutes);
 app.use("/api/auth", authRoutes);
 app.use("/api/chatbot", chatbotRoutes);
 app.use("/api/user", profileRoutes);
+
+// Admin API (separate from AdminJS panel)
+app.use("/api/admin", adminApiRoutes);
 
 // Application APIs
 app.use("/api/mentor-applications", mentorApplicationRoutes);
@@ -117,9 +209,9 @@ app.use("/api/stargazing-spots", stargazingSpotRoutes);
 app.use("/api/sessions", sessionsRoutes);
 
 // Poll API
-app.use('/api/polls', pollRoutes);
+app.use("/api/polls", pollRoutes);
 // Mentor Recommended Contents
-app.use('/api/mentors/recommended-contents', recommendedContentRoutes);
+app.use("/api/mentors/recommended-contents", recommendedContentRoutes);
 
 // Universal Upload API
 app.use("/api/upload", uploadRoutes);
@@ -132,6 +224,7 @@ app.use("/api/events", eventRoutes);
 
 // Diagnostic API (for debugging - add auth later)
 app.use("/api/diagnostic", diagnosticRoutes);
+app.use("/api/admin", adminApiRoutes);
 
 // Error handling middleware
 app.use(notFound);
