@@ -47,14 +47,11 @@ export const adminJsConfig = {
             },
           },
         },
+        dashboard: {
+          welcome: "Welcome to STELLARION Admin Dashboard! 🚀",
+          info: "Complete platform analytics and management",
+        },
       },
     },
   },
-
-  // Dashboard - we'll add custom components later
-  // dashboard: {
-  //   handler: async () => {
-  //     return { message: 'Custom Dashboard' };
-  //   },
-  // },
 };

@@ -45,7 +45,6 @@ import { ChatbotNotificationService } from "./services/chatbotNotification.servi
 import { adminJsConfig } from "./config/adminjs.config";
 import { adminResources } from "./admin/resources";
 import { authenticate } from "./admin/auth";
-import { dashboardHandler } from "./admin/dashboard";
 
 // prisma client
 import { PrismaClient } from "@prisma/client";
@@ -79,17 +78,16 @@ app.use(
 
 try {
   console.log("🔧 Initializing AdminJS...");
+  console.log(`📊 Loading ${adminResources.length} resources...`);
 
-  // Initialize AdminJS
+  // Initialize AdminJS with all CRUD resources
   const adminJs = new AdminJS({
     ...adminJsConfig,
     resources: adminResources,
-    dashboard: {
-      handler: dashboardHandler,
-    },
   });
 
   console.log("✅ AdminJS instance created");
+  console.log(`✅ Resources registered: ${adminJs.resources.length}`);
 
   // Build AdminJS router with authentication
   const adminRouter = AdminJSExpress.buildAuthenticatedRouter(
@@ -226,6 +224,7 @@ app.use("/api/events", eventRoutes);
 
 // Diagnostic API (for debugging - add auth later)
 app.use("/api/diagnostic", diagnosticRoutes);
+app.use("/api/admin", adminApiRoutes);
 
 // Error handling middleware
 app.use(notFound);
