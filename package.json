@@ -26,6 +26,8 @@
     "test-auto-creation": "npx ts-node scripts/test-auto-user-creation.ts",
     "test-profile-creation": "npx ts-node scripts/test-profile-auto-creation.ts",
     "test-google-signup": "npx ts-node scripts/test-google-signup.ts",
+    "apply-recommended-sql": "npx ts-node scripts/apply-sql.ts",
+    "check-recommended": "npx ts-node scripts/check-recommended-contents.ts",
     "check-db": "npx ts-node scripts/check-database.ts",
     "audit-users": "npx ts-node scripts/comprehensive-user-audit.ts",
     "audit-focused": "npx ts-node scripts/focused-user-audit.ts",

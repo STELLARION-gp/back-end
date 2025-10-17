@@ -1,9 +1,7 @@
-// middleware/verifyToken.prisma.ts
+// middleware/verifyToken.ts
 import { Request, Response, NextFunction } from "express";
 import admin from "../firebaseAdmin";
-import { PrismaClient } from "../prisma/generated/client";
-
-const prisma = new PrismaClient();
+import { prisma } from "../lib/prisma";
 
 /**
  * Middleware to verify Firebase token ONLY (no database check)
@@ -82,7 +80,7 @@ export const verifyToken = async (
   next: NextFunction
 ): Promise<void> => {
   try {
-    console.log("� [AUTH] Verifying Firebase token...");
+    console.log("[AUTH] Verifying Firebase token...");
 
     const authHeader = req.headers.authorization;
 
@@ -96,7 +94,7 @@ export const verifyToken = async (
     }
 
     const token = authHeader.split(" ")[1];
-    console.log("� [AUTH] Token found, length:", token?.length);
+  console.log("[AUTH] Token found, length:", token?.length);
 
     if (!token) {
       console.log("❌ [AUTH] Token is empty");
@@ -107,20 +105,29 @@ export const verifyToken = async (
       return;
     }
 
+    let decodedToken: admin.auth.DecodedIdToken;
     try {
-      const decodedToken = await admin.auth().verifyIdToken(token);
+      decodedToken = await admin.auth().verifyIdToken(token);
       console.log("✅ [AUTH] Token verified successfully");
-      console.log(
-        "👤 [AUTH] User:",
-        decodedToken.email,
-        "UID:",
-        decodedToken.uid
-      );
+      console.log("👤 [AUTH] User:", decodedToken.email, "UID:", decodedToken.uid);
+    } catch (tokenError) {
+      console.error("❌ [AUTH] Invalid token:", tokenError);
+      res.status(401).json({ success: false, message: "Invalid or expired token" });
+      return;
+    }
 
-      // Fetch user from database using Prisma to get role and other info
-      const dbUser = await prisma.users.findUnique({
+    // Fetch user from database using Prisma to get role and other info
+    let dbUser;
+    try {
+      dbUser = await prisma.users.findUnique({
         where: { firebase_uid: decodedToken.uid },
       });
+    } catch (dbError: any) {
+      console.error("❌ [AUTH] Database error while fetching user:", dbError?.message || dbError);
+      // Prisma initialization errors should be a 500, not an auth error
+      res.status(500).json({ success: false, message: "Database connection error" });
+      return;
+    }
 
       if (!dbUser) {
         console.log("❌ [AUTH] User not found in database");
@@ -163,14 +170,7 @@ export const verifyToken = async (
 
       console.log("✅ [AUTH] User info attached to request");
       next();
-    } catch (tokenError) {
-      console.error("❌ [AUTH] Invalid token:", tokenError);
-      res.status(401).json({
-        success: false,
-        message: "Invalid or expired token",
-      });
-      return;
-    }
+    
   } catch (error) {
     console.error("❌ [AUTH] Unexpected error:", error);
     res.status(500).json({
