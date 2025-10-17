@@ -18,6 +18,7 @@ import sessionsRoutes from './routes/sessions.routes';
 import servicesRoutes from './routes/services.routes';
 import bookingRoutes from './routes/booking.routes';
 import pollRoutes from './routes/poll.routes';
+import notificationRoutes from './routes/notification.routes';
 
 // index.ts
 import express from "express";
@@ -132,7 +133,7 @@ app.use("/api/tours", tourMediaRoutes);
 app.use("/api/events", eventRoutes);
 
 // Notifications API
-//app.use("/api/notifications", notificationRoutes);
+app.use("/api/notifications", notificationRoutes);
 
 // Error handling middleware
 app.use(notFound);

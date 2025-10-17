@@ -33,6 +33,9 @@ router.patch('/:id/confirm', bookingController.confirmBooking);
 // Reject a booking (guide rejects)
 router.patch('/:id/reject', bookingController.rejectBooking);
 
+// Complete booking payment
+router.post('/:id/complete-payment', bookingController.completeBookingPayment);
+
 // ============================================================================
 // REVIEW ROUTES
 // ============================================================================

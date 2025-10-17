@@ -2,6 +2,7 @@
 import { Request, Response } from 'express';
 import { PrismaClient } from '../prisma/generated/client';
 import { NotificationService } from '../services/notification.service';
+import { NotificationType, NotificationPriority } from '../types/notification.types';
 
 const prisma = new PrismaClient();
 
@@ -80,7 +81,7 @@ export const createBooking = async (req: Request, res: Response) => {
       });
     }
 
-    // Create booking
+    // Create booking with pending payment status
     const booking = await prisma.service_bookings.create({
       data: {
         user_id: user.id,
@@ -89,9 +90,9 @@ export const createBooking = async (req: Request, res: Response) => {
         booking_time: availability.start_time,
         participants_count: parseInt(participants),
         total_amount: parseFloat(total_price),
-        booking_status: 'confirmed', // In real app, would be 'pending' until payment
-        payment_status: 'completed', // In real app, would integrate with payment gateway
-        confirmed_at: new Date(),
+        booking_status: 'pending', // Will be confirmed after payment
+        payment_status: 'pending', // Waiting for payment
+        payment_method: 'payhere', // Default payment method
       },
       include: {
         service: {
@@ -816,6 +817,106 @@ export const getServiceReviews = async (req: Request, res: Response) => {
     res.status(500).json({ 
       message: 'Failed to fetch reviews', 
       error: (error as Error).message 
+    });
+  }
+};
+
+/**
+ * Complete booking payment
+ * POST /api/bookings/:id/complete-payment
+ */
+export const completeBookingPayment = async (req: Request, res: Response) => {
+  try {
+    const { id } = req.params;
+    const { transaction_id, payment_method = 'payhere' } = req.body;
+    const userId = (req as any).user.uid;
+
+    // Get user
+    const user = await prisma.users.findUnique({
+      where: { firebase_uid: userId },
+    });
+
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+
+    // Get booking
+    const booking = await prisma.service_bookings.findUnique({
+      where: { id: parseInt(id) },
+      include: {
+        service: {
+          include: {
+            creator: true,
+          },
+        },
+      },
+    });
+
+    if (!booking) {
+      return res.status(404).json({ message: 'Booking not found' });
+    }
+
+    // Verify booking belongs to user
+    if (booking.user_id !== user.id) {
+      return res.status(403).json({ message: 'Unauthorized to update this booking' });
+    }
+
+    // Check if already paid
+    if (booking.payment_status === 'completed') {
+      return res.status(400).json({ message: 'Booking payment already completed' });
+    }
+
+    // Update booking with payment completion
+    const updatedBooking = await prisma.service_bookings.update({
+      where: { id: parseInt(id) },
+      data: {
+        payment_status: 'completed',
+        booking_status: 'confirmed',
+        payment_method: payment_method,
+        transaction_id: transaction_id,
+        confirmed_at: new Date(),
+        updated_at: new Date(),
+      },
+    });
+
+    // Send notification to guide about new confirmed booking
+    try {
+      if (booking.service.creator?.firebase_uid) {
+        await NotificationService.createNotification({
+          userId: booking.service.creator.firebase_uid,
+          title: 'New Booking Confirmed',
+          message: `${user.first_name} ${user.last_name} has confirmed a booking for your service "${booking.service.title}". Amount: Rs. ${booking.total_amount.toLocaleString()}`,
+          type: NotificationType.BOOKING,
+          priority: NotificationPriority.HIGH,
+          color: '#10B981',
+          link: '/guide/confirmed-bookings',
+          metadata: {
+            bookingId: booking.id,
+            userId: user.id,
+            serviceId: booking.service_id,
+            amount: booking.total_amount.toString(),
+            paymentMethod: payment_method,
+            transactionId: transaction_id,
+          },
+        });
+        console.log(`Booking confirmation notification sent to guide ${booking.service.creator.firebase_uid}`);
+      }
+    } catch (notifError) {
+      console.error('Error sending booking notification to guide:', notifError);
+      // Don't fail the payment if notification fails
+    }
+
+    res.json({
+      success: true,
+      message: 'Payment completed successfully',
+      data: updatedBooking,
+    });
+  } catch (error) {
+    console.error('Error completing booking payment:', error);
+    res.status(500).json({
+      success: false,
+      message: 'Failed to complete payment',
+      error: (error as Error).message,
     });
   }
 };

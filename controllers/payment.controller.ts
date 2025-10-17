@@ -2,6 +2,8 @@ import { Request, Response } from "express";
 import crypto from "crypto";
 import { PrismaClient } from "../prisma/generated/client";
 import { PaymentStatus } from "../types";
+import { NotificationService } from "../services/notification.service";
+import { NotificationType, NotificationPriority } from "../types/notification.types";
 
 const prisma = new PrismaClient();
 
@@ -828,6 +830,245 @@ export const getBookingPaymentTransactions = async (req: Request, res: Response)
     res.status(500).json({ 
       message: 'Failed to fetch payment transactions', 
       error: (error as Error).message 
+    });
+  }
+};
+
+/**
+ * Get booking payment details for a specific booking
+ * GET /api/payments/booking/:bookingId/details
+ */
+export const getBookingPaymentDetails = async (req: Request, res: Response) => {
+  try {
+    const userId = (req as any).user.uid;
+    const { bookingId } = req.params;
+
+    const user = await prisma.users.findUnique({
+      where: { firebase_uid: userId },
+    });
+
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+
+    // Get booking with payment details
+    const booking = await prisma.service_bookings.findUnique({
+      where: { id: parseInt(bookingId) },
+      include: {
+        user: {
+          select: {
+            id: true,
+            email: true,
+            first_name: true,
+            last_name: true,
+            profile_data: true,
+          },
+        },
+        service: {
+          select: {
+            id: true,
+            title: true,
+            description: true,
+            created_by: true,
+          },
+        },
+      },
+    });
+
+    if (!booking) {
+      return res.status(404).json({ 
+        success: false,
+        message: 'Booking not found' 
+      });
+    }
+
+    // Verify the guide owns this service
+    if (booking.service.created_by !== user.id) {
+      return res.status(403).json({ 
+        success: false,
+        message: 'Unauthorized to view this booking payment' 
+      });
+    }
+
+    const paymentDetails = {
+      bookingId: booking.id,
+      orderId: `BOOK-${booking.id}`,
+      amount: parseFloat(booking.total_amount.toString()),
+      currency: 'LKR',
+      paymentStatus: booking.payment_status,
+      paymentMethod: booking.payment_method || 'payhere',
+      transactionId: booking.transaction_id,
+      customer: {
+        id: booking.user.id,
+        name: `${booking.user.first_name || ''} ${booking.user.last_name || ''}`.trim(),
+        email: booking.user.email,
+        phone: (booking.user.profile_data as any)?.phone,
+      },
+      service: {
+        id: booking.service.id,
+        title: booking.service.title,
+        description: booking.service.description,
+      },
+      bookingDetails: {
+        date: booking.booking_date,
+        time: booking.booking_time,
+        participants: booking.participants_count,
+        specialRequests: booking.special_requests,
+      },
+      canRefund: booking.payment_status === 'completed',
+      createdAt: booking.created_at,
+      updatedAt: booking.updated_at,
+    };
+
+    res.json({
+      success: true,
+      data: paymentDetails,
+    });
+  } catch (error) {
+    console.error('Error fetching booking payment details:', error);
+    res.status(500).json({
+      success: false,
+      message: 'Failed to fetch payment details',
+    });
+  }
+};
+
+/**
+ * Process refund for a booking
+ * POST /api/payments/booking/:bookingId/refund
+ */
+export const processBookingRefund = async (req: Request, res: Response) => {
+  try {
+    const userId = (req as any).user.uid;
+    const { bookingId } = req.params;
+    const { amount, reason, refundType = 'full' } = req.body;
+
+    const user = await prisma.users.findUnique({
+      where: { firebase_uid: userId },
+    });
+
+    if (!user) {
+      return res.status(404).json({ 
+        success: false,
+        message: 'User not found' 
+      });
+    }
+
+    // Get booking details
+    const booking = await prisma.service_bookings.findUnique({
+      where: { id: parseInt(bookingId) },
+      include: {
+        service: {
+          select: {
+            created_by: true,
+            title: true,
+          },
+        },
+        user: {
+          select: {
+            email: true,
+            first_name: true,
+            last_name: true,
+          },
+        },
+      },
+    });
+
+    if (!booking) {
+      return res.status(404).json({ 
+        success: false,
+        message: 'Booking not found' 
+      });
+    }
+
+    // Verify the guide owns this service
+    if (booking.service.created_by !== user.id) {
+      return res.status(403).json({ 
+        success: false,
+        message: 'Unauthorized to refund this booking' 
+      });
+    }
+
+    // Check if booking payment is completed or if it's already being refunded
+    if (booking.payment_status !== 'completed') {
+      return res.status(400).json({ 
+        success: false,
+        message: 'Cannot refund a booking that is not completed or is already refunded' 
+      });
+    }
+
+    // Validate refund amount
+    const maxRefundAmount = parseFloat(booking.total_amount.toString());
+    const refundAmount = amount ? parseFloat(amount) : maxRefundAmount;
+
+    if (refundAmount > maxRefundAmount) {
+      return res.status(400).json({ 
+        success: false,
+        message: `Refund amount cannot exceed ${maxRefundAmount}` 
+      });
+    }
+
+    // Update booking payment status to refunded
+    await prisma.service_bookings.update({
+      where: { id: booking.id },
+      data: {
+        payment_status: 'refunded',
+        updated_at: new Date(),
+      },
+    });
+
+    // In a real application, you would integrate with the payment gateway here
+    // TODO: Integrate with PayHere refund API
+    
+    console.log(`Refund initiated for booking ${bookingId}, amount: ${refundAmount}`);
+
+    // Get learner's Firebase UID
+    const learner = await prisma.users.findUnique({
+      where: { id: booking.user_id },
+      select: { firebase_uid: true, first_name: true, last_name: true },
+    });
+
+    // Send notification to learner about refund
+    if (learner?.firebase_uid) {
+      try {
+        await NotificationService.createNotification({
+          userId: learner.firebase_uid,
+          title: 'Refund Processed',
+          message: `Your booking for "${booking.service.title}" has been refunded. Amount: Rs. ${refundAmount.toLocaleString()}. Reason: ${reason || 'No reason provided'}`,
+          type: NotificationType.PAYMENT,
+          priority: NotificationPriority.HIGH,
+          color: '#10B981',
+          link: '/learner/bookings',
+          metadata: {
+            bookingId: booking.id,
+            amount: refundAmount,
+            reason: reason || 'Guide initiated refund',
+            serviceTitle: booking.service.title,
+            refundType,
+          },
+        });
+        console.log(`Refund notification sent to user ${learner.firebase_uid}`);
+      } catch (notifError) {
+        console.error('Error sending refund notification:', notifError);
+        // Don't fail the refund if notification fails
+      }
+    }
+
+    res.json({
+      success: true,
+      message: 'Refund processed successfully',
+      data: {
+        bookingId: booking.id,
+        amount: refundAmount,
+        status: 'refunded',
+        processedAt: new Date(),
+      },
+    });
+  } catch (error) {
+    console.error('Error processing refund:', error);
+    res.status(500).json({
+      success: false,
+      message: 'Failed to process refund',
     });
   }
 };

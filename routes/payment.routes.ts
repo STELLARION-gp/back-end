@@ -7,6 +7,8 @@ import {
   generateTestHash,
   getBookingPaymentStats,
   getBookingPaymentTransactions,
+  getBookingPaymentDetails,
+  processBookingRefund,
 } from "../controllers/payment.controller";
 import { verifyToken } from "../middleware/verifyToken";
 
@@ -30,5 +32,9 @@ router.get("/user/:user_id/history", getUserPaymentHistory);
 // Booking payment statistics for guides
 router.get("/booking-stats", getBookingPaymentStats);
 router.get("/booking-transactions", getBookingPaymentTransactions);
+
+// Booking payment details and refunds
+router.get("/booking/:bookingId/details", getBookingPaymentDetails);
+router.post("/booking/:bookingId/refund", processBookingRefund);
 
 export default router;
