@@ -13,8 +13,13 @@ const prisma = new PrismaClient();
 export const submitMenteeApplication = async (req: Request, res: Response) => {
     try {
         const { mentorId, interest } = req.body;
-        const learnerId = req.body.user?.id;
+        const learnerId = (req as any).user?.userId || (req as any).user?.user_id;
         const files = req.files as Express.Multer.File[];
+
+        console.log('📝 [MENTEE APP] Submit application request');
+        console.log('  - Learner ID:', learnerId);
+        console.log('  - Mentor ID:', mentorId);
+        console.log('  - Files count:', files?.length || 0);
 
         // Validation
         if (!learnerId) {
@@ -73,24 +78,20 @@ export const submitMenteeApplication = async (req: Request, res: Response) => {
             return;
         }
 
-        // Upload documents to Google Drive if provided
+        // Handle document uploads - using local storage
         let documentsData = null;
-        if (files && files.length > 0 && googleDriveService.isConfigured()) {
-            try {
-                const uploadedFiles = await googleDriveService.uploadMultipleFiles(files);
-                documentsData = uploadedFiles;
-
-                // Clean up local files after upload
-                files.forEach(file => {
-                    if (fs.existsSync(file.path)) {
-                        fs.unlinkSync(file.path);
-                    }
-                });
-            } catch (uploadError: any) {
-                console.error('Error uploading files to Google Drive:', uploadError);
-                // Continue without documents if upload fails
-                documentsData = null;
-            }
+        if (files && files.length > 0) {
+            console.log('� Storing files locally in tmp-uploads/');
+            // Store files locally
+            documentsData = files.map(file => ({
+                fileName: file.filename,
+                originalName: file.originalname,
+                localPath: file.path,
+                size: file.size,
+                mimeType: file.mimetype,
+                storageType: 'local'
+            }));
+            console.log(`✅ Stored ${files.length} file(s) locally`);
         }
 
         // Create the application
@@ -143,7 +144,7 @@ export const submitMenteeApplication = async (req: Request, res: Response) => {
  */
 export const getMentorApplications = async (req: Request, res: Response) => {
     try {
-        const mentorId = req.body.user?.id;
+        const mentorId = (req as any).user?.userId || (req as any).user?.user_id;
 
         if (!mentorId) {
             res.status(401).json({ 
@@ -192,7 +193,7 @@ export const getMentorApplications = async (req: Request, res: Response) => {
  */
 export const getLearnerApplications = async (req: Request, res: Response) => {
     try {
-        const learnerId = req.body.user?.id;
+        const learnerId = (req as any).user?.userId || (req as any).user?.user_id;
 
         if (!learnerId) {
             res.status(401).json({ 
@@ -242,7 +243,7 @@ export const getLearnerApplications = async (req: Request, res: Response) => {
 export const getApplicationById = async (req: Request, res: Response) => {
     try {
         const { id } = req.params;
-        const userId = req.body.user?.id;
+        const userId = (req as any).user?.userId || (req as any).user?.user_id;
 
         if (!userId) {
             res.status(401).json({ 
@@ -317,7 +318,7 @@ export const updateApplicationStatus = async (req: Request, res: Response) => {
     try {
         const { id } = req.params;
         const { status, reviewNotes } = req.body;
-        const mentorId = req.body.user?.id;
+        const mentorId = (req as any).user?.userId || (req as any).user?.user_id;
 
         if (!mentorId) {
             res.status(401).json({ 
@@ -404,7 +405,7 @@ export const updateApplicationStatus = async (req: Request, res: Response) => {
 export const deleteApplication = async (req: Request, res: Response) => {
     try {
         const { id } = req.params;
-        const userId = req.body.user?.id;
+        const userId = (req as any).user?.userId || (req as any).user?.user_id;
 
         if (!userId) {
             res.status(401).json({ 
@@ -438,19 +439,23 @@ export const deleteApplication = async (req: Request, res: Response) => {
             return;
         }
 
-        // Delete documents from Google Drive if they exist
-        if (application.documents && googleDriveService.isConfigured()) {
+        // Delete local documents if they exist
+        if (application.documents) {
             try {
                 const docs = application.documents as any;
                 if (Array.isArray(docs)) {
                     for (const doc of docs) {
-                        if (doc.fileId) {
-                            await googleDriveService.deleteFile(doc.fileId);
+                        // Delete local files
+                        if (doc.storageType === 'local' && doc.localPath) {
+                            if (fs.existsSync(doc.localPath)) {
+                                fs.unlinkSync(doc.localPath);
+                                console.log('🗑️ Deleted local file:', doc.localPath);
+                            }
                         }
                     }
                 }
             } catch (deleteError) {
-                console.error('Error deleting documents from Google Drive:', deleteError);
+                console.error('Error deleting local documents:', deleteError);
                 // Continue with application deletion even if file deletion fails
             }
         }

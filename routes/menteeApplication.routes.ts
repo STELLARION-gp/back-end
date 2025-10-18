@@ -2,6 +2,7 @@
 import { Router } from 'express';
 import multer from 'multer';
 import path from 'path';
+import * as fs from 'fs';
 import {
     submitMenteeApplication,
     getMentorApplications,
@@ -56,6 +57,18 @@ router.get('/mentor/received', verifyToken, getMentorApplications);
 
 // Get all applications submitted by a learner (for learners to track their applications)
 router.get('/learner/submitted', verifyToken, getLearnerApplications);
+
+// Download a locally stored document
+router.get('/documents/:filename', verifyToken, (req, res) => {
+    const filename = req.params.filename;
+    const filePath = path.join('tmp-uploads', filename);
+    
+    if (fs.existsSync(filePath)) {
+        res.download(filePath);
+    } else {
+        res.status(404).json({ success: false, error: 'File not found' });
+    }
+});
 
 // Get a specific application by ID
 router.get('/:id', verifyToken, getApplicationById);

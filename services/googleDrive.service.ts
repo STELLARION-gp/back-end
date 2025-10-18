@@ -24,27 +24,12 @@ class GoogleDriveService {
   constructor() {
     this.folderId = process.env.GOOGLE_DRIVE_FOLDER_ID || '';
     
-    try {
-      // Load credentials from the JSON file
-      const credentialsPath = path.join(__dirname, '..', 'google-drive-credentials.json');
-      
-      if (!fs.existsSync(credentialsPath)) {
-        console.warn('Google Drive credentials file not found. Document upload will be disabled.');
-        console.warn('Please follow the setup instructions in googleDrive.service.ts');
-        return;
-      }
-
-      const credentials = JSON.parse(fs.readFileSync(credentialsPath, 'utf-8'));
-
-      const auth = new google.auth.GoogleAuth({
-        credentials,
-        scopes: ['https://www.googleapis.com/auth/drive.file'],
-      });
-
-      this.drive = google.drive({ version: 'v3', auth });
-    } catch (error) {
-      console.error('Error initializing Google Drive service:', error);
-    }
+    // Google Drive is disabled - using local storage instead
+    console.log('� [STORAGE] Using local file storage (Google Drive disabled)');
+    console.log('� [STORAGE] Files will be stored in: tmp-uploads/');
+    
+    // Don't initialize Google Drive
+    this.drive = null;
   }
 
   /**
@@ -65,31 +50,74 @@ class GoogleDriveService {
         parents: this.folderId ? [this.folderId] : [],
       };
 
-      const media = {
-        mimeType: mimeType,
-        body: fs.createReadStream(file.path),
-      };
-
-      const response = await this.drive.files.create({
-        requestBody: fileMetadata,
-        media: media,
-        fields: 'id, name, webViewLink, webContentLink',
-      });
+      // Try with supportsAllDrives first (for Shared Drives)
+      // If that fails, try without it (for regular folders shared with service account)
+      let response;
+      try {
+        const media = {
+          mimeType: mimeType,
+          body: fs.createReadStream(file.path), // Create fresh stream
+        };
+        
+        response = await this.drive.files.create({
+          requestBody: fileMetadata,
+          media: media,
+          fields: 'id, name, webViewLink, webContentLink',
+          supportsAllDrives: true, // For Shared Drives
+        });
+      } catch (error: any) {
+        console.log('⚠️ Shared Drive upload failed, trying regular folder...');
+        
+        // Create a NEW stream for the second attempt
+        const media = {
+          mimeType: mimeType,
+          body: fs.createReadStream(file.path), // Fresh stream!
+        };
+        
+        response = await this.drive.files.create({
+          requestBody: fileMetadata,
+          media: media,
+          fields: 'id, name, webViewLink, webContentLink',
+          // No supportsAllDrives for regular folders
+        });
+      }
 
       // Set file permissions to allow anyone with link to view
-      await this.drive.permissions.create({
-        fileId: response.data.id,
-        requestBody: {
-          role: 'reader',
-          type: 'anyone',
-        },
-      });
+      try {
+        await this.drive.permissions.create({
+          fileId: response.data.id,
+          requestBody: {
+            role: 'reader',
+            type: 'anyone',
+          },
+          supportsAllDrives: true, // For Shared Drives
+        });
+      } catch (error) {
+        // Fallback for regular folders
+        await this.drive.permissions.create({
+          fileId: response.data.id,
+          requestBody: {
+            role: 'reader',
+            type: 'anyone',
+          },
+        });
+      }
 
       // Get the updated file with permissions
-      const file_data = await this.drive.files.get({
-        fileId: response.data.id,
-        fields: 'id, name, webViewLink, webContentLink',
-      });
+      let file_data;
+      try {
+        file_data = await this.drive.files.get({
+          fileId: response.data.id,
+          fields: 'id, name, webViewLink, webContentLink',
+          supportsAllDrives: true, // For Shared Drives
+        });
+      } catch (error) {
+        // Fallback for regular folders
+        file_data = await this.drive.files.get({
+          fileId: response.data.id,
+          fields: 'id, name, webViewLink, webContentLink',
+        });
+      }
 
       return {
         fileId: file_data.data.id,
@@ -132,6 +160,7 @@ class GoogleDriveService {
     try {
       await this.drive.files.delete({
         fileId: fileId,
+        supportsAllDrives: true, // Required for Shared Drives
       });
       return { success: true, message: 'File deleted successfully' };
     } catch (error: any) {
@@ -153,6 +182,7 @@ class GoogleDriveService {
       const response = await this.drive.files.get({
         fileId: fileId,
         fields: 'id, name, mimeType, size, createdTime, webViewLink, webContentLink',
+        supportsAllDrives: true, // Required for Shared Drives
       });
 
       return response.data;
