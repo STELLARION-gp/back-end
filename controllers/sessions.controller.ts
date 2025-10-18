@@ -1280,3 +1280,205 @@ export const getPendingSessions = async (req: Request, res: Response): Promise<v
     message: "Pending sessions feature requires database migration. Please run: ALTER TABLE sessions ADD COLUMN status session_status DEFAULT 'pending';"
   });
 };
+
+/**
+ * Enroll in a paid session with payment
+ * @route POST /api/sessions/:sessionId/enroll/paid
+ * @access Private (Authenticated users)
+ */
+export const enrollInPaidSession = async (req: Request, res: Response): Promise<void> => {
+  try {
+    const sessionId = parseInt(req.params.sessionId);
+    const userId = (req as any).user?.userId;
+    const { payment_details } = req.body;
+
+    if (!userId) {
+      res.status(401).json({
+        success: false,
+        message: 'Authentication required'
+      });
+      return;
+    }
+
+    if (!payment_details || !payment_details.card_number || !payment_details.card_holder) {
+      res.status(400).json({
+        success: false,
+        message: 'Payment details are required'
+      });
+      return;
+    }
+
+    // Check if session exists and is paid
+    const session = await prisma.sessions.findUnique({
+      where: { id: sessionId }
+    });
+
+    if (!session) {
+      res.status(404).json({
+        success: false,
+        message: 'Session not found'
+      });
+      return;
+    }
+
+    if (!session.is_enabled) {
+      res.status(400).json({
+        success: false,
+        message: 'Session is not available for enrollment'
+      });
+      return;
+    }
+
+    if (session.payment_type !== 'paid') {
+      res.status(400).json({
+        success: false,
+        message: 'This session is free. Use the free enrollment endpoint instead.'
+      });
+      return;
+    }
+
+    // Check if already enrolled
+    const existingEnrollment = await prisma.session_enrollments.findFirst({
+      where: {
+        session_id: sessionId,
+        user_id: userId
+      }
+    });
+
+    if (existingEnrollment) {
+      res.status(400).json({
+        success: false,
+        message: 'You are already enrolled in this session'
+      });
+      return;
+    }
+
+    // Create enrollment with completed payment status
+    const enrollment = await prisma.session_enrollments.create({
+      data: {
+        session_id: sessionId,
+        user_id: userId,
+        payment_status: 'completed', // Mark payment as completed
+        enrollment_date: new Date(),
+        payment_amount: session.price,
+        payment_method: 'card',
+        access_granted: true
+      }
+    });
+
+    res.status(201).json({
+      success: true,
+      data: {
+        enrollment_id: enrollment.id,
+        session_id: sessionId,
+        payment_status: 'completed',
+        enrollment_date: enrollment.enrollment_date
+      },
+      message: 'Successfully enrolled in session. Payment completed.'
+    });
+
+  } catch (error: any) {
+    console.error('Enroll in paid session error:', error);
+    res.status(500).json({
+      success: false,
+      message: 'Failed to enroll in session',
+      error: process.env.NODE_ENV === 'development' ? error.message : undefined
+    });
+  }
+};
+
+/**
+ * Enroll in a free session
+ * @route POST /api/sessions/:sessionId/enroll/free
+ * @access Private (Authenticated users)
+ */
+export const enrollInFreeSession = async (req: Request, res: Response): Promise<void> => {
+  try {
+    const sessionId = parseInt(req.params.sessionId);
+    const userId = (req as any).user?.userId;
+
+    if (!userId) {
+      res.status(401).json({
+        success: false,
+        message: 'Authentication required'
+      });
+      return;
+    }
+
+    // Check if session exists and is free
+    const session = await prisma.sessions.findUnique({
+      where: { id: sessionId }
+    });
+
+    if (!session) {
+      res.status(404).json({
+        success: false,
+        message: 'Session not found'
+      });
+      return;
+    }
+
+    if (!session.is_enabled) {
+      res.status(400).json({
+        success: false,
+        message: 'Session is not available for enrollment'
+      });
+      return;
+    }
+
+    if (session.payment_type !== 'free') {
+      res.status(400).json({
+        success: false,
+        message: 'This session requires payment. Use the paid enrollment endpoint instead.'
+      });
+      return;
+    }
+
+    // Check if already enrolled
+    const existingEnrollment = await prisma.session_enrollments.findFirst({
+      where: {
+        session_id: sessionId,
+        user_id: userId
+      }
+    });
+
+    if (existingEnrollment) {
+      res.status(400).json({
+        success: false,
+        message: 'You are already enrolled in this session'
+      });
+      return;
+    }
+
+    // Create enrollment for free session
+    const enrollment = await prisma.session_enrollments.create({
+      data: {
+        session_id: sessionId,
+        user_id: userId,
+        payment_status: 'free_access',
+        enrollment_date: new Date(),
+        payment_amount: 0,
+        access_granted: true
+      }
+    });
+
+    res.status(201).json({
+      success: true,
+      data: {
+        enrollment_id: enrollment.id,
+        session_id: sessionId,
+        payment_status: 'free_access',
+        enrollment_date: enrollment.enrollment_date
+      },
+      message: 'Successfully enrolled in free session.'
+    });
+
+  } catch (error: any) {
+    console.error('Enroll in free session error:', error);
+    res.status(500).json({
+      success: false,
+      message: 'Failed to enroll in session',
+      error: process.env.NODE_ENV === 'development' ? error.message : undefined
+    });
+  }
+};

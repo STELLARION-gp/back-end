@@ -14,7 +14,9 @@ import {
     getMySessionsAnalytics,
     approveSession,
     rejectSession,
-    getPendingSessions
+    getPendingSessions,
+    enrollInPaidSession,
+    enrollInFreeSession
 } from '../controllers/sessions.controller';
 import { verifyToken } from '../middleware/verifyToken';
 
@@ -34,6 +36,8 @@ router.get('/', getAllSessions);              // Get all enabled sessions with f
 // Dynamic routes - MUST BE AFTER specific routes
 router.get('/:id', getSessionById);            // Get a single session by ID
 router.get('/:sessionId/my-enrollment', verifyToken, getMyEnrollmentForSession);      // Check enrollment status for a session
+router.post('/:sessionId/enroll/paid', verifyToken, enrollInPaidSession);             // Enroll in paid session with payment
+router.post('/:sessionId/enroll/free', verifyToken, enrollInFreeSession);             // Enroll in free session
 router.put('/:id', verifyToken, editSession);                                // Edit/Update a session
 router.patch('/:id/toggle', verifyToken, toggleSessionStatus);               // Enable/Disable a session
 router.patch('/:id/approve', verifyToken, approveSession);                   // Approve a session
