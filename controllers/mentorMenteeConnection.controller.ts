@@ -149,7 +149,13 @@ export const saveNote = async (req: Request, res: Response) => {
             });
         }
 
-        // Create note
+        // Only mentor may create notes for the connection
+        if (application.mentor_id !== userId) {
+            res.status(403).json({ success: false, error: 'Only the mentor may create notes for this connection.' });
+            return;
+        }
+
+        // Create note (mentor is creator)
         const note = await prisma.mentor_mentee_notes.create({
             data: {
                 connection_id: connection.connection_id,
@@ -279,29 +285,56 @@ export const updateNote = async (req: Request, res: Response) => {
             return;
         }
 
-        if (note.created_by !== userId) {
-            res.status(403).json({ 
-                success: false, 
-                error: 'You can only edit your own notes.' 
+
+        // Determine user's role relative to the connection
+        const connection = await prisma.mentor_mentee_connections.findUnique({ where: { connection_id: note.connection_id } });
+        const application = connection ? await prisma.mentee_applications.findUnique({ where: { application_id: connection.application_id } }) : null;
+
+        const isCreator = note.created_by === userId;
+        const isMentee = application && application.learner_id === userId;
+        const isMentor = application && application.mentor_id === userId;
+
+        // Mentee may only toggle pin/unpin (isPinned). Mentor (creator) may edit fully.
+        if (isCreator) {
+            const updatedNote = await prisma.mentor_mentee_notes.update({
+                where: { note_id: parseInt(noteId) },
+                data: {
+                    title,
+                    content,
+                    tags,
+                    is_pinned: isPinned,
+                    updated_at: new Date()
+                }
             });
+
+            res.status(200).json({ success: true, data: updatedNote });
             return;
         }
 
-        const updatedNote = await prisma.mentor_mentee_notes.update({
-            where: { note_id: parseInt(noteId) },
-            data: {
-                title,
-                content,
-                tags,
-                is_pinned: isPinned,
-                updated_at: new Date()
+        // If user is the mentee, allow only pin/unpin
+        if (isMentee) {
+            // Only allow updates that only change isPinned
+            const hasOtherFields = title !== undefined || content !== undefined || tags !== undefined;
+            if (hasOtherFields) {
+                res.status(403).json({ success: false, error: 'Mentees may only pin or unpin notes.' });
+                return;
             }
-        });
 
-        res.status(200).json({
-            success: true,
-            data: updatedNote
-        });
+            const updatedNote = await prisma.mentor_mentee_notes.update({
+                where: { note_id: parseInt(noteId) },
+                data: {
+                    is_pinned: isPinned,
+                    updated_at: new Date()
+                }
+            });
+
+            res.status(200).json({ success: true, data: updatedNote });
+            return;
+        }
+
+        // Otherwise deny
+        res.status(403).json({ success: false, error: 'You are not authorized to update this note.' });
+        return;
     } catch (error: any) {
         console.error('Error updating note:', error);
         res.status(500).json({ 
@@ -339,10 +372,17 @@ export const deleteNote = async (req: Request, res: Response) => {
             return;
         }
 
-        if (note.created_by !== userId) {
+        // Allow deletion if the requester is the creator OR the mentee on the connection
+        const connection = await prisma.mentor_mentee_connections.findUnique({ where: { connection_id: note.connection_id } });
+        const application = connection ? await prisma.mentee_applications.findUnique({ where: { application_id: connection.application_id } }) : null;
+
+        const isCreator = note.created_by === userId;
+        const isMentee = application && application.learner_id === userId;
+
+        if (!isCreator && !isMentee) {
             res.status(403).json({ 
                 success: false, 
-                error: 'You can only delete your own notes.' 
+                error: 'You are not authorized to delete this note.' 
             });
             return;
         }
