@@ -640,8 +640,9 @@ export const getAllPolls = async (req: Request, res: Response): Promise<void> =>
       where.is_active = is_active === 'true';
     }
     
-    // Only show approved polls for public endpoint
-    where.status = 'approved';
+    // Only show open polls for public endpoint (based on your schema, status default is "open")
+    // If you want to show all public polls, remove this line
+    where.status = 'open';
 
     // Build order by clause
     const orderBy: any = {};
@@ -1120,14 +1121,6 @@ export const getMyPolls = async (req: Request, res: Response): Promise<void> => 
             display_name: true
           }
         },
-        moderator: {
-          select: {
-            id: true,
-            first_name: true,
-            last_name: true,
-            display_name: true
-          }
-        },
         poll_choices: {
           orderBy: {
             choice: 'asc'
@@ -1143,7 +1136,7 @@ export const getMyPolls = async (req: Request, res: Response): Promise<void> => 
 
     // Format response with voting statistics
     const formattedPolls = polls.map(poll => {
-      const totalVotes = poll.poll_choices.reduce((sum, choice) => sum + choice.vote_count, 0) || 1;
+      const totalVotes = poll.poll_choices.reduce((sum, choice) => sum + choice.vote_count, 0);
       
       return {
         id: poll.id,
@@ -1151,18 +1144,15 @@ export const getMyPolls = async (req: Request, res: Response): Promise<void> => 
         description: poll.description,
         is_active: poll.is_active,
         status: poll.status,
-        moderated_by: poll.moderated_by,
-        moderated_at: poll.moderated_at,
         created_at: poll.created_at,
         updated_at: poll.updated_at,
         creator: poll.creator,
-        moderator: poll.moderator,
         choices: poll.poll_choices.map(choice => ({
           choice: choice.choice,
           vote_count: choice.vote_count,
           percentage: totalVotes > 0 ? Math.round((choice.vote_count / totalVotes) * 100 * 10) / 10 : 0
         })),
-        total_votes: poll.poll_choices.reduce((sum, choice) => sum + choice.vote_count, 0),
+        total_votes: totalVotes,
         comment_count: poll._count.poll_comments,
         user_vote: null // User is the creator, so they don't vote
       };
