@@ -87,3 +87,4 @@ src/generated/prisma/
 **/prisma/generated/
 **/prisma/client/
 **/.prisma/
+google-drive-credentials.json
