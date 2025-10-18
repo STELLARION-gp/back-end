@@ -1,7 +1,7 @@
 generator client {
   provider      = "prisma-client-js"
   output        = "./generated/client"
-  binaryTargets = ["native", "darwin-arm64", "windows"]
+  binaryTargets = ["native", "darwin-arm64", "windows", "linux-musl"]
 }
 
 datasource db {
@@ -256,6 +256,7 @@ model users {
   stargazing_spot_reviews                                                                      stargazing_spot_reviews[]              @relation("StargazingSpotReviews")
   created_stargazing_spots                                                                     stargazing_spots[]                     @relation("StargazingSpotCreator")
   stargazing_spots_stargazing_spots_moderated_byTousers                                        stargazing_spots[]                     @relation("stargazing_spots_moderated_byTousers")
+  moderated_stargazing_spots                                                                   stargazing_spots[]                     @relation("StargazingSpotModerator")
   subscriptions                                                                                subscriptions[]
   user_settings                                                                                user_settings?
 
@@ -1080,24 +1081,25 @@ model stargazing_spot_reviews {
 }
 
 model stargazing_spots {
-  id                                         Int                       @id @default(autoincrement())
-  name                                       String                    @db.VarChar(255)
-  location                                   String                    @db.VarChar(255)
-  image_url                                  String?                   @db.VarChar(500)
-  rating                                     Float                     @default(0)
-  best_time                                  String?                   @db.VarChar(100)
-  description                                String
-  facilities                                 Json                      @default("[]")
-  created_by                                 Int
-  is_active                                  Boolean                   @default(true)
-  created_at                                 DateTime                  @default(now()) @db.Timestamp(6)
-  updated_at                                 DateTime                  @default(now()) @db.Timestamp(6)
-  image_urls                                 String[]                  @default([])
-  status                                     String?                   @default("pending") @db.VarChar(50)
-  moderated_by                               Int?
-  moderated_at                               DateTime?                 @db.Timestamp(6)
-  stargazing_spot_reviews                    stargazing_spot_reviews[]
-  creator                                    users                     @relation("StargazingSpotCreator", fields: [created_by], references: [id], onDelete: Cascade)
+  id                      Int                       @id @default(autoincrement())
+  name                    String                    @db.VarChar(255)
+  location                String                    @db.VarChar(255)
+  image_url               String?                   @db.VarChar(500)
+  image_urls              String[]                  @default([])
+  rating                  Float                     @default(0)
+  best_time               String?                   @db.VarChar(100)
+  description             String
+  facilities              Json                      @default("[]")
+  created_by              Int
+  is_active               Boolean                   @default(true)
+  status                  String                    @default("pending") @db.VarChar(50)
+  moderated_by            Int?
+  moderated_at            DateTime?                 @db.Timestamp(6)
+  created_at              DateTime                  @default(now()) @db.Timestamp(6)
+  updated_at              DateTime                  @default(now()) @db.Timestamp(6)
+  stargazing_spot_reviews stargazing_spot_reviews[]
+  creator                 users                     @relation("StargazingSpotCreator", fields: [created_by], references: [id], onDelete: Cascade)
+  moderator               users?                    @relation("StargazingSpotModerator", fields: [moderated_by], references: [id])
   users_stargazing_spots_moderated_byTousers users?                    @relation("stargazing_spots_moderated_byTousers", fields: [moderated_by], references: [id], onDelete: NoAction, onUpdate: NoAction)
 
   @@index([is_active], map: "idx_stargazing_spots_active")

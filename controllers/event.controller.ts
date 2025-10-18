@@ -2,8 +2,38 @@ import { Request, Response } from 'express';
 import { PrismaClient } from '../prisma/generated/client';
 import path from 'path';
 import fs from 'fs';
+import cloudinary from '../config/cloudinary';
 
 const prisma = new PrismaClient();
+
+// Helper function to upload image to Cloudinary
+async function uploadEventImageToCloudinary(file: Express.Multer.File, eventId?: string): Promise<string> {
+    return new Promise((resolve, reject) => {
+        console.log('[event-image-upload] Starting upload to Cloudinary...');
+        const stream: any = cloudinary.uploader.upload_stream(
+            {
+                folder: 'events',
+                resource_type: 'image',
+                public_id: eventId ? `event_${eventId}_${Date.now()}` : `event_${Date.now()}`,
+                transformation: [
+                    { width: 1920, height: 1080, crop: 'limit' }, // Larger for event banners
+                    { quality: 'auto' },
+                    { fetch_format: 'auto' }
+                ]
+            },
+            (error, result) => {
+                if (error) {
+                    console.error('[event-image-upload] Upload failed:', error);
+                    reject(error);
+                    return;
+                }
+                console.log('[event-image-upload] Upload successful:', result.secure_url);
+                resolve(result.secure_url);
+            }
+        );
+        stream.end(file.buffer);
+    });
+}
 
 // Image upload can be toggled off via ENV flag (EVENTS_IMAGE_UPLOAD_ENABLED=false)
 const IMAGES_ENABLED = process.env.EVENTS_IMAGE_UPLOAD_ENABLED !== 'false';
@@ -43,13 +73,36 @@ function validatePayload(body: any) {
 
 export const createEvent = async (req: Request, res: Response) => {
   try {
-  console.log('[events][create] incoming body:', JSON.stringify(req.body));
+    console.log('[events][create] incoming body:', JSON.stringify(req.body));
+    console.log('[events][create] Files received:', req.files ? (req.files as any).length : 0);
+    
     const errors = validatePayload(req.body);
     if (errors.length) return res.status(400).json({ success:false, message: errors.join('; ') });
-  const files = IMAGES_ENABLED ? ((req as any).files as Express.Multer.File[] || []) : [];
-  const filePaths = IMAGES_ENABLED ? files.map(f => '/public/uploads/' + path.basename(f.path)) : [];
+    
+    // Handle multiple image uploads with Cloudinary
+    const files = req.files as Express.Multer.File[] || [];
+    let uploadedImageUrls: string[] = [];
+    
+    if (files && files.length > 0) {
+      console.log('[events][create] Uploading', files.length, 'images to Cloudinary...');
+      try {
+        // Upload all images to Cloudinary in parallel
+        const uploadPromises = files.map(file => uploadEventImageToCloudinary(file));
+        uploadedImageUrls = await Promise.all(uploadPromises);
+        console.log('[events][create] All images uploaded successfully:', uploadedImageUrls);
+      } catch (uploadError: any) {
+        console.error('[events][create] Image upload failed:', uploadError);
+        return res.status(500).json({
+          success: false,
+          message: "Failed to upload images to cloud storage",
+          error: uploadError.message
+        });
+      }
+    }
+    
+    // Merge with any pre-uploaded image URLs from frontend
     const image_urls = req.body.image_urls ? (Array.isArray(req.body.image_urls) ? req.body.image_urls : [req.body.image_urls]) : [];
-    const allImages = [...image_urls, ...filePaths];
+    const allImages = [...image_urls, ...uploadedImageUrls];
 
     const authUser = (req as any).user;
     const authUserId = authUser?.userId || authUser?.id; // stay compatible with existing verifyToken
@@ -216,15 +269,41 @@ export const getEvent = async (req: Request, res: Response) => {
 
 export const updateEvent = async (req: Request, res: Response) => {
   try {
+    console.log('[events][update] Request for event ID:', req.params.id);
+    console.log('[events][update] Files received:', req.files ? (req.files as any).length : 0);
+    
     const id = Number(req.params.id);
-  const files = IMAGES_ENABLED ? ((req as any).files as Express.Multer.File[] || []) : [];
-  const addPaths = IMAGES_ENABLED ? files.map(f => '/public/uploads/' + path.basename(f.path)) : [];
+    
+    // Handle new image uploads
+    const files = req.files as Express.Multer.File[] || [];
+    let uploadedImageUrls: string[] = [];
+    
+    if (files && files.length > 0) {
+      console.log('[events][update] Uploading', files.length, 'images to Cloudinary...');
+      try {
+        const uploadPromises = files.map(file => uploadEventImageToCloudinary(file, id.toString()));
+        uploadedImageUrls = await Promise.all(uploadPromises);
+        console.log('[events][update] All images uploaded successfully:', uploadedImageUrls);
+      } catch (uploadError: any) {
+        console.error('[events][update] Image upload failed:', uploadError);
+        return res.status(500).json({
+          success: false,
+          message: "Failed to upload images to cloud storage",
+          error: uploadError.message
+        });
+      }
+    }
+    
+    // Merge with existing and pre-uploaded URLs
     let image_urls: string[] | undefined;
     if (req.body.image_urls) {
       const incoming = Array.isArray(req.body.image_urls) ? req.body.image_urls : [req.body.image_urls];
-      image_urls = [...incoming, ...addPaths];
-    } else if (addPaths.length) {
-      image_urls = addPaths;
+      image_urls = [...incoming, ...uploadedImageUrls];
+    } else if (uploadedImageUrls.length) {
+      // If new images uploaded but no existing URLs provided, fetch existing first
+      const existingEvent = await (prisma as any).events.findUnique({ where: { id } });
+      const existingUrls = existingEvent?.image_urls || [];
+      image_urls = [...existingUrls, ...uploadedImageUrls];
     }
     const data: any = {};
     ['event_name','society_name','description','visibility','date','time','location','event_category','organized_by','event_status'].forEach(f => { if (req.body[f]) data[f] = req.body[f]; });

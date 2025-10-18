@@ -110,8 +110,24 @@ export class NotificationService {
           `🗑️  Deleted ${notificationsToDelete.length} old system notifications for user ${userId}`
         );
       }
-    } catch (error) {
-      console.error("Error enforcing system notification limit:", error);
+    } catch (error: unknown) {
+      // If it's a Firebase index error, show a friendlier message
+      const err = error as {
+        code?: number;
+        message?: string;
+        details?: string;
+      };
+      if (err?.code === 9 || err?.message?.includes("index")) {
+        console.warn(
+          "⚠️  Firebase index required for notification cleanup. Create it at:",
+          err?.details || "Firebase Console > Firestore > Indexes"
+        );
+      } else {
+        console.error(
+          "Error enforcing system notification limit:",
+          err?.message || error
+        );
+      }
       // Don't throw - we still want to create the new notification
     }
   }
