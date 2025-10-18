@@ -77,5 +77,13 @@ jspm_packages/
 
 package-lock.json
 yarn.lock
+
+# Prisma generated artifacts (client & engine binaries)
 /generated/prisma
-.env.example
+node_modules/.prisma/
+prisma/client/
+prisma/generated/
+src/generated/prisma/
+**/prisma/generated/
+**/prisma/client/
+**/.prisma/
