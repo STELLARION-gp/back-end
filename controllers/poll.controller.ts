@@ -90,13 +90,14 @@ export const createPoll = async (req: Request, res: Response): Promise<void> => 
       ];
     }
 
-    // Create the poll with the choices
+    // Create the poll with the choices (status defaults to 'pending')
     const newPoll = await prisma.polls.create({
       data: {
         title: title.trim(),
         description: description?.trim() || null,
         created_by: userId,
         is_active: true,
+        status: 'pending', // New polls start as pending
         poll_choices: {
           create: pollChoices
         }
@@ -640,9 +641,8 @@ export const getAllPolls = async (req: Request, res: Response): Promise<void> =>
       where.is_active = is_active === 'true';
     }
     
-    // Only show open polls for public endpoint (based on your schema, status default is "open")
-    // If you want to show all public polls, remove this line
-    where.status = 'open';
+    // Only show approved polls for public endpoint
+    where.status = 'approved';
 
     // Build order by clause
     const orderBy: any = {};
@@ -1144,6 +1144,8 @@ export const getMyPolls = async (req: Request, res: Response): Promise<void> => 
         description: poll.description,
         is_active: poll.is_active,
         status: poll.status,
+        moderated_by: poll.moderated_by,
+        moderated_at: poll.moderated_at,
         created_at: poll.created_at,
         updated_at: poll.updated_at,
         creator: poll.creator,
@@ -1186,9 +1188,91 @@ export const getMyPolls = async (req: Request, res: Response): Promise<void> => 
  */
 export const approvePoll = async (req: Request, res: Response): Promise<void> => {
   try {
-    res.status(501).json({
-      success: false,
-      message: "Poll approval feature requires database migration. Please run migration to add status columns to polls table."
+    const { id } = req.params;
+
+    // Get user ID from the authenticated request
+    const userId = (req as any).user?.userId;
+    const userRole = (req as any).user?.role;
+
+    if (!userId) {
+      res.status(401).json({
+        success: false,
+        message: "Authentication required"
+      });
+      return;
+    }
+
+    // Check if user is admin or moderator
+    if (!['admin', 'moderator'].includes(userRole)) {
+      res.status(403).json({
+        success: false,
+        message: "Only admins and moderators can approve polls"
+      });
+      return;
+    }
+
+    const pollId = parseInt(id);
+
+    // Check if poll exists
+    const existingPoll = await prisma.polls.findUnique({
+      where: { id: pollId }
+    });
+
+    if (!existingPoll) {
+      res.status(404).json({
+        success: false,
+        message: "Poll not found"
+      });
+      return;
+    }
+
+    // Check if poll is already approved
+    if (existingPoll.status === 'approved') {
+      res.status(400).json({
+        success: false,
+        message: "Poll is already approved"
+      });
+      return;
+    }
+
+    // Approve the poll
+    const updatedPoll = await prisma.polls.update({
+      where: { id: pollId },
+      data: {
+        status: 'approved',
+        moderated_by: userId,
+        moderated_at: new Date()
+      },
+      include: {
+        creator: {
+          select: {
+            id: true,
+            first_name: true,
+            last_name: true,
+            display_name: true
+          }
+        },
+        moderator: {
+          select: {
+            id: true,
+            first_name: true,
+            last_name: true,
+            display_name: true
+          }
+        },
+        poll_choices: true,
+        _count: {
+          select: {
+            poll_comments: true
+          }
+        }
+      }
+    });
+
+    res.status(200).json({
+      success: true,
+      data: updatedPoll,
+      message: "Poll approved successfully"
     });
   } catch (error: any) {
     console.error("Approve poll error:", error);
@@ -1207,15 +1291,98 @@ export const approvePoll = async (req: Request, res: Response): Promise<void> =>
  */
 export const rejectPoll = async (req: Request, res: Response): Promise<void> => {
   try {
-    res.status(501).json({
-      success: false,
-      message: "Poll rejection feature requires database migration. Please run migration to add status columns to polls table."
+    const { id } = req.params;
+    const { reason } = req.body; // Optional rejection reason
+
+    // Get user ID from the authenticated request
+    const userId = (req as any).user?.userId;
+    const userRole = (req as any).user?.role;
+
+    if (!userId) {
+      res.status(401).json({
+        success: false,
+        message: "Authentication required"
+      });
+      return;
+    }
+
+    // Check if user is admin or moderator
+    if (!['admin', 'moderator'].includes(userRole)) {
+      res.status(403).json({
+        success: false,
+        message: "Only admins and moderators can reject polls"
+      });
+      return;
+    }
+
+    const pollId = parseInt(id);
+
+    // Check if poll exists
+    const existingPoll = await prisma.polls.findUnique({
+      where: { id: pollId }
+    });
+
+    if (!existingPoll) {
+      res.status(404).json({
+        success: false,
+        message: "Poll not found"
+      });
+      return;
+    }
+
+    // Check if poll is already rejected
+    if (existingPoll.status === 'rejected') {
+      res.status(400).json({
+        success: false,
+        message: "Poll is already rejected"
+      });
+      return;
+    }
+
+    // Reject the poll
+    const updatedPoll = await prisma.polls.update({
+      where: { id: pollId },
+      data: {
+        status: 'rejected',
+        moderated_by: userId,
+        moderated_at: new Date()
+      },
+      include: {
+        creator: {
+          select: {
+            id: true,
+            first_name: true,
+            last_name: true,
+            display_name: true
+          }
+        },
+        moderator: {
+          select: {
+            id: true,
+            first_name: true,
+            last_name: true,
+            display_name: true
+          }
+        },
+        poll_choices: true,
+        _count: {
+          select: {
+            poll_comments: true
+          }
+        }
+      }
+    });
+
+    res.status(200).json({
+      success: true,
+      data: updatedPoll,
+      message: reason ? `Poll rejected: ${reason}` : "Poll rejected successfully"
     });
   } catch (error: any) {
     console.error("Reject poll error:", error);
     res.status(500).json({
       success: false,
-      message: "Failed to delete comment",
+      message: "Failed to reject poll",
       error: process.env.NODE_ENV === 'development' ? error.message : undefined
     });
   }
