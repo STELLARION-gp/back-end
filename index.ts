@@ -22,6 +22,7 @@ import quizRoutes from './routes/quiz.routes';
 import servicesRoutes from './routes/services.routes';
 import bookingRoutes from './routes/booking.routes';
 import adminApiRoutes from "./routes/admin.routes";
+import mentorProfileRoutes from './routes/mentorProfile.routes';
 
 // index.ts
 import express from "express";
@@ -172,6 +173,8 @@ app.use("/api/users", userRoutes);
 app.use("/api/auth", authRoutes);
 app.use("/api/chatbot", chatbotRoutes);
 app.use("/api/user", profileRoutes);
+// Mentor Profile API (self + public)
+app.use("/api/mentor", mentorProfileRoutes);
 
 // Admin API (separate from AdminJS panel)
 app.use("/api/admin", adminApiRoutes);
