@@ -440,7 +440,11 @@ export const getMySessions = async (req: Request, res: Response): Promise<void> 
 
     // Build where clause
     const where: any = {
-      created_by: userId
+      created_by: userId,
+      // Show both pending and approved sessions (exclude rejected)
+      status: {
+        in: ['pending', 'approved']
+      }
     };
 
     if (session_type) where.session_type = session_type as SessionType;
@@ -1094,9 +1098,12 @@ export const getMySessionsAnalytics = async (req: Request, res: Response): Promi
       return;
     }
 
-    // Get all sessions created by user
+    // Get all sessions created by user (only approved sessions for analytics)
     const sessions = await prisma.sessions.findMany({
-      where: { created_by: userId }
+      where: { 
+        created_by: userId,
+        status: 'approved' // Only count approved sessions in analytics
+      }
     });
 
     // Get enrollment counts per session

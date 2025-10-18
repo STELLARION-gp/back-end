@@ -113,27 +113,27 @@ export const adminResources: ResourceWithOptions[] = [
       },
     },
   },
-  {
-    resource: {
-      model: getModelByName("blog_ratings", PrismaModule),
-      client: prisma,
-      clientModule: PrismaModule,
-    },
-    options: {
-      navigation: {
-        name: "📝 Content Management",
-        icon: "Star",
-      },
-      actions: {
-        new: { isVisible: false, isAccessible: false },
-        edit: { isVisible: false, isAccessible: false },
-        delete: { isVisible: false, isAccessible: false },
-        bulkDelete: { isVisible: false, isAccessible: false },
-        list: { isVisible: true, isAccessible: true },
-        show: { isVisible: true, isAccessible: true },
-      },
-    },
-  },
+    // {
+    //   resource: {
+    //     model: getModelByName("blog_ratings", PrismaModule),
+    //     client: prisma,
+    //     clientModule: PrismaModule,
+    //   },
+    //   options: {
+    //     navigation: {
+    //       name: "📝 Content Management",
+    //       icon: "Star",
+    //     },
+    //     actions: {
+    //       new: { isVisible: false, isAccessible: false },
+    //       edit: { isVisible: false, isAccessible: false },
+    //       delete: { isVisible: false, isAccessible: false },
+    //       bulkDelete: { isVisible: false, isAccessible: false },
+    //       list: { isVisible: true, isAccessible: true },
+    //       show: { isVisible: true, isAccessible: true },
+    //     },
+    //   },
+    // },
   {
     resource: {
       model: getModelByName("blog_views", PrismaModule),

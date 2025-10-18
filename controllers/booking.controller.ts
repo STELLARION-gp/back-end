@@ -2,6 +2,7 @@
 import { Request, Response } from 'express';
 import { PrismaClient } from '../prisma/generated/client';
 
+
 const prisma = new PrismaClient();
 
 // Helper response functions
