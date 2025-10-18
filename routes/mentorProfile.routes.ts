@@ -4,7 +4,9 @@ import {
     getMentorProfile,
     updateMentorProfile,
     getAllMentors,
-    getMentorProfileById
+    getMentorProfileById,
+    getMentorMentees,
+    getMentorStats
 } from '../controllers/mentorProfile.controller';
 import { verifyToken } from '../middleware/verifyToken';
 
@@ -15,6 +17,12 @@ router.get('/profile', verifyToken, getMentorProfile);
 
 // Update current authenticated mentor's profile
 router.put('/profile', verifyToken, updateMentorProfile);
+
+// Get current mentor's mentees (active connections)
+router.get('/mentees', verifyToken, getMentorMentees);
+
+// Get current mentor's dashboard stats
+router.get('/stats', verifyToken, getMentorStats);
 
 // Get all mentors (public - for directory/listing)
 router.get('/mentors', getAllMentors);

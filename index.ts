@@ -23,6 +23,7 @@ import servicesRoutes from './routes/services.routes';
 import bookingRoutes from './routes/booking.routes';
 import adminApiRoutes from "./routes/admin.routes";
 import mentorProfileRoutes from './routes/mentorProfile.routes';
+import mentorMenteeConnectionRoutes from './routes/mentorMenteeConnection.routes';
 
 // index.ts
 import express from "express";
@@ -175,6 +176,8 @@ app.use("/api/chatbot", chatbotRoutes);
 app.use("/api/user", profileRoutes);
 // Mentor Profile API (self + public)
 app.use("/api/mentor", mentorProfileRoutes);
+// Mentor-Mentee connection APIs (notes, goals, sessions, etc.)
+app.use("/api/mentor-mentee", mentorMenteeConnectionRoutes);
 
 // Admin API (separate from AdminJS panel)
 app.use("/api/admin", adminApiRoutes);

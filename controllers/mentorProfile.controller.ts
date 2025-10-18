@@ -115,6 +115,116 @@ export const getMentorProfile = async (req: Request, res: Response): Promise<voi
     }
 };
 
+// Get current mentor's active mentees (connections)
+export const getMentorMentees = async (req: Request, res: Response): Promise<void> => {
+    try {
+        const userId = (req as any).user?.userId || (req as any).user?.user_id;
+
+        if (!userId) {
+            res.status(401).json({ success: false, error: 'User not authenticated' });
+            return;
+        }
+
+        const connections = await prisma.mentor_mentee_connections.findMany({
+            where: { mentor_id: userId, status: 'active' },
+            select: {
+                connection_id: true,
+                status: true,
+                application_id: true,
+                mentee: {
+                    select: {
+                        id: true,
+                        email: true,
+                        first_name: true,
+                        last_name: true,
+                        display_name: true,
+                        profile_data: true,
+                    }
+                }
+            },
+            orderBy: { connected_at: 'desc' }
+        });
+
+        const mentees = connections.map(conn => {
+            const profileData = (conn.mentee.profile_data as any) || {};
+            const name = conn.mentee.display_name || `${conn.mentee.first_name || ''} ${conn.mentee.last_name || ''}`.trim();
+            return {
+                id: conn.mentee.id,
+                name,
+                email: conn.mentee.email,
+                avatarUrl: profileData.avatarUrl || profileData.avatar_url || '',
+                status: conn.status,
+                applicationId: conn.application_id,
+            };
+        });
+
+        res.json({ success: true, data: mentees, count: mentees.length });
+    } catch (err) {
+        console.error('Error fetching mentor mentees:', err);
+        res.status(500).json({ success: false, error: err instanceof Error ? err.message : 'Unknown error' });
+    }
+};
+
+// Get aggregated stats for current mentor
+export const getMentorStats = async (req: Request, res: Response): Promise<void> => {
+    try {
+        const userId = (req as any).user?.userId || (req as any).user?.user_id;
+
+        if (!userId) {
+            res.status(401).json({ success: false, error: 'User not authenticated' });
+            return;
+        }
+
+        // Active connections for this mentor
+        const activeConnections = await prisma.mentor_mentee_connections.findMany({
+            where: { mentor_id: userId, status: 'active' },
+            select: { connection_id: true }
+        });
+
+        const connectionIds = activeConnections.map(c => c.connection_id);
+        const activeMentees = activeConnections.length;
+
+        let sessionsHeld = 0;
+        let hoursMentored = 0;
+        let completedGoals = 0;
+
+        if (connectionIds.length > 0) {
+            sessionsHeld = await prisma.mentor_mentee_sessions.count({
+                where: { connection_id: { in: connectionIds } }
+            });
+
+            const sessionsAgg = await prisma.mentor_mentee_sessions.aggregate({
+                where: { connection_id: { in: connectionIds } },
+                _sum: { duration: true }
+            });
+            hoursMentored = sessionsAgg._sum.duration || 0;
+
+            completedGoals = await prisma.mentor_mentee_goals.count({
+                where: { connection_id: { in: connectionIds }, status: 'completed' }
+            });
+        }
+
+        const pendingRequests = await prisma.mentee_applications.count({
+            where: { mentor_id: userId, application_status: 'pending' }
+        });
+
+        res.json({
+            success: true,
+            data: {
+                activeMentees,
+                sessionsHeld,
+                hoursMentored,
+                pendingRequests,
+                completedGoals,
+                avgRating: null // Not implemented
+            }
+        });
+    } catch (err) {
+        console.error('Error fetching mentor stats:', err);
+        res.status(500).json({ success: false, error: err instanceof Error ? err.message : 'Unknown error' });
+    }
+};
+
 // Update Mentor Profile
 export const updateMentorProfile = async (req: Request, res: Response): Promise<void> => {
     try {
