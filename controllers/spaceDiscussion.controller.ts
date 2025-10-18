@@ -73,8 +73,8 @@ export const getDiscussions = async (req: AuthenticatedRequest, res: Response): 
         },
         _count: {
           select: {
-            comments: true,
-            likes: true
+            space_discussion_comments: true,
+            space_discussion_likes: true
           }
         }
       },
@@ -152,8 +152,8 @@ export const getMyDiscussions = async (req: AuthenticatedRequest, res: Response)
         },
         _count: {
           select: {
-            comments: true,
-            likes: true
+            space_discussion_comments: true,
+            space_discussion_likes: true
           }
         }
       },
@@ -208,7 +208,7 @@ export const getDiscussionById = async (req: AuthenticatedRequest, res: Response
             last_name: true
           }
         },
-        comments: {
+        space_discussion_comments: {
           where: {
             parent_id: null // Only get top-level comments
           },
@@ -221,7 +221,7 @@ export const getDiscussionById = async (req: AuthenticatedRequest, res: Response
                 last_name: true
               }
             },
-            replies: {
+            other_space_discussion_comments: {
               include: {
                 user: {
                   select: {
@@ -233,7 +233,7 @@ export const getDiscussionById = async (req: AuthenticatedRequest, res: Response
                 },
                 _count: {
                   select: {
-                    likes: true
+                    space_discussion_comment_likes: true
                   }
                 }
               },
@@ -243,8 +243,8 @@ export const getDiscussionById = async (req: AuthenticatedRequest, res: Response
             },
             _count: {
               select: {
-                likes: true,
-                replies: true
+                space_discussion_comment_likes: true,
+                other_space_discussion_comments: true
               }
             }
           },
@@ -254,8 +254,8 @@ export const getDiscussionById = async (req: AuthenticatedRequest, res: Response
         },
         _count: {
           select: {
-            comments: true,
-            likes: true
+            space_discussion_comments: true,
+            space_discussion_likes: true
           }
         }
       }
@@ -295,9 +295,9 @@ export const getDiscussionById = async (req: AuthenticatedRequest, res: Response
       where: {
         user_id: user.userId,
         comment_id: {
-          in: discussion.comments.flatMap(comment => [
+          in: discussion.space_discussion_comments.flatMap(comment => [
             comment.id,
-            ...comment.replies.map(reply => reply.id)
+            ...comment.other_space_discussion_comments.map(reply => reply.id)
           ])
         }
       },
@@ -373,8 +373,8 @@ export const createDiscussion = async (req: AuthenticatedRequest, res: Response)
         },
         _count: {
           select: {
-            comments: true,
-            likes: true
+            space_discussion_comments: true,
+            space_discussion_likes: true
           }
         }
       }
@@ -464,8 +464,8 @@ export const updateDiscussion = async (req: AuthenticatedRequest, res: Response)
         },
         _count: {
           select: {
-            comments: true,
-            likes: true
+            space_discussion_comments: true,
+            space_discussion_likes: true
           }
         }
       }
@@ -654,8 +654,7 @@ export const addComment = async (req: AuthenticatedRequest, res: Response): Prom
         },
         _count: {
           select: {
-            likes: true,
-            replies: true
+            space_discussion_comment_likes: true
           }
         }
       }
@@ -702,7 +701,8 @@ export const updateComment = async (req: AuthenticatedRequest, res: Response): P
     }
 
     const comment = await prisma.space_discussion_comments.findUnique({
-      where: { id: parseInt(commentId) }
+      where: { id: parseInt(commentId) },
+      include: { space_discussions: true }
     });
 
     if (!comment) {
@@ -733,8 +733,8 @@ export const updateComment = async (req: AuthenticatedRequest, res: Response): P
         },
         _count: {
           select: {
-            likes: true,
-            replies: true
+            space_discussion_comment_likes: true,
+            other_space_discussion_comments: true
           }
         }
       }
@@ -766,7 +766,7 @@ export const deleteComment = async (req: AuthenticatedRequest, res: Response): P
     const comment = await prisma.space_discussion_comments.findUnique({
       where: { id: parseInt(commentId) },
       include: {
-        discussion: true
+        space_discussions: true
       }
     });
 
@@ -819,7 +819,8 @@ export const toggleCommentLike = async (req: AuthenticatedRequest, res: Response
     }
 
     const comment = await prisma.space_discussion_comments.findUnique({
-      where: { id: parseInt(commentId) }
+      where: { id: parseInt(commentId) },
+      include: { space_discussions: true }
     });
 
     if (!comment) {
@@ -917,8 +918,8 @@ export const toggleDiscussionPin = async (req: AuthenticatedRequest, res: Respon
         },
         _count: {
           select: {
-            comments: true,
-            likes: true
+            space_discussion_comments: true,
+            space_discussion_likes: true
           }
         }
       }
@@ -978,8 +979,8 @@ export const toggleDiscussionClose = async (req: AuthenticatedRequest, res: Resp
         },
         _count: {
           select: {
-            comments: true,
-            likes: true
+            space_discussion_comments: true,
+            space_discussion_likes: true
           }
         }
       }
