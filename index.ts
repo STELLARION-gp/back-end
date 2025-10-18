@@ -1,4 +1,5 @@
 import mentorApplicationRoutes from "./routes/mentorApplication.routes";
+import menteeApplicationRoutes from "./routes/menteeApplication.routes";
 import influencerApplicationRoutes from "./routes/influencerApplication.routes";
 import guideApplicationRoutes from "./routes/guideApplication.routes";
 import subscriptionRoutes from "./routes/subscription.routes";
@@ -148,7 +149,7 @@ app.use(
       "http://127.0.0.1:5174",
     ],
     credentials: true,
-    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+    methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
     allowedHeaders: ["Content-Type", "Authorization"],
   })
 );
@@ -177,6 +178,7 @@ app.use("/api/admin", adminApiRoutes);
 
 // Application APIs
 app.use("/api/mentor-applications", mentorApplicationRoutes);
+app.use("/api/mentee-applications", menteeApplicationRoutes);
 app.use("/api/influencer-applications", influencerApplicationRoutes);
 app.use("/api/guide-applications", guideApplicationRoutes);
 
