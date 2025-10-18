@@ -363,6 +363,14 @@ export const createStargazingSpot = async (req: Request, res: Response) => {
 
         console.log('[stargazing-spots][create] incoming body:', req.body);
         console.log('[stargazing-spots][create] Files received:', (req.files as any[])?.length || 0);
+        if (req.files && Array.isArray(req.files)) {
+            console.log('[stargazing-spots][create] File details:', req.files.map(f => ({ 
+                fieldname: f.fieldname, 
+                originalname: f.originalname, 
+                mimetype: f.mimetype,
+                size: f.size 
+            })));
+        }
 
         const { name, location, image_url, best_time, description, facilities, rating, image_urls }: CreateStargazingSpotRequest & { image_urls?: string[] } = req.body;
 
@@ -375,17 +383,18 @@ export const createStargazingSpot = async (req: Request, res: Response) => {
             return;
         }
 
-        // Validate rating if provided
+        // Validate rating if provided (parse from string if needed since FormData sends strings)
         let validatedRating = 0; // Default rating
-        if (rating !== undefined && rating !== null) {
-            if (typeof rating !== 'number' || rating < 0 || rating > 5) {
+        if (rating !== undefined && rating !== null && rating !== '') {
+            const parsedRating = typeof rating === 'string' ? parseFloat(rating) : rating;
+            if (isNaN(parsedRating) || parsedRating < 0 || parsedRating > 5) {
                 res.status(400).json({
                     success: false,
                     message: 'Rating must be a number between 0 and 5'
                 });
                 return;
             }
-            validatedRating = rating;
+            validatedRating = parsedRating;
         }
 
         // Create spot first to get ID for Cloudinary upload
@@ -420,17 +429,26 @@ export const createStargazingSpot = async (req: Request, res: Response) => {
         
         if (req.files && Array.isArray(req.files) && req.files.length > 0) {
             console.log(`[stargazing-spots][create] Uploading ${req.files.length} images to Cloudinary...`);
+            console.log('[stargazing-spots][create] Cloudinary config check:', {
+                cloud_name: process.env.CLOUDINARY_CLOUD_NAME ? 'Set' : 'NOT SET',
+                api_key: process.env.CLOUDINARY_API_KEY ? 'Set' : 'NOT SET',
+                api_secret: process.env.CLOUDINARY_API_SECRET ? 'Set' : 'NOT SET'
+            });
             
             try {
-                const uploadPromises = req.files.map((file: Express.Multer.File) =>
-                    uploadStargazingSpotImageToCloudinary(file.buffer, newSpot.id)
-                );
+                const uploadPromises = req.files.map((file: Express.Multer.File, index: number) => {
+                    console.log(`[stargazing-spots][create] Uploading file ${index + 1}/${req.files?.length}:`, file.originalname);
+                    return uploadStargazingSpotImageToCloudinary(file.buffer, newSpot.id);
+                });
                 uploadedImageUrls = await Promise.all(uploadPromises);
                 console.log('[stargazing-spots][create] All images uploaded successfully:', uploadedImageUrls);
             } catch (uploadError) {
                 console.error('[stargazing-spots][create] Image upload error:', uploadError);
+                console.error('[stargazing-spots][create] Upload error stack:', uploadError instanceof Error ? uploadError.stack : 'No stack trace');
                 // Continue without images rather than failing completely
             }
+        } else {
+            console.log('[stargazing-spots][create] No files to upload or files array is empty');
         }
 
         // Also include any pre-uploaded image URLs from the request body
