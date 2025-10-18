@@ -584,3 +584,135 @@ export interface SessionErrorResponse {
     message: string;
     error?: string;
 }
+
+// Quiz types
+export type QuizDifficultyLevel = 'Beginner' | 'Intermediate' | 'Hard';
+export type QuizStatus = 'pending' | 'approved' | 'rejected' | 'closed';
+
+export interface CreateQuizRequest {
+    title: string; // Maps to 'name' in database
+    category: string;
+    description: string;
+    level: QuizDifficultyLevel;
+    time_limit: number; // in minutes
+    questions: {
+        question: string;
+        answers: string[]; // Array of answer options
+        correct_answer: string; // The correct answer text
+        question_explanation?: string;
+    }[];
+}
+
+export interface UpdateQuizRequest {
+    title?: string;
+    category?: string;
+    description?: string;
+    level?: QuizDifficultyLevel;
+    time_limit?: number;
+    status?: QuizStatus;
+    questions?: {
+        id?: number; // If updating existing question
+        question: string;
+        answers: string[];
+        correct_answer: string;
+        question_explanation?: string;
+    }[];
+}
+
+export interface QuizQuestion {
+    id: number;
+    quiz_id: number;
+    question: string;
+    answers: string[];
+    correct_answer: string;
+    question_explanation?: string;
+}
+
+export interface Quiz {
+    id: number;
+    name: string;
+    category: string;
+    description: string;
+    time: Date | null;
+    question_count: number;
+    participants_count: number;
+    time_limit: number;
+    user_id: number;
+    created_at: Date;
+    modified_at: Date;
+    status: QuizStatus;
+    level: QuizDifficultyLevel;
+}
+
+export interface QuizWithDetails extends Quiz {
+    questions: QuizQuestion[];
+    creator: {
+        id: number;
+        display_name?: string;
+        first_name?: string;
+        last_name?: string;
+    };
+    participants: QuizParticipant[];
+}
+
+export interface QuizParticipant {
+    id: number;
+    quiz_id: number;
+    user_id: number;
+    correct_question_count: number;
+    score: number;
+}
+
+export interface StartQuizRequest {
+    quiz_id: number;
+}
+
+export interface SubmitQuizAnswersRequest {
+    answers: {
+        question_id: number;
+        selected_answer: string;
+    }[];
+}
+
+export interface QuizResult {
+    quiz_id: number;
+    user_id: number;
+    score: number;
+    correct_answers: number;
+    total_questions: number;
+    percentage: number;
+    time_taken?: number; // in seconds
+    answers: {
+        question_id: number;
+        question: string;
+        selected_answer: string;
+        correct_answer: string;
+        is_correct: boolean;
+        explanation?: string;
+    }[];
+}
+
+export interface LeaderboardEntry {
+    user_id: number;
+    username: string;
+    display_name?: string;
+    avatar?: string;
+    total_score: number;
+    quizzes_completed: number;
+    average_score: number;
+    rank: number;
+}
+
+export interface LeaderboardResponse {
+    leaderboard: LeaderboardEntry[];
+    stats: {
+        totalParticipants: number;
+        totalQuizAttempts: number;
+        averageScore: number;
+        highestScore: number;
+    };
+    userRank?: {
+        rank: number;
+        entry: LeaderboardEntry;
+    };
+}

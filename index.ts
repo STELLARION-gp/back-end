@@ -6,17 +6,20 @@ import paymentRoutes from "./routes/payment.routes";
 import blogRoutes from "./routes/blog.routes";
 import nightcampRoutes from "./routes/nightcamp.routes";
 import nasaOpportunitiesRoutes from "./routes/nasaOpportunities.routes";
-import uploadRoutes from "./routes/upload.routes";
-import mediaUploadRoutes from "./routes/mediaUpload.routes";
-import chatRoutes from "./routes/chat.routes";
-import tourMediaRoutes from "./routes/tourMedia.routes";
-import eventRoutes from "./routes/event.routes";
-import spaceDiscussionRoutes from "./routes/spaceDiscussion.routes";
-import astronomyEventsRoutes from "./routes/astronomyEvents.routes";
-import stargazingSpotRoutes from "./routes/stargazingSpot.routes";
-import sessionsRoutes from "./routes/sessions.routes";
-import pollRoutes from "./routes/poll.routes";
-import recommendedContentRoutes from "./routes/recommendedContent.routes";
+import uploadRoutes from './routes/upload.routes';
+import mediaUploadRoutes from './routes/mediaUpload.routes';
+import chatRoutes from './routes/chat.routes';
+import tourMediaRoutes from './routes/tourMedia.routes';
+import eventRoutes from './routes/event.routes';
+import spaceDiscussionRoutes from './routes/spaceDiscussion.routes';
+import astronomyEventsRoutes from './routes/astronomyEvents.routes';
+import stargazingSpotRoutes from './routes/stargazingSpot.routes';
+import sessionsRoutes from './routes/sessions.routes';
+import pollRoutes from './routes/poll.routes';
+import recommendedContentRoutes from './routes/recommendedContent.routes';
+import quizRoutes from './routes/quiz.routes';
+import servicesRoutes from './routes/services.routes';
+import bookingRoutes from './routes/booking.routes';
 import adminApiRoutes from "./routes/admin.routes";
 
 // index.ts
@@ -209,7 +212,17 @@ app.use("/api/stargazing-spots", stargazingSpotRoutes);
 app.use("/api/sessions", sessionsRoutes);
 
 // Poll API
-app.use("/api/polls", pollRoutes);
+app.use('/api/polls', pollRoutes);
+
+// Quiz API
+app.use('/api/quizzes', quizRoutes);
+
+// Services API
+app.use('/api/services', servicesRoutes);
+
+// Bookings API
+app.use('/api/bookings', bookingRoutes);
+
 // Mentor Recommended Contents
 app.use("/api/mentors/recommended-contents", recommendedContentRoutes);
 

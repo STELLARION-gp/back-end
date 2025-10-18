@@ -95,7 +95,7 @@ export const createSession = async (req: Request, res: Response): Promise<void> 
       return;
     }
 
-    // Create the session
+    // Create the session with pending status
     const newSession = await prisma.sessions.create({
       data: {
         title,
@@ -113,6 +113,7 @@ export const createSession = async (req: Request, res: Response): Promise<void> 
         session_notes: session_notes || null,
         created_by: userId,
         is_enabled: true,
+        status: 'pending', // Sessions start as pending and need approval
       },
       include: {
         creator: {
@@ -539,7 +540,7 @@ export const getEnrolledSessions = async (req: Request, res: Response): Promise<
     };
 
     if (payment_status) {
-      where.payment_status = payment_status;
+      where.enrollment_payment_status = payment_status;
     }
 
     // Build session filter if session_type is provided
@@ -564,13 +565,13 @@ export const getEnrolledSessions = async (req: Request, res: Response): Promise<
     const enrollments = await prisma.session_enrollments.findMany({
       where: {
         ...where,
-        session: sessionWhere.session_type ? sessionWhere : undefined
+        sessions: sessionWhere.session_type ? sessionWhere : undefined
       },
       skip,
       take: limitNumber,
       orderBy,
       include: {
-        session: {
+        sessions: {
           include: {
             creator: {
               select: {
@@ -588,8 +589,8 @@ export const getEnrolledSessions = async (req: Request, res: Response): Promise<
 
     // Extract sessions from enrollments
     const sessions = enrollments.map(enrollment => ({
-      ...enrollment.session,
-      session_time: formatTimeField(enrollment.session.session_time),
+      ...enrollment.sessions,
+      session_time: formatTimeField(enrollment.sessions.session_time),
       enrollment_info: {
         enrollment_id: enrollment.id,
         enrollment_date: enrollment.enrollment_date,
@@ -644,7 +645,7 @@ export const getMySessionDetailsByEnrollment = async (req: Request, res: Respons
     const enrollment = await prisma.session_enrollments.findUnique({
       where: { id: parseInt(enrollmentId) },
       include: {
-        session: {
+        sessions: {
           include: {
             creator: {
               select: {
@@ -706,32 +707,32 @@ export const getMySessionDetailsByEnrollment = async (req: Request, res: Respons
     const sessionDetails = {
       // Session Information
       session: {
-        id: enrollment.session.id,
-        title: enrollment.session.title,
-        description: enrollment.session.description,
-        session_type: enrollment.session.session_type,
-        payment_type: enrollment.session.payment_type,
-        price: enrollment.session.price,
-        duration: enrollment.session.duration,
-        session_date: enrollment.session.session_date,
-        session_time: formatTimeField(enrollment.session.session_time),
-        max_participants: enrollment.session.max_participants,
-        difficulty_level: enrollment.session.difficulty_level,
-        session_link: enrollment.session.session_link,
-        materials: enrollment.session.materials,
-        session_notes: enrollment.session.session_notes,
-        is_enabled: enrollment.session.is_enabled,
-        created_at: enrollment.session.created_at,
-        updated_at: enrollment.session.updated_at,
+        id: enrollment.sessions.id,
+        title: enrollment.sessions.title,
+        description: enrollment.sessions.description,
+        session_type: enrollment.sessions.session_type,
+        payment_type: enrollment.sessions.payment_type,
+        price: enrollment.sessions.price,
+        duration: enrollment.sessions.duration,
+        session_date: enrollment.sessions.session_date,
+        session_time: formatTimeField(enrollment.sessions.session_time),
+        max_participants: enrollment.sessions.max_participants,
+        difficulty_level: enrollment.sessions.difficulty_level,
+        session_link: enrollment.sessions.session_link,
+        materials: enrollment.sessions.materials,
+        session_notes: enrollment.sessions.session_notes,
+        is_enabled: enrollment.sessions.is_enabled,
+        created_at: enrollment.sessions.created_at,
+        updated_at: enrollment.sessions.updated_at,
       },
       
       // Creator/Instructor Information
       instructor: {
-        id: enrollment.session.creator.id,
-        name: enrollment.session.creator.display_name || 
-              `${enrollment.session.creator.first_name || ''} ${enrollment.session.creator.last_name || ''}`.trim(),
-        email: enrollment.session.creator.email,
-        profile: enrollment.session.creator.profile_data,
+        id: enrollment.sessions.creator.id,
+        name: enrollment.sessions.creator.display_name || 
+              `${enrollment.sessions.creator.first_name || ''} ${enrollment.sessions.creator.last_name || ''}`.trim(),
+        email: enrollment.sessions.creator.email,
+        profile: enrollment.sessions.creator.profile_data,
       },
 
       // Enrollment Information
@@ -935,9 +936,10 @@ export const getAllSessions = async (req: Request, res: Response): Promise<void>
     const limitNumber = parseInt(limit, 10);
     const skip = (pageNumber - 1) * limitNumber;
 
-    // Build where clause
+    // Build where clause - only show approved sessions to public
     const where: any = {
-      is_enabled: is_enabled === 'true'
+      is_enabled: is_enabled === 'true',
+      status: 'approved' // Only show approved sessions
     };
 
     if (session_type) where.session_type = session_type as SessionType;
@@ -1116,7 +1118,7 @@ export const getMySessionsAnalytics = async (req: Request, res: Response): Promi
     // Get enrollment details for all user's sessions
     const enrollments = await prisma.session_enrollments.findMany({
       where: {
-        session: {
+        sessions: {
           created_by: userId
         },
         access_granted: true,
@@ -1125,7 +1127,7 @@ export const getMySessionsAnalytics = async (req: Request, res: Response): Promi
         }
       },
       include: {
-        session: {
+        sessions: {
           select: {
             id: true,
             session_type: true,
@@ -1148,8 +1150,8 @@ export const getMySessionsAnalytics = async (req: Request, res: Response): Promi
     const totalStudents = enrollments.length;
 
     // Students per session type
-    const liveStudents = enrollments.filter(e => e.session.session_type === 'live').length;
-    const recordedStudents = enrollments.filter(e => e.session.session_type === 'recorded').length;
+    const liveStudents = enrollments.filter(e => e.sessions.session_type === 'live').length;
+    const recordedStudents = enrollments.filter(e => e.sessions.session_type === 'recorded').length;
 
     // Average duration
     const avgLiveDuration = liveSessions.length > 0
@@ -1162,11 +1164,11 @@ export const getMySessionsAnalytics = async (req: Request, res: Response): Promi
 
     // Revenue per session type
     const liveRevenue = enrollments
-      .filter(e => e.session.session_type === 'live')
+      .filter(e => e.sessions.session_type === 'live')
       .reduce((sum, e) => sum + (e.payment_amount ? parseFloat(e.payment_amount.toString()) : 0), 0);
 
     const recordedRevenue = enrollments
-      .filter(e => e.session.session_type === 'recorded')
+      .filter(e => e.sessions.session_type === 'recorded')
       .reduce((sum, e) => sum + (e.payment_amount ? parseFloat(e.payment_amount.toString()) : 0), 0);
 
     // Completion rate (for enrolled sessions)
@@ -1176,14 +1178,14 @@ export const getMySessionsAnalytics = async (req: Request, res: Response): Promi
     // Distribution by difficulty
     const difficultyDistribution = {
       live: {
-        beginner: enrollments.filter(e => e.session.session_type === 'live' && e.session.difficulty_level === 'beginner').length,
-        intermediate: enrollments.filter(e => e.session.session_type === 'live' && e.session.difficulty_level === 'intermediate').length,
-        advanced: enrollments.filter(e => e.session.session_type === 'live' && e.session.difficulty_level === 'advanced').length,
+        beginner: enrollments.filter(e => e.sessions.session_type === 'live' && e.sessions.difficulty_level === 'beginner').length,
+        intermediate: enrollments.filter(e => e.sessions.session_type === 'live' && e.sessions.difficulty_level === 'intermediate').length,
+        advanced: enrollments.filter(e => e.sessions.session_type === 'live' && e.sessions.difficulty_level === 'advanced').length,
       },
       recorded: {
-        beginner: enrollments.filter(e => e.session.session_type === 'recorded' && e.session.difficulty_level === 'beginner').length,
-        intermediate: enrollments.filter(e => e.session.session_type === 'recorded' && e.session.difficulty_level === 'intermediate').length,
-        advanced: enrollments.filter(e => e.session.session_type === 'recorded' && e.session.difficulty_level === 'advanced').length,
+        beginner: enrollments.filter(e => e.sessions.session_type === 'recorded' && e.sessions.difficulty_level === 'beginner').length,
+        intermediate: enrollments.filter(e => e.sessions.session_type === 'recorded' && e.sessions.difficulty_level === 'intermediate').length,
+        advanced: enrollments.filter(e => e.sessions.session_type === 'recorded' && e.sessions.difficulty_level === 'advanced').length,
       }
     };
 
@@ -1235,6 +1237,303 @@ export const getMySessionsAnalytics = async (req: Request, res: Response): Promi
     res.status(500).json({
       success: false,
       message: "Failed to retrieve analytics",
+      error: process.env.NODE_ENV === 'development' ? error.message : undefined
+    });
+  }
+};
+
+/**
+ * Approve a session (Moderator/Influencer only)
+ * @route PATCH /api/sessions/:id/approve
+ * @access Private (Moderator/Influencer only)
+ */
+export const approveSession = async (req: Request, res: Response): Promise<void> => {
+  try {
+    const { id } = req.params;
+    const userId = (req as any).user?.userId;
+    const userRole = (req as any).user?.role;
+
+    if (!userId) {
+      res.status(401).json({
+        success: false,
+        message: "User not authenticated"
+      });
+      return;
+    }
+
+    // Check if user is moderator or influencer
+    if (userRole !== 'moderator' && userRole !== 'influencer') {
+      res.status(403).json({
+        success: false,
+        message: "Only moderators and influencers can approve sessions"
+      });
+      return;
+    }
+
+    // Check if session exists
+    const existingSession = await prisma.sessions.findUnique({
+      where: { id: parseInt(id) }
+    });
+
+    if (!existingSession) {
+      res.status(404).json({
+        success: false,
+        message: "Session not found"
+      });
+      return;
+    }
+
+    // Check if session is already approved
+    if (existingSession.status === 'approved') {
+      res.status(400).json({
+        success: false,
+        message: "Session is already approved"
+      });
+      return;
+    }
+
+    // Approve the session
+    const approvedSession = await prisma.sessions.update({
+      where: { id: parseInt(id) },
+      data: {
+        status: 'approved',
+        moderated_by: userId,
+        approved_at: new Date(),
+        rejection_reason: null
+      },
+      include: {
+        creator: {
+          select: {
+            id: true,
+            first_name: true,
+            last_name: true,
+            email: true,
+            display_name: true,
+          }
+        },
+        moderator: {
+          select: {
+            id: true,
+            first_name: true,
+            last_name: true,
+            email: true,
+            display_name: true,
+          }
+        }
+      }
+    });
+
+    // Format session_time before sending
+    const formattedSession = {
+      ...approvedSession,
+      session_time: formatTimeField(approvedSession.session_time)
+    };
+
+    res.status(200).json({
+      success: true,
+      data: formattedSession,
+      message: "Session approved successfully"
+    });
+  } catch (error: any) {
+    console.error("Approve session error:", error);
+    res.status(500).json({
+      success: false,
+      message: "Failed to approve session",
+      error: process.env.NODE_ENV === 'development' ? error.message : undefined
+    });
+  }
+};
+
+/**
+ * Reject a session (Moderator/Influencer only)
+ * @route PATCH /api/sessions/:id/reject
+ * @access Private (Moderator/Influencer only)
+ */
+export const rejectSession = async (req: Request, res: Response): Promise<void> => {
+  try {
+    const { id } = req.params;
+    const { reason } = req.body;
+    const userId = (req as any).user?.userId;
+    const userRole = (req as any).user?.role;
+
+    if (!userId) {
+      res.status(401).json({
+        success: false,
+        message: "User not authenticated"
+      });
+      return;
+    }
+
+    // Check if user is moderator or influencer
+    if (userRole !== 'moderator' && userRole !== 'influencer') {
+      res.status(403).json({
+        success: false,
+        message: "Only moderators and influencers can reject sessions"
+      });
+      return;
+    }
+
+    if (!reason || !reason.trim()) {
+      res.status(400).json({
+        success: false,
+        message: "Rejection reason is required"
+      });
+      return;
+    }
+
+    // Check if session exists
+    const existingSession = await prisma.sessions.findUnique({
+      where: { id: parseInt(id) }
+    });
+
+    if (!existingSession) {
+      res.status(404).json({
+        success: false,
+        message: "Session not found"
+      });
+      return;
+    }
+
+    // Reject the session
+    const rejectedSession = await prisma.sessions.update({
+      where: { id: parseInt(id) },
+      data: {
+        status: 'rejected',
+        moderated_by: userId,
+        rejected_at: new Date(),
+        rejection_reason: reason.trim()
+      },
+      include: {
+        creator: {
+          select: {
+            id: true,
+            first_name: true,
+            last_name: true,
+            email: true,
+            display_name: true,
+          }
+        },
+        moderator: {
+          select: {
+            id: true,
+            first_name: true,
+            last_name: true,
+            email: true,
+            display_name: true,
+          }
+        }
+      }
+    });
+
+    // Format session_time before sending
+    const formattedSession = {
+      ...rejectedSession,
+      session_time: formatTimeField(rejectedSession.session_time)
+    };
+
+    res.status(200).json({
+      success: true,
+      data: formattedSession,
+      message: "Session rejected successfully"
+    });
+  } catch (error: any) {
+    console.error("Reject session error:", error);
+    res.status(500).json({
+      success: false,
+      message: "Failed to reject session",
+      error: process.env.NODE_ENV === 'development' ? error.message : undefined
+    });
+  }
+};
+
+/**
+ * Get all pending sessions (Moderator/Influencer only)
+ * @route GET /api/sessions/pending
+ * @access Private (Moderator/Influencer only)
+ */
+export const getPendingSessions = async (req: Request, res: Response): Promise<void> => {
+  try {
+    const userId = (req as any).user?.userId;
+    const userRole = (req as any).user?.role;
+
+    if (!userId) {
+      res.status(401).json({
+        success: false,
+        message: "User not authenticated"
+      });
+      return;
+    }
+
+    // Check if user is moderator or influencer
+    if (userRole !== 'moderator' && userRole !== 'influencer') {
+      res.status(403).json({
+        success: false,
+        message: "Only moderators and influencers can view pending sessions"
+      });
+      return;
+    }
+
+    const {
+      page = '1',
+      limit = '20',
+      sort_by = 'created_at',
+      sort_order = 'desc'
+    } = req.query as Record<string, string>;
+
+    const pageNumber = parseInt(page, 10);
+    const limitNumber = parseInt(limit, 10);
+    const skip = (pageNumber - 1) * limitNumber;
+
+    // Build order by clause
+    const orderBy: any = {};
+    orderBy[sort_by] = sort_order === 'asc' ? 'asc' : 'desc';
+
+    // Get total count for pagination
+    const totalCount = await prisma.sessions.count({
+      where: { status: 'pending' }
+    });
+
+    // Get pending sessions
+    const sessions = await prisma.sessions.findMany({
+      where: { status: 'pending' },
+      skip,
+      take: limitNumber,
+      orderBy,
+      include: {
+        creator: {
+          select: {
+            id: true,
+            first_name: true,
+            last_name: true,
+            email: true,
+            display_name: true,
+          }
+        }
+      }
+    });
+
+    // Format session_time fields for all sessions
+    const formattedSessions = sessions.map(session => ({
+      ...session,
+      session_time: formatTimeField(session.session_time)
+    }));
+
+    res.status(200).json({
+      success: true,
+      data: formattedSessions,
+      pagination: {
+        total: totalCount,
+        page: pageNumber,
+        limit: limitNumber,
+        totalPages: Math.ceil(totalCount / limitNumber),
+      },
+      message: "Pending sessions retrieved successfully"
+    });
+  } catch (error: any) {
+    console.error("Get pending sessions error:", error);
+    res.status(500).json({
+      success: false,
+      message: "Failed to retrieve pending sessions",
       error: process.env.NODE_ENV === 'development' ? error.message : undefined
     });
   }
