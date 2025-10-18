@@ -255,7 +255,6 @@ model users {
   space_news_likes                                                                             space_news_likes[]                     @relation("SpaceNewsLikes")
   stargazing_spot_reviews                                                                      stargazing_spot_reviews[]              @relation("StargazingSpotReviews")
   created_stargazing_spots                                                                     stargazing_spots[]                     @relation("StargazingSpotCreator")
-  stargazing_spots_stargazing_spots_moderated_byTousers                                        stargazing_spots[]                     @relation("stargazing_spots_moderated_byTousers")
   moderated_stargazing_spots                                                                   stargazing_spots[]                     @relation("StargazingSpotModerator")
   subscriptions                                                                                subscriptions[]
   user_settings                                                                                user_settings?
@@ -1100,7 +1099,6 @@ model stargazing_spots {
   stargazing_spot_reviews stargazing_spot_reviews[]
   creator                 users                     @relation("StargazingSpotCreator", fields: [created_by], references: [id], onDelete: Cascade)
   moderator               users?                    @relation("StargazingSpotModerator", fields: [moderated_by], references: [id])
-  users_stargazing_spots_moderated_byTousers users?                    @relation("stargazing_spots_moderated_byTousers", fields: [moderated_by], references: [id], onDelete: NoAction, onUpdate: NoAction)
 
   @@index([is_active], map: "idx_stargazing_spots_active")
   @@index([created_by], map: "idx_stargazing_spots_created_by")
