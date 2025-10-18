@@ -639,6 +639,9 @@ export const getAllPolls = async (req: Request, res: Response): Promise<void> =>
     if (is_active !== undefined) {
       where.is_active = is_active === 'true';
     }
+    
+    // Only show approved polls for public endpoint
+    where.status = 'approved';
 
     // Build order by clause
     const orderBy: any = {};
@@ -1053,6 +1056,173 @@ export const deletePollComment = async (req: Request, res: Response): Promise<vo
     });
   } catch (error: any) {
     console.error("Delete poll comment error:", error);
+    res.status(500).json({
+      success: false,
+      message: "Failed to delete comment",
+      error: process.env.NODE_ENV === 'development' ? error.message : undefined
+    });
+  }
+};
+
+/**
+ * Get polls created by the authenticated user
+ * @route GET /api/polls/my-polls
+ * @access Private (Authenticated users)
+ */
+export const getMyPolls = async (req: Request, res: Response): Promise<void> => {
+  try {
+    const {
+      page = '1',
+      limit = '10',
+      sort_by = 'created_at',
+      sort_order = 'desc'
+    } = req.query as Record<string, string>;
+
+    // Get user ID from the authenticated request
+    const userId = (req as any).user?.userId;
+
+    if (!userId) {
+      res.status(401).json({
+        success: false,
+        message: "Authentication required"
+      });
+      return;
+    }
+
+    const pageNumber = parseInt(page, 10);
+    const limitNumber = parseInt(limit, 10);
+    const skip = (pageNumber - 1) * limitNumber;
+
+    // Build where clause - get all polls created by user (pending, approved, rejected)
+    const where: any = {
+      created_by: userId
+    };
+
+    // Build order by clause
+    const orderBy: any = {};
+    orderBy[sort_by] = sort_order === 'asc' ? 'asc' : 'desc';
+
+    // Get total count
+    const totalCount = await prisma.polls.count({ where });
+
+    // Get polls
+    const polls = await prisma.polls.findMany({
+      where,
+      skip,
+      take: limitNumber,
+      orderBy,
+      include: {
+        creator: {
+          select: {
+            id: true,
+            first_name: true,
+            last_name: true,
+            display_name: true
+          }
+        },
+        moderator: {
+          select: {
+            id: true,
+            first_name: true,
+            last_name: true,
+            display_name: true
+          }
+        },
+        poll_choices: {
+          orderBy: {
+            choice: 'asc'
+          }
+        },
+        _count: {
+          select: {
+            poll_comments: true
+          }
+        }
+      }
+    });
+
+    // Format response with voting statistics
+    const formattedPolls = polls.map(poll => {
+      const totalVotes = poll.poll_choices.reduce((sum, choice) => sum + choice.vote_count, 0) || 1;
+      
+      return {
+        id: poll.id,
+        title: poll.title,
+        description: poll.description,
+        is_active: poll.is_active,
+        status: poll.status,
+        moderated_by: poll.moderated_by,
+        moderated_at: poll.moderated_at,
+        created_at: poll.created_at,
+        updated_at: poll.updated_at,
+        creator: poll.creator,
+        moderator: poll.moderator,
+        choices: poll.poll_choices.map(choice => ({
+          choice: choice.choice,
+          vote_count: choice.vote_count,
+          percentage: totalVotes > 0 ? Math.round((choice.vote_count / totalVotes) * 100 * 10) / 10 : 0
+        })),
+        total_votes: poll.poll_choices.reduce((sum, choice) => sum + choice.vote_count, 0),
+        comment_count: poll._count.poll_comments,
+        user_vote: null // User is the creator, so they don't vote
+      };
+    });
+
+    res.status(200).json({
+      success: true,
+      data: formattedPolls,
+      pagination: {
+        total: totalCount,
+        page: pageNumber,
+        limit: limitNumber,
+        totalPages: Math.ceil(totalCount / limitNumber)
+      },
+      message: "Your polls retrieved successfully"
+    });
+  } catch (error: any) {
+    console.error("Get my polls error:", error);
+    res.status(500).json({
+      success: false,
+      message: "Failed to retrieve your polls",
+      error: process.env.NODE_ENV === 'development' ? error.message : undefined
+    });
+  }
+};
+
+/**
+ * Approve a poll (moderators/admins only)
+ * @route PUT /api/polls/:id/approve
+ * @access Private (Moderators/Admins only)
+ */
+export const approvePoll = async (req: Request, res: Response): Promise<void> => {
+  try {
+    res.status(501).json({
+      success: false,
+      message: "Poll approval feature requires database migration. Please run migration to add status columns to polls table."
+    });
+  } catch (error: any) {
+    console.error("Approve poll error:", error);
+    res.status(500).json({
+      success: false,
+      message: "Failed to approve poll",
+      error: process.env.NODE_ENV === 'development' ? error.message : undefined
+    });
+  }
+};
+
+/**
+ * Reject a poll (moderators/admins only)
+ * @route PUT /api/polls/:id/reject
+ * @access Private (Moderators/Admins only)
+ */
+export const rejectPoll = async (req: Request, res: Response): Promise<void> => {
+  try {
+    res.status(501).json({
+      success: false,
+      message: "Poll rejection feature requires database migration. Please run migration to add status columns to polls table."
+    });
+  } catch (error: any) {
+    console.error("Reject poll error:", error);
     res.status(500).json({
       success: false,
       message: "Failed to delete comment",
