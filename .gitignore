@@ -30,6 +30,9 @@ build/
 # Firebase service account key (sensitive)
 serviceAccountKey.json
 
+# Google Drive credentials (sensitive)
+google-drive-credentials.json
+
 # IDE/Editor files
 .vscode/
 .idea/
