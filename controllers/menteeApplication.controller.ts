@@ -1,7 +1,7 @@
 // controllers/menteeApplication.controller.ts
 import { Request, Response } from 'express';
 import { PrismaClient, approve_application_status } from '../prisma/generated/client';
-import googleDriveService from '../services/googleDrive.service';
+import googleDriveService from '../services/googleDrive.service.js';
 import * as fs from 'fs';
 
 const prisma = new PrismaClient();
