@@ -474,6 +474,15 @@ export const getMySessions = async (req: Request, res: Response): Promise<void> 
             email: true,
             display_name: true,
           }
+        },
+        moderator: {
+          select: {
+            id: true,
+            first_name: true,
+            last_name: true,
+            email: true,
+            display_name: true,
+          }
         }
       }
     });
@@ -1305,8 +1314,7 @@ export const approveSession = async (req: Request, res: Response): Promise<void>
       data: {
         status: 'approved',
         moderated_by: userId,
-        approved_at: new Date(),
-        rejection_reason: null
+        moderated_at: new Date()
       },
       include: {
         creator: {
@@ -1407,8 +1415,8 @@ export const rejectSession = async (req: Request, res: Response): Promise<void> 
       data: {
         status: 'rejected',
         moderated_by: userId,
-        rejected_at: new Date(),
-        rejection_reason: reason.trim()
+        moderated_at: new Date(),
+        session_notes: reason.trim() // Store rejection reason in session_notes
       },
       include: {
         creator: {

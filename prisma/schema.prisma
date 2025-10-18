@@ -253,6 +253,7 @@ model users {
   services                                                                                     services[]
   session_enrollments                                                                          session_enrollments[]                  @relation("UserSessionEnrollments")
   created_sessions                                                                             sessions[]                             @relation("SessionCreator")
+  moderated_sessions                                                                           sessions[]                             @relation("SessionModerator")
   discussion_comment_likes                                                                     space_discussion_comment_likes[]       @relation("DiscussionCommentLikes")
   discussion_comments                                                                          space_discussion_comments[]            @relation("DiscussionComments")
   discussion_likes                                                                             space_discussion_likes[]               @relation("DiscussionLikes")
@@ -924,10 +925,13 @@ model sessions {
   created_time        DateTime              @default(now()) @db.Time(6)
   is_enabled          Boolean               @default(true)
   status              session_status        @default(pending)
+  moderated_by        Int?
+  moderated_at        DateTime?             @db.Timestamp(6)
   created_at          DateTime              @default(now()) @db.Timestamp(6)
   updated_at          DateTime              @default(now()) @db.Timestamp(6)
   session_enrollments session_enrollments[]
   creator             users                 @relation("SessionCreator", fields: [created_by], references: [id], onDelete: Cascade)
+  moderator           users?                @relation("SessionModerator", fields: [moderated_by], references: [id], onDelete: NoAction, onUpdate: NoAction)
 
   @@index([created_by], map: "idx_sessions_created_by")
   @@index([session_date], map: "idx_sessions_date")
@@ -936,6 +940,7 @@ model sessions {
   @@index([payment_type], map: "idx_sessions_payment_type")
   @@index([session_type], map: "idx_sessions_type")
   @@index([status], map: "idx_sessions_status")
+  @@index([moderated_by], map: "idx_sessions_moderated_by")
 }
 
 model space_discussion_comment_likes {
