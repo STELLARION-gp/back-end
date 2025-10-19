@@ -4,6 +4,21 @@ import { prisma } from "../lib/prisma";
 import { ChatbotNotificationService } from "../services/chatbotNotification.service";
 import { ChatbotService } from "../services/chatbot.service";
 
+// Type definitions for Gemini API response
+interface GeminiCandidate {
+  content?: {
+    parts?: Array<{ text?: string }>;
+  };
+  finishReason?: string;
+}
+
+interface GeminiResponse {
+  candidates?: GeminiCandidate[];
+  error?: {
+    message?: string;
+  };
+}
+
 // Initialize Gemini API key
 const GEMINI_API_KEY = process.env.GEMINI_API_KEY;
 
@@ -55,7 +70,7 @@ async function callGeminiDirectly(
     throw new Error(`Gemini API error (${response.status}): ${errorText}`);
   }
 
-  const data = await response.json();
+  const data = (await response.json()) as GeminiResponse;
 
   // Log the full response for debugging
   console.log(
@@ -78,7 +93,10 @@ async function callGeminiDirectly(
     if (data.candidates[0].content?.parts?.[0]?.text) {
       const partialText = data.candidates[0].content.parts[0].text;
       // Return partial response with note
-      return partialText + "\n\n[Response was truncated due to length. Please ask for more specific information if needed.]";
+      return (
+        partialText +
+        "\n\n[Response was truncated due to length. Please ask for more specific information if needed.]"
+      );
     }
 
     // If still no text, return a helpful fallback
