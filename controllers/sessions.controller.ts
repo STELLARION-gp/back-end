@@ -1261,18 +1261,9 @@ export const approveSession = async (req: Request, res: Response): Promise<void>
       return;
     }
 
-    // Check if session exists
+    // Check if session exists and get its status
     const session = await prisma.sessions.findUnique({
-      where: { id: parseInt(id) },
-      include: {
-        creator: {
-          select: {
-            id: true,
-            email: true,
-            display_name: true,
-          }
-        }
-      }
+      where: { id: parseInt(id) }
     });
 
     if (!session) {
@@ -1299,7 +1290,7 @@ export const approveSession = async (req: Request, res: Response): Promise<void>
         status: 'approved',
         moderated_by: userId,
         approved_at: new Date(),
-        is_enabled: true, // Enable the session when approved
+        is_enabled: true,
       },
       include: {
         creator: {
@@ -1360,18 +1351,9 @@ export const rejectSession = async (req: Request, res: Response): Promise<void> 
       return;
     }
 
-    // Check if session exists
+    // Check if session exists and get its status
     const session = await prisma.sessions.findUnique({
-      where: { id: parseInt(id) },
-      include: {
-        creator: {
-          select: {
-            id: true,
-            email: true,
-            display_name: true,
-          }
-        }
-      }
+      where: { id: parseInt(id) }
     });
 
     if (!session) {
@@ -1383,10 +1365,10 @@ export const rejectSession = async (req: Request, res: Response): Promise<void> 
     }
 
     // Check if session is pending
-    if ((session as any).status !== 'pending') {
+    if (session.status !== 'pending') {
       res.status(400).json({
         success: false,
-        message: `Session is already ${(session as any).status}`
+        message: `Session is already ${session.status}`
       });
       return;
     }
@@ -1395,12 +1377,12 @@ export const rejectSession = async (req: Request, res: Response): Promise<void> 
     const updatedSession = await prisma.sessions.update({
       where: { id: parseInt(id) },
       data: {
-        status: 'rejected' as any,
+        status: 'rejected',
         moderated_by: userId,
-        rejected_at: new Date() as any,
+        rejected_at: new Date(),
         rejection_reason: rejection_reason || 'No reason provided',
-        is_enabled: false, // Keep disabled when rejected
-      } as any,
+        is_enabled: false,
+      },
       include: {
         creator: {
           select: {
@@ -1462,39 +1444,44 @@ export const getPendingSessions = async (req: Request, res: Response): Promise<v
 
     const pageNumber = parseInt(page, 10);
     const limitNumber = parseInt(limit, 10);
-    const offset = (pageNumber - 1) * limitNumber;
+    const skip = (pageNumber - 1) * limitNumber;
 
-    // Validate and sanitize sort parameters to prevent SQL injection
+    // Validate sort parameters
     const validSortColumns = ['created_at', 'session_date', 'title'];
     const sortColumn = validSortColumns.includes(sort_by) ? sort_by : 'created_at';
-    const sortDirection = sort_order === 'asc' ? 'ASC' : 'DESC';
+    const sortDirection = sort_order === 'asc' ? 'asc' : 'desc';
 
-    // Use raw SQL query to get pending sessions with creator info
-    // Using $queryRawUnsafe with validated/sanitized parameters
-    const query = `
-      SELECT 
-        s.*,
-        u.id as creator_id,
-        u.first_name as creator_first_name,
-        u.last_name as creator_last_name,
-        u.email as creator_email,
-        u.display_name as creator_display_name
-      FROM sessions s
-      LEFT JOIN users u ON s.created_by = u.id
-      WHERE s.status = 'pending'
-      ORDER BY s.${sortColumn} ${sortDirection}
-      LIMIT $1 OFFSET $2
-    `;
-    
-    const sessions = await prisma.$queryRawUnsafe(query, limitNumber, offset) as any[];
+    // Build order by clause
+    const orderBy: any = {};
+    orderBy[sortColumn] = sortDirection;
+
+    // Get pending sessions using Prisma
+    const sessions = await prisma.sessions.findMany({
+      where: {
+        status: 'pending'
+      },
+      skip,
+      take: limitNumber,
+      orderBy,
+      include: {
+        creator: {
+          select: {
+            id: true,
+            first_name: true,
+            last_name: true,
+            email: true,
+            display_name: true,
+          }
+        }
+      }
+    });
 
     // Get total count
-    const countResult = await prisma.$queryRaw`
-      SELECT COUNT(*) as total
-      FROM sessions
-      WHERE status = 'pending'
-    ` as any[];
-    const totalCount = parseInt(countResult[0]?.total || '0');
+    const totalCount = await prisma.sessions.count({
+      where: {
+        status: 'pending'
+      }
+    });
 
     // Format sessions with creator info
     const formattedSessions = sessions.map(session => ({
@@ -1517,13 +1504,13 @@ export const getPendingSessions = async (req: Request, res: Response): Promise<v
       status: session.status,
       created_at: session.created_at,
       updated_at: session.updated_at,
-      creator: {
-        id: session.creator_id,
-        first_name: session.creator_first_name,
-        last_name: session.creator_last_name,
-        email: session.creator_email,
-        display_name: session.creator_display_name
-      }
+      creator: session.creator ? {
+        id: session.creator.id,
+        first_name: session.creator.first_name,
+        last_name: session.creator.last_name,
+        email: session.creator.email,
+        display_name: session.creator.display_name
+      } : null
     }));
 
     res.status(200).json({
