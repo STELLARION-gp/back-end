@@ -240,13 +240,22 @@ model users {
   chat_messages                                                                                chat_messages[]                        @relation("ChatMessageUser")
   chatbot_sessions                                                                             chatbot_sessions[]
   chatbot_usage                                                                                chatbot_usage[]
+  event_registrations                                                                          event_registrations[]
   event_reminders                                                                              event_reminders[]                      @relation("UserEventReminders")
   created_groups                                                                               group_chats[]                          @relation("GroupChatCreator")
   group_memberships                                                                            group_members[]                        @relation("GroupMembership")
   guide_application                                                                            guide_application[]
   influencer_application                                                                       influencer_application[]
   media_uploads                                                                                media_uploads[]
+  mentee_applications_as_learner                                                               mentee_applications[]                  @relation("MenteeApplicationLearner")
+  mentee_applications_as_mentor                                                                mentee_applications[]                  @relation("MenteeApplicationMentor")
   mentor_application                                                                           mentor_application[]
+  mentee_connections                                                                           mentor_mentee_connections[]            @relation("MenteeConnections")
+  mentor_connections                                                                           mentor_mentee_connections[]            @relation("MentorConnections")
+  created_mentor_mentee_goals                                                                  mentor_mentee_goals[]
+  created_mentor_mentee_notes                                                                  mentor_mentee_notes[]
+  uploaded_mentor_mentee_resources                                                             mentor_mentee_resources[]
+  created_mentor_mentee_short_notes                                                            mentor_mentee_short_notes[]
   message_reactions                                                                            message_reactions[]                    @relation("MessageReaction")
   night_camp_registrations                                                                     night_camp_registrations[]
   night_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousers night_camp_volunteering_applications[] @relation("night_camp_volunteering_applications_reviewed_byTousers")
@@ -276,16 +285,7 @@ model users {
   moderated_stargazing_spots                                                                   stargazing_spots[]                     @relation("StargazingSpotModerator")
   subscriptions                                                                                subscriptions[]
   user_settings                                                                                user_settings?
-  mentee_applications_as_learner                                                               mentee_applications[]                  @relation("MenteeApplicationLearner")
-  mentee_applications_as_mentor                                                                mentee_applications[]                  @relation("MenteeApplicationMentor")
-  mentor_connections                                                                           mentor_mentee_connections[]            @relation("MentorConnections")
-  mentee_connections                                                                           mentor_mentee_connections[]            @relation("MenteeConnections")
-  created_mentor_mentee_notes                                                                  mentor_mentee_notes[]
-  created_mentor_mentee_short_notes                                                            mentor_mentee_short_notes[]
-  created_mentor_mentee_goals                                                                  mentor_mentee_goals[]
-  uploaded_mentor_mentee_resources                                                             mentor_mentee_resources[]
-
-    event_registrations event_registrations[]
+  provider_payments                                                                            provider_payments[]
 
   @@index([is_active], map: "idx_users_active")
   @@index([email], map: "idx_users_email")
@@ -360,26 +360,25 @@ model event_reminders {
 }
 
 model events {
-  id                      Int       @id @default(autoincrement())
-  event_name              String    @db.VarChar(255)
-  society_name            String    @db.VarChar(255)
+  id                      Int                   @id @default(autoincrement())
+  event_name              String                @db.VarChar(255)
+  society_name            String                @db.VarChar(255)
   description             String
-  visibility              String    @db.VarChar(50)
-  date                    DateTime  @db.Date
-  time                    String    @db.VarChar(100)
-  location                String    @db.VarChar(255)
-  event_category          String    @db.VarChar(100)
+  visibility              String                @db.VarChar(50)
+  date                    DateTime              @db.Date
+  time                    String                @db.VarChar(100)
+  location                String                @db.VarChar(255)
+  event_category          String                @db.VarChar(100)
   needed_volunteers_count Int?
-  organized_by            String    @db.VarChar(255)
+  organized_by            String                @db.VarChar(255)
   image_urls              String[]
   max_participants        Int?
-  event_status            String    @db.VarChar(50)
-  created_at              DateTime? @default(now()) @db.Timestamp(6)
-  status                  String?   @default("pending") @db.VarChar(50)
+  event_status            String                @db.VarChar(50)
+  created_at              DateTime?             @default(now()) @db.Timestamp(6)
+  status                  String?               @default("pending") @db.VarChar(50)
   created_by              Int?
   moderated_by            Int?
-
-    event_registrations event_registrations[]
+  event_registrations     event_registrations[]
 
   @@index([created_by], map: "idx_events_created_by")
   @@index([date], map: "idx_events_date")
@@ -542,6 +541,7 @@ model mentor_application {
   @@index([application_status], map: "idx_mentor_application_status")
   @@index([user_id], map: "idx_mentor_application_user_id")
 }
+
 model mentee_applications {
   application_id     Int                         @id @default(autoincrement())
   learner_id         Int
@@ -556,29 +556,31 @@ model mentee_applications {
   learner            users                       @relation("MenteeApplicationLearner", fields: [learner_id], references: [id], onDelete: Cascade)
   mentor             users                       @relation("MenteeApplicationMentor", fields: [mentor_id], references: [id], onDelete: Cascade)
   connection         mentor_mentee_connections?
+
   @@index([learner_id], map: "idx_mentee_application_learner")
   @@index([mentor_id], map: "idx_mentee_application_mentor")
   @@index([application_status], map: "idx_mentee_application_status")
 }
+
 model mentor_mentee_connections {
-  connection_id   Int                     @id @default(autoincrement())
-  application_id  Int                     @unique
-  mentor_id       Int
-  mentee_id       Int
-  status          String                  @default("active") @db.VarChar(50)
-  connected_at    DateTime                @default(now()) @db.Timestamp(6)
-  last_activity   DateTime?               @db.Timestamp(6)
-  ended_at        DateTime?               @db.Timestamp(6)
-  created_at      DateTime                @default(now()) @db.Timestamp(6)
-  updated_at      DateTime                @default(now()) @db.Timestamp(6)
-  application     mentee_applications     @relation(fields: [application_id], references: [application_id], onDelete: Cascade)
-  mentor          users                   @relation("MentorConnections", fields: [mentor_id], references: [id], onDelete: Cascade)
-  mentee          users                   @relation("MenteeConnections", fields: [mentee_id], references: [id], onDelete: Cascade)
-  notes           mentor_mentee_notes[]
-  short_notes     mentor_mentee_short_notes[]
-  goals           mentor_mentee_goals[]
-  sessions        mentor_mentee_sessions[]
-  resources       mentor_mentee_resources[]
+  connection_id  Int                         @id @default(autoincrement())
+  application_id Int                         @unique
+  mentor_id      Int
+  mentee_id      Int
+  status         String                      @default("active") @db.VarChar(50)
+  connected_at   DateTime                    @default(now()) @db.Timestamp(6)
+  last_activity  DateTime?                   @db.Timestamp(6)
+  ended_at       DateTime?                   @db.Timestamp(6)
+  created_at     DateTime                    @default(now()) @db.Timestamp(6)
+  updated_at     DateTime                    @default(now()) @db.Timestamp(6)
+  application    mentee_applications         @relation(fields: [application_id], references: [application_id], onDelete: Cascade)
+  mentee         users                       @relation("MenteeConnections", fields: [mentee_id], references: [id], onDelete: Cascade)
+  mentor         users                       @relation("MentorConnections", fields: [mentor_id], references: [id], onDelete: Cascade)
+  goals          mentor_mentee_goals[]
+  notes          mentor_mentee_notes[]
+  resources      mentor_mentee_resources[]
+  sessions       mentor_mentee_sessions[]
+  short_notes    mentor_mentee_short_notes[]
 
   @@index([mentor_id], map: "idx_connection_mentor")
   @@index([mentee_id], map: "idx_connection_mentee")
@@ -664,6 +666,7 @@ model mentor_mentee_resources {
 
   @@index([connection_id], map: "idx_resources_connection")
 }
+
 model message_reactions {
   id            Int           @id @default(autoincrement())
   message_id    Int
@@ -855,11 +858,12 @@ model polls {
   title         String          @db.VarChar(255)
   description   String?
   created_by    Int
-  moderated_by  Int?
   created_at    DateTime        @default(now()) @db.Timestamp(6)
   updated_at    DateTime        @default(now()) @db.Timestamp(6)
   is_active     Boolean         @default(true)
-  status        String?         @default("open") @db.VarChar(20)
+  moderated_by  Int?
+  status        poll_status     @default(pending)
+  moderated_at  DateTime?       @db.Timestamp(6)
   poll_choices  poll_choices[]
   poll_comments poll_comments[]
   creator       users           @relation("PollCreator", fields: [created_by], references: [id], onDelete: Cascade)
@@ -1346,13 +1350,45 @@ model event_registrations {
   event_id      Int
   user_id       Int
   registered_at DateTime @default(now())
-
   event         events   @relation(fields: [event_id], references: [id], onDelete: Cascade)
   user          users    @relation(fields: [user_id], references: [id], onDelete: Cascade)
 
   @@unique([event_id, user_id])
   @@index([event_id], map: "idx_event_registrations_event_id")
   @@index([user_id], map: "idx_event_registrations_user_id")
+}
+
+model provider_payments {
+  id                 Int       @id @default(autoincrement())
+  provider_id        Int
+  provider_name      String    @db.VarChar(255)
+  provider_email     String    @db.VarChar(255)
+  provider_type      String    @db.VarChar(50)
+  month              Int
+  year               Int
+  total_revenue      Decimal   @db.Decimal(10, 2)
+  platform_fee       Decimal   @db.Decimal(10, 2)
+  provider_earnings  Decimal   @db.Decimal(10, 2)
+  services_revenue   Decimal   @db.Decimal(10, 2)
+  sessions_revenue   Decimal   @db.Decimal(10, 2)
+  services_count     Int       @default(0)
+  sessions_count     Int       @default(0)
+  payment_status     String    @default("pending") @db.VarChar(50)
+  payment_method     String?   @db.VarChar(100)
+  payment_date       DateTime? @db.Timestamp(6)
+  transaction_id     String?   @db.VarChar(255)
+  notes              String?   @db.Text
+  created_at         DateTime  @default(now()) @db.Timestamp(6)
+  updated_at         DateTime  @default(now()) @updatedAt @db.Timestamp(6)
+
+  provider users @relation(fields: [provider_id], references: [id], onDelete: Cascade)
+
+  @@unique([provider_id, month, year])
+  @@index([provider_id], map: "idx_provider_payments_provider")
+  @@index([payment_status], map: "idx_provider_payments_status")
+  @@index([month, year], map: "idx_provider_payments_period")
+  @@index([provider_type], map: "idx_provider_payments_type")
+  @@index([created_at], map: "idx_provider_payments_created")
 }
 
 enum weather_policy_type {
@@ -1501,7 +1537,6 @@ enum session_status {
 enum subscription_plan {
   starseeker
   galaxy_explorer
- 
   cosmic_voyager
 }
 
