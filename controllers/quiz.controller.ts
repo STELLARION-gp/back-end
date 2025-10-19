@@ -47,7 +47,7 @@ export const createQuiz = async (req: Request, res: Response) => {
           level: quizData.level,
           time_limit: quizData.time_limit,
           user_id: userId,
-          status: 'pending', // Quiz starts as pending, requires admin approval
+            // status: 'pending', // Removed status field
           question_count: quizData.questions.length,
           modified_at: new Date(),
         },
@@ -107,7 +107,7 @@ export const getAllQuizzes = async (req: Request, res: Response) => {
 
     const quizzes = await prisma.quizzes.findMany({
       where: { 
-        status: 'approved', // Only show approved quizzes
+          // status: 'approved', // Removed status check
         user_id: { not: userId } // Exclude user's own quizzes
       },
       orderBy: { created_at: 'desc' },
@@ -164,8 +164,9 @@ export const getMyQuizzes = async (req: Request, res: Response) => {
     if (!userId) return fail(res, 401, 'Unauthorized');
     
     const quizzes = await prisma.quizzes.findMany({
-      where: { user_id: userId },
-      orderBy: { created_at: 'desc' },
+      where: {
+        user_id: userId // Only quizzes created by the user
+      },
       include: {
         users: {
           select: {
@@ -504,9 +505,7 @@ export const startQuiz = async (req: Request, res: Response) => {
       return fail(res, 404, 'Quiz not found');
     }
 
-    if (quiz.status !== 'approved') {
-      return fail(res, 400, 'Quiz is not available');
-    }
+      // No status check; all quizzes are available
 
     // Check if user already participated
     const existingParticipation = await prisma.quizParticipants.findFirst({
@@ -574,7 +573,7 @@ export const submitQuizAnswers = async (req: Request, res: Response) => {
     if (existingParticipation) {
       return fail(res, 400, 'You have already submitted answers for this quiz');
     }
-
+          // status: updateData.status, // Removed status update
     // Calculate score
     let correctCount = 0;
     const results = answers.map(answer => {
@@ -729,115 +728,3 @@ export const getMyQuizResult = async (req: Request, res: Response) => {
 };
 
 // Admin: Get all pending quizzes for approval
-export const getPendingQuizzes = async (req: Request, res: Response) => {
-  try {
-    const userId = (req as any).user?.userId;
-    const userRole = (req as any).user?.role;
-    
-    if (!userId) return fail(res, 401, 'Unauthorized');
-    
-    // Check if user is admin
-    if (userRole !== 'admin' && userRole !== 'moderator') {
-      return fail(res, 403, 'Only admins can view pending quizzes');
-    }
-
-    const quizzes = await prisma.quizzes.findMany({
-      where: { status: 'pending' },
-      orderBy: { created_at: 'desc' },
-      include: {
-        users: {
-          select: {
-            id: true,
-            display_name: true,
-            first_name: true,
-            last_name: true,
-            email: true,
-          },
-        },
-        QuizQuestion: true,
-      },
-    });
-
-    const transformedQuizzes = quizzes.map(quiz => ({
-      ...quiz,
-      creator: quiz.users,
-      questions: quiz.QuizQuestion,
-    }));
-
-    ok(res, 'Pending quizzes fetched successfully', { quizzes: transformedQuizzes });
-  } catch (error) {
-    console.error('Error fetching pending quizzes:', error);
-    fail(res, 500, 'Failed to fetch pending quizzes');
-  }
-};
-
-// Admin: Approve or reject a quiz
-export const updateQuizStatus = async (req: Request, res: Response) => {
-  try {
-    const userId = (req as any).user?.userId;
-    const userRole = (req as any).user?.role;
-    
-    if (!userId) return fail(res, 401, 'Unauthorized');
-    
-    // Check if user is admin
-    if (userRole !== 'admin' && userRole !== 'moderator') {
-      return fail(res, 403, 'Only admins can approve/reject quizzes');
-    }
-
-    const quizId = parseInt(req.params.id);
-    if (isNaN(quizId)) {
-      return fail(res, 400, 'Invalid quiz ID');
-    }
-
-    const { status, reviewNotes } = req.body;
-
-    // Validate status
-    if (!['approved', 'rejected'].includes(status)) {
-      return fail(res, 400, 'Status must be either approved or rejected');
-    }
-
-    // Check if quiz exists
-    const existingQuiz = await prisma.quizzes.findUnique({
-      where: { id: quizId },
-    });
-
-    if (!existingQuiz) {
-      return fail(res, 404, 'Quiz not found');
-    }
-
-    if (existingQuiz.status !== 'pending') {
-      return fail(res, 400, 'Only pending quizzes can be approved/rejected');
-    }
-
-    // Update quiz status
-    const updatedQuiz = await prisma.quizzes.update({
-      where: { id: quizId },
-      data: {
-        status,
-        modified_at: new Date(),
-      },
-      include: {
-        users: {
-          select: {
-            id: true,
-            display_name: true,
-            first_name: true,
-            last_name: true,
-          },
-        },
-        QuizQuestion: true,
-      },
-    });
-
-    const result = {
-      ...updatedQuiz,
-      creator: updatedQuiz.users,
-      questions: updatedQuiz.QuizQuestion,
-    };
-
-    ok(res, `Quiz ${status} successfully`, result);
-  } catch (error) {
-    console.error('Error updating quiz status:', error);
-    fail(res, 500, 'Failed to update quiz status');
-  }
-};
