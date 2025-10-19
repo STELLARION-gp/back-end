@@ -82,65 +82,163 @@ jobs:
             # Navigate to parent directory for docker-compose
             cd ..
 
-            # Create a backup of docker-compose.yml
-            echo "🔧 Updating docker-compose configuration for safer volume handling..."
-            cp docker-compose.yml docker-compose.yml.backup || echo "No existing docker-compose.yml found"
+            # Print directory contents for debugging
+            echo "🔍 Current directory: $(pwd)"
+            echo "🔍 Directory contents:"
+            ls -la
+            
+            # Check if docker-compose.yml exists
+            if [ ! -f docker-compose.yml ]; then
+              echo "⚠️ docker-compose.yml not found! Creating a minimal one..."
+              cat > docker-compose.yml << 'EOF'
+version: "3.9"
 
-            # Check if the file already contains our volume fix
-            if grep -q "- /app/node_modules" docker-compose.yml 2>/dev/null; then
-              echo "Volume configuration already updated, skipping patch"
+services:
+  backend:
+    container_name: stellarion-backend
+    build:
+      context: ./back-end
+      dockerfile: Dockerfile
+    expose:
+      - "5000"
+    env_file:
+      - ./back-end/.env
+    environment:
+      - NODE_ENV=production
+      - PORT=5000
+      - LOGS_DIR=/app/logs
+    volumes:
+      # Persist logs on host machine
+      - ./back-end/logs:/app/logs
+      # Persist uploaded files
+      - ./back-end/tmp-uploads:/app/tmp-uploads
+      # Prevent node_modules issues
+      - /app/node_modules
+    networks:
+      - stellarion-network
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "wget", "--quiet", "--tries=1", "--spider", "http://localhost:5000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+networks:
+  stellarion-network:
+    driver: bridge
+EOF
+              echo "✅ Created new docker-compose.yml"
             else
-              echo "Applying volume configuration patch..."
-              # Use sed instead of patch for more reliable updating
-              sed -i 's/volumes:/volumes:\n      # Prevent node_modules issues\n      - \/app\/node_modules/g' docker-compose.yml || \
-              echo "Could not update docker-compose.yml, will try to continue anyway"
+              # Create a backup of docker-compose.yml
+              echo "🔧 Updating docker-compose configuration for safer volume handling..."
+              cp docker-compose.yml docker-compose.yml.backup || echo "Warning: Backup failed"
+              
+              # Check if the file already contains our volume fix
+              if grep -q "- /app/node_modules" docker-compose.yml 2>/dev/null; then
+                echo "Volume configuration already updated, skipping patch"
+              else
+                echo "Applying volume configuration patch..."
+                # Try several methods to update the file
+                if grep -q "volumes:" docker-compose.yml; then
+                  # Use sed if volumes section exists
+                  sed -i 's/volumes:/volumes:\n      # Prevent node_modules issues\n      - \/app\/node_modules/g' docker-compose.yml || echo "sed update failed"
+                else
+                  # Add volumes section if it doesn't exist
+                  sed -i '/backend:/,/networks:/ s/restart: unless-stopped/restart: unless-stopped\n    volumes:\n      # Prevent node_modules issues\n      - \/app\/node_modules/g' docker-compose.yml || echo "sed volumes addition failed"
+                fi
+              fi
             fi
-
+            
             # Show the updated docker-compose.yml for debugging
             echo "Current docker-compose.yml configuration:"
-            grep -A 15 "backend:" docker-compose.yml || echo "Could not find backend section"
-
-            # Stop and remove backend container to avoid ContainerConfig issues
-            echo "🛑 Stopping and removing backend container..."
-            docker-compose stop backend || echo "No container to stop"
-            docker-compose rm -f backend || echo "No container to remove"
-
-            # Clean up any related containers or images if they exist
+            cat docker-compose.yml || echo "Could not read docker-compose.yml"                        # Validate docker-compose file
+            echo "🔍 Validating docker-compose.yml..."
+            if ! docker-compose config > /dev/null; then
+              echo "⚠️ docker-compose.yml validation failed! Using fallback approach..."
+              
+              # Try direct Docker commands as fallback
+              echo "🛑 Stopping any existing backend container..."
+              docker stop stellarion-backend 2>/dev/null || echo "No container to stop"
+              docker rm -f stellarion-backend 2>/dev/null || echo "No container to remove"
+            else
+              # Stop and remove backend container to avoid ContainerConfig issues
+              echo "🛑 Stopping and removing backend container..."
+              docker-compose stop backend || echo "No container to stop"
+              docker-compose rm -f backend || echo "No container to remove"
+            fi
+            
+            # More aggressive cleanup of any related containers or images
             echo "🧹 Cleaning up related Docker resources..."
-            docker container ls -a | grep 'stellarion-backend' | awk '{print $1}' | xargs -r docker rm -f || echo "No containers to remove"
-
+            docker container ls -a | grep -E 'stellarion-backend|stellarion_backend' | awk '{print $1}' | xargs -r docker rm -f || echo "No containers to remove"
+            
             # Clean up any dangling volumes
             echo "🧹 Cleaning up Docker volumes..."
             docker volume prune -f
+            
+            # Ensure directories exist and have correct permissions
+            echo "📁 Ensuring required directories exist..."
+            mkdir -p ./back-end/logs ./back-end/tmp-uploads
+            chmod -R 777 ./back-end/logs ./back-end/tmp-uploads
 
-            # Build new image with a retry mechanism
+            # Build new image with a retry mechanism and fallback
             echo "🔨 Building new Docker image..."
             MAX_BUILD_RETRIES=3
             BUILD_SUCCESS=false
             BUILD_ATTEMPT=1
-
+            
             while [ $BUILD_ATTEMPT -le $MAX_BUILD_RETRIES ] && [ "$BUILD_SUCCESS" = false ]; do
               echo "Build attempt $BUILD_ATTEMPT of $MAX_BUILD_RETRIES..."
-              if docker-compose build --no-cache backend; then
+              if docker-compose config > /dev/null && docker-compose build --no-cache backend; then
                 BUILD_SUCCESS=true
                 echo "✅ Build successful on attempt $BUILD_ATTEMPT!"
+              elif [ $BUILD_ATTEMPT -eq $MAX_BUILD_RETRIES ]; then
+                echo "⚠️ docker-compose build failing, trying direct Docker build..."
+                if docker build -t stellarion_backend:latest ./back-end; then
+                  BUILD_SUCCESS=true
+                  echo "✅ Direct Docker build successful!"
+                fi
               else
                 BUILD_ATTEMPT=$((BUILD_ATTEMPT+1))
                 echo "⚠️ Build failed, attempt $BUILD_ATTEMPT of $MAX_BUILD_RETRIES..."
                 sleep 5
               fi
             done
-
+            
             if [ "$BUILD_SUCCESS" = false ]; then
               echo "❌ All build attempts failed!"
               exit 1
             fi
-
-            # Start backend container with fresh config
+            
+            # Start backend container with fallback mechanisms
             echo "🚀 Starting backend container..."
-            docker-compose up -d --force-recreate backend
-
-            # Wait for backend to be ready
+            if docker-compose config > /dev/null; then
+              if ! docker-compose up -d --force-recreate backend; then
+                echo "⚠️ docker-compose up failed, trying direct Docker run..."
+                docker run -d --name stellarion-backend \
+                  -p 5000:5000 \
+                  --env-file ./back-end/.env \
+                  -e NODE_ENV=production \
+                  -e PORT=5000 \
+                  -e LOGS_DIR=/app/logs \
+                  -v $(pwd)/back-end/logs:/app/logs \
+                  -v $(pwd)/back-end/tmp-uploads:/app/tmp-uploads \
+                  --restart unless-stopped \
+                  stellarion_backend:latest
+              fi
+            else
+              echo "⚠️ Using direct Docker run due to docker-compose issues..."
+              docker run -d --name stellarion-backend \
+                -p 5000:5000 \
+                --env-file ./back-end/.env \
+                -e NODE_ENV=production \
+                -e PORT=5000 \
+                -e LOGS_DIR=/app/logs \
+                -v $(pwd)/back-end/logs:/app/logs \
+                -v $(pwd)/back-end/tmp-uploads:/app/tmp-uploads \
+                --restart unless-stopped \
+                stellarion_backend:latest
+            fi            # Wait for backend to be ready
             echo "⏳ Waiting for backend to be ready..."
             sleep 30  # Increased wait time
 
