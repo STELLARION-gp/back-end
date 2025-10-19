@@ -3,6 +3,8 @@ import { PrismaClient } from '../prisma/generated/client';
 import path from 'path';
 import fs from 'fs';
 import cloudinary from '../config/cloudinary';
+import { NotificationService } from '../services/notification.service';
+import { NotificationType, NotificationPriority } from '../types/notification.types';
 
 const prisma = new PrismaClient();
 
@@ -383,16 +385,50 @@ export const listApprovedEvents = async (_req: Request, res: Response) => {
 export const registerForEvent = async (req: Request, res: Response) => {
   try {
     const eventId = Number(req.params.id);
-    const userId = (req as any).user?.user_id || (req as any).user?.userId;
-    if (!userId) return res.status(401).json({ success: false, message: 'User not authenticated' });
+    const authUser = (req as any).user;
+    const userId = authUser?.userId || authUser?.id;
+    const firebaseUid = authUser?.firebaseUid || authUser?.firebase_uid;
+    
+    if (!userId) {
+      return res.status(401).json({ success: false, message: 'User not authenticated' });
+    }
 
     // Check if event exists and is approved
     const event = await prisma.events.findUnique({ where: { id: eventId } });
-    if (!event || event.status !== 'approved') {
-      return res.status(404).json({ success: false, message: 'Event not found or not approved' });
+    if (!event) {
+      return res.status(404).json({ success: false, message: 'Event not found' });
+    }
+    
+    if (event.status !== 'approved') {
+      return res.status(400).json({ success: false, message: 'Event is not approved for registration' });
     }
 
-    // Register user for event (assume event_registrations table exists)
+    // Check if user is already registered
+    const existingRegistration = await prisma.event_registrations.findUnique({
+      where: {
+        event_id_user_id: {
+          event_id: eventId,
+          user_id: userId
+        }
+      }
+    });
+
+    if (existingRegistration) {
+      return res.status(400).json({ success: false, message: 'You are already registered for this event' });
+    }
+
+    // Check if event has reached max participants
+    if (event.max_participants) {
+      const registrationCount = await prisma.event_registrations.count({
+        where: { event_id: eventId }
+      });
+
+      if (registrationCount >= event.max_participants) {
+        return res.status(400).json({ success: false, message: 'Event has reached maximum participants' });
+      }
+    }
+
+    // Register user for event
     await prisma.event_registrations.create({
       data: {
         event_id: eventId,
@@ -401,16 +437,246 @@ export const registerForEvent = async (req: Request, res: Response) => {
       }
     });
 
-    // Send system notification (stub)
-    // TODO: Implement real notification logic
-    // await sendNotification(userId, `You have registered for event: ${event.event_name}`);
+    // Send system notification
+    try {
+      if (firebaseUid) {
+        await NotificationService.createNotification({
+          userId: firebaseUid,
+          type: NotificationType.EVENT,
+          priority: NotificationPriority.HIGH,
+          title: '🎉 Event Registration Successful!',
+          message: `You have successfully registered for "${event.event_name}". Event date: ${new Date(event.date).toLocaleDateString()}`,
+          link: `/events/${eventId}`,
+          isSystemGenerated: true,
+          metadata: {
+            eventId: eventId.toString(),
+            eventName: event.event_name,
+            eventDate: event.date.toISOString(),
+            eventLocation: event.location
+          }
+        });
+        console.log(`✅ Event registration notification sent to user ${firebaseUid}`);
+      }
+    } catch (notificationError: any) {
+      console.error('Failed to send event registration notification:', notificationError);
+      // Don't fail the registration if notification fails
+    }
 
-    // Send email (stub)
-    // TODO: Implement real email logic
-    // await sendEmailToUser(userId, `You have registered for event: ${event.event_name}`);
+    // TODO: Send email notification
+    // This can be implemented using a service like SendGrid, Nodemailer, etc.
+    // Example:
+    // try {
+    //   const user = await prisma.users.findUnique({ where: { id: userId } });
+    //   if (user?.email) {
+    //     await sendEmail({
+    //       to: user.email,
+    //       subject: `Event Registration Confirmation - ${event.event_name}`,
+    //       html: `<p>You have successfully registered for ${event.event_name}</p>`
+    //     });
+    //   }
+    // } catch (emailError) {
+    //   console.error('Failed to send email:', emailError);
+    // }
 
-    res.json({ success: true, message: 'Registered for event and notification/email sent.' });
+    res.json({ 
+      success: true, 
+      message: 'Successfully registered for event. Notification sent!',
+      registration: {
+        eventId,
+        eventName: event.event_name,
+        eventDate: event.date,
+        eventLocation: event.location
+      }
+    });
   } catch (err: any) {
+    console.error('[events][register] error', { message: err?.message, code: err?.code, stack: err?.stack });
+    
+    if (err.code === 'P2002') {
+      return res.status(400).json({ success: false, message: 'You are already registered for this event' });
+    }
+    
     res.status(500).json({ success: false, message: 'Failed to register for event', error: err.message });
+  }
+};
+
+// New: Check if user is registered for an event
+export const checkEventRegistration = async (req: Request, res: Response) => {
+  try {
+    const eventId = Number(req.params.id);
+    const authUser = (req as any).user;
+    const userId = authUser?.userId || authUser?.id;
+
+    if (!userId) {
+      return res.status(401).json({ success: false, message: 'User not authenticated' });
+    }
+
+    const registration = await prisma.event_registrations.findUnique({
+      where: {
+        event_id_user_id: {
+          event_id: eventId,
+          user_id: userId
+        }
+      }
+    });
+
+    res.json({ 
+      success: true, 
+      isRegistered: !!registration,
+      registration: registration || null
+    });
+  } catch (err: any) {
+    console.error('[events][check-registration] error', { message: err?.message });
+    res.status(500).json({ success: false, message: 'Failed to check registration status', error: err.message });
+  }
+};
+
+// New: Get user's event registrations
+export const getUserEventRegistrations = async (req: Request, res: Response) => {
+  try {
+    const authUser = (req as any).user;
+    const userId = authUser?.userId || authUser?.id;
+
+    if (!userId) {
+      return res.status(401).json({ success: false, message: 'User not authenticated' });
+    }
+
+    const registrations = await prisma.event_registrations.findMany({
+      where: { user_id: userId },
+      include: {
+        event: true
+      },
+      orderBy: { registered_at: 'desc' }
+    });
+
+    res.json({ 
+      success: true, 
+      registrations: registrations.map(reg => ({
+        ...reg,
+        event: reg.event
+      }))
+    });
+  } catch (err: any) {
+    console.error('[events][user-registrations] error', { message: err?.message });
+    res.status(500).json({ success: false, message: 'Failed to fetch user registrations', error: err.message });
+  }
+};
+
+// New: Unregister from event
+export const unregisterFromEvent = async (req: Request, res: Response) => {
+  try {
+    const eventId = Number(req.params.id);
+    const authUser = (req as any).user;
+    const userId = authUser?.userId || authUser?.id;
+    const firebaseUid = authUser?.firebaseUid || authUser?.firebase_uid;
+
+    if (!userId) {
+      return res.status(401).json({ success: false, message: 'User not authenticated' });
+    }
+
+    // Check if event exists
+    const event = await prisma.events.findUnique({ where: { id: eventId } });
+    if (!event) {
+      return res.status(404).json({ success: false, message: 'Event not found' });
+    }
+
+    // Check if user is registered
+    const registration = await prisma.event_registrations.findUnique({
+      where: {
+        event_id_user_id: {
+          event_id: eventId,
+          user_id: userId
+        }
+      }
+    });
+
+    if (!registration) {
+      return res.status(400).json({ success: false, message: 'You are not registered for this event' });
+    }
+
+    // Delete registration
+    await prisma.event_registrations.delete({
+      where: {
+        event_id_user_id: {
+          event_id: eventId,
+          user_id: userId
+        }
+      }
+    });
+
+    // Send cancellation notification
+    try {
+      if (firebaseUid) {
+        await NotificationService.createNotification({
+          userId: firebaseUid,
+          type: NotificationType.INFO,
+          priority: NotificationPriority.MEDIUM,
+          title: 'Event Registration Cancelled',
+          message: `You have cancelled your registration for "${event.event_name}"`,
+          link: `/events/${eventId}`,
+          isSystemGenerated: true,
+          metadata: {
+            eventId: eventId.toString(),
+            eventName: event.event_name
+          }
+        });
+      }
+    } catch (notificationError: any) {
+      console.error('Failed to send cancellation notification:', notificationError);
+    }
+
+    res.json({ 
+      success: true, 
+      message: 'Successfully unregistered from event'
+    });
+  } catch (err: any) {
+    console.error('[events][unregister] error', { message: err?.message, code: err?.code });
+    res.status(500).json({ success: false, message: 'Failed to unregister from event', error: err.message });
+  }
+};
+
+// New: Get event registrations count and list (for event organizers)
+export const getEventRegistrations = async (req: Request, res: Response) => {
+  try {
+    const eventId = Number(req.params.id);
+
+    const event = await prisma.events.findUnique({ where: { id: eventId } });
+    if (!event) {
+      return res.status(404).json({ success: false, message: 'Event not found' });
+    }
+
+    const registrations = await prisma.event_registrations.findMany({
+      where: { event_id: eventId },
+      include: {
+        user: {
+          select: {
+            id: true,
+            email: true,
+            first_name: true,
+            last_name: true,
+            display_name: true
+          }
+        }
+      },
+      orderBy: { registered_at: 'desc' }
+    });
+
+    const count = registrations.length;
+    const maxParticipants = event.max_participants;
+    const spotsAvailable = maxParticipants ? maxParticipants - count : null;
+
+    res.json({ 
+      success: true,
+      count,
+      maxParticipants,
+      spotsAvailable,
+      registrations: registrations.map(reg => ({
+        id: reg.id,
+        registeredAt: reg.registered_at,
+        user: reg.user
+      }))
+    });
+  } catch (err: any) {
+    console.error('[events][registrations] error', { message: err?.message });
+    res.status(500).json({ success: false, message: 'Failed to fetch event registrations', error: err.message });
   }
 };
