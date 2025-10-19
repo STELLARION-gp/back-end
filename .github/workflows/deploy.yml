@@ -5,11 +5,10 @@ on:
     branches:
       - main
       - release
-      - deploy-implementation
-  workflow_dispatch: # Allow manual triggers
+  workflow_dispatch:
 
 env:
-  DEPLOY_PATH: /home/deploy/deployments/stellarion/back-end
+  DEPLOY_PATH: /home/deploy/deployments/stellarion
 
 jobs:
   test:
@@ -30,14 +29,15 @@ jobs:
         run: npm ci
 
       - name: Run linter
-        run: npm run lint || echo "Linting completed with warnings"
+        run: npm run lint
+        continue-on-error: true
 
-      # TODO: Fix TypeScript errors in the codebase
-      # There are type mismatches between the code and Prisma schema
-      # Currently building with --skipLibCheck to bypass these errors
+      - name: Build test
+        run: npm run build
 
       - name: Run tests
-        run: npm test || echo "No tests configured yet"
+        run: npm test
+        continue-on-error: true
 
   deploy:
     name: Deploy to Digital Ocean
@@ -61,248 +61,54 @@ jobs:
 
             echo "🚀 Starting backend deployment..."
 
-            # Navigate to backend directory
+            # Navigate to deployment directory
             cd ${{ env.DEPLOY_PATH }}
 
-            # Backup current state
+            # Create backup
             echo "📦 Creating backup..."
-            PARENT_DIR=$(dirname "${{ env.DEPLOY_PATH }}")
-            BACKUP_NAME="back-end-backup-$(date +%Y%m%d-%H%M%S)"
-            mkdir -p $PARENT_DIR/backups
-            
-            # Create a safer backup that won't cause recursion issues
-            find . -maxdepth 1 -not -name "backups" -not -name "." -not -name ".git" -exec cp -r {} $PARENT_DIR/backups/$BACKUP_NAME/ \; || echo "Backup partially completed"
-            echo "Backup created at $PARENT_DIR/backups/$BACKUP_NAME/"
+            BACKUP_DIR="backups/backend-$(date +%Y%m%d-%H%M%S)"
+            mkdir -p $BACKUP_DIR
+            cp -r back-end $BACKUP_DIR/ 2>/dev/null || true
 
             # Pull latest changes
             echo "📥 Pulling latest code..."
+            cd back-end
             git fetch origin
             git reset --hard origin/${{ github.ref_name }}
-
-            # Navigate to parent directory for docker-compose
             cd ..
 
-            # Print directory contents for debugging
-            echo "🔍 Current directory: $(pwd)"
-            echo "🔍 Directory contents:"
-            ls -la
-            
-            # Check if docker-compose.yml exists
-            if [ ! -f docker-compose.yml ]; then
-              echo "⚠️ docker-compose.yml not found! Creating a minimal one..."
-              cat > docker-compose.yml << EOF
-version: "3.9"
+            # Stop backend container
+            echo "🛑 Stopping backend..."
+            docker-compose stop backend 2>/dev/null || true
+            docker-compose rm -f backend 2>/dev/null || true
 
-services:
-  backend:
-    container_name: stellarion-backend
-    build:
-      context: ./back-end
-      dockerfile: Dockerfile
-    expose:
-      - "5000"
-    ports:
-      - "5000:5000"
-    env_file:
-      - ./back-end/.env
-    environment:
-      - NODE_ENV=production
-      - PORT=5000
-      - LOGS_DIR=/app/logs
-    volumes:
-      # Persist logs on host machine
-      - ./back-end/logs:/app/logs
-      # Persist uploaded files
-      - ./back-end/tmp-uploads:/app/tmp-uploads
-      # Prevent node_modules issues
-      - /app/node_modules
-    restart: unless-stopped
-    healthcheck:
-      test: ["CMD", "wget", "--quiet", "--tries=1", "--spider", "http://localhost:5000/health"]
-      interval: 30s
-      timeout: 10s
-      retries: 3
-      start_period: 40s
-EOF
-              echo "✅ Created new docker-compose.yml"
-            else
-              # Create a backup of docker-compose.yml
-              echo "🔧 Updating docker-compose configuration for safer volume handling..."
-              cp docker-compose.yml docker-compose.yml.backup || echo "Warning: Backup failed"
-              
-              # Check if the file already contains our volume fix
-              if grep -q "- /app/node_modules" docker-compose.yml 2>/dev/null; then
-                echo "Volume configuration already updated, skipping patch"
-              else
-                echo "Applying volume configuration patch..."
-                # Try several methods to update the file
-                if grep -q "volumes:" docker-compose.yml; then
-                  # Use sed if volumes section exists
-                  sed -i 's/volumes:/volumes:\n      # Prevent node_modules issues\n      - \/app\/node_modules/g' docker-compose.yml || echo "sed update failed"
-                else
-                  # Add volumes section if it doesn't exist
-                  sed -i '/backend:/,/networks:/ s/restart: unless-stopped/restart: unless-stopped\n    volumes:\n      # Prevent node_modules issues\n      - \/app\/node_modules/g' docker-compose.yml || echo "sed volumes addition failed"
-                fi
-              fi
-            fi
-            
-            # Show the updated docker-compose.yml for debugging
-            echo "Current docker-compose.yml configuration:"
-            cat docker-compose.yml || echo "Could not read docker-compose.yml"
-            
-            # Validate docker-compose file
-            echo "🔍 Validating docker-compose.yml..."
-            if ! docker-compose config > /dev/null; then
-              echo "⚠️ docker-compose.yml validation failed! Using fallback approach..."
-              
-              # Try direct Docker commands as fallback
-              echo "🛑 Stopping any existing backend container..."
-              docker stop stellarion-backend 2>/dev/null || echo "No container to stop"
-              docker rm -f stellarion-backend 2>/dev/null || echo "No container to remove"
-            else
-              # Stop and remove backend container to avoid ContainerConfig issues
-              echo "🛑 Stopping and removing backend container..."
-              docker-compose stop backend || echo "No container to stop"
-              docker-compose rm -f backend || echo "No container to remove"
-            fi
-            
-            # More aggressive cleanup of any related containers or images
-            echo "🧹 Cleaning up related Docker resources..."
-            docker container ls -a | grep -E 'stellarion-backend|stellarion_backend' | awk '{print $1}' | xargs -r docker rm -f || echo "No containers to remove"
-            
-            # Clean up any dangling volumes
-            echo "🧹 Cleaning up Docker volumes..."
-            docker volume prune -f
-            
-            # Ensure directories exist and have correct permissions
-            echo "📁 Ensuring required directories exist..."
-            mkdir -p ./back-end/logs ./back-end/tmp-uploads
-            chmod -R 777 ./back-end/logs ./back-end/tmp-uploads
+            # Build and start backend
+            echo "� Building and starting backend..."
+            docker-compose build --no-cache backend
+            docker-compose up -d backend
 
-            # Build new image with a retry mechanism and fallback
-            echo "🔨 Building new Docker image..."
-            MAX_BUILD_RETRIES=3
-            BUILD_SUCCESS=false
-            BUILD_ATTEMPT=1
-            
-            while [ $BUILD_ATTEMPT -le $MAX_BUILD_RETRIES ] && [ "$BUILD_SUCCESS" = false ]; do
-              echo "Build attempt $BUILD_ATTEMPT of $MAX_BUILD_RETRIES..."
-              if docker-compose config > /dev/null && docker-compose build --no-cache backend; then
-                BUILD_SUCCESS=true
-                echo "✅ Build successful on attempt $BUILD_ATTEMPT!"
-              elif [ $BUILD_ATTEMPT -eq $MAX_BUILD_RETRIES ]; then
-                echo "⚠️ docker-compose build failing, trying direct Docker build..."
-                if docker build -t stellarion_backend:latest ./back-end; then
-                  BUILD_SUCCESS=true
-                  echo "✅ Direct Docker build successful!"
-                fi
-              else
-                BUILD_ATTEMPT=$((BUILD_ATTEMPT+1))
-                echo "⚠️ Build failed, attempt $BUILD_ATTEMPT of $MAX_BUILD_RETRIES..."
-                sleep 5
-              fi
-            done
-            
-            if [ "$BUILD_SUCCESS" = false ]; then
-              echo "❌ All build attempts failed!"
-              exit 1
-            fi
-            
-            # Start backend container with fallback mechanisms
-            echo "🚀 Starting backend container..."
-            if docker-compose config > /dev/null; then
-              if ! docker-compose up -d --force-recreate backend; then
-                echo "⚠️ docker-compose up failed, trying direct Docker run..."
-                docker run -d --name stellarion-backend \
-                  -p 5000:5000 \
-                  --env-file ./back-end/.env \
-                  -e NODE_ENV=production \
-                  -e PORT=5000 \
-                  -e LOGS_DIR=/app/logs \
-                  -v $(pwd)/back-end/logs:/app/logs \
-                  -v $(pwd)/back-end/tmp-uploads:/app/tmp-uploads \
-                  --restart unless-stopped \
-                  stellarion_backend:latest
-              fi
-            else
-              echo "⚠️ Using direct Docker run due to docker-compose issues..."
-              docker run -d --name stellarion-backend \
-                -p 5000:5000 \
-                --env-file ./back-end/.env \
-                -e NODE_ENV=production \
-                -e PORT=5000 \
-                -e LOGS_DIR=/app/logs \
-                -v $(pwd)/back-end/logs:/app/logs \
-                -v $(pwd)/back-end/tmp-uploads:/app/tmp-uploads \
-                --restart unless-stopped \
-                stellarion_backend:latest
-            fi
-            
             # Wait for backend to be ready
             echo "⏳ Waiting for backend to be ready..."
-            sleep 30  # Increased wait time
+            sleep 20
 
-            # Show container logs for diagnostics
-            echo "📝 Container logs for debugging:"
-            docker logs stellarion-backend --tail 50
-
-            # Check if container is running
-            echo "🔍 Checking if container is running..."
-            if ! docker ps | grep stellarion-backend; then
-              echo "❌ Container is not running!"
-              echo "🔄 Attempting to restart container..."
-              docker-compose up -d backend
-              sleep 10
-            fi
-
-            # Health check with retries
+            # Health check
             echo "🔍 Running health check..."
-            MAX_RETRIES=3
-            RETRY_COUNT=0
-            HEALTH_CHECK_PASSED=false
-
-            while [ $RETRY_COUNT -lt $MAX_RETRIES ] && [ "$HEALTH_CHECK_PASSED" = false ]; do
-              if docker exec stellarion-backend wget -qO- http://localhost:5000/health; then
-                echo "✅ Health check passed on attempt $((RETRY_COUNT+1))!"
-                HEALTH_CHECK_PASSED=true
-              else
-                RETRY_COUNT=$((RETRY_COUNT+1))
-                echo "⚠️ Health check attempt $RETRY_COUNT failed, waiting and retrying..."
-                sleep 15
-              fi
-            done
-
-            if [ "$HEALTH_CHECK_PASSED" = true ]; then
+            if docker exec stellarion-backend wget -qO- http://localhost:5000/health > /dev/null 2>&1; then
               echo "✅ Backend deployment successful!"
             else
-              echo "❌ All health checks failed, checking container logs:"
-              docker logs stellarion-backend --tail 100
-              echo "❌ Rolling back deployment..."
+              echo "❌ Health check failed, rolling back..."
               docker-compose down backend
-              
-              # Restore from backup if available
-              LATEST_BACKUP=$(ls -td $PARENT_DIR/backups/back-end-backup-* | head -1)
-              if [ -n "$LATEST_BACKUP" ] && [ -d "$LATEST_BACKUP" ]; then
-                echo "Restoring from backup: $LATEST_BACKUP"
-                rm -rf ${{ env.DEPLOY_PATH }}/*
-                cp -r $LATEST_BACKUP/* ${{ env.DEPLOY_PATH }}/
-              else
-                echo "No backup found, trying to rollback using git"
-                cd back-end
-                git reset --hard HEAD@{1}
-                cd ..
-              fi
-              
+              cp -r $BACKUP_DIR/back-end/* back-end/
               docker-compose up -d backend
-              echo "❌ Deployment failed and rolled back"
               exit 1
             fi
 
-            # Cleanup old images
-            echo "🧹 Cleaning up old Docker images..."
+            # Cleanup
+            echo "🧹 Cleaning up..."
             docker image prune -f
 
-            echo "✨ Backend deployment completed successfully!"
+            echo "✨ Deployment completed!"
+
 
       - name: Notify on Success
         if: success()
