@@ -387,7 +387,7 @@ export const registerForEvent = async (req: Request, res: Response) => {
     const eventId = Number(req.params.id);
     const authUser = (req as any).user;
     const userId = authUser?.userId || authUser?.id;
-    const firebaseUid = authUser?.firebaseUid || authUser?.firebase_uid;
+    const firebaseUid = authUser?.uid || authUser?.firebaseUid || authUser?.firebase_uid;
     
     if (!userId) {
       return res.status(401).json({ success: false, message: 'User not authenticated' });
@@ -439,8 +439,15 @@ export const registerForEvent = async (req: Request, res: Response) => {
 
     // Send system notification
     try {
+      console.log('[Event Registration] Attempting to send notification:', {
+        firebaseUid,
+        eventId,
+        eventName: event.event_name,
+        eventDate: event.date,
+        eventLocation: event.location
+      });
       if (firebaseUid) {
-        await NotificationService.createNotification({
+        const notificationResult = await NotificationService.createNotification({
           userId: firebaseUid,
           type: NotificationType.EVENT,
           priority: NotificationPriority.HIGH,
@@ -455,10 +462,13 @@ export const registerForEvent = async (req: Request, res: Response) => {
             eventLocation: event.location
           }
         });
+        console.log('[Event Registration] Notification creation result:', notificationResult);
         console.log(`✅ Event registration notification sent to user ${firebaseUid}`);
+      } else {
+        console.warn('[Event Registration] No firebaseUid found, notification not sent');
       }
     } catch (notificationError: any) {
-      console.error('Failed to send event registration notification:', notificationError);
+      console.error('[Event Registration] Failed to send event registration notification:', notificationError);
       // Don't fail the registration if notification fails
     }
 
