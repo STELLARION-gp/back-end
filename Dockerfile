@@ -16,6 +16,7 @@ RUN npm i
 
 # Copy prisma schema and generate client
 COPY prisma ./prisma
+RUN ls -la ./prisma/ && echo "Checking Prisma schema..." && cat ./prisma/schema.prisma || echo "Schema not found!"
 RUN npx prisma generate
 
 # Copy source code
@@ -47,6 +48,7 @@ RUN npm i --only=production && \
 
 # Copy Prisma schema and generate client for production
 COPY prisma ./prisma
+RUN ls -la ./prisma/ && echo "Checking Prisma schema in production stage..." && cat ./prisma/schema.prisma || echo "Schema not found in production stage!"
 RUN npx prisma generate
 
 # Copy built application from builder stage
