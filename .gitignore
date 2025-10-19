@@ -7,12 +7,19 @@ yarn-error.log*
 # Environment variables
 .env
 .env.local
+.env.development
 .env.development.local
+.env.test
 .env.test.local
+.env.production
 .env.production.local
+.env.staging
 .env.bak
 .env.backup
 *.env.bak
+
+# Keep example files
+!.env.example
 
 # Build outputs
 dist/
@@ -75,7 +82,7 @@ jspm_packages/
 # Yarn Integrity file
 .yarn-integrity
 
-package-lock.json
+# yarn.lock (allowing package-lock.json for better CI/CD compatibility)
 yarn.lock
 
 # Prisma generated artifacts (client & engine binaries)

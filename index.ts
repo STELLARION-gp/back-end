@@ -7,25 +7,26 @@ import paymentRoutes from "./routes/payment.routes";
 import blogRoutes from "./routes/blog.routes";
 import nightcampRoutes from "./routes/nightcamp.routes";
 import nasaOpportunitiesRoutes from "./routes/nasaOpportunities.routes";
-import uploadRoutes from './routes/upload.routes';
-import mediaUploadRoutes from './routes/mediaUpload.routes';
-import chatRoutes from './routes/chat.routes';
-import tourMediaRoutes from './routes/tourMedia.routes';
-import eventRoutes from './routes/event.routes';
-import spaceDiscussionRoutes from './routes/spaceDiscussion.routes';
-import astronomyEventsRoutes from './routes/astronomyEvents.routes';
-import stargazingSpotRoutes from './routes/stargazingSpot.routes';
-import sessionsRoutes from './routes/sessions.routes';
-import pollRoutes from './routes/poll.routes';
-import recommendedContentRoutes from './routes/recommendedContent.routes';
-import quizRoutes from './routes/quiz.routes';
-import servicesRoutes from './routes/services.routes';
-import bookingRoutes from './routes/booking.routes';
+import uploadRoutes from "./routes/upload.routes";
+import mediaUploadRoutes from "./routes/mediaUpload.routes";
+import chatRoutes from "./routes/chat.routes";
+import tourMediaRoutes from "./routes/tourMedia.routes";
+import eventRoutes from "./routes/event.routes";
+import spaceDiscussionRoutes from "./routes/spaceDiscussion.routes";
+import astronomyEventsRoutes from "./routes/astronomyEvents.routes";
+import stargazingSpotRoutes from "./routes/stargazingSpot.routes";
+import sessionsRoutes from "./routes/sessions.routes";
+import pollRoutes from "./routes/poll.routes";
+import recommendedContentRoutes from "./routes/recommendedContent.routes";
+import quizRoutes from "./routes/quiz.routes";
+import servicesRoutes from "./routes/services.routes";
+import bookingRoutes from "./routes/booking.routes";
 import adminApiRoutes from "./routes/admin.routes";
 import financeRoutes from "./routes/finance.routes";
 import providerPaymentsRoutes from "./routes/providerPayments.routes";
 import mentorProfileRoutes from './routes/mentorProfile.routes';
 import mentorMenteeConnectionRoutes from './routes/mentorMenteeConnection.routes';
+
 
 // index.ts
 import express from "express";
@@ -60,6 +61,9 @@ import { PrismaClient } from "@prisma/client";
 dotenv.config();
 const app = express();
 const server = http.createServer(app);
+
+// Trust nginx reverse proxy (fixes X-Forwarded-For warnings)
+app.set("trust proxy", 1);
 
 // Initialize Socket.IO
 const socketServer = new SocketServer(server);
@@ -142,16 +146,32 @@ try {
 }
 
 // Middleware
-app.use(
-  cors({
-    origin: [
+const allowedOrigins = process.env.CORS_ORIGINS
+  ? process.env.CORS_ORIGINS.split(",").map((origin) => origin.trim())
+  : [
       "http://localhost:3000",
       "http://localhost:5173",
       "http://localhost:5174",
       "http://localhost:4173",
       "http://127.0.0.1:5173",
       "http://127.0.0.1:5174",
-    ],
+    ];
+
+console.log("🔐 CORS enabled for origins:", allowedOrigins);
+
+app.use(
+  cors({
+    origin: (origin, callback) => {
+      // Allow requests with no origin (like mobile apps or curl requests)
+      if (!origin) return callback(null, true);
+
+      if (allowedOrigins.includes(origin)) {
+        callback(null, true);
+      } else {
+        console.warn(`⚠️ CORS blocked origin: ${origin}`);
+        callback(new Error(`Origin ${origin} not allowed by CORS`));
+      }
+    },
     credentials: true,
     methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
     allowedHeaders: ["Content-Type", "Authorization"],
@@ -163,12 +183,28 @@ app.use(express.json());
 app.use("/public", express.static("public"));
 
 // Health check endpoint
-app.get("/health", (req, res) => {
-  res.json({
-    status: "healthy",
-    timestamp: new Date().toISOString(),
-    version: "1.0.0",
-  });
+app.get("/health", async (req, res) => {
+  try {
+    // Basic health check
+    const healthStatus = {
+      status: "healthy",
+      timestamp: new Date().toISOString(),
+      version: "1.0.0",
+      checks: {
+        server: "ok",
+      },
+    };
+
+    // We'll still return 200 even if some checks fail
+    return res.json(healthStatus);
+  } catch (error) {
+    console.error("Health check failed:", error);
+    return res.status(500).json({
+      status: "unhealthy",
+      timestamp: new Date().toISOString(),
+      error: error.message || "Unknown error",
+    });
+  }
 });
 
 // API Routes
@@ -224,16 +260,16 @@ app.use("/api/stargazing-spots", stargazingSpotRoutes);
 app.use("/api/sessions", sessionsRoutes);
 
 // Poll API
-app.use('/api/polls', pollRoutes);
+app.use("/api/polls", pollRoutes);
 
 // Quiz API
-app.use('/api/quizzes', quizRoutes);
+app.use("/api/quizzes", quizRoutes);
 
 // Services API
-app.use('/api/services', servicesRoutes);
+app.use("/api/services", servicesRoutes);
 
 // Bookings API
-app.use('/api/bookings', bookingRoutes);
+app.use("/api/bookings", bookingRoutes);
 
 // Mentor Recommended Contents
 app.use("/api/mentors/recommended-contents", recommendedContentRoutes);

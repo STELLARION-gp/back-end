@@ -13,7 +13,8 @@ import {
     deletePollComment,
     getMyPolls,
     approvePoll,
-    rejectPoll
+    rejectPoll,
+    getModerationPolls
 } from '../controllers/poll.controller';
 import { verifyToken } from '../middleware/verifyToken';
 
@@ -21,6 +22,7 @@ const router = Router();
 
 // Protected routes that need to come before :id routes to avoid conflicts
 router.get('/my-polls', verifyToken, getMyPolls);                       // Get user's own polls
+router.get('/admin/moderation', verifyToken, getModerationPolls);       // Get polls for moderation (all/pending/approved/rejected)
 
 // Public routes (no authentication required)
 router.get('/', getAllPolls);                          // Get all polls with filters

@@ -95,7 +95,7 @@ export const createSession = async (req: Request, res: Response): Promise<void> 
       return;
     }
 
-    // Create the session
+    // Create the session with pending status (requires moderation)
     const newSession = await prisma.sessions.create({
       data: {
         title,
@@ -112,7 +112,8 @@ export const createSession = async (req: Request, res: Response): Promise<void> 
         materials: materials || [],
         session_notes: session_notes || null,
         created_by: userId,
-        is_enabled: true
+        status: 'pending', // All new sessions start as pending
+        is_enabled: false // Disabled until approved
       },
       include: {
         creator: {
@@ -1243,42 +1244,309 @@ export const getMySessionsAnalytics = async (req: Request, res: Response): Promi
 };
 
 /**
- * Approve a session (Moderator/Influencer only)
+ * Approve a session (Moderator only)
  * @route PATCH /api/sessions/:id/approve
- * @access Private (Moderator/Influencer only)
- * @note Requires database migration to add status, moderated_by, moderated_at columns
+ * @access Private (Moderator only)
  */
 export const approveSession = async (req: Request, res: Response): Promise<void> => {
-  res.status(501).json({
-    success: false,
-    message: "Session approval feature requires database migration. Please run: ALTER TABLE sessions ADD COLUMN status session_status DEFAULT 'pending', ADD COLUMN moderated_by INT, ADD COLUMN moderated_at TIMESTAMP;"
-  });
+  try {
+    const { id } = req.params;
+    const userId = (req as any).user?.userId;
+
+    if (!userId) {
+      res.status(401).json({
+        success: false,
+        message: "User not authenticated"
+      });
+      return;
+    }
+
+    // Check if session exists and get its status
+    const session = await prisma.sessions.findUnique({
+      where: { id: parseInt(id) }
+    });
+
+    if (!session) {
+      res.status(404).json({
+        success: false,
+        message: "Session not found"
+      });
+      return;
+    }
+
+    // Check if session is pending
+    if (session.status !== 'pending') {
+      res.status(400).json({
+        success: false,
+        message: `Session is already ${session.status}`
+      });
+      return;
+    }
+
+    // Update session status to approved
+    const updatedSession = await prisma.sessions.update({
+      where: { id: parseInt(id) },
+      data: {
+        status: 'approved',
+        moderated_by: userId,
+        approved_at: new Date(),
+        is_enabled: true,
+      },
+      include: {
+        creator: {
+          select: {
+            id: true,
+            first_name: true,
+            last_name: true,
+            email: true,
+            display_name: true,
+          }
+        },
+        moderator: {
+          select: {
+            id: true,
+            display_name: true,
+          }
+        }
+      }
+    });
+
+    // Format session_time before sending
+    const formattedSession = {
+      ...updatedSession,
+      session_time: formatTimeField(updatedSession.session_time)
+    };
+
+    res.status(200).json({
+      success: true,
+      data: formattedSession,
+      message: "Session approved successfully"
+    });
+  } catch (error: any) {
+    console.error("Approve session error:", error);
+    res.status(500).json({
+      success: false,
+      message: "Failed to approve session",
+      error: process.env.NODE_ENV === 'development' ? error.message : undefined
+    });
+  }
 };
 
 /**
- * Reject a session (Moderator/Influencer only)
+ * Reject a session (Moderator only)
  * @route PATCH /api/sessions/:id/reject
- * @access Private (Moderator/Influencer only)
- * @note Requires database migration to add status, moderated_by, moderated_at columns
+ * @access Private (Moderator only)
  */
 export const rejectSession = async (req: Request, res: Response): Promise<void> => {
-  res.status(501).json({
-    success: false,
-    message: "Session rejection feature requires database migration. Please run: ALTER TABLE sessions ADD COLUMN status session_status DEFAULT 'pending', ADD COLUMN moderated_by INT, ADD COLUMN moderated_at TIMESTAMP;"
-  });
+  try {
+    const { id } = req.params;
+    const { rejection_reason } = req.body;
+    const userId = (req as any).user?.userId;
+
+    if (!userId) {
+      res.status(401).json({
+        success: false,
+        message: "User not authenticated"
+      });
+      return;
+    }
+
+    // Check if session exists and get its status
+    const session = await prisma.sessions.findUnique({
+      where: { id: parseInt(id) }
+    });
+
+    if (!session) {
+      res.status(404).json({
+        success: false,
+        message: "Session not found"
+      });
+      return;
+    }
+
+    // Check if session is pending
+    if (session.status !== 'pending') {
+      res.status(400).json({
+        success: false,
+        message: `Session is already ${session.status}`
+      });
+      return;
+    }
+
+    // Update session status to rejected
+    const updatedSession = await prisma.sessions.update({
+      where: { id: parseInt(id) },
+      data: {
+        status: 'rejected',
+        moderated_by: userId,
+        rejected_at: new Date(),
+        rejection_reason: rejection_reason || 'No reason provided',
+        is_enabled: false,
+      },
+      include: {
+        creator: {
+          select: {
+            id: true,
+            first_name: true,
+            last_name: true,
+            email: true,
+            display_name: true,
+          }
+        }
+      }
+    });
+
+    // Format session_time before sending
+    const formattedSession = {
+      ...updatedSession,
+      session_time: formatTimeField(updatedSession.session_time)
+    };
+
+    res.status(200).json({
+      success: true,
+      data: formattedSession,
+      message: "Session rejected successfully"
+    });
+  } catch (error: any) {
+    console.error("Reject session error:", error);
+    res.status(500).json({
+      success: false,
+      message: "Failed to reject session",
+      error: process.env.NODE_ENV === 'development' ? error.message : undefined
+    });
+  }
 };
 
 /**
- * Get all pending sessions (Moderator/Influencer only)
- * @route GET /api/sessions/pending
- * @access Private (Moderator/Influencer only)
- * @note Requires database migration to add status column
+ * Get sessions for moderation with optional status filter (Moderator only)
+ * @route GET /api/sessions/admin/moderation
+ * @access Private (Moderator only)
+ */
+export const getModerationSessions = async (req: Request, res: Response): Promise<void> => {
+  try {
+    const userId = (req as any).user?.userId;
+
+    if (!userId) {
+      res.status(401).json({
+        success: false,
+        message: "User not authenticated"
+      });
+      return;
+    }
+
+    // Get query parameters for pagination and filtering
+    const {
+      page = '1',
+      limit = '20',
+      status,
+      sort_by = 'created_at',
+      sort_order = 'desc'
+    } = req.query as Record<string, string>;
+
+    const pageNumber = parseInt(page, 10);
+    const limitNumber = parseInt(limit, 10);
+    const skip = (pageNumber - 1) * limitNumber;
+
+    // Validate sort parameters
+    const validSortColumns = ['created_at', 'session_date', 'title'];
+    const sortColumn = validSortColumns.includes(sort_by) ? sort_by : 'created_at';
+    const sortDirection = sort_order === 'asc' ? 'asc' : 'desc';
+
+    // Build order by clause
+    const orderBy: any = {};
+    orderBy[sortColumn] = sortDirection;
+
+    // Build where clause - if status is provided and not "all", filter by it
+    const where: any = {};
+    if (status && status !== 'all') {
+      where.status = status;
+    }
+
+    // Get sessions using Prisma
+    const sessions = await prisma.sessions.findMany({
+      where,
+      skip,
+      take: limitNumber,
+      orderBy,
+      include: {
+        creator: {
+          select: {
+            id: true,
+            first_name: true,
+            last_name: true,
+            email: true,
+            display_name: true,
+          }
+        }
+      }
+    });
+
+    // Get total count
+    const totalCount = await prisma.sessions.count({
+      where
+    });
+
+    // Format sessions with creator info
+    const formattedSessions = sessions.map(session => ({
+      id: session.id,
+      title: session.title,
+      description: session.description,
+      session_type: session.session_type,
+      payment_type: session.payment_type,
+      price: session.price,
+      duration: session.duration,
+      session_date: session.session_date,
+      session_time: formatTimeField(session.session_time),
+      max_participants: session.max_participants,
+      difficulty_level: session.difficulty_level,
+      session_link: session.session_link,
+      materials: session.materials,
+      session_notes: session.session_notes,
+      created_by: session.created_by,
+      is_enabled: session.is_enabled,
+      status: session.status,
+      created_at: session.created_at,
+      updated_at: session.updated_at,
+      creator: session.creator ? {
+        id: session.creator.id,
+        first_name: session.creator.first_name,
+        last_name: session.creator.last_name,
+        email: session.creator.email,
+        display_name: session.creator.display_name
+      } : null
+    }));
+
+    res.status(200).json({
+      success: true,
+      data: formattedSessions,
+      pagination: {
+        total: totalCount,
+        page: pageNumber,
+        limit: limitNumber,
+        totalPages: Math.ceil(totalCount / limitNumber),
+      },
+      message: status ? `Sessions with status '${status}' retrieved successfully` : "All sessions retrieved successfully"
+    });
+  } catch (error: any) {
+    console.error("Get moderation sessions error:", error);
+    res.status(500).json({
+      success: false,
+      message: "Failed to retrieve sessions",
+      error: process.env.NODE_ENV === 'development' ? error.message : undefined
+    });
+  }
+};
+
+/**
+ * Get all pending sessions (Moderator only)
+ * @route GET /api/sessions/admin/pending
+ * @access Private (Moderator only)
+ * @deprecated Use getModerationSessions with status filter instead
  */
 export const getPendingSessions = async (req: Request, res: Response): Promise<void> => {
-  res.status(501).json({
-    success: false,
-    message: "Pending sessions feature requires database migration. Please run: ALTER TABLE sessions ADD COLUMN status session_status DEFAULT 'pending';"
-  });
+  // Redirect to getModerationSessions with status=pending
+  req.query.status = 'pending';
+  return getModerationSessions(req, res);
 };
 
 /**

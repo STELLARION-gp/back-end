@@ -4,6 +4,21 @@ import { prisma } from "../lib/prisma";
 import { ChatbotNotificationService } from "../services/chatbotNotification.service";
 import { ChatbotService } from "../services/chatbot.service";
 
+// Type definitions for Gemini API response
+interface GeminiCandidate {
+  content?: {
+    parts?: Array<{ text?: string }>;
+  };
+  finishReason?: string;
+}
+
+interface GeminiResponse {
+  candidates?: GeminiCandidate[];
+  error?: {
+    message?: string;
+  };
+}
+
 // Initialize Gemini API key
 const GEMINI_API_KEY = process.env.GEMINI_API_KEY;
 
@@ -55,7 +70,7 @@ async function callGeminiDirectly(
     throw new Error(`Gemini API error (${response.status}): ${errorText}`);
   }
 
-  const data = await response.json();
+  const data = (await response.json()) as GeminiResponse;
 
   // Log the full response for debugging
   console.log(
@@ -76,11 +91,16 @@ async function callGeminiDirectly(
 
     // Sometimes the content is in a different structure when MAX_TOKENS
     if (data.candidates[0].content?.parts?.[0]?.text) {
-      return data.candidates[0].content.parts[0].text;
+      const partialText = data.candidates[0].content.parts[0].text;
+      // Return partial response with note
+      return (
+        partialText +
+        "\n\n[Response was truncated due to length. Please ask for more specific information if needed.]"
+      );
     }
 
-    // If still no text, return a helpful message
-    throw new Error("Response too long. Please ask a more specific question.");
+    // If still no text, return a helpful fallback
+    return "I apologize, but my response was too long. Could you please ask a more specific question? I'd be happy to help with a focused topic.";
   }
 
   // Check if there's an error in the response
