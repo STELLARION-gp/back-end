@@ -52,7 +52,7 @@ export class NotificationService {
         priority: notification.priority,
         read: notification.read,
         isSystemGenerated: notification.isSystemGenerated,
-        createdAt: admin.firestore.FieldValue.serverTimestamp(),
+        createdAt: new Date(),
       };
 
       // Only add optional fields if they're defined
@@ -169,7 +169,7 @@ export class NotificationService {
           type: notification.type,
           priority: notification.priority,
           read: notification.read,
-          createdAt: admin.firestore.FieldValue.serverTimestamp(),
+          createdAt: new Date(),
         };
 
         // Only add optional fields if they're defined

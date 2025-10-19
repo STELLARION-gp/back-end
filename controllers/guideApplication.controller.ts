@@ -8,27 +8,70 @@ const prisma = new PrismaClient();
 // Create Guide Application
 export const createGuideApplication = async (req: Request, res: Response) => {
     try {
-        const userId = req.body.user?.id;
+        // Get user_id from the verifyToken middleware
+        const userId = (req as any).user?.user_id || (req as any).user?.userId;
+        
+        if (!userId) {
+            return res.status(401).json({ 
+                success: false, 
+                error: 'User not authenticated' 
+            });
+        }
+        
         const data = req.body;
+        
+        // Split fullName into first and last name
+        const nameParts = data.fullName?.split(' ') || ['', ''];
+        const firstName = nameParts[0] || '';
+        const lastName = nameParts.slice(1).join(' ') || '';
+        
         const result = await prisma.guide_application.create({
             data: {
                 user_id: userId,
-                first_name: data.first_name,
-                last_name: data.last_name,
+                first_name: firstName,
+                last_name: lastName,
                 email: data.email,
-                phone: data.phone_number, // Note: Schema has 'phone' not 'phone_number'
-                languages: data.languages_spoken, // Using languages JSON field
-                certifications: data.certifications,
-                astronomy_skills: data.stargazing_expertise, // Map to astronomy_skills
-                preferred_locations: data.operating_locations, // Map to preferred_locations
-                motivation: data.profile_bio, // Map to motivation or similar field
-                group_sizes: data.max_group_size ? [data.max_group_size] : undefined, // As JSON array
-                // Other fields might need mapping depending on the exact schema
-                terms_accepted: true // Required field
+                phone: data.phone,
+                date_of_birth: data.dateOfBirth ? new Date(data.dateOfBirth) : null,
+                address: data.address || null,
+                city: data.city || null,
+                current_occupation: data.currentOccupation || null,
+                education_level: data.educationLevel || null,
+                astronomy_education: data.astronomyEducation || null,
+                guide_experience: data.guideExperience || null,
+                total_experience: data.totalExperience || 0,
+                certifications: data.certifications || [],
+                astronomy_skills: data.astronomySkills || [],
+                languages: data.languages || [],
+                first_aid: data.firstAid || false,
+                driving_license: data.drivingLicense || false,
+                camp_types: data.campTypes || [],
+                group_sizes: data.groupSizes || [],
+                equipment_familiarity: data.equipmentFamiliarity || [],
+                outdoor_experience: data.outdoorExperience || null,
+                available_dates: data.availableDates || [],
+                preferred_locations: data.preferredLocations || [],
+                accommodation_needs: data.accommodationNeeds || null,
+                transportation_needs: data.transportationNeeds || null,
+                motivation: data.motivation || null,
+                special_skills: data.specialSkills || null,
+                emergency_contact: data.emergencyContact || {},
+                documents: data.documents || {},
+                selected_camps: data.selectedCamps || [],
+                terms_accepted: data.termsAccepted || false,
+                background_check_consent: data.backgroundCheckConsent || false,
+                application_status: 'pending', // Explicitly set to pending
+                approve_application_status: 'pending' // Explicitly set to pending
             }
         });
-        res.status(201).json({ success: true, data: result });
+        
+        res.status(201).json({ 
+            success: true, 
+            message: 'Application submitted successfully. Your application is now pending review.',
+            data: result 
+        });
     } catch (err) {
+        console.error('Error creating guide application:', err);
         res.status(500).json({ success: false, error: err instanceof Error ? err.message : String(err) });
     }
 };
