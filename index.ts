@@ -177,7 +177,7 @@ app.use("/api/user", profileRoutes);
 // Mentor Profile API (self + public)
 app.use("/api/mentor", mentorProfileRoutes);
 // Mentor-Mentee connection APIs (notes, goals, sessions, etc.)
-app.use("/api/mentor-mentee", mentorMenteeConnectionRoutes);
+app.use("/api/mentor-mentee-connections", mentorMenteeConnectionRoutes);
 
 // Admin API (separate from AdminJS panel)
 app.use("/api/admin", adminApiRoutes);
