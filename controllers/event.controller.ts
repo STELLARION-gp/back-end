@@ -5,6 +5,7 @@ import fs from 'fs';
 import cloudinary from '../config/cloudinary';
 import { NotificationService } from '../services/notification.service';
 import { NotificationType, NotificationPriority } from '../types/notification.types';
+import { sendEmail } from '../services/email.service';
 
 const prisma = new PrismaClient();
 
@@ -472,21 +473,25 @@ export const registerForEvent = async (req: Request, res: Response) => {
       // Don't fail the registration if notification fails
     }
 
-    // TODO: Send email notification
-    // This can be implemented using a service like SendGrid, Nodemailer, etc.
-    // Example:
-    // try {
-    //   const user = await prisma.users.findUnique({ where: { id: userId } });
-    //   if (user?.email) {
-    //     await sendEmail({
-    //       to: user.email,
-    //       subject: `Event Registration Confirmation - ${event.event_name}`,
-    //       html: `<p>You have successfully registered for ${event.event_name}</p>`
-    //     });
-    //   }
-    // } catch (emailError) {
-    //   console.error('Failed to send email:', emailError);
-    // }
+    // Send email notification
+    try {
+      const user = await prisma.users.findUnique({ where: { id: userId } });
+      console.log('[Event Registration][Email] User lookup result:', user);
+      if (user?.email) {
+        console.log('[Event Registration][Email] Attempting to send email to:', user.email);
+        const emailResult = await sendEmail({
+          to: user.email,
+          subject: `Event Registration Confirmation - ${event.event_name}`,
+          html: `<p>You have successfully registered for ${event.event_name} on ${new Date(event.date).toLocaleDateString()} at ${event.location}.</p>`
+        });
+        console.log('[Event Registration][Email] sendEmail result:', emailResult);
+        console.log(`[Event Registration] Confirmation email sent to ${user.email}`);
+      } else {
+        console.warn('[Event Registration][Email] No email found for user:', user);
+      }
+    } catch (emailError) {
+      console.error('[Event Registration] Failed to send email:', emailError);
+    }
 
     res.json({ 
       success: true, 
