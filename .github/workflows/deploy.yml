@@ -108,14 +108,31 @@ jobs:
             echo "⏳ Waiting for backend to be ready..."
             sleep 40
 
+            # Check if container is still running
+            echo "🔍 Checking container status..."
+            if ! docker ps | grep -q stellarion-backend; then
+              echo "❌ Container is not running!"
+              echo "📋 Container logs:"
+              docker logs stellarion-backend
+              echo ""
+              echo "🔍 Container status:"
+              docker ps -a | grep stellarion-backend
+              echo ""
+              echo "❌ Rolling back..."
+              docker-compose down backend
+              cp -r $BACKUP_DIR/back-end/* back-end/
+              docker-compose up -d backend
+              exit 1
+            fi
+
             # Health check
             echo "🔍 Running health check..."
             if docker exec stellarion-backend wget -qO- http://localhost:5000/health > /dev/null 2>&1; then
               echo "✅ Backend deployment successful!"
             else
               echo "❌ Health check failed!"
-              echo "📋 Container logs (last 50 lines):"
-              docker logs stellarion-backend --tail 50
+              echo "📋 Container logs (last 100 lines):"
+              docker logs stellarion-backend --tail 100
               echo ""
               echo "🔍 Container status:"
               docker ps -a | grep stellarion-backend
