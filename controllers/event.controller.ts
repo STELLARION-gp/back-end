@@ -365,3 +365,52 @@ export const moderateEvent = async (req: Request, res: Response) => {
   res.status(500).json({ success:false, message:'Failed to moderate event', error: process.env.NODE_ENV === 'development' ? err.message : undefined });
   }
 };
+
+// New: List only approved events
+export const listApprovedEvents = async (_req: Request, res: Response) => {
+  try {
+    const events = await prisma.events.findMany({
+      where: { status: 'approved' },
+      orderBy: { date: 'asc' }
+    });
+    res.json({ success: true, events });
+  } catch (err: any) {
+    res.status(500).json({ success: false, message: 'Failed to list approved events', error: err.message });
+  }
+};
+
+// New: Register for event
+export const registerForEvent = async (req: Request, res: Response) => {
+  try {
+    const eventId = Number(req.params.id);
+    const userId = (req as any).user?.user_id || (req as any).user?.userId;
+    if (!userId) return res.status(401).json({ success: false, message: 'User not authenticated' });
+
+    // Check if event exists and is approved
+    const event = await prisma.events.findUnique({ where: { id: eventId } });
+    if (!event || event.status !== 'approved') {
+      return res.status(404).json({ success: false, message: 'Event not found or not approved' });
+    }
+
+    // Register user for event (assume event_registrations table exists)
+    await prisma.event_registrations.create({
+      data: {
+        event_id: eventId,
+        user_id: userId,
+        registered_at: new Date()
+      }
+    });
+
+    // Send system notification (stub)
+    // TODO: Implement real notification logic
+    // await sendNotification(userId, `You have registered for event: ${event.event_name}`);
+
+    // Send email (stub)
+    // TODO: Implement real email logic
+    // await sendEmailToUser(userId, `You have registered for event: ${event.event_name}`);
+
+    res.json({ success: true, message: 'Registered for event and notification/email sent.' });
+  } catch (err: any) {
+    res.status(500).json({ success: false, message: 'Failed to register for event', error: err.message });
+  }
+};
