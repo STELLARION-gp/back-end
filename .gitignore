@@ -82,7 +82,7 @@ jspm_packages/
 # Yarn Integrity file
 .yarn-integrity
 
-package-lock.json
+# yarn.lock (allowing package-lock.json for better CI/CD compatibility)
 yarn.lock
 
 # Prisma generated artifacts (client & engine binaries)

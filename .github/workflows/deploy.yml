@@ -24,20 +24,10 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: "18"
-          # Disable cache since we don't have a lock file yet
-          # cache: "npm"
+          cache: "npm"
 
       - name: Install dependencies
-        run: |
-          if [ -f package-lock.json ]; then
-            npm ci
-          else
-            npm install
-            git config --local user.email "action@github.com"
-            git config --local user.name "GitHub Action"
-            git add package-lock.json
-            git commit -m "Add package-lock.json [skip ci]" || echo "No changes to commit"
-          fi
+        run: npm ci
 
       - name: Run linter
         run: npm run lint || echo "Linting completed with warnings"
