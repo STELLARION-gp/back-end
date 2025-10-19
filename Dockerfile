@@ -8,16 +8,33 @@ RUN apk add --no-cache python3 make g++ openssl
 
 WORKDIR /app
 
-# Copy package files
-COPY package*.json ./
+# Copy everything first (to ensure all files are available)
+COPY . .
+
+# Show directory structure for debugging
+RUN echo "Listing contents of current directory:" && ls -la && \
+    echo "Listing contents of prisma directory:" && ls -la ./prisma/ || echo "Prisma directory not found!"
+
+# Create the prisma schema file manually if it doesn't exist
+RUN if [ ! -f ./prisma/schema.prisma ]; then \
+    echo "Prisma schema not found, creating it manually..." && \
+    mkdir -p ./prisma && \
+    echo 'generator client { \
+      provider = "prisma-client-js" \
+      output   = "./generated/client" \
+      binaryTargets = ["native", "darwin-arm64", "windows", "linux-musl"] \
+    } \
+    \
+    datasource db { \
+      provider = "postgresql" \
+      url      = env("DATABASE_URL") \
+    }' > ./prisma/schema.prisma && \
+    echo "Created schema.prisma file:" && \
+    cat ./prisma/schema.prisma; \
+    fi
 
 # Install ALL dependencies (including devDependencies for build)
 RUN npm i
-
-# Copy prisma schema and generate client
-COPY prisma ./prisma
-RUN ls -la ./prisma/ && echo "Checking Prisma schema..." && cat ./prisma/schema.prisma || echo "Schema not found!"
-RUN npx prisma generate
 
 # Copy source code
 COPY . .
@@ -39,17 +56,35 @@ RUN addgroup -g 1001 -S nodejs && \
 
 WORKDIR /app
 
-# Copy package files
+# Copy package files and prisma directory
 COPY package*.json ./
+COPY prisma ./prisma
+
+# Show directory structure for debugging in production stage
+RUN echo "PRODUCTION STAGE: Listing contents of current directory:" && ls -la && \
+    echo "PRODUCTION STAGE: Listing contents of prisma directory:" && ls -la ./prisma/ || echo "Prisma directory not found in production stage!"
+
+# Create the prisma schema file manually if it doesn't exist in production stage
+RUN if [ ! -f ./prisma/schema.prisma ]; then \
+    echo "Prisma schema not found in production, creating it manually..." && \
+    mkdir -p ./prisma && \
+    echo 'generator client { \
+      provider = "prisma-client-js" \
+      output   = "./generated/client" \
+      binaryTargets = ["native", "darwin-arm64", "windows", "linux-musl"] \
+    } \
+    \
+    datasource db { \
+      provider = "postgresql" \
+      url      = env("DATABASE_URL") \
+    }' > ./prisma/schema.prisma && \
+    echo "Created schema.prisma file in production:" && \
+    cat ./prisma/schema.prisma; \
+    fi
 
 # Install only production dependencies
 RUN npm i --only=production && \
     npm cache clean --force
-
-# Copy Prisma schema and generate client for production
-COPY prisma ./prisma
-RUN ls -la ./prisma/ && echo "Checking Prisma schema in production stage..." && cat ./prisma/schema.prisma || echo "Schema not found in production stage!"
-RUN npx prisma generate
 
 # Copy built application from builder stage
 COPY --from=builder /app/dist ./dist
