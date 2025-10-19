@@ -1066,6 +1066,147 @@ export const deletePollComment = async (req: Request, res: Response): Promise<vo
 };
 
 /**
+ * Get polls for moderation dashboard with optional status filter
+ * @route GET /api/polls/admin/moderation
+ * @access Private (Moderators/Admins only)
+ */
+export const getModerationPolls = async (req: Request, res: Response): Promise<void> => {
+  try {
+    const {
+      status,
+      page = '1',
+      limit = '20',
+      sort_by = 'created_at',
+      sort_order = 'desc'
+    } = req.query as Record<string, string>;
+
+    // Get user ID from the authenticated request
+    const userId = (req as any).user?.userId;
+    const userRole = (req as any).user?.role;
+
+    if (!userId) {
+      res.status(401).json({
+        success: false,
+        message: "Authentication required"
+      });
+      return;
+    }
+
+    // Check if user is admin or moderator
+    if (!['admin', 'moderator'].includes(userRole)) {
+      res.status(403).json({
+        success: false,
+        message: "Only admins and moderators can access moderation dashboard"
+      });
+      return;
+    }
+
+    const pageNumber = parseInt(page, 10);
+    const limitNumber = parseInt(limit, 10);
+    const skip = (pageNumber - 1) * limitNumber;
+
+    // Build where clause based on status filter
+    const where: any = {};
+    
+    // Filter by status if provided and not "all"
+    if (status && status !== 'all') {
+      where.status = status; // 'pending', 'approved', or 'rejected'
+    }
+    // If status is "all" or not provided, return all polls (no status filter)
+
+    // Build order by clause
+    const orderBy: any = {};
+    orderBy[sort_by] = sort_order === 'asc' ? 'asc' : 'desc';
+
+    // Get total count
+    const totalCount = await prisma.polls.count({ where });
+
+    // Get polls with creator and moderator info
+    const polls = await prisma.polls.findMany({
+      where,
+      skip,
+      take: limitNumber,
+      orderBy,
+      include: {
+        creator: {
+          select: {
+            id: true,
+            first_name: true,
+            last_name: true,
+            display_name: true,
+            email: true
+          }
+        },
+        moderator: {
+          select: {
+            id: true,
+            first_name: true,
+            last_name: true,
+            display_name: true
+          }
+        },
+        poll_choices: {
+          orderBy: {
+            choice: 'asc'
+          }
+        },
+        _count: {
+          select: {
+            poll_comments: true,
+            poll_choices: true
+          }
+        }
+      }
+    });
+
+    // Format response with voting statistics
+    const formattedPolls = polls.map(poll => {
+      const totalVotes = poll.poll_choices.reduce((sum, choice) => sum + choice.vote_count, 0);
+      
+      return {
+        id: poll.id,
+        title: poll.title,
+        description: poll.description,
+        is_active: poll.is_active,
+        status: poll.status,
+        created_at: poll.created_at,
+        updated_at: poll.updated_at,
+        moderated_at: poll.moderated_at,
+        creator: poll.creator,
+        moderator: poll.moderator,
+        choices: poll.poll_choices.map(choice => ({
+          choice: choice.choice,
+          vote_count: choice.vote_count,
+          percentage: totalVotes > 0 ? Math.round((choice.vote_count / totalVotes) * 100 * 10) / 10 : 0
+        })),
+        total_votes: totalVotes,
+        comment_count: poll._count.poll_comments,
+        choice_count: poll._count.poll_choices
+      };
+    });
+
+    res.status(200).json({
+      success: true,
+      data: formattedPolls,
+      pagination: {
+        total: totalCount,
+        page: pageNumber,
+        limit: limitNumber,
+        totalPages: Math.ceil(totalCount / limitNumber)
+      },
+      message: status ? `Polls with status '${status}' retrieved successfully` : "All polls retrieved successfully"
+    });
+  } catch (error: any) {
+    console.error("Get moderation polls error:", error);
+    res.status(500).json({
+      success: false,
+      message: "Failed to retrieve polls for moderation",
+      error: process.env.NODE_ENV === 'development' ? error.message : undefined
+    });
+  }
+};
+
+/**
  * Get polls created by the authenticated user
  * @route GET /api/polls/my-polls
  * @access Private (Authenticated users)
