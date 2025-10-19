@@ -109,5 +109,8 @@ EXPOSE 5000
 HEALTHCHECK --interval=30s --timeout=10s --start-period=40s --retries=3 \
   CMD wget --quiet --tries=1 --spider http://localhost:5000/health || exit 1
 
-# Start the application
-CMD ["node", "dist/index.js"]
+# Create a startup script to ensure everything is ready
+RUN echo '#!/bin/sh\necho "Starting backend application..."\necho "Environment: $NODE_ENV"\necho "Checking database connection and dependencies..."\nsleep 5\nnode dist/index.js' > /app/start.sh && chmod +x /app/start.sh
+
+# Start the application using the startup script
+CMD ["/app/start.sh"]

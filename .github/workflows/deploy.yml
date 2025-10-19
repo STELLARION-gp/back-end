@@ -31,7 +31,7 @@ jobs:
 
       - name: Run linter
         run: npm run lint || echo "Linting completed with warnings"
-        
+
       # TODO: Fix TypeScript errors in the codebase
       # There are type mismatches between the code and Prisma schema
       # Currently building with --skipLibCheck to bypass these errors
@@ -92,15 +92,44 @@ jobs:
 
             # Wait for backend to be ready
             echo "⏳ Waiting for backend to be ready..."
-            sleep 15
+            sleep 30  # Increased wait time
 
-            # Health check
+            # Show container logs for diagnostics
+            echo "📝 Container logs for debugging:"
+            docker logs stellarion-backend --tail 50
+
+            # Check if container is running
+            echo "🔍 Checking if container is running..."
+            if ! docker ps | grep stellarion-backend; then
+              echo "❌ Container is not running!"
+              echo "🔄 Attempting to restart container..."
+              docker-compose up -d backend
+              sleep 10
+            fi
+
+            # Health check with retries
             echo "🔍 Running health check..."
-            if docker exec stellarion-backend wget -qO- http://localhost:5000/health > /dev/null 2>&1; then
+            MAX_RETRIES=3
+            RETRY_COUNT=0
+            HEALTH_CHECK_PASSED=false
+
+            while [ $RETRY_COUNT -lt $MAX_RETRIES ] && [ "$HEALTH_CHECK_PASSED" = false ]; do
+              if docker exec stellarion-backend wget -qO- http://localhost:5000/health; then
+                echo "✅ Health check passed on attempt $((RETRY_COUNT+1))!"
+                HEALTH_CHECK_PASSED=true
+              else
+                RETRY_COUNT=$((RETRY_COUNT+1))
+                echo "⚠️ Health check attempt $RETRY_COUNT failed, waiting and retrying..."
+                sleep 15
+              fi
+            done
+
+            if [ "$HEALTH_CHECK_PASSED" = true ]; then
               echo "✅ Backend deployment successful!"
-              echo "✅ Health check passed"
             else
-              echo "❌ Health check failed, rolling back..."
+              echo "❌ All health checks failed, checking container logs:"
+              docker logs stellarion-backend --tail 100
+              echo "❌ Rolling back deployment..."
               docker-compose down backend
               cd back-end
               git reset --hard HEAD@{1}

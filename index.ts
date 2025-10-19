@@ -165,12 +165,28 @@ app.use(express.json());
 app.use("/public", express.static("public"));
 
 // Health check endpoint
-app.get("/health", (req, res) => {
-  res.json({
-    status: "healthy",
-    timestamp: new Date().toISOString(),
-    version: "1.0.0",
-  });
+app.get("/health", async (req, res) => {
+  try {
+    // Basic health check
+    const healthStatus = {
+      status: "healthy",
+      timestamp: new Date().toISOString(),
+      version: "1.0.0",
+      checks: {
+        server: "ok",
+      },
+    };
+
+    // We'll still return 200 even if some checks fail
+    return res.json(healthStatus);
+  } catch (error) {
+    console.error("Health check failed:", error);
+    return res.status(500).json({
+      status: "unhealthy",
+      timestamp: new Date().toISOString(),
+      error: error.message || "Unknown error",
+    });
+  }
 });
 
 // API Routes
