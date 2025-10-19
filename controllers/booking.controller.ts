@@ -42,6 +42,11 @@ export const createBooking = async (req: Request, res: Response): Promise<void> 
       return;
     }
 
+    console.log('=== Create Booking Debug ===');
+    console.log('booking_date:', booking_date, typeof booking_date);
+    console.log('booking_time:', booking_time, typeof booking_time);
+    console.log('============================');
+
     // Check if service exists
     const service = await prisma.services.findUnique({
       where: { id: Number(service_id) },
@@ -52,13 +57,33 @@ export const createBooking = async (req: Request, res: Response): Promise<void> 
       return;
     }
 
+    // Convert booking_time string to DateTime for Time field
+    let bookingTimeValue = null;
+    if (booking_time) {
+      try {
+        // If it's already a full datetime string, use it
+        if (typeof booking_time === 'string' && booking_time.includes('T')) {
+          bookingTimeValue = new Date(booking_time);
+        } else if (typeof booking_time === 'string') {
+          // Convert time string (HH:MM:SS) to DateTime using a reference date
+          bookingTimeValue = new Date(`1970-01-01T${booking_time}`);
+        } else {
+          bookingTimeValue = new Date(booking_time);
+        }
+        console.log('Converted booking_time to:', bookingTimeValue);
+      } catch (error) {
+        console.error('Error converting booking_time:', error);
+        bookingTimeValue = null;
+      }
+    }
+
     // Create booking
     const booking = await prisma.service_bookings.create({
       data: {
         service_id: Number(service_id),
         user_id: userId,
         booking_date: new Date(booking_date),
-        booking_time: booking_time ? new Date(`1970-01-01T${booking_time}`) : null,
+        booking_time: bookingTimeValue,
         participants_count: Number(participants),
         total_amount: Number(total_price),
         booking_status: 'pending',
@@ -94,6 +119,19 @@ export const createBooking = async (req: Request, res: Response): Promise<void> 
     ok(res, 'Booking created successfully', booking);
   } catch (error: any) {
     console.error('Create booking error:', error);
+    
+    // Handle Prisma unique constraint errors
+    if (error.code === 'P2002') {
+      fail(res, 409, 'You already have a booking for this service on this date');
+      return;
+    }
+    
+    // Handle Prisma validation errors
+    if (error.code === 'P2003' || error.name === 'PrismaClientValidationError') {
+      fail(res, 400, 'Invalid booking data: ' + error.message);
+      return;
+    }
+    
     fail(res, 500, 'Failed to create booking', error.message);
   }
 };
@@ -133,7 +171,7 @@ export const getMyBookings = async (req: Request, res: Response): Promise<void> 
     const total = await prisma.service_bookings.count({ where });
 
     // Get bookings
-    const bookings = await prisma.service_bookings.findMany({
+    const bookingsRaw = await prisma.service_bookings.findMany({
       where,
       skip,
       take: limitNumber,
@@ -162,6 +200,16 @@ export const getMyBookings = async (req: Request, res: Response): Promise<void> 
           },
         },
       },
+    });
+
+    // Map bookings to ensure service.title is present as 'title' property
+    const bookings = bookingsRaw.map((b) => {
+      const service = b.services;
+      // For frontend, rename 'services' to 'service' and always provide a 'title' property
+      return {
+        ...b,
+        service: service ? { ...service, title: service.title || '' } : null,
+      };
     });
 
     ok(res, 'Bookings retrieved successfully', {

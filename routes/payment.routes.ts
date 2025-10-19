@@ -1,6 +1,7 @@
 import express from "express";
 import {
   createPaymentOrder,
+  createBookingPaymentOrder,
   handlePayHereNotification,
   getPaymentStatus,
   getUserPaymentHistory,
@@ -22,6 +23,7 @@ router.post("/generate-test-hash", generateTestHash);
 router.use(verifyToken);
 
 router.post("/create-order", createPaymentOrder);
+router.post("/create-booking-order", createBookingPaymentOrder);
 router.get("/status/:payment_id", getPaymentStatus);
 router.get("/user/:user_id/history", getUserPaymentHistory);
 

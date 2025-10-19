@@ -414,58 +414,78 @@ export const handlePayHereNotification = async (
 
     console.log("Payment record updated:", payment.id);
 
-    // If payment is successful, update user subscription
+    // If payment is successful, update user subscription or booking
     if (payment_status === "completed") {
       const metadata = payment.metadata as any;
-      const plan_type = metadata.plan_type;
 
-      console.log("Processing successful payment for plan:", plan_type);
+      // Check if this is a booking payment or subscription payment
+      if (metadata.booking_id) {
+        // This is a booking payment
+        console.log("Processing successful booking payment for booking:", metadata.booking_id);
 
-      // Calculate subscription dates
-      const startDate = new Date();
-      let endDate = null;
+        // Update booking status
+        await prisma.service_bookings.update({
+          where: { id: metadata.booking_id },
+          data: {
+            payment_status: "completed",
+            booking_status: "confirmed",
+            updated_at: new Date(),
+          },
+        });
 
-      if (plan_type !== "starseeker") {
-        endDate = new Date();
-        endDate.setMonth(endDate.getMonth() + 1); // 1 month subscription
+        console.log("Booking payment confirmed for booking:", metadata.booking_id);
+      } else if (metadata.plan_type) {
+        // This is a subscription payment
+        const plan_type = metadata.plan_type;
+
+        console.log("Processing successful payment for plan:", plan_type);
+
+        // Calculate subscription dates
+        const startDate = new Date();
+        let endDate = null;
+
+        if (plan_type !== "starseeker") {
+          endDate = new Date();
+          endDate.setMonth(endDate.getMonth() + 1); // 1 month subscription
+        }
+
+        // Update user subscription
+        await prisma.users.update({
+          where: { id: payment.user_id! },
+          data: {
+            subscription_plan: plan_type,
+            subscription_status: "active",
+            subscription_start_date: startDate,
+            subscription_end_date: endDate,
+            chatbot_questions_used: 0,
+            chatbot_questions_reset_date: new Date(),
+            updated_at: new Date(),
+          },
+        });
+
+        console.log("User subscription updated for user:", payment.user_id);
+
+        // Create subscription record
+        const subscription = await prisma.subscriptions.create({
+          data: {
+            user_id: payment.user_id!,
+            plan_type: plan_type as any,
+            status: "active",
+            start_date: startDate,
+            end_date: endDate,
+          },
+        });
+
+        console.log("Subscription record created:", subscription.id);
+
+        // Link payment to subscription
+        await prisma.payments.update({
+          where: { id: payment.id },
+          data: { subscription_id: subscription.id },
+        });
+
+        console.log("Payment linked to subscription");
       }
-
-      // Update user subscription
-      await prisma.users.update({
-        where: { id: payment.user_id! },
-        data: {
-          subscription_plan: plan_type,
-          subscription_status: "active",
-          subscription_start_date: startDate,
-          subscription_end_date: endDate,
-          chatbot_questions_used: 0,
-          chatbot_questions_reset_date: new Date(),
-          updated_at: new Date(),
-        },
-      });
-
-      console.log("User subscription updated for user:", payment.user_id);
-
-      // Create subscription record
-      const subscription = await prisma.subscriptions.create({
-        data: {
-          user_id: payment.user_id!,
-          plan_type: plan_type as any,
-          status: "active",
-          start_date: startDate,
-          end_date: endDate,
-        },
-      });
-
-      console.log("Subscription record created:", subscription.id);
-
-      // Link payment to subscription
-      await prisma.payments.update({
-        where: { id: payment.id },
-        data: { subscription_id: subscription.id },
-      });
-
-      console.log("Payment linked to subscription");
     }
 
     res.status(200).send("OK");
@@ -500,6 +520,163 @@ export const getPaymentStatus = async (req: Request, res: Response) => {
     res.status(500).json({
       success: false,
       message: "Failed to fetch payment status",
+    });
+  }
+};
+
+// Create booking payment order
+export const createBookingPaymentOrder = async (req: Request, res: Response) => {
+  try {
+    const firebaseUser = (req as any).user;
+    const { bookingId, payer } = req.body;
+
+    console.log("=== Booking Payment Order Debug ===");
+    console.log("Request body:", req.body);
+    console.log("Firebase user:", firebaseUser);
+    console.log("bookingId:", bookingId);
+
+    if (!firebaseUser?.uid) {
+      return res.status(400).json({
+        success: false,
+        message: "Missing Firebase user authentication data",
+      });
+    }
+
+    if (!bookingId) {
+      return res.status(400).json({
+        success: false,
+        message: "Missing bookingId in request body",
+      });
+    }
+
+    // Convert Firebase UID to integer user_id
+    const actualUserId = await getUserIdFromFirebaseUID(firebaseUser.uid);
+    if (!actualUserId) {
+      return res.status(404).json({
+        success: false,
+        message: "User not found in database",
+      });
+    }
+
+    // Get booking details
+    const booking = await prisma.service_bookings.findUnique({
+      where: { id: bookingId },
+      include: {
+        services: true,
+      },
+    });
+
+    if (!booking) {
+      return res.status(404).json({
+        success: false,
+        message: "Booking not found",
+      });
+    }
+
+    if (booking.user_id !== actualUserId) {
+      return res.status(403).json({
+        success: false,
+        message: "Unauthorized to pay for this booking",
+      });
+    }
+
+    // Get user details
+    const user = await prisma.users.findUnique({
+      where: { id: actualUserId },
+    });
+
+    if (!user) {
+      return res.status(404).json({
+        success: false,
+        message: "User not found",
+      });
+    }
+
+    // Generate unique order ID
+    const order_id = `BOOKING_${Date.now()}_${actualUserId}_${bookingId}`;
+
+    // Create payment record
+    const payment = await prisma.payments.create({
+      data: {
+        user_id: actualUserId,
+        amount: booking.total_amount,
+        currency: "LKR",
+        payment_status: "pending",
+        payment_gateway: "payhere",
+        gateway_order_id: order_id,
+        metadata: {
+          booking_id: bookingId,
+          service_id: booking.service_id,
+          service_title: booking.services?.title || "Service Booking",
+          user_email: user.email,
+          user_name: `${user.first_name} ${user.last_name}`,
+          participants: booking.participants_count,
+        },
+      },
+    });
+
+    const payment_id = payment.id;
+
+    // Check if sandbox mode
+    const isSandbox = PAYHERE_SANDBOX === "true";
+
+    // Generate PayHere hash
+    const formattedAmount = parseFloat(booking.total_amount.toString()).toFixed(2);
+    const hash = generatePayHereHash(
+      PAYHERE_MERCHANT_ID,
+      order_id,
+      formattedAmount,
+      "LKR",
+      PAYHERE_MERCHANT_SECRET,
+      isSandbox
+    );
+
+    // PayHere payment data
+    const payhere_data = {
+      sandbox: PAYHERE_SANDBOX === "true",
+      merchant_id: PAYHERE_MERCHANT_ID,
+      return_url: PAYHERE_RETURN_URL,
+      cancel_url: PAYHERE_CANCEL_URL,
+      notify_url: PAYHERE_NOTIFY_URL,
+      order_id: order_id,
+      items: booking.services?.title || "Service Booking",
+      amount: formattedAmount,
+      currency: "LKR",
+      hash: hash,
+      first_name: user.first_name || "Customer",
+      last_name: user.last_name || "User",
+      email: user.email,
+      phone: (user.profile_data as any)?.phone || "0771234567",
+      address: (user.profile_data as any)?.address || "No. 1, Main Street",
+      city: (user.profile_data as any)?.city || "Colombo",
+      country: (user.profile_data as any)?.country || "Sri Lanka",
+      delivery_address: (user.profile_data as any)?.address || "No. 1, Main Street",
+      delivery_city: (user.profile_data as any)?.city || "Colombo",
+      delivery_country: (user.profile_data as any)?.country || "Sri Lanka",
+      custom_1: `booking_id_${bookingId}`,
+      custom_2: `user_id_${actualUserId}`,
+    };
+
+    console.log("Booking PayHere data:", payhere_data);
+
+    res.json({
+      success: true,
+      data: {
+        payment_id,
+        order_id,
+        payhere_data,
+        booking_details: {
+          id: booking.id,
+          service_title: booking.services?.title,
+          amount: booking.total_amount,
+        },
+      },
+    });
+  } catch (error) {
+    console.error("Error creating booking payment order:", error);
+    res.status(500).json({
+      success: false,
+      message: "Failed to create booking payment order",
     });
   }
 };
