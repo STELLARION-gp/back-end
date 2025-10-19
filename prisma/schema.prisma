@@ -852,10 +852,11 @@ model polls {
   description   String?
   created_by    Int
   moderated_by  Int?
+  moderated_at  DateTime?       @db.Timestamp(6)
   created_at    DateTime        @default(now()) @db.Timestamp(6)
   updated_at    DateTime        @default(now()) @db.Timestamp(6)
   is_active     Boolean         @default(true)
-  status        poll_status?    @default(open)
+  status        poll_status     @default(pending)
   poll_choices  poll_choices[]
   poll_comments poll_comments[]
   creator       users           @relation("PollCreator", fields: [created_by], references: [id], onDelete: Cascade)

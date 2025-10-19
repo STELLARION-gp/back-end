@@ -15,6 +15,7 @@ import {
     approveSession,
     rejectSession,
     getPendingSessions,
+    getModerationSessions,
     enrollInPaidSession,
     enrollInFreeSession
 } from '../controllers/sessions.controller';
@@ -28,7 +29,8 @@ router.get('/user/my-sessions', verifyToken, getMySessions);                 // 
 router.get('/user/analytics', verifyToken, getMySessionsAnalytics);          // Get analytics for user's sessions
 router.get('/user/enrolled', verifyToken, getEnrolledSessions);              // Get all enrolled sessions for the user
 router.get('/enrolled/:enrollmentId', verifyToken, getMySessionDetailsByEnrollment);  // Get session details by enrollment ID
-router.get('/admin/pending', verifyToken, getPendingSessions);               // Get all pending sessions
+router.get('/admin/moderation', verifyToken, getModerationSessions);         // Get sessions with optional status filter (all/pending/approved/rejected)
+router.get('/admin/pending', verifyToken, getPendingSessions);               // Get all pending sessions (deprecated, use /admin/moderation?status=pending)
 
 // Public routes (no authentication required)
 router.get('/', getAllSessions);              // Get all enabled sessions with filters
