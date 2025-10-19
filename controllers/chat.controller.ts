@@ -47,7 +47,7 @@ export const getGroups = async (req: Request, res: Response): Promise<void> => {
             last_name: true
           }
         },
-        members: {
+        group_members: {
           include: {
             user: {
               select: {
@@ -59,7 +59,7 @@ export const getGroups = async (req: Request, res: Response): Promise<void> => {
             }
           }
         },
-      messages: {
+      chat_messages: {
           where: {
             is_deleted: false
           },
@@ -82,8 +82,8 @@ export const getGroups = async (req: Request, res: Response): Promise<void> => {
         },
         _count: {
           select: {
-            members: true,
-            messages: true
+            group_members: true,
+            chat_messages: true
           }
         }
       },
@@ -102,14 +102,14 @@ export const getGroups = async (req: Request, res: Response): Promise<void> => {
 
     // Check if user is member of each group
     const groupsWithMembership = groups.map(group => {
-      const isMember = group.members.some(member => member.user_id === userId);
-      const lastMessage = group.messages[0]; // Get the most recent message
+      const isMember = group.group_members.some(member => member.user_id === userId);
+      const lastMessage = group.chat_messages[0]; // Get the most recent message
       
       return {
         ...group,
         is_member: isMember,
-        member_count: group._count.members,
-        message_count: group._count.messages,
+        member_count: group._count.group_members,
+        message_count: group._count.chat_messages,
         last_message: lastMessage?.message_text || null,
         last_message_time: lastMessage?.created_at || null,
         last_message_user: lastMessage?.user || null
@@ -151,12 +151,12 @@ export const getUserGroups = async (req: Request, res: Response): Promise<void> 
     const userGroups = await prisma.group_members.findMany({
       where: {
         user_id: userId,
-        group: {
+        group_chats: {
           is_active: true
         }
       },
       include: {
-        group: {
+        group_chats: {
           include: {
             creator: {
               select: {
@@ -166,7 +166,7 @@ export const getUserGroups = async (req: Request, res: Response): Promise<void> 
                 last_name: true
               }
             },
-            messages: {
+            chat_messages: {
               where: {
                 is_deleted: false
               },
@@ -189,8 +189,8 @@ export const getUserGroups = async (req: Request, res: Response): Promise<void> 
             },
             _count: {
               select: {
-                members: true,
-                messages: true
+                group_members: true,
+                chat_messages: true
               }
             }
           }
@@ -206,7 +206,7 @@ export const getUserGroups = async (req: Request, res: Response): Promise<void> 
     const totalUserGroups = await prisma.group_members.count({
       where: {
         user_id: userId,
-        group: {
+        group_chats: {
           is_active: true
         }
       }
@@ -215,14 +215,14 @@ export const getUserGroups = async (req: Request, res: Response): Promise<void> 
     const totalPages = Math.ceil(totalUserGroups / limitNum);
 
     const groups = userGroups.map(membership => {
-      const lastMessage = membership.group.messages[0]; // Get the most recent message
+      const lastMessage = membership.group_chats.chat_messages[0]; // Get the most recent message
       
       return {
-        ...membership.group,
+        ...membership.group_chats,
         membership_role: membership.role,
         joined_at: membership.joined_at,
-        member_count: membership.group._count.members,
-        message_count: membership.group._count.messages,
+        member_count: membership.group_chats._count.group_members,
+        message_count: membership.group_chats._count.chat_messages,
         last_message: lastMessage?.message_text || null,
         last_message_time: lastMessage?.created_at || null,
         last_message_user: lastMessage?.user || null
@@ -345,7 +345,7 @@ export const joinGroup = async (req: Request, res: Response): Promise<void> => {
       include: {
         _count: {
           select: {
-            members: true
+            group_members: true
           }
         }
       }
@@ -356,7 +356,7 @@ export const joinGroup = async (req: Request, res: Response): Promise<void> => {
     }
 
     // Check if group is at capacity
-    if (group._count.members >= group.max_members) {
+    if (group._count.group_members >= group.max_members) {
       errorResponse(res, 'Group is at maximum capacity', 400);
     }
 
@@ -415,7 +415,7 @@ export const leaveGroup = async (req: Request, res: Response): Promise<void> => 
         user_id: userId
       },
       include: {
-        group: true
+        group_chats: true
       }
     });
 
@@ -469,7 +469,7 @@ export const getGroupDetails = async (req: Request, res: Response): Promise<void
             last_name: true
           }
         },
-        members: {
+        group_members: {
           include: {
             user: {
               select: {
@@ -488,8 +488,8 @@ export const getGroupDetails = async (req: Request, res: Response): Promise<void
         },
         _count: {
           select: {
-            members: true,
-            messages: true
+            group_members: true,
+            chat_messages: true
           }
         }
       }
@@ -500,7 +500,7 @@ export const getGroupDetails = async (req: Request, res: Response): Promise<void
     }
 
     // Check if user is a member
-    const userMembership = group.members.find(member => member.user_id === userId);
+  const userMembership = group.group_members.find(member => member.user_id === userId);
     
     if (group.type === 'private' && !userMembership) {
       errorResponse(res, 'Access denied to private group', 403);
@@ -508,11 +508,11 @@ export const getGroupDetails = async (req: Request, res: Response): Promise<void
 
     const groupDetails = {
       ...group,
-      member_count: group._count.members,
-      message_count: group._count.messages,
+      member_count: group._count.group_members,
+      message_count: group._count.chat_messages,
       is_member: Boolean(userMembership),
       user_role: userMembership?.role || null,
-      members: group.members.map(member => ({
+      members: group.group_members.map(member => ({
         id: member.user.id,
         display_name: member.user.display_name,
         first_name: member.user.first_name,
@@ -589,7 +589,7 @@ export const getGroupMessages = async (req: Request, res: Response): Promise<voi
             role: true
           }
         },
-        reply_msg: {
+        chat_messages: {
           select: {
             id: true,
             message_text: true,
@@ -602,7 +602,7 @@ export const getGroupMessages = async (req: Request, res: Response): Promise<voi
             }
           }
         },
-        reactions: {
+        message_reactions: {
           include: {
             user: {
               select: {
@@ -616,7 +616,7 @@ export const getGroupMessages = async (req: Request, res: Response): Promise<voi
         },
         _count: {
           select: {
-            reactions: true
+            message_reactions: true
           }
         }
       },
@@ -641,8 +641,8 @@ export const getGroupMessages = async (req: Request, res: Response): Promise<voi
     successResponse(res, 'Messages retrieved successfully', {
       messages: orderedMessages.map(message => ({
         ...message,
-        reaction_count: message._count.reactions,
-        reactions: message.reactions.map(reaction => ({
+        reaction_count: message._count.message_reactions,
+        reactions: message.message_reactions.map(reaction => ({
           id: reaction.id,
           type: reaction.reaction,
           user: reaction.user,
@@ -726,7 +726,7 @@ export const sendMessage = async (req: Request, res: Response): Promise<void> =>
             role: true
           }
         },
-        reply_msg: {
+        chat_messages: {
           select: {
             id: true,
             message_text: true,
