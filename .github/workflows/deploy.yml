@@ -78,17 +78,63 @@ jobs:
             # Navigate to parent directory for docker-compose
             cd ..
 
-            # Stop backend container
-            echo "🛑 Stopping backend container..."
-            docker-compose stop backend
+            # Create a backup of docker-compose.yml
+            echo "🔧 Updating docker-compose configuration for safer volume handling..."
+            cp docker-compose.yml docker-compose.yml.backup || echo "No existing docker-compose.yml found"
 
-            # Build new image
+            # Check if the file already contains our volume fix
+            if grep -q "- /app/node_modules" docker-compose.yml 2>/dev/null; then
+              echo "Volume configuration already updated, skipping patch"
+            else
+              echo "Applying volume configuration patch..."
+              # Use sed instead of patch for more reliable updating
+              sed -i 's/volumes:/volumes:\n      # Prevent node_modules issues\n      - \/app\/node_modules/g' docker-compose.yml || \
+              echo "Could not update docker-compose.yml, will try to continue anyway"
+            fi
+
+            # Show the updated docker-compose.yml for debugging
+            echo "Current docker-compose.yml configuration:"
+            grep -A 15 "backend:" docker-compose.yml || echo "Could not find backend section"
+
+            # Stop and remove backend container to avoid ContainerConfig issues
+            echo "🛑 Stopping and removing backend container..."
+            docker-compose stop backend || echo "No container to stop"
+            docker-compose rm -f backend || echo "No container to remove"
+
+            # Clean up any related containers or images if they exist
+            echo "🧹 Cleaning up related Docker resources..."
+            docker container ls -a | grep 'stellarion-backend' | awk '{print $1}' | xargs -r docker rm -f || echo "No containers to remove"
+
+            # Clean up any dangling volumes
+            echo "🧹 Cleaning up Docker volumes..."
+            docker volume prune -f
+
+            # Build new image with a retry mechanism
             echo "🔨 Building new Docker image..."
-            docker-compose build backend
+            MAX_BUILD_RETRIES=3
+            BUILD_SUCCESS=false
+            BUILD_ATTEMPT=1
 
-            # Start backend container
+            while [ $BUILD_ATTEMPT -le $MAX_BUILD_RETRIES ] && [ "$BUILD_SUCCESS" = false ]; do
+              echo "Build attempt $BUILD_ATTEMPT of $MAX_BUILD_RETRIES..."
+              if docker-compose build --no-cache backend; then
+                BUILD_SUCCESS=true
+                echo "✅ Build successful on attempt $BUILD_ATTEMPT!"
+              else
+                BUILD_ATTEMPT=$((BUILD_ATTEMPT+1))
+                echo "⚠️ Build failed, attempt $BUILD_ATTEMPT of $MAX_BUILD_RETRIES..."
+                sleep 5
+              fi
+            done
+
+            if [ "$BUILD_SUCCESS" = false ]; then
+              echo "❌ All build attempts failed!"
+              exit 1
+            fi
+
+            # Start backend container with fresh config
             echo "🚀 Starting backend container..."
-            docker-compose up -d backend
+            docker-compose up -d --force-recreate backend
 
             # Wait for backend to be ready
             echo "⏳ Waiting for backend to be ready..."
