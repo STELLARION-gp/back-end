@@ -1,7 +1,5 @@
 // services/admin.service.ts
-import { PrismaClient } from "../prisma/generated/client";
-
-const prisma = new PrismaClient();
+import { prisma } from "../lib/prisma";
 
 /**
  * Get user counts by role

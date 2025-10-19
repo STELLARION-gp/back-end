@@ -22,6 +22,7 @@ import quizRoutes from './routes/quiz.routes';
 import servicesRoutes from './routes/services.routes';
 import bookingRoutes from './routes/booking.routes';
 import adminApiRoutes from "./routes/admin.routes";
+import financeRoutes from "./routes/finance.routes";
 import mentorProfileRoutes from './routes/mentorProfile.routes';
 import mentorMenteeConnectionRoutes from './routes/mentorMenteeConnection.routes';
 
@@ -181,6 +182,7 @@ app.use("/api/mentor-mentee-connections", mentorMenteeConnectionRoutes);
 
 // Admin API (separate from AdminJS panel)
 app.use("/api/admin", adminApiRoutes);
+app.use("/api/finance", financeRoutes);
 
 // Application APIs
 app.use("/api/mentor-applications", mentorApplicationRoutes);
