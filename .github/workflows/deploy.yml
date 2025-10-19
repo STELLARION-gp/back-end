@@ -131,11 +131,25 @@ jobs:
               echo "✅ Backend deployment successful!"
             else
               echo "❌ Health check failed!"
-              echo "📋 Container logs (last 100 lines):"
-              docker logs stellarion-backend --tail 100
+              
+              # Save logs to file first to avoid buffering issues
+              docker logs stellarion-backend --tail 150 > /tmp/backend-error.log 2>&1
+              
               echo ""
+              echo "========================================" 
+              echo "� BACKEND CONTAINER LOGS (last 150 lines):"
+              echo "========================================"
+              cat /tmp/backend-error.log
+              echo ""
+              echo "========================================"
               echo "🔍 Container status:"
+              echo "========================================"
               docker ps -a | grep stellarion-backend
+              echo ""
+              echo "========================================"
+              echo "🔍 Testing direct connection:"
+              echo "========================================"
+              docker exec stellarion-backend wget -O- http://localhost:5000/health 2>&1 || true
               echo ""
               echo "❌ Rolling back..."
               docker-compose down backend
