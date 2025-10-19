@@ -13,11 +13,17 @@ import {
     getBlogComments,
     addBlogComment,
     updateBlogComment,
-    deleteBlogComment
+    deleteBlogComment,
+    getLikedBlogs
 } from '../controllers/blog.controller';
+
 import { verifyToken } from '../middleware/verifyToken';
 
+
 const router = Router();
+
+// Get blogs liked by the current user
+router.get('/liked/me', verifyToken, getLikedBlogs);
 
 // Configure multer for image upload (memory storage for Cloudinary)
 const upload = multer({ 

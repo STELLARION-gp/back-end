@@ -8,18 +8,29 @@ const prisma = new PrismaClient();
 // Create Influencer Application
 export const createInfluencerApplication = async (req: Request, res: Response) => {
     try {
-        const userId = req.body.user?.id;
+        // Prefer authenticated user from verifyToken middleware
+        const authUser: any = (req as any).user || {};
+        const userId: number | undefined = authUser.userId || authUser.user_id;
         const data = req.body;
+
+        if (!userId) {
+            res.status(401).json({ success: false, error: 'Unauthorized. Please sign in.' });
+            return;
+        }
 
         // Create the application data object according to the Prisma schema
         const applicationData: any = {
             user_id: userId,
-            first_name: data.first_name,
-            last_name: data.last_name,
-            email: data.email,
+            // Try to populate name/email from authenticated user if not provided in payload
+            first_name: data.first_name ?? authUser.first_name ?? null,
+            last_name: data.last_name ?? authUser.last_name ?? null,
+            email: data.email ?? authUser.email ?? null,
             phone_number: data.phone_number,
             country: data.country,
-            bio: data.bio
+            bio: data.bio,
+            // Ensure initial statuses are pending by default (align with schema defaults but set explicitly)
+            application_status: 'pending',
+            approve_application_status: 'pending',
         };
 
         // Handle any JSON fields that need to be properly formatted
