@@ -1,3 +1,66 @@
+// Get blogs liked by the current user
+export const getLikedBlogs = async (req: Request, res: Response): Promise<void> => {
+    try {
+        const firebaseUser = (req as any).user;
+        if (!firebaseUser) {
+            res.status(401).json({ success: false, message: 'Authentication required' });
+            return;
+        }
+        const userId = await getUserIdFromFirebaseUid(firebaseUser.uid);
+        if (!userId) {
+            res.status(401).json({ success: false, message: 'User not found' });
+            return;
+        }
+        // Find all blog_likes for this user
+        const likedBlogIds = await prisma.blog_likes.findMany({
+            where: { user_id: userId },
+            select: { blog_id: true }
+        });
+        const blogIds = likedBlogIds.map(like => like.blog_id).filter(Boolean);
+        if (blogIds.length === 0) {
+            res.json({ success: true, data: { blogs: [], pagination: { page: 1, limit: 100, total: 0, pages: 1 } } });
+            return;
+        }
+        // Fetch blogs by these IDs
+        const blogs = await prisma.blogs.findMany({
+            where: { id: { in: blogIds } },
+            include: {
+                users: { select: { first_name: true, last_name: true, email: true, display_name: true } },
+                _count: { select: { blog_likes: true, blog_comments: true } }
+            }
+        });
+        // Map to Blog type
+        const mappedBlogs = blogs.map(blog => ({
+            id: blog.id,
+            title: blog.title,
+            content: blog.content,
+            excerpt: blog.excerpt || undefined,
+            image_url: blog.image_url || undefined,
+            featured_image: blog.featured_image || undefined,
+            author_id: blog.author_id!,
+            status: blog.status,
+            published_at: blog.published_at ? blog.published_at.toISOString() : undefined,
+            views_count: blog.view_count ?? blog.views_count ?? 0,
+            likes_count: blog.like_count ?? blog.likes_count ?? 0,
+            comments_count: blog.comment_count ?? blog.comments_count ?? 0,
+            tags: (blog.tags as string[]) || [],
+            metadata: (blog.metadata as any) || {},
+            created_at: blog.created_at ? blog.created_at.toISOString() : '',
+            updated_at: blog.updated_at ? blog.updated_at.toISOString() : '',
+            author_name: blog.users ? `${blog.users.first_name || ''} ${blog.users.last_name || ''}`.trim() : '',
+            author_email: blog.users?.email,
+            author_display_name: blog.users?.display_name,
+            user_liked: true
+        }));
+        res.json({
+            success: true,
+            data: { blogs: mappedBlogs, pagination: { page: 1, limit: 100, total: mappedBlogs.length, pages: 1 } }
+        });
+    } catch (error: any) {
+        console.error('Get liked blogs error:', error);
+        res.status(500).json({ success: false, message: 'Failed to retrieve liked blogs', error: error.message });
+    }
+};
 // controllers/blog.controller.ts
 import { Request, Response } from 'express';
 import { prisma } from '../lib/prisma';
