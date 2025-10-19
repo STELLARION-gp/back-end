@@ -1,54 +1,35 @@
-# ============================================
-# Stage 1: Build Stage
-# ============================================
-FROM node:18-alpine AS builder
+# Single-stage Dockerfile (compatible with older Docker hosts)
+FROM node:18-alpine
 
-# Install build dependencies
-RUN apk add --no-cache python3 make g++ openssl
+# Install build & runtime dependencies
+RUN apk add --no-cache python3 make g++ wget openssl
 
 WORKDIR /app
 
-# Copy package files for dependency installation
+# Copy package files for dependency installation and prisma schema
 COPY package*.json ./
 COPY prisma ./prisma
 
-# Install dependencies (includes devDependencies for build)
+# Install all dependencies (including devDeps) to allow TypeScript build
 RUN npm ci
 
 # Copy source code
 COPY . .
 
-# Build TypeScript to JavaScript (skip lib check for deployment)
+# Build TypeScript to JavaScript (allow emit even with type hints in CI)
 RUN npm run build || npx tsc --skipLibCheck -p tsconfig.production.json
 
-# ============================================
-# Stage 2: Production Stage
-# ============================================
-FROM node:18-alpine AS production
+# Remove devDependencies to keep image slim (npm >=7 supports prune)
+RUN npm prune --production || true
 
-# Install runtime dependencies
-RUN apk add --no-cache wget openssl
+# Clean npm cache
+RUN npm cache clean --force
 
 # Create non-root user for security
 RUN addgroup -g 1001 -S nodejs && \
     adduser -S nodejs -u 1001
 
-WORKDIR /app
-
-# Copy package files
-COPY package*.json ./
-COPY prisma ./prisma
-
-# Install only production dependencies
-RUN npm ci --only=production && \
-    npm cache clean --force
-
-# Copy built application from builder
-COPY --from=builder /app/dist ./dist
-
-# Copy necessary config files
-COPY serviceAccountKey.json ./
-COPY firebaseAdmin.ts ./
+# Copy necessary config files (already present from COPY . .)
 
 # Create directories with proper permissions
 RUN mkdir -p logs tmp-uploads public && \
