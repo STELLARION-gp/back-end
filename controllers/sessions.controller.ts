@@ -1418,11 +1418,11 @@ export const rejectSession = async (req: Request, res: Response): Promise<void> 
 };
 
 /**
- * Get all pending sessions (Moderator only)
- * @route GET /api/sessions/pending
+ * Get sessions for moderation with optional status filter (Moderator only)
+ * @route GET /api/sessions/admin/moderation
  * @access Private (Moderator only)
  */
-export const getPendingSessions = async (req: Request, res: Response): Promise<void> => {
+export const getModerationSessions = async (req: Request, res: Response): Promise<void> => {
   try {
     const userId = (req as any).user?.userId;
 
@@ -1434,10 +1434,11 @@ export const getPendingSessions = async (req: Request, res: Response): Promise<v
       return;
     }
 
-    // Get query parameters for pagination
+    // Get query parameters for pagination and filtering
     const {
       page = '1',
       limit = '20',
+      status,
       sort_by = 'created_at',
       sort_order = 'desc'
     } = req.query as Record<string, string>;
@@ -1455,11 +1456,15 @@ export const getPendingSessions = async (req: Request, res: Response): Promise<v
     const orderBy: any = {};
     orderBy[sortColumn] = sortDirection;
 
-    // Get pending sessions using Prisma
+    // Build where clause - if status is provided and not "all", filter by it
+    const where: any = {};
+    if (status && status !== 'all') {
+      where.status = status;
+    }
+
+    // Get sessions using Prisma
     const sessions = await prisma.sessions.findMany({
-      where: {
-        status: 'pending'
-      },
+      where,
       skip,
       take: limitNumber,
       orderBy,
@@ -1478,9 +1483,7 @@ export const getPendingSessions = async (req: Request, res: Response): Promise<v
 
     // Get total count
     const totalCount = await prisma.sessions.count({
-      where: {
-        status: 'pending'
-      }
+      where
     });
 
     // Format sessions with creator info
@@ -1522,16 +1525,28 @@ export const getPendingSessions = async (req: Request, res: Response): Promise<v
         limit: limitNumber,
         totalPages: Math.ceil(totalCount / limitNumber),
       },
-      message: "Pending sessions retrieved successfully"
+      message: status ? `Sessions with status '${status}' retrieved successfully` : "All sessions retrieved successfully"
     });
   } catch (error: any) {
-    console.error("Get pending sessions error:", error);
+    console.error("Get moderation sessions error:", error);
     res.status(500).json({
       success: false,
-      message: "Failed to retrieve pending sessions",
+      message: "Failed to retrieve sessions",
       error: process.env.NODE_ENV === 'development' ? error.message : undefined
     });
   }
+};
+
+/**
+ * Get all pending sessions (Moderator only)
+ * @route GET /api/sessions/admin/pending
+ * @access Private (Moderator only)
+ * @deprecated Use getModerationSessions with status filter instead
+ */
+export const getPendingSessions = async (req: Request, res: Response): Promise<void> => {
+  // Redirect to getModerationSessions with status=pending
+  req.query.status = 'pending';
+  return getModerationSessions(req, res);
 };
 
 /**
