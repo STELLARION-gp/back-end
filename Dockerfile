@@ -12,7 +12,7 @@ WORKDIR /app
 COPY package*.json ./
 
 # Install ALL dependencies (including devDependencies for build)
-RUN npm ci
+RUN npm i
 
 # Copy prisma schema and generate client
 COPY prisma ./prisma
