@@ -59,6 +59,9 @@ dotenv.config();
 const app = express();
 const server = http.createServer(app);
 
+// Trust nginx reverse proxy (fixes X-Forwarded-For warnings)
+app.set("trust proxy", 1);
+
 // Initialize Socket.IO
 const socketServer = new SocketServer(server);
 
@@ -141,7 +144,7 @@ try {
 
 // Middleware
 const allowedOrigins = process.env.CORS_ORIGINS
-  ? process.env.CORS_ORIGINS.split(",")
+  ? process.env.CORS_ORIGINS.split(",").map((origin) => origin.trim())
   : [
       "http://localhost:3000",
       "http://localhost:5173",
@@ -151,9 +154,21 @@ const allowedOrigins = process.env.CORS_ORIGINS
       "http://127.0.0.1:5174",
     ];
 
+console.log("🔐 CORS enabled for origins:", allowedOrigins);
+
 app.use(
   cors({
-    origin: allowedOrigins,
+    origin: (origin, callback) => {
+      // Allow requests with no origin (like mobile apps or curl requests)
+      if (!origin) return callback(null, true);
+
+      if (allowedOrigins.includes(origin)) {
+        callback(null, true);
+      } else {
+        console.warn(`⚠️ CORS blocked origin: ${origin}`);
+        callback(new Error(`Origin ${origin} not allowed by CORS`));
+      }
+    },
     credentials: true,
     methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
     allowedHeaders: ["Content-Type", "Authorization"],
@@ -165,12 +180,28 @@ app.use(express.json());
 app.use("/public", express.static("public"));
 
 // Health check endpoint
-app.get("/health", (req, res) => {
-  res.json({
-    status: "healthy",
-    timestamp: new Date().toISOString(),
-    version: "1.0.0",
-  });
+app.get("/health", async (req, res) => {
+  try {
+    // Basic health check
+    const healthStatus = {
+      status: "healthy",
+      timestamp: new Date().toISOString(),
+      version: "1.0.0",
+      checks: {
+        server: "ok",
+      },
+    };
+
+    // We'll still return 200 even if some checks fail
+    return res.json(healthStatus);
+  } catch (error) {
+    console.error("Health check failed:", error);
+    return res.status(500).json({
+      status: "unhealthy",
+      timestamp: new Date().toISOString(),
+      error: error.message || "Unknown error",
+    });
+  }
 });
 
 // API Routes

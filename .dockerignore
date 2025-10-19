@@ -61,3 +61,7 @@ docker-compose.yml
 # Uploads (not needed in image)
 tmp-uploads/
 uploads/
+
+# Make sure Prisma schema is NOT ignored
+!prisma/
+!prisma/schema.prisma

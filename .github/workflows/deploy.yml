@@ -6,10 +6,10 @@ on:
       - main
       - release
       - deploy-implementation
-  workflow_dispatch: # Allow manual triggers
+  workflow_dispatch:
 
 env:
-  DEPLOY_PATH: /home/deploy/deployments/stellarion/back-end
+  DEPLOY_PATH: /home/deploy/deployments/stellarion
 
 jobs:
   test:
@@ -24,26 +24,22 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: "18"
-          # Disable cache since we don't have a lock file yet
-          # cache: "npm"
+          cache: "npm"
 
       - name: Install dependencies
-        run: |
-          if [ -f package-lock.json ]; then
-            npm ci
-          else
-            npm install
-            git config --local user.email "action@github.com"
-            git config --local user.name "GitHub Action"
-            git add package-lock.json
-            git commit -m "Add package-lock.json [skip ci]" || echo "No changes to commit"
-          fi
+        run: npm ci
 
       - name: Run linter
-        run: npm run lint || echo "Linting completed with warnings"
+        run: npm run lint
+        continue-on-error: true
+
+      - name: Build test
+        run: npm run build
+        continue-on-error: true
 
       - name: Run tests
-        run: npm test || echo "No tests configured yet"
+        run: npm test
+        continue-on-error: true
 
   deploy:
     name: Deploy to Digital Ocean
@@ -67,60 +63,111 @@ jobs:
 
             echo "🚀 Starting backend deployment..."
 
-            # Navigate to backend directory
+            # Check and cleanup disk space if needed
+            DISK_USAGE=$(df / | tail -1 | awk '{print $5}' | sed 's/%//')
+            echo "📊 Current disk usage: ${DISK_USAGE}%"
+            if [ $DISK_USAGE -gt 80 ]; then
+              echo "⚠️  Disk usage high, running cleanup..."
+              docker system prune -f --filter "until=168h"
+              docker volume prune -f
+              apt-get clean 2>/dev/null || true
+            fi
+
+            # Navigate to deployment directory
             cd ${{ env.DEPLOY_PATH }}
 
-            # Backup current state
+            # Create backup
             echo "📦 Creating backup..."
-            BACKUP_DIR="backups/backup-$(date +%Y%m%d-%H%M%S)"
+            BACKUP_DIR="backups/backend-$(date +%Y%m%d-%H%M%S)"
             mkdir -p $BACKUP_DIR
-            cp -r . $BACKUP_DIR/ || true
+            cp -r back-end $BACKUP_DIR/ 2>/dev/null || true
+
+            # Keep only last 3 backups
+            cd backups
+            ls -t | tail -n +4 | xargs -r rm -rf
+            cd ..
 
             # Pull latest changes
             echo "📥 Pulling latest code..."
+            cd back-end
             git fetch origin
             git reset --hard origin/${{ github.ref_name }}
-
-            # Navigate to parent directory for docker-compose
             cd ..
 
             # Stop backend container
-            echo "🛑 Stopping backend container..."
-            docker-compose stop backend
+            echo "🛑 Stopping backend..."
+            docker-compose stop backend 2>/dev/null || true
+            docker-compose rm -f backend 2>/dev/null || true
 
-            # Build new image
-            echo "🔨 Building new Docker image..."
-            docker-compose build backend
-
-            # Start backend container
-            echo "🚀 Starting backend container..."
+            # Build and start backend
+            echo "� Building and starting backend..."
+            docker-compose build --no-cache backend
             docker-compose up -d backend
 
-            # Wait for backend to be ready
+            # Wait for backend to be ready (increased for Prisma/Firebase init)
             echo "⏳ Waiting for backend to be ready..."
-            sleep 15
+            sleep 40
+
+            # Check if container is still running
+            echo "🔍 Checking container status..."
+            if ! docker ps | grep -q stellarion-backend; then
+              echo "❌ Container is not running!"
+              echo "📋 Container logs:"
+              docker logs stellarion-backend
+              echo ""
+              echo "🔍 Container status:"
+              docker ps -a | grep stellarion-backend
+              echo ""
+              echo "❌ Rolling back..."
+              docker-compose down backend
+              cp -r $BACKUP_DIR/back-end/* back-end/
+              docker-compose up -d backend
+              exit 1
+            fi
 
             # Health check
             echo "🔍 Running health check..."
             if docker exec stellarion-backend wget -qO- http://localhost:5000/health > /dev/null 2>&1; then
               echo "✅ Backend deployment successful!"
-              echo "✅ Health check passed"
             else
-              echo "❌ Health check failed, rolling back..."
+              echo "❌ Health check failed!"
+              
+              # Save logs to file first to avoid buffering issues
+              docker logs stellarion-backend --tail 150 > /tmp/backend-error.log 2>&1
+              
+              echo ""
+              echo "========================================" 
+              echo "� BACKEND CONTAINER LOGS (last 150 lines):"
+              echo "========================================"
+              cat /tmp/backend-error.log
+              echo ""
+              echo "========================================"
+              echo "🔍 Container status:"
+              echo "========================================"
+              docker ps -a | grep stellarion-backend
+              echo ""
+              echo "========================================"
+              echo "🔍 Testing direct connection:"
+              echo "========================================"
+              docker exec stellarion-backend wget -O- http://localhost:5000/health 2>&1 || true
+              echo ""
+              echo "❌ Rolling back..."
               docker-compose down backend
-              cd back-end
-              git reset --hard HEAD@{1}
-              cd ..
+              cp -r $BACKUP_DIR/back-end/* back-end/
               docker-compose up -d backend
-              echo "❌ Deployment failed and rolled back"
               exit 1
             fi
 
-            # Cleanup old images
-            echo "🧹 Cleaning up old Docker images..."
+            # Cleanup Docker resources
+            echo "🧹 Cleaning up Docker resources..."
             docker image prune -f
+            docker container prune -f --filter "until=168h"
 
-            echo "✨ Backend deployment completed successfully!"
+            # Show final disk usage
+            FINAL_USAGE=$(df / | tail -1 | awk '{print $5}')
+            echo "📊 Final disk usage: ${FINAL_USAGE}"
+
+            echo "✨ Deployment completed!"
 
       - name: Notify on Success
         if: success()
