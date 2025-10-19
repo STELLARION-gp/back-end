@@ -1,4 +1,5 @@
 import mentorApplicationRoutes from "./routes/mentorApplication.routes";
+import menteeApplicationRoutes from "./routes/menteeApplication.routes";
 import influencerApplicationRoutes from "./routes/influencerApplication.routes";
 import guideApplicationRoutes from "./routes/guideApplication.routes";
 import subscriptionRoutes from "./routes/subscription.routes";
@@ -21,6 +22,8 @@ import quizRoutes from './routes/quiz.routes';
 import servicesRoutes from './routes/services.routes';
 import bookingRoutes from './routes/booking.routes';
 import adminApiRoutes from "./routes/admin.routes";
+import mentorProfileRoutes from './routes/mentorProfile.routes';
+import mentorMenteeConnectionRoutes from './routes/mentorMenteeConnection.routes';
 
 // index.ts
 import express from "express";
@@ -148,7 +151,7 @@ app.use(
       "http://127.0.0.1:5174",
     ],
     credentials: true,
-    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+    methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
     allowedHeaders: ["Content-Type", "Authorization"],
   })
 );
@@ -171,12 +174,17 @@ app.use("/api/users", userRoutes);
 app.use("/api/auth", authRoutes);
 app.use("/api/chatbot", chatbotRoutes);
 app.use("/api/user", profileRoutes);
+// Mentor Profile API (self + public)
+app.use("/api/mentor", mentorProfileRoutes);
+// Mentor-Mentee connection APIs (notes, goals, sessions, etc.)
+app.use("/api/mentor-mentee", mentorMenteeConnectionRoutes);
 
 // Admin API (separate from AdminJS panel)
 app.use("/api/admin", adminApiRoutes);
 
 // Application APIs
 app.use("/api/mentor-applications", mentorApplicationRoutes);
+app.use("/api/mentee-applications", menteeApplicationRoutes);
 app.use("/api/influencer-applications", influencerApplicationRoutes);
 app.use("/api/guide-applications", guideApplicationRoutes);
 

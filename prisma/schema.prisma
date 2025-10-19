@@ -136,6 +136,21 @@ model blog_views {
   @@index([blog_id], map: "idx_blog_views_blog_id")
 }
 
+model blog_ratings {
+  id         Int       @id @default(autoincrement())
+  blog_id    Int?
+  user_id    Int?
+  rating     Int       @db.SmallInt
+  created_at DateTime? @default(now()) @db.Timestamp(6)
+  updated_at DateTime? @default(now()) @db.Timestamp(6)
+  blogs      blogs?    @relation(fields: [blog_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  users      users?    @relation(fields: [user_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+
+  @@unique([blog_id, user_id])
+  @@index([blog_id], map: "idx_blog_ratings_blog_id")
+  @@index([user_id], map: "idx_blog_ratings_user_id")
+}
+
 model blogs {
   id                      Int                       @id @default(autoincrement())
   title                   String                    @db.VarChar(255)
@@ -161,6 +176,7 @@ model blogs {
   blog_category_relations blog_category_relations[]
   blog_comments           blog_comments[]
   blog_likes              blog_likes[]
+  blog_ratings            blog_ratings[]
   blog_views              blog_views[]
   users                   users?                    @relation(fields: [author_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
 
@@ -218,6 +234,7 @@ model users {
   created_astronomy_events                                                                     astronomy_events[]                     @relation("AstronomyEventCreator")
   blog_comments                                                                                blog_comments[]
   blog_likes                                                                                   blog_likes[]
+  blog_ratings                                                                                 blog_ratings[]
   blog_views                                                                                   blog_views[]
   blogs                                                                                        blogs[]
   chat_messages                                                                                chat_messages[]                        @relation("ChatMessageUser")
@@ -258,6 +275,14 @@ model users {
   moderated_stargazing_spots                                                                   stargazing_spots[]                     @relation("StargazingSpotModerator")
   subscriptions                                                                                subscriptions[]
   user_settings                                                                                user_settings?
+  mentee_applications_as_learner                                                               mentee_applications[]                  @relation("MenteeApplicationLearner")
+  mentee_applications_as_mentor                                                                mentee_applications[]                  @relation("MenteeApplicationMentor")
+  mentor_connections                                                                           mentor_mentee_connections[]            @relation("MentorConnections")
+  mentee_connections                                                                           mentor_mentee_connections[]            @relation("MenteeConnections")
+  created_mentor_mentee_notes                                                                  mentor_mentee_notes[]
+  created_mentor_mentee_short_notes                                                            mentor_mentee_short_notes[]
+  created_mentor_mentee_goals                                                                  mentor_mentee_goals[]
+  uploaded_mentor_mentee_resources                                                             mentor_mentee_resources[]
 
   @@index([is_active], map: "idx_users_active")
   @@index([email], map: "idx_users_email")
@@ -512,7 +537,128 @@ model mentor_application {
   @@index([application_status], map: "idx_mentor_application_status")
   @@index([user_id], map: "idx_mentor_application_user_id")
 }
+model mentee_applications {
+  application_id     Int                         @id @default(autoincrement())
+  learner_id         Int
+  mentor_id          Int
+  interest_statement String
+  documents          Json?
+  application_status approve_application_status? @default(pending)
+  submitted_at       DateTime?                   @default(now()) @db.Timestamp(6)
+  updated_at         DateTime?                   @default(now()) @db.Timestamp(6)
+  reviewed_at        DateTime?                   @db.Timestamp(6)
+  review_notes       String?
+  learner            users                       @relation("MenteeApplicationLearner", fields: [learner_id], references: [id], onDelete: Cascade)
+  mentor             users                       @relation("MenteeApplicationMentor", fields: [mentor_id], references: [id], onDelete: Cascade)
+  connection         mentor_mentee_connections?
+  @@index([learner_id], map: "idx_mentee_application_learner")
+  @@index([mentor_id], map: "idx_mentee_application_mentor")
+  @@index([application_status], map: "idx_mentee_application_status")
+}
+model mentor_mentee_connections {
+  connection_id   Int                     @id @default(autoincrement())
+  application_id  Int                     @unique
+  mentor_id       Int
+  mentee_id       Int
+  status          String                  @default("active") @db.VarChar(50)
+  connected_at    DateTime                @default(now()) @db.Timestamp(6)
+  last_activity   DateTime?               @db.Timestamp(6)
+  ended_at        DateTime?               @db.Timestamp(6)
+  created_at      DateTime                @default(now()) @db.Timestamp(6)
+  updated_at      DateTime                @default(now()) @db.Timestamp(6)
+  application     mentee_applications     @relation(fields: [application_id], references: [application_id], onDelete: Cascade)
+  mentor          users                   @relation("MentorConnections", fields: [mentor_id], references: [id], onDelete: Cascade)
+  mentee          users                   @relation("MenteeConnections", fields: [mentee_id], references: [id], onDelete: Cascade)
+  notes           mentor_mentee_notes[]
+  short_notes     mentor_mentee_short_notes[]
+  goals           mentor_mentee_goals[]
+  sessions        mentor_mentee_sessions[]
+  resources       mentor_mentee_resources[]
 
+  @@index([mentor_id], map: "idx_connection_mentor")
+  @@index([mentee_id], map: "idx_connection_mentee")
+  @@index([status], map: "idx_connection_status")
+}
+
+model mentor_mentee_notes {
+  note_id       Int                       @id @default(autoincrement())
+  connection_id Int
+  created_by    Int
+  title         String?                   @db.VarChar(255)
+  content       String
+  tags          String[]
+  is_pinned     Boolean                   @default(false)
+  created_at    DateTime                  @default(now()) @db.Timestamp(6)
+  updated_at    DateTime                  @default(now()) @db.Timestamp(6)
+  connection    mentor_mentee_connections @relation(fields: [connection_id], references: [connection_id], onDelete: Cascade)
+  creator       users                     @relation(fields: [created_by], references: [id], onDelete: Cascade)
+
+  @@index([connection_id], map: "idx_notes_connection")
+  @@index([created_by], map: "idx_notes_creator")
+}
+
+model mentor_mentee_short_notes {
+  short_note_id Int                       @id @default(autoincrement())
+  connection_id Int
+  created_by    Int
+  content       String                    @db.VarChar(500)
+  emoji         String?                   @db.VarChar(10)
+  reactions     Json?
+  is_pinned     Boolean                   @default(false)
+  created_at    DateTime                  @default(now()) @db.Timestamp(6)
+  connection    mentor_mentee_connections @relation(fields: [connection_id], references: [connection_id], onDelete: Cascade)
+  creator       users                     @relation(fields: [created_by], references: [id], onDelete: Cascade)
+
+  @@index([connection_id], map: "idx_short_notes_connection")
+}
+
+model mentor_mentee_goals {
+  goal_id       Int                       @id @default(autoincrement())
+  connection_id Int
+  created_by    Int
+  title         String                    @db.VarChar(255)
+  description   String?
+  status        String                    @default("not_started") @db.VarChar(50)
+  progress      Int                       @default(0)
+  deadline      DateTime?                 @db.Timestamp(6)
+  created_at    DateTime                  @default(now()) @db.Timestamp(6)
+  updated_at    DateTime                  @default(now()) @db.Timestamp(6)
+  connection    mentor_mentee_connections @relation(fields: [connection_id], references: [connection_id], onDelete: Cascade)
+  creator       users                     @relation(fields: [created_by], references: [id], onDelete: Cascade)
+
+  @@index([connection_id], map: "idx_goals_connection")
+}
+
+model mentor_mentee_sessions {
+  session_id    Int                       @id @default(autoincrement())
+  connection_id Int
+  title         String                    @db.VarChar(255)
+  description   String?
+  session_date  DateTime                  @db.Timestamp(6)
+  duration      Int
+  notes         String?
+  created_at    DateTime                  @default(now()) @db.Timestamp(6)
+  connection    mentor_mentee_connections @relation(fields: [connection_id], references: [connection_id], onDelete: Cascade)
+
+  @@index([connection_id], map: "idx_mm_sessions_connection")
+  @@index([session_date], map: "idx_mm_sessions_date")
+}
+
+model mentor_mentee_resources {
+  resource_id   Int                       @id @default(autoincrement())
+  connection_id Int
+  uploaded_by   Int
+  file_name     String                    @db.VarChar(255)
+  file_path     String                    @db.VarChar(500)
+  file_type     String                    @db.VarChar(100)
+  file_size     Int?
+  tags          String[]
+  uploaded_at   DateTime                  @default(now()) @db.Timestamp(6)
+  connection    mentor_mentee_connections @relation(fields: [connection_id], references: [connection_id], onDelete: Cascade)
+  uploader      users                     @relation(fields: [uploaded_by], references: [id], onDelete: Cascade)
+
+  @@index([connection_id], map: "idx_resources_connection")
+}
 model message_reactions {
   id            Int           @id @default(autoincrement())
   message_id    Int
@@ -707,6 +853,7 @@ model polls {
   created_at    DateTime        @default(now()) @db.Timestamp(6)
   updated_at    DateTime        @default(now()) @db.Timestamp(6)
   is_active     Boolean         @default(true)
+  status        String?         @default("open") @db.VarChar(20)
   poll_choices  poll_choices[]
   poll_comments poll_comments[]
   creator       users           @relation("PollCreator", fields: [created_by], references: [id], onDelete: Cascade)
@@ -714,6 +861,7 @@ model polls {
   @@index([created_at], map: "idx_polls_created_at")
   @@index([created_by], map: "idx_polls_created_by")
   @@index([is_active], map: "idx_polls_is_active")
+  @@index([status], map: "idx_polls_status")
 }
 
 model role_upgrade_requests {

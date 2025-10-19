@@ -35,7 +35,7 @@ export const getAstronomyEvents = async (req: Request, res: Response): Promise<v
         },
         _count: {
           select: {
-            reminders: true
+            event_reminders: true
           }
         }
       },
@@ -83,7 +83,7 @@ export const getAstronomyEventById = async (req: Request, res: Response): Promis
         },
         _count: {
           select: {
-            reminders: true
+            event_reminders: true
           }
         }
       }
@@ -412,7 +412,7 @@ export const getUserEventReminders = async (req: AuthenticatedRequest, res: Resp
     const reminders = await prisma.event_reminders.findMany({
       where: { user_id: user.userId },
       include: {
-        event: {
+        astronomy_events: {
           select: {
             id: true,
             name: true,
