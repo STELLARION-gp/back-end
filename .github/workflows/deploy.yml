@@ -31,6 +31,10 @@ jobs:
 
       - name: Run linter
         run: npm run lint || echo "Linting completed with warnings"
+        
+      # TODO: Fix TypeScript errors in the codebase
+      # There are type mismatches between the code and Prisma schema
+      # Currently building with --skipLibCheck to bypass these errors
 
       - name: Run tests
         run: npm test || echo "No tests configured yet"
