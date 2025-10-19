@@ -76,11 +76,13 @@ async function callGeminiDirectly(
 
     // Sometimes the content is in a different structure when MAX_TOKENS
     if (data.candidates[0].content?.parts?.[0]?.text) {
-      return data.candidates[0].content.parts[0].text;
+      const partialText = data.candidates[0].content.parts[0].text;
+      // Return partial response with note
+      return partialText + "\n\n[Response was truncated due to length. Please ask for more specific information if needed.]";
     }
 
-    // If still no text, return a helpful message
-    throw new Error("Response too long. Please ask a more specific question.");
+    // If still no text, return a helpful fallback
+    return "I apologize, but my response was too long. Could you please ask a more specific question? I'd be happy to help with a focused topic.";
   }
 
   // Check if there's an error in the response

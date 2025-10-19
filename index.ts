@@ -59,6 +59,9 @@ dotenv.config();
 const app = express();
 const server = http.createServer(app);
 
+// Trust nginx reverse proxy (fixes X-Forwarded-For warnings)
+app.set('trust proxy', 1);
+
 // Initialize Socket.IO
 const socketServer = new SocketServer(server);
 
