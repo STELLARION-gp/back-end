@@ -95,7 +95,7 @@ export const createSession = async (req: Request, res: Response): Promise<void> 
       return;
     }
 
-    // Create the session with pending status
+    // Create the session
     const newSession = await prisma.sessions.create({
       data: {
         title,
@@ -112,8 +112,7 @@ export const createSession = async (req: Request, res: Response): Promise<void> 
         materials: materials || [],
         session_notes: session_notes || null,
         created_by: userId,
-        is_enabled: true,
-        status: 'pending', // Sessions start as pending and need approval
+        is_enabled: true
       },
       include: {
         creator: {
@@ -936,10 +935,9 @@ export const getAllSessions = async (req: Request, res: Response): Promise<void>
     const limitNumber = parseInt(limit, 10);
     const skip = (pageNumber - 1) * limitNumber;
 
-    // Build where clause - only show approved sessions to public
+    // Build where clause
     const where: any = {
-      is_enabled: is_enabled === 'true',
-      status: 'approved' // Only show approved sessions
+      is_enabled: is_enabled === 'true'
     };
 
     if (session_type) where.session_type = session_type as SessionType;
@@ -1096,7 +1094,9 @@ export const getMySessionsAnalytics = async (req: Request, res: Response): Promi
 
     // Get all sessions created by user
     const sessions = await prisma.sessions.findMany({
-      where: { created_by: userId }
+      where: { 
+        created_by: userId
+      }
     });
 
     // Get enrollment counts per session
@@ -1246,294 +1246,238 @@ export const getMySessionsAnalytics = async (req: Request, res: Response): Promi
  * Approve a session (Moderator/Influencer only)
  * @route PATCH /api/sessions/:id/approve
  * @access Private (Moderator/Influencer only)
+ * @note Requires database migration to add status, moderated_by, moderated_at columns
  */
 export const approveSession = async (req: Request, res: Response): Promise<void> => {
-  try {
-    const { id } = req.params;
-    const userId = (req as any).user?.userId;
-    const userRole = (req as any).user?.role;
-
-    if (!userId) {
-      res.status(401).json({
-        success: false,
-        message: "User not authenticated"
-      });
-      return;
-    }
-
-    // Check if user is moderator or influencer
-    if (userRole !== 'moderator' && userRole !== 'influencer') {
-      res.status(403).json({
-        success: false,
-        message: "Only moderators and influencers can approve sessions"
-      });
-      return;
-    }
-
-    // Check if session exists
-    const existingSession = await prisma.sessions.findUnique({
-      where: { id: parseInt(id) }
-    });
-
-    if (!existingSession) {
-      res.status(404).json({
-        success: false,
-        message: "Session not found"
-      });
-      return;
-    }
-
-    // Check if session is already approved
-    if (existingSession.status === 'approved') {
-      res.status(400).json({
-        success: false,
-        message: "Session is already approved"
-      });
-      return;
-    }
-
-    // Approve the session
-    const approvedSession = await prisma.sessions.update({
-      where: { id: parseInt(id) },
-      data: {
-        status: 'approved',
-        moderated_by: userId,
-        approved_at: new Date(),
-        rejection_reason: null
-      },
-      include: {
-        creator: {
-          select: {
-            id: true,
-            first_name: true,
-            last_name: true,
-            email: true,
-            display_name: true,
-          }
-        },
-        moderator: {
-          select: {
-            id: true,
-            first_name: true,
-            last_name: true,
-            email: true,
-            display_name: true,
-          }
-        }
-      }
-    });
-
-    // Format session_time before sending
-    const formattedSession = {
-      ...approvedSession,
-      session_time: formatTimeField(approvedSession.session_time)
-    };
-
-    res.status(200).json({
-      success: true,
-      data: formattedSession,
-      message: "Session approved successfully"
-    });
-  } catch (error: any) {
-    console.error("Approve session error:", error);
-    res.status(500).json({
-      success: false,
-      message: "Failed to approve session",
-      error: process.env.NODE_ENV === 'development' ? error.message : undefined
-    });
-  }
+  res.status(501).json({
+    success: false,
+    message: "Session approval feature requires database migration. Please run: ALTER TABLE sessions ADD COLUMN status session_status DEFAULT 'pending', ADD COLUMN moderated_by INT, ADD COLUMN moderated_at TIMESTAMP;"
+  });
 };
 
 /**
  * Reject a session (Moderator/Influencer only)
  * @route PATCH /api/sessions/:id/reject
  * @access Private (Moderator/Influencer only)
+ * @note Requires database migration to add status, moderated_by, moderated_at columns
  */
 export const rejectSession = async (req: Request, res: Response): Promise<void> => {
-  try {
-    const { id } = req.params;
-    const { reason } = req.body;
-    const userId = (req as any).user?.userId;
-    const userRole = (req as any).user?.role;
-
-    if (!userId) {
-      res.status(401).json({
-        success: false,
-        message: "User not authenticated"
-      });
-      return;
-    }
-
-    // Check if user is moderator or influencer
-    if (userRole !== 'moderator' && userRole !== 'influencer') {
-      res.status(403).json({
-        success: false,
-        message: "Only moderators and influencers can reject sessions"
-      });
-      return;
-    }
-
-    if (!reason || !reason.trim()) {
-      res.status(400).json({
-        success: false,
-        message: "Rejection reason is required"
-      });
-      return;
-    }
-
-    // Check if session exists
-    const existingSession = await prisma.sessions.findUnique({
-      where: { id: parseInt(id) }
-    });
-
-    if (!existingSession) {
-      res.status(404).json({
-        success: false,
-        message: "Session not found"
-      });
-      return;
-    }
-
-    // Reject the session
-    const rejectedSession = await prisma.sessions.update({
-      where: { id: parseInt(id) },
-      data: {
-        status: 'rejected',
-        moderated_by: userId,
-        rejected_at: new Date(),
-        rejection_reason: reason.trim()
-      },
-      include: {
-        creator: {
-          select: {
-            id: true,
-            first_name: true,
-            last_name: true,
-            email: true,
-            display_name: true,
-          }
-        },
-        moderator: {
-          select: {
-            id: true,
-            first_name: true,
-            last_name: true,
-            email: true,
-            display_name: true,
-          }
-        }
-      }
-    });
-
-    // Format session_time before sending
-    const formattedSession = {
-      ...rejectedSession,
-      session_time: formatTimeField(rejectedSession.session_time)
-    };
-
-    res.status(200).json({
-      success: true,
-      data: formattedSession,
-      message: "Session rejected successfully"
-    });
-  } catch (error: any) {
-    console.error("Reject session error:", error);
-    res.status(500).json({
-      success: false,
-      message: "Failed to reject session",
-      error: process.env.NODE_ENV === 'development' ? error.message : undefined
-    });
-  }
+  res.status(501).json({
+    success: false,
+    message: "Session rejection feature requires database migration. Please run: ALTER TABLE sessions ADD COLUMN status session_status DEFAULT 'pending', ADD COLUMN moderated_by INT, ADD COLUMN moderated_at TIMESTAMP;"
+  });
 };
 
 /**
  * Get all pending sessions (Moderator/Influencer only)
  * @route GET /api/sessions/pending
  * @access Private (Moderator/Influencer only)
+ * @note Requires database migration to add status column
  */
 export const getPendingSessions = async (req: Request, res: Response): Promise<void> => {
+  res.status(501).json({
+    success: false,
+    message: "Pending sessions feature requires database migration. Please run: ALTER TABLE sessions ADD COLUMN status session_status DEFAULT 'pending';"
+  });
+};
+
+/**
+ * Enroll in a paid session with payment
+ * @route POST /api/sessions/:sessionId/enroll/paid
+ * @access Private (Authenticated users)
+ */
+export const enrollInPaidSession = async (req: Request, res: Response): Promise<void> => {
   try {
+    const sessionId = parseInt(req.params.sessionId);
     const userId = (req as any).user?.userId;
-    const userRole = (req as any).user?.role;
+    const { payment_details } = req.body;
 
     if (!userId) {
       res.status(401).json({
         success: false,
-        message: "User not authenticated"
+        message: 'Authentication required'
       });
       return;
     }
 
-    // Check if user is moderator or influencer
-    if (userRole !== 'moderator' && userRole !== 'influencer') {
-      res.status(403).json({
+    if (!payment_details || !payment_details.card_number || !payment_details.card_holder) {
+      res.status(400).json({
         success: false,
-        message: "Only moderators and influencers can view pending sessions"
+        message: 'Payment details are required'
       });
       return;
     }
 
-    const {
-      page = '1',
-      limit = '20',
-      sort_by = 'created_at',
-      sort_order = 'desc'
-    } = req.query as Record<string, string>;
-
-    const pageNumber = parseInt(page, 10);
-    const limitNumber = parseInt(limit, 10);
-    const skip = (pageNumber - 1) * limitNumber;
-
-    // Build order by clause
-    const orderBy: any = {};
-    orderBy[sort_by] = sort_order === 'asc' ? 'asc' : 'desc';
-
-    // Get total count for pagination
-    const totalCount = await prisma.sessions.count({
-      where: { status: 'pending' }
+    // Check if session exists and is paid
+    const session = await prisma.sessions.findUnique({
+      where: { id: sessionId }
     });
 
-    // Get pending sessions
-    const sessions = await prisma.sessions.findMany({
-      where: { status: 'pending' },
-      skip,
-      take: limitNumber,
-      orderBy,
-      include: {
-        creator: {
-          select: {
-            id: true,
-            first_name: true,
-            last_name: true,
-            email: true,
-            display_name: true,
-          }
-        }
+    if (!session) {
+      res.status(404).json({
+        success: false,
+        message: 'Session not found'
+      });
+      return;
+    }
+
+    if (!session.is_enabled) {
+      res.status(400).json({
+        success: false,
+        message: 'Session is not available for enrollment'
+      });
+      return;
+    }
+
+    if (session.payment_type !== 'paid') {
+      res.status(400).json({
+        success: false,
+        message: 'This session is free. Use the free enrollment endpoint instead.'
+      });
+      return;
+    }
+
+    // Check if already enrolled
+    const existingEnrollment = await prisma.session_enrollments.findFirst({
+      where: {
+        session_id: sessionId,
+        user_id: userId
       }
     });
 
-    // Format session_time fields for all sessions
-    const formattedSessions = sessions.map(session => ({
-      ...session,
-      session_time: formatTimeField(session.session_time)
-    }));
+    if (existingEnrollment) {
+      res.status(400).json({
+        success: false,
+        message: 'You are already enrolled in this session'
+      });
+      return;
+    }
 
-    res.status(200).json({
-      success: true,
-      data: formattedSessions,
-      pagination: {
-        total: totalCount,
-        page: pageNumber,
-        limit: limitNumber,
-        totalPages: Math.ceil(totalCount / limitNumber),
-      },
-      message: "Pending sessions retrieved successfully"
+    // Create enrollment with completed payment status
+    const enrollment = await prisma.session_enrollments.create({
+      data: {
+        session_id: sessionId,
+        user_id: userId,
+        payment_status: 'completed', // Mark payment as completed
+        enrollment_date: new Date(),
+        payment_amount: session.price,
+        payment_method: 'card',
+        access_granted: true
+      }
     });
+
+    res.status(201).json({
+      success: true,
+      data: {
+        enrollment_id: enrollment.id,
+        session_id: sessionId,
+        payment_status: 'completed',
+        enrollment_date: enrollment.enrollment_date
+      },
+      message: 'Successfully enrolled in session. Payment completed.'
+    });
+
   } catch (error: any) {
-    console.error("Get pending sessions error:", error);
+    console.error('Enroll in paid session error:', error);
     res.status(500).json({
       success: false,
-      message: "Failed to retrieve pending sessions",
+      message: 'Failed to enroll in session',
+      error: process.env.NODE_ENV === 'development' ? error.message : undefined
+    });
+  }
+};
+
+/**
+ * Enroll in a free session
+ * @route POST /api/sessions/:sessionId/enroll/free
+ * @access Private (Authenticated users)
+ */
+export const enrollInFreeSession = async (req: Request, res: Response): Promise<void> => {
+  try {
+    const sessionId = parseInt(req.params.sessionId);
+    const userId = (req as any).user?.userId;
+
+    if (!userId) {
+      res.status(401).json({
+        success: false,
+        message: 'Authentication required'
+      });
+      return;
+    }
+
+    // Check if session exists and is free
+    const session = await prisma.sessions.findUnique({
+      where: { id: sessionId }
+    });
+
+    if (!session) {
+      res.status(404).json({
+        success: false,
+        message: 'Session not found'
+      });
+      return;
+    }
+
+    if (!session.is_enabled) {
+      res.status(400).json({
+        success: false,
+        message: 'Session is not available for enrollment'
+      });
+      return;
+    }
+
+    if (session.payment_type !== 'free') {
+      res.status(400).json({
+        success: false,
+        message: 'This session requires payment. Use the paid enrollment endpoint instead.'
+      });
+      return;
+    }
+
+    // Check if already enrolled
+    const existingEnrollment = await prisma.session_enrollments.findFirst({
+      where: {
+        session_id: sessionId,
+        user_id: userId
+      }
+    });
+
+    if (existingEnrollment) {
+      res.status(400).json({
+        success: false,
+        message: 'You are already enrolled in this session'
+      });
+      return;
+    }
+
+    // Create enrollment for free session
+    const enrollment = await prisma.session_enrollments.create({
+      data: {
+        session_id: sessionId,
+        user_id: userId,
+        payment_status: 'free_access',
+        enrollment_date: new Date(),
+        payment_amount: 0,
+        access_granted: true
+      }
+    });
+
+    res.status(201).json({
+      success: true,
+      data: {
+        enrollment_id: enrollment.id,
+        session_id: sessionId,
+        payment_status: 'free_access',
+        enrollment_date: enrollment.enrollment_date
+      },
+      message: 'Successfully enrolled in free session.'
+    });
+
+  } catch (error: any) {
+    console.error('Enroll in free session error:', error);
+    res.status(500).json({
+      success: false,
+      message: 'Failed to enroll in session',
       error: process.env.NODE_ENV === 'development' ? error.message : undefined
     });
   }
