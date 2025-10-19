@@ -90,7 +90,7 @@ jobs:
             # Check if docker-compose.yml exists
             if [ ! -f docker-compose.yml ]; then
               echo "⚠️ docker-compose.yml not found! Creating a minimal one..."
-              cat > docker-compose.yml << 'EOF'
+              cat > docker-compose.yml << EOF
 version: "3.9"
 
 services:
@@ -101,6 +101,8 @@ services:
       dockerfile: Dockerfile
     expose:
       - "5000"
+    ports:
+      - "5000:5000"
     env_file:
       - ./back-end/.env
     environment:
@@ -114,8 +116,6 @@ services:
       - ./back-end/tmp-uploads:/app/tmp-uploads
       # Prevent node_modules issues
       - /app/node_modules
-    networks:
-      - stellarion-network
     restart: unless-stopped
     healthcheck:
       test: ["CMD", "wget", "--quiet", "--tries=1", "--spider", "http://localhost:5000/health"]
@@ -123,10 +123,6 @@ services:
       timeout: 10s
       retries: 3
       start_period: 40s
-
-networks:
-  stellarion-network:
-    driver: bridge
 EOF
               echo "✅ Created new docker-compose.yml"
             else
@@ -152,7 +148,9 @@ EOF
             
             # Show the updated docker-compose.yml for debugging
             echo "Current docker-compose.yml configuration:"
-            cat docker-compose.yml || echo "Could not read docker-compose.yml"                        # Validate docker-compose file
+            cat docker-compose.yml || echo "Could not read docker-compose.yml"
+            
+            # Validate docker-compose file
             echo "🔍 Validating docker-compose.yml..."
             if ! docker-compose config > /dev/null; then
               echo "⚠️ docker-compose.yml validation failed! Using fallback approach..."
@@ -238,7 +236,9 @@ EOF
                 -v $(pwd)/back-end/tmp-uploads:/app/tmp-uploads \
                 --restart unless-stopped \
                 stellarion_backend:latest
-            fi            # Wait for backend to be ready
+            fi
+            
+            # Wait for backend to be ready
             echo "⏳ Waiting for backend to be ready..."
             sleep 30  # Increased wait time
 
