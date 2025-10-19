@@ -66,9 +66,13 @@ jobs:
 
             # Backup current state
             echo "📦 Creating backup..."
-            BACKUP_DIR="backups/backup-$(date +%Y%m%d-%H%M%S)"
-            mkdir -p $BACKUP_DIR
-            cp -r . $BACKUP_DIR/ || true
+            PARENT_DIR=$(dirname "${{ env.DEPLOY_PATH }}")
+            BACKUP_NAME="back-end-backup-$(date +%Y%m%d-%H%M%S)"
+            mkdir -p $PARENT_DIR/backups
+            
+            # Create a safer backup that won't cause recursion issues
+            find . -maxdepth 1 -not -name "backups" -not -name "." -not -name ".git" -exec cp -r {} $PARENT_DIR/backups/$BACKUP_NAME/ \; || echo "Backup partially completed"
+            echo "Backup created at $PARENT_DIR/backups/$BACKUP_NAME/"
 
             # Pull latest changes
             echo "📥 Pulling latest code..."
@@ -177,9 +181,20 @@ jobs:
               docker logs stellarion-backend --tail 100
               echo "❌ Rolling back deployment..."
               docker-compose down backend
-              cd back-end
-              git reset --hard HEAD@{1}
-              cd ..
+              
+              # Restore from backup if available
+              LATEST_BACKUP=$(ls -td $PARENT_DIR/backups/back-end-backup-* | head -1)
+              if [ -n "$LATEST_BACKUP" ] && [ -d "$LATEST_BACKUP" ]; then
+                echo "Restoring from backup: $LATEST_BACKUP"
+                rm -rf ${{ env.DEPLOY_PATH }}/*
+                cp -r $LATEST_BACKUP/* ${{ env.DEPLOY_PATH }}/
+              else
+                echo "No backup found, trying to rollback using git"
+                cd back-end
+                git reset --hard HEAD@{1}
+                cd ..
+              fi
+              
               docker-compose up -d backend
               echo "❌ Deployment failed and rolled back"
               exit 1
