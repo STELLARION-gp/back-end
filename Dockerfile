@@ -22,6 +22,9 @@ RUN npm run build || npx tsc --skipLibCheck -p tsconfig.production.json
 # Remove devDependencies to keep image slim (npm >=7 supports prune)
 RUN npm prune --production || true
 
+# Regenerate Prisma Client after pruning (since @prisma/client is a prod dependency)
+RUN npx prisma generate
+
 # Clean npm cache
 RUN npm cache clean --force
 
