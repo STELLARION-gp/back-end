@@ -1462,43 +1462,68 @@ export const getPendingSessions = async (req: Request, res: Response): Promise<v
 
     const pageNumber = parseInt(page, 10);
     const limitNumber = parseInt(limit, 10);
-    const skip = (pageNumber - 1) * limitNumber;
+    const offset = (pageNumber - 1) * limitNumber;
 
-    // Build where clause for pending sessions
-    const where: any = {
-      status: 'pending'
-    };
+    // Validate and sanitize sort parameters to prevent SQL injection
+    const validSortColumns = ['created_at', 'session_date', 'title'];
+    const sortColumn = validSortColumns.includes(sort_by) ? sort_by : 'created_at';
+    const sortDirection = sort_order === 'asc' ? 'ASC' : 'DESC';
 
-    // Build order by clause
-    const orderBy: any = {};
-    orderBy[sort_by] = sort_order === 'asc' ? 'asc' : 'desc';
+    // Use raw SQL query to get pending sessions with creator info
+    // Using $queryRawUnsafe with validated/sanitized parameters
+    const query = `
+      SELECT 
+        s.*,
+        u.id as creator_id,
+        u.first_name as creator_first_name,
+        u.last_name as creator_last_name,
+        u.email as creator_email,
+        u.display_name as creator_display_name
+      FROM sessions s
+      LEFT JOIN users u ON s.created_by = u.id
+      WHERE s.status = 'pending'
+      ORDER BY s.${sortColumn} ${sortDirection}
+      LIMIT $1 OFFSET $2
+    `;
+    
+    const sessions = await prisma.$queryRawUnsafe(query, limitNumber, offset) as any[];
 
-    // Get total count for pagination
-    const totalCount = await prisma.sessions.count({ where });
+    // Get total count
+    const countResult = await prisma.$queryRaw`
+      SELECT COUNT(*) as total
+      FROM sessions
+      WHERE status = 'pending'
+    ` as any[];
+    const totalCount = parseInt(countResult[0]?.total || '0');
 
-    // Get pending sessions
-    const sessions = await prisma.sessions.findMany({
-      where,
-      skip,
-      take: limitNumber,
-      orderBy,
-      include: {
-        creator: {
-          select: {
-            id: true,
-            first_name: true,
-            last_name: true,
-            email: true,
-            display_name: true,
-          }
-        }
-      }
-    });
-
-    // Format session_time fields for all sessions
+    // Format sessions with creator info
     const formattedSessions = sessions.map(session => ({
-      ...session,
-      session_time: formatTimeField(session.session_time)
+      id: session.id,
+      title: session.title,
+      description: session.description,
+      session_type: session.session_type,
+      payment_type: session.payment_type,
+      price: session.price,
+      duration: session.duration,
+      session_date: session.session_date,
+      session_time: formatTimeField(session.session_time),
+      max_participants: session.max_participants,
+      difficulty_level: session.difficulty_level,
+      session_link: session.session_link,
+      materials: session.materials,
+      session_notes: session.session_notes,
+      created_by: session.created_by,
+      is_enabled: session.is_enabled,
+      status: session.status,
+      created_at: session.created_at,
+      updated_at: session.updated_at,
+      creator: {
+        id: session.creator_id,
+        first_name: session.creator_first_name,
+        last_name: session.creator_last_name,
+        email: session.creator_email,
+        display_name: session.creator_display_name
+      }
     }));
 
     res.status(200).json({
