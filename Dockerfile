@@ -42,7 +42,7 @@ WORKDIR /app
 COPY package*.json ./
 
 # Install only production dependencies
-RUN npm ci --only=production && \
+RUN npm i --only=production && \
     npm cache clean --force
 
 # Copy Prisma schema and generate client for production
