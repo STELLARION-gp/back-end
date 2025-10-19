@@ -285,6 +285,8 @@ model users {
   created_mentor_mentee_goals                                                                  mentor_mentee_goals[]
   uploaded_mentor_mentee_resources                                                             mentor_mentee_resources[]
 
+    event_registrations event_registrations[]
+
   @@index([is_active], map: "idx_users_active")
   @@index([email], map: "idx_users_email")
   @@index([firebase_uid], map: "idx_users_firebase_uid")
@@ -376,6 +378,8 @@ model events {
   status                  String?   @default("pending") @db.VarChar(50)
   created_by              Int?
   moderated_by            Int?
+
+    event_registrations event_registrations[]
 
   @@index([created_by], map: "idx_events_created_by")
   @@index([date], map: "idx_events_date")
@@ -1337,6 +1341,20 @@ model chatbot_feedback {
   @@index([message_id], map: "idx_chatbot_feedback_message_id")
 }
 
+model event_registrations {
+  id            Int      @id @default(autoincrement())
+  event_id      Int
+  user_id       Int
+  registered_at DateTime @default(now())
+
+  event         events   @relation(fields: [event_id], references: [id], onDelete: Cascade)
+  user          users    @relation(fields: [user_id], references: [id], onDelete: Cascade)
+
+  @@unique([event_id, user_id])
+  @@index([event_id], map: "idx_event_registrations_event_id")
+  @@index([user_id], map: "idx_event_registrations_user_id")
+}
+
 enum weather_policy_type {
   reschedule
   partial_refund
@@ -1483,6 +1501,7 @@ enum session_status {
 enum subscription_plan {
   starseeker
   galaxy_explorer
+ 
   cosmic_voyager
 }
 
