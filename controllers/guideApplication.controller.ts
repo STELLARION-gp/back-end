@@ -79,10 +79,19 @@ export const createGuideApplication = async (req: Request, res: Response) => {
 // Get All Guide Applications
 export const getGuideApplications = async (req: Request, res: Response) => {
     try {
+        const { user_id } = req.query;
+        
+        const whereClause: any = {
+            deletion_status: false
+        };
+        
+        // Filter by user_id if provided
+        if (user_id) {
+            whereClause.user_id = parseInt(user_id as string);
+        }
+        
         const result = await prisma.guide_application.findMany({
-            where: {
-                deletion_status: false
-            }
+            where: whereClause
         });
         res.json({ success: true, data: result });
     } catch (err) {

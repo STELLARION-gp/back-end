@@ -256,6 +256,7 @@ model users {
   created_mentor_mentee_notes                                                                  mentor_mentee_notes[]
   uploaded_mentor_mentee_resources                                                             mentor_mentee_resources[]
   created_mentor_mentee_short_notes                                                            mentor_mentee_short_notes[]
+  sent_mentor_mentee_messages                                                                  mentor_mentee_messages[]               @relation("MentorMenteeMessageSender")
   message_reactions                                                                            message_reactions[]                    @relation("MessageReaction")
   night_camp_registrations                                                                     night_camp_registrations[]
   night_camp_volunteering_applications_night_camp_volunteering_applications_reviewed_byTousers night_camp_volunteering_applications[] @relation("night_camp_volunteering_applications_reviewed_byTousers")
@@ -581,6 +582,7 @@ model mentor_mentee_connections {
   resources      mentor_mentee_resources[]
   sessions       mentor_mentee_sessions[]
   short_notes    mentor_mentee_short_notes[]
+  messages       mentor_mentee_messages[]
 
   @@index([mentor_id], map: "idx_connection_mentor")
   @@index([mentee_id], map: "idx_connection_mentee")
@@ -664,7 +666,27 @@ model mentor_mentee_resources {
   connection    mentor_mentee_connections @relation(fields: [connection_id], references: [connection_id], onDelete: Cascade)
   uploader      users                     @relation(fields: [uploaded_by], references: [id], onDelete: Cascade)
 
-  @@index([connection_id], map: "idx_resources_connection")
+  @@index([connection_id], map: "idx_mm_resources_connection")
+}
+
+model mentor_mentee_messages {
+  message_id    Int                       @id @default(autoincrement())
+  connection_id Int
+  sender_id     Int
+  message_text  String
+  message_type  String                    @default("text") @db.VarChar(20)
+  is_read       Boolean                   @default(false)
+  is_edited     Boolean                   @default(false)
+  is_deleted    Boolean                   @default(false)
+  created_at    DateTime                  @default(now()) @db.Timestamp(6)
+  updated_at    DateTime                  @default(now()) @db.Timestamp(6)
+  read_at       DateTime?                 @db.Timestamp(6)
+  connection    mentor_mentee_connections @relation(fields: [connection_id], references: [connection_id], onDelete: Cascade)
+  sender        users                     @relation("MentorMenteeMessageSender", fields: [sender_id], references: [id], onDelete: Cascade)
+
+  @@index([connection_id, created_at], map: "idx_mm_messages_connection_created")
+  @@index([sender_id], map: "idx_mm_messages_sender")
+  @@index([is_read], map: "idx_mm_messages_read")
 }
 
 model message_reactions {

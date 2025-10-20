@@ -93,6 +93,9 @@ export class SocketServer {
       // Auto-join user to their groups
       this.joinUserGroups(socket);
 
+      // Auto-join user to their mentor-mentee connections
+      this.joinUserMentorMenteeConnections(socket);
+
       // Handle joining a specific group
       socket.on("join-group", async (groupId: number) => {
         try {
@@ -102,7 +105,7 @@ export class SocketServer {
               is_active: true,
             },
             include: {
-              members: true,
+              group_members: true,
             },
           });
 
@@ -111,7 +114,7 @@ export class SocketServer {
             return;
           }
 
-          const isMember = group.members.some(
+          const isMember = group.group_members.some(
             (member) => member.user_id === socket.userId
           );
           if (!isMember) {
@@ -191,7 +194,7 @@ export class SocketServer {
                 user_id: socket.userId,
               },
               include: {
-                group: {
+                group_chats: {
                   select: {
                     is_active: true,
                   },
@@ -199,7 +202,7 @@ export class SocketServer {
               },
             });
 
-            if (!membership || !membership.group.is_active) {
+            if (!membership || !membership.group_chats.is_active) {
               socket.emit("message-error", {
                 error: "Access denied or group inactive",
               });
@@ -232,7 +235,7 @@ export class SocketServer {
                     email: true,
                   },
                 },
-                reply_msg: {
+                chat_messages: replyTo ? {
                   select: {
                     id: true,
                     message_text: true,
@@ -247,7 +250,7 @@ export class SocketServer {
                     },
                     created_at: true,
                   },
-                },
+                } : undefined,
               },
             });
 
@@ -274,20 +277,20 @@ export class SocketServer {
                   }`.trim() ||
                   newMessage.user!.email.split("@")[0],
               },
-              reply_to: newMessage.reply_msg
+              reply_to: newMessage.chat_messages
                 ? {
-                    id: newMessage.reply_msg.id,
-                    message_text: newMessage.reply_msg.message_text,
-                    created_at: newMessage.reply_msg.created_at,
-                    user: newMessage.reply_msg.user
+                    id: newMessage.chat_messages.id,
+                    message_text: newMessage.chat_messages.message_text,
+                    created_at: newMessage.chat_messages.created_at,
+                    user: newMessage.chat_messages.user
                       ? {
-                          id: newMessage.reply_msg.user.id,
+                          id: newMessage.chat_messages.user.id,
                           name:
-                            newMessage.reply_msg.user.display_name ||
-                            `${newMessage.reply_msg.user.first_name || ""} ${
-                              newMessage.reply_msg.user.last_name || ""
+                            newMessage.chat_messages.user.display_name ||
+                            `${newMessage.chat_messages.user.first_name || ""} ${
+                              newMessage.chat_messages.user.last_name || ""
                             }`.trim() ||
-                            newMessage.reply_msg.user.email.split("@")[0],
+                            newMessage.chat_messages.user.email.split("@")[0],
                         }
                       : {
                           id: 0,
@@ -352,9 +355,9 @@ export class SocketServer {
             const message = await prisma.chat_messages.findUnique({
               where: { id: messageId },
               include: {
-                group: {
+                group_chats: {
                   include: {
-                    members: true,
+                    group_members: true,
                   },
                 },
               },
@@ -366,7 +369,7 @@ export class SocketServer {
             }
 
             // Check if user is member of the group
-            const isMember = message.group.members.some(
+            const isMember = message.group_chats.group_members.some(
               (m) => m.user_id === socket.userId
             );
             if (!isMember) {
@@ -465,9 +468,9 @@ export class SocketServer {
             const message = await prisma.chat_messages.findUnique({
               where: { id: messageId },
               include: {
-                group: {
+                group_chats: {
                   include: {
-                    members: true,
+                    group_members: true,
                   },
                 },
               },
@@ -527,9 +530,9 @@ export class SocketServer {
           const message = await prisma.chat_messages.findUnique({
             where: { id: messageId },
             include: {
-              group: {
+              group_chats: {
                 include: {
-                  members: true,
+                  group_members: true,
                 },
               },
             },
@@ -541,7 +544,7 @@ export class SocketServer {
           }
 
           // Check if user owns the message or is admin/moderator
-          const userMember = message.group.members.find(
+          const userMember = message.group_chats.group_members.find(
             (m) => m.user_id === socket.userId
           );
 
@@ -575,6 +578,301 @@ export class SocketServer {
           `🔌 User ${socket.userName} (${socket.userId}) disconnected: ${socket.id}`
         );
       });
+
+      // ========== Mentor-Mentee Chat Handlers ==========
+
+      // Handle joining a mentor-mentee connection chat
+      socket.on("join-mm-connection", async (connectionId: number) => {
+        try {
+          const connection = await prisma.mentor_mentee_connections.findFirst({
+            where: {
+              connection_id: connectionId,
+              status: 'active',
+              OR: [
+                { mentor_id: socket.userId },
+                { mentee_id: socket.userId }
+              ]
+            }
+          });
+
+          if (!connection) {
+            socket.emit("mm-error", { message: "Connection not found or access denied" });
+            return;
+          }
+
+          socket.join(`mm-connection-${connectionId}`);
+
+          // Notify the other person that user joined
+          socket.to(`mm-connection-${connectionId}`).emit("mm-user-joined", {
+            userId: socket.userId,
+            userName: socket.userName,
+            connectionId,
+            timestamp: new Date()
+          });
+
+          console.log(`✅ ${socket.userName} joined mentor-mentee connection ${connectionId}`);
+        } catch (error) {
+          console.error("Error joining mentor-mentee connection:", error);
+          socket.emit("mm-error", { message: "Failed to join connection chat" });
+        }
+      });
+
+      // Handle leaving a mentor-mentee connection chat
+      socket.on("leave-mm-connection", async (connectionId: number) => {
+        try {
+          socket.leave(`mm-connection-${connectionId}`);
+
+          socket.to(`mm-connection-${connectionId}`).emit("mm-user-left", {
+            userId: socket.userId,
+            userName: socket.userName,
+            connectionId,
+            timestamp: new Date()
+          });
+
+          console.log(`👋 ${socket.userName} left mentor-mentee connection ${connectionId}`);
+        } catch (error) {
+          console.error("Error leaving mentor-mentee connection:", error);
+        }
+      });
+
+      // Handle sending mentor-mentee messages
+      socket.on(
+        "send-mm-message",
+        async (data: {
+          connectionId: number;
+          message: string;
+          messageType?: string;
+        }) => {
+          try {
+            const { connectionId, message, messageType = "text" } = data;
+
+            if (!connectionId || !message?.trim()) {
+              socket.emit("mm-message-error", {
+                error: "Connection ID and message are required",
+              });
+              return;
+            }
+
+            if (message.length > 2000) {
+              socket.emit("mm-message-error", {
+                error: "Message too long. Maximum 2000 characters.",
+              });
+              return;
+            }
+
+            // Verify user is part of this connection
+            const connection = await prisma.mentor_mentee_connections.findFirst({
+              where: {
+                connection_id: connectionId,
+                status: 'active',
+                OR: [
+                  { mentor_id: socket.userId },
+                  { mentee_id: socket.userId }
+                ]
+              }
+            });
+
+            if (!connection) {
+              socket.emit("mm-message-error", {
+                error: "Connection not found or inactive",
+              });
+              return;
+            }
+
+            // Save message to database
+            const newMessage = await prisma.mentor_mentee_messages.create({
+              data: {
+                connection_id: connectionId,
+                sender_id: socket.userId,
+                message_text: message.trim(),
+                message_type: messageType,
+              },
+              include: {
+                sender: {
+                  select: {
+                    id: true,
+                    display_name: true,
+                    first_name: true,
+                    last_name: true,
+                    email: true,
+                    profile_data: true
+                  }
+                }
+              }
+            });
+
+            // Update connection's last activity
+            await prisma.mentor_mentee_connections.update({
+              where: { connection_id: connectionId },
+              data: { last_activity: new Date() }
+            });
+
+            const profileData = newMessage.sender?.profile_data as any;
+            const messageData = {
+              message_id: newMessage.message_id,
+              connection_id: connectionId,
+              message_text: newMessage.message_text,
+              message_type: newMessage.message_type,
+              is_edited: newMessage.is_edited,
+              created_at: newMessage.created_at,
+              updated_at: newMessage.updated_at,
+              sender: {
+                id: newMessage.sender.id,
+                name:
+                  newMessage.sender.display_name ||
+                  `${newMessage.sender.first_name || ""} ${
+                    newMessage.sender.last_name || ""
+                  }`.trim() ||
+                  newMessage.sender.email.split("@")[0],
+                avatarUrl: profileData?.avatarUrl || profileData?.profilePicture || profileData?.avatar || null
+              },
+              is_own_message: false, // Will be set to true for sender on client
+            };
+
+            // Broadcast to all users in the connection
+            this.io.to(`mm-connection-${connectionId}`).emit("new-mm-message", messageData);
+
+            console.log(
+              `💬 Mentor-mentee message sent in connection ${connectionId} by ${socket.userName}`
+            );
+          } catch (error) {
+            console.error("Error sending mentor-mentee message:", error);
+            socket.emit("mm-message-error", { error: "Failed to send message" });
+          }
+        }
+      );
+
+      // Handle typing indicators for mentor-mentee chat
+      socket.on("mm-typing-start", (data: { connectionId: number }) => {
+        const { connectionId } = data;
+        if (connectionId) {
+          socket.to(`mm-connection-${connectionId}`).emit("mm-user-typing", {
+            userId: socket.userId,
+            userName: socket.userName,
+            connectionId,
+          });
+        }
+      });
+
+      socket.on("mm-typing-stop", (data: { connectionId: number }) => {
+        const { connectionId } = data;
+        if (connectionId) {
+          socket.to(`mm-connection-${connectionId}`).emit("mm-user-stopped-typing", {
+            userId: socket.userId,
+            userName: socket.userName,
+            connectionId,
+          });
+        }
+      });
+
+      // Handle message editing for mentor-mentee chat
+      socket.on(
+        "edit-mm-message",
+        async (data: { messageId: number; newMessage: string }) => {
+          try {
+            const { messageId, newMessage } = data;
+
+            if (!newMessage?.trim()) {
+              socket.emit("mm-edit-error", { error: "Message cannot be empty" });
+              return;
+            }
+
+            if (newMessage.length > 2000) {
+              socket.emit("mm-edit-error", {
+                error: "Message too long. Maximum 2000 characters.",
+              });
+              return;
+            }
+
+            const message = await prisma.mentor_mentee_messages.findUnique({
+              where: { message_id: messageId },
+              include: { connection: true }
+            });
+
+            if (!message || message.is_deleted) {
+              socket.emit("mm-edit-error", { error: "Message not found" });
+              return;
+            }
+
+            // Check if user owns the message
+            if (message.sender_id !== socket.userId) {
+              socket.emit("mm-edit-error", {
+                error: "You can only edit your own messages",
+              });
+              return;
+            }
+
+            // Check if message is older than 24 hours
+            const messageAge = Date.now() - message.created_at.getTime();
+            const maxEditTime = 24 * 60 * 60 * 1000;
+            if (messageAge > maxEditTime) {
+              socket.emit("mm-edit-error", {
+                error: "Cannot edit messages older than 24 hours",
+              });
+              return;
+            }
+
+            // Update message
+            const updatedMessage = await prisma.mentor_mentee_messages.update({
+              where: { message_id: messageId },
+              data: {
+                message_text: newMessage.trim(),
+                is_edited: true,
+                updated_at: new Date(),
+              },
+            });
+
+            // Broadcast edit to all users in the connection
+            this.io.to(`mm-connection-${message.connection_id}`).emit("mm-message-edited", {
+              messageId,
+              newMessage: updatedMessage.message_text,
+              editedAt: updatedMessage.updated_at,
+            });
+          } catch (error) {
+            console.error("Error editing mentor-mentee message:", error);
+            socket.emit("mm-edit-error", { error: "Failed to edit message" });
+          }
+        }
+      );
+
+      // Handle message deletion for mentor-mentee chat
+      socket.on("delete-mm-message", async (data: { messageId: number }) => {
+        try {
+          const { messageId } = data;
+
+          const message = await prisma.mentor_mentee_messages.findUnique({
+            where: { message_id: messageId },
+            include: { connection: true }
+          });
+
+          if (!message || message.is_deleted) {
+            socket.emit("mm-delete-error", { error: "Message not found" });
+            return;
+          }
+
+          // Check if user owns the message
+          if (message.sender_id !== socket.userId) {
+            socket.emit("mm-delete-error", {
+              error: "You can only delete your own messages",
+            });
+            return;
+          }
+
+          // Soft delete the message
+          await prisma.mentor_mentee_messages.update({
+            where: { message_id: messageId },
+            data: { is_deleted: true },
+          });
+
+          // Broadcast deletion to all users in the connection
+          this.io.to(`mm-connection-${message.connection_id}`).emit("mm-message-deleted", {
+            messageId,
+          });
+        } catch (error) {
+          console.error("Error deleting mentor-mentee message:", error);
+          socket.emit("mm-delete-error", { error: "Failed to delete message" });
+        }
+      });
     });
   }
 
@@ -583,7 +881,7 @@ export class SocketServer {
       const userGroups = await prisma.group_chats.findMany({
         where: {
           is_active: true,
-          members: {
+          group_members: {
             some: { user_id: socket.userId },
           },
         },
@@ -599,6 +897,31 @@ export class SocketServer {
       );
     } catch (error) {
       console.error("Error joining user groups:", error);
+    }
+  }
+
+  private async joinUserMentorMenteeConnections(socket: any) {
+    try {
+      const connections = await prisma.mentor_mentee_connections.findMany({
+        where: {
+          status: 'active',
+          OR: [
+            { mentor_id: socket.userId },
+            { mentee_id: socket.userId }
+          ]
+        },
+        select: { connection_id: true }
+      });
+
+      connections.forEach((connection) => {
+        socket.join(`mm-connection-${connection.connection_id}`);
+      });
+
+      console.log(
+        `🤝 ${socket.userName} auto-joined ${connections.length} mentor-mentee connections`
+      );
+    } catch (error) {
+      console.error("Error joining mentor-mentee connections:", error);
     }
   }
 
