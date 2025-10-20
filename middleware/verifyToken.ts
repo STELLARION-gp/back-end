@@ -1,9 +1,7 @@
 // middleware/verifyToken.prisma.ts
 import { Request, Response, NextFunction } from "express";
 import admin from "../firebaseAdmin";
-import { PrismaClient } from "../prisma/generated/client";
-
-const prisma = new PrismaClient();
+import { prisma } from "../lib/prisma";
 
 /**
  * Middleware to verify Firebase token ONLY (no database check)

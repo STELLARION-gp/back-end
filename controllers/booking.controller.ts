@@ -87,7 +87,7 @@ export const createBooking = async (req: Request, res: Response): Promise<void> 
         participants_count: Number(participants),
         total_amount: Number(total_price),
         booking_status: 'pending',
-        payment_status: 'pending',
+        payment_status: 'completed',
         special_requests: special_requests || null,
       },
       include: {
@@ -483,6 +483,8 @@ export const confirmBooking = async (req: Request, res: Response): Promise<void>
       data: {
         booking_status: 'confirmed',
         confirmed_at: new Date(),
+        // Mark payment as completed when the guide confirms the booking
+        payment_status: 'completed',
       },
       include: {
         services: {
@@ -509,11 +511,155 @@ export const confirmBooking = async (req: Request, res: Response): Promise<void>
         },
       },
     });
+    // Ensure there is a payments record for this booking so it appears in payment reports
+    try {
+      // Fetch recent payments for the booking user and check metadata for booking_id
+      const recentPayments = await prisma.payments.findMany({
+        where: { user_id: updatedBooking.user_id },
+        orderBy: { created_at: 'desc' },
+        take: 20,
+      });
+
+      const hasPaymentForBooking = recentPayments.some((p) => {
+        try {
+          const md: any = p.metadata || {};
+          return md && Number(md.booking_id) === Number(updatedBooking.id);
+        } catch (e) {
+          return false;
+        }
+      });
+
+      if (!hasPaymentForBooking) {
+        await prisma.payments.create({
+          data: {
+            user_id: updatedBooking.user_id || null,
+            amount: updatedBooking.total_amount || 0,
+            currency: 'LKR',
+            payment_status: 'completed',
+            payment_gateway: 'manual',
+            gateway_order_id: `CONFIRM_BOOKING_${updatedBooking.id}_${Date.now()}`,
+            metadata: {
+              booking_id: updatedBooking.id,
+              service_id: updatedBooking.service_id,
+              service_title: (updatedBooking.services && (updatedBooking.services as any).title) || '',
+              note: 'Created when guide confirmed booking',
+            },
+          },
+        });
+      }
+    } catch (e) {
+      console.error('Failed to ensure payments record for confirmed booking:', e);
+    }
 
     ok(res, 'Booking confirmed successfully', updatedBooking);
   } catch (error: any) {
     console.error('Confirm booking error:', error);
     fail(res, 500, 'Failed to confirm booking', error.message);
+  }
+};
+
+/**
+ * Mark a booking as paid by the learner
+ * PATCH /api/bookings/:id/mark-paid
+ * This is specific to service bookings (not sessions). It will:
+ *  - ensure the booking exists and belongs to the caller
+ *  - set booking.payment_status = 'completed' and booking.booking_status = 'confirmed' if not already
+ *  - create a payments row with payment_status = 'completed' if none exists for this booking
+ */
+export const markBookingAsPaid = async (req: Request, res: Response): Promise<void> => {
+  try {
+    const userId = (req as any).user?.userId;
+    if (!userId) {
+      fail(res, 401, 'Unauthorized');
+      return;
+    }
+
+    const { id } = req.params;
+
+    const booking = await prisma.service_bookings.findUnique({
+      where: { id: Number(id) },
+      include: { services: true },
+    });
+
+    if (!booking) {
+      fail(res, 404, 'Booking not found');
+      return;
+    }
+
+    // Only the user who made the booking can mark it as paid
+    if (booking.user_id !== userId) {
+      fail(res, 403, 'You are not authorized to mark this booking as paid');
+      return;
+    }
+
+    // If already completed, return current booking
+    if (booking.payment_status === 'completed') {
+      ok(res, 'Booking already marked as paid', booking);
+      return;
+    }
+
+    // Update booking to completed payment and confirm if pending
+    const updatedBooking = await prisma.service_bookings.update({
+      where: { id: Number(id) },
+      data: {
+        payment_status: 'completed',
+        booking_status: booking.booking_status === 'pending' ? 'confirmed' : booking.booking_status,
+        confirmed_at: booking.booking_status === 'pending' ? new Date() : booking.confirmed_at,
+      },
+      include: {
+        services: true,
+        users: {
+          select: {
+            id: true,
+            first_name: true,
+            last_name: true,
+            email: true,
+            display_name: true,
+          },
+        },
+      },
+    });
+
+    // Ensure a payments record exists for this booking
+    try {
+      // Look for an existing payment that references this booking in metadata
+      const existing = await prisma.payments.findFirst({
+        where: {
+          OR: [
+            { gateway_order_id: { contains: `BOOKING_${id}` } },
+            { metadata: { path: ['booking_id'], equals: id } },
+          ],
+          user_id: booking.user_id,
+        },
+      });
+
+      if (!existing) {
+        await prisma.payments.create({
+          data: {
+            user_id: booking.user_id,
+            amount: booking.total_amount,
+            currency: 'LKR',
+            payment_status: 'completed',
+            payment_gateway: 'card',
+            gateway_order_id: `MANUAL_BOOKING_${Date.now()}_${booking.id}`,
+            payment_date: new Date(),
+            metadata: {
+              booking_id: booking.id,
+              service_id: booking.service_id,
+              service_title: booking.services?.title || null,
+              note: 'Learner-marked payment (card/manual)',
+            },
+          },
+        });
+      }
+    } catch (e) {
+      console.error('Failed to create payment record for learner-paid booking:', e);
+    }
+
+    ok(res, 'Booking marked as paid', updatedBooking);
+  } catch (error: any) {
+    console.error('Mark booking as paid error:', error);
+    fail(res, 500, 'Failed to mark booking as paid', error.message);
   }
 };
 
@@ -631,11 +777,8 @@ export const createReview = async (req: Request, res: Response): Promise<void> =
       return;
     }
 
-    // Booking must be completed to leave a review
-    if (booking.booking_status !== 'completed') {
-      fail(res, 400, 'You can only review completed bookings');
-      return;
-    }
+    // Previously we required bookings to be completed before leaving a review.
+    // Allow learners to submit reviews at any time (ownership and duplicate checks remain).
 
     // Check if review already exists
     const existingReview = await prisma.service_reviews.findUnique({

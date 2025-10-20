@@ -1,8 +1,6 @@
 // controllers/poll.controller.ts
 import { Request, Response } from 'express';
-import { PrismaClient } from '../prisma/generated/client';
-
-const prisma = new PrismaClient();
+import { prisma } from '../lib/prisma';
 
 /**
  * Create a new poll
