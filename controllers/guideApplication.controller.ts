@@ -542,23 +542,31 @@ export const getModerationApplications = async (req: Request, res: Response) => 
         const applicationType = (type as 'guide' | 'influencer' | 'all') || 'all';
         const result = await fetchApplications(applicationType);
 
+        // Transform applications to include 'type' field for frontend
+        const transformedApplications = result.applications.map(app => ({
+            ...app,
+            type: app.application_type || (app.application_id ? 'guide' : 'influencer')
+        }));
+
         res.status(200).json({
             success: true,
-            data: result.applications,
-            pagination: {
-                total: result.totalCount,
-                page: pageNumber,
-                limit: limitNumber,
-                totalPages: Math.ceil(result.totalCount / limitNumber)
-            },
-            stats: {
-                guide_applications: result.guideCount,
-                influencer_applications: result.influencerCount,
-                total_applications: result.totalCount
-            },
             message: status 
                 ? `Applications with status '${status}' retrieved successfully` 
-                : 'All applications retrieved successfully'
+                : 'All applications retrieved successfully',
+            data: {
+                applications: transformedApplications,
+                stats: {
+                    guideCount: result.guideCount,
+                    influencerCount: result.influencerCount,
+                    total: result.totalCount
+                },
+                pagination: {
+                    page: pageNumber,
+                    limit: limitNumber,
+                    total: result.totalCount,
+                    totalPages: Math.ceil(result.totalCount / limitNumber)
+                }
+            }
         });
     } catch (err) {
         console.error('Error getting moderation applications:', err);
