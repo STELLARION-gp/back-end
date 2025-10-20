@@ -65,6 +65,9 @@ const server = http.createServer(app);
 // Trust nginx reverse proxy (fixes X-Forwarded-For warnings)
 app.set("trust proxy", 1);
 
+import statusMonitor from 'express-status-monitor';
+app.use(statusMonitor());
+
 // Initialize Socket.IO
 const socketServer = new SocketServer(server);
 
