@@ -777,11 +777,8 @@ export const createReview = async (req: Request, res: Response): Promise<void> =
       return;
     }
 
-    // Booking must be completed to leave a review
-    if (booking.booking_status !== 'completed') {
-      fail(res, 400, 'You can only review completed bookings');
-      return;
-    }
+    // Previously we required bookings to be completed before leaving a review.
+    // Allow learners to submit reviews at any time (ownership and duplicate checks remain).
 
     // Check if review already exists
     const existingReview = await prisma.service_reviews.findUnique({
