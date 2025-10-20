@@ -82,10 +82,23 @@ router.get("/stats", ProviderPaymentsController.getPaymentStats);
 router.get("/export", ProviderPaymentsController.exportPayments);
 
 /**
+ * GET /api/provider-payments/download-summary-pdf
+ * Download multiple payments summary as PDF
+ * Query params: same as GET /api/provider-payments
+ */
+router.get("/download-summary-pdf", ProviderPaymentsController.downloadPaymentsSummaryPDF);
+
+/**
  * GET /api/provider-payments/:id
  * Get payment details by ID
  */
 router.get("/:id", ProviderPaymentsController.getPaymentById);
+
+/**
+ * GET /api/provider-payments/:id/download-pdf
+ * Download a single payment document as PDF
+ */
+router.get("/:id/download-pdf", ProviderPaymentsController.downloadPaymentPDF);
 
 /**
  * PUT /api/provider-payments/:id/status

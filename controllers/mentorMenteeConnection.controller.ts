@@ -10,6 +10,8 @@ export const getConnectionDetails = async (req: Request, res: Response) => {
         const { applicationId } = req.params;
         const userId = (req as any).user?.userId || (req as any).user?.user_id;
 
+        console.log('[getConnectionDetails] Request for applicationId:', applicationId, 'by userId:', userId);
+
         if (!userId) {
             res.status(401).json({ 
                 success: false, 
@@ -45,7 +47,10 @@ export const getConnectionDetails = async (req: Request, res: Response) => {
             }
         });
 
+        console.log('[getConnectionDetails] Found application:', application?.application_id, 'status:', application?.application_status);
+
         if (!application) {
+            console.log('[getConnectionDetails] Application not found');
             res.status(404).json({ 
                 success: false, 
                 error: 'Connection not found.' 
@@ -55,6 +60,7 @@ export const getConnectionDetails = async (req: Request, res: Response) => {
 
         // Verify user is either mentor or mentee
         if (application.mentor_id !== userId && application.learner_id !== userId) {
+            console.log('[getConnectionDetails] User not authorized. mentor_id:', application.mentor_id, 'learner_id:', application.learner_id, 'userId:', userId);
             res.status(403).json({ 
                 success: false, 
                 error: 'You are not authorized to view this connection.' 
@@ -70,9 +76,12 @@ export const getConnectionDetails = async (req: Request, res: Response) => {
             }
         });
 
+        console.log('[getConnectionDetails] Existing connection:', connection?.connection_id);
+
         if (!connection) {
             // Create connection if accepted
             if (application.application_status === 'accepted') {
+                console.log('[getConnectionDetails] Creating new connection for accepted application');
                 connection = await prisma.mentor_mentee_connections.create({
                     data: {
                         application_id: application.application_id,
@@ -81,6 +90,9 @@ export const getConnectionDetails = async (req: Request, res: Response) => {
                         status: 'active'
                     }
                 });
+                console.log('[getConnectionDetails] Created connection:', connection.connection_id);
+            } else {
+                console.log('[getConnectionDetails] Application not accepted, status:', application.application_status);
             }
         }
 

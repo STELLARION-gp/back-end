@@ -2,6 +2,8 @@
 import { Request, Response } from 'express';
 import { GuideApplication } from '../types';
 import { PrismaClient, approve_application_status } from '../prisma/generated/client';
+import { NotificationService } from '../services/notification.service';
+import { NotificationType, NotificationPriority } from '../types/notification.types';
 
 const prisma = new PrismaClient();
 
@@ -79,10 +81,19 @@ export const createGuideApplication = async (req: Request, res: Response) => {
 // Get All Guide Applications
 export const getGuideApplications = async (req: Request, res: Response) => {
     try {
+        const { user_id } = req.query;
+        
+        const whereClause: any = {
+            deletion_status: false
+        };
+        
+        // Filter by user_id if provided
+        if (user_id) {
+            whereClause.user_id = parseInt(user_id as string);
+        }
+        
         const result = await prisma.guide_application.findMany({
-            where: {
-                deletion_status: false
-            }
+            where: whereClause
         });
         res.json({ success: true, data: result });
     } catch (err) {
@@ -174,7 +185,408 @@ export const deleteGuideApplication = async (req: Request, res: Response) => {
     }
 };
 
-// Change Approve Application Status
+// Approve Guide Application (Moderator/Admin only)
+export const approveGuideApplication = async (req: Request, res: Response) => {
+    try {
+        const { id } = req.params;
+        const moderatorId = (req as any).user?.userId;
+        const moderatorRole = (req as any).user?.role;
+
+        if (!moderatorId) {
+            return res.status(401).json({
+                success: false,
+                message: 'Authentication required'
+            });
+        }
+
+        // Check if user is admin or moderator
+        if (!['admin', 'moderator'].includes(moderatorRole)) {
+            return res.status(403).json({
+                success: false,
+                message: 'Only admins and moderators can approve applications'
+            });
+        }
+
+        // Get the application
+        const application = await prisma.guide_application.findUnique({
+            where: { application_id: parseInt(id) },
+            include: {
+                users: {
+                    select: {
+                        id: true,
+                        firebase_uid: true,
+                        first_name: true,
+                        last_name: true,
+                        email: true,
+                        role: true
+                    }
+                }
+            }
+        });
+
+        if (!application) {
+            return res.status(404).json({
+                success: false,
+                message: 'Application not found'
+            });
+        }
+
+        // Check if already approved
+        if (application.approve_application_status === 'accepted') {
+            return res.status(400).json({
+                success: false,
+                message: 'Application is already approved'
+            });
+        }
+
+        // Update application status to accepted
+        const updatedApplication = await prisma.guide_application.update({
+            where: { application_id: parseInt(id) },
+            data: {
+                approve_application_status: 'accepted',
+                application_status: 'approved',
+                updated_at: new Date()
+            },
+            include: {
+                users: {
+                    select: {
+                        id: true,
+                        firebase_uid: true,
+                        first_name: true,
+                        last_name: true,
+                        email: true,
+                        role: true
+                    }
+                }
+            }
+        });
+
+        // Update user role to guide
+        await prisma.users.update({
+            where: { id: application.user_id },
+            data: {
+                role: 'guide'
+            }
+        });
+
+        // Send approval notification
+        if (updatedApplication.users.firebase_uid) {
+            try {
+                await NotificationService.createNotification({
+                    userId: updatedApplication.users.firebase_uid,
+                    type: NotificationType.SUCCESS,
+                    priority: NotificationPriority.HIGH,
+                    title: '🎉 Guide Application Approved!',
+                    message: `Congratulations! Your application to become a Guide has been approved. You can now start creating and managing stargazing experiences.`,
+                    link: '/dashboard/guide',
+                    isSystemGenerated: true
+                });
+            } catch (notifError) {
+                console.error('Failed to send approval notification:', notifError);
+                // Don't fail the request if notification fails
+            }
+        }
+
+        res.status(200).json({
+            success: true,
+            message: 'Application approved successfully',
+            data: updatedApplication
+        });
+    } catch (err) {
+        console.error('Error approving guide application:', err);
+        res.status(500).json({
+            success: false,
+            error: err instanceof Error ? err.message : String(err)
+        });
+    }
+};
+
+// Reject Guide Application (Moderator/Admin only)
+export const rejectGuideApplication = async (req: Request, res: Response) => {
+    try {
+        const { id } = req.params;
+        const { reason } = req.body;
+        const moderatorId = (req as any).user?.userId;
+        const moderatorRole = (req as any).user?.role;
+
+        if (!moderatorId) {
+            return res.status(401).json({
+                success: false,
+                message: 'Authentication required'
+            });
+        }
+
+        // Check if user is admin or moderator
+        if (!['admin', 'moderator'].includes(moderatorRole)) {
+            return res.status(403).json({
+                success: false,
+                message: 'Only admins and moderators can reject applications'
+            });
+        }
+
+        // Get the application
+        const application = await prisma.guide_application.findUnique({
+            where: { application_id: parseInt(id) },
+            include: {
+                users: {
+                    select: {
+                        id: true,
+                        firebase_uid: true,
+                        first_name: true,
+                        last_name: true,
+                        email: true
+                    }
+                }
+            }
+        });
+
+        if (!application) {
+            return res.status(404).json({
+                success: false,
+                message: 'Application not found'
+            });
+        }
+
+        // Check if already rejected
+        if (application.approve_application_status === 'rejected') {
+            return res.status(400).json({
+                success: false,
+                message: 'Application is already rejected'
+            });
+        }
+
+        // Update application status
+        const updatedApplication = await prisma.guide_application.update({
+            where: { application_id: parseInt(id) },
+            data: {
+                approve_application_status: 'rejected',
+                application_status: 'rejected',
+                updated_at: new Date()
+            }
+        });
+
+        // Send rejection notification
+        if (application.users.firebase_uid) {
+            try {
+                await NotificationService.createNotification({
+                    userId: application.users.firebase_uid,
+                    type: NotificationType.WARNING,
+                    priority: NotificationPriority.HIGH,
+                    title: '❌ Guide Application Rejected',
+                    message: reason 
+                        ? `Unfortunately, your Guide application has been rejected. Reason: ${reason}` 
+                        : 'Unfortunately, your Guide application has been rejected. You can submit a new application after reviewing our requirements.',
+                    link: '/dashboard/applications',
+                    isSystemGenerated: true
+                });
+            } catch (notifError) {
+                console.error('Failed to send rejection notification:', notifError);
+                // Don't fail the request if notification fails
+            }
+        }
+
+        res.status(200).json({
+            success: true,
+            message: reason ? `Application rejected: ${reason}` : 'Application rejected successfully',
+            data: updatedApplication
+        });
+    } catch (err) {
+        console.error('Error rejecting guide application:', err);
+        res.status(500).json({
+            success: false,
+            error: err instanceof Error ? err.message : String(err)
+        });
+    }
+};
+
+// Get Applications for Moderation (Moderator/Admin only)
+export const getModerationApplications = async (req: Request, res: Response) => {
+    try {
+        const {
+            status,
+            type, // 'guide' or 'influencer' or 'all'
+            page = '1',
+            limit = '20',
+            sort_by = 'submitted_at',
+            sort_order = 'desc'
+        } = req.query as Record<string, string>;
+
+        const moderatorId = (req as any).user?.userId;
+        const moderatorRole = (req as any).user?.role;
+
+        if (!moderatorId) {
+            return res.status(401).json({
+                success: false,
+                message: 'Authentication required'
+            });
+        }
+
+        // Check if user is admin or moderator
+        if (!['admin', 'moderator'].includes(moderatorRole)) {
+            return res.status(403).json({
+                success: false,
+                message: 'Only admins and moderators can access moderation dashboard'
+            });
+        }
+
+        const pageNumber = parseInt(page, 10);
+        const limitNumber = parseInt(limit, 10);
+        const skip = (pageNumber - 1) * limitNumber;
+
+        // Build where clause
+        const where: any = {
+            deletion_status: false
+        };
+
+        // Filter by status if provided
+        if (status && status !== 'all') {
+            where.approve_application_status = status; // 'pending', 'accepted', 'rejected'
+        }
+
+        // Build order by clause
+        const orderBy: any = {};
+        orderBy[sort_by] = sort_order === 'asc' ? 'asc' : 'desc';
+
+        // Fetch both guide and influencer applications
+        const fetchApplications = async (applicationType: 'guide' | 'influencer' | 'all') => {
+            let guideApps: any[] = [];
+            let influencerApps: any[] = [];
+            let guideCount = 0;
+            let influencerCount = 0;
+
+            if (applicationType === 'guide' || applicationType === 'all') {
+                guideCount = await prisma.guide_application.count({ where });
+                guideApps = await prisma.guide_application.findMany({
+                    where,
+                    skip: applicationType === 'guide' ? skip : 0,
+                    take: applicationType === 'guide' ? limitNumber : undefined,
+                    orderBy,
+                    include: {
+                        users: {
+                            select: {
+                                id: true,
+                                firebase_uid: true,
+                                first_name: true,
+                                last_name: true,
+                                email: true,
+                                display_name: true,
+                                role: true
+                            }
+                        }
+                    }
+                });
+
+                // Add application type to each record
+                guideApps = guideApps.map(app => ({
+                    ...app,
+                    application_type: 'guide',
+                    applicant_name: `${app.first_name} ${app.last_name}`,
+                    requested_role: 'guide'
+                }));
+            }
+
+            if (applicationType === 'influencer' || applicationType === 'all') {
+                influencerCount = await prisma.influencer_application.count({ where });
+                influencerApps = await prisma.influencer_application.findMany({
+                    where,
+                    skip: applicationType === 'influencer' ? skip : 0,
+                    take: applicationType === 'influencer' ? limitNumber : undefined,
+                    orderBy,
+                    include: {
+                        users: {
+                            select: {
+                                id: true,
+                                firebase_uid: true,
+                                first_name: true,
+                                last_name: true,
+                                email: true,
+                                display_name: true,
+                                role: true
+                            }
+                        }
+                    }
+                });
+
+                // Add application type to each record
+                influencerApps = influencerApps.map(app => ({
+                    ...app,
+                    application_type: 'influencer',
+                    applicant_name: app.first_name && app.last_name 
+                        ? `${app.first_name} ${app.last_name}` 
+                        : app.users?.display_name || 'Unknown',
+                    requested_role: 'influencer'
+                }));
+            }
+
+            // Combine and sort applications
+            let allApplications = [...guideApps, ...influencerApps];
+            
+            if (applicationType === 'all') {
+                // Sort combined array
+                allApplications.sort((a, b) => {
+                    const aValue = a[sort_by] || a.submitted_at;
+                    const bValue = b[sort_by] || b.submitted_at;
+                    
+                    if (sort_order === 'desc') {
+                        return new Date(bValue).getTime() - new Date(aValue).getTime();
+                    } else {
+                        return new Date(aValue).getTime() - new Date(bValue).getTime();
+                    }
+                });
+
+                // Apply pagination to combined results
+                allApplications = allApplications.slice(skip, skip + limitNumber);
+            }
+
+            const totalCount = guideCount + influencerCount;
+
+            return {
+                applications: allApplications,
+                totalCount,
+                guideCount,
+                influencerCount
+            };
+        };
+
+        const applicationType = (type as 'guide' | 'influencer' | 'all') || 'all';
+        const result = await fetchApplications(applicationType);
+
+        // Transform applications to include 'type' field for frontend
+        const transformedApplications = result.applications.map(app => ({
+            ...app,
+            type: app.application_type || (app.application_id ? 'guide' : 'influencer')
+        }));
+
+        res.status(200).json({
+            success: true,
+            message: status 
+                ? `Applications with status '${status}' retrieved successfully` 
+                : 'All applications retrieved successfully',
+            data: {
+                applications: transformedApplications,
+                stats: {
+                    guideCount: result.guideCount,
+                    influencerCount: result.influencerCount,
+                    total: result.totalCount
+                },
+                pagination: {
+                    page: pageNumber,
+                    limit: limitNumber,
+                    total: result.totalCount,
+                    totalPages: Math.ceil(result.totalCount / limitNumber)
+                }
+            }
+        });
+    } catch (err) {
+        console.error('Error getting moderation applications:', err);
+        res.status(500).json({
+            success: false,
+            error: err instanceof Error ? err.message : String(err)
+        });
+    }
+};
+
+// Change Approve Application Status (DEPRECATED - Use approve/reject endpoints)
 export const changeGuideApplicationStatus = async (req: Request, res: Response) => {
     try {
         const { id } = req.params;

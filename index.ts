@@ -26,6 +26,7 @@ import financeRoutes from "./routes/finance.routes";
 import providerPaymentsRoutes from "./routes/providerPayments.routes";
 import mentorProfileRoutes from './routes/mentorProfile.routes';
 import mentorMenteeConnectionRoutes from './routes/mentorMenteeConnection.routes';
+import mentorMenteeChatRoutes from './routes/mentorMenteeChat.routes';
 
 
 // index.ts
@@ -64,6 +65,9 @@ const server = http.createServer(app);
 
 // Trust nginx reverse proxy (fixes X-Forwarded-For warnings)
 app.set("trust proxy", 1);
+
+import statusMonitor from 'express-status-monitor';
+app.use(statusMonitor());
 
 // Initialize Socket.IO
 const socketServer = new SocketServer(server);
@@ -216,6 +220,8 @@ app.use("/api/user", profileRoutes);
 app.use("/api/mentor", mentorProfileRoutes);
 // Mentor-Mentee connection APIs (notes, goals, sessions, etc.)
 app.use("/api/mentor-mentee-connections", mentorMenteeConnectionRoutes);
+// Mentor-Mentee chat API (direct messaging)
+app.use("/api/mentor-mentee-chat", mentorMenteeChatRoutes);
 
 // Admin API (separate from AdminJS panel)
 app.use("/api/admin", adminApiRoutes);
@@ -227,6 +233,10 @@ app.use("/api/mentor-applications", mentorApplicationRoutes);
 app.use("/api/mentee-applications", menteeApplicationRoutes);
 app.use("/api/influencer-applications", influencerApplicationRoutes);
 app.use("/api/guide-applications", guideApplicationRoutes);
+
+// Alias routes for camelCase (frontend compatibility)
+app.use("/api/guideApplication", guideApplicationRoutes);
+app.use("/api/influencerApplication", influencerApplicationRoutes);
 
 // Subscription and Payment APIs
 app.use("/api/subscriptions", subscriptionRoutes);

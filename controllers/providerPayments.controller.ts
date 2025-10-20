@@ -1,6 +1,7 @@
 // controllers/providerPayments.controller.ts
 import { Request, Response } from "express";
 import * as ProviderPaymentsService from "../services/providerPayments.service";
+import * as PDFGeneratorService from "../services/pdfGenerator.service";
 
 /**
  * Get all provider payments with optional filters
@@ -232,6 +233,85 @@ export const getPaymentStats = async (req: Request, res: Response) => {
     res.status(500).json({
       success: false,
       message: "Failed to fetch payment statistics",
+      error: error instanceof Error ? error.message : "Unknown error",
+    });
+  }
+};
+
+/**
+ * Download a single payment document as PDF
+ * @route GET /api/provider-payments/:id/download-pdf
+ */
+export const downloadPaymentPDF = async (req: Request, res: Response) => {
+  try {
+    const { id } = req.params;
+    const payment = await ProviderPaymentsService.getPaymentById(parseInt(id));
+
+    // Generate PDF
+    const doc = PDFGeneratorService.generatePaymentPDF(payment);
+
+    // Set response headers for PDF download
+    const filename = `Payment_${payment.provider_name.replace(/\s+/g, '_')}_${payment.month}_${payment.year}.pdf`;
+    res.setHeader('Content-Type', 'application/pdf');
+    res.setHeader('Content-Disposition', `attachment; filename="${filename}"`);
+
+    // Pipe PDF to response
+    doc.pipe(res);
+  } catch (error) {
+    console.error("Error generating payment PDF:", error);
+    const statusCode = error instanceof Error && error.message === 'Payment not found' ? 404 : 500;
+    res.status(statusCode).json({
+      success: false,
+      message: error instanceof Error ? error.message : "Failed to generate payment PDF",
+    });
+  }
+};
+
+/**
+ * Download multiple payments summary as PDF
+ * @route GET /api/provider-payments/download-summary-pdf
+ * @query status - Filter by payment status
+ * @query provider_type - Filter by provider type
+ * @query month - Filter by month
+ * @query year - Filter by year
+ */
+export const downloadPaymentsSummaryPDF = async (req: Request, res: Response) => {
+  try {
+    const { status, provider_type, month, year, search } = req.query;
+
+    const filters: any = {};
+
+    if (status) filters.status = status as string;
+    if (provider_type) filters.provider_type = provider_type as 'guide' | 'influencer';
+    if (month) filters.month = parseInt(month as string);
+    if (year) filters.year = parseInt(year as string);
+    if (search) filters.search = search as string;
+
+    const payments = await ProviderPaymentsService.getProviderPayments(filters);
+
+    if (payments.length === 0) {
+      return res.status(404).json({
+        success: false,
+        message: "No payments found with the specified filters",
+      });
+    }
+
+    // Generate summary PDF
+    const doc = PDFGeneratorService.generatePaymentsSummaryPDF(payments, filters);
+
+    // Set response headers for PDF download
+    const timestamp = new Date().toISOString().split('T')[0];
+    const filename = `Payments_Summary_${timestamp}.pdf`;
+    res.setHeader('Content-Type', 'application/pdf');
+    res.setHeader('Content-Disposition', `attachment; filename="${filename}"`);
+
+    // Pipe PDF to response
+    doc.pipe(res);
+  } catch (error) {
+    console.error("Error generating payments summary PDF:", error);
+    res.status(500).json({
+      success: false,
+      message: "Failed to generate payments summary PDF",
       error: error instanceof Error ? error.message : "Unknown error",
     });
   }

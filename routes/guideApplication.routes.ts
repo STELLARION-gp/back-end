@@ -6,12 +6,21 @@ import {
     getGuideApplication,
     updateGuideApplication,
     deleteGuideApplication,
-    changeGuideApplicationStatus
+    changeGuideApplicationStatus,
+    approveGuideApplication,
+    rejectGuideApplication,
+    getModerationApplications
 } from '../controllers/guideApplication.controller';
 import { verifyToken } from '../middleware/verifyToken';
 
 const router = Router();
 
+// Moderation routes (Admin/Moderator only) - Place before :id routes
+router.get('/admin/moderation', verifyToken, getModerationApplications);
+router.put('/:id/approve', verifyToken, approveGuideApplication);
+router.put('/:id/reject', verifyToken, rejectGuideApplication);
+
+// Regular application routes
 router.post('/', verifyToken, createGuideApplication);
 router.get('/', verifyToken, getGuideApplications);
 router.get('/:id', verifyToken, getGuideApplication);

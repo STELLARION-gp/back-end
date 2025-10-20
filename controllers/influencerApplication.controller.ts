@@ -2,6 +2,8 @@
 import { Request, Response } from 'express';
 import { InfluencerApplication } from '../types';
 import { PrismaClient, approve_application_status } from '../prisma/generated/client';
+import { NotificationService } from '../services/notification.service';
+import { NotificationType, NotificationPriority } from '../types/notification.types';
 
 const prisma = new PrismaClient();
 
@@ -153,7 +155,223 @@ export const deleteInfluencerApplication = async (req: Request, res: Response) =
     }
 };
 
-// Change Approve Application Status
+// Approve Influencer Application (Moderator/Admin only)
+export const approveInfluencerApplication = async (req: Request, res: Response) => {
+    try {
+        const { id } = req.params;
+        const moderatorId = (req as any).user?.userId;
+        const moderatorRole = (req as any).user?.role;
+
+        if (!moderatorId) {
+            return res.status(401).json({
+                success: false,
+                message: 'Authentication required'
+            });
+        }
+
+        // Check if user is admin or moderator
+        if (!['admin', 'moderator'].includes(moderatorRole)) {
+            return res.status(403).json({
+                success: false,
+                message: 'Only admins and moderators can approve applications'
+            });
+        }
+
+        // Get the application
+        const application = await prisma.influencer_application.findUnique({
+            where: { application_id: parseInt(id) },
+            include: {
+                users: {
+                    select: {
+                        id: true,
+                        firebase_uid: true,
+                        first_name: true,
+                        last_name: true,
+                        email: true,
+                        role: true
+                    }
+                }
+            }
+        });
+
+        if (!application) {
+            return res.status(404).json({
+                success: false,
+                message: 'Application not found'
+            });
+        }
+
+        // Check if already approved
+        if (application.approve_application_status === 'accepted') {
+            return res.status(400).json({
+                success: false,
+                message: 'Application is already approved'
+            });
+        }
+
+        // Update application status to accepted
+        const updatedApplication = await prisma.influencer_application.update({
+            where: { application_id: parseInt(id) },
+            data: {
+                approve_application_status: 'accepted',
+                application_status: 'approved',
+                updated_at: new Date()
+            },
+            include: {
+                users: {
+                    select: {
+                        id: true,
+                        firebase_uid: true,
+                        first_name: true,
+                        last_name: true,
+                        email: true,
+                        role: true
+                    }
+                }
+            }
+        });
+
+        // Update user role to influencer
+        if (application.user_id) {
+            await prisma.users.update({
+                where: { id: application.user_id },
+                data: {
+                    role: 'influencer'
+                }
+            });
+        }
+
+        // Send approval notification
+        if (updatedApplication.users && updatedApplication.users.firebase_uid) {
+            try {
+                await NotificationService.createNotification({
+                    userId: updatedApplication.users.firebase_uid,
+                    type: NotificationType.SUCCESS,
+                    priority: NotificationPriority.HIGH,
+                    title: '🎉 Influencer Application Approved!',
+                    message: `Congratulations! Your application to become an Influencer has been approved. You can now start hosting sessions and sharing your astronomy expertise.`,
+                    link: '/dashboard/influencer',
+                    isSystemGenerated: true
+                });
+            } catch (notifError) {
+                console.error('Failed to send approval notification:', notifError);
+                // Don't fail the request if notification fails
+            }
+        }
+
+        res.status(200).json({
+            success: true,
+            message: 'Application approved successfully',
+            data: updatedApplication
+        });
+    } catch (err) {
+        console.error('Error approving influencer application:', err);
+        res.status(500).json({
+            success: false,
+            error: err instanceof Error ? err.message : String(err)
+        });
+    }
+};
+
+// Reject Influencer Application (Moderator/Admin only)
+export const rejectInfluencerApplication = async (req: Request, res: Response) => {
+    try {
+        const { id } = req.params;
+        const { reason } = req.body;
+        const moderatorId = (req as any).user?.userId;
+        const moderatorRole = (req as any).user?.role;
+
+        if (!moderatorId) {
+            return res.status(401).json({
+                success: false,
+                message: 'Authentication required'
+            });
+        }
+
+        // Check if user is admin or moderator
+        if (!['admin', 'moderator'].includes(moderatorRole)) {
+            return res.status(403).json({
+                success: false,
+                message: 'Only admins and moderators can reject applications'
+            });
+        }
+
+        // Get the application
+        const application = await prisma.influencer_application.findUnique({
+            where: { application_id: parseInt(id) },
+            include: {
+                users: {
+                    select: {
+                        id: true,
+                        firebase_uid: true,
+                        first_name: true,
+                        last_name: true,
+                        email: true
+                    }
+                }
+            }
+        });
+
+        if (!application) {
+            return res.status(404).json({
+                success: false,
+                message: 'Application not found'
+            });
+        }
+
+        // Check if already rejected
+        if (application.approve_application_status === 'rejected') {
+            return res.status(400).json({
+                success: false,
+                message: 'Application is already rejected'
+            });
+        }
+
+        // Update application status
+        const updatedApplication = await prisma.influencer_application.update({
+            where: { application_id: parseInt(id) },
+            data: {
+                approve_application_status: 'rejected',
+                application_status: 'rejected',
+                updated_at: new Date()
+            }
+        });
+
+        // Send rejection notification
+        if (application.users && application.users.firebase_uid) {
+            try {
+                await NotificationService.createNotification({
+                    userId: application.users.firebase_uid,
+                    type: NotificationType.WARNING,
+                    priority: NotificationPriority.HIGH,
+                    title: '❌ Influencer Application Rejected',
+                    message: reason 
+                        ? `Unfortunately, your Influencer application has been rejected. Reason: ${reason}` 
+                        : 'Unfortunately, your Influencer application has been rejected. You can submit a new application after reviewing our requirements.',
+                    link: '/dashboard/applications',
+                    isSystemGenerated: true
+                });
+            } catch (notifError) {
+                console.error('Failed to send rejection notification:', notifError);
+                // Don't fail the request if notification fails
+            }
+        }
+
+        res.status(200).json({
+            success: true,
+            message: reason ? `Application rejected: ${reason}` : 'Application rejected successfully',
+            data: updatedApplication
+        });
+    } catch (err) {
+        console.error('Error rejecting influencer application:', err);
+        res.status(500).json({
+            success: false,
+            error: err instanceof Error ? err.message : String(err)
+        });
+    }
+};
+
+// Change Approve Application Status (DEPRECATED - Use approve/reject endpoints)
 export const changeInfluencerApplicationStatus = async (req: Request, res: Response) => {
     try {
         const { id } = req.params;
