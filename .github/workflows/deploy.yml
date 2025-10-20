@@ -63,6 +63,29 @@ jobs:
 
             echo "🚀 Starting backend deployment..."
 
+            # Check Docker Compose version and upgrade if needed
+            echo "🔍 Checking Docker Compose version..."
+            if docker-compose version 2>&1 | grep -q "1.29"; then
+              echo "⚠️  Old docker-compose version detected. Upgrading to Docker Compose V2..."
+              
+              # Install Docker Compose V2 plugin
+              COMPOSE_VERSION=$(curl -s https://api.github.com/repos/docker/compose/releases/latest | grep 'tag_name' | cut -d\" -f4)
+              mkdir -p ~/.docker/cli-plugins
+              curl -SL "https://github.com/docker/compose/releases/download/${COMPOSE_VERSION}/docker-compose-linux-x86_64" -o ~/.docker/cli-plugins/docker-compose
+              chmod +x ~/.docker/cli-plugins/docker-compose
+              
+              # Verify installation
+              if docker compose version; then
+                echo "✅ Docker Compose V2 installed successfully"
+                # Create alias for docker-compose to use docker compose
+                alias docker-compose='docker compose'
+              else
+                echo "❌ Failed to install Docker Compose V2, continuing with existing version..."
+              fi
+            else
+              echo "✅ Docker Compose version is up to date"
+            fi
+
             # Check and cleanup disk space if needed
             DISK_USAGE=$(df / | tail -1 | awk '{print $5}' | sed 's/%//')
             echo "📊 Current disk usage: ${DISK_USAGE}%"
@@ -96,13 +119,17 @@ jobs:
 
             # Stop backend container
             echo "🛑 Stopping backend..."
-            docker-compose stop backend 2>/dev/null || true
-            docker-compose rm -f backend 2>/dev/null || true
+            docker compose stop backend 2>/dev/null || docker-compose stop backend 2>/dev/null || true
+            docker compose rm -f backend 2>/dev/null || docker-compose rm -f backend 2>/dev/null || true
+
+            # Remove old image to force fresh build
+            echo "🧹 Removing old backend image..."
+            docker rmi stellarion_backend 2>/dev/null || docker rmi stellarion-backend 2>/dev/null || true
 
             # Build and start backend
-            echo "� Building and starting backend..."
-            docker-compose build --no-cache backend
-            docker-compose up -d backend
+            echo "🔨 Building and starting backend..."
+            docker compose build --no-cache backend 2>/dev/null || docker-compose build --no-cache backend
+            docker compose up -d backend 2>/dev/null || docker-compose up -d backend
 
             # Wait for backend to be ready (increased for Prisma/Firebase init)
             echo "⏳ Waiting for backend to be ready..."
@@ -119,9 +146,9 @@ jobs:
               docker ps -a | grep stellarion-backend
               echo ""
               echo "❌ Rolling back..."
-              docker-compose down backend
+              docker compose down backend 2>/dev/null || docker-compose down backend
               cp -r $BACKUP_DIR/back-end/* back-end/
-              docker-compose up -d backend
+              docker compose up -d backend 2>/dev/null || docker-compose up -d backend
               exit 1
             fi
 
@@ -152,9 +179,9 @@ jobs:
               docker exec stellarion-backend wget -O- http://localhost:5000/health 2>&1 || true
               echo ""
               echo "❌ Rolling back..."
-              docker-compose down backend
+              docker compose down backend 2>/dev/null || docker-compose down backend
               cp -r $BACKUP_DIR/back-end/* back-end/
-              docker-compose up -d backend
+              docker compose up -d backend 2>/dev/null || docker-compose up -d backend
               exit 1
             fi
 
