@@ -1,6 +1,11 @@
 // controllers/sessions.controller.ts
 import { Request, Response } from 'express';
 import { PrismaClient } from '../prisma/generated/client';
+import { NotificationService } from '../services/notification.service';
+import {
+  NotificationType,
+  NotificationPriority,
+} from '../types/notification.types';
 import {
     CreateSessionRequest,
     UpdateSessionRequest,
@@ -1576,9 +1581,20 @@ export const enrollInPaidSession = async (req: Request, res: Response): Promise<
       return;
     }
 
-    // Check if session exists and is paid
+    // Check if session exists and is paid (include creator info)
     const session = await prisma.sessions.findUnique({
-      where: { id: sessionId }
+      where: { id: sessionId },
+      include: {
+        creator: {
+          select: {
+            id: true,
+            firebase_uid: true,
+            display_name: true,
+            first_name: true,
+            last_name: true,
+          }
+        }
+      }
     });
 
     if (!session) {
@@ -1634,6 +1650,36 @@ export const enrollInPaidSession = async (req: Request, res: Response): Promise<
       }
     });
 
+    // Send a notification to the session creator (server-side) if possible
+    try {
+      // Lookup payer firebase uid and display name
+      const payer = await prisma.users.findUnique({
+        where: { id: userId },
+        select: { firebase_uid: true, display_name: true, first_name: true, last_name: true }
+      });
+
+      const payerName = payer?.display_name || `${payer?.first_name || ''} ${payer?.last_name || ''}`.trim() || 'A learner';
+
+      if (session?.creator?.firebase_uid) {
+        await NotificationService.createNotification({
+          userId: session.creator.firebase_uid,
+          type: NotificationType.PAYMENT,
+          priority: NotificationPriority.MEDIUM,
+          title: `New enrollment: ${session.title}`,
+          message: `${payerName} paid Rs ${session.price} and enrolled in "${session.title}".`,
+          link: `/influencer/sessions/${sessionId}`,
+          isSystemGenerated: false,
+          metadata: {
+            sessionId: String(sessionId),
+            enrollmentId: String(enrollment.id),
+            payerFirebaseUid: payer?.firebase_uid || null,
+          }
+        });
+      }
+    } catch (notifError) {
+      // Notification failures shouldn't block enrollment
+      console.warn('Failed to create enrollment notification:', notifError);
+    }
     res.status(201).json({
       success: true,
       data: {
