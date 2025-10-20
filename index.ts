@@ -26,6 +26,7 @@ import financeRoutes from "./routes/finance.routes";
 import providerPaymentsRoutes from "./routes/providerPayments.routes";
 import mentorProfileRoutes from './routes/mentorProfile.routes';
 import mentorMenteeConnectionRoutes from './routes/mentorMenteeConnection.routes';
+import mentorMenteeChatRoutes from './routes/mentorMenteeChat.routes';
 
 
 // index.ts
@@ -216,6 +217,8 @@ app.use("/api/user", profileRoutes);
 app.use("/api/mentor", mentorProfileRoutes);
 // Mentor-Mentee connection APIs (notes, goals, sessions, etc.)
 app.use("/api/mentor-mentee-connections", mentorMenteeConnectionRoutes);
+// Mentor-Mentee chat API (direct messaging)
+app.use("/api/mentor-mentee-chat", mentorMenteeChatRoutes);
 
 // Admin API (separate from AdminJS panel)
 app.use("/api/admin", adminApiRoutes);
