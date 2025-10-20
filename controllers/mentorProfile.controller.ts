@@ -1,8 +1,8 @@
 // controllers/mentorProfile.controller.ts
 import { Request, Response } from 'express';
-import { PrismaClient } from '../prisma/generated/client';
+import { prisma } from '../lib/prisma';
 
-const prisma = new PrismaClient();
+// Use shared Prisma instance to prevent connection pool exhaustion
 
 // Get Mentor Profile by User ID
 export const getMentorProfile = async (req: Request, res: Response): Promise<void> => {

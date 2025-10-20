@@ -1,9 +1,8 @@
 // controllers/booking.controller.ts
 import { Request, Response } from 'express';
-import { PrismaClient } from '../prisma/generated/client';
+import { prisma } from '../lib/prisma';
 
-
-const prisma = new PrismaClient();
+// Use shared Prisma instance to prevent connection pool exhaustion
 
 // Helper response functions
 const ok = (res: Response, message: string, data?: any): void => {

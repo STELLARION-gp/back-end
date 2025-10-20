@@ -1,13 +1,13 @@
 import { Request, Response } from 'express';
-import { PrismaClient } from '../prisma/generated/client';
 import path from 'path';
 import fs from 'fs';
 import cloudinary from '../config/cloudinary';
 import { NotificationService } from '../services/notification.service';
 import { NotificationType, NotificationPriority } from '../types/notification.types';
 import { sendEmail } from '../services/email.service';
+import { prisma } from '../lib/prisma';
 
-const prisma = new PrismaClient();
+// Use shared Prisma instance to prevent connection pool exhaustion
 
 // Helper function to upload image to Cloudinary
 async function uploadEventImageToCloudinary(file: Express.Multer.File, eventId?: string): Promise<string> {

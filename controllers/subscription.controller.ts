@@ -1,5 +1,4 @@
 import { Request, Response } from "express";
-import { PrismaClient } from "../prisma/generated/client";
 import {
   SubscriptionPlan,
   SubscriptionStatus,
@@ -8,8 +7,9 @@ import {
   Subscription,
   Payment,
 } from "../types";
+import { prisma } from "../lib/prisma";
 
-const prisma = new PrismaClient();
+// Use shared Prisma instance to prevent connection pool exhaustion
 
 // Helper function to get user_id from Firebase UID
 const getUserIdFromFirebaseUID = async (

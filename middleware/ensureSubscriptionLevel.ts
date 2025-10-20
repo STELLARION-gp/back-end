@@ -1,7 +1,7 @@
 import { Request, Response, NextFunction } from "express";
-import { PrismaClient } from "../prisma/generated/client";
+import { prisma } from "../lib/prisma";
 
-const prisma = new PrismaClient();
+// Use shared Prisma instance to prevent connection pool exhaustion
 
 /**
  * Middleware to ensure non-learner users have Level 3 (Cosmic Voyager) subscription

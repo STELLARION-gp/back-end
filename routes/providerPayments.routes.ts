@@ -1,6 +1,7 @@
 // routes/providerPayments.routes.ts
 import { Router, Request, Response, NextFunction } from "express";
 import * as ProviderPaymentsController from "../controllers/providerPayments.controller";
+import { verifyToken } from "../middleware/verifyToken";
 
 const router = Router();
 
@@ -55,6 +56,13 @@ const adminAuthMiddleware = async (
 
 // Apply admin authentication middleware to all routes
 router.use(adminAuthMiddleware);
+
+/**
+ * GET /api/provider-payments/my-payments
+ * Get payments for the authenticated provider (influencer/guide)
+ * Access: Private (requires authentication)
+ */
+router.get("/my-payments", verifyToken, ProviderPaymentsController.getMyPayments);
 
 /**
  * GET /api/provider-payments

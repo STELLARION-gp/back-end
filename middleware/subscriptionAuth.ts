@@ -1,9 +1,9 @@
 import { Request, Response, NextFunction } from "express";
-import { PrismaClient } from "../prisma/generated/client";
 import { SubscriptionPlan } from "../types";
 import { ChatbotNotificationService } from "../services/chatbotNotification.service";
+import { prisma } from "../lib/prisma";
 
-const prisma = new PrismaClient();
+// Use shared Prisma instance to prevent connection pool exhaustion
 
 // Interface for the custom request with user info
 interface AuthenticatedRequest extends Request {

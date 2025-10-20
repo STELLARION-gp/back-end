@@ -1,7 +1,7 @@
-import { PrismaClient } from "../prisma/generated/client";
 import admin from "../firebaseAdmin";
+import { prisma } from "../lib/prisma";
 
-const prisma = new PrismaClient();
+// Use shared Prisma instance to prevent connection pool exhaustion
 
 /**
  * Admin authentication function

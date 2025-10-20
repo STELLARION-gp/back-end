@@ -316,3 +316,46 @@ export const downloadPaymentsSummaryPDF = async (req: Request, res: Response) =>
     });
   }
 };
+
+/**
+ * Get payments for the authenticated provider (influencer/guide)
+ * @route GET /api/provider-payments/my-payments
+ * @access Private (Authenticated provider)
+ */
+export const getMyPayments = async (req: Request, res: Response) => {
+  try {
+    const userId = (req as any).user?.userId;
+
+    if (!userId) {
+      return res.status(401).json({
+        success: false,
+        message: "User not authenticated",
+      });
+    }
+
+    // Get all payments for this provider
+    const payments = await ProviderPaymentsService.getProviderPayments({
+      provider_id: userId,
+    });
+
+    // Sort by year and month descending (most recent first)
+    payments.sort((a, b) => {
+      if (b.year !== a.year) return b.year - a.year;
+      return b.month - a.month;
+    });
+
+    res.json({
+      success: true,
+      data: payments,
+      count: payments.length,
+      message: "Provider payments retrieved successfully",
+    });
+  } catch (error) {
+    console.error("Error fetching provider payments:", error);
+    res.status(500).json({
+      success: false,
+      message: "Failed to fetch provider payments",
+      error: error instanceof Error ? error.message : "Unknown error",
+    });
+  }
+};

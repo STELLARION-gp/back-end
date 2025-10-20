@@ -4,11 +4,10 @@ import { usersResourceOptions } from "./resources/users.resource";
 import { blogsResourceOptions } from "./resources/blogs.resource";
 import { quizzesResourceOptions } from "./resources/quizzes.resource";
 import { astronomyEventsResourceOptions } from "./resources/astronomyEvents.resource";
-import { PrismaClient } from "../prisma/generated/client";
 import * as PrismaModule from "../prisma/generated/client/index.js";
+import { prisma } from "../lib/prisma";
 
-// Initialize Prisma Client for resources
-const prisma = new PrismaClient();
+// Use shared Prisma instance for resources to prevent connection pool exhaustion
 
 /**
  * Define all resources that will be managed through AdminJS

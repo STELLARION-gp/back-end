@@ -1,9 +1,9 @@
 import { Request, Response } from "express";
 import crypto from "crypto";
-import { PrismaClient } from "../prisma/generated/client";
 import { PaymentStatus } from "../types";
+import { prisma } from "../lib/prisma";
 
-const prisma = new PrismaClient();
+// Use shared Prisma instance to prevent connection pool exhaustion
 
 // PayHere configuration
 const PAYHERE_MERCHANT_ID = process.env.PAYHERE_MERCHANT_ID;

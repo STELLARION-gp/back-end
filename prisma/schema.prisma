@@ -253,7 +253,6 @@ model users {
   mentee_connections                                                                           mentor_mentee_connections[]            @relation("MenteeConnections")
   mentor_connections                                                                           mentor_mentee_connections[]            @relation("MentorConnections")
   created_mentor_mentee_goals                                                                  mentor_mentee_goals[]
-  mentor_mentee_messages                                                                       mentor_mentee_messages[]
   created_mentor_mentee_notes                                                                  mentor_mentee_notes[]
   uploaded_mentor_mentee_resources                                                             mentor_mentee_resources[]
   created_mentor_mentee_short_notes                                                            mentor_mentee_short_notes[]
@@ -1413,25 +1412,6 @@ model provider_payments {
   @@index([created_at], map: "idx_provider_payments_created")
 }
 
-model mentor_mentee_messages {
-  message_id                Int                       @id @default(autoincrement())
-  connection_id             Int
-  sender_id                 Int
-  message_text              String
-  message_type              String                    @default("text") @db.VarChar(20)
-  is_read                   Boolean                   @default(false)
-  is_edited                 Boolean                   @default(false)
-  is_deleted                Boolean                   @default(false)
-  created_at                DateTime                  @default(now()) @db.Timestamp(6)
-  updated_at                DateTime                  @default(now()) @db.Timestamp(6)
-  read_at                   DateTime?                 @db.Timestamp(6)
-  mentor_mentee_connections mentor_mentee_connections @relation(fields: [connection_id], references: [connection_id], onDelete: Cascade)
-  users                     users                     @relation(fields: [sender_id], references: [id], onDelete: Cascade)
-
-  @@index([connection_id, created_at], map: "idx_mm_messages_connection_created")
-  @@index([is_read], map: "idx_mm_messages_read")
-  @@index([sender_id], map: "idx_mm_messages_sender")
-}
 
 enum weather_policy_type {
   reschedule
