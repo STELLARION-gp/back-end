@@ -1,11 +1,12 @@
 // controllers/guideApplication.controller.ts
 import { Request, Response } from 'express';
 import { GuideApplication } from '../types';
-import { PrismaClient, approve_application_status } from '../prisma/generated/client';
+import { approve_application_status } from '../prisma/generated/client';
 import { NotificationService } from '../services/notification.service';
 import { NotificationType, NotificationPriority } from '../types/notification.types';
+import { prisma } from '../lib/prisma';
 
-const prisma = new PrismaClient();
+// Use shared Prisma instance to prevent connection pool exhaustion
 
 // Create Guide Application
 export const createGuideApplication = async (req: Request, res: Response) => {

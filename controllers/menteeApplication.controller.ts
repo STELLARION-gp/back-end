@@ -1,10 +1,11 @@
 // controllers/menteeApplication.controller.ts
 import { Request, Response } from 'express';
-import { PrismaClient, approve_application_status } from '../prisma/generated/client';
+import { approve_application_status } from '../prisma/generated/client';
 import googleDriveService from '../services/googleDrive.service.js';
 import * as fs from 'fs';
+import { prisma } from '../lib/prisma';
 
-const prisma = new PrismaClient();
+// Use shared Prisma instance to prevent connection pool exhaustion
 
 /**
  * Submit a mentee application (learner applying to a mentor)

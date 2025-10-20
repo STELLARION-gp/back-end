@@ -1,9 +1,9 @@
 // controllers/roleUpgrade.controller.ts
 import { Request, Response } from "express";
-import { PrismaClient } from "../prisma/generated/client";
 import { DatabaseUser, RoleUpgradeRequest, RoleUpgradeRequestData, UserRole } from "../types";
+import { prisma } from "../lib/prisma";
 
-const prisma = new PrismaClient();
+// Use shared Prisma instance to prevent connection pool exhaustion
 
 // Request role upgrade
 export const requestRoleUpgrade = async (req: Request, res: Response) => {

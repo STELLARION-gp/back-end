@@ -3,11 +3,11 @@
 import { Request, Response } from 'express';
 import path from 'path';
 import fs from 'fs';
-import { PrismaClient } from '../prisma/generated/client';
 import { Pool } from 'pg';
 import cloudinary from '../config/cloudinary';
+import { prisma } from '../lib/prisma';
 
-const prisma = new PrismaClient();
+// Use shared Prisma instance to prevent connection pool exhaustion
 // Fallback pool for raw SQL before Prisma client is regenerated to include media_uploads model
 const pool = new Pool({ connectionString: process.env.DATABASE_URL });
 

@@ -2,7 +2,6 @@
 import { Request, Response } from "express";
 import admin from "../firebaseAdmin";
 //import pool from "../db";
-import { PrismaClient } from "../prisma/generated/client";
 import {
   SignUpRequest,
   SignInRequest,
@@ -14,8 +13,9 @@ import {
 } from "../types";
 
 import axios from "axios"; // For Firebase Auth REST API
+import { prisma } from "../lib/prisma";
 
-const prisma = new PrismaClient();
+// Use shared Prisma instance to prevent connection pool exhaustion
 
 // Sign up with email and password
 // NOTE: Ensure a unique constraint exists on the 'email' column in the users table for race condition safety.

@@ -1,5 +1,4 @@
 import { Request, Response } from 'express';
-import { PrismaClient } from '../prisma/generated/client';
 import {
     CreateNightCampRequest,
     NightCamp,
@@ -8,8 +7,9 @@ import {
     CreateVolunteeringApplicationRequest,
     NightCampVolunteeringApplication
 } from '../types';
+import { prisma } from '../lib/prisma';
 
-const prisma = new PrismaClient();
+// Use shared Prisma instance to prevent connection pool exhaustion
 
 export class NightCampController {
     // Create a new night camp

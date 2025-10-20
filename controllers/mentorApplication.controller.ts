@@ -1,9 +1,10 @@
 // controllers/mentorApplication.controller.ts
 import { Request, Response } from 'express';
 import { MentorApplication } from '../types';
-import { PrismaClient, approve_application_status } from '../prisma/generated/client';
+import { approve_application_status } from '../prisma/generated/client';
+import { prisma } from '../lib/prisma';
 
-const prisma = new PrismaClient();
+// Use shared Prisma instance to prevent connection pool exhaustion
 
 // Create Mentor Application
 export const createMentorApplication = async (req: Request, res: Response) => {
