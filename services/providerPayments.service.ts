@@ -34,6 +34,7 @@ export interface ProviderPayment {
 export const getProviderPayments = async (filters?: {
   status?: string;
   provider_type?: 'guide' | 'influencer';
+  provider_id?: number;
   month?: number;
   year?: number;
   search?: string;
@@ -44,6 +45,10 @@ export const getProviderPayments = async (filters?: {
 
     if (filters?.status) {
       where.payment_status = filters.status;
+    }
+
+    if (filters?.provider_id) {
+      where.provider_id = filters.provider_id;
     }
 
     if (filters?.month) {
@@ -134,7 +139,9 @@ export const getProviderPayments = async (filters?: {
 export const getPaymentById = async (id: number) => {
   try {
     const payment = await prisma.provider_payments.findUnique({
-      where: { id },
+      where: { 
+        id: id 
+      },
       include: {
         provider: {
           select: {
