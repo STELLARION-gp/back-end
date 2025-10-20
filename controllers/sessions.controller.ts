@@ -1,6 +1,6 @@
 // controllers/sessions.controller.ts
 import { Request, Response } from 'express';
-import { PrismaClient } from '../prisma/generated/client';
+import { prisma } from '../lib/prisma';
 import { NotificationService } from '../services/notification.service';
 import {
   NotificationType,
@@ -16,7 +16,7 @@ import {
     DifficultyLevel
 } from '../types';
 
-const prisma = new PrismaClient();
+  // const prisma = new PrismaClient();
 
 /**
  * Helper function to format TIME field from Prisma (Date object) to HH:MM:SS string
@@ -28,6 +28,36 @@ const formatTimeField = (time: Date | null | undefined): string | null => {
   const minutes = date.getMinutes().toString().padStart(2, '0');
   const seconds = date.getSeconds().toString().padStart(2, '0');
   return `${hours}:${minutes}:${seconds}`;
+};
+
+/**
+ * Disable registration for a session if max participants have been reached
+ */
+const updateSessionRegistrationAvailability = async (sessionId: number) => {
+  try {
+    const session = await prisma.sessions.findUnique({ where: { id: sessionId } });
+    if (!session) return;
+
+    const max = session.max_participants;
+    if (!max || max <= 0) return; // no limit configured
+
+    const confirmedCount = await prisma.session_enrollments.count({
+      where: {
+        session_id: sessionId,
+        access_granted: true,
+      }
+    });
+
+    if (confirmedCount >= max && session.is_enabled) {
+      await prisma.sessions.update({
+        where: { id: sessionId },
+        data: { is_enabled: false }
+      });
+    }
+    // Optionally, if confirmedCount < max and session is disabled, we could re-enable.
+  } catch (err) {
+    console.warn('Failed to update session registration availability for', sessionId, err);
+  }
 };
 
 /**
@@ -479,10 +509,25 @@ export const getMySessions = async (req: Request, res: Response): Promise<void> 
       }
     });
 
-    // Format session_time fields for all sessions
+    // Get confirmed enrollment counts per session (only sessions returned on this page)
+    const enrollmentCounts = await Promise.all(
+      sessions.map(async (s) => {
+        const count = await prisma.session_enrollments.count({
+          where: {
+            session_id: s.id,
+            access_granted: true,
+            payment_status: { in: ['completed', 'free_access'] }
+          }
+        });
+        return { sessionId: s.id, count };
+      })
+    );
+
+    // Format session_time fields for all sessions and attach participants_count
     const formattedSessions = sessions.map(session => ({
       ...session,
-      session_time: formatTimeField(session.session_time)
+      session_time: formatTimeField(session.session_time),
+      participants_count: enrollmentCounts.find(e => e.sessionId === session.id)?.count || 0
     }));
 
     res.status(200).json({
@@ -1613,6 +1658,21 @@ export const enrollInPaidSession = async (req: Request, res: Response): Promise<
       return;
     }
 
+    // Check max participants
+    if (session.max_participants && session.max_participants > 0) {
+      const confirmedCount = await prisma.session_enrollments.count({
+        where: { session_id: sessionId, access_granted: true }
+      });
+      if (confirmedCount >= session.max_participants) {
+        // If full, ensure session is disabled and inform the user
+        if (session.is_enabled) {
+          await prisma.sessions.update({ where: { id: sessionId }, data: { is_enabled: false } });
+        }
+        res.status(400).json({ success: false, message: 'Session is fully booked' });
+        return;
+      }
+    }
+
     if (session.payment_type !== 'paid') {
       res.status(400).json({
         success: false,
@@ -1680,6 +1740,9 @@ export const enrollInPaidSession = async (req: Request, res: Response): Promise<
       // Notification failures shouldn't block enrollment
       console.warn('Failed to create enrollment notification:', notifError);
     }
+    // After successful enrollment, update session availability (disable if full)
+    await updateSessionRegistrationAvailability(sessionId);
+
     res.status(201).json({
       success: true,
       data: {
@@ -1740,6 +1803,20 @@ export const enrollInFreeSession = async (req: Request, res: Response): Promise<
       return;
     }
 
+    // Check max participants
+    if (session.max_participants && session.max_participants > 0) {
+      const confirmedCount = await prisma.session_enrollments.count({
+        where: { session_id: sessionId, access_granted: true }
+      });
+      if (confirmedCount >= session.max_participants) {
+        if (session.is_enabled) {
+          await prisma.sessions.update({ where: { id: sessionId }, data: { is_enabled: false } });
+        }
+        res.status(400).json({ success: false, message: 'Session is fully booked' });
+        return;
+      }
+    }
+
     if (session.payment_type !== 'free') {
       res.status(400).json({
         success: false,
@@ -1775,6 +1852,9 @@ export const enrollInFreeSession = async (req: Request, res: Response): Promise<
         access_granted: true
       }
     });
+
+    // After successful enrollment, update session availability (disable if full)
+    await updateSessionRegistrationAvailability(sessionId);
 
     res.status(201).json({
       success: true,

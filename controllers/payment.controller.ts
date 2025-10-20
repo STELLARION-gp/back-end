@@ -799,10 +799,10 @@ export const getBookingPaymentStats = async (req: Request, res: Response) => {
     let bookingIds: number[] = [];
     let sessionIds: number[] = [];
     if (guideUserId) {
-      const guideBookings = await prisma.service_bookings.findMany({
-        where: { services: { created_by: guideUserId }, created_at: { gte: since } },
-        select: { id: true },
-      });
+        const guideBookings = await prisma.service_bookings.findMany({
+          where: { services: { created_by: guideUserId }, created_at: { gte: since } },
+          select: { id: true },
+        });
       bookingIds = guideBookings.map((b) => b.id);
 
       const guideSessions = await prisma.sessions.findMany({
@@ -922,6 +922,24 @@ export const getBookingPaymentTransactions = async (req: Request, res: Response)
       take: pageLimit,
     });
 
+    // Normalize payment statuses to match frontend expectations
+    const normalizeStatus = (s: string | null | undefined) => {
+      const st = (s || "").toString().toLowerCase();
+      switch (st) {
+        case "completed":
+        case "approved":
+          return "approved";
+        case "pending":
+          return "pending";
+        case "refunded":
+          return "refunded";
+        case "failed":
+          return "failed";
+        default:
+          return st || "pending";
+      }
+    };
+
     const transactions = payments.map((p) => {
       const metadata: any = (p.metadata as any) || {};
       return {
@@ -929,7 +947,7 @@ export const getBookingPaymentTransactions = async (req: Request, res: Response)
         date: (p.payment_date || p.created_at)?.toISOString() || new Date().toISOString(),
         amount: Number(p.amount || 0),
         currency: p.currency || "LKR",
-        status: p.payment_status || "pending",
+        status: normalizeStatus(p.payment_status),
         type: metadata.booking_id ? "booking" : "payment",
         description: metadata.service_title || metadata.plan_name || "",
         gateway: p.payment_gateway || "payhere",
@@ -1011,6 +1029,24 @@ export const getBookingPaymentTransactionsForGuide = async (req: Request, res: R
     });
 
     // Map payments to transaction-like objects
+    // Normalize statuses for payments so frontend 'approved' filter matches completed payments
+    const normalizeStatusForGuide = (s: string | null | undefined) => {
+      const st = (s || "").toString().toLowerCase();
+      switch (st) {
+        case "completed":
+        case "approved":
+          return "approved";
+        case "pending":
+          return "pending";
+        case "refunded":
+          return "refunded";
+        case "failed":
+          return "failed";
+        default:
+          return st || "pending";
+      }
+    };
+
     const paymentTransactions = payments
       .map((p) => {
         try {
@@ -1021,7 +1057,7 @@ export const getBookingPaymentTransactionsForGuide = async (req: Request, res: R
             date: (p.payment_date || p.created_at)?.toISOString() || new Date().toISOString(),
             amount: Number(p.amount || 0),
             currency: p.currency || 'LKR',
-            status: p.payment_status || 'pending',
+            status: normalizeStatusForGuide(p.payment_status),
             type: bookingRef ? 'booking' : 'payment',
             description: metadata.service_title || metadata.plan_name || '',
             gateway: p.payment_gateway || 'payhere',

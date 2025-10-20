@@ -234,6 +234,10 @@ app.use("/api/mentee-applications", menteeApplicationRoutes);
 app.use("/api/influencer-applications", influencerApplicationRoutes);
 app.use("/api/guide-applications", guideApplicationRoutes);
 
+// Alias routes for camelCase (frontend compatibility)
+app.use("/api/guideApplication", guideApplicationRoutes);
+app.use("/api/influencerApplication", influencerApplicationRoutes);
+
 // Subscription and Payment APIs
 app.use("/api/subscriptions", subscriptionRoutes);
 app.use("/api/payments", paymentRoutes);

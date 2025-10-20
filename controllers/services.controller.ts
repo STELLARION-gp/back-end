@@ -323,11 +323,31 @@ export const getMyServices = async (req: Request, res: Response) => {
 
     const totalPages = Math.ceil(total / take);
 
+    // Compute confirmed bookings count per service so frontend can show current bookings
+    const serviceIds = services.map(s => s.id);
+    let bookingsCountMap: Record<number, number> = {};
+    if (serviceIds.length > 0) {
+      const counts = await prisma.service_bookings.groupBy({
+        by: ['service_id'],
+        where: {
+          service_id: { in: serviceIds },
+          booking_status: 'confirmed',
+        },
+        _count: { _all: true },
+      });
+
+      counts.forEach(c => {
+        // @ts-ignore - c.service_id is numeric
+        bookingsCountMap[c.service_id] = c._count?._all || 0;
+      });
+    }
+
     ok(res, 'Services retrieved successfully', {
       services: services.map(s => ({
         ...s,
         media: s.service_media,
         availability: s.service_availability,
+        bookings_count: bookingsCountMap[s.id] || 0,
       })),
       total,
       page: Number(page),
