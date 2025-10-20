@@ -6,12 +6,19 @@ import {
     getInfluencerApplication,
     updateInfluencerApplication,
     deleteInfluencerApplication,
-    changeInfluencerApplicationStatus
+    changeInfluencerApplicationStatus,
+    approveInfluencerApplication,
+    rejectInfluencerApplication
 } from '../controllers/influencerApplication.controller';
 import { verifyToken } from '../middleware/verifyToken';
 
 const router = Router();
 
+// Moderation routes (Admin/Moderator only) - Place before :id routes
+router.put('/:id/approve', verifyToken, approveInfluencerApplication);
+router.put('/:id/reject', verifyToken, rejectInfluencerApplication);
+
+// Regular application routes
 router.post('/', verifyToken, createInfluencerApplication);
 router.get('/', verifyToken, getInfluencerApplications);
 router.get('/:id', verifyToken, getInfluencerApplication);
