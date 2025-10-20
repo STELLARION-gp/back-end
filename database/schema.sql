@@ -270,6 +270,72 @@ CREATE INDEX IF NOT EXISTS idx_payments_subscription_id ON payments(subscription
 CREATE INDEX IF NOT EXISTS idx_payments_status ON payments(payment_status);
 CREATE INDEX IF NOT EXISTS idx_chatbot_usage_user_date ON chatbot_usage(user_id, usage_date);
 
+-- SQL script to create media_uploads table (PostgreSQL)
+CREATE TABLE IF NOT EXISTS media_uploads (
+    id SERIAL PRIMARY KEY,
+    user_id INTEGER NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+    file_name VARCHAR(255) NOT NULL,
+    file_path VARCHAR(500) NOT NULL,
+    file_type VARCHAR(100) NOT NULL,
+    file_size INTEGER NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE INDEX IF NOT EXISTS idx_media_uploads_user_id ON media_uploads(user_id);
+
+-- Tour media table (stores tour details and array of associated media_uploads ids)
+CREATE TABLE IF NOT EXISTS tour_media (
+    tour_id SERIAL PRIMARY KEY,
+    tour_name VARCHAR(255) NOT NULL,
+    description TEXT,
+    location VARCHAR(255),
+    tags VARCHAR(255),
+    media_ids INTEGER[] NOT NULL DEFAULT '{}',
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE INDEX IF NOT EXISTS idx_tour_media_created_at ON tour_media(created_at);
+
+-- Events table
+CREATE TABLE IF NOT EXISTS events (
+    id SERIAL PRIMARY KEY,
+    event_name VARCHAR(255) NOT NULL,
+    society_name VARCHAR(255) NOT NULL,
+    description TEXT NOT NULL,
+    visibility VARCHAR(50) NOT NULL CHECK (visibility IN ('public','private','members-only')),
+    date DATE NOT NULL,
+    time VARCHAR(100) NOT NULL,
+    location VARCHAR(255) NOT NULL,
+    event_category VARCHAR(100) NOT NULL,
+    needed_volunteers_count INT,
+    organized_by VARCHAR(255) NOT NULL,
+    image_urls TEXT[] DEFAULT '{}',
+    max_participants INT,
+    event_status VARCHAR(50) NOT NULL CHECK (event_status IN ('draft','organized','finalized')),
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    -- Moderation fields
+    status VARCHAR(50) DEFAULT 'pending', -- pending, approved, rejected
+    created_by INT NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+    moderated_by INT REFERENCES users(id)
+);
+
+CREATE INDEX IF NOT EXISTS idx_events_visibility ON events(visibility);
+CREATE INDEX IF NOT EXISTS idx_events_status ON events(event_status);
+CREATE INDEX IF NOT EXISTS idx_events_date ON events(date);
+CREATE INDEX IF NOT EXISTS idx_events_moderation_status ON events(status);
+CREATE INDEX IF NOT EXISTS idx_events_created_by ON events(created_by);
+CREATE INDEX IF NOT EXISTS idx_events_moderated_by ON events(moderated_by);
+
+-- Backward compatibility: if table existed before moderation fields, add them (idempotent guards)
+DO $$ BEGIN
+    BEGIN
+        ALTER TABLE events ADD COLUMN IF NOT EXISTS status VARCHAR(50) DEFAULT 'pending';
+        ALTER TABLE events ADD COLUMN IF NOT EXISTS created_by INT REFERENCES users(id) ON DELETE CASCADE;
+        ALTER TABLE events ADD COLUMN IF NOT EXISTS moderated_by INT REFERENCES users(id);
+    EXCEPTION WHEN others THEN NULL; END;
+END $$;
+
 -- Create a function to automatically update the updated_at column
 CREATE OR REPLACE FUNCTION update_updated_at_column()
 RETURNS TRIGGER AS $$

@@ -1,10 +1,12 @@
 // controllers/roleUpgrade.controller.ts
 import { Request, Response } from "express";
-import pool from "../db";
 import { DatabaseUser, RoleUpgradeRequest, RoleUpgradeRequestData, UserRole } from "../types";
+import { prisma } from "../lib/prisma";
+
+// Use shared Prisma instance to prevent connection pool exhaustion
 
 // Request role upgrade
-export const requestRoleUpgrade = async (req: Request, res: Response): Promise<void> => {
+export const requestRoleUpgrade = async (req: Request, res: Response) => {
     try {
         const firebaseUser = (req as any).user;
         const { requested_role, reason, supporting_evidence = [] }: RoleUpgradeRequestData = req.body;
@@ -26,20 +28,17 @@ export const requestRoleUpgrade = async (req: Request, res: Response): Promise<v
         }
 
         // Get user details
-        const userResult = await pool.query<DatabaseUser>(
-            "SELECT * FROM users WHERE firebase_uid = $1",
-            [firebaseUser.uid]
-        );
+        const user = await prisma.users.findUnique({
+            where: { firebase_uid: firebaseUser.uid }
+        });
 
-        if (userResult.rows.length === 0) {
+        if (!user) {
             res.status(404).json({
                 success: false,
                 message: "User not found"
             });
             return;
         }
-
-        const user = userResult.rows[0];
 
         // Validate requested role
         const validRoles: UserRole[] = ['admin', 'moderator', 'learner', 'guide', 'enthusiast', 'mentor', 'influencer'];
@@ -61,12 +60,15 @@ export const requestRoleUpgrade = async (req: Request, res: Response): Promise<v
         }
 
         // Check if user has a pending request for the same role
-        const existingRequest = await pool.query(
-            "SELECT * FROM role_upgrade_requests WHERE user_id = $1 AND requested_user_role = $2 AND status = 'pending'",
-            [user.id, requested_role]
-        );
+        const existingRequest = await prisma.role_upgrade_requests.findFirst({
+            where: {
+                user_id: user.id,
+                requested_user_role: requested_role,
+                status: 'pending'
+            }
+        });
 
-        if (existingRequest.rows.length > 0) {
+        if (existingRequest) {
             res.status(400).json({
                 success: false,
                 message: "You already have a pending request for this role"
@@ -75,19 +77,23 @@ export const requestRoleUpgrade = async (req: Request, res: Response): Promise<v
         }
 
         // Create role upgrade request
-        const result = await pool.query<RoleUpgradeRequest>(
-            `INSERT INTO role_upgrade_requests (user_id, current_user_role, requested_user_role, reason, supporting_evidence) 
-             VALUES ($1, $2, $3, $4, $5) RETURNING *`,
-            [user.id, user.role, requested_role, reason, JSON.stringify(supporting_evidence)]
-        );
+        const newRequest = await prisma.role_upgrade_requests.create({
+            data: {
+                user_id: user.id,
+                current_user_role: user.role || 'learner',
+                requested_user_role: requested_role,
+                reason,
+                supporting_evidence: supporting_evidence
+            }
+        });
 
         res.status(201).json({
             success: true,
             message: "Role upgrade request submitted successfully",
             data: {
-                request_id: result.rows[0].id,
-                status: result.rows[0].status,
-                submitted_at: result.rows[0].submitted_at
+                request_id: newRequest.id,
+                status: newRequest.status,
+                submitted_at: newRequest.submitted_at
             }
         });
     } catch (error) {
@@ -100,7 +106,7 @@ export const requestRoleUpgrade = async (req: Request, res: Response): Promise<v
 };
 
 // Get role upgrade status
-export const getRoleUpgradeStatus = async (req: Request, res: Response): Promise<void> => {
+export const getRoleUpgradeStatus = async (req: Request, res: Response) => {
     try {
         const firebaseUser = (req as any).user;
 
@@ -113,12 +119,12 @@ export const getRoleUpgradeStatus = async (req: Request, res: Response): Promise
         }
 
         // Get user details
-        const userResult = await pool.query<DatabaseUser>(
-            "SELECT id FROM users WHERE firebase_uid = $1",
-            [firebaseUser.uid]
-        );
+        const user = await prisma.users.findUnique({
+            where: { firebase_uid: firebaseUser.uid },
+            select: { id: true }
+        });
 
-        if (userResult.rows.length === 0) {
+        if (!user) {
             res.status(404).json({
                 success: false,
                 message: "User not found"
@@ -126,27 +132,33 @@ export const getRoleUpgradeStatus = async (req: Request, res: Response): Promise
             return;
         }
 
-        const userId = userResult.rows[0].id;
-
         // Get current pending requests
-        const currentRequestsResult = await pool.query<RoleUpgradeRequest>(
-            `SELECT r.*, u.email as reviewer_email 
-             FROM role_upgrade_requests r 
-             LEFT JOIN users u ON r.reviewer_id = u.id 
-             WHERE r.user_id = $1 AND r.status = 'pending' 
-             ORDER BY r.submitted_at DESC`,
-            [userId]
-        );
+        const currentRequests = await prisma.role_upgrade_requests.findMany({
+            where: {
+                user_id: user.id,
+                status: 'pending'
+            },
+            include: {
+                users_role_upgrade_requests_reviewer_idTousers: {
+                    select: { email: true }
+                }
+            },
+            orderBy: { submitted_at: 'desc' }
+        });
 
         // Get request history
-        const historyResult = await pool.query<RoleUpgradeRequest>(
-            `SELECT r.*, u.email as reviewer_email 
-             FROM role_upgrade_requests r 
-             LEFT JOIN users u ON r.reviewer_id = u.id 
-             WHERE r.user_id = $1 AND r.status != 'pending' 
-             ORDER BY r.reviewed_at DESC`,
-            [userId]
-        );
+        const requestHistory = await prisma.role_upgrade_requests.findMany({
+            where: {
+                user_id: user.id,
+                status: { not: 'pending' }
+            },
+            include: {
+                users_role_upgrade_requests_reviewer_idTousers: {
+                    select: { email: true }
+                }
+            },
+            orderBy: { reviewed_at: 'desc' }
+        });
 
         const formatRequest = (request: any) => ({
             request_id: request.id,
@@ -154,19 +166,21 @@ export const getRoleUpgradeStatus = async (req: Request, res: Response): Promise
             current_role: request.current_user_role,
             status: request.status,
             reason: request.reason,
-            supporting_evidence: JSON.parse(request.supporting_evidence || '[]'),
+            supporting_evidence: typeof request.supporting_evidence === 'string'
+                ? JSON.parse(request.supporting_evidence)
+                : request.supporting_evidence || [],
             submitted_at: request.submitted_at,
             reviewed_at: request.reviewed_at,
             reviewer_notes: request.reviewer_notes,
-            reviewer_email: request.reviewer_email
+            reviewer_email: request.users_role_upgrade_requests_reviewer_idTousers?.email
         });
 
         res.json({
             success: true,
             message: "Role upgrade status retrieved successfully",
             data: {
-                current_requests: currentRequestsResult.rows.map(formatRequest),
-                request_history: historyResult.rows.map(formatRequest)
+                current_requests: currentRequests.map(formatRequest),
+                request_history: requestHistory.map(formatRequest)
             }
         });
     } catch (error) {
@@ -179,66 +193,69 @@ export const getRoleUpgradeStatus = async (req: Request, res: Response): Promise
 };
 
 // Get all role upgrade requests (Admin only)
-export const getAllRoleUpgradeRequests = async (req: Request, res: Response): Promise<void> => {
+export const getAllRoleUpgradeRequests = async (req: Request, res: Response) => {
     try {
         const { page = 1, limit = 10, status } = req.query;
         const offset = (Number(page) - 1) * Number(limit);
 
-        // Build query
-        let query = `
-            SELECT r.*, u.email, u.first_name, u.last_name, u.display_name,
-                   reviewer.email as reviewer_email, reviewer.first_name as reviewer_first_name
-            FROM role_upgrade_requests r
-            JOIN users u ON r.user_id = u.id
-            LEFT JOIN users reviewer ON r.reviewer_id = reviewer.id
-        `;
-
-        const params: any[] = [];
-        let paramCount = 0;
-
+        // Build where condition
+        const whereCondition: any = {};
         if (status) {
-            paramCount++;
-            query += ` WHERE r.status = $${paramCount}`;
-            params.push(status);
+            whereCondition.status = status as string;
         }
 
-        query += ` ORDER BY r.submitted_at DESC LIMIT $${paramCount + 1} OFFSET $${paramCount + 2}`;
-        params.push(Number(limit), offset);
-
-        const result = await pool.query(query, params);
+        // Get requests with pagination
+        const requests = await prisma.role_upgrade_requests.findMany({
+            where: whereCondition,
+            include: {
+                users_role_upgrade_requests_user_idTousers: {
+                    select: {
+                        id: true,
+                        email: true,
+                        first_name: true,
+                        last_name: true,
+                        display_name: true
+                    }
+                },
+                users_role_upgrade_requests_reviewer_idTousers: {
+                    select: {
+                        email: true,
+                        first_name: true
+                    }
+                }
+            },
+            orderBy: { submitted_at: 'desc' },
+            skip: offset,
+            take: Number(limit)
+        });
 
         // Get total count
-        let countQuery = "SELECT COUNT(*) FROM role_upgrade_requests r";
-        const countParams: any[] = [];
+        const total = await prisma.role_upgrade_requests.count({
+            where: whereCondition
+        });
 
-        if (status) {
-            countQuery += " WHERE r.status = $1";
-            countParams.push(status);
-        }
-
-        const countResult = await pool.query(countQuery, countParams);
-        const total = parseInt(countResult.rows[0].count);
-
-        const formattedRequests = result.rows.map(request => ({
+        const formattedRequests = requests.map(request => ({
             request_id: request.id,
             user: {
                 id: request.user_id,
-                email: request.email,
-                first_name: request.first_name,
-                last_name: request.last_name,
-                display_name: request.display_name
+                email: request.users_role_upgrade_requests_user_idTousers?.email,
+                first_name: request.users_role_upgrade_requests_user_idTousers?.first_name,
+                last_name: request.users_role_upgrade_requests_user_idTousers?.last_name,
+                display_name: request.users_role_upgrade_requests_user_idTousers?.display_name
             },
             current_role: request.current_user_role,
             requested_role: request.requested_user_role,
             reason: request.reason,
-            supporting_evidence: JSON.parse(request.supporting_evidence || '[]'),
+            supporting_evidence: typeof request.supporting_evidence === 'string'
+                ? JSON.parse(request.supporting_evidence)
+                : request.supporting_evidence || [],
             status: request.status,
             submitted_at: request.submitted_at,
             reviewed_at: request.reviewed_at,
             reviewer_notes: request.reviewer_notes,
-            reviewer: request.reviewer_email ? {
-                email: request.reviewer_email,
-                first_name: request.reviewer_first_name
+            reviewer: request.users_role_upgrade_requests_reviewer_idTousers ? {
+                email: request.users_role_upgrade_requests_reviewer_idTousers.email,
+                first_name: request.users_role_upgrade_requests_reviewer_idTousers.first_name
             } : null
         }));
 
@@ -265,7 +282,7 @@ export const getAllRoleUpgradeRequests = async (req: Request, res: Response): Pr
 };
 
 // Process role upgrade request (Admin only)
-export const processRoleUpgradeRequest = async (req: Request, res: Response): Promise<void> => {
+export const processRoleUpgradeRequest = async (req: Request, res: Response) => {
     try {
         const firebaseUser = (req as any).user;
         const { requestId } = req.params;
@@ -288,12 +305,11 @@ export const processRoleUpgradeRequest = async (req: Request, res: Response): Pr
         }
 
         // Get reviewer details
-        const reviewerResult = await pool.query<DatabaseUser>(
-            "SELECT * FROM users WHERE firebase_uid = $1",
-            [firebaseUser.uid]
-        );
+        const reviewer = await prisma.users.findUnique({
+            where: { firebase_uid: firebaseUser.uid }
+        });
 
-        if (reviewerResult.rows.length === 0) {
+        if (!reviewer) {
             res.status(404).json({
                 success: false,
                 message: "Reviewer not found"
@@ -301,18 +317,20 @@ export const processRoleUpgradeRequest = async (req: Request, res: Response): Pr
             return;
         }
 
-        const reviewer = reviewerResult.rows[0];
-
         // Get the request details
-        const requestResult = await pool.query<RoleUpgradeRequest>(
-            `SELECT r.*, u.firebase_uid as user_firebase_uid 
-             FROM role_upgrade_requests r 
-             JOIN users u ON r.user_id = u.id 
-             WHERE r.id = $1 AND r.status = 'pending'`,
-            [requestId]
-        );
+        const request = await prisma.role_upgrade_requests.findFirst({
+            where: {
+                id: parseInt(requestId),
+                status: 'pending'
+            },
+            include: {
+                users_role_upgrade_requests_user_idTousers: {
+                    select: { firebase_uid: true }
+                }
+            }
+        });
 
-        if (requestResult.rows.length === 0) {
+        if (!request) {
             res.status(404).json({
                 success: false,
                 message: "Request not found or already processed"
@@ -320,45 +338,45 @@ export const processRoleUpgradeRequest = async (req: Request, res: Response): Pr
             return;
         }
 
-        const request = requestResult.rows[0];
         const status = action === 'approve' ? 'approved' : 'rejected';
 
-        // Begin transaction
-        await pool.query('BEGIN');
-
-        try {
+        // Use Prisma transaction to update request and user role
+        const result = await prisma.$transaction(async (tx) => {
             // Update the request status
-            await pool.query(
-                `UPDATE role_upgrade_requests 
-                 SET status = $1, reviewer_id = $2, reviewer_notes = $3, reviewed_at = CURRENT_TIMESTAMP 
-                 WHERE id = $4`,
-                [status, reviewer.id, reviewer_notes, requestId]
-            );
+            const updatedRequest = await tx.role_upgrade_requests.update({
+                where: { id: parseInt(requestId) },
+                data: {
+                    status: status,
+                    reviewer_id: reviewer.id,
+                    reviewer_notes: reviewer_notes,
+                    reviewed_at: new Date()
+                }
+            });
 
             // If approved, update user's role
             if (action === 'approve') {
-                await pool.query(
-                    "UPDATE users SET role = $1, updated_at = CURRENT_TIMESTAMP WHERE id = $2",
-                    [request.requested_user_role, request.user_id]
-                );
+                await tx.users.update({
+                    where: { id: request.user_id! },
+                    data: {
+                        role: request.requested_user_role as any,
+                        updated_at: new Date()
+                    }
+                });
             }
 
-            await pool.query('COMMIT');
+            return updatedRequest;
+        });
 
-            res.json({
-                success: true,
-                message: `Role upgrade request ${action}d successfully`,
-                data: {
-                    request_id: requestId,
-                    status: status,
-                    action: action,
-                    processed_at: new Date().toISOString()
-                }
-            });
-        } catch (error) {
-            await pool.query('ROLLBACK');
-            throw error;
-        }
+        res.json({
+            success: true,
+            message: `Role upgrade request ${action}d successfully`,
+            data: {
+                request_id: requestId,
+                status: status,
+                action: action,
+                processed_at: new Date().toISOString()
+            }
+        });
     } catch (error) {
         console.error("Process role upgrade request error:", error);
         res.status(500).json({

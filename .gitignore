@@ -7,19 +7,35 @@ yarn-error.log*
 # Environment variables
 .env
 .env.local
+.env.development
 .env.development.local
+.env.test
 .env.test.local
+.env.production
 .env.production.local
+.env.staging
+.env.bak
+.env.backup
+*.env.bak
+
+# Keep example files
+!.env.example
 
 # Build outputs
 dist/
 build/
+*.js
+*.js.map
+
+# Exclude JS files except configuration files
+!jest.config.js
+!*.config.js
 
 # TypeScript cache
 *.tsbuildinfo
 
 # Firebase service account key (sensitive)
-#serviceAccountKey.json
+serviceAccountKey.json
 
 # IDE/Editor files
 .vscode/
@@ -66,6 +82,16 @@ jspm_packages/
 # Yarn Integrity file
 .yarn-integrity
 
-package-lock.json
+# yarn.lock (allowing package-lock.json for better CI/CD compatibility)
 yarn.lock
-serviceAccountKey.json
+
+# Prisma generated artifacts (client & engine binaries)
+/generated/prisma
+node_modules/.prisma/
+prisma/client/
+prisma/generated/
+src/generated/prisma/
+**/prisma/generated/
+**/prisma/client/
+**/.prisma/
+google-drive-credentials.json

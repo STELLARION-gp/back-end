@@ -272,7 +272,7 @@ export interface RoleUpgradeRequestData {
 }
 
 // Blog types
-export type BlogStatus = 'draft' | 'published' | 'archived';
+export type BlogStatus = 'draft' | 'pending' | 'approved' | 'rejected' | 'published' | 'archived';
 
 export interface Blog {
     id: number;
@@ -280,6 +280,7 @@ export interface Blog {
     content: string;
     excerpt?: string;
     image_url?: string; // Database field
+    featured_image?: string; // Database field
     author_id: number;
     status: BlogStatus;
     published_at?: string;
@@ -467,4 +468,251 @@ export interface NightCampWithDetails extends NightCamp {
     activities: NightCampActivity[];
     equipment: NightCampEquipment[];
     volunteering: NightCampVolunteering[];
+}
+
+// Session types
+export type SessionType = 'live' | 'recorded';
+export type PaymentType = 'paid' | 'free';
+export type DifficultyLevel = 'beginner' | 'intermediate' | 'advanced';
+
+export interface Session {
+    id: number;
+    title: string;
+    session_type: SessionType;
+    payment_type: PaymentType;
+    price?: number | null;
+    duration: number; // Duration in minutes
+    session_date: Date | string;
+    session_time: Date | string;
+    max_participants?: number | null;
+    difficulty_level: DifficultyLevel;
+    session_link?: string | null;
+    description: string;
+    materials?: string[] | any; // JSON array
+    session_notes?: string | null;
+    created_by: number;
+    created_date: Date | string;
+    created_time: Date | string;
+    is_enabled: boolean;
+    created_at: Date | string;
+    updated_at: Date | string;
+}
+
+export interface SessionWithCreator extends Session {
+    creator: {
+        id: number;
+        first_name?: string;
+        last_name?: string;
+        email: string;
+        display_name?: string;
+    };
+}
+
+export interface CreateSessionRequest {
+    title: string;
+    session_type: SessionType;
+    payment_type: PaymentType;
+    price?: number;
+    duration: number;
+    session_date: string; // ISO format: YYYY-MM-DD
+    session_time: string; // Format: HH:MM:SS
+    max_participants?: number;
+    difficulty_level: DifficultyLevel;
+    session_link?: string;
+    description: string;
+    materials?: string[];
+    session_notes?: string;
+}
+
+export interface UpdateSessionRequest {
+    title?: string;
+    session_type?: SessionType;
+    payment_type?: PaymentType;
+    price?: number;
+    duration?: number;
+    session_date?: string;
+    session_time?: string;
+    max_participants?: number;
+    difficulty_level?: DifficultyLevel;
+    session_link?: string;
+    description?: string;
+    materials?: string[];
+    session_notes?: string;
+}
+
+export interface ToggleSessionStatusRequest {
+    is_enabled?: boolean;
+}
+
+export interface SessionFilters {
+    page?: number;
+    limit?: number;
+    session_type?: SessionType;
+    payment_type?: PaymentType;
+    difficulty_level?: DifficultyLevel;
+    is_enabled?: boolean;
+    search?: string;
+    sort_by?: 'session_date' | 'created_at' | 'title' | 'duration' | 'price';
+    sort_order?: 'asc' | 'desc';
+}
+
+export interface SessionPaginationResponse {
+    success: boolean;
+    data: SessionWithCreator[];
+    pagination: {
+        total: number;
+        page: number;
+        limit: number;
+        totalPages: number;
+    };
+    message: string;
+}
+
+export interface SessionResponse {
+    success: boolean;
+    data: SessionWithCreator;
+    message: string;
+}
+
+export interface SessionDeleteResponse {
+    success: boolean;
+    message: string;
+}
+
+export interface SessionErrorResponse {
+    success: false;
+    message: string;
+    error?: string;
+}
+
+// Quiz types
+export type QuizDifficultyLevel = 'Beginner' | 'Intermediate' | 'Hard';
+export type QuizStatus = 'pending' | 'approved' | 'rejected' | 'closed';
+
+export interface CreateQuizRequest {
+    title: string; // Maps to 'name' in database
+    category: string;
+    description: string;
+    level: QuizDifficultyLevel;
+    time_limit: number; // in minutes
+    questions: {
+        question: string;
+        answers: string[]; // Array of answer options
+        correct_answer: string; // The correct answer text
+        question_explanation?: string;
+    }[];
+}
+
+export interface UpdateQuizRequest {
+    title?: string;
+    category?: string;
+    description?: string;
+    level?: QuizDifficultyLevel;
+    time_limit?: number;
+    status?: QuizStatus;
+    questions?: {
+        id?: number; // If updating existing question
+        question: string;
+        answers: string[];
+        correct_answer: string;
+        question_explanation?: string;
+    }[];
+}
+
+export interface QuizQuestion {
+    id: number;
+    quiz_id: number;
+    question: string;
+    answers: string[];
+    correct_answer: string;
+    question_explanation?: string;
+}
+
+export interface Quiz {
+    id: number;
+    name: string;
+    category: string;
+    description: string;
+    time: Date | null;
+    question_count: number;
+    participants_count: number;
+    time_limit: number;
+    user_id: number;
+    created_at: Date;
+    modified_at: Date;
+    status: QuizStatus;
+    level: QuizDifficultyLevel;
+}
+
+export interface QuizWithDetails extends Quiz {
+    questions: QuizQuestion[];
+    creator: {
+        id: number;
+        display_name?: string;
+        first_name?: string;
+        last_name?: string;
+    };
+    participants: QuizParticipant[];
+}
+
+export interface QuizParticipant {
+    id: number;
+    quiz_id: number;
+    user_id: number;
+    correct_question_count: number;
+    score: number;
+}
+
+export interface StartQuizRequest {
+    quiz_id: number;
+}
+
+export interface SubmitQuizAnswersRequest {
+    answers: {
+        question_id: number;
+        selected_answer: string;
+    }[];
+}
+
+export interface QuizResult {
+    quiz_id: number;
+    user_id: number;
+    score: number;
+    correct_answers: number;
+    total_questions: number;
+    percentage: number;
+    time_taken?: number; // in seconds
+    answers: {
+        question_id: number;
+        question: string;
+        selected_answer: string;
+        correct_answer: string;
+        is_correct: boolean;
+        explanation?: string;
+    }[];
+}
+
+export interface LeaderboardEntry {
+    user_id: number;
+    username: string;
+    display_name?: string;
+    avatar?: string;
+    total_score: number;
+    quizzes_completed: number;
+    average_score: number;
+    rank: number;
+}
+
+export interface LeaderboardResponse {
+    leaderboard: LeaderboardEntry[];
+    stats: {
+        totalParticipants: number;
+        totalQuizAttempts: number;
+        averageScore: number;
+        highestScore: number;
+    };
+    userRank?: {
+        rank: number;
+        entry: LeaderboardEntry;
+    };
 }

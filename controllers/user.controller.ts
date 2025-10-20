@@ -1,7 +1,13 @@
 // controllers/user.controller.ts
 import { Request, Response } from "express";
-import pool from "../db";
-import { CreateUserRequest, DatabaseUser, UserRole } from "../types";
+import { ok, created, fail } from '../utils/responses';
+import { prisma } from '../lib/prisma';
+import { CreateUserRequest, UserRole } from "../types";
+import { parseName, findUserByFirebaseUid, touchLastLogin, createUser } from '../services/user.service';
+
+function isPrismaKnownError(err: any): err is { code: string } {
+  return !!err && typeof err === 'object' && 'code' in err;
+}
 
 export const createUserIfNotExists = async (req: Request, res: Response): Promise<void> => {
   console.log('🔥 Registration request received:', {
@@ -14,10 +20,7 @@ export const createUserIfNotExists = async (req: Request, res: Response): Promis
   const { firebaseUser, role, first_name, last_name } = req.body as CreateUserRequest;
 
   if (!firebaseUser || !firebaseUser.uid || !firebaseUser.email) {
-    res.status(400).json({
-      success: false,
-      message: "Missing firebaseUser data (uid and email required)"
-    });
+    fail(res, 400, "Missing firebaseUser data (uid and email required)");
     return;
   }
 
@@ -29,68 +32,24 @@ export const createUserIfNotExists = async (req: Request, res: Response): Promis
   let lastName = last_name;
 
   if (!firstName && !lastName && name) {
-    const nameParts = name.split(' ');
-    firstName = nameParts[0];
-    lastName = nameParts.slice(1).join(' ');
+    const parsed = parseName(name);
+    firstName = parsed.firstName;
+    lastName = parsed.lastName;
   }
 
   try {
-    console.log('💾 Checking for existing user with uid:', uid);
-    const existing = await pool.query<DatabaseUser>("SELECT * FROM users WHERE firebase_uid = $1", [uid]);
-    if (existing.rows.length > 0) {
-      console.log('✅ User already exists, updating last login');
-      // Update last login
-      await pool.query(
-        "UPDATE users SET last_login = CURRENT_TIMESTAMP WHERE firebase_uid = $1",
-        [uid]
-      );
-      res.json({
-        success: true,
-        message: "User already exists",
-        data: existing.rows[0]
-      });
+    const existing = await findUserByFirebaseUid(uid);
+    if (existing) {
+      await touchLastLogin(uid);
+      ok(res, "User already exists", existing);
       return;
     }
 
-    console.log('🆕 Creating new user with data:', {
-      uid, email, userRole, firstName, lastName
-    });
-
-    // Extract display name from email if name not available
-    const displayName = name || firstName || email.split('@')[0];
-
-    const result = await pool.query<DatabaseUser>(
-      "INSERT INTO users (firebase_uid, email, role, first_name, last_name, display_name, is_active, last_login) VALUES ($1, $2, $3, $4, $5, $6, true, CURRENT_TIMESTAMP) RETURNING *",
-      [uid, email, userRole, firstName, lastName, displayName]
-    );
-
-    console.log('✅ User created successfully:', result.rows[0]);
-
-    // Create default user settings for the new user
-    try {
-      await pool.query(
-        `INSERT INTO user_settings (user_id, language, email_notifications, push_notifications, profile_visibility, allow_direct_messages, show_online_status, theme, timezone) 
-         VALUES ($1, 'en', true, true, 'public', true, true, 'dark', 'UTC')`,
-        [result.rows[0].id]
-      );
-      console.log('✅ Default user settings created');
-    } catch (settingsError) {
-      console.error('⚠️ Failed to create user settings:', settingsError);
-      // Don't fail the registration if settings creation fails
-    }
-
-    res.status(201).json({
-      success: true,
-      message: "User created successfully",
-      data: result.rows[0]
-    });
+    const result = await createUser({ uid, email, role: userRole as any, first_name: firstName, last_name: lastName, display_name: name });
+    created(res, "User created successfully", result);
   } catch (err) {
     console.error("❌ Database error during user creation:", err);
-    res.status(500).json({
-      success: false,
-      message: "Database error",
-      error: err instanceof Error ? err.message : 'Unknown error'
-    });
+    fail(res, 500, "Database error", err instanceof Error ? err.message : 'Unknown error');
   }
 };
 
@@ -113,12 +72,24 @@ export const getUserProfile = async (req: Request, res: Response): Promise<void>
       name: firebaseUser.name
     });
 
-    let result = await pool.query<DatabaseUser>(
-      "SELECT id, firebase_uid, email, role, first_name, last_name, display_name, is_active, last_login, created_at, updated_at FROM users WHERE firebase_uid = $1",
-      [firebaseUser.uid]
-    );
+    let user = await prisma.users.findUnique({
+      where: { firebase_uid: firebaseUser.uid },
+      select: {
+        id: true,
+        firebase_uid: true,
+        email: true,
+        role: true,
+        first_name: true,
+        last_name: true,
+        display_name: true,
+        is_active: true,
+        last_login: true,
+        created_at: true,
+        updated_at: true
+      }
+    });
 
-    if (result.rows.length === 0) {
+    if (!user) {
       console.log('⚠️ User not found in database, auto-creating...');
 
       // Auto-create user if they don't exist but have valid Firebase token
@@ -138,29 +109,62 @@ export const getUserProfile = async (req: Request, res: Response): Promise<void>
       const displayName = name || email.split('@')[0];
 
       try {
-        const createResult = await pool.query<DatabaseUser>(
-          `INSERT INTO users (firebase_uid, email, role, first_name, last_name, display_name, is_active, last_login, created_at, updated_at) 
-           VALUES ($1, $2, $3, $4, $5, $6, true, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP) 
-           RETURNING id, firebase_uid, email, role, first_name, last_name, display_name, is_active, last_login, created_at, updated_at`,
-          [firebaseUser.uid, email, 'learner', firstName, lastName, displayName]
-        );
+        // Use transaction to create both user and settings
+        const result = await prisma.$transaction(async (tx) => {
+          const newUser = await tx.users.create({
+            data: {
+              firebase_uid: firebaseUser.uid,
+              email: email,
+              role: 'learner',
+              first_name: firstName,
+              last_name: lastName,
+              display_name: displayName,
+              is_active: true,
+              last_login: new Date(),
+              created_at: new Date(),
+              updated_at: new Date()
+            },
+            select: {
+              id: true,
+              firebase_uid: true,
+              email: true,
+              role: true,
+              first_name: true,
+              last_name: true,
+              display_name: true,
+              is_active: true,
+              last_login: true,
+              created_at: true,
+              updated_at: true
+            }
+          });
 
-        console.log('✅ User auto-created successfully:', createResult.rows[0]);
+          // Also create default user settings
+          await tx.user_settings.create({
+            data: {
+              user_id: newUser.id,
+              language: 'en',
+              email_notifications: true,
+              push_notifications: true,
+              profile_visibility: 'public',
+              allow_direct_messages: true,
+              show_online_status: true,
+              theme: 'dark',
+              timezone: 'UTC'
+            }
+          });
 
-        // Also create default user settings
-        await pool.query(
-          `INSERT INTO user_settings (user_id, language, email_notifications, push_notifications, profile_visibility, allow_direct_messages, show_online_status, theme, timezone) 
-           VALUES ($1, 'en', true, true, 'public', true, true, 'dark', 'UTC')`,
-          [createResult.rows[0].id]
-        );
+          return newUser;
+        });
+
+        console.log('✅ User auto-created successfully:', result);
 
         res.json({
           success: true,
           message: "User profile created and retrieved successfully",
-          data: createResult.rows[0]
+          data: result
         });
         return;
-
       } catch (createError) {
         console.error('❌ Error creating user:', createError);
         res.status(500).json({
@@ -172,8 +176,6 @@ export const getUserProfile = async (req: Request, res: Response): Promise<void>
       }
     }
 
-    const user = result.rows[0];
-
     if (!user.is_active) {
       console.log('⚠️ User found but inactive:', user.firebase_uid);
       res.status(403).json({
@@ -184,10 +186,10 @@ export const getUserProfile = async (req: Request, res: Response): Promise<void>
     }
 
     // Update last login
-    await pool.query(
-      "UPDATE users SET last_login = CURRENT_TIMESTAMP WHERE firebase_uid = $1",
-      [firebaseUser.uid]
-    );
+    await prisma.users.update({
+      where: { firebase_uid: firebaseUser.uid },
+      data: { last_login: new Date() }
+    });
 
     console.log('✅ User profile retrieved successfully:', user.firebase_uid);
     res.json({
@@ -207,58 +209,54 @@ export const getUserProfile = async (req: Request, res: Response): Promise<void>
 export const getAllUsers = async (req: Request, res: Response): Promise<void> => {
   try {
     const { page = 1, limit = 10, role, search } = req.query;
-    const offset = (Number(page) - 1) * Number(limit);
+    const skip = (Number(page) - 1) * Number(limit);
 
-    let query = `
-      SELECT id, firebase_uid, email, role, first_name, last_name, is_active, last_login, created_at, updated_at 
-      FROM users 
-      WHERE 1=1
-    `;
-    const params: any[] = [];
-    let paramCount = 0;
+    // Build the where clause for both queries
+    const where: any = {};
 
     if (role) {
-      paramCount++;
-      query += ` AND role = $${paramCount}`;
-      params.push(role);
+      where.role = role as string;
     }
 
     if (search) {
-      paramCount++;
-      query += ` AND (email ILIKE $${paramCount} OR first_name ILIKE $${paramCount} OR last_name ILIKE $${paramCount})`;
-      params.push(`%${search}%`);
+      const searchString = String(search);
+      where.OR = [
+        { email: { contains: searchString, mode: 'insensitive' } },
+        { first_name: { contains: searchString, mode: 'insensitive' } },
+        { last_name: { contains: searchString, mode: 'insensitive' } }
+      ];
     }
 
-    query += ` ORDER BY created_at DESC LIMIT $${paramCount + 1} OFFSET $${paramCount + 2}`;
-    params.push(Number(limit), offset);
+    // Get users with pagination
+    const users = await prisma.users.findMany({
+      where,
+      select: {
+        id: true,
+        firebase_uid: true,
+        email: true,
+        role: true,
+        first_name: true,
+        last_name: true,
+        is_active: true,
+        last_login: true,
+        created_at: true,
+        updated_at: true
+      },
+      orderBy: {
+        created_at: 'desc'
+      },
+      skip: skip,
+      take: Number(limit)
+    });
 
-    const result = await pool.query<DatabaseUser>(query, params);
-
-    // Get total count
-    let countQuery = "SELECT COUNT(*) FROM users WHERE 1=1";
-    const countParams: any[] = [];
-    let countParamCount = 0;
-
-    if (role) {
-      countParamCount++;
-      countQuery += ` AND role = $${countParamCount}`;
-      countParams.push(role);
-    }
-
-    if (search) {
-      countParamCount++;
-      countQuery += ` AND (email ILIKE $${countParamCount} OR first_name ILIKE $${countParamCount} OR last_name ILIKE $${countParamCount})`;
-      countParams.push(`%${search}%`);
-    }
-
-    const countResult = await pool.query(countQuery, countParams);
-    const total = parseInt(countResult.rows[0].count);
+    // Get total count for pagination
+    const total = await prisma.users.count({ where });
 
     res.json({
       success: true,
       message: "Users retrieved successfully",
       data: {
-        users: result.rows,
+        users: users,
         pagination: {
           page: Number(page),
           limit: Number(limit),
@@ -298,24 +296,30 @@ export const updateUserRole = async (req: Request, res: Response): Promise<void>
       return;
     }
 
-    const result = await pool.query<DatabaseUser>(
-      "UPDATE users SET role = $1, updated_at = CURRENT_TIMESTAMP WHERE id = $2 RETURNING *",
-      [role, userId]
-    );
-
-    if (result.rows.length === 0) {
-      res.status(404).json({
-        success: false,
-        message: "User not found"
+    try {
+      const updatedUser = await prisma.users.update({
+        where: { id: Number(userId) },
+        data: {
+          role: role as any,  // Cast to match the user_role enum
+          updated_at: new Date()
+        }
       });
-      return;
-    }
 
-    res.json({
-      success: true,
-      message: "User role updated successfully",
-      data: result.rows[0]
-    });
+      res.json({
+        success: true,
+        message: "User role updated successfully",
+        data: updatedUser
+      });
+    } catch (err) {
+      if (isPrismaKnownError(err) && err.code === 'P2025') {
+        res.status(404).json({
+          success: false,
+          message: "User not found"
+        });
+        return;
+      }
+      throw err;
+    }
   } catch (error) {
     console.error("Update user role error:", error);
     res.status(500).json({
@@ -329,24 +333,31 @@ export const deactivateUser = async (req: Request, res: Response): Promise<void>
   try {
     const { userId } = req.params;
 
-    const result = await pool.query<DatabaseUser>(
-      "UPDATE users SET is_active = false, updated_at = CURRENT_TIMESTAMP WHERE id = $1 RETURNING *",
-      [userId]
-    );
-
-    if (result.rows.length === 0) {
-      res.status(404).json({
-        success: false,
-        message: "User not found"
+    try {
+      const updatedUser = await prisma.users.update({
+        where: { id: Number(userId) },
+        data: {
+          is_active: false,
+          updated_at: new Date()
+        }
       });
-      return;
-    }
 
-    res.json({
-      success: true,
-      message: "User deactivated successfully",
-      data: result.rows[0]
-    });
+      res.json({
+        success: true,
+        message: "User deactivated successfully",
+        data: updatedUser
+      });
+    } catch (err) {
+      // Check if user was not found
+      if (isPrismaKnownError(err) && err.code === 'P2025') {
+        res.status(404).json({
+          success: false,
+          message: "User not found"
+        });
+        return;
+      }
+      throw err;
+    }
   } catch (error) {
     console.error("Deactivate user error:", error);
     res.status(500).json({
@@ -360,24 +371,31 @@ export const activateUser = async (req: Request, res: Response): Promise<void> =
   try {
     const { userId } = req.params;
 
-    const result = await pool.query<DatabaseUser>(
-      "UPDATE users SET is_active = true, updated_at = CURRENT_TIMESTAMP WHERE id = $1 RETURNING *",
-      [userId]
-    );
-
-    if (result.rows.length === 0) {
-      res.status(404).json({
-        success: false,
-        message: "User not found"
+    try {
+      const updatedUser = await prisma.users.update({
+        where: { id: Number(userId) },
+        data: {
+          is_active: true,
+          updated_at: new Date()
+        }
       });
-      return;
-    }
 
-    res.json({
-      success: true,
-      message: "User activated successfully",
-      data: result.rows[0]
-    });
+      res.json({
+        success: true,
+        message: "User activated successfully",
+        data: updatedUser
+      });
+    } catch (err) {
+      // Check if user was not found
+      if (isPrismaKnownError(err) && err.code === 'P2025') {
+        res.status(404).json({
+          success: false,
+          message: "User not found"
+        });
+        return;
+      }
+      throw err;
+    }
   } catch (error) {
     console.error("Activate user error:", error);
     res.status(500).json({
