@@ -1796,3 +1796,101 @@ export const enrollInFreeSession = async (req: Request, res: Response): Promise<
     });
   }
 };
+
+/**
+ * Get all enrollments for a specific session (Creator only)
+ * @route GET /api/sessions/:sessionId/enrollments
+ * @access Private (Session creator only)
+ */
+export const getSessionEnrollments = async (req: Request, res: Response): Promise<void> => {
+  try {
+    const sessionId = parseInt(req.params.sessionId);
+    const userId = (req as any).user?.userId;
+
+    if (!userId) {
+      res.status(401).json({
+        success: false,
+        message: 'Authentication required'
+      });
+      return;
+    }
+
+    // Check if session exists and user is the creator
+    const session = await prisma.sessions.findUnique({
+      where: { id: sessionId }
+    });
+
+    if (!session) {
+      res.status(404).json({
+        success: false,
+        message: 'Session not found'
+      });
+      return;
+    }
+
+    if (session.created_by !== userId) {
+      res.status(403).json({
+        success: false,
+        message: 'You are not authorized to view enrollments for this session'
+      });
+      return;
+    }
+
+    // Get all enrollments for this session with user details
+    const enrollments = await prisma.session_enrollments.findMany({
+      where: {
+        session_id: sessionId
+      },
+      include: {
+        user: {
+          select: {
+            id: true,
+            first_name: true,
+            last_name: true,
+            email: true,
+            display_name: true
+          }
+        }
+      },
+      orderBy: {
+        enrollment_date: 'desc'
+      }
+    });
+
+    // Format the response
+    const formattedEnrollments = enrollments.map(enrollment => ({
+      id: enrollment.id,
+      session_id: enrollment.session_id,
+      user_id: enrollment.user_id,
+      user_name: enrollment.user.display_name || 
+                `${enrollment.user.first_name || ''} ${enrollment.user.last_name || ''}`.trim(),
+      user_email: enrollment.user.email,
+      enrolled_at: enrollment.enrollment_date,
+      payment_status: enrollment.payment_status,
+      amount_paid: enrollment.payment_amount ? parseFloat(enrollment.payment_amount.toString()) : 0,
+      access_granted: enrollment.access_granted,
+      completed: enrollment.completed,
+      progress: enrollment.progress,
+      last_accessed_at: enrollment.last_accessed_at
+    }));
+
+    res.status(200).json({
+      success: true,
+      data: {
+        session_id: sessionId,
+        session_title: session.title,
+        total_enrollments: formattedEnrollments.length,
+        enrollments: formattedEnrollments
+      },
+      message: 'Session enrollments retrieved successfully'
+    });
+
+  } catch (error: any) {
+    console.error('Get session enrollments error:', error);
+    res.status(500).json({
+      success: false,
+      message: 'Failed to retrieve session enrollments',
+      error: process.env.NODE_ENV === 'development' ? error.message : undefined
+    });
+  }
+};
