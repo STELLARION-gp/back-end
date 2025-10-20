@@ -7,6 +7,10 @@ export const adminJsConfig = {
   // Root path for admin panel
   rootPath: "/admin",
 
+  // Assets CDN - Important for reverse proxy setup!
+  // This tells AdminJS to load its static assets from the correct path
+  assetsCDN: process.env.ADMIN_ASSETS_CDN || undefined,
+
   // Branding
   branding: {
     companyName: "STELLARION Admin",
